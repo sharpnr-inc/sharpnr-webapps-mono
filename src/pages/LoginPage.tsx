@@ -7,29 +7,35 @@ function LoginPage() {
   const [password, setPassword] = useState("securePass123");
   const navigate = useNavigate();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    try {
-      const response = await fetch("http://engine.api.sharpnr.com/api/v1/organisation/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const response = await fetch("http://engine.api.sharpnr.com/api/v1/organisation/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login success", data);
-        navigate("/");
+    if (response.ok) {
+      const data = await response.json();
+      const redirectUri = new URLSearchParams(location.search).get("redirect_uri");
+      
+      if (redirectUri) {
+        window.location.href = `${redirectUri}?token=${data.token}`;
       } else {
-        const err = await response.json();
-        alert(err.message || "Login failed");
+        navigate("/");
       }
-    } catch (error) {
-      console.error("Network error", error);
-      alert("Something went wrong");
+    } else {
+      const err = await response.json();
+      alert(err.message || "Login failed");
     }
-  };
+  } catch (error) {
+    console.error("Network error", error);
+    alert("Something went wrong");
+  }
+};
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
