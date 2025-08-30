@@ -1,6 +1,7 @@
 // src/pages/LoginPage.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LOGIN_API } from "@/ApiService/endpoints";
 
 function LoginPage() {
   const [email, setEmail] = useState("admin@sharpnr.com");
@@ -11,7 +12,7 @@ function LoginPage() {
   e.preventDefault();
 
   try {
-    const response = await fetch("http://engine.api.sharpnr.com/api/v1/organisation/login", {
+    const response = await fetch(LOGIN_API.LOGIN, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -19,10 +20,10 @@ function LoginPage() {
 
     if (response.ok) {
       const data = await response.json();
-      const redirectUri = new URLSearchParams(location.search).get("redirect_uri");
-      
-      if (redirectUri) {
-        window.location.href = `${redirectUri}?token=${data.token}`;
+      // const redirectUri = new URLSearchParams(location.search).get("redirect_uri");
+      console.log(data)
+      if (data) {
+        window.location.href = data.redirectUrl;
       } else {
         navigate("/");
       }

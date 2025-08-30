@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import "./App.css";
-import LoginPage from './pages/LoginPage';
-import RegisterOrgPage from './pages/RegisterOrgPage';
-import LandingPage from './pages/LandingPage';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import LoginPage from "./app/public/LoginPage";
+import RegisterOrgPage from "./app/public/RegisterOrgPage";
+import LandingPage from "./app/public/LandingPage";
 
 function App() {
   return (
-       <Router>
+    <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
