@@ -1,48 +1,46 @@
 // src/pages/LoginPage.tsx
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { LOGIN_API } from "@/ApiService/endpoints";
+// import { LOGIN_API } from "@/ApiService/endpoints";
 
 function LoginPage() {
   const [email, setEmail] = useState("admin@sharpnr.com");
   const [password, setPassword] = useState("securePass123");
-  const navigate = useNavigate();
 
- const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault();
+//  const handleLogin = async (e: React.FormEvent) => {
+//   e.preventDefault();
 
-  try {
-    const response = await fetch(LOGIN_API.LOGIN, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+//   try {
+//     const response = await fetch(LOGIN_API.LOGIN, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ email, password }),
+//     });
 
-    if (response.ok) {
-      const data = await response.json();
-      // const redirectUri = new URLSearchParams(location.search).get("redirect_uri");
-      console.log(data)
-      if (data) {
-        window.location.href = data.redirectUrl;
-      } else {
-        navigate("/");
-      }
-    } else {
-      const err = await response.json();
-      alert(err.message || "Login failed");
-    }
-  } catch (error) {
-    console.error("Network error", error);
-    alert("Something went wrong");
-  }
-};
+//     if (response.ok) {
+//       const data = await response.json();
+//       // const redirectUri = new URLSearchParams(location.search).get("redirect_uri");
+//       console.log(data)
+//       if (data) {
+//         window.location.href = data.redirectUrl;
+//       } else {
+//         navigate("/");
+//       }
+//     } else {
+//       const err = await response.json();
+//       alert(err.message || "Login failed");
+//     }
+//   } catch (error) {
+//     console.error("Network error", error);
+//     alert("Something went wrong");
+//   }
+// };
 
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form  className="space-y-4">
           <div>
             <label className="block text-gray-700 mb-1">Email</label>
             <input

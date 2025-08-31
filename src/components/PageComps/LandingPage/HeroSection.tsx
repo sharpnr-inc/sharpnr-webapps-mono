@@ -1,5 +1,7 @@
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import { Button } from "@/components/ui/button";
 import type React from "react";
+import { useNavigate } from "react-router-dom";
 
 /**
  * HeroSection Component
@@ -30,20 +32,44 @@ import type React from "react";
  * ```
  */
 export function HeroSection(): React.JSX.Element {
+
+  const nav = useNavigate();
+
+  /**
+   * Description
+   * @returns {any}
+   */
+  const handleLoginNav = ()=>{
+    nav("/login")
+  }
+
+  
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-start justify-start overflow-hidden">
+    <div className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden">
       <BackgroundRippleEffect />
-      <div className="mt-60 w-full">
-        <h2 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
+
+      <div className="mt-60 w-full flex flex-col items-center text-center px-4">
+        <h2 className="relative z-10 max-w-4xl text-2xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
           Interactive Background Boxes Ripple Effect
         </h2>
-        <p className="relative z-10 mx-auto mt-4 max-w-xl text-center text-neutral-800 dark:text-neutral-500">
+        <p className="relative z-10 mt-4 max-w-xl text-neutral-800 dark:text-neutral-500">
           Hover over the boxes above and click. To be used on backgrounds of hero
           sections OR Call to Action sections. I beg you don&apos;t use it
           everywhere.
         </p>
+
+        {/* Button with proper z-index */}
+        <div className="mt-8 relative z-20">
+          <Button
+            onClick={handleLoginNav}
+            variant="outline"
+            size="lg"
+            className="cursor-pointer hover:bg-cyan-100 transition-colors"
+          >
+            Login
+          </Button>
+        </div>
       </div>
     </div>
   );
 }
-
