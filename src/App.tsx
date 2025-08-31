@@ -1,17 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import LoginPage from "./app/public/LoginPage";
-import RegisterOrgPage from "./app/public/RegisterOrgPage";
-import LandingPage from "./app/public/LandingPage";
+import { Suspense } from "react";
+import MarketingApp from "./app/public/MarketingApp";
+import SharpnrApp from "./app/sharpnrapp/SharpnrApp";
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register-org" element={<RegisterOrgPage />} />
+          <Route path="/" element={<MarketingApp />} />
+          <Route path="/sharpnrapp/*" element={<SharpnrApp />} />
         </Routes>
       </Suspense>
     </Router>

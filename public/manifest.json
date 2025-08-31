@@ -1,7 +1,7 @@
 {
   "name": "Sharpnr Suite",
   "short_name": "Sharpnr",
-  "description": "Your app description",
+  "description": "this is the Sharpnr app",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
