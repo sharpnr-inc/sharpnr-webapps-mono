@@ -1,7 +1,7 @@
 export const AUTH = {
-    LOGIN: "/org/login",
-    REGISTER: "/org/register",
-    RESET_PASSWORD:"/org/password"
+    LOGIN: "/login",
+    REGISTER: "/register",
+    RESET_PASSWORD:"/password"
 }
 
 export const UTILITY = {

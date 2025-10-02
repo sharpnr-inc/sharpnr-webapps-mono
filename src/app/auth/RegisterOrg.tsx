@@ -1,13 +1,22 @@
+import { useRegisterOrganization } from "@/api_service/mutations/createOrg";
+import createOrgTypeQuery from "@/api_service/queries/fetchOrgType";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  RegisterOrganizationSchema,
+  type RegisterOrganizationRequestPayload,
+} from "@/schemas/Auth";
+import { useForm } from "@tanstack/react-form";
+import { useQuery } from "@tanstack/react-query";
 import {
   Select,
   SelectContent,
@@ -15,199 +24,197 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type React from "react";
-import { useState } from "react";
-import OrgRegistrationOTPVerification from "@/components/register_comp/RegisterOtpVerication";
-import { motion, AnimatePresence } from "framer-motion";
-import { fetchOrgTypeList } from "@/api_service/utility_api";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { registerOrganisation } from "@/api_service/RegisterOrg";
-import {
-  ZodOrgRegsitrationSchema,
-  type RegisterOrganizationRequestPayload,
-} from "@/interfaces/registerOrg";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useModal } from "@/context/ModalContext"; // ✅ import context
 
 export default function RegisterOrganization(): React.JSX.Element {
-  const [showOtp, setShowOtp] = useState(false);
-  const [selectedType, setSelectedType] = useState<string | undefined>();
-  const { showModal } = useModal(); // ✅ use modal context
+  const registerOrg = useRegisterOrganization(); // our mutation hook
+  const { data } = useQuery(createOrgTypeQuery());
+  const orgTypes = data?.orgTypes ?? [];
 
-  // 🔹 Fetch org types
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["orgTypes"],
-    queryFn: fetchOrgTypeList,
-  });
-
-  const orgTypes =
-    data?.orgTypes?.map((type: string) => ({
-      id: type,
-      name: type.charAt(0) + type.slice(1).toLowerCase(),
-    })) ?? [];
-
-  // 🔹 Form setup
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<RegisterOrganizationRequestPayload>({
-    resolver: zodResolver(ZodOrgRegsitrationSchema),
-  });
-
-  // 🔹 Mutation
-  const mutation = useMutation({
-    mutationFn: registerOrganisation,
-    onSuccess: () => {
-      showModal("success", "Organization registered successfully 🎉");
-      setShowOtp(true);
-    },
-    onError: (error: any) => {
-      console.error("Registration failed:", error);
-      const message =
-        error?.response?.data?.message || "Something went wrong. Try again!";
-      showModal("error", message);
+  const form = useForm({
+    validators: { onBlur: RegisterOrganizationSchema },
+    defaultValues: {
+      name: "",
+      email: "",
+      mobile: "",
+      org_type: "",
+      password: "",
+    } as RegisterOrganizationRequestPayload,
+    onSubmit: ({ value }) => {
+       registerOrg.mutate(value);
     },
   });
-
-  const onSubmit = (formData: RegisterOrganizationRequestPayload) => {
-    // inject orgType into payload
-    mutation.mutate({ ...formData, OrgType: selectedType || "" });
-  };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <AnimatePresence mode="wait">
-        {showOtp ? (
-          <motion.div
-            key="otp"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-lg"
+    <div className="flex items-center justify-center min-h-screen p-2">
+      <Card className="w-2xl">
+        <CardHeader>
+          <CardTitle>Login to Sharpnr</CardTitle>
+          <CardDescription>Login to your Sharpnr Account</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+            className="space-y-2"
           >
-            <OrgRegistrationOTPVerification />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="register"
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ duration: 0.5 }}
-            className="w-xl"
-          >
-            <Card className="w-full">
-              <CardHeader>
-                <CardTitle>Register Organization</CardTitle>
-                <CardDescription>
-                  Create a new organization account.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
-                  <div className="grid gap-2">
-                    <Label htmlFor="org-name">Organization Name</Label>
-                    <Input
-                      id="org-name"
-                      placeholder="Acme Inc."
-                      {...register("Name")}
-                    />
-                    {errors.Name && (
-                      <p className="text-red-500 text-sm">
-                        {errors.Name.message}
-                      </p>
-                    )}
-                  </div>
+            <form.Field name="name">
+              {({ state, handleBlur, handleChange }) => (
+                <>
+                  <Label>Organisation Name</Label>
+                  <Input
+                    aria-invalid={
+                      state.meta.errors.length > 0 && state.meta.isTouched
+                    }
+                    value={state.value}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                    <p
+                      className={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                          ? "text-destructive"
+                          : ""
+                      }
+                    >
+                      {state.meta.errors[0]?.message}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
 
-                  <div className="grid gap-2 w-full">
-                    <Label htmlFor="org-type">Type of Organization</Label>
-                    {isLoading ? (
-                      <p className="text-sm text-gray-500">Loading...</p>
-                    ) : isError ? (
-                      <p className="text-sm text-red-500">
-                        Failed to load org types
-                      </p>
-                    ) : (
-                      <Select
-                        value={selectedType}
-                        onValueChange={(val) => setSelectedType(val)}
-                      >
-                        <SelectTrigger id="org-type" className="w-full">
-                          <SelectValue placeholder="Select type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {orgTypes.map((type: any) => (
-                            <SelectItem key={type.id} value={type.id}>
-                              {type.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="m@example.com"
-                      {...register("Email")}
-                    />
-                    {errors.Email && (
-                      <p className="text-red-500 text-sm">
-                        {errors.Email.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="9828823314"
-                      {...register("Phone")}
-                    />
-                    {errors.Phone && (
-                      <p className="text-red-500 text-sm">
-                        {errors.Phone.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      {...register("Password")}
-                    />
-                    {errors.Password && (
-                      <p className="text-red-500 text-sm">
-                        {errors.Password.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full mt-4"
-                    disabled={mutation.isPending}
+            <form.Field name="org_type">
+              {({ state, handleBlur, handleChange }) => (
+                <>
+                  <Label>Organisation Business Type</Label>
+                  <Select
+                    value={state.value} // bind value to form
+                    onValueChange={(val) => handleChange(val)} // update form on change
                   >
-                    {mutation.isPending ? "Registering..." : "Register"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="ORG Business Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {orgTypes.map((org: any) => (
+                        <SelectItem key={org} value={org}>
+                          {org}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                    <p
+                      className={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                          ? "text-destructive"
+                          : ""
+                      }
+                    >
+                      {state.meta.errors[0]?.message}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
+
+            <form.Field name="email">
+              {({ state, handleBlur, handleChange }) => (
+                <>
+                  <Label>Organisation Email</Label>
+                  <Input
+                    aria-invalid={
+                      state.meta.errors.length > 0 && state.meta.isTouched
+                    }
+                    value={state.value}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                    <p
+                      className={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                          ? "text-destructive"
+                          : ""
+                      }
+                    >
+                      {state.meta.errors[0]?.message}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
+
+            <form.Field name="mobile">
+              {({ state, handleBlur, handleChange }) => (
+                <>
+                  <Label>Organisation Phone</Label>
+                  <Input
+                    aria-invalid={
+                      state.meta.errors.length > 0 && state.meta.isTouched
+                    }
+                    value={state.value}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                    <p
+                      className={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                          ? "text-destructive"
+                          : ""
+                      }
+                    >
+                      {state.meta.errors[0]?.message}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
+
+            <form.Field name="password">
+              {({ state, handleBlur, handleChange }) => (
+                <>
+                  <Label>Choose Password</Label>
+                  <Input
+                    aria-invalid={
+                      state.meta.errors.length > 0 && state.meta.isTouched
+                    }
+                    value={state.value}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                    <p
+                      className={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                          ? "text-destructive"
+                          : ""
+                      }
+                    >
+                      {state.meta.errors[0]?.message}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
+            <form.Subscribe
+              selector={(state) => [state.canSubmit, state.isSubmitting]}
+              children={([canSubmit, isSubmitting]) => (
+                <Button type="submit" disabled={!canSubmit || isSubmitting}>
+                  {isSubmitting ? "Regestering..." : "Register"}
+                </Button>
+              )}
+            ></form.Subscribe>
+          </form>
+        </CardContent>
+        <CardFooter>
+          <p className="text-xs">Copyright reserved Sharpnr Soloution LLP</p>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import api from "./axios";
+import api from "../axios";
 import { UTILITY } from "@/constants/api_endpoints";
 
 export const fetchOrgTypeList = async () => {
