@@ -1,4 +1,4 @@
-import type { RegisterOrganizationRequestPayload } from "@/schemas/Auth";
+import type { RegisterOrganizationRequestPayload, VerifyOTPRequestPayload } from "@/schemas/Auth";
 import api from "../axios";
 import { AUTH } from "@/constants/api_endpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
@@ -16,6 +16,16 @@ export async function InitiateOrgRegistration(
   return response.data;
 }
 
-export async function VerifyOtp() {}
+export interface OtpVerificactionResponseDTO{
+  name:string,
+  email:string,
+  sharpnr_id:string,
+  token:string,
+  org_type:string
+}
+export async function VerifyOtp(data:VerifyOTPRequestPayload): Promise<ApiResponse<OtpVerificactionResponseDTO>> {
+  const response = await api.post<ApiResponse<OtpVerificactionResponseDTO>>(AUTH.OTP_VERIFY,data);
+  return response.data
+}
 
 export async function Login() {}

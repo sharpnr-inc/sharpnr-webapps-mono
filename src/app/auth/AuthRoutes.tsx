@@ -1,6 +1,8 @@
 
 import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import VerifyOtpPage from "./OtpVerifactionPage";
+import CompleteOrganizationRegistration from "./RegistrationStepTwo";
 
 const LoginPage = lazy(() => import("./LoginPage"));
 const RegisterPage = lazy(() => import("./RegisterOrg"));
@@ -39,6 +41,8 @@ export default function AuthRoutes(): React.JSX.Element {
         <Route path="/signup" element={<RegisterPage />}></Route>
         <Route path="/reset-password" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
+        <Route path="/verify-otp" element={<VerifyOtpPage />}></Route>
+        <Route path="/complete-registration" element={<CompleteOrganizationRegistration />}></Route>
       </Routes>
     </Suspense>
   );

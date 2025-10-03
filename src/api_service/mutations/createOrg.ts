@@ -14,7 +14,11 @@ export function useRegisterOrganization() {
   const loader = useLoader();
   const modal = useModal();
 
-  return useMutation<ApiResponse<OrgSignupResponseDTO>, unknown, RegisterOrganizationRequestPayload>({
+  return useMutation<
+    ApiResponse<OrgSignupResponseDTO>,
+    unknown,
+    RegisterOrganizationRequestPayload
+  >({
     mutationFn: (data) => InitiateOrgRegistration(data),
 
     onMutate: () => {
@@ -25,12 +29,15 @@ export function useRegisterOrganization() {
       loader.hideLoader(); // Hide loader
 
       if (response.error.isError) {
-        toast.error(response.error.message);       // Toast error
+        toast.error(response.error.message); // Toast error
         modal.showModal("error", response.error.message); // Modal for testing
       } else {
         toast.success(response.data?.message || "Registration successful!");
+        localStorage.setItem(
+          "_sharpnr_web_app_token_",
+          response?.data?.token || "" // ✅ store safely
+        );
         modal.showModal("success", `OTP sent to ${response.data?.email}`); // Modal for testing
-        console.log("Registration successful:", response.data?.token);
       }
     },
 

@@ -1,52 +1,6 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-// import { useModal } from "@/context/ModalContext";
-import { useToastService } from "@/context/ToastContext";
-
-import type React from "react";
-import { useNavigate } from "react-router-dom";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useModal } from "@/context/ModalContext";
-
-
-// type LoginForm = z.infer<typeof ZodLoginSchema>;
-
 
 export default function RootOrgLoginCard(): React.JSX.Element {
-  // const { success, error} = useToastService();
-  // // const {showModal, closeModal} = useModal()
-  
 
-  // const nav = useNavigate();
-
-  //  const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors, isSubmitting },
-  // } = useForm<LoginForm>({
-  //   resolver: zodResolver(ZodLoginSchema),
-  // });
-
-  //   const onSubmit = async (data: LoginForm) => {
-  //   try {
-  //     const res = await loginOrg(data);
-  //     success("Login successful 🎉");
-  //     nav("/dashboard");
-  //     return res;
-  //   } catch (err) {
-  //     error("Login failed ❌");
-  //   }
-  // };
 
 
   //--------------------------------------Return Ststement ---------------------------------------------------------------------//

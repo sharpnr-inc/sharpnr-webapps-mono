@@ -9,3 +9,10 @@ export const RegisterOrganizationSchema = z.object({
 });
 
 export type RegisterOrganizationRequestPayload = z.infer<typeof RegisterOrganizationSchema>;
+
+
+export const VerifyOtpReqSchema = z.object({
+  otp:z.string().min(6,"OTP must be 6 Didgit").max(6,"OTP must be 6 Didgit")
+})
+
+export type VerifyOTPRequestPayload = z.infer<typeof VerifyOtpReqSchema>

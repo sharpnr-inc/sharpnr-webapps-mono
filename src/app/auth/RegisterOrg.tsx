@@ -24,11 +24,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function RegisterOrganization(): React.JSX.Element {
+  const navigate = useNavigate();
   const registerOrg = useRegisterOrganization(); // our mutation hook
   const { data } = useQuery(createOrgTypeQuery());
   const orgTypes = data?.orgTypes ?? [];
+
+  useEffect(() => {
+    if (registerOrg.isSuccess && !registerOrg.data?.error?.isError) {
+      navigate(
+        `/verify-otp?email=${encodeURIComponent(
+          registerOrg.data?.data?.email ?? ""
+        )}&VerificationKey=${encodeURIComponent(
+          registerOrg.data?.data?.token ?? ""
+        )}`
+      );
+    }
+  }, [registerOrg.isSuccess, registerOrg.data, navigate]);
 
   const form = useForm({
     validators: { onBlur: RegisterOrganizationSchema },
@@ -40,7 +55,7 @@ export default function RegisterOrganization(): React.JSX.Element {
       password: "",
     } as RegisterOrganizationRequestPayload,
     onSubmit: ({ value }) => {
-       registerOrg.mutate(value);
+      registerOrg.mutate(value);
     },
   });
 
@@ -88,7 +103,7 @@ export default function RegisterOrganization(): React.JSX.Element {
             </form.Field>
 
             <form.Field name="org_type">
-              {({ state, handleBlur, handleChange }) => (
+              {({ state, handleChange }) => (
                 <>
                   <Label>Organisation Business Type</Label>
                   <Select
