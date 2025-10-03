@@ -1,17 +1,28 @@
 // src/context/ModalContext.tsx
-import { createContext, useContext, useState} from "react";
+import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AlertCircle, CheckCircle2, AlertTriangle } from "lucide-react";
 
 type ModalType = "success" | "warning" | "error" | null;
 
 interface ModalState {
   type: ModalType;
   message: string;
+  title?: string;
   isOpen: boolean;
 }
 
 interface ModalContextProps {
-  showModal: (type: ModalType, message: string) => void;
+  showModal: (type: ModalType, message: string, title?: string) => void;
   closeModal: () => void;
 }
 
@@ -27,42 +38,80 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modal, setModal] = useState<ModalState>({
     type: null,
     message: "",
+    title: undefined,
     isOpen: false,
   });
 
-  const showModal = (type: ModalType, message: string) => {
-    setModal({ type, message, isOpen: true });
+  const showModal = (type: ModalType, message: string, title?: string) => {
+    setModal({ type, message, title, isOpen: true });
   };
 
   const closeModal = () => {
     setModal((prev) => ({ ...prev, isOpen: false }));
   };
 
+  // Get icon and colors based on modal type
+  const getModalConfig = () => {
+    switch (modal.type) {
+      case "success":
+        return {
+          icon: <CheckCircle2 className="h-6 w-6 text-green-600" />,
+          title: modal.title || "Success",
+          iconBg: "bg-green-100",
+        };
+      case "warning":
+        return {
+          icon: <AlertTriangle className="h-6 w-6 text-yellow-600" />,
+          title: modal.title || "Warning",
+          iconBg: "bg-yellow-100",
+        };
+      case "error":
+        return {
+          icon: <AlertCircle className="h-6 w-6 text-red-600" />,
+          title: modal.title || "Error",
+          iconBg: "bg-red-100",
+        };
+      default:
+        return {
+          icon: null,
+          title: modal.title || "Notification",
+          iconBg: "bg-gray-100",
+        };
+    }
+  };
+
+  const config = getModalConfig();
+
   return (
     <ModalContext.Provider value={{ showModal, closeModal }}>
       {children}
-      {/* Global Modal UI */}
-      {modal.isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-          <div
-            className={`p-6 rounded-lg shadow-lg text-white ${
-              modal.type === "success"
-                ? "bg-green-500"
-                : modal.type === "warning"
-                ? "bg-yellow-500"
-                : "bg-red-500"
-            }`}
-          >
-            <p>{modal.message}</p>
-            <button
-              className="mt-4 px-4 py-2 bg-white text-black rounded"
+      
+      <Dialog open={modal.isOpen} onOpenChange={closeModal}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-3">
+              {config.icon && (
+                <div className={`p-2 rounded-full ${config.iconBg}`}>
+                  {config.icon}
+                </div>
+              )}
+              <DialogTitle className="text-xl">{config.title}</DialogTitle>
+            </div>
+            <DialogDescription className="pt-2 text-base">
+              {modal.message}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-end">
+            <Button
+              type="button"
+              variant={modal.type === "error" ? "destructive" : "default"}
               onClick={closeModal}
             >
               Close
-            </button>
-          </div>
-        </div>
-      )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </ModalContext.Provider>
   );
 };
