@@ -9,3 +9,5 @@ function createOrgTypeQuery(){
 }
 
 export default createOrgTypeQuery;
+
+

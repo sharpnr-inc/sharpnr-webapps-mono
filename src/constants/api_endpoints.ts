@@ -8,5 +8,8 @@ export const AUTH = {
 
 export const UTILITY = {
     ORG_BUSINESS_TYPE: "utils/org-types",
-    ORG_REGISTRATION_TYPE: "utils/org-reg-types"
+    ORG_REGISTRATION_TYPE: "utils/org-reg-types",
+    COUNTRIES_LIST: "utils/countries",
+    STATE_LIST: "utils/countries/${}/states",
+    CITIES_LIST: "utils/countries/:countryCode/states/:stateCode/cities"
 }

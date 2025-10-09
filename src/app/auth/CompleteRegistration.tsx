@@ -1,13 +1,52 @@
 import { useForm } from "@tanstack/react-form";
-import { Plus, Trash2, Building2, MapPin, Shield, Landmark, User } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  Building2,
+  MapPin,
+  Shield,
+  Landmark,
+  User,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { CompleteOrgResgistrationSchema, type CompleteOrgResgistrationPayload } from "@/schemas/Auth";
+import {
+  CompleteOrgResgistrationSchema,
+  type CompleteOrgResgistrationPayload,
+} from "@/schemas/Auth";
+import { useQuery } from "@tanstack/react-query";
+import {
+  createCitiesQuery,
+  createCountriesQuery,
+  createStatesQuery,
+} from "@/api_service/queries/fetchstateandcities";
+import { useState } from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CompleteRegistration() {
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+
+  const [countryFilter, setCountryFilter] = useState("");
+  const [stateFilter, setStateFilter] = useState("");
+  const [cityFilter, setCityFilter] = useState("");
+
+  const countriesQuery = useQuery(createCountriesQuery());
+  const statesQuery = useQuery(createStatesQuery(selectedCountry));
+  const citiesQuery = useQuery(
+    createCitiesQuery(selectedCountry, selectedState)
+  );
+
   const form = useForm({
     validators: { onBlur: CompleteOrgResgistrationSchema },
     defaultValues: {
@@ -17,17 +56,18 @@ export default function CompleteRegistration() {
         cin_number: "",
       },
       address_details: {
+        country: "",
         city: "",
         state: "",
         pincode: "",
         address_line: "",
         landmark: "",
       },
-      bank_details:[],
+      bank_details: [],
       owner_details: [],
       super_admin_details: {
         name: "",
-      } 
+      },
     } as CompleteOrgResgistrationPayload,
     onSubmit: async ({ value }) => {
       console.log("✅ Submitted Complete Registration Data:", value);
@@ -39,7 +79,9 @@ export default function CompleteRegistration() {
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold">Complete Company Registration</h1>
-          <p className="text-gray-500 mt-2">Provide your organization details</p>
+          <p className="text-gray-500 mt-2">
+            Provide your organization details
+          </p>
         </div>
 
         <form
@@ -60,7 +102,7 @@ export default function CompleteRegistration() {
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <form.Field name="registration_details.is_register">
-                {({ state,  handleChange }) => (
+                {({ state, handleChange }) => (
                   <div className="flex items-center gap-2 border rounded-lg p-3">
                     <Checkbox
                       checked={state.value}
@@ -99,6 +141,7 @@ export default function CompleteRegistration() {
           </Card>
 
           {/* Address Details */}
+          {/* Address Details */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -119,26 +162,119 @@ export default function CompleteRegistration() {
                 )}
               </form.Field>
 
-              <form.Field name="address_details.city">
+              {/* Country */}
+              <form.Field name="address_details.country">
                 {({ state, handleChange }) => (
                   <div>
-                    <Label>City</Label>
-                    <Input
+                    <Label>Country</Label>
+                    <Select
                       value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
+                      onValueChange={(val) => {
+                        handleChange(val);
+                        setSelectedCountry(val);
+                        form.setFieldValue("address_details.state", "");
+                        form.setFieldValue("address_details.city", "");
+                        setSelectedState("");
+                      }}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Country" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-60">
+                        <Input
+                          placeholder="Search Country..."
+                          className="mb-2 w-full p-2 border rounded"
+                          onChange={(e) => setCountryFilter(e.target.value)}
+                        />
+                        {countriesQuery.data?.data
+                          .filter((c: any) =>
+                            c.name
+                              .toLowerCase()
+                              .includes(countryFilter.toLowerCase())
+                          )
+                          .map((c: any) => (
+                            <SelectItem key={c.iso2} value={c.iso2}>
+                              <span className="mr-2">{c.emoji}</span> {c.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 )}
               </form.Field>
 
+              {/* State */}
               <form.Field name="address_details.state">
                 {({ state, handleChange }) => (
                   <div>
                     <Label>State</Label>
-                    <Input
+                    <Select
                       value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
+                      onValueChange={(val) => {
+                        handleChange(val);
+                        setSelectedState(val);
+                        form.setFieldValue("address_details.city", "");
+                      }}
+                      disabled={!selectedCountry}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select State" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-60">
+                        <Input
+                          placeholder="Search State..."
+                          className="mb-2 w-full p-2 border rounded"
+                          onChange={(e) => setStateFilter(e.target.value)}
+                        />
+                        {statesQuery.data?.data
+                          ?.filter((s: any) =>
+                            s.name
+                              .toLowerCase()
+                              .includes(stateFilter.toLowerCase())
+                          )
+                          .map((s: any) => (
+                            <SelectItem key={s.code} value={s.iso2}>
+                              {s.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              </form.Field>
+
+              {/* City */}
+              <form.Field name="address_details.city">
+                {({ state, handleChange }) => (
+                  <div>
+                    <Label>City</Label>
+                    <Select
+                      value={state.value}
+                      onValueChange={handleChange}
+                      disabled={!selectedState}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select City" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-60">
+                        <Input
+                          placeholder="Search City..."
+                          className="mb-2 w-full p-2 border rounded"
+                          onChange={(e) => setCityFilter(e.target.value)}
+                        />
+                        {citiesQuery.data?.data
+                          ?.filter((c: any) =>
+                            c.name
+                              .toLowerCase()
+                              .includes(cityFilter.toLowerCase())
+                          )
+                          .map((c: any) => (
+                            <SelectItem key={c.code} value={c.name}>
+                              {c.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 )}
               </form.Field>
@@ -196,7 +332,9 @@ export default function CompleteRegistration() {
                         variant="destructive"
                         size="icon"
                         className="absolute top-2 right-2"
-                        onClick={() => form.removeFieldValue("bank_details", index)}
+                        onClick={() =>
+                          form.removeFieldValue("bank_details", index)
+                        }
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -213,7 +351,9 @@ export default function CompleteRegistration() {
                         )}
                       </form.Field>
 
-                      <form.Field name={`bank_details[${index}].account_number`}>
+                      <form.Field
+                        name={`bank_details[${index}].account_number`}
+                      >
                         {({ state, handleChange }) => (
                           <div>
                             <Label>Account Number</Label>
@@ -262,7 +402,9 @@ export default function CompleteRegistration() {
                           )}
                         </form.Field>
 
-                        <form.Field name={`bank_details[${index}].is_secondary`}>
+                        <form.Field
+                          name={`bank_details[${index}].is_secondary`}
+                        >
                           {({ state, handleChange }) => (
                             <div className="flex items-center gap-2">
                               <Checkbox
@@ -317,7 +459,9 @@ export default function CompleteRegistration() {
                         variant="destructive"
                         size="icon"
                         className="absolute top-2 right-2"
-                        onClick={() => form.removeFieldValue("owner_details", index)}
+                        onClick={() =>
+                          form.removeFieldValue("owner_details", index)
+                        }
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

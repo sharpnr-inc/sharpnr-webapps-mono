@@ -40,6 +40,7 @@ const RegistrationDetailsSchema = z.object({
 
 // AddressDetails schema
 const AddressDetailsSchema = z.object({
+  country:z.string(),
   city: z.string().min(1, "City is required"),
   state: z.string().min(1, "State is required"),
   pincode: z.string().min(1, "Pincode is required"),
