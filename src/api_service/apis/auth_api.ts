@@ -1,4 +1,4 @@
-import type { RegisterOrganizationRequestPayload, VerifyOTPRequestPayload } from "@/schemas/Auth";
+import type { LoginPayload, RegisterOrganizationRequestPayload, VerifyOTPRequestPayload } from "@/schemas/Auth";
 import api from "../axios";
 import { AUTH } from "@/constants/api_endpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
@@ -28,4 +28,15 @@ export async function VerifyOtp(data:VerifyOTPRequestPayload): Promise<ApiRespon
   return response.data
 }
 
-export async function Login() {}
+export interface OrgEmployeeData {
+  OrgId: string;
+  OrgType: string;
+  EmployeeID: string;
+  EmployeeEmail: string;
+}
+
+
+export async function Login(data:LoginPayload):Promise<ApiResponse<OrgEmployeeData>> {
+  const response = await api.post<ApiResponse<OrgEmployeeData>>(AUTH.LOGIN, data)
+  return response.data
+}

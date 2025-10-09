@@ -31,7 +31,7 @@ export default function RegisterOrganization(): React.JSX.Element {
   const navigate = useNavigate();
   const registerOrg = useRegisterOrganization(); // our mutation hook
   const { data } = useQuery(createOrgTypeQuery());
-  const orgTypes = data?.orgTypes ?? [];
+  const orgTypes = data?.data.ORG_TYPE ?? [];
 
   useEffect(() => {
     if (registerOrg.isSuccess && !registerOrg.data?.error?.isError) {
@@ -60,11 +60,11 @@ export default function RegisterOrganization(): React.JSX.Element {
   });
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-2">
+    <div className="flex items-center justify-center min-h-screen px-4 py-2">
       <Card className="w-2xl">
         <CardHeader>
-          <CardTitle>Login to Sharpnr</CardTitle>
-          <CardDescription>Login to your Sharpnr Account</CardDescription>
+          <CardTitle>Register to Sharpnr</CardTitle>
+          <CardDescription>Register Your Organisation with Sharpnr</CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
           <form
@@ -216,18 +216,49 @@ export default function RegisterOrganization(): React.JSX.Element {
                 </>
               )}
             </form.Field>
+                        <form.Field name="conformPassword">
+              {({ state, handleBlur, handleChange }) => (
+                <>
+                  <Label>Confirm Password</Label>
+                  <Input
+                    aria-invalid={
+                      state.meta.errors.length > 0 && state.meta.isTouched
+                    }
+                    value={state.value}
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange(e.target.value)}
+                  />
+                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                    <p
+                      className={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                          ? "text-destructive"
+                          : ""
+                      }
+                    >
+                      {state.meta.errors[0]?.message}
+                    </p>
+                  ) : null}
+                </>
+              )}
+            </form.Field>
             <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
               children={([canSubmit, isSubmitting]) => (
-                <Button type="submit" disabled={!canSubmit || isSubmitting}>
+                <Button className="w-full" type="submit" disabled={!canSubmit || isSubmitting}>
                   {isSubmitting ? "Regestering..." : "Register"}
                 </Button>
               )}
             ></form.Subscribe>
           </form>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex flex-col space-y-5">
+          <div>
+          <p>Already Registered? </p>
+          <Button variant={"secondary"} className="w-full">Login</Button>
+           </div>
           <p className="text-xs">Copyright reserved Sharpnr Soloution LLP</p>
+         
         </CardFooter>
       </Card>
     </div>
