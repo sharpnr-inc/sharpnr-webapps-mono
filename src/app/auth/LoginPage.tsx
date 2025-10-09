@@ -27,6 +27,7 @@ export default function RootOrgLoginCard(): React.JSX.Element {
     } as LoginPayload,
     onSubmit: ({ value }) => {
       loginUser.mutate(value);
+      form.reset();
     },
   });
 
