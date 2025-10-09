@@ -44,7 +44,6 @@ const AddressDetailsSchema = z.object({
   state: z.string().min(1, "State is required"),
   pincode: z.string().min(1, "Pincode is required"),
   address_line: z.string().optional(),
-  landmark: z.string().optional(),
 });
 
 // BankDetails schema
@@ -73,8 +72,8 @@ const SuperAdminDetailsSchema = z.object({
 export const CompleteOrgResgistrationSchema = z.object({
   registration_details: RegistrationDetailsSchema,
   address_details: AddressDetailsSchema,
-  bank_details: z.array(BankDetailsSchema).optional(),
-  owner_details: z.array(OrgOwnerDetailsSchema).optional(),
+  bank_details: z.array(BankDetailsSchema),
+  owner_details: z.array(OrgOwnerDetailsSchema),
   super_admin_details: SuperAdminDetailsSchema,
 });
 

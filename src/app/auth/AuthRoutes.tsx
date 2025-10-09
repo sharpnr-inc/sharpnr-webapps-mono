@@ -2,7 +2,7 @@
 import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import VerifyOtpPage from "./OtpVerifactionPage";
-import CompleteOrganizationRegistration from "./RegistrationStepTwo";
+import CompleteOrganizationRegistration from "./CompleteRegistration";
 
 const LoginPage = lazy(() => import("./LoginPage"));
 const RegisterPage = lazy(() => import("./RegisterOrg"));
