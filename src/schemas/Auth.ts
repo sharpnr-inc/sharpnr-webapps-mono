@@ -29,3 +29,54 @@ export const LoginSchema = z.object({
 })
 
 export type LoginPayload = z.infer<typeof LoginSchema>
+
+
+// RegistrationDetails schema
+const RegistrationDetailsSchema = z.object({
+  is_register: z.boolean(),
+  gst_number: z.string().optional(),
+  cin_number: z.string().optional(),
+});
+
+// AddressDetails schema
+const AddressDetailsSchema = z.object({
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "State is required"),
+  pincode: z.string().min(1, "Pincode is required"),
+  address_line: z.string().optional(),
+  landmark: z.string().optional(),
+});
+
+// BankDetails schema
+const BankDetailsSchema = z.object({
+  bank_name: z.string().min(1, "Bank name is required"),
+  account_number: z.string().min(1, "Account number is required"),
+  ifsc_code: z.string().min(1, "IFSC code is required"),
+  branch_name: z.string().optional(),
+  is_primary: z.boolean(),
+  is_secondary: z.boolean().optional(),
+});
+
+// OrgOwnerDetails schema
+const OrgOwnerDetailsSchema = z.object({
+  owner_name: z.string().min(1, "Owner name is required"),
+  owner_email: z.string().optional(),
+  owner_phone: z.string().optional(),
+});
+
+// SuperAdminDetails schema
+const SuperAdminDetailsSchema = z.object({
+  name: z.string().min(1, "Super admin name is required"),
+});
+
+// Main DTO schema
+export const CompleteOrgResgistrationSchema = z.object({
+  registration_details: RegistrationDetailsSchema,
+  address_details: AddressDetailsSchema,
+  bank_details: z.array(BankDetailsSchema).optional(),
+  owner_details: z.array(OrgOwnerDetailsSchema).optional(),
+  super_admin_details: SuperAdminDetailsSchema,
+});
+
+// ✅ Optional: export inferred TypeScript type
+export type CompleteOrgResgistrationPayload = z.infer<typeof CompleteOrgResgistrationSchema>;

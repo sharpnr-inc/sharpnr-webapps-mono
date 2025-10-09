@@ -2,6 +2,7 @@ export const AUTH = {
     LOGIN: "/login",
     REGISTER: "/register",
     OTP_VERIFY:"/otp-verify",
+    COMPLETE_REGISTRATION:"/complete-register",
     RESET_PASSWORD:"/password"
 }
 

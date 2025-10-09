@@ -1,4 +1,4 @@
-import type { LoginPayload, RegisterOrganizationRequestPayload, VerifyOTPRequestPayload } from "@/schemas/Auth";
+import type { CompleteOrgResgistrationPayload, LoginPayload, RegisterOrganizationRequestPayload, VerifyOTPRequestPayload } from "@/schemas/Auth";
 import api from "../axios";
 import { AUTH } from "@/constants/api_endpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
@@ -38,5 +38,14 @@ export interface OrgEmployeeData {
 
 export async function Login(data:LoginPayload):Promise<ApiResponse<OrgEmployeeData>> {
   const response = await api.post<ApiResponse<OrgEmployeeData>>(AUTH.LOGIN, data)
+  return response.data
+}
+
+export interface CompleteRegistrationResponseDTO {
+  dta :string
+}
+
+export async function CompleteOrgRegistration(payload:CompleteOrgResgistrationPayload):Promise<ApiResponse<OrgEmployeeData>> {
+  const response = await api.post<ApiResponse<OrgEmployeeData>>(AUTH.COMPLETE_REGISTRATION, payload)
   return response.data
 }
