@@ -39,7 +39,7 @@ export default function RegisterOrganization(): React.JSX.Element {
         `/verify-otp?email=${encodeURIComponent(
           registerOrg.data?.data?.email ?? ""
         )}&VerificationKey=${encodeURIComponent(
-          registerOrg.data?.data?.token ?? ""
+          registerOrg.data?.token ?? ""
         )}`
       );
     }

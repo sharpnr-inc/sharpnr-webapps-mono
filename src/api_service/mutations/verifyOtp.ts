@@ -39,7 +39,7 @@ export function useVerifyOtpRegistration() {
         // Store authentication data
         if (response.data) {
           // Store the authentication token
-          localStorage.setItem("_sharpnr_auth_token_", response.data.token);
+          localStorage.setItem("_sharpnr_auth_token_", response.token);
           
           // Optionally store user data for quick access
           localStorage.setItem("_sharpnr_user_data_", JSON.stringify({

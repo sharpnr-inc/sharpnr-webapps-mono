@@ -21,6 +21,8 @@ import {
 } from "@/components/ui/input-otp";
 import { Clock } from "lucide-react";
 import { useVerifyOtpRegistration } from "@/api_service/mutations/verifyOtp";
+import Cookies from "js-cookie";
+import { getValidToken } from "@/utilities/DecodeToken";
 
 export default function VerifyOtpPage(): React.JSX.Element {
   const [searchParams] = useSearchParams();
@@ -29,20 +31,26 @@ export default function VerifyOtpPage(): React.JSX.Element {
 
   const email = searchParams.get("email");
   const tokenFromUrl = searchParams.get("VerificationKey");
-  const tokenFromStorage = localStorage.getItem("_sharpnr_web_app_token_");
 
   const verifyOtpMutation = useVerifyOtpRegistration();
 
   // Token validation effect
   useEffect(() => {
+    // Check token validity
+    const tokenFromCookie = getValidToken("_sharpnr_web_app_token_");
+
     if (!email || !tokenFromUrl) {
       navigate("/register");
-    } else if (tokenFromUrl !== tokenFromStorage) {
+    } else if (!tokenFromCookie) {
+      // Token expired or missing → remove cookie and redirect
+      Cookies.remove("_sharpnr_web_app_token_");
+      navigate("/register");
+    } else if (tokenFromUrl !== tokenFromCookie) {
       navigate("/register");
     } else {
       console.log("Token verified, ready for OTP");
     }
-  }, [email, tokenFromUrl, tokenFromStorage, navigate]);
+  }, [email, tokenFromUrl, navigate]);
 
   useEffect(() => {
     if (

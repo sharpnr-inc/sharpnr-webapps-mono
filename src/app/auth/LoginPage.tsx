@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "@tanstack/react-form";
 import { LoginSchema, type LoginPayload } from "@/schemas/Auth";
 import { useLoginUser } from "@/api_service/mutations/useLogin";
+import { cn } from "@/lib/utils";
 
 export default function RootOrgLoginCard(): React.JSX.Element {
   const navigate = useNavigate();
@@ -62,6 +63,11 @@ export default function RootOrgLoginCard(): React.JSX.Element {
                     value={state.value}
                     onBlur={handleBlur}
                     onChange={(e) => handleChange(e.target.value)}
+                    className={cn(
+                      state.meta.isTouched &&
+                        state.meta.errors.length > 0 &&
+                        "!border-red-500 !ring-red-500"
+                    )}
                   />
                   {state.meta.errors.length > 0 && state.meta.isTouched ? (
                     <p className="text-destructive">

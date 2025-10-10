@@ -1,3 +1,5 @@
+import DashboardContainer from "@/components/Dashboard/DashboardContainer";
+
 export default function DashboardPage() {
-  return <div>The Dashboard Page</div>;
+  return <div><DashboardContainer></DashboardContainer></div>;
 }

@@ -1,3 +1,11 @@
+import Header from "../shared/Header";
+import SidebarMain from "../Sidebar/Sidebar";
+
 export default function DashboardContainer() {
-  return <div>The Dashboard Page</div>;
+  return (
+    <div className="flex">
+      <SidebarMain></SidebarMain>
+      <Header></Header>
+    </div>
+  );
 }
