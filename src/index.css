@@ -2,6 +2,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* ===== Custom Sidebar Scrollbar ===== */
+aside::-webkit-scrollbar {
+  width: 2px;
+  transition: width 0.2s ease;
+}
+
+aside:hover::-webkit-scrollbar {
+  width: 4px;
+}
+
+aside::-webkit-scrollbar-thumb {
+  background-color: #d1d5db; /* gray-300 */
+  border-radius: 10px;
+}
+
+aside:hover::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* gray-400 */
+}
+
+
 
 @custom-variant dark (&:is(.dark *));
 

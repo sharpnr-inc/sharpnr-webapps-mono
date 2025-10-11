@@ -1,7 +1,6 @@
 import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
 import { ModalProvider } from "./context/ModalContext.tsx";
 import { ToastProvider } from "./context/ToastContext.tsx";
 import { LoaderProvider } from "./context/LoaderContext.tsx";
@@ -10,9 +9,17 @@ import { LoaderProvider } from "./context/LoaderContext.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen.ts";
 
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
 // Create a client instance
 const queryClient = new QueryClient();
+const router = createRouter({ routeTree });
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -21,7 +28,9 @@ createRoot(document.getElementById("root")!).render(
         <LoaderProvider>
           <ModalProvider>
             <Suspense fallback={<SuspenseFallback />}>
-              <App />
+            <RouterProvider router={router}>
+              {/* <App /> */}
+              </RouterProvider>
             </Suspense>
           </ModalProvider>
         </LoaderProvider>
