@@ -1,24 +1,16 @@
-"use client";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useForm } from "@tanstack/react-form";
-import { LoginSchema, type LoginPayload } from "@/schemas/Auth";
 import { useLoginUser } from "@/api_service/mutations/useLogin";
+import { LoginSchema, type LoginPayload } from "@/schemas/Auth";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
-export default function RootOrgLoginCard(): React.JSX.Element {
-  const navigate = useNavigate();
+export default function LoginPage(): React.JSX.Element {
   const loginUser = useLoginUser();
+  const navigate = useNavigate()
 
   const form = useForm({
     validators: { onBlur: LoginSchema, onMount: LoginSchema },
@@ -56,7 +48,7 @@ export default function RootOrgLoginCard(): React.JSX.Element {
             <form.Field name="email">
               {({ state, handleBlur, handleChange }) => (
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label>Email Address</Label>
                   <Input
                     type="email"
                     placeholder="you@example.com"
@@ -80,7 +72,7 @@ export default function RootOrgLoginCard(): React.JSX.Element {
             <form.Field name="password">
               {({ state, handleBlur, handleChange }) => (
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label>Password</Label>
                   <Input
                     type="password"
                     placeholder="••••••••"
@@ -132,7 +124,7 @@ export default function RootOrgLoginCard(): React.JSX.Element {
               variant="outline"
               className="w-full"
               onClick={() => {
-                navigate("/register");
+                navigate({to:'/signup'});
               }}
             >
               Sign Up

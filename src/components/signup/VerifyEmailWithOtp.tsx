@@ -1,4 +1,9 @@
-import { useSearchParams, useNavigate } from "react-router-dom";
+import {
+  VerifyOtpReqSchema,
+  type VerifyOTPRequestPayload,
+} from "@/schemas/Auth";
+import { useForm } from "@tanstack/react-form";
+import { useNavigate, useRouteContext } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   Card,
@@ -7,72 +12,45 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { useForm } from "@tanstack/react-form";
-import {
-  VerifyOtpReqSchema,
-  type VerifyOTPRequestPayload,
-} from "@/schemas/Auth";
-import { Button } from "@/components/ui/button";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+} from "../ui/card";
 import { Clock } from "lucide-react";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
+import { Button } from "../ui/button";
 import { useVerifyOtpRegistration } from "@/api_service/mutations/verifyOtp";
-import Cookies from "js-cookie";
-import { getValidToken } from "@/utilities/DecodeToken";
 
-export default function VerifyOtpPage(): React.JSX.Element {
-  const [searchParams] = useSearchParams();
+export default function VerifyEmailWithOtpPage() {
   const navigate = useNavigate();
-  const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes in seconds
-
-  const email = searchParams.get("email");
-  const tokenFromUrl = searchParams.get("VerificationKey");
-
+  const { email, token, expiresAt } = useRouteContext({
+    from: "/signup/verify-otp",
+  });
+  console.log("Expires at:", new Date(expiresAt).toLocaleTimeString());
+  const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes
   const verifyOtpMutation = useVerifyOtpRegistration();
 
-  // Token validation effect
-  useEffect(() => {
-    // Check token validity
-    const tokenFromCookie = getValidToken("_sharpnr_web_app_token_");
-
-    if (!email || !tokenFromUrl) {
-      navigate("/register");
-    } else if (!tokenFromCookie) {
-      // Token expired or missing → remove cookie and redirect
-      Cookies.remove("_sharpnr_web_app_token_");
-      navigate("/register");
-    } else if (tokenFromUrl !== tokenFromCookie) {
-      navigate("/register");
-    } else {
-      console.log("Token verified, ready for OTP");
+  // Helper to get error message from mutation
+  const getErrorMessage = (): string | null => {
+    // Network/request error
+    if (verifyOtpMutation.isError) {
+      return (
+        (verifyOtpMutation.error as any)?.message ||
+        "Network error. Please try again."
+      );
     }
-  }, [email, tokenFromUrl, navigate]);
 
-  useEffect(() => {
-    if (
-      verifyOtpMutation.isSuccess &&
-      !verifyOtpMutation.data?.error?.isError
-    ) {
-      // Wait 2 seconds before navigating
-      const timer = setTimeout(() => {
-        // Since user is now authenticated, navigate to dashboard or home
-        // Change "/login" to "/dashboard" if you want direct access
-        navigate("/login");
-      }, 2000);
-
-      return () => clearTimeout(timer);
+    // API error (successful request but error response)
+    if (verifyOtpMutation.data?.error?.isError) {
+      return verifyOtpMutation.data.error.message || "Verification failed.";
     }
-  }, [verifyOtpMutation.isSuccess, verifyOtpMutation.data, navigate]);
 
-  // Countdown timer effect
+    return null;
+  };
+
+  const errorMessage = getErrorMessage();
+
+  // Countdown timer effect (this one is fine to keep)
   useEffect(() => {
     if (timeRemaining <= 0) {
-      // Time's up! Navigate back to register
-      navigate("/register");
+      navigate({ to: "/signup" });
       return;
     }
 
@@ -80,45 +58,84 @@ export default function VerifyOtpPage(): React.JSX.Element {
       setTimeRemaining((prev) => prev - 1);
     }, 1000);
 
-    // Cleanup interval on unmount
     return () => clearInterval(timer);
   }, [timeRemaining, navigate]);
+
+  // Handle successful verification
+  useEffect(() => {
+    if (
+      verifyOtpMutation.isSuccess &&
+      !verifyOtpMutation.data?.error?.isError
+    ) {
+      const timer = setTimeout(() => {
+        // You can pass search params to redirect back after login
+        navigate({
+          to: "/",
+          search: {
+            message: "verification-success",
+          },
+        });
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [verifyOtpMutation.isSuccess, verifyOtpMutation.data, navigate]);
 
   // Format time as MM:SS
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs
-      .toString()
-      .padStart(2, "0")}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   const form = useForm({
     validators: { onBlur: VerifyOtpReqSchema },
     defaultValues: {
       otp: "",
-      token: tokenFromUrl,
+      token: token,
     } as VerifyOTPRequestPayload,
     onSubmit: ({ value }) => {
       verifyOtpMutation.mutate(value);
     },
   });
 
+  const handleResendOtp = () => {
+    console.log("Resending OTP to:", email);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>Verify Your Email Address</CardTitle>
-          <CardDescription>{`We have sent an OTP to ${email}`}</CardDescription>
+          <CardDescription>We have sent an OTP to {email}</CardDescription>
         </CardHeader>
+
         <CardContent>
-          {/* Countdown Timer Display */}
+          {/* Countdown Timer */}
           <div className="flex items-center justify-center gap-2 mb-4 p-3 bg-muted rounded-lg">
             <Clock className="h-4 w-4 text-muted-foreground" />
             <span className="text-sm font-medium">
               Time remaining: {formatTime(timeRemaining)}
             </span>
           </div>
+
+          {/* Success Message */}
+          {verifyOtpMutation.isSuccess &&
+            !verifyOtpMutation.data?.error?.isError && (
+              <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                <p className="text-sm text-green-800 text-center">
+                  ✓ Verification successful! Redirecting...
+                </p>
+              </div>
+            )}
+
+          {/* Error Message */}
+          {errorMessage && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-800 text-center">{errorMessage}</p>
+            </div>
+          )}
 
           <form
             onSubmit={(e) => {
@@ -136,6 +153,7 @@ export default function VerifyOtpPage(): React.JSX.Element {
                       value={state.value}
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      disabled={verifyOtpMutation.isPending}
                     >
                       <InputOTPGroup>
                         <InputOTPSlot index={0} />
@@ -147,20 +165,28 @@ export default function VerifyOtpPage(): React.JSX.Element {
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
+
                   {state.meta.errors.length > 0 && (
                     <p className="text-sm text-red-500 text-center">
                       {state.meta.errors[0]?.message}
                     </p>
                   )}
+
                   <form.Subscribe
                     selector={(state) => [state.canSubmit, state.isSubmitting]}
                     children={([canSubmit, isSubmitting]) => (
                       <Button
                         type="submit"
-                        disabled={!canSubmit || isSubmitting}
+                        disabled={
+                          !canSubmit ||
+                          isSubmitting ||
+                          verifyOtpMutation.isPending
+                        }
                         className="w-full"
                       >
-                        {isSubmitting ? "Verifying..." : "Verify OTP"}
+                        {verifyOtpMutation.isPending
+                          ? "Verifying..."
+                          : "Verify OTP"}
                       </Button>
                     )}
                   />
@@ -169,11 +195,17 @@ export default function VerifyOtpPage(): React.JSX.Element {
             </form.Field>
           </form>
         </CardContent>
+
         <CardFooter className="flex flex-col gap-2">
           <p className="text-sm text-muted-foreground">
             Didn't receive the code?
           </p>
-          <Button variant="link" className="p-0 h-auto">
+          <Button
+            variant="link"
+            className="p-0 h-auto"
+            onClick={handleResendOtp}
+            disabled={verifyOtpMutation.isPending}
+          >
             Resend OTP
           </Button>
         </CardFooter>

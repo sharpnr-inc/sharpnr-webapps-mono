@@ -1,37 +1,15 @@
+import { createCountriesQuery, createStatesQuery, createCitiesQuery } from "@/api_service/queries/fetchstateandcities";
+import { CompleteOrgResgistrationSchema, type CompleteOrgResgistrationPayload } from "@/schemas/Auth";
+import { Checkbox } from "@radix-ui/react-checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
 import { useForm } from "@tanstack/react-form";
-import {
-  Plus,
-  Trash2,
-  Building2,
-  MapPin,
-  Shield,
-  Landmark,
-  User,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  CompleteOrgResgistrationSchema,
-  type CompleteOrgResgistrationPayload,
-} from "@/schemas/Auth";
 import { useQuery } from "@tanstack/react-query";
-import {
-  createCitiesQuery,
-  createCountriesQuery,
-  createStatesQuery,
-} from "@/api_service/queries/fetchstateandcities";
+import { Building2, MapPin, Landmark, Plus, Trash2, User, Shield } from "lucide-react";
 import { useState } from "react";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Label } from "recharts";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Input } from "../ui/input";
 
 export default function CompleteRegistration() {
   const [selectedCountry, setSelectedCountry] = useState("");
