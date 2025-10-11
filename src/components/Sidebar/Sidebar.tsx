@@ -15,97 +15,178 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-// 1. IMPORT LINK
-import { Link } from "@tanstack/react-router"; 
+import { Link } from "@tanstack/react-router";
 
 interface SidebarMainProps {
   onToggleSidebar?: () => void;
 }
 
-export default function SidebarMain({}: SidebarMainProps) {
-  const [active, setActive] = useState("dashboard");
-  console.log(active)
-  const [openGroups, setOpenGroups] = useState<string[]>(["sharphotel"]); // Keep Management open by default for demo
-
-  const toggleGroup = (groupId: string) => {
-    setOpenGroups((prev) =>
-      prev.includes(groupId) ? prev.filter((id) => id !== groupId) : [...prev, groupId]
-    );
-  };
-
-  // === Sidebar structure with TanStack Router 'to' paths ===
-  // Paths are derived from your file structure: /dashboard/_layout/employee/index.tsx -> /dashboard/employee
-  const sidebarSections = [
-   
+// === Define all sidebar sections based on routeTree.gen.ts paths ===
+const ALL_SIDEBAR_SECTIONS = [
+    {
+      id: "employee",
+      title: "Employee Sections",
+      items: [
+        {
+          id: "attendance",
+          label: "Attendance",
+          icon: <UserCog size={18} />,
+          // Path: /dashboard/employee/employee-attendance
+          to: "/dashboard/employee/employee-attendance", 
+        },
+        {
+          id: "leaves",
+          label: "Leaves",
+          icon: <ClipboardList size={18} />,
+          // Path: /dashboard/employee/leaves
+          to: "/dashboard/employee/leaves", 
+        },
+        {
+          id: "reviews",
+          label: "Reviews",
+          icon: <Database size={18} />,
+          // Path: /dashboard/employee/reviews
+          to: "/dashboard/employee/reviews", 
+        },
+        {
+          id: "greivences",
+          label: "Greivences",
+          icon: <BarChart3 size={18} />,
+          // Path: /dashboard/employee/greivences
+          to: "/dashboard/employee/greivences", 
+        },
+        // Remaining items link to the Employee Index, as they lack specific routes
+        {
+          id: "requests",
+          label: "Requests",
+          icon: <CalendarDays size={18} />,
+          to: "/dashboard/employee/requests", 
+        },
+        {
+          id: "overtime",
+          label: "Overtime",
+          icon: <BarChart3 size={18} />,
+          to: "/dashboard/employee/overtime", 
+        },
+        {
+          id: "feedback",
+          label: "Feedback",
+          icon: <BarChart3 size={18} />,
+          to: "/dashboard/employee/feedback", 
+        },
+      ],
+    },
     {
       id: "sharphotel",
       title: "Sharp Hotel",
       items: [
-        // --- ROUTES MAPPING TO YOUR DEFINED FILES ---
-        
-        // Maps to /dashboard/_layout/employee/index.tsx
-        { id: "employees", label: "Employees", icon: <UserCog size={18} />, to: "/dashboard/employee/" },
-        
-        // Maps to /dashboard/_layout/employee/employee-attendance.tsx
-        { id: "attendance", label: "Attendance", icon: <ClipboardList size={18} />, to: "/dashboard/employee/employee-attendance" },
-        
-        // Maps to /dashboard/_layout/sharphotel/bookings.tsx
-        { id: "bookings", label: "Bookings", icon: <CalendarDays size={18} />, to: "/dashboard/sharphotel/bookings" },
-
-        // Maps to /dashboard/_layout/sharphr/employee.tsx
-        { id: "hr_employees", label: "HR Employee", icon: <Database size={18} />, to: "/dashboard/sharphr/employee" },
-        
-        // Maps to /dashboard/_layout/sharpmarketing/index.tsx
-        { id: "marketing", label: "Marketing", icon: <BarChart3 size={18} />, to: "/dashboard/sharpmarketing" },
-
-        // Add more items here...
+        { id: "hotel_settings", label: "Settings", icon: <Settings size={18} />, to: "/dashboard/sharphotel/settings" },
+        { id: "hotel_bar", label: "Bar", icon: <ClipboardList size={18} />, to: "/dashboard/sharphotel/bar" },
+        { id: "hotel_bookings", label: "Bookings", icon: <CalendarDays size={18} />, to: "/dashboard/sharphotel/bookings" },
+        { id: "hotel_guests", label: "Guests", icon: <Database size={18} />, to: "/dashboard/sharphotel/guests" },
+        { id: "hotel_restaurant", label: "Restaurant", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/restaurent" },
+        { id: "hotel_menu", label: "Menu", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/menu" },
+        { id: "hotel_inventory", label: "Inventory", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/inventory" },
       ],
     },
     {
       id: "sharpaccounting",
       title: "Sharp Accounting",
       items: [
-        { id: "messages", label: "Messages", icon: <MessageSquare size={18} />, to: "/dashboard/messages" },
-        { id: "notifications", label: "Notifications", icon: <Bell size={18} />, to: "/dashboard/notifications" },
-        { id: "calendar", label: "Calendar", icon: <CalendarDays size={18} />, to: "/dashboard/calendar" },
-        // { id: "tasks", label: "Tasks", icon: <ClipboardList size={18} /> }, // Removed to avoid ID conflict with Attendance
+        { id: "acc_transactions", label: "Transactions", icon: <MessageSquare size={18} />, to: "/dashboard/sharpAccounting/transactions" },
+        { id: "acc_expense", label: "Expenses", icon: <Bell size={18} />, to: "/dashboard/sharpAccounting/expenses" },
+        { id: "acc_invoices", label: "Invoices", icon: <Database size={18} />, to: "/dashboard/sharpAccounting/invoices" },
+        { id: "acc_ledger", label: "Ledger", icon: <Wrench size={18} />, to: "/dashboard/sharpAccounting/ledger" },
+        { id: "acc_customers", label: "Customers", icon: <Shield size={18} />, to: "/dashboard/sharpAccounting/customers" },
+        { id: "acc_suppliers", label: "Suppliers & Vendors", icon: <CalendarDays size={18} />, to: "/dashboard/sharpAccounting/suppliersandvendors" },
+        { id: "acc_reports", label: "Reports", icon: <BarChart3 size={18} />, to: "/dashboard/sharpAccounting/Reports" },
       ],
     },
     {
       id: "sharpmarketing",
       title: "Sharp Marketing",
       items: [
-        { id: "settings", label: "Settings", icon: <Settings size={18} />, to: "/dashboard/settings" },
-        { id: "security", label: "Security", icon: <Shield size={18} />, to: "/dashboard/security" },
-        { id: "maintenance", label: "Maintenance", icon: <Wrench size={18} />, to: "/dashboard/maintenance" },
+        { id: "mkt_campaigns", label: "Campaigns", icon: <Settings size={18} />, to: "/dashboard/sharpmarketing/campaigns" },
+        { id: "mkt_leads", label: "Leads", icon: <Shield size={18} />, to: "/dashboard/sharpmarketing/leads" },
+        { id: "mkt_reports", label: "Reports", icon: <Wrench size={18} />, to: "/dashboard/sharpmarketing/reports" },
+        { id: "mkt_social", label: "Social Media Mgmt", icon: <MessageSquare size={18} />, to: "/dashboard/sharpmarketing/social-media-management" },
       ],
     },
-      {
+    {
       id: "sharphr",
       title: "Sharp HR",
       items: [
-        { id: "settings", label: "Settings", icon: <Settings size={18} />, to: "/dashboard/settings" },
-        { id: "security", label: "Security", icon: <Shield size={18} />, to: "/dashboard/security" },
-        { id: "maintenance", label: "Maintenance", icon: <Wrench size={18} />, to: "/dashboard/maintenance" },
+        { id: "hr_employee", label: "Employee", icon: <Settings size={18} />, to: "/dashboard/sharphr/employee" },
+        { id: "hr_payroll", label: "Payroll", icon: <Shield size={18} />, to: "/dashboard/sharphr/payroll" },
+        { id: "hr_leaves", label: "Leaves Mgmt", icon: <Wrench size={18} />, to: "/dashboard/sharphr/leaves-management" },
+        { id: "hr_reports", label: "Reports", icon: <BarChart3 size={18} />, to: "/dashboard/sharphr/reports" },
       ],
     },
   ];
 
+const EMPLOYEE_SECTION = ALL_SIDEBAR_SECTIONS.find(s => s.id === 'employee');
+const COLLAPSIBLE_SECTIONS = ALL_SIDEBAR_SECTIONS.filter(s => s.id !== 'employee');
+
+
+export default function SidebarMain({}: SidebarMainProps) {
+  const [active, setActive] = useState("dashboard"); // Kept for internal logic if needed
+  console.log(active)
+  const [openGroups, setOpenGroups] = useState<string[]>(["sharphotel"]);
+
+  const toggleGroup = (groupId: string) => {
+    setOpenGroups((prev) =>
+      prev.includes(groupId)
+        ? prev.filter((id) => id !== groupId)
+        : [...prev, groupId]
+    );
+  };
+
   return (
     <aside
       className={cn(
-        // ... Tailwind classes for sidebar
         "fixed left-0 top-[4rem] w-64 h-[calc(100vh-4rem)]",
         "border-r shadow-sm bg-[#021826] text-amber-100 flex flex-col",
         "overflow-y-auto z-40",
         "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400"
       )}
     >
-      {/* Menu Groups */}
       <nav className="flex-1 p-2 space-y-1">
-        {sidebarSections.map((section) => (
+        
+        {/* === FIXED SECTION: Employee Sections (Not Collapsible) === */}
+        {EMPLOYEE_SECTION && (
+          <div className="mb-4 space-y-1">
+            <h3 className="px-4 py-2 text-xs font-semibold uppercase text-gray-400">
+              {EMPLOYEE_SECTION.title}
+            </h3>
+            <div className="space-y-1">
+              {EMPLOYEE_SECTION.items.map((item) => (
+                <Link
+                  key={item.id}
+                  to={item.to}
+                  // This forces TanStack Router to route from the root (/) path
+                  from="/"
+                  activeProps={{ className: "bg-teal-400 text-emerald-900" }}
+                  inactiveProps={{
+                    className:
+                      "text-gray-100 hover:bg-gray-100 hover:text-gray-900",
+                  }}
+                  onClick={() => setActive(item.id)}
+                  className={cn(
+                    "flex w-full items-center gap-3 px-4 py-2 text-sm font-medium rounded-md transition-all"
+                  )}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {/* === COLLAPSIBLE SECTIONS: All others (Mapped) === */}
+        {COLLAPSIBLE_SECTIONS.map((section) => (
           <div key={section.id}>
-            {/* Section Header */}
+            {/* Section Header (Toggle Button) */}
             <button
               onClick={() => toggleGroup(section.id)}
               className="flex w-full justify-between items-center px-4 py-2 font-semibold text-gray-100 hover:text-gray-950 text-sm hover:bg-gray-100 rounded-md transition"
@@ -122,18 +203,19 @@ export default function SidebarMain({}: SidebarMainProps) {
             {openGroups.includes(section.id) && (
               <div className="ml-2 mt-1 space-y-1 border-l border-blue-700 pl-3">
                 {section.items.map((item) => (
-                  // 2. REPLACE BUTTON WITH LINK COMPONENT
-                  <Link 
+                  <Link
                     key={item.id}
-                    to={item.to} // Use the 'to' prop for navigation
-                    // Use 'activeProps' for styling when the link is active
+                    to={item.to}
+                    // This forces TanStack Router to route from the root (/) path
+                    from="/"
                     activeProps={{ className: "bg-teal-400 text-emerald-900" }}
-                    // Use 'inactiveProps' for default styling
-                    inactiveProps={{ className: "text-gray-100 hover:bg-gray-100 hover:text-gray-900" }}
-                    onClick={() => setActive(item.id)} // Keep state for internal logic if needed
+                    inactiveProps={{
+                      className:
+                        "text-gray-100 hover:bg-gray-100 hover:text-gray-900",
+                    }}
+                    onClick={() => setActive(item.id)}
                     className={cn(
-                      "flex w-full items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-all",
-                      // Remove the conditional className here, let activeProps handle it
+                      "flex w-full items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-all"
                     )}
                   >
                     {item.icon}
@@ -148,7 +230,6 @@ export default function SidebarMain({}: SidebarMainProps) {
 
       {/* Footer / Logout */}
       <div className="border-t p-4">
-        {/* Replace with Link if 'logout' is a navigation route, or keep as button if it's an action */}
         <button className="flex items-center gap-3 text-red-600 hover:text-red-700 font-medium w-full px-2 py-2 rounded-md transition-all hover:bg-red-50">
           <LogOut size={18} />
           Logout

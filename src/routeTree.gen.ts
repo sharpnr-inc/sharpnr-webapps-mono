@@ -41,9 +41,12 @@ import { Route as DashboardLayoutSharpAccountingExpensesRouteImport } from './ro
 import { Route as DashboardLayoutSharpAccountingCustomersRouteImport } from './routes/dashboard/_layout/sharpAccounting/customers'
 import { Route as DashboardLayoutSharpAccountingReportsRouteImport } from './routes/dashboard/_layout/sharpAccounting/Reports'
 import { Route as DashboardLayoutEmployeeReviewsRouteImport } from './routes/dashboard/_layout/employee/reviews'
+import { Route as DashboardLayoutEmployeeRequestsRouteImport } from './routes/dashboard/_layout/employee/requests'
 import { Route as DashboardLayoutEmployeeProfileRouteImport } from './routes/dashboard/_layout/employee/profile'
+import { Route as DashboardLayoutEmployeeOvertimeRouteImport } from './routes/dashboard/_layout/employee/overtime'
 import { Route as DashboardLayoutEmployeeLeavesRouteImport } from './routes/dashboard/_layout/employee/leaves'
 import { Route as DashboardLayoutEmployeeGreivencesRouteImport } from './routes/dashboard/_layout/employee/greivences'
+import { Route as DashboardLayoutEmployeeFeedbackRouteImport } from './routes/dashboard/_layout/employee/feedback'
 import { Route as DashboardLayoutEmployeeEmployeeAttendanceRouteImport } from './routes/dashboard/_layout/employee/employee-attendance'
 
 const DashboardRoute = DashboardRouteImport.update({
@@ -231,10 +234,22 @@ const DashboardLayoutEmployeeReviewsRoute =
     path: '/employee/reviews',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
+const DashboardLayoutEmployeeRequestsRoute =
+  DashboardLayoutEmployeeRequestsRouteImport.update({
+    id: '/employee/requests',
+    path: '/employee/requests',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
 const DashboardLayoutEmployeeProfileRoute =
   DashboardLayoutEmployeeProfileRouteImport.update({
     id: '/employee/profile',
     path: '/employee/profile',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutEmployeeOvertimeRoute =
+  DashboardLayoutEmployeeOvertimeRouteImport.update({
+    id: '/employee/overtime',
+    path: '/employee/overtime',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutEmployeeLeavesRoute =
@@ -247,6 +262,12 @@ const DashboardLayoutEmployeeGreivencesRoute =
   DashboardLayoutEmployeeGreivencesRouteImport.update({
     id: '/employee/greivences',
     path: '/employee/greivences',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutEmployeeFeedbackRoute =
+  DashboardLayoutEmployeeFeedbackRouteImport.update({
+    id: '/employee/feedback',
+    path: '/employee/feedback',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutEmployeeEmployeeAttendanceRoute =
@@ -264,9 +285,12 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupIndexRoute
   '/dashboard/': typeof DashboardLayoutIndexRoute
   '/dashboard/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  '/dashboard/employee/feedback': typeof DashboardLayoutEmployeeFeedbackRoute
   '/dashboard/employee/greivences': typeof DashboardLayoutEmployeeGreivencesRoute
   '/dashboard/employee/leaves': typeof DashboardLayoutEmployeeLeavesRoute
+  '/dashboard/employee/overtime': typeof DashboardLayoutEmployeeOvertimeRoute
   '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/employee/requests': typeof DashboardLayoutEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardLayoutEmployeeReviewsRoute
   '/dashboard/sharpAccounting/Reports': typeof DashboardLayoutSharpAccountingReportsRoute
   '/dashboard/sharpAccounting/customers': typeof DashboardLayoutSharpAccountingCustomersRoute
@@ -300,9 +324,12 @@ export interface FileRoutesByTo {
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/signup': typeof SignupIndexRoute
   '/dashboard/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  '/dashboard/employee/feedback': typeof DashboardLayoutEmployeeFeedbackRoute
   '/dashboard/employee/greivences': typeof DashboardLayoutEmployeeGreivencesRoute
   '/dashboard/employee/leaves': typeof DashboardLayoutEmployeeLeavesRoute
+  '/dashboard/employee/overtime': typeof DashboardLayoutEmployeeOvertimeRoute
   '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/employee/requests': typeof DashboardLayoutEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardLayoutEmployeeReviewsRoute
   '/dashboard/sharpAccounting/Reports': typeof DashboardLayoutSharpAccountingReportsRoute
   '/dashboard/sharpAccounting/customers': typeof DashboardLayoutSharpAccountingCustomersRoute
@@ -339,9 +366,12 @@ export interface FileRoutesById {
   '/signup/': typeof SignupIndexRoute
   '/dashboard/_layout/': typeof DashboardLayoutIndexRoute
   '/dashboard/_layout/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  '/dashboard/_layout/employee/feedback': typeof DashboardLayoutEmployeeFeedbackRoute
   '/dashboard/_layout/employee/greivences': typeof DashboardLayoutEmployeeGreivencesRoute
   '/dashboard/_layout/employee/leaves': typeof DashboardLayoutEmployeeLeavesRoute
+  '/dashboard/_layout/employee/overtime': typeof DashboardLayoutEmployeeOvertimeRoute
   '/dashboard/_layout/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/_layout/employee/requests': typeof DashboardLayoutEmployeeRequestsRoute
   '/dashboard/_layout/employee/reviews': typeof DashboardLayoutEmployeeReviewsRoute
   '/dashboard/_layout/sharpAccounting/Reports': typeof DashboardLayoutSharpAccountingReportsRoute
   '/dashboard/_layout/sharpAccounting/customers': typeof DashboardLayoutSharpAccountingCustomersRoute
@@ -378,9 +408,12 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard/'
     | '/dashboard/employee/employee-attendance'
+    | '/dashboard/employee/feedback'
     | '/dashboard/employee/greivences'
     | '/dashboard/employee/leaves'
+    | '/dashboard/employee/overtime'
     | '/dashboard/employee/profile'
+    | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
     | '/dashboard/sharpAccounting/Reports'
     | '/dashboard/sharpAccounting/customers'
@@ -414,9 +447,12 @@ export interface FileRouteTypes {
     | '/signup/verify-otp'
     | '/signup'
     | '/dashboard/employee/employee-attendance'
+    | '/dashboard/employee/feedback'
     | '/dashboard/employee/greivences'
     | '/dashboard/employee/leaves'
+    | '/dashboard/employee/overtime'
     | '/dashboard/employee/profile'
+    | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
     | '/dashboard/sharpAccounting/Reports'
     | '/dashboard/sharpAccounting/customers'
@@ -452,9 +488,12 @@ export interface FileRouteTypes {
     | '/signup/'
     | '/dashboard/_layout/'
     | '/dashboard/_layout/employee/employee-attendance'
+    | '/dashboard/_layout/employee/feedback'
     | '/dashboard/_layout/employee/greivences'
     | '/dashboard/_layout/employee/leaves'
+    | '/dashboard/_layout/employee/overtime'
     | '/dashboard/_layout/employee/profile'
+    | '/dashboard/_layout/employee/requests'
     | '/dashboard/_layout/employee/reviews'
     | '/dashboard/_layout/sharpAccounting/Reports'
     | '/dashboard/_layout/sharpAccounting/customers'
@@ -716,11 +755,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutEmployeeReviewsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/employee/requests': {
+      id: '/dashboard/_layout/employee/requests'
+      path: '/employee/requests'
+      fullPath: '/dashboard/employee/requests'
+      preLoaderRoute: typeof DashboardLayoutEmployeeRequestsRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/_layout/employee/profile': {
       id: '/dashboard/_layout/employee/profile'
       path: '/employee/profile'
       fullPath: '/dashboard/employee/profile'
       preLoaderRoute: typeof DashboardLayoutEmployeeProfileRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/employee/overtime': {
+      id: '/dashboard/_layout/employee/overtime'
+      path: '/employee/overtime'
+      fullPath: '/dashboard/employee/overtime'
+      preLoaderRoute: typeof DashboardLayoutEmployeeOvertimeRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/employee/leaves': {
@@ -737,6 +790,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutEmployeeGreivencesRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/employee/feedback': {
+      id: '/dashboard/_layout/employee/feedback'
+      path: '/employee/feedback'
+      fullPath: '/dashboard/employee/feedback'
+      preLoaderRoute: typeof DashboardLayoutEmployeeFeedbackRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/_layout/employee/employee-attendance': {
       id: '/dashboard/_layout/employee/employee-attendance'
       path: '/employee/employee-attendance'
@@ -750,9 +810,12 @@ declare module '@tanstack/react-router' {
 interface DashboardLayoutRouteChildren {
   DashboardLayoutIndexRoute: typeof DashboardLayoutIndexRoute
   DashboardLayoutEmployeeEmployeeAttendanceRoute: typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  DashboardLayoutEmployeeFeedbackRoute: typeof DashboardLayoutEmployeeFeedbackRoute
   DashboardLayoutEmployeeGreivencesRoute: typeof DashboardLayoutEmployeeGreivencesRoute
   DashboardLayoutEmployeeLeavesRoute: typeof DashboardLayoutEmployeeLeavesRoute
+  DashboardLayoutEmployeeOvertimeRoute: typeof DashboardLayoutEmployeeOvertimeRoute
   DashboardLayoutEmployeeProfileRoute: typeof DashboardLayoutEmployeeProfileRoute
+  DashboardLayoutEmployeeRequestsRoute: typeof DashboardLayoutEmployeeRequestsRoute
   DashboardLayoutEmployeeReviewsRoute: typeof DashboardLayoutEmployeeReviewsRoute
   DashboardLayoutSharpAccountingReportsRoute: typeof DashboardLayoutSharpAccountingReportsRoute
   DashboardLayoutSharpAccountingCustomersRoute: typeof DashboardLayoutSharpAccountingCustomersRoute
@@ -784,10 +847,13 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutIndexRoute: DashboardLayoutIndexRoute,
   DashboardLayoutEmployeeEmployeeAttendanceRoute:
     DashboardLayoutEmployeeEmployeeAttendanceRoute,
+  DashboardLayoutEmployeeFeedbackRoute: DashboardLayoutEmployeeFeedbackRoute,
   DashboardLayoutEmployeeGreivencesRoute:
     DashboardLayoutEmployeeGreivencesRoute,
   DashboardLayoutEmployeeLeavesRoute: DashboardLayoutEmployeeLeavesRoute,
+  DashboardLayoutEmployeeOvertimeRoute: DashboardLayoutEmployeeOvertimeRoute,
   DashboardLayoutEmployeeProfileRoute: DashboardLayoutEmployeeProfileRoute,
+  DashboardLayoutEmployeeRequestsRoute: DashboardLayoutEmployeeRequestsRoute,
   DashboardLayoutEmployeeReviewsRoute: DashboardLayoutEmployeeReviewsRoute,
   DashboardLayoutSharpAccountingReportsRoute:
     DashboardLayoutSharpAccountingReportsRoute,
