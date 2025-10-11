@@ -16,8 +16,10 @@ import { Route as SignupVerifyOtpRouteImport } from './routes/signup/verify-otp'
 import { Route as SignupCompleteRegistrationRouteImport } from './routes/signup/complete-registration'
 import { Route as DashboardLayoutRouteImport } from './routes/dashboard/_layout'
 import { Route as DashboardLayoutIndexRouteImport } from './routes/dashboard/_layout.index'
+import { Route as DashboardLayoutSharpmarketingIndexRouteImport } from './routes/dashboard/_layout/sharpmarketing/index'
 import { Route as DashboardLayoutEmployeeIndexRouteImport } from './routes/dashboard/_layout/employee/index'
 import { Route as DashboardLayoutSharphrEmployeeRouteImport } from './routes/dashboard/_layout/sharphr/employee'
+import { Route as DashboardLayoutSharphotelBookingsRouteImport } from './routes/dashboard/_layout/sharphotel/bookings'
 import { Route as DashboardLayoutEmployeeProfileRouteImport } from './routes/dashboard/_layout/employee/profile'
 import { Route as DashboardLayoutEmployeeEmployeeAttendanceRouteImport } from './routes/dashboard/_layout/employee/employee-attendance'
 
@@ -56,6 +58,12 @@ const DashboardLayoutIndexRoute = DashboardLayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
+const DashboardLayoutSharpmarketingIndexRoute =
+  DashboardLayoutSharpmarketingIndexRouteImport.update({
+    id: '/sharpmarketing/',
+    path: '/sharpmarketing/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
 const DashboardLayoutEmployeeIndexRoute =
   DashboardLayoutEmployeeIndexRouteImport.update({
     id: '/employee/',
@@ -66,6 +74,12 @@ const DashboardLayoutSharphrEmployeeRoute =
   DashboardLayoutSharphrEmployeeRouteImport.update({
     id: '/sharphr/employee',
     path: '/sharphr/employee',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutSharphotelBookingsRoute =
+  DashboardLayoutSharphotelBookingsRouteImport.update({
+    id: '/sharphotel/bookings',
+    path: '/sharphotel/bookings',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutEmployeeProfileRoute =
@@ -90,8 +104,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardLayoutIndexRoute
   '/dashboard/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
   '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
   '/dashboard/employee': typeof DashboardLayoutEmployeeIndexRoute
+  '/dashboard/sharpmarketing': typeof DashboardLayoutSharpmarketingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -101,8 +117,10 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupIndexRoute
   '/dashboard/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
   '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
   '/dashboard/employee': typeof DashboardLayoutEmployeeIndexRoute
+  '/dashboard/sharpmarketing': typeof DashboardLayoutSharpmarketingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -115,8 +133,10 @@ export interface FileRoutesById {
   '/dashboard/_layout/': typeof DashboardLayoutIndexRoute
   '/dashboard/_layout/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
   '/dashboard/_layout/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/_layout/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/_layout/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
   '/dashboard/_layout/employee/': typeof DashboardLayoutEmployeeIndexRoute
+  '/dashboard/_layout/sharpmarketing/': typeof DashboardLayoutSharpmarketingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -129,8 +149,10 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/dashboard/employee/employee-attendance'
     | '/dashboard/employee/profile'
+    | '/dashboard/sharphotel/bookings'
     | '/dashboard/sharphr/employee'
     | '/dashboard/employee'
+    | '/dashboard/sharpmarketing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -140,8 +162,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard/employee/employee-attendance'
     | '/dashboard/employee/profile'
+    | '/dashboard/sharphotel/bookings'
     | '/dashboard/sharphr/employee'
     | '/dashboard/employee'
+    | '/dashboard/sharpmarketing'
   id:
     | '__root__'
     | '/'
@@ -153,8 +177,10 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/'
     | '/dashboard/_layout/employee/employee-attendance'
     | '/dashboard/_layout/employee/profile'
+    | '/dashboard/_layout/sharphotel/bookings'
     | '/dashboard/_layout/sharphr/employee'
     | '/dashboard/_layout/employee/'
+    | '/dashboard/_layout/sharpmarketing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -216,6 +242,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutIndexRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/sharpmarketing/': {
+      id: '/dashboard/_layout/sharpmarketing/'
+      path: '/sharpmarketing'
+      fullPath: '/dashboard/sharpmarketing'
+      preLoaderRoute: typeof DashboardLayoutSharpmarketingIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/_layout/employee/': {
       id: '/dashboard/_layout/employee/'
       path: '/employee'
@@ -228,6 +261,13 @@ declare module '@tanstack/react-router' {
       path: '/sharphr/employee'
       fullPath: '/dashboard/sharphr/employee'
       preLoaderRoute: typeof DashboardLayoutSharphrEmployeeRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/sharphotel/bookings': {
+      id: '/dashboard/_layout/sharphotel/bookings'
+      path: '/sharphotel/bookings'
+      fullPath: '/dashboard/sharphotel/bookings'
+      preLoaderRoute: typeof DashboardLayoutSharphotelBookingsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/employee/profile': {
@@ -251,8 +291,10 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutIndexRoute: typeof DashboardLayoutIndexRoute
   DashboardLayoutEmployeeEmployeeAttendanceRoute: typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
   DashboardLayoutEmployeeProfileRoute: typeof DashboardLayoutEmployeeProfileRoute
+  DashboardLayoutSharphotelBookingsRoute: typeof DashboardLayoutSharphotelBookingsRoute
   DashboardLayoutSharphrEmployeeRoute: typeof DashboardLayoutSharphrEmployeeRoute
   DashboardLayoutEmployeeIndexRoute: typeof DashboardLayoutEmployeeIndexRoute
+  DashboardLayoutSharpmarketingIndexRoute: typeof DashboardLayoutSharpmarketingIndexRoute
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
@@ -260,8 +302,12 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutEmployeeEmployeeAttendanceRoute:
     DashboardLayoutEmployeeEmployeeAttendanceRoute,
   DashboardLayoutEmployeeProfileRoute: DashboardLayoutEmployeeProfileRoute,
+  DashboardLayoutSharphotelBookingsRoute:
+    DashboardLayoutSharphotelBookingsRoute,
   DashboardLayoutSharphrEmployeeRoute: DashboardLayoutSharphrEmployeeRoute,
   DashboardLayoutEmployeeIndexRoute: DashboardLayoutEmployeeIndexRoute,
+  DashboardLayoutSharpmarketingIndexRoute:
+    DashboardLayoutSharpmarketingIndexRoute,
 }
 
 const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
