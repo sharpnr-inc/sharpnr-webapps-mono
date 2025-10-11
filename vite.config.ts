@@ -8,7 +8,9 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
+    tailwindcss(
+      
+    ),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,

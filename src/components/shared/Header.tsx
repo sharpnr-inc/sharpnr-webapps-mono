@@ -12,12 +12,9 @@ interface HeaderProps {
   isSidebarVisible: boolean;
 }
 
-export default function Header({
-  onToggleSidebar,
-  isSidebarVisible,
-}: HeaderProps) {
+export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 border-b shadow-sm z-50 flex items-center px-2">
+    <header className="fixed top-0 left-0 right-0 h-16 border-b bg-[#021826] shadow-sm z-50 flex items-center px-2">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -33,7 +30,7 @@ export default function Header({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              onClick={onToggleSidebar}
+              // onClick={onToggleSidebar}
               size="icon"
               variant="outline"
               className="ml-2"
@@ -42,7 +39,7 @@ export default function Header({
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>{isSidebarVisible ? "Hide sidebar" : "Show sidebar"}</p>
+            {/* <p>{isSidebarVisible ? "Hide sidebar" : "Show sidebar"}</p> */}
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

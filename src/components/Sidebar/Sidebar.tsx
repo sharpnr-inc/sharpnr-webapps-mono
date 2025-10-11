@@ -83,7 +83,7 @@ export default function SidebarMain({}: SidebarMainProps) {
     <aside
       className={cn(
     "fixed left-0 top-[4rem] w-64 h-[calc(100vh-4rem)]",
-    "border-r shadow-sm bg-white flex flex-col",
+    "border-r shadow-sm bg-[#021826] text-amber-100 flex flex-col",
     "overflow-y-auto z-40",
     "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400"
   )}
@@ -95,7 +95,7 @@ export default function SidebarMain({}: SidebarMainProps) {
             {/* Section Header */}
             <button
               onClick={() => toggleGroup(section.id)}
-              className="flex w-full justify-between items-center px-4 py-2 font-semibold text-gray-700 text-sm hover:bg-gray-100 rounded-md transition"
+              className="flex w-full justify-between items-center px-4 py-2 font-semibold text-gray-100 hover:text-gray-950 text-sm hover:bg-gray-100 rounded-md transition"
             >
               <span>{section.title}</span>
               {openGroups.includes(section.id) ? (
@@ -107,7 +107,7 @@ export default function SidebarMain({}: SidebarMainProps) {
 
             {/* Dropdown items */}
             {openGroups.includes(section.id) && (
-              <div className="ml-2 mt-1 space-y-1 border-l pl-3">
+              <div className="ml-2 mt-1 space-y-1 border-l border-blue-700 pl-3">
                 {section.items.map((item) => (
                   <button
                     key={item.id}
@@ -115,8 +115,8 @@ export default function SidebarMain({}: SidebarMainProps) {
                     className={cn(
                       "flex w-full items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-all",
                       active === item.id
-                        ? "bg-blue-100 text-blue-600"
-                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                        ? "bg-teal-400 text-emerald-900"
+                        : "text-gray-100 hover:bg-gray-100 hover:text-gray-900"
                     )}
                   >
                     {item.icon}
