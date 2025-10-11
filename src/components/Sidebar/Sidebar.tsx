@@ -6,15 +6,11 @@ import {
   ChevronRight,
   ClipboardList,
   Database,
-  FolderKanban,
-  Home,
   LogOut,
   MessageSquare,
   Settings,
   Shield,
   UserCog,
-  Users,
-  // ... other lucide icons
   Wrench,
 } from "lucide-react";
 import { useState } from "react";
@@ -29,7 +25,7 @@ interface SidebarMainProps {
 export default function SidebarMain({}: SidebarMainProps) {
   const [active, setActive] = useState("dashboard");
   console.log(active)
-  const [openGroups, setOpenGroups] = useState<string[]>(["management"]); // Keep Management open by default for demo
+  const [openGroups, setOpenGroups] = useState<string[]>(["sharphotel"]); // Keep Management open by default for demo
 
   const toggleGroup = (groupId: string) => {
     setOpenGroups((prev) =>
@@ -40,24 +36,15 @@ export default function SidebarMain({}: SidebarMainProps) {
   // === Sidebar structure with TanStack Router 'to' paths ===
   // Paths are derived from your file structure: /dashboard/_layout/employee/index.tsx -> /dashboard/employee
   const sidebarSections = [
+   
     {
-      id: "main",
-      title: "Main",
-      items: [
-        // Maps to /dashboard/_layout/index.tsx
-        { id: "dashboard", label: "Dashboard", icon: <Home size={18} />, to: "/dashboard" },
-        { id: "projects", label: "Projects", icon: <FolderKanban size={18} />, to: "/dashboard/projects" }, // Assuming a future route
-        { id: "users", label: "Users", icon: <Users size={18} />, to: "/dashboard/users" }, // Assuming a future route
-      ],
-    },
-    {
-      id: "management",
-      title: "Management",
+      id: "sharphotel",
+      title: "Sharp Hotel",
       items: [
         // --- ROUTES MAPPING TO YOUR DEFINED FILES ---
         
         // Maps to /dashboard/_layout/employee/index.tsx
-        { id: "employees", label: "Employees", icon: <UserCog size={18} />, to: "/dashboard/employee" },
+        { id: "employees", label: "Employees", icon: <UserCog size={18} />, to: "/dashboard/employee/" },
         
         // Maps to /dashboard/_layout/employee/employee-attendance.tsx
         { id: "attendance", label: "Attendance", icon: <ClipboardList size={18} />, to: "/dashboard/employee/employee-attendance" },
@@ -75,8 +62,8 @@ export default function SidebarMain({}: SidebarMainProps) {
       ],
     },
     {
-      id: "communication",
-      title: "Communication",
+      id: "sharpaccounting",
+      title: "Sharp Accounting",
       items: [
         { id: "messages", label: "Messages", icon: <MessageSquare size={18} />, to: "/dashboard/messages" },
         { id: "notifications", label: "Notifications", icon: <Bell size={18} />, to: "/dashboard/notifications" },
@@ -85,8 +72,17 @@ export default function SidebarMain({}: SidebarMainProps) {
       ],
     },
     {
-      id: "admin",
-      title: "Admin",
+      id: "sharpmarketing",
+      title: "Sharp Marketing",
+      items: [
+        { id: "settings", label: "Settings", icon: <Settings size={18} />, to: "/dashboard/settings" },
+        { id: "security", label: "Security", icon: <Shield size={18} />, to: "/dashboard/security" },
+        { id: "maintenance", label: "Maintenance", icon: <Wrench size={18} />, to: "/dashboard/maintenance" },
+      ],
+    },
+      {
+      id: "sharphr",
+      title: "Sharp HR",
       items: [
         { id: "settings", label: "Settings", icon: <Settings size={18} />, to: "/dashboard/settings" },
         { id: "security", label: "Security", icon: <Shield size={18} />, to: "/dashboard/security" },
