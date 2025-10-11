@@ -7,11 +7,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-interface HeaderProps {
-  onToggleSidebar: () => void;
-  isSidebarVisible: boolean;
-}
-
 export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 h-16 border-b bg-[#021826] shadow-sm z-50 flex items-center px-2">

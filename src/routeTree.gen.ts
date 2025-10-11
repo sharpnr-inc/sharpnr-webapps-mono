@@ -16,6 +16,10 @@ import { Route as SignupVerifyOtpRouteImport } from './routes/signup/verify-otp'
 import { Route as SignupCompleteRegistrationRouteImport } from './routes/signup/complete-registration'
 import { Route as DashboardLayoutRouteImport } from './routes/dashboard/_layout'
 import { Route as DashboardLayoutIndexRouteImport } from './routes/dashboard/_layout.index'
+import { Route as DashboardLayoutEmployeeIndexRouteImport } from './routes/dashboard/_layout/employee/index'
+import { Route as DashboardLayoutSharphrEmployeeRouteImport } from './routes/dashboard/_layout/sharphr/employee'
+import { Route as DashboardLayoutEmployeeProfileRouteImport } from './routes/dashboard/_layout/employee/profile'
+import { Route as DashboardLayoutEmployeeEmployeeAttendanceRouteImport } from './routes/dashboard/_layout/employee/employee-attendance'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -52,6 +56,30 @@ const DashboardLayoutIndexRoute = DashboardLayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardLayoutRoute,
 } as any)
+const DashboardLayoutEmployeeIndexRoute =
+  DashboardLayoutEmployeeIndexRouteImport.update({
+    id: '/employee/',
+    path: '/employee/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutSharphrEmployeeRoute =
+  DashboardLayoutSharphrEmployeeRouteImport.update({
+    id: '/sharphr/employee',
+    path: '/sharphr/employee',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutEmployeeProfileRoute =
+  DashboardLayoutEmployeeProfileRouteImport.update({
+    id: '/employee/profile',
+    path: '/employee/profile',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutEmployeeEmployeeAttendanceRoute =
+  DashboardLayoutEmployeeEmployeeAttendanceRouteImport.update({
+    id: '/employee/employee-attendance',
+    path: '/employee/employee-attendance',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -60,6 +88,10 @@ export interface FileRoutesByFullPath {
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/signup': typeof SignupIndexRoute
   '/dashboard/': typeof DashboardLayoutIndexRoute
+  '/dashboard/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
+  '/dashboard/employee': typeof DashboardLayoutEmployeeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -67,6 +99,10 @@ export interface FileRoutesByTo {
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/signup': typeof SignupIndexRoute
+  '/dashboard/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
+  '/dashboard/employee': typeof DashboardLayoutEmployeeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,6 +113,10 @@ export interface FileRoutesById {
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/signup/': typeof SignupIndexRoute
   '/dashboard/_layout/': typeof DashboardLayoutIndexRoute
+  '/dashboard/_layout/employee/employee-attendance': typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  '/dashboard/_layout/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
+  '/dashboard/_layout/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
+  '/dashboard/_layout/employee/': typeof DashboardLayoutEmployeeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,6 +127,10 @@ export interface FileRouteTypes {
     | '/signup/verify-otp'
     | '/signup'
     | '/dashboard/'
+    | '/dashboard/employee/employee-attendance'
+    | '/dashboard/employee/profile'
+    | '/dashboard/sharphr/employee'
+    | '/dashboard/employee'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -94,6 +138,10 @@ export interface FileRouteTypes {
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/signup'
+    | '/dashboard/employee/employee-attendance'
+    | '/dashboard/employee/profile'
+    | '/dashboard/sharphr/employee'
+    | '/dashboard/employee'
   id:
     | '__root__'
     | '/'
@@ -103,6 +151,10 @@ export interface FileRouteTypes {
     | '/signup/verify-otp'
     | '/signup/'
     | '/dashboard/_layout/'
+    | '/dashboard/_layout/employee/employee-attendance'
+    | '/dashboard/_layout/employee/profile'
+    | '/dashboard/_layout/sharphr/employee'
+    | '/dashboard/_layout/employee/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,15 +216,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutIndexRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/employee/': {
+      id: '/dashboard/_layout/employee/'
+      path: '/employee'
+      fullPath: '/dashboard/employee'
+      preLoaderRoute: typeof DashboardLayoutEmployeeIndexRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/sharphr/employee': {
+      id: '/dashboard/_layout/sharphr/employee'
+      path: '/sharphr/employee'
+      fullPath: '/dashboard/sharphr/employee'
+      preLoaderRoute: typeof DashboardLayoutSharphrEmployeeRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/employee/profile': {
+      id: '/dashboard/_layout/employee/profile'
+      path: '/employee/profile'
+      fullPath: '/dashboard/employee/profile'
+      preLoaderRoute: typeof DashboardLayoutEmployeeProfileRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/employee/employee-attendance': {
+      id: '/dashboard/_layout/employee/employee-attendance'
+      path: '/employee/employee-attendance'
+      fullPath: '/dashboard/employee/employee-attendance'
+      preLoaderRoute: typeof DashboardLayoutEmployeeEmployeeAttendanceRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
   }
 }
 
 interface DashboardLayoutRouteChildren {
   DashboardLayoutIndexRoute: typeof DashboardLayoutIndexRoute
+  DashboardLayoutEmployeeEmployeeAttendanceRoute: typeof DashboardLayoutEmployeeEmployeeAttendanceRoute
+  DashboardLayoutEmployeeProfileRoute: typeof DashboardLayoutEmployeeProfileRoute
+  DashboardLayoutSharphrEmployeeRoute: typeof DashboardLayoutSharphrEmployeeRoute
+  DashboardLayoutEmployeeIndexRoute: typeof DashboardLayoutEmployeeIndexRoute
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutIndexRoute: DashboardLayoutIndexRoute,
+  DashboardLayoutEmployeeEmployeeAttendanceRoute:
+    DashboardLayoutEmployeeEmployeeAttendanceRoute,
+  DashboardLayoutEmployeeProfileRoute: DashboardLayoutEmployeeProfileRoute,
+  DashboardLayoutSharphrEmployeeRoute: DashboardLayoutSharphrEmployeeRoute,
+  DashboardLayoutEmployeeIndexRoute: DashboardLayoutEmployeeIndexRoute,
 }
 
 const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
