@@ -1,9 +1,8 @@
+import MyLeavesPage from '@/ui_modules/Employee/EmployeeLeavePage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/dashboard/_layout/employee/leaves')({
-  component: RouteComponent,
+  component: MyLeavesPage,
 })
 
-function RouteComponent() {
-  return <div>Hello "/dashboard/_layout/employee/leaves"!</div>
-}
+
