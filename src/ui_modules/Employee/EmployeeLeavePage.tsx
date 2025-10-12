@@ -38,28 +38,29 @@ export default function MyLeavesPage() {
     }
   };
 
-  const getColorClass = (color:string) => {
-    const colors = {
-      blue: "bg-blue-500",
-      green: "bg-green-500",
-      purple: "bg-purple-500",
-      orange: "bg-orange-500",
-    };
-    return colors[color] || "bg-gray-500";
-  };
+  const colors = {
+  blue: "bg-blue-500",
+  green: "bg-green-500",
+  purple: "bg-purple-500",
+  orange: "bg-orange-500",
+} as const; // ensures keys are literal types
+
+const getColorClass = (color: keyof typeof colors) => {
+  return colors[color] || "bg-gray-500";
+};
 
   const filteredLeaves = selectedTab === "upcoming"
     ? myLeaves.filter(l => new Date(l.from) >= new Date() || l.status === "pending")
     : myLeaves.filter(l => new Date(l.to) < new Date() && l.status === "approved");
 
   return (
-    <div className="h-full bg-gray-50 p-6">
+    <div className="h-full p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Leaves</h1>
-            <p className="text-gray-600 mt-1">Manage your leave requests and view balance</p>
+            <h1 className="text-3xl font-bold ">My Leaves</h1>
+            <p className=" mt-1">Manage your leave requests and view balance</p>
           </div>
           <Button className="bg-blue-600 hover:bg-blue-700 text-white">
             <Plus className="w-4 h-4 mr-2" />
@@ -70,28 +71,28 @@ export default function MyLeavesPage() {
         {/* Leave Balance Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {leaveBalance.map((balance, index) => (
-            <Card key={index} className="p-6 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+            <Card key={index} className="p-4 border border-gray-200 hover:shadow-md transition-shadow">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-gray-700">{balance.type}</h3>
-                  <div className={`w-10 h-10 ${getColorClass(balance.color)} rounded-lg flex items-center justify-center`}>
+                  <h3 className="text-sm font-semibold ">{balance.type}</h3>
+                  <div className={`w-10 h-10 ${getColorClass(balance.color  as keyof typeof colors)} rounded-lg flex items-center justify-center`}>
                     <Calendar className="w-5 h-5 text-white" />
                   </div>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-gray-900">{balance.available}</p>
-                  <p className="text-xs text-gray-500 mt-1">Available days</p>
+                  <p className="text-3xl font-bold ">{balance.available}</p>
+                  <p className="text-xs  mt-1">Available days</p>
                 </div>
                 <div className="flex justify-between text-xs">
-                  <span className="text-gray-600">Total: <span className="font-semibold">{balance.total}</span></span>
-                  <span className="text-gray-600">Used: <span className="font-semibold">{balance.used}</span></span>
+                  <span className="">Total: <span className="font-semibold">{balance.total}</span></span>
+                  <span className="">Used: <span className="font-semibold">{balance.used}</span></span>
                   {balance.pending > 0 && (
                     <span className="text-yellow-600">Pending: <span className="font-semibold">{balance.pending}</span></span>
                   )}
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full rounded-full h-2">
                   <div 
-                    className={`${getColorClass(balance.color)} h-2 rounded-full transition-all`}
+                    className={`${getColorClass(balance.color  as keyof typeof colors)} h-2 rounded-full transition-all`}
                     style={{ width: `${(balance.used / balance.total) * 100}%` }}
                   ></div>
                 </div>
@@ -103,7 +104,7 @@ export default function MyLeavesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* My Leave Requests */}
           <div className="lg:col-span-2 space-y-4">
-            <Card className="p-4 bg-white border border-gray-200">
+            <Card className="p-4 border border-gray-200">
               <div className="flex gap-2 border-b border-gray-200 pb-4">
                 <Button
                   variant={selectedTab === "upcoming" ? "default" : "ghost"}
@@ -126,17 +127,17 @@ export default function MyLeavesPage() {
 
             <div className="space-y-3">
               {filteredLeaves.map((leave) => (
-                <Card key={leave.id} className="p-5 bg-white border border-gray-200 hover:shadow-md transition-shadow">
+                <Card key={leave.id} className="p-5 border border-gray-200 hover:shadow-md transition-shadow">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-3">
                         <Badge className={`${getStatusColor(leave.status)} border-0`}>
                           {leave.status.charAt(0).toUpperCase() + leave.status.slice(1)}
                         </Badge>
-                        <span className="text-sm font-semibold text-gray-900">{leave.type}</span>
+                        <span className="text-sm font-semibold">{leave.type}</span>
                       </div>
-                      <p className="text-gray-700 mb-3">{leave.reason}</p>
-                      <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                      <p className=" mb-3">{leave.reason}</p>
+                      <div className="flex flex-wrap gap-4 text-sm ">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
                           <span>{leave.from} to {leave.to}</span>
@@ -153,7 +154,7 @@ export default function MyLeavesPage() {
                     </div>
                     <div className="flex gap-2">
                       {leave.status === "pending" && (
-                        <Button size="sm" variant="outline" className="text-red-600 border-red-600 hover:bg-red-50">
+                        <Button size="sm" variant="destructive" className=" border-red-600 hover:bg-red-50">
                           Cancel
                         </Button>
                       )}

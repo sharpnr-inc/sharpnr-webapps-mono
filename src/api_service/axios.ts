@@ -3,7 +3,7 @@ import axios, { type AxiosInstance } from "axios";
 
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL, // 🔹 Replace with your API
-  validateStatus: () => true,
+  withCredentials: true, // ✅ ensures HttpOnly cookies are sent automatically
   headers: {
     "Content-Type": "application/json",
   },

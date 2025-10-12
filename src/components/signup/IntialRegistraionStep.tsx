@@ -15,7 +15,7 @@ import {
   type RegisterOrganizationRequestPayload,
 } from "@/schemas/Auth";
 import { useForm } from "@tanstack/react-form";
-import { Label } from "recharts";
+import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import {
   Select,
@@ -23,7 +23,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@radix-ui/react-select";
+} from '../ui/select';
 
 export default function RegisterOrganization(): React.JSX.Element {
   const registerOrg = useRegisterOrganization(); // our mutation hook
@@ -65,7 +65,7 @@ export default function RegisterOrganization(): React.JSX.Element {
             <form.Field name="name">
               {({ state, handleBlur, handleChange }) => (
                 <>
-                  <Label>Organisation Name</Label>
+                  <Label >Organisation Name</Label>
                   <Input
                     aria-invalid={
                       state.meta.errors.length > 0 && state.meta.isTouched
