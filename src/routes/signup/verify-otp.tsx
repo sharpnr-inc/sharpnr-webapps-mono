@@ -1,13 +1,10 @@
-
 import VerifyEmailWithOtpPage from '@/components/signup/VerifyEmailWithOtp';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { getValidToken } from '@/utilities/DecodeToken';
-import { createFileRoute, redirect,} from '@tanstack/react-router';
-
-import Cookies from 'js-cookie';
-
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
+import { createSignupStatusQuery } from '@/api_service/queries/SignupStatus';
+import { QueryClient } from '@tanstack/react-query';
 
 // Define and validate search params
 const verifyOtpSearchSchema = z.object({
@@ -16,33 +13,36 @@ const verifyOtpSearchSchema = z.object({
 });
 
 export const Route = createFileRoute('/signup/verify-otp')({
-  // Validate search params
   validateSearch: verifyOtpSearchSchema,
-  
-  // Run before component loads - validate token
-  beforeLoad: ({ search }) => {
-    const tokenFromCookie = getValidToken('_sharpnr_web_app_token_');
-    
-    // Check if token is missing or expired
-    if (!tokenFromCookie) {
-      Cookies.remove('_sharpnr_web_app_token_');
-      throw redirect({ to: '/signup' });
+
+  beforeLoad: async ({ search}) => {
+    // Run your signup status query
+  const queryClient = new QueryClient();
+    const data = await queryClient.fetchQuery(createSignupStatusQuery());
+     
+
+    switch (data?.data?.status) {
+      case 'none':
+        throw redirect({ to: '/signup' });
+      case 'authenticated':
+        throw redirect({ to: '/dashboard' });
+      case 'registered':
+        // User is allowed to see this page
+        break;
+      case 'otp_verified':
+        // Already verified → redirect to complete registration
+        throw redirect({ to: '/signup/complete-registration' });
+      default:
+        throw redirect({ to: '/signup' });
     }
-    
-    // Check if tokens match
-    if (search.VerificationKey !== tokenFromCookie) {
-      throw redirect({ to: '/signup' });
-    }
-    
-    // Return validated data to component
+
+    // Optional: pass search params to component
     return {
       email: search.email,
       token: search.VerificationKey,
-      expiresAt: Date.now() + 180000, // 3 minutes from now
     };
   },
-  
-  // Error boundary for this route
+
   errorComponent: ({ error }) => (
     <div className="flex items-center justify-center min-h-screen p-4">
       <Card className="w-full max-w-md">
@@ -60,7 +60,6 @@ export const Route = createFileRoute('/signup/verify-otp')({
       </Card>
     </div>
   ),
-  
+
   component: VerifyEmailWithOtpPage,
 });
-

@@ -8,7 +8,6 @@ import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useToastService } from "@/context/ToastContext";
 import { useLoader } from "@/context/LoaderContext";
 import { useModal } from "@/context/ModalContext";
-import Cookies from "js-cookie";
 
 export function useRegisterOrganization() {
   const toast = useToastService();
@@ -34,16 +33,6 @@ export function useRegisterOrganization() {
         modal.showModal("error", response.error.message);
       } else {
         toast.success(response.message || "Registration successful!");
-
-        // ✅ Save token in secure cookie
-        if (response.token != "") {
-          Cookies.set("_sharpnr_web_app_token_", response.token, {
-            expires: 1,          // 1 day expiration
-            secure: true,        // HTTPS only
-            sameSite: "Strict",  // CSRF protection
-          });
-        }
-
         modal.showModal("success", `OTP sent to ${response.data?.email}`);
       }
     },

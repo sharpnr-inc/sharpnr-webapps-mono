@@ -64,13 +64,13 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
   const getWidthClass = (size?: SheetSize) => {
     switch (size) {
       case "1/4":
-        return "w-1/4";
+        return "w-1/4 p-4";
       case "2/4":
-        return "w-2/4";
+        return "sm:w-2/4 w-3/4 p-4";
       case "3/4":
-        return "w-3/4";
+        return "w-3/4 p-4 ";
       default:
-        return "w-2/4";
+        return "w-2/4 p-4";
     }
   };
 
@@ -79,7 +79,14 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
       {children}
 
       <Sheet open={sheet.isOpen} onOpenChange={closeSheet} >
-        <SheetContent side="right" className={`w-full max-w-none ${getWidthClass(sheet.size)}`} >
+        <SheetContent side="right" className={`w-full max-w-none overflow-y-scroll ${getWidthClass(sheet.size)} 
+            [&::-webkit-scrollbar]:w-[6px]
+            [&::-webkit-scrollbar-track]:bg-transparent
+            [&::-webkit-scrollbar-thumb]:bg-slate-300
+            [&::-webkit-scrollbar-thumb]:rounded-full
+            hover:[&::-webkit-scrollbar-thumb]:bg-slate-400
+            scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300`}
+         >
           <SheetHeader>
             {sheet.title && <SheetTitle>{sheet.title}</SheetTitle>}
             {sheet.description && <SheetDescription>{sheet.description}</SheetDescription>}

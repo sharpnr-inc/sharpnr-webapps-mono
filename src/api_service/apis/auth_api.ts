@@ -46,3 +46,8 @@ export async function CompleteOrgRegistration(payload:CompleteOrgResgistrationPa
   const response = await api.post<ApiResponse<OrgEmployeeData>>(AUTH.COMPLETE_REGISTRATION, payload)
   return response.data
 }
+
+export async function SignupStatus(){
+  const response = await api.get(AUTH.SIGNUP_STATUS)
+  return response
+}

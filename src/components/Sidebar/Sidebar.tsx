@@ -144,7 +144,7 @@ export default function SidebarMain({}: SidebarMainProps) {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-[4rem] w-64 h-[calc(100vh-4rem)]",
+        "fixed left-0 top-[4rem] px-2 h-[calc(100vh-4rem)]",
         "border-r shadow-sm bg-[#021826] text-amber-100 flex flex-col",
         "overflow-y-auto z-40",
         "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400"
@@ -155,7 +155,7 @@ export default function SidebarMain({}: SidebarMainProps) {
         {/* === FIXED SECTION: Employee Sections (Not Collapsible) === */}
         {EMPLOYEE_SECTION && (
           <div className="mb-4 space-y-1">
-            <h3 className="px-4 py-2 text-xs font-semibold uppercase text-gray-400">
+            <h3 className="px-12 py-2 text-xs font-semibold uppercase text-nowrap text-gray-400">
               {EMPLOYEE_SECTION.title}
             </h3>
             <div className="space-y-1">
@@ -229,7 +229,7 @@ export default function SidebarMain({}: SidebarMainProps) {
       </nav>
 
       {/* Footer / Logout */}
-      <div className="border-t p-4">
+      <div className="border-t p-2">
         <button className="flex items-center gap-3 text-red-600 hover:text-red-700 font-medium w-full px-2 py-2 rounded-md transition-all hover:bg-red-50">
           <LogOut size={18} />
           Logout

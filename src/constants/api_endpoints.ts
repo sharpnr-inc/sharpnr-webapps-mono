@@ -3,7 +3,8 @@ export const AUTH = {
     REGISTER: "/register",
     OTP_VERIFY:"/otp-verify",
     COMPLETE_REGISTRATION:"/complete-register",
-    RESET_PASSWORD:"/password"
+    RESET_PASSWORD:"/password",
+    SIGNUP_STATUS:"/signup/status"
 }
 
 export const UTILITY = {

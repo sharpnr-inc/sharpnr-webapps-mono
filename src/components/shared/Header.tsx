@@ -8,7 +8,11 @@ import {
 } from "@/components/ui/tooltip";
 import { useSheet } from "@/context/DrawerContext";
 
-export default function Header() {
+interface HeaderProps {
+  onToggleSidebar: () => void;
+}
+
+export default function Header({ onToggleSidebar }: HeaderProps) {
   const { openSheet } = useSheet();
 
   const handleOpenSheet = () => {
@@ -22,7 +26,7 @@ export default function Header() {
       </div>,
       "Quick Actions Panel", // title
       "Access common tasks and user profile management.", // description
-      "1/4" // size ("1/4" | "2/4" | "3/4")
+      "2/4" // size ("1/4" | "2/4" | "3/4")
     );
   };
   return (
@@ -53,7 +57,7 @@ export default function Header() {
                   might be used to toggle a mobile sidebar or collapse the desktop one. 
                 */}
                 <Button
-                  // onClick={onToggleSidebar}
+                  onClick={onToggleSidebar}
                   size="icon"
                   variant="outline"
                   className="bg-transparent hover:bg-gray-800 border-gray-700 text-amber-100"

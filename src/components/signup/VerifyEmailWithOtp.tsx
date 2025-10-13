@@ -20,10 +20,9 @@ import { useVerifyOtpRegistration } from "@/api_service/mutations/verifyOtp";
 
 export default function VerifyEmailWithOtpPage() {
   const navigate = useNavigate();
-  const { email, token, expiresAt } = useRouteContext({
+  const { email, token } = useRouteContext({
     from: "/signup/verify-otp",
   });
-  console.log("Expires at:", new Date(expiresAt).toLocaleTimeString());
   const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes
   const verifyOtpMutation = useVerifyOtpRegistration();
 

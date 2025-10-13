@@ -24,9 +24,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { useNavigate } from "@tanstack/react-router";
 
 export default function RegisterOrganization(): React.JSX.Element {
   const registerOrg = useRegisterOrganization(); // our mutation hook
+    const navigate = useNavigate();
   const { data } = useQuery(createOrgTypeQuery());
   const orgTypes = data?.data.ORG_TYPE ?? [];
 
@@ -40,7 +42,16 @@ export default function RegisterOrganization(): React.JSX.Element {
       password: "",
     } as RegisterOrganizationRequestPayload,
     onSubmit: ({ value }) => {
-      registerOrg.mutate(value);
+      registerOrg.mutate(value, {
+        onSuccess:(response)=> {
+          if(!response.error.isError){
+            navigate({to:"/signup/verify-otp", search:{
+              email:response.data?.email || "",
+              VerificationKey:"nothing"
+            }})
+          }
+        }
+      });
     },
   });
 
