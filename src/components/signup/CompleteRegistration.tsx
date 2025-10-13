@@ -1,15 +1,36 @@
-import { createCountriesQuery, createStatesQuery, createCitiesQuery } from "@/api_service/queries/fetchstateandcities";
-import { CompleteOrgResgistrationSchema, type CompleteOrgResgistrationPayload } from "@/schemas/Auth";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import {
+  createCountriesQuery,
+  createStatesQuery,
+  createCitiesQuery,
+} from "@/api_service/queries/fetchstateandcities";
+import {
+  CompleteOrgResgistrationSchema,
+  type CompleteOrgResgistrationPayload,
+} from "@/schemas/Auth";
+import { Checkbox } from "../ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { useForm } from "@tanstack/react-form";
 import { useQuery } from "@tanstack/react-query";
-import { Building2, MapPin, Landmark, Plus, Trash2, User, Shield } from "lucide-react";
+import { Building2, MapPin, Plus, Trash2, User } from "lucide-react";
 import { useState } from "react";
-import { Label } from "recharts";
+import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { Input } from "../ui/input";
+import { Tooltip } from "../ui/tooltip";
+import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 
 export default function CompleteRegistration() {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -39,13 +60,10 @@ export default function CompleteRegistration() {
         state: "",
         pincode: "",
         address_line: "",
-        landmark: "",
+        area_locality:""
       },
-      bank_details: [],
+      is_owner: true,
       owner_details: [],
-      super_admin_details: {
-        name: "",
-      },
     } as CompleteOrgResgistrationPayload,
     onSubmit: async ({ value }) => {
       console.log("✅ Submitted Complete Registration Data:", value);
@@ -61,6 +79,66 @@ export default function CompleteRegistration() {
             Provide your organization details
           </p>
         </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Basic Details</CardTitle>
+            <CardDescription>
+              The Basic Details of the Organisation
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Label>Root Email/Org Super Admin Email</Label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  This is the email of the Organisation which will perform the
+                  Super Admin tasks.
+                </TooltipContent>
+              </Tooltip>
+              <Input value="Kashifsocl@gmail.com" disabled />
+            </div>
+
+            <div className="space-y-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Label>Organisation Business Operation Type</Label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Defines what type of business the organisation operates.
+                </TooltipContent>
+              </Tooltip>
+              <Input value="HOTEL" disabled />
+            </div>
+
+            <div className="space-y-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Label>Organisation Mobile</Label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Defines what type of business the organisation operates.
+                </TooltipContent>
+              </Tooltip>
+              <Input value="HOTEL" disabled />
+            </div>
+
+            <div className="space-y-2">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Label>Organisation Name</Label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Defines what type of business the organisation operates.
+                </TooltipContent>
+              </Tooltip>
+              <Input value="HOTEL" disabled />
+            </div>
+          </CardContent>
+        </Card>
 
         <form
           onSubmit={(e) => {
@@ -78,7 +156,7 @@ export default function CompleteRegistration() {
                 Registration Details
               </CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <CardContent className="grid grid-cols-1 md:grid-cols-1 gap-6">
               <form.Field name="registration_details.is_register">
                 {({ state, handleChange }) => (
                   <div className="flex items-center gap-2 border rounded-lg p-3">
@@ -86,39 +164,53 @@ export default function CompleteRegistration() {
                       checked={state.value}
                       onCheckedChange={(val) => handleChange(!!val)}
                     />
-                    <Label>Already Registered?</Label>
+                    <Label>
+                      Is Your Organization is registered with govt of India ?
+                    </Label>
                   </div>
                 )}
               </form.Field>
+              <form.Subscribe
+                selector={(state) =>
+                  state.values.registration_details?.is_register
+                }
+              >
+                {(isRegistered) => (
+                  <>
+                    {isRegistered && (
+                      <>
+                        <form.Field name="registration_details.gst_number">
+                          {({ state, handleBlur, handleChange }) => (
+                            <div>
+                              <Label>GST Number</Label>
+                              <Input
+                                value={state.value}
+                                onBlur={handleBlur}
+                                onChange={(e) => handleChange(e.target.value)}
+                              />
+                            </div>
+                          )}
+                        </form.Field>
 
-              <form.Field name="registration_details.gst_number">
-                {({ state, handleBlur, handleChange }) => (
-                  <div>
-                    <Label>GST Number</Label>
-                    <Input
-                      value={state.value}
-                      onBlur={handleBlur}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                  </div>
+                        <form.Field name="registration_details.cin_number">
+                          {({ state, handleChange }) => (
+                            <div>
+                              <Label>CIN Number</Label>
+                              <Input
+                                value={state.value}
+                                onChange={(e) => handleChange(e.target.value)}
+                              />
+                            </div>
+                          )}
+                        </form.Field>
+                      </>
+                    )}
+                  </>
                 )}
-              </form.Field>
-
-              <form.Field name="registration_details.cin_number">
-                {({ state, handleChange }) => (
-                  <div>
-                    <Label>CIN Number</Label>
-                    <Input
-                      value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                  </div>
-                )}
-              </form.Field>
+              </form.Subscribe>
             </CardContent>
           </Card>
 
-          {/* Address Details */}
           {/* Address Details */}
           <Card>
             <CardHeader>
@@ -128,10 +220,21 @@ export default function CompleteRegistration() {
               </CardTitle>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <form.Field name="address_details.address_line">
+              <form.Field name="address_details.area_locality">
                 {({ state, handleChange }) => (
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 space-y-2">
                     <Label>Address Line</Label>
+                    <Input
+                      value={state.value}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                  </div>
+                )}
+              </form.Field>
+                    <form.Field name="address_details.address_line">
+                {({ state, handleChange }) => (
+                  <div className="md:col-span-2 space-y-2">
+                    <Label>Area/locality</Label>
                     <Input
                       value={state.value}
                       onChange={(e) => handleChange(e.target.value)}
@@ -143,7 +246,7 @@ export default function CompleteRegistration() {
               {/* Country */}
               <form.Field name="address_details.country">
                 {({ state, handleChange }) => (
-                  <div>
+                  <div className="space-y-2">
                     <Label>Country</Label>
                     <Select
                       value={state.value}
@@ -184,7 +287,7 @@ export default function CompleteRegistration() {
               {/* State */}
               <form.Field name="address_details.state">
                 {({ state, handleChange }) => (
-                  <div>
+                  <div className="space-y-2">
                     <Label>State</Label>
                     <Select
                       value={state.value}
@@ -224,7 +327,7 @@ export default function CompleteRegistration() {
               {/* City */}
               <form.Field name="address_details.city">
                 {({ state, handleChange }) => (
-                  <div>
+                  <div className="space-y-2">
                     <Label>City</Label>
                     <Select
                       value={state.value}
@@ -259,7 +362,7 @@ export default function CompleteRegistration() {
 
               <form.Field name="address_details.pincode">
                 {({ state, handleChange }) => (
-                  <div>
+                  <div className="space-y-2"> 
                     <Label>Pincode</Label>
                     <Input
                       value={state.value}
@@ -271,243 +374,120 @@ export default function CompleteRegistration() {
             </CardContent>
           </Card>
 
-          {/* Bank Details */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between w-full">
-                <CardTitle className="flex items-center gap-2">
-                  <Landmark className="w-5 h-5 text-purple-600" />
-                  Bank Details
-                </CardTitle>
-                <Button
-                  type="button"
-                  onClick={() =>
-                    form.pushFieldValue("bank_details", {
-                      bank_name: "",
-                      account_number: "",
-                      ifsc_code: "",
-                      branch_name: "",
-                      is_primary: false,
-                      is_secondary: false,
-                    })
-                  }
-                  variant="outline"
-                >
-                  <Plus className="w-4 h-4 mr-1" /> Add Bank
-                </Button>
+          {/* Owner Checkbox */}
+          <form.Field name="is_owner">
+            {({ state, handleChange }) => (
+              <div className="flex items-center gap-2 border rounded-lg p-3">
+                <Checkbox
+                  checked={state.value}
+                  onCheckedChange={(val) => handleChange(!!val)}
+                />
+                <Label>Are you the owner of this organisation?</Label>
               </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <form.Field name="bank_details" mode="array">
-                {({ state }) =>
-                  state.value.map((_, index) => (
-                    <div
-                      key={index}
-                      className="border rounded-xl p-4 grid grid-cols-1 md:grid-cols-2 gap-4 relative"
-                    >
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute top-2 right-2"
-                        onClick={() =>
-                          form.removeFieldValue("bank_details", index)
-                        }
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+            )}
+          </form.Field>
 
-                      <form.Field name={`bank_details[${index}].bank_name`}>
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>Bank Name</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </form.Field>
-
-                      <form.Field
-                        name={`bank_details[${index}].account_number`}
-                      >
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>Account Number</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </form.Field>
-
-                      <form.Field name={`bank_details[${index}].ifsc_code`}>
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>IFSC Code</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </form.Field>
-
-                      <form.Field name={`bank_details[${index}].branch_name`}>
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>Branch Name</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </form.Field>
-
-                      <div className="flex items-center gap-4 md:col-span-2">
-                        <form.Field name={`bank_details[${index}].is_primary`}>
-                          {({ state, handleChange }) => (
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                checked={state.value}
-                                onCheckedChange={(val) => handleChange(!!val)}
-                              />
-                              <Label>Primary Account</Label>
-                            </div>
-                          )}
-                        </form.Field>
-
-                        <form.Field
-                          name={`bank_details[${index}].is_secondary`}
+          {/* Owner Details Card - Only show if NOT the owner */}
+          <form.Subscribe selector={(state) => state.values.is_owner}>
+            {(isOwner) => (
+              <>
+                {!isOwner && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-center justify-between w-full">
+                        <CardTitle className="flex items-center gap-2">
+                          <User className="w-5 h-5 text-orange-600" />
+                          Owner Details
+                        </CardTitle>
+                        <Button
+                          type="button"
+                          onClick={() =>
+                            form.pushFieldValue("owner_details", {
+                              owner_name: "",
+                              owner_email: "",
+                              owner_phone: "",
+                            })
+                          }
+                          variant="outline"
                         >
-                          {({ state, handleChange }) => (
-                            <div className="flex items-center gap-2">
-                              <Checkbox
-                                checked={state.value}
-                                onCheckedChange={(val) => handleChange(!!val)}
-                              />
-                              <Label>Secondary Account</Label>
-                            </div>
-                          )}
-                        </form.Field>
+                          <Plus className="w-4 h-4 mr-1" /> Add Owner
+                        </Button>
                       </div>
-                    </div>
-                  ))
-                }
-              </form.Field>
-            </CardContent>
-          </Card>
-
-          {/* Owner Details */}
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between w-full">
-                <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5 text-orange-600" />
-                  Owner Details
-                </CardTitle>
-                <Button
-                  type="button"
-                  onClick={() =>
-                    form.pushFieldValue("owner_details", {
-                      owner_name: "",
-                      owner_email: "",
-                      owner_phone: "",
-                    })
-                  }
-                  variant="outline"
-                >
-                  <Plus className="w-4 h-4 mr-1" /> Add Owner
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <form.Field name="owner_details" mode="array">
-                {({ state }) =>
-                  state.value.map((_, index) => (
-                    <div
-                      key={index}
-                      className="border rounded-xl p-4 grid grid-cols-1 md:grid-cols-3 gap-4 relative"
-                    >
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute top-2 right-2"
-                        onClick={() =>
-                          form.removeFieldValue("owner_details", index)
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <form.Field name="owner_details" mode="array">
+                        {({ state }) =>
+                          state.value.map((_, index) => (
+                            <div
+                              key={index}
+                              className="border rounded-xl p-4 grid grid-cols-1 md:grid-cols-3 gap-4 relative"
+                            >
+                              <Button
+                                type="button"
+                                variant="destructive"
+                                size="icon"
+                                className="absolute top-2 right-2"
+                                onClick={() =>
+                                  form.removeFieldValue("owner_details", index)
+                                }
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                              <form.Field
+                                name={`owner_details[${index}].owner_name`}
+                              >
+                                {({ state, handleChange }) => (
+                                  <div>
+                                    <Label>Owner Name</Label>
+                                    <Input
+                                      value={state.value}
+                                      onChange={(e) =>
+                                        handleChange(e.target.value)
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </form.Field>
+                              <form.Field
+                                name={`owner_details[${index}].owner_email`}
+                              >
+                                {({ state, handleChange }) => (
+                                  <div>
+                                    <Label>Owner Email</Label>
+                                    <Input
+                                      value={state.value}
+                                      onChange={(e) =>
+                                        handleChange(e.target.value)
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </form.Field>
+                              <form.Field
+                                name={`owner_details[${index}].owner_phone`}
+                              >
+                                {({ state, handleChange }) => (
+                                  <div>
+                                    <Label>Owner Phone</Label>
+                                    <Input
+                                      value={state.value}
+                                      onChange={(e) =>
+                                        handleChange(e.target.value)
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </form.Field>
+                            </div>
+                          ))
                         }
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-
-                      <form.Field name={`owner_details[${index}].owner_name`}>
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>Owner Name</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
                       </form.Field>
-
-                      <form.Field name={`owner_details[${index}].owner_email`}>
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>Owner Email</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </form.Field>
-
-                      <form.Field name={`owner_details[${index}].owner_phone`}>
-                        {({ state, handleChange }) => (
-                          <div>
-                            <Label>Owner Phone</Label>
-                            <Input
-                              value={state.value}
-                              onChange={(e) => handleChange(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </form.Field>
-                    </div>
-                  ))
-                }
-              </form.Field>
-            </CardContent>
-          </Card>
-
-          {/* Super Admin */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-red-600" />
-                Super Admin
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form.Field name="super_admin_details.name">
-                {({ state, handleChange }) => (
-                  <div>
-                    <Label>Full Name</Label>
-                    <Input
-                      value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                  </div>
+                    </CardContent>
+                  </Card>
                 )}
-              </form.Field>
-            </CardContent>
-          </Card>
+              </>
+            )}
+          </form.Subscribe>
 
           <div className="flex justify-end">
             <Button type="submit" className="bg-blue-600 text-white">

@@ -58,11 +58,11 @@ export default function SharpHotelsBookingsSection() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-  };
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault();
+  //   setSubmitted(true);
+  //   setTimeout(() => setSubmitted(false), 5000);
+  // };
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

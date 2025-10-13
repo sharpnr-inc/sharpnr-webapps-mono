@@ -45,6 +45,7 @@ const AddressDetailsSchema = z.object({
   state: z.string().min(1, "State is required"),
   pincode: z.string().min(1, "Pincode is required"),
   address_line: z.string().optional(),
+  area_locality:z.string().optional()
 });
 
 // BankDetails schema
@@ -64,18 +65,13 @@ const OrgOwnerDetailsSchema = z.object({
   owner_phone: z.string().optional(),
 });
 
-// SuperAdminDetails schema
-const SuperAdminDetailsSchema = z.object({
-  name: z.string().min(1, "Super admin name is required"),
-});
 
 // Main DTO schema
 export const CompleteOrgResgistrationSchema = z.object({
   registration_details: RegistrationDetailsSchema,
   address_details: AddressDetailsSchema,
-  bank_details: z.array(BankDetailsSchema),
+  is_owner:z.boolean(),
   owner_details: z.array(OrgOwnerDetailsSchema),
-  super_admin_details: SuperAdminDetailsSchema,
 });
 
 // ✅ Optional: export inferred TypeScript type

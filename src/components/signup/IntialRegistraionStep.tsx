@@ -23,12 +23,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
+} from "../ui/select";
 import { useNavigate } from "@tanstack/react-router";
+import { Checkbox } from "../ui/checkbox";
 
 export default function RegisterOrganization(): React.JSX.Element {
   const registerOrg = useRegisterOrganization(); // our mutation hook
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { data } = useQuery(createOrgTypeQuery());
   const orgTypes = data?.data.ORG_TYPE ?? [];
 
@@ -43,14 +44,17 @@ export default function RegisterOrganization(): React.JSX.Element {
     } as RegisterOrganizationRequestPayload,
     onSubmit: ({ value }) => {
       registerOrg.mutate(value, {
-        onSuccess:(response)=> {
-          if(!response.error.isError){
-            navigate({to:"/signup/verify-otp", search:{
-              email:response.data?.email || "",
-              VerificationKey:"nothing"
-            }})
+        onSuccess: (response) => {
+          if (!response.error.isError) {
+            navigate({
+              to: "/signup/verify-otp",
+              search: {
+                email: response.data?.email || "",
+                VerificationKey: "nothing",
+              },
+            });
           }
-        }
+        },
       });
     },
   });
@@ -76,7 +80,7 @@ export default function RegisterOrganization(): React.JSX.Element {
             <form.Field name="name">
               {({ state, handleBlur, handleChange }) => (
                 <>
-                  <Label >Organisation Name</Label>
+                  <Label>Organisation Name</Label>
                   <Input
                     aria-invalid={
                       state.meta.errors.length > 0 && state.meta.isTouched
@@ -133,113 +137,156 @@ export default function RegisterOrganization(): React.JSX.Element {
                 </>
               )}
             </form.Field>
+            <form.Subscribe selector={(state) => state.values.org_type}>
+              {(orgType) =>
+                orgType === "HOSPITALITY" && (
+                  <Card className="mt-2">
+                    <CardHeader>
+                      <CardTitle>Select Operations</CardTitle>
+                      <CardDescription>
+                        Select the appropriate option(s)
+                      </CardDescription>
+                    </CardHeader>
 
-            <form.Field name="email">
-              {({ state, handleBlur, handleChange }) => (
-                <>
-                  <Label>Organisation Email</Label>
-                  <Input
-                    aria-invalid={
-                      state.meta.errors.length > 0 && state.meta.isTouched
-                    }
-                    value={state.value}
-                    onBlur={handleBlur}
-                    onChange={(e) => handleChange(e.target.value)}
-                  />
-                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
-                    <p
-                      className={
-                        state.meta.errors.length > 0 && state.meta.isTouched
-                          ? "text-destructive"
-                          : ""
-                      }
-                    >
-                      {state.meta.errors[0]?.message}
-                    </p>
-                  ) : null}
-                </>
-              )}
-            </form.Field>
+                    <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="flex items-center gap-2 border rounded-lg p-3">
+                        <Checkbox id="hotel" />
+                        <Label htmlFor="hotel">Hotel</Label>
+                      </div>
 
-            <form.Field name="mobile">
-              {({ state, handleBlur, handleChange }) => (
-                <>
-                  <Label>Organisation Phone</Label>
-                  <Input
-                    aria-invalid={
-                      state.meta.errors.length > 0 && state.meta.isTouched
-                    }
-                    value={state.value}
-                    onBlur={handleBlur}
-                    onChange={(e) => handleChange(e.target.value)}
-                  />
-                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
-                    <p
-                      className={
-                        state.meta.errors.length > 0 && state.meta.isTouched
-                          ? "text-destructive"
-                          : ""
-                      }
-                    >
-                      {state.meta.errors[0]?.message}
-                    </p>
-                  ) : null}
-                </>
-              )}
-            </form.Field>
+                      <div className="flex items-center gap-2 border rounded-lg p-3">
+                        <Checkbox id="restaurant" />
+                        <Label htmlFor="restaurant">Restaurant</Label>
+                      </div>
 
-            <form.Field name="password">
-              {({ state, handleBlur, handleChange }) => (
-                <>
-                  <Label>Choose Password</Label>
-                  <Input
-                    aria-invalid={
-                      state.meta.errors.length > 0 && state.meta.isTouched
-                    }
-                    value={state.value}
-                    onBlur={handleBlur}
-                    onChange={(e) => handleChange(e.target.value)}
-                  />
-                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
-                    <p
-                      className={
+                      <div className="flex items-center gap-2 border rounded-lg p-3">
+                        <Checkbox id="bar" />
+                        <Label htmlFor="bar">Bar</Label>
+                      </div>
+
+                      <div className="flex items-center gap-2 border rounded-lg p-3">
+                        <Checkbox id="pub" />
+                        <Label htmlFor="pub">Pub / Club</Label>
+                      </div>
+
+                      <div className="flex items-center gap-2 border rounded-lg p-3 w-fit">
+                        <Checkbox id="kitchen" />
+                        <Label htmlFor="kitchen" className=" text-nowrap ">Cloud Kitchen/Takeways</Label>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              }
+            </form.Subscribe>
+            <div className="grid grid-cols-2 gap-4">
+              <form.Field name="email">
+                {({ state, handleBlur, handleChange }) => (
+                  <div className="space-y-2">
+                    <Label>Organisation Email</Label>
+                    <Input
+                      aria-invalid={
                         state.meta.errors.length > 0 && state.meta.isTouched
-                          ? "text-destructive"
-                          : ""
                       }
-                    >
-                      {state.meta.errors[0]?.message}
-                    </p>
-                  ) : null}
-                </>
-              )}
-            </form.Field>
-            <form.Field name="conformPassword">
-              {({ state, handleBlur, handleChange }) => (
-                <>
-                  <Label>Confirm Password</Label>
-                  <Input
-                    aria-invalid={
-                      state.meta.errors.length > 0 && state.meta.isTouched
-                    }
-                    value={state.value}
-                    onBlur={handleBlur}
-                    onChange={(e) => handleChange(e.target.value)}
-                  />
-                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
-                    <p
-                      className={
+                      value={state.value}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                    {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                      <p
+                        className={
+                          state.meta.errors.length > 0 && state.meta.isTouched
+                            ? "text-destructive"
+                            : ""
+                        }
+                      >
+                        {state.meta.errors[0]?.message}
+                      </p>
+                    ) : null}
+                  </div>
+                )}
+              </form.Field>
+
+              <form.Field name="mobile">
+                {({ state, handleBlur, handleChange }) => (
+                  <div className="space-y-2">
+                    <Label>Organisation Phone</Label>
+                    <Input
+                      aria-invalid={
                         state.meta.errors.length > 0 && state.meta.isTouched
-                          ? "text-destructive"
-                          : ""
                       }
-                    >
-                      {state.meta.errors[0]?.message}
-                    </p>
-                  ) : null}
-                </>
-              )}
-            </form.Field>
+                      value={state.value}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                    {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                      <p
+                        className={
+                          state.meta.errors.length > 0 && state.meta.isTouched
+                            ? "text-destructive"
+                            : ""
+                        }
+                      >
+                        {state.meta.errors[0]?.message}
+                      </p>
+                    ) : null}
+                  </div>
+                )}
+              </form.Field>
+
+              <form.Field name="password">
+                {({ state, handleBlur, handleChange }) => (
+                  <div className="space-y-2">
+                    <Label>Choose Password</Label>
+                    <Input
+                      aria-invalid={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                      }
+                      value={state.value}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                    {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                      <p
+                        className={
+                          state.meta.errors.length > 0 && state.meta.isTouched
+                            ? "text-destructive"
+                            : ""
+                        }
+                      >
+                        {state.meta.errors[0]?.message}
+                      </p>
+                    ) : null}
+                  </div>
+                )}
+              </form.Field>
+              <form.Field name="conformPassword">
+                {({ state, handleBlur, handleChange }) => (
+                  <div className="space-y-2">
+                    <Label>Confirm Password</Label>
+                    <Input
+                      aria-invalid={
+                        state.meta.errors.length > 0 && state.meta.isTouched
+                      }
+                      value={state.value}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                    {state.meta.errors.length > 0 && state.meta.isTouched ? (
+                      <p
+                        className={
+                          state.meta.errors.length > 0 && state.meta.isTouched
+                            ? "text-destructive"
+                            : ""
+                        }
+                      >
+                        {state.meta.errors[0]?.message}
+                      </p>
+                    ) : null}
+                  </div>
+                )}
+              </form.Field>
+            </div>
+
             <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
               children={([canSubmit, isSubmitting]) => (

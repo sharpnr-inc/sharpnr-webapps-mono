@@ -12,6 +12,7 @@ import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen.ts";
 import { SheetProvider } from "./context/DrawerContext.tsx";
+import { FormModalProvider } from "./context/FormsModalContext.tsx";
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -27,13 +28,15 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
         <LoaderProvider>
-          <ModalProvider>
-            <SheetProvider>
-              <Suspense fallback={<SuspenseFallback />}>
-                <RouterProvider router={router} />
-              </Suspense>
-            </SheetProvider>
-          </ModalProvider>
+          <FormModalProvider>
+            <ModalProvider>
+              <SheetProvider>
+                <Suspense fallback={<SuspenseFallback />}>
+                  <RouterProvider router={router} />
+                </Suspense>
+              </SheetProvider>
+            </ModalProvider>
+          </FormModalProvider>
         </LoaderProvider>
       </ToastProvider>
 
