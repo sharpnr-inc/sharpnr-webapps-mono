@@ -34,22 +34,8 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
     //    Added text-white for better contrast against the dark background.
     <header className="fixed top-0 left-0 right-0 h-16 border-b bg-[#021826] shadow-xl z-50 text-amber-100">
       <TooltipProvider>
-        {/* 2. Main container: Full height, flex, space-between, and center items vertically */}
         <div className="flex justify-between items-center h-full px-4">
-          {/* LEFT SECTION: Branding and Menu Button */}
           <div className="flex items-center space-x-4 h-full">
-            {/* Branding/Title */}
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <h1 className="font-bold text-xl cursor-default text-teal-400 tracking-wider">
-                  Dearie Bar & Clubs
-                </h1>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Dashboard Home</p>
-              </TooltipContent>
-            </Tooltip>
-
             {/* Sidebar Toggle Button (Only visible on small screens or used for collapse) */}
             <Tooltip>
               <TooltipTrigger asChild>
@@ -69,9 +55,19 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
                 <p>Toggle Sidebar</p>
               </TooltipContent>
             </Tooltip>
+            {/* Branding/Title */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <h1 className="font-bold text-xl cursor-default text-teal-400 tracking-wider">
+                  Dearie Bar & Clubs
+                </h1>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Dashboard Home</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
 
-          {/* RIGHT SECTION: Action Buttons / User */}
           <div className="flex items-center space-x-4">
             <Tooltip>
               <TooltipTrigger asChild>
