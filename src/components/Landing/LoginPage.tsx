@@ -19,8 +19,13 @@ export default function LoginPage(): React.JSX.Element {
       password: "",
     } as LoginPayload,
     onSubmit: ({ value }) => {
-      loginUser.mutate(value);
+      loginUser.mutate(value,{
+        onSuccess:()=>{
+          navigate({to:"/dashboard"})
+        }
+      });
       form.reset();
+      
     },
   });
 

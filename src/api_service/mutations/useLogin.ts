@@ -39,9 +39,6 @@ export function useLoginUser() {
         );
 
         if (response.data) {
-          // Store authentication data
-          localStorage.setItem("_sharpnr_auth_token_", response.Token);
-
           // Optionally store user/org info
           localStorage.setItem(
             "_sharpnr_user_data_",

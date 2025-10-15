@@ -8,9 +8,11 @@ import { usePolicySSE } from "@/hooks/usePolicy";
 
 export const Route = createFileRoute("/dashboard/_layout")({
   beforeLoad: () => {
-    const empId = localStorage.getItem("empid");
-    return { empId };
-  },
+  const storedData = localStorage.getItem("_sharpnr_user_data_");
+  const userData = storedData ? JSON.parse(storedData) : null;
+
+  return { empId: userData?.EmployeeID };
+},
 
   component: RouteComponent,
 });
