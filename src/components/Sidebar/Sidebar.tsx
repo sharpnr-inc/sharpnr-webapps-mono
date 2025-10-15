@@ -78,7 +78,7 @@ const ALL_SIDEBAR_SECTIONS = [
     },
     {
       id: "sharphotel",
-      title: "Sharp Hotel",
+      title: "Sharp Hospitality",
       items: [
         { id: "hotel_settings", label: "Settings", icon: <Settings size={18} />, to: "/dashboard/sharphotel/settings" },
         { id: "hotel_bar", label: "Bar", icon: <ClipboardList size={18} />, to: "/dashboard/sharphotel/bar" },
