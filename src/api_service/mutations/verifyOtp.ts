@@ -5,12 +5,14 @@ import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useMutation } from "@tanstack/react-query";
 import { VerifyOtp, type OtpVerificactionResponseDTO } from "../apis/auth_api";
 import type { VerifyOTPRequestPayload } from "@/schemas/Auth";
+import { useNavigate } from "@tanstack/react-router";
 
 export function useVerifyOtpRegistration() {
   const toast = useToastService();
   const loader = useLoader();
   const modal = useModal();
-  
+  const navigate = useNavigate(); // ✅ TanStack Router navigation
+
   return useMutation<
     ApiResponse<OtpVerificactionResponseDTO>,
     unknown,
@@ -22,7 +24,7 @@ export function useVerifyOtpRegistration() {
     },
     onSuccess: (response) => {
       loader.hideLoader();
-      
+
       if (response.error.isError) {
         // Handle API error response
         toast.error(response.error.message);
@@ -35,32 +37,17 @@ export function useVerifyOtpRegistration() {
           `Welcome ${response.data?.name}! Your email has been verified. You can now login to your account.`,
           "Verification Successful"
         );
-        
-        // Store authentication data
-        if (response.data) {
-          // Store the authentication token
-          localStorage.setItem("_sharpnr_auth_token_", response.token);
-          
-          // Optionally store user data for quick access
-          localStorage.setItem("_sharpnr_user_data_", JSON.stringify({
-            name: response.data.name,
-            email: response.data.email,
-            sharpnr_id: response.data.sharpnr_id,
-            org_type: response.data.org_type
-          }));
-        }
-        
-        // Clear the temporary verification token
-        localStorage.removeItem("_sharpnr_web_app_token_");
+        navigate({ to: "/signup/complete-registration" });
       }
     },
     onError: (error: any) => {
       loader.hideLoader();
-      const errorMessage = error?.message || "Something went wrong. Please try again.";
+      const errorMessage =
+        error?.message || "Something went wrong. Please try again.";
       toast.error(errorMessage);
       modal.showModal(
-        "error", 
-        "Network error occurred. Please check your connection and try again.", 
+        "error",
+        "Network error occurred. Please check your connection and try again.",
         "Verification Error"
       );
       console.error("OTP Verification error:", error);

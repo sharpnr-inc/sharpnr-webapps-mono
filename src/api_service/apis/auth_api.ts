@@ -38,12 +38,19 @@ export async function Login(data:LoginPayload):Promise<ApiResponse<OrgEmployeeDa
   return response.data
 }
 
-export interface CompleteRegistrationResponseDTO {
-  dta :string
+
+export interface OrgCompleteRegistrationResponseDTO {
+  OrgID: string;
+  OrgName: string;
+  employee_Id: string;
+  EmployeeName: string;
+  EmployeeRole: string;
+  AuthToken?: string; // optional if you're also returning the JWT
 }
 
-export async function CompleteOrgRegistration(payload:CompleteOrgResgistrationPayload):Promise<ApiResponse<OrgEmployeeData>> {
-  const response = await api.post<ApiResponse<OrgEmployeeData>>(AUTH.COMPLETE_REGISTRATION, payload)
+
+export async function CompleteOrgRegistration(payload:CompleteOrgResgistrationPayload):Promise<ApiResponse<OrgCompleteRegistrationResponseDTO>> {
+  const response = await api.post<ApiResponse<OrgCompleteRegistrationResponseDTO>>(AUTH.COMPLETE_REGISTRATION, payload)
   return response.data
 }
 

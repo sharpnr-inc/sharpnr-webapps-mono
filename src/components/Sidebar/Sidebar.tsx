@@ -86,7 +86,8 @@ const ALL_SIDEBAR_SECTIONS = [
         { id: "hotel_guests", label: "Guests", icon: <Database size={18} />, to: "/dashboard/sharphotel/guests" },
         { id: "hotel_restaurant", label: "Restaurant", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/restaurent" },
         { id: "hotel_menu", label: "Menu", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/menu" },
-        { id: "hotel_inventory", label: "Inventory", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/inventory" },
+        { id: "hotel_kitchen", label: "Inventory", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/inventory" },
+        { id: "hotel_housekeeping", label: "House Keeping", icon: <BarChart3 size={18} />, to: "/dashboard/sharphotel/inventory" },
       ],
     },
     {

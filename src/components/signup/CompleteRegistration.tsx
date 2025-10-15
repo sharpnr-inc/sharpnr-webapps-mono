@@ -31,8 +31,10 @@ import {
 import { Input } from "../ui/input";
 import { Tooltip } from "../ui/tooltip";
 import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
+import { useCompleteOrganisation } from "@/api_service/mutations/completeResgistration";
 
 export default function CompleteRegistration() {
+  const compeleteOrgReg = useCompleteOrganisation();
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
 
@@ -47,7 +49,7 @@ export default function CompleteRegistration() {
   );
 
   const form = useForm({
-    validators: { onBlur: CompleteOrgResgistrationSchema },
+    validators: { onChange: CompleteOrgResgistrationSchema },
     defaultValues: {
       registration_details: {
         is_register: false,
@@ -63,10 +65,10 @@ export default function CompleteRegistration() {
         area_locality:""
       },
       is_owner: true,
-      owner_details: [],
     } as CompleteOrgResgistrationPayload,
     onSubmit: async ({ value }) => {
-      console.log("✅ Submitted Complete Registration Data:", value);
+      console.log(value)
+      compeleteOrgReg.mutate(value)
     },
   });
 
@@ -156,6 +158,7 @@ export default function CompleteRegistration() {
                 Registration Details
               </CardTitle>
             </CardHeader>
+
             <CardContent className="grid grid-cols-1 md:grid-cols-1 gap-6">
               <form.Field name="registration_details.is_register">
                 {({ state, handleChange }) => (
@@ -314,7 +317,7 @@ export default function CompleteRegistration() {
                               .includes(stateFilter.toLowerCase())
                           )
                           .map((s: any) => (
-                            <SelectItem key={s.code} value={s.iso2}>
+                            <SelectItem key={s.id} value={s.iso2}>
                               {s.name}
                             </SelectItem>
                           ))}
@@ -350,7 +353,7 @@ export default function CompleteRegistration() {
                               .includes(cityFilter.toLowerCase())
                           )
                           .map((c: any) => (
-                            <SelectItem key={c.code} value={c.name}>
+                            <SelectItem key={c.id} value={c.name}>
                               {c.name}
                             </SelectItem>
                           ))}
@@ -388,7 +391,7 @@ export default function CompleteRegistration() {
           </form.Field>
 
           {/* Owner Details Card - Only show if NOT the owner */}
-          <form.Subscribe selector={(state) => state.values.is_owner}>
+          {/* <form.Subscribe selector={(state) => state.values.is_owner}>
             {(isOwner) => (
               <>
                 {!isOwner && (
@@ -487,7 +490,7 @@ export default function CompleteRegistration() {
                 )}
               </>
             )}
-          </form.Subscribe>
+          </form.Subscribe> */}
 
           <div className="flex justify-end">
             <Button type="submit" className="bg-blue-600 text-white">
@@ -495,6 +498,7 @@ export default function CompleteRegistration() {
             </Button>
           </div>
         </form>
+
       </div>
     </div>
   );

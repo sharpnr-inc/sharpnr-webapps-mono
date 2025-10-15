@@ -67,12 +67,13 @@ const OrgOwnerDetailsSchema = z.object({
 
 
 // Main DTO schema
-export const CompleteOrgResgistrationSchema = z.object({
-  registration_details: RegistrationDetailsSchema,
-  address_details: AddressDetailsSchema,
-  is_owner:z.boolean(),
-  owner_details: z.array(OrgOwnerDetailsSchema),
-});
+export const CompleteOrgResgistrationSchema = z
+  .object({
+    registration_details: RegistrationDetailsSchema,
+    address_details: AddressDetailsSchema,
+    is_owner: z.boolean(),
+    // owner_details: z.array(OrgOwnerDetailsSchema),
+  })
 
 // ✅ Optional: export inferred TypeScript type
 export type CompleteOrgResgistrationPayload = z.infer<typeof CompleteOrgResgistrationSchema>;
