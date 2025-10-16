@@ -32,7 +32,7 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
   return (
     // 1. Ensure full-width, fixed position, and high Z-index.
     //    Added text-white for better contrast against the dark background.
-    <header className="fixed top-0 left-0 right-0 h-16 border-b bg-[#021826] shadow-xl z-50 text-amber-100">
+    <header className=" h-16 border-b bg-[#021826] shadow-xl z-50 text-amber-100">
       <TooltipProvider>
         <div className="flex justify-between items-center h-full px-4">
           <div className="flex items-center space-x-4 h-full">

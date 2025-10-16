@@ -145,7 +145,7 @@ export default function SharpnrHotelRestaurantSection() {
     };
 
     return (
-      <div className="relative p-8">
+      <div className="relative p-8 scrollbar-thin scrollbar-track-transparent">
         <div
           className={`${baseClasses} ${shapeClasses[table.shape]} ${sizeClasses[table.shape]} bg-gradient-to-br ${getStatusColor(table.status)}`}
           onClick={() => handleTableClick(table)}
@@ -175,8 +175,8 @@ export default function SharpnrHotelRestaurantSection() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className=" bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 ">
+      <div className=" mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>

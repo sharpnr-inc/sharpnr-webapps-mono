@@ -1,55 +1,24 @@
 // src/routes/dashboard/_layout.tsx
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Outlet } from "@tanstack/react-router";
-import Header from "@/components/shared/Header";
-import SidebarMain from "@/components/Sidebar/Sidebar";
-import { usePolicySSE } from "@/hooks/usePolicy";
 
 export const Route = createFileRoute("/dashboard/_layout")({
   beforeLoad: () => {
-  const storedData = localStorage.getItem("_sharpnr_user_data_");
-  const userData = storedData ? JSON.parse(storedData) : null;
+    const storedData = localStorage.getItem("_sharpnr_user_data_");
+    const userData = storedData ? JSON.parse(storedData) : null;
 
-  return { empId: userData?.EmployeeID };
-},
-
+    return { empId: userData?.EmployeeID };
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { empId } = Route.useRouteContext();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
-
-  const policy = usePolicySSE(empId);
-  console.log(policy)
-
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      {/* HEADER */}
-      <Header onToggleSidebar={toggleSidebar} />
-
-      {/* BODY */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* SIDEBAR */}
-        {sidebarOpen && (
-          <>
-            <div
-              className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
-              onClick={toggleSidebar}
-            />
-            <div className="fixed lg:relative w-64 lg:w-72 h-full z-30 lg:z-auto">
-              <SidebarMain />
-            </div>
-          </>
-        )}
-
-        {/* MAIN CONTENT */}
-        <div className="flex-1 overflow-auto mt-[4rem]">
-          <Outlet />
-        </div>
+    <ScrollArea className="h-full">
+      <div className="mt-16">
+        <Outlet />
       </div>
-    </div>
+    </ScrollArea>
   );
 }

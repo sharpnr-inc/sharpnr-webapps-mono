@@ -54,8 +54,8 @@ const getColorClass = (color: keyof typeof colors) => {
     : myLeaves.filter(l => new Date(l.to) < new Date() && l.status === "approved");
 
   return (
-    <div className="h-full p-6 max-w-full">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className=" p-6 max-w-full">
+      <div className=" mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>

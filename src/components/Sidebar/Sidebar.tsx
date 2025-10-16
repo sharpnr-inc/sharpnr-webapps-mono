@@ -148,7 +148,7 @@ export default function SidebarMain({}: SidebarMainProps) {
         "fixed left-0 top-[4rem] px-2 h-[calc(100vh-4rem)]",
         "border-r shadow-sm bg-[#021826] text-amber-100 flex flex-col",
         "overflow-y-auto z-40",
-        "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400"
+        "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent "
       )}
     >
       <nav className="flex-1 p-2 space-y-1">
