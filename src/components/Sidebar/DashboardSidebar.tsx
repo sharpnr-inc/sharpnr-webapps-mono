@@ -21,24 +21,22 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { ChevronRight } from "lucide-react";
-import { EmployeeNavs, SharpHospitalityNavs } from "./SidebarNavs";
-import { useNavigate } from "@tanstack/react-router";
+import { EmployeeNavs, SharpHospitalityNavs, SharpAccountingNavs, SharpHRNavs, SharpMarketingNavs } from "./SidebarNavs";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 
 export default function DashboardSideBar() {
   const navigate = useNavigate();
+  const router = useRouter();
   // ✨ CHANGED: Add state for controlling the sidebar and check for mobile
   const {isMobile, toggleSidebar}=useSidebar();
 
   // ✨ CHANGED: Create a handler function to navigate and close the sidebar on mobile
-  const handleNavigate = (to: string) => {
-    navigate({ to });
-    if (isMobile) {
-      toggleSidebar();
-    }
-  };
+ const handleNavigate = (to: string) => {
+  router.navigate({ to });
+  if (isMobile) toggleSidebar();
+};
 
   return (
-    // ✨ CHANGED: Make the Sidebar a controlled component
     <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
@@ -104,13 +102,13 @@ export default function DashboardSideBar() {
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton tooltip="some thing boy">
-                    <span>{SharpHospitalityNavs[0].title}</span>
+                    <span>{SharpAccountingNavs[0].title}</span>
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {SharpHospitalityNavs[0].items.map((item) => (
+                    {SharpAccountingNavs[0].items.map((item) => (
                       <SidebarMenuSubItem key={item.id}>
                         <SidebarMenuSubButton
                           // ✨ CHANGED: Use the new handler function
