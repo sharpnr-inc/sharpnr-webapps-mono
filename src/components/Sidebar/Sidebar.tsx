@@ -23,6 +23,7 @@ interface SidebarMainProps {
 
 // === Define all sidebar sections based on routeTree.gen.ts paths ===
 const ALL_SIDEBAR_SECTIONS = [
+
     {
       id: "employee",
       title: "Employee Sections",
@@ -76,6 +77,7 @@ const ALL_SIDEBAR_SECTIONS = [
         },
       ],
     },
+
     {
       id: "sharphotel",
       title: "Sharp Hospitality",
@@ -143,99 +145,6 @@ export default function SidebarMain({}: SidebarMainProps) {
   };
 
   return (
-    <aside
-      className={cn(
-        "fixed left-0 top-[4rem] px-2 h-[calc(100vh-4rem)]",
-        "border-r shadow-sm bg-[#021826] text-amber-100 flex flex-col",
-        "overflow-y-auto z-40",
-        "scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent "
-      )}
-    >
-      <nav className="flex-1 p-2 space-y-1">
-        
-        {/* === FIXED SECTION: Employee Sections (Not Collapsible) === */}
-        {EMPLOYEE_SECTION && (
-          <div className="mb-4 space-y-1">
-            <h3 className="px-12 py-2 text-xs font-semibold uppercase text-nowrap text-gray-400">
-              {EMPLOYEE_SECTION.title}
-            </h3>
-            <div className="space-y-1">
-              {EMPLOYEE_SECTION.items.map((item) => (
-                <Link
-                  key={item.id}
-                  to={item.to}
-                  // This forces TanStack Router to route from the root (/) path
-                  from="/"
-                  activeProps={{ className: "bg-teal-400 text-emerald-900" }}
-                  inactiveProps={{
-                    className:
-                      "text-gray-100 hover:bg-gray-100 hover:text-gray-900",
-                  }}
-                  onClick={() => setActive(item.id)}
-                  className={cn(
-                    "flex w-full items-center gap-3 px-4 py-2 text-sm font-medium rounded-md transition-all"
-                  )}
-                >
-                  {item.icon}
-                  <span>{item.label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-        
-        {/* === COLLAPSIBLE SECTIONS: All others (Mapped) === */}
-        {COLLAPSIBLE_SECTIONS.map((section) => (
-          <div key={section.id}>
-            {/* Section Header (Toggle Button) */}
-            <button
-              onClick={() => toggleGroup(section.id)}
-              className="flex w-full justify-between items-center px-4 py-2 font-semibold text-gray-100 hover:text-gray-950 text-sm hover:bg-gray-100 rounded-md transition"
-            >
-              <span>{section.title}</span>
-              {openGroups.includes(section.id) ? (
-                <ChevronDown size={16} />
-              ) : (
-                <ChevronRight size={16} />
-              )}
-            </button>
-
-            {/* Dropdown items */}
-            {openGroups.includes(section.id) && (
-              <div className="ml-2 mt-1 space-y-1 border-l border-blue-700 pl-3">
-                {section.items.map((item) => (
-                  <Link
-                    key={item.id}
-                    to={item.to}
-                    // This forces TanStack Router to route from the root (/) path
-                    from="/"
-                    activeProps={{ className: "bg-teal-400 text-emerald-900" }}
-                    inactiveProps={{
-                      className:
-                        "text-gray-100 hover:bg-gray-100 hover:text-gray-900",
-                    }}
-                    onClick={() => setActive(item.id)}
-                    className={cn(
-                      "flex w-full items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-all"
-                    )}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </nav>
-
-      {/* Footer / Logout */}
-      <div className="border-t p-2">
-        <button className="flex items-center gap-3 text-red-600 hover:text-red-700 font-medium w-full px-2 py-2 rounded-md transition-all hover:bg-red-50">
-          <LogOut size={18} />
-          Logout
-        </button>
-      </div>
-    </aside>
+<div></div>
   );
 }
