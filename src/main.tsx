@@ -13,6 +13,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen.ts";
 import { SheetProvider } from "./context/DrawerContext.tsx";
 import { FormModalProvider } from "./context/FormsModalContext.tsx";
+import { ThemeProvider } from "./context/theme-provider.tsx";
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -26,19 +27,21 @@ const router = createRouter({ routeTree });
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ToastProvider>
-        <LoaderProvider>
-          <FormModalProvider>
-            <ModalProvider>
-              <SheetProvider>
-                <Suspense fallback={<SuspenseFallback />}>
-                  <RouterProvider router={router} />
-                </Suspense>
-              </SheetProvider>
-            </ModalProvider>
-          </FormModalProvider>
-        </LoaderProvider>
-      </ToastProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <LoaderProvider>
+            <FormModalProvider>
+              <ModalProvider>
+                <SheetProvider>
+                  <Suspense fallback={<SuspenseFallback />}>
+                    <RouterProvider router={router} />
+                  </Suspense>
+                </SheetProvider>
+              </ModalProvider>
+            </FormModalProvider>
+          </LoaderProvider>
+        </ToastProvider>
+      </ThemeProvider>
 
       {/* 🔹 Show Devtools only in development */}
       {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}

@@ -22,19 +22,28 @@ import {
 } from "../ui/collapsible";
 import { ChevronRight } from "lucide-react";
 import * as sidebarNavs from "./SidebarNavs";
-import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useRouter, useRouterState } from "@tanstack/react-router";
 
 export default function DashboardSideBar() {
-  const navigate = useNavigate();
   const router = useRouter();
+  const routerState = useRouterState();
+  const currentPath = routerState.location.pathname;
+  const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + "/");
+
   // ✨ CHANGED: Add state for controlling the sidebar and check for mobile
-  const {isMobile, toggleSidebar}=useSidebar();
-  const { EmployeeNavs, SharpAccountingNavs, SharpHospitalityNavs } = sidebarNavs;
+  const { isMobile, toggleSidebar } = useSidebar();
+  const {
+    EmployeeNavs,
+    SharpAccountingNavs,
+    SharpHospitalityNavs,
+    SharpHRNavs,
+    SharpMarketingNavs,
+  } = sidebarNavs;
   // ✨ CHANGED: Create a handler function to navigate and close the sidebar on mobile
- const handleNavigate = (to: string) => {
-  router.navigate({ to });
-  if (isMobile) toggleSidebar();
-};
+  const handleNavigate = (to: string) => {
+    router.navigate({ to });
+    if (isMobile) toggleSidebar();
+  };
 
   return (
     <Sidebar>
@@ -83,7 +92,8 @@ export default function DashboardSideBar() {
                     {SharpHospitalityNavs[0].items.map((item) => (
                       <SidebarMenuSubItem key={item.id}>
                         <SidebarMenuSubButton
-                          // ✨ CHANGED: Use the new handler function
+                          isActive={isActive(item.to)}
+                          
                           onClick={() => handleNavigate(item.to)}
                           asChild
                         >
@@ -109,6 +119,62 @@ export default function DashboardSideBar() {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {SharpAccountingNavs[0].items.map((item) => (
+                      <SidebarMenuSubItem key={item.id}>
+                        <SidebarMenuSubButton
+                          // ✨ CHANGED: Use the new handler function
+                          onClick={() => handleNavigate(item.to)}
+                          asChild
+                        >
+                          <span>{item.label}</span>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          </SidebarMenu>
+
+          <SidebarMenu>
+            <Collapsible defaultOpen className="group/collapsible">
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip="some thing boy">
+                    <span>{SharpHRNavs[0].title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {SharpHRNavs[0].items.map((item) => (
+                      <SidebarMenuSubItem key={item.id}>
+                        <SidebarMenuSubButton
+                          // ✨ CHANGED: Use the new handler function
+                          onClick={() => handleNavigate(item.to)}
+                          asChild
+                        >
+                          <span>{item.label}</span>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          </SidebarMenu>
+
+          <SidebarMenu>
+            <Collapsible defaultOpen className="group/collapsible">
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip="some thing boy">
+                    <span>{SharpMarketingNavs[0].title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {SharpMarketingNavs[0].items.map((item) => (
                       <SidebarMenuSubItem key={item.id}>
                         <SidebarMenuSubButton
                           // ✨ CHANGED: Use the new handler function

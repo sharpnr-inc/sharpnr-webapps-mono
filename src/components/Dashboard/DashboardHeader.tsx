@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut, UserCog, Settings } from "lucide-react";
+import { ModeToggle } from "./ThemeToggle";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -23,7 +24,7 @@ export default function DashboardHeader({
   return (
     <header
       className={cn(
-        "flex justify-between h-14 shrink-0 items-center gap-2 border-b fixed top-0 z-50 bg-neutral-900 transition-[width,left] duration-200 ease-linear",
+        "flex justify-between h-14 shrink-0 items-center gap-2 border-b fixed top-0 z-50  transition-[width,left] duration-200 ease-linear",
         {
           "left-[var(--sidebar-width)] w-[calc(100%-var(--sidebar-width))]":
             open && !isMobile,
@@ -35,7 +36,8 @@ export default function DashboardHeader({
         <SidebarTrigger />
       </div>
       <p className="text-xs py-2 px-4 border rounded-2xl">{greeting}</p>
-      <div className="pr-6">
+     
+      <div className="pr-6 flex gap-5">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button className="flex items-center gap-2 rounded-md p-1 hover:bg-neutral-800 transition">
@@ -46,7 +48,7 @@ export default function DashboardHeader({
             <span className="hidden sm:inline text-sm">{useremail}</span>
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="bg-neutral-900 text-white border border-neutral-700">
+        <DropdownMenuContent align="end" className="">
           <DropdownMenuItem className="flex items-center gap-2">
             <UserCog size={16} /> Profile
           </DropdownMenuItem>
@@ -58,6 +60,7 @@ export default function DashboardHeader({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+       <ModeToggle></ModeToggle>
       </div>
     </header>
   );
