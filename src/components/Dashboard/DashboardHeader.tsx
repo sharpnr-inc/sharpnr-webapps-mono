@@ -1,5 +1,13 @@
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LogOut, UserCog, Settings } from "lucide-react";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -26,7 +34,31 @@ export default function DashboardHeader({
       <div className="flex items-center gap-2 px-3">
         <SidebarTrigger />
       </div>
-      <p className="text-xs pr-4">{greeting}</p>
+      <p className="text-xs py-2 px-4 border rounded-2xl">{greeting}</p>
+      <div className="pr-6">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button className="flex items-center gap-2 rounded-md p-1 hover:bg-neutral-800 transition">
+            <Avatar className="w-8 h-8">
+              <AvatarImage src="https://i.pravatar.cc/150?img=3" />
+              <AvatarFallback>{useremail.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+            <span className="hidden sm:inline text-sm">{useremail}</span>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="bg-neutral-900 text-white border border-neutral-700">
+          <DropdownMenuItem className="flex items-center gap-2">
+            <UserCog size={16} /> Profile
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2">
+            <Settings size={16} /> Settings
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex items-center gap-2 text-destructive">
+            <LogOut size={16} /> Logout
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      </div>
     </header>
   );
 }
