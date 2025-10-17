@@ -16,7 +16,7 @@ export const Route = createFileRoute("/dashboard/_layout")({
 function RouteComponent() {
   return (
     <ScrollArea className="h-full">
-      <div className="mt-16">
+      <div className="mt-14">
         <Outlet />
       </div>
     </ScrollArea>
