@@ -21,7 +21,7 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { ChevronRight } from "lucide-react";
-import { EmployeeNavs, SharpHospitalityNavs, SharpAccountingNavs, SharpHRNavs, SharpMarketingNavs } from "./SidebarNavs";
+import * as sidebarNavs from "./SidebarNavs";
 import { useNavigate, useRouter } from "@tanstack/react-router";
 
 export default function DashboardSideBar() {
@@ -29,7 +29,7 @@ export default function DashboardSideBar() {
   const router = useRouter();
   // ✨ CHANGED: Add state for controlling the sidebar and check for mobile
   const {isMobile, toggleSidebar}=useSidebar();
-
+  const { EmployeeNavs, SharpAccountingNavs, SharpHospitalityNavs } = sidebarNavs;
   // ✨ CHANGED: Create a handler function to navigate and close the sidebar on mobile
  const handleNavigate = (to: string) => {
   router.navigate({ to });
