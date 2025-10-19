@@ -30,6 +30,7 @@ import { Route as DashboardLayoutSharphotelSettingsRouteImport } from './routes/
 import { Route as DashboardLayoutSharphotelRestaurentRouteImport } from './routes/dashboard/_layout/sharphotel/restaurent'
 import { Route as DashboardLayoutSharphotelMenuRouteImport } from './routes/dashboard/_layout/sharphotel/menu'
 import { Route as DashboardLayoutSharphotelInventoryRouteImport } from './routes/dashboard/_layout/sharphotel/inventory'
+import { Route as DashboardLayoutSharphotelHotelRouteImport } from './routes/dashboard/_layout/sharphotel/hotel'
 import { Route as DashboardLayoutSharphotelGuestsRouteImport } from './routes/dashboard/_layout/sharphotel/guests'
 import { Route as DashboardLayoutSharphotelBookingsRouteImport } from './routes/dashboard/_layout/sharphotel/bookings'
 import { Route as DashboardLayoutSharphotelBarRouteImport } from './routes/dashboard/_layout/sharphotel/bar'
@@ -168,6 +169,12 @@ const DashboardLayoutSharphotelInventoryRoute =
     path: '/sharphotel/inventory',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
+const DashboardLayoutSharphotelHotelRoute =
+  DashboardLayoutSharphotelHotelRouteImport.update({
+    id: '/sharphotel/hotel',
+    path: '/sharphotel/hotel',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
 const DashboardLayoutSharphotelGuestsRoute =
   DashboardLayoutSharphotelGuestsRouteImport.update({
     id: '/sharphotel/guests',
@@ -302,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharphotel/bar': typeof DashboardLayoutSharphotelBarRoute
   '/dashboard/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/sharphotel/guests': typeof DashboardLayoutSharphotelGuestsRoute
+  '/dashboard/sharphotel/hotel': typeof DashboardLayoutSharphotelHotelRoute
   '/dashboard/sharphotel/inventory': typeof DashboardLayoutSharphotelInventoryRoute
   '/dashboard/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
@@ -341,6 +349,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharphotel/bar': typeof DashboardLayoutSharphotelBarRoute
   '/dashboard/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/sharphotel/guests': typeof DashboardLayoutSharphotelGuestsRoute
+  '/dashboard/sharphotel/hotel': typeof DashboardLayoutSharphotelHotelRoute
   '/dashboard/sharphotel/inventory': typeof DashboardLayoutSharphotelInventoryRoute
   '/dashboard/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
@@ -383,6 +392,7 @@ export interface FileRoutesById {
   '/dashboard/_layout/sharphotel/bar': typeof DashboardLayoutSharphotelBarRoute
   '/dashboard/_layout/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/_layout/sharphotel/guests': typeof DashboardLayoutSharphotelGuestsRoute
+  '/dashboard/_layout/sharphotel/hotel': typeof DashboardLayoutSharphotelHotelRoute
   '/dashboard/_layout/sharphotel/inventory': typeof DashboardLayoutSharphotelInventoryRoute
   '/dashboard/_layout/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/_layout/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
@@ -425,6 +435,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharphotel/bar'
     | '/dashboard/sharphotel/bookings'
     | '/dashboard/sharphotel/guests'
+    | '/dashboard/sharphotel/hotel'
     | '/dashboard/sharphotel/inventory'
     | '/dashboard/sharphotel/menu'
     | '/dashboard/sharphotel/restaurent'
@@ -464,6 +475,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharphotel/bar'
     | '/dashboard/sharphotel/bookings'
     | '/dashboard/sharphotel/guests'
+    | '/dashboard/sharphotel/hotel'
     | '/dashboard/sharphotel/inventory'
     | '/dashboard/sharphotel/menu'
     | '/dashboard/sharphotel/restaurent'
@@ -505,6 +517,7 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/sharphotel/bar'
     | '/dashboard/_layout/sharphotel/bookings'
     | '/dashboard/_layout/sharphotel/guests'
+    | '/dashboard/_layout/sharphotel/hotel'
     | '/dashboard/_layout/sharphotel/inventory'
     | '/dashboard/_layout/sharphotel/menu'
     | '/dashboard/_layout/sharphotel/restaurent'
@@ -678,6 +691,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutSharphotelInventoryRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/sharphotel/hotel': {
+      id: '/dashboard/_layout/sharphotel/hotel'
+      path: '/sharphotel/hotel'
+      fullPath: '/dashboard/sharphotel/hotel'
+      preLoaderRoute: typeof DashboardLayoutSharphotelHotelRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/_layout/sharphotel/guests': {
       id: '/dashboard/_layout/sharphotel/guests'
       path: '/sharphotel/guests'
@@ -827,6 +847,7 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutSharphotelBarRoute: typeof DashboardLayoutSharphotelBarRoute
   DashboardLayoutSharphotelBookingsRoute: typeof DashboardLayoutSharphotelBookingsRoute
   DashboardLayoutSharphotelGuestsRoute: typeof DashboardLayoutSharphotelGuestsRoute
+  DashboardLayoutSharphotelHotelRoute: typeof DashboardLayoutSharphotelHotelRoute
   DashboardLayoutSharphotelInventoryRoute: typeof DashboardLayoutSharphotelInventoryRoute
   DashboardLayoutSharphotelMenuRoute: typeof DashboardLayoutSharphotelMenuRoute
   DashboardLayoutSharphotelRestaurentRoute: typeof DashboardLayoutSharphotelRestaurentRoute
@@ -873,6 +894,7 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutSharphotelBookingsRoute:
     DashboardLayoutSharphotelBookingsRoute,
   DashboardLayoutSharphotelGuestsRoute: DashboardLayoutSharphotelGuestsRoute,
+  DashboardLayoutSharphotelHotelRoute: DashboardLayoutSharphotelHotelRoute,
   DashboardLayoutSharphotelInventoryRoute:
     DashboardLayoutSharphotelInventoryRoute,
   DashboardLayoutSharphotelMenuRoute: DashboardLayoutSharphotelMenuRoute,

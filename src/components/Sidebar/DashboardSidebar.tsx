@@ -33,7 +33,6 @@ export default function DashboardSideBar() {
   // ✨ CHANGED: Add state for controlling the sidebar and check for mobile
   const { isMobile, toggleSidebar } = useSidebar();
   const {
-    EmployeeNavs,
     SharpAccountingNavs,
     SharpHospitalityNavs,
     SharpHRNavs,
@@ -59,9 +58,9 @@ export default function DashboardSideBar() {
       <SidebarContent className="custom-scrollbar">
         {/* Employee section Starts */}
         <SidebarGroup>
-          <SidebarGroupLabel>Employee Section</SidebarGroupLabel>
+          <SidebarGroupLabel>Sharp Hospitality</SidebarGroupLabel>
           <SidebarMenu>
-            {EmployeeNavs[0].items.map((item) => (
+            {SharpHospitalityNavs[0].items.map((item) => (
               <SidebarMenuItem key={item.id}>
                 {/* ✨ CHANGED: Use the new handler function */}
                 <SidebarMenuButton onClick={() => handleNavigate(item.to)}>
@@ -77,36 +76,6 @@ export default function DashboardSideBar() {
         {/* Modules Groups */}
         <SidebarGroup>
           <SidebarGroupLabel>Sharp Modules</SidebarGroupLabel>
-          {/* Note: You have two identical collapsible sections here. I'll apply the fix to both. */}
-          <SidebarMenu>
-            <Collapsible defaultOpen className="group/collapsible">
-              <SidebarMenuItem>
-                <CollapsibleTrigger asChild>
-                  <SidebarMenuButton tooltip="some thing boy">
-                    <span>{SharpHospitalityNavs[0].title}</span>
-                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                  </SidebarMenuButton>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <SidebarMenuSub>
-                    {SharpHospitalityNavs[0].items.map((item) => (
-                      <SidebarMenuSubItem key={item.id}>
-                        <SidebarMenuSubButton
-                          isActive={isActive(item.to)}
-                          
-                          onClick={() => handleNavigate(item.to)}
-                          asChild
-                        >
-                          <span>{item.label}</span>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleContent>
-              </SidebarMenuItem>
-            </Collapsible>
-          </SidebarMenu>
-
           <SidebarMenu>
             <Collapsible defaultOpen className="group/collapsible">
               <SidebarMenuItem>

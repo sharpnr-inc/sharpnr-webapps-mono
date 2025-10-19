@@ -1,9 +1,6 @@
+import EmployeeProfilePage from '@/components/UiModuels/employees/EmployeeProfilePage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/dashboard/_layout/employee/profile')({
-  component: RouteComponent,
+  component: EmployeeProfilePage
 })
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/_layout/employee/profile"!</div>
-}
