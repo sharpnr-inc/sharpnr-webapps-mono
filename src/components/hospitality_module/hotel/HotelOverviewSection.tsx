@@ -52,8 +52,8 @@ export default function HotelOverviewSection() {
             Guest Information
           </CardTitle>
         </CardHeader>
-        <CardContent className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
+        <CardContent className="overflow-x-scroll">
+          <table className="w-full text-sm border-collapse ">
             <thead>
               <tr className="border-b bg-muted/30 text-left">
                 <th className="py-2 px-3 font-medium">Guest Name</th>
