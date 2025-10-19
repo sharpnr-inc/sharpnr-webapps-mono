@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function HotelOverviewSection() {
   return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 p-4">
+    <div className="space-y-2">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
         <Card className="rounded-xl shadow-sm hover:shadow transition-all p-3">
           <div className="flex justify-between items-center">
             <div>
