@@ -1,9 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
+import KitchenPage from "@/components/UiModuels/sharpHospitality/KitchenPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/dashboard/_layout/sharphotel/kitchen')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/_layout/sharphotel/kitchen"!</div>
-}
+export const Route = createFileRoute("/dashboard/_layout/sharphotel/kitchen")({
+  component: KitchenPage,
+  context: () => ({
+    heading: "Kitchen",
+    subheading: "Manage kitchen operations",
+  }),
+});

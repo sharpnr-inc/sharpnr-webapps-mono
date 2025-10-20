@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext} from 'react';
-import SuspenseFallback from '../components/ui/SuspenseFallback';
 import type { ReactNode } from 'react';
 import AnthropicLoader from '@/components/test/anthropic_loader';
 

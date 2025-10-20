@@ -1,6 +1,7 @@
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import DashboardSideBar from "@/components/Sidebar/DashboardSidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { HeaderProvider } from "@/context/HeaderContext";
 import { usePolicySSE } from "@/hooks/usePolicy";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
@@ -18,19 +19,24 @@ function RouteComponent() {
   const policy = usePolicySSE(empId);
   console.log(policy);
 
-  const getGreetings = (email:string)=>{
+  const getGreetings = (email: string) => {
     return `Welcome back, ${email.split("@")[0]}! 👋`;
-  }
+  };
 
   return (
     <SidebarProvider>
-      <DashboardSideBar />
-      <SidebarInset>
-        <DashboardHeader useremail={"kashifsocl@gmail.com"} getGreeting={getGreetings} />
-        <div className="h-screen">
-        <Outlet />
-        </div>
-      </SidebarInset>
+      <HeaderProvider>
+        <DashboardSideBar />
+        <SidebarInset>
+          <DashboardHeader
+            useremail={"kashifsocl@gmail.com"}
+            getGreeting={getGreetings}
+          />
+          <div className="h-screen">
+            <Outlet />
+          </div>
+        </SidebarInset>
+      </HeaderProvider>
     </SidebarProvider>
   );
 }

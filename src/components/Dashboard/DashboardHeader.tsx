@@ -10,6 +10,7 @@ import {
 import { LogOut, UserCog, Settings } from "lucide-react";
 import { ModeToggle } from "./ThemeToggle";
 import { useNavigate } from "@tanstack/react-router";
+// import { useHeader } from "@/context/HeaderContext";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -20,9 +21,11 @@ export default function DashboardHeader({
   useremail,
   getGreeting,
 }: DashboardHeaderProps) {
+  // const { heading, subheading } = useHeader();
   const greeting = getGreeting(useremail);
   const { open, isMobile } = useSidebar();
   const nav = useNavigate();
+
   return (
     <header
       className={cn(
@@ -37,6 +40,10 @@ export default function DashboardHeader({
       <div className="flex items-center gap-2 px-3">
         <SidebarTrigger />
       </div>
+      {/* <div>
+        <div className="text-xl">{heading || ""}</div>
+        <small>{subheading}</small>
+      </div> */}
       <p className="text-xs py-2 px-4 border rounded-2xl">{greeting}</p>
 
       <div className="pr-6 flex gap-5">
@@ -44,7 +51,7 @@ export default function DashboardHeader({
           <DropdownMenuTrigger asChild>
             <button className="flex items-center border-1 gap-2 rounded-md p-1 transition">
               <Avatar className="w-8 h-8">
-                <AvatarImage src="https://i.pravatar.cc/150?img=3" />
+                <AvatarImage src="" />
                 <AvatarFallback>
                   {useremail.charAt(0).toUpperCase()}
                 </AvatarFallback>

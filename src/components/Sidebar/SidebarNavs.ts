@@ -125,7 +125,7 @@ export const SharpHospitalityNavs = [
         to: "/dashboard/sharphotel/kitchen",
       },
       {
-        id: "hotel_kitchen",
+        id: "hotel_inventory",
         label: "Inventory",
         icon: Package, // Better icon for inventory
         to: "/dashboard/sharphotel/inventory",
