@@ -13,6 +13,7 @@ import {
   MessageSquare,
   Shield,
   Wrench,
+  Cookie,
   HotelIcon,
   type LucideIcon,
 } from "lucide-react";
@@ -116,6 +117,12 @@ export const SharpHospitalityNavs = [
         label: "Menu",
         icon: BookOpen, // Better icon for menu
         to: "/dashboard/sharphotel/menu",
+      },
+      {
+        id: "hotel_kitchen",
+        label: "Kitchen",
+        icon: Cookie, // Better icon for menu
+        to: "/dashboard/sharphotel/kitchen",
       },
       {
         id: "hotel_kitchen",
