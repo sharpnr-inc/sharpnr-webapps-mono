@@ -175,26 +175,26 @@ export default function SharpnrHotelRestaurantSection() {
   };
 
   return (
-    <div className=" bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6 ">
+    <div className=" p-6 ">
       <div className=" mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-white flex items-center gap-3">
+            <h1 className="text-4xl font-bold flex items-center gap-3">
               <Utensils className="w-10 h-10 text-orange-500" />
               Table Management
             </h1>
-            <p className="text-slate-300 mt-2">Visual restaurant floor plan</p>
+            <p className="mt-2">Visual restaurant floor plan</p>
           </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-slate-800 to-slate-700 border-slate-600">
+          <Card className=" border-slate-600">
             <CardContent className="pt-6">
               <div className="text-center">
-                <p className="text-sm font-medium text-slate-300">Total Tables</p>
-                <p className="text-3xl font-bold text-white mt-1">{stats.total}</p>
+                <p className="text-sm font-medium ">Total Tables</p>
+                <p className="text-3xl font-bold  mt-1">{stats.total}</p>
               </div>
             </CardContent>
           </Card>
@@ -244,9 +244,9 @@ export default function SharpnrHotelRestaurantSection() {
         </div>
 
         {/* Restaurant Floor Plan */}
-        <Card className="bg-gradient-to-br from-slate-800 to-slate-700 border-slate-600">
+        <Card className="">
           <CardContent className="p-8">
-            <div className="bg-slate-900/50 rounded-2xl p-6 min-h-[500px]">
+            <div className=" rounded-2xl p-6 min-h-[500px]">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 place-items-center">
                 {filteredTables.map(table => (
                   <div key={table.id}>
@@ -259,7 +259,7 @@ export default function SharpnrHotelRestaurantSection() {
         </Card>
 
         {/* Legend */}
-        <Card className="bg-slate-800 border-slate-600">
+        <Card className="">
           <CardContent className="pt-6">
             <div className="flex flex-wrap gap-4 justify-center">
               <div className="flex items-center gap-2">
