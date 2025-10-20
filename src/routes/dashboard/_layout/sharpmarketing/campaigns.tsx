@@ -1,11 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import UpcomingFeature from "@/components/UiModuels/UpcomingFeature";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/dashboard/_layout/sharpmarketing/campaigns',
+  "/dashboard/_layout/sharpmarketing/campaigns"
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/dashboard/_layout/sharpmarketing/campaigns"!</div>
-}
+  component: UpcomingFeature,
+});
