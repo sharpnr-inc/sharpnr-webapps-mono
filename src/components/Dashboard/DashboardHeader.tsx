@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut, UserCog, Settings } from "lucide-react";
 import { ModeToggle } from "./ThemeToggle";
-import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -42,7 +42,7 @@ export default function DashboardHeader({
       <div className="pr-6 flex gap-5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-md p-1 hover:bg-neutral-800 transition">
+            <button className="flex items-center border-1 gap-2 rounded-md p-1 transition">
               <Avatar className="w-8 h-8">
                 <AvatarImage src="https://i.pravatar.cc/150?img=3" />
                 <AvatarFallback>
