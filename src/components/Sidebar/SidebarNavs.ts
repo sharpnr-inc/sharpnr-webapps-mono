@@ -10,9 +10,6 @@ import {
   Package,
   Sparkles,
   Bell,
-  ChevronDown,
-  ChevronRight,
-  LogOut,
   MessageSquare,
   Shield,
   Wrench,
@@ -101,12 +98,6 @@ export const SharpHospitalityNavs = [
         label: "Bar",
         icon: ClipboardList,
         to: "/dashboard/sharphotel/bar",
-      },
-      {
-        id: "hotel_bookings",
-        label: "Bookings",
-        icon: CalendarDays,
-        to: "/dashboard/sharphotel/bookings",
       },
       {
         id: "hotel_guests",

@@ -30,9 +30,9 @@ import { Route as DashboardLayoutSharphotelSettingsRouteImport } from './routes/
 import { Route as DashboardLayoutSharphotelRestaurentRouteImport } from './routes/dashboard/_layout/sharphotel/restaurent'
 import { Route as DashboardLayoutSharphotelMenuRouteImport } from './routes/dashboard/_layout/sharphotel/menu'
 import { Route as DashboardLayoutSharphotelInventoryRouteImport } from './routes/dashboard/_layout/sharphotel/inventory'
+import { Route as DashboardLayoutSharphotelHousekeepingRouteImport } from './routes/dashboard/_layout/sharphotel/housekeeping'
 import { Route as DashboardLayoutSharphotelHotelRouteImport } from './routes/dashboard/_layout/sharphotel/hotel'
 import { Route as DashboardLayoutSharphotelGuestsRouteImport } from './routes/dashboard/_layout/sharphotel/guests'
-import { Route as DashboardLayoutSharphotelBookingsRouteImport } from './routes/dashboard/_layout/sharphotel/bookings'
 import { Route as DashboardLayoutSharphotelBarRouteImport } from './routes/dashboard/_layout/sharphotel/bar'
 import { Route as DashboardLayoutSharpAccountingTransactionsRouteImport } from './routes/dashboard/_layout/sharpAccounting/transactions'
 import { Route as DashboardLayoutSharpAccountingSuppliersandvendorsRouteImport } from './routes/dashboard/_layout/sharpAccounting/suppliersandvendors'
@@ -169,6 +169,12 @@ const DashboardLayoutSharphotelInventoryRoute =
     path: '/sharphotel/inventory',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
+const DashboardLayoutSharphotelHousekeepingRoute =
+  DashboardLayoutSharphotelHousekeepingRouteImport.update({
+    id: '/sharphotel/housekeeping',
+    path: '/sharphotel/housekeeping',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
 const DashboardLayoutSharphotelHotelRoute =
   DashboardLayoutSharphotelHotelRouteImport.update({
     id: '/sharphotel/hotel',
@@ -179,12 +185,6 @@ const DashboardLayoutSharphotelGuestsRoute =
   DashboardLayoutSharphotelGuestsRouteImport.update({
     id: '/sharphotel/guests',
     path: '/sharphotel/guests',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-const DashboardLayoutSharphotelBookingsRoute =
-  DashboardLayoutSharphotelBookingsRouteImport.update({
-    id: '/sharphotel/bookings',
-    path: '/sharphotel/bookings',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutSharphotelBarRoute =
@@ -307,9 +307,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharpAccounting/suppliersandvendors': typeof DashboardLayoutSharpAccountingSuppliersandvendorsRoute
   '/dashboard/sharpAccounting/transactions': typeof DashboardLayoutSharpAccountingTransactionsRoute
   '/dashboard/sharphotel/bar': typeof DashboardLayoutSharphotelBarRoute
-  '/dashboard/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/sharphotel/guests': typeof DashboardLayoutSharphotelGuestsRoute
   '/dashboard/sharphotel/hotel': typeof DashboardLayoutSharphotelHotelRoute
+  '/dashboard/sharphotel/housekeeping': typeof DashboardLayoutSharphotelHousekeepingRoute
   '/dashboard/sharphotel/inventory': typeof DashboardLayoutSharphotelInventoryRoute
   '/dashboard/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
@@ -347,9 +347,9 @@ export interface FileRoutesByTo {
   '/dashboard/sharpAccounting/suppliersandvendors': typeof DashboardLayoutSharpAccountingSuppliersandvendorsRoute
   '/dashboard/sharpAccounting/transactions': typeof DashboardLayoutSharpAccountingTransactionsRoute
   '/dashboard/sharphotel/bar': typeof DashboardLayoutSharphotelBarRoute
-  '/dashboard/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/sharphotel/guests': typeof DashboardLayoutSharphotelGuestsRoute
   '/dashboard/sharphotel/hotel': typeof DashboardLayoutSharphotelHotelRoute
+  '/dashboard/sharphotel/housekeeping': typeof DashboardLayoutSharphotelHousekeepingRoute
   '/dashboard/sharphotel/inventory': typeof DashboardLayoutSharphotelInventoryRoute
   '/dashboard/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
@@ -390,9 +390,9 @@ export interface FileRoutesById {
   '/dashboard/_layout/sharpAccounting/suppliersandvendors': typeof DashboardLayoutSharpAccountingSuppliersandvendorsRoute
   '/dashboard/_layout/sharpAccounting/transactions': typeof DashboardLayoutSharpAccountingTransactionsRoute
   '/dashboard/_layout/sharphotel/bar': typeof DashboardLayoutSharphotelBarRoute
-  '/dashboard/_layout/sharphotel/bookings': typeof DashboardLayoutSharphotelBookingsRoute
   '/dashboard/_layout/sharphotel/guests': typeof DashboardLayoutSharphotelGuestsRoute
   '/dashboard/_layout/sharphotel/hotel': typeof DashboardLayoutSharphotelHotelRoute
+  '/dashboard/_layout/sharphotel/housekeeping': typeof DashboardLayoutSharphotelHousekeepingRoute
   '/dashboard/_layout/sharphotel/inventory': typeof DashboardLayoutSharphotelInventoryRoute
   '/dashboard/_layout/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/_layout/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
@@ -433,9 +433,9 @@ export interface FileRouteTypes {
     | '/dashboard/sharpAccounting/suppliersandvendors'
     | '/dashboard/sharpAccounting/transactions'
     | '/dashboard/sharphotel/bar'
-    | '/dashboard/sharphotel/bookings'
     | '/dashboard/sharphotel/guests'
     | '/dashboard/sharphotel/hotel'
+    | '/dashboard/sharphotel/housekeeping'
     | '/dashboard/sharphotel/inventory'
     | '/dashboard/sharphotel/menu'
     | '/dashboard/sharphotel/restaurent'
@@ -473,9 +473,9 @@ export interface FileRouteTypes {
     | '/dashboard/sharpAccounting/suppliersandvendors'
     | '/dashboard/sharpAccounting/transactions'
     | '/dashboard/sharphotel/bar'
-    | '/dashboard/sharphotel/bookings'
     | '/dashboard/sharphotel/guests'
     | '/dashboard/sharphotel/hotel'
+    | '/dashboard/sharphotel/housekeeping'
     | '/dashboard/sharphotel/inventory'
     | '/dashboard/sharphotel/menu'
     | '/dashboard/sharphotel/restaurent'
@@ -515,9 +515,9 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/sharpAccounting/suppliersandvendors'
     | '/dashboard/_layout/sharpAccounting/transactions'
     | '/dashboard/_layout/sharphotel/bar'
-    | '/dashboard/_layout/sharphotel/bookings'
     | '/dashboard/_layout/sharphotel/guests'
     | '/dashboard/_layout/sharphotel/hotel'
+    | '/dashboard/_layout/sharphotel/housekeeping'
     | '/dashboard/_layout/sharphotel/inventory'
     | '/dashboard/_layout/sharphotel/menu'
     | '/dashboard/_layout/sharphotel/restaurent'
@@ -691,6 +691,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutSharphotelInventoryRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/sharphotel/housekeeping': {
+      id: '/dashboard/_layout/sharphotel/housekeeping'
+      path: '/sharphotel/housekeeping'
+      fullPath: '/dashboard/sharphotel/housekeeping'
+      preLoaderRoute: typeof DashboardLayoutSharphotelHousekeepingRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/_layout/sharphotel/hotel': {
       id: '/dashboard/_layout/sharphotel/hotel'
       path: '/sharphotel/hotel'
@@ -703,13 +710,6 @@ declare module '@tanstack/react-router' {
       path: '/sharphotel/guests'
       fullPath: '/dashboard/sharphotel/guests'
       preLoaderRoute: typeof DashboardLayoutSharphotelGuestsRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/_layout/sharphotel/bookings': {
-      id: '/dashboard/_layout/sharphotel/bookings'
-      path: '/sharphotel/bookings'
-      fullPath: '/dashboard/sharphotel/bookings'
-      preLoaderRoute: typeof DashboardLayoutSharphotelBookingsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/sharphotel/bar': {
@@ -845,9 +845,9 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutSharpAccountingSuppliersandvendorsRoute: typeof DashboardLayoutSharpAccountingSuppliersandvendorsRoute
   DashboardLayoutSharpAccountingTransactionsRoute: typeof DashboardLayoutSharpAccountingTransactionsRoute
   DashboardLayoutSharphotelBarRoute: typeof DashboardLayoutSharphotelBarRoute
-  DashboardLayoutSharphotelBookingsRoute: typeof DashboardLayoutSharphotelBookingsRoute
   DashboardLayoutSharphotelGuestsRoute: typeof DashboardLayoutSharphotelGuestsRoute
   DashboardLayoutSharphotelHotelRoute: typeof DashboardLayoutSharphotelHotelRoute
+  DashboardLayoutSharphotelHousekeepingRoute: typeof DashboardLayoutSharphotelHousekeepingRoute
   DashboardLayoutSharphotelInventoryRoute: typeof DashboardLayoutSharphotelInventoryRoute
   DashboardLayoutSharphotelMenuRoute: typeof DashboardLayoutSharphotelMenuRoute
   DashboardLayoutSharphotelRestaurentRoute: typeof DashboardLayoutSharphotelRestaurentRoute
@@ -891,10 +891,10 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutSharpAccountingTransactionsRoute:
     DashboardLayoutSharpAccountingTransactionsRoute,
   DashboardLayoutSharphotelBarRoute: DashboardLayoutSharphotelBarRoute,
-  DashboardLayoutSharphotelBookingsRoute:
-    DashboardLayoutSharphotelBookingsRoute,
   DashboardLayoutSharphotelGuestsRoute: DashboardLayoutSharphotelGuestsRoute,
   DashboardLayoutSharphotelHotelRoute: DashboardLayoutSharphotelHotelRoute,
+  DashboardLayoutSharphotelHousekeepingRoute:
+    DashboardLayoutSharphotelHousekeepingRoute,
   DashboardLayoutSharphotelInventoryRoute:
     DashboardLayoutSharphotelInventoryRoute,
   DashboardLayoutSharphotelMenuRoute: DashboardLayoutSharphotelMenuRoute,

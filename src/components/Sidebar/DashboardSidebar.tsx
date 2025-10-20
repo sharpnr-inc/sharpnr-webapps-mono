@@ -103,7 +103,7 @@ export default function DashboardSideBar() {
                           onClick={() => handleNavigate(item.to)}
                           className={`transition-colors ${
                             isActive(item.to)
-                              ? "bg-primary/10 text-primary font-medium"
+                              ? "bg-primary text-secondary"
                               : "hover:bg-muted"
                           }`}
                         >
@@ -133,11 +133,10 @@ export default function DashboardSideBar() {
                     {SharpHRNavs[0].items.map((item) => (
                       <SidebarMenuSubItem key={item.id}>
                         <SidebarMenuSubButton
-                        
                           onClick={() => handleNavigate(item.to)}
                           className={`transition-colors ${
                             isActive(item.to)
-                              ? "bg-primary"
+                              ? "bg-primary text-secondary"
                               : "hover:bg-muted"
                           }`}
                         >
@@ -167,10 +166,11 @@ export default function DashboardSideBar() {
                     {SharpMarketingNavs[0].items.map((item) => (
                       <SidebarMenuSubItem key={item.id}>
                         <SidebarMenuSubButton
+                        
                           onClick={() => handleNavigate(item.to)}
                           className={`transition-colors ${
                             isActive(item.to)
-                              ? "bg-primary/10 text-primary font-medium"
+                              ? "bg-primary text-secondary"
                               : "hover:bg-muted"
                           }`}
                         >
