@@ -17,7 +17,7 @@ import {
 } from "../ui/select";
 import { useForm } from "@tanstack/react-form";
 import { useQuery } from "@tanstack/react-query";
-import { Building2, MapPin, Plus, Trash2, User } from "lucide-react";
+import { Building2, MapPin } from "lucide-react";
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -29,11 +29,11 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Input } from "../ui/input";
-import { Tooltip } from "../ui/tooltip";
-import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import { useCompleteOrganisation } from "@/api_service/mutations/completeResgistration";
 
+// Component Starts Here
 export default function CompleteRegistration() {
+  // Hoistings
   const compeleteOrgReg = useCompleteOrganisation();
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
@@ -62,16 +62,17 @@ export default function CompleteRegistration() {
         state: "",
         pincode: "",
         address_line: "",
-        area_locality:""
+        area_locality: "",
       },
       is_owner: true,
     } as CompleteOrgResgistrationPayload,
     onSubmit: async ({ value }) => {
-      console.log(value)
-      compeleteOrgReg.mutate(value)
+      console.log(value);
+      compeleteOrgReg.mutate(value);
     },
   });
 
+  // Main return
   return (
     <div className="py-12 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -91,53 +92,28 @@ export default function CompleteRegistration() {
           </CardHeader>
 
           <CardContent className="grid grid-cols-2 gap-4">
+            {/* Root Email */}
             <div className="space-y-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Label>Root Email/Org Super Admin Email</Label>
-                </TooltipTrigger>
-                <TooltipContent>
-                  This is the email of the Organisation which will perform the
-                  Super Admin tasks.
-                </TooltipContent>
-              </Tooltip>
+              <Label>Root Email / Org Super Admin Email</Label>
               <Input value="Kashifsocl@gmail.com" disabled />
             </div>
 
+            {/* Business Operation Type */}
             <div className="space-y-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Label>Organisation Business Operation Type</Label>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Defines what type of business the organisation operates.
-                </TooltipContent>
-              </Tooltip>
+              <Label>Organisation Business Operation Type</Label>
               <Input value="HOTEL" disabled />
             </div>
 
+            {/* Organisation Mobile */}
             <div className="space-y-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Label>Organisation Mobile</Label>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Defines what type of business the organisation operates.
-                </TooltipContent>
-              </Tooltip>
-              <Input value="HOTEL" disabled />
+              <Label>Organisation Mobile</Label>
+              <Input value="+91 9876543210" disabled />
             </div>
 
+            {/* Organisation Name */}
             <div className="space-y-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Label>Organisation Name</Label>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Defines what type of business the organisation operates.
-                </TooltipContent>
-              </Tooltip>
-              <Input value="HOTEL" disabled />
+              <Label>Organisation Name</Label>
+              <Input value="SharpNR Pvt. Ltd." disabled />
             </div>
           </CardContent>
         </Card>
@@ -150,6 +126,44 @@ export default function CompleteRegistration() {
           }}
           className="space-y-8"
         >
+          <Card className="mt-2">
+            <CardHeader>
+              <CardTitle>Select Operations</CardTitle>
+              <CardDescription>
+                Select the appropriate option(s)
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="flex items-center gap-2 border rounded-lg p-3">
+                <Checkbox id="hotel" />
+                <Label htmlFor="hotel">Hotel</Label>
+              </div>
+
+              <div className="flex items-center gap-2 border rounded-lg p-3">
+                <Checkbox id="restaurant" />
+                <Label htmlFor="restaurant">Restaurant</Label>
+              </div>
+
+              <div className="flex items-center gap-2 border rounded-lg p-3">
+                <Checkbox id="bar" />
+                <Label htmlFor="bar">Bar</Label>
+              </div>
+
+              <div className="flex items-center gap-2 border rounded-lg p-3">
+                <Checkbox id="pub" />
+                <Label htmlFor="pub">Pub / Club</Label>
+              </div>
+
+              <div className="flex items-center gap-2 border rounded-lg p-3 w-fit">
+                <Checkbox id="kitchen" />
+                <Label htmlFor="kitchen" className=" text-nowrap ">
+                  Cloud Kitchen/Takeways
+                </Label>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Registration Details */}
           <Card>
             <CardHeader>
@@ -184,7 +198,7 @@ export default function CompleteRegistration() {
                       <>
                         <form.Field name="registration_details.gst_number">
                           {({ state, handleBlur, handleChange }) => (
-                            <div>
+                            <div className="space-y-2">
                               <Label>GST Number</Label>
                               <Input
                                 value={state.value}
@@ -197,7 +211,7 @@ export default function CompleteRegistration() {
 
                         <form.Field name="registration_details.cin_number">
                           {({ state, handleChange }) => (
-                            <div>
+                            <div className="space-y-2">
                               <Label>CIN Number</Label>
                               <Input
                                 value={state.value}
@@ -234,7 +248,7 @@ export default function CompleteRegistration() {
                   </div>
                 )}
               </form.Field>
-                    <form.Field name="address_details.address_line">
+              <form.Field name="address_details.address_line">
                 {({ state, handleChange }) => (
                   <div className="md:col-span-2 space-y-2">
                     <Label>Area/locality</Label>
@@ -365,7 +379,7 @@ export default function CompleteRegistration() {
 
               <form.Field name="address_details.pincode">
                 {({ state, handleChange }) => (
-                  <div className="space-y-2"> 
+                  <div className="space-y-2">
                     <Label>Pincode</Label>
                     <Input
                       value={state.value}
@@ -498,7 +512,6 @@ export default function CompleteRegistration() {
             </Button>
           </div>
         </form>
-
       </div>
     </div>
   );

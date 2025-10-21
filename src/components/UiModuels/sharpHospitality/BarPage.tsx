@@ -6,15 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function BarPage() {
   return (
-    <div className="p-2 space-y-4">
-      {/* Header Section */}
-      <div className="border-b pb-3">
-        <div className="text-3xl font-semibold">Bar Management</div>
-        <p className="text-gray-600">
-          Manage drinks, staff, and bar operations efficiently.
-        </p>
-      </div>
-
+    <div className="p-2">
       {/* Tabs Section */}
       <Tabs defaultValue="menu" className="w-full">
         {/* --- Tabs Header --- */}

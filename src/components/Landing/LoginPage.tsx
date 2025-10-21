@@ -2,15 +2,37 @@ import { useLoginUser } from "@/api_service/mutations/useLogin";
 import { LoginSchema, type LoginPayload } from "@/schemas/Auth";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
+import api from "@/api_service/axios";
 
 export default function LoginPage(): React.JSX.Element {
   const loginUser = useLoginUser();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkCookies = async () => {
+      try {
+        const res = await api.get("/check-cookies", { withCredentials: true });
+        console.log("Cookie valid:", res.data);
+      } catch (err) {
+        console.error("Cookie check failed:");
+      }
+    };
+
+    checkCookies();
+  }, []);
 
   const form = useForm({
     validators: { onBlur: LoginSchema, onMount: LoginSchema },
@@ -19,13 +41,13 @@ export default function LoginPage(): React.JSX.Element {
       password: "",
     } as LoginPayload,
     onSubmit: ({ value }) => {
-      loginUser.mutate(value,{
-        onSuccess:()=>{
-          navigate({to:"/dashboard"})
-        }
+      console.log(value);
+      loginUser.mutate(value, {
+        onSuccess: () => {
+          navigate({ to: "/dashboard" });
+        },
       });
       form.reset();
-      
     },
   });
 
@@ -129,7 +151,7 @@ export default function LoginPage(): React.JSX.Element {
               variant="outline"
               className="w-full"
               onClick={() => {
-                navigate({to:'/signup'});
+                navigate({ to: "/signup" });
               }}
             >
               Sign Up

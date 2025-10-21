@@ -4,7 +4,9 @@ export const AUTH = {
     OTP_VERIFY:"/otp-verify",
     COMPLETE_REGISTRATION:"/complete-register",
     RESET_PASSWORD:"/password",
-    SIGNUP_STATUS:"/signup/status"
+    SIGNUP_STATUS:"/signup/status",
+    CHECK_USER:"",
+    
 }
 
 export const UTILITY = {

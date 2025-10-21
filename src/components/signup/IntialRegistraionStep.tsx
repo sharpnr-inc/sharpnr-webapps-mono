@@ -25,7 +25,6 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useNavigate } from "@tanstack/react-router";
-import { Checkbox } from "../ui/checkbox";
 
 export default function RegisterOrganization(): React.JSX.Element {
   const registerOrg = useRegisterOrganization(); // our mutation hook
@@ -137,47 +136,6 @@ export default function RegisterOrganization(): React.JSX.Element {
                 </>
               )}
             </form.Field>
-            <form.Subscribe selector={(state) => state.values.org_type}>
-              {(orgType) =>
-                orgType === "HOSPITALITY" && (
-                  <Card className="mt-2">
-                    <CardHeader>
-                      <CardTitle>Select Operations</CardTitle>
-                      <CardDescription>
-                        Select the appropriate option(s)
-                      </CardDescription>
-                    </CardHeader>
-
-                    <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      <div className="flex items-center gap-2 border rounded-lg p-3">
-                        <Checkbox id="hotel" />
-                        <Label htmlFor="hotel">Hotel</Label>
-                      </div>
-
-                      <div className="flex items-center gap-2 border rounded-lg p-3">
-                        <Checkbox id="restaurant" />
-                        <Label htmlFor="restaurant">Restaurant</Label>
-                      </div>
-
-                      <div className="flex items-center gap-2 border rounded-lg p-3">
-                        <Checkbox id="bar" />
-                        <Label htmlFor="bar">Bar</Label>
-                      </div>
-
-                      <div className="flex items-center gap-2 border rounded-lg p-3">
-                        <Checkbox id="pub" />
-                        <Label htmlFor="pub">Pub / Club</Label>
-                      </div>
-
-                      <div className="flex items-center gap-2 border rounded-lg p-3 w-fit">
-                        <Checkbox id="kitchen" />
-                        <Label htmlFor="kitchen" className=" text-nowrap ">Cloud Kitchen/Takeways</Label>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              }
-            </form.Subscribe>
             <div className="grid grid-cols-2 gap-4">
               <form.Field name="email">
                 {({ state, handleBlur, handleChange }) => (

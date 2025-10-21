@@ -22,12 +22,8 @@ export default function SharpHospitalityHotelPage() {
   };
 
   return (
-    <div>
-      <div className="p-2 border-b-2">
-        <div className="text-3xl font-semibold">Hotel</div>
-        <p className="">THis is Hotel Page</p>
-      </div>{" "}
-      <div className="mt-2">
+
+      <div className="p-2">
         {/* Tabs Section */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
      
@@ -84,6 +80,5 @@ export default function SharpHospitalityHotelPage() {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
   );
 }

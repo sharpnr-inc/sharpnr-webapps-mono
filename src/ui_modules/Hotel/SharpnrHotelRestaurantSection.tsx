@@ -178,7 +178,7 @@ export default function SharpnrHotelRestaurantSection() {
     <div className=" p-6 ">
       <div className=" mx-auto space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold flex items-center gap-3">
               <Utensils className="w-10 h-10 text-orange-500" />
@@ -186,7 +186,7 @@ export default function SharpnrHotelRestaurantSection() {
             </h1>
             <p className="mt-2">Visual restaurant floor plan</p>
           </div>
-        </div>
+        </div> */}
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

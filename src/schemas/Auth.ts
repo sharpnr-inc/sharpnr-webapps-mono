@@ -48,23 +48,6 @@ const AddressDetailsSchema = z.object({
   area_locality:z.string().optional()
 });
 
-// BankDetails schema
-const BankDetailsSchema = z.object({
-  bank_name: z.string().min(1, "Bank name is required"),
-  account_number: z.string().min(1, "Account number is required"),
-  ifsc_code: z.string().min(1, "IFSC code is required"),
-  branch_name: z.string().optional(),
-  is_primary: z.boolean(),
-  is_secondary: z.boolean().optional(),
-});
-
-// OrgOwnerDetails schema
-const OrgOwnerDetailsSchema = z.object({
-  owner_name: z.string().min(1, "Owner name is required"),
-  owner_email: z.string().optional(),
-  owner_phone: z.string().optional(),
-});
-
 
 // Main DTO schema
 export const CompleteOrgResgistrationSchema = z
@@ -72,7 +55,6 @@ export const CompleteOrgResgistrationSchema = z
     registration_details: RegistrationDetailsSchema,
     address_details: AddressDetailsSchema,
     is_owner: z.boolean(),
-    // owner_details: z.array(OrgOwnerDetailsSchema),
   })
 
 // ✅ Optional: export inferred TypeScript type

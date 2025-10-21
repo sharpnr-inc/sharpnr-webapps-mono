@@ -14,6 +14,7 @@ import { routeTree } from "./routeTree.gen.ts";
 import { SheetProvider } from "./context/DrawerContext.tsx";
 import { FormModalProvider } from "./context/FormsModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
+import { TooltipProvider } from "./components/ui/tooltip.tsx";
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -44,7 +45,7 @@ createRoot(document.getElementById("root")!).render(
       </ThemeProvider>
 
       {/* 🔹 Show Devtools only in development */}
-      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+      {/* {import.meta.env.DEV && <ReactQueryDevtools buttonPosition="top-left" initialIsOpen={false} />} */}
     </QueryClientProvider>
   </StrictMode>
 );

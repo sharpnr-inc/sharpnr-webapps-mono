@@ -15,6 +15,7 @@ import {
   Wrench,
   Cookie,
   HotelIcon,
+  TableConfig,
   type LucideIcon,
 } from "lucide-react";
 
@@ -141,6 +142,13 @@ export const SharpHospitalityNavs = [
         label: "Settings",
         icon: Settings,
         to: "/dashboard/sharphotel/settings",
+      },
+
+      {
+        id: "org_config",
+        label: "Org Configs",
+        icon: TableConfig,
+        to: "/dashboard/sharphotel/orgConfig",
       },
     ],
   },

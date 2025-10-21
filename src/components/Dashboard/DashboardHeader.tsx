@@ -7,10 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, UserCog, Settings } from "lucide-react";
+import { LogOut, UserCog, Settings, BellIcon } from "lucide-react";
 import { ModeToggle } from "./ThemeToggle";
 import { useNavigate } from "@tanstack/react-router";
-// import { useHeader } from "@/context/HeaderContext";
+import { useHeader } from "@/context/HeaderContext";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -21,15 +21,14 @@ export default function DashboardHeader({
   useremail,
   getGreeting,
 }: DashboardHeaderProps) {
-  // const { heading, subheading } = useHeader();
-  const greeting = getGreeting(useremail);
+  const { heading, subheading, HeaderIcon } = useHeader();
   const { open, isMobile } = useSidebar();
   const nav = useNavigate();
 
   return (
     <header
       className={cn(
-        "flex justify-between h-14 shrink-0 items-center gap-2 border-b fixed top-0 z-50  transition-[width,left] duration-200 ease-linear",
+        "flex flex-wrap justify-between items-center h-auto min-h-16 shrink-0 gap-2 border-b fixed top-0 z-50  px-2 sm:px-4 transition-[width,left] duration-200 ease-linear",
         {
           "left-[var(--sidebar-width)] w-[calc(100%-var(--sidebar-width))]":
             open && !isMobile,
@@ -37,26 +36,47 @@ export default function DashboardHeader({
         }
       )}
     >
-      <div className="flex items-center gap-2 px-3">
-        <SidebarTrigger />
-      </div>
-      {/* <div>
-        <div className="text-xl">{heading || ""}</div>
-        <small>{subheading}</small>
-      </div> */}
-      <p className="text-xs py-2 px-4 border rounded-2xl">{greeting}</p>
+      {/* Left Section */}
+      <div className="flex items-center flex-1 min-w-0">
+        <div className="flex gap-2 pr-1 sm:pr-3">
+          <SidebarTrigger />
+        </div>
 
-      <div className="pr-6 flex gap-5">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-muted flex-shrink-0">
+            <HeaderIcon className="w-5 h-5 text-blue-500" />
+          </div>
+
+          <div className="flex flex-col min-w-0">
+            <h1 className="font-semibold text-sm sm:text-base truncate">
+              {heading}
+            </h1>
+            {subheading && (
+              <p className="text-xs text-muted-foreground truncate">
+                {subheading}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Right Section */}
+      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <BellIcon className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer hover:text-primary transition" />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center border-1 gap-2 rounded-md p-1 transition">
+            <button className="flex items-center gap-2 rounded-md p-1 transition hover:bg-muted">
               <Avatar className="w-8 h-8">
                 <AvatarImage src="" />
                 <AvatarFallback>
                   {useremail.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              <span className="hidden sm:inline text-sm">{useremail}</span>
+              {/* Hide email text on mobile */}
+              <span className="hidden md:inline text-sm truncate max-w-[140px]">
+                {useremail}
+              </span>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="">
@@ -77,7 +97,8 @@ export default function DashboardHeader({
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <ModeToggle></ModeToggle>
+
+        <ModeToggle />
       </div>
     </header>
   );
