@@ -27,6 +27,7 @@ import { Route as DashboardLayoutSharphrPayrollRouteImport } from './routes/dash
 import { Route as DashboardLayoutSharphrLeavesManagementRouteImport } from './routes/dashboard/_layout/sharphr/leaves-management'
 import { Route as DashboardLayoutSharphrEmployeeRouteImport } from './routes/dashboard/_layout/sharphr/employee'
 import { Route as DashboardLayoutSharphotelSettingsRouteImport } from './routes/dashboard/_layout/sharphotel/settings'
+import { Route as DashboardLayoutSharphotelServicesRouteImport } from './routes/dashboard/_layout/sharphotel/services'
 import { Route as DashboardLayoutSharphotelRestaurentRouteImport } from './routes/dashboard/_layout/sharphotel/restaurent'
 import { Route as DashboardLayoutSharphotelOrgConfigRouteImport } from './routes/dashboard/_layout/sharphotel/orgConfig'
 import { Route as DashboardLayoutSharphotelMenuRouteImport } from './routes/dashboard/_layout/sharphotel/menu'
@@ -151,6 +152,12 @@ const DashboardLayoutSharphotelSettingsRoute =
   DashboardLayoutSharphotelSettingsRouteImport.update({
     id: '/sharphotel/settings',
     path: '/sharphotel/settings',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutSharphotelServicesRoute =
+  DashboardLayoutSharphotelServicesRouteImport.update({
+    id: '/sharphotel/services',
+    path: '/sharphotel/services',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutSharphotelRestaurentRoute =
@@ -329,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/sharphotel/orgConfig': typeof DashboardLayoutSharphotelOrgConfigRoute
   '/dashboard/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
+  '/dashboard/sharphotel/services': typeof DashboardLayoutSharphotelServicesRoute
   '/dashboard/sharphotel/settings': typeof DashboardLayoutSharphotelSettingsRoute
   '/dashboard/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
   '/dashboard/sharphr/leaves-management': typeof DashboardLayoutSharphrLeavesManagementRoute
@@ -371,6 +379,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/sharphotel/orgConfig': typeof DashboardLayoutSharphotelOrgConfigRoute
   '/dashboard/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
+  '/dashboard/sharphotel/services': typeof DashboardLayoutSharphotelServicesRoute
   '/dashboard/sharphotel/settings': typeof DashboardLayoutSharphotelSettingsRoute
   '/dashboard/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
   '/dashboard/sharphr/leaves-management': typeof DashboardLayoutSharphrLeavesManagementRoute
@@ -416,6 +425,7 @@ export interface FileRoutesById {
   '/dashboard/_layout/sharphotel/menu': typeof DashboardLayoutSharphotelMenuRoute
   '/dashboard/_layout/sharphotel/orgConfig': typeof DashboardLayoutSharphotelOrgConfigRoute
   '/dashboard/_layout/sharphotel/restaurent': typeof DashboardLayoutSharphotelRestaurentRoute
+  '/dashboard/_layout/sharphotel/services': typeof DashboardLayoutSharphotelServicesRoute
   '/dashboard/_layout/sharphotel/settings': typeof DashboardLayoutSharphotelSettingsRoute
   '/dashboard/_layout/sharphr/employee': typeof DashboardLayoutSharphrEmployeeRoute
   '/dashboard/_layout/sharphr/leaves-management': typeof DashboardLayoutSharphrLeavesManagementRoute
@@ -461,6 +471,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharphotel/menu'
     | '/dashboard/sharphotel/orgConfig'
     | '/dashboard/sharphotel/restaurent'
+    | '/dashboard/sharphotel/services'
     | '/dashboard/sharphotel/settings'
     | '/dashboard/sharphr/employee'
     | '/dashboard/sharphr/leaves-management'
@@ -503,6 +514,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharphotel/menu'
     | '/dashboard/sharphotel/orgConfig'
     | '/dashboard/sharphotel/restaurent'
+    | '/dashboard/sharphotel/services'
     | '/dashboard/sharphotel/settings'
     | '/dashboard/sharphr/employee'
     | '/dashboard/sharphr/leaves-management'
@@ -547,6 +559,7 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/sharphotel/menu'
     | '/dashboard/_layout/sharphotel/orgConfig'
     | '/dashboard/_layout/sharphotel/restaurent'
+    | '/dashboard/_layout/sharphotel/services'
     | '/dashboard/_layout/sharphotel/settings'
     | '/dashboard/_layout/sharphr/employee'
     | '/dashboard/_layout/sharphr/leaves-management'
@@ -694,6 +707,13 @@ declare module '@tanstack/react-router' {
       path: '/sharphotel/settings'
       fullPath: '/dashboard/sharphotel/settings'
       preLoaderRoute: typeof DashboardLayoutSharphotelSettingsRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/sharphotel/services': {
+      id: '/dashboard/_layout/sharphotel/services'
+      path: '/sharphotel/services'
+      fullPath: '/dashboard/sharphotel/services'
+      preLoaderRoute: typeof DashboardLayoutSharphotelServicesRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/sharphotel/restaurent': {
@@ -893,6 +913,7 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutSharphotelMenuRoute: typeof DashboardLayoutSharphotelMenuRoute
   DashboardLayoutSharphotelOrgConfigRoute: typeof DashboardLayoutSharphotelOrgConfigRoute
   DashboardLayoutSharphotelRestaurentRoute: typeof DashboardLayoutSharphotelRestaurentRoute
+  DashboardLayoutSharphotelServicesRoute: typeof DashboardLayoutSharphotelServicesRoute
   DashboardLayoutSharphotelSettingsRoute: typeof DashboardLayoutSharphotelSettingsRoute
   DashboardLayoutSharphrEmployeeRoute: typeof DashboardLayoutSharphrEmployeeRoute
   DashboardLayoutSharphrLeavesManagementRoute: typeof DashboardLayoutSharphrLeavesManagementRoute
@@ -945,6 +966,8 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
     DashboardLayoutSharphotelOrgConfigRoute,
   DashboardLayoutSharphotelRestaurentRoute:
     DashboardLayoutSharphotelRestaurentRoute,
+  DashboardLayoutSharphotelServicesRoute:
+    DashboardLayoutSharphotelServicesRoute,
   DashboardLayoutSharphotelSettingsRoute:
     DashboardLayoutSharphotelSettingsRoute,
   DashboardLayoutSharphrEmployeeRoute: DashboardLayoutSharphrEmployeeRoute,

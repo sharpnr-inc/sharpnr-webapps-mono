@@ -8,7 +8,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 export default function InventoryPage() {
   return (
     <Tabs defaultValue="bar_inventory" className="p-2">
-      <TabsList className="flex flex-wrap gap-2">
+      <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
         <TabsTrigger value="bar_inventory">Bar Inventory</TabsTrigger>
         <TabsTrigger value="hotel_inventory">Hotel Inventory</TabsTrigger>
         <TabsTrigger value="restaurant_inventory">

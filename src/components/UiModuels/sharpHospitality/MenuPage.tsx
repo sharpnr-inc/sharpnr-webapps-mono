@@ -1,8 +1,7 @@
 import MenuBarMenuSection from "@/components/hospitality_module/Menu/MenuBarMenuSection";
 import MenuHotelMenuSection from "@/components/hospitality_module/Menu/MenuHotelMenuSection";
 import MenuRestaurantMenuSection from "@/components/hospitality_module/Menu/MenuRestaurantMenuSection";
-import { Tabs, TabsContent, TabsTrigger } from "@/components/ui/tabs";
-import { TabsList } from "@radix-ui/react-tabs";
+import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 
 export default function MenuPage() {
   return (

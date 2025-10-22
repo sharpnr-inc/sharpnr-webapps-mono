@@ -16,6 +16,7 @@ import {
   Cookie,
   HotelIcon,
   TableConfig,
+  Server,
   type LucideIcon,
 } from "lucide-react";
 
@@ -112,6 +113,13 @@ export const SharpHospitalityNavs = [
         label: "Restaurant",
         icon: Utensils, // Better icon for restaurant
         to: "/dashboard/sharphotel/restaurent", // Fixed typo: restaurent -> restaurant
+      },
+
+          {
+        id: "hotel_services",
+        label: "Service",
+        icon: Server, // Better icon for restaurant
+        to: "/dashboard/sharphotel/services", // Fixed typo: restaurent -> restaurant
       },
       {
         id: "hotel_menu",

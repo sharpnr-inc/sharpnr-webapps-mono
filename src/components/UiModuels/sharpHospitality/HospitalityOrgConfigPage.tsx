@@ -1,12 +1,5 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
 
 const tabs = [
   { value: "overview", label: "Overview" },
@@ -25,30 +18,11 @@ export default function HospitalityOrgConfigPage() {
 
   return (
     <div className="p-2">
-      {/* --- Small Screen: Shadcn Dropdown --- */}
-      <div className="md:hidden mb-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger className="w-full flex justify-between items-center border rounded-md p-2">
-            {tabs.find((tab) => tab.value === selectedTab)?.label}
-            <ChevronDown className="w-4 h-4 ml-2" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full">
-            {tabs.map((tab) => (
-              <DropdownMenuItem
-                key={tab.value}
-                onClick={() => setSelectedTab(tab.value)}
-              >
-                {tab.label}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+   
 
-      {/* --- Tabs for medium+ screens --- */}
-      <div className="hidden lg:block">
+
         <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-          <TabsList className="flex flex-wrap gap-2 mb-2">
+          <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
             {tabs.map((tab) => (
               <TabsTrigger key={tab.value} value={tab.value}>
                 {tab.label}
@@ -65,7 +39,6 @@ export default function HospitalityOrgConfigPage() {
             </TabsContent>
           ))}
         </Tabs>
-      </div>
 
       {/* --- Dropdown content for small screens --- */}
       <div className="md:hidden">

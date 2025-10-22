@@ -1,13 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import React from "react";
 import SettingOverviewSection from "@/components/hospitality_module/settings/SettingsOverviewSection";
 import SettingsNotificationSection from "@/components/hospitality_module/settings/SettingsNotificationSection";
@@ -19,15 +10,11 @@ import SettingsRestaurantConfigSection from "@/components/hospitality_module/set
 export default function SharpHospitalitySettings() {
   const [activeTab, setActiveTab] = React.useState("general");
 
-  const handleSelect = (value: string) => {
-    setActiveTab(value);
-  };
-
   return (
     <div className="p-2 space-y-6">
       {/* Tabs Section */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="w-max hidden xl:flex p-1 space-x-2 max-w-full">
+        <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>
@@ -38,41 +25,6 @@ export default function SharpHospitalitySettings() {
           </TabsTrigger>
         </TabsList>
 
-        {/* --- Mobile Dropdown --- */}
-        <div className="xl:hidden mb-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="w-full capitalize">
-                {activeTab.replaceAll("_", " ")}
-              </Button>
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent className="w-56">
-              <DropdownMenuLabel>Settings Sections</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={() => handleSelect("general")}>
-                General
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleSelect("notifications")}>
-                Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleSelect("users")}>
-                Users
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleSelect("payments")}>
-                Payments
-              </DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleSelect("rooms_config")}>
-                Room Configuration
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onSelect={() => handleSelect("restaurant_config")}
-              >
-                Restaurant Configuration
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
 
         {/* --- GENERAL --- */}
         <TabsContent value="general">
