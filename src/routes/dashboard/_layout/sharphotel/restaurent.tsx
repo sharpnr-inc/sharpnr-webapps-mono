@@ -1,11 +1,11 @@
-import SharpnrHotelRestaurantSection from "@/ui_modules/Hotel/SharpnrHotelRestaurantSection";
+import RestaurantPage from "@/components/UiModuels/sharpHospitality/HotelRestaurantPage";
 import { createFileRoute } from "@tanstack/react-router";
 import { UtensilsCrossed } from "lucide-react";
 
 export const Route = createFileRoute(
   "/dashboard/_layout/sharphotel/restaurent"
 )({
-  component: SharpnrHotelRestaurantSection,
+  component: RestaurantPage,
   context: () => ({
     heading: "Restaurant Settings",
     subheading: "Manage Restaurant Here",

@@ -11,7 +11,7 @@ export default function KitchenPage() {
 
       {/* --- Tabs --- */}
       <Tabs defaultValue="orders" className="w-full">
-        <TabsList className="flex flex-wrap gap-2">
+        <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
           <TabsTrigger value="orders">Orders</TabsTrigger>
           <TabsTrigger value="menu">Menu</TabsTrigger>
           <TabsTrigger value="inventory">Inventory</TabsTrigger>

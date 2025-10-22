@@ -1,4 +1,4 @@
-import HrEmployeesManagementSection from "@/ui_modules/HR/Employees/HrEmployeeManagement";
+
 import { createFileRoute } from "@tanstack/react-router";
 import { PersonStanding } from "lucide-react";
 
@@ -10,3 +10,7 @@ export const Route = createFileRoute("/dashboard/_layout/sharphr/employee")({
     HeaderIcon: PersonStanding,
   }),
 });
+
+function HrEmployeesManagementSection(){
+  return(<div>This is Just Employee Page</div>)
+}
