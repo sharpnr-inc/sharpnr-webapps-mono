@@ -32,9 +32,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Employee type definition
 interface Employee {
@@ -156,14 +156,13 @@ export default function HrEmployeesManagementSection() {
   const { openModal } = useFormModal();
 
   const handleAddEmployee = (option: string) => {
-    if (option === "Online Access"){
-       openModal(
-      <SHAAddEmployeeForm />, // modal content
-      "Add New Employee", // modal title
-      "Fill out the form below to add a new employee." // modal description
-    );
+    if (option === "Online Access") {
+      openModal(
+        <SHAAddEmployeeForm />, // modal content
+        "Add New Employee", // modal title
+        "Fill out the form below to add a new employee." // modal description
+      );
     }
-   
   };
 
   const [globalFilter, setGlobalFilter] = useState<string>("");
@@ -310,158 +309,168 @@ export default function HrEmployeesManagementSection() {
   ).length;
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between p-2">
-        <p className="text-2xl font-semibold">Employees</p>
+    <Tabs className="p-2">
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="onBoarding">OnBoarding</TabsTrigger>
+        <TabsTrigger value="Requests">Requests</TabsTrigger>
+      </TabsList>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button>
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Add Employee
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="start">
-            <DropdownMenuItem
-              onClick={() => handleAddEmployee("Online Access")}
-            >
-              Online Access
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleAddEmployee("Record Purpose")}
-            >
-              Record Purpose
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-
-      <div className="grid grid-cols-3 gap-5">
-        <Card>
-          <CardHeader>
-            <CardTitle>On Duty</CardTitle>
-            <CardDescription>Employees Currently Working</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{onDutyCount}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>On Leave</CardTitle>
-            <CardDescription>Employees On Leave</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{onLeaveCount}</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Remote</CardTitle>
-            <CardDescription>Employees Working Remotely</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold">{remoteCount}</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Employees</CardTitle>
-          <CardDescription>
-            Here we have all the List of employees
-          </CardDescription>
-          <div className="flex items-center gap-2 mt-4">
-            <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search employees..."
-                value={globalFilter ?? ""}
-                onChange={(e) => setGlobalFilter(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+      <TabsContent value="overview">
+        <div className="p-2 space-y-4">
+          <div className="grid grid-cols-3 gap-5">
+            <Card>
+              <CardHeader>
+                <CardTitle>On Duty</CardTitle>
+                <CardDescription>Employees Currently Working</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">{onDutyCount}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>On Leave</CardTitle>
+                <CardDescription>Employees On Leave</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">{onLeaveCount}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Remote</CardTitle>
+                <CardDescription>Employees Working Remotely</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold">{remoteCount}</p>
+              </CardContent>
+            </Card>
           </div>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id} className="border-b">
-                    {headerGroup.headers.map((header) => (
-                      <th
-                        key={header.id}
-                        className="px-4 py-3 text-left text-sm"
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Employees</CardTitle>
+              <CardDescription>
+                Here we have all the List of employees
+              </CardDescription>
+              <div className="flex items-center gap-2 mt-2">
+                <div className="relative flex-1 max-w-sm">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search employees..."
+                    value={globalFilter ?? ""}
+                    onChange={(e) => setGlobalFilter(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                      <tr key={headerGroup.id} className="border-b">
+                        {headerGroup.headers.map((header) => (
+                          <th
+                            key={header.id}
+                            className="px-4 py-3 text-left text-sm"
+                          >
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext()
+                                )}
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody>
+                    {table.getRowModel().rows.map((row) => (
+                      <tr
+                        key={row.id}
+                        className="border-b hover:bg-gray-50 transition-colors"
                       >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
+                        {row.getVisibleCells().map((cell) => (
+                          <td key={cell.id} className="px-4 py-3 text-sm">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
                             )}
-                      </th>
+                          </td>
+                        ))}
+                      </tr>
                     ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="border-b hover:bg-gray-50 transition-colors"
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id} className="px-4 py-3 text-sm">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                  </tbody>
+                </table>
+              </div>
 
-          <div className="flex items-center justify-between mt-4">
-            <div className="text-sm text-gray-600">
-              Showing{" "}
-              {table.getState().pagination.pageIndex *
-                table.getState().pagination.pageSize +
-                1}{" "}
-              to{" "}
-              {Math.min(
-                (table.getState().pagination.pageIndex + 1) *
-                  table.getState().pagination.pageSize,
-                employeeData.length
-              )}{" "}
-              of {employeeData.length} employees
-            </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                Next
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+              <div className="flex items-center justify-between mt-4">
+                <div className="text-sm text-gray-600">
+                  Showing{" "}
+                  {table.getState().pagination.pageIndex *
+                    table.getState().pagination.pageSize +
+                    1}{" "}
+                  to{" "}
+                  {Math.min(
+                    (table.getState().pagination.pageIndex + 1) *
+                      table.getState().pagination.pageSize,
+                    employeeData.length
+                  )}{" "}
+                  of {employeeData.length} employees
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => table.previousPage()}
+                    disabled={!table.getCanPreviousPage()}
+                  >
+                    Previous
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => table.nextPage()}
+                    disabled={!table.getCanNextPage()}
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </TabsContent>
+
+      <TabsContent value="onBoarding">
+        <div className="p-2">
+          <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button>
+                  <PlusCircle className="mr-2 h-4 w-4" />
+                  Add Employee
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="start">
+                <DropdownMenuItem
+                  onClick={() => handleAddEmployee("Online Access")}
+                >
+                  Online Access
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleAddEmployee("Record Purpose")}
+                >
+                  Record Purpose
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
+      </TabsContent>
+    </Tabs>
   );
 }

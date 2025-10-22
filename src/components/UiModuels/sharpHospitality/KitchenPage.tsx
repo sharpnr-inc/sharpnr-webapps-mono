@@ -19,7 +19,7 @@ export default function KitchenPage() {
         </TabsList>
 
         {/* --- Tab Contents --- */}
-        <div className="mt-2">
+        <div className="">
           <TabsContent value="orders">
             <KitchenOrdersSection />
           </TabsContent>

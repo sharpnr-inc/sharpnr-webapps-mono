@@ -6,32 +6,23 @@ import { TabsList } from "@radix-ui/react-tabs";
 
 export default function MenuPage() {
   return (
-    <div>
-      <div className="p-2">
-        <div className="text-3xl">Menu</div>
-        <small>Manage the Menu across the Organisation</small>
-      </div>
+    <Tabs defaultValue="bar_menu" className="p-2">
+      <TabsList>
+        <TabsTrigger value="bar_menu"> Bar Menu</TabsTrigger>
+        <TabsTrigger value="hotel_menu">Hotel Menu</TabsTrigger>
+        <TabsTrigger value="restaurant_menu"> Restaurant Menu</TabsTrigger>
+      </TabsList>
+      <TabsContent value="bar_menu">
+        <MenuBarMenuSection />
+      </TabsContent>
 
-      <div>
-        <Tabs defaultValue="bar_menu">
-          <TabsList>
-            <TabsTrigger value="bar_menu"> Bar Menu</TabsTrigger>
-            <TabsTrigger value="hotel_menu">Hotel Menu</TabsTrigger>
-            <TabsTrigger value="restaurant_menu"> Restaurant Menu</TabsTrigger>
-          </TabsList>
-          <TabsContent value="bar_menu">
-            <MenuBarMenuSection />
-          </TabsContent>
+      <TabsContent value="hotel_menu">
+        <MenuHotelMenuSection />
+      </TabsContent>
 
-          <TabsContent value="hotel_menu">
-            <MenuHotelMenuSection />
-          </TabsContent>
-
-          <TabsContent value="restaurant_menu">
-            <MenuRestaurantMenuSection />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </div>
+      <TabsContent value="restaurant_menu">
+        <MenuRestaurantMenuSection />
+      </TabsContent>
+    </Tabs>
   );
 }

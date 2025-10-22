@@ -25,14 +25,6 @@ export default function SharpHospitalitySettings() {
 
   return (
     <div className="p-2 space-y-6">
-      {/* Header */}
-      <div className="pb-4 border-b">
-        <h1 className="text-3xl font-semibold">Settings</h1>
-        <p className="text-sm text-muted-foreground">
-          Configure your organisation preferences and manage settings.
-        </p>
-      </div>
-
       {/* Tabs Section */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="w-max hidden xl:flex p-1 space-x-2 max-w-full">
