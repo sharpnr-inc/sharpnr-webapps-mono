@@ -7,14 +7,13 @@ import { LoaderProvider } from "./context/LoaderContext.tsx";
 
 // 🔹 TanStack Query
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen.ts";
 import { SheetProvider } from "./context/DrawerContext.tsx";
 import { FormModalProvider } from "./context/FormsModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
-import { TooltipProvider } from "./components/ui/tooltip.tsx";
 
 declare module "@tanstack/react-router" {
   interface Register {

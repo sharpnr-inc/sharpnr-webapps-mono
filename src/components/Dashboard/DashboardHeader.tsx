@@ -14,12 +14,10 @@ import { useHeader } from "@/context/HeaderContext";
 
 interface DashboardHeaderProps {
   useremail: string;
-  getGreeting: (email: string) => string;
 }
 
 export default function DashboardHeader({
   useremail,
-  getGreeting,
 }: DashboardHeaderProps) {
   const { heading, subheading, HeaderIcon } = useHeader();
   const { open, isMobile } = useSidebar();

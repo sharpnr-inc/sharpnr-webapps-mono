@@ -1,32 +1,31 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
+// import {
+//   createContext,
+//   useContext,
+//   useState,
+//   type ReactNode,
+// } from "react";
 
-interface UserData {
-  id: string;
-  name: string;
-  role?: string;
-}
+// interface UserData {
+//   id: string;
+//   name: string;
+//   role?: string;
+// }
 
-interface AuthContextType {
-  user: UserData | null;
-  loading: boolean;
-  isAuthecticated: boolean;
-}
+// interface AuthContextType {
+//   user: UserData | null;
+//   loading: boolean;
+//   isAuthecticated: boolean;
+// }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+// const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used inside AuthProvider");
-  return ctx;
-};
+// export const useAuth = () => {
+//   const ctx = useContext(AuthContext);
+//   if (!ctx) throw new Error("useAuth must be used inside AuthProvider");
+//   return ctx;
+// };
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
-};
+// export const AuthProvider = ({ children }: { children: ReactNode }) => {
+//   const [user, setUser] = useState<UserData | null>(null);
+//   const [loading, setLoading] = useState(true);
+// };

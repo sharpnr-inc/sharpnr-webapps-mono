@@ -19,10 +19,6 @@ function RouteComponent() {
   const policy = usePolicySSE(empId);
   console.log(policy);
 
-  const getGreetings = (email: string) => {
-    return `Welcome back, ${email.split("@")[0]}! 👋`;
-  };
-
   return (
     <SidebarProvider>
       <HeaderProvider>
@@ -30,7 +26,6 @@ function RouteComponent() {
         <SidebarInset>
           <DashboardHeader
             useremail={"kashifsocl@gmail.com"}
-            getGreeting={getGreetings}
           />
           <div className="h-screen">
             <Outlet />

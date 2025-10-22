@@ -1,7 +1,7 @@
-import { createSignupStatusQuery } from "@/api_service/queries/SignupStatus";
+// import { createSignupStatusQuery } from "@/api_service/queries/SignupStatus";
 import CompleteRegistration from "@/components/signup/CompleteRegistration";
-import { QueryClient } from "@tanstack/react-query";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+// import { QueryClient } from "@tanstack/react-query";
+import { createFileRoute,} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/signup/complete-registration")({
   // beforeLoad: async () => {
