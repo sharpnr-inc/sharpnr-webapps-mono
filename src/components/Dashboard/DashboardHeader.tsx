@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -16,21 +19,33 @@ interface DashboardHeaderProps {
   useremail: string;
 }
 
-export default function DashboardHeader({
-  useremail,
-}: DashboardHeaderProps) {
+export default function DashboardHeader({ useremail }: DashboardHeaderProps) {
   const { heading, subheading, HeaderIcon } = useHeader();
   const { open, isMobile } = useSidebar();
   const nav = useNavigate();
 
+  // ✅ Track scroll position
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20); // add bg when scroll past 20px
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
       className={cn(
-        "flex flex-wrap justify-between items-center h-auto min-h-16 shrink-0 gap-2 border-b fixed top-0 z-50  px-2 sm:px-4 transition-[width,left] duration-200 ease-linear",
+        "flex flex-wrap justify-between items-center h-auto min-h-16 shrink-0 gap-2 border-b fixed top-0 z-50 px-2 sm:px-4 transition-all duration-300 ease-in-out backdrop-blur-md",
         {
           "left-[var(--sidebar-width)] w-[calc(100%-var(--sidebar-width))]":
             open && !isMobile,
           "w-full left-0": !open || isMobile,
+          "bg-background/70": !isScrolled, // transparent background
+          "bg-primary text-primary-foreground shadow-md": isScrolled, // when scrolled
         }
       )}
     >
@@ -41,16 +56,33 @@ export default function DashboardHeader({
         </div>
 
         <div className="flex items-center gap-2 min-w-0">
-          <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-muted flex-shrink-0">
+          <div
+            className={cn(
+              "flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex-shrink-0 transition-colors",
+              isScrolled ? "bg-primary-foreground/20" : "bg-muted"
+            )}
+          >
             <HeaderIcon className="w-5 h-5 text-blue-500" />
           </div>
 
           <div className="flex flex-col min-w-0">
-            <h1 className="font-semibold text-sm sm:text-base truncate">
+            <h1
+              className={cn(
+                "font-semibold text-sm sm:text-base truncate",
+                isScrolled ? "text-primary-foreground" : "text-foreground"
+              )}
+            >
               {heading}
             </h1>
             {subheading && (
-              <p className="text-xs text-muted-foreground truncate">
+              <p
+                className={cn(
+                  "text-xs truncate",
+                  isScrolled
+                    ? "text-primary-foreground/80"
+                    : "text-muted-foreground"
+                )}
+              >
                 {subheading}
               </p>
             )}
@@ -60,24 +92,41 @@ export default function DashboardHeader({
 
       {/* Right Section */}
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        <BellIcon className="w-5 h-5 sm:w-6 sm:h-6 cursor-pointer hover:text-primary transition" />
+        <BellIcon
+          className={cn(
+            "w-5 h-5 sm:w-6 sm:h-6 cursor-pointer transition",
+            isScrolled
+              ? "text-primary-foreground hover:text-primary-foreground/80"
+              : "hover:text-primary"
+          )}
+        />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-md p-1 transition hover:bg-muted">
+            <button
+              className={cn(
+                "flex items-center gap-2 rounded-md p-1 transition",
+                isScrolled ? "hover:bg-primary-foreground/20" : "hover:bg-muted"
+              )}
+            >
               <Avatar className="w-8 h-8">
                 <AvatarImage src="" />
                 <AvatarFallback>
                   {useremail.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
-              {/* Hide email text on mobile */}
-              <span className="hidden md:inline text-sm truncate max-w-[140px]">
+              <span
+                className={cn(
+                  "hidden md:inline text-sm truncate max-w-[140px]",
+                  isScrolled ? "text-primary-foreground" : ""
+                )}
+              >
                 {useremail}
               </span>
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="">
+
+          <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => nav({ to: "/dashboard/employee/profile" })}
               className="flex items-center gap-2"

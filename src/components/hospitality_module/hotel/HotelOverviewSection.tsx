@@ -1,162 +1,176 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
+
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import {
+  Hotel,
+  BedDouble,
+  CalendarDays,
+  DoorOpen,
+  Utensils,
+  BarChart,
+} from "lucide-react";
+import SharpTable from "@/components/Tables/ShapTable";
 
 export default function HotelOverviewSection() {
   return (
-    <div className="space-y-2">
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2">
-        <Card className="rounded-xl shadow-sm hover:shadow transition-all p-3">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-muted-foreground">Total Guest</p>
-              <p className="text-2xl font-semibold text-blue-600">12</p>
-            </div>
-            <span className="text-xs text-gray-500">Next 7 days</span>
-          </div>
-        </Card>
-
-        <Card className="rounded-xl shadow-sm hover:shadow transition-all p-3">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-muted-foreground">Upcoming Booking</p>
-              <p className="text-2xl font-semibold text-green-600">5</p>
-            </div>
-            <span className="text-xs text-gray-500">By 11 AM</span>
-          </div>
-        </Card>
-
-        <Card className="rounded-xl shadow-sm hover:shadow transition-all p-3">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-muted-foreground">Checkouts</p>
-              <p className="text-2xl font-semibold text-yellow-600">8</p>
-            </div>
-            <span className="text-xs text-gray-500">Active</span>
-          </div>
-        </Card>
-        <Card className="rounded-xl shadow-sm hover:shadow transition-all p-3">
-          <div className="flex justify-between items-center">
-            <div>
-              <p className="text-sm text-muted-foreground">Service Requests</p>
-              <p className="text-2xl font-semibold text-yellow-600">8</p>
-            </div>
-            <span className="text-xs text-gray-500">Active</span>
-          </div>
-        </Card>
+    <div className="space-y-4">
+      {/* Header */}
+      <div>
+        <h2 className="text-2xl font-semibold flex items-center gap-2">
+          <Hotel className="size-6 text-primary" />
+          Hotel Overview
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Overview of room occupancy and bookings
+        </p>
       </div>
 
-      {/* Guest Information Table */}
-      <Card className="rounded-2xl shadow-sm">
-        <CardHeader className="">
-          <CardTitle className="text-lg font-semibold">
-            Guest Information
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="overflow-x-scroll">
-          <table className="w-full text-sm border-collapse ">
-            <thead>
-              <tr className="border-b bg-muted/30 text-left">
-                <th className="py-2 px-3 font-medium">Guest Name</th>
-                <th className="py-2 px-3 font-medium">Room No.</th>
-                <th className="py-2 px-3 font-medium">Check-in</th>
-                <th className="py-2 px-3 font-medium">Check-out</th>
-                <th className="py-2 px-3 font-medium">Status</th>
-                <th className="py-2 px-3 font-medium">Paid</th>
-                <th className="py-2 px-3 font-medium">Pending</th>
-                <th className="py-2 px-3 font-medium">Total</th>
-                <th className="py-2 px-3 font-medium text-center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Row 1 */}
-              <tr className="border-b hover:bg-muted/20">
-                <td className="py-2 px-3">Amit Sharma</td>
-                <td className="py-2 px-3">101</td>
-                <td className="py-2 px-3">17 Oct 2025</td>
-                <td className="py-2 px-3">20 Oct 2025</td>
-                <td className="py-2 px-3">
-                  <span className="text-green-600 font-medium">Checked In</span>
-                </td>
-                <td className="py-2 px-3">
-                  <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium text-green-700 bg-green-100 rounded-full">
-                    ₹12,500
-                  </span>
-                </td>
-                <td className="py-2 px-3">
-                  <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium text-yellow-700 bg-yellow-100 rounded-full">
-                    ₹0
-                  </span>
-                </td>
-                <td className="py-2 px-3 font-semibold">₹12,500</td>
-                <td className="py-2 px-3 text-center">
-                  <Button size="sm" variant="outline">
-                    Checkout
-                  </Button>
-                </td>
-              </tr>
+      {/* Overview Cards */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <OverviewCard
+          title="Total Rooms"
+          icon={<BedDouble className="h-4 w-4 text-muted-foreground" />}
+          value="120"
+          desc="Including all categories"
+        />
+        <OverviewCard
+          title="Upcoming Reservations"
+          icon={<CalendarDays className="h-4 w-4 text-muted-foreground" />}
+          value="34"
+          desc="For the next 7 days"
+        />
+        <OverviewCard
+          title="Rooms Occupied"
+          icon={<DoorOpen className="h-4 w-4 text-muted-foreground" />}
+          value="86"
+          desc="Currently occupied"
+        />
+        <OverviewCard
+          title="Available Rooms"
+          icon={<BedDouble className="h-4 w-4 text-muted-foreground" />}
+          value="34"
+          desc="Ready for booking"
+        />
+      </div>
 
-              {/* Row 2 */}
-              <tr className="border-b hover:bg-muted/20">
-                <td className="py-2 px-3">Priya Patel</td>
-                <td className="py-2 px-3">202</td>
-                <td className="py-2 px-3">16 Oct 2025</td>
-                <td className="py-2 px-3">17 Oct 2025</td>
-                <td className="py-2 px-3">
-                  <span className="text-yellow-600 font-medium">
-                    Due Checkout
-                  </span>
-                </td>
-                <td className="py-2 px-3">
-                  <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium text-green-700 bg-green-100 rounded-full">
-                    ₹4,000
-                  </span>
-                </td>
-                <td className="py-2 px-3">
-                  <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium text-yellow-700 bg-yellow-100 rounded-full">
-                    ₹4,400
-                  </span>
-                </td>
-                <td className="py-2 px-3 font-semibold">₹8,400</td>
-                <td className="py-2 px-3 text-center">
-                  <Button
-                    size="sm"
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white"
-                  >
-                    Checkout
-                  </Button>
-                </td>
-              </tr>
+      <Separator />
 
-              {/* Row 3 */}
-              <tr className="hover:bg-muted/20">
-                <td className="py-2 px-3">Rahul Mehta</td>
-                <td className="py-2 px-3">303</td>
-                <td className="py-2 px-3">15 Oct 2025</td>
-                <td className="py-2 px-3">18 Oct 2025</td>
-                <td className="py-2 px-3">
-                  <span className="text-blue-600 font-medium">Upcoming</span>
-                </td>
-                <td className="py-2 px-3">
-                  <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium text-green-700 bg-green-100 rounded-full">
-                    ₹0
-                  </span>
-                </td>
-                <td className="py-2 px-3">
-                  <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium text-yellow-700 bg-yellow-100 rounded-full">
-                    ₹10,000
-                  </span>
-                </td>
-                <td className="py-2 px-3 font-semibold">₹10,000</td>
-                <td className="py-2 px-3 text-center">
-                  <Button size="sm" variant="secondary" disabled>
-                    Checkout
-                  </Button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </CardContent>
-      </Card>
+      {/* Orders & Housekeeping Section */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <BarChart className="size-5 text-primary" />
+          <h3 className="text-lg font-semibold">
+            Orders & Housekeeping Requests
+          </h3>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          Latest in-room service and housekeeping updates
+        </p>
+
+        <ScrollArea className="h-[250px] rounded-md border p-2">
+          <div className="grid gap-3">
+            {/* Example entries */}
+            <RequestCard
+              room="302"
+              type="Housekeeping"
+              details="Towel and toiletries"
+              status="In Progress"
+              icon={<BarChart className="h-4 w-4 text-muted-foreground" />}
+            />
+            <RequestCard
+              room="215"
+              type="Room Service"
+              details="Lunch Order - Club Sandwich"
+              status="Delivered"
+              icon={<Utensils className="h-4 w-4 text-muted-foreground" />}
+            />
+            <RequestCard
+              room="410"
+              type="Housekeeping"
+              details="Laundry Pickup"
+              status="Pending"
+              icon={<BarChart className="h-4 w-4 text-muted-foreground" />}
+            />
+          </div>
+        </ScrollArea>
+      </div>
+
+      <Separator />
+
+      <div className="text-sm text-muted-foreground">
+        Updated just now — monitor hotel activity in real-time.
+      </div>
+      <SharpTable></SharpTable>
     </div>
+  );
+}
+
+/* Reusable Components */
+function OverviewCard({
+  title,
+  icon,
+  value,
+  desc,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  value: string;
+  desc: string;
+}) {
+  return (
+    <Card className="hover:shadow-md transition-all">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        {icon}
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold">{value}</div>
+        <p className="text-xs text-muted-foreground">{desc}</p>
+      </CardContent>
+    </Card>
+  );
+}
+
+function RequestCard({
+  room,
+  type,
+  details,
+  status,
+  icon,
+}: {
+  room: string;
+  type: string;
+  details: string;
+  status: "Pending" | "In Progress" | "Delivered";
+  icon: React.ReactNode;
+}) {
+  const statusColor =
+    status === "Pending"
+      ? "bg-yellow-100 text-yellow-800"
+      : status === "In Progress"
+        ? "bg-blue-100 text-blue-800"
+        : "bg-green-100 text-green-800";
+
+  return (
+    <Card className="flex items-center justify-between p-3 hover:shadow-sm transition">
+      <div className="flex items-center gap-3">
+        {icon}
+        <div>
+          <div className="font-medium">
+            {type} – Room {room}
+          </div>
+          <p className="text-xs text-muted-foreground">{details}</p>
+        </div>
+      </div>
+      <Badge className={`${statusColor}`}>{status}</Badge>
+    </Card>
   );
 }
