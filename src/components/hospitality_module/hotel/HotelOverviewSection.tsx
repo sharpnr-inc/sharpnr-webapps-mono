@@ -56,22 +56,6 @@ export default function HotelOverviewSection() {
       pendingAmount: 0,
     },
   ]
-
-
-    const getBadgeVariant = (status: string) => {
-    switch (status) {
-      case "Checked In":
-        return "success"
-      case "Upcoming":
-        return "secondary"
-      case "Due Checkout":
-        return "warning"
-      case "Checked Out":
-        return "destructive"
-      default:
-        return "outline"
-    }
-  }
   return (
     <div className="space-y-2">
       <div className="border rounded p-2 space-y-2">
@@ -117,20 +101,12 @@ export default function HotelOverviewSection() {
         </div>
       </div>
 
-      <div className="p-4">
+      <div className="p-2 border rounded-xl">
 
-
-        <Card className="w-full">
-          <CardHeader>
-            <CardTitle>Filter</CardTitle>
-          </CardHeader>
-          <CardContent><Button>Filter</Button></CardContent>
-        </Card>
-
-      <Table>
+      <Table className=" p-2">
 
         <TableCaption>Current Hotel Room Bookings</TableCaption>
-        <TableHeader className="bg-gray-800">
+        <TableHeader>
           <TableRow>
             <TableHead>Guest Name</TableHead>
             <TableHead>Room</TableHead>

@@ -23,11 +23,23 @@ import {
 import { ChevronRight } from "lucide-react";
 import * as sidebarNavs from "./SidebarNavs";
 import { useRouter, useRouterState } from "@tanstack/react-router";
+import { useUIRenderer } from "@/context/ui-rendererContext";
+import { useEmployeePolicy } from "@/context/EmployeePolicyContext";
 
 export default function DashboardSideBar() {
+  const {renderTree} = useUIRenderer()
+  const {policy}=useEmployeePolicy()
+  console.log(policy)
   const router = useRouter();
-  const routerState = useRouterState();
-  const currentPath = routerState.location.pathname;
+
+  const currentPath = useRouterState({
+    select: (state) => state.location.pathname,
+  });
+    console.log("Sidebar render:", {
+    renderTree,
+    currentPath,
+    timestamp: Date.now()
+  });
 
   // 🔥 Helper to detect active route
   const isActive = (path: string) =>
@@ -80,13 +92,12 @@ export default function DashboardSideBar() {
           </SidebarMenu>
         </SidebarGroup>
 
-        {/* Accounting / HR / Marketing Groups */}
         <SidebarGroup>
           <SidebarGroupLabel>Sharp Modules</SidebarGroupLabel>
 
           {/* Accounting */}
           <SidebarMenu>
-            <Collapsible defaultOpen className="group/collapsible">
+            <Collapsible className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
@@ -119,7 +130,7 @@ export default function DashboardSideBar() {
 
           {/* HR */}
           <SidebarMenu>
-            <Collapsible defaultOpen className="group/collapsible">
+            <Collapsible className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
@@ -152,7 +163,7 @@ export default function DashboardSideBar() {
 
           {/* Marketing */}
           <SidebarMenu>
-            <Collapsible defaultOpen className="group/collapsible">
+            <Collapsible className="group/collapsible">
               <SidebarMenuItem>
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
@@ -166,7 +177,6 @@ export default function DashboardSideBar() {
                     {SharpMarketingNavs[0].items.map((item) => (
                       <SidebarMenuSubItem key={item.id}>
                         <SidebarMenuSubButton
-                        
                           onClick={() => handleNavigate(item.to)}
                           className={`transition-colors ${
                             isActive(item.to)

@@ -1,8 +1,9 @@
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import DashboardSideBar from "@/components/Sidebar/DashboardSidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { EmployeePolicyProvider } from "@/context/EmployeePolicyContext";
 import { HeaderProvider } from "@/context/HeaderContext";
-import { usePolicySSE } from "@/hooks/usePolicy";
+import { UIRendererProvider } from "@/context/ui-rendererContext";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
@@ -15,23 +16,21 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function RouteComponent() {
-  const { empId } = Route.useRouteContext();
-  const policy = usePolicySSE(empId);
-  console.log(policy);
-
   return (
-    <SidebarProvider>
-      <HeaderProvider>
-        <DashboardSideBar />
-        <SidebarInset>
-          <DashboardHeader
-            useremail={"kashifsocl@gmail.com"}
-          />
-          <div className="h-screen">
-            <Outlet />
-          </div>
-        </SidebarInset>
-      </HeaderProvider>
-    </SidebarProvider>
+    <UIRendererProvider>
+      <EmployeePolicyProvider>
+        <SidebarProvider>
+          <HeaderProvider>
+            <DashboardSideBar />
+            <SidebarInset>
+              <DashboardHeader useremail={"kashifsocl@gmail.com"} />
+              <div className="h-screen">
+                <Outlet />
+              </div>
+            </SidebarInset>
+          </HeaderProvider>
+        </SidebarProvider>
+      </EmployeePolicyProvider>
+    </UIRendererProvider>
   );
 }
