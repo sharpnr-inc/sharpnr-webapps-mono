@@ -14,7 +14,7 @@ export default function SharpHospitalitySettings() {
     <div className="p-2 space-y-6">
       {/* Tabs Section */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
+        <TabsList className="w-full h-auto flex-wrap justify-start gap-1 sticky top-18 left-0 right-0">
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="users">Users</TabsTrigger>

@@ -22,7 +22,7 @@ export default function HospitalityOrgConfigPage() {
 
 
         <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-          <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
+          <TabsList className="w-full h-auto flex-wrap justify-start gap-1">
             {tabs.map((tab) => (
               <TabsTrigger key={tab.value} value={tab.value}>
                 {tab.label}
