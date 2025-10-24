@@ -15,6 +15,7 @@ import { SheetProvider } from "./context/DrawerContext.tsx";
 import { FormModalProvider } from "./context/FormsModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
 import { SpinnerProvider } from "./context/SpinnerContext.tsx";
+import { UIRendererProvider } from "./context/ui-rendererContext.tsx";
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -26,28 +27,30 @@ const queryClient = new QueryClient();
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  // <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <SpinnerProvider>
-          <ToastProvider>
-            <LoaderProvider>
-              <FormModalProvider>
-                <ModalProvider>
-                  <SheetProvider>
-                    <Suspense fallback={<SuspenseFallback />}>
-                      <RouterProvider router={router} />
-                    </Suspense>
-                  </SheetProvider>
-                </ModalProvider>
-              </FormModalProvider>
-            </LoaderProvider>
-          </ToastProvider>
-        </SpinnerProvider>
-      </ThemeProvider>
+      {/* <UIRendererProvider> */}
+        <ThemeProvider>
+          <SpinnerProvider>
+            <ToastProvider>
+              <LoaderProvider>
+                <FormModalProvider>
+                  <ModalProvider>
+                    <SheetProvider>
+                      <Suspense fallback={<SuspenseFallback />}>
+                        <RouterProvider router={router} />
+                      </Suspense>
+                    </SheetProvider>
+                  </ModalProvider>
+                </FormModalProvider>
+              </LoaderProvider>
+            </ToastProvider>
+          </SpinnerProvider>
+        </ThemeProvider>
+      {/* </UIRendererProvider> */}
 
       {/* 🔹 Show Devtools only in development */}
       {/* {import.meta.env.DEV && <ReactQueryDevtools buttonPosition="top-left" initialIsOpen={false} />} */}
     </QueryClientProvider>
-  </StrictMode>
+  // </StrictMode>
 );

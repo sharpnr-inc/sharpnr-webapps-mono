@@ -52,7 +52,7 @@ export default function DashboardHeader({ useremail }: DashboardHeaderProps) {
       {/* Left Section */}
       <div className="flex items-center flex-1 min-w-0">
         <div className="flex gap-2 pr-1 sm:pr-3">
-          <SidebarTrigger />
+          <SidebarTrigger/>
         </div>
 
         <div className="flex items-center gap-2 min-w-0">

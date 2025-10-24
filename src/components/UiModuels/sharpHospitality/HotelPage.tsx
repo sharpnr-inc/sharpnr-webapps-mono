@@ -4,6 +4,7 @@ import HotelOverviewSection from "@/components/hospitality_module/hotel/HotelOve
 import HotelRequestSection from "@/components/hospitality_module/hotel/HotelRequestSection";
 import HotelRoomMgmSection from "@/components/hospitality_module/hotel/HotelRoomMgmSection";
 import React from "react";
+import { useUIRenderer } from "@/context/ui-rendererContext";
 
 
 export default function SharpHospitalityHotelPage() {
@@ -13,20 +14,23 @@ export default function SharpHospitalityHotelPage() {
   // useEffect(() => {
   //   success("You have New Booking")
   // })
+
+  const {hasSubSectionAccess} = useUIRenderer()
   return (
     <div className="p-2">
       {/* Tabs Section */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="">
         <TabsList className="w-full h-auto flex-wrap justify-start gap-1">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
+
+         { hasSubSectionAccess("sharp_hospitality", "hotel", "overview") &&<TabsTrigger value="overview">Overview</TabsTrigger>}
           <TabsTrigger value="booking">Bookings</TabsTrigger>
           <TabsTrigger value="request">Request</TabsTrigger>
           <TabsTrigger value="rooms_config">Room Management</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview">
+       { hasSubSectionAccess("sharp_hospitality", "hotel", "overview") && <TabsContent value="overview">
           <HotelOverviewSection />
-        </TabsContent>
+        </TabsContent>}
 
         <TabsContent value="booking">
           <HotelBookingSection />

@@ -6,6 +6,7 @@ export const Route = createFileRoute(
   "/dashboard/_layout/sharphotel/restaurent"
 )({
   component: RestaurantPage,
+
   context: () => ({
     heading: "Restaurant Settings",
     subheading: "Manage Restaurant Here",

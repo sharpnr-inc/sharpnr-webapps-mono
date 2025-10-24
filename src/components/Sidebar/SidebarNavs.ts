@@ -25,12 +25,15 @@ interface NavItem {
   label: string;
   icon: LucideIcon; // Store the component, not JSX
   to: string;
+  sub_module_name?:string
 }
 
 interface NavSection {
   id: string;
   title: string;
   items: NavItem[];
+  module_name?:string
+  
 }
 
 export const EmployeeNavs: NavSection[] = [
@@ -84,11 +87,10 @@ export const EmployeeNavs: NavSection[] = [
   },
 ];
 
-export const SharpHospitalityNavs = [
+export const SharpHospitalityNavs: NavSection[] = [
   {
     id: "sharphotel",
     title: "Sharp Hospitality",
-
     items: [
       {
         id: "hotel_index",
@@ -115,7 +117,7 @@ export const SharpHospitalityNavs = [
         to: "/dashboard/sharphotel/restaurent", // Fixed typo: restaurent -> restaurant
       },
 
-          {
+      {
         id: "hotel_services",
         label: "Service",
         icon: Server, // Better icon for restaurant
@@ -162,7 +164,7 @@ export const SharpHospitalityNavs = [
   },
 ];
 
-export const SharpAccountingNavs = [
+export const SharpAccountingNavs: NavSection[] = [
   {
     id: "sharpaccounting",
     title: "Sharp Accounting",
