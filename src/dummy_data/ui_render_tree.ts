@@ -38,7 +38,7 @@ export const ui_render: UIRendererTree = {
       has_access: true,
       sub_module_section: {
         hotel: {
-          has_access: false,
+          has_access: true,
           sub_section_access: {
             overview: true,
             booking: true,
@@ -48,7 +48,7 @@ export const ui_render: UIRendererTree = {
         },
 
         bar: {
-          has_access: false,
+          has_access: true,
           sub_section_access: {
             menu: true,
             orders: true,
@@ -57,7 +57,7 @@ export const ui_render: UIRendererTree = {
         },
 
         restaurent: {
-          has_access: false,
+          has_access: true,
           sub_section_access: {
             table_management: true,
             orders: true,
@@ -79,5 +79,104 @@ export const ui_render: UIRendererTree = {
       },
     },
 
+    sharp_accounting: {
+      has_access: true,
+      sub_module_section: {
+        transactions: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        expenses: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        invoices: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        ledger: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        customers: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        suppliersandvendors: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        reports: {
+          has_access: true,
+          sub_section_access: {},
+        },
+      },
+    },
+
+    sharp_hr: {
+      has_access: true,
+      sub_module_section: {
+        employee: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        payroll: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        leaves_management: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        reports: {
+          has_access: true,
+          sub_section_access: {},
+        },
+      },
+    },
+
+    sharp_marketing: {
+      has_access: true,
+      sub_module_section: {
+        campaigns: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        leads: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        reports: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        social_media_management: {
+          has_access: true,
+          sub_section_access: {},
+        },
+      },
+    },
+
+     employee: {
+      has_access: true,
+      sub_module_section: {
+        profile: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        leads: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        reports: {
+          has_access: true,
+          sub_section_access: {},
+        },
+        social_media_management: {
+          has_access: true,
+          sub_section_access: {},
+        },
+      },
+    },
   },
 };

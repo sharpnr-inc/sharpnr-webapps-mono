@@ -1,0 +1,11 @@
+import { createFileRoute } from '@tanstack/react-router'
+
+export const Route = createFileRoute(
+  '/dashboard/_layout/sharp_accounting/transactions',
+)({
+  component: RouteComponent,
+})
+
+function RouteComponent() {
+  return <div>Hello "/dashboard/_layout/sharpAccounting/transactions"!</div>
+}

@@ -35,32 +35,15 @@ function RouteComponent() {
     }
 
     // Extract module and section
-    // /dashboard/_layout/sharphotel/hotel -> ["dashboard", "_layout", "sharphotel", "hotel"]
+    // /dashboard/_layout/sharphospitality/hotel -> ["dashboard", "_layout", "sharphotel", "hotel"]
     // Note: _layout is in the path!
     const moduleFolder = segments[1]; // "sharphotel" (skip "dashboard" and "_layout")
     const sectionName = segments[2]; // "hotel"
 
-    console.log(moduleFolder, sectionName);
-
-    // Skip if no section
-    if (!sectionName) {
-      return;
-    }
-
-    // Map route folder to render tree module
-    const moduleMapping: Record<string, string> = {
-      sharphotel: "sharp_hospitality",
-    };
-
-    const moduleName = moduleMapping[moduleFolder] || moduleFolder;
-
-    console.log(moduleName, sectionName);
-
-    // Check access
-    if (!hasSectionAccess(moduleName, sectionName)) {
+    if (!hasSectionAccess(moduleFolder, sectionName)) {
       navigate({ to: "/dashboard/unauthorised" });
     }
-  }, [location.pathname, hasSectionAccess, navigate]); // ← Fixed dependency
+  }, [location.pathname, hasSectionAccess, navigate]);
 
   return (
     <ScrollArea className="h-full">

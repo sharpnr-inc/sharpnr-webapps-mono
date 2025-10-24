@@ -36,129 +36,78 @@ interface NavSection {
   
 }
 
-export const EmployeeNavs: NavSection[] = [
-  {
-    id: "employee",
-    title: "Employee Sections",
-    items: [
-      {
-        id: "attendance",
-        label: "Attendance",
-        icon: UserCog,
-        to: "/dashboard/employee/employee-attendance",
-      },
-      {
-        id: "leaves",
-        label: "Leaves",
-        icon: ClipboardList,
-        to: "/dashboard/employee/leaves",
-      },
-      {
-        id: "reviews",
-        label: "Reviews",
-        icon: Database,
-        to: "/dashboard/employee/reviews",
-      },
-      {
-        id: "greivences",
-        label: "Greivences",
-        icon: BarChart3,
-        to: "/dashboard/employee/greivences",
-      },
-      {
-        id: "requests",
-        label: "Requests",
-        icon: CalendarDays,
-        to: "/dashboard/employee/requests",
-      },
-      {
-        id: "overtime",
-        label: "Overtime",
-        icon: BarChart3,
-        to: "/dashboard/employee/overtime",
-      },
-      {
-        id: "feedback",
-        label: "Feedback",
-        icon: BarChart3,
-        to: "/dashboard/employee/feedback",
-      },
-    ],
-  },
-];
-
 export const SharpHospitalityNavs: NavSection[] = [
   {
-    id: "sharphotel",
+    id: "sharp_hospitality",
     title: "Sharp Hospitality",
     items: [
       {
         id: "hotel_index",
         label: "Hotel",
         icon: HotelIcon,
-        to: "/dashboard/sharphotel/hotel",
+        to: "/dashboard/sharp_hospitality/hotel",
       },
       {
         id: "hotel_bar",
         label: "Bar",
         icon: ClipboardList,
-        to: "/dashboard/sharphotel/bar",
+        to: "/dashboard/sharp_hospitality/bar",
       },
       {
         id: "hotel_guests",
         label: "Guests",
         icon: Database,
-        to: "/dashboard/sharphotel/guests",
+        to: "/dashboard/sharp_hospitality/guests",
       },
       {
         id: "hotel_restaurant",
         label: "Restaurant",
         icon: Utensils, // Better icon for restaurant
-        to: "/dashboard/sharphotel/restaurent", // Fixed typo: restaurent -> restaurant
+        to: "/dashboard/sharp_hospitality/restaurent", // Fixed typo: restaurent -> restaurant
       },
 
       {
         id: "hotel_services",
         label: "Service",
         icon: Server, // Better icon for restaurant
-        to: "/dashboard/sharphotel/services", // Fixed typo: restaurent -> restaurant
+        to: "/dashboard/sharp_hospitality/services", // Fixed typo: restaurent -> restaurant
       },
       {
         id: "hotel_menu",
         label: "Menu",
         icon: BookOpen, // Better icon for menu
-        to: "/dashboard/sharphotel/menu",
+        to: "/dashboard/sharp_hospitality/menu",
       },
       {
         id: "hotel_kitchen",
         label: "Kitchen",
         icon: Cookie, // Better icon for menu
-        to: "/dashboard/sharphotel/kitchen",
+        to: "/dashboard/sharp_hospitality/kitchen",
       },
       {
         id: "hotel_inventory",
         label: "Inventory",
         icon: Package, // Better icon for inventory
-        to: "/dashboard/sharphotel/inventory",
+        to: "/dashboard/sharp_hospitality/inventory",
       },
       {
         id: "hotel_housekeeping",
         label: "House Keeping",
         icon: Sparkles, // Better icon for housekeeping
-        to: "/dashboard/sharphotel/housekeeping", // Fixed: was pointing to inventory
+        to: "/dashboard/sharp_hospitality/housekeeping", // Fixed: was pointing to inventory
       },
       {
         id: "hotel_settings",
         label: "Settings",
         icon: Settings,
-        to: "/dashboard/sharphotel/settings",
+        to: "/dashboard/sharp_hospitality/settings",
       },
 
       {
         id: "org_config",
         label: "Org Configs",
         icon: TableConfig,
-        to: "/dashboard/sharphotel/orgConfig",
+        to: "/dashboard/sharp_hospitality/orgConfig",
       },
     ],
   },
@@ -166,50 +115,50 @@ export const SharpHospitalityNavs: NavSection[] = [
 
 export const SharpAccountingNavs: NavSection[] = [
   {
-    id: "sharpaccounting",
+    id: "sharp_hospitality",
     title: "Sharp Accounting",
     items: [
       {
         id: "acc_transactions",
         label: "Transactions",
         icon: MessageSquare,
-        to: "/dashboard/sharpAccounting/transactions",
+        to: "/dashboard/sharp_accounting/transactions",
       },
       {
         id: "acc_expense",
         label: "Expenses",
         icon: Bell,
-        to: "/dashboard/sharpAccounting/expenses",
+        to: "/dashboard/sharp_accounting/expenses",
       },
       {
         id: "acc_invoices",
         label: "Invoices",
         icon: Database,
-        to: "/dashboard/sharpAccounting/invoices",
+        to: "/dashboard/sharp_accounting/invoices",
       },
       {
         id: "acc_ledger",
         label: "Ledger",
         icon: Wrench,
-        to: "/dashboard/sharpAccounting/ledger",
+        to: "/dashboard/sharp_accounting/ledger",
       },
       {
         id: "acc_customers",
         label: "Customers",
         icon: Shield,
-        to: "/dashboard/sharpAccounting/customers",
+        to: "/dashboard/sharp_accounting/customers",
       },
       {
         id: "acc_suppliers",
         label: "Suppliers & Vendors",
         icon: CalendarDays,
-        to: "/dashboard/sharpAccounting/suppliersandvendors",
+        to: "/dashboard/sharp_accounting/suppliersandvendors",
       },
       {
         id: "acc_reports",
         label: "Reports",
         icon: BarChart3,
-        to: "/dashboard/sharpAccounting/Reports",
+        to: "/dashboard/sharp_accounting/reports",
       },
     ],
   },
@@ -224,25 +173,25 @@ export const SharpMarketingNavs: NavSection[] = [
         id: "mkt_campaigns",
         label: "Campaigns",
         icon: Settings,
-        to: "/dashboard/sharpmarketing/campaigns",
+        to: "/dashboard/sharp_marketing/campaigns",
       },
       {
         id: "mkt_leads",
         label: "Leads",
         icon: Shield,
-        to: "/dashboard/sharpmarketing/leads",
+        to: "/dashboard/sharp_marketing/leads",
       },
       {
         id: "mkt_reports",
         label: "Reports",
         icon: Wrench,
-        to: "/dashboard/sharpmarketing/reports",
+        to: "/dashboard/sharp_marketing/reports",
       },
       {
         id: "mkt_social",
         label: "Social Media Mgmt",
         icon: MessageSquare,
-        to: "/dashboard/sharpmarketing/social-media-management",
+        to: "/dashboard/sharp_marketing/social_media_management",
       },
     ],
   },
@@ -257,25 +206,25 @@ export const SharpHRNavs: NavSection[] = [
         id: "hr_employee",
         label: "Employee",
         icon: UserCog,
-        to: "/dashboard/sharphr/employee",
+        to: "/dashboard/sharp_hr/employee",
       },
       {
         id: "hr_payroll",
         label: "Payroll",
         icon: ClipboardList,
-        to: "/dashboard/sharphr/payroll",
+        to: "/dashboard/sharp_hr/payroll",
       },
       {
         id: "hr_leaves",
         label: "Leaves Mgmt",
         icon: CalendarDays,
-        to: "/dashboard/sharphr/leaves-management",
+        to: "/dashboard/sharp_hr/leaves_management",
       },
       {
         id: "hr_reports",
         label: "Reports",
         icon: BarChart3,
-        to: "/dashboard/sharphr/reports",
+        to: "/dashboard/sharp_hr/reports",
       },
     ],
   },
