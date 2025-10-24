@@ -6,41 +6,34 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function EmployeeProfilePage() {
   return (
-    <div>
-      <div className="p-2">
-        <div className="text-3xl">Rajesh's Profile</div>
-        <div className="text-sm">Here you can edit and update you profile</div>
-      </div>
+    <div className="p-2">
+      {/* This is the Tab section and will export the all the tabs   */}
+      <Tabs>
+        <TabsList className="w-max p-1 space-x-2">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="personal_details">Personal Details</TabsTrigger>
+          <TabsTrigger value="employement_history">
+            Employement History
+          </TabsTrigger>
+          <TabsTrigger value="important_dates">Important Dates</TabsTrigger>
+        </TabsList>
 
-      <div>
-        {/* This is the Tab section and will export the all the tabs   */}
-        <Tabs>
-          <TabsList className="w-max p-1 space-x-2">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="personal_details">Personal Details</TabsTrigger>
-            <TabsTrigger value="employement_history">
-              Employement History
-            </TabsTrigger>
-            <TabsTrigger value="important_dates">Important Dates</TabsTrigger>
-          </TabsList>
+        <TabsContent value="overview">
+          <OverviewSection />
+        </TabsContent>
 
-          <TabsContent value="overview">
-            <OverviewSection />
-          </TabsContent>
+        <TabsContent value="personal_details">
+          <PersonalDetailsSection />
+        </TabsContent>
 
-          <TabsContent value="personal_details">
-            <PersonalDetailsSection />
-          </TabsContent>
+        <TabsContent value="employement_history">
+          <EmployementHistorySection />
+        </TabsContent>
 
-          <TabsContent value="employement_history">
-            <EmployementHistorySection />
-          </TabsContent>
-
-          <TabsContent value="important_dates">
-            <ImportantDatesSection />
-          </TabsContent>
-        </Tabs>
-      </div>
+        <TabsContent value="important_dates">
+          <ImportantDatesSection />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
