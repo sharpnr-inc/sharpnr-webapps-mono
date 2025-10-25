@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/dialog";
 
 // Define the shape of the context
-interface FormModalContextType {
+interface DialogModalContextType {
   openModal: (content: ReactNode, title?: string, description?: string) => void;
   closeModal: () => void;
 }
 
 // Create the context
-const FormModalContext = createContext<FormModalContextType | undefined>(undefined);
+const FormModalContext = createContext<DialogModalContextType | undefined>(undefined);
 
 // Provider component
-export const FormModalProvider = ({ children }: { children: ReactNode }) => {
+export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [modalTitle, setModalTitle] = useState<string>("");
@@ -64,7 +64,7 @@ export const FormModalProvider = ({ children }: { children: ReactNode }) => {
 };
 
 // Hook for consuming the context
-export const useFormModal = (): FormModalContextType => {
+export const useDialogModal = (): DialogModalContextType => {
   const context = useContext(FormModalContext);
   if (!context) {
     throw new Error("useFormModal must be used within a FormModalProvider");

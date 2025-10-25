@@ -12,7 +12,7 @@ import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen.ts";
 import { SheetProvider } from "./context/DrawerContext.tsx";
-import { FormModalProvider } from "./context/FormsModalContext.tsx";
+import { DialogModalProvider } from "./context/DialogModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
 import { SpinnerProvider } from "./context/SpinnerContext.tsx";
 import { FormsModalProvider } from "./context/FormModalContext.tsx";
@@ -29,13 +29,12 @@ const router = createRouter({ routeTree });
 createRoot(document.getElementById("root")!).render(
   // <StrictMode>
   <QueryClientProvider client={queryClient}>
-
     <ThemeProvider>
       <FormsModalProvider>
         <SpinnerProvider>
           <ToastProvider>
             <LoaderProvider>
-              <FormModalProvider>
+              <DialogModalProvider>
                 <ModalProvider>
                   <SheetProvider>
                     <Suspense fallback={<SuspenseFallback />}>
@@ -43,7 +42,7 @@ createRoot(document.getElementById("root")!).render(
                     </Suspense>
                   </SheetProvider>
                 </ModalProvider>
-              </FormModalProvider>
+              </DialogModalProvider>
             </LoaderProvider>
           </ToastProvider>
         </SpinnerProvider>

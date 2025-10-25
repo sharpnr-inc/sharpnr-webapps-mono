@@ -64,7 +64,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
     <FormModalContext.Provider value={{ showModal, closeModal }}>
       {children}
       {modalState.isOpen && (
-        <div className="fixed inset-12 flex items-center justify-center bg-card bg-opacity-20 backdrop-blur-80 z-50">
+        <div className="fixed inset-6 flex items-center justify-center bg-card bg-opacity-20 backdrop-blur-80 z-50">
           {/* Close button */}
           <Button
             onClick={closeModal}
@@ -74,7 +74,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
           </Button>
 
           {/* Modal content */}
-          <div className="border border-white rounded-lg shadow-lg w-full h-[calc(100vh-6rem)] p-6 overflow-y-auto">
+          <div className="border border-white rounded-lg shadow-lg w-full h-[calc(100vh-8rem)] p-6 m-6 overflow-y-auto">
             {modalState.component}
           </div>
         </div>

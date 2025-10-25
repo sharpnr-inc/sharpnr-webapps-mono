@@ -5,15 +5,15 @@ export default function HrEmployeePage() {
   return (
     <div className="p-2">
       <Tabs defaultValue="all-employees" className="w-full">
-        <TabsList className="flex flex-wrap gap-2">
+        <TabsList className="w-full h-auto flex-wrap justify-start">
           <TabsTrigger value="all-employees">All Employees</TabsTrigger>
           <TabsTrigger value="attendance">Attendance</TabsTrigger>
           <TabsTrigger value="leave-requests">Leave Requests</TabsTrigger>
           <TabsTrigger value="performance">Performance</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="all-employees">
-          <EmployeeAllEmployeeSection />
+        <TabsContent value="all-employees" className="border">
+          <EmployeeAllEmployeeSection/>
         </TabsContent>
 
         <TabsContent value="departments">
