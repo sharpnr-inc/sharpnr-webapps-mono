@@ -44,7 +44,7 @@ export const FormModalProvider = ({ children }: { children: ReactNode }) => {
       {children}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-5xl w-full max-h-[90vh] overflow-y-auto rounded-2xl">
+        <DialogContent className="h-screen overflow-y-auto rounded-2xl">
           <DialogHeader>
             {modalTitle && <DialogTitle>{modalTitle}</DialogTitle>}
             {modalDescription && (
