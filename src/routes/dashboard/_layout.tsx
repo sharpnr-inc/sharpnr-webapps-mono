@@ -46,10 +46,10 @@ function RouteComponent() {
   }, [location.pathname, hasSectionAccess, navigate]);
 
   return (
-    <ScrollArea className="h-full">
+    // <ScrollArea className="h-full">
       <div className="mt-16 mr-2 ml-2">
         <Outlet />
       </div>
-    </ScrollArea>
+    // </ScrollArea>
   );
 }
