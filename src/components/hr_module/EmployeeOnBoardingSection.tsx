@@ -42,6 +42,24 @@ export default function EmployeeOnBoardingSection() {
       uan: "100987654321",
       pfNumber: "DL/12345/67890",
     },
+      {
+      id: 2,
+      name: "Kashif Nawaz",
+      email: "kashif.nawaz@example.com",
+      phone: "+91 9876543210",
+      position: "Frontend Developer",
+      department: "Engineering",
+      dob: "1996-08-15",
+      maritalStatus: "Single",
+      address: "123 MG Road, Bengaluru, India",
+      bankName: "HDFC Bank",
+      accountNumber: "1234567890",
+      ifsc: "HDFC0001234",
+      qualification: "B.Tech in Computer Science",
+      university: "IIT Delhi",
+      uan: "100987654321",
+      pfNumber: "DL/12345/67890",
+    },
   ]);
 
   const { showModal } = useFormsModal();
