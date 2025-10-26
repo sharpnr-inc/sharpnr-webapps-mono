@@ -1,57 +1,81 @@
+"use client";
+
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const tabs = [
-  { value: "overview", label: "Overview" },
-  { value: "restaurant_config", label: "Restaurant Configs" },
-  { value: "bar_config", label: "Bar Configs" },
-  { value: "owners", label: "Owners" },
-  { value: "reg_license", label: "Registration & Licences" },
-  { value: "integration", label: "Integrations" },
-  { value: "gst", label: "GST & Taxes" },
-  { value: "branding", label: "Branding" },
-  { value: "customer_support", label: "Customer Support" },
-];
+// ✅ Import all section components
+import OverviewSection from "@/components/hospitality_module/org_configs/OverviewSection";
+import RestaurentConfigSection from "@/components/hospitality_module/org_configs/RestaurentConfigSection";
+import BarConfigSection from "@/components/hospitality_module/org_configs/BarConfigSection";
+import HotelConfigSection from "@/components/hospitality_module/org_configs/HotelConfigSection";
+import OwnersSection from "@/components/hospitality_module/org_configs/OwnersSection";
+import RegLicenseSection from "@/components/hospitality_module/org_configs/RegLicenseSection";
+import IntegrationSection from "@/components/hospitality_module/org_configs/IntegrationSection";
+import GstSection from "@/components/hospitality_module/org_configs/GstSection";
+import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
+import CustomerSupportSection from "@/components/hospitality_module/org_configs/CustomerSupportSection";
 
 export default function HospitalityOrgConfigPage() {
-  const [selectedTab, setSelectedTab] = useState("overview");
+  const [tab, setTab] = useState("overview");
 
   return (
-    <div className="p-2">
-   
+    <div className="p-4">
+      <Tabs value={tab} onValueChange={setTab}>
+        {/* ---- Tab List ---- */}
+        <TabsList className="w-full flex flex-wrap gap-1">
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="restaurant_config">Restaurant Configs</TabsTrigger>
+          <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>
+          <TabsTrigger value="hotel_config">Hotel Configs</TabsTrigger>
+          <TabsTrigger value="owners">Owners</TabsTrigger>
+          <TabsTrigger value="reg_license">Registration & Licences</TabsTrigger>
+          <TabsTrigger value="integration">Integrations</TabsTrigger>
+          <TabsTrigger value="gst">GST & Taxes</TabsTrigger>
+          <TabsTrigger value="branding">Branding</TabsTrigger>
+          <TabsTrigger value="customer_support">Customer Support</TabsTrigger>
+        </TabsList>
 
+        {/* ---- Tab Contents ---- */}
+        <TabsContent value="overview">
+          <OverviewSection />
+        </TabsContent>
 
-        <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-          <TabsList className="w-full h-auto flex-wrap justify-start gap-1">
-            {tabs.map((tab) => (
-              <TabsTrigger key={tab.value} value={tab.value}>
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        <TabsContent value="restaurant_config">
+          <RestaurentConfigSection />
+        </TabsContent>
 
-          {tabs.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value}>
-              <div className="p-4 border rounded-md">
-                <h2 className="text-lg font-semibold mb-2">{tab.label}</h2>
-                <p>This is the {tab.label} section.</p>
-              </div>
-            </TabsContent>
-          ))}
-        </Tabs>
+        <TabsContent value="bar_config">
+          <BarConfigSection />
+        </TabsContent>
 
-      {/* --- Dropdown content for small screens --- */}
-      <div className="md:hidden">
-        {tabs.map(
-          (tab) =>
-            tab.value === selectedTab && (
-              <div key={tab.value} className="p-4 border rounded-md mt-2">
-                <h2 className="text-lg font-semibold mb-2">{tab.label}</h2>
-                <p>This is the {tab.label} section.</p>
-              </div>
-            )
-        )}
-      </div>
+        <TabsContent value="hotel_config">
+          <HotelConfigSection />
+        </TabsContent>
+
+        <TabsContent value="owners">
+          <OwnersSection />
+        </TabsContent>
+
+        <TabsContent value="reg_license">
+          <RegLicenseSection />
+        </TabsContent>
+
+        <TabsContent value="integration">
+          <IntegrationSection />
+        </TabsContent>
+
+        <TabsContent value="gst">
+          <GstSection />
+        </TabsContent>
+
+        <TabsContent value="branding">
+          <BrandingSection />
+        </TabsContent>
+
+        <TabsContent value="customer_support">
+          <CustomerSupportSection />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
