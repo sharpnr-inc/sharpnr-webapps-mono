@@ -1,3 +1,4 @@
+import React from "react";
 import {
   type ColumnDef,
   flexRender,
@@ -6,21 +7,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { employee_data, type Employee } from "@/dummy_data/employee_data";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../../ui/table";
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useFormsModal } from "@/context/FormModalContext";
 import HotelOverviewSection from "@/components/hospitality_module/hotel/HotelOverviewSection";
-import { useContainerWidth } from "@/hooks/useContainerWidth";
 
 const columns: ColumnDef<Employee>[] = [
   {
@@ -74,19 +65,16 @@ const columns: ColumnDef<Employee>[] = [
       const status = row.getValue("status") as Employee["status"];
       const color =
         status === "Active"
-          ? "default"
+          ? "bg-green-100 text-green-700"
           : status === "Inactive"
-            ? "destructive"
+            ? "bg-red-100 text-red-700"
             : status === "On Leave"
-              ? "secondary"
-              : "outline";
+              ? "bg-yellow-100 text-yellow-700"
+              : "bg-gray-100 text-gray-700";
       return (
-        <Badge
-          variant={color}
-          className="px-2 py-1 rounded-md text-xs font-medium"
-        >
+        <span className={`px-2 py-1 rounded-md text-xs font-medium ${color}`}>
           {status}
-        </Badge>
+        </span>
       );
     },
   },
@@ -103,9 +91,7 @@ const columns: ColumnDef<Employee>[] = [
 ];
 
 export default function AllEmployeeDataTable() {
-
   const data = employee_data.employees;
-
   const { showModal } = useFormsModal();
 
   const openForm = () => {
@@ -122,60 +108,75 @@ export default function AllEmployeeDataTable() {
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getRowCanExpand: () => true,
+    columnResizeMode: "onChange", // or "onEnd"
   });
 
   return (
-
-      <div className="">
-      <Table className="">
-        <TableHeader className="bg-muted/50">
+    <div className=" overflow-x-auto">
+      <table className="w-full border-collapse border border-gray-200 text-sm">
+        <thead className="bg-gray-100">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id} className="font-semibold px-3 py-3 ">
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </TableHead>
+                <th
+                  key={header.id}
+                  style={{
+                    width: header.getSize(),
+                  }}
+                  className="relative border border-gray-200 px-3 py-3 text-left font-semibold text-gray-700"
+                >
+                  <div className="flex items-center justify-between group select-none">
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    <div
+                      onMouseDown={header.getResizeHandler()}
+                      onTouchStart={header.getResizeHandler()}
+                      className={`
+        absolute right-0 top-0 h-full w-1 cursor-col-resize 
+        bg-transparent hover:bg-gray-400 
+        group-hover:bg-gray-300
+      `}
+                    />
+                  </div>
+                </th>
               ))}
-            </TableRow>
+            </tr>
           ))}
-        </TableHeader>
+        </thead>
 
-        <TableBody>
+        <tbody>
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map((row) => (
               <React.Fragment key={row.id}>
-                <TableRow className="hover:bg-muted/30 transition-colors">
+                <tr className="hover:bg-gray-50 transition-colors">
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell
+                    <td
                       key={cell.id}
-                      className="px-3 py-2 text-sm"
+                      className="border border-gray-200 px-3 py-2 align-middle"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
                       )}
-                    </TableCell>
+                    </td>
                   ))}
-                </TableRow>
-
+                </tr>
               </React.Fragment>
             ))
           ) : (
-            <TableRow>
-              <TableCell
+            <tr>
+              <td
                 colSpan={columns.length}
-                className="text-center text-muted-foreground py-8"
+                className="text-center text-gray-500 py-8"
               >
                 No employees found.
-              </TableCell>
-            </TableRow>
+              </td>
+            </tr>
           )}
-        </TableBody>
-      </Table>
-      </div>
-
+        </tbody>
+      </table>
+    </div>
   );
 }

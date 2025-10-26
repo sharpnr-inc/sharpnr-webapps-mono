@@ -1,4 +1,4 @@
-import { StrictMode, Suspense } from "react";
+import { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { ModalProvider } from "./context/ModalContext.tsx";
@@ -16,6 +16,10 @@ import { DialogModalProvider } from "./context/DialogModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
 import { SpinnerProvider } from "./context/SpinnerContext.tsx";
 import { FormsModalProvider } from "./context/FormModalContext.tsx";
+import { ModuleRegistry} from 'ag-grid-community';
+import { ClientSideRowModelModule } from 'ag-grid-community';
+
+ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 declare module "@tanstack/react-router" {
   interface Register {
