@@ -68,7 +68,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({ children
       onClick={closeModal} // click outside to close
     >
       <div
-        className="bg-card rounded-lg shadow-lg max-w-full max-h-[90vh] overflow-y-auto p-6"
+        className="bg-card rounded-lg shadow-lg w-full max-h-[90vh] overflow-y-auto p-6"
         onClick={(e) => e.stopPropagation()} // prevent closing when clicking modal content
       >
         {/* Close button */}

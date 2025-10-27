@@ -19,10 +19,10 @@ export default function HospitalityOrgConfigPage() {
   const [tab, setTab] = useState("overview");
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <Tabs value={tab} onValueChange={setTab}>
         {/* ---- Tab List ---- */}
-        <TabsList className="w-full flex flex-wrap gap-1">
+        <TabsList className="w-full h-full flex flex-wrap gap-1">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="restaurant_config">Restaurant Configs</TabsTrigger>
           <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>

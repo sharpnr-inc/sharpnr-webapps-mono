@@ -1,13 +1,33 @@
-"use client";
-
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useSheet } from "@/context/DrawerContext";
+import { useFormsModal } from "@/context/FormModalContext";
 import { hotel_layout } from "@/dummy_data/hotel_rooms";
+import AddBookingForm from "../forms/AddBookingForm";
+import BookedRoomDetailsTable from "../dataTables/BookedRoomDetailsTable";
 
 export default function HotelBookingSection() {
+  const { openSheet } = useSheet();
+  const { showModal } = useFormsModal();
+
+  function HandleRoomDetails({ room }: { room: any }) {
+    return <BookedRoomDetailsTable room={room} />;
+  }
+
+  function HandleAddBooking({ room }: { room: any }) {
+    return <AddBookingForm room={room} />;
+  }
+
+  const handleRoom = (room: any) => {
+    if (room.status === "Booked") {
+      openSheet(<HandleRoomDetails room={room} />, "", "", "3/4");
+    } else if (room.status === "Available") {
+      showModal("", "", <HandleAddBooking room={room} />);
+    } else {
+      showModal("", "", <div>Room is Cleaning</div>);
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Booked":
@@ -24,7 +44,7 @@ export default function HotelBookingSection() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex flex-col gap-6 w-full h-full">
       {/* --- Unified Floor Layout Card --- */}
       <Card className="shadow-md rounded-xl border border-border">
         <CardHeader className="pb-2">
@@ -35,7 +55,10 @@ export default function HotelBookingSection() {
 
         <CardContent className="space-y-4">
           {hotel_layout.map((floor) => (
-            <div key={floor.flor_id} className="flex items-center gap-4">
+            <div
+              key={floor.flor_id}
+              className="flex flex-col md:flex-row  items-center gap-4"
+            >
               {/* Floor Name */}
               <div className="w-32 text-sm font-semibold text-foreground">
                 {floor.flor_name}
@@ -44,13 +67,16 @@ export default function HotelBookingSection() {
               {/* Floor Rooms */}
               <div className="flex flex-wrap gap-2">
                 {floor.floor_layout.map((room) => (
-                  <div
+                  <Button
+                    onClick={() => handleRoom(room)}
                     key={room.room_id}
                     title={`${room.room_name} - ${room.status} - ₹${room.price}`}
-                    className={`w-15 h-15 rounded-sm cursor-pointer ${getStatusColor(
+                    className={` cursor-pointer font-semibold ${getStatusColor(
                       room.status
                     )} hover:scale-110 transition-transform`}
-                  ></div>
+                  >
+                    #{room.room_name}
+                  </Button>
                 ))}
               </div>
             </div>
@@ -77,45 +103,6 @@ export default function HotelBookingSection() {
           </div>
         </CardContent>
       </Card>
-
-      {/* --- Booking Section --- */}
-      <div className="border rounded-xl p-4 shadow-sm">
-        <h2 className="text-lg font-semibold mb-3">Booking Details</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          Fill or view guest booking details here.
-        </p>
-
-        <div className="space-y-3 grid grid-cols-4 gap-4">
-          <div>
-            <Label>Guest Name</Label>
-            <Input placeholder="Enter guest name" />
-          </div>
-          <div>
-            <Label>Guest Email</Label>
-            <Input placeholder="Enter guest email" />
-          </div>
-          <div>
-            <Label>Guest Mobile</Label>
-            <Input placeholder="Enter mobile number" />
-          </div>
-          <div>
-            <Label>Check-in Date</Label>
-            <Input type="date" />
-          </div>
-          <div>
-            <Label>Check-out Date</Label>
-            <Input type="date" />
-          </div>
-          <div>
-            <Label>Number of Guests</Label>
-            <Input type="number" placeholder="2" />
-          </div>
-        </div>
-
-        <div className="pt-5 flex justify-end">
-          <Button>Save Booking</Button>
-        </div>
-      </div>
     </div>
   );
 }

@@ -64,13 +64,13 @@ export default function HotelConfigSection() {
     );
   }
 
-//   const sendRoomDetailsToHook = (room: any) => {
-//     showModal(
-//       "This is Room",
-//       "Edit Rooms Details",
-//       <HandleRoomDetails room={room} />
-//     );
-//   };
+  //   const sendRoomDetailsToHook = (room: any) => {
+  //     showModal(
+  //       "This is Room",
+  //       "Edit Rooms Details",
+  //       <HandleRoomDetails room={room} />
+  //     );
+  //   };
 
   const handleRoomClick = (room: any) => {
     openSheet(
@@ -108,15 +108,18 @@ export default function HotelConfigSection() {
     <div className="flex flex-col gap-6">
       {hotel_layout.map((floor) => (
         <div key={floor.flor_id} className="border p-4 rounded-lg">
-          <h2 className=" font-semibold mb-3">{floor.flor_name}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-8 lg:grid-cols-10 gap-2">
+          <div className="flex justify-between">
+            <h2 className=" font-semibold mb-3">{floor.flor_name}</h2>
+            <Button onClick={handleAddRoom}> <PlusCircle className="mr-2 h-4 w-4" />Add Rooms</Button>
+          </div>
+          <div className="sm:grid md:inline-flex gap-2">
             {floor.floor_layout.map((room) => (
               <Button
                 onClick={() => handleRoomClick(room)}
                 key={room.room_id}
                 className="border shadow-sm"
               >
-                {room.room_name}
+                Room #{room.room_name}
                 <EditIcon />
               </Button>
             ))}

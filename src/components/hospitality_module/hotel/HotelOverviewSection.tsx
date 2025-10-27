@@ -1,61 +1,9 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { BedDouble, CalendarDays, DoorOpen} from "lucide-react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button";
+import { BedDouble, CalendarDays, DoorOpen } from "lucide-react";
+import HotelBookingOverviewTable from "../dataTables/HotelBookingOverviewTable";
 
 export default function HotelOverviewSection() {
 
-  const bookings = [
-    {
-      id: 1,
-      guest: "John Doe",
-      room: "204",
-      checkIn: "2025-10-22",
-      checkOut: "2025-10-25",
-      status: "Checked In",
-      totalAmount: 12000,
-      pendingAmount: 2000,
-    },
-    {
-      id: 2,
-      guest: "Sarah Khan",
-      room: "305",
-      checkIn: "2025-10-26",
-      checkOut: "2025-10-29",
-      status: "Upcoming",
-      totalAmount: 15000,
-      pendingAmount: 15000,
-    },
-    {
-      id: 3,
-      guest: "Alex Smith",
-      room: "110",
-      checkIn: "2025-10-20",
-      checkOut: "2025-10-23",
-      status: "Due Checkout",
-      totalAmount: 9000,
-      pendingAmount: 0,
-    },
-    {
-      id: 4,
-      guest: "Emma Brown",
-      room: "410",
-      checkIn: "2025-10-15",
-      checkOut: "2025-10-18",
-      status: "Checked Out",
-      totalAmount: 8000,
-      pendingAmount: 0,
-    },
-  ]
   return (
     <div className="space-y-2">
       <div className="border rounded p-2 space-y-2">
@@ -101,128 +49,10 @@ export default function HotelOverviewSection() {
         </div>
       </div>
 
-      <div className="p-2 border rounded-xl">
-
-      <Table className=" p-2">
-
-        <TableCaption>Current Hotel Room Bookings</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Guest Name</TableHead>
-            <TableHead>Room</TableHead>
-            <TableHead>Check-In</TableHead>
-            <TableHead>Check-Out</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Total (₹)</TableHead>
-            <TableHead>Pending (₹)</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {bookings.map((booking) => (
-            <TableRow key={booking.id}>
-              <TableCell>{booking.guest}</TableCell>
-              <TableCell>{booking.room}</TableCell>
-              <TableCell>{booking.checkIn}</TableCell>
-              <TableCell>{booking.checkOut}</TableCell>
-              <TableCell>
-                <Badge variant={"default"}>
-                  {booking.status}
-                </Badge>
-              </TableCell>
-              <TableCell>₹{booking.totalAmount.toLocaleString()}</TableCell>
-              <TableCell>₹{booking.pendingAmount.toLocaleString()}</TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm">
-                  Manage
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-
-      <Table className=" p-2">
-
-        <TableCaption>Current Hotel Room Bookings</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Guest Name</TableHead>
-            <TableHead>Room</TableHead>
-            <TableHead>Check-In</TableHead>
-            <TableHead>Check-Out</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Total (₹)</TableHead>
-            <TableHead>Pending (₹)</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {bookings.map((booking) => (
-            <TableRow key={booking.id}>
-              <TableCell>{booking.guest}</TableCell>
-              <TableCell>{booking.room}</TableCell>
-              <TableCell>{booking.checkIn}</TableCell>
-              <TableCell>{booking.checkOut}</TableCell>
-              <TableCell>
-                <Badge variant={"default"}>
-                  {booking.status}
-                </Badge>
-              </TableCell>
-              <TableCell>₹{booking.totalAmount.toLocaleString()}</TableCell>
-              <TableCell>₹{booking.pendingAmount.toLocaleString()}</TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm">
-                  Manage
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-
-      <Table className=" p-2">
-
-        <TableCaption>Current Hotel Room Bookings</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Guest Name</TableHead>
-            <TableHead>Room</TableHead>
-            <TableHead>Check-In</TableHead>
-            <TableHead>Check-Out</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Total (₹)</TableHead>
-            <TableHead>Pending (₹)</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {bookings.map((booking) => (
-            <TableRow key={booking.id}>
-              <TableCell>{booking.guest}</TableCell>
-              <TableCell>{booking.room}</TableCell>
-              <TableCell>{booking.checkIn}</TableCell>
-              <TableCell>{booking.checkOut}</TableCell>
-              <TableCell>
-                <Badge variant={"default"}>
-                  {booking.status}
-                </Badge>
-              </TableCell>
-              <TableCell>₹{booking.totalAmount.toLocaleString()}</TableCell>
-              <TableCell>₹{booking.pendingAmount.toLocaleString()}</TableCell>
-              <TableCell className="text-right">
-                <Button variant="outline" size="sm">
-                  Manage
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-
+      <div className="p-2 border rounded-2xl">
+         <HotelBookingOverviewTable/>
+      </div>
+     
     </div>
   );
 }
@@ -252,4 +82,3 @@ function OverviewCard({
     </Card>
   );
 }
-
