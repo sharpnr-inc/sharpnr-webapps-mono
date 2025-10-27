@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSpinner } from "@/context/SpinnerContext";
 import { Spinner } from "../ui/spinner";
+import { useToastService } from "@/context/ToastContext";
 
 type Person = {
   firstName: string;
@@ -127,6 +128,7 @@ function PersonDetails({ person }: { person: Person }) {
 }
 
 export default function SharpTable() {
+  const {success} = useToastService()
   const [data] = React.useState(() => [...defaultData]);
   const rerender = React.useReducer(() => ({}), {})[1];
   const { openSheet } = useSheet();
@@ -142,6 +144,8 @@ export default function SharpTable() {
       "View and manage person details",
       "2/4"
     );
+
+    success("Bill Fetched")
   };
 
   const handleEdit = (person: Person) => {

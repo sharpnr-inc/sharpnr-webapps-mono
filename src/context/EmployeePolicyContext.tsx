@@ -9,7 +9,7 @@ import {
 } from "@/dummy_data/employee_policy";
 
 interface EmployeePolicyContextType {
-  policy: EmployeePolicy;
+  policy: any;
 //   hasModuleAccess: (module: string) => boolean;
 //   hasResourceAccess: (module: string, resource: string) => boolean;
 //   hasAction: (module: string, resource: string, action: Action) => boolean;
