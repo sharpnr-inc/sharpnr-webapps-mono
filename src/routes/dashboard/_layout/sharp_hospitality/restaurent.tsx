@@ -8,7 +8,7 @@ export const Route = createFileRoute(
   component: RestaurantPage,
 
   context: () => ({
-    heading: "Restaurant Settings",
+    heading: "Restaurant",
     subheading: "Manage Restaurant Here",
     HeaderIcon:UtensilsCrossed
   }),

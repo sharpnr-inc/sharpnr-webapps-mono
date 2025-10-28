@@ -64,7 +64,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({ children
   // Render modal via portal for proper stacking
   const modalContent = modalState.isOpen ? (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-4"
       onClick={closeModal} // click outside to close
     >
       <div

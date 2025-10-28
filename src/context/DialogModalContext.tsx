@@ -44,7 +44,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
       {children}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="h-screen overflow-y-auto rounded-2xl">
+        <DialogContent className=" overflow-y-auto rounded-2xl">
           <DialogHeader>
             {modalTitle && <DialogTitle>{modalTitle}</DialogTitle>}
             {modalDescription && (

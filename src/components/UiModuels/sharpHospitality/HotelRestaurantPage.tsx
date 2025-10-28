@@ -1,3 +1,4 @@
+import RestaurentTableManagmentSection from "@/components/hospitality_module/restaurent/RestaurentTableManagmentSection";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function RestaurantPage() {
@@ -19,20 +20,18 @@ export default function RestaurantPage() {
       </TabsList>
 
       {/* Tab Contents */}
-      <div className="mt-4">
+      <div className="">
         <TabsContent value="table_management">
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Table Management</h2>
-            {/* Add your table management component here */}
-            <p className="text-muted-foreground">View and manage restaurant tables, seating arrangements, and availability.</p>
-          </div>
+          <RestaurentTableManagmentSection />
         </TabsContent>
 
         <TabsContent value="order">
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">Orders</h2>
             {/* Add your orders component here */}
-            <p className="text-muted-foreground">View and manage dine-in orders.</p>
+            <p className="text-muted-foreground">
+              View and manage dine-in orders.
+            </p>
           </div>
         </TabsContent>
 
@@ -40,7 +39,9 @@ export default function RestaurantPage() {
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">Pickup Orders</h2>
             {/* Add your pickup component here */}
-            <p className="text-muted-foreground">Manage takeaway and pickup orders.</p>
+            <p className="text-muted-foreground">
+              Manage takeaway and pickup orders.
+            </p>
           </div>
         </TabsContent>
 
@@ -48,7 +49,9 @@ export default function RestaurantPage() {
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">Reservation & Bookings</h2>
             {/* Add your reservations component here */}
-            <p className="text-muted-foreground">Manage table reservations and booking requests.</p>
+            <p className="text-muted-foreground">
+              Manage table reservations and booking requests.
+            </p>
           </div>
         </TabsContent>
       </div>
