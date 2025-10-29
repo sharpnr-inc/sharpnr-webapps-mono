@@ -70,7 +70,7 @@ export default function AddItemInMenuForm() {
     <div className="flex flex-col w-full max-w-6xl p-2 gap-4 place-items-center">
       {/* Stepper Header */}
     <div className="w-full">
-  <div className="flex items-center justify-between relative">
+  <div className=" items-center justify-between md:flex relative hidden">
     {steps.map((label, index) => (
       <div key={index} className="flex flex-col items-center relative z-10 flex-1">
         {/* Step Circle */}
