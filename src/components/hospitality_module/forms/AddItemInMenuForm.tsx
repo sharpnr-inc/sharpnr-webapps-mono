@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowRight, PlusIcon } from "lucide-react";
+import { ArrowRight, Check, PlusIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { categories } from "@/dummy_data/menu_data";
 import { useDialogModal } from "@/context/DialogModalContext";
@@ -59,54 +59,93 @@ export default function AddItemInMenuForm() {
 
   // Step labels for header UI
   const steps = [
-    "Select Category",
+    "Category",
     "Item Details",
     "Variants",
     "Add-ons",
-    "Preview & Confirm",
+    "Preview ",
   ];
 
   return (
-    <div className="flex flex-col w-full max-w-5xl p-2 gap-4 place-items-center">
+    <div className="flex flex-col w-full max-w-6xl p-2 gap-4 place-items-center">
       {/* Stepper Header */}
-      <div className="w-full">
-        <div className="flex items-center justify-between">
-          {steps.map((label, index) => (
-            <div
-              key={index}
-              className="flex-1 flex flex-col items-center text-center"
-            >
-              <div
-                className={cn(
-                  "flex items-center justify-center w-10 h-10 rounded-full border-2 font-semibold transition-all",
-                  stepIndex === index
-                    ? "border-primary text-primary"
-                    : stepIndex > index
-                      ? "border-green-500 text-green-500"
-                      : "border-muted-foreground text-muted-foreground"
-                )}
-              >
-                {index + 1}
-              </div>
-              <p
-                className={cn(
-                  "mt-2 text-xs font-medium",
-                  stepIndex === index
-                    ? "text-primary"
-                    : stepIndex > index
-                      ? "text-green-600"
-                      : "text-gray-500"
-                )}
-              >
-                {label}
-              </p>
-              {index < steps.length - 1 && (
-                <div className="flex-1 w-full h-[2px] bg-muted" />
-              )}
-            </div>
-          ))}
+    <div className="w-full">
+  <div className="flex items-center justify-between relative">
+    {steps.map((label, index) => (
+      <div key={index} className="flex flex-col items-center relative z-10 flex-1">
+        {/* Step Circle */}
+        <div
+          className={cn(
+            "flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 font-semibold transition-all ",
+            stepIndex === index
+              ? "border-primary text-primary"
+              : stepIndex > index
+                ? "border-green-500 bg-green-500 text-white"
+                : "border-gray-300 text-gray-400"
+          )}
+        >
+          {stepIndex > index ? (
+            <Check className="w-4 h-4 sm:w-5 sm:h-5" />
+          ) : (
+            <span className="text-sm sm:text-base">{index + 1}</span>
+          )}
         </div>
+
+        {/* Step Label - Hidden on mobile, shown on larger screens */}
+        <p
+          className={cn(
+            "mt-2 text-xs sm:text-sm font-medium transition-all hidden sm:block text-center max-w-[100px]",
+            stepIndex === index
+              ? "text-primary"
+              : stepIndex > index
+                ? "text-green-600"
+                : "text-gray-500"
+          )}
+        >
+          {label}
+        </p>
+
+        {/* Mobile Label - Only current step */}
+        {stepIndex === index && (
+          <p className="mt-2 text-xs font-medium text-primary sm:hidden text-center">
+            {label}
+          </p>
+        )}
+
+        {/* Connecting Line */}
+        {index < steps.length - 1 && (
+          <div className="absolute top-4 sm:top-5 left-[50%] w-full h-[2px] -z-10">
+            <div
+              className={cn(
+                "h-full transition-all",
+                stepIndex > index ? "bg-green-500" : "bg-gray-300"
+              )}
+            />
+          </div>
+        )}
       </div>
+    ))}
+  </div>
+
+  {/* Mobile: Show all steps below on small screens */}
+  <div className="mt-6 grid grid-cols-2 gap-2 sm:hidden">
+    {steps.map((label, index) => (
+      <div
+        key={index}
+        className={cn(
+          "text-xs text-center p-2 rounded-lg border transition-all",
+          stepIndex === index
+            ? "border-primary bg-primary/5 text-primary font-medium"
+            : stepIndex > index
+              ? "border-green-500 bg-green-50 text-green-600"
+              : "border-gray-200 bg-gray-50 text-gray-500"
+        )}
+      >
+        <span className="font-semibold">{index + 1}.</span> {label}
+      </div>
+    ))}
+  </div>
+</div>
 
       {/* Step 1: Category + Subcategory */}
       {stepIndex === 0 && (

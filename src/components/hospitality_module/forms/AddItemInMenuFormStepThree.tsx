@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { useDialogModal } from "@/context/DialogModalContext";
+
 import {
   ArrowBigLeft,
   ArrowRight,
@@ -7,22 +9,28 @@ import {
   Trash,
 } from "lucide-react";
 import { useState } from "react";
+import AddVariantInItemDialog from "./AddVariantInItemDialog";
 
 export default function AddItemInMenuStepThree({ onNext, onBack }: any) {
   const [varient, setVarient] = useState(true);
+  const { openModal } = useDialogModal();
+
+  const handleAddVarient = () => {
+    openModal(<AddVariantInItemDialog />, "Add Variant", "Add Variants");
+  };
 
   return (
     <div className="w-full space-y-4">
       <div className="flex justify-between">
         <div>
           <p className="">Varient & Sizes</p>
-          <p className="text-xs">
+          <p className="text-xs ">
             Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit
             amet consectetur adipiscing elit quisque faucibus.
           </p>
         </div>
         <div>
-          <Button>
+          <Button className="cursor-pointer" onClick={handleAddVarient}>
             <PlusIcon />
             Add Variant
           </Button>
@@ -119,7 +127,7 @@ export default function AddItemInMenuStepThree({ onNext, onBack }: any) {
           {/* Next Button */}
           <Button
             onClick={onNext}
-            className="w-full flex items-center justify-center gap-2 bg-primary"
+            className="w-full flex items-center justify-center gap-2 bg-primary cursor-pointer"
           >
             <span className="font-medium">Next</span>
             <ArrowRight className="w-5 h-5" />

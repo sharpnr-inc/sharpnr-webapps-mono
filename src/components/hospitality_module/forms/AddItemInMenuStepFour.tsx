@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useDialogModal } from "@/context/DialogModalContext";
 import {
   ArrowBigLeft,
   ArrowRight,
@@ -7,9 +8,15 @@ import {
   Trash,
 } from "lucide-react";
 import { useState } from "react";
+import AddAddOnInItemDialog from "./AddAddOnInItemDialog";
 
 export default function AddItemInMenuStepFour({ onNext, onBack }: any) {
   const [varient, setVarient] = useState(true);
+  const { openModal } = useDialogModal();
+
+  const handleAddAddon = () => {
+    openModal(<AddAddOnInItemDialog />, "Add Addon", "Add Addons in the");
+  };
   return (
     <div className="w-full space-y-4">
       <div className="flex justify-between">
@@ -21,7 +28,7 @@ export default function AddItemInMenuStepFour({ onNext, onBack }: any) {
           </p>
         </div>
         <div>
-          <Button className="cursor-pointer">
+          <Button className="cursor-pointer" onClick={handleAddAddon}>
             <PlusIcon />
             Add Addons
           </Button>

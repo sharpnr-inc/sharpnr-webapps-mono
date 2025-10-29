@@ -10,16 +10,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import {
-  ArrowBigLeft,
-  ArrowRight,
-  ImagePlus,
-} from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowBigLeft, ArrowRight, ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function AddItemInMenuStepTwo({onNext, onBack}:any) {
+export default function AddItemInMenuStepTwo({ onNext, onBack }: any) {
   const [foodType, setFoodType] = useState<"veg" | "nonveg" | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageSelect = (file: File) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload an image file (PNG or JPG).");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert("File size should be under 5MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    handleImageSelect(file);
+  };
 
   const handleSelectFoodType = (type: "veg" | "nonveg") => {
     setFoodType((prev) => (prev === type ? null : type));
@@ -42,7 +64,7 @@ export default function AddItemInMenuStepTwo({onNext, onBack}:any) {
       </div>
 
       {/* Food Type + Unit */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Food Type */}
         <div className="space-y-2">
           <Label className="text-sm font-medium text-gray-700">Food Type</Label>
@@ -103,16 +125,54 @@ export default function AddItemInMenuStepTwo({onNext, onBack}:any) {
       </div>
 
       {/* Upload Image Section */}
-      <div className="border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center hover:bg-gray-800 transition">
-        <ImagePlus className="w-10 h-10 text-gray-400 mb-2" />
-        <p className="text-sm text-gray-600 font-medium">Upload Item Image</p>
-        <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 5MB</p>
+      <div
+        className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center transition cursor-pointer ${
+          imagePreview ? "border-muted" : "hover:bg-muted/20"
+        }`}
+        onClick={() => fileInputRef.current?.click()}
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+      >
+        {imagePreview ? (
+          <div className="relative h-60 rounded-lg overflow-hidden border">
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="object-cover w-full h-full"
+            />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setImagePreview(null);
+              }}
+              className="absolute top-1 right-1 text-xs bg-background/70 backdrop-blur-sm rounded px-2 py-0.5 font-medium"
+            >
+              ✕
+            </button>
+          </div>
+        ) : (
+          <>
+            <ImagePlus className="w-10 h-10 text-muted-foreground mb-2" />
+            <p className="text-sm font-medium">Upload Item Image</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              PNG, JPG up to 5MB
+            </p>
+          </>
+        )}
+
+        <input
+          type="file"
+          accept="image/png, image/jpeg"
+          ref={fileInputRef}
+          className="hidden"
+          onChange={(e) => handleImageSelect(e.target.files?.[0] as File)}
+        />
       </div>
 
       <div className="flex items-center justify-between gap-6 mt-6 ">
         <div className="w-full">
           <Button
-          onClick={onBack}
+            onClick={onBack}
             variant="outline"
             className="w-full flex items-center justify-center gap-2 "
           >
@@ -122,7 +182,10 @@ export default function AddItemInMenuStepTwo({onNext, onBack}:any) {
         </div>
         <div className="w-full">
           {/* Next Button */}
-          <Button onClick={onNext} className="w-full flex items-center justify-center gap-2 bg-primary">
+          <Button
+            onClick={onNext}
+            className="w-full flex items-center justify-center gap-2 bg-primary cursor-pointer"
+          >
             <span className="font-medium">Next</span>
             <ArrowRight className="w-5 h-5" />
           </Button>
