@@ -8,7 +8,7 @@ import React, {
   type ReactNode,
   useEffect,
 } from "react";
-import { Button } from "@/components/ui/button";
+
 import { XCircleIcon } from "lucide-react";
 import ReactDOM from "react-dom";
 
@@ -20,11 +20,17 @@ interface FormModalState {
 }
 
 interface ModalContextProps {
-  showModal: (heading: string, description: string, component: ReactNode) => void;
+  showModal: (
+    heading: string,
+    description: string,
+    component: ReactNode
+  ) => void;
   closeModal: () => void;
 }
 
-const FormModalContext = createContext<ModalContextProps | undefined>(undefined);
+const FormModalContext = createContext<ModalContextProps | undefined>(
+  undefined
+);
 
 export const useFormsModal = () => {
   const context = useContext(FormModalContext);
@@ -34,7 +40,9 @@ export const useFormsModal = () => {
   return context;
 };
 
-export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [modalState, setModalState] = useState<FormModalState>({
     heading: "",
     description: "",
@@ -42,7 +50,11 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({ children
     component: null,
   });
 
-  const showModal = (heading: string, description: string, component: ReactNode) => {
+  const showModal = (
+    heading: string,
+    description: string,
+    component: ReactNode
+  ) => {
     setModalState({ heading, description, component, isOpen: true });
     document.body.style.overflow = "hidden"; // prevent background scroll
   };
@@ -63,34 +75,43 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({ children
 
   // Render modal via portal for proper stacking
   const modalContent = modalState.isOpen ? (
-    <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-4"
-      onClick={closeModal} // click outside to close
+<div
+  className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md p-6"
+  onClick={closeModal}
+>
+  <div
+    className="relative w-full max-w-[90vw] max-h-[90vh] bg-background rounded-xl backdrop-blur-3xl border-2 border-stone-700 flex flex-col overflow-hidden"
+    onClick={(e) => e.stopPropagation()}
+  >
+    {/* Close button */}
+    <button
+      onClick={closeModal}
+      className="absolute top-4 right-4 z-50 hover:opacity-70 transition-opacity hover:scale-120 cursor-pointer"
+      aria-label="Close modal"
     >
-      <div
-        className="bg-card rounded-lg shadow-lg w-full max-h-[90vh] overflow-y-auto p-6"
-        onClick={(e) => e.stopPropagation()} // prevent closing when clicking modal content
-      >
-        {/* Close button */}
-        <Button
-          onClick={closeModal}
-          className="absolute top-4 right-4 p-2 rounded-full z-50"
-        >
-          <XCircleIcon className="w-6 h-6 text-gray-600" />
-        </Button>
+      <XCircleIcon className="w-6 h-6 " />
+    </button>
 
-        {/* Optional heading/description */}
-        {modalState.heading && (
-          <h2 className="text-xl font-semibold mb-2">{modalState.heading}</h2>
-        )}
-        {modalState.description && (
-          <p className="text-sm text-gray-500 mb-4">{modalState.description}</p>
-        )}
-
-        {/* Modal component */}
-        {modalState.component}
-      </div>
+    {/* Sticky header */}
+    <div className="sticky top-0 z-10 backdrop-blur-3xl border-b border-stone-700 p-4 ">
+      {modalState.heading && (
+        <h2 className="text-2xl font-semibold mb-2">
+          {modalState.heading}
+        </h2>
+      )}
+      {modalState.description && (
+        <p className="text-sm  leading-relaxed">
+          {modalState.description}
+        </p>
+      )}
     </div>
+
+    {/* Scrollable content */}
+    <div className="overflow-y-auto p-2">
+      {modalState.component}
+    </div>
+  </div>
+</div>
   ) : null;
 
   return (

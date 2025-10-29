@@ -11,11 +11,11 @@ import { useState } from "react";
 import AddAddOnInItemDialog from "./AddAddOnInItemDialog";
 
 export default function AddItemInMenuStepFour({ onNext, onBack }: any) {
-  const [varient, setVarient] = useState(true);
-  const { openModal } = useDialogModal();
+  const [addons, setAddons] = useState([]);
+  const { openModal, closeModal } = useDialogModal();
 
   const handleAddAddon = () => {
-    openModal(<AddAddOnInItemDialog />, "Add Addon", "Add Addons in the");
+    openModal(<AddAddOnInItemDialog  setAddon={setAddons} addon={addons} closeModal={closeModal}/>, "Add Addon", "Add Addons in the");
   };
   return (
     <div className="w-full space-y-4">
@@ -35,7 +35,7 @@ export default function AddItemInMenuStepFour({ onNext, onBack }: any) {
         </div>
       </div>
 
-      {varient ? (
+      {addons.length > 0 ? (
         <div className="space-y-4">
           <div className="border rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow space-y-3">
             {/* Header */}
@@ -43,25 +43,25 @@ export default function AddItemInMenuStepFour({ onNext, onBack }: any) {
               {/* Left: Variant Info */}
               <div>
                 <h3 className="text-base font-semibold ">Addon</h3>
-                <p className="text-sm text-gray-500">3 Addon</p>
+                <p className="text-sm text-gray-500">{addons.length}</p>
               </div>
             </div>
 
             {/* Size List */}
             <div className="flex flex-col gap-3">
-              {[1, 2, 3, 4].map((_, i) => (
+              {addons.map((a:any) => (
                 <div
-                  key={i}
+                  key={a}
                   className="p-3 bg-accent border flex justify-between rounded-xl text-center hover:border-primary hover:bg-primary/5 transition-transform transform hover:scale-105 cursor-pointer"
                 >
                   <div>
-                    <div className="text-sm font-medium ">AddName</div>
+                    <div className="text-sm font-medium ">{a.addon_name}</div>
                     <div className="text-xs">
-                      Max Quantity:<span>5</span>
+                      Max Quantity:<span>{""}</span>
                     </div>
                   </div>
                   <div className="flex gap-4 place-items-center">
-                    <div className="">₹985</div>
+                    <div className="">{a?.price}</div>
                     <div className="flex items-center gap-4">
                       <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                         <PenIcon className="h-5 w-5 text-gray-600" />

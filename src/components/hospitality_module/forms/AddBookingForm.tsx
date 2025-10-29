@@ -35,12 +35,7 @@ export default function AddBookingForm({ room }: { room: any }) {
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 md:p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-3xl font-bold">Book #{room.room_name}</h1>
-        <p className="text-sm text-gray-600 mt-1">Complete the booking details below</p>
-      </div>
-
+    <div className="w-full mx-auto p-4 md:p-6">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -49,44 +44,6 @@ export default function AddBookingForm({ room }: { room: any }) {
         }}
         className="space-y-8"
       >
-        {/* Room Information */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold border-b pb-2">Room Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <form.Field name="room_id">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="room_id" className="text-sm font-medium">
-                    Room ID
-                  </label>
-                  <Input
-                    id="room_id"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter room ID"
-                  />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field name="floor_id">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="floor_id" className="text-sm font-medium">
-                    Floor ID
-                  </label>
-                  <Input
-                    id="floor_id"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter floor ID"
-                  />
-                </div>
-              )}
-            </form.Field>
-          </div>
-        </div>
-
         {/* Booking Dates */}
         <div className="space-y-4">
           <h2 className="text-lg font-semibold border-b pb-2">Booking Dates</h2>

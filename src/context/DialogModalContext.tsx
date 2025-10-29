@@ -44,7 +44,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
       {children}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className=" overflow-y-auto rounded-2xl">
+        <DialogContent className=" overflow-y-auto rounded-2xl max-h-[90vh]">
           <DialogHeader>
             {modalTitle && <DialogTitle>{modalTitle}</DialogTitle>}
             {modalDescription && (
@@ -52,7 +52,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
             )}
           </DialogHeader>
 
-          <div className="mt-4">{modalContent}</div>
+          <div className="mt-2">{modalContent}</div>
 
           <DialogFooter>
             {/* You can include common footer buttons here if desired */}

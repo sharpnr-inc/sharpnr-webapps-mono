@@ -11,12 +11,31 @@ import {
 import { useState } from "react";
 import AddVariantInItemDialog from "./AddVariantInItemDialog";
 
+export interface VariantList {
+  id: string;
+  name: string;
+  price: string;
+}
+export interface Variant {
+  id: string;
+  variant_name: string;
+  var_list: VariantList[];
+}
+
 export default function AddItemInMenuStepThree({ onNext, onBack }: any) {
-  const [varient, setVarient] = useState(true);
-  const { openModal } = useDialogModal();
+  const [variant, setVarient] = useState<Variant[]>([]);
+  const { openModal, closeModal } = useDialogModal();
 
   const handleAddVarient = () => {
-    openModal(<AddVariantInItemDialog />, "Add Variant", "Add Variants");
+    openModal(
+      <AddVariantInItemDialog
+        setVariant={setVarient}
+        variant={variant}
+        closeModal={closeModal}
+      />,
+      "Add Variant",
+      "Add Variants"
+    );
   };
 
   return (
@@ -37,74 +56,48 @@ export default function AddItemInMenuStepThree({ onNext, onBack }: any) {
         </div>
       </div>
 
-      {varient ? (
+      {variant.length > 0 ? (
         <div className="space-y-4">
-          <div className="border rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow space-y-3">
-            {/* Header */}
-            <div className="flex justify-between items-center">
-              {/* Left: Variant Info */}
-              <div>
-                <h3 className="text-base font-semibold ">Variant Name</h3>
-                <p className="text-sm text-gray-500">3 Sizes</p>
-              </div>
-
-              {/* Right: Actions */}
-              <div className="flex items-center gap-4">
-                <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                  <PenIcon className="h-5 w-5 text-gray-600" />
-                </button>
-                <button className="p-2 rounded-lg hover:bg-red-50 transition-colors">
-                  <Trash className="h-5 w-5 text-red-500" />
-                </button>
-              </div>
-            </div>
-
-            {/* Size List */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-              {[1, 2, 3, 4, 5].map((_, i) => (
-                <div
-                  key={i}
-                  className="p-3 bg-accent border rounded-xl text-center hover:border-primary hover:bg-primary/5 transition-transform transform hover:scale-105 cursor-pointer"
-                >
-                  <div className="text-sm font-medium ">Size Name</div>
-                  <div className="text-xs">₹985</div>
+          {variant.map((v) => (
+            <div
+              key={v.id}
+              className="border rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow space-y-3"
+            >
+              {/* Header */}
+              <div className="flex justify-between items-center">
+                {/* Left: Variant Info */}
+                <div>
+                  <h3 className="text-base font-semibold ">{v.variant_name}</h3>
+                  <p className="text-sm text-gray-500">
+                    {v.var_list.length} Sizes
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="border rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow space-y-3">
-            {/* Header */}
-            <div className="flex justify-between items-center">
-              {/* Left: Variant Info */}
-              <div>
-                <h3 className="text-base font-semibold ">Variant Name</h3>
-                <p className="text-sm text-gray-500">3 Sizes</p>
-              </div>
 
-              {/* Right: Actions */}
-              <div className="flex items-center gap-4">
-                <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                  <PenIcon className="h-5 w-5 text-gray-600" />
-                </button>
-                <button className="p-2 rounded-lg hover:bg-red-50 transition-colors">
-                  <Trash className="h-5 w-5 text-red-500" />
-                </button>
-              </div>
-            </div>
-
-            {/* Size List */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-              {[1, 2, 3, 4, 5].map((_, i) => (
-                <div
-                  key={i}
-                  className="bg-accent p-3 border rounded-xl text-center hover:border-primary hover:bg-primary/5 transition-transform transform hover:scale-105 cursor-pointer"
-                >
-                  <div className="text-sm font-medium ">Size Name</div>
-                  <div className="text-xs">₹985</div>
+                {/* Right: Actions */}
+                <div className="flex items-center gap-4">
+                  <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                    <PenIcon className="h-5 w-5 text-gray-600" />
+                  </button>
+                  <button className="p-2 rounded-lg hover:bg-red-50 transition-colors">
+                    <Trash className="h-5 w-5 text-red-500" />
+                  </button>
                 </div>
-              ))}
+              </div>
+
+              {/* Size List */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                {v.var_list.map((i) => (
+                  <div
+                    key={i.id}
+                    className="bg-accent p-3 border rounded-xl text-center hover:border-primary hover:bg-primary/5 transition-transform transform hover:scale-105 cursor-pointer"
+                  >
+                    <div className="text-sm font-medium ">{i.name}</div>
+                    <div className="text-xs">{i.price}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       ) : (
         <div className="border-2 border-dashed h-25 w-full place-content-center rounded-2xl">

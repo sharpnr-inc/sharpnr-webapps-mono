@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Plus, Trash2 } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Plus, Trash2 } from "lucide-react";
+import type { Variant } from "./AddItemInMenuFormStepThree";
 
 interface Size {
   name: string;
@@ -14,23 +15,35 @@ interface VariantFormData {
   sizes: Size[];
 }
 
-export default function AddVariantInItemDialog() {
-  const [variantName, setVariantName] = useState<string>('');
+export default function AddVariantInItemDialog({
+  setVariant,
+  variant,
+  closeModal,
+}: {
+  setVariant: React.Dispatch<React.SetStateAction<Variant[]>>;
+  variant: Variant[];
+  closeModal: () => void;
+}) {
+  const [variantName, setVariantName] = useState<string>("");
   const [sizes, setSizes] = useState<Size[]>([
-    { name: 'Small', price: '' },
-    { name: 'Medium', price: '' },
-    { name: 'Large', price: '' }
+    { name: "Small", price: "" },
+    { name: "Medium", price: "" },
+    { name: "Large", price: "" },
   ]);
 
   const addSize = (): void => {
-    setSizes([...sizes, { name: '', price: '' }]);
+    setSizes([...sizes, { name: "", price: "" }]);
   };
 
   const removeSize = (index: number): void => {
     setSizes(sizes.filter((_, i) => i !== index));
   };
 
-  const updateSize = (index: number, field: keyof Size, value: string): void => {
+  const updateSize = (
+    index: number,
+    field: keyof Size,
+    value: string
+  ): void => {
     const newSizes = [...sizes];
     newSizes[index][field] = value;
     setSizes(newSizes);
@@ -39,10 +52,20 @@ export default function AddVariantInItemDialog() {
   const handleSubmit = (): void => {
     const formData: VariantFormData = {
       variantName,
-      sizes
+      sizes,
     };
     console.log(formData);
-    // Handle form submission
+    const newVariant: Variant = {
+      id: crypto.randomUUID(), // or use nanoid(), uuidv4(), etc.
+      variant_name: formData.variantName,
+      var_list: formData.sizes.map((size) => ({
+        id: crypto.randomUUID(),
+        name: size.name,
+        price: size.price,
+      })),
+    };
+    setVariant((prev) => [...prev, newVariant]);
+    closeModal()
   };
 
   return (
@@ -85,17 +108,19 @@ export default function AddVariantInItemDialog() {
                 <Input
                   placeholder="Size name (e.g., Small, Regular)"
                   value={size.name}
-                  onChange={(e) => updateSize(index, 'name', e.target.value)}
+                  onChange={(e) => updateSize(index, "name", e.target.value)}
                 />
               </div>
               <div className="w-32">
                 <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-gray-500">₹</span>
+                  <span className="absolute left-3 top-2.5 text-gray-500">
+                    ₹
+                  </span>
                   <Input
                     type="number"
                     placeholder="Price"
                     value={size.price}
-                    onChange={(e) => updateSize(index, 'price', e.target.value)}
+                    onChange={(e) => updateSize(index, "price", e.target.value)}
                     className="pl-7"
                   />
                 </div>
@@ -132,7 +157,9 @@ export default function AddVariantInItemDialog() {
           type="button"
           className="flex-1 "
           onClick={handleSubmit}
-          disabled={!variantName.trim() || sizes.some(s => !s.name || !s.price)}
+          disabled={
+            !variantName.trim() || sizes.some((s) => !s.name || !s.price)
+          }
         >
           Add Variant
         </Button>

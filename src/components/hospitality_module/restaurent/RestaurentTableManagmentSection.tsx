@@ -41,7 +41,7 @@ export default function RestaurentTableManagmentSection() {
           </div>
 
           {/* Proper grid wrapper for areas */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-4 xl:grid-cols-5 gap-3">
             {flr.areas.map((area) => (
               <div
                 key={area.area_id}

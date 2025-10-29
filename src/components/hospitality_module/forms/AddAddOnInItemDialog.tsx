@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface AddonFormData {
   name: string;
@@ -9,19 +9,30 @@ interface AddonFormData {
   maxQuantity: number;
 }
 
-export default function AddAddOnInItemDialog() {
-  const [addonName, setAddonName] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
+export default function AddAddOnInItemDialog({
+  setAddon,
+  addon,
+  closeModal,
+}: any) {
+  const [addonName, setAddonName] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
   const [maxQuantity, setMaxQuantity] = useState<number>(1);
 
   const handleSubmit = (): void => {
     const formData: AddonFormData = {
       name: addonName,
       price,
-      maxQuantity
+      maxQuantity,
     };
     console.log(formData);
-    // Handle form submission
+    const addonsData = {
+      id: crypto.randomUUID(),
+      addon_name: formData.name,
+      price: formData.price,
+    };
+
+    setAddon((prev: any) => [...prev, addonsData]);
+    closeModal();
   };
 
   return (
@@ -59,9 +70,7 @@ export default function AddAddOnInItemDialog() {
 
       {/* Max Quantity */}
       <div className="space-y-2">
-        <Label htmlFor="max-quantity">
-          Max Quantity
-        </Label>
+        <Label htmlFor="max-quantity">Max Quantity</Label>
         <Input
           id="max-quantity"
           type="number"

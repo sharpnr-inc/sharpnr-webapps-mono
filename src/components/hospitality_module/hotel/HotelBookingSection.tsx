@@ -22,7 +22,11 @@ export default function HotelBookingSection() {
     if (room.status === "Booked") {
       openSheet(<HandleRoomDetails room={room} />, "", "", "3/4");
     } else if (room.status === "Available") {
-      showModal("", "", <HandleAddBooking room={room} />);
+      showModal(
+        `Book Room ${room.room_name}`,
+        "Book this Room for Customer",
+        <HandleAddBooking room={room} />
+      );
     } else {
       showModal("", "", <div>Room is Cleaning</div>);
     }

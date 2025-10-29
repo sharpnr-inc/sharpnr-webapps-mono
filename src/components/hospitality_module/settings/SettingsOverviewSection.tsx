@@ -32,7 +32,7 @@ export default function SettingOverviewSection() {
           <Button>Save Changes</Button>
         </div>
 
-        <div className="h-[1800px]"></div>
+        <div className=""></div>
       </CardContent>
     </Card>
   );

@@ -1,5 +1,4 @@
 import AddItemInMenuForm from "../forms/AddItemInMenuForm";
-import { Button } from "@/components/ui/button";
 import { barMenu } from "@/dummy_data/menu_data"; // ✅ make sure your dummy data is exported from this path
 import {
   Accordion,
@@ -7,12 +6,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { PlusCircleIcon } from "lucide-react";
+
 
 export default function MenuBarMenuSection() {
   return (
     <div className="p-4 border rounded-2xl shadow-sm">
-
       <Accordion
         type="single"
         collapsible
@@ -21,22 +19,19 @@ export default function MenuBarMenuSection() {
       >
         <AccordionItem value="item-1">
           <AccordionTrigger>
-            {" "}
-            <Button>
-              <PlusCircleIcon />
-              Add Item
-            </Button>
+           
+            Add Item
           </AccordionTrigger>
           <AccordionContent className="place-items-center">
             <AddItemInMenuForm />
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger>Shipping Details</AccordionTrigger>
+          <AccordionTrigger>Chineese</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-4 text-balance"></AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Return Policy</AccordionTrigger>
+          <AccordionTrigger>Pizzas</AccordionTrigger>
           <AccordionContent className="flex flex-col gap-4 text-balance">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {barMenu.items.map((item) => (

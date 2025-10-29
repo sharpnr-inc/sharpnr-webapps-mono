@@ -14,10 +14,13 @@ import { useRef, useState } from "react";
 import { ArrowBigLeft, ArrowRight, ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+
+
 export default function AddItemInMenuStepTwo({ onNext, onBack }: any) {
   const [foodType, setFoodType] = useState<"veg" | "nonveg" | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
 
   const handleImageSelect = (file: File) => {
     if (!file) return;
