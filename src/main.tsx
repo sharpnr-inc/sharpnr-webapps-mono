@@ -16,8 +16,8 @@ import { DialogModalProvider } from "./context/DialogModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
 import { SpinnerProvider } from "./context/SpinnerContext.tsx";
 import { FormsModalProvider } from "./context/FormModalContext.tsx";
-import { ModuleRegistry} from 'ag-grid-community';
-import { ClientSideRowModelModule } from 'ag-grid-community';
+import { ModuleRegistry } from "ag-grid-community";
+import { ClientSideRowModelModule } from "ag-grid-community";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -38,15 +38,15 @@ createRoot(document.getElementById("root")!).render(
         <SpinnerProvider>
           <ToastProvider>
             <LoaderProvider>
-              <DialogModalProvider>
-                <ModalProvider>
-                  <SheetProvider>
+              <SheetProvider>
+                <DialogModalProvider>
+                  <ModalProvider>
                     <Suspense fallback={<SuspenseFallback />}>
                       <RouterProvider router={router} />
                     </Suspense>
-                  </SheetProvider>
-                </ModalProvider>
-              </DialogModalProvider>
+                  </ModalProvider>
+                </DialogModalProvider>
+              </SheetProvider>
             </LoaderProvider>
           </ToastProvider>
         </SpinnerProvider>

@@ -140,3 +140,105 @@ export const barMenu: BarMenu = {
     },
   ],
 };
+
+
+export const categories = [
+  {
+    id: "cat-1",
+    name: "Whiskey",
+    subCategories: [
+      { id: "sub-1-1", name: "Single Malt" },
+      { id: "sub-1-2", name: "Blended" },
+      { id: "sub-1-3", name: "Bourbon" },
+      { id: "sub-1-4", name: "Scotch" },
+    ],
+  },
+  {
+    id: "cat-2",
+    name: "Vodka",
+    subCategories: [
+      { id: "sub-2-1", name: "Plain Vodka" },
+      { id: "sub-2-2", name: "Flavored Vodka" },
+      { id: "sub-2-3", name: "Premium Vodka" },
+    ],
+  },
+  {
+    id: "cat-3",
+    name: "Rum",
+    subCategories: [
+      { id: "sub-3-1", name: "White Rum" },
+      { id: "sub-3-2", name: "Dark Rum" },
+      { id: "sub-3-3", name: "Spiced Rum" },
+      { id: "sub-3-4", name: "Gold Rum" },
+    ],
+  },
+  {
+    id: "cat-4",
+    name: "Gin",
+    subCategories: [
+      { id: "sub-4-1", name: "London Dry" },
+      { id: "sub-4-2", name: "Old Tom" },
+      { id: "sub-4-3", name: "Plymouth" },
+      { id: "sub-4-4", name: "Flavored Gin" },
+    ],
+  },
+  {
+    id: "cat-5",
+    name: "Beer",
+    subCategories: [
+      { id: "sub-5-1", name: "Lager" },
+      { id: "sub-5-2", name: "Ale" },
+      { id: "sub-5-3", name: "Stout" },
+      { id: "sub-5-4", name: "Wheat Beer" },
+      { id: "sub-5-5", name: "Craft Beer" },
+    ],
+  },
+  {
+    id: "cat-6",
+    name: "Wine",
+    subCategories: [
+      { id: "sub-6-1", name: "Red Wine" },
+      { id: "sub-6-2", name: "White Wine" },
+      { id: "sub-6-3", name: "Rosé Wine" },
+      { id: "sub-6-4", name: "Sparkling Wine" },
+    ],
+  },
+  {
+    id: "cat-7",
+    name: "Cocktails",
+    subCategories: [
+      { id: "sub-7-1", name: "Classic Cocktails" },
+      { id: "sub-7-2", name: "Signature Cocktails" },
+      { id: "sub-7-3", name: "Frozen Cocktails" },
+    ],
+  },
+  {
+    id: "cat-8",
+    name: "Mocktails",
+    subCategories: [
+      { id: "sub-8-1", name: "Fruit-Based" },
+      { id: "sub-8-2", name: "Creamy" },
+      { id: "sub-8-3", name: "Sparkling" },
+    ],
+  },
+  {
+    id: "cat-9",
+    name: "Shots",
+    subCategories: [
+      { id: "sub-9-1", name: "Classic Shots" },
+      { id: "sub-9-2", name: "Layered Shots" },
+      { id: "sub-9-3", name: "Flavored Shots" },
+    ],
+  },
+  {
+    id: "cat-10",
+    name: "Soft Drinks",
+    subCategories: [
+      { id: "sub-10-1", name: "Soda" },
+      { id: "sub-10-2", name: "Juices" },
+      { id: "sub-10-3", name: "Energy Drinks" },
+      { id: "sub-10-4", name: "Water" },
+    ],
+  },
+];
+

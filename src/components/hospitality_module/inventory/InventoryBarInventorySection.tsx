@@ -1,10 +1,13 @@
+import { BarInventoryData } from "@/dummy_data/inventory_data";
 export default function InventoryBarInventorySection() {
   return (
-    <div className="p-4 border rounded-xl shadow-sm">
-      <div className="text-lg font-medium mb-2">Bar Inventory Section</div>
-      <p className="text-sm text-gray-500">
-        Manage all bar-related stock items, supplies, and quantities here.
-      </p>
+    <div className="p-2 border rounded-xl shadow-sm">
+      
+     <div className="">
+      {
+        BarInventoryData.item.map((i)=>(<div className="p-2 border space-y-2">{i.item_name}</div>))
+      }
+     </div>
     </div>
   );
 }

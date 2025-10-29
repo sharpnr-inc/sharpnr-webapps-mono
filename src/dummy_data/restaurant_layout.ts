@@ -33,6 +33,17 @@ export const restaurant_layout: Floor[] = [
           { table_id: "T5", table_name: "Table 5", table_status: "Available", table_capacity: 8 },
         ],
       },
+         {
+        area_id: "A2",
+        area_name: "Conference Hall",
+        tables: [
+          { table_id: "T1", table_name: "Table 1", table_status: "Available", table_capacity: 4 },
+          { table_id: "T2", table_name: "Table 2", table_status: "Reserved", table_capacity: 6 },
+          { table_id: "T3", table_name: "Table 3", table_status: "Occupied", table_capacity: 2 },
+          { table_id: "T4", table_name: "Table 4", table_status: "Cleaning", table_capacity: 4 },
+          { table_id: "T5", table_name: "Table 5", table_status: "Available", table_capacity: 8 },
+        ],
+      },
       {
         area_id: "A2",
         area_name: "Family Zone",

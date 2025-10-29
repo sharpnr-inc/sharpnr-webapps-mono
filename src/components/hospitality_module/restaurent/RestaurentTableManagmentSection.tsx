@@ -86,7 +86,7 @@ export default function RestaurentTableManagmentSection() {
                           <ContextMenuShortcut>⌘]</ContextMenuShortcut>
                         </ContextMenuItem>
                         <ContextMenuItem inset>
-                          Reload
+                          Close Table Bill
                           <ContextMenuShortcut>⌘R</ContextMenuShortcut>
                         </ContextMenuItem>
                         <ContextMenuSub>
