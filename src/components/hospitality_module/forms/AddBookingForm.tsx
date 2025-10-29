@@ -4,6 +4,7 @@ import { useForm } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";
 
 export default function AddBookingForm({ room }: { room: any }) {
+  console.log(room)
   const form = useForm({
     defaultValues: {
       room_id: "",
