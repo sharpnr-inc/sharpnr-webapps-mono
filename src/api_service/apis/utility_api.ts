@@ -29,3 +29,8 @@ export const fetchCitiesList = async (countryCode: string, stateCode: string) =>
   const response = await api.get(url);
   return response.data;
 };
+
+export const getSubModulesOfBusinessLogicModule = async(module_name:string) => {
+  const response = await api.get(UTILITY.GET_SUB_MODULES+ `/${module_name}`);
+  return response.data
+}

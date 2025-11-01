@@ -1,4 +1,4 @@
-import type { CompleteOrgResgistrationPayload } from "@/schemas/Auth";
+import type { CompleteRegistrationForm } from "@/schemas/Auth";
 import { useMutation } from "@tanstack/react-query";
 import {
   CompleteOrgRegistration,
@@ -10,7 +10,7 @@ import { useLoader } from "@/context/LoaderContext";
 import { useModal } from "@/context/ModalContext";
 import { useNavigate } from "@tanstack/react-router";
 
-export function useCompleteOrganisation() {
+export function useCompleteOrganization() {
   const toast = useToastService();
   const loader = useLoader();
   const modal = useModal();
@@ -19,7 +19,7 @@ export function useCompleteOrganisation() {
   return useMutation<
     ApiResponse<OrgCompleteRegistrationResponseDTO>,
     unknown,
-    CompleteOrgResgistrationPayload
+    CompleteRegistrationForm
   >({
     mutationFn: (data) => CompleteOrgRegistration(data),
     onMutate: () => {

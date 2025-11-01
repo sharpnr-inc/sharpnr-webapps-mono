@@ -1,123 +1,119 @@
-import {
-  createCountriesQuery,
-  createStatesQuery,
-  createCitiesQuery,
-} from "@/api_service/queries/fetchstateandcities";
-import {
-  CompleteOrgResgistrationSchema,
-  type CompleteOrgResgistrationPayload,
-} from "@/schemas/Auth";
 import { Checkbox } from "../ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 import { useForm } from "@tanstack/react-form";
 import { useQuery } from "@tanstack/react-query";
-import { Building2, MapPin } from "lucide-react";
-import { useState } from "react";
+import { Info, Plus, Trash2 } from "lucide-react";
 import { Label } from "../ui/label";
-import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import createGetSubModuleQuery from "@/api_service/queries/fetch_subModules";
+import TermsAndConditionsCard from "../ui/TermsandConditionCard";
 import { Input } from "../ui/input";
-import { useCompleteOrganisation } from "@/api_service/mutations/completeResgistration";
 
-// Component Starts Here
+import {
+  createCitiesQuery,
+  createCountriesQuery,
+  createStatesQuery,
+} from "@/api_service/queries/fetchstateandcities";
+import SearchableSelect from "./searchable";
+
+import { useState } from "react";
+import { Button } from "../ui/button";
+import type { OrgOwnerDetails } from "@/schemas/Auth";
+import { useCompleteOrganization } from "@/api_service/mutations/completeResgistration";
+
+const orgBasicDetails = [
+  {
+    label: "Root Email / Org Super Admin Email",
+    value: "Kashifsocl@gmail.com",
+  },
+  { label: "Organization Business Operation Type", value: "HOTEL" },
+  { label: "Organization Mobile", value: "+91 9876543210" },
+  { label: "Organization Name", value: "SharpNR Pvt. Ltd." },
+];
+
 export default function CompleteRegistration() {
-  // Hoistings
-  const compeleteOrgReg = useCompleteOrganisation();
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
+  const compeleteOrgReg = useCompleteOrganization();
+  const [selectedCountryCode, setSelectedCountryCode] = useState<string>("");
+  const [selectedStateCode, setSelectedStateCode] = useState<string>("");
+  const [ownerDetail, setOwnerDetails] = useState<OrgOwnerDetails[]>([]);
+  const subModules = useQuery(createGetSubModuleQuery("hospitality"));
+  const countryList = useQuery(createCountriesQuery());
+  const stateList = useQuery({
+    ...createStatesQuery(selectedCountryCode),
+    enabled: !!selectedCountryCode,
+  });
 
-  const [countryFilter, setCountryFilter] = useState("");
-  const [stateFilter, setStateFilter] = useState("");
-  const [cityFilter, setCityFilter] = useState("");
-
-  const countriesQuery = useQuery(createCountriesQuery());
-  const statesQuery = useQuery(createStatesQuery(selectedCountry));
-  const citiesQuery = useQuery(
-    createCitiesQuery(selectedCountry, selectedState)
-  );
+  const cityList = useQuery({
+    ...createCitiesQuery(selectedCountryCode, selectedStateCode),
+    enabled: !!selectedCountryCode,
+  });
 
   const form = useForm({
-    validators: { onChange: CompleteOrgResgistrationSchema },
     defaultValues: {
-      registration_details: {
-        is_register: false,
-        gst_number: "",
-        cin_number: "",
-      },
       address_details: {
         country: "",
         city: "",
         state: "",
         pincode: "",
         address_line: "",
-        area_locality: "",
+        landmark: "",
       },
       is_owner: true,
-    } as CompleteOrgResgistrationPayload,
+      owner_details: [{ owner_name: "", owner_email: "", owner_phone: "" }],
+      org_submodule_config: [] as string[],
+    },
     onSubmit: async ({ value }) => {
       console.log(value);
       compeleteOrgReg.mutate(value);
     },
   });
 
-  // Main return
   return (
     <div className="py-12 px-4">
       <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold">Complete Company Registration</h1>
           <p className="text-gray-500 mt-2">
-            Provide your organization details
+            Provide your organization details to complete the registration
           </p>
         </div>
 
+        {/* Basic Details */}
         <Card>
           <CardHeader>
-            <CardTitle>Basic Details</CardTitle>
-            <CardDescription>
-              The Basic Details of the Organisation
+            <CardTitle className="text-lg">Basic Details</CardTitle>
+            <CardDescription className="text-xs">
+              Organization information at a glance
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="grid grid-cols-2 gap-4">
-            {/* Root Email */}
-            <div className="space-y-2">
-              <Label>Root Email / Org Super Admin Email</Label>
-              <Input value="Kashifsocl@gmail.com" disabled />
-            </div>
-
-            {/* Business Operation Type */}
-            <div className="space-y-2">
-              <Label>Organisation Business Operation Type</Label>
-              <Input value="HOTEL" disabled />
-            </div>
-
-            {/* Organisation Mobile */}
-            <div className="space-y-2">
-              <Label>Organisation Mobile</Label>
-              <Input value="+91 9876543210" disabled />
-            </div>
-
-            {/* Organisation Name */}
-            <div className="space-y-2">
-              <Label>Organisation Name</Label>
-              <Input value="SharpNR Pvt. Ltd." disabled />
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {orgBasicDetails.map((detail, i) => (
+                <div key={i} className="space-y-1">
+                  <Label className="text-xs font-medium text-muted-foreground">
+                    {detail.label}
+                  </Label>
+                  <div className="text-sm font-medium">{detail.value}</div>
+                </div>
+              ))}
             </div>
           </CardContent>
+
+          <CardFooter className="bg-muted/50 flex gap-2 text-muted-foreground px-4">
+            <Info className="h-3 w-3" />
+            <small>Basic company information (cannot be edited here)</small>
+          </CardFooter>
         </Card>
 
+        {/* Main Form */}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -126,391 +122,387 @@ export default function CompleteRegistration() {
           }}
           className="space-y-8"
         >
-          <Card className="mt-2">
+          {/* Submodules */}
+          <Card>
             <CardHeader>
               <CardTitle>Select Operations</CardTitle>
               <CardDescription>
-                Select the appropriate option(s)
+                Choose the modules that apply to your organization
               </CardDescription>
             </CardHeader>
 
-            <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="flex items-center gap-2 border rounded-lg p-3">
-                <Checkbox id="hotel" />
-                <Label htmlFor="hotel">Hotel</Label>
-              </div>
+            <CardContent>
+              <form.Field name="org_submodule_config">
+                {(field) => {
+                  const value = field.state.value || [];
 
-              <div className="flex items-center gap-2 border rounded-lg p-3">
-                <Checkbox id="restaurant" />
-                <Label htmlFor="restaurant">Restaurant</Label>
-              </div>
+                  return (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      {subModules.data?.data?.submodules?.map((item: any) => {
+                        const checked = value.includes(item.module_name);
 
-              <div className="flex items-center gap-2 border rounded-lg p-3">
-                <Checkbox id="bar" />
-                <Label htmlFor="bar">Bar</Label>
-              </div>
-
-              <div className="flex items-center gap-2 border rounded-lg p-3">
-                <Checkbox id="pub" />
-                <Label htmlFor="pub">Pub / Club</Label>
-              </div>
-
-              <div className="flex items-center gap-2 border rounded-lg p-3 w-fit">
-                <Checkbox id="kitchen" />
-                <Label htmlFor="kitchen" className=" text-nowrap ">
-                  Cloud Kitchen/Takeways
-                </Label>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Registration Details */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-blue-600" />
-                Registration Details
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent className="grid grid-cols-1 md:grid-cols-1 gap-6">
-              <form.Field name="registration_details.is_register">
-                {({ state, handleChange }) => (
-                  <div className="flex items-center gap-2 border rounded-lg p-3">
-                    <Checkbox
-                      checked={state.value}
-                      onCheckedChange={(val) => handleChange(!!val)}
-                    />
-                    <Label>
-                      Is Your Organization is registered with govt of India ?
-                    </Label>
-                  </div>
-                )}
-              </form.Field>
-              <form.Subscribe
-                selector={(state) =>
-                  state.values.registration_details?.is_register
-                }
-              >
-                {(isRegistered) => (
-                  <>
-                    {isRegistered && (
-                      <>
-                        <form.Field name="registration_details.gst_number">
-                          {({ state, handleBlur, handleChange }) => (
-                            <div className="space-y-2">
-                              <Label>GST Number</Label>
-                              <Input
-                                value={state.value}
-                                onBlur={handleBlur}
-                                onChange={(e) => handleChange(e.target.value)}
-                              />
-                            </div>
-                          )}
-                        </form.Field>
-
-                        <form.Field name="registration_details.cin_number">
-                          {({ state, handleChange }) => (
-                            <div className="space-y-2">
-                              <Label>CIN Number</Label>
-                              <Input
-                                value={state.value}
-                                onChange={(e) => handleChange(e.target.value)}
-                              />
-                            </div>
-                          )}
-                        </form.Field>
-                      </>
-                    )}
-                  </>
-                )}
-              </form.Subscribe>
-            </CardContent>
-          </Card>
-
-          {/* Address Details */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-green-600" />
-                Address Details
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <form.Field name="address_details.area_locality">
-                {({ state, handleChange }) => (
-                  <div className="md:col-span-2 space-y-2">
-                    <Label>Address Line</Label>
-                    <Input
-                      value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                  </div>
-                )}
-              </form.Field>
-              <form.Field name="address_details.address_line">
-                {({ state, handleChange }) => (
-                  <div className="md:col-span-2 space-y-2">
-                    <Label>Area/locality</Label>
-                    <Input
-                      value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                  </div>
-                )}
-              </form.Field>
-
-              {/* Country */}
-              <form.Field name="address_details.country">
-                {({ state, handleChange }) => (
-                  <div className="space-y-2">
-                    <Label>Country</Label>
-                    <Select
-                      value={state.value}
-                      onValueChange={(val) => {
-                        handleChange(val);
-                        setSelectedCountry(val);
-                        form.setFieldValue("address_details.state", "");
-                        form.setFieldValue("address_details.city", "");
-                        setSelectedState("");
-                      }}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Country" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-60">
-                        <Input
-                          placeholder="Search Country..."
-                          className="mb-2 w-full p-2 border rounded"
-                          onChange={(e) => setCountryFilter(e.target.value)}
-                        />
-                        {countriesQuery.data?.data
-                          .filter((c: any) =>
-                            c.name
-                              .toLowerCase()
-                              .includes(countryFilter.toLowerCase())
-                          )
-                          .map((c: any) => (
-                            <SelectItem key={c.iso2} value={c.iso2}>
-                              <span className="mr-2">{c.emoji}</span> {c.name}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              </form.Field>
-
-              {/* State */}
-              <form.Field name="address_details.state">
-                {({ state, handleChange }) => (
-                  <div className="space-y-2">
-                    <Label>State</Label>
-                    <Select
-                      value={state.value}
-                      onValueChange={(val) => {
-                        handleChange(val);
-                        setSelectedState(val);
-                        form.setFieldValue("address_details.city", "");
-                      }}
-                      disabled={!selectedCountry}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select State" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-60">
-                        <Input
-                          placeholder="Search State..."
-                          className="mb-2 w-full p-2 border rounded"
-                          onChange={(e) => setStateFilter(e.target.value)}
-                        />
-                        {statesQuery.data?.data
-                          ?.filter((s: any) =>
-                            s.name
-                              .toLowerCase()
-                              .includes(stateFilter.toLowerCase())
-                          )
-                          .map((s: any) => (
-                            <SelectItem key={s.id} value={s.iso2}>
-                              {s.name}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              </form.Field>
-
-              {/* City */}
-              <form.Field name="address_details.city">
-                {({ state, handleChange }) => (
-                  <div className="space-y-2">
-                    <Label>City</Label>
-                    <Select
-                      value={state.value}
-                      onValueChange={handleChange}
-                      disabled={!selectedState}
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select City" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-60">
-                        <Input
-                          placeholder="Search City..."
-                          className="mb-2 w-full p-2 border rounded"
-                          onChange={(e) => setCityFilter(e.target.value)}
-                        />
-                        {citiesQuery.data?.data
-                          ?.filter((c: any) =>
-                            c.name
-                              .toLowerCase()
-                              .includes(cityFilter.toLowerCase())
-                          )
-                          .map((c: any) => (
-                            <SelectItem key={c.id} value={c.name}>
-                              {c.name}
-                            </SelectItem>
-                          ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              </form.Field>
-
-              <form.Field name="address_details.pincode">
-                {({ state, handleChange }) => (
-                  <div className="space-y-2">
-                    <Label>Pincode</Label>
-                    <Input
-                      value={state.value}
-                      onChange={(e) => handleChange(e.target.value)}
-                    />
-                  </div>
-                )}
-              </form.Field>
-            </CardContent>
-          </Card>
-
-          {/* Owner Checkbox */}
-          <form.Field name="is_owner">
-            {({ state, handleChange }) => (
-              <div className="flex items-center gap-2 border rounded-lg p-3">
-                <Checkbox
-                  checked={state.value}
-                  onCheckedChange={(val) => handleChange(!!val)}
-                />
-                <Label>Are you the owner of this organisation?</Label>
-              </div>
-            )}
-          </form.Field>
-
-          {/* Owner Details Card - Only show if NOT the owner */}
-          {/* <form.Subscribe selector={(state) => state.values.is_owner}>
-            {(isOwner) => (
-              <>
-                {!isOwner && (
-                  <Card>
-                    <CardHeader>
-                      <div className="flex items-center justify-between w-full">
-                        <CardTitle className="flex items-center gap-2">
-                          <User className="w-5 h-5 text-orange-600" />
-                          Owner Details
-                        </CardTitle>
-                        <Button
-                          type="button"
-                          onClick={() =>
-                            form.pushFieldValue("owner_details", {
-                              owner_name: "",
-                              owner_email: "",
-                              owner_phone: "",
-                            })
-                          }
-                          variant="outline"
-                        >
-                          <Plus className="w-4 h-4 mr-1" /> Add Owner
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <form.Field name="owner_details" mode="array">
-                        {({ state }) =>
-                          state.value.map((_, index) => (
-                            <div
-                              key={index}
-                              className="border rounded-xl p-4 grid grid-cols-1 md:grid-cols-3 gap-4 relative"
-                            >
-                              <Button
-                                type="button"
-                                variant="destructive"
-                                size="icon"
-                                className="absolute top-2 right-2"
-                                onClick={() =>
-                                  form.removeFieldValue("owner_details", index)
+                        return (
+                          <div
+                            key={item.id}
+                            className={`flex items-start gap-3 border-2 rounded-xl p-4 cursor-pointer transition-all
+                  hover:scale-[1.02] hover:shadow-lg ${
+                    checked
+                      ? "bg-accent text-accent-foreground border-accent"
+                      : "hover:bg-muted/40"
+                  }`}
+                          >
+                            <Checkbox
+                              id={item.id}
+                              checked={checked}
+                              onCheckedChange={(isChecked) => {
+                                if (isChecked) {
+                                  field.handleChange([
+                                    ...value,
+                                    item.module_name,
+                                  ]);
+                                } else {
+                                  field.handleChange(
+                                    value.filter((v) => v !== item.module_name)
+                                  );
                                 }
+                              }}
+                            />
+                            <div className="space-y-1">
+                              <Label
+                                htmlFor={item.id}
+                                className="font-medium text-sm"
                               >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                              <form.Field
-                                name={`owner_details[${index}].owner_name`}
-                              >
-                                {({ state, handleChange }) => (
-                                  <div>
-                                    <Label>Owner Name</Label>
-                                    <Input
-                                      value={state.value}
-                                      onChange={(e) =>
-                                        handleChange(e.target.value)
-                                      }
-                                    />
-                                  </div>
-                                )}
-                              </form.Field>
-                              <form.Field
-                                name={`owner_details[${index}].owner_email`}
-                              >
-                                {({ state, handleChange }) => (
-                                  <div>
-                                    <Label>Owner Email</Label>
-                                    <Input
-                                      value={state.value}
-                                      onChange={(e) =>
-                                        handleChange(e.target.value)
-                                      }
-                                    />
-                                  </div>
-                                )}
-                              </form.Field>
-                              <form.Field
-                                name={`owner_details[${index}].owner_phone`}
-                              >
-                                {({ state, handleChange }) => (
-                                  <div>
-                                    <Label>Owner Phone</Label>
-                                    <Input
-                                      value={state.value}
-                                      onChange={(e) =>
-                                        handleChange(e.target.value)
-                                      }
-                                    />
-                                  </div>
-                                )}
-                              </form.Field>
+                                {item.module_name}
+                              </Label>
+                              <p className="text-xs text-muted-foreground leading-snug">
+                                {item.description}
+                              </p>
                             </div>
-                          ))
-                        }
-                      </form.Field>
-                    </CardContent>
-                  </Card>
-                )}
-              </>
-            )}
-          </form.Subscribe> */}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
+              </form.Field>
+            </CardContent>
+          </Card>
 
-          <div className="flex justify-end">
-            <Button type="submit" className="bg-blue-600 text-white">
-              Submit Registration
-            </Button>
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Organization Address</CardTitle>
+              <CardDescription>
+                Add you Organization Address Details
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent className="space-y-2">
+              <form.Field
+                name="address_details.address_line"
+                validators={{
+                  onChange: ({ value, fieldApi }) => {
+                    // ✅ Access entire form
+                    const orgModules = fieldApi.form.getFieldValue(
+                      "org_submodule_config"
+                    );
+
+                    console.log("Address Value:", value);
+                    console.log("Org Submodules:", orgModules);
+
+                    if (orgModules?.includes("HOTEL") && value.length < 10) {
+                      return "For HOTEL module, address must be at least 10 characters long";
+                    }
+
+                    return undefined;
+                  },
+                  onChangeListenTo: ["org_submodule_config"],
+                }}
+                children={(field) => {
+                  return (
+                    <div className="space-y-2">
+                      <Label htmlFor={field.name}>Address Line</Label>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        placeholder={"eg: Joshi marg, 200ft Road"}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                      {field.state.meta.errors && (
+                        <p className="text-red-500 text-sm">
+                          {field.state.meta.errors}
+                        </p>
+                      )}
+                    </div>
+                  );
+                }}
+              />
+
+              <form.Field
+                name="address_details.landmark"
+                children={(field) => {
+                  return (
+                    <div className="space-y-2">
+                      <Label htmlFor={field.name}>LandMark</Label>
+                      <Input
+                        value={field.state.value}
+                        id={field.name}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                      />
+                    </div>
+                  );
+                }}
+              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <form.Field
+                  name="address_details.country"
+                  children={(field) => {
+                    return (
+                      <SearchableSelect
+                        label="Country"
+                        placeholder="Select Country"
+                        searchPlaceholder="Type to filter countries..."
+                        value={field.state.value}
+                        onChange={(value: any) => {
+                          field.handleChange(value);
+
+                          // Find and set country code for state query
+                          const selectedCountry = countryList.data?.data?.find(
+                            (c: any) => c.name === value
+                          );
+                          setSelectedCountryCode(selectedCountry?.iso2 || "");
+
+                          // Reset state when country changes
+                          form.setFieldValue("address_details.state", "");
+                        }}
+                        options={
+                          countryList.data?.data?.map((c: any) => ({
+                            label: c.name,
+                            value: c.name,
+                            icon: c.emoji,
+                          })) || []
+                        }
+                      />
+                    );
+                  }}
+                />
+
+                <form.Field name="address_details.state">
+                  {(field) => {
+                    const currentValue = field.state?.value;
+
+                    return (
+                      <SearchableSelect
+                        label="State"
+                        placeholder={
+                          currentValue ? "Select State" : "Select country first"
+                        }
+                        searchPlaceholder="Type to filter states..."
+                        value={currentValue}
+                        onChange={(value: any) => {
+                          field.handleChange(value);
+                          // Find and set country code for state query
+                          const selectedState = stateList.data?.data?.find(
+                            (c: any) => c.name === value
+                          );
+                          setSelectedStateCode(selectedState?.iso2 || "");
+
+                          // Reset state when country changes
+                          form.setFieldValue("address_details.city", "");
+                        }}
+                        disabled={!selectedCountryCode || stateList.isLoading}
+                        options={
+                          stateList?.data?.data?.map((s: any) => ({
+                            label: s.name,
+                            value: s.name,
+                          })) || []
+                        }
+                      />
+                    );
+                  }}
+                </form.Field>
+
+                <form.Field
+                  name="address_details.city"
+                  children={(field) => {
+                    const currentValue = field.state?.value;
+                    return (
+                      <SearchableSelect
+                        label="City"
+                        placeholder={
+                          currentValue ? "Select City" : "Select State first"
+                        }
+                        searchPlaceholder="Type to filter states..."
+                        value={currentValue}
+                        onChange={field.handleChange}
+                        disabled={
+                          (!selectedCountryCode && !selectedStateCode) ||
+                          stateList.isLoading
+                        }
+                        options={
+                          cityList?.data?.data?.map((s: any) => ({
+                            label: s.name,
+                            value: s.name,
+                          })) || []
+                        }
+                      />
+                    );
+                  }}
+                />
+
+                <form.Field
+                  name="address_details.pincode"
+                  children={(field) => {
+                    return (
+                      <div className="space-y-2">
+                        <Label>Pincode/Zipcode</Label>
+                        <Input
+                          placeholder="eg: 302012"
+                          value={field.state.value}
+                          onChange={(e) => field.handleChange(e.target.value)}
+                        />
+                      </div>
+                    );
+                  }}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Are you the owner of the organization?</CardTitle>
+            </CardHeader>
+
+            <CardContent>
+              <form.Field name="is_owner">
+                {(field) => (
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      checked={!!field.state.value} // ✅ ensure it's a boolean
+                      onCheckedChange={(checked) =>
+                        field.handleChange(!!checked)
+                      } // ✅ update form value
+                    />
+                    <Label htmlFor="is_owner">Yes</Label>
+                  </div>
+                )}
+              </form.Field>
+            </CardContent>
+          </Card>
+
+          <form.Subscribe
+            selector={(state) => ({
+              isOwner: state.values.is_owner, // 👈 subscribe to another field
+            })}
+          >
+            {({ isOwner }) =>
+              !isOwner && ( // 👈 conditionally render the card
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Owner's Details</CardTitle>
+                    <CardDescription>
+                      Add at least one owner name
+                    </CardDescription>
+                  </CardHeader>
+
+                  <CardContent className="space-y-3">
+                    <form.Field name="owner_details">
+                      {(field) => {
+                        const owners = field.state?.value || ownerDetail;
+
+                        return (
+                          <>
+                            {owners.map((o: OrgOwnerDetails, index: number) => (
+                              <div
+                                key={index}
+                                className="flex gap-2 items-center"
+                              >
+                                <Input
+                                  value={o.owner_name}
+                                  onChange={(e) => {
+                                    const updated = [...owners];
+                                    updated[index].owner_name = e.target.value;
+                                    setOwnerDetails(updated);
+                                    field.handleChange(updated);
+                                  }}
+                                  placeholder="Owner Name"
+                                />
+                                <Input
+                                  value={o.owner_email || ""}
+                                  onChange={(e) => {
+                                    const updated = [...owners];
+                                    updated[index].owner_email = e.target.value;
+                                    setOwnerDetails(updated);
+                                    field.handleChange(updated);
+                                  }}
+                                  placeholder="Owner Email"
+                                />
+                                <Input
+                                  value={o.owner_phone || ""}
+                                  onChange={(e) => {
+                                    const updated = [...owners];
+                                    updated[index].owner_phone = e.target.value;
+                                    setOwnerDetails(updated);
+                                    field.handleChange(updated);
+                                  }}
+                                  placeholder="Owner email"
+                                />
+                                <Button
+                                  type="button"
+                                  variant="destructive"
+                                  className="h-full"
+                                  onClick={() => {
+                                    const updated = owners.filter(
+                                      (_, i) => i !== index
+                                    );
+                                    setOwnerDetails(updated);
+                                    field.handleChange(updated);
+                                  }}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            ))}
+
+                            <Button
+                              type="button"
+                              variant="secondary"
+                              className="mt-2"
+                              onClick={() => {
+                                const updated = [
+                                  ...owners,
+                                  {
+                                    owner_name: "",
+                                    owner_email: "",
+                                    owner_phone: "",
+                                  },
+                                ];
+                                setOwnerDetails(updated);
+                                field.handleChange(updated);
+                              }}
+                            >
+                              <Plus className="w-4 h-4 mr-1" /> Add Owner
+                            </Button>
+                          </>
+                        );
+                      }}
+                    </form.Field>
+                  </CardContent>
+                </Card>
+              )
+            }
+          </form.Subscribe>
+
+          <TermsAndConditionsCard />
+          <form.Subscribe>
+            <div className="w-full">
+              <Button type="submit" className="w-full">
+                {"Submit Details"}
+              </Button>
+            </div>
+          </form.Subscribe>
         </form>
       </div>
     </div>

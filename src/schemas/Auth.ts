@@ -17,8 +17,7 @@ export type RegisterOrganizationRequestPayload = z.infer<typeof RegisterOrganiza
 
 
 export const VerifyOtpReqSchema = z.object({
-  otp:z.string().min(6,"OTP must be 6 Didgit").max(6,"OTP must be 6 Didgit"),
-  token:z.string()
+  otp:z.string().min(6,"OTP must be 6 Digit").max(6,"OTP must be 6 Digit"),
 })
 
 export type VerifyOTPRequestPayload = z.infer<typeof VerifyOtpReqSchema>
@@ -31,31 +30,27 @@ export const LoginSchema = z.object({
 export type LoginPayload = z.infer<typeof LoginSchema>
 
 
-// RegistrationDetails schema
-const RegistrationDetailsSchema = z.object({
-  is_register: z.boolean(),
-  gst_number: z.string().optional(),
-  cin_number: z.string().optional(),
-});
+// Represents an owner or stakeholder of the organization
+export interface OrgOwnerDetails {
+  owner_name: string;         // Full name of owner
+  owner_email?: string;       // Optional email
+  owner_phone?: string;       // Optional phone number
+}
 
-// AddressDetails schema
-const AddressDetailsSchema = z.object({
-  country:z.string(),
-  city: z.string().min(1, "City is required"),
-  state: z.string().min(1, "State is required"),
-  pincode: z.string().min(1, "Pincode is required"),
-  address_line: z.string().optional(),
-  area_locality:z.string().optional()
-});
+// Represents organization address details
+export interface AddressDetails {
+  country: string;
+  city: string;
+  state: string;
+  pincode: string;
+  address_line?: string;
+  landmark?: string;
+}
 
-
-// Main DTO schema
-export const CompleteOrgResgistrationSchema = z
-  .object({
-    registration_details: RegistrationDetailsSchema,
-    address_details: AddressDetailsSchema,
-    is_owner: z.boolean(),
-  })
-
-// ✅ Optional: export inferred TypeScript type
-export type CompleteOrgResgistrationPayload = z.infer<typeof CompleteOrgResgistrationSchema>;
+// Represents the complete organization registration request payload
+export interface CompleteRegistrationForm {
+  address_details: AddressDetails;
+  is_owner: boolean;
+  owner_details?: OrgOwnerDetails[];
+  org_submodule_config: string[];
+}

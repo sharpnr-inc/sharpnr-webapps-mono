@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { ModalProvider } from "./context/ModalContext.tsx";
@@ -18,6 +18,10 @@ import { SpinnerProvider } from "./context/SpinnerContext.tsx";
 import { FormsModalProvider } from "./context/FormModalContext.tsx";
 import { ModuleRegistry } from "ag-grid-community";
 import { ClientSideRowModelModule } from "ag-grid-community";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
@@ -31,30 +35,33 @@ const queryClient = new QueryClient();
 const router = createRouter({ routeTree });
 
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <FormsModalProvider>
-        <SpinnerProvider>
-          <ToastProvider>
-            <LoaderProvider>
-              <SheetProvider>
-                <DialogModalProvider>
-                  <ModalProvider>
-                    <Suspense fallback={<SuspenseFallback />}>
-                      <RouterProvider router={router} />
-                    </Suspense>
-                  </ModalProvider>
-                </DialogModalProvider>
-              </SheetProvider>
-            </LoaderProvider>
-          </ToastProvider>
-        </SpinnerProvider>
-      </FormsModalProvider>
-    </ThemeProvider>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <FormsModalProvider>
+          <SpinnerProvider>
+            <ToastProvider>
+              <LoaderProvider>
+                <SheetProvider>
+                  <DialogModalProvider>
+                    <ModalProvider>
+                      <Suspense fallback={<SuspenseFallback />}>
+                        <RouterProvider router={router} />
+                      </Suspense>
+                    </ModalProvider>
+                  </DialogModalProvider>
+                </SheetProvider>
+              </LoaderProvider>
+            </ToastProvider>
+          </SpinnerProvider>
+        </FormsModalProvider>
+      </ThemeProvider>
+      <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
-    {/* 🔹 Show Devtools only in development */}
-    {/* {import.meta.env.DEV && <ReactQueryDevtools buttonPosition="top-left" initialIsOpen={false} />} */}
-  </QueryClientProvider>
-  // </StrictMode>
+      {/* 🔹 Show Devtools only in development */}
+      {import.meta.env.DEV && (
+        <ReactQueryDevtools buttonPosition="bottom-right" initialIsOpen={false} />
+      )}
+    </QueryClientProvider>
+  </StrictMode>
 );

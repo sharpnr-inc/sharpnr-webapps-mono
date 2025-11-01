@@ -1,5 +1,4 @@
 // src/routes/dashboard/_layout.tsx
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUIRenderer } from "@/context/ui-rendererContext";
 import {
   createFileRoute,

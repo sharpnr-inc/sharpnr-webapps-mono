@@ -20,7 +20,7 @@ import { useVerifyOtpRegistration } from "@/api_service/mutations/verifyOtp";
 
 export default function VerifyEmailWithOtpPage() {
   const navigate = useNavigate();
-  const { email, token } = useRouteContext({
+  const { email,} = useRouteContext({
     from: "/signup/verify-otp",
   });
   const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes
@@ -91,7 +91,6 @@ export default function VerifyEmailWithOtpPage() {
     validators: { onBlur: VerifyOtpReqSchema },
     defaultValues: {
       otp: "",
-      token: token,
     } as VerifyOTPRequestPayload,
     onSubmit: ({ value }) => {
       verifyOtpMutation.mutate(value);

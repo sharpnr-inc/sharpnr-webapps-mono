@@ -39,7 +39,6 @@ export const Route = createFileRoute('/signup/verify-otp')({
     // Optional: pass search params to component
     return {
       email: search.email,
-      token: search.VerificationKey,
     };
   },
 

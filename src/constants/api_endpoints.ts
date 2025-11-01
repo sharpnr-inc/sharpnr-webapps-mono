@@ -14,5 +14,6 @@ export const UTILITY = {
     ORG_REGISTRATION_TYPE: "utils/org-reg-types",
     COUNTRIES_LIST: "utils/countries",
     STATE_LIST: "utils/countries/${}/states",
-    CITIES_LIST: "utils/countries/:countryCode/states/:stateCode/cities"
+    CITIES_LIST: "utils/countries/:countryCode/states/:stateCode/cities",
+    GET_SUB_MODULES:"utils/get-submodules"
 }
