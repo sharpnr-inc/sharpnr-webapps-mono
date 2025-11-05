@@ -107,7 +107,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
     </div>
 
     {/* Scrollable content */}
-    <div className="overflow-y-auto p-2">
+    <div className="overflow-y-auto p-2 z-[9999]">
       {modalState.component}
     </div>
   </div>

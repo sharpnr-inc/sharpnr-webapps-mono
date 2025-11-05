@@ -6,6 +6,7 @@ export const AUTH = {
     RESET_PASSWORD:"/password",
     SIGNUP_STATUS:"/signup/status",
     CHECK_USER:"",
+    GET_UI:"/get-org-render-tree"
     
 }
 

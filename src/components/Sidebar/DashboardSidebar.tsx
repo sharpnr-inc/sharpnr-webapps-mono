@@ -29,9 +29,10 @@ import { useState } from "react";
 
 export default function DashboardSideBar() {
   const [show, setShow] = useState(true);
-  const { renderTree,hasModuleAccess,hasSectionAccess,hasSubSectionAccess } = useUIRenderer();
+  const { renderTree, hasModuleAccess, hasSectionAccess, hasSubSectionAccess } =
+    useUIRenderer();
   const { policy } = useEmployeePolicy();
-  console.log(policy);
+  console.log(renderTree);
   const router = useRouter();
 
   const currentPath = useRouterState({
@@ -55,24 +56,26 @@ export default function DashboardSideBar() {
     SharpMarketingNavs,
   } = sidebarNavs;
 
-  const filteredHospitalityItems = SharpHospitalityNavs[0].items.filter((item) => {
-  // Extract section name from route
-  const pathSegments = item.to.split("/");
-  console.log(pathSegments)
-  const sectionName = pathSegments[pathSegments.length - 1];
-  console.log(sectionName)
-  
-  // Map route names to render tree keys if they differ
-  const sectionMapping: Record<string, string> = {
-    "restaurent": "restaurent", // Fix typo in route
-  };
-  
-  const mappedSection = sectionMapping[sectionName] || sectionName;
-  console.log(mappedSection)
-  
-  // Check if section exists in render tree
-  return hasSectionAccess("sharp_hospitality", mappedSection);
-});
+  const filteredHospitalityItems = SharpHospitalityNavs[0].items.filter(
+    (item) => {
+      // Extract section name from route
+      const pathSegments = item.to.split("/");
+      console.log(pathSegments);
+      const sectionName = pathSegments[pathSegments.length - 1];
+      console.log(sectionName);
+
+      // Map route names to render tree keys if they differ
+      const sectionMapping: Record<string, string> = {
+        restaurent: "restaurent", // Fix typo in route
+      };
+
+      const mappedSection = sectionMapping[sectionName] || sectionName;
+      console.log(mappedSection);
+
+      // Check if section exists in render tree
+      return hasSectionAccess("sharp_hospitality", mappedSection);
+    }
+  );
 
   const handleNavigate = (to: string) => {
     router.navigate({ to });
@@ -91,28 +94,29 @@ export default function DashboardSideBar() {
       </SidebarHeader>
 
       <SidebarContent className="custom-scrollbar">
-   {hasModuleAccess("sharp_hospitality") && filteredHospitalityItems.length > 0 && (
-          <SidebarGroup>
-            <SidebarGroupLabel>Sharp Hospitality</SidebarGroupLabel>
-            <SidebarMenu>
-              {filteredHospitalityItems.map((item) => (
-                <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton
-                    onClick={() => handleNavigate(item.to)}
-                    className={`flex items-center gap-2 transition-colors ${
-                      isActive(item.to)
-                        ? "bg-primary text-secondary"
-                        : "hover:bg-muted"
-                    }`}
-                  >
-                    <item.icon size={18} />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-        )}
+        {hasModuleAccess("sharp_hospitality") &&
+          filteredHospitalityItems.length > 0 && (
+            <SidebarGroup>
+              <SidebarGroupLabel>Sharp Hospitality</SidebarGroupLabel>
+              <SidebarMenu>
+                {filteredHospitalityItems.map((item) => (
+                  <SidebarMenuItem key={item.id}>
+                    <SidebarMenuButton
+                      onClick={() => handleNavigate(item.to)}
+                      className={`flex items-center gap-2 transition-colors ${
+                        isActive(item.to)
+                          ? "bg-primary text-secondary"
+                          : "hover:bg-muted"
+                      }`}
+                    >
+                      <item.icon size={18} />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroup>
+          )}
 
         <SidebarGroup>
           <SidebarGroupLabel>Sharp Modules</SidebarGroupLabel>

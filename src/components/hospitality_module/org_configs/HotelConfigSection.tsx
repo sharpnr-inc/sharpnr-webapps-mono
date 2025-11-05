@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, PlusCircle, EditIcon } from "lucide-react";
+import { ArrowUpRightIcon, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
@@ -12,13 +12,29 @@ import CreateRoomForm from "./forms/CreateRoomForm";
 import { useFormsModal } from "@/context/FormModalContext";
 import { hotel_layout } from "@/dummy_data/hotel_rooms";
 import { useSheet } from "@/context/DrawerContext";
+import { Separator } from "@/components/ui/separator";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import { useState } from "react";
 
 export default function HotelConfigSection() {
+  const [showTabs, setShowTabs] = useState(false);
   const { showModal } = useFormsModal();
   const { openSheet } = useSheet();
 
   const handleAddRoom = () => {
     showModal("Add Room", "Add the layout for the Room", <CreateRoomForm />);
+  };
+
+  const handleToggleTabs = () => {
+    setShowTabs((prev) => !prev);
   };
 
   function HandleRoomDetails({ room }: { room: any }) {
@@ -64,14 +80,6 @@ export default function HotelConfigSection() {
     );
   }
 
-  //   const sendRoomDetailsToHook = (room: any) => {
-  //     showModal(
-  //       "This is Room",
-  //       "Edit Rooms Details",
-  //       <HandleRoomDetails room={room} />
-  //     );
-  //   };
-
   const handleRoomClick = (room: any) => {
     openSheet(
       <HandleRoomDetails room={room} />,
@@ -105,27 +113,36 @@ export default function HotelConfigSection() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      {hotel_layout.map((floor) => (
-        <div key={floor.flor_id} className="border p-4 rounded-lg">
-          <div className="flex justify-between">
-            <h2 className=" font-semibold mb-3">{floor.flor_name}</h2>
-            <Button onClick={handleAddRoom}> <PlusCircle className="mr-2 h-4 w-4" />Add Rooms</Button>
-          </div>
-          <div className="sm:grid md:inline-flex gap-2">
-            {floor.floor_layout.map((room) => (
-              <Button
-                onClick={() => handleRoomClick(room)}
-                key={room.room_id}
-                className="border shadow-sm"
-              >
-                Room #{room.room_name}
-                <EditIcon />
-              </Button>
-            ))}
-          </div>
-        </div>
-      ))}
+    <div className="flex flex-col gap-4">
+      <Card className="border-2 rounded-2xl shadow-sm">
+        <CardHeader className="pb-2 flex flex-row items-center justify-between">
+          <CardTitle className="text-xl font-semibold">Add Room</CardTitle>
+          <CardDescription>Add Room, Floors, Amenities</CardDescription>
+          <Button
+            variant={showTabs ? "destructive" : "default"}
+            onClick={handleToggleTabs}
+          >
+            <PlusCircle className="mr-2 h-4 w-4" />
+            {showTabs ? "Cancel" : "Add Room"}
+          </Button>
+        </CardHeader>
+
+        <Separator/>
+
+        {showTabs && <CreateRoomForm />}
+      </Card>
+
+      <Tabs defaultValue="f">
+        <TabsList>
+          <TabsTrigger value="f">Floors</TabsTrigger>
+          <TabsTrigger value="r">Rooms</TabsTrigger>
+          <TabsTrigger value="a">Amenities</TabsTrigger>
+        </TabsList>
+        <TabsContent value="f"></TabsContent>
+
+        <TabsContent value="r"></TabsContent>
+        <TabsContent value="r"></TabsContent>
+      </Tabs>
     </div>
   );
 }

@@ -28,7 +28,7 @@ export default function HospitalityOrgConfigPage() {
           <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>
           <TabsTrigger value="hotel_config">Hotel Configs</TabsTrigger>
           <TabsTrigger value="owners">Owners</TabsTrigger>
-          <TabsTrigger value="reg_license">Registration & Licences</TabsTrigger>
+          <TabsTrigger value="reg_license">Registration & Licenses</TabsTrigger>
           <TabsTrigger value="integration">Integrations</TabsTrigger>
           <TabsTrigger value="gst">GST & Taxes</TabsTrigger>
           <TabsTrigger value="branding">Branding</TabsTrigger>

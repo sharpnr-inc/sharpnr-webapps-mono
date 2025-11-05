@@ -6,8 +6,8 @@ import { PersonStanding } from "lucide-react";
 export const Route = createFileRoute("/dashboard/_layout/sharp_hr/employee")({
   component: HrEmployeePage,
   context: () => ({
-    heading: "Employees Managment",
-    subheading: "Manage Emplyee Operations",
+    heading: "Employees Management",
+    subheading: "Manage Employee Operations",
     HeaderIcon: PersonStanding,
   }),
 });

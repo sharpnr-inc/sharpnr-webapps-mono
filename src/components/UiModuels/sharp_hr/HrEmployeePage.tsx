@@ -7,13 +7,13 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 export default function HrEmployeePage() {
   return (
     <div className="p-2">
-      <Tabs defaultValue="all-employees" className="w-full">
+      <Tabs defaultValue="all_employees" className="w-full">
         <TabsList className="w-full h-auto flex-wrap justify-start">
           <TabsTrigger value="all_employees">All Employees</TabsTrigger>
           <TabsTrigger value="add_employee">Add Employee</TabsTrigger>
-          <TabsTrigger value="on_boarding">On Baording</TabsTrigger>
-          <TabsTrigger value="employee_privilages">
-            Employee Privilages
+          <TabsTrigger value="on_boarding">On Boarding</TabsTrigger>
+          <TabsTrigger value="employee_privileges">
+            Employee Privileges
           </TabsTrigger>
         </TabsList>
 
@@ -29,7 +29,7 @@ export default function HrEmployeePage() {
           <EmployeeOnBoardingSection />
         </TabsContent>
 
-        <TabsContent value="employee_privilages">
+        <TabsContent value="employee_privileges">
           <EmployeePrivilagesSection />
         </TabsContent>
       </Tabs>

@@ -6,8 +6,8 @@ export const Route = createFileRoute("/dashboard/_layout/sharp_hospitality/orgCo
   {
     component: HospitalityOrgConfigPage,
      context: () => ({
-    heading: "Organisation Configurations",
-    subheading: "Configure the Organisations",
+    heading: "Organization Configurations",
+    subheading: "Configure the Organizations",
     HeaderIcon:OrigamiIcon
   }),
   }

@@ -1,11 +1,20 @@
 import { createContext, useContext, useMemo, type ReactNode } from "react";
-import { ui_render, type UIRendererTree } from "@/dummy_data/ui_render_tree";
+import { type UIRendererTree } from "@/dummy_data/ui_render_tree";
+import { useOrgUIRenderer } from "@/api_service/queries/getui";
+import AnthropicLoader from "@/components/test/anthropic_loader";
 
 interface UIRendererContextType {
-  renderTree: UIRendererTree;
+  renderTree: UIRendererTree | null;
   hasModuleAccess: (module: string) => boolean;
   hasSectionAccess: (module: string, section: string) => boolean;
-  hasSubSectionAccess: (module: string, section: string, subSection: string) => boolean;
+  hasSubSectionAccess: (
+    module: string,
+    section: string,
+    subSection: string
+  ) => boolean;
+  isLoading: boolean;
+  error: Error | null;
+  refetch: () => void;
 }
 
 const UIRendererContext = createContext<UIRendererContextType | undefined>(
@@ -13,18 +22,22 @@ const UIRendererContext = createContext<UIRendererContextType | undefined>(
 );
 
 export function UIRendererProvider({ children }: { children: ReactNode }) {
+  const { data, isLoading, error, refetch } = useOrgUIRenderer();
+  console.log(data)
   const value = useMemo(() => {
     // Check if org has access to a main module (e.g., "sharp_hospitality")
     const hasModuleAccess = (module: string): boolean => {
-      const moduleData = ui_render.main_menu_render_tree[module];
+      if (!data?.data) return false;
+      const moduleData = data.data.main_menu_render_tree?.[module];
       if (!moduleData) return false;
       return moduleData.has_access === true;
     };
 
     // Check if org has access to a section within a module
-    // e.g., hasModuleAccess("sharp_hospitality", "hotel")
+    // e.g., hasSectionAccess("sharp_hospitality", "hotel")
     const hasSectionAccess = (module: string, section: string): boolean => {
-      const moduleData = ui_render.main_menu_render_tree[module];
+      if (!data?.data) return false;
+      const moduleData = data.data.main_menu_render_tree?.[module];
       if (!moduleData || !moduleData.has_access) return false;
 
       const sectionData = moduleData.sub_module_section?.[section];
@@ -40,7 +53,8 @@ export function UIRendererProvider({ children }: { children: ReactNode }) {
       section: string,
       subSection: string
     ): boolean => {
-      const moduleData = ui_render.main_menu_render_tree[module];
+      if (!data?.data) return false;
+      const moduleData = data.data.main_menu_render_tree?.[module];
       if (!moduleData || !moduleData.has_access) return false;
 
       const sectionData = moduleData.sub_module_section?.[section];
@@ -51,16 +65,37 @@ export function UIRendererProvider({ children }: { children: ReactNode }) {
     };
 
     return {
-      renderTree: ui_render,
+      renderTree: data?.data,
       hasModuleAccess,
       hasSectionAccess,
       hasSubSectionAccess,
+      isLoading,
+      error: error as Error | null,
+      refetch,
     };
-  }, []);
+  }, [data, isLoading, error, refetch]); // ← FIXED: Added proper dependencies
+
+  // Optional: Handle error state
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <p className="text-destructive mb-4">Failed to load UI configuration</p>
+          <button 
+            onClick={() => refetch()}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <UIRendererContext.Provider value={value}>
       {children}
+      {isLoading && <AnthropicLoader />}
     </UIRendererContext.Provider>
   );
 }
