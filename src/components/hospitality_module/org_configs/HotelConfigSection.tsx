@@ -17,14 +17,19 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
 import { useState } from "react";
+import { useHotelQueryOptions } from "@/api_service/queries/hotelQueries";
+import { useQuery } from "@tanstack/react-query";
 
 export default function HotelConfigSection() {
+  const queryOptions = useHotelQueryOptions();
+  const { data, isLoading, isError } = useQuery(queryOptions);
   const [showTabs, setShowTabs] = useState(false);
   const { showModal } = useFormsModal();
   const { openSheet } = useSheet();
@@ -127,7 +132,7 @@ export default function HotelConfigSection() {
           </Button>
         </CardHeader>
 
-        <Separator/>
+        <Separator />
 
         {showTabs && <CreateRoomForm />}
       </Card>
@@ -138,10 +143,69 @@ export default function HotelConfigSection() {
           <TabsTrigger value="r">Rooms</TabsTrigger>
           <TabsTrigger value="a">Amenities</TabsTrigger>
         </TabsList>
-        <TabsContent value="f"></TabsContent>
+        <TabsContent value="f">
+        <div className="space-y-6">
+    {data?.data?.floors?.map((floor: any) => (
+      <div
+        key={floor.floor_id}
+        className="border p-4 rounded-2xl space-y-4 bg-muted/30"
+      >
+        {/* Floor Header */}
+        <div className="flex justify-between items-center">
+          <h2 className="text-lg font-semibold">
+            Floor {floor.floor_number}
+          </h2>
+          {floor.floor_name && (
+            <span className="text-sm text-muted-foreground">
+              {floor.floor_name}
+            </span>
+          )}
+        </div>
 
-        <TabsContent value="r"></TabsContent>
-        <TabsContent value="r"></TabsContent>
+        {/* Rooms Grid */}
+        {floor.rooms?.length ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {floor.rooms.map((room: any) => (
+              <Card
+                key={room.room_id}
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+              >
+                <CardHeader>
+                  <CardTitle className="text-base font-medium">
+                    Room {room.room_name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2 text-sm">
+                  <p>
+                    <span className="font-medium">Price:</span> ₹{room.room_price}
+                  </p>
+                  {room.description ? (
+                    <p className="text-muted-foreground">{room.description}</p>
+                  ) : (
+                    <p className="text-muted-foreground italic">
+                      No description
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground italic">
+            No rooms on this floor yet.
+          </p>
+        )}
+      </div>
+    ))}
+  </div>
+        </TabsContent>
+
+        <TabsContent value="r">
+          <div>Here we display the Rooms</div>
+        </TabsContent>
+        <TabsContent value="a">
+          <div>Here we display the Amenities List</div>
+        </TabsContent>
       </Tabs>
     </div>
   );

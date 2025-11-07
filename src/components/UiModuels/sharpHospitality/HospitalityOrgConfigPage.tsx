@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // ✅ Import all section components
 import OverviewSection from "@/components/hospitality_module/org_configs/OverviewSection";
-import RestaurentConfigSection from "@/components/hospitality_module/org_configs/RestaurentConfigSection";
+
 import BarConfigSection from "@/components/hospitality_module/org_configs/BarConfigSection";
 import HotelConfigSection from "@/components/hospitality_module/org_configs/HotelConfigSection";
 import OwnersSection from "@/components/hospitality_module/org_configs/OwnersSection";
@@ -14,6 +14,8 @@ import IntegrationSection from "@/components/hospitality_module/org_configs/Inte
 import GstSection from "@/components/hospitality_module/org_configs/GstSection";
 import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
 import CustomerSupportSection from "@/components/hospitality_module/org_configs/CustomerSupportSection";
+import RestaurantConfigSection from "@/components/hospitality_module/org_configs/RestaurantConfigSection";
+
 
 export default function HospitalityOrgConfigPage() {
   const [tab, setTab] = useState("overview");
@@ -41,7 +43,7 @@ export default function HospitalityOrgConfigPage() {
         </TabsContent>
 
         <TabsContent value="restaurant_config">
-          <RestaurentConfigSection />
+          <RestaurantConfigSection />
         </TabsContent>
 
         <TabsContent value="bar_config">

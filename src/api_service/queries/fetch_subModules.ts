@@ -7,3 +7,4 @@ export default function createGetSubModuleQuery(module_name: string) {
     queryFn: () => getSubModulesOfBusinessLogicModule(module_name),
   });
 }
+

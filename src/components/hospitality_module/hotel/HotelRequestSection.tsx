@@ -1,8 +1,12 @@
+import { useState } from "react";
 import OrderRequestFromRooms from "../dataTables/OrderRequestFromRooms";
+import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 
 export default function HotelRequestSection() {
+    const [isdata, setData] = useState(false);
   return (
-    <div className="border rounded p-2 space-y-2">
+    <>
+    {isdata ? ( <div className="border rounded p-2 space-y-2">
       <div>
         <h2 className="text-xl font-semibold flex items-center gap-2">
           Guest Request and Orders
@@ -12,6 +16,8 @@ export default function HotelRequestSection() {
         </p>
       </div>
       <OrderRequestFromRooms />
-    </div>
+    </div>):(<EmptyHotelPlaceHolder/>)}
+   
+    </>
   );
 }
