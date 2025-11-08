@@ -39,12 +39,11 @@ import { Route as DashboardLayoutSharp_hospitalityHotelRouteImport } from './rou
 import { Route as DashboardLayoutSharp_hospitalityGuestsRouteImport } from './routes/dashboard/_layout/sharp_hospitality/guests'
 import { Route as DashboardLayoutSharp_hospitalityBarRouteImport } from './routes/dashboard/_layout/sharp_hospitality/bar'
 import { Route as DashboardLayoutSharp_accountingTransactionsRouteImport } from './routes/dashboard/_layout/sharp_accounting/transactions'
-import { Route as DashboardLayoutSharp_accountingSuppliersandvendorsRouteImport } from './routes/dashboard/_layout/sharp_accounting/suppliersandvendors'
+import { Route as DashboardLayoutSharp_accountingSettingsRouteImport } from './routes/dashboard/_layout/sharp_accounting/settings'
+import { Route as DashboardLayoutSharp_accountingSalesRouteImport } from './routes/dashboard/_layout/sharp_accounting/sales'
 import { Route as DashboardLayoutSharp_accountingReportsRouteImport } from './routes/dashboard/_layout/sharp_accounting/reports'
+import { Route as DashboardLayoutSharp_accountingPurchasesRouteImport } from './routes/dashboard/_layout/sharp_accounting/purchases'
 import { Route as DashboardLayoutSharp_accountingLedgerRouteImport } from './routes/dashboard/_layout/sharp_accounting/ledger'
-import { Route as DashboardLayoutSharp_accountingInvoicesRouteImport } from './routes/dashboard/_layout/sharp_accounting/invoices'
-import { Route as DashboardLayoutSharp_accountingExpensesRouteImport } from './routes/dashboard/_layout/sharp_accounting/expenses'
-import { Route as DashboardLayoutSharp_accountingCustomersRouteImport } from './routes/dashboard/_layout/sharp_accounting/customers'
 import { Route as DashboardLayoutEmployeeReviewsRouteImport } from './routes/dashboard/_layout/employee/reviews'
 import { Route as DashboardLayoutEmployeeRequestsRouteImport } from './routes/dashboard/_layout/employee/requests'
 import { Route as DashboardLayoutEmployeeProfileRouteImport } from './routes/dashboard/_layout/employee/profile'
@@ -227,10 +226,16 @@ const DashboardLayoutSharp_accountingTransactionsRoute =
     path: '/sharp_accounting/transactions',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardLayoutSharp_accountingSuppliersandvendorsRoute =
-  DashboardLayoutSharp_accountingSuppliersandvendorsRouteImport.update({
-    id: '/sharp_accounting/suppliersandvendors',
-    path: '/sharp_accounting/suppliersandvendors',
+const DashboardLayoutSharp_accountingSettingsRoute =
+  DashboardLayoutSharp_accountingSettingsRouteImport.update({
+    id: '/sharp_accounting/settings',
+    path: '/sharp_accounting/settings',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutSharp_accountingSalesRoute =
+  DashboardLayoutSharp_accountingSalesRouteImport.update({
+    id: '/sharp_accounting/sales',
+    path: '/sharp_accounting/sales',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutSharp_accountingReportsRoute =
@@ -239,28 +244,16 @@ const DashboardLayoutSharp_accountingReportsRoute =
     path: '/sharp_accounting/reports',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
+const DashboardLayoutSharp_accountingPurchasesRoute =
+  DashboardLayoutSharp_accountingPurchasesRouteImport.update({
+    id: '/sharp_accounting/purchases',
+    path: '/sharp_accounting/purchases',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
 const DashboardLayoutSharp_accountingLedgerRoute =
   DashboardLayoutSharp_accountingLedgerRouteImport.update({
     id: '/sharp_accounting/ledger',
     path: '/sharp_accounting/ledger',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-const DashboardLayoutSharp_accountingInvoicesRoute =
-  DashboardLayoutSharp_accountingInvoicesRouteImport.update({
-    id: '/sharp_accounting/invoices',
-    path: '/sharp_accounting/invoices',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-const DashboardLayoutSharp_accountingExpensesRoute =
-  DashboardLayoutSharp_accountingExpensesRouteImport.update({
-    id: '/sharp_accounting/expenses',
-    path: '/sharp_accounting/expenses',
-    getParentRoute: () => DashboardLayoutRoute,
-  } as any)
-const DashboardLayoutSharp_accountingCustomersRoute =
-  DashboardLayoutSharp_accountingCustomersRouteImport.update({
-    id: '/sharp_accounting/customers',
-    path: '/sharp_accounting/customers',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutEmployeeReviewsRoute =
@@ -328,12 +321,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
   '/dashboard/employee/requests': typeof DashboardLayoutEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardLayoutEmployeeReviewsRoute
-  '/dashboard/sharp_accounting/customers': typeof DashboardLayoutSharp_accountingCustomersRoute
-  '/dashboard/sharp_accounting/expenses': typeof DashboardLayoutSharp_accountingExpensesRoute
-  '/dashboard/sharp_accounting/invoices': typeof DashboardLayoutSharp_accountingInvoicesRoute
   '/dashboard/sharp_accounting/ledger': typeof DashboardLayoutSharp_accountingLedgerRoute
+  '/dashboard/sharp_accounting/purchases': typeof DashboardLayoutSharp_accountingPurchasesRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardLayoutSharp_accountingReportsRoute
-  '/dashboard/sharp_accounting/suppliersandvendors': typeof DashboardLayoutSharp_accountingSuppliersandvendorsRoute
+  '/dashboard/sharp_accounting/sales': typeof DashboardLayoutSharp_accountingSalesRoute
+  '/dashboard/sharp_accounting/settings': typeof DashboardLayoutSharp_accountingSettingsRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardLayoutSharp_accountingTransactionsRoute
   '/dashboard/sharp_hospitality/bar': typeof DashboardLayoutSharp_hospitalityBarRoute
   '/dashboard/sharp_hospitality/guests': typeof DashboardLayoutSharp_hospitalityGuestsRoute
@@ -372,12 +364,11 @@ export interface FileRoutesByTo {
   '/dashboard/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
   '/dashboard/employee/requests': typeof DashboardLayoutEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardLayoutEmployeeReviewsRoute
-  '/dashboard/sharp_accounting/customers': typeof DashboardLayoutSharp_accountingCustomersRoute
-  '/dashboard/sharp_accounting/expenses': typeof DashboardLayoutSharp_accountingExpensesRoute
-  '/dashboard/sharp_accounting/invoices': typeof DashboardLayoutSharp_accountingInvoicesRoute
   '/dashboard/sharp_accounting/ledger': typeof DashboardLayoutSharp_accountingLedgerRoute
+  '/dashboard/sharp_accounting/purchases': typeof DashboardLayoutSharp_accountingPurchasesRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardLayoutSharp_accountingReportsRoute
-  '/dashboard/sharp_accounting/suppliersandvendors': typeof DashboardLayoutSharp_accountingSuppliersandvendorsRoute
+  '/dashboard/sharp_accounting/sales': typeof DashboardLayoutSharp_accountingSalesRoute
+  '/dashboard/sharp_accounting/settings': typeof DashboardLayoutSharp_accountingSettingsRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardLayoutSharp_accountingTransactionsRoute
   '/dashboard/sharp_hospitality/bar': typeof DashboardLayoutSharp_hospitalityBarRoute
   '/dashboard/sharp_hospitality/guests': typeof DashboardLayoutSharp_hospitalityGuestsRoute
@@ -419,12 +410,11 @@ export interface FileRoutesById {
   '/dashboard/_layout/employee/profile': typeof DashboardLayoutEmployeeProfileRoute
   '/dashboard/_layout/employee/requests': typeof DashboardLayoutEmployeeRequestsRoute
   '/dashboard/_layout/employee/reviews': typeof DashboardLayoutEmployeeReviewsRoute
-  '/dashboard/_layout/sharp_accounting/customers': typeof DashboardLayoutSharp_accountingCustomersRoute
-  '/dashboard/_layout/sharp_accounting/expenses': typeof DashboardLayoutSharp_accountingExpensesRoute
-  '/dashboard/_layout/sharp_accounting/invoices': typeof DashboardLayoutSharp_accountingInvoicesRoute
   '/dashboard/_layout/sharp_accounting/ledger': typeof DashboardLayoutSharp_accountingLedgerRoute
+  '/dashboard/_layout/sharp_accounting/purchases': typeof DashboardLayoutSharp_accountingPurchasesRoute
   '/dashboard/_layout/sharp_accounting/reports': typeof DashboardLayoutSharp_accountingReportsRoute
-  '/dashboard/_layout/sharp_accounting/suppliersandvendors': typeof DashboardLayoutSharp_accountingSuppliersandvendorsRoute
+  '/dashboard/_layout/sharp_accounting/sales': typeof DashboardLayoutSharp_accountingSalesRoute
+  '/dashboard/_layout/sharp_accounting/settings': typeof DashboardLayoutSharp_accountingSettingsRoute
   '/dashboard/_layout/sharp_accounting/transactions': typeof DashboardLayoutSharp_accountingTransactionsRoute
   '/dashboard/_layout/sharp_hospitality/bar': typeof DashboardLayoutSharp_hospitalityBarRoute
   '/dashboard/_layout/sharp_hospitality/guests': typeof DashboardLayoutSharp_hospitalityGuestsRoute
@@ -466,12 +456,11 @@ export interface FileRouteTypes {
     | '/dashboard/employee/profile'
     | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
-    | '/dashboard/sharp_accounting/customers'
-    | '/dashboard/sharp_accounting/expenses'
-    | '/dashboard/sharp_accounting/invoices'
     | '/dashboard/sharp_accounting/ledger'
+    | '/dashboard/sharp_accounting/purchases'
     | '/dashboard/sharp_accounting/reports'
-    | '/dashboard/sharp_accounting/suppliersandvendors'
+    | '/dashboard/sharp_accounting/sales'
+    | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/guests'
@@ -510,12 +499,11 @@ export interface FileRouteTypes {
     | '/dashboard/employee/profile'
     | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
-    | '/dashboard/sharp_accounting/customers'
-    | '/dashboard/sharp_accounting/expenses'
-    | '/dashboard/sharp_accounting/invoices'
     | '/dashboard/sharp_accounting/ledger'
+    | '/dashboard/sharp_accounting/purchases'
     | '/dashboard/sharp_accounting/reports'
-    | '/dashboard/sharp_accounting/suppliersandvendors'
+    | '/dashboard/sharp_accounting/sales'
+    | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/guests'
@@ -556,12 +544,11 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/employee/profile'
     | '/dashboard/_layout/employee/requests'
     | '/dashboard/_layout/employee/reviews'
-    | '/dashboard/_layout/sharp_accounting/customers'
-    | '/dashboard/_layout/sharp_accounting/expenses'
-    | '/dashboard/_layout/sharp_accounting/invoices'
     | '/dashboard/_layout/sharp_accounting/ledger'
+    | '/dashboard/_layout/sharp_accounting/purchases'
     | '/dashboard/_layout/sharp_accounting/reports'
-    | '/dashboard/_layout/sharp_accounting/suppliersandvendors'
+    | '/dashboard/_layout/sharp_accounting/sales'
+    | '/dashboard/_layout/sharp_accounting/settings'
     | '/dashboard/_layout/sharp_accounting/transactions'
     | '/dashboard/_layout/sharp_hospitality/bar'
     | '/dashboard/_layout/sharp_hospitality/guests'
@@ -806,11 +793,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutSharp_accountingTransactionsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/_layout/sharp_accounting/suppliersandvendors': {
-      id: '/dashboard/_layout/sharp_accounting/suppliersandvendors'
-      path: '/sharp_accounting/suppliersandvendors'
-      fullPath: '/dashboard/sharp_accounting/suppliersandvendors'
-      preLoaderRoute: typeof DashboardLayoutSharp_accountingSuppliersandvendorsRouteImport
+    '/dashboard/_layout/sharp_accounting/settings': {
+      id: '/dashboard/_layout/sharp_accounting/settings'
+      path: '/sharp_accounting/settings'
+      fullPath: '/dashboard/sharp_accounting/settings'
+      preLoaderRoute: typeof DashboardLayoutSharp_accountingSettingsRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/sharp_accounting/sales': {
+      id: '/dashboard/_layout/sharp_accounting/sales'
+      path: '/sharp_accounting/sales'
+      fullPath: '/dashboard/sharp_accounting/sales'
+      preLoaderRoute: typeof DashboardLayoutSharp_accountingSalesRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/sharp_accounting/reports': {
@@ -820,32 +814,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutSharp_accountingReportsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/sharp_accounting/purchases': {
+      id: '/dashboard/_layout/sharp_accounting/purchases'
+      path: '/sharp_accounting/purchases'
+      fullPath: '/dashboard/sharp_accounting/purchases'
+      preLoaderRoute: typeof DashboardLayoutSharp_accountingPurchasesRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
     '/dashboard/_layout/sharp_accounting/ledger': {
       id: '/dashboard/_layout/sharp_accounting/ledger'
       path: '/sharp_accounting/ledger'
       fullPath: '/dashboard/sharp_accounting/ledger'
       preLoaderRoute: typeof DashboardLayoutSharp_accountingLedgerRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/_layout/sharp_accounting/invoices': {
-      id: '/dashboard/_layout/sharp_accounting/invoices'
-      path: '/sharp_accounting/invoices'
-      fullPath: '/dashboard/sharp_accounting/invoices'
-      preLoaderRoute: typeof DashboardLayoutSharp_accountingInvoicesRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/_layout/sharp_accounting/expenses': {
-      id: '/dashboard/_layout/sharp_accounting/expenses'
-      path: '/sharp_accounting/expenses'
-      fullPath: '/dashboard/sharp_accounting/expenses'
-      preLoaderRoute: typeof DashboardLayoutSharp_accountingExpensesRouteImport
-      parentRoute: typeof DashboardLayoutRoute
-    }
-    '/dashboard/_layout/sharp_accounting/customers': {
-      id: '/dashboard/_layout/sharp_accounting/customers'
-      path: '/sharp_accounting/customers'
-      fullPath: '/dashboard/sharp_accounting/customers'
-      preLoaderRoute: typeof DashboardLayoutSharp_accountingCustomersRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/employee/reviews': {
@@ -918,12 +898,11 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutEmployeeProfileRoute: typeof DashboardLayoutEmployeeProfileRoute
   DashboardLayoutEmployeeRequestsRoute: typeof DashboardLayoutEmployeeRequestsRoute
   DashboardLayoutEmployeeReviewsRoute: typeof DashboardLayoutEmployeeReviewsRoute
-  DashboardLayoutSharp_accountingCustomersRoute: typeof DashboardLayoutSharp_accountingCustomersRoute
-  DashboardLayoutSharp_accountingExpensesRoute: typeof DashboardLayoutSharp_accountingExpensesRoute
-  DashboardLayoutSharp_accountingInvoicesRoute: typeof DashboardLayoutSharp_accountingInvoicesRoute
   DashboardLayoutSharp_accountingLedgerRoute: typeof DashboardLayoutSharp_accountingLedgerRoute
+  DashboardLayoutSharp_accountingPurchasesRoute: typeof DashboardLayoutSharp_accountingPurchasesRoute
   DashboardLayoutSharp_accountingReportsRoute: typeof DashboardLayoutSharp_accountingReportsRoute
-  DashboardLayoutSharp_accountingSuppliersandvendorsRoute: typeof DashboardLayoutSharp_accountingSuppliersandvendorsRoute
+  DashboardLayoutSharp_accountingSalesRoute: typeof DashboardLayoutSharp_accountingSalesRoute
+  DashboardLayoutSharp_accountingSettingsRoute: typeof DashboardLayoutSharp_accountingSettingsRoute
   DashboardLayoutSharp_accountingTransactionsRoute: typeof DashboardLayoutSharp_accountingTransactionsRoute
   DashboardLayoutSharp_hospitalityBarRoute: typeof DashboardLayoutSharp_hospitalityBarRoute
   DashboardLayoutSharp_hospitalityGuestsRoute: typeof DashboardLayoutSharp_hospitalityGuestsRoute
@@ -961,18 +940,16 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutEmployeeProfileRoute: DashboardLayoutEmployeeProfileRoute,
   DashboardLayoutEmployeeRequestsRoute: DashboardLayoutEmployeeRequestsRoute,
   DashboardLayoutEmployeeReviewsRoute: DashboardLayoutEmployeeReviewsRoute,
-  DashboardLayoutSharp_accountingCustomersRoute:
-    DashboardLayoutSharp_accountingCustomersRoute,
-  DashboardLayoutSharp_accountingExpensesRoute:
-    DashboardLayoutSharp_accountingExpensesRoute,
-  DashboardLayoutSharp_accountingInvoicesRoute:
-    DashboardLayoutSharp_accountingInvoicesRoute,
   DashboardLayoutSharp_accountingLedgerRoute:
     DashboardLayoutSharp_accountingLedgerRoute,
+  DashboardLayoutSharp_accountingPurchasesRoute:
+    DashboardLayoutSharp_accountingPurchasesRoute,
   DashboardLayoutSharp_accountingReportsRoute:
     DashboardLayoutSharp_accountingReportsRoute,
-  DashboardLayoutSharp_accountingSuppliersandvendorsRoute:
-    DashboardLayoutSharp_accountingSuppliersandvendorsRoute,
+  DashboardLayoutSharp_accountingSalesRoute:
+    DashboardLayoutSharp_accountingSalesRoute,
+  DashboardLayoutSharp_accountingSettingsRoute:
+    DashboardLayoutSharp_accountingSettingsRoute,
   DashboardLayoutSharp_accountingTransactionsRoute:
     DashboardLayoutSharp_accountingTransactionsRoute,
   DashboardLayoutSharp_hospitalityBarRoute:

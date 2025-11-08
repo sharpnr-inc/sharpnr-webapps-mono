@@ -18,6 +18,9 @@ import {
   TableConfig,
   Server,
   type LucideIcon,
+  Wallet,
+  ShoppingCart,
+  FileText,
 } from "lucide-react";
 
 interface NavItem {
@@ -115,50 +118,44 @@ export const SharpHospitalityNavs: NavSection[] = [
 
 export const SharpAccountingNavs: NavSection[] = [
   {
-    id: "sharp_hospitality",
+    id: "sharp_accounting",
     title: "Sharp Accounting",
     items: [
       {
         id: "acc_transactions",
         label: "Transactions",
-        icon: MessageSquare,
+        icon: Wallet,
         to: "/dashboard/sharp_accounting/transactions",
       },
       {
-        id: "acc_expense",
-        label: "Expenses",
-        icon: Bell,
-        to: "/dashboard/sharp_accounting/expenses",
+        id: "acc_sales",
+        label: "Sales",
+        icon: ShoppingCart,
+        to: "/dashboard/sharp_accounting/sales",
       },
       {
-        id: "acc_invoices",
-        label: "Invoices",
-        icon: Database,
-        to: "/dashboard/sharp_accounting/invoices",
+        id: "acc_purchases",
+        label: "Purchases",
+        icon: FileText,
+        to: "/dashboard/sharp_accounting/purchases",
       },
       {
         id: "acc_ledger",
         label: "Ledger",
-        icon: Wrench,
+        icon: BookOpen,
         to: "/dashboard/sharp_accounting/ledger",
-      },
-      {
-        id: "acc_customers",
-        label: "Customers",
-        icon: Shield,
-        to: "/dashboard/sharp_accounting/customers",
-      },
-      {
-        id: "acc_suppliers",
-        label: "Suppliers & Vendors",
-        icon: CalendarDays,
-        to: "/dashboard/sharp_accounting/suppliersandvendors",
       },
       {
         id: "acc_reports",
         label: "Reports",
         icon: BarChart3,
         to: "/dashboard/sharp_accounting/reports",
+      },
+      {
+        id: "acc_settings",
+        label: "Settings",
+        icon: Settings,
+        to: "/dashboard/sharp_accounting/settings",
       },
     ],
   },

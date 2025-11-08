@@ -1,11 +1,15 @@
+import AccountingReportsPage from '@/components/UiModuels/SharpAccounting/ReportsPages'
 import { createFileRoute } from '@tanstack/react-router'
+import { BarChart3 } from 'lucide-react'
 
 export const Route = createFileRoute(
   '/dashboard/_layout/sharp_accounting/reports',
 )({
-  component: RouteComponent,
+  component: AccountingReportsPage,
+  context: () => ({
+    heading: "Reports",
+    subheading: "Analyze financial performance and insights",
+    HeaderIcon: BarChart3,
+  }),
 })
 
-function RouteComponent() {
-  return <div>Hello "/dashboard/_layout/sharpAccounting/Reports"!</div>
-}

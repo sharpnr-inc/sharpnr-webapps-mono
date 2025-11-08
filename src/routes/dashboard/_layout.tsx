@@ -23,26 +23,26 @@ function RouteComponent() {
   const location = useLocation();
   const { hasSectionAccess } = useUIRenderer();
 
-  useEffect(() => {
-    const path = location.pathname; // ← Use location from hook
-    const segments = path.split("/").filter(Boolean);
-    console.log(segments);
+  // useEffect(() => {
+  //   const path = location.pathname; // ← Use location from hook
+  //   const segments = path.split("/").filter(Boolean);
+  //   console.log(segments);
 
-    // Skip guard if it's just /dashboard (no module/section)
-    if (segments.length <= 1) {
-      return;
-    }
+  //   // Skip guard if it's just /dashboard (no module/section)
+  //   if (segments.length <= 1) {
+  //     return;
+  //   }
 
-    // Extract module and section
-    // /dashboard/_layout/sharphospitality/hotel -> ["dashboard", "_layout", "sharphotel", "hotel"]
-    // Note: _layout is in the path!
-    const moduleFolder = segments[1]; // "sharphotel" (skip "dashboard" and "_layout")
-    const sectionName = segments[2]; // "hotel"
+  //   // Extract module and section
+  //   // /dashboard/_layout/sharphospitality/hotel -> ["dashboard", "_layout", "sharphotel", "hotel"]
+  //   // Note: _layout is in the path!
+  //   const moduleFolder = segments[1]; // "sharphotel" (skip "dashboard" and "_layout")
+  //   const sectionName = segments[2]; // "hotel"
 
-    if (!hasSectionAccess(moduleFolder, sectionName)) {
-      navigate({ to: "/dashboard/unauthorised" });
-    }
-  }, [location.pathname, hasSectionAccess, navigate]);
+  //   if (!hasSectionAccess(moduleFolder, sectionName)) {
+  //     navigate({ to: "/dashboard/unauthorised" });
+  //   }
+  // }, [location.pathname, hasSectionAccess, navigate]);
 
   return (
     // <ScrollArea className="h-full">
