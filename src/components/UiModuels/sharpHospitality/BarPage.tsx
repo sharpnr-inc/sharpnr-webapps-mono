@@ -1,10 +1,13 @@
+import { useBar } from "@/api_service/queries/BarQueries";
 import BarInventorySection from "@/components/hospitality_module/bar/BarInventorySection";
-import BarMenuSection from "@/components/hospitality_module/bar/BarMenuSection";
 import BarOrdersSection from "@/components/hospitality_module/bar/BarOrdersSection";
 import BarStaffSection from "@/components/hospitality_module/bar/BarStaffSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useQuery } from "@tanstack/react-query";
 
 export default function BarPage() {
+  const query = useQuery(useBar());
+  console.log(query)
   return (
     <div className="p-2">
       {/* Tabs Section */}

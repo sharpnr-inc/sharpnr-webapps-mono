@@ -28,3 +28,7 @@ export const HOTEL = {
 
   GET_BOOKING_OF_HOTEL:"sharp-hospitality/hotel/bookings",
 };
+
+export const BAR = {
+  GET_BAR:"sharp-hospitality/bar/get",
+}

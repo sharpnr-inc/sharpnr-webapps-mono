@@ -68,7 +68,7 @@ export const createFloorInHotel = async (
  * @exports
  */
 export const fetchHotelOverview = async () => {
-  const res = api.get(HOTEL.GET_HOTEL);
+  const res = await api.get(HOTEL.GET_HOTEL);
   return res;
 };
 
@@ -83,12 +83,12 @@ export const fetchHotelOverview = async () => {
  * @exports
  */
 export const fetchBookingsOfHotels = async () => {
-  const res = api.get(HOTEL.GET_BOOKING_OF_HOTEL);
+  const res = await api.get(HOTEL.GET_BOOKING_OF_HOTEL);
   return res;
 };
 
 
 export const createRoomInFloor = async(room:any) => {
-const res = api.post(HOTEL.CREATE_ROOM, room)
+const res = await api.post(HOTEL.CREATE_ROOM, room)
 return res
 }
