@@ -223,6 +223,12 @@ export const SharpHRNavs: NavSection[] = [
         icon: BarChart3,
         to: "/dashboard/sharp_hr/reports",
       },
+       {
+        id: "hr_settings",
+        label: "Settings",
+        icon: Settings,
+        to: "/dashboard/sharp_hr/settings",
+      },
     ],
   },
 ];

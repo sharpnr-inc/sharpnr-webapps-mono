@@ -20,8 +20,8 @@ export default function BarPage() {
           <TabsTrigger value="inventory" >
             sales
           </TabsTrigger>
-          <TabsTrigger value="staff">
-            Staff
+          <TabsTrigger value="bt">
+            Bar Tender
           </TabsTrigger>
         </TabsList>
 
@@ -33,7 +33,7 @@ export default function BarPage() {
           <TabsContent value="inventory">
             <BarInventorySection />
           </TabsContent>
-          <TabsContent value="staff">
+          <TabsContent value="bt">
             <BarStaffSection />
           </TabsContent>
         </div>

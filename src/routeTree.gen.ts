@@ -23,6 +23,7 @@ import { Route as DashboardLayoutSharp_marketingSocial_media_managementRouteImpo
 import { Route as DashboardLayoutSharp_marketingReportsRouteImport } from './routes/dashboard/_layout/sharp_marketing/reports'
 import { Route as DashboardLayoutSharp_marketingLeadsRouteImport } from './routes/dashboard/_layout/sharp_marketing/leads'
 import { Route as DashboardLayoutSharp_marketingCampaignsRouteImport } from './routes/dashboard/_layout/sharp_marketing/campaigns'
+import { Route as DashboardLayoutSharp_hrSettingsRouteImport } from './routes/dashboard/_layout/sharp_hr/settings'
 import { Route as DashboardLayoutSharp_hrReportsRouteImport } from './routes/dashboard/_layout/sharp_hr/reports'
 import { Route as DashboardLayoutSharp_hrPayrollRouteImport } from './routes/dashboard/_layout/sharp_hr/payroll'
 import { Route as DashboardLayoutSharp_hrLeaves_managementRouteImport } from './routes/dashboard/_layout/sharp_hr/leaves_management'
@@ -128,6 +129,12 @@ const DashboardLayoutSharp_marketingCampaignsRoute =
   DashboardLayoutSharp_marketingCampaignsRouteImport.update({
     id: '/sharp_marketing/campaigns',
     path: '/sharp_marketing/campaigns',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+const DashboardLayoutSharp_hrSettingsRoute =
+  DashboardLayoutSharp_hrSettingsRouteImport.update({
+    id: '/sharp_hr/settings',
+    path: '/sharp_hr/settings',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutSharp_hrReportsRoute =
@@ -342,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/leaves_management': typeof DashboardLayoutSharp_hrLeaves_managementRoute
   '/dashboard/sharp_hr/payroll': typeof DashboardLayoutSharp_hrPayrollRoute
   '/dashboard/sharp_hr/reports': typeof DashboardLayoutSharp_hrReportsRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardLayoutSharp_hrSettingsRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardLayoutSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardLayoutSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardLayoutSharp_marketingReportsRoute
@@ -385,6 +393,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/leaves_management': typeof DashboardLayoutSharp_hrLeaves_managementRoute
   '/dashboard/sharp_hr/payroll': typeof DashboardLayoutSharp_hrPayrollRoute
   '/dashboard/sharp_hr/reports': typeof DashboardLayoutSharp_hrReportsRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardLayoutSharp_hrSettingsRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardLayoutSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardLayoutSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardLayoutSharp_marketingReportsRoute
@@ -431,6 +440,7 @@ export interface FileRoutesById {
   '/dashboard/_layout/sharp_hr/leaves_management': typeof DashboardLayoutSharp_hrLeaves_managementRoute
   '/dashboard/_layout/sharp_hr/payroll': typeof DashboardLayoutSharp_hrPayrollRoute
   '/dashboard/_layout/sharp_hr/reports': typeof DashboardLayoutSharp_hrReportsRoute
+  '/dashboard/_layout/sharp_hr/settings': typeof DashboardLayoutSharp_hrSettingsRoute
   '/dashboard/_layout/sharp_marketing/campaigns': typeof DashboardLayoutSharp_marketingCampaignsRoute
   '/dashboard/_layout/sharp_marketing/leads': typeof DashboardLayoutSharp_marketingLeadsRoute
   '/dashboard/_layout/sharp_marketing/reports': typeof DashboardLayoutSharp_marketingReportsRoute
@@ -477,6 +487,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/leaves_management'
     | '/dashboard/sharp_hr/payroll'
     | '/dashboard/sharp_hr/reports'
+    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -520,6 +531,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/leaves_management'
     | '/dashboard/sharp_hr/payroll'
     | '/dashboard/sharp_hr/reports'
+    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -565,6 +577,7 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/sharp_hr/leaves_management'
     | '/dashboard/_layout/sharp_hr/payroll'
     | '/dashboard/_layout/sharp_hr/reports'
+    | '/dashboard/_layout/sharp_hr/settings'
     | '/dashboard/_layout/sharp_marketing/campaigns'
     | '/dashboard/_layout/sharp_marketing/leads'
     | '/dashboard/_layout/sharp_marketing/reports'
@@ -679,6 +692,13 @@ declare module '@tanstack/react-router' {
       path: '/sharp_marketing/campaigns'
       fullPath: '/dashboard/sharp_marketing/campaigns'
       preLoaderRoute: typeof DashboardLayoutSharp_marketingCampaignsRouteImport
+      parentRoute: typeof DashboardLayoutRoute
+    }
+    '/dashboard/_layout/sharp_hr/settings': {
+      id: '/dashboard/_layout/sharp_hr/settings'
+      path: '/sharp_hr/settings'
+      fullPath: '/dashboard/sharp_hr/settings'
+      preLoaderRoute: typeof DashboardLayoutSharp_hrSettingsRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/sharp_hr/reports': {
@@ -919,6 +939,7 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutSharp_hrLeaves_managementRoute: typeof DashboardLayoutSharp_hrLeaves_managementRoute
   DashboardLayoutSharp_hrPayrollRoute: typeof DashboardLayoutSharp_hrPayrollRoute
   DashboardLayoutSharp_hrReportsRoute: typeof DashboardLayoutSharp_hrReportsRoute
+  DashboardLayoutSharp_hrSettingsRoute: typeof DashboardLayoutSharp_hrSettingsRoute
   DashboardLayoutSharp_marketingCampaignsRoute: typeof DashboardLayoutSharp_marketingCampaignsRoute
   DashboardLayoutSharp_marketingLeadsRoute: typeof DashboardLayoutSharp_marketingLeadsRoute
   DashboardLayoutSharp_marketingReportsRoute: typeof DashboardLayoutSharp_marketingReportsRoute
@@ -979,6 +1000,7 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
     DashboardLayoutSharp_hrLeaves_managementRoute,
   DashboardLayoutSharp_hrPayrollRoute: DashboardLayoutSharp_hrPayrollRoute,
   DashboardLayoutSharp_hrReportsRoute: DashboardLayoutSharp_hrReportsRoute,
+  DashboardLayoutSharp_hrSettingsRoute: DashboardLayoutSharp_hrSettingsRoute,
   DashboardLayoutSharp_marketingCampaignsRoute:
     DashboardLayoutSharp_marketingCampaignsRoute,
   DashboardLayoutSharp_marketingLeadsRoute:
