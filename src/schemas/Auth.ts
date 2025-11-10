@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const RegisterOrganizationSchema = z.object({
-  name: z.string().min(10, "Organisation Name must be atleast 8 Character long"),
+  name: z.string().min(10, "Organization Name must be at least 8 Character long"),
   email: z.email(),
   mobile: z.string().min(10, "Mobile Number Must be 10 digit Long").max(10, "Mobile Number Must be 10 digit Long"),
   org_type: z.string(),
