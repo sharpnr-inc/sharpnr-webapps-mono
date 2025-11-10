@@ -24,7 +24,7 @@ export default function SharpHospitalityHotelPage() {
           )}
           <TabsTrigger value="booking">Bookings</TabsTrigger>
           <TabsTrigger value="request">Request</TabsTrigger>
-          <TabsTrigger value="rooms_config">Room Management</TabsTrigger>
+          {/* <TabsTrigger value="rooms_config">Room Management</TabsTrigger> */}
         </TabsList>
 
         {hasSubSectionAccess("sharp_hospitality", "hotel", "overview") && (
@@ -41,9 +41,9 @@ export default function SharpHospitalityHotelPage() {
           <HotelRequestSection />
         </TabsContent>
 
-        <TabsContent value="rooms_config">
+        {/* <TabsContent value="rooms_config">
           <HotelRoomMgmSection />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   );

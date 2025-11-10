@@ -1,4 +1,4 @@
-import RestaurantPage from "@/components/UiModuels/sharpHospitality/HotelRestaurantPage";
+import RestaurantPage from "@/components/RoutesPages/sharpHospitality/HotelRestaurantPage";
 import { createFileRoute } from "@tanstack/react-router";
 import { UtensilsCrossed } from "lucide-react";
 

@@ -1,4 +1,4 @@
-import AccountingTransactionPage from '@/components/UiModuels/SharpAccounting/TransactionPage'
+import AccountingTransactionPage from '@/components/RoutesPages/SharpAccounting/TransactionPage'
 import { createFileRoute } from '@tanstack/react-router'
 import { Banknote } from 'lucide-react'
 

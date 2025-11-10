@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import SharpHospitalitySettings from "@/components/UiModuels/sharpHospitality/SettingsPage";
+import SharpHospitalitySettings from "@/components/RoutesPages/sharpHospitality/SettingsPage";
 import { Settings2Icon } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard/_layout/sharp_hospitality/settings")({

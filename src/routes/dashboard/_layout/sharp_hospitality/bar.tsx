@@ -1,4 +1,4 @@
-import BarPage from "@/components/UiModuels/sharpHospitality/BarPage";
+import BarPage from "@/components/RoutesPages/sharpHospitality/BarPage";
 import { createFileRoute } from "@tanstack/react-router";
 import {GlassWaterIcon} from "lucide-react"
 

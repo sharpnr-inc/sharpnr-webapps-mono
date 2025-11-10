@@ -1,4 +1,4 @@
-import KitchenPage from "@/components/UiModuels/sharpHospitality/KitchenPage";
+import KitchenPage from "@/components/RoutesPages/sharpHospitality/KitchenPage";
 import { createFileRoute } from "@tanstack/react-router";
 import {CookingPotIcon} from "lucide-react"
 

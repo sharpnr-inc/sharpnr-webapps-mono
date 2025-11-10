@@ -1,5 +1,5 @@
 
-import HrEmployeePage from "@/components/UiModuels/sharp_hr/HrEmployeePage";
+import HrEmployeePage from "@/components/RoutesPages/sharp_hr/HrEmployeePage";
 import { createFileRoute } from "@tanstack/react-router";
 import { PersonStanding } from "lucide-react";
 

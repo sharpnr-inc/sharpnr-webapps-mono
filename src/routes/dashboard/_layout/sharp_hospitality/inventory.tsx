@@ -1,4 +1,4 @@
-import InventoryPage from "@/components/UiModuels/sharpHospitality/InventoryPage";
+import InventoryPage from "@/components/RoutesPages/sharpHospitality/InventoryPage";
 import { createFileRoute } from "@tanstack/react-router";
 import { InboxIcon } from "lucide-react";
 

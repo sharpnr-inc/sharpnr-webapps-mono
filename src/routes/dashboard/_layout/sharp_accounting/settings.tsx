@@ -1,4 +1,4 @@
-import AccountingSettingsPage from '@/components/UiModuels/SharpAccounting/SettingsPage'
+import AccountingSettingsPage from '@/components/RoutesPages/SharpAccounting/SettingsPage'
 import { createFileRoute } from '@tanstack/react-router'
 import { Settings } from 'lucide-react'
 

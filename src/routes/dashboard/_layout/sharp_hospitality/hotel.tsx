@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import SharpHospitalityHotelPage from '@/components/UiModuels/sharpHospitality/HotelPage'
+import SharpHospitalityHotelPage from '@/components/RoutesPages/sharpHospitality/HotelPage'
 import {Hotel} from "lucide-react"
 
 export const Route = createFileRoute('/dashboard/_layout/sharp_hospitality/hotel')({

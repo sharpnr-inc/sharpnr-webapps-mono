@@ -1,4 +1,4 @@
-import AccountingSalesPage from '@/components/UiModuels/SharpAccounting/SalesPage'
+import AccountingSalesPage from '@/components/RoutesPages/SharpAccounting/SalesPage'
 import { createFileRoute } from '@tanstack/react-router'
 import { Receipt } from 'lucide-react'
 

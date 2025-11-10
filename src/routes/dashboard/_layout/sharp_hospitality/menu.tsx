@@ -1,4 +1,4 @@
-import MenuPage from '@/components/UiModuels/sharpHospitality/MenuPage'
+import MenuPage from '@/components/RoutesPages/sharpHospitality/MenuPage'
 import { createFileRoute } from '@tanstack/react-router'
 import { LucideMenuSquare } from 'lucide-react'
 

@@ -1,4 +1,4 @@
-import AccountingReportsPage from '@/components/UiModuels/SharpAccounting/ReportsPages'
+import AccountingReportsPage from '@/components/RoutesPages/SharpAccounting/ReportsPages'
 import { createFileRoute } from '@tanstack/react-router'
 import { BarChart3 } from 'lucide-react'
 
