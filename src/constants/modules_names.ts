@@ -1,1 +1,0 @@
-export const BUSINESS_MODULE_NAME= ""
