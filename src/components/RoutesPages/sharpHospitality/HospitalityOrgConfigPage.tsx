@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-// ✅ Import all section components
 import OverviewSection from "@/components/hospitality_module/org_configs/OverviewSection";
-
 import BarConfigSection from "@/components/hospitality_module/org_configs/BarConfigSection";
 import HotelConfigSection from "@/components/hospitality_module/org_configs/HotelConfigSection";
 import OwnersSection from "@/components/hospitality_module/org_configs/OwnersSection";
@@ -13,6 +10,7 @@ import GstSection from "@/components/hospitality_module/org_configs/GstSection";
 import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
 import CustomerSupportSection from "@/components/hospitality_module/org_configs/CustomerSupportSection";
 import RestaurantConfigSection from "@/components/hospitality_module/org_configs/RestaurantConfigSection";
+import ORGConfigSection from "@/components/hospitality_module/org_configs/ORGconfig";
 
 
 export default function HospitalityOrgConfigPage() {
@@ -24,11 +22,10 @@ export default function HospitalityOrgConfigPage() {
         {/* ---- Tab List ---- */}
         <TabsList className="w-full h-full flex flex-wrap gap-1">
           <TabsTrigger value="overview">Overview</TabsTrigger>
+           <TabsTrigger value="2">ORG</TabsTrigger>
           <TabsTrigger value="restaurant_config">Restaurant Configs</TabsTrigger>
           <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>
           <TabsTrigger value="hotel_config">Hotel Configs</TabsTrigger>
-          <TabsTrigger value="owners">Owners</TabsTrigger>
-          <TabsTrigger value="reg_license">Registration & Licenses</TabsTrigger>
           <TabsTrigger value="integration">Integrations</TabsTrigger>
           <TabsTrigger value="gst">GST & Taxes</TabsTrigger>
           <TabsTrigger value="branding">Branding</TabsTrigger>
@@ -38,6 +35,10 @@ export default function HospitalityOrgConfigPage() {
         {/* ---- Tab Contents ---- */}
         <TabsContent value="overview">
           <OverviewSection />
+        </TabsContent>
+
+        <TabsContent value="2">
+          <ORGConfigSection/>
         </TabsContent>
 
         <TabsContent value="restaurant_config">

@@ -111,7 +111,7 @@ Mumbai, Maharashtra – 400076`,
   );
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-2 space-y-2">
       {/* Parent Organization Section */}
       <Card>
         <CardHeader>
@@ -121,7 +121,7 @@ Mumbai, Maharashtra – 400076`,
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-2">
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
             <InfoItem label="Name" value={orgInfo.name} />
             <InfoItem label="Legal Name" value={orgInfo.legalName} />
