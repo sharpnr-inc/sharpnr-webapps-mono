@@ -1,5 +1,5 @@
 import { queryOptions, } from "@tanstack/react-query";
-import {  fetchBookingsOfHotels, fetchHotelOverview, fetchOrgsHotel, } from "../apis/hotel";
+import {  fetchBookingsOfHotels, fetchHotelOverview, fetchOrgsHotel, } from "../../apis/hotel";
 
 export function useHotelQueryOptions() {
   return queryOptions({
