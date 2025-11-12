@@ -3,7 +3,7 @@ import { useModal } from "@/context/ModalContext";
 import { useToastService } from "@/context/ToastContext";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useMutation } from "@tanstack/react-query";
-import { VerifyOtp, type OtpVerificactionResponseDTO } from "../apis/auth_api";
+import { VerifyOtp, type OtpVerificactionResponseDTO } from "../../apis/auth_api";
 import type { VerifyOTPRequestPayload } from "@/schemas/Auth";
 import { useNavigate } from "@tanstack/react-router";
 

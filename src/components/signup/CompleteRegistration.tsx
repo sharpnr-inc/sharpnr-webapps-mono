@@ -25,7 +25,7 @@ import SearchableSelect from "./searchable";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import type { OrgOwnerDetails } from "@/schemas/Auth";
-import { useCompleteOrganization } from "@/api_service/mutations/completeResgistration";
+import { useCompleteOrganization } from "@/api_service/mutations/Auth/completeResgistration";
 
 const orgBasicDetails = [
   {

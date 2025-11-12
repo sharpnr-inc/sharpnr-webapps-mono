@@ -16,7 +16,7 @@ import {
 import { Clock } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Button } from "../ui/button";
-import { useVerifyOtpRegistration } from "@/api_service/mutations/verifyOtp";
+import { useVerifyOtpRegistration } from "@/api_service/mutations/Auth/verifyOtp";
 
 export default function VerifyEmailWithOtpPage() {
   const navigate = useNavigate();

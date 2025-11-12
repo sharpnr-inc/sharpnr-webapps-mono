@@ -1,39 +1,40 @@
-import type { CompleteRegistrationForm } from "@/schemas/Auth";
+import type { RegisterOrganizationRequestPayload } from "@/schemas/Auth";
 import { useMutation } from "@tanstack/react-query";
 import {
-  CompleteOrgRegistration,
-  type OrgCompleteRegistrationResponseDTO,
-} from "../apis/auth_api";
+  InitiateOrgRegistration,
+  type OrgSignupResponseDTO,
+} from "../../apis/auth_api";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useToastService } from "@/context/ToastContext";
 import { useLoader } from "@/context/LoaderContext";
 import { useModal } from "@/context/ModalContext";
-import { useNavigate } from "@tanstack/react-router";
 
-export function useCompleteOrganization() {
+export function useRegisterOrganization() {
   const toast = useToastService();
   const loader = useLoader();
   const modal = useModal();
-  const navigate = useNavigate();
 
   return useMutation<
-    ApiResponse<OrgCompleteRegistrationResponseDTO>,
+    ApiResponse<OrgSignupResponseDTO>,
     unknown,
-    CompleteRegistrationForm
+    RegisterOrganizationRequestPayload
   >({
-    mutationFn: (data) => CompleteOrgRegistration(data),
+    mutationFn: (data) => InitiateOrgRegistration(data),
+
     onMutate: () => {
       loader.showLoader();
     },
-    onSuccess(response) {
+
+    onSuccess: (response) => {
+      loader.hideLoader();
+
       if (response.error.isError) {
         toast.error(response.error.message);
         modal.showModal("error", response.error.message);
       } else {
         toast.success(response.message || "Registration successful!");
-        localStorage.setItem("empid", response.data?.employee_Id || "")
+        modal.showModal("success", `OTP sent to ${response.data?.email}`);
       }
-       navigate({ to: "/dashboard" });
     },
 
     onError: (error: any) => {

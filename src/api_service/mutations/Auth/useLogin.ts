@@ -4,7 +4,7 @@ import { useToastService } from "@/context/ToastContext";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import type { LoginPayload } from "@/schemas/Auth";
 import { useMutation } from "@tanstack/react-query";
-import { Login, type OrgEmployeeData } from "../apis/auth_api";
+import { Login, type OrgEmployeeData } from "../../apis/auth_api";
 
 export function useLoginUser() {
   const toast = useToastService();

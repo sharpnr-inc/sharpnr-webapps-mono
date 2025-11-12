@@ -1,4 +1,4 @@
-import { useRegisterOrganization } from "@/api_service/mutations/createOrg";
+import { useRegisterOrganization } from "@/api_service/mutations/Auth/createOrg";
 import { Button } from "../ui/button";
 import {
   Card,
