@@ -15,10 +15,10 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import CreateFloorForm from "./CreateFloorForm";
 import { useDialogModal } from "@/context/DialogModalContext";
-import { useHotelQueryOptions } from "@/api_service/queries/hotelQueries";
+import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
-import { mutateRoomInFloor } from "@/api_service/mutations/hotelsMutation";
+import { mutateRoomInFloor } from "@/api_service/mutations/Hospitality/HotelsMutations";
 
 export default function CreateRoomForm() {
   const queryOptions = useHotelQueryOptions();

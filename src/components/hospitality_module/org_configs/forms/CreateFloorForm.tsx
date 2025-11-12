@@ -2,7 +2,7 @@ import { useForm } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { mutateFloorInHotel } from "@/api_service/mutations/hotelsMutation";
+import { mutateFloorInHotel } from "@/api_service/mutations/Hospitality/HotelsMutations";
 import { useToastService } from "@/context/ToastContext";
 
 export default function CreateFloorForm() {

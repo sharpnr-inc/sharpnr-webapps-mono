@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { createSignupStatusQuery } from '@/api_service/queries/SignupStatus';
+import { createSignupStatusQuery } from '@/api_service/queries/Shared/useAuthStatus';
 import { QueryClient } from '@tanstack/react-query';
 
 // Define and validate search params

@@ -1,6 +1,6 @@
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { type UIRendererTree } from "@/dummy_data/ui_render_tree";
-import { useOrgUIRenderer } from "@/api_service/queries/getui";
+import { useOrgUIRenderer } from "@/api_service/queries/Shared/useUtils";
 import AnthropicLoader from "@/components/test/anthropic_loader";
 
 interface UIRendererContextType {

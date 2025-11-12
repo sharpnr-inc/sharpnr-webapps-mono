@@ -9,7 +9,7 @@ import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 import {
   useBookingOfHotels,
   useHotelQueryOptions,
-} from "@/api_service/queries/hotelQueries";
+} from "@/api_service/queries/HospitalityQueries/Hotel";
 import { useQuery } from "@tanstack/react-query";
 
 export default function HotelBookingSection() {

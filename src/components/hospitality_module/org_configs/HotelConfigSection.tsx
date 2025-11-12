@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/card";
 
 import { useState } from "react";
-import { useHotelQueryOptions } from "@/api_service/queries/hotelQueries";
+import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
 import { useQuery } from "@tanstack/react-query";
 
 export default function HotelConfigSection() {

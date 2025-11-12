@@ -1,4 +1,4 @@
-import { useBar } from "@/api_service/queries/BarQueries";
+import { useBar } from "@/api_service/queries/HospitalityQueries/Bar";
 import BarInventorySection from "@/components/hospitality_module/bar/BarInventorySection";
 import BarOrdersSection from "@/components/hospitality_module/bar/BarOrdersSection";
 import BarStaffSection from "@/components/hospitality_module/bar/BarStaffSection";

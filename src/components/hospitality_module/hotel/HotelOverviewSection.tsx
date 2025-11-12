@@ -4,7 +4,7 @@ import HotelBookingOverviewTable from "../dataTables/HotelBookingOverviewTable";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useHotelOverview } from "@/api_service/queries/hotelQueries";
+import { useHotelOverview } from "@/api_service/queries/HospitalityQueries/Hotel";
 
 export default function HotelOverviewSection() {
   
