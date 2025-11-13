@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import {
   CompleteOrgRegistration,
   type OrgCompleteRegistrationResponseDTO,
-} from "../../apis/auth_api";
+} from "../../apis/Auth/auth_api";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useToastService } from "@/context/ToastContext";
 import { useLoader } from "@/context/LoaderContext";

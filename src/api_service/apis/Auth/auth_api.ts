@@ -4,7 +4,7 @@ import type {
   RegisterOrganizationRequestPayload,
   VerifyOTPRequestPayload,
 } from "@/schemas/Auth";
-import api from "../axios";
+import api from "../../axios";
 import { AUTH } from "@/constants/api_endpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 

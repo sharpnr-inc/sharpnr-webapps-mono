@@ -1,9 +1,9 @@
 // hooks/useOrgUIRenderer.ts
 import { useQuery } from "@tanstack/react-query";
-import { GetOrgUIRenderer } from "../../apis/auth_api";
+import { GetOrgUIRenderer } from "../../apis/Auth/auth_api";
 import { queryOptions,} from "@tanstack/react-query";
-import { fetchCitiesList, fetchCountriesList, fetchStatesList, getSubModulesOfBusinessLogicModule } from "../../apis/utility_api";
-import { fetchOrgTypeList } from "../../apis/utility_api";
+import { fetchCitiesList, fetchCountriesList, fetchStatesList, getSubModulesOfBusinessLogicModule } from "../../apis/utility/utility_api";
+import { fetchOrgTypeList } from "../../apis/utility/utility_api";
 // import type { UIRendererTree } from "@/dummy_data/ui_render_tree";
 
 export function useOrgUIRenderer() {
@@ -48,7 +48,7 @@ export function createCitiesQuery(countryCode: string, stateCode: string) {
 }
 
 
-export default function createOrgTypeQuery(){
+export function createOrgTypeQuery(){
     return queryOptions({
         queryKey:["UTILITY_ORG_TYPES"],
         queryFn:fetchOrgTypeList

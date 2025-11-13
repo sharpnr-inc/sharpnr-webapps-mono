@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import createOrgTypeQuery from "@/api_service/queries/fetchOrgType";
+import createOrgTypeQuery from "@/api_service/queries/Shared/useUtils";
 import { useQuery } from "@tanstack/react-query";
 import {
   RegisterOrganizationSchema,

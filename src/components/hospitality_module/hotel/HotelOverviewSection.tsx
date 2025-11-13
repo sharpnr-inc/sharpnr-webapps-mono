@@ -15,7 +15,7 @@ export default function HotelOverviewSection() {
 
   return (
     <div className="space-y-2">
-      {isdata ? (
+      {!isdata ? (
         <>
           {" "}
           <div className="border rounded p-2 space-y-2">

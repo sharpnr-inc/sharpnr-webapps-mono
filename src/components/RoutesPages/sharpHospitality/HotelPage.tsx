@@ -2,7 +2,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import HotelBookingSection from "@/components/hospitality_module/hotel/HotelBookingSection";
 import HotelOverviewSection from "@/components/hospitality_module/hotel/HotelOverviewSection";
 import HotelRequestSection from "@/components/hospitality_module/hotel/HotelRequestSection";
-import HotelRoomMgmSection from "@/components/hospitality_module/hotel/HotelRoomMgmSection";
 import React from "react";
 import { useUIRenderer } from "@/context/ui-rendererContext";
 

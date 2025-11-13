@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import createGetSubModuleQuery from "@/api_service/queries/fetch_subModules";
+import { createGetSubModuleQuery } from "@/api_service/queries/Shared/useUtils";
 import TermsAndConditionsCard from "../ui/TermsandConditionCard";
 import { Input } from "../ui/input";
 
@@ -19,7 +19,7 @@ import {
   createCitiesQuery,
   createCountriesQuery,
   createStatesQuery,
-} from "@/api_service/queries/fetchstateandcities";
+} from "@/api_service/queries/Shared/useUtils";
 import SearchableSelect from "./searchable";
 
 import { useState } from "react";
