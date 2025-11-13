@@ -5,13 +5,10 @@ import BarConfigSection from "@/components/hospitality_module/org_configs/BarCon
 import HotelConfigSection from "@/components/hospitality_module/org_configs/HotelConfigSection";
 import OwnersSection from "@/components/hospitality_module/org_configs/OwnersSection";
 import RegLicenseSection from "@/components/hospitality_module/org_configs/RegLicenseSection";
-import IntegrationSection from "@/components/hospitality_module/org_configs/IntegrationSection";
-import GstSection from "@/components/hospitality_module/org_configs/GstSection";
 import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
 import CustomerSupportSection from "@/components/hospitality_module/org_configs/CustomerSupportSection";
 import RestaurantConfigSection from "@/components/hospitality_module/org_configs/RestaurantConfigSection";
 import ORGConfigSection from "@/components/hospitality_module/org_configs/ORGconfig";
-
 
 export default function HospitalityOrgConfigPage() {
   const [tab, setTab] = useState("overview");
@@ -22,12 +19,12 @@ export default function HospitalityOrgConfigPage() {
         {/* ---- Tab List ---- */}
         <TabsList className="w-full h-full flex flex-wrap gap-1">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-           <TabsTrigger value="2">ORG</TabsTrigger>
-          <TabsTrigger value="restaurant_config">Restaurant Configs</TabsTrigger>
+          <TabsTrigger value="2">ORG</TabsTrigger>
+          <TabsTrigger value="restaurant_config">
+            Restaurant Configs
+          </TabsTrigger>
           <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>
           <TabsTrigger value="hotel_config">Hotel Configs</TabsTrigger>
-          <TabsTrigger value="integration">Integrations</TabsTrigger>
-          <TabsTrigger value="gst">GST & Taxes</TabsTrigger>
           <TabsTrigger value="branding">Branding</TabsTrigger>
           <TabsTrigger value="customer_support">Customer Support</TabsTrigger>
         </TabsList>
@@ -38,7 +35,7 @@ export default function HospitalityOrgConfigPage() {
         </TabsContent>
 
         <TabsContent value="2">
-          <ORGConfigSection/>
+          <ORGConfigSection />
         </TabsContent>
 
         <TabsContent value="restaurant_config">
@@ -59,14 +56,6 @@ export default function HospitalityOrgConfigPage() {
 
         <TabsContent value="reg_license">
           <RegLicenseSection />
-        </TabsContent>
-
-        <TabsContent value="integration">
-          <IntegrationSection />
-        </TabsContent>
-
-        <TabsContent value="gst">
-          <GstSection />
         </TabsContent>
 
         <TabsContent value="branding">

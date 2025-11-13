@@ -13,8 +13,12 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { PlusCircle, Trash2 } from "lucide-react";
+import { useGetBarConfig } from "@/api_service/queries/HospitalityQueries/Bar";
 
 export default function BarConfigSection() {
+
+ const { data, isLoading, error } = useGetBarConfig();
+console.log(data);
   // State for bar timing and floors
   const [openingTime, setOpeningTime] = useState("");
   const [closingTime, setClosingTime] = useState("");
