@@ -16,15 +16,13 @@ import { Badge } from "@/components/ui/badge";
 import CreateFloorForm from "./CreateFloorForm";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
 import { mutateRoomInFloor } from "@/api_service/mutations/Hospitality/HotelsMutations";
 
 export default function CreateRoomForm() {
-  const queryOptions = useHotelQueryOptions();
-  const { data, isLoading, isError } = useQuery(queryOptions);
+
+  const { data, isLoading, isError } = useHotelQueryOptions();
   
-  console.log(data?.data.data);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { openModal } = useDialogModal();
 
@@ -42,7 +40,7 @@ export default function CreateRoomForm() {
 
   const handleAddFloor = () => {
     console.log("Done");
-    openModal(<CreateFloorForm hotel={data?.data.data.hotel_id}/>, `Add Floor`, `Add Floor in Hotel`);
+    openModal(<CreateFloorForm hotel={data?.data?.hotel_id}/>, `Add Floor`, `Add Floor in Hotel`);
   };
 
   const mutation = mutateRoomInFloor();
@@ -86,9 +84,9 @@ export default function CreateRoomForm() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {data?.data.data.floors.map((f: any) => (
-                          <SelectItem key={f.id} value={f.id}>
-                            {f.name} {/* or floor_number */}
+                        {data?.data?.floors.map((f: any) => (
+                          <SelectItem key={f.id} value={f.floor_id}>
+                            {f.floor_number} {/* or floor_number */}
                           </SelectItem>
                         ))}
                       </SelectGroup>

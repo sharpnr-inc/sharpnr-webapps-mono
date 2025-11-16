@@ -1,8 +1,9 @@
-import { queryOptions, } from "@tanstack/react-query";
-import {  fetchBookingsOfHotels, fetchHotelOverview, fetchOrgsHotel, } from "../../apis/Hospitality/Hotel";
+import { queryOptions, useQuery, } from "@tanstack/react-query";
+import {  fetchBookingsOfHotels, fetchHotelOverview, fetchOrgsHotel, type GetHotelResponse, } from "../../apis/Hospitality/Hotel";
+import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
 export function useHotelQueryOptions() {
-  return queryOptions({
+  return useQuery<ApiResponse<GetHotelResponse>>({
     queryKey: ["organization hotel"],
     queryFn: fetchOrgsHotel,
   });

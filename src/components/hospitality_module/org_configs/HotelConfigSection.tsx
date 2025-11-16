@@ -1,52 +1,73 @@
-import { ArrowUpRightIcon, PlusCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@/components/ui/empty";
-import CreateRoomForm from "./forms/CreateRoomForm";
-import { useFormsModal } from "@/context/FormModalContext";
-import { hotel_layout } from "@/dummy_data/hotel_rooms";
-import { useSheet } from "@/context/DrawerContext";
-import { Separator } from "@/components/ui/separator";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import { useState } from "react";
 import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
-import { useQuery } from "@tanstack/react-query";
-import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
+import { PenBox, PlusCircle } from "lucide-react";
+import CreateRoomForm from "./forms/CreateRoomForm";
+import { useDialogModal } from "@/context/DialogModalContext";
+import UpdateHotelDetailsForm from "./forms/UpdateHotelForm";
+import { useFormsModal } from "@/context/FormModalContext";
 
 export default function HotelConfigSection() {
-  const queryOptions = useHotelQueryOptions();
-  const { data, isLoading, isError } = useQuery(queryOptions);
+  const { data, isLoading, isError, refetch } = useHotelQueryOptions();
   const [showTabs, setShowTabs] = useState(false);
-  const { showModal } = useFormsModal();
-  const { openSheet } = useSheet();
+  const{openModal} = useDialogModal()
+  const {showModal}=useFormsModal();
 
-  const handleAddRoom = () => {
-    showModal("Add Room", "Add the layout for the Room", <CreateRoomForm />);
-  };
+  const handleUpdateHotel = ()=>{
+    showModal( "Update Hotel Details", "Update or Configure Details",<UpdateHotelDetailsForm/>,)
+  }
 
-  const handleToggleTabs = () => {
-    setShowTabs((prev) => !prev);
-  };
+  const handleToggleTabs = () => setShowTabs((prev) => !prev);
+
+  // ------------------------------------------------------------
+  // 1️⃣ Loading UI – Skeleton Version (Professional Dashboard)
+  // ------------------------------------------------------------
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <Skeleton className="h-10 w-48" />
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-48 w-full" />
+      </div>
+    );
+  }
+
+  // ------------------------------------------------------------
+  // 2️⃣ Error UI
+  // ------------------------------------------------------------
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16">
+        <p className="text-red-500 text-lg font-semibold">
+          Failed to load hotel details.
+        </p>
+        <Button className="mt-4" onClick={() => refetch()}>
+          Retry
+        </Button>
+      </div>
+    );
+  }
+
+  // SAFE DATA ACCESS
+  const hotel = data?.data;
 
   return (
     <div className="flex flex-col gap-2">
+      {/* ------------------------------------------------------
+          ROOM CREATION SECTION
+        ------------------------------------------------------ */}
       <Card className="border-2 rounded-2xl shadow-sm relative">
         <CardHeader className="pb-3">
           <CardTitle className="text-xl font-semibold">Add Room</CardTitle>
@@ -55,7 +76,6 @@ export default function HotelConfigSection() {
           </CardDescription>
         </CardHeader>
 
-        {/* Button in top-right corner */}
         <Button
           variant={showTabs ? "destructive" : "default"}
           onClick={handleToggleTabs}
@@ -76,8 +96,11 @@ export default function HotelConfigSection() {
         )}
       </Card>
 
-      <Card className="rounded-2xl shadow-sm border">
-        <CardHeader className="pb-2">
+      {/* ------------------------------------------------------
+          GENERAL HOTEL DETAILS SECTION (READ-ONLY)
+        ------------------------------------------------------ */}
+      <Card className="rounded-2xl shadow-sm border relative">
+        <CardHeader className="pb-2 ">
           <CardTitle className="text-xl font-semibold">
             General Details
           </CardTitle>
@@ -86,120 +109,111 @@ export default function HotelConfigSection() {
           </CardDescription>
         </CardHeader>
 
-        {/* --- Opening & Closing Timings --- */}
-        <CardContent className="py-4 space-y-4">
-          <div className="font-medium text-sm text-muted-foreground">
-            Operating Timings
-          </div>
-
-          <div className="flex flex-wrap gap-4">
-            <Input placeholder="Opening Time" className="max-w-[200px]" />
-            <Input placeholder="Closing Time" className="max-w-[200px]" />
-          </div>
-
-          <Button className="w-fit">Save Timings</Button>
-        </CardContent>
+        <Button className="absolute top-4 right-4" onClick={handleUpdateHotel}>
+          <PenBox />
+          Update Or Configure
+        </Button>
 
         <Separator />
 
-        {/* --- Hotel Naming Details --- */}
-        <CardContent className="py-4 space-y-4">
+        {/* --- HOTEL NAMING --- */}
+        <CardContent className="space-y-4">
           <div className="font-medium text-sm text-muted-foreground">
             Hotel Naming Details
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Input placeholder="Display Name" className="max-w-[280px]" />
-            <Input placeholder="Legal Name" className="max-w-[280px]" />
+          <div className="flex flex-wrap gap-6">
+            <InfoItem label="Display Name" value={hotel?.hotelDisplayName} />
+            <InfoItem label="Legal Name" value={hotel?.hotelLegalName} />
           </div>
         </CardContent>
 
         <Separator />
 
-        {/* --- Registration IDs --- */}
-        <CardContent className="py-4 space-y-4">
+        {/* --- REGISTRATION IDs --- */}
+        <CardContent className="space-y-4">
           <div className="font-medium text-sm text-muted-foreground">
             Regulatory & Registration IDs
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Input placeholder="GST Number" className="max-w-[240px]" />
-            <Input placeholder="CIN Number" className="max-w-[240px]" />
-            <Input placeholder="FSSAI Number" className="max-w-[240px]" />
-          </div>
+          <InlineInfoGroup
+            items={[
+              { label: "GSTIN Number", value: hotel?.hotelGstNumber },
+              { label: "CIN Number", value: hotel?.hotel_id },
+              { label: "FSSAI Number", value: hotel?.hotelFSSAINumber },
+            ]}
+          />
         </CardContent>
 
         <Separator />
 
-        {/* --- Contact Details --- */}
-        <CardContent className="py-4 space-y-4">
+        {/* --- CONTACT DETAILS --- */}
+        <CardContent className="space-y-4">
           <div className="font-medium text-sm text-muted-foreground">
             Contact Details
           </div>
 
-          <div className="flex flex-wrap gap-4">
-            <Input placeholder="Front Desk Number" className="max-w-[240px]" />
-            <Input placeholder="Contact Number" className="max-w-[240px]" />
-            <Input placeholder="Manager Name" className="max-w-[240px]" />
-          </div>
+          <InlineInfoGroup
+            items={[
+              { label: "Front Desk Number", value: hotel?.hotel_id },
+              { label: "Contact Number", value: hotel?.hotel_id },
+              { label: "Manager Name", value: hotel?.hotel_id },
+            ]}
+          />
         </CardContent>
 
         <Separator />
 
-        {/* --- Kitchen Details --- */}
-        <CardContent className="py-4 space-y-4">
+        {/* --- KITCHEN DETAILS --- */}
+        <CardContent className="space-y-4">
           <div className="font-medium text-sm text-muted-foreground">
             Kitchen
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <Input placeholder="Kitchen ID" className="max-w-[240px]" />
-
-            <div className="flex items-center justify-between gap-3 px-4 py-3 border rounded-2xl shadow-sm bg-muted/30">
-              <div>
-                <p className="font-medium">Kitchen Status</p>
-                <p className="text-xs text-muted-foreground">
-                  Enable or disable this kitchen
-                </p>
-              </div>
-              <Switch />
-            </div>
-          </div>
+          <InlineKitchenStatus
+            kitchenId={hotel?.KitchenId}
+            isKitchen={hotel?.IsKitchen}
+          />
         </CardContent>
 
         <Separator />
 
-        {/* --- Address --- */}
+        {/* --- ADDRESS DETAILS --- */}
         <CardContent className="py-4 space-y-4">
           <div className="font-medium text-sm text-muted-foreground">
             Hotel Address Details
           </div>
 
-          <Textarea placeholder="Address" className="min-h-[80px]" />
+          <InfoItem label="Full Address" value={hotel?.address} full />
 
-          <div className="flex flex-wrap gap-4">
-            <Input placeholder="Country" className="max-w-[200px]" />
-            <Input placeholder="State" className="max-w-[200px]" />
-            <Input placeholder="City" className="max-w-[200px]" />
-            <Input placeholder="Pincode" className="max-w-[200px]" />
-          </div>
+          <InlineInfoGroup
+            items={[
+              { label: "Country", value: hotel?.country },
+              { label: "State", value: hotel?.state },
+              { label: "City", value: hotel?.city },
+              { label: "Pincode", value: hotel?.pincode },
+            ]}
+          />
         </CardContent>
       </Card>
 
-      <Tabs defaultValue="f">
+      {/* ------------------------------------------------------
+         ROOMS + AMENITIES TABS
+      ------------------------------------------------------ */}
+      <Tabs defaultValue="r">
         <TabsList>
-          <TabsTrigger value="f">Floors</TabsTrigger>
           <TabsTrigger value="r">Rooms</TabsTrigger>
           <TabsTrigger value="a">Amenities</TabsTrigger>
         </TabsList>
-        <TabsContent value="f">
+
+        {/* Rooms */}
+        <TabsContent value="r">
           <div className="space-y-6">
-            {data?.data?.floors?.map((floor: any) => (
+            {hotel?.floors?.map((floor: any) => (
               <div
                 key={floor.floor_id}
                 className="border p-4 rounded-2xl space-y-4 bg-muted/30"
               >
-                {/* Floor Header */}
                 <div className="flex justify-between items-center">
                   <h2 className="text-lg font-semibold">
                     Floor {floor.floor_number}
@@ -211,7 +225,6 @@ export default function HotelConfigSection() {
                   )}
                 </div>
 
-                {/* Rooms Grid */}
                 {floor.rooms?.length ? (
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {floor.rooms.map((room: any) => (
@@ -224,11 +237,13 @@ export default function HotelConfigSection() {
                             Room {room.room_name}
                           </CardTitle>
                         </CardHeader>
+
                         <CardContent className="space-y-2 text-sm">
                           <p>
                             <span className="font-medium">Price:</span> ₹
                             {room.room_price}
                           </p>
+
                           {room.description ? (
                             <p className="text-muted-foreground">
                               {room.description}
@@ -252,13 +267,62 @@ export default function HotelConfigSection() {
           </div>
         </TabsContent>
 
-        <TabsContent value="r">
-          <div>Here we display the Rooms</div>
-        </TabsContent>
+        {/* Amenities */}
         <TabsContent value="a">
           <div>Here we display the Amenities List</div>
         </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------
+   ✨ REUSABLE COMPONENTS (CLEAN + PROFESSIONAL)
+------------------------------------------------------ */
+
+function InfoItem({ label, value, full = false }: any) {
+  return (
+    <div className={`space-y-1 ${full ? "" : "min-w-[240px]"}`}>
+      <Label className="text-xs text-muted-foreground">{label}</Label>
+      <p className="text-sm font-medium">{value ?? "N/A"}</p>
+    </div>
+  );
+}
+
+function InlineInfoGroup({ items }: any) {
+  return (
+    <div className="flex items-start flex-wrap gap-6">
+      {items.map((item: any, idx: number) => (
+        <div key={idx} className="flex items-start gap-6">
+          <InfoItem label={item.label} value={item.value} />
+          {idx < items.length - 1 && <div className="h-10 border-l" />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function InlineKitchenStatus({ kitchenId, isKitchen }: any) {
+  return (
+    <div className="flex items-start flex-wrap gap-6">
+      <InfoItem label="Kitchen ID" value={kitchenId} />
+
+      <div className="h-10 border-l" />
+
+      <div className="space-y-1 min-w-[200px]">
+        <Label className="text-xs text-muted-foreground">Kitchen Status</Label>
+
+        <div className="flex items-center gap-3">
+          <p className="text-sm font-medium">
+            {isKitchen ? "Enabled" : "Disabled"}
+          </p>
+          <Switch checked={isKitchen} disabled />
+        </div>
+
+        <p className="text-xs text-muted-foreground">
+          Enable or disable this kitchen
+        </p>
+      </div>
     </div>
   );
 }

@@ -50,4 +50,3 @@ export interface Hospitality_CreateFloorInHotel_Response {
    */
   floor_level: number;
 }
-

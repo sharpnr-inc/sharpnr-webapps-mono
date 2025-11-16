@@ -1,21 +1,49 @@
 import { HOTEL } from "@/constants/api_endpoints";
 import api from "../../axios";
+import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
+
+
+export interface GetHotelResponse {
+  hotel_id: string;
+  hotel_name: string;
+  sharpId: string;
+  hotelDisplayName: string;
+  hotelLegalName: string;
+  KitchenId: string;
+  IsKitchen: boolean;
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  pincode: string;
+  hotelGstNumber: string;
+  hotelFSSAINumber: string;
+  floors: FloorResponse[];
+}
+
+export interface FloorResponse {
+  floor_id: string;
+  floor_name: string;
+  rooms: RoomResponse[];
+}
+
+export interface RoomResponse {
+  room_name: string;
+  room_price: number;
+  description: string;
+}
 
 /**
- * Description
- * This is Function for Fetching the Hotel
+ * Fetch hotel details of the organization
  *
- * @async
- * @function
- * @name fetchOrgsHotel
- * @kind variable
- * @returns {Promise<AxiosResponse<any, any>>}
- * @exports
+ * @returns {Promise<GetHotelResponse>}
  */
-export const fetchOrgsHotel = async () => {
-  const response = await api.get(HOTEL.GET_HOTEL);
-  return response;
+export const fetchOrgsHotel = async (): Promise<ApiResponse<GetHotelResponse>> => {
+  const response = await api.get<ApiResponse<GetHotelResponse>>(HOTEL.GET_HOTEL);
+  return response.data;
 };
+
+
 
 /**
  * Description
