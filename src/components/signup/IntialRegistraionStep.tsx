@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import createOrgTypeQuery from "@/api_service/queries/Shared/useUtils";
+import {createOrgTypeQuery} from "@/api_service/queries/Shared/useUtils";
 import { useQuery } from "@tanstack/react-query";
 import {
   RegisterOrganizationSchema,
@@ -30,7 +30,7 @@ export default function RegisterOrganization(): React.JSX.Element {
   const registerOrg = useRegisterOrganization(); // our mutation hook
   const navigate = useNavigate();
   const { data } = useQuery(createOrgTypeQuery());
-  const orgTypes = data?.data.ORG_TYPE ?? [];
+  const orgTypes = data?.data?.ORG_TYPE ?? [];
 
   const form = useForm({
     validators: { onBlur: RegisterOrganizationSchema },

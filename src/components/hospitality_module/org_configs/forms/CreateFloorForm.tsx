@@ -5,14 +5,15 @@ import { Button } from "@/components/ui/button";
 import { mutateFloorInHotel } from "@/api_service/mutations/Hospitality/HotelsMutations";
 import { useToastService } from "@/context/ToastContext";
 
-export default function CreateFloorForm() {
+export default function CreateFloorForm({hotel}:{hotel:any}) {
+  console.log(hotel)
   const mutation = mutateFloorInHotel();
   const { success, error } = useToastService();
 
 const form = useForm({
   defaultValues: {
     floor_name: "",
-    hotel_id: "49266647-1fdb-49f7-8b36-d7819b7dc56a",
+    hotel_id: hotel,
   },
   onSubmit: async ({ value }) => {
     try {

@@ -70,6 +70,7 @@ export const HospitalityApiEndpoint = {
 
   Restaurant: {
     CreateTableBooking: "/hospitality/restaurant/booking/create",
+    getRestaurantDetails:"/sharp-hospitality/restaurant/get-details"
   },
 
   Kitchen: {
@@ -94,6 +95,7 @@ export const HospitalityApiEndpoint = {
 
   OrgConfiguration: {
     GetOrganizationOverview: "/hospitality/org/config/overview",
+
   },
 
   Setting: {

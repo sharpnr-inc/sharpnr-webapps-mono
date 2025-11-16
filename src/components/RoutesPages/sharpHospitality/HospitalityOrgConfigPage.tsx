@@ -12,6 +12,15 @@ import ORGConfigSection from "@/components/hospitality_module/org_configs/ORGcon
 
 export default function HospitalityOrgConfigPage() {
   const [tab, setTab] = useState("overview");
+ 
+
+  /*
+    TODO : Complete the API integrations
+
+    *1. Create An API to Fetching the Data
+    *2. Create an Tanstack From and set default data from the Step 1
+    
+  */ 
 
   return (
     <div className="p-2">

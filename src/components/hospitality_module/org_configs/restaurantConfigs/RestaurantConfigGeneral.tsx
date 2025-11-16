@@ -9,10 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "@tanstack/react-form";
 
-export default function RestaurantConfigGeneral() {
+export default function RestaurantConfigGeneral({dta}:{dta:any}) {
+  console.log(dta.data)
   const form = useForm({
     defaultValues: {
-      display_name: "Dearie",
+      display_name: dta.display_name,
       legal_display_name: "Dearie hospitality PVT LTD",
       contact_number: "9828823314",
       address:"",
@@ -25,6 +26,7 @@ export default function RestaurantConfigGeneral() {
 
   return (
     <Card className="p-4">
+       <Input value={dta.id} placeholder={dta.data.id} disabled/>
       <CardHeader>
         <CardTitle>General Configuration</CardTitle>
         <CardDescription>
@@ -33,6 +35,7 @@ export default function RestaurantConfigGeneral() {
       </CardHeader>
       <form>
         <CardContent className="grid grid-cols-4 gap-2">
+         
           <div>
             <form.Field
               name="display_name"

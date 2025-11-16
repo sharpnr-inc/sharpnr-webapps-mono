@@ -1,19 +1,21 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RestaurantConfigGst from "./restaurantConfigs/RestaurantConfigGst";
-import RestaurantConfigPreview from "./restaurantConfigs/RestaurantConfigPreview";
 import RestaurantConfigLayout from "./restaurantConfigs/RestaurantConfigLayout";
 import RestaurantConfigLicense from "./restaurantConfigs/RestaurantConfigLicense";
 import RestaurantConfigPayment from "./restaurantConfigs/RestaurantConfigPayment";
 import RestaurantConfigCharges from "./restaurantConfigs/RestaurantConfigCharges";
 import RestaurantConfigGeneral from "./restaurantConfigs/RestaurantConfigGeneral";
+import { useRestaurantDetails } from "@/api_service/queries/HospitalityQueries/Restaurant";
 
 export default function RestaurantConfigSection() {
+  const { data, error, fetchStatus } = useRestaurantDetails();
+  console.log(data?.data);
+
   return (
     <div className=" flex flex-col gap-2">
       <Tabs defaultValue="1">
         <TabsList>
-          <TabsTrigger value="0">Preview</TabsTrigger>
           <TabsTrigger value="1">General</TabsTrigger>
           <TabsTrigger value="2">GST&Tax</TabsTrigger>
           <TabsTrigger value="3">layout</TabsTrigger>
@@ -22,12 +24,8 @@ export default function RestaurantConfigSection() {
           <TabsTrigger value="6">charges</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="0">
-          <RestaurantConfigPreview />
-        </TabsContent>
-
         <TabsContent value="1">
-          <RestaurantConfigGeneral />
+          <RestaurantConfigGeneral dta={data?.data}/>
         </TabsContent>
 
         <TabsContent value="2">

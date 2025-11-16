@@ -12,9 +12,11 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useEffect } from "react";
+import { useOrchestratorQuery } from "@/api_service/queries/OrchestratorQueries/Orchestrator";
 
 export default function ORGConfigSection() {
-  useEffect(() => {}, []);
+const {data,error } = useOrchestratorQuery()
+console.log(data)
 
   const form = useForm({
     defaultValues: {

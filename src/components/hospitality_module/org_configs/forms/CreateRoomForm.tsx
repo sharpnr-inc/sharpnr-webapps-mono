@@ -23,7 +23,8 @@ import { mutateRoomInFloor } from "@/api_service/mutations/Hospitality/HotelsMut
 export default function CreateRoomForm() {
   const queryOptions = useHotelQueryOptions();
   const { data, isLoading, isError } = useQuery(queryOptions);
-  console.log(data);
+  
+  console.log(data?.data.data);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { openModal } = useDialogModal();
 
@@ -41,7 +42,7 @@ export default function CreateRoomForm() {
 
   const handleAddFloor = () => {
     console.log("Done");
-    openModal(<CreateFloorForm />, `Add Floor`, `Add Floor in Hotel`);
+    openModal(<CreateFloorForm hotel={data?.data.data.hotel_id}/>, `Add Floor`, `Add Floor in Hotel`);
   };
 
   const mutation = mutateRoomInFloor();
@@ -64,7 +65,7 @@ export default function CreateRoomForm() {
         {/* Left Section */}
 
         <form
-          className=""
+          className=" w-full"
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit();
@@ -72,28 +73,29 @@ export default function CreateRoomForm() {
         >
           <div className="flex flex-col gap-5 w-full lg:w-3/4 border p-2 rounded-xl shadow-sm bg-muted/10">
             {/* Floor selection */}
-            <form.Field
-              name="floor_id"
-              children={(field) => (
-                <Select
-                  onValueChange={(value) => field.handleChange(value)}
-                  value={field.state.value}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a floor" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {data?.data.floors?.map((f: any) => (
-                        <SelectItem key={f.floor_id} value={f.floor_id}>
-                          {f.floor_number}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              )}
-            />
+            
+              <form.Field
+                name="floor_id"
+                children={(field) => (
+                  <Select
+                    onValueChange={(value) => field.handleChange(value)}
+                    value={field.state.value}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a floor" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {data?.data.data.floors.map((f: any) => (
+                          <SelectItem key={f.id} value={f.id}>
+                            {f.name} {/* or floor_number */}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
 
             {/* Room and Bed */}
             <div className="flex flex-col sm:flex-row gap-4">

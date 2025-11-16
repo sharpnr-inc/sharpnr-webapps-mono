@@ -1,4 +1,4 @@
-export const CoreOrchestrator = {
-  getDetails: "/core/org/get-details",
+export const CoreOrchestratorApi = {
+  getDetails: "/orchestrator/org/get-details",
   updateDetails: "/core/org/update",
 };
