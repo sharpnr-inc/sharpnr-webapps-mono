@@ -1,29 +1,48 @@
+import { useMenuGroup } from "@/api_service/queries/HospitalityQueries/Menu";
 import MenuBarMenuSection from "@/components/hospitality_module/Menu/MenuBarMenuSection";
 import MenuHotelMenuSection from "@/components/hospitality_module/Menu/MenuHotelMenuSection";
 import MenuRestaurantMenuSection from "@/components/hospitality_module/Menu/MenuRestaurantMenuSection";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { JSX } from "react";
 
 export default function MenuPage() {
+  const { data, isLoading, error } = useMenuGroup();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading menus</div>;
+
+  const menuGroups = data?.data ?? [];
+
+  // Mapping TYPE → Component factory (so we can inject props)
+  const menuSectionComponent: Record<string, (group: any) => JSX.Element> = {
+    BAR: (group) => <MenuBarMenuSection group={group} />,
+    HOTEL: (group) => <MenuHotelMenuSection  />,
+    RESTAURANT: (group) => <MenuRestaurantMenuSection />,
+  };
+
   return (
-    <Tabs defaultValue="bar_menu" className="p-2">
-     
+    <Tabs
+      defaultValue={menuGroups[0]?.Type.toLowerCase()}
+      className="p-2"
+    >
       <TabsList>
-        <TabsTrigger value="bar_menu"> Bar Menu</TabsTrigger>
-        <TabsTrigger value="hotel_menu">Hotel Menu</TabsTrigger>
-        <TabsTrigger value="restaurant_menu"> Restaurant Menu</TabsTrigger>
+        {menuGroups.map((group: any) => (
+          <TabsTrigger key={group.Id} value={group.Type.toLowerCase()}>
+            {group.Name}
+          </TabsTrigger>
+        ))}
       </TabsList>
-      <TabsContent value="bar_menu">
-        <MenuBarMenuSection />
-      </TabsContent>
 
-      <TabsContent value="hotel_menu">
-        <MenuHotelMenuSection />
-      </TabsContent>
-
-      <TabsContent value="restaurant_menu">
-        <MenuRestaurantMenuSection />
-      </TabsContent>
+      {menuGroups.map((group: any) => (
+        <TabsContent 
+          key={group.Id} 
+          value={group.Type.toLowerCase()}
+        >
+          {menuSectionComponent[group.Type]
+            ? menuSectionComponent[group.Type](group) // pass group prop
+            : <div>No section available for this menu type.</div>}
+        </TabsContent>
+      ))}
     </Tabs>
   );
 }

@@ -1,32 +1,48 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useMutateCreateCategory } from "@/api_service/mutations/Hospitality/Menu";
 
 interface CategoryFormData {
-  name: string;
-  description: string;
-  displayOrder: number;
+  menu_group_id: string;
+  category_name: string;
+  category_description: string;
 }
 
-export default function AddCategoryInMenuForm() {
-  const [categoryName, setCategoryName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [displayOrder, setDisplayOrder] = useState<number>(1);
+export default function AddCategoryInMenuForm({
+  menuGroupId,
+}: {
+  menuGroupId: string;
+}) {
+  const [categoryName, setCategoryName] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleSubmit = (): void => {
+
+  const { mutate, isPending } = useMutateCreateCategory();
+
+  const handleSubmit = () => {
     const formData: CategoryFormData = {
-      name: categoryName,
-      description,
-      displayOrder
+      menu_group_id: menuGroupId,
+      category_name: categoryName,
+      category_description: description,
     };
-    console.log(formData);
-    // Handle form submission
+
+    mutate(formData, {
+      onSuccess: () => {
+        console.log("Category created successfully!");
+        
+      },
+      onError: (err: any) => {
+        console.error("Failed to create category:", err);
+      },
+    });
   };
 
   return (
     <div className="space-y-6">
+      
       {/* Category Name */}
       <div className="space-y-2">
         <Label htmlFor="category-name">
@@ -34,7 +50,7 @@ export default function AddCategoryInMenuForm() {
         </Label>
         <Input
           id="category-name"
-          placeholder="e.g., Pizza, Pasta, Burgers, Beverages"
+          placeholder="e.g., Starters, Drinks, Main Course"
           value={categoryName}
           onChange={(e) => setCategoryName(e.target.value)}
         />
@@ -47,33 +63,30 @@ export default function AddCategoryInMenuForm() {
         </Label>
         <Textarea
           id="category-description"
-          placeholder="Brief description of this category..."
+          placeholder="Brief description..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          rows={3}
         />
       </div>
 
-
-      {/* Action Buttons */}
+      {/* Buttons */}
       <div className="flex gap-3 pt-4">
         <Button
           type="button"
           variant="outline"
           className="flex-1"
-          onClick={() => {
-            // Handle cancel
-          }}
+          
         >
           Cancel
         </Button>
+
         <Button
           type="button"
           className="flex-1"
           onClick={handleSubmit}
-          disabled={!categoryName.trim()}
+          disabled={!categoryName.trim() || isPending}
         >
-          Create Category
+          {isPending ? "Creating..." : "Create Category"}
         </Button>
       </div>
     </div>

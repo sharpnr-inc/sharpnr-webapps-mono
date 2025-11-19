@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { useMutateCreateSubCategory } from '@/api_service/mutations/Hospitality/Menu';
 
 interface SubCategoryFormData {
   name: string;
@@ -16,15 +17,26 @@ export default function AddSubCategoryInMenuForm({ cat_name }: { cat_name: strin
   const [description, setDescription] = useState<string>('');
   const [displayOrder, setDisplayOrder] = useState<number>(1);
 
+    const { mutate, isPending } = useMutateCreateSubCategory();
+
   const handleSubmit = (): void => {
-    const formData: SubCategoryFormData = {
-      name: subCategoryName,
-      description,
-      categoryName: cat_name,
-      displayOrder
+     const payload = {
+      category_id: cat_name,
+      sub_category_name: subCategoryName,
+      sub_category_description: description,
     };
-    console.log(formData);
+    console.log(payload);
     // Handle form submission
+
+     mutate(payload, {
+      onSuccess: () => {
+        console.log("Sub-category Created Successfully!");
+        
+      },
+      onError: (err: any) => {
+        console.error("Error creating sub-category:", err);
+      },
+    });
   };
 
   return (

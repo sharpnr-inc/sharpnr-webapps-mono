@@ -14,13 +14,26 @@ import { useRef, useState } from "react";
 import { ArrowBigLeft, ArrowRight, ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-
-
-export default function AddItemInMenuStepTwo({ onNext, onBack }: any) {
+export default function AddItemInMenuStepTwo({
+  onNext,
+  onBack,
+  categoryId,
+  subCategoryId,
+}: {
+  onNext: () => void;
+  onBack: () => void;
+  categoryId: string;
+  subCategoryId: string;
+}) {
+  console.log(categoryId);
+  console.log(subCategoryId);
   const [foodType, setFoodType] = useState<"veg" | "nonveg" | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
+  const [itemName, setItemName] = useState("");
+  const [itemDescription, setItemDescription] = useState("");
+  const [basePrice, setBasePrice] = useState("");
 
   const handleImageSelect = (file: File) => {
     if (!file) return;
@@ -49,6 +62,8 @@ export default function AddItemInMenuStepTwo({ onNext, onBack }: any) {
   const handleSelectFoodType = (type: "veg" | "nonveg") => {
     setFoodType((prev) => (prev === type ? null : type));
   };
+
+
 
   return (
     <div className="w-full space-y-5">

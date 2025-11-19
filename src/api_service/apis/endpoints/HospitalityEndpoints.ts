@@ -70,7 +70,8 @@ export const HospitalityApiEndpoint = {
 
   Restaurant: {
     CreateTableBooking: "/hospitality/restaurant/booking/create",
-    getRestaurantDetails:"/sharp-hospitality/restaurant/get-details"
+    getRestaurantDetails:"/sharp-hospitality/restaurant/get-details",
+    updateGeneralDetails:"/sharp-hospitality/restaurant/update"
   },
 
   Kitchen: {
@@ -86,7 +87,10 @@ export const HospitalityApiEndpoint = {
   },
 
   Menu: {
-    getAllMenuGroup: "/hospitality/menu/groups",
+    getAllMenuGroup: "/sharp-hospitality/hospitality-menu/groups",
+    createCategoryInMenuGroup:"/sharp-hospitality/hospitality-menu/categories",
+    GetMenuGroupDetailsById: (menuGrp:string) => `/sharp-hospitality/hospitality-menu/groups/${menuGrp}/categories`,
+    CreateSubCategoryInCategory:"/sharp-hospitality/hospitality-menu/subcategories"
   },
 
   Concierge: {
