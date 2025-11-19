@@ -1,9 +1,7 @@
 import { useMenuGroup } from "@/api_service/queries/HospitalityQueries/Menu";
-import MenuBarMenuSection from "@/components/hospitality_module/Menu/MenuBarMenuSection";
-import MenuHotelMenuSection from "@/components/hospitality_module/Menu/MenuHotelMenuSection";
-import MenuRestaurantMenuSection from "@/components/hospitality_module/Menu/MenuRestaurantMenuSection";
+import MenuSectionDetails from "@/components/hospitality_module/Menu/MenuDetailsSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { JSX } from "react";
+
 
 export default function MenuPage() {
   const { data, isLoading, error } = useMenuGroup();
@@ -13,12 +11,7 @@ export default function MenuPage() {
 
   const menuGroups = data?.data ?? [];
 
-  // Mapping TYPE → Component factory (so we can inject props)
-  const menuSectionComponent: Record<string, (group: any) => JSX.Element> = {
-    BAR: (group) => <MenuBarMenuSection group={group} />,
-    HOTEL: (group) => <MenuHotelMenuSection  />,
-    RESTAURANT: (group) => <MenuRestaurantMenuSection />,
-  };
+  console.log(menuGroups)
 
   return (
     <Tabs
@@ -26,21 +19,23 @@ export default function MenuPage() {
       className="p-2"
     >
       <TabsList>
-        {menuGroups.map((group: any) => (
-          <TabsTrigger key={group.Id} value={group.Type.toLowerCase()}>
+        {menuGroups.map((group:any) => (
+          <TabsTrigger
+            key={group.Id}
+            value={group.Type.toLowerCase()}
+          >
             {group.Name}
           </TabsTrigger>
         ))}
       </TabsList>
 
-      {menuGroups.map((group: any) => (
-        <TabsContent 
-          key={group.Id} 
+      {menuGroups.map((group:any) => (
+        <TabsContent
+          key={group.Id}
           value={group.Type.toLowerCase()}
         >
-          {menuSectionComponent[group.Type]
-            ? menuSectionComponent[group.Type](group) // pass group prop
-            : <div>No section available for this menu type.</div>}
+          {/* Only 1 component */}
+          <MenuSectionDetails group={group} />
         </TabsContent>
       ))}
     </Tabs>
