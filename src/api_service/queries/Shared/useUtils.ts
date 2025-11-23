@@ -48,6 +48,33 @@ export function createCitiesQuery(countryCode: string, stateCode: string) {
 }
 
 
+// Countries
+export function useCountriesQuery() {
+  return useQuery({
+    queryKey: ["UTILITY","COUNTRIES"],
+    queryFn: fetchCountriesList,
+  });
+}
+
+// States
+export function useStatesQuery(countryCode: string) {
+  return useQuery({
+    queryKey: ["UTILITY" ,"STATES", countryCode],
+    queryFn: () => fetchStatesList(countryCode),
+    enabled: !!countryCode, // only fetch if countryCode exists
+  });
+}
+
+// Cities
+export function useCitiesQuery(countryCode: string, stateCode: string) {
+  return useQuery({
+    queryKey: ["UTILITY","CITIES", countryCode, stateCode],
+    queryFn: () => fetchCitiesList(countryCode, stateCode),
+    enabled: !!countryCode && !!stateCode, // only fetch if both exist
+  });
+}
+
+
 export function createOrgTypeQuery(){
     return queryOptions({
         queryKey:["UTILITY_ORG_TYPES"],

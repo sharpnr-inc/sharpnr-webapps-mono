@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
-type SheetSize = "1/4" | "2/4" | "3/4";
+type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 
 interface SheetState {
   title?: string;
@@ -69,6 +69,8 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
         return "sm:w-2/4 w-3/4 p-4";
       case "3/4":
         return "w-3/4 p-4 ";
+      case "full":
+        return "w-full p-4 ";
       default:
         return "w-2/4 p-4";
     }
@@ -78,21 +80,25 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
     <SheetContext.Provider value={{ openSheet, closeSheet }}>
       {children}
 
-      <Sheet open={sheet.isOpen} onOpenChange={closeSheet} >
-        <SheetContent side="right" className={`w-full max-w-none overflow-y-scroll ${getWidthClass(sheet.size)} 
+      <Sheet open={sheet.isOpen} onOpenChange={closeSheet}>
+        <SheetContent
+          side="right"
+          className={`w-full max-w-none overflow-y-scroll ${getWidthClass(sheet.size)} 
             [&::-webkit-scrollbar]:w-[6px]
             [&::-webkit-scrollbar-track]:bg-transparent
             [&::-webkit-scrollbar-thumb]:bg-slate-300
             [&::-webkit-scrollbar-thumb]:rounded-full
             hover:[&::-webkit-scrollbar-thumb]:bg-slate-400
             scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300`}
-         >
+        >
           <SheetHeader>
             {sheet.title && <SheetTitle>{sheet.title}</SheetTitle>}
-            {sheet.description && <SheetDescription>{sheet.description}</SheetDescription>}
+            {sheet.description && (
+              <SheetDescription>{sheet.description}</SheetDescription>
+            )}
           </SheetHeader>
 
-          <div className="py-2">{sheet.content}</div>
+          <div className="">{sheet.content}</div>
 
           <SheetFooter>
             <Button variant="default" onClick={closeSheet}>

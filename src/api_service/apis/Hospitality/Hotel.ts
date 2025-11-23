@@ -1,7 +1,7 @@
 import { HOTEL } from "@/constants/api_endpoints";
 import api from "../../axios";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
-
+import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 
 export interface GetHotelResponse {
   hotel_id: string;
@@ -24,6 +24,7 @@ export interface GetHotelResponse {
 export interface FloorResponse {
   floor_id: string;
   floor_name: string;
+  floor_number: number;
   rooms: RoomResponse[];
 }
 
@@ -38,12 +39,14 @@ export interface RoomResponse {
  *
  * @returns {Promise<GetHotelResponse>}
  */
-export const fetchOrgsHotel = async (): Promise<ApiResponse<GetHotelResponse>> => {
-  const response = await api.get<ApiResponse<GetHotelResponse>>(HOTEL.GET_HOTEL);
+export const fetchOrgsHotel = async (): Promise<
+  ApiResponse<GetHotelResponse>
+> => {
+  const response = await api.get<ApiResponse<GetHotelResponse>>(
+    HOTEL.GET_HOTEL
+  );
   return response.data;
 };
-
-
 
 /**
  * Description
@@ -115,8 +118,34 @@ export const fetchBookingsOfHotels = async () => {
   return res;
 };
 
+export const createRoomInFloor = async (room: any) => {
+  const res = await api.post(HOTEL.CREATE_ROOM, room);
+  return res;
+};
 
-export const createRoomInFloor = async(room:any) => {
-const res = await api.post(HOTEL.CREATE_ROOM, room)
-return res
+
+export interface HotelBookingTerminal_Response {
+  hotel_id: string;
+  org_id: string;
+  Floors: FloorResponse[];
 }
+
+export interface FloorResponse {
+  floor_id: string;
+  floor_number: number;
+  floor_name: string;
+  rooms: RoomResponse[];
+}
+
+export interface RoomResponse {
+  room_id: string;
+  room_name: string;
+  room_price: number;
+  description: string;
+  status: string;
+}
+
+export const getFrontDeskBookingTerminal = async () => {
+  const res = await api.get(HospitalityApiEndpoint.Hotel.getFrontDesk);
+  return res.data;
+};

@@ -18,11 +18,11 @@ import { useDialogModal } from "@/context/DialogModalContext";
 import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
 import { useForm } from "@tanstack/react-form";
 import { mutateRoomInFloor } from "@/api_service/mutations/Hospitality/HotelsMutations";
+import { Label } from "@/components/ui/label";
 
 export default function CreateRoomForm() {
-
   const { data, isLoading, isError } = useHotelQueryOptions();
-  
+  console.log(data);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { openModal } = useDialogModal();
 
@@ -40,7 +40,11 @@ export default function CreateRoomForm() {
 
   const handleAddFloor = () => {
     console.log("Done");
-    openModal(<CreateFloorForm hotel={data?.data?.hotel_id}/>, `Add Floor`, `Add Floor in Hotel`);
+    openModal(
+      <CreateFloorForm hotel={data?.data?.hotel_id} />,
+      `Add Floor`,
+      `Add Floor in Hotel`
+    );
   };
 
   const mutation = mutateRoomInFloor();
@@ -59,19 +63,19 @@ export default function CreateRoomForm() {
 
   return (
     <CardContent>
-      <div className="flex flex-col lg:flex-row gap-6 justify-between">
-        {/* Left Section */}
-
+      <div className="flex flex-col lg:flex-row gap-4">
+        {/* LEFT FORM SECTION */}
         <form
-          className=" w-full"
+          className="w-full lg:w-3/4 space-y-6"
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit();
           }}
         >
-          <div className="flex flex-col gap-5 w-full lg:w-3/4 border p-2 rounded-xl shadow-sm bg-muted/10">
-            {/* Floor selection */}
-            
+          <Card className="p-6 shadow-sm border rounded-2xl bg-muted/30 space-y-6">
+            {/* FLOOR */}
+            <div className="space-y-2">
+              <Label>Floor</Label>
               <form.Field
                 name="floor_id"
                 children={(field) => (
@@ -79,14 +83,14 @@ export default function CreateRoomForm() {
                     onValueChange={(value) => field.handleChange(value)}
                     value={field.state.value}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger>
                       <SelectValue placeholder="Select a floor" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {data?.data?.floors.map((f: any) => (
-                          <SelectItem key={f.id} value={f.floor_id}>
-                            {f.floor_number} {/* or floor_number */}
+                        {data?.data?.floors?.map((f) => (
+                          <SelectItem key={f.floor_id} value={f.floor_id}>
+                            {f.floor_number}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -94,64 +98,81 @@ export default function CreateRoomForm() {
                   </Select>
                 )}
               />
-
-            {/* Room and Bed */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <form.Field
-                name="room_name"
-                children={(field) => (
-                  <Input
-                    placeholder="Room Name or Number"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                  />
-                )}
-              />
-
-              <Select>
-                <SelectTrigger className="w-full sm:w-[50%]">
-                  <SelectValue placeholder="Select Bed Size" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectItem value="single">Single Bed</SelectItem>
-                    <SelectItem value="double">Double Bed</SelectItem>
-                    <SelectItem value="queen">Queen Bed</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
             </div>
 
-            {/* Price and Description */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <form.Field
-                name="room_price"
-                children={(field) => (
-                  <Input
-                    type="number"
-                    placeholder="Room Price"
-                    value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                  />
-                )}
-              />
-              <form.Field
-                name="description"
-                children={(field) => (
-                  <Textarea
-                    placeholder="Brief description of the room"
-                    value={field.state.value ?? ""}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                  />
-                )}
-              />
+            {/* ROOM + BED */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Room Name</Label>
+                <form.Field
+                  name="room_name"
+                  children={(field) => (
+                    <Input
+                      placeholder="Room Name or Number"
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Bed Type</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Bed Size" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="single">Single Bed</SelectItem>
+                      <SelectItem value="double">Double Bed</SelectItem>
+                      <SelectItem value="queen">Queen Bed</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            {/* Image Upload Section */}
-            <div className="flex flex-col gap-3">
-              <label className="font-medium text-sm flex items-center gap-2">
+            {/* PRICE + DESCRIPTION */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Room Price</Label>
+                <form.Field
+                  name="room_price"
+                  children={(field) => (
+                    <Input
+                      type="number"
+                      placeholder="Room Price"
+                      value={field.state.value ?? ""}
+                      onChange={(e) =>
+                        field.handleChange(Number(e.target.value))
+                      }
+                    />
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Description</Label>
+                <form.Field
+                  name="description"
+                  children={(field) => (
+                    <Textarea
+                      placeholder="Brief description of the room"
+                      value={field.state.value ?? ""}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+
+            {/* IMAGES */}
+            <div className="space-y-3">
+              <Label className="flex items-center gap-2">
                 <ImageIcon className="w-4 h-4" /> Upload Room Images
-              </label>
+              </Label>
+
               <Input
                 type="file"
                 accept="image/*"
@@ -159,22 +180,24 @@ export default function CreateRoomForm() {
                 onChange={handleImageChange}
                 className="cursor-pointer"
               />
+
               {imagePreviews.length > 0 && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 pt-2">
                   {imagePreviews.map((src, index) => (
                     <div
                       key={index}
-                      className="relative group border rounded-lg overflow-hidden"
+                      className="relative rounded-xl overflow-hidden border shadow-sm"
                     >
                       <img
                         src={src}
                         alt={`Preview ${index + 1}`}
                         className="w-full h-40 object-cover"
                       />
+
                       <button
                         type="button"
                         onClick={() => handleRemoveImage(index)}
-                        className="absolute top-1 right-1 bg-black/60 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition"
+                        className="absolute top-2 right-2 bg-black/60 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -184,11 +207,9 @@ export default function CreateRoomForm() {
               )}
             </div>
 
-            {/* Amenities */}
-            <div>
-              <div className="text-sm font-medium mb-1">
-                Available Amenities
-              </div>
+            {/* AMENITIES */}
+            <div className="space-y-2">
+              <Label>Available Amenities</Label>
               <div className="flex flex-wrap gap-2">
                 <Badge>Double Bed</Badge>
                 <Badge>AC</Badge>
@@ -199,24 +220,24 @@ export default function CreateRoomForm() {
               </div>
             </div>
 
-            <Textarea placeholder="Add more amenities..."></Textarea>
+            <Textarea placeholder="Add more amenities..." />
 
-            <Button type="submit" className="w-fit self-start">
+            <Button type="submit" className="w-fit">
               <PlusCircleIcon className="mr-2 h-4 w-4" />
               Save Room
             </Button>
-          </div>
+          </Card>
         </form>
 
-        {/* Right Side Actions */}
+        {/* RIGHT SIDE ACTIONS */}
         <div className="w-full lg:w-1/4">
-          <Card className="shadow-md h-fit">
-            <CardHeader className="pb-1">
+          <Card className="shadow-md rounded-2xl">
+            <CardHeader>
               <CardTitle className="text-base font-semibold">
                 Quick Actions
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-3 pt-2">
+            <CardContent className="flex flex-col gap-3">
               <Button variant="outline" onClick={handleAddFloor}>
                 <PlusCircleIcon className="mr-2 h-4 w-4" />
                 Add Floor

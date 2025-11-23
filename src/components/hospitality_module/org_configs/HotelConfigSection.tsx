@@ -18,16 +18,21 @@ import CreateRoomForm from "./forms/CreateRoomForm";
 import { useDialogModal } from "@/context/DialogModalContext";
 import UpdateHotelDetailsForm from "./forms/UpdateHotelForm";
 import { useFormsModal } from "@/context/FormModalContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function HotelConfigSection() {
   const { data, isLoading, isError, refetch } = useHotelQueryOptions();
   const [showTabs, setShowTabs] = useState(false);
-  const{openModal} = useDialogModal()
-  const {showModal}=useFormsModal();
+  const { openModal } = useDialogModal();
+  const { showModal } = useFormsModal();
 
-  const handleUpdateHotel = ()=>{
-    showModal( "Update Hotel Details", "Update or Configure Details",<UpdateHotelDetailsForm/>,)
-  }
+  const handleUpdateHotel = () => {
+    showModal(
+      "Update Hotel Details",
+      "Update or Configure Details",
+      <UpdateHotelDetailsForm />
+    );
+  };
 
   const handleToggleTabs = () => setShowTabs((prev) => !prev);
 
@@ -68,6 +73,7 @@ export default function HotelConfigSection() {
       {/* ------------------------------------------------------
           ROOM CREATION SECTION
         ------------------------------------------------------ */}
+
       <Card className="border-2 rounded-2xl shadow-sm relative">
         <CardHeader className="pb-3">
           <CardTitle className="text-xl font-semibold">Add Room</CardTitle>
@@ -86,14 +92,24 @@ export default function HotelConfigSection() {
           {showTabs ? "Cancel" : "Add Room"}
         </Button>
 
-        {showTabs && (
-          <>
-            <Separator />
-            <div className="p-6">
-              <CreateRoomForm />
-            </div>
-          </>
-        )}
+        <AnimatePresence initial={false}>
+          {showTabs && (
+            <motion.div
+              key="animated-form"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <Separator />
+
+              <div className="">
+                <CreateRoomForm />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Card>
 
       {/* ------------------------------------------------------

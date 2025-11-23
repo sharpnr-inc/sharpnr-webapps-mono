@@ -32,16 +32,11 @@ export default function DashboardSideBar() {
   const { renderTree, hasModuleAccess, hasSectionAccess, hasSubSectionAccess } =
     useUIRenderer();
   const { policy } = useEmployeePolicy();
-  console.log(renderTree);
+
   const router = useRouter();
 
   const currentPath = useRouterState({
     select: (state) => state.location.pathname,
-  });
-  console.log("Sidebar render:", {
-    renderTree,
-    currentPath,
-    timestamp: Date.now(),
   });
 
   // 🔥 Helper to detect active route
@@ -60,9 +55,9 @@ export default function DashboardSideBar() {
     (item) => {
       // Extract section name from route
       const pathSegments = item.to.split("/");
-      console.log(pathSegments);
+
       const sectionName = pathSegments[pathSegments.length - 1];
-      console.log(sectionName);
+   
 
       // Map route names to render tree keys if they differ
       const sectionMapping: Record<string, string> = {
@@ -70,7 +65,7 @@ export default function DashboardSideBar() {
       };
 
       const mappedSection = sectionMapping[sectionName] || sectionName;
-      console.log(mappedSection);
+
 
       // Check if section exists in render tree
       return hasSectionAccess("sharp_hospitality", mappedSection);

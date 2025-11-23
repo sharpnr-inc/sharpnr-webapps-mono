@@ -9,7 +9,6 @@ import { useHotelOverview } from "@/api_service/queries/HospitalityQueries/Hotel
 export default function HotelOverviewSection() {
   
   const query = useQuery(useHotelOverview());
-  console.log(query)
 
   const [isdata, setData] = useState(false);
 
