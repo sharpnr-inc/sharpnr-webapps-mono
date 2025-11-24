@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRef, useState } from "react";
 import { ArrowBigLeft, ArrowRight, ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useForm } from "@tanstack/react-form";
 
 export default function AddItemInMenuStepTwo({
   onNext,
@@ -25,15 +26,9 @@ export default function AddItemInMenuStepTwo({
   categoryId: string;
   subCategoryId: string;
 }) {
-  console.log(categoryId);
-  console.log(subCategoryId);
   const [foodType, setFoodType] = useState<"veg" | "nonveg" | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [itemName, setItemName] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
-  const [basePrice, setBasePrice] = useState("");
 
   const handleImageSelect = (file: File) => {
     if (!file) return;
@@ -63,7 +58,10 @@ export default function AddItemInMenuStepTwo({
     setFoodType((prev) => (prev === type ? null : type));
   };
 
-
+const form = useForm({
+  defaultValues:({
+  })
+})
 
   return (
     <div className="w-full space-y-5">

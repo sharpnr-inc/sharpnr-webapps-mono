@@ -20,7 +20,7 @@ import { useDialogModal } from "@/context/DialogModalContext";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function RestaurentTableManagmentSection() {
+export default function RestaurantTableManagementSection() {
   const { openSheet } = useSheet();
   const { openModal } = useDialogModal();
 

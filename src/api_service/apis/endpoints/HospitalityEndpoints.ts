@@ -108,7 +108,8 @@ export const HospitalityApiEndpoint = {
   },
 
   Bar:{
-    updateBarDetails:"/something",
+    getBarLayout:"sharp-hospitality/bar/get-layout",
+    updateBarGenDetails:"/sharp-hospitality/bar/update",
     getBarConfigDetails:"/sharp-hospitality/bar/getBarConfigDetails"
   }
 };

@@ -19,7 +19,6 @@ import UpdateRestaurantGeneralDetailsForms from "./forms/UpdateRestaurantGeneral
 
 export default function RestaurantConfigSection() {
   const { data, error, fetchStatus } = useRestaurantDetails();
-  console.log(data?.data);
 
   const { showModal } = useFormsModal();
 

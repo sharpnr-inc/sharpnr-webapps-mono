@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useMutateCreateSubCategory } from '@/api_service/mutations/Hospitality/Menu';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useMutateCreateSubCategory } from "@/api_service/mutations/Hospitality/Menu";
 
 interface SubCategoryFormData {
   name: string;
@@ -12,26 +12,29 @@ interface SubCategoryFormData {
   displayOrder: number;
 }
 
-export default function AddSubCategoryInMenuForm({ cat_name }: { cat_name: string }) {
-  const [subCategoryName, setSubCategoryName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
+export default function AddSubCategoryInMenuForm({
+  cat_name,
+  menuGroupId,
+}: {
+  cat_name: string;
+  menuGroupId: string;
+}) {
+  const [subCategoryName, setSubCategoryName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [displayOrder, setDisplayOrder] = useState<number>(1);
 
-    const { mutate, isPending } = useMutateCreateSubCategory();
+  const { mutate, isPending } = useMutateCreateSubCategory(menuGroupId);
 
   const handleSubmit = (): void => {
-     const payload = {
+    const payload = {
       category_id: cat_name,
       sub_category_name: subCategoryName,
       sub_category_description: description,
     };
-    console.log(payload);
-    // Handle form submission
-
-     mutate(payload, {
+   
+    mutate(payload, {
       onSuccess: () => {
         console.log("Sub-category Created Successfully!");
-        
       },
       onError: (err: any) => {
         console.error("Error creating sub-category:", err);
@@ -44,7 +47,7 @@ export default function AddSubCategoryInMenuForm({ cat_name }: { cat_name: strin
       {/* Category Info */}
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
         <p className="text-sm text-gray-600">
-          Adding sub-category to:{' '}
+          Adding sub-category to:{" "}
           <span className="font-semibold text-gray-800">{cat_name}</span>
         </p>
       </div>

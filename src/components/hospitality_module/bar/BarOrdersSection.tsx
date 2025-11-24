@@ -1,13 +1,13 @@
 // src/components/BarOrdersSection.tsx
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { bar_layout, type Table } from "@/dummy_data/bar_layout";
 import { cn } from "@/lib/utils";
 import { useSheet } from "@/context/DrawerContext";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormsModal } from "@/context/FormModalContext";
+import { useBarLayout } from "@/api_service/queries/HospitalityQueries/Bar";
 
 /* ────────────────────────────────
    📦 Main BarOrdersSection
@@ -15,19 +15,21 @@ import { useFormsModal } from "@/context/FormModalContext";
 export default function BarOrdersSection() {
   const { openSheet } = useSheet();
   const { openModal } = useDialogModal();
+  const { data, isLoading } = useBarLayout();
 
-  const handleTableAction = (table: Table) => {
-    console.log(table.table_name);
+  const bar = data?.data;
 
-    if (table.table_status === "occupied") {
-      // Open a bottom sheet for active table billing
+  if (isLoading) return <div>Loading...</div>;
+  if (!bar) return <div>No layout found</div>;
+
+  const handleTableAction = (table: any) => {
+    if (table.table_status.toLowerCase() === "occupied") {
       openSheet(
         <TableBills table={table} />,
         `${table.table_name}`,
         "Currently amount"
       );
-    } else if (table.table_status === "available") {
-      // Open a booking modal for available tables
+    } else if (table.table_status.toLowerCase() === "available") {
       openModal(
         <BookTableForm table={table} />,
         `Book table ${table.table_name}`,
@@ -37,48 +39,43 @@ export default function BarOrdersSection() {
   };
 
   return (
-    <div className="border rounded-lg p-4 font-sans">
+    <div className="p-2">
       {/* Header */}
-      <div className="flex flex-row justify-between items-center mb-4">
+      {/* <div className="flex flex-row justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Orders</h2>
         <Button className="inline-flex gap-2">
           <PlusCircle size={18} />
           Start Session
         </Button>
-      </div>
+      </div> */}
 
       {/* Floors */}
       <div className="space-y-4">
-        {bar_layout.floors.map((flr) => (
+        {bar.floors.map((flr:any) => (
           <div key={flr.floor_id} className="border rounded-md p-3">
             <h3 className="font-semibold mb-3">{flr.floor_name}</h3>
 
-            {flr.Areas.map((area) => (
-              <div key={area.Area_id} className="mb-3">
-                <div className="font-medium mb-2">{area.name}</div>
-                <div className="flex flex-wrap gap-2">
-                  {area.tables.map((table) => (
-                    <Button
-                      key={table.table_id}
-                      onClick={() => handleTableAction(table)}
-                      className={cn(
-                        "px-4 py-2 rounded-lg border font-medium transition-all",
-                        table.table_status === "available" &&
-                          "bg-green-500 text-white hover:bg-green-600",
-                        table.table_status === "occupied" &&
-                          "bg-red-500 text-white hover:bg-red-600",
-                        table.table_status === "reserved" &&
-                          "bg-yellow-500 text-white hover:bg-yellow-600",
-                        table.table_status === "maintenance" &&
-                          "bg-gray-400 text-white hover:bg-gray-500"
-                      )}
-                    >
-                      {table.table_name}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <div className="flex flex-wrap gap-2">
+              {flr.tables.map((table:any) => (
+                <Button
+                  key={table.table_id}
+                  onClick={() => handleTableAction(table)}
+                  className={cn(
+                    "px-8 py-2 rounded-lg border font-medium transition-all",
+                    table.table_status.toLowerCase() === "available" &&
+                      "bg-green-500 text-white hover:bg-green-600",
+                    table.table_status.toLowerCase() === "occupied" &&
+                      "bg-red-500 text-white hover:bg-red-600",
+                    table.table_status.toLowerCase() === "reserved" &&
+                      "bg-yellow-500 text-white hover:bg-yellow-600",
+                    table.table_status.toLowerCase() === "maintenance" &&
+                      "bg-gray-400 text-white hover:bg-gray-500"
+                  )}
+                >
+                  {table.table_name}
+                </Button>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -89,7 +86,7 @@ export default function BarOrdersSection() {
 /* ────────────────────────────────
    📋 BookTableForm (Modal)
 ──────────────────────────────── */
-function BookTableForm({ table }: { table: Table }) {
+function BookTableForm({ table }: { table: any }) {
   return (
     <div className="space-y-3">
       <div>
@@ -112,7 +109,7 @@ function BookTableForm({ table }: { table: Table }) {
 /* ────────────────────────────────
    💵 TableBills (Sheet)
 ──────────────────────────────── */
-function TableBills({ table }: { table: Table }) {
+function TableBills({ table }: { table: any }) {
   const { showModal } = useFormsModal();
   const texrfunc = () => {
     showModal("This is for Testing Purpose", "", <div>Hey it worked</div>);

@@ -33,7 +33,7 @@ export default function HospitalityOrgConfigPage() {
           </TabsTrigger>
           <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>
           <TabsTrigger value="hotel_config">Hotel Configs</TabsTrigger>
-          <TabsTrigger value="branding">Branding</TabsTrigger>
+          {/* <TabsTrigger value="branding">Branding</TabsTrigger> */}
           <TabsTrigger value="customer_support">Customer Support</TabsTrigger>
         </TabsList>
 
@@ -66,9 +66,9 @@ export default function HospitalityOrgConfigPage() {
           <RegLicenseSection />
         </TabsContent>
 
-        <TabsContent value="branding">
+        {/* <TabsContent value="branding">
           <BrandingSection />
-        </TabsContent>
+        </TabsContent> */}
 
         <TabsContent value="customer_support">
           <CustomerSupportSection />

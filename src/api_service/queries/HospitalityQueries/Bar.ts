@@ -1,18 +1,21 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import {
-  fetchBar,
+  fetchBarLayout,
   getBarConfigDetails,
+  type BarGeneralDetailsResponse,
 } from "@/api_service/apis/Hospitality/Bar";
 
-export function useBar() {
-  return queryOptions({
+export function useBarLayout() {
+  return useQuery<ApiResponse<any>>({
     queryKey: ["Bar"],
-    queryFn: fetchBar,
+    queryFn: fetchBarLayout,
+    
   });
 }
 
-export function useGetBarConfig() {
-  return useQuery({
+export function useBarGeneralDetails() {
+  return useQuery<ApiResponse<BarGeneralDetailsResponse>>({
     queryKey: ["hospitality", "bar", "config"],
     queryFn: getBarConfigDetails,
   });

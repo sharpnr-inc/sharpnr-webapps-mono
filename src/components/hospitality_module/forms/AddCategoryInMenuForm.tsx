@@ -20,7 +20,7 @@ export default function AddCategoryInMenuForm({
   const [description, setDescription] = useState("");
 
 
-  const { mutate, isPending } = useMutateCreateCategory();
+  const { mutate, isPending } = useMutateCreateCategory(menuGroupId);
 
   const handleSubmit = () => {
     const formData: CategoryFormData = {

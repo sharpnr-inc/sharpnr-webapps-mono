@@ -56,7 +56,7 @@ export default function AddItemInMenuForm({
 
   const handleAddSubCate = () => {
     openModal(
-      <AddSubCategoryInMenuForm cat_name={selectedCategory} />,
+      <AddSubCategoryInMenuForm cat_name={selectedCategory} menuGroupId={group.Id} />,
       "Add Sub-category",
       `Add Subcategory in ${selectedCategory}`
     );

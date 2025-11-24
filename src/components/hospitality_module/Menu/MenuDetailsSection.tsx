@@ -9,7 +9,6 @@ import AddItemInMenuForm from "../forms/AddItemInMenuForm";
 
 export default function MenuSectionDetails({ group }: { group: any }) {
   const { data, isLoading, error } = useMenuGroupDetails(group.Id);
-  console.log(data);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading menu</div>;
 
