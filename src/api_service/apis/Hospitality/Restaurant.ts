@@ -2,19 +2,33 @@ import api from "@/api_service/axios";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
-export interface RestaurantFloorDTO {
-  id: string;
-  name: string;
-  restaurantId: string;
-  // add any additional fields you have in Go
-}
-
 export interface RestaurantTableDTO {
   id: string;
+  restaurant_id: string;
+
+  floor_id: string | null;
+
   name: string;
-  floorId?: string;
-  restaurantId: string;
-  // add any additional fields you have in Go
+  capacity: number;
+  status: string;
+
+  created_at: string;
+  updated_at: string;
+}
+
+export interface RestaurantFloorDTO {
+  id: string;
+  restaurant_id: string;
+  organization_id: string;
+
+  name: string;
+  description: string;
+  floor_number: number;
+
+  tables: RestaurantTableDTO[];
+
+  created_at: string;
+  updated_at: string;
 }
 
 export interface KitchenDTO {
@@ -29,11 +43,8 @@ export interface GetRestaurantDetails_RESPONSE {
   organization_id: string;
 
   is_pure_veg: boolean;
-  opening_time: string;     // time.Time → string
+  opening_time: string;
   closing_time: string;
-
-  floors: RestaurantFloorDTO[];
-  tables: RestaurantTableDTO[];
 
   is_kitchen: boolean;
   kitchen_id: string | null;
@@ -42,11 +53,17 @@ export interface GetRestaurantDetails_RESPONSE {
   legal_name: string;
   display_name: string;
   gst_number: string;
+  cin_number: string;
   fssai_number: string;
+
+  contact_email: string;
+  contact_number:string;
+  manager_number:string;
 
   address: string;
   city: string;
   state: string;
+  country: string;
   pincode: string;
 
   created_at: string;
@@ -60,8 +77,52 @@ export const GetRestaurantDetails = async () => {
   return res.data;
 };
 
-
-export const UpdateRestaurantGeneralDetails = async(req:any)=>{
-  const res = await api.post(HospitalityApiEndpoint.Restaurant.updateGeneralDetails, req);
-  return res.data
+export interface Restaurant_GetRestaurantLayout_Response {
+  restaurant_id: string;
+  floors: RestaurantFloorDTO[];
 }
+
+export interface RestaurantFloorDTO {
+  id: string;
+  restaurant_id: string;
+  organization_id: string;
+
+  name: string;
+  description: string;
+  floor_number: number;
+
+  tables: RestaurantTableDTO[];
+
+  created_at: string; // time.Time → string
+  updated_at: string; // time.Time → string
+}
+
+export interface RestaurantTableDTO {
+  id: string;
+  restaurant_id: string;
+
+  floor_id: string | null; // *uuid.UUID → string | null
+
+  name: string;
+  capacity: number;
+  status: string;
+
+  created_at: string; // time.Time → string
+  updated_at: string; // time.Time → string
+}
+
+
+export const GetRestaurantLayout = async () => {
+  const res = await api.get(
+    HospitalityApiEndpoint.Restaurant.getRestaurantLayout
+  );
+  return res.data;
+};
+
+export const UpdateRestaurantGeneralDetails = async (req: any) => {
+  const res = await api.post(
+    HospitalityApiEndpoint.Restaurant.updateGeneralDetails,
+    req
+  );
+  return res.data;
+};

@@ -1,7 +1,10 @@
-import RestaurentTableManagmentSection from "@/components/hospitality_module/restaurent/RestaurentTableManagmentSection";
+
+import RestaurantTableManagementSection from "@/components/hospitality_module/restaurent/RestaurentTableManagmentSection";
+
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function RestaurantPage() {
+
   return (
     <Tabs defaultValue="table_management" className="p-2">
       <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
@@ -22,7 +25,7 @@ export default function RestaurantPage() {
       {/* Tab Contents */}
       <div className="">
         <TabsContent value="table_management">
-          <RestaurentTableManagmentSection />
+          <RestaurantTableManagementSection />
         </TabsContent>
 
         <TabsContent value="order">

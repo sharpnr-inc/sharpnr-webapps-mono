@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import {
   DragDropContext,
@@ -61,14 +59,14 @@ const [orders, setOrders] = useState<Order[]>([
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <div className="flex gap-4 overflow-x-auto pb-2">
+      <div className="flex gap-4 overflow-x-auto">
         {/* -------------------- ORDERS -------------------- */}
         <Droppable droppableId="orders">
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className={`flex-1 min-w-[250px] h-fit rounded-xl p-2 border transition ${
+              className={`flex-1 min-w-[250px] h-fit rounded-xl transition ${
                 snapshot.isDraggingOver ? "bg-blue-50" : ""
               }`}
             >
@@ -78,7 +76,7 @@ const [orders, setOrders] = useState<Order[]>([
                     Orders
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="flex-1 mt-2 space-y-2 overflow-y-auto max-h-[60rem]">
+                <CardContent className="flex-1 space-y-1 overflow-y-auto max-h-[60rem]">
                   {orders
                     .filter((o) => o.status === "orders")
                     .map((o, index) => (
@@ -92,7 +90,7 @@ const [orders, setOrders] = useState<Order[]>([
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            className="p-3 border rounded-xl shadow-sm bg-white cursor-grab active:cursor-grabbing hover:shadow-md transition"
+                            className="p-2 border rounded-xl shadow-sm  cursor-grab active:cursor-grabbing hover:shadow-md transition"
                           >
                             <div className="font-medium text-lg">{o.item}</div>
                             <div className="text-sm text-gray-500">

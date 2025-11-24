@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { Edit, Pen } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
 import { useFormsModal } from "@/context/FormModalContext";
 import UpdateRestaurantGeneralDetailsForms from "./forms/UpdateRestaurantGeneralDetailsForms";
 
@@ -26,7 +25,7 @@ export default function RestaurantConfigSection() {
     showModal(
       "Update Restaurant",
       "Edit Update Restaurant General Details",
-      <UpdateRestaurantGeneralDetailsForms/>
+      <UpdateRestaurantGeneralDetailsForms resData={data?.data} />
     );
   };
 
@@ -39,7 +38,10 @@ export default function RestaurantConfigSection() {
             Here you can Edit and Configure the Details
           </CardDescription>
         </CardHeader>
-        <Button className="absolute top-4 right-4" onClick={handleEditGeneralDetail}>
+        <Button
+          className="absolute top-4 right-4"
+          onClick={handleEditGeneralDetail}
+        >
           <Pen />
           Update
         </Button>
@@ -93,7 +95,7 @@ export default function RestaurantConfigSection() {
 
             {/* GSN */}
             <div className="space-y-2">
-              <Label>GSN Number</Label>
+              <Label>GSTIN Number</Label>
               <div className="font-semibold">
                 {data?.data?.gst_number ?? "N/A"}
               </div>
@@ -109,7 +111,7 @@ export default function RestaurantConfigSection() {
             <div className="space-y-2">
               <Label>CIN Number</Label>
               <div className="font-semibold">
-                {data?.data?.gst_number ?? "N/A"}
+                {data?.data?.cin_number ?? "N/A"}
               </div>
               <p className="text-xs text-muted-foreground">
                 Corporate Identification Number.
@@ -119,24 +121,22 @@ export default function RestaurantConfigSection() {
         </CardContent>
 
         <Separator />
-        <CardContent className="space-y-2">
+        <CardContent className="space-y-4">
           {/* Address line */}
           <div className="space-y-1">
             <Label>Address Line</Label>
-            <div className="font-semibold">
-              {data?.data?.address ?? "N/A"}
-            </div>
+            <div className="font-semibold">{data?.data?.address ?? "N/A"}</div>
           </div>
 
+           <Separator/>
+
           {/* City / State / Country */}
-          <div className="grid grid-cols-1 md:grid-cols-6 items-start gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-6 items-start gap-3">
+
             {/* City */}
             <div className="space-y-1">
               <Label>City</Label>
               <div className="font-semibold">{data?.data?.city ?? "N/A"}</div>
-              <p className="text-xs text-muted-foreground">
-                This will appear on bills & receipts.
-              </p>
             </div>
 
             {/* Separator */}
@@ -149,9 +149,7 @@ export default function RestaurantConfigSection() {
             <div className="space-y-1">
               <Label>State</Label>
               <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
-              <p className="text-xs text-muted-foreground">
-                Registered state information.
-              </p>
+           
             </div>
 
             {/* Separator */}
@@ -164,9 +162,7 @@ export default function RestaurantConfigSection() {
             <div className="space-y-1">
               <Label>Country</Label>
               <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
-              <p className="text-xs text-muted-foreground">
-                Legal registered country.
-              </p>
+        
             </div>
           </div>
 
@@ -184,7 +180,7 @@ export default function RestaurantConfigSection() {
             {/* City */}
             <div className="space-y-1">
               <Label>Email Address</Label>
-              <div className="font-semibold">{data?.data?.city ?? "N/A"}</div>
+              <div className="font-semibold">{data?.data?.contact_email?? "N/A"}</div>
               <p className="text-xs text-muted-foreground">
                 This will appear on bills & receipts for customer this is only
                 for the customer contact.
@@ -200,59 +196,33 @@ export default function RestaurantConfigSection() {
             {/* State */}
             <div className="space-y-1">
               <Label>Contact Number</Label>
-              <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
+              <div className="font-semibold">{data?.data?.contact_number ?? "N/A"}</div>
               <p className="text-xs text-muted-foreground">
                 Registered state information.
-              </p>
-            </div>
-
-            {/* Separator */}
-            <Separator
-              orientation="vertical"
-              className="hidden md:block h-full mx-auto"
-            />
-
-            {/* Country */}
-            <div className="space-y-1">
-              <Label>Secondary Number</Label>
-              <div className="font-semibold">{data?.data?.city ?? "N/A"}</div>
-              <p className="text-xs text-muted-foreground">
-                Legal registered country.
               </p>
             </div>
           </div>
         </CardContent>
 
         <Separator />
+
         <CardContent className="space-y-2">
           {/* City / State / Country */}
-          <div className="grid grid-cols-1 md:grid-cols-6 items-start gap-6">
+        
             {/* City */}
             <div className="space-y-1">
               <Label>Manager Name</Label>
-              <div className="font-semibold">{data?.data?.city ?? "N/A"}</div>
+              <div className="font-semibold">{data?.data?.manager_number ?? "N/A"}</div>
               <p className="text-xs text-muted-foreground">
                 This will appear on bills & receipts for customer this is only
                 for the customer contact.
               </p>
             </div>
 
-            {/* Separator */}
-            <Separator
-              orientation="vertical"
-              className="hidden md:block h-full mx-auto"
-            />
-
-            {/* State */}
-            <div className="space-y-1">
-              <Label>Manager Contact Number</Label>
-              <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
-              <p className="text-xs text-muted-foreground">
-                Registered state information.
-              </p>
-            </div>
-          </div>
+    
+  
         </CardContent>
+
         <CardFooter className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground max-w-md">
             These are the general details of the restaurant. All details can be
@@ -261,6 +231,7 @@ export default function RestaurantConfigSection() {
 
           <Button>Fetch & Import Details</Button>
         </CardFooter>
+
       </Card>
 
       <Card className="relative">
@@ -319,49 +290,24 @@ export default function RestaurantConfigSection() {
         </CardContent>
       </Card>
 
-      <Card className="relative">
+      <Card>
         <CardHeader>
           <CardTitle>Restaurant Layout</CardTitle>
           <CardDescription>
             Edit layout and Add floors, Add Tables
           </CardDescription>
         </CardHeader>
-        <Button className="absolute top-5 right-2">
-          {" "}
-          <Edit />
-          Edit
-        </Button>
 
-        <CardContent>
-          <div className="flex items-center justify-between rounded-xl border p-4 shadow-sm bg-card">
-            <div className="space-y-1">
-              <Label className="font-medium">Is Restaurant Multi-floor?</Label>
-              <p className="text-xs text-muted-foreground">
-                Enable this if your restaurant operates on multiple floors.
-              </p>
-
-              {/* Status text */}
-              <p className="text-xs font-semibold text-primary">ENABLED</p>
+        {/* <CardContent>
+          {data?.data?.floors.map((flr) => (
+            <div className="border p-2  rounded-xl">
+              <div>{flr.name}</div>
+              {flr?.tables?.map((tbl) => (
+                <div></div>
+              ))}
             </div>
-
-            <Switch />
-          </div>
-        </CardContent>
-
-        <CardContent>
-          <Tabs defaultValue="Floor">
-            <TabsList>
-              <TabsTrigger value="Floor">Floor</TabsTrigger>
-              <TabsTrigger value="Tables">Tables</TabsTrigger>
-            </TabsList>
-            <TabsContent value="Floor">
-              <div>This will floor</div>
-            </TabsContent>
-            <TabsContent value="Tables">
-              <div>This will floor</div>
-            </TabsContent>
-          </Tabs>
-        </CardContent>
+          ))}
+        </CardContent> */}
       </Card>
     </div>
   );
