@@ -1,4 +1,8 @@
-import { getAllMenuGroup, getMenuGroup } from "@/api_service/apis/Hospitality/Menu";
+import {
+  getAllMenuGroup,
+  getMenuGroup,
+  getVariantOfMenuItem,
+} from "@/api_service/apis/Hospitality/Menu";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMenuGroup() {
@@ -14,5 +18,12 @@ export function useMenuGroupDetails(menuGroupId: string) {
     queryKey: ["menu-group-details", menuGroupId],
     queryFn: () => getMenuGroup(menuGroupId),
     enabled: !!menuGroupId, // prevents running when id is empty
+  });
+}
+
+export function useVariantOfMenuItem(id: string) {
+  return useQuery({
+    queryKey: ["hospitality", "Menu", "variant"],
+    queryFn: () => getVariantOfMenuItem(id),
   });
 }

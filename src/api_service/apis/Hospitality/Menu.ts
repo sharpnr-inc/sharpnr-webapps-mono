@@ -34,7 +34,25 @@ export const createItemInMenu = async (req: any) => {
   return res.data;
 };
 
-export const createVariantInMenuItem = async(req: any)=>{
-  const res = await api.post(HospitalityApiEndpoint.Menu.CreateVariantInMenuItem, req)
-  return res.data
-}
+export const createVariantInMenuItem = async (req: any) => {
+  const res = await api.post(
+    HospitalityApiEndpoint.Menu.CreateVariantInMenuItem,
+    req
+  );
+  return res.data;
+};
+
+export const createAddOnInMenuItem = async (req: any) => {
+  const res = await api.post(
+    HospitalityApiEndpoint.Menu.CreateAddonsINMenuItem,
+    req
+  );
+  return res.data;
+};
+
+export const getVariantOfMenuItem = async (id: string) => {
+  const res = await api.get(
+    HospitalityApiEndpoint.Menu.GetVariantByMenuItemId(id)
+  );
+  return res.data;
+};

@@ -1,4 +1,5 @@
 import {
+  createAddOnInMenuItem,
   createCategoryInMenuGroup,
   createItemInMenu,
   createVariantInMenuItem,
@@ -39,9 +40,16 @@ export function useMutationCreateItemInMenu() {
   });
 }
 
-export function useMutationCreateVariantInMenuItem(){
+export function useMutationCreateVariantInMenuItem() {
   return useMutation({
-    mutationKey:["hospitality", "Menu", "Create-variant"],
-    mutationFn:createVariantInMenuItem
-  })
+    mutationKey: ["hospitality", "Menu", "Create-variant"],
+    mutationFn: createVariantInMenuItem,
+  });
+}
+
+export function useMutationAddAddonsInMenu() {
+  return useMutation({
+    mutationKey: ["hospitality", "Menu", "Create-Addons"],
+    mutationFn: createAddOnInMenuItem,
+  });
 }

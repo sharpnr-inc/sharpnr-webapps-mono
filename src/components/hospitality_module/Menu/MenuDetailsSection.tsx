@@ -6,6 +6,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AddItemInMenuForm from "../forms/AddItemInMenuForm";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function MenuSectionDetails({ group }: { group: any }) {
   const { data, isLoading, error } = useMenuGroupDetails(group.Id);
@@ -41,44 +50,42 @@ export default function MenuSectionDetails({ group }: { group: any }) {
                           className="ml-4 border-l pl-4"
                         >
                           {sub.menu_items.map((item: any) => (
-                            <AccordionItem key={item.id} value={item.id}>
-                              <AccordionTrigger className="text-sm">
-                                {item.name} — ₹{item.price}
-                              </AccordionTrigger>
-
-                              <AccordionContent>
-                                {/* Variant Groups */}
-                                {item.variant_groups?.length ? (
-                                  <Accordion
-                                    type="multiple"
-                                    className="ml-4 border-l pl-4"
-                                  >
-                                    {item.variant_groups.map((vg: any) => (
-                                      <AccordionItem key={vg.id} value={vg.id}>
-                                        <AccordionTrigger className="text-sm">
-                                          {vg.name}
-                                        </AccordionTrigger>
-
-                                        <AccordionContent>
-                                          {/* Variants */}
-                                          <ul className="ml-4 list-disc text-sm">
-                                            {vg.variants.map((v: any) => (
-                                              <li key={v.id}>
-                                                {v.name} — ₹{v.price}
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        </AccordionContent>
-                                      </AccordionItem>
+                            <Card>
+                              <CardHeader>
+                                <CardTitle>{item.name}</CardTitle>
+                                <CardDescription>
+                                  {item.description}
+                                </CardDescription>
+                                <CardContent className="">
+                                  <div>
+                                    {item.variant_groups?.map((vgs: any) => (
+                                      <div>
+                                        {vgs.name}
+                                        <div>
+                                          {vgs.variants?.map((vg: any) => (
+                                            <div>
+                                              {vg.name}
+                                              <span>{vg.price}</span>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      </div>
                                     ))}
-                                  </Accordion>
-                                ) : (
-                                  <div className="ml-4 text-sm text-muted-foreground">
-                                    No variant groups
                                   </div>
-                                )}
-                              </AccordionContent>
-                            </AccordionItem>
+                                </CardContent>
+                                <CardFooter className="flex flex-col">
+                                  <div>Addons</div>
+                                  <div>
+                                    {item.add_ons?.map((ads: any) => (
+                                      <Badge>
+                                        {ads.Name}
+                                        <span>{ads.Price}</span>
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                </CardFooter>
+                              </CardHeader>
+                            </Card>
                           ))}
                         </Accordion>
                       ) : (

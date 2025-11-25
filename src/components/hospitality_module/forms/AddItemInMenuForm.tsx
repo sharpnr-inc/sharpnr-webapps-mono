@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import AddItemInMenuStepThree from "./AddItemInMenuFormStepThree";
 import AddItemInMenuStepFour from "./AddItemInMenuStepFour";
 import AddItemInMenuStepFive from "./AddItemInMenuStepFive";
+import { useVariantOfMenuItem } from "@/api_service/queries/HospitalityQueries/Menu";
 
 export default function AddItemInMenuForm({
   group,
@@ -38,6 +39,7 @@ export default function AddItemInMenuForm({
   const [itemDetails, setItemDetails] = useState({});
   const [variants, setVariants] = useState([]);
   const [addons, setAddons] = useState([]);
+  const { data } = useVariantOfMenuItem("f86f0358-17a3-4c98-b3e6-80e11d40ad9e");
 
   const { openModal } = useDialogModal();
   console.log(menuitemId);
@@ -272,8 +274,7 @@ export default function AddItemInMenuForm({
         <AddItemInMenuStepFour
           onNext={next}
           onBack={back}
-          // addons={addons}
-          // setAddons={setAddons}
+          menuItemId={menuitemId}
         />
       )}
 

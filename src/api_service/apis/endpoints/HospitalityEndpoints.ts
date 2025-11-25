@@ -95,6 +95,11 @@ export const HospitalityApiEndpoint = {
     CreateSubCategoryInCategory:"/sharp-hospitality/hospitality-menu/subcategories",
     CreateItemInMenu:"/sharp-hospitality/hospitality-menu/items",
     CreateVariantInMenuItem:"/sharp-hospitality/hospitality-menu/items/variants",
+    CreateAddonsINMenuItem:"/sharp-hospitality/hospitality-menu/addons/add",
+
+    // 
+    GetVariantByMenuItemId :(menuItemId:string)=>`/sharp-hospitality/hospitality-menu/items/${menuItemId}/variants`,
+    // UpdateVariantOfMenuItem:()
   },
 
   Concierge: {

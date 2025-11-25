@@ -2,6 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useForm } from "@tanstack/react-form";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
+import { useMutationAddAddonsInMenu } from "@/api_service/mutations/Hospitality/Menu";
 
 interface AddonFormData {
   name: string;
@@ -10,6 +14,7 @@ interface AddonFormData {
 }
 
 export default function AddAddOnInItemDialog({
+  menuItemId,
   setAddon,
   addon,
   closeModal,
@@ -18,93 +23,125 @@ export default function AddAddOnInItemDialog({
   const [price, setPrice] = useState<string>("");
   const [maxQuantity, setMaxQuantity] = useState<number>(1);
 
-  const handleSubmit = (): void => {
-    const formData: AddonFormData = {
-      name: addonName,
-      price,
-      maxQuantity,
-    };
-    console.log(formData);
-    const addonsData = {
-      id: crypto.randomUUID(),
-      addon_name: formData.name,
-      price: formData.price,
-    };
+  const createAddon = useMutationAddAddonsInMenu();
 
-    setAddon((prev: any) => [...prev, addonsData]);
-    closeModal();
-  };
+  const form = useForm({
+    defaultValues: {
+      menu_item_id: menuItemId,
+      name: "",
+      price: 0,
+      is_veg: true,
+    },
+
+    onSubmit:({value})=>{
+      console.log(value)
+      createAddon.mutate(value, {
+        
+      })
+    }
+  });
 
   return (
-    <div className="space-y-6">
-      {/* Addon Name */}
-      <div className="space-y-2">
-        <Label htmlFor="addon-name">
-          Add-on Name <span className="text-red-500">*</span>
-        </Label>
-        <Input
-          id="addon-name"
-          placeholder="e.g., Extra Cheese, Mushrooms, Olives"
-          value={addonName}
-          onChange={(e) => setAddonName(e.target.value)}
-        />
-      </div>
-
-      {/* Price */}
-      <div className="space-y-2">
-        <Label htmlFor="addon-price">
-          Price <span className="text-red-500">*</span>
-        </Label>
-        <div className="relative">
-          <span className="absolute left-3 top-2.5 text-gray-500">₹</span>
-          <Input
-            id="addon-price"
-            type="number"
-            placeholder="0.00"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            className="pl-7"
-          />
-        </div>
-      </div>
-
-      {/* Max Quantity */}
-      <div className="space-y-2">
-        <Label htmlFor="max-quantity">Max Quantity</Label>
-        <Input
-          id="max-quantity"
-          type="number"
-          min="1"
-          placeholder="1"
-          value={maxQuantity}
-          onChange={(e) => setMaxQuantity(parseInt(e.target.value) || 1)}
-        />
-        <p className="text-xs text-gray-500">
-          Maximum number of times this add-on can be added
-        </p>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex gap-3 pt-4">
-        <Button
-          type="button"
-          variant="outline"
-          className="flex-1"
-          onClick={() => {
-            // Handle cancel
+    <div>
+      <form
+        className="space-y-6"
+        onSubmit={(e) => {
+          (e.preventDefault(), e.stopPropagation(), form.handleSubmit());
+        }}
+      >
+        {/* Addon Name */}
+        <form.Field
+          name="name"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label htmlFor="addon-name">
+                  Add-on Name <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  id="addon-name"
+                  placeholder="e.g., Extra Cheese, Mushrooms, Olives"
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                />
+              </div>
+            );
           }}
-        >
-          Cancel
-        </Button>
-        <Button
-          type="button"
-          className="flex-1 "
-          onClick={handleSubmit}
-          disabled={!addonName.trim() || !price}
-        >
-          Add Add-on
-        </Button>
-      </div>
+        />
+
+        {/* Price */}
+        <form.Field
+          name="price"
+          children={(field) => {
+            return (
+              <div className="space-y-2">
+                <Label htmlFor="addon-price">
+                  Price <span className="text-red-500">*</span>
+                </Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2.5 text-gray-500">
+                    ₹
+                  </span>
+
+                  <Input
+                    id="addon-price"
+                    type="number"
+                    className="pl-7"
+                    placeholder="0.00"
+                    value={field.state.value}
+                    onChange={(e) =>
+                      field.handleChange(
+                        e.target.value ? Number(e.target.value) : 0
+                      )
+                    }
+                  />
+                </div>
+              </div>
+            );
+          }}
+        />
+
+        {/* Veg Switch */}
+        <form.Field
+          name="is_veg"
+          children={(field) => {
+            return (
+              <div className="flex items-center gap-3">
+                <Label>Add Type</Label>
+
+                <Switch
+                  checked={field.state.value}
+                  onCheckedChange={(v) => field.handleChange(v)}
+                />
+
+                <div className="text-sm font-medium">
+                  {field.state.value ? "Veg" : "Non-Veg"}
+                </div>
+              </div>
+            );
+          }}
+        />
+
+        {/* Action Buttons */}
+        <div className="flex gap-3 pt-4">
+          <Button
+            type="button"
+            variant="outline"
+            className="flex-1"
+            onClick={() => form.reset()}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            type="submit"
+            className="flex-1"
+        
+          >
+            Add Add-on
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

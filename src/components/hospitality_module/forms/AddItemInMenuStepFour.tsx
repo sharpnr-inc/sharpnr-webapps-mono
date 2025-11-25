@@ -10,12 +10,16 @@ import {
 import { useState } from "react";
 import AddAddOnInItemDialog from "./AddAddOnInItemDialog";
 
-export default function AddItemInMenuStepFour({ onNext, onBack }: any) {
+export default function AddItemInMenuStepFour({ onNext, onBack, menuItemId }: any) {
+
+  console.log(menuItemId)
   const [addons, setAddons] = useState([]);
   const { openModal, closeModal } = useDialogModal();
 
+  
+
   const handleAddAddon = () => {
-    openModal(<AddAddOnInItemDialog  setAddon={setAddons} addon={addons} closeModal={closeModal}/>, "Add Addon", "Add Addons in the");
+    openModal(<AddAddOnInItemDialog menuItemId={menuItemId}  setAddon={setAddons} addon={addons} closeModal={closeModal}/>, "Add Addon", "Add Addons in the");
   };
   return (
     <div className="w-full space-y-4">
