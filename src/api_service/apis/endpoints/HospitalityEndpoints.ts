@@ -92,7 +92,9 @@ export const HospitalityApiEndpoint = {
     getAllMenuGroup: "/sharp-hospitality/hospitality-menu/groups",
     createCategoryInMenuGroup:"/sharp-hospitality/hospitality-menu/categories",
     GetMenuGroupDetailsById: (menuGrp:string) => `/sharp-hospitality/hospitality-menu/groups/${menuGrp}/categories`,
-    CreateSubCategoryInCategory:"/sharp-hospitality/hospitality-menu/subcategories"
+    CreateSubCategoryInCategory:"/sharp-hospitality/hospitality-menu/subcategories",
+    CreateItemInMenu:"/sharp-hospitality/hospitality-menu/items",
+    CreateVariantInMenuItem:"/sharp-hospitality/hospitality-menu/items/variants",
   },
 
   Concierge: {

@@ -22,9 +22,15 @@ export interface Variant {
   var_list: VariantList[];
 }
 
-export default function AddItemInMenuStepThree({ onNext, onBack }: any) {
+export default function AddItemInMenuStepThree({
+  onNext,
+  onBack,
+  menuItemId,
+}: any) {
   const [variant, setVarient] = useState<Variant[]>([]);
   const { openModal, closeModal } = useDialogModal();
+
+  console.log(menuItemId);
 
   const handleAddVarient = () => {
     openModal(
@@ -32,6 +38,7 @@ export default function AddItemInMenuStepThree({ onNext, onBack }: any) {
         setVariant={setVarient}
         variant={variant}
         closeModal={closeModal}
+        menuItemId={menuItemId}
       />,
       "Add Variant",
       "Add Variants"

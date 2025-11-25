@@ -1,169 +1,171 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus, Trash2 } from "lucide-react";
-import type { Variant } from "./AddItemInMenuFormStepThree";
-
-interface Size {
-  name: string;
-  price: string;
-}
-
-interface VariantFormData {
-  variantName: string;
-  sizes: Size[];
-}
+import { useForm } from "@tanstack/react-form";
+import { useMutationCreateVariantInMenuItem } from "@/api_service/mutations/Hospitality/Menu";
 
 export default function AddVariantInItemDialog({
+  closeModal,
+  menuItemId,
   setVariant,
   variant,
-  closeModal,
 }: {
-  setVariant: React.Dispatch<React.SetStateAction<Variant[]>>;
-  variant: Variant[];
   closeModal: () => void;
+  menuItemId: string;
+  setVariant: any;
+  variant: any[];
 }) {
-  const [variantName, setVariantName] = useState<string>("");
-  const [sizes, setSizes] = useState<Size[]>([
-    { name: "Small", price: "" },
-    { name: "Medium", price: "" },
-    { name: "Large", price: "" },
-  ]);
+  // -----------------------------------------------------
+  // 1. TANSTACK FORM — ARRAY MODE
+  // -----------------------------------------------------
+  const createVariant = useMutationCreateVariantInMenuItem();
+  const form = useForm({
+    defaultValues: {
+      menu_item_id: menuItemId,
+      variant_name: "",
+      variant: [
+        { name: "Small", price: 0 },
+        { name: "Medium", price: 0 },
+        { name: "Large", price: 0 },
+      ],
+    },
 
-  const addSize = (): void => {
-    setSizes([...sizes, { name: "", price: "" }]);
-  };
+    onSubmit: ({ value }) => {
+      console.log("FINAL VARIANT PAYLOAD →", value);
+      createVariant.mutate(value, {
+        onSuccess: (res) => {
+         closeModal()
+        },
+      });
 
-  const removeSize = (index: number): void => {
-    setSizes(sizes.filter((_, i) => i !== index));
-  };
+      closeModal();
+    },
+  });
 
-  const updateSize = (
-    index: number,
-    field: keyof Size,
-    value: string
-  ): void => {
-    const newSizes = [...sizes];
-    newSizes[index][field] = value;
-    setSizes(newSizes);
-  };
-
-  const handleSubmit = (): void => {
-    const formData: VariantFormData = {
-      variantName,
-      sizes,
-    };
-    console.log(formData);
-    const newVariant: Variant = {
-      id: crypto.randomUUID(), // or use nanoid(), uuidv4(), etc.
-      variant_name: formData.variantName,
-      var_list: formData.sizes.map((size) => ({
-        id: crypto.randomUUID(),
-        name: size.name,
-        price: size.price,
-      })),
-    };
-    setVariant((prev) => [...prev, newVariant]);
-    closeModal()
-  };
-
+  // -----------------------------------------------------
+  // 2. UI
+  // -----------------------------------------------------
   return (
     <div className="space-y-6">
-      {/* Variant Name */}
-      <div className="space-y-2">
-        <Label htmlFor="variant-name">
-          Variant Name <span className="text-red-500">*</span>
-        </Label>
-        <Input
-          id="variant-name"
-          placeholder="e.g., Thin Crust, Stuffed Crust, Whole Wheat"
-          value={variantName}
-          onChange={(e) => setVariantName(e.target.value)}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+        className="space-y-6"
+      >
+        {/* Variant Group Name */}
+        <form.Field
+          name="variant_name"
+          children={(field) => (
+            <div className="space-y-2">
+              <Label>
+                Variant Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                placeholder="e.g. Size, Crust Type"
+              />
+            </div>
+          )}
         />
-      </div>
 
-      {/* Sizes Section */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Label>
-            Sizes & Pricing <span className="text-red-500">*</span>
-          </Label>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={addSize}
-            className="h-8 "
-          >
-            <Plus className="h-4 w-4 mr-1" />
-            Add Size
-          </Button>
-        </div>
+        {/* Variant Array */}
+        <form.Field
+          name="variant"
+          mode="array"
+          children={(variantField) => (
+            <div className="space-y-3">
+              {/* Header + Add Button */}
+              <div className="flex justify-between items-center">
+                <Label>
+                  Sizes & Prices <span className="text-red-500">*</span>
+                </Label>
 
-        <div className="space-y-3">
-          {sizes.map((size, index) => (
-            <div key={index} className="flex gap-3">
-              <div className="flex-1">
-                <Input
-                  placeholder="Size name (e.g., Small, Regular)"
-                  value={size.name}
-                  onChange={(e) => updateSize(index, "name", e.target.value)}
-                />
-              </div>
-              <div className="w-32">
-                <div className="relative">
-                  <span className="absolute left-3 top-2.5 text-gray-500">
-                    ₹
-                  </span>
-                  <Input
-                    type="number"
-                    placeholder="Price"
-                    value={size.price}
-                    onChange={(e) => updateSize(index, "price", e.target.value)}
-                    className="pl-7"
-                  />
-                </div>
-              </div>
-              {sizes.length > 1 && (
                 <Button
                   type="button"
                   variant="ghost"
-                  size="icon"
-                  onClick={() => removeSize(index)}
-                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  size="sm"
+                  onClick={() => variantField.pushValue({ name: "", price: 0 })}
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Plus className="h-4 w-4 mr-1" /> Add Size
                 </Button>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+              </div>
 
-      {/* Action Buttons */}
-      <div className="flex gap-3 pt-4">
-        <Button
-          type="button"
-          variant="outline"
-          className="flex-1"
-          onClick={() => {
-            // Handle cancel
-          }}
-        >
-          Cancel
-        </Button>
-        <Button
-          type="button"
-          className="flex-1 "
-          onClick={handleSubmit}
-          disabled={
-            !variantName.trim() || sizes.some((s) => !s.name || !s.price)
-          }
-        >
-          Add Variant
-        </Button>
-      </div>
+              {/* Sizes */}
+              {variantField.state.value.map((_, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  {/* Size Name */}
+                  <form.Field
+                    name={`variant[${index}].name`}
+                    children={(field) => (
+                      <Input
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        placeholder="Small / Medium / Large"
+                        className="flex-1"
+                      />
+                    )}
+                  />
+
+                  {/* Price */}
+                  <form.Field
+                    name={`variant[${index}].price`}
+                    children={(field) => (
+                      <div className="relative w-32">
+                        <span className="absolute left-3 top-2.5 text-gray-500">
+                          ₹
+                        </span>
+                        <Input
+                          type="number"
+                          className="pl-7"
+                          value={field.state.value}
+                          onChange={(e) =>
+                            field.handleChange(Number(e.target.value))
+                          }
+                          placeholder="Price"
+                        />
+                      </div>
+                    )}
+                  />
+
+                  {/* Remove */}
+                  {variantField.state.value.length > 1 && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => variantField.removeValue(index)}
+                      className="text-red-500"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        />
+
+        {/* Action Buttons */}
+        <div className="flex gap-3 pt-4">
+          <Button
+            type="button"
+            variant="outline"
+            className="flex-1"
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
+
+          <Button type="submit" className="flex-1">
+            Add Variant
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

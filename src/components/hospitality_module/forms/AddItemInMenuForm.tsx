@@ -34,12 +34,13 @@ export default function AddItemInMenuForm({
   // Shared state across all steps
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
+  const [menuitemId, setMenuItemId] = useState("");
   const [itemDetails, setItemDetails] = useState({});
   const [variants, setVariants] = useState([]);
   const [addons, setAddons] = useState([]);
 
   const { openModal } = useDialogModal();
-
+  console.log(menuitemId);
   const next = () => setStepIndex((i) => i + 1);
   const back = () => setStepIndex((i) => Math.max(i - 1, 0));
 
@@ -56,7 +57,10 @@ export default function AddItemInMenuForm({
 
   const handleAddSubCate = () => {
     openModal(
-      <AddSubCategoryInMenuForm cat_name={selectedCategory} menuGroupId={group.Id} />,
+      <AddSubCategoryInMenuForm
+        cat_name={selectedCategory}
+        menuGroupId={group.Id}
+      />,
       "Add Sub-category",
       `Add Subcategory in ${selectedCategory}`
     );
@@ -75,7 +79,6 @@ export default function AddItemInMenuForm({
 
   return (
     <div className="flex flex-col w-full max-w-6xl p-2 gap-4 place-items-center">
-      {/* Stepper Header */}
       <div className="w-full">
         <div className=" items-center justify-between md:flex relative hidden">
           {steps.map((label, index) => (
@@ -248,6 +251,7 @@ export default function AddItemInMenuForm({
           onBack={back}
           categoryId={selectedCategoryId}
           subCategoryId={selectedSubcategoryId}
+          setMenuId={setMenuItemId}
         />
       )}
 
@@ -256,6 +260,8 @@ export default function AddItemInMenuForm({
         <AddItemInMenuStepThree
           onNext={next}
           onBack={back}
+          menuItemId={menuitemId}
+          // pass setter
           // variants={variants}
           // setVariants={setVariants}
         />

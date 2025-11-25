@@ -1,4 +1,3 @@
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -10,203 +9,218 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useRef, useState } from "react";
-import { ArrowBigLeft, ArrowRight, ImagePlus } from "lucide-react";
+import { ArrowBigLeft, ArrowRight, PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
+import { useMutationCreateItemInMenu } from "@/api_service/mutations/Hospitality/Menu";
 
 export default function AddItemInMenuStepTwo({
   onNext,
   onBack,
   categoryId,
   subCategoryId,
+  setMenuId,
 }: {
   onNext: () => void;
   onBack: () => void;
   categoryId: string;
   subCategoryId: string;
+  setMenuId: (id: string) => void;
 }) {
-  const [foodType, setFoodType] = useState<"veg" | "nonveg" | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const createitem = useMutationCreateItemInMenu();
 
-  const handleImageSelect = (file: File) => {
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      alert("Please upload an image file (PNG or JPG).");
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      alert("File size should be under 5MB.");
-      return;
-    }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
+  const form = useForm({
+    defaultValues: {
+      category_id: categoryId,
+      sub_category_id: subCategoryId,
+      name: "",
+      description: "",
+      is_veg: true,
+      base_price: 0.00,
+      served_by: "Kitchen",
+      unit: "",
+    },
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    handleImageSelect(file);
-  };
-
-  const handleSelectFoodType = (type: "veg" | "nonveg") => {
-    setFoodType((prev) => (prev === type ? null : type));
-  };
-
-const form = useForm({
-  defaultValues:({
-  })
-})
+    onSubmit: ({ value }) => {
+      console.log("FINAL PAYLOAD →", value);
+      createitem.mutate(value, {
+        onSuccess:(res)=>{
+          console.log("RES", res)
+          setMenuId(res?.data?.menu_item_id)
+        }
+      });
+    },
+  });
 
   return (
-    <div className="w-full space-y-5">
-      {/* Item Name */}
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium text-gray-700">Item Name</Label>
-        <Input placeholder="e.g. Margherita Pizza, Mojito" />
-      </div>
-
-      {/* Item Description */}
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium text-gray-700">
-          Item Description
-        </Label>
-        <Textarea placeholder="Describe your dish briefly..." />
-      </div>
-
-      {/* Food Type + Unit */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Food Type */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium text-gray-700">Food Type</Label>
-          <div className="flex gap-4">
-            {/* Veg Option */}
-            <div
-              onClick={() => handleSelectFoodType("veg")}
-              className={`flex items-center gap-2 px-4 py-2 border rounded-xl cursor-pointer transition-colors ${
-                foodType === "veg"
-                  ? "border-green-500 bg-green-50"
-                  : "hover:bg-green-50"
-              }`}
-            >
-              <Checkbox
-                checked={foodType === "veg"}
-                onCheckedChange={() => handleSelectFoodType("veg")}
-                className="data-[state=checked]:bg-green-500"
-              />
-              <span className="text-green-600 font-medium">Veg</span>
-            </div>
-
-            {/* Non-Veg Option */}
-            <div
-              onClick={() => handleSelectFoodType("nonveg")}
-              className={`flex items-center gap-2 px-4 py-2 border rounded-xl cursor-pointer transition-colors ${
-                foodType === "nonveg"
-                  ? "border-red-500 bg-red-50"
-                  : "hover:bg-red-50"
-              }`}
-            >
-              <Checkbox
-                checked={foodType === "nonveg"}
-                onCheckedChange={() => handleSelectFoodType("nonveg")}
-                className="data-[state=checked]:bg-red-500"
-              />
-              <span className="text-red-600 font-medium">Non Veg</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Unit Selection */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium text-gray-700">Unit</Label>
-          <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select Unit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="piece">Piece</SelectItem>
-                <SelectItem value="plate">Plate</SelectItem>
-                <SelectItem value="glass">Glass</SelectItem>
-                <SelectItem value="bottle">Bottle</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      {/* Upload Image Section */}
-      <div
-        className={`border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center text-center transition cursor-pointer ${
-          imagePreview ? "border-muted" : "hover:bg-muted/20"
-        }`}
-        onClick={() => fileInputRef.current?.click()}
-        onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
+    <div className="w-full">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit();
+        }}
+        className="space-y-6"
       >
-        {imagePreview ? (
-          <div className="relative h-60 rounded-lg overflow-hidden border">
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="object-cover w-full h-full"
-            />
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setImagePreview(null);
-              }}
-              className="absolute top-1 right-1 text-xs bg-background/70 backdrop-blur-sm rounded px-2 py-0.5 font-medium"
-            >
-              ✕
-            </button>
-          </div>
-        ) : (
-          <>
-            <ImagePlus className="w-10 h-10 text-muted-foreground mb-2" />
-            <p className="text-sm font-medium">Upload Item Image</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              PNG, JPG up to 5MB
-            </p>
-          </>
-        )}
-
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          ref={fileInputRef}
-          className="hidden"
-          onChange={(e) => handleImageSelect(e.target.files?.[0] as File)}
+        {/* Item Name */}
+        <form.Field
+          name="name"
+          children={(field) => (
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-gray-700">
+                Item Name
+              </Label>
+              <Input
+                placeholder="e.g. Margherita Pizza, Mojito"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+            </div>
+          )}
         />
-      </div>
 
-      <div className="flex items-center justify-between gap-6 mt-6 ">
-        <div className="w-full">
-          <Button
-            onClick={onBack}
-            variant="outline"
-            className="w-full flex items-center justify-center gap-2 "
-          >
-            <ArrowBigLeft className="w-5 h-5" />
-            <span className="font-medium">Back</span>
-          </Button>
+        {/* Description */}
+        <form.Field
+          name="description"
+          children={(field) => (
+            <div className="space-y-1.5">
+              <Label className="text-sm font-medium text-gray-700">
+                Item Description
+              </Label>
+              <Textarea
+                placeholder="Describe your dish briefly..."
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+            </div>
+          )}
+        />
+
+        {/* Item Type + Price + Unit */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {/* Veg / Non-Veg Toggle */}
+          <form.Field
+            name="is_veg"
+            children={(field) => {
+              const isVeg = field.state.value === true;
+
+              return (
+                <div className="space-y-1.5">
+                  <Label className="text-sm font-medium text-gray-700">
+                    Item Type
+                  </Label>
+
+                  <div className="flex items-center gap-3">
+                    <Switch
+                      checked={isVeg}
+                      onCheckedChange={(val) => field.handleChange(val)}
+                    />
+
+                    <span
+                      className={cn(
+                        "text-sm font-semibold",
+                        isVeg ? "text-green-600" : "text-red-600"
+                      )}
+                    >
+                      {isVeg ? "Veg" : "Non-Veg"}
+                    </span>
+                  </div>
+                </div>
+              );
+            }}
+          />
+
+          {/* Base Price */}
+          <form.Field
+            name="base_price"
+            children={(field) => (
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-gray-700">
+                  Item Price
+                </Label>
+                <Input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  value={field.state.value}
+                  onChange={(e) =>
+                    field.handleChange(parseFloat(e.target.value) || 0)
+                  }
+                  placeholder="e.g. 150.00"
+                />
+              </div>
+            )}
+          />
+
+          {/* Unit */}
+          <form.Field
+            name="unit"
+            children={(field) => (
+              <div className="space-y-1.5">
+                <Label className="text-sm font-medium text-gray-700">
+                  Unit
+                </Label>
+                <Select
+                  value={field.state.value}
+                  onValueChange={(val) => field.handleChange(val)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Unit" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="piece">Piece</SelectItem>
+                      <SelectItem value="plate">Plate</SelectItem>
+                      <SelectItem value="glass">Glass</SelectItem>
+                      <SelectItem value="bottle">Bottle</SelectItem>
+                      <SelectItem value="bowl">Bowl</SelectItem>
+                      <SelectItem value="cup">Cup</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+          />
         </div>
-        <div className="w-full">
-          {/* Next Button */}
-          <Button
-            onClick={onNext}
-            className="w-full flex items-center justify-center gap-2 bg-primary cursor-pointer"
-          >
-            <span className="font-medium">Next</span>
-            <ArrowRight className="w-5 h-5" />
-          </Button>
-        </div>
-      </div>
+
+        {/* Bottom Buttons */}
+        <form.Subscribe>
+          {() => (
+            <div className="flex justify-between gap-4 pt-4">
+              {/* Back */}
+              <Button
+                onClick={onBack}
+                variant="outline"
+                className=" flex items-center justify-center gap-2"
+              >
+                <ArrowBigLeft className="w-5 h-5" />
+                <span className="font-medium">Back</span>
+              </Button>
+
+              {/* Add Item */}
+              <Button
+                type="submit"
+                className=" flex items-center justify-center gap-2 bg-primary"
+              >
+                <span className="font-medium">Add Item to Menu</span>
+                <PlusIcon className="w-5 h-5" />
+              </Button>
+
+              {/* Add Variant */}
+              <Button
+                onClick={onNext}
+                type="button"
+                className=" flex items-center justify-center gap-2 bg-primary"
+              >
+                <span className="font-medium">Add Variant</span>
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </div>
+          )}
+        </form.Subscribe>
+      </form>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import BarConfigSection from "@/components/hospitality_module/org_configs/BarCon
 import HotelConfigSection from "@/components/hospitality_module/org_configs/HotelConfigSection";
 import OwnersSection from "@/components/hospitality_module/org_configs/OwnersSection";
 import RegLicenseSection from "@/components/hospitality_module/org_configs/RegLicenseSection";
-import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
+// import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
 import CustomerSupportSection from "@/components/hospitality_module/org_configs/CustomerSupportSection";
 import RestaurantConfigSection from "@/components/hospitality_module/org_configs/RestaurantConfigSection";
 import ORGConfigSection from "@/components/hospitality_module/org_configs/ORGconfig";

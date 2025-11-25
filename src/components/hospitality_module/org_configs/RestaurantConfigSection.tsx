@@ -1,6 +1,7 @@
-"use client";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRestaurantDetails } from "@/api_service/queries/HospitalityQueries/Restaurant";
+import {
+  useRestaurantDetails,
+  useRestaurantLayout,
+} from "@/api_service/queries/HospitalityQueries/Restaurant";
 import {
   Card,
   CardContent,
@@ -15,9 +16,13 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useFormsModal } from "@/context/FormModalContext";
 import UpdateRestaurantGeneralDetailsForms from "./forms/UpdateRestaurantGeneralDetailsForms";
+import { useDialogModal } from "@/context/DialogModalContext";
+import CreateAddTableInRestaurantForm from "./forms/CreateAddTableInRestaurantForm";
 
 export default function RestaurantConfigSection() {
   const { data, error, fetchStatus } = useRestaurantDetails();
+  const { data: resLayout } = useRestaurantLayout();
+  const { openModal, closeModal } = useDialogModal();
 
   const { showModal } = useFormsModal();
 
@@ -26,6 +31,14 @@ export default function RestaurantConfigSection() {
       "Update Restaurant",
       "Edit Update Restaurant General Details",
       <UpdateRestaurantGeneralDetailsForms resData={data?.data} />
+    );
+  };
+
+  const onAddTable = (floorId: string) => {
+    openModal(
+      <CreateAddTableInRestaurantForm floorId={floorId} restaurantId="5555" />,
+      `Add Table`,
+      `Add table in Floor`
     );
   };
 
@@ -128,11 +141,10 @@ export default function RestaurantConfigSection() {
             <div className="font-semibold">{data?.data?.address ?? "N/A"}</div>
           </div>
 
-           <Separator/>
+          <Separator />
 
           {/* City / State / Country */}
           <div className="grid grid-cols-1 md:grid-cols-6 items-start gap-3">
-
             {/* City */}
             <div className="space-y-1">
               <Label>City</Label>
@@ -149,7 +161,6 @@ export default function RestaurantConfigSection() {
             <div className="space-y-1">
               <Label>State</Label>
               <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
-           
             </div>
 
             {/* Separator */}
@@ -162,7 +173,6 @@ export default function RestaurantConfigSection() {
             <div className="space-y-1">
               <Label>Country</Label>
               <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
-        
             </div>
           </div>
 
@@ -180,7 +190,9 @@ export default function RestaurantConfigSection() {
             {/* City */}
             <div className="space-y-1">
               <Label>Email Address</Label>
-              <div className="font-semibold">{data?.data?.contact_email?? "N/A"}</div>
+              <div className="font-semibold">
+                {data?.data?.contact_email ?? "N/A"}
+              </div>
               <p className="text-xs text-muted-foreground">
                 This will appear on bills & receipts for customer this is only
                 for the customer contact.
@@ -196,7 +208,9 @@ export default function RestaurantConfigSection() {
             {/* State */}
             <div className="space-y-1">
               <Label>Contact Number</Label>
-              <div className="font-semibold">{data?.data?.contact_number ?? "N/A"}</div>
+              <div className="font-semibold">
+                {data?.data?.contact_number ?? "N/A"}
+              </div>
               <p className="text-xs text-muted-foreground">
                 Registered state information.
               </p>
@@ -208,19 +222,18 @@ export default function RestaurantConfigSection() {
 
         <CardContent className="space-y-2">
           {/* City / State / Country */}
-        
-            {/* City */}
-            <div className="space-y-1">
-              <Label>Manager Name</Label>
-              <div className="font-semibold">{data?.data?.manager_number ?? "N/A"}</div>
-              <p className="text-xs text-muted-foreground">
-                This will appear on bills & receipts for customer this is only
-                for the customer contact.
-              </p>
-            </div>
 
-    
-  
+          {/* City */}
+          <div className="space-y-1">
+            <Label>Manager Name</Label>
+            <div className="font-semibold">
+              {data?.data?.manager_number ?? "N/A"}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              This will appear on bills & receipts for customer this is only for
+              the customer contact.
+            </p>
+          </div>
         </CardContent>
 
         <CardFooter className="flex items-center justify-between">
@@ -231,7 +244,6 @@ export default function RestaurantConfigSection() {
 
           <Button>Fetch & Import Details</Button>
         </CardFooter>
-
       </Card>
 
       <Card className="relative">
@@ -290,7 +302,7 @@ export default function RestaurantConfigSection() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="relative">
         <CardHeader>
           <CardTitle>Restaurant Layout</CardTitle>
           <CardDescription>
@@ -298,16 +310,58 @@ export default function RestaurantConfigSection() {
           </CardDescription>
         </CardHeader>
 
-        {/* <CardContent>
-          {data?.data?.floors.map((flr) => (
-            <div className="border p-2  rounded-xl">
-              <div>{flr.name}</div>
-              {flr?.tables?.map((tbl) => (
-                <div></div>
-              ))}
+        {/* GLOBAL ADD FLOOR BUTTON */}
+        <Button className="absolute top-5 right-5" variant="outline">
+          Add Floor
+        </Button>
+
+        <CardContent className="space-y-5">
+          {resLayout?.floors.map((flr: any) => (
+            <div
+              key={flr.id}
+              className="border p-4 rounded-xl space-y-3 relative"
+            >
+              {/* Floor Header */}
+              <div className="flex items-center justify-between">
+                <div className="font-semibold text-lg">{flr.name}</div>
+
+                {/* ADD TABLE BUTTON */}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => onAddTable(flr.id)}
+                >
+                  + Add Table
+                </Button>
+              </div>
+
+              {/* TABLE GRID */}
+              <div className="grid grid-cols-10 gap-3">
+                {flr?.tables?.map((tbl: any) => (
+                  <div
+                    key={tbl.id}
+                    className={`
+                aspect-square w-full rounded-xl flex flex-col items-center justify-center 
+                text-sm font-medium border shadow-sm cursor-pointer select-none transition-all
+                ${
+                  tbl.status === "AVAILABLE"
+                    ? "border-green-400"
+                    : tbl.status === "OCCUPIED"
+                      ? "bg-red-50 border-red-400"
+                      : "bg-yellow-50 border-yellow-400"
+                }
+              `}
+                  >
+                    <div>{tbl.name}</div>
+                    <div className="text-xs opacity-70">
+                      {tbl.capacity} seats
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
-        </CardContent> */}
+        </CardContent>
       </Card>
     </div>
   );

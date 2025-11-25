@@ -1,4 +1,8 @@
-import { createCategoryInMenuGroup } from "@/api_service/apis/Hospitality/Menu";
+import {
+  createCategoryInMenuGroup,
+  createItemInMenu,
+  createVariantInMenuItem,
+} from "@/api_service/apis/Hospitality/Menu";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createSubCategoryINCategory } from "@/api_service/apis/Hospitality/Menu";
 
@@ -26,4 +30,18 @@ export function useMutateCreateSubCategory(menuGroupId: string) {
       });
     },
   });
+}
+
+export function useMutationCreateItemInMenu() {
+  return useMutation({
+    mutationKey: ["hospitality", "Menu", "Create-Item"],
+    mutationFn: createItemInMenu,
+  });
+}
+
+export function useMutationCreateVariantInMenuItem(){
+  return useMutation({
+    mutationKey:["hospitality", "Menu", "Create-variant"],
+    mutationFn:createVariantInMenuItem
+  })
 }
