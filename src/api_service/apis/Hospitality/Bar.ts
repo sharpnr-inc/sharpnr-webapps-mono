@@ -1,4 +1,4 @@
-import type { BarBarUpdateReq } from "@/components/hospitality_module/org_configs/forms/UpdateBarGeneralDetailsForm";
+
 import api from "../../axios";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
@@ -8,7 +8,7 @@ export const fetchBarLayout = async (): Promise<ApiResponse<any>> => {
   return res.data;
 };
 
-export const updateBarDetails = async (req: BarBarUpdateReq):Promise<ApiResponse<any>> => {
+export const updateBarDetails = async (req: any):Promise<ApiResponse<any>> => {
   const res = await api.post<ApiResponse<any>>(
     HospitalityApiEndpoint.Bar.updateBarGenDetails,
     req

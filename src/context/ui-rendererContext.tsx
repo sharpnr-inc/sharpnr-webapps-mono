@@ -23,7 +23,6 @@ const UIRendererContext = createContext<UIRendererContextType | undefined>(
 
 export function UIRendererProvider({ children }: { children: ReactNode }) {
   const { data, isLoading, error, refetch } = useOrgUIRenderer();
-  console.log(data)
   const value = useMemo(() => {
     // Check if org has access to a main module (e.g., "sharp_hospitality")
     const hasModuleAccess = (module: string): boolean => {

@@ -58,7 +58,7 @@ export interface GetRestaurantDetails_RESPONSE {
 
   contact_email: string;
   contact_number:string;
-  manager_number:string;
+  manager_name:string;
 
   address: string;
   city: string;
@@ -126,3 +126,8 @@ export const UpdateRestaurantGeneralDetails = async (req: any) => {
   );
   return res.data;
 };
+
+export const createOrAddTablesInFloor = async (req:any) =>{
+  const res = await api.post(HospitalityApiEndpoint.Restaurant.CreateOrAddTableInFloor, req)
+  return res.data;
+}

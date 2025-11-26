@@ -73,7 +73,8 @@ export const HospitalityApiEndpoint = {
     CreateTableBooking: "/hospitality/restaurant/booking/create",
     getRestaurantDetails:"/sharp-hospitality/restaurant/getRestaurant-Gen-details",
     updateGeneralDetails:"/sharp-hospitality/restaurant/update",
-    getRestaurantLayout:"/sharp-hospitality/restaurant/get-restaurant-layout"
+    getRestaurantLayout:"/sharp-hospitality/restaurant/get-restaurant-layout",
+    CreateOrAddTableInFloor:"/sharp-hospitality/restaurant/add-table"
   },
 
   Kitchen: {

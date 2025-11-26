@@ -23,6 +23,7 @@ export default function RestaurantConfigSection() {
   const { data, error, fetchStatus } = useRestaurantDetails();
   const { data: resLayout } = useRestaurantLayout();
   const { openModal, closeModal } = useDialogModal();
+  console.log(resLayout);
 
   const { showModal } = useFormsModal();
 
@@ -34,11 +35,14 @@ export default function RestaurantConfigSection() {
     );
   };
 
-  const onAddTable = (floorId: string) => {
+  const onAddTable = (floor: any) => {
     openModal(
-      <CreateAddTableInRestaurantForm floorId={floorId} restaurantId="5555" />,
+      <CreateAddTableInRestaurantForm
+        floorId={floor}
+        restaurantId={resLayout?.restaurant_id}
+      />,
       `Add Table`,
-      `Add table in Floor`
+      `Add table in Floor ${floor.name}`
     );
   };
 
@@ -89,7 +93,37 @@ export default function RestaurantConfigSection() {
             />
           </div>
         </CardContent>
+
         <Separator />
+
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+            {/* Left block */}
+            <div className="space-y-2">
+              <Label>Opening Time</Label>
+              <div className="font-semibold">
+                {data?.data?.opening_time ?? "N/A"}
+              </div>
+            </div>
+
+            {/* Right block */}
+            <div className="space-y-2">
+              <Label>Closing Time</Label>
+              <div className="font-semibold">
+                {data?.data?.closing_time ?? "N/A"}
+              </div>
+            </div>
+
+            {/* Separator that visually splits the grid */}
+            <Separator
+              orientation="vertical"
+              className="hidden md:block absolute left-1/2 top-0 h-full"
+            />
+          </div>
+        </CardContent>
+
+        <Separator />
+
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-6 items-start gap-4">
             {/* FSSAI */}
@@ -134,6 +168,7 @@ export default function RestaurantConfigSection() {
         </CardContent>
 
         <Separator />
+
         <CardContent className="space-y-4">
           {/* Address line */}
           <div className="space-y-1">
@@ -172,7 +207,7 @@ export default function RestaurantConfigSection() {
             {/* Country */}
             <div className="space-y-1">
               <Label>Country</Label>
-              <div className="font-semibold">{data?.data?.state ?? "N/A"}</div>
+              <div className="font-semibold">{data?.data?.country ?? "N/A"}</div>
             </div>
           </div>
 
@@ -184,6 +219,7 @@ export default function RestaurantConfigSection() {
         </CardContent>
 
         <Separator />
+
         <CardContent className="space-y-2">
           {/* City / State / Country */}
           <div className="grid grid-cols-1 md:grid-cols-6 items-start gap-6">
@@ -227,7 +263,7 @@ export default function RestaurantConfigSection() {
           <div className="space-y-1">
             <Label>Manager Name</Label>
             <div className="font-semibold">
-              {data?.data?.manager_number ?? "N/A"}
+              {data?.data?.manager_name ?? "N/A"}
             </div>
             <p className="text-xs text-muted-foreground">
               This will appear on bills & receipts for customer this is only for
@@ -244,6 +280,7 @@ export default function RestaurantConfigSection() {
 
           <Button>Fetch & Import Details</Button>
         </CardFooter>
+        
       </Card>
 
       <Card className="relative">
@@ -329,7 +366,7 @@ export default function RestaurantConfigSection() {
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => onAddTable(flr.id)}
+                  onClick={() => onAddTable(flr)}
                 >
                   + Add Table
                 </Button>

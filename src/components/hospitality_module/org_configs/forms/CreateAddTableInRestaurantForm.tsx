@@ -2,10 +2,11 @@ import { Field, FieldGroup, FieldSet, FieldTitle } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
-import { useState } from "react";
+import { DeleteIcon, Plus, Trash2Icon } from "lucide-react";
+import { useMutationAddTables } from "@/api_service/mutations/Hospitality/Restaurant";
 
 interface CreateAddTableInRestaurantFormProps {
-  floorId: string;
+  floorId: any;
   restaurantId: string;
 }
 
@@ -13,91 +14,103 @@ export default function CreateAddTableInRestaurantForm({
   floorId,
   restaurantId,
 }: CreateAddTableInRestaurantFormProps) {
-  // ✅ local state for dynamic table array
-  const [tables, setTables] = useState([
-    { table_name: "", table_capacity: 2 },
-  ]);
 
-  const form = useForm({
-    defaultValues: {
-      restaurant_id: restaurantId,
-      floor_id: floorId,
-    },
-    onSubmit: async ({ value }) => {
-      const payload = {
-        ...value,
-        tables: tables,
-      };
+  const createTables = useMutationAddTables();
 
-      console.log("FINAL PAYLOAD --> ", payload);
-    },
-  });
+ const form = useForm({
+  defaultValues: {
+    restaurant_id: restaurantId,
+    floor_id: floorId.id,
+    tables: [{ table_name: "", table_capacity: 0 }],
+  },
+  onSubmit: async ({ value }) => {
+    console.log("FINAL PAYLOAD --> ", value);
+    createTables.mutate(value)
+  },
+});
 
-  const addTable = () => {
-    setTables([...tables, { table_name: "", table_capacity: 2 }]);
-  };
-
-  const removeTable = (index: number) => {
-    const updated = tables.filter((_, i) => i !== index);
-    setTables(updated);
-  };
-
-  return (
-    <div className="space-y-4 p-3">
+return (
+  <div className="space-y-4 p-3">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
       <FieldSet>
-        <FieldTitle className="text-lg font-semibold">Add Tables</FieldTitle>
-
-        {tables.map((tbl, index) => (
-          <FieldGroup className="flex gap-3" key={index}>
-            {/* Table Name */}
-            <Field className="w-2/3">
-              <FieldTitle>Table Name</FieldTitle>
-              <Input
-                value={tbl.table_name}
-                onChange={(e) => {
-                  const updated = [...tables];
-                  updated[index].table_name = e.target.value;
-                  setTables(updated);
-                }}
-                placeholder={`Table ${index + 1}`}
-              />
-            </Field>
-
-            {/* Capacity */}
-            <Field className="w-1/3">
-              <FieldTitle>Capacity</FieldTitle>
-              <Input
-                type="number"
-                min="1"
-                value={tbl.table_capacity}
-                onChange={(e) => {
-                  const updated = [...tables];
-                  updated[index].table_capacity = parseInt(e.target.value) || 1;
-                  setTables(updated);
-                }}
-              />
-            </Field>
-
-            {/* Remove Button */}
-            <Button
-              variant="destructive"
-              onClick={() => removeTable(index)}
-            >
-              Remove
-            </Button>
-          </FieldGroup>
-        ))}
-
-        {/* Add Another Table */}
-        <Button variant="outline" onClick={addTable}>
-          + Add Another Table
-        </Button>
+        <FieldGroup>
+          <form.Field
+            name="tables"
+            mode="array"
+            children={(field) => {
+              return (
+                <div className="space-y-3">
+                  {field.state.value.map((_, index) => (
+                    <div key={index} className="flex gap-2 items-end">
+                      <form.Field
+                        name={`tables[${index}].table_name`}
+                        children={(subField) => (
+                          <Field>
+                            <FieldTitle>Name</FieldTitle>
+                            <Input
+                              value={subField.state.value}
+                              onChange={(e) =>
+                                subField.handleChange(e.target.value)
+                              }
+                            />
+                          </Field>
+                        )}
+                      />
+                      <form.Field
+                        name={`tables[${index}].table_capacity`}
+                        children={(subField) => (
+                          <Field>
+                            <FieldTitle>Capacity</FieldTitle>
+                            <Input
+                              type="number"
+                              value={subField.state.value}
+                              onChange={(e) =>
+                                subField.handleChange(Number(e.target.value))
+                              }
+                            />
+                          </Field>
+                        )}
+                      />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        onClick={() => field.removeValue(index)}
+                        disabled={field.state.value.length === 1}
+                      >
+                        <Trash2Icon className="h-5 w-5" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              );
+            }}
+          />
+        </FieldGroup>
       </FieldSet>
-
-      {/* Submit */}
-      <Button onClick={() => form.handleSubmit()}>
-        Save Tables
-      </Button>
-    </div>
-  );
+      <div className="flex gap-5 mt-2">
+        <Button
+          type="button"
+          size="sm"
+          onClick={() =>
+            form.setFieldValue("tables", [
+              ...form.getFieldValue("tables"),
+              { table_name: "", table_capacity: 0 },
+            ])
+          }
+        >
+          Add tables
+        </Button>
+        <Button type="submit" size="sm">
+          Save Tables
+        </Button>
+      </div>
+    </form>
+  </div>
+);
 }

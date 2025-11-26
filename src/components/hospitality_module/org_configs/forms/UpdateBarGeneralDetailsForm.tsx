@@ -12,79 +12,49 @@ import type { BarGeneralDetailsResponse } from "@/api_service/apis/Hospitality/B
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useUpdateBarDetails } from "@/api_service/mutations/Hospitality/BarMutations";
+import { transformBarGenDetailsResToBarUpdateReq } from "@/mappers/Hospitality/Bar";
 
-export interface BarBarUpdateReq {
-  // Basic Details
-  id?: string;
-  name?: string;
-  display_name?: string;
-  legal_name?: string;
-  registered_address?: string;
-
-  // Organization
-  organization_id?: string;
-
-  // Operating Hours (ISO datetime strings)
-  opening_time?: string;
-  closing_time?: string;
-
-  // Kitchen Info
-  is_kitchen?: boolean;
-  kitchen_id?: string;
-
-  // Legal Details
-  is_share_legal_details_with_main_org?: boolean;
-  gst_number?: string;
-  cin_number?: string;
-  fssai_number?: string;
-
-  // Location Details
-  is_multifloor?: boolean;
-  address_line?: string;
-  city?: string;
-  state?: string;
-  country?: string;
-  pincode?: string;
-}
 
 export function UpdateBarGeneralDetailsForm({
   barGenDetail,
 }: {
   barGenDetail: BarGeneralDetailsResponse | undefined;
 }) {
-
   const updateBarDetailsMutation = useUpdateBarDetails();
 
   console.log(barGenDetail);
 
-  const form = useForm({
-    defaultValues: barGenDetail,
-    onSubmit: async ({ value, formApi }) => {
-      if (!formApi.state.isDirty) {
-        console.log("No changes to submit");
-        return;
+const form = useForm({
+  defaultValues: transformBarGenDetailsResToBarUpdateReq(barGenDetail),
+
+  onSubmit: ({ value, formApi }) => {
+    // No changes
+    if (!formApi.state.isDirty) {
+      console.log("No changes detected");
+      return;
+    }
+
+    // Collect changed fields
+    const changedFields: Partial<typeof value> = {
+      bar_id: value.bar_id, // always include bar_id
+    };
+
+    Object.keys(value).forEach((key) => {
+      const fieldKey = key as keyof typeof value;
+
+      const currentValue = value[fieldKey];
+      const initialValue = formApi.options.defaultValues?.[fieldKey];
+
+      if (currentValue !== initialValue) {
+        // FIX: cast once to avoid TS error
+        (changedFields as any)[fieldKey] = currentValue;
       }
+    });
 
-      if (!barGenDetail) {
-        console.log("No default values to compare");
-        return;
-      }
-
-      // Get only dirty values
-      const dirtyValues = Object.entries(value).reduce<
-        Partial<BarGeneralDetailsResponse>
-      >((acc, [key, val]) => {
-        const typedKey = key as keyof BarGeneralDetailsResponse;
-        if (val !== barGenDetail[typedKey]) {
-          (acc as any)[typedKey] = val;
-        }
-        return acc;
-      }, {});
-
-      console.log("Dirty values:", dirtyValues);
-       await updateBarDetailsMutation.mutateAsync(dirtyValues);
-    },
-  });
+    console.log("Only changed fields:", changedFields);
+    updateBarDetailsMutation.mutateAsync(changedFields)
+  },
+});
 
   return (
     <div>
@@ -96,7 +66,7 @@ export function UpdateBarGeneralDetailsForm({
         <FieldSet>
           <FieldGroup className="grid grid-cols-2">
             <form.Field
-              name="bar_display_name"
+              name="display_name"
               children={(field) => {
                 return (
                   <Field>
@@ -116,7 +86,7 @@ export function UpdateBarGeneralDetailsForm({
             />
 
             <form.Field
-              name="bar_legal_name"
+              name="legal_name"
               children={(field) => {
                 return (
                   <Field>

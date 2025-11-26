@@ -12,6 +12,8 @@ import { useForm } from "@tanstack/react-form";
 import { useMutateUpdateRestaurant } from "@/api_service/mutations/Hospitality/Restaurant";
 import type { GetRestaurantDetails_RESPONSE } from "@/api_service/apis/Hospitality/Restaurant";
 import { Textarea } from "@/components/ui/textarea";
+import { transformRestaurantGenDetailsToUpdateReqBody } from "@/mappers/Hospitality/Restaurant";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface RestaurantUpdateOrEditGeneralDetailsReq {
   hotelId: string;
@@ -37,12 +39,46 @@ export default function UpdateRestaurantGeneralDetailsForms({
 }: {
   resData: GetRestaurantDetails_RESPONSE | undefined;
 }) {
-  const updateMutation = useMutateUpdateRestaurant();
-
+  const updateRestaurant = useMutateUpdateRestaurant();
+  const queryClient = useQueryClient();
   console.log(resData);
 
   const form = useForm({
-    defaultValues: resData,
+    defaultValues: transformRestaurantGenDetailsToUpdateReqBody(resData),
+    onSubmit: ({ value, formApi }) => {
+      // Check if form has any changes
+      if (!formApi.state.isDirty) {
+        console.log("No changes detected");
+        return;
+      }
+
+      // Get only changed fields by comparing with initial values
+      const changedFields: Partial<typeof value> = {
+        restaurant_id: value.restaurant_id, // Always include ID
+      };
+
+      Object.keys(value).forEach((key) => {
+        const fieldKey = key as keyof typeof value;
+        const currentValue = value[fieldKey];
+        const initialValue = formApi.options.defaultValues?.[fieldKey];
+
+        // If value changed, include it
+        if (currentValue !== initialValue) {
+          changedFields[fieldKey] = currentValue;
+        }
+      });
+
+      console.log("Only changed fields:", changedFields);
+
+      // Send to backend
+      updateRestaurant.mutate(changedFields, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["restaurant", "details"],
+          });
+        },
+      });
+    },
   });
 
   return (
@@ -60,7 +96,7 @@ export default function UpdateRestaurantGeneralDetailsForms({
             {/* Display / Legal Name */}
             <FieldGroup className="flex flex-row gap-2">
               <form.Field
-                name="display_name"
+                name="restaurant_display_name"
                 children={(field) => (
                   <Field>
                     <FieldLabel>Display Name</FieldLabel>
@@ -73,7 +109,7 @@ export default function UpdateRestaurantGeneralDetailsForms({
               />
 
               <form.Field
-                name="legal_name"
+                name="restaurant_legal_name"
                 children={(field) => (
                   <Field>
                     <FieldLabel>Legal Name</FieldLabel>
@@ -81,6 +117,40 @@ export default function UpdateRestaurantGeneralDetailsForms({
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                     />
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+            <FieldSeparator />
+            <FieldGroup className="flex flex-row gap-2">
+              <form.Field
+                name="contact_number"
+                children={(field) => (
+                  <Field>
+                    <FieldLabel>Contact Number</FieldLabel>
+                    <Input
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                    <FieldDescription>
+                      This will appear on Invoices
+                    </FieldDescription>
+                  </Field>
+                )}
+              />
+
+              <form.Field
+                name="email_address"
+                children={(field) => (
+                  <Field>
+                    <FieldLabel>Email Address</FieldLabel>
+                    <Input
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                    <FieldDescription>
+                      This will appear on Invoices
+                    </FieldDescription>
                   </Field>
                 )}
               />
@@ -117,10 +187,25 @@ export default function UpdateRestaurantGeneralDetailsForms({
               />
 
               <form.Field
-                name="gst_number"
+                name="cin_number"
                 children={(field) => (
                   <Field>
                     <FieldLabel>CIN Number</FieldLabel>
+                    <Input
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                    />
+                  </Field>
+                )}
+              />
+            </FieldGroup>
+            <FieldSeparator />
+            <FieldGroup className="flex flex-row gap-2">
+              <form.Field
+                name="manager_name"
+                children={(field) => (
+                  <Field>
+                    <FieldLabel>Manager Name</FieldLabel>
                     <Input
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
@@ -135,7 +220,7 @@ export default function UpdateRestaurantGeneralDetailsForms({
             {/* Address Section */}
             <FieldGroup className="">
               <form.Field
-                name="address"
+                name="address_line"
                 children={(field) => (
                   <Field>
                     <FieldLabel>Address Line</FieldLabel>
@@ -186,7 +271,7 @@ export default function UpdateRestaurantGeneralDetailsForms({
                   )}
                 />
 
-                 <form.Field
+                <form.Field
                   name="pincode"
                   children={(field) => (
                     <Field>
