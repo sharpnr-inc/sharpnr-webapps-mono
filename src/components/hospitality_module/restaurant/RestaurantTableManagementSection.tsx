@@ -16,32 +16,47 @@ import {
 import { cn } from "@/lib/utils";
 import { useSheet } from "@/context/DrawerContext";
 import { useDialogModal } from "@/context/DialogModalContext";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useRestaurantLayout } from "@/api_service/queries/HospitalityQueries/Restaurant";
+import { RestaurantOrderTerminal } from "./RestaurantOrderTerminal";
+import { useState } from "react";
 
 export default function RestaurantTableManagementSection() {
   const { openSheet } = useSheet();
   const { openModal } = useDialogModal();
   const { data } = useRestaurantLayout();
+  const [isCounterOpen, setCounter] = useState(false);
+  const [tb, setTable]=useState({})
 
   const handleTableAction = (table: any) => {
-    if (table.table_status === "Occupied") {
-      openSheet(<div>{table.table_name}</div>, "", "", "3/4");
-    } else if (table.table_status === "Available") {
-      openModal(<StartTableForm table={table} />, "", "");
+    if (table.status === "OCCUPIED") {
+      openSheet(
+        <RestaurantOrderTerminal />,
+        `${table.name}`,
+        "Add Orders and Invoice",
+        "full"
+      );
+    } else if (table.status === "AVAILABLE") {
+      // openModal(<StartTableForm table={table} />, "", "");
+      setCounter((prev) => !prev);
+      setTable(table)
     }
   };
   return (
-    <div className=" space-y-2">
+    <div className=" flex gap-4">
       {data?.floors?.map((flr: any) => (
-        <div key={flr.id} className="rounded-xl border p-4 mt-2">
+        <div
+          key={flr.id}
+          className={cn(
+            "rounded-xl border p-4 transition-all duration-300 overflow-hidden",
+            isCounterOpen ? "w-1/6" : ""
+          )}
+        >
           {/* Floor title */}
           <div className="font-bold text-lg mb-2 col-span-4">{flr.name}</div>
 
           {/* Grid wrapper for tables */}
           <div className=" gap-3">
-            <div className="p-3 rounded-lg space-y-3">
+            <div className="p-2 rounded-lg space-y-3">
               {/* Floor-level table listing */}
               <div className="flex flex-wrap gap-4">
                 {flr.tables.map((table: any) => (
@@ -50,7 +65,7 @@ export default function RestaurantTableManagementSection() {
                       <div
                         onClick={() => handleTableAction(table)}
                         className={cn(
-                          "h-20 w-20 border rounded-2xl flex items-center justify-center text-xs shadow-sm transform transition-all duration-200 hover:scale-105 hover:-translate-y-1 hover:shadow-lg cursor-pointer",
+                          "h-10 w-20 border rounded-2xl flex items-center justify-center text-xs shadow-sm transform transition-all duration-200 hover:scale-105 hover:-translate-y-1 hover:shadow-lg cursor-pointer",
                           table.status === "AVAILABLE"
                             ? "bg-green-500 text-gray-900"
                             : "",
@@ -93,16 +108,20 @@ export default function RestaurantTableManagementSection() {
           </div>
         </div>
       ))}
-    </div>
-  );
-}
 
-function StartTableForm({ table }: { table: any }) {
-  return (
-    <div>
-      <div>{table.table_name}</div>
-      <Label>Guest Mobile</Label>
-      <Input></Input>
+      {isCounterOpen ? (
+        <div
+          className={cn(
+            "p-2 rounded-xl transition-all duration-300 border",
+            isCounterOpen ? "w-5/6" : ""
+          )}
+        >
+          <div>{"Something"}</div>
+
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
