@@ -84,6 +84,8 @@ export const HospitalityApiEndpoint = {
 
   Kitchen: {
     GetOrders_Websocket_url: "wss://api.example.com/hospitality/kitchen/orders",
+
+    fetchOrders:"/sharp-hospitality/kitchen/get-orders"
   },
 
   HouseKeeping: {

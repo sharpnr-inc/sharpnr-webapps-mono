@@ -29,3 +29,5 @@ export function useBookingSession(tableId: string) {
     queryFn: () => getBookingSessionOfTable(tableId),
   });
 }
+
+

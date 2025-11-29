@@ -34,7 +34,7 @@ export default function RestaurantTableManagementSection() {
   const handleTableAction = (table: any) => {
     if (table.status === "OCCUPIED") {
       openSheet(
-        <RestaurantOrderTerminal />,
+        <RestaurantOrderTerminal tableId={table.id}/>,
         `${table.name}`,
         "Add Orders and Invoice",
         "full"
@@ -49,11 +49,13 @@ export default function RestaurantTableManagementSection() {
         "",
         ""
       );
-      // setCounter((prev) => !prev);
-      // setTable(table);
       console.log(table);
     }
+
+
   };
+
+
   return (
     <div className=" flex gap-4">
       {data?.floors?.map((flr: any) => (
