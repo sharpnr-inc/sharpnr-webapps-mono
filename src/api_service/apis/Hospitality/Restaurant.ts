@@ -131,3 +131,13 @@ export const createOrAddTablesInFloor = async (req:any) =>{
   const res = await api.post(HospitalityApiEndpoint.Restaurant.CreateOrAddTableInFloor, req)
   return res.data;
 }
+
+export const createRestaurantTablesSession = async(req:any)=>{
+  const res = await api.post(HospitalityApiEndpoint.Restaurant.CreateTableBookingSession, req)
+  return res.data
+}
+
+export const getBookingSessionOfTable = async(tableId:string)=>{
+  const res = await api.get(HospitalityApiEndpoint.Restaurant.GetTableBookingSession(tableId))
+  return res.data 
+}

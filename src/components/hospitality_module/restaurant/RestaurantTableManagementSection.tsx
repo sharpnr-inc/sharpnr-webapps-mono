@@ -18,14 +18,18 @@ import { useSheet } from "@/context/DrawerContext";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { useRestaurantLayout } from "@/api_service/queries/HospitalityQueries/Restaurant";
 import { RestaurantOrderTerminal } from "./RestaurantOrderTerminal";
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
+import { ArrowRightCircle } from "lucide-react";
+import { useForm } from "@tanstack/react-form";
+import { useMutationCreateTableSession } from "@/api_service/mutations/Hospitality/Restaurant";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function RestaurantTableManagementSection() {
   const { openSheet } = useSheet();
-  const { openModal } = useDialogModal();
+  const { openModal, closeModal } = useDialogModal();
   const { data } = useRestaurantLayout();
-  const [isCounterOpen, setCounter] = useState(false);
-  const [tb, setTable]=useState({})
 
   const handleTableAction = (table: any) => {
     if (table.status === "OCCUPIED") {
@@ -36,9 +40,18 @@ export default function RestaurantTableManagementSection() {
         "full"
       );
     } else if (table.status === "AVAILABLE") {
-      // openModal(<StartTableForm table={table} />, "", "");
-      setCounter((prev) => !prev);
-      setTable(table)
+      openModal(
+        <CreateTableBookingSession
+          closeModal={closeModal}
+          restId={data?.restaurant_id}
+          table={table}
+        />,
+        "",
+        ""
+      );
+      // setCounter((prev) => !prev);
+      // setTable(table);
+      console.log(table);
     }
   };
   return (
@@ -47,8 +60,7 @@ export default function RestaurantTableManagementSection() {
         <div
           key={flr.id}
           className={cn(
-            "rounded-xl border p-4 transition-all duration-300 overflow-hidden",
-            isCounterOpen ? "w-1/6" : ""
+            "rounded-xl border p-4 transition-all duration-300 overflow-hidden"
           )}
         >
           {/* Floor title */}
@@ -108,20 +120,89 @@ export default function RestaurantTableManagementSection() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
 
-      {isCounterOpen ? (
-        <div
-          className={cn(
-            "p-2 rounded-xl transition-all duration-300 border",
-            isCounterOpen ? "w-5/6" : ""
-          )}
-        >
-          <div>{"Something"}</div>
+function CreateTableBookingSession({ closeModal, restId, table }: any) {
+  const createTableSession = useMutationCreateTableSession();
+  const queryClient = useQueryClient();
+  const form = useForm({
+    defaultValues: {
+      restuarantId: restId,
+      tableId: table?.id,
+      guest_mobile_number: "",
+      guest_name: "",
+    },
+    onSubmit: ({ value }) => {
+      createTableSession.mutate(value, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["Hospitality", "Restaurant", "Layout"],
+          });
+          closeModal();
+        },
+      });
+    },
+  });
 
+  return (
+    <div>
+      <div>{table?.name}</div>
+      <div className="text-xs font-semibold">{table?.id}</div>
+
+      {/* Single Form */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit(); // Correct
+        }}
+      >
+        <FieldSet>
+          <FieldGroup>
+            {/* Guest Name */}
+            <form.Field name="guest_name">
+              {(field) => (
+                <Field>
+                  <FieldLabel>Guest Name{"(optional)"}</FieldLabel>
+                  <Input
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    placeholder="Guest Name"
+                  />
+                </Field>
+              )}
+            </form.Field>
+
+            {/* Guest Mobile Number */}
+            <form.Field name="guest_mobile_number">
+              {(field) => (
+                <Field>
+                  <FieldLabel>Guest Mobile Number{"(optional)"}</FieldLabel>
+                  <Input
+                    type="tel"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    placeholder="ex :-> 9828823314"
+                  />
+                </Field>
+              )}
+            </form.Field>
+          </FieldGroup>
+        </FieldSet>
+
+        <div className="flex flex-col gap-4 mt-2">
+          <Button type="submit">
+            Create Booking Session <ArrowRightCircle />
+          </Button>
+          <div className="text-muted-foreground text-xs font-semibold">
+            You don’t need customer details to create a session, but you need at
+            least name OR mobile number to close a session and generate an
+            invoice.
+          </div>
         </div>
-      ) : (
-        ""
-      )}
+      </form>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useMenuGroup,
   useMenuGroupDetails,
+  useVariantOfMenuItem,
 } from "@/api_service/queries/HospitalityQueries/Menu";
 import { Input } from "@/components/ui/input";
 import {
@@ -23,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useBookingSession } from "@/api_service/queries/HospitalityQueries/Restaurant";
 
 export function RestaurantOrderTerminal() {
   const { data, isLoading, error } = useMenuGroup();
@@ -34,6 +36,8 @@ export function RestaurantOrderTerminal() {
 
   const [showPaymentBox, setShowPaymentBox] = useState(false);
   const [paymentType, setPaymentType] = useState("");
+
+  const {data:sessData}=useBookingSession("9fbfc403-8889-432c-a13d-a60bd7959b2f");
 
   if (isLoading || menuIsLoading) return <div>Loading...</div>;
   if (error || menuIsError) return <div>Error loading menus</div>;

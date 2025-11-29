@@ -1,4 +1,5 @@
 import {
+  getBookingSessionOfTable,
   GetRestaurantDetails,
   GetRestaurantLayout,
   type GetRestaurantDetails_RESPONSE,
@@ -19,5 +20,12 @@ export function useRestaurantLayout() {
   return useQuery({
     queryKey: ["Hospitality", "Restaurant", "Layout"],
     queryFn: GetRestaurantLayout,
+  });
+}
+
+export function useBookingSession(tableId: string) {
+  return useQuery({
+    queryKey: ["hospitality", "restaurant", "get-tables-booking"],
+    queryFn: () => getBookingSessionOfTable(tableId),
   });
 }
