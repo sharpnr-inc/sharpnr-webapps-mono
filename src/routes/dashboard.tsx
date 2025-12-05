@@ -21,7 +21,7 @@ function RouteComponent() {
         <HeaderProvider>
           <BookingAndOrdersNotificationProvider>
             <DashboardHeader useremail={"kashifsocl@gmail.com"} />
-            <div className="h-screen mt-16">
+            <div className="h-full">
               <Outlet />
             </div>
           </BookingAndOrdersNotificationProvider>

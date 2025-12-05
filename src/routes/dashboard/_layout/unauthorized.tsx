@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 import { AlertTriangle } from "lucide-react"
 
-export const Route = createFileRoute("/dashboard/_layout/unauthorised")({
+export const Route = createFileRoute("/dashboard/_layout/unauthorized")({
   component: RouteComponent,
 })
 
