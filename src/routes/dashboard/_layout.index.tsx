@@ -14,7 +14,6 @@ export const Route = createFileRoute("/dashboard/_layout/")({
 
 function AddrCard() {
   const contryList = useQuery(createCountriesQuery());
-  console.log(contryList);
   return (
     <div className="p-4 rounded shadow border-2">
       <h2 className="text-xl font-bold mb-2">Dashboard Home</h2>

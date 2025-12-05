@@ -1,7 +1,5 @@
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
-import DashboardSideBar from "@/components/Sidebar/DashboardSidebar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { BookingAndOrdersNotificationProvider } from "@/context/BookingandOrdersContext";
+import { BookingAndOrdersNotificationProvider } from "@/context/BookingAndOrdersContext";
 import { EmployeePolicyProvider } from "@/context/EmployeePolicyContext";
 import { HeaderProvider } from "@/context/HeaderContext";
 import { UIRendererProvider } from "@/context/ui-rendererContext";
@@ -20,19 +18,14 @@ function RouteComponent() {
   return (
     <UIRendererProvider>
       <EmployeePolicyProvider>
-        <SidebarProvider>
-          <HeaderProvider>
-            <BookingAndOrdersNotificationProvider>
-              <DashboardSideBar />
-              <SidebarInset>
-                <DashboardHeader useremail={"kashifsocl@gmail.com"} />
-                <div className="h-screen">
-                  <Outlet />
-                </div>
-              </SidebarInset>
-            </BookingAndOrdersNotificationProvider>
-          </HeaderProvider>
-        </SidebarProvider>
+        <HeaderProvider>
+          <BookingAndOrdersNotificationProvider>
+            <DashboardHeader useremail={"kashifsocl@gmail.com"} />
+            <div className="h-screen mt-16">
+              <Outlet />
+            </div>
+          </BookingAndOrdersNotificationProvider>
+        </HeaderProvider>
       </EmployeePolicyProvider>
     </UIRendererProvider>
   );

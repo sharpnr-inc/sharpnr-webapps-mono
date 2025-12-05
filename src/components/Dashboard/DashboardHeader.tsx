@@ -1,6 +1,3 @@
-"use client";
-
-import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -21,24 +18,19 @@ interface DashboardHeaderProps {
 
 export default function DashboardHeader({ useremail }: DashboardHeaderProps) {
   const { heading, subheading, HeaderIcon } = useHeader();
-  const { open, isMobile } = useSidebar();
+  // const { open, isMobile } = useSidebar();
   const nav = useNavigate();
 
   return (
     <header
       className={cn(
-        "flex flex-wrap justify-between items-center h-auto min-h-16 shrink-0 gap-2 border-b fixed top-0 z-50 px-2 sm:px-4 bg-background/70 backdrop-blur-md transition-all duration-300 ease-in-out",
-        {
-          "left-[var(--sidebar-width)] w-[calc(100%-var(--sidebar-width))]":
-            open && !isMobile,
-          "w-full left-0": !open || isMobile,
-        }
+        "flex flex-wrap w-full justify-between items-center h-auto min-h-16 shrink-0 gap-2 border-b fixed top-0 z-50 px-2 sm:px-4 bg-background/70 backdrop-blur-md transition-all duration-300 ease-in-out"
       )}
     >
       {/* Left Section */}
       <div className="flex items-center flex-1 min-w-0">
         <div className="flex gap-2 pr-1 sm:pr-3">
-          <MainMenuButton/>
+          <MainMenuButton />
           Dearie Clubs PVT LTDs
           {/* <SidebarTrigger /> */}
         </div>
