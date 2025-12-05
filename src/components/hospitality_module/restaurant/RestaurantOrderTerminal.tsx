@@ -1,4 +1,3 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useMenuGroup,
   useMenuGroupDetails,
@@ -93,46 +92,9 @@ export function RestaurantOrderTerminal({ tableId }: any) {
 
   return (
     <>
-      <div className="flex p-2 gap-2">
+      <div className="flex p-2 gap-2 ">
         {/* LEFT SIDE - KOT & Order Management */}
-        <div className="w-6/12 space-y-3 border p-4 rounded-lg h-full max-h-[calc(90vh-8.5rem)] overflow-y-scroll relative flex flex-col">
-          <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {invoices.map((invoice) => (
-                <TableRow key={invoice.invoice}>
-                  <TableCell className="font-medium">
-                    {invoice.invoice}
-                  </TableCell>
-                  <TableCell>{invoice.paymentStatus}</TableCell>
-                  <TableCell>{invoice.paymentMethod}</TableCell>
-                  <TableCell className="text-right">
-                    {invoice.totalAmount}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={3}>Total</TableCell>
-                <TableCell className="text-right">$2,500.00</TableCell>
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </div>
-
-
-
-
-               <div className="w-4/12 space-y-3 border p-4 rounded-lg h-full max-h-[calc(90vh-8.5rem)] overflow-y-scroll relative flex flex-col">
+        <div className="w-4/12 space-y-3 border p-4 rounded-lg h-full max-h-[calc(90vh-4.5rem)] overflow-y-scroll relative flex flex-col">
           <Table>
             <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
@@ -167,9 +129,9 @@ export function RestaurantOrderTerminal({ tableId }: any) {
         </div>
 
         {/* RIGHT SIDE - MENU */}
-        <div className="w-2/12 border p-2 rounded-lg max-h-[calc(90vh-8.5rem)] overflow-y-scroll ">
-          <div className="p-2 space-y-3 relative" >
-           <div className="sticky top-0 z-20 space-y-2 shadow-sm">
+        <div className="w-8/12 border p-2 rounded-lg max-h-[calc(90vh-0rem)] overflow-y-scroll flex flex-row gap-2 ">
+          <div className=" w-8/10 p-2  ">
+            <div className="z-20 space-y-2 shadow-sm">
               {/* Menu Select */}
               <Select value={menuId} onValueChange={setMenuId}>
                 <SelectTrigger className="w-full">
@@ -209,13 +171,14 @@ export function RestaurantOrderTerminal({ tableId }: any) {
                           <AccordionItem key={subCat.id} value={subCat.id}>
                             <AccordionTrigger>{subCat.name}</AccordionTrigger>
 
-                            <AccordionContent className="space-y-2">
+                            <AccordionContent className="p-2 grid grid-cols-4 gap-2">
                               {subCat.menu_items?.map((mti: any) => (
                                 <div
+                                  onClick={() => console.log(mti.id)}
                                   key={mti.id}
-                                  className="border p-2 rounded-md shadow-sm"
+                                  className="border p-2 rounded-md shadow-sm hover:bg-accent-foreground scale-102 hover:text-accent"
                                 >
-                                  <div className="flex justify-between font-medium">
+                                  <div className="flex flex-col justify-between font-medium">
                                     <span>{mti.name}</span>
                                     <span>{mti.price}</span>
                                   </div>
@@ -224,13 +187,6 @@ export function RestaurantOrderTerminal({ tableId }: any) {
                                     <span className="text-xs text-muted-foreground">
                                       {mti.variant_groups ? "Customize" : ""}
                                     </span>
-
-                                    <Button
-                                      size="sm"
-                                      onClick={() => console.log(mti.id)}
-                                    >
-                                      Add
-                                    </Button>
                                   </div>
                                 </div>
                               ))}
@@ -243,6 +199,16 @@ export function RestaurantOrderTerminal({ tableId }: any) {
                 ))}
               </Accordion>
             )}
+          </div>
+
+          <div className="border w-2/10">
+            <div className="space-y-2 p-2">
+              {menu.data.map((cat: any) => (
+                <div>
+                  <Button className="w-full">{cat.name}</Button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
