@@ -31,7 +31,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-
 export function RestaurantOrderTerminal({ tableId }: any) {
   const { data, isLoading, error } = useMenuGroup();
   const [menuId, setMenuId] = useState("");
@@ -41,7 +40,6 @@ export function RestaurantOrderTerminal({ tableId }: any) {
     isLoading: menuIsLoading,
     error: menuIsError,
   } = useMenuGroupDetails(menuId);
-
 
   if (isLoading || menuIsLoading) return <div>Loading...</div>;
   if (error || menuIsError) return <div>Error loading menus</div>;
@@ -97,7 +95,44 @@ export function RestaurantOrderTerminal({ tableId }: any) {
     <>
       <div className="flex p-2 gap-2">
         {/* LEFT SIDE - KOT & Order Management */}
-        <div className="w-8/12 space-y-3 border p-4 rounded-lg h-full max-h-[calc(90vh-8.5rem)] overflow-y-scroll relative flex flex-col">
+        <div className="w-6/12 space-y-3 border p-4 rounded-lg h-full max-h-[calc(90vh-8.5rem)] overflow-y-scroll relative flex flex-col">
+          <Table>
+            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Invoice</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Method</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {invoices.map((invoice) => (
+                <TableRow key={invoice.invoice}>
+                  <TableCell className="font-medium">
+                    {invoice.invoice}
+                  </TableCell>
+                  <TableCell>{invoice.paymentStatus}</TableCell>
+                  <TableCell>{invoice.paymentMethod}</TableCell>
+                  <TableCell className="text-right">
+                    {invoice.totalAmount}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colSpan={3}>Total</TableCell>
+                <TableCell className="text-right">$2,500.00</TableCell>
+              </TableRow>
+            </TableFooter>
+          </Table>
+        </div>
+
+
+
+
+               <div className="w-4/12 space-y-3 border p-4 rounded-lg h-full max-h-[calc(90vh-8.5rem)] overflow-y-scroll relative flex flex-col">
           <Table>
             <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
@@ -132,26 +167,27 @@ export function RestaurantOrderTerminal({ tableId }: any) {
         </div>
 
         {/* RIGHT SIDE - MENU */}
-        <div className="w-4/12 border p-2 rounded-lg max-h-[calc(90vh-8.5rem)] overflow-y-scroll">
-          <div className="p-2 space-y-3">
-            {/* Menu Select */}
-            <Select value={menuId} onValueChange={setMenuId}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Menu group" />
-              </SelectTrigger>
+        <div className="w-2/12 border p-2 rounded-lg max-h-[calc(90vh-8.5rem)] overflow-y-scroll ">
+          <div className="p-2 space-y-3 relative" >
+           <div className="sticky top-0 z-20 space-y-2 shadow-sm">
+              {/* Menu Select */}
+              <Select value={menuId} onValueChange={setMenuId}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Menu group" />
+                </SelectTrigger>
 
-              <SelectContent>
-                <SelectGroup>
-                  {menuGroups?.map((grp: any) => (
-                    <SelectItem key={grp.Id} value={grp.Id}>
-                      {grp.Name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
-            <Input placeholder="Search Item"></Input>
+                <SelectContent>
+                  <SelectGroup>
+                    {menuGroups?.map((grp: any) => (
+                      <SelectItem key={grp.Id} value={grp.Id}>
+                        {grp.Name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <Input placeholder="Search Item"></Input>
+            </div>
 
             {/* Loading State */}
             {menuIsLoading && (

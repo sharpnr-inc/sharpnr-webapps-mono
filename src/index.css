@@ -26,20 +26,46 @@
   ); /* Uses your project's primary color on hover */
 }
 
-@layer components {
- @import "ag-grid-community/styles/ag-grid.css";
-@import "ag-grid-community/styles/ag-theme-quartz.css";
-
-}
-
 @layer base {
+  /* your existing global styles */
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
+   /* 🌟 Base font size (normal laptop, tablet) */
+  html {
+    font-size: 13px; /* = 0.8125rem */
+  }
+
+  /* 📌 Large desktops */
+  @media (min-width: 1536px) {
+    html {
+      font-size: 14px; /* = 0.875rem */
+      font-weight: 500;
+    }
+  }
+
+  /* 📌 Ultra-wide monitors (2K / 4K) */
+  @media (min-width: 1920px) {
+    html {
+      font-size: 15px; /* = 0.9375rem */
+      
+    }
+  }
+
+  /* 📌 Huge displays */
+  @media (min-width: 2560px) {
+    html {
+      font-size: 16px; /* = 1rem */
+      
+    }
+  }
 }
+
 
 @custom-variant dark (&:is(.dark *));
 

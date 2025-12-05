@@ -13,6 +13,7 @@ import { LogOut, UserCog, Settings, BellIcon } from "lucide-react";
 import { ModeToggle } from "./ThemeToggle";
 import { useNavigate } from "@tanstack/react-router";
 import { useHeader } from "@/context/HeaderContext";
+import MainMenuButton from "@/features/Header/MainMenuButton";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -37,7 +38,9 @@ export default function DashboardHeader({ useremail }: DashboardHeaderProps) {
       {/* Left Section */}
       <div className="flex items-center flex-1 min-w-0">
         <div className="flex gap-2 pr-1 sm:pr-3">
-          <SidebarTrigger />
+          <MainMenuButton/>
+          Dearie Clubs PVT LTDs
+          {/* <SidebarTrigger /> */}
         </div>
 
         <div className="flex items-center gap-2 min-w-0">

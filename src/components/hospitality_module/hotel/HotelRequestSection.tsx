@@ -1,5 +1,4 @@
 import { useState } from "react";
-import OrderRequestFromRooms from "../dataTables/OrderRequestFromRooms";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 
 export default function HotelRequestSection() {
@@ -15,7 +14,7 @@ export default function HotelRequestSection() {
           Overview of room occupancy and bookings
         </p>
       </div>
-      <OrderRequestFromRooms />
+    <div>Hey</div>
     </div>):(<EmptyHotelPlaceHolder/>)}
    
     </>

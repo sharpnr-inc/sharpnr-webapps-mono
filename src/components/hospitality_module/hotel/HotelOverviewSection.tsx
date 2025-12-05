@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BedDouble, CalendarDays, DoorOpen } from "lucide-react";
-import HotelBookingOverviewTable from "../dataTables/HotelBookingOverviewTable";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -62,7 +61,7 @@ export default function HotelOverviewSection() {
             </div>
           </div>
           <div className="p-2 border rounded-2xl">
-            <HotelBookingOverviewTable />
+            {/* <HotelBookingOverviewTable /> */}
           </div>
         </>
       ) : (

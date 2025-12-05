@@ -5,7 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import AGGridEmployeeDemo from "./data-tables/AGgridDemo";
+import AllEmployeeDataTable from "./data-tables/AllEmployeeDataTable";
+
 
 export default function EmployeeAllEmployeeSection() {
   return (
@@ -48,8 +49,8 @@ export default function EmployeeAllEmployeeSection() {
           </CardHeader>
         </Card>
       </div>
-      <AGGridEmployeeDemo />
-      {/* <AllEmployeeDataTable/> */}
+     
+      <AllEmployeeDataTable/>
     </div>
   );
 }

@@ -9,7 +9,6 @@ import {
 import { employee_data, type Employee } from "@/dummy_data/employee_data";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { useFormsModal } from "@/context/FormModalContext";
 import HotelOverviewSection from "@/components/hospitality_module/hotel/HotelOverviewSection";
 
@@ -113,7 +112,7 @@ export default function AllEmployeeDataTable() {
 
   return (
     <div className=" overflow-x-auto">
-      <table className="w-full border-collapse border border-gray-200 text-sm">
+       <table className="min-w-max border-collapse border border-gray-200 text-sm">
         <thead className="bg-gray-100">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>

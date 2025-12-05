@@ -16,14 +16,9 @@ import { DialogModalProvider } from "./context/DialogModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
 import { SpinnerProvider } from "./context/SpinnerContext.tsx";
 import { FormsModalProvider } from "./context/FormModalContext.tsx";
-import { ModuleRegistry } from "ag-grid-community";
-import { ClientSideRowModelModule } from "ag-grid-community";
 import { TanStackDevtools } from "@tanstack/react-devtools";
-
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
-
-ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 declare module "@tanstack/react-router" {
   interface Register {

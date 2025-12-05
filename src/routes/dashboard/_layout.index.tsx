@@ -6,6 +6,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { SetStateAction } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createCountriesQuery } from "@/api_service/queries/Shared/useUtils";
+import MainHeader from "@/features/Header/MainHeader";
 
 export const Route = createFileRoute("/dashboard/_layout/")({
   component: AddrCard,
@@ -21,6 +22,9 @@ function AddrCard() {
       <InputSelect options={contryList?.data?.data ?? []}>
         {(provided) => <InputSelectTrigger {...provided} />}
       </InputSelect>
+
+
+      <MainHeader></MainHeader>
     </div>
   );
 }

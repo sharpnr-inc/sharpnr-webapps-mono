@@ -49,8 +49,6 @@
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/router-devtools": "^1.132.51",
     "@tanstack/router-vite-plugin": "^1.132.51",
-    "ag-grid-community": "^34.3.0",
-    "ag-grid-react": "^34.3.0",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
