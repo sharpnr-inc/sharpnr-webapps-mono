@@ -30,7 +30,7 @@ import { Route as DashboardLayoutSharp_hrLeaves_managementRouteImport } from './
 import { Route as DashboardLayoutSharp_hrEmployeeRouteImport } from './routes/dashboard/_layout/sharp_hr/employee'
 import { Route as DashboardLayoutSharp_hospitalitySettingsRouteImport } from './routes/dashboard/_layout/sharp_hospitality/settings'
 import { Route as DashboardLayoutSharp_hospitalityServicesRouteImport } from './routes/dashboard/_layout/sharp_hospitality/services'
-import { Route as DashboardLayoutSharp_hospitalityRestaurentRouteImport } from './routes/dashboard/_layout/sharp_hospitality/restaurent'
+import { Route as DashboardLayoutSharp_hospitalityRestaurantRouteImport } from './routes/dashboard/_layout/sharp_hospitality/restaurant'
 import { Route as DashboardLayoutSharp_hospitalityOrgConfigRouteImport } from './routes/dashboard/_layout/sharp_hospitality/orgConfig'
 import { Route as DashboardLayoutSharp_hospitalityMenuRouteImport } from './routes/dashboard/_layout/sharp_hospitality/menu'
 import { Route as DashboardLayoutSharp_hospitalityKitchenRouteImport } from './routes/dashboard/_layout/sharp_hospitality/kitchen'
@@ -53,6 +53,8 @@ import { Route as DashboardLayoutEmployeeLeavesRouteImport } from './routes/dash
 import { Route as DashboardLayoutEmployeeGreivencesRouteImport } from './routes/dashboard/_layout/employee/greivences'
 import { Route as DashboardLayoutEmployeeFeedbackRouteImport } from './routes/dashboard/_layout/employee/feedback'
 import { Route as DashboardLayoutEmployeeEmployee_attendanceRouteImport } from './routes/dashboard/_layout/employee/employee_attendance'
+import { Route as DashboardLayoutSharp_hospitalityRestaurantIndexRouteImport } from './routes/dashboard/_layout/sharp_hospitality/restaurant/index'
+import { Route as DashboardLayoutSharp_hospitalityRestaurantTableIdRouteImport } from './routes/dashboard/_layout/sharp_hospitality/restaurant/$tableId'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -173,10 +175,10 @@ const DashboardLayoutSharp_hospitalityServicesRoute =
     path: '/sharp_hospitality/services',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
-const DashboardLayoutSharp_hospitalityRestaurentRoute =
-  DashboardLayoutSharp_hospitalityRestaurentRouteImport.update({
-    id: '/sharp_hospitality/restaurent',
-    path: '/sharp_hospitality/restaurent',
+const DashboardLayoutSharp_hospitalityRestaurantRoute =
+  DashboardLayoutSharp_hospitalityRestaurantRouteImport.update({
+    id: '/sharp_hospitality/restaurant',
+    path: '/sharp_hospitality/restaurant',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 const DashboardLayoutSharp_hospitalityOrgConfigRoute =
@@ -311,6 +313,18 @@ const DashboardLayoutEmployeeEmployee_attendanceRoute =
     path: '/employee/employee_attendance',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
+const DashboardLayoutSharp_hospitalityRestaurantIndexRoute =
+  DashboardLayoutSharp_hospitalityRestaurantIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardLayoutSharp_hospitalityRestaurantRoute,
+  } as any)
+const DashboardLayoutSharp_hospitalityRestaurantTableIdRoute =
+  DashboardLayoutSharp_hospitalityRestaurantTableIdRouteImport.update({
+    id: '/$tableId',
+    path: '/$tableId',
+    getParentRoute: () => DashboardLayoutSharp_hospitalityRestaurantRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -342,7 +356,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardLayoutSharp_hospitalityKitchenRoute
   '/dashboard/sharp_hospitality/menu': typeof DashboardLayoutSharp_hospitalityMenuRoute
   '/dashboard/sharp_hospitality/orgConfig': typeof DashboardLayoutSharp_hospitalityOrgConfigRoute
-  '/dashboard/sharp_hospitality/restaurent': typeof DashboardLayoutSharp_hospitalityRestaurentRoute
+  '/dashboard/sharp_hospitality/restaurant': typeof DashboardLayoutSharp_hospitalityRestaurantRouteWithChildren
   '/dashboard/sharp_hospitality/services': typeof DashboardLayoutSharp_hospitalityServicesRoute
   '/dashboard/sharp_hospitality/settings': typeof DashboardLayoutSharp_hospitalitySettingsRoute
   '/dashboard/sharp_hr/employee': typeof DashboardLayoutSharp_hrEmployeeRoute
@@ -356,6 +370,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardLayoutSharp_marketingSocial_media_managementRoute
   '/dashboard/employee': typeof DashboardLayoutEmployeeIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardLayoutSharp_marketingIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardLayoutSharp_hospitalityRestaurantTableIdRoute
+  '/dashboard/sharp_hospitality/restaurant/': typeof DashboardLayoutSharp_hospitalityRestaurantIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -386,7 +402,6 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardLayoutSharp_hospitalityKitchenRoute
   '/dashboard/sharp_hospitality/menu': typeof DashboardLayoutSharp_hospitalityMenuRoute
   '/dashboard/sharp_hospitality/orgConfig': typeof DashboardLayoutSharp_hospitalityOrgConfigRoute
-  '/dashboard/sharp_hospitality/restaurent': typeof DashboardLayoutSharp_hospitalityRestaurentRoute
   '/dashboard/sharp_hospitality/services': typeof DashboardLayoutSharp_hospitalityServicesRoute
   '/dashboard/sharp_hospitality/settings': typeof DashboardLayoutSharp_hospitalitySettingsRoute
   '/dashboard/sharp_hr/employee': typeof DashboardLayoutSharp_hrEmployeeRoute
@@ -400,6 +415,8 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardLayoutSharp_marketingSocial_media_managementRoute
   '/dashboard/employee': typeof DashboardLayoutEmployeeIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardLayoutSharp_marketingIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardLayoutSharp_hospitalityRestaurantTableIdRoute
+  '/dashboard/sharp_hospitality/restaurant': typeof DashboardLayoutSharp_hospitalityRestaurantIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -433,7 +450,7 @@ export interface FileRoutesById {
   '/dashboard/_layout/sharp_hospitality/kitchen': typeof DashboardLayoutSharp_hospitalityKitchenRoute
   '/dashboard/_layout/sharp_hospitality/menu': typeof DashboardLayoutSharp_hospitalityMenuRoute
   '/dashboard/_layout/sharp_hospitality/orgConfig': typeof DashboardLayoutSharp_hospitalityOrgConfigRoute
-  '/dashboard/_layout/sharp_hospitality/restaurent': typeof DashboardLayoutSharp_hospitalityRestaurentRoute
+  '/dashboard/_layout/sharp_hospitality/restaurant': typeof DashboardLayoutSharp_hospitalityRestaurantRouteWithChildren
   '/dashboard/_layout/sharp_hospitality/services': typeof DashboardLayoutSharp_hospitalityServicesRoute
   '/dashboard/_layout/sharp_hospitality/settings': typeof DashboardLayoutSharp_hospitalitySettingsRoute
   '/dashboard/_layout/sharp_hr/employee': typeof DashboardLayoutSharp_hrEmployeeRoute
@@ -447,6 +464,8 @@ export interface FileRoutesById {
   '/dashboard/_layout/sharp_marketing/social_media_management': typeof DashboardLayoutSharp_marketingSocial_media_managementRoute
   '/dashboard/_layout/employee/': typeof DashboardLayoutEmployeeIndexRoute
   '/dashboard/_layout/sharp_marketing/': typeof DashboardLayoutSharp_marketingIndexRoute
+  '/dashboard/_layout/sharp_hospitality/restaurant/$tableId': typeof DashboardLayoutSharp_hospitalityRestaurantTableIdRoute
+  '/dashboard/_layout/sharp_hospitality/restaurant/': typeof DashboardLayoutSharp_hospitalityRestaurantIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -480,7 +499,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/kitchen'
     | '/dashboard/sharp_hospitality/menu'
     | '/dashboard/sharp_hospitality/orgConfig'
-    | '/dashboard/sharp_hospitality/restaurent'
+    | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hospitality/services'
     | '/dashboard/sharp_hospitality/settings'
     | '/dashboard/sharp_hr/employee'
@@ -494,6 +513,8 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/employee'
     | '/dashboard/sharp_marketing'
+    | '/dashboard/sharp_hospitality/restaurant/$tableId'
+    | '/dashboard/sharp_hospitality/restaurant/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -524,7 +545,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/kitchen'
     | '/dashboard/sharp_hospitality/menu'
     | '/dashboard/sharp_hospitality/orgConfig'
-    | '/dashboard/sharp_hospitality/restaurent'
     | '/dashboard/sharp_hospitality/services'
     | '/dashboard/sharp_hospitality/settings'
     | '/dashboard/sharp_hr/employee'
@@ -538,6 +558,8 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/employee'
     | '/dashboard/sharp_marketing'
+    | '/dashboard/sharp_hospitality/restaurant/$tableId'
+    | '/dashboard/sharp_hospitality/restaurant'
   id:
     | '__root__'
     | '/'
@@ -570,7 +592,7 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/sharp_hospitality/kitchen'
     | '/dashboard/_layout/sharp_hospitality/menu'
     | '/dashboard/_layout/sharp_hospitality/orgConfig'
-    | '/dashboard/_layout/sharp_hospitality/restaurent'
+    | '/dashboard/_layout/sharp_hospitality/restaurant'
     | '/dashboard/_layout/sharp_hospitality/services'
     | '/dashboard/_layout/sharp_hospitality/settings'
     | '/dashboard/_layout/sharp_hr/employee'
@@ -584,6 +606,8 @@ export interface FileRouteTypes {
     | '/dashboard/_layout/sharp_marketing/social_media_management'
     | '/dashboard/_layout/employee/'
     | '/dashboard/_layout/sharp_marketing/'
+    | '/dashboard/_layout/sharp_hospitality/restaurant/$tableId'
+    | '/dashboard/_layout/sharp_hospitality/restaurant/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -743,11 +767,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutSharp_hospitalityServicesRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
-    '/dashboard/_layout/sharp_hospitality/restaurent': {
-      id: '/dashboard/_layout/sharp_hospitality/restaurent'
-      path: '/sharp_hospitality/restaurent'
-      fullPath: '/dashboard/sharp_hospitality/restaurent'
-      preLoaderRoute: typeof DashboardLayoutSharp_hospitalityRestaurentRouteImport
+    '/dashboard/_layout/sharp_hospitality/restaurant': {
+      id: '/dashboard/_layout/sharp_hospitality/restaurant'
+      path: '/sharp_hospitality/restaurant'
+      fullPath: '/dashboard/sharp_hospitality/restaurant'
+      preLoaderRoute: typeof DashboardLayoutSharp_hospitalityRestaurantRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/sharp_hospitality/orgConfig': {
@@ -904,8 +928,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutEmployeeEmployee_attendanceRouteImport
       parentRoute: typeof DashboardLayoutRoute
     }
+    '/dashboard/_layout/sharp_hospitality/restaurant/': {
+      id: '/dashboard/_layout/sharp_hospitality/restaurant/'
+      path: '/'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/'
+      preLoaderRoute: typeof DashboardLayoutSharp_hospitalityRestaurantIndexRouteImport
+      parentRoute: typeof DashboardLayoutSharp_hospitalityRestaurantRoute
+    }
+    '/dashboard/_layout/sharp_hospitality/restaurant/$tableId': {
+      id: '/dashboard/_layout/sharp_hospitality/restaurant/$tableId'
+      path: '/$tableId'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/$tableId'
+      preLoaderRoute: typeof DashboardLayoutSharp_hospitalityRestaurantTableIdRouteImport
+      parentRoute: typeof DashboardLayoutSharp_hospitalityRestaurantRoute
+    }
   }
 }
+
+interface DashboardLayoutSharp_hospitalityRestaurantRouteChildren {
+  DashboardLayoutSharp_hospitalityRestaurantTableIdRoute: typeof DashboardLayoutSharp_hospitalityRestaurantTableIdRoute
+  DashboardLayoutSharp_hospitalityRestaurantIndexRoute: typeof DashboardLayoutSharp_hospitalityRestaurantIndexRoute
+}
+
+const DashboardLayoutSharp_hospitalityRestaurantRouteChildren: DashboardLayoutSharp_hospitalityRestaurantRouteChildren =
+  {
+    DashboardLayoutSharp_hospitalityRestaurantTableIdRoute:
+      DashboardLayoutSharp_hospitalityRestaurantTableIdRoute,
+    DashboardLayoutSharp_hospitalityRestaurantIndexRoute:
+      DashboardLayoutSharp_hospitalityRestaurantIndexRoute,
+  }
+
+const DashboardLayoutSharp_hospitalityRestaurantRouteWithChildren =
+  DashboardLayoutSharp_hospitalityRestaurantRoute._addFileChildren(
+    DashboardLayoutSharp_hospitalityRestaurantRouteChildren,
+  )
 
 interface DashboardLayoutRouteChildren {
   DashboardLayoutUnauthorizedRoute: typeof DashboardLayoutUnauthorizedRoute
@@ -932,7 +988,7 @@ interface DashboardLayoutRouteChildren {
   DashboardLayoutSharp_hospitalityKitchenRoute: typeof DashboardLayoutSharp_hospitalityKitchenRoute
   DashboardLayoutSharp_hospitalityMenuRoute: typeof DashboardLayoutSharp_hospitalityMenuRoute
   DashboardLayoutSharp_hospitalityOrgConfigRoute: typeof DashboardLayoutSharp_hospitalityOrgConfigRoute
-  DashboardLayoutSharp_hospitalityRestaurentRoute: typeof DashboardLayoutSharp_hospitalityRestaurentRoute
+  DashboardLayoutSharp_hospitalityRestaurantRoute: typeof DashboardLayoutSharp_hospitalityRestaurantRouteWithChildren
   DashboardLayoutSharp_hospitalityServicesRoute: typeof DashboardLayoutSharp_hospitalityServicesRoute
   DashboardLayoutSharp_hospitalitySettingsRoute: typeof DashboardLayoutSharp_hospitalitySettingsRoute
   DashboardLayoutSharp_hrEmployeeRoute: typeof DashboardLayoutSharp_hrEmployeeRoute
@@ -989,8 +1045,8 @@ const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
     DashboardLayoutSharp_hospitalityMenuRoute,
   DashboardLayoutSharp_hospitalityOrgConfigRoute:
     DashboardLayoutSharp_hospitalityOrgConfigRoute,
-  DashboardLayoutSharp_hospitalityRestaurentRoute:
-    DashboardLayoutSharp_hospitalityRestaurentRoute,
+  DashboardLayoutSharp_hospitalityRestaurantRoute:
+    DashboardLayoutSharp_hospitalityRestaurantRouteWithChildren,
   DashboardLayoutSharp_hospitalityServicesRoute:
     DashboardLayoutSharp_hospitalityServicesRoute,
   DashboardLayoutSharp_hospitalitySettingsRoute:

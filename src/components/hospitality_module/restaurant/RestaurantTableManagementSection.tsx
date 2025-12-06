@@ -25,20 +25,21 @@ import { ArrowRightCircle } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { useMutationCreateTableSession } from "@/api_service/mutations/Hospitality/Restaurant";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 
 export default function RestaurantTableManagementSection() {
   const { openSheet } = useSheet();
   const { openModal, closeModal } = useDialogModal();
   const { data } = useRestaurantLayout();
+  const router = useRouter();
 
   const handleTableAction = (table: any) => {
+    console.log(table);
     if (table.status === "OCCUPIED") {
-      openSheet(
-        <RestaurantOrderTerminal tableId={table.id}/>,
-        `${table.name}`,
-        "Add Orders and Invoice",
-        "full"
-      );
+      router.navigate({
+        to: "/dashboard/sharp_hospitality/restaurant/$tableId",
+        params: { tableId: table.id },
+      });
     } else if (table.status === "AVAILABLE") {
       openModal(
         <CreateTableBookingSession
@@ -51,10 +52,7 @@ export default function RestaurantTableManagementSection() {
       );
       console.log(table);
     }
-
-
   };
-
 
   return (
     <div className=" flex gap-4">

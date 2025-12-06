@@ -26,8 +26,6 @@ export default function BarOrdersSection() {
     if (table.table_status.toLowerCase() === "occupied") {
       openSheet(
         <TableBills table={table} />,
-        `${table.table_name}`,
-        "Currently amount"
       );
     } else if (table.table_status.toLowerCase() === "available") {
       openModal(

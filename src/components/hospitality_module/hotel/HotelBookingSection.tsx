@@ -63,7 +63,7 @@ export default function HotelBookingSection() {
     const status = room.status?.toUpperCase();
 
     if (status === "BOOKED") {
-      openSheet(<HandleRoomDetails room={room} />, "Room #303", "Add or Edit Room Details", "full");
+      openSheet(<HandleRoomDetails room={room} />, "full");
     } else if (status === "AVAILABLE") {
       showModal(
         `Book Room ${room.room_name}`,

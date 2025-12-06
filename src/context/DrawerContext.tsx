@@ -3,12 +3,7 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetFooter,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 
 type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 
@@ -23,8 +18,8 @@ interface SheetState {
 interface SheetContextProps {
   openSheet: (
     content: ReactNode,
-    title?: string,
-    description?: string,
+    // title?: string,
+    // description?: string,
     size?: SheetSize
   ) => void;
   closeSheet: () => void;
@@ -41,19 +36,19 @@ export const useSheet = () => {
 export const SheetProvider = ({ children }: { children: ReactNode }) => {
   const [sheet, setSheet] = useState<SheetState>({
     isOpen: false,
-    title: undefined,
-    description: undefined,
+    // title: undefined,
+    // description: undefined,
     content: undefined,
     size: "2/4",
   });
 
   const openSheet = (
     content: ReactNode,
-    title?: string,
-    description?: string,
+    // title?: string,
+    // description?: string,
     size: SheetSize = "2/4"
   ) => {
-    setSheet({ content, title, description, size, isOpen: true });
+    setSheet({ content, size, isOpen: true });
   };
 
   const closeSheet = () => {
@@ -91,20 +86,16 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
             hover:[&::-webkit-scrollbar-thumb]:bg-slate-400
             scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300`}
         >
-          <SheetHeader>
+          {/* <SheetHeader>
             {sheet.title && <SheetTitle>{sheet.title}</SheetTitle>}
             {sheet.description && (
               <SheetDescription>{sheet.description}</SheetDescription>
             )}
-          </SheetHeader>
+          </SheetHeader> */}
 
-          <div className="">{sheet.content}</div>
+          <div>{sheet.content}</div>
 
-          <SheetFooter>
-            <Button variant="default" onClick={closeSheet}>
-              Close
-            </Button>
-          </SheetFooter>
+     
         </SheetContent>
       </Sheet>
     </SheetContext.Provider>
