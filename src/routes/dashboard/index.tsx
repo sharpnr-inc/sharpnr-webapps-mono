@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createCountriesQuery } from "@/api_service/queries/Shared/useUtils";
 import { MenuTerminal } from "@/features/Hospitality/MenuTerminal/Menu";
 
-export const Route = createFileRoute("/dashboard/_layout/")({
+export const Route = createFileRoute("/dashboard/")({
   component: AddrCard,
 });
 

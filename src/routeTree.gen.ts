@@ -12,10 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as SignupVerifyOtpRouteImport } from './routes/signup/verify-otp'
 import { Route as SignupCompleteRegistrationRouteImport } from './routes/signup/complete-registration'
 import { Route as DashboardLayoutRouteImport } from './routes/dashboard/_layout'
-import { Route as DashboardLayoutIndexRouteImport } from './routes/dashboard/_layout.index'
 import { Route as DashboardLayoutUnauthorizedRouteImport } from './routes/dashboard/_layout/unauthorized'
 import { Route as DashboardLayoutSharp_marketingIndexRouteImport } from './routes/dashboard/_layout/sharp_marketing/index'
 import { Route as DashboardLayoutEmployeeIndexRouteImport } from './routes/dashboard/_layout/employee/index'
@@ -73,6 +73,11 @@ const SignupIndexRoute = SignupIndexRouteImport.update({
   path: '/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const SignupVerifyOtpRoute = SignupVerifyOtpRouteImport.update({
   id: '/signup/verify-otp',
   path: '/signup/verify-otp',
@@ -87,11 +92,6 @@ const SignupCompleteRegistrationRoute =
 const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
   id: '/_layout',
   getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardLayoutIndexRoute = DashboardLayoutIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardLayoutRoute,
 } as any)
 const DashboardLayoutUnauthorizedRoute =
   DashboardLayoutUnauthorizedRouteImport.update({
@@ -345,9 +345,9 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardLayoutRouteWithChildren
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/signup': typeof SignupIndexRoute
   '/dashboard/unauthorized': typeof DashboardLayoutUnauthorizedRoute
-  '/dashboard/': typeof DashboardLayoutIndexRoute
   '/dashboard/employee/employee_attendance': typeof DashboardLayoutEmployeeEmployee_attendanceRoute
   '/dashboard/employee/feedback': typeof DashboardLayoutEmployeeFeedbackRoute
   '/dashboard/employee/greivences': typeof DashboardLayoutEmployeeGreivencesRoute
@@ -391,7 +391,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardLayoutIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/signup': typeof SignupIndexRoute
@@ -442,9 +442,9 @@ export interface FileRoutesById {
   '/dashboard/_layout': typeof DashboardLayoutRouteWithChildren
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/signup/': typeof SignupIndexRoute
   '/dashboard/_layout/unauthorized': typeof DashboardLayoutUnauthorizedRoute
-  '/dashboard/_layout/': typeof DashboardLayoutIndexRoute
   '/dashboard/_layout/employee/employee_attendance': typeof DashboardLayoutEmployeeEmployee_attendanceRoute
   '/dashboard/_layout/employee/feedback': typeof DashboardLayoutEmployeeFeedbackRoute
   '/dashboard/_layout/employee/greivences': typeof DashboardLayoutEmployeeGreivencesRoute
@@ -493,9 +493,9 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
+    | '/dashboard/'
     | '/signup'
     | '/dashboard/unauthorized'
-    | '/dashboard/'
     | '/dashboard/employee/employee_attendance'
     | '/dashboard/employee/feedback'
     | '/dashboard/employee/greivences'
@@ -589,9 +589,9 @@ export interface FileRouteTypes {
     | '/dashboard/_layout'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
+    | '/dashboard/'
     | '/signup/'
     | '/dashboard/_layout/unauthorized'
-    | '/dashboard/_layout/'
     | '/dashboard/_layout/employee/employee_attendance'
     | '/dashboard/_layout/employee/feedback'
     | '/dashboard/_layout/employee/greivences'
@@ -665,6 +665,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/signup/verify-otp': {
       id: '/signup/verify-otp'
       path: '/signup/verify-otp'
@@ -685,13 +692,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardLayoutRouteImport
       parentRoute: typeof DashboardRoute
-    }
-    '/dashboard/_layout/': {
-      id: '/dashboard/_layout/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardLayoutIndexRouteImport
-      parentRoute: typeof DashboardLayoutRoute
     }
     '/dashboard/_layout/unauthorized': {
       id: '/dashboard/_layout/unauthorized'
@@ -1021,7 +1021,6 @@ const DashboardLayoutSharp_hospitalityRestaurantRouteWithChildren =
 
 interface DashboardLayoutRouteChildren {
   DashboardLayoutUnauthorizedRoute: typeof DashboardLayoutUnauthorizedRoute
-  DashboardLayoutIndexRoute: typeof DashboardLayoutIndexRoute
   DashboardLayoutEmployeeEmployee_attendanceRoute: typeof DashboardLayoutEmployeeEmployee_attendanceRoute
   DashboardLayoutEmployeeFeedbackRoute: typeof DashboardLayoutEmployeeFeedbackRoute
   DashboardLayoutEmployeeGreivencesRoute: typeof DashboardLayoutEmployeeGreivencesRoute
@@ -1062,7 +1061,6 @@ interface DashboardLayoutRouteChildren {
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutUnauthorizedRoute: DashboardLayoutUnauthorizedRoute,
-  DashboardLayoutIndexRoute: DashboardLayoutIndexRoute,
   DashboardLayoutEmployeeEmployee_attendanceRoute:
     DashboardLayoutEmployeeEmployee_attendanceRoute,
   DashboardLayoutEmployeeFeedbackRoute: DashboardLayoutEmployeeFeedbackRoute,
@@ -1132,10 +1130,12 @@ const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
 
 interface DashboardRouteChildren {
   DashboardLayoutRoute: typeof DashboardLayoutRouteWithChildren
+  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardLayoutRoute: DashboardLayoutRouteWithChildren,
+  DashboardIndexRoute: DashboardIndexRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
