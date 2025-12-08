@@ -8,7 +8,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -25,22 +24,18 @@ import {
 } from "@/components/ui/select";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
-import {
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Menu, MoreVertical } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { MoreVertical } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type OrderItem = {
   id: string;
@@ -54,6 +49,7 @@ type OrderItem = {
 };
 
 export function RestaurantOrderTerminal({ tableId }: any) {
+  console.log(tableId);
   const { data, isLoading, error } = useMenuGroup();
   const [menuId, setMenuId] = useState("");
   const [activeCategory, setActiveCategory] = useState<any>(null);
@@ -200,53 +196,46 @@ export function RestaurantOrderTerminal({ tableId }: any) {
       },
     },
 
-{
-  id: "actions",
-  header: "Actions",
-  cell: ({ row }) => {
-    const item = row.original;
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const item = row.original;
 
-    return (
-      <div className="flex justify-end">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 w-8 p-0"
-            >
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
+        return (
+          <div className="flex justify-end">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="end" className="w-40">
+              <DropdownMenuContent align="end" className="w-40">
+                <DropdownMenuItem onClick={() => editItem(item)}>
+                  Edit Item
+                </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={() => editItem(item)}>
-              Edit Item
-            </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => openAddons(item)}>
+                  Addons / Variants
+                </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={() => openAddons(item)}>
-              Addons / Variants
-            </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => openNotes(item)}>
+                  Add Notes
+                </DropdownMenuItem>
 
-            <DropdownMenuItem onClick={() => openNotes(item)}>
-              Add Notes
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              onClick={() => removeItem(item.id)}
-              className="text-red-600"
-            >
-              Remove Item
-            </DropdownMenuItem>
-
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    );
-  },
-}
-
+                <DropdownMenuItem
+                  onClick={() => removeItem(item.id)}
+                  className="text-red-600"
+                >
+                  Remove Item
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        );
+      },
+    },
   ];
 
   const table = useReactTable({
@@ -351,7 +340,7 @@ export function RestaurantOrderTerminal({ tableId }: any) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {menuGroups?.map((grp) => (
+                    {menuGroups?.map((grp: any) => (
                       <SelectItem key={grp.Id} value={grp.Id}>
                         {grp.Name}
                       </SelectItem>
@@ -426,56 +415,3 @@ export function RestaurantOrderTerminal({ tableId }: any) {
     </>
   );
 }
-
-// function BillingSummaryDialog() {
-//   const [paymentMethod, setPaymentMethod] = useState("");
-//   const [upiId, setUpiId] = useState("");
-
-//   return (
-//     <Dialog>
-     
-//       <DialogTrigger asChild>
-//         <Button className="w-full mt-4">Close Session</Button>
-//       </DialogTrigger>
-
-//       <DialogContent className="max-w-md">
-//         <DialogHeader>
-//           <DialogTitle>Complete Payment</DialogTitle>
-//         </DialogHeader>
-
-//         <div className="space-y-4 py-2">
-//           <div className="space-y-1">
-//             <label className="text-sm font-medium">Payment Method</label>
-
-//             <Select onValueChange={setPaymentMethod}>
-//               <SelectTrigger>
-//                 <SelectValue placeholder="Select payment method" />
-//               </SelectTrigger>
-
-//               <SelectContent>
-//                 <SelectItem value="cash">Cash</SelectItem>
-//                 <SelectItem value="upi">UPI</SelectItem>
-//                 <SelectItem value="card">Card</SelectItem>
-//               </SelectContent>
-//             </Select>
-//           </div>
-
-//           {paymentMethod === "upi" && (
-//             <div className="space-y-1">
-//               <label className="text-sm font-medium">UPI ID</label>
-//               <Input
-//                 placeholder="example@upi"
-//                 value={upiId}
-//                 onChange={(e) => setUpiId(e.target.value)}
-//               />
-//             </div>
-//           )}
-//         </div>
-
-//         <DialogFooter>
-//           <Button className="w-full">Confirm Payment</Button>
-//         </DialogFooter>
-//       </DialogContent>
-//     </Dialog>
-//   );
-// }
