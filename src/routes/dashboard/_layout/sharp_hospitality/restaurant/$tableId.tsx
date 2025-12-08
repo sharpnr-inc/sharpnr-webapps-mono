@@ -1,13 +1,14 @@
 // file: /dashboard/_layout/sharp_hospitality/restaurant/$tableId.tsx
 
+import TablePage from "@/components/RoutesPages/sharpHospitality/TablePage";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { RockingChair } from "lucide-react";
 
 export const Route = createFileRoute(
   "/dashboard/_layout/sharp_hospitality/restaurant/$tableId"
 )({
   loader: async ({ params }) => {
     const { tableId } = params;
-    console.log(tableId)
 
     if (!tableId) {
       throw redirect({
@@ -20,17 +21,9 @@ export const Route = createFileRoute(
   },
 
   component: TablePage,
+  context: () => ({
+    heading: "Table",
+    subheading: "Manage Table Session",
+    HeaderIcon: RockingChair,
+  }),
 });
-
-function TablePage() {
-  const {tableId} = Route.useLoaderData();  // MUST NOT be undefined
-  console.log(tableId)
-
-  return (
-    <div className="p-4">
-      <h1 className="text-xl font-semibold">
-        Table Page — {tableId}
-      </h1>
-    </div>
-  );
-}
