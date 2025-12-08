@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 import { useSheet } from "@/context/DrawerContext";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { useRestaurantLayout } from "@/api_service/queries/HospitalityQueries/Restaurant";
-import { RestaurantOrderTerminal } from "./RestaurantOrderTerminal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
