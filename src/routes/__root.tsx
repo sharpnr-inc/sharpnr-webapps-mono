@@ -1,10 +1,10 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
-// import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 const RootLayout = () => (
   <>
     <Outlet />
-    {/* {import.meta.env.DEV && <TanStackRouterDevtools  position="top-right"/>} */}
+    {import.meta.env.DEV && <TanStackRouterDevtools  position="top-right"/>}
   </>
 );
 

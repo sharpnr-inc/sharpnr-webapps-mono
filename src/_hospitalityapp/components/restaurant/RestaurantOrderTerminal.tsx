@@ -36,6 +36,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { MenuTerminal } from "./MenuTerminal";
 
 type OrderItem = {
   id: string;
@@ -412,6 +413,17 @@ export function RestaurantOrderTerminal({ tableId }: any) {
           </div>
         </div>
       </div>
+
+      <MenuTerminal>
+        <MenuTerminal.Header />
+
+        <MenuTerminal.Body>
+          <MenuTerminal.Categories />
+          <MenuTerminal.Items />
+        </MenuTerminal.Body>
+
+        <MenuTerminal.Footer />
+      </MenuTerminal>
     </>
   );
 }

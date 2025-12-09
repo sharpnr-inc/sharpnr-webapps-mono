@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { MenuTerminal } from "@/_hospitalityapp/components/restaurant/MenuTerminal";
 
 type OrderItem = {
   id: string;
@@ -36,13 +36,11 @@ type OrderItem = {
   status?: "pending" | "preparing" | "served" | "cancelled";
 };
 
-
-
 /****************************************
  * This is the Table for the Restaurant *
  * This Main                            *
  *                                      *
-****************************************/
+ ****************************************/
 export default function RestaurantMainTablePage() {
   const initialOrderItems: OrderItem[] = [
     {
@@ -301,6 +299,17 @@ export default function RestaurantMainTablePage() {
           </Table>
         </div>
       </div>
+
+      <MenuTerminal>
+        <MenuTerminal.Header />
+
+        <MenuTerminal.Body>
+          <MenuTerminal.Categories />
+          <MenuTerminal.Items />
+        </MenuTerminal.Body>
+
+        <MenuTerminal.Footer />
+      </MenuTerminal>
     </div>
   );
 }
