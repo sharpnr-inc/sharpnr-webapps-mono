@@ -19,7 +19,7 @@ import {
   SharpHospitalityNavs,
   SharpHRNavs,
   SharpMarketingNavs,
-} from "@/components/Sidebar/SidebarNavs";
+} from "@/components/Dashboard/SidebarNavs";
 import { Server } from "lucide-react";
 
 export default function MainMenuButton() {

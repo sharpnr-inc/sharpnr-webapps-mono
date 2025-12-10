@@ -5,16 +5,12 @@ import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { VitePWA } from "vite-plugin-pwa";
+import fs from "fs";
 
 // https://vite.dev/config/
 export default defineConfig({
-  esbuild: {
-    logOverride: {
-      "typescript:unused-local-variable": "silent",
-    },
-  },
   plugins: [
-    react(),
+    
     devtools({
       eventBusConfig: {
         // port to run the event bus on
@@ -30,6 +26,7 @@ export default defineConfig({
       target: "react",
       autoCodeSplitting: true,
     }),
+    react(),
     VitePWA({
       registerType: "autoUpdate",
       devOptions: {
@@ -65,12 +62,11 @@ export default defineConfig({
     },
   },
 
-  server: {
-    host: true,
-    allowedHosts: ["*"], // 👈 Allow Cloudflare tunnel hosts
-  },
   preview: {
     host: true,
-    allowedHosts: ["knock-claire-application-capacity.trycloudflare.com"], // 👈 Needed for preview mode
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, "ssl/key.pem")),
+      cert: fs.readFileSync(path.resolve(__dirname, "ssl/cert.pem")),
+    },
   },
 });
