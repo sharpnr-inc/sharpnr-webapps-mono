@@ -56,27 +56,6 @@ export type MenuGroup = {
   Description: string;
 };
 
-type MenuItem = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  variant_groups: any[] | null;
-  add_ons: any[] | null;
-};
-
-type SubCategory = {
-  id: string;
-  name: string;
-  menu_items: MenuItem[] | null;
-};
-
-type MenuGroupDetails = {
-  id: string;
-  name: string;
-  sub_categories: SubCategory[];
-};
-
 type MenuTerminalContextType = {
   menuGroups: MenuGroup[];
 };
@@ -162,180 +141,104 @@ MenuTerminal.Body = function Body({ children }: { children: React.ReactNode }) {
 MenuTerminal.Items = function Items() {
   const selectedGroupId = useMenuTerminalStore(selectMenuGroupId);
   const selectedSubCategoryId = useMenuTerminalStore(selectCategoryId);
-
   const setSubCategory = useMenuTerminalStore((s) => s.setSubCategory);
 
   const { data, isFetching } = useMenuGroupDetails(selectedGroupId!);
 
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+
   if (isFetching) return <Skeleton className="h-40 w-full" />;
 
-  const subCategories = data?.data?.[0]?.sub_categories ?? [];
+  const subCategories =
+    data?.data?.flatMap((cat: any) => cat.sub_categories ?? []) ?? [];
 
   if (!subCategories.length) return null;
 
-  return (
-    <Tabs
-      value={selectedSubCategoryId ?? subCategories[0].id}
-      onValueChange={setSubCategory}
-    >
-      <TabsList className="w-full overflow-x-auto">
-        {subCategories.map((sub: any) => (
-          <TabsTrigger key={sub.id} value={sub.id}>
-            {sub.name}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-
-      {subCategories.map((sub: any) => (
-        <TabsContent key={sub.id} value={sub.id}>
-          <div className="flex flex-col gap-2">
-            {sub.menu_items?.map((item: any) => (
-              <MenuItemCard key={item.id} item={item} />
-            ))}
-          </div>
-        </TabsContent>
-      ))}
-    </Tabs>
-  );
-};
-
-/* -------------------------------------------------------------------------- */
-/* ITEM CONFIG SHEET */
-/* -------------------------------------------------------------------------- */
-
-function MenuItemCard({ item }: { item: MenuItem }) {
-  const [open, setOpen] = useState(false);
-  const [variant, setVariant] = useState(item.variants?.[0]?.id ?? "");
-  const [addons, setAddons] = useState<SelectedAddon[]>([]);
-  const [note, setNote] = useState("");
-
-  const variantPrice = item.variants?.find((v) => v.id === variant)?.price ?? 0;
-
-  const addonsPrice = addons.reduce((sum, a) => sum + a.price * a.qty, 0);
-
-  const total = item.basePrice + variantPrice + addonsPrice;
-
-  const addAddon = (addon: Addon) => {
-    setAddons((prev) => {
-      const found = prev.find((a) => a.id === addon.id);
-      if (found) {
-        return prev.map((a) =>
-          a.id === addon.id ? { ...a, qty: a.qty + 1 } : a
-        );
-      }
-      return [
-        ...prev,
-        { id: addon.id, name: addon.name, price: addon.price, qty: 1 },
-      ];
-    });
-  };
-
-  const removeAddon = (id: string) => {
-    setAddons((prev) =>
-      prev
-        .map((a) => (a.id === id ? { ...a, qty: a.qty - 1 } : a))
-        .filter((a) => a.qty > 0)
-    );
-  };
-
-  const handleAddToKOT = () => {
-    console.log("CREATE ORDER ITEM", {
-      itemId: item.id,
-      variant,
-      addons,
-      note,
-      total,
-    });
-    setOpen(false);
-  };
+  const activeTab = selectedSubCategoryId ?? subCategories[0].id;
 
   return (
     <>
-      <div
-        onClick={() => setOpen(true)}
-        className="border rounded-lg p-3 flex justify-between"
-      >
-        <div>
-          <p className="text-sm font-medium">{item.name}</p>
-          <p className="text-xs text-muted-foreground">
-            From ₹{item.basePrice}
-          </p>
-        </div>
-        <Button size="sm" variant="outline">
-          Add
-        </Button>
-      </div>
+      <Tabs value={activeTab} onValueChange={setSubCategory} className="w-full">
+        {/* ---------- TAB LIST ---------- */}
+        <TabsList className="w-full overflow-x-auto flex justify-start">
+          {subCategories.map((sub: any) => (
+            <TabsTrigger key={sub.id} value={sub.id}>
+              {sub.name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
 
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="bottom" className="rounded-t-2xl p-6">
-          <SheetHeader>
-            <SheetTitle>{item.name}</SheetTitle>
-          </SheetHeader>
-
-          {/* VARIANT */}
-          <div className="mt-4">
-            <p className="text-sm font-semibold mb-2">Size</p>
-            <RadioGroup value={variant} onValueChange={setVariant}>
-              {item.variants?.map((v) => (
-                <label key={v.id} className="flex gap-2 py-1">
-                  <RadioGroupItem value={v.id} />
-                  {v.name} (+₹{v.price})
-                </label>
-              ))}
-            </RadioGroup>
-          </div>
-
-          {/* ADDONS */}
-          <div className="mt-4">
-            <p className="text-sm font-semibold mb-2">Add-ons</p>
-            {item.addons?.map((addon) => {
-              const selected = addons.find((a) => a.id === addon.id);
-              return (
-                <div
-                  key={addon.id}
-                  className="flex justify-between items-center py-2"
+        {/* ---------- TAB CONTENT ---------- */}
+        {subCategories?.map((sub: any) => (
+          <TabsContent key={sub.id} value={sub.id} className="mt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+              {sub.menu_items?.map((item: any) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    setSelectedItem(item);
+                    setOpen(true);
+                  }}
+                  className="
+                    group flex flex-col justify-between
+                    rounded-xl border bg-background p-3
+                    text-left transition
+                    hover:bg-accent active:scale-[0.98]
+                  "
                 >
-                  <span>
-                    {addon.name} (+₹{addon.price})
+                  <span className="text-sm font-medium line-clamp-2">
+                    {item.name}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      disabled={!selected}
-                      onClick={() => removeAddon(addon.id)}
-                    >
-                      −
-                    </Button>
-                    <span>{selected?.qty ?? 0}</span>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      onClick={() => addAddon(addon)}
-                    >
-                      +
-                    </Button>
+
+                  <span className="mt-2 text-sm font-semibold text-primary">
+                    ₹{item.price}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
+
+      {/* ---------- BOTTOM SHEET ---------- */}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="bottom" className="rounded-t-xl p-6">
+          {selectedItem && (
+            <>
+              <SheetHeader>
+                <SheetTitle className="text-base">
+                  {selectedItem.name}
+                </SheetTitle>
+              </SheetHeader>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Price</span>
+                  <span className="font-semibold">
+                    ₹{selectedItem.price}
+                  </span>
+                </div>
+
+                {/* Dummy quantity */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Quantity</span>
+                  <div className="flex items-center gap-3">
+                    <Button size="icon" variant="outline">−</Button>
+                    <span className="font-medium">1</span>
+                    <Button size="icon" variant="outline">+</Button>
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-          {/* NOTE */}
-          <div className="mt-4">
-            <p className="text-sm font-semibold mb-2">Special Instruction</p>
-            <Input
-              placeholder="Less salt, No pepper"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-            />
-          </div>
-
-          <Button className="w-full mt-6" onClick={handleAddToKOT}>
-            Add to KOT • ₹{total}
-          </Button>
+                <Button className="w-full">
+                  Add to KOT
+                </Button>
+              </div>
+            </>
+          )}
         </SheetContent>
       </Sheet>
     </>
   );
-}
+};
+
