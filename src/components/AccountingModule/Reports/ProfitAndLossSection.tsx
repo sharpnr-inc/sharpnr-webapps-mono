@@ -27,6 +27,7 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recha
 
 export default function ProfitAndLossSection() {
   const [period, setPeriod] = useState("April - November 2025");
+    console.log(setPeriod)
 
   // 📊 Mock P&L Data (replace with API later)
   const income = [

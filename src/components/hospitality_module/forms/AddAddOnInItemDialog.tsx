@@ -1,27 +1,27 @@
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "@tanstack/react-form";
 import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+
 import { useMutationAddAddonsInMenu } from "@/api_service/mutations/Hospitality/Menu";
 
-interface AddonFormData {
-  name: string;
-  price: string;
-  maxQuantity: number;
-}
+// interface AddonFormData {
+//   name: string;
+//   price: string;
+//   maxQuantity: number;
+// }
 
 export default function AddAddOnInItemDialog({
   menuItemId,
-  setAddon,
-  addon,
-  closeModal,
+  // setAddon,
+  // addon,
+  // closeModal,
 }: any) {
-  const [addonName, setAddonName] = useState<string>("");
-  const [price, setPrice] = useState<string>("");
-  const [maxQuantity, setMaxQuantity] = useState<number>(1);
+  // const [addonName, setAddonName] = useState<string>("");
+  // const [price, setPrice] = useState<string>("");
+  // const [maxQuantity, setMaxQuantity] = useState<number>(1);
 
   const createAddon = useMutationAddAddonsInMenu();
 

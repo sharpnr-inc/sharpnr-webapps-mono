@@ -9,7 +9,6 @@ import {
   BookOpen,
   Package,
   Sparkles,
-  Bell,
   MessageSquare,
   Shield,
   Wrench,

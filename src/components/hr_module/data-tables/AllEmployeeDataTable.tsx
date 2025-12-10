@@ -9,8 +9,8 @@ import {
 import { employee_data, type Employee } from "@/dummy_data/employee_data";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { useFormsModal } from "@/context/FormModalContext";
-import HotelOverviewSection from "@/components/hospitality_module/hotel/HotelOverviewSection";
+// import { useFormsModal } from "@/context/FormModalContext";
+// import HotelOverviewSection from "@/components/hospitality_module/hotel/HotelOverviewSection";
 
 const columns: ColumnDef<Employee>[] = [
   {
@@ -91,15 +91,15 @@ const columns: ColumnDef<Employee>[] = [
 
 export default function AllEmployeeDataTable() {
   const data = employee_data.employees;
-  const { showModal } = useFormsModal();
+  // const { showModal } = useFormsModal();
 
-  const openForm = () => {
-    showModal(
-      "User Form",
-      "Fill out your details below",
-      <HotelOverviewSection />
-    );
-  };
+  // const openForm = () => {
+  //   showModal(
+  //     "User Form",
+  //     "Fill out your details below",
+  //     <HotelOverviewSection />
+  //   );
+  // };
 
   const table = useReactTable({
     data,

@@ -1,12 +1,18 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { devtools } from "@tanstack/devtools-vite";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
+  esbuild: {
+    logOverride: {
+      "typescript:unused-local-variable": "silent",
+    },
+  },
   plugins: [
     react(),
     devtools({
@@ -24,11 +30,47 @@ export default defineConfig({
       target: "react",
       autoCodeSplitting: true,
     }),
+    VitePWA({
+      registerType: "autoUpdate",
+      devOptions: {
+        enabled: true, // 👈 enables virtual module in dev
+      },
+      manifest: {
+        name: "Sharpnr",
+        short_name: "Sharpnr",
+        start_url: "/",
+        display: "standalone",
+        icons: [
+          {
+            src: "/AppIcon.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "/AppIcon.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+      workbox: {
+        navigateFallback: "index.html",
+      },
+    }),
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@hospitalityapp": path.resolve(__dirname, "src/_hospitalityapp"),
     },
+  },
+
+  server: {
+    host: true,
+    allowedHosts: ["*"], // 👈 Allow Cloudflare tunnel hosts
+  },
+  preview: {
+    host: true,
+    allowedHosts: ["knock-claire-application-capacity.trycloudflare.com"], // 👈 Needed for preview mode
   },
 });

@@ -1,6 +1,6 @@
 // src/components/BarOrdersSection.tsx
 import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { useSheet } from "@/context/DrawerContext";
 import { useDialogModal } from "@/context/DialogModalContext";

@@ -9,6 +9,7 @@ import { Download, CalendarDays, CheckCircle2, AlertTriangle } from "lucide-reac
 
 export default function BalanceSheetSection() {
   const [period, setPeriod] = useState("As on November 8, 2025");
+  console.log(setPeriod)
 
   // 📘 Mock Data (to be replaced with API)
   const balanceSheet = {

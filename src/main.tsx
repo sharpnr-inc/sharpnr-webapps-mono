@@ -19,6 +19,17 @@ import { FormsModalProvider } from "./context/FormModalContext.tsx";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
+import { registerSW } from "virtual:pwa-register";
+
+registerSW({
+  onNeedRefresh() {
+    console.log("New update available!");
+    // updateSW(true); // auto-refresh
+  },
+  onOfflineReady() {
+    console.log("App ready for offline use!");
+  },
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -55,7 +66,10 @@ createRoot(document.getElementById("root")!).render(
 
       {/* 🔹 Show Devtools only in development */}
       {import.meta.env.DEV && (
-        <ReactQueryDevtools buttonPosition="bottom-right" initialIsOpen={false} />
+        <ReactQueryDevtools
+          buttonPosition="bottom-right"
+          initialIsOpen={false}
+        />
       )}
     </QueryClientProvider>
   </StrictMode>

@@ -223,7 +223,7 @@ export default function RestaurantMainTablePage() {
 
   return (
     <div className="flex p-2 gap-2 ">
-      <div className="w-4/12 h-[calc(90vh)] flex flex-col rounded-lg bg-card space-y-4">
+      <div className="w-2/12 h-[calc(85vh)] flex flex-col rounded-lg bg-card space-y-4">
         <div className="flex-1 overflow-y-auto rounded-lg border bg-background p-2">
           <Table className="[&_tr]:h-16">
             <TableHeader>
@@ -304,8 +304,8 @@ export default function RestaurantMainTablePage() {
         <MenuTerminal.Header />
 
         <MenuTerminal.Body>
-          <MenuTerminal.Categories />
           <MenuTerminal.Items />
+          <MenuTerminal.Categories />
         </MenuTerminal.Body>
 
         <MenuTerminal.Footer />

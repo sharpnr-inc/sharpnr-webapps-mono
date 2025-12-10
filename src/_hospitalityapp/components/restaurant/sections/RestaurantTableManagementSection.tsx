@@ -1,20 +1,12 @@
 import {
   ContextMenu,
-  ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
   ContextMenuSeparator,
   ContextMenuShortcut,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { cn } from "@/lib/utils";
-import { useSheet } from "@/context/DrawerContext";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { useRestaurantLayout } from "@/api_service/queries/HospitalityQueries/Restaurant";
 import { Input } from "@/components/ui/input";
@@ -27,7 +19,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 
 export default function RestaurantTableManagementSection() {
-  const { openSheet } = useSheet();
   const { openModal, closeModal } = useDialogModal();
   const { data } = useRestaurantLayout();
   const router = useRouter();

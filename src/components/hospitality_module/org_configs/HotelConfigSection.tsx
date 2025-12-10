@@ -15,7 +15,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PenBox, PlusCircle } from "lucide-react";
 import CreateRoomForm from "./forms/CreateRoomForm";
-import { useDialogModal } from "@/context/DialogModalContext";
 import UpdateHotelDetailsForm from "./forms/UpdateHotelForm";
 import { useFormsModal } from "@/context/FormModalContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,7 +22,6 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function HotelConfigSection() {
   const { data, isLoading, isError, refetch } = useHotelQueryOptions();
   const [showTabs, setShowTabs] = useState(false);
-  const { openModal } = useDialogModal();
   const { showModal } = useFormsModal();
 
   const handleUpdateHotel = () => {

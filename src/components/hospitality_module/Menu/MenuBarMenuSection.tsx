@@ -1,5 +1,5 @@
 import AddItemInMenuForm from "../forms/AddItemInMenuForm";
-import { barMenu } from "@/dummy_data/menu_data"; // ✅ make sure your dummy data is exported from this path
+// import { barMenu } from "@/dummy_data/menu_data"; // ✅ make sure your dummy data is exported from this path
 import {
   Accordion,
   AccordionContent,

@@ -24,8 +24,6 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
         </p>
         <p className="mt-4 text-sm font-medium">Size: 3/4 Width</p>
       </div>,
-      "Quick Actions Panel", // title
-      "Access common tasks and user profile management.", // description
       "2/4" // size ("1/4" | "2/4" | "3/4")
     );
   };

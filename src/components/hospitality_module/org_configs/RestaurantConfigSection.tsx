@@ -20,9 +20,9 @@ import { useDialogModal } from "@/context/DialogModalContext";
 import CreateAddTableInRestaurantForm from "./forms/CreateAddTableInRestaurantForm";
 
 export default function RestaurantConfigSection() {
-  const { data, error, fetchStatus } = useRestaurantDetails();
+  const { data,} = useRestaurantDetails();
   const { data: resLayout } = useRestaurantLayout();
-  const { openModal, closeModal } = useDialogModal();
+  const { openModal, } = useDialogModal();
   console.log(resLayout);
 
   const { showModal } = useFormsModal();

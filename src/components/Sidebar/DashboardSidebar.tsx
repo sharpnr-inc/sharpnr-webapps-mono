@@ -24,14 +24,16 @@ import { ChevronRight } from "lucide-react";
 import * as sidebarNavs from "./SidebarNavs";
 import { useRouter, useRouterState } from "@tanstack/react-router";
 import { useUIRenderer } from "@/context/ui-rendererContext";
-import { useEmployeePolicy } from "@/context/EmployeePolicyContext";
+// import { useEmployeePolicy } from "@/context/EmployeePolicyContext";
 import { useState } from "react";
 
 export default function DashboardSideBar() {
   const [show, setShow] = useState(true);
-  const { renderTree, hasModuleAccess, hasSectionAccess, hasSubSectionAccess } =
+
+  console.log(setShow)
+  const {  hasModuleAccess, hasSectionAccess,} =
     useUIRenderer();
-  const { policy } = useEmployeePolicy();
+  // const { policy } = useEmployeePolicy();
 
   const router = useRouter();
 

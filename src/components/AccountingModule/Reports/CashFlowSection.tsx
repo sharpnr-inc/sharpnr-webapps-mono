@@ -29,6 +29,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from "rec
 
 export default function CashFlowSection() {
   const [period, setPeriod] = useState("April - November 2025");
+  console.log(setPeriod)
 
   // 💵 Mock Data (replace with API)
   const cashFlowData = {

@@ -19,7 +19,7 @@ import { PlusCircle, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export default function BarConfigSection() {
-  const { data, isLoading, error } = useBarGeneralDetails();
+  const { data,  } = useBarGeneralDetails();
   const { data: barl, isFetched } = useBarLayout();
 
   const layoutData = barl?.data;

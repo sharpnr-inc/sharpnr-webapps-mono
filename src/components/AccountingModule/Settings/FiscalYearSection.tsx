@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, Lock, Plus, Check, XCircle, Save } from "lucide-react";
+import { CalendarDays, Lock, Plus, Check, Save } from "lucide-react";
 import { toast } from "sonner";
 
 export default function FiscalYearSection() {

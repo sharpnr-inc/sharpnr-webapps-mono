@@ -131,13 +131,7 @@ function StepOne() {
 
 // Step two
 function Steptwo() {
-  const from = useForm({
-    defaultValues: {
-      employee_name: "",
-      employee_email: "",
-      employee_mobile: "",
-      employee_dob: "",
-    },
-  });
+  
+ 
   return <div></div>;
 }

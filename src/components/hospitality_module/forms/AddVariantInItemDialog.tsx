@@ -8,8 +8,8 @@ import { useMutationCreateVariantInMenuItem } from "@/api_service/mutations/Hosp
 export default function AddVariantInItemDialog({
   closeModal,
   menuItemId,
-  setVariant,
-  variant,
+  // setVariant,
+  // variant,
 }: {
   closeModal: () => void;
   menuItemId: string;
@@ -34,7 +34,7 @@ export default function AddVariantInItemDialog({
     onSubmit: ({ value }) => {
       console.log("FINAL VARIANT PAYLOAD →", value);
       createVariant.mutate(value, {
-        onSuccess: (res) => {
+        onSuccess: () => {
          closeModal()
         },
       });

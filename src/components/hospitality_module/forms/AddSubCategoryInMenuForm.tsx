@@ -5,12 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutateCreateSubCategory } from "@/api_service/mutations/Hospitality/Menu";
 
-interface SubCategoryFormData {
-  name: string;
-  description: string;
-  categoryName: string;
-  displayOrder: number;
-}
+// interface SubCategoryFormData {
+//   name: string;
+//   description: string;
+//   categoryName: string;
+//   displayOrder: number;
+// }
 
 export default function AddSubCategoryInMenuForm({
   cat_name,
@@ -21,9 +21,9 @@ export default function AddSubCategoryInMenuForm({
 }) {
   const [subCategoryName, setSubCategoryName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [displayOrder, setDisplayOrder] = useState<number>(1);
+  // const [displayOrder, setDisplayOrder] = useState<number>(1);
 
-  const { mutate, isPending } = useMutateCreateSubCategory(menuGroupId);
+  const { mutate,} = useMutateCreateSubCategory(menuGroupId);
 
   const handleSubmit = (): void => {
     const payload = {

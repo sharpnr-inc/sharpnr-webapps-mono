@@ -2,7 +2,7 @@ import { Field, FieldGroup, FieldSet, FieldTitle } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
-import { DeleteIcon, Plus, Trash2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 import { useMutationAddTables } from "@/api_service/mutations/Hospitality/Restaurant";
 
 interface CreateAddTableInRestaurantFormProps {

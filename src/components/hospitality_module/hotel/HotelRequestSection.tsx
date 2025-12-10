@@ -3,6 +3,7 @@ import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 
 export default function HotelRequestSection() {
     const [isdata, setData] = useState(false);
+    console.log(setData)
   return (
     <>
     {isdata ? ( <div className="border rounded p-2 space-y-2">

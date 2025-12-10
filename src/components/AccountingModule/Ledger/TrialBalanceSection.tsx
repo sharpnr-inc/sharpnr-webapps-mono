@@ -15,7 +15,7 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardContent,
+
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -28,6 +28,7 @@ import {
 
 export default function TrialBalanceSection() {
   const [period, setPeriod] = useState("November 2025");
+  console.log(setPeriod)
 
   // 📘 Mock Trial Balance Data (replace with API)
   const trialData = [

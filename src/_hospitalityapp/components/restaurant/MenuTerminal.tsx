@@ -1,137 +1,94 @@
-import {
-  useMenuGroup,
-  useMenuGroupDetails,
-} from "@/api_service/queries/HospitalityQueries/Menu";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { createContext, useContext, useState } from "react";
 
-// -----------------------------------------------------
-// CONTEXT
-// -----------------------------------------------------
+// import { useMenuTerminalStore } from "@/store/Hospitality/restaurant/menuTerminal/menuTerminal.store";
+// import { Skeleton } from "@/components/ui/skeleton";
 
-type MenuContextType = {
-  selectedCategory: string | null;
-  setSelectedCategory: (id: string) => void;
-};
 
-// IMPORTANT FIX:
-// Only undefined is allowed as default. Not null.
-const MenuContext = createContext<MenuContextType | undefined>(undefined);
 
-function useMenuTerminal() {
-  const ctx = useContext(MenuContext);
-  if (!ctx) throw new Error("MenuTerminal *must be inside the <MenuTerminal>");
-  return ctx;
-}
-
-// -----------------------------------------------------
-// ROOT COMPONENT
-// -----------------------------------------------------
-
+/**
+ * MenuTerminal — Root wrapper component for the Menu Terminal system.
+ *
+ * This component is designed as the top-level layout container in the
+ * Menu Terminal compound component architecture. It simply arranges its
+ * children in a vertical stack and does not manage any state itself.
+ *
+ * @component
+ * @example
+ * return (
+ *   <MenuTerminal>
+ *     <MenuTerminal.Header />
+ *     <MenuTerminal.Body>
+ *       <MenuTerminal.Categories />
+ *       <MenuTerminal.Items />
+ *     </MenuTerminal.Body>
+ *     <MenuTerminal.Footer />
+ *   </MenuTerminal>
+ * );
+ *
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - Child components within the terminal layout.
+ *
+ * @returns {JSX.Element} The rendered MenuTerminal layout wrapper.
+ */
 export function MenuTerminal({ children }: { children: React.ReactNode }) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  return (
-    <MenuContext.Provider value={{ selectedCategory, setSelectedCategory }}>
-      <div>{children}</div>
-    </MenuContext.Provider>
-  );
+  return <div className="flex flex-col gap-2">{children}</div>;
 }
 
-// -----------------------------------------------------
-// HEADER
-// -----------------------------------------------------
 
+
+
+
+// HEADER --------------------------------------------------------------------
 MenuTerminal.Header = function Header() {
   return (
-    <div className="p-4 border-b flex items-center justify-between">
-      <h2 className="text-xl font-semibold">Menu Terminal</h2>
+    <div className="p-2 flex items-center justify-between border-b">
+      <h2 className="font-semibold">Menu Terminal</h2>
     </div>
   );
 };
 
-// -----------------------------------------------------
-// BODY WRAPPER
-// -----------------------------------------------------
+// BODY WRAPPER ---------------------------------------------------------------
 
 MenuTerminal.Body = function Body({ children }: { children: React.ReactNode }) {
-  return <div className="grid grid-cols-12 gap-4 h-[78vh]">{children}</div>;
+  return <div className="w-full flex gap-2 max-h-[85vh]">{children}</div>;
 };
 
-// -----------------------------------------------------
-// LEFT PANEL - CATEGORIES
-// -----------------------------------------------------
 
+
+// Categories Section
 MenuTerminal.Categories = function Categories() {
-  const { data, isLoading, error } = useMenuGroup();
-  const { selectedCategory, setSelectedCategory } = useMenuTerminal();
-
-  if (isLoading) return <div>Loading categories...</div>;
-
   return (
-    <Card className="col-span-3 p-2 overflow-y-auto">
+    <Card className="w-[250px] p-4 border">
       <h3 className="font-medium mb-2">Categories</h3>
 
-      <div className="flex flex-col gap-2">
-        {data?.data?.map((cat: any) => (
-          <Button
-            key={cat.Id}
-            variant={selectedCategory === cat.Id ? "default" : "secondary"}
-            onClick={() => setSelectedCategory(cat.Id)}
-            className="w-full justify-start"
-          >
-            {cat.Name}
-          </Button>
-        ))}
-      </div>
+      <div className="flex flex-col gap-2"></div>
     </Card>
   );
 };
 
-// -----------------------------------------------------
-// RIGHT PANEL - ITEMS
-// -----------------------------------------------------
+
 
 MenuTerminal.Items = function Items() {
-  const { selectedCategory } = useMenuTerminal();
-
-const { data, isFetching, isLoading } = useMenuGroupDetails(
-  selectedCategory ?? ""
-);
-
-  return (
-    <Card className="col-span-9 p-2 overflow-y-auto">
-      {!selectedCategory && (
-        <div className="text-muted-foreground">Select a category</div>
-      )}
-
-      {isFetching && <div>Loading items...</div>}
-
-      {data?.data && (
-        <div className="grid grid-cols-3 gap-2">
-          {data.data.map((item: any) => (
-            <Card key={item.Id} className="p-3">
-              <h4 className="font-semibold">{item.Name}</h4>
-              <p className="text-sm text-muted-foreground">
-                ₹{item.Price}
-              </p>
-            </Card>
-          ))}
-        </div>
-      )}
-    </Card>
-  );
+  return <div>This is Context</div>;
 };
 
-// -----------------------------------------------------
-// FOOTER
-// -----------------------------------------------------
 
+
+// FOOTER ---------------------------------------------------------------------
 MenuTerminal.Footer = function Footer() {
   return (
-    <div className="p-3 border-t mt-auto">
-      <p className="text-sm text-muted-foreground">© Terminal System</p>
+    <div className="p-2 border-t text-sm text-muted-foreground">
+      © Terminal System
     </div>
   );
 };
+
+
+
+// This is the Section where they Create Order Ticket
+MenuTerminal.OrderTicket = function OrderTicket(){
+  return(
+    <div>This is Order Ticket Sections</div>
+  )
+}

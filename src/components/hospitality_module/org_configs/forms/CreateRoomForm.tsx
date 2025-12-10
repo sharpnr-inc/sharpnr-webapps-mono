@@ -21,7 +21,7 @@ import { mutateRoomInFloor } from "@/api_service/mutations/Hospitality/HotelsMut
 import { Label } from "@/components/ui/label";
 
 export default function CreateRoomForm() {
-  const { data, isLoading, isError } = useHotelQueryOptions();
+  const { data } = useHotelQueryOptions();
   console.log(data);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { openModal } = useDialogModal();

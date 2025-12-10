@@ -28,6 +28,7 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } fro
 
 export default function GstTaxSummarySection() {
   const [period, setPeriod] = useState("April – November 2025");
+    console.log(setPeriod)
 
   // 📊 Mock Data (to replace with API)
   const taxData = {

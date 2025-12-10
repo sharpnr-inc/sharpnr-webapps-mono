@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useSheet } from "@/context/DrawerContext";
 import { useFormsModal } from "@/context/FormModalContext";
@@ -15,7 +14,7 @@ import type {
   RoomResponse,
   FloorResponse,
 } from "@/api_service/apis/Hospitality/Hotel";
-import { DoorClosedLocked, DoorOpenIcon, type DoorClosed } from "lucide-react";
+import { DoorClosedLocked, DoorOpenIcon, } from "lucide-react";
 
 const getStatusColor = (status?: string) => {
   switch (status?.toUpperCase()) {

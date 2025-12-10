@@ -3,7 +3,6 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import {
   Accordion,
@@ -13,7 +12,6 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function TermsAndConditionsCard() {
