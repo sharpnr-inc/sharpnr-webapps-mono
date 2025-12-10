@@ -46,7 +46,7 @@ function RouteComponent() {
 
   return (
     // <ScrollArea className="h-full">
-      <div>
+      <div className="h-full">
         <Outlet />
       </div>
     // </ScrollArea>
