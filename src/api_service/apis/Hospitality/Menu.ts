@@ -1,9 +1,23 @@
 import api from "@/api_service/axios";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
+import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
-export const getAllMenuGroup = async () => {
-  const res = await api.get(HospitalityApiEndpoint.Menu.getAllMenuGroup);
-  return res.data; // this will contain { status_code, message, data, ... }
+/**
+ * Description
+ * This is Function fetches the All the Menu Group of the Organization
+ * @async
+ * @function
+ * @name getAllMenuGroup
+ * @kind variable
+ * @returns {Promise<ApiResponse<any>>}
+ * @exports
+ */
+export const getAllMenuGroup = async (): Promise<ApiResponse<any>> => {
+  const res = await api.get<ApiResponse<any>>(
+    HospitalityApiEndpoint.Menu.getAllMenuGroup
+  );
+
+  return res.data;
 };
 
 export const createCategoryInMenuGroup = async (req: any) => {

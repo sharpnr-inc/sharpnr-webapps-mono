@@ -3,10 +3,11 @@ import {
   getMenuGroup,
   getVariantOfMenuItem,
 } from "@/api_service/apis/Hospitality/Menu";
+import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMenuGroup() {
-  return useQuery({
+  return useQuery<ApiResponse<any>>({
     queryKey: ["Menu", "Get-all"],
     queryFn: getAllMenuGroup,
     staleTime: 1000 * 60 * 5, // 5 minutes cache
