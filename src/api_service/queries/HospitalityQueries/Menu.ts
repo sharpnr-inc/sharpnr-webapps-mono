@@ -1,3 +1,4 @@
+import type { HospitalityOrg_GetAllMenuGroup_Response } from "@/_hospitalityapp/schemas/types/restaurant/MenuTerminal.schema";
 import {
   getAllMenuGroup,
   getMenuGroup,
@@ -7,7 +8,7 @@ import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMenuGroup() {
-  return useQuery<ApiResponse<any>>({
+  return useQuery<ApiResponse<HospitalityOrg_GetAllMenuGroup_Response>>({
     queryKey: ["Menu", "Get-all"],
     queryFn: getAllMenuGroup,
     staleTime: 1000 * 60 * 5, // 5 minutes cache
@@ -15,7 +16,7 @@ export function useMenuGroup() {
 }
 
 export function useMenuGroupDetails(menuGroupId: string) {
-  return useQuery({
+  return useQuery<ApiResponse<any>>({
     queryKey: ["menu-group-details", menuGroupId],
     queryFn: () => getMenuGroup(menuGroupId),
     enabled: !!menuGroupId, // prevents running when id is empty
