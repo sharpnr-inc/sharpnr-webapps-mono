@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { MenuTerminal } from "@/_hospitalityapp/components/restaurant/MenuTerminal";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -78,13 +75,7 @@ export default function RestaurantMainTablePage() {
     { kotNo: "KOT-205", status: "Completed" },
   ];
 
-  const DUMMY_CART = {
-    kotNo: "KOT-206",
-    itemsCount: 4,
-    totalQty: 7,
-    status: "Draft",
-  };
-
+ 
   return (
     <div className="p-2 space-y-2 pb-10">
       {/* CURRENT ORDER */}
@@ -195,38 +186,7 @@ export default function RestaurantMainTablePage() {
       </Card>
 
       {/* MENU */}
-      <MenuTerminal>
-        <MenuTerminal.Body>
-          <MenuTerminal.Items />
-          <div className=" z-50 border-t bg-background px-3 py-4">
-            <div className="flex items-center justify-between gap-3">
-              {/* Left Info */}
-              <div className="flex flex-col leading-tight">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold">
-                    #{DUMMY_CART.kotNo}
-                  </span>
-                  <Badge
-                    variant="secondary"
-                    className="text-[10px] px-2 py-0.5"
-                  >
-                    {DUMMY_CART.status}
-                  </Badge>
-                </div>
-
-                <span className="text-[11px] text-muted-foreground">
-                  {DUMMY_CART.itemsCount} items • {DUMMY_CART.totalQty} qty
-                </span>
-              </div>
-
-              {/* Action */}
-              <Button size="sm" className="h-9 px-4">
-                Send
-              </Button>
-            </div>
-          </div>
-        </MenuTerminal.Body>
-      </MenuTerminal>
+  
     </div>
   );
 }

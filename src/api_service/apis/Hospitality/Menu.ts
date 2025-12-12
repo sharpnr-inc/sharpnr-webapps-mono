@@ -1,7 +1,7 @@
 import api from "@/api_service/axios";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
-import type { HospitalityOrg_GetAllMenuGroup_Response } from "@/_hospitalityapp/schemas/types/restaurant/MenuTerminal.schema";
+import type { Hospitality_ORG_GetAllMenuGroup_RESPONSE } from "@/_hospitalityapp/schemas/interfaces/menu/MenuGroup.dto";
 
 /**
  * Description
@@ -13,8 +13,8 @@ import type { HospitalityOrg_GetAllMenuGroup_Response } from "@/_hospitalityapp/
  * @returns {Promise<ApiResponse<any>>}
  * @exports
  */
-export const getAllMenuGroup = async (): Promise<ApiResponse<HospitalityOrg_GetAllMenuGroup_Response>> => {
-  const res = await api.get<ApiResponse<HospitalityOrg_GetAllMenuGroup_Response>>(
+export const getAllMenuGroup = async (): Promise<ApiResponse<Hospitality_ORG_GetAllMenuGroup_RESPONSE>> => {
+  const res = await api.get<ApiResponse<Hospitality_ORG_GetAllMenuGroup_RESPONSE>>(
     HospitalityApiEndpoint.Menu.getAllMenuGroup
   );
 

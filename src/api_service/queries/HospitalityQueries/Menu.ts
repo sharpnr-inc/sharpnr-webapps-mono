@@ -1,4 +1,5 @@
-import type { HospitalityOrg_GetAllMenuGroup_Response } from "@/_hospitalityapp/schemas/types/restaurant/MenuTerminal.schema";
+import type { Hospitality_ORG_GetAllMenuGroup_RESPONSE } from "@/_hospitalityapp/schemas/interfaces/menu/MenuGroup.dto";
+
 import {
   getAllMenuGroup,
   getMenuGroup,
@@ -8,7 +9,7 @@ import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useQuery } from "@tanstack/react-query";
 
 export function useMenuGroup() {
-  return useQuery<ApiResponse<HospitalityOrg_GetAllMenuGroup_Response>>({
+  return useQuery<ApiResponse<Hospitality_ORG_GetAllMenuGroup_RESPONSE>>({
     queryKey: ["Menu", "Get-all"],
     queryFn: getAllMenuGroup,
     staleTime: 1000 * 60 * 5, // 5 minutes cache
