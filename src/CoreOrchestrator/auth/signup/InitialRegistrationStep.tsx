@@ -1,5 +1,5 @@
 import { useRegisterOrganization } from "@/api_service/mutations/Auth/createOrg";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,23 +7,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import {createOrgTypeQuery} from "@/api_service/queries/Shared/useUtils";
+} from "@/components/ui/card";
+import { createOrgTypeQuery } from "@/api_service/queries/Shared/useUtils";
 import { useQuery } from "@tanstack/react-query";
 import {
   RegisterOrganizationSchema,
   type RegisterOrganizationRequestPayload,
 } from "@/schemas/Auth";
 import { useForm } from "@tanstack/react-form";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 import { useNavigate } from "@tanstack/react-router";
 
 export default function RegisterOrganization(): React.JSX.Element {

@@ -1,4 +1,4 @@
-import VerifyEmailWithOtpPage from '@/components/signup/VerifyEmailWithOtp';
+import VerifyEmailWithOtpPage from '@/CoreOrchestrator/auth/signup/VerifyEmailWithOtp';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { createFileRoute, redirect } from '@tanstack/react-router';
