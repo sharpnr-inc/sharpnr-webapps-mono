@@ -1,7 +1,7 @@
-import EmployementHistorySection from "@/components/employee_module/profile/EmployementHistorySection";
-import ImportantDatesSection from "@/components/employee_module/profile/ImportantDatesSection";
-import OverviewSection from "@/components/employee_module/profile/OverviewSection";
-import PersonalDetailsSection from "@/components/employee_module/profile/PersonalDetailsSection";
+import EmployementHistorySection from "@/_employee_app/sections/profile/EmployementHistorySection";
+import ImportantDatesSection from "@/_employee_app/sections/profile/ImportantDatesSection";
+import OverviewSection from "@/_employee_app/sections/profile/OverviewSection";
+import PersonalDetailsSection from "@/_employee_app/sections/profile/PersonalDetailsSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function EmployeeProfilePage() {
