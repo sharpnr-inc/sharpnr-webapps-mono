@@ -20,8 +20,9 @@ export function useMenuGroupDetails(menuGroupId: string) {
   return useQuery<ApiResponse<any>>({
     queryKey: ["menu-group-details", menuGroupId],
     queryFn: () => getMenuGroup(menuGroupId),
-    enabled: !!menuGroupId, // prevents running when id is empty
+    enabled: !!menuGroupId,
   });
+  
 }
 
 export function useVariantOfMenuItem(id: string) {
