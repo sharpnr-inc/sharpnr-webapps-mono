@@ -11,7 +11,7 @@ import { LogOut, UserCog, Settings, BellIcon, Calendar, ChevronDown } from "luci
 import { ModeToggle } from "./ThemeToggle";
 import { useNavigate } from "@tanstack/react-router";
 import { useHeader } from "@/context/HeaderContext";
-import MainMenuButton from "@/features/Header/MainMenuButton";
+import MainMenuButton from "@/components/Header/MainMenuButton";
 import { Badge } from "@/components/ui/badge";
 
 interface DashboardHeaderProps {
