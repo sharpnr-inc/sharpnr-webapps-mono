@@ -21,7 +21,7 @@ export async function InitiateOrgRegistration(
   return response.data;
 }
 
-export interface OtpVerificactionResponseDTO {
+export interface OtpVerificationResponseDTO {
   name: string;
   email: string;
   sharpnr_id: string;
@@ -29,8 +29,8 @@ export interface OtpVerificactionResponseDTO {
 }
 export async function VerifyOtp(
   data: VerifyOTPRequestPayload
-): Promise<ApiResponse<OtpVerificactionResponseDTO>> {
-  const response = await api.post<ApiResponse<OtpVerificactionResponseDTO>>(
+): Promise<ApiResponse<OtpVerificationResponseDTO>> {
+  const response = await api.post<ApiResponse<OtpVerificationResponseDTO>>(
     AUTH.OTP_VERIFY,
     data
   );
