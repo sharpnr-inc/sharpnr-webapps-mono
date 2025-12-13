@@ -12,7 +12,7 @@ export default function EmployeeProfilePage() {
         <TabsList className="w-max p-1 space-x-2">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="personal_details">Personal Details</TabsTrigger>
-          <TabsTrigger value="employement_history">
+          <TabsTrigger value="employment_history">
             Employement History
           </TabsTrigger>
           <TabsTrigger value="important_dates">Important Dates</TabsTrigger>
@@ -26,7 +26,7 @@ export default function EmployeeProfilePage() {
           <PersonalDetailsSection />
         </TabsContent>
 
-        <TabsContent value="employement_history">
+        <TabsContent value="employment_history">
           <EmployementHistorySection />
         </TabsContent>
 

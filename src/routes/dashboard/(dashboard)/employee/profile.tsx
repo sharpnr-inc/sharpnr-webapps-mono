@@ -1,4 +1,4 @@
-import EmployeeProfilePage from "@/components/RoutesPages/employees/EmployeeProfilePage";
+import EmployeeProfilePage from "@/_employee_app/pages/profile/EmployeeProfilePage";
 import { createFileRoute } from "@tanstack/react-router";
 import { PersonStanding } from "lucide-react";
 
