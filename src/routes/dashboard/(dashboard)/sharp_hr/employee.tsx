@@ -1,15 +1,11 @@
+import HrMainLayout from "@/_hrapp/pages/HrMainLayout";
 import { createFileRoute } from "@tanstack/react-router";
 import { PersonStanding } from "lucide-react";
-import { lazy } from "react";
-
-const HrEmployeePageLazy = lazy(() =>
-  import("@/components/RoutesPages/sharp_hr/HrEmployeePage")
-);
 
 export const Route = createFileRoute(
   "/dashboard/(dashboard)/sharp_hr/employee"
 )({
-  component: HrEmployeePageLazy,
+  component: HrMainLayout,
   context: () => ({
     heading: "Employees Management",
     subheading: "Manage Employee Operations",

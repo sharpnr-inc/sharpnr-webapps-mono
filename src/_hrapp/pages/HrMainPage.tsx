@@ -1,7 +1,7 @@
-import EmployeeAddEmployeeSection from "@/components/hr_module/EmployeeAddEmployeeSection";
-import EmployeeAllEmployeeSection from "@/components/hr_module/EmployeeAllEmployeeSection";
-import EmployeeOnBoardingSection from "@/components/hr_module/EmployeeOnBoardingSection";
-import EmployeePrivilagesSection from "@/components/hr_module/EmployeePrivilagesSection";
+import EmployeeAddEmployeeSection from "@/_hrapp/sections/employee/EmployeeAddEmployeeSection";
+import EmployeeAllEmployeeSection from "@/_hrapp/sections/employee/EmployeeAllEmployeeSection";
+import EmployeeOnBoardingSection from "@/_hrapp/sections/employee/EmployeeOnBoardingSection";
+import EmployeePrivilagesSection from "@/_hrapp/sections/employee/EmployeePrivilagesSection";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function HrEmployeePage() {

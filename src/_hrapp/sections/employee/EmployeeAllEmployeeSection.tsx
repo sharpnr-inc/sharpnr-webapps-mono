@@ -4,8 +4,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import AllEmployeeDataTable from "./data-tables/AllEmployeeDataTable";
+} from "../../../components/ui/card";
+import AllEmployeeDataTable from "../../components/employee/AllEmployeeDataTable";
 
 
 export default function EmployeeAllEmployeeSection() {

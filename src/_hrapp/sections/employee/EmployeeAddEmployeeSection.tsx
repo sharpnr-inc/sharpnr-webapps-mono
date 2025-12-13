@@ -10,10 +10,10 @@ import {
   FieldLegend,
   FieldSet,
 } from "@/components/ui/field";
-import { Input } from "../ui/input";
-import { Switch } from "../ui/switch";
-import { Button } from "../ui/button";
-import { Textarea } from "../ui/textarea";
+import { Input } from "../../../components/ui/input";
+import { Switch } from "../../../components/ui/switch";
+import { Button } from "../../../components/ui/button";
+import { Textarea } from "../../../components/ui/textarea";
 
 export default function EmployeeAddEmployeeSection() {
   const [preview, setPreview] = useState<string | null>(null);

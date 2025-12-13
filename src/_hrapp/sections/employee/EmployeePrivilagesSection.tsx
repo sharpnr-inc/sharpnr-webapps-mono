@@ -19,15 +19,15 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "../ui/accordion";
+} from "../../../components/ui/accordion";
 // import { ui_render, type UIRendererTree } from "@/dummy_data/ui_render_tree";
 import {
   employee_policy,
   type EmployeePolicy,
 } from "@/dummy_data/employee_policy";
 import { useState } from "react";
-import { Label } from "../ui/label";
-import { Separator } from "../ui/separator";
+import { Label } from "../../../components/ui/label";
+import { Separator } from "../../../components/ui/separator";
 
 export default function EmployeePrivilegeManager() {
   const [policy, setPolicy] = useState<EmployeePolicy>(employee_policy);
