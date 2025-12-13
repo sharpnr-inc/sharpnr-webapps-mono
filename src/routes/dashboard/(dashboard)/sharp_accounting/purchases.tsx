@@ -1,4 +1,4 @@
-import AccountingPurchasesPage from '@/components/RoutesPages/SharpAccounting/PurchasesPage'
+import AccountingPurchasesPage from '@/_accountingapp/pages/Purchases/PurchasesPage'
 import { createFileRoute } from '@tanstack/react-router'
 import { ShoppingCart } from 'lucide-react'
 

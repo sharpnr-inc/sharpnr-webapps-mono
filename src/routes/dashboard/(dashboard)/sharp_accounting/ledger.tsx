@@ -1,4 +1,4 @@
-import AccountingLedgerPage from '@/components/RoutesPages/SharpAccounting/LedgerPages'
+import AccountingLedgerPage from '@/_accountingapp/pages/Ledger/LedgerPages'
 import { createFileRoute } from '@tanstack/react-router'
 import { BookOpen } from 'lucide-react'
 
