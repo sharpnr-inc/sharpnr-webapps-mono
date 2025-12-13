@@ -1,7 +1,7 @@
-import KitchenInventorySection from "@/components/hospitality_module/kitchen/KitchenInventorySection";
-import KitchenMenuSection from "@/components/hospitality_module/kitchen/KitchenMenuSection";
-import KitchenOrdersSection from "@/components/hospitality_module/kitchen/KitchenOrdersSection";
-import KitchenStaffSection from "@/components/hospitality_module/kitchen/KitchenStaffSection";
+import KitchenInventorySection from "@/_hospitalityapp/sections/kitchen/KitchenInventorySection";
+import KitchenMenuSection from "@/_hospitalityapp/sections/kitchen/KitchenMenuSection";
+import KitchenOrdersSection from "@/_hospitalityapp/sections/kitchen/KitchenOrdersSection";
+import KitchenStaffSection from "@/_hospitalityapp/sections/kitchen/KitchenStaffSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 

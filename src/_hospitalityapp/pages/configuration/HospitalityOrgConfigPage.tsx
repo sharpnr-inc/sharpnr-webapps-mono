@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import OverviewSection from "@/components/hospitality_module/org_configs/OverviewSection";
-import BarConfigSection from "@/components/hospitality_module/org_configs/BarConfigSection";
-import HotelConfigSection from "@/components/hospitality_module/org_configs/HotelConfigSection";
-import OwnersSection from "@/components/hospitality_module/org_configs/OwnersSection";
-import RegLicenseSection from "@/components/hospitality_module/org_configs/RegLicenseSection";
+import OverviewSection from "@/_hospitalityapp/sections/org_configs/OverviewSection";
+import BarConfigSection from "@/_hospitalityapp/sections/org_configs/BarConfigSection";
+import HotelConfigSection from "@/_hospitalityapp/sections/org_configs/HotelConfigSection";
+import OwnersSection from "@/_hospitalityapp/sections/org_configs/OwnersSection";
+import RegLicenseSection from "@/_hospitalityapp/sections/org_configs/RegLicenseSection";
 // import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
-import CustomerSupportSection from "@/components/hospitality_module/org_configs/CustomerSupportSection";
-import RestaurantConfigSection from "@/components/hospitality_module/org_configs/RestaurantConfigSection";
-import ORGConfigSection from "@/components/hospitality_module/org_configs/ORGconfig";
+import CustomerSupportSection from "@/_hospitalityapp/sections/org_configs/CustomerSupportSection";
+import RestaurantConfigSection from "@/_hospitalityapp/sections/org_configs/RestaurantConfigSection";
+import ORGConfigSection from "@/_hospitalityapp/sections/org_configs/ORGconfig";
 
 export default function HospitalityOrgConfigPage() {
   /************
