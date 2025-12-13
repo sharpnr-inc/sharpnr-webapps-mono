@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/tabs";
 
 // 🧩 Import section components
-import ChartOfAccountsSection from "@/components/AccountingModule/Ledger/ChartOfAccountsSection";
-import AccountGroupsSection from "@/components/AccountingModule/Ledger/AccountGroupsSection"; 
-import ReconcileSection from "@/components/AccountingModule/Ledger/ReconcileSection";
-import TrialBalanceSection from "@/components/AccountingModule/Ledger/TrialBalanceSection"; 
+import ChartOfAccountsSection from "@/_accountingapp/sections/Ledger/ChartOfAccountsSection";
+import AccountGroupsSection from "@/_accountingapp/sections/Ledger/AccountGroupsSection"; 
+import ReconcileSection from "@/_accountingapp/sections/Ledger/ReconcileSection";
+import TrialBalanceSection from "@/_accountingapp/sections/Ledger/TrialBalanceSection"; 
 
 export default function AccountingLedgerPage() {
   return (

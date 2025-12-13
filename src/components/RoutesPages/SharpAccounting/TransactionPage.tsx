@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/tabs";
 
 // 🧩 Import section components
-import AllTransactionsSection from "@/components/AccountingModule/Transactions/AllTransactionsSection";
-import ReceiptsSection from "@/components/AccountingModule/Transactions/ReceiptsSection";
-import PaymentsSection from "@/components/AccountingModule/Transactions/PaymentsSection";
-import TransfersSection from "@/components/AccountingModule/Transactions/TransfersSection";
-import JournalEntriesSection from "@/components/AccountingModule/Transactions/JournalEntriesSection";
+import AllTransactionsSection from "@/_accountingapp/sections/Transactions/AllTransactionsSection";
+import ReceiptsSection from "@/_accountingapp/sections/Transactions/ReceiptsSection";
+import PaymentsSection from "@/_accountingapp/sections/Transactions/PaymentsSection";
+import TransfersSection from "@/_accountingapp/sections/Transactions/TransfersSection";
+import JournalEntriesSection from "@/_accountingapp/sections/Transactions/JournalEntriesSection";
 
 export default function AccountingTransactionPage() {
   return (

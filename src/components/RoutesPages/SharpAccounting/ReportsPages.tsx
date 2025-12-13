@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/tabs";
 
 // 🧩 Import the individual report sections
-import ProfitAndLossSection from "@/components/AccountingModule/Reports/ProfitAndLossSection";
-import BalanceSheetSection from "@/components/AccountingModule/Reports/BalanceSheetSection";
-import CashFlowSection from "@/components/AccountingModule/Reports/CashFlowSection";
-import GstTaxSummarySection from "@/components/AccountingModule/Reports/GstTaxSummarySection";
-import LedgerStatementSection from "@/components/AccountingModule/Reports/LedgerStatementSection";
+import ProfitAndLossSection from "@/_accountingapp/sections/Reports/ProfitAndLossSection";
+import BalanceSheetSection from "@/_accountingapp/sections/Reports/BalanceSheetSection";
+import CashFlowSection from "@/_accountingapp/sections/Reports/CashFlowSection";
+import GstTaxSummarySection from "@/_accountingapp/sections/Reports/GstTaxSummarySection";
+import LedgerStatementSection from "@/_accountingapp/sections/Reports/LedgerStatementSection";
 
 export default function AccountingReportsPage() {
   return (

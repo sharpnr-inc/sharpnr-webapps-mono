@@ -6,10 +6,10 @@ import {
 } from "@/components/ui/tabs";
 
 // 🧩 Import the individual tab sections
-import BillsSection from "@/components/AccountingModule/Purchases/BillsSection";
-import VendorCreditsSection from "@/components/AccountingModule/Purchases/VendorCreditsSection";
-import SuppliersSection from "@/components/AccountingModule/Purchases/SuppliersSection";
-import PurchaseReportsSection from "@/components/AccountingModule/Purchases/PurchaseReportsSection";
+import BillsSection from "@/_accountingapp/sections/Purchases/BillsSection";
+import VendorCreditsSection from "@/_accountingapp/sections/Purchases/VendorCreditsSection";
+import SuppliersSection from "@/_accountingapp/sections/Purchases/SuppliersSection";
+import PurchaseReportsSection from "@/_accountingapp/sections/Purchases/PurchaseReportsSection";
 
 export default function AccountingPurchasesPage() {
   return (

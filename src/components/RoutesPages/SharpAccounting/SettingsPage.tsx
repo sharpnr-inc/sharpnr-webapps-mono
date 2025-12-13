@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/tabs";
 
 // 🧩 Import section components
-import FiscalYearSection from "@/components/AccountingModule/Settings/FiscalYearSection";
-import TaxesSection from "@/components/AccountingModule/Settings/TaxesSection";
-import DocumentNumberingSection from "@/components/AccountingModule/Settings/DocumentNumberingSection";
-import DefaultAccountsSection from "@/components/AccountingModule/Settings/DefaultAccountsSection";
-import AccountingBooksSection from "@/components/AccountingModule/Settings/AccountingBooksSection";
+import FiscalYearSection from "@/_accountingapp/sections/Settings/FiscalYearSection";
+import TaxesSection from "@/_accountingapp/sections/Settings/TaxesSection";
+import DocumentNumberingSection from "@/_accountingapp/sections/Settings/DocumentNumberingSection";
+import DefaultAccountsSection from "@/_accountingapp/sections/Settings/DefaultAccountsSection";
+import AccountingBooksSection from "@/_accountingapp/sections/Settings/AccountingBooksSection";
 
 export default function AccountingSettingsPage() {
   return (

@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/tabs";
 
 // 🧩 Import section components
-import InvoicesSection from "@/components/AccountingModule/Sales/InvoicesSection";
-import CreditNotesSection from "@/components/AccountingModule/Sales/CreditNotesSection";
-import CustomersSection from "@/components/AccountingModule/Sales/CustomersSection";
-import SalesReportsSection from "@/components/AccountingModule/Sales/SalesReportsSection";
+import InvoicesSection from "@/_accountingapp/sections/Sales/InvoicesSection";
+import CreditNotesSection from "@/_accountingapp/sections/Sales/CreditNotesSection";
+import CustomersSection from "@/_accountingapp/sections/Sales/CustomersSection";
+import SalesReportsSection from "@/_accountingapp/sections/Sales/SalesReportsSection";
 
 export default function AccountingSalesPage() {
   return (
