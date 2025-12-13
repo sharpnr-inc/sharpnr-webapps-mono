@@ -1,4 +1,4 @@
-import ServicePage from '@/components/RoutesPages/sharpHospitality/ServicePage'
+import ServicePage from '@/_hospitalityapp/pages/concierge/ServicePage'
 import { createFileRoute } from '@tanstack/react-router'
 import { ServerCogIcon } from 'lucide-react'
 

@@ -1,4 +1,4 @@
-import HospitalityOrgConfigPage from "@/components/RoutesPages/sharpHospitality/HospitalityOrgConfigPage";
+import HospitalityOrgConfigPage from "@/_hospitalityapp/pages/configuration/HospitalityOrgConfigPage";
 import { createFileRoute } from "@tanstack/react-router";
 import {OrigamiIcon} from "lucide-react"
 

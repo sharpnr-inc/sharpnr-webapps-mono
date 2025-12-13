@@ -1,4 +1,4 @@
-import HouseKeepingPage from "@/components/RoutesPages/sharpHospitality/HouseKeepingPage";
+import HouseKeepingPage from "@/_hospitalityapp/pages/HouseKeeping/HouseKeepingPage";
 import { createFileRoute } from "@tanstack/react-router";
 import { Hotel } from "lucide-react";
 

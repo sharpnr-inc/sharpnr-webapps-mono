@@ -6,7 +6,7 @@ export default function HouseKeepingPage() {
       <TabsList>
         <TabsTrigger value="a">Requests</TabsTrigger>
         <TabsTrigger value="b">Requests</TabsTrigger>
-        <TabsTrigger value="c">Laundary</TabsTrigger>
+        <TabsTrigger value="c">Laundry</TabsTrigger>
       </TabsList>
       <TabsContent value="a"><div>This is Request</div></TabsContent>
     </Tabs>
