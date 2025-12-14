@@ -65,12 +65,12 @@ createRoot(document.getElementById("root")!).render(
       {/* <TanStackDevtools plugins={[FormDevtoolsPlugin()]} /> */}
 
       {/* 🔹 Show Devtools only in development */}
-      {import.meta.env.DEV && (
+      {/* {import.meta.env.DEV && (
         <ReactQueryDevtools
           buttonPosition="bottom-right"
           initialIsOpen={false}
         />
-      )}
+      )} */}
     </QueryClientProvider>
   </StrictMode>
 );

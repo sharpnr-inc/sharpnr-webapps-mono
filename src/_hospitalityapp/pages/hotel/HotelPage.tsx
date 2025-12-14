@@ -15,7 +15,7 @@ export default function SharpHospitalityHotelPage() {
     <div className="p-2">
       {/* Tabs Section */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="">
-        <TabsList className="w-full h-auto flex-wrap justify-start gap-1">
+        <TabsList className="w-full">
           {hasSubSectionAccess("sharp_hospitality", "hotel", "overview") && (
             <TabsTrigger defaultValue={"overview"} value="overview">
               Overview

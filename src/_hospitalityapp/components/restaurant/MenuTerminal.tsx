@@ -3,25 +3,31 @@ import {
   useMenuGroupDetails,
 } from "@/api_service/queries/HospitalityQueries/Menu";
 import {
+  selectClearMenuItem,
+  selectIsMenuTerminalSheetOpen,
   selectMenuCategories,
   selectMenuGroups,
+  selectMenuItem,
   selectSelectedGroupId,
   selectSetMenuCategories,
   selectSetMenuGroups,
+  selectSetMenuItem,
+  selectSetMenuTerminalSheet,
   selectSetSelectedGroupId,
   useMenuCategoriesStore,
   useMenuGroupStore,
+  useMenuItemStore,
+  useMenuTerminalSheetStore,
 } from "@/store/Hospitality/restaurant/menuTerminal/menuTerminal.store";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
 } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 export function MenuTerminal({ children }: { children: React.ReactNode }) {
   const setMenuGroups = useMenuGroupStore(selectSetMenuGroups);
@@ -81,8 +87,8 @@ MenuTerminal.Body = function Body({ children }: { children: React.ReactNode }) {
 
 MenuTerminal.CategorySection = function CategorySection() {
   const menuCategories = useMenuCategoriesStore(selectMenuCategories);
-  const [open, setOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const setMenuItem = useMenuItemStore(selectSetMenuItem);
+  const setSheetOpen = useMenuTerminalSheetStore(selectSetMenuTerminalSheet);
 
   if (!menuCategories || menuCategories.length === 0) {
     return (
@@ -95,8 +101,9 @@ MenuTerminal.CategorySection = function CategorySection() {
   const defaultCategoryId = String(menuCategories[0].id);
 
   const handlecc = (item: any) => {
-    setSelectedItem(item);
-    setOpen(true);
+    console.log(item);
+    setMenuItem(item); // ✅ set selected item
+    setSheetOpen(true); // ✅ open bottom sheet
   };
 
   return (
@@ -166,70 +173,43 @@ MenuTerminal.CategorySection = function CategorySection() {
           </TabsContent>
         ))}
       </Tabs>
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="bottom" className="h-[80vh] overflow-y-auto p-6">
-          {selectedItem && (
-            <>
-              <SheetHeader>
-                <SheetTitle>{selectedItem.name}</SheetTitle>
-              </SheetHeader>
-
-              {/* ---------- ITEM DETAILS ---------- */}
-              <div className="mt-4 space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  {selectedItem.description}
-                </p>
-
-                <div className="font-semibold text-lg">
-                  ₹{selectedItem.price}
-                </div>
-
-                {/* ---------- VARIANTS ---------- */}
-                {selectedItem.variant_groups?.length > 0 && (
-                  <div className="space-y-3">
-                    <h4 className="font-semibold">Variants</h4>
-
-                    {selectedItem.variant_groups.map((vg: any) => (
-                      <div key={vg.id} className="space-y-2">
-                        <div className="text-sm font-medium">{vg.name}</div>
-
-                        <div className="flex flex-wrap gap-2">
-                          {vg.variants.map((v: any) => (
-                            <div
-                              key={v.id}
-                              className="border rounded px-3 py-1 text-sm cursor-pointer hover:bg-muted"
-                            >
-                              {v.name} (+₹{v.price})
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* ---------- ADD ONS ---------- */}
-                {selectedItem.add_ons?.length > 0 && (
-                  <div className="space-y-3">
-                    <h4 className="font-semibold">Add Ons</h4>
-
-                    <div className="flex flex-wrap gap-2">
-                      {selectedItem.add_ons.map((ao: any) => (
-                        <div
-                          key={ao.ID}
-                          className="border rounded px-3 py-1 text-sm cursor-pointer hover:bg-muted"
-                        >
-                          {ao.Name} (+₹{ao.Price})
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </>
-          )}
-        </SheetContent>
-      </Sheet>
+      <SheetMenuItem />
     </div>
   );
 };
+
+function SheetMenuItem() {
+  const isOpen = useMenuTerminalSheetStore(selectIsMenuTerminalSheetOpen);
+  const setSheetOpen = useMenuTerminalSheetStore(selectSetMenuTerminalSheet);
+  const menuItem = useMenuItemStore(selectMenuItem);
+  const clearMenuItem = useMenuItemStore(selectClearMenuItem);
+
+  return (
+    <Sheet
+      open={isOpen}
+      onOpenChange={(open) => {
+        setSheetOpen(open);
+        if (!open) clearMenuItem(); // ✅ cleanup on close
+      }}
+    >
+      <SheetContent side="bottom" className="max-h-[70vh] overflow-y-auto p-6">
+        {!menuItem ? (
+          <div className="text-sm text-muted-foreground">No item selected</div>
+        ) : (
+          <div className="space-y-2">
+            <div className="text-lg font-semibold">{menuItem.name}</div>
+
+            <div className="text-sm text-muted-foreground">
+              ₹{menuItem.price}
+            </div>
+
+            {menuItem.description && (
+              <p className="text-sm">{menuItem.description}</p>
+            )}
+            <Button className="w-full">Add Items</Button>
+          </div>
+        )}
+      </SheetContent>
+    </Sheet>
+  );
+}

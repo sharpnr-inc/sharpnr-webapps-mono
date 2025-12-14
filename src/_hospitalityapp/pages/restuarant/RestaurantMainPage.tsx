@@ -4,7 +4,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 export default function RestaurantMainPage() {
   return (
     <Tabs defaultValue="table_management" className="p-2">
-      <TabsList className="w-fit h-auto flex-wrap justify-start gap-1">
+      <TabsList className="w-full">
         <TabsTrigger value="table_management" className="text-xs sm:text-sm">
           Table Management
         </TabsTrigger>
