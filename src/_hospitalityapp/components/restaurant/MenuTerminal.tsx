@@ -20,18 +20,32 @@ import {
   useMenuTerminalSheetStore,
 } from "@/store/Hospitality/restaurant/menuTerminal/menuTerminal.store";
 import type React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useRestaurantKOTStore } from "@/store/Hospitality/restaurant/Kot/kot.store";
+import {
+  selectAddItemInKot,
+  selectKotItemsCount,
+} from "@/store/Hospitality/restaurant/Kot/kot.selector";
+
+/**********************
+ * Root Menu Terminal *
+ **********************/
 
 export function MenuTerminal({ children }: { children: React.ReactNode }) {
   const setMenuGroups = useMenuGroupStore(selectSetMenuGroups);
   const { data, isSuccess } = useMenuGroup();
+
+  const kotCount = useRestaurantKOTStore(selectKotItemsCount);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -39,8 +53,24 @@ export function MenuTerminal({ children }: { children: React.ReactNode }) {
     }
   }, [isSuccess, data, setMenuGroups]);
 
-  return <div>{children}</div>;
+  return (
+    <div className="relative  pb-20">
+      {/* Main Content */}
+      <div>{children}</div>
+
+      {/* Floating KOT Basket */}
+      {kotCount > 0 && (
+        <div className="fixed bottom-6 left-0 right-0 z-50 p-6">
+          <KotBasket />
+        </div>
+      )}
+    </div>
+  );
 }
+
+/**********************
+ * Menu Terminal Body *
+ **********************/
 
 MenuTerminal.Body = function Body({ children }: { children: React.ReactNode }) {
   const menuGroups = useMenuGroupStore(selectMenuGroups);
@@ -85,6 +115,9 @@ MenuTerminal.Body = function Body({ children }: { children: React.ReactNode }) {
   );
 };
 
+/**********************************
+ * Menu Terminal Category Section *
+ **********************************/
 MenuTerminal.CategorySection = function CategorySection() {
   const menuCategories = useMenuCategoriesStore(selectMenuCategories);
   const setMenuItem = useMenuItemStore(selectSetMenuItem);
@@ -178,11 +211,27 @@ MenuTerminal.CategorySection = function CategorySection() {
   );
 };
 
+/**************************************
+ * Sheet Component to Add Item In KOT *
+ **************************************/
+
 function SheetMenuItem() {
   const isOpen = useMenuTerminalSheetStore(selectIsMenuTerminalSheetOpen);
   const setSheetOpen = useMenuTerminalSheetStore(selectSetMenuTerminalSheet);
   const menuItem = useMenuItemStore(selectMenuItem);
   const clearMenuItem = useMenuItemStore(selectClearMenuItem);
+
+  const addItem = useRestaurantKOTStore(selectAddItemInKot);
+
+  const handleccx = (item: any) => {
+    console.log(item);
+    addItem(item);
+    // ✅ close sheet
+    setSheetOpen(false);
+
+    // ✅ cleanup selected item
+    clearMenuItem();
+  };
 
   return (
     <Sheet
@@ -196,20 +245,135 @@ function SheetMenuItem() {
         {!menuItem ? (
           <div className="text-sm text-muted-foreground">No item selected</div>
         ) : (
-          <div className="space-y-2">
-            <div className="text-lg font-semibold">{menuItem.name}</div>
-
-            <div className="text-sm text-muted-foreground">
-              ₹{menuItem.price}
+          <div className="space-y-6">
+            {/* ---------- HEADER ---------- */}
+            <div className="space-y-1">
+              <div className="text-lg font-semibold">{menuItem.name}</div>
+              <div className="text-sm text-muted-foreground">
+                ₹{menuItem.price}
+              </div>
+              {menuItem.description && (
+                <p className="text-sm leading-relaxed">
+                  {menuItem.description}
+                </p>
+              )}
             </div>
 
-            {menuItem.description && (
-              <p className="text-sm">{menuItem.description}</p>
+            {/* ---------- VARIANTS ---------- */}
+            {!menuItem.variant_groups ? (
+              <div className="text-sm text-muted-foreground">
+                No variants for this item
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {menuItem.variant_groups.map((vr: any) => (
+                  <div key={vr.id} className="border rounded-md p-3 space-y-2">
+                    <div className="text-sm font-medium text-muted-foreground">
+                      {vr.name}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {vr.variants.map((v: any) => (
+                        <div
+                          key={v.id}
+                          className="flex items-center gap-2 border rounded px-2 py-1 text-sm"
+                        >
+                          <span>{v.name}</span>
+                          <span className="text-xs text-muted-foreground">
+                            ₹{v.price}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
-            <Button className="w-full">Add Items</Button>
+
+            {/* ---------- ADD-ONS ---------- */}
+            {!menuItem.add_ons ? (
+              <div className="text-sm text-muted-foreground">
+                No add-ons for this item
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {menuItem.add_ons.map((vr: any) => (
+                  <div
+                    key={vr.ID}
+                    className="flex items-center justify-between border rounded-md px-3 py-2"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium">{vr.Name}</span>
+                      <span className="text-xs text-muted-foreground">
+                        ₹{vr.Price}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <Button variant="outline" size="sm">
+                        −
+                      </Button>
+                      <span className="text-sm w-4 text-center">1</span>
+                      <Button variant="outline" size="sm">
+                        +
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* ---------- FOOTER ---------- */}
+            <div className="space-y-3 pt-2">
+              <Input placeholder="Extra instructions" />
+              <Button onClick={() => handleccx(menuItem)} className="w-full">
+                Add Items
+              </Button>
+            </div>
           </div>
         )}
       </SheetContent>
     </Sheet>
+  );
+}
+
+function KotBasket() {
+  const kotCount = useRestaurantKOTStore(selectKotItemsCount);
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      {/* ---------- KOT BAR ---------- */}
+      <div className="bg-yellow-300 text-gray-600 font-semibold border p-4 rounded w-full">
+        <div className="flex items-center justify-between">
+          <div>
+            {kotCount} <span>Items</span>
+          </div>
+
+          <div className="flex gap-3">
+            <Button size="sm" onClick={() => setOpen(true)}>
+              View KOT
+            </Button>
+
+            <Button size="sm" variant="outline">
+              Create KOT
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* ---------- VIEW KOT SHEET ---------- */}
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="bottom" className="max-h-[70vh] p-6">
+          <SheetHeader>
+            <SheetTitle>KOT Summary</SheetTitle>
+          </SheetHeader>
+
+          <div className="mt-4 text-sm text-muted-foreground">
+            {/* KOT items will come here */}
+            KOT items preview goes here
+          </div>
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
