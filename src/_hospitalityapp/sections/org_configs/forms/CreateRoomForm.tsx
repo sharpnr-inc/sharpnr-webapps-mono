@@ -19,12 +19,18 @@ import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/H
 import { useForm } from "@tanstack/react-form";
 import { mutateRoomInFloor } from "@/api_service/mutations/Hospitality/HotelsMutations";
 import { Label } from "@/components/ui/label";
+import { useQueryClient } from "@tanstack/react-query";
 
+/*********************************
+ * Component for the Create Room *
+ *********************************/
 export default function CreateRoomForm() {
   const { data } = useHotelQueryOptions();
-  console.log(data);
+  const queryClient = useQueryClient();
+
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  const { openModal } = useDialogModal();
+
+  const { openModal, closeModal } = useDialogModal();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -41,7 +47,7 @@ export default function CreateRoomForm() {
   const handleAddFloor = () => {
     console.log("Done");
     openModal(
-      <CreateFloorForm hotel={data?.data?.hotel_id} />,
+      <CreateFloorForm hotel={data?.data?.hotel_id} closeModel={closeModal} />,
       `Add Floor`,
       `Add Floor in Hotel`
     );
@@ -58,12 +64,15 @@ export default function CreateRoomForm() {
     },
     onSubmit: async ({ value }) => {
       mutation.mutate(value);
+      queryClient.invalidateQueries({
+        queryKey: ["organization hotel"],
+      });
     },
   });
 
   return (
     <CardContent>
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 p-2">
         {/* LEFT FORM SECTION */}
         <form
           className="w-full lg:w-3/4 space-y-6"

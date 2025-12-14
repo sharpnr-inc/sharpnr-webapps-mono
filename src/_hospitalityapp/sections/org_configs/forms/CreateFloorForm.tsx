@@ -4,27 +4,38 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { mutateFloorInHotel } from "@/api_service/mutations/Hospitality/HotelsMutations";
 import { useToastService } from "@/context/ToastContext";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function CreateFloorForm({hotel}:{hotel:any}) {
-  console.log(hotel)
+export default function CreateFloorForm({
+  hotel,
+  closeModel,
+}: {
+  hotel: any;
+  closeModel: () => void;
+}) {
   const mutation = mutateFloorInHotel();
   const { success, error } = useToastService();
+  const queryClient = useQueryClient();
 
-const form = useForm({
-  defaultValues: {
-    floor_name: "",
-    hotel_id: hotel,
-  },
-  onSubmit: async ({ value }) => {
-    try {
-      const res = await mutation.mutateAsync(value); // ✅ now typed
-      success(`Floor "${res.floor_name}" created successfully.`);
-      form.reset();
-    } catch (err: any) {
-      error(err.message || "Something went wrong");
-    }
-  },
-});
+  const form = useForm({
+    defaultValues: {
+      floor_name: "",
+      hotel_id: hotel,
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        const res = await mutation.mutateAsync(value); // ✅ now typed
+        success(`Floor "${res.floor_name}" created successfully.`);
+        form.reset();
+        closeModel();
+        queryClient.invalidateQueries({
+          queryKey: ["organization hotel"],
+        });
+      } catch (err: any) {
+        error(err.message || "Something went wrong");
+      }
+    },
+  });
 
   return (
     <form

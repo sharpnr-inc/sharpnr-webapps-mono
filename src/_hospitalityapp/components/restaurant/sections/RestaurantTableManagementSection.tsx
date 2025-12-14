@@ -24,7 +24,6 @@ export default function RestaurantTableManagementSection() {
   const router = useRouter();
 
   const handleTableAction = (table: any) => {
-    console.log(table);
     if (table.status === "OCCUPIED") {
       router.navigate({
         to: "/dashboard/sharp_hospitality/restaurant/$tableId",
@@ -40,7 +39,6 @@ export default function RestaurantTableManagementSection() {
         "",
         ""
       );
-      console.log(table);
     }
   };
 

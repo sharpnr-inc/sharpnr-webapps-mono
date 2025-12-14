@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useSheet } from "@/context/DrawerContext";
 import { useFormsModal } from "@/context/FormModalContext";
@@ -6,6 +5,7 @@ import { useFormsModal } from "@/context/FormModalContext";
 import AddBookingForm from "../forms/AddBookingForm";
 import BookedRoomDetailsTable from "../dataTables/BookedRoomDetailsTable";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 
 import { useBookingTerminal } from "@/api_service/queries/HospitalityQueries/Hotel";
 
@@ -14,7 +14,7 @@ import type {
   RoomResponse,
   FloorResponse,
 } from "@/api_service/apis/Hospitality/Hotel";
-import { DoorClosedLocked, DoorOpenIcon, } from "lucide-react";
+import { DoorClosedLocked, DoorOpenIcon } from "lucide-react";
 
 const getStatusColor = (status?: string) => {
   switch (status?.toUpperCase()) {
@@ -42,6 +42,7 @@ const getStatusColor = (status?: string) => {
 export default function HotelBookingSection() {
   const { data, isLoading, isError } = useBookingTerminal();
 
+  const router = useRouter();
   const { openSheet } = useSheet();
   const { showModal } = useFormsModal();
 
@@ -62,7 +63,8 @@ export default function HotelBookingSection() {
     const status = room.status?.toUpperCase();
 
     if (status === "BOOKED") {
-      openSheet(<HandleRoomDetails room={room} />, "full");
+      // openSheet(<HandleRoomDetails room={room} />, "full");
+      router.navigate({to:"/dashboard/sharp_hospitality/hotel/$roomId", params:{roomId:room.room_id}})
     } else if (status === "AVAILABLE") {
       showModal(
         `Book Room ${room.room_name}`,

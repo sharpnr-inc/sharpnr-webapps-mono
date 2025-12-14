@@ -15,7 +15,6 @@ import { useOrchestratorQuery } from "@/api_service/queries/OrchestratorQueries/
 
 export default function ORGConfigSection() {
 const {data } = useOrchestratorQuery()
-console.log(data)
 
   const form = useForm({
     defaultValues: {

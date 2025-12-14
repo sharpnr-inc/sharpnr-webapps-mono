@@ -1,3 +1,4 @@
+import { HotelRoomMainPage } from '@/_hospitalityapp/pages/hotel/RoomPages/RoomMainPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
@@ -7,5 +8,6 @@ export const Route = createFileRoute(
 })
 
 function RouteComponent() {
-  return <div>Hello "/dashboard/_layout/sharp_hospitality/hotel/$room"!</div>
+   const { roomId } = Route.useParams();
+  return <div><HotelRoomMainPage/></div>
 }

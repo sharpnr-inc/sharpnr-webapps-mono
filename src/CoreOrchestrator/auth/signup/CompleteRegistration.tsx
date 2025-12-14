@@ -1,8 +1,8 @@
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useForm } from "@tanstack/react-form";
 import { useQuery } from "@tanstack/react-query";
 import { Info, Plus, Trash2 } from "lucide-react";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -10,10 +10,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
 import { createGetSubModuleQuery } from "@/api_service/queries/Shared/useUtils";
-import TermsAndConditionsCard from "../ui/TermsandConditionCard";
-import { Input } from "../ui/input";
+import TermsAndConditionsCard from "@/components/ui/TermsandConditionCard";
+import { Input } from "@/components/ui/input";
 
 import {
   createCitiesQuery,
@@ -23,9 +23,10 @@ import {
 import SearchableSelect from "./searchable";
 
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import type { OrgOwnerDetails } from "@/schemas/Auth";
-import { useCompleteOrganization } from "@/api_service/mutations/Auth/completeResgistration";
+import { useCompleteOrganization } from "@/api_service/mutations/Auth/completeRegistration";
+import { CountryStateCity } from "@/components/custom/CountryStateCity";
 
 const orgBasicDetails = [
   {
@@ -505,6 +506,7 @@ export default function CompleteRegistration() {
           </form.Subscribe>
         </form>
       </div>
+     <CountryStateCity onChange={(add)=> console.log(add)}/>
     </div>
   );
 }

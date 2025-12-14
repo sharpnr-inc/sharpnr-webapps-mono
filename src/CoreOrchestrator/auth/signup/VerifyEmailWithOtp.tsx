@@ -12,21 +12,28 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
 import { Clock } from "lucide-react";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
-import { Button } from "../ui/button";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { Button } from "@/components/ui/button";
 import { useVerifyOtpRegistration } from "@/api_service/mutations/Auth/verifyOtp";
 
+/*******************
+ * Verify OTP page *
+ *******************/
 export default function VerifyEmailWithOtpPage() {
   const navigate = useNavigate();
-  const { email,} = useRouteContext({
+  const { email } = useRouteContext({
     from: "/signup/verify-otp",
   });
-  const [timeRemaining, setTimeRemaining] = useState(180); // 3 minutes
+  const [timeRemaining, setTimeRemaining] = useState(180);
+
   const verifyOtpMutation = useVerifyOtpRegistration();
 
-  // Helper to get error message from mutation
   const getErrorMessage = (): string | null => {
     // Network/request error
     if (verifyOtpMutation.isError) {
@@ -60,7 +67,7 @@ export default function VerifyEmailWithOtpPage() {
     return () => clearInterval(timer);
   }, [timeRemaining, navigate]);
 
-  // Handle successful verification
+  
   useEffect(() => {
     if (
       verifyOtpMutation.isSuccess &&
