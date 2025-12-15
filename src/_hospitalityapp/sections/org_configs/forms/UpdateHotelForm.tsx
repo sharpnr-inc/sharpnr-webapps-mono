@@ -1,3 +1,6 @@
+import { mapHotelResponseToForm } from "@/_hospitalityapp/schemas/mappers/hotelMappers";
+import type { GetHotelResponse } from "@/api_service/apis/Hospitality/Hotel";
+import { useUpdateHotelMutation } from "@/api_service/mutations/Hospitality/Hotel";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -11,30 +14,61 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@tanstack/react-form";
 
+import { useEffect } from "react";
 
-export default function UpdateHotelDetailsForm() {
-
+interface UpdateHotelDetailsFormProps {
+  hotel?: GetHotelResponse;
+}
+export default function UpdateHotelDetailsForm({
+  hotel,
+}: UpdateHotelDetailsFormProps) {
+  const updateHotelMutation = useUpdateHotelMutation();
 
   const form = useForm({
     defaultValues: {
-      hotelDisplayName: "",
-      hotelLegalName: "",
-      gstNumber: "",
-      cinNumber: "",
-      fssaiNumber: "",
-      addressLine: "",
+      display_name: "",
+      legal_name: "",
+      hotel_gst_number: "",
+      hotel_fssai_number: "",
+      address: "",
       country: "",
       state: "",
       city: "",
       pincode: "",
     },
-    onSubmit: async ({ value }) => {
-      console.log("Form submitted:", value);
-      // Handle form submission
+    onSubmit: async ({ value, formApi }) => {
+      // 1️⃣ No changes → exit early
+      if (!formApi.state.isDirty) {
+        console.log("No changes detected");
+        return;
+      }
+
+      // 2️⃣ Collect only changed fields
+      const changedFields: Partial<typeof value> = {};
+
+      Object.keys(value).forEach((key) => {
+        const fieldKey = key as keyof typeof value;
+
+        const currentValue = value[fieldKey];
+        const initialValue = formApi.options.defaultValues?.[fieldKey];
+
+        if (currentValue !== initialValue) {
+          (changedFields as any)[fieldKey] = currentValue;
+        }
+      });
+
+      await updateHotelMutation.mutateAsync(changedFields);
+
+      // ✅ Reset dirty state after success
+      // formApi.reset(value);
     },
   });
 
+  useEffect(() => {
+    if (!hotel) return;
 
+    form.reset(mapHotelResponseToForm(hotel));
+  }, [hotel, form]);
 
   return (
     <div className="w-full">
@@ -50,7 +84,7 @@ export default function UpdateHotelDetailsForm() {
             <FieldGroup>
               <div className="flex gap-2 flex-row">
                 <form.Field
-                  name="hotelDisplayName"
+                  name="display_name"
                   children={(field) => (
                     <Field>
                       <FieldLabel htmlFor="hotel-display-name">
@@ -72,7 +106,7 @@ export default function UpdateHotelDetailsForm() {
                 />
 
                 <form.Field
-                  name="hotelLegalName"
+                  name="legal_name"
                   children={(field) => (
                     <Field>
                       <FieldLabel htmlFor="hotel-legal-name">
@@ -96,7 +130,7 @@ export default function UpdateHotelDetailsForm() {
               <FieldSeparator />
               <div className="flex flex-row gap-2">
                 <form.Field
-                  name="gstNumber"
+                  name="hotel_gst_number"
                   children={(field) => (
                     <Field>
                       <FieldLabel htmlFor="gst-number">
@@ -114,7 +148,7 @@ export default function UpdateHotelDetailsForm() {
                   )}
                 />
 
-                <form.Field
+                {/* <form.Field
                   name="cinNumber"
                   children={(field) => (
                     <Field>
@@ -131,10 +165,10 @@ export default function UpdateHotelDetailsForm() {
                       />
                     </Field>
                   )}
-                />
+                /> */}
 
                 <form.Field
-                  name="fssaiNumber"
+                  name="hotel_fssai_number"
                   children={(field) => (
                     <Field>
                       <FieldLabel htmlFor="fssai-number">
@@ -160,12 +194,10 @@ export default function UpdateHotelDetailsForm() {
           <FieldSet>
             <FieldGroup>
               <form.Field
-                name="addressLine"
+                name="address"
                 children={(field) => (
                   <Field>
-                    <FieldLabel htmlFor="address-line">
-                      Address Line
-                    </FieldLabel>
+                    <FieldLabel htmlFor="address-line">Address Line</FieldLabel>
                     <Textarea
                       id="address-line"
                       placeholder="Add any additional comments"
@@ -177,7 +209,6 @@ export default function UpdateHotelDetailsForm() {
                   </Field>
                 )}
               />
-         
             </FieldGroup>
           </FieldSet>
 
@@ -189,6 +220,15 @@ export default function UpdateHotelDetailsForm() {
           </Field>
         </FieldGroup>
       </form>
+
+      {/* <SearchableSelect
+        value={null}
+        options={[]}
+        placeholder={""}
+        onChange={function (value: string): void {
+          throw new Error("Function not implemented.");
+        }}
+      /> */}
     </div>
   );
 }

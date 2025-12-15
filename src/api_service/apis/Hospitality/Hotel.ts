@@ -6,18 +6,18 @@ import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 export interface GetHotelResponse {
   hotel_id: string;
   hotel_name: string;
-  sharpId: string;
-  hotelDisplayName: string;
-  hotelLegalName: string;
+  SharpId: string;
+  HotelDisplayName: string;
+  HotelLegalName: string;
   KitchenId: string;
   IsKitchen: boolean;
-  address: string;
-  city: string;
-  state: string;
-  country: string;
-  pincode: string;
-  hotelGstNumber: string;
-  hotelFSSAINumber: string;
+  Address: string;
+  City: string;
+  State: string;
+  Country: string;
+  Pincode: string;
+  HotelGstNumber: string;
+  HotelFSSAINumber: string;
   floors: FloorResponse[];
 }
 
@@ -123,7 +123,6 @@ export const createRoomInFloor = async (room: any) => {
   return res;
 };
 
-
 export interface HotelBookingTerminal_Response {
   hotel_id: string;
   org_id: string;
@@ -149,3 +148,9 @@ export const getFrontDeskBookingTerminal = async () => {
   const res = await api.get(HospitalityApiEndpoint.Hotel.getFrontDesk);
   return res.data;
 };
+
+
+export const updateHotelGeneralDetails = async (req:any) => {
+  const res = await api.post(HospitalityApiEndpoint.Hotel.updateHotelDetails, req)
+  return res.data
+}

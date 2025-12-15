@@ -7,6 +7,7 @@ import {
   createCountriesQuery,
   createStatesQuery,
 } from "@/api_service/queries/Shared/useUtils";
+import type { FormApi } from "@tanstack/react-form";
 
 type AddressValue = {
   country: string | null;
@@ -17,6 +18,23 @@ type AddressValue = {
 interface AddressSelectorProps {
   value?: AddressValue;
   onChange: (value: AddressValue) => void;
+}
+
+type AddressForm = {
+  address: {
+    country: string | null;
+    state: string | null;
+    city: string | null;
+  };
+};
+
+interface Props {
+  form: FormApi<
+    AddressForm,
+    any, any, any, any, any,
+    any, any, any, any, any,
+    any
+  >;
 }
 
 export function CountryStateCity({ value, onChange }: AddressSelectorProps) {

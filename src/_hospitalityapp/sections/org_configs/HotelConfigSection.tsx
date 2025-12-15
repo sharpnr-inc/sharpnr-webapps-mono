@@ -11,7 +11,6 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PenBox, PlusCircle } from "lucide-react";
 import CreateRoomForm from "./forms/CreateRoomForm";
@@ -21,6 +20,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function HotelConfigSection() {
   const { data, isLoading, isError, refetch } = useHotelQueryOptions();
+
   const [showTabs, setShowTabs] = useState(false);
   const { showModal } = useFormsModal();
 
@@ -28,7 +28,7 @@ export default function HotelConfigSection() {
     showModal(
       "Update Hotel Details",
       "Update or Configure Details",
-      <UpdateHotelDetailsForm />
+      <UpdateHotelDetailsForm  hotel={data?.data}/>
     );
   };
 
@@ -137,8 +137,8 @@ export default function HotelConfigSection() {
           </div>
 
           <div className="flex flex-wrap gap-6">
-            <InfoItem label="Display Name" value={hotel?.hotelDisplayName} />
-            <InfoItem label="Legal Name" value={hotel?.hotelLegalName} />
+            <InfoItem label="Display Name" value={hotel?.HotelDisplayName} />
+            <InfoItem label="Legal Name" value={hotel?.HotelLegalName} />
           </div>
         </CardContent>
 
@@ -152,9 +152,9 @@ export default function HotelConfigSection() {
 
           <InlineInfoGroup
             items={[
-              { label: "GSTIN Number", value: hotel?.hotelGstNumber },
+              { label: "GSTIN Number", value: hotel?.HotelGstNumber },
               { label: "CIN Number", value: hotel?.hotel_id },
-              { label: "FSSAI Number", value: hotel?.hotelFSSAINumber },
+              { label: "FSSAI Number", value: hotel?.HotelFSSAINumber },
             ]}
           />
         </CardContent>
@@ -198,94 +198,76 @@ export default function HotelConfigSection() {
             Hotel Address Details
           </div>
 
-          <InfoItem label="Full Address" value={hotel?.address} full />
+          <InfoItem label="Full Address" value={hotel?.Address} full />
 
           <InlineInfoGroup
             items={[
-              { label: "Country", value: hotel?.country },
-              { label: "State", value: hotel?.state },
-              { label: "City", value: hotel?.city },
-              { label: "Pincode", value: hotel?.pincode },
+              { label: "Country", value: hotel?.Country },
+              { label: "State", value: hotel?.State },
+              { label: "City", value: hotel?.City },
+              { label: "Pincode", value: hotel?.Pincode },
             ]}
           />
         </CardContent>
       </Card>
 
-      {/* ------------------------------------------------------
-         ROOMS + AMENITIES TABS
-      ------------------------------------------------------ */}
-      <Tabs defaultValue="r">
-        <TabsList>
-          <TabsTrigger value="r">Rooms</TabsTrigger>
-          <TabsTrigger value="a">Amenities</TabsTrigger>
-        </TabsList>
+      <div className="space-y-6">
+        {hotel?.floors?.map((floor: any) => (
+          <div
+            key={floor.floor_id}
+            className="border p-4 rounded-2xl space-y-4 bg-muted/30"
+          >
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg font-semibold">
+                Floor {floor.floor_number}
+              </h2>
+              {floor.floor_name && (
+                <span className="text-sm text-muted-foreground">
+                  {floor.floor_name}
+                </span>
+              )}
+            </div>
 
-        {/* Rooms */}
-        <TabsContent value="r">
-          <div className="space-y-6">
-            {hotel?.floors?.map((floor: any) => (
-              <div
-                key={floor.floor_id}
-                className="border p-4 rounded-2xl space-y-4 bg-muted/30"
-              >
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-semibold">
-                    Floor {floor.floor_number}
-                  </h2>
-                  {floor.floor_name && (
-                    <span className="text-sm text-muted-foreground">
-                      {floor.floor_name}
-                    </span>
-                  )}
-                </div>
+            {floor.rooms?.length ? (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {floor.rooms.map((room: any) => (
+                  <Card
+                    key={room.room_id}
+                    className="hover:shadow-lg transition-shadow cursor-pointer"
+                  >
+                    <CardHeader>
+                      <CardTitle className="text-base font-medium">
+                        Room {room.room_name}
+                      </CardTitle>
+                    </CardHeader>
 
-                {floor.rooms?.length ? (
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {floor.rooms.map((room: any) => (
-                      <Card
-                        key={room.room_id}
-                        className="hover:shadow-lg transition-shadow cursor-pointer"
-                      >
-                        <CardHeader>
-                          <CardTitle className="text-base font-medium">
-                            Room {room.room_name}
-                          </CardTitle>
-                        </CardHeader>
+                    <CardContent className="space-y-2 text-sm">
+                      <p>
+                        <span className="font-medium">Price:</span> ₹
+                        {room.room_price}
+                      </p>
 
-                        <CardContent className="space-y-2 text-sm">
-                          <p>
-                            <span className="font-medium">Price:</span> ₹
-                            {room.room_price}
-                          </p>
-
-                          {room.description ? (
-                            <p className="text-muted-foreground">
-                              {room.description}
-                            </p>
-                          ) : (
-                            <p className="text-muted-foreground italic">
-                              No description
-                            </p>
-                          )}
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground italic">
-                    No rooms on this floor yet.
-                  </p>
-                )}
+                      {room.description ? (
+                        <p className="text-muted-foreground">
+                          {room.description}
+                        </p>
+                      ) : (
+                        <p className="text-muted-foreground italic">
+                          No description
+                        </p>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
-            ))}
+            ) : (
+              <p className="text-sm text-muted-foreground italic">
+                No rooms on this floor yet.
+              </p>
+            )}
           </div>
-        </TabsContent>
-
-        {/* Amenities */}
-        <TabsContent value="a">
-          <div>Here we display the Amenities List</div>
-        </TabsContent>
-      </Tabs>
+        ))}
+      </div>
     </div>
   );
 }

@@ -57,7 +57,9 @@ export const HospitalityApiEndpoint = {
   Hotel: {
     GetAll: "/hospitality/hotel",
     GetById: (id: string) => `/hospitality/hotel/${id}`,
-    getFrontDesk:"/sharp-hospitality/hotel/frontdesk"
+    getFrontDesk:"/sharp-hospitality/hotel/frontdesk",
+
+    updateHotelDetails: "/sharp-hospitality/hotel/configure"
   },
 
   Room: {

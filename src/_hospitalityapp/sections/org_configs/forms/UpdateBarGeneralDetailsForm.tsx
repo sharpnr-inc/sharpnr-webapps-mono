@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { useUpdateBarDetails } from "@/api_service/mutations/Hospitality/BarMutations";
 import { transformBarGenDetailsResToBarUpdateReq } from "@/mappers/Hospitality/Bar";
 
-
 export function UpdateBarGeneralDetailsForm({
   barGenDetail,
 }: {
@@ -24,37 +23,37 @@ export function UpdateBarGeneralDetailsForm({
 
   console.log(barGenDetail);
 
-const form = useForm({
-  defaultValues: transformBarGenDetailsResToBarUpdateReq(barGenDetail),
+  const form = useForm({
+    defaultValues: transformBarGenDetailsResToBarUpdateReq(barGenDetail),
 
-  onSubmit: ({ value, formApi }) => {
-    // No changes
-    if (!formApi.state.isDirty) {
-      console.log("No changes detected");
-      return;
-    }
-
-    // Collect changed fields
-    const changedFields: Partial<typeof value> = {
-      bar_id: value.bar_id, // always include bar_id
-    };
-
-    Object.keys(value).forEach((key) => {
-      const fieldKey = key as keyof typeof value;
-
-      const currentValue = value[fieldKey];
-      const initialValue = formApi.options.defaultValues?.[fieldKey];
-
-      if (currentValue !== initialValue) {
-        // FIX: cast once to avoid TS error
-        (changedFields as any)[fieldKey] = currentValue;
+    onSubmit: ({ value, formApi }) => {
+      // No changes
+      if (!formApi.state.isDirty) {
+        console.log("No changes detected");
+        return;
       }
-    });
 
-    console.log("Only changed fields:", changedFields);
-    updateBarDetailsMutation.mutateAsync(changedFields)
-  },
-});
+      // Collect changed fields
+      const changedFields: Partial<typeof value> = {
+        bar_id: value.bar_id, // always include bar_id
+      };
+
+      Object.keys(value).forEach((key) => {
+        const fieldKey = key as keyof typeof value;
+
+        const currentValue = value[fieldKey];
+        const initialValue = formApi.options.defaultValues?.[fieldKey];
+
+        if (currentValue !== initialValue) {
+          // FIX: cast once to avoid TS error
+          (changedFields as any)[fieldKey] = currentValue;
+        }
+      });
+
+      console.log("Only changed fields:", changedFields);
+      updateBarDetailsMutation.mutateAsync(changedFields);
+    },
+  });
 
   return (
     <div>

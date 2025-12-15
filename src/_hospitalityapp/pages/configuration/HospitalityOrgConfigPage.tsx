@@ -3,10 +3,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OverviewSection from "@/_hospitalityapp/sections/org_configs/OverviewSection";
 import BarConfigSection from "@/_hospitalityapp/sections/org_configs/BarConfigSection";
 import HotelConfigSection from "@/_hospitalityapp/sections/org_configs/HotelConfigSection";
-import OwnersSection from "@/_hospitalityapp/sections/org_configs/OwnersSection";
+
 import RegLicenseSection from "@/_hospitalityapp/sections/org_configs/RegLicenseSection";
-// import BrandingSection from "@/components/hospitality_module/org_configs/BrandingSection";
-import CustomerSupportSection from "@/_hospitalityapp/sections/org_configs/CustomerSupportSection";
 import RestaurantConfigSection from "@/_hospitalityapp/sections/org_configs/RestaurantConfigSection";
 import ORGConfigSection from "@/_hospitalityapp/sections/org_configs/ORGconfig";
 
@@ -15,8 +13,6 @@ export default function HospitalityOrgConfigPage() {
    *  Hooks *
    ************/
   const [tab, setTab] = useState("overview");
-
-  
 
   return (
     <div className="p-2">
@@ -30,8 +26,6 @@ export default function HospitalityOrgConfigPage() {
           </TabsTrigger>
           <TabsTrigger value="bar_config">Bar Configs</TabsTrigger>
           <TabsTrigger value="hotel_config">Hotel Configs</TabsTrigger>
-          {/* <TabsTrigger value="branding">Branding</TabsTrigger> */}
-          <TabsTrigger value="customer_support">Customer Support</TabsTrigger>
         </TabsList>
 
         {/* ---- Tab Contents ---- */}
@@ -55,20 +49,8 @@ export default function HospitalityOrgConfigPage() {
           <HotelConfigSection />
         </TabsContent>
 
-        <TabsContent value="owners">
-          <OwnersSection />
-        </TabsContent>
-
         <TabsContent value="reg_license">
           <RegLicenseSection />
-        </TabsContent>
-
-        {/* <TabsContent value="branding">
-          <BrandingSection />
-        </TabsContent> */}
-
-        <TabsContent value="customer_support">
-          <CustomerSupportSection />
         </TabsContent>
       </Tabs>
     </div>
