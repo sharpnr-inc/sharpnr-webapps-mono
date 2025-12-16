@@ -1,11 +1,8 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useSheet } from "@/context/DrawerContext";
 import { useFormsModal } from "@/context/FormModalContext";
 
-import AddBookingForm from "../forms/AddBookingForm";
-import BookedRoomDetailsTable from "../dataTables/BookedRoomDetailsTable";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
-import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useRouter } from "@tanstack/react-router";
 
 import { useBookingTerminal } from "@/api_service/queries/HospitalityQueries/Hotel";
 
@@ -43,34 +40,26 @@ export default function HotelBookingSection() {
   const { data, isLoading, isError } = useBookingTerminal();
 
   const router = useRouter();
-  const { openSheet } = useSheet();
+
   const { showModal } = useFormsModal();
 
   // Hotel data
   const hotel: HotelBookingTerminal_Response | undefined = data?.data;
-  // ---- Room Details Sheet ----
-  function HandleRoomDetails({ room }: { room: RoomResponse }) {
-    return <BookedRoomDetailsTable room={room} />;
-  }
-
-  // ---- Add Booking Modal ----
-  function HandleAddBooking({ room }: { room: RoomResponse }) {
-    return <AddBookingForm room={room} />;
-  }
 
   // ---- Click Room Handler ----
   const handleRoom = (room: RoomResponse) => {
     const status = room.status?.toUpperCase();
 
     if (status === "BOOKED") {
-      // openSheet(<HandleRoomDetails room={room} />, "full");
-      router.navigate({to:"/dashboard/sharp_hospitality/hotel/$roomId", params:{roomId:room.room_id}})
+      router.navigate({
+        to: "/dashboard/sharp_hospitality/hotel/$roomId",
+        params: { roomId: room.room_id },
+      });
     } else if (status === "AVAILABLE") {
-      showModal(
-        `Book Room ${room.room_name}`,
-        "Book this room for a customer",
-        <HandleAddBooking room={room} />
-      );
+      router.navigate({
+        to: "/dashboard/sharp_hospitality/hotel/booking/$roomId",
+        params: { roomId: room.room_id },
+      });
     } else {
       showModal(
         "Unavailable",

@@ -3,8 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";
 
-export default function AddBookingForm({ room }: { room: any }) {
-  console.log(room)
+export default function AddBookingForm() {
   const form = useForm({
     defaultValues: {
       room_id: "",
