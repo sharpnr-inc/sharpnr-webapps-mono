@@ -2,28 +2,38 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import HotelBookingSection from "@/_hospitalityapp/sections/hotel/HotelBookingSection";
 import HotelOverviewSection from "@/_hospitalityapp/sections/hotel/HotelOverviewSection";
 import HotelRequestSection from "@/_hospitalityapp/sections/hotel/HotelRequestSection";
-import React from "react";
 import { useUIRenderer } from "@/context/ui-rendererContext";
+import { Route } from "@/routes/dashboard/(dashboard)/sharp_hospitality/hotel";
 
-
-// This is the page we need Apis for the fetching the Details 
+// This is the page we need APIs for fetching the details
 export default function SharpHospitalityHotelPage() {
-  const [activeTab, setActiveTab] = React.useState("overview");
+   const { tab } = Route.useSearch();
+  const navigate = Route.useNavigate();
+
 
   const { hasSubSectionAccess } = useUIRenderer();
+
+  const activeTab = tab;
+
   return (
     <div className="p-2">
-      {/* Tabs Section */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="">
+      <Tabs
+        value={activeTab}
+        onValueChange={(nextTab) =>
+          navigate({
+            search: {
+              tab: nextTab,
+            },
+            replace: true,
+          })
+        }
+      >
         <TabsList className="w-full">
           {hasSubSectionAccess("sharp_hospitality", "hotel", "overview") && (
-            <TabsTrigger defaultValue={"overview"} value="overview">
-              Overview
-            </TabsTrigger>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
           )}
           <TabsTrigger value="booking">Bookings</TabsTrigger>
           <TabsTrigger value="request">Request</TabsTrigger>
-          {/* <TabsTrigger value="rooms_config">Room Management</TabsTrigger> */}
         </TabsList>
 
         {hasSubSectionAccess("sharp_hospitality", "hotel", "overview") && (
@@ -39,10 +49,6 @@ export default function SharpHospitalityHotelPage() {
         <TabsContent value="request">
           <HotelRequestSection />
         </TabsContent>
-
-        {/* <TabsContent value="rooms_config">
-          <HotelRoomMgmSection />
-        </TabsContent> */}
       </Tabs>
     </div>
   );

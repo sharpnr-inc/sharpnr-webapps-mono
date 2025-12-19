@@ -1,5 +1,13 @@
-import { queryOptions, useQuery, } from "@tanstack/react-query";
-import {  fetchBookingsOfHotels, fetchHotelOverview, fetchOrgsHotel, getFrontDeskBookingTerminal, type GetHotelResponse, type HotelBookingTerminal_Response, } from "../../apis/Hospitality/Hotel";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import {
+  fetchBookingsOfHotels,
+  fetchHotelOverview,
+  fetchOrgsHotel,
+  getFrontDeskBookingTerminal,
+  searchHotelGuest,
+  type GetHotelResponse,
+  type HotelBookingTerminal_Response,
+} from "../../apis/Hospitality/Hotel";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
 export function useHotelQueryOptions() {
@@ -9,25 +17,31 @@ export function useHotelQueryOptions() {
   });
 }
 
-
-
-export function useHotelOverview(){
+export function useHotelOverview() {
   return queryOptions({
-    queryKey:["hotel overview"],
-    queryFn:fetchHotelOverview
-  })
+    queryKey: ["hotel overview"],
+    queryFn: fetchHotelOverview,
+  });
 }
 
-export function useBookingOfHotels(){
+export function useBookingOfHotels() {
   return queryOptions({
-    queryKey:["booking hotels"],
-    queryFn:fetchBookingsOfHotels
-  })
+    queryKey: ["booking hotels"],
+    queryFn: fetchBookingsOfHotels,
+  });
 }
 
-export function useBookingTerminal(){
+export function useBookingTerminal() {
   return useQuery<ApiResponse<HotelBookingTerminal_Response>>({
-    queryKey:["Hotel", "Booking Terminal", "Hospitality"],
-    queryFn:getFrontDeskBookingTerminal
-  })
+    queryKey: ["Hotel", "Booking Terminal", "Hospitality"],
+    queryFn: getFrontDeskBookingTerminal,
+  });
+}
+
+export function useHotelGuest(q: string) {
+  return useQuery({
+    queryKey: ["Hospitality", "Hotel", "guest-search", q],
+    queryFn: () => searchHotelGuest(q),
+    enabled: q.trim().length >= 3, // 👈 IMPORTANT
+  });
 }

@@ -1,20 +1,40 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import React from "react";
+import { format } from "date-fns";
+import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import CustomerSearch from "@/_hospitalityapp/components/hotels/SearchCustomer";
 
+/***************************************
+ * Component for Creating Room Booking *
+ ***************************************/
 export default function AddBookingForm() {
+  const [date, setDate] = React.useState<Date>();
+
+  // Tanstack form
   const form = useForm({
     defaultValues: {
       room_id: "",
-      floor_id: "",
-      booking_data: {
-        from_: "",
-        to_: "",
-      },
-      payments: {
-        advance_payment: 0,
-      },
+      primary_guestId: "",
+      checkin_date: "",
+      checkout_date: "",
+
       guest_list: [
         {
           guest_name: "",
@@ -22,12 +42,6 @@ export default function AddBookingForm() {
           guest_mobile: "",
         },
       ],
-      number_of_guest: 0,
-      bill_to: {
-        name: "",
-        email: "",
-        mobile: "",
-      },
     },
     onSubmit: async ({ value }) => {
       console.log(value);
@@ -35,222 +49,128 @@ export default function AddBookingForm() {
   });
 
   return (
-    <div className="w-full mx-auto p-4 md:p-6">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}
-        className="space-y-8"
-      >
-        {/* Booking Dates */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold border-b pb-2">Booking Dates</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <form.Field name="booking_data.from_">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="from_date" className="text-sm font-medium">
-                    Check-in Date
-                  </label>
-                  <Input
-                    id="from_date"
-                    type="date"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                  />
-                </div>
-              )}
-            </form.Field>
+    <div className="w-full mx-auto p-4 flex flex-col gap-4">
+      <CardContent className="flex item-start">
+        <Button>Back</Button>
+      </CardContent>
+      <Card>
+        <CardHeader>
+          <CardTitle>Booking For Room #G01</CardTitle>
+          <CardDescription>Room Details</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+            className="space-y-8"
+          >
+            {/* Booking Dates */}
+            <div className="space-y-6 p-4">
+              <CustomerSearch/>
+              <div className="space-y-1">
+                <h2 className="text-xl font-semibold tracking-tight">
+                  Booking Dates
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Select your check-in and check-out dates
+                </p>
+              </div>
 
-            <form.Field name="booking_data.to_">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="to_date" className="text-sm font-medium">
-                    Check-out Date
-                  </label>
-                  <Input
-                    id="to_date"
-                    type="date"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                  />
-                </div>
-              )}
-            </form.Field>
-          </div>
-        </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <form.Field name="checkin_date">
+                  {(field) => (
+                    <div className="space-y-3">
+                      <label
+                        htmlFor="from_date"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Check-in Date
+                      </label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            data-empty={!date}
+                            className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal h-11 px-4"
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {date ? (
+                              format(date, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={setDate}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  )}
+                </form.Field>
 
-        {/* Guest Information */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold border-b pb-2">Guest Information</h2>
-          <div className="grid grid-cols-1 gap-4">
-            <form.Field name="number_of_guest">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="number_of_guest" className="text-sm font-medium">
-                    Number of Guests
-                  </label>
-                  <Input
-                    id="number_of_guest"
-                    type="number"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                    placeholder="0"
-                  />
-                </div>
-              )}
-            </form.Field>
-          </div>
-        </div>
+                <form.Field name="checkout_date">
+                  {(field) => (
+                    <div className="space-y-3">
+                      <label
+                        htmlFor="to_date"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Check-out Date
+                      </label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            data-empty={!date}
+                            className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal h-11 px-4"
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {date ? (
+                              format(date, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={setDate}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  )}
+                </form.Field>
+              </div>
+            </div>
+     
 
-        {/* Primary Guest Details */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold border-b pb-2">Primary Guest Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <form.Field name="guest_list[0].guest_name">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="guest_name" className="text-sm font-medium">
-                    Guest Name
-                  </label>
-                  <Input
-                    id="guest_name"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter guest name"
-                  />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field name="guest_list[0].guest_email">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="guest_email" className="text-sm font-medium">
-                    Guest Email
-                  </label>
-                  <Input
-                    id="guest_email"
-                    type="email"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="guest@example.com"
-                  />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field name="guest_list[0].guest_mobile">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="guest_mobile" className="text-sm font-medium">
-                    Guest Mobile
-                  </label>
-                  <Input
-                    id="guest_mobile"
-                    type="tel"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter mobile number"
-                  />
-                </div>
-              )}
-            </form.Field>
-          </div>
-        </div>
-
-        {/* Payment Information */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold border-b pb-2">Payment</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <form.Field name="payments.advance_payment">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="advance_payment" className="text-sm font-medium">
-                    Advance Payment
-                  </label>
-                  <Input
-                    id="advance_payment"
-                    type="number"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(Number(e.target.value))}
-                    placeholder="0"
-                  />
-                  <p className="text-xs text-gray-500">Enter the advance payment amount</p>
-                </div>
-              )}
-            </form.Field>
-          </div>
-        </div>
-
-        {/* Billing Information */}
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold border-b pb-2">Billing Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <form.Field name="bill_to.name">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="bill_to_name" className="text-sm font-medium">
-                    Name
-                  </label>
-                  <Input
-                    id="bill_to_name"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter billing name"
-                  />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field name="bill_to.email">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="bill_to_email" className="text-sm font-medium">
-                    Email
-                  </label>
-                  <Input
-                    id="bill_to_email"
-                    type="email"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="billing@example.com"
-                  />
-                </div>
-              )}
-            </form.Field>
-
-            <form.Field name="bill_to.mobile">
-              {(field) => (
-                <div className="space-y-2">
-                  <label htmlFor="bill_to_mobile" className="text-sm font-medium">
-                    Mobile
-                  </label>
-                  <Input
-                    id="bill_to_mobile"
-                    type="tel"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    placeholder="Enter mobile number"
-                  />
-                </div>
-              )}
-            </form.Field>
-          </div>
-        </div>
-
-        {/* Submit Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-4">
-          <Button type="submit" className="w-full sm:w-auto">
-            Submit Booking
-          </Button>
-          <Button variant="outline" type="button" className="w-full sm:w-auto">
-            Cancel
-          </Button>
-        </div>
-      </form>
+            {/* Submit Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <Button type="submit" className="w-full sm:w-auto">
+                Submit Booking
+              </Button>
+              <Button
+                variant="outline"
+                type="button"
+                className="w-full sm:w-auto"
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

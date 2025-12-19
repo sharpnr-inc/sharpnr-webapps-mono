@@ -9,3 +9,5 @@ export interface HotelFormModel {
   hotel_gst_number: string;
   hotel_fssai_number: string;
 }
+
+

@@ -17,9 +17,16 @@ import CreateRoomForm from "./forms/CreateRoomForm";
 import UpdateHotelDetailsForm from "./forms/UpdateHotelForm";
 import { useFormsModal } from "@/context/FormModalContext";
 import { motion, AnimatePresence } from "framer-motion";
+// import { Route } from "@/routes/dashboard/(dashboard)/sharp_hospitality/hotel";
 
+
+/*********************************
+ * This is the Hotel Config Page *
+ *********************************/
 export default function HotelConfigSection() {
+
   const { data, isLoading, isError, refetch } = useHotelQueryOptions();
+  // const navigate = Route.useNavigate();
 
   const [showTabs, setShowTabs] = useState(false);
   const { showModal } = useFormsModal();
@@ -28,7 +35,7 @@ export default function HotelConfigSection() {
     showModal(
       "Update Hotel Details",
       "Update or Configure Details",
-      <UpdateHotelDetailsForm  hotel={data?.data}/>
+      <UpdateHotelDetailsForm hotel={data?.data} />
     );
   };
 
@@ -68,48 +75,6 @@ export default function HotelConfigSection() {
 
   return (
     <div className="flex flex-col gap-2">
-      {/* ------------------------------------------------------
-          ROOM CREATION SECTION
-        ------------------------------------------------------ */}
-
-      <Card className="border-2 rounded-2xl shadow-sm relative">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-xl font-semibold">Add Room</CardTitle>
-          <CardDescription>
-            Add amenities for this room on the selected floor.
-          </CardDescription>
-        </CardHeader>
-
-        <Button
-          variant={showTabs ? "destructive" : "default"}
-          onClick={handleToggleTabs}
-          className="absolute top-4 right-4"
-          size="sm"
-        >
-          <PlusCircle className="mr-1 h-4 w-4" />
-          {showTabs ? "Cancel" : "Add Room"}
-        </Button>
-
-        <AnimatePresence initial={false}>
-          {showTabs && (
-            <motion.div
-              key="animated-form"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <Separator />
-
-              <div className="">
-                <CreateRoomForm />
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </Card>
-
       {/* ------------------------------------------------------
           GENERAL HOTEL DETAILS SECTION (READ-ONLY)
         ------------------------------------------------------ */}
@@ -211,6 +176,44 @@ export default function HotelConfigSection() {
         </CardContent>
       </Card>
 
+         <Card className="border-2 rounded-2xl shadow-sm relative">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-xl font-semibold">Add Room</CardTitle>
+          <CardDescription>
+            Add amenities for this room on the selected floor.
+          </CardDescription>
+        </CardHeader>
+
+        <Button
+          variant={showTabs ? "destructive" : "default"}
+          onClick={handleToggleTabs}
+          className="absolute top-4 right-4"
+          size="sm"
+        >
+          <PlusCircle className="mr-1 h-4 w-4" />
+          {showTabs ? "Cancel" : "Add Room"}
+        </Button>
+
+        <AnimatePresence initial={false}>
+          {showTabs && (
+            <motion.div
+              key="animated-form"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <Separator />
+
+              <div className="">
+                <CreateRoomForm />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Card>
+
       <div className="space-y-6">
         {hotel?.floors?.map((floor: any) => (
           <div
@@ -268,6 +271,7 @@ export default function HotelConfigSection() {
           </div>
         ))}
       </div>
+
     </div>
   );
 }

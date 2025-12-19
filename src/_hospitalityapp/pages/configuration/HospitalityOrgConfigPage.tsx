@@ -3,8 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OverviewSection from "@/_hospitalityapp/sections/org_configs/OverviewSection";
 import BarConfigSection from "@/_hospitalityapp/sections/org_configs/BarConfigSection";
 import HotelConfigSection from "@/_hospitalityapp/sections/org_configs/HotelConfigSection";
-
-import RegLicenseSection from "@/_hospitalityapp/sections/org_configs/RegLicenseSection";
 import RestaurantConfigSection from "@/_hospitalityapp/sections/org_configs/RestaurantConfigSection";
 import ORGConfigSection from "@/_hospitalityapp/sections/org_configs/ORGconfig";
 
@@ -47,10 +45,6 @@ export default function HospitalityOrgConfigPage() {
 
         <TabsContent value="hotel_config">
           <HotelConfigSection />
-        </TabsContent>
-
-        <TabsContent value="reg_license">
-          <RegLicenseSection />
         </TabsContent>
       </Tabs>
     </div>

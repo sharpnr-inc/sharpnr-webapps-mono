@@ -36,7 +36,7 @@ export const Auth = {
   },
 
   Logout: {
-    User: "/auth/logout",
+    User: "/logout",
   },
 
   Token: {

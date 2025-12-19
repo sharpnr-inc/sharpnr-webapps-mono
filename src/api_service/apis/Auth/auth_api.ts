@@ -7,6 +7,7 @@ import type {
 import api from "../../axios";
 import { AUTH } from "@/constants/api_endpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
+import { Auth } from "../endpoints/Auth";
 
 export interface OrgSignupResponseDTO {
   email: string;
@@ -77,7 +78,12 @@ export async function SignupStatus() {
   return response;
 }
 
-export async function GetOrgUIRenderer(){
-  const response = await api.get(AUTH.GET_UI)
-  return response.data
+export async function GetOrgUIRenderer() {
+  const response = await api.get(AUTH.GET_UI);
+  return response.data;
 }
+
+export const Logout = async () => {
+  const res = await api.get(Auth.Logout.User);
+  return res.data;
+};

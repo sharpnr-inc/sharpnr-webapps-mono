@@ -7,12 +7,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, UserCog, Settings, BellIcon, Calendar, ChevronDown } from "lucide-react";
+import {
+  LogOut,
+  UserCog,
+  Settings,
+  BellIcon,
+  Calendar,
+  ChevronDown,
+} from "lucide-react";
 import { ModeToggle } from "./ThemeToggle";
 import { useNavigate } from "@tanstack/react-router";
 import { useHeader } from "@/context/HeaderContext";
 import MainMenuButton from "@/components/Header/MainMenuButton";
 import { Badge } from "@/components/ui/badge";
+import { useLogoutMutation } from "@/api_service/mutations/Auth/useLogout";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -20,23 +28,18 @@ interface DashboardHeaderProps {
   onLogout?: () => void;
 }
 
-export default function DashboardHeader({ 
-  useremail, 
+export default function DashboardHeader({
+  useremail,
   notificationCount = 0,
-  onLogout 
+  onLogout,
 }: DashboardHeaderProps) {
+  
   const { heading, subheading, HeaderIcon } = useHeader();
   const nav = useNavigate();
-
-  const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
-    }
-    // Add your logout logic here
-  };
+  const { mutate: logout, isPending } = useLogoutMutation();
 
   const getUserInitials = (email: string) => {
-    const name = email.split('@')[0];
+    const name = email.split("@")[0];
     const parts = name.split(/[._-]/);
     if (parts.length >= 2) {
       return (parts[0][0] + parts[1][0]).toUpperCase();
@@ -54,7 +57,7 @@ export default function DashboardHeader({
         {/* Left Section */}
         <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
           <MainMenuButton />
-          
+
           <div className="hidden lg:block text-sm font-semibold text-muted-foreground whitespace-nowrap">
             Dearie Clubs PVT LTD
           </div>
@@ -84,17 +87,17 @@ export default function DashboardHeader({
         {/* Right Section */}
         <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
           {/* Notification Bell */}
-          <button 
+          <button
             className="relative p-2 rounded-lg hover:bg-accent transition-colors"
             aria-label="Notifications"
           >
             <BellIcon className="w-5 h-5" />
             {notificationCount > 0 && (
-              <Badge 
-                variant="destructive" 
+              <Badge
+                variant="destructive"
                 className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
               >
-                {notificationCount > 9 ? '9+' : notificationCount}
+                {notificationCount > 9 ? "9+" : notificationCount}
               </Badge>
             )}
           </button>
@@ -102,7 +105,7 @@ export default function DashboardHeader({
           {/* User Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button 
+              <button
                 className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-accent transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 aria-label="User menu"
               >
@@ -113,7 +116,7 @@ export default function DashboardHeader({
                   </AvatarFallback>
                 </Avatar>
                 <span className="hidden md:inline text-sm font-medium truncate max-w-[140px]">
-                  {useremail.split('@')[0]}
+                  {useremail.split("@")[0]}
                 </span>
                 <ChevronDown className="hidden md:block w-4 h-4 text-muted-foreground" />
               </button>
@@ -129,16 +132,16 @@ export default function DashboardHeader({
                 </Avatar>
                 <div className="flex flex-col space-y-1 flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">
-                    {useremail.split('@')[0]}
+                    {useremail.split("@")[0]}
                   </p>
                   <p className="text-xs text-muted-foreground truncate">
                     {useremail}
                   </p>
                 </div>
               </div>
-              
+
               <DropdownMenuSeparator />
-              
+
               <DropdownMenuItem
                 onClick={() => nav({ to: "/dashboard/employee/profile" })}
                 className="cursor-pointer"
@@ -146,27 +149,22 @@ export default function DashboardHeader({
                 <UserCog className="mr-2 h-4 w-4" />
                 <span>Profile</span>
               </DropdownMenuItem>
-              
-              <DropdownMenuItem
-                
-                className="cursor-pointer"
-              >
+
+              <DropdownMenuItem className="cursor-pointer">
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
               </DropdownMenuItem>
-              
-              <DropdownMenuItem
-              
-                className="cursor-pointer"
-              >
+
+              <DropdownMenuItem className="cursor-pointer">
                 <Calendar className="mr-2 h-4 w-4" />
                 <span>Leaves & Attendance</span>
               </DropdownMenuItem>
-              
+
               <DropdownMenuSeparator />
-              
+
               <DropdownMenuItem
-                onClick={handleLogout}
+                onClick={() => logout()}
+                disabled={isPending}
                 className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
               >
                 <LogOut className="mr-2 h-4 w-4" />

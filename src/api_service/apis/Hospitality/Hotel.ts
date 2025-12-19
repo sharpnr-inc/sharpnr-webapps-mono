@@ -2,6 +2,7 @@ import { HOTEL } from "@/constants/api_endpoints";
 import api from "../../axios";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
+import type { CreateHotelGuestsRequest } from "@/_hospitalityapp/schemas/interfaces/hotel/guestsInterfaces";
 
 export interface GetHotelResponse {
   hotel_id: string;
@@ -152,5 +153,15 @@ export const getFrontDeskBookingTerminal = async () => {
 
 export const updateHotelGeneralDetails = async (req:any) => {
   const res = await api.post(HospitalityApiEndpoint.Hotel.updateHotelDetails, req)
+  return res.data
+}
+
+export const searchHotelGuest = async(q:string)=>{
+  const res = await api.get(HospitalityApiEndpoint.Hotel.searchHotelGuests(q))
+  return res.data
+}
+
+export const createGuestInHotel = async (req:CreateHotelGuestsRequest) =>{
+  const res = await api.post(HospitalityApiEndpoint.Hotel.createGuestForHotel, req)
   return res.data
 }

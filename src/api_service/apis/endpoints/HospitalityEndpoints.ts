@@ -59,7 +59,9 @@ export const HospitalityApiEndpoint = {
     GetById: (id: string) => `/hospitality/hotel/${id}`,
     getFrontDesk:"/sharp-hospitality/hotel/frontdesk",
 
-    updateHotelDetails: "/sharp-hospitality/hotel/configure"
+    updateHotelDetails: "/sharp-hospitality/hotel/configure",
+    searchHotelGuests:(q:string)=>`/sharp-hospitality/hotel/guest/search?q=${encodeURIComponent(q)}`,
+    createGuestForHotel:"/sharp-hospitality/hotel/guest/create"
   },
 
   Room: {

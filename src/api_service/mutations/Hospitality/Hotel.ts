@@ -1,4 +1,4 @@
-import { updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
+import { createGuestInHotel, updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useUpdateHotelMutation() {
@@ -13,4 +13,18 @@ export function useUpdateHotelMutation() {
       });
     },
   });
+}
+
+
+export function useMutationCreateGuest(){
+  return useMutation({
+    mutationKey:["Hospitality", "Hotel", "Create-guest"],
+    mutationFn: createGuestInHotel,
+    // onSuccess:() =>{
+    //    const queryClient = useQueryClient();
+    //    queryClient.fetchQuery({
+    //     queryKey:[]
+    //    })
+    // }
+  })
 }
