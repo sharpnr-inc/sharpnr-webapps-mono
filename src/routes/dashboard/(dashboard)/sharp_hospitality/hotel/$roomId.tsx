@@ -1,4 +1,4 @@
-import { HotelRoomMainPage } from '@/_hospitalityapp/pages/hotel/RoomPages/RoomMainPage'
+import { HotelRoomMainPage } from '@/_hospitalityapp/Hotel/pages/RoomPages/RoomMainPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(

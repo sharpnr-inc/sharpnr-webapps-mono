@@ -1,4 +1,4 @@
-import SharpHospitalityHotelPage from "@/_hospitalityapp/pages/hotel/HotelPage";
+import SharpHospitalityHotelPage from "@/_hospitalityapp/Hotel/pages/HotelPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

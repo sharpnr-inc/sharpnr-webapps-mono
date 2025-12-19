@@ -19,7 +19,7 @@ import React from "react";
 import { format } from "date-fns";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
-import CustomerSearch from "@/_hospitalityapp/components/hotels/SearchCustomer";
+import CustomerSearch from "@/_hospitalityapp/Hotel/components/SearchCustomer";
 
 /***************************************
  * Component for Creating Room Booking *

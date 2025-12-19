@@ -1,4 +1,4 @@
-import AddBookingForm from "@/_hospitalityapp/pages/hotel/RoomPages/AddBookingForm";
+import AddBookingForm from "@/_hospitalityapp/Hotel/pages/RoomPages/AddBookingForm";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

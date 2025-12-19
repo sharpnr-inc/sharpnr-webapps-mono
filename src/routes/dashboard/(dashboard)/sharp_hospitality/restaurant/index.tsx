@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { UtensilsCrossed } from 'lucide-react';
-import RestaurantMainPage from '@/_hospitalityapp/pages/restuarant/RestaurantMainPage';
+import RestaurantMainPage from '@/_hospitalityapp/Restaurant/pages/RestaurantMainPage';
 
 export const Route = createFileRoute(
   '/dashboard/(dashboard)/sharp_hospitality/restaurant/',

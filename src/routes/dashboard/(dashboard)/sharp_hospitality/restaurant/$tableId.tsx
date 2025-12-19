@@ -1,6 +1,6 @@
 // file: /dashboard/_layout/sharp_hospitality/restaurant/$tableId.tsx
 
-import RestaurantMainTablePage from "@/_hospitalityapp/pages/restuarant/table/RestaurantTableMainPage";
+import RestaurantMainTablePage from "@/_hospitalityapp/Restaurant/pages/table/RestaurantTableMainPage";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { RockingChair } from "lucide-react";
 

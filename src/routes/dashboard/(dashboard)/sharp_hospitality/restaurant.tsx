@@ -1,7 +1,7 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { UtensilsCrossed } from "lucide-react";
-import RestaurantMainLayout from "@/_hospitalityapp/pages/restuarant/RestaurantMainLayout";
+import RestaurantMainLayout from "@/_hospitalityapp/Restaurant/pages/RestaurantMainLayout";
 
 
 export const Route = createFileRoute(
