@@ -2,6 +2,8 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { Search, User, Phone, Mail, X, UserPlus } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useHotelGuest } from "@/api_service/queries/HospitalityQueries/Hotel";
+import { useDialogModal } from "@/context/DialogModalContext";
+import { CreateCustomerForm } from "./CreateCustomerForm";
 
 // Sample customer data
 const customers = [
@@ -53,6 +55,7 @@ export default function CustomerSearch() {
   const [searchQuery, setSearchQuery] = useState<any>("");
   const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const {openModal, closeModal} = useDialogModal()
 
   const debouncedSearch = useDebounce(searchQuery, 300);
   
@@ -107,8 +110,7 @@ export default function CustomerSearch() {
   };
 
   const handleCreateGuest = () => {
-    
-    alert("Create new guest with search query: " + searchQuery);
+    openModal(<CreateCustomerForm closeModal ={closeModal}/>)
     setIsDropdownOpen(false);
   };
 
@@ -137,7 +139,7 @@ export default function CustomerSearch() {
           {/* Dropdown Results */}
           {isDropdownOpen && guests?.data?.length > 0 && (
             <div className="absolute z-10 w-full mt-2 bg-white border border-slate-200 rounded-lg shadow-lg max-h-96 overflow-y-auto">
-              {filteredCustomers.map((customer) => (
+              {guests?.data?.map((customer:any) => (
                 <div
                   key={customer.id}
                   onClick={() => handleCustomerSelect(customer)}

@@ -49,7 +49,7 @@ export default function BarOrdersSection() {
 
       {/* Floors */}
       <div className="space-y-4">
-        {bar.floors.map((flr:any) => (
+        {bar.floors?.map((flr:any) => (
           <div key={flr.floor_id} className="border rounded-md p-3">
             <h3 className="font-semibold mb-3">{flr.floor_name}</h3>
 

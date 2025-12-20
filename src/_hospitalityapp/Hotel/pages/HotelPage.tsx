@@ -1,13 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import HotelBookingSection from "@/_hospitalityapp/sections/hotel/HotelBookingSection";
-import HotelOverviewSection from "@/_hospitalityapp/sections/hotel/HotelOverviewSection";
-import HotelRequestSection from "@/_hospitalityapp/sections/hotel/HotelRequestSection";
+import HotelBookingSection from "../sections/HotelBookingSection";
+import HotelOverviewSection from "../sections/HotelOverviewSection";
+import HotelRequestSection from "../sections/HotelRequestSection";
 import { useUIRenderer } from "@/context/ui-rendererContext";
 import { Route } from "@/routes/dashboard/(dashboard)/sharp_hospitality/hotel";
 
 // This is the page we need APIs for fetching the details
 export default function SharpHospitalityHotelPage() {
-   const { tab } = Route.useSearch();
+   const search = Route.useSearch() as { tab: string };
+    const { tab } = search;
   const navigate = Route.useNavigate();
 
 

@@ -17,14 +17,17 @@ export function useUpdateHotelMutation() {
 
 
 export function useMutationCreateGuest(){
+   const queryClient = useQueryClient();
   return useMutation({
     mutationKey:["Hospitality", "Hotel", "Create-guest"],
     mutationFn: createGuestInHotel,
-    // onSuccess:() =>{
-    //    const queryClient = useQueryClient();
-    //    queryClient.fetchQuery({
-    //     queryKey:[]
-    //    })
-    // }
+      onSuccess: (_data, variables) => {
+      // variables === value passed to mutate(value)
+      const mobile = variables.mobile;
+
+      queryClient.invalidateQueries({
+        queryKey: ["Hospitality", "Hotel", "guest-search", mobile],
+      });
+    },
   })
 }

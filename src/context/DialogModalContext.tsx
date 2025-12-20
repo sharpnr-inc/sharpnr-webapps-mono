@@ -1,4 +1,4 @@
-import { createContext, useContext, useState} from "react";
+import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 import {
   Dialog,
@@ -8,27 +8,31 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-// Define the shape of the context
 interface DialogModalContextType {
   openModal: (content: ReactNode, title?: string, description?: string) => void;
   closeModal: () => void;
 }
 
-// Create the context
-const FormModalContext = createContext<DialogModalContextType | undefined>(undefined);
+const FormModalContext = createContext<DialogModalContextType | undefined>(
+  undefined
+);
 
-// Provider component
 export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalContent, setModalContent] = useState<ReactNode>(null);
   const [modalTitle, setModalTitle] = useState<string>("");
   const [modalDescription, setModalDescription] = useState<string>("");
 
-  const openModal = (content: ReactNode, title?: string, description?: string) => {
+  const openModal = (
+    content: ReactNode,
+    title = "Dialog",
+    description = ""
+  ) => {
     setModalContent(content);
-    if (title) setModalTitle(title);
-    if (description) setModalDescription(description);
+    setModalTitle(title);
+    setModalDescription(description);
     setIsOpen(true);
   };
 
@@ -43,10 +47,17 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
     <FormModalContext.Provider value={{ openModal, closeModal }}>
       {children}
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen} >
-        <DialogContent className=" overflow-y-auto rounded-2xl max-h-[90vh] w-full">
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="max-h-[90vh] w-full overflow-y-auto rounded-2xl">
           <DialogHeader>
-            {modalTitle && <DialogTitle>{modalTitle}</DialogTitle>}
+            {modalTitle ? (
+              <DialogTitle>{modalTitle}</DialogTitle>
+            ) : (
+              <VisuallyHidden>
+                <DialogTitle>Dialog</DialogTitle>
+              </VisuallyHidden>
+            )}
+
             {modalDescription && (
               <DialogDescription>{modalDescription}</DialogDescription>
             )}
@@ -54,20 +65,19 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
 
           <div className="mt-2">{modalContent}</div>
 
-          <DialogFooter>
-            {/* You can include common footer buttons here if desired */}
-          </DialogFooter>
+          <DialogFooter />
         </DialogContent>
       </Dialog>
     </FormModalContext.Provider>
   );
 };
 
-// Hook for consuming the context
 export const useDialogModal = (): DialogModalContextType => {
   const context = useContext(FormModalContext);
   if (!context) {
-    throw new Error("useFormModal must be used within a FormModalProvider");
+    throw new Error(
+      "useDialogModal must be used within a DialogModalProvider"
+    );
   }
   return context;
 };
