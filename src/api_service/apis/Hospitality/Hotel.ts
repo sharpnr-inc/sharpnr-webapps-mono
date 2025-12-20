@@ -165,3 +165,13 @@ export const createGuestInHotel = async (req:CreateHotelGuestsRequest) =>{
   const res = await api.post(HospitalityApiEndpoint.Hotel.createGuestForHotel, req)
   return res.data
 }
+
+export const createBookingInRoomHotel = async(req:any) =>{
+  const res = await api.post(HospitalityApiEndpoint.Hotel.createBookingForRoom, req)
+  return res.data
+} 
+
+export const getBookingDetails = async(roomId:string)=> {
+const res = await api.get(HospitalityApiEndpoint.Hotel.getBookingDetails(roomId))
+return res.data
+}

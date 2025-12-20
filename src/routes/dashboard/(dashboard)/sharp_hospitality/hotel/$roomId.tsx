@@ -8,6 +8,6 @@ export const Route = createFileRoute(
 })
 
 function RouteComponent() {
-   const { roomId } = Route.useParams();
+  //  const { roomId } = Route.useParams();
   return <div><HotelRoomMainPage/></div>
 }

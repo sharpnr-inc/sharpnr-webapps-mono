@@ -1,4 +1,4 @@
-import { createGuestInHotel, updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
+import { createBookingInRoomHotel, createGuestInHotel, updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useUpdateHotelMutation() {
@@ -29,5 +29,12 @@ export function useMutationCreateGuest(){
         queryKey: ["Hospitality", "Hotel", "guest-search", mobile],
       });
     },
+  })
+}
+
+export function useMutationCreateRoomBooking(){
+  return useMutation({
+    mutationKey:["Hospitality", "Create-Booking"],
+    mutationFn:createBookingInRoomHotel
   })
 }

@@ -51,7 +51,7 @@ const customers = [
   },
 ];
 
-export default function CustomerSearch() {
+export default function CustomerSearch({setguestId}:any) {
   const [searchQuery, setSearchQuery] = useState<any>("");
   const [selectedCustomer, setSelectedCustomer] = useState<any>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -100,6 +100,7 @@ export default function CustomerSearch() {
 
   const handleCustomerSelect = (customer: any) => {
     setSelectedCustomer(customer);
+    setguestId(customer.id)
     setSearchQuery("");
     setIsDropdownOpen(false);
   };

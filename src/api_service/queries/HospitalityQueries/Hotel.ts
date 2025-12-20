@@ -3,6 +3,7 @@ import {
   fetchBookingsOfHotels,
   fetchHotelOverview,
   fetchOrgsHotel,
+  getBookingDetails,
   getFrontDeskBookingTerminal,
   searchHotelGuest,
   type GetHotelResponse,
@@ -43,5 +44,12 @@ export function useHotelGuest(q: string) {
     queryKey: ["Hospitality", "Hotel", "guest-search", q],
     queryFn: () => searchHotelGuest(q),
     enabled: q.trim().length >= 3, // 👈 IMPORTANT
+  });
+}
+
+export function useHotelBookingDetails(roomId: string) {
+  return useQuery({
+    queryKey: ["Hospitality", "Hotel", "Booking-Details", roomId],
+    queryFn: () => getBookingDetails(roomId),
   });
 }
