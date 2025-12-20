@@ -63,7 +63,8 @@ export const HospitalityApiEndpoint = {
     searchHotelGuests:(q:string)=>`/sharp-hospitality/hotel/guest/search?q=${encodeURIComponent(q)}`,
     createGuestForHotel:"/sharp-hospitality/hotel/guest/create",
     createBookingForRoom:"/sharp-hospitality/hotel/booking/create",
-    getBookingDetails:(roomId:string) =>`/sharp-hospitality/hotel/booking/details/${roomId}`
+    getBookingDetails:(roomId:string) =>`/sharp-hospitality/hotel/booking/details/${roomId}`,
+    createRoomInHotel:"/sharp-hospitality/hotel/room/create"
   },
 
   Room: {
