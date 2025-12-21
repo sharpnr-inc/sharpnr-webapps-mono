@@ -102,10 +102,7 @@ export default function CreateRoomForm() {
           effectiveTo: value.initialPrice.effectiveTo || null, // Convert empty string to null
         },
       };
-
-      console.log(payload);
       createRoom.mutate(payload);
-      
     },
   });
 

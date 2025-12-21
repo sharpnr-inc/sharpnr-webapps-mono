@@ -80,7 +80,7 @@ export interface CreateFloorInHotelRes {
 export const createFloorInHotel = async (
   data: CreateFloorInHotelReq
 ): Promise<{ data: CreateFloorInHotelRes }> => {
-  const res = await api.post(HOTEL.CREATE_FLOOR, data);
+  const res = await api.post(HospitalityApiEndpoint.Hotel.createFloor, data);
   return res;
 };
 
@@ -178,5 +178,20 @@ return res.data
 
 export const createRoomInHotel = async(req:any) => {
   const res = await api.post(HospitalityApiEndpoint.Hotel.createRoomInHotel, req)
+  return res.data
+}
+
+export const createHotelTaxRule = async(req:any) =>{
+  const res =await api.post(HospitalityApiEndpoint.Hotel.createHotelTaxRule, req)
+  return res.data
+}
+
+export const getBookingPreviewBill = async(bookingID:string) =>{
+  const res = await api.get(HospitalityApiEndpoint.Hotel.getPreviewBill(bookingID))
+  return res.data
+}
+
+export const addPaymentsInBooking = async(req:any)=>{
+  const res = await api.post(HospitalityApiEndpoint.Hotel.addPaymentsInBooking, req)
   return res.data
 }

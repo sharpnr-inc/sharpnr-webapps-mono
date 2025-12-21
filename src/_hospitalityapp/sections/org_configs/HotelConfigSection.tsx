@@ -17,14 +17,13 @@ import CreateRoomForm from "./forms/CreateRoomForm";
 import UpdateHotelDetailsForm from "./forms/UpdateHotelForm";
 import { useFormsModal } from "@/context/FormModalContext";
 import { motion, AnimatePresence } from "framer-motion";
+import CreateTaxRuleOfHotel from "@/_hospitalityapp/Hotel/components/CreateTaxRuleForm";
 // import { Route } from "@/routes/dashboard/(dashboard)/sharp_hospitality/hotel";
-
 
 /*********************************
  * This is the Hotel Config Page *
  *********************************/
 export default function HotelConfigSection() {
-
   const { data, isLoading, isError, refetch } = useHotelQueryOptions();
   // const navigate = Route.useNavigate();
 
@@ -176,7 +175,9 @@ export default function HotelConfigSection() {
         </CardContent>
       </Card>
 
-         <Card className="border-2 rounded-2xl shadow-sm relative">
+      <CreateTaxRuleOfHotel/>
+
+      <Card className="border-2 rounded-2xl shadow-sm relative">
         <CardHeader className="pb-3">
           <CardTitle className="text-xl font-semibold">Add Room</CardTitle>
           <CardDescription>
@@ -271,7 +272,6 @@ export default function HotelConfigSection() {
           </div>
         ))}
       </div>
-
     </div>
   );
 }

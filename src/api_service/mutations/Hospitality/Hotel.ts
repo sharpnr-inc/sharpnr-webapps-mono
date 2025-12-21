@@ -1,4 +1,4 @@
-import { createBookingInRoomHotel, createGuestInHotel, createRoomInHotel, updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
+import { addPaymentsInBooking, createBookingInRoomHotel, createGuestInHotel, createHotelTaxRule, createRoomInHotel, updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useUpdateHotelMutation() {
@@ -43,5 +43,19 @@ export function useMutationCreateRoom(){
   return useMutation({
     mutationKey:["Hospitality", "Hotel", "Create-Room"],
     mutationFn:createRoomInHotel
+  })
+}
+
+export function useMutationCreateTaxRulesOfHotel(){
+  return useMutation({
+    mutationKey:["Hospitality", "Hotel", "Hotel-tax-rules"],
+    mutationFn:createHotelTaxRule
+  })
+}
+
+export function useMutationAddPaymentInHotelRoomBooking(){
+  return useMutation({
+    mutationKey:["Hospitality", "Hotel", "Add-Payments"],
+    mutationFn:addPaymentsInBooking
   })
 }

@@ -58,13 +58,17 @@ export const HospitalityApiEndpoint = {
     GetAll: "/hospitality/hotel",
     GetById: (id: string) => `/hospitality/hotel/${id}`,
     getFrontDesk:"/sharp-hospitality/hotel/frontdesk",
-
+    createFloor:"/sharp-hospitality/hotel/floor/create",
     updateHotelDetails: "/sharp-hospitality/hotel/configure",
     searchHotelGuests:(q:string)=>`/sharp-hospitality/hotel/guest/search?q=${encodeURIComponent(q)}`,
     createGuestForHotel:"/sharp-hospitality/hotel/guest/create",
     createBookingForRoom:"/sharp-hospitality/hotel/booking/create",
     getBookingDetails:(roomId:string) =>`/sharp-hospitality/hotel/booking/details/${roomId}`,
-    createRoomInHotel:"/sharp-hospitality/hotel/room/create"
+    createRoomInHotel:"/sharp-hospitality/hotel/room/create",
+
+    createHotelTaxRule:"/sharp-hospitality/hotel/tax/create-rule",
+    getPreviewBill:(bookingId:string)=>`/sharp-hospitality/hotel/billing/preview/${bookingId}`,
+    addPaymentsInBooking:"/sharp-hospitality/hotel/payments/add"
   },
 
   Room: {

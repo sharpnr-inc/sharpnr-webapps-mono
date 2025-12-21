@@ -4,6 +4,7 @@ import {
   fetchHotelOverview,
   fetchOrgsHotel,
   getBookingDetails,
+  getBookingPreviewBill,
   getFrontDeskBookingTerminal,
   searchHotelGuest,
   type GetHotelResponse,
@@ -52,4 +53,13 @@ export function useHotelBookingDetails(roomId: string) {
     queryKey: ["Hospitality", "Hotel", "Booking-Details", roomId],
     queryFn: () => getBookingDetails(roomId),
   });
+}
+
+export function useBookingPreviewBill(bookingID:string){
+  return useQuery({
+    queryKey:["Hospitality", "Hotel", "Billing-preview", bookingID],
+    queryFn:() =>getBookingPreviewBill(bookingID),
+    enabled: Boolean(bookingID),
+    // staleTime: 60 * 1000, // 1 minute
+  })
 }
