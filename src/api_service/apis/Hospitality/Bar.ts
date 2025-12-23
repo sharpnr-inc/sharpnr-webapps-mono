@@ -1,5 +1,5 @@
 
-import api from "../../axios";
+import api from "../../../middlewares/axios";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 

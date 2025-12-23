@@ -1,4 +1,4 @@
-import api from "@/api_service/axios";
+import api from "@/middlewares/axios";
 import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 

@@ -1,4 +1,4 @@
-import api from "@/api_service/axios";
+import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
 
 /**

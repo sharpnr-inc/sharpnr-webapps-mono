@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button"; 
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
-import api from "@/api_service/axios";
+import api from "@/middlewares/axios";
 
 export default function LoginPage(): React.JSX.Element {
   const loginUser = useLoginUser();

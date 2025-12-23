@@ -1,4 +1,4 @@
-import api from "@/api_service/axios";
+import api from "@/middlewares/axios";
 import { CoreOrchestratorApi } from "../endpoints/CoreOrchestrator";
 
 export const GetOrchestratorDetails = async () => {
