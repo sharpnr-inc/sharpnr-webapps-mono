@@ -1,5 +1,5 @@
 import type { GetHotelResponse } from "@/api_service/apis/Hospitality/Hotel";
-import type { HotelFormModel } from "../interfaces/hotel/hotelInterfaces";
+import type { HotelFormModel } from "./hotelInterfaces";
 
 
 

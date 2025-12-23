@@ -15,9 +15,9 @@ import { Edit, Pen } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useFormsModal } from "@/context/FormModalContext";
-import UpdateRestaurantGeneralDetailsForms from "./forms/UpdateRestaurantGeneralDetailsForms";
+import UpdateRestaurantGeneralDetailsForms from "../forms/UpdateRestaurantGeneralDetailsForms";
 import { useDialogModal } from "@/context/DialogModalContext";
-import CreateAddTableInRestaurantForm from "./forms/CreateAddTableInRestaurantForm";
+import CreateAddTableInRestaurantForm from "../forms/CreateAddTableInRestaurantForm";
 
 export default function RestaurantConfigSection() {
   const { data,} = useRestaurantDetails();

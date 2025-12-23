@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import OverviewSection from "@/_hospitalityapp/sections/org_configs/OverviewSection";
-import BarConfigSection from "@/_hospitalityapp/sections/org_configs/BarConfigSection";
-import HotelConfigSection from "@/_hospitalityapp/sections/org_configs/HotelConfigSection";
-import RestaurantConfigSection from "@/_hospitalityapp/sections/org_configs/RestaurantConfigSection";
-import ORGConfigSection from "@/_hospitalityapp/sections/org_configs/ORGconfig";
+import OverviewSection from "@/_hospitalityapp/OverviewSection";
+import BarConfigSection from "@/_hospitalityapp/Bar/sections/BarConfigSection";
+import HotelConfigSection from "@/_hospitalityapp/Hotel/sections/HotelConfigSection";
+import RestaurantConfigSection from "@/_hospitalityapp/Restaurant/sections/RestaurantConfigSection";
+import ORGConfigSection from "@/_hospitalityapp/ORGconfig";
 
 export default function HospitalityOrgConfigPage() {
   /************

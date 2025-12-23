@@ -1,4 +1,4 @@
-import type { Hospitality_ORG_GetAllMenuGroup_RESPONSE } from "@/_hospitalityapp/schemas/interfaces/menu/MenuGroup.dto";
+import type { Hospitality_ORG_GetAllMenuGroup_RESPONSE } from "@/_hospitalityapp/shared/Menu/schemas/MenuGroup.dto";
 
 import {
   getAllMenuGroup,

@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusCircleIcon, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import CreateFloorForm from "./CreateFloorForm";
+import CreateFloorForm from "../../Restaurant/forms/CreateFloorForm";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
 import { useForm } from "@tanstack/react-form";
