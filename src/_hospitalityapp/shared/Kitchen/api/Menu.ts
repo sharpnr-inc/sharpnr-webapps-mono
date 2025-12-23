@@ -1,5 +1,5 @@
 import api from "@/middlewares/axios";
-import { HospitalityApiEndpoint } from "../../../_hospitalityapp/HospitalityEndpoints";
+import { HospitalityApiEndpoint } from "../../../HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import type { Hospitality_ORG_GetAllMenuGroup_RESPONSE } from "@/_hospitalityapp/shared/Menu/schemas/MenuGroup.dto";
 

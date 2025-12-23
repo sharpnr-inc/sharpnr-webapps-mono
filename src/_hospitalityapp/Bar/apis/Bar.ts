@@ -1,6 +1,6 @@
 
 import api from "../../../middlewares/axios";
-import { HospitalityApiEndpoint } from "../../../_hospitalityapp/HospitalityEndpoints";
+import { HospitalityApiEndpoint } from "../../HospitalityEndpoints";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
 export const fetchBarLayout = async (): Promise<ApiResponse<any>> => {

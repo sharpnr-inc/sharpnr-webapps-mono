@@ -1,4 +1,4 @@
-// import { createSignupStatusQuery } from "@/api_service/queries/SignupStatus";
+// import { createSignupStatusQuery } from "@/core-apis/queries/SignupStatus";
 import CompleteRegistration from "@/CoreOrchestrator/auth/signup/CompleteRegistration";
 
 // import { QueryClient } from "@tanstack/react-query";

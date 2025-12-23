@@ -4,7 +4,7 @@ import {
   fetchBarLayout,
   getBarConfigDetails,
   type BarGeneralDetailsResponse,
-} from "@/api_service/apis/Hospitality/Bar";
+} from "@/_hospitalityapp/Bar/apis/Bar";
 
 export function useBarLayout() {
   return useQuery<ApiResponse<any>>({

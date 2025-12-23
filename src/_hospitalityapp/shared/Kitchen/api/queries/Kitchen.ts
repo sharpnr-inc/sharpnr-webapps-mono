@@ -1,4 +1,4 @@
-import { getKitchenOrders } from "@/api_service/apis/Hospitality/Kitchen";
+import { getKitchenOrders } from "@/_hospitalityapp/shared/Kitchen/api/Kitchen";
 import { useQuery } from "@tanstack/react-query";
 
 export function useKitchenOrders() {

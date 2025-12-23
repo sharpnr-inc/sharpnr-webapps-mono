@@ -3,7 +3,7 @@ import {
   GetRestaurantDetails,
   GetRestaurantLayout,
   type GetRestaurantDetails_RESPONSE,
-} from "@/api_service/apis/Hospitality/Restaurant";
+} from "@/_hospitalityapp/Restaurant/apis/Restaurant";
 import { type ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useQuery } from "@tanstack/react-query";
 

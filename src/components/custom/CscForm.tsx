@@ -4,7 +4,7 @@ import {
   createCountriesQuery,
   createStatesQuery,
   createCitiesQuery,
-} from "@/api_service/queries/Shared/useUtils";
+} from "@/core-apis/queries/Shared/useUtils";
 
 interface Props {
   form: any;

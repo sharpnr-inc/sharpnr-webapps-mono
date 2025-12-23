@@ -2,7 +2,7 @@ import {
   createOrAddTablesInFloor,
   createRestaurantTablesSession,
   UpdateRestaurantGeneralDetails,
-} from "@/api_service/apis/Hospitality/Restaurant";
+} from "@/_hospitalityapp/Restaurant/apis/Restaurant";
 import { useMutation } from "@tanstack/react-query";
 
 export function useMutateUpdateRestaurant() {

@@ -4,7 +4,7 @@ import {
   getAllMenuGroup,
   getMenuGroup,
   getVariantOfMenuItem,
-} from "@/api_service/apis/Hospitality/Menu";
+} from "@/_hospitalityapp/shared/Kitchen/api/Menu";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useQuery } from "@tanstack/react-query";
 

@@ -6,7 +6,7 @@ import {
   createCitiesQuery,
   createCountriesQuery,
   createStatesQuery,
-} from "@/api_service/queries/Shared/useUtils";
+} from "@/core-apis/queries/Shared/useUtils";
 import type { FormApi } from "@tanstack/react-form";
 
 type AddressValue = {

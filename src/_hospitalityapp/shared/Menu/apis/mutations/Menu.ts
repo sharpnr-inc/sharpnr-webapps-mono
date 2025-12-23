@@ -3,9 +3,9 @@ import {
   createCategoryInMenuGroup,
   createItemInMenu,
   createVariantInMenuItem,
-} from "@/api_service/apis/Hospitality/Menu";
+} from "@/_hospitalityapp/shared/Kitchen/api/Menu";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createSubCategoryINCategory } from "@/api_service/apis/Hospitality/Menu";
+import { createSubCategoryINCategory } from "@/_hospitalityapp/shared/Kitchen/api/Menu";
 
 export function useMutateCreateCategory(menuGroupId: string) {
   const queryClient = useQueryClient();

@@ -3,7 +3,7 @@ import { BedDouble, CalendarDays, DoorOpen } from "lucide-react";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 import { useState } from "react";
 // import { useQuery } from "@tanstack/react-query";
-// import { useHotelOverview } from "@/api_service/queries/HospitalityQueries/Hotel";
+// import { useHotelOverview } from "@/core-apis/queries/HospitalityQueries/Hotel";
 
 export default function HotelOverviewSection() {
   

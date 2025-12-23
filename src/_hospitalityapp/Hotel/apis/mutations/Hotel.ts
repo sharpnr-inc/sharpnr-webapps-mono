@@ -1,4 +1,4 @@
-import { addPaymentsInBooking, createBookingInRoomHotel, createGuestInHotel, createHotelTaxRule, createRoomInHotel, updateHotelGeneralDetails } from "@/api_service/apis/Hospitality/Hotel";
+import { addPaymentsInBooking, createBookingInRoomHotel, createGuestInHotel, createHotelTaxRule, createRoomInHotel, updateHotelGeneralDetails } from "@/_hospitalityapp/Hotel/apis/Hotel";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useUpdateHotelMutation() {

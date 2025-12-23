@@ -1,4 +1,4 @@
-import type { BarGeneralDetailsResponse } from "@/api_service/apis/Hospitality/Bar";
+import type { BarGeneralDetailsResponse } from "@/_hospitalityapp/Bar/apis/Bar";
 import type { Hospitality_BarGeneralDetailsUpdateReq } from "@/schemas/HospitalitySchemas/Bar";
 
 export const transformBarGenDetailsResToBarUpdateReq = (

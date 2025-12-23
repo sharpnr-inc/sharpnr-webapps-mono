@@ -20,7 +20,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useHeader } from "@/context/HeaderContext";
 import MainMenuButton from "@/components/Header/MainMenuButton";
 import { Badge } from "@/components/ui/badge";
-import { useLogoutMutation } from "@/api_service/mutations/Auth/useLogout";
+import { useLogoutMutation } from "@/core-apis/mutations/Auth/useLogout";
 
 interface DashboardHeaderProps {
   useremail: string;

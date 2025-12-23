@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { createGetSubModuleQuery } from "@/api_service/queries/Shared/useUtils";
+import { createGetSubModuleQuery } from "@/core-apis/queries/Shared/useUtils";
 import TermsAndConditionsCard from "@/components/ui/TermsandConditionCard";
 import { Input } from "@/components/ui/input";
 
@@ -19,13 +19,13 @@ import {
   createCitiesQuery,
   createCountriesQuery,
   createStatesQuery,
-} from "@/api_service/queries/Shared/useUtils";
+} from "@/core-apis/queries/Shared/useUtils";
 import SearchableSelect from "./searchable";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { OrgOwnerDetails } from "@/schemas/Auth";
-import { useCompleteOrganization } from "@/api_service/mutations/Auth/completeRegistration";
+import { useCompleteOrganization } from "@/core-apis/mutations/Auth/completeRegistration";
 import { CountryStateCity } from "@/components/custom/CountryStateCity";
 
 const orgBasicDetails = [

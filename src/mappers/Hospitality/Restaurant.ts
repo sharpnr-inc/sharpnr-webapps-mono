@@ -1,4 +1,4 @@
-import type { GetRestaurantDetails_RESPONSE } from "@/api_service/apis/Hospitality/Restaurant";
+import type { GetRestaurantDetails_RESPONSE } from "@/_hospitalityapp/Restaurant/apis/Restaurant";
 import type { Hospitality_RestaurantGenUpdateFormData } from "@/schemas/HospitalitySchemas/Restaurant";
 
 export const transformRestaurantGenDetailsToUpdateReqBody = (

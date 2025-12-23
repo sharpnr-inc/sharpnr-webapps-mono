@@ -1,4 +1,4 @@
-import { useRegisterOrganization } from "@/api_service/mutations/Auth/createOrg";
+import { useRegisterOrganization } from "@/core-apis/mutations/Auth/createOrg";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { createOrgTypeQuery } from "@/api_service/queries/Shared/useUtils";
+import { createOrgTypeQuery } from "@/core-apis/queries/Shared/useUtils";
 import { useQuery } from "@tanstack/react-query";
 import {
   RegisterOrganizationSchema,

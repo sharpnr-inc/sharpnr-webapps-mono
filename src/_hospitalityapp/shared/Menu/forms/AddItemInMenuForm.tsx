@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import AddItemInMenuStepThree from "./AddItemInMenuFormStepThree";
 import AddItemInMenuStepFour from "./AddItemInMenuStepFour";
 import AddItemInMenuStepFive from "./AddItemInMenuStepFive";
-// import { useVariantOfMenuItem } from "@/api_service/queries/HospitalityQueries/Menu";
+// import { useVariantOfMenuItem } from "@/core-apis/queries/HospitalityQueries/Menu";
 
 export default function AddItemInMenuForm({
   group,

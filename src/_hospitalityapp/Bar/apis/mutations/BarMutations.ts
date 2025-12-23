@@ -1,4 +1,4 @@
-import { updateBarDetails } from "@/api_service/apis/Hospitality/Bar";
+import { updateBarDetails } from "@/_hospitalityapp/Bar/apis/Bar";
 import { useMutation } from "@tanstack/react-query";
 
 export function useUpdateBarDetails() {

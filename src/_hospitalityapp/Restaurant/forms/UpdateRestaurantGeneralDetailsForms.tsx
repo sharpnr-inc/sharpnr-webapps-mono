@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
 import { useMutateUpdateRestaurant } from "@/_hospitalityapp/Restaurant/apis/mutations/Restaurant";
-import type { GetRestaurantDetails_RESPONSE } from "@/api_service/apis/Hospitality/Restaurant";
+import type { GetRestaurantDetails_RESPONSE } from "@/_hospitalityapp/Restaurant/apis/Restaurant";
 import { Textarea } from "@/components/ui/textarea";
 import { transformRestaurantGenDetailsToUpdateReqBody } from "@/mappers/Hospitality/Restaurant";
 import { useQueryClient } from "@tanstack/react-query";

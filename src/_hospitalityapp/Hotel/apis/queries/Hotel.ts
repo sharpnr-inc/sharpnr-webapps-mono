@@ -9,7 +9,7 @@ import {
   searchHotelGuest,
   type GetHotelResponse,
   type HotelBookingTerminal_Response,
-} from "../../../../api_service/apis/Hospitality/Hotel";
+} from "../Hotel";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
 export function useHotelQueryOptions() {
@@ -55,11 +55,11 @@ export function useHotelBookingDetails(roomId: string) {
   });
 }
 
-export function useBookingPreviewBill(bookingID:string){
+export function useBookingPreviewBill(bookingID: string) {
   return useQuery({
-    queryKey:["Hospitality", "Hotel", "Billing-preview", bookingID],
-    queryFn:() =>getBookingPreviewBill(bookingID),
+    queryKey: ["Hospitality", "Hotel", "Billing-preview", bookingID],
+    queryFn: () => getBookingPreviewBill(bookingID),
     enabled: Boolean(bookingID),
     // staleTime: 60 * 1000, // 1 minute
-  })
+  });
 }

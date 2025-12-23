@@ -20,7 +20,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
-import { useVerifyOtpRegistration } from "@/api_service/mutations/Auth/verifyOtp";
+import { useVerifyOtpRegistration } from "@/core-apis/mutations/Auth/verifyOtp";
 
 /*******************
  * Verify OTP page *

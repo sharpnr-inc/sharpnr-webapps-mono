@@ -10,7 +10,7 @@ import type {
   HotelBookingTerminal_Response,
   RoomResponse,
   FloorResponse,
-} from "@/api_service/apis/Hospitality/Hotel";
+} from "@/_hospitalityapp/Hotel/apis/Hotel";
 import { DoorClosedLocked, DoorOpenIcon } from "lucide-react";
 
 const getStatusColor = (status?: string) => {

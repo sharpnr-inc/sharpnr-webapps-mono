@@ -1,5 +1,5 @@
 import { mapHotelResponseToForm } from "@/_hospitalityapp/Hotel/schemas/hotelMappers";
-import type { GetHotelResponse } from "@/api_service/apis/Hospitality/Hotel";
+import type { GetHotelResponse } from "@/_hospitalityapp/Hotel/apis/Hotel";
 import { useUpdateHotelMutation } from "@/_hospitalityapp/Hotel/apis/mutations/Hotel";
 import { Button } from "@/components/ui/button";
 import {

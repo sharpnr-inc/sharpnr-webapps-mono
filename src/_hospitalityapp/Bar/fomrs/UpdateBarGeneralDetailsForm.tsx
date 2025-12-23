@@ -8,7 +8,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import type { BarGeneralDetailsResponse } from "@/api_service/apis/Hospitality/Bar";
+import type { BarGeneralDetailsResponse } from "@/_hospitalityapp/Bar/apis/Bar";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useUpdateBarDetails } from "@/_hospitalityapp/Bar/apis/mutations/BarMutations";

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { createFloorInHotel, createRoomInFloor, type CreateFloorInHotelReq, type CreateFloorInHotelRes } from "@/api_service/apis/Hospitality/Hotel"
+import { createFloorInHotel, createRoomInFloor, type CreateFloorInHotelReq, type CreateFloorInHotelRes } from "@/_hospitalityapp/Hotel/apis/Hotel"
 
 export function mutateFloorInHotel() {
   return useMutation<CreateFloorInHotelRes, Error, CreateFloorInHotelReq>({
