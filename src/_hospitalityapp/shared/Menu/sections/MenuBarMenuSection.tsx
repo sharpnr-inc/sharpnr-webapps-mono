@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useMenuGroupDetails } from "@/api_service/queries/HospitalityQueries/Menu";
+import { useMenuGroupDetails } from "@/_hospitalityapp/shared/Menu/apis/Menu";
 
 export default function MenuBarMenuSection({ group }: { group: any }) {
 

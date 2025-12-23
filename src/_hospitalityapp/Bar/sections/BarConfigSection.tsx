@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import {
   useBarGeneralDetails,
   useBarLayout,
-} from "@/api_service/queries/HospitalityQueries/Bar";
+} from "@/_hospitalityapp/Bar/apis/queries/Bar";
 import { Separator } from "@/components/ui/separator";
 import { formatDateTime } from "@/lib/formatDate";
 import { Button } from "@/components/ui/button";

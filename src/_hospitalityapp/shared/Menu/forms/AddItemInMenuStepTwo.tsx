@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import { useMutationCreateItemInMenu } from "@/api_service/mutations/Hospitality/Menu";
+import { useMutationCreateItemInMenu } from "@/_hospitalityapp/shared/Menu/apis/mutations/Menu";
 
 export default function AddItemInMenuStepTwo({
   onNext,

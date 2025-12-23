@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus, Trash2 } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
-import { useMutationCreateVariantInMenuItem } from "@/api_service/mutations/Hospitality/Menu";
+import { useMutationCreateVariantInMenuItem } from "@/_hospitalityapp/shared/Menu/apis/mutations/Menu";
 
 export default function AddVariantInItemDialog({
   closeModal,

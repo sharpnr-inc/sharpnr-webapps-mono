@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import type { BarGeneralDetailsResponse } from "@/api_service/apis/Hospitality/Bar";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useUpdateBarDetails } from "@/api_service/mutations/Hospitality/BarMutations";
+import { useUpdateBarDetails } from "@/_hospitalityapp/Bar/apis/mutations/BarMutations";
 import { transformBarGenDetailsResToBarUpdateReq } from "@/mappers/Hospitality/Bar";
 
 export function UpdateBarGeneralDetailsForm({

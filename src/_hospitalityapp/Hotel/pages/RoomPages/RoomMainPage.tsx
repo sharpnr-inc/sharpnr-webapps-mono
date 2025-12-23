@@ -15,7 +15,7 @@ import {
 import {
   useBookingPreviewBill,
   useHotelBookingDetails,
-} from "@/api_service/queries/HospitalityQueries/Hotel";
+} from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
 import { Route } from "@/routes/dashboard/(dashboard)/sharp_hospitality/hotel/$roomId";
 import { Button } from "@/components/ui/button";
 import { useDialogModal } from "@/context/DialogModalContext";

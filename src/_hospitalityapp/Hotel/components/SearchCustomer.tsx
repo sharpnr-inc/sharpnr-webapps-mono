@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { Search, User, Phone, Mail, X, UserPlus } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useHotelGuest } from "@/api_service/queries/HospitalityQueries/Hotel";
+import { useHotelGuest } from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { CreateCustomerForm } from "./CreateCustomerForm";
 

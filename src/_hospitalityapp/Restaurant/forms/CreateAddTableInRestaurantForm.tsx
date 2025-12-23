@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
 import { Trash2Icon } from "lucide-react";
-import { useMutationAddTables } from "@/api_service/mutations/Hospitality/Restaurant";
+import { useMutationAddTables } from "@/_hospitalityapp/Restaurant/apis/mutations/Restaurant";
 
 interface CreateAddTableInRestaurantFormProps {
   floorId: any;

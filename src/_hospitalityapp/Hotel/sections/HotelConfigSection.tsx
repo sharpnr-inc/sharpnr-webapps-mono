@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
+import { useHotelQueryOptions } from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
 import {
   Card,
   CardHeader,

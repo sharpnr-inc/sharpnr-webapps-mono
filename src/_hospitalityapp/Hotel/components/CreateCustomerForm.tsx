@@ -1,4 +1,4 @@
-import { useMutationCreateGuest } from "@/api_service/mutations/Hospitality/Hotel";
+import { useMutationCreateGuest } from "@/_hospitalityapp/Hotel/apis/mutations/Hotel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

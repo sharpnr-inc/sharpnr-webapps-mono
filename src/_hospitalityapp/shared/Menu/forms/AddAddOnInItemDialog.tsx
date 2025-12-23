@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "@tanstack/react-form";
 import { Switch } from "@/components/ui/switch";
 
-import { useMutationAddAddonsInMenu } from "@/api_service/mutations/Hospitality/Menu";
+import { useMutationAddAddonsInMenu } from "@/_hospitalityapp/shared/Menu/apis/mutations/Menu";
 
 // interface AddonFormData {
 //   name: string;

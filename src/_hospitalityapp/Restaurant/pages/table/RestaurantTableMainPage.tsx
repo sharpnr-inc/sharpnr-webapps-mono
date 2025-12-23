@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { useMenuGroup } from "@/api_service/queries/HospitalityQueries/Menu";
+import { useMenuGroup } from "@/_hospitalityapp/shared/Menu/apis/Menu";
 import {
   selectSetMenuGroups,
   useMenuGroupStore,

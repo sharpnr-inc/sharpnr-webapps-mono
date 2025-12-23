@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { useMutationCreateTaxRulesOfHotel } from "@/api_service/mutations/Hospitality/Hotel";
+import { useMutationCreateTaxRulesOfHotel } from "@/_hospitalityapp/Hotel/apis/mutations/Hotel";
 
 // Type definitions based on Go structs
 type TaxType = "ROOM_GST";

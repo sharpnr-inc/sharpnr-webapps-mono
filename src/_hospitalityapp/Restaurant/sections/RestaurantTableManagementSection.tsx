@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/context-menu";
 import { cn } from "@/lib/utils";
 import { useDialogModal } from "@/context/DialogModalContext";
-import { useRestaurantLayout } from "@/api_service/queries/HospitalityQueries/Restaurant";
+import { useRestaurantLayout } from "@/_hospitalityapp/Restaurant/apis/queries/Restaurant";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
 import { ArrowRightCircle } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
-import { useMutationCreateTableSession } from "@/api_service/mutations/Hospitality/Restaurant";
+import { useMutationCreateTableSession } from "@/_hospitalityapp/Restaurant/apis/mutations/Restaurant";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 

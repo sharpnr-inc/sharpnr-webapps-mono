@@ -4,7 +4,7 @@ import { useFormsModal } from "@/context/FormModalContext";
 import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
 import { useRouter } from "@tanstack/react-router";
 
-import { useBookingTerminal } from "@/api_service/queries/HospitalityQueries/Hotel";
+import { useBookingTerminal } from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
 
 import type {
   HotelBookingTerminal_Response,

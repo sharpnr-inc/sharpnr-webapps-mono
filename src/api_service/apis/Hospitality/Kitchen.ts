@@ -1,5 +1,5 @@
 import api from "@/middlewares/axios";
-import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
+import { HospitalityApiEndpoint } from "../../../_hospitalityapp/HospitalityEndpoints";
 
 export const getKitchenOrders = async () => {
   const res = await api.get(HospitalityApiEndpoint.Kitchen.fetchOrders);

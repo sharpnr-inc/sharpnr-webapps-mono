@@ -1,7 +1,7 @@
 import { HOTEL } from "@/constants/api_endpoints";
 import api from "../../../middlewares/axios";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
-import { HospitalityApiEndpoint } from "../endpoints/HospitalityEndpoints";
+import { HospitalityApiEndpoint } from "../../../_hospitalityapp/HospitalityEndpoints";
 import type { CreateHotelGuestsRequest } from "@/_hospitalityapp/Hotel/schemas/guestsInterfaces";
 
 export interface GetHotelResponse {

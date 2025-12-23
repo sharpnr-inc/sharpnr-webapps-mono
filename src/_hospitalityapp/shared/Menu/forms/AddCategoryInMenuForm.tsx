@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useMutateCreateCategory } from "@/api_service/mutations/Hospitality/Menu";
+import { useMutateCreateCategory } from "@/_hospitalityapp/shared/Menu/apis/mutations/Menu";
 
 interface CategoryFormData {
   menu_group_id: string;

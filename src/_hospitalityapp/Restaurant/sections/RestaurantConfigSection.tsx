@@ -1,7 +1,7 @@
 import {
   useRestaurantDetails,
   useRestaurantLayout,
-} from "@/api_service/queries/HospitalityQueries/Restaurant";
+} from "@/_hospitalityapp/Restaurant/apis/queries/Restaurant";
 import {
   Card,
   CardContent,

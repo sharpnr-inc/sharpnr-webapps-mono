@@ -9,7 +9,7 @@ import {
   searchHotelGuest,
   type GetHotelResponse,
   type HotelBookingTerminal_Response,
-} from "../../apis/Hospitality/Hotel";
+} from "../../../../api_service/apis/Hospitality/Hotel";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 
 export function useHotelQueryOptions() {

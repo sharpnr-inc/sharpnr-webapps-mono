@@ -14,10 +14,10 @@ import { PlusCircleIcon, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import CreateFloorForm from "../../Restaurant/forms/CreateFloorForm";
 import { useDialogModal } from "@/context/DialogModalContext";
-import { useHotelQueryOptions } from "@/api_service/queries/HospitalityQueries/Hotel";
+import { useHotelQueryOptions } from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
 import { useForm } from "@tanstack/react-form";
 import { Label } from "@/components/ui/label";
-import { useMutationCreateRoom } from "@/api_service/mutations/Hospitality/Hotel";
+import { useMutationCreateRoom } from "@/_hospitalityapp/Hotel/apis/mutations/Hotel";
 import {
   Popover,
   PopoverContent,

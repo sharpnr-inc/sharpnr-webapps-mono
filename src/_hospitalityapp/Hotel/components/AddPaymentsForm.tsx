@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useMutationAddPaymentInHotelRoomBooking } from "@/api_service/mutations/Hospitality/Hotel";
+import { useMutationAddPaymentInHotelRoomBooking } from "@/_hospitalityapp/Hotel/apis/mutations/Hotel";
 import { Value } from "@radix-ui/react-select";
 
 // Interface based on Go struct

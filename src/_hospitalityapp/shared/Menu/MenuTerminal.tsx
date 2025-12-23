@@ -1,7 +1,7 @@
 import {
   useMenuGroup,
   useMenuGroupDetails,
-} from "@/api_service/queries/HospitalityQueries/Menu";
+} from "@/_hospitalityapp/shared/Menu/apis/Menu";
 import {
   selectClearMenuItem,
   selectIsMenuTerminalSheetOpen,

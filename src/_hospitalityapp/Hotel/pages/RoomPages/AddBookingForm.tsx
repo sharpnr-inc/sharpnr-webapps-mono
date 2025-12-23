@@ -20,7 +20,7 @@ import { format } from "date-fns";
 import CustomerSearch from "@/_hospitalityapp/Hotel/components/SearchCustomer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useMutationCreateRoomBooking } from "@/api_service/mutations/Hospitality/Hotel";
+import { useMutationCreateRoomBooking } from "@/_hospitalityapp/Hotel/apis/mutations/Hotel";
 
 interface BookingGuest {
   guestName: string;

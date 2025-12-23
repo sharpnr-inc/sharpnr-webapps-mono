@@ -7,7 +7,7 @@ import { useDialogModal } from "@/context/DialogModalContext";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useFormsModal } from "@/context/FormModalContext";
-import { useBarLayout } from "@/api_service/queries/HospitalityQueries/Bar";
+import { useBarLayout } from "@/_hospitalityapp/Bar/apis/queries/Bar";
 
 /* ────────────────────────────────
    📦 Main BarOrdersSection

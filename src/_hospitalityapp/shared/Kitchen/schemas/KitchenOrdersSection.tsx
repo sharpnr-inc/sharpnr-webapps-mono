@@ -6,7 +6,7 @@ import {
   type DropResult,
 } from "@hello-pangea/dnd";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { useKitchenOrders } from "@/api_service/queries/HospitalityQueries/Kitchen";
+import { useKitchenOrders } from "@/_hospitalityapp/shared/Kitchen/api/queries/Kitchen";
 
 interface Order {
   id: number;

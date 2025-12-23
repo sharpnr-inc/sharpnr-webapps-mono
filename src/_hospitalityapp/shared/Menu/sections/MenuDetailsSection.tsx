@@ -1,4 +1,4 @@
-import { useMenuGroupDetails } from "@/api_service/queries/HospitalityQueries/Menu";
+import { useMenuGroupDetails } from "@/_hospitalityapp/shared/Menu/apis/Menu";
 import {
   Accordion,
   AccordionContent,
