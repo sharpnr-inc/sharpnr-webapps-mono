@@ -12,7 +12,7 @@ import type { BarGeneralDetailsResponse } from "@/_hospitalityapp/Bar/apis/Bar";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useUpdateBarDetails } from "@/_hospitalityapp/Bar/apis/mutations/BarMutations";
-import { transformBarGenDetailsResToBarUpdateReq } from "@/mappers/Hospitality/Bar";
+import { transformBarGenDetailsResToBarUpdateReq } from "@/_hospitalityapp/Bar/schemas/Bar";
 
 export function UpdateBarGeneralDetailsForm({
   barGenDetail,

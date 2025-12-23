@@ -12,7 +12,7 @@ import { useForm } from "@tanstack/react-form";
 import { useMutateUpdateRestaurant } from "@/_hospitalityapp/Restaurant/apis/mutations/Restaurant";
 import type { GetRestaurantDetails_RESPONSE } from "@/_hospitalityapp/Restaurant/apis/Restaurant";
 import { Textarea } from "@/components/ui/textarea";
-import { transformRestaurantGenDetailsToUpdateReqBody } from "@/mappers/Hospitality/Restaurant";
+import { transformRestaurantGenDetailsToUpdateReqBody } from "@/_hospitalityapp/Restaurant/mappers/Restaurant";
 import { useQueryClient } from "@tanstack/react-query";
 
 export interface RestaurantUpdateOrEditGeneralDetailsReq {
