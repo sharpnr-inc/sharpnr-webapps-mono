@@ -1,6 +1,6 @@
-import BarInventorySection from "@/_hospitalityapp/sections/bar/BarInventorySection";
-import BarOrdersSection from "@/_hospitalityapp/sections/bar/BarOrdersSection";
-import BarStaffSection from "@/_hospitalityapp/sections/bar/BarStaffSection";
+import BarInventorySection from "@/_hospitalityapp/Bar/sections/BarInventorySection";
+import BarOrdersSection from "@/_hospitalityapp/Bar/sections/BarOrdersSection";
+import BarStaffSection from "@/_hospitalityapp/Bar/sections/BarStaffSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function BarPage() {

@@ -1,4 +1,4 @@
-import InventoryPage from "@/_hospitalityapp/pages/inventory/InventoryPage";
+import InventoryPage from "@/_hospitalityapp/shared/Inventory/InventoryPage";
 import { createFileRoute } from "@tanstack/react-router";
 import { InboxIcon } from "lucide-react";
 

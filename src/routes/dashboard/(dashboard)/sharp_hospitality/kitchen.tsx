@@ -1,4 +1,4 @@
-import KitchenPage from "@/_hospitalityapp/Kitchen/pages/KitchenPage";
+import KitchenPage from "@/_hospitalityapp/shared/Kitchen/pages/KitchenPage";
 import { createFileRoute } from "@tanstack/react-router";
 import {CookingPotIcon} from "lucide-react"
 

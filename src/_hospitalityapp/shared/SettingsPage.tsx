@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
-import SettingOverviewSection from "@/_hospitalityapp/sections/settings/SettingsOverviewSection";
-import SettingsNotificationSection from "@/_hospitalityapp/sections/settings/SettingsNotificationSection";
-import SettingsUserSection from "@/_hospitalityapp/sections/settings/SettingsUserSection";
-import SettingPaymentsSection from "@/_hospitalityapp/sections/settings/SettingsPaymentsSection";
-import SettingRoomConfiguration from "@/_hospitalityapp/sections/settings/SettingsRoomConfiguration";
-import SettingsRestaurantConfigSection from "@/_hospitalityapp/sections/settings/SettingsRestraurantConfigSection";
+import SettingOverviewSection from "@/_hospitalityapp/shared/settings/SettingsOverviewSection";
+import SettingsNotificationSection from "@/_hospitalityapp/shared/settings/SettingsNotificationSection";
+import SettingsUserSection from "@/_hospitalityapp/shared/settings/SettingsUserSection";
+import SettingPaymentsSection from "@/_hospitalityapp/shared/settings/SettingsPaymentsSection";
+import SettingRoomConfiguration from "@/_hospitalityapp/shared/settings/SettingsRoomConfiguration";
+import SettingsRestaurantConfigSection from "@/_hospitalityapp/shared/settings/SettingsRestraurantConfigSection";
 
 export default function SharpHospitalitySettings() {
   const [activeTab, setActiveTab] = React.useState("general");

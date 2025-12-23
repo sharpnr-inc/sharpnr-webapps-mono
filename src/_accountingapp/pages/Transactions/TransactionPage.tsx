@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Tabs,
   TabsList,
@@ -7,7 +5,6 @@ import {
   TabsContent,
 } from "@/components/ui/tabs";
 
-// 🧩 Import section components
 import AllTransactionsSection from "@/_accountingapp/sections/Transactions/AllTransactionsSection";
 import ReceiptsSection from "@/_accountingapp/sections/Transactions/ReceiptsSection";
 import PaymentsSection from "@/_accountingapp/sections/Transactions/PaymentsSection";
@@ -17,6 +14,7 @@ import JournalEntriesSection from "@/_accountingapp/sections/Transactions/Journa
 export default function AccountingTransactionPage() {
   return (
     <div className="p-2">
+
       <Tabs defaultValue="all" className="w-full">
         {/* ---- Tabs Header ---- */}
         <TabsList className="flex flex-wrap">

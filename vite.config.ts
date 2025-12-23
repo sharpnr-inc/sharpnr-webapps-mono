@@ -62,11 +62,11 @@ export default defineConfig({
     },
   },
 
-  preview: {
-    host: true,
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, "ssl/key.pem")),
-      cert: fs.readFileSync(path.resolve(__dirname, "ssl/cert.pem")),
-    },
-  },
+  // preview: {
+  //   host: true,
+  //   https: {
+  //     key: fs.readFileSync(path.resolve(__dirname, "ssl/key.pem")),
+  //     cert: fs.readFileSync(path.resolve(__dirname, "ssl/cert.pem")),
+  //   },
+  // },
 });

@@ -1,8 +1,8 @@
-import InventoryBarInventorySection from "@/_hospitalityapp/sections/inventory/InventoryBarInventorySection";
-import InventoryGeneralInventorySection from "@/_hospitalityapp/sections/inventory/InventoryGeneralInventorySection";
-import InventoryHotelInventorySection from "@/_hospitalityapp/sections/inventory/InventoryHotelInventorySection";
-import InventoryKitchenInventorySection from "@/_hospitalityapp/sections/inventory/InventoryKitchenInventorySection";
-import InventoryRestaurantInventorySection from "@/_hospitalityapp/sections/inventory/InventoryRestaurantInventorySection";
+import InventoryBarInventorySection from "@/_hospitalityapp/shared/Inventory/sections/InventoryBarInventorySection";
+import InventoryGeneralInventorySection from "@/_hospitalityapp/shared/Inventory/sections/InventoryGeneralInventorySection";
+import InventoryHotelInventorySection from "@/_hospitalityapp/shared/Inventory/sections/InventoryHotelInventorySection";
+import InventoryKitchenInventorySection from "@/_hospitalityapp/shared/Inventory/sections/InventoryKitchenInventorySection";
+import InventoryRestaurantInventorySection from "@/_hospitalityapp/shared/Inventory/sections/InventoryRestaurantInventorySection";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function InventoryPage() {

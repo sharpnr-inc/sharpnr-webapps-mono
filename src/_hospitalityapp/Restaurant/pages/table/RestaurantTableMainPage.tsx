@@ -14,7 +14,7 @@ import {
   useMenuGroupStore,
 } from "@/store/Hospitality/restaurant/menuTerminal/menuTerminal.store";
 import { useEffect } from "react";
-import { MenuTerminal } from "@/_hospitalityapp/components/restaurant/MenuTerminal";
+import { MenuTerminal } from "@/_hospitalityapp/shared/Menu/MenuTerminal";
 
 /* -------------------------------------------------------------------------- */
 

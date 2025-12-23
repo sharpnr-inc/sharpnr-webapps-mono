@@ -6,7 +6,3 @@ export const Route = createFileRoute(
 )({
   component: AccountingOverviewPage,
 })
-
-
-// This is the Overview Page 
-// /sharp-accounting/ <-- index.tsx

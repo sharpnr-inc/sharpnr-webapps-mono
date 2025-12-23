@@ -121,14 +121,20 @@ export const SharpAccountingNavs: NavSection[] = [
         id: "acc_overview",
         label: "Overview",
         icon: Wallet,
-        to: "/dashboard/sharp_accounting/transactions",
+        to: "/dashboard/sharp_accounting",
       },
 
       {
         id: "acc_acc_setup",
         label: "Accounting Setup",
         icon: Wallet,
-        to: "/dashboard/sharp_accounting/transactions",
+        to: "/dashboard/sharp_accounting/accounting-setup/books",
+      },
+      {
+        id: "acc_acc_setup_books",
+        label:"Chart Of Accounts",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/accounting-setup/chart-of-account",
       },
 
       {
@@ -138,24 +144,6 @@ export const SharpAccountingNavs: NavSection[] = [
         to: "/dashboard/sharp_accounting/transactions",
       },
 
-      // {
-      //   id: "acc_sales",
-      //   label: "Sales",
-      //   icon: ShoppingCart,
-      //   to: "/dashboard/sharp_accounting/sales",
-      // },
-      // {
-      //   id: "acc_purchases",
-      //   label: "Purchases",
-      //   icon: FileText,
-      //   to: "/dashboard/sharp_accounting/purchases",
-      // },
-      // {
-      //   id: "acc_ledger",
-      //   label: "Ledger",
-      //   icon: BookOpen,
-      //   to: "/dashboard/sharp_accounting/ledger",
-      // },
       {
         id: "acc_reports",
         label: "Reports",

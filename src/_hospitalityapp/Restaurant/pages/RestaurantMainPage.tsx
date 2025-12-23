@@ -1,4 +1,4 @@
-import RestaurantTableManagementSection from "@/_hospitalityapp/components/restaurant/sections/RestaurantTableManagementSection";
+import RestaurantTableManagementSection from "@/_hospitalityapp/Restaurant/sections/RestaurantTableManagementSection";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function RestaurantMainPage() {
