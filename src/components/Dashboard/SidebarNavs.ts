@@ -18,8 +18,6 @@ import {
   Server,
   type LucideIcon,
   Wallet,
-  ShoppingCart,
-  FileText,
 } from "lucide-react";
 
 interface NavItem {
@@ -27,15 +25,14 @@ interface NavItem {
   label: string;
   icon: LucideIcon; // Store the component, not JSX
   to: string;
-  sub_module_name?:string
+  sub_module_name?: string;
 }
 
 interface NavSection {
   id: string;
   title: string;
   items: NavItem[];
-  module_name?:string
-  
+  module_name?: string;
 }
 
 export const SharpHospitalityNavs: NavSection[] = [
@@ -102,7 +99,7 @@ export const SharpHospitalityNavs: NavSection[] = [
         id: "hotel_settings",
         label: "Settings",
         icon: Settings,
-        to: "/dashboard/sharp_hospitality/settings",
+        to: "/dashboard/sharp_accounting/settings",
       },
 
       {
@@ -121,29 +118,44 @@ export const SharpAccountingNavs: NavSection[] = [
     title: "Sharp Accounting",
     items: [
       {
+        id: "acc_overview",
+        label: "Overview",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/transactions",
+      },
+
+      {
+        id: "acc_acc_setup",
+        label: "Accounting Setup",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/transactions",
+      },
+
+      {
         id: "acc_transactions",
         label: "Transactions",
         icon: Wallet,
         to: "/dashboard/sharp_accounting/transactions",
       },
-      {
-        id: "acc_sales",
-        label: "Sales",
-        icon: ShoppingCart,
-        to: "/dashboard/sharp_accounting/sales",
-      },
-      {
-        id: "acc_purchases",
-        label: "Purchases",
-        icon: FileText,
-        to: "/dashboard/sharp_accounting/purchases",
-      },
-      {
-        id: "acc_ledger",
-        label: "Ledger",
-        icon: BookOpen,
-        to: "/dashboard/sharp_accounting/ledger",
-      },
+
+      // {
+      //   id: "acc_sales",
+      //   label: "Sales",
+      //   icon: ShoppingCart,
+      //   to: "/dashboard/sharp_accounting/sales",
+      // },
+      // {
+      //   id: "acc_purchases",
+      //   label: "Purchases",
+      //   icon: FileText,
+      //   to: "/dashboard/sharp_accounting/purchases",
+      // },
+      // {
+      //   id: "acc_ledger",
+      //   label: "Ledger",
+      //   icon: BookOpen,
+      //   to: "/dashboard/sharp_accounting/ledger",
+      // },
       {
         id: "acc_reports",
         label: "Reports",
@@ -222,7 +234,7 @@ export const SharpHRNavs: NavSection[] = [
         icon: BarChart3,
         to: "/dashboard/sharp_hr/reports",
       },
-       {
+      {
         id: "hr_settings",
         label: "Settings",
         icon: Settings,

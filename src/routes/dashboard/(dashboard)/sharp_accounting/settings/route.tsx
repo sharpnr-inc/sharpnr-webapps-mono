@@ -5,10 +5,11 @@ import { Settings } from 'lucide-react'
 export const Route = createFileRoute(
   '/dashboard/(dashboard)/sharp_accounting/settings',
 )({
-  component: AccountingSettingsPage,
+   component: AccountingSettingsPage,
   context: () => ({
     heading: "Settings",
     subheading: "Configure fiscal year, taxes, and default accounts",
     HeaderIcon: Settings,
   }),
 })
+

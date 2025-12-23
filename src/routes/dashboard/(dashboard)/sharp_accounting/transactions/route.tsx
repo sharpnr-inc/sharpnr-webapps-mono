@@ -6,9 +6,11 @@ export const Route = createFileRoute(
   '/dashboard/(dashboard)/sharp_accounting/transactions',
 )({
   component: AccountingTransactionPage,
-  context: () => ({
-    heading: "Transactions",
-    subheading: "View and manage financial movements",
-    HeaderIcon: Banknote,
-  }),
+    context: () => ({
+      heading: "Transactions",
+      subheading: "View and manage financial movements",
+      HeaderIcon: Banknote,
+    }),
 })
+
+
