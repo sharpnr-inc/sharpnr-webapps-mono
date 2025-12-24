@@ -6,11 +6,6 @@ import { UIRendererProvider } from "@/context/ui-rendererContext";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard")({
-  beforeLoad: () => {
-    const storedData = localStorage.getItem("_sharpnr_user_data_");
-    const userData = storedData ? JSON.parse(storedData) : null;
-    return { empId: userData?.EmployeeID };
-  },
   component: RouteComponent,
 });
 
