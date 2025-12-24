@@ -130,28 +130,6 @@ export const SharpAccountingNavs: NavSection[] = [
         icon: Wallet,
         to: "/dashboard/sharp_accounting/accounting-setup",
       },
-
-      {
-        id: "acc_acc_setup_books",
-        label: "Accounting Books",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/accounting-setup/books",
-      },
-
-      {
-        id: "acc_acc_setup_books",
-        label: "Chart Of Accounts",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/accounting-setup/chart-of-account",
-      },
-
-      {
-        id: "acc_acc_setup_mappings",
-        label: "Account Mappings",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/accounting-setup/account-mappings",
-      },
-
       {
         id: "acc_transactions",
         label: "Transactions",

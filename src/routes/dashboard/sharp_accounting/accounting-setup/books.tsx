@@ -1,4 +1,4 @@
-import { AccountingSetupBooksPage } from '@/_accountingapp/pages/accounting-setup/books'
+import { AccountingSetupBooksPage } from '@/_accountingapp/pages/accounting-setup/AccountingBooksPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(

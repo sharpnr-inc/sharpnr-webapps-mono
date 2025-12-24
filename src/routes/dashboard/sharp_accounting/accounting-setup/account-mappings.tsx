@@ -1,16 +1,8 @@
+import { AccountMappingPage } from '@/_accountingapp/pages/accounting-setup/AccountMappingPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
   '/dashboard/sharp_accounting/accounting-setup/account-mappings',
 )({
-  component: RouteComponent,
+  component: AccountMappingPage,
 })
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings"!
-    </div>
-  )
-}
