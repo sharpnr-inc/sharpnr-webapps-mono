@@ -9,64 +9,69 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as SignupVerifyOtpRouteImport } from './routes/signup/verify-otp'
 import { Route as SignupCompleteRegistrationRouteImport } from './routes/signup/complete-registration'
-import { Route as DashboarddashboardUnauthorizedRouteImport } from './routes/dashboard/(dashboard)/unauthorized'
-import { Route as DashboarddashboardSharp_marketingIndexRouteImport } from './routes/dashboard/(dashboard)/sharp_marketing/index'
-import { Route as DashboarddashboardSharp_accountingIndexRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/index'
-import { Route as DashboarddashboardEmployeeIndexRouteImport } from './routes/dashboard/(dashboard)/employee/index'
-import { Route as DashboarddashboardSharp_marketingSocial_media_managementRouteImport } from './routes/dashboard/(dashboard)/sharp_marketing/social_media_management'
-import { Route as DashboarddashboardSharp_marketingReportsRouteImport } from './routes/dashboard/(dashboard)/sharp_marketing/reports'
-import { Route as DashboarddashboardSharp_marketingLeadsRouteImport } from './routes/dashboard/(dashboard)/sharp_marketing/leads'
-import { Route as DashboarddashboardSharp_marketingCampaignsRouteImport } from './routes/dashboard/(dashboard)/sharp_marketing/campaigns'
-import { Route as DashboarddashboardSharp_hrSettingsRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/settings'
-import { Route as DashboarddashboardSharp_hrReportsRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/reports'
-import { Route as DashboarddashboardSharp_hrPayrollRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/payroll'
-import { Route as DashboarddashboardSharp_hrLeaves_managementRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/leaves_management'
-import { Route as DashboarddashboardSharp_hrEmployeeRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/employee'
-import { Route as DashboarddashboardSharp_hospitalitySettingsRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/settings'
-import { Route as DashboarddashboardSharp_hospitalityServicesRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/services'
-import { Route as DashboarddashboardSharp_hospitalityRestaurantRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/restaurant'
-import { Route as DashboarddashboardSharp_hospitalityOrgConfigRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/orgConfig'
-import { Route as DashboarddashboardSharp_hospitalityMenuRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/menu'
-import { Route as DashboarddashboardSharp_hospitalityKitchenRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/kitchen'
-import { Route as DashboarddashboardSharp_hospitalityInventoryRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/inventory'
-import { Route as DashboarddashboardSharp_hospitalityHousekeepingRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/housekeeping'
-import { Route as DashboarddashboardSharp_hospitalityHotelRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/hotel'
-import { Route as DashboarddashboardSharp_hospitalityGuestsRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/guests'
-import { Route as DashboarddashboardSharp_hospitalityBarRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/bar'
-import { Route as DashboarddashboardEmployeeReviewsRouteImport } from './routes/dashboard/(dashboard)/employee/reviews'
-import { Route as DashboarddashboardEmployeeRequestsRouteImport } from './routes/dashboard/(dashboard)/employee/requests'
-import { Route as DashboarddashboardEmployeeProfileRouteImport } from './routes/dashboard/(dashboard)/employee/profile'
-import { Route as DashboarddashboardEmployeeOvertimeRouteImport } from './routes/dashboard/(dashboard)/employee/overtime'
-import { Route as DashboarddashboardEmployeeLeavesRouteImport } from './routes/dashboard/(dashboard)/employee/leaves'
-import { Route as DashboarddashboardEmployeeGreivencesRouteImport } from './routes/dashboard/(dashboard)/employee/greivences'
-import { Route as DashboarddashboardEmployeeFeedbackRouteImport } from './routes/dashboard/(dashboard)/employee/feedback'
-import { Route as DashboarddashboardEmployeeEmployee_attendanceRouteImport } from './routes/dashboard/(dashboard)/employee/employee_attendance'
-import { Route as DashboarddashboardSharp_accountingTransactionsRouteRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/transactions/route'
-import { Route as DashboarddashboardSharp_accountingSettingsRouteRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/settings/route'
-import { Route as DashboarddashboardSharp_accountingAuditAndLogsRouteRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/auditAndLogs/route'
-import { Route as DashboarddashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/accounting-setup/route'
-import { Route as DashboarddashboardSharp_hrEmployeesIndexRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/employees/index'
-import { Route as DashboarddashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/restaurant/index'
-import { Route as DashboarddashboardSharp_hospitalityHotelIndexRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/hotel/index'
-import { Route as DashboarddashboardSharp_accountingReportsIndexRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/reports/index'
-import { Route as DashboarddashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/dashboard/(dashboard)/sharp_hr/employees/$employeeId'
-import { Route as DashboarddashboardSharp_hospitalityRestaurantTableIdRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/restaurant/$tableId'
-import { Route as DashboarddashboardSharp_hospitalityHotelRoomIdRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/hotel/$roomId'
-import { Route as DashboarddashboardSharp_accountingReportsTrialBalanceRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/reports/trial-balance'
-import { Route as DashboarddashboardSharp_accountingReportsProfitLossRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/reports/profit-loss'
-import { Route as DashboarddashboardSharp_accountingReportsLedgerRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/reports/ledger'
-import { Route as DashboarddashboardSharp_accountingReportsBalanceSheetRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/reports/balance-sheet'
-import { Route as DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/accounting-setup/chart-of-account'
-import { Route as DashboarddashboardSharp_accountingAccountingSetupBooksRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/accounting-setup/books'
-import { Route as DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRouteImport } from './routes/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings'
-import { Route as DashboarddashboardSharp_hospitalityHotelBookingRoomIdRouteImport } from './routes/dashboard/(dashboard)/sharp_hospitality/hotel/booking/$roomId'
+import { Route as DashboardSharp_marketingIndexRouteImport } from './routes/dashboard/sharp_marketing/index'
+import { Route as DashboardSharp_accountingIndexRouteImport } from './routes/dashboard/sharp_accounting/index'
+import { Route as DashboardEmployeeIndexRouteImport } from './routes/dashboard/employee/index'
+import { Route as DashboardSharp_marketingSocial_media_managementRouteImport } from './routes/dashboard/sharp_marketing/social_media_management'
+import { Route as DashboardSharp_marketingReportsRouteImport } from './routes/dashboard/sharp_marketing/reports'
+import { Route as DashboardSharp_marketingLeadsRouteImport } from './routes/dashboard/sharp_marketing/leads'
+import { Route as DashboardSharp_marketingCampaignsRouteImport } from './routes/dashboard/sharp_marketing/campaigns'
+import { Route as DashboardSharp_hrSettingsRouteImport } from './routes/dashboard/sharp_hr/settings'
+import { Route as DashboardSharp_hrReportsRouteImport } from './routes/dashboard/sharp_hr/reports'
+import { Route as DashboardSharp_hrPayrollRouteImport } from './routes/dashboard/sharp_hr/payroll'
+import { Route as DashboardSharp_hrLeaves_managementRouteImport } from './routes/dashboard/sharp_hr/leaves_management'
+import { Route as DashboardSharp_hrEmployeeRouteImport } from './routes/dashboard/sharp_hr/employee'
+import { Route as DashboardSharp_hospitalitySettingsRouteImport } from './routes/dashboard/sharp_hospitality/settings'
+import { Route as DashboardSharp_hospitalityServicesRouteImport } from './routes/dashboard/sharp_hospitality/services'
+import { Route as DashboardSharp_hospitalityRestaurantRouteImport } from './routes/dashboard/sharp_hospitality/restaurant'
+import { Route as DashboardSharp_hospitalityOrgConfigRouteImport } from './routes/dashboard/sharp_hospitality/orgConfig'
+import { Route as DashboardSharp_hospitalityMenuRouteImport } from './routes/dashboard/sharp_hospitality/menu'
+import { Route as DashboardSharp_hospitalityKitchenRouteImport } from './routes/dashboard/sharp_hospitality/kitchen'
+import { Route as DashboardSharp_hospitalityInventoryRouteImport } from './routes/dashboard/sharp_hospitality/inventory'
+import { Route as DashboardSharp_hospitalityHousekeepingRouteImport } from './routes/dashboard/sharp_hospitality/housekeeping'
+import { Route as DashboardSharp_hospitalityHotelRouteImport } from './routes/dashboard/sharp_hospitality/hotel'
+import { Route as DashboardSharp_hospitalityGuestsRouteImport } from './routes/dashboard/sharp_hospitality/guests'
+import { Route as DashboardSharp_hospitalityBarRouteImport } from './routes/dashboard/sharp_hospitality/bar'
+import { Route as DashboardEmployeeReviewsRouteImport } from './routes/dashboard/employee/reviews'
+import { Route as DashboardEmployeeRequestsRouteImport } from './routes/dashboard/employee/requests'
+import { Route as DashboardEmployeeProfileRouteImport } from './routes/dashboard/employee/profile'
+import { Route as DashboardEmployeeOvertimeRouteImport } from './routes/dashboard/employee/overtime'
+import { Route as DashboardEmployeeLeavesRouteImport } from './routes/dashboard/employee/leaves'
+import { Route as DashboardEmployeeGreivencesRouteImport } from './routes/dashboard/employee/greivences'
+import { Route as DashboardEmployeeFeedbackRouteImport } from './routes/dashboard/employee/feedback'
+import { Route as DashboardEmployeeEmployee_attendanceRouteImport } from './routes/dashboard/employee/employee_attendance'
+import { Route as DashboardSharp_accountingTransactionsRouteRouteImport } from './routes/dashboard/sharp_accounting/transactions/route'
+import { Route as DashboardSharp_accountingSettingsRouteRouteImport } from './routes/dashboard/sharp_accounting/settings/route'
+import { Route as DashboardSharp_accountingAuditAndLogsRouteRouteImport } from './routes/dashboard/sharp_accounting/auditAndLogs/route'
+import { Route as DashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/route'
+import { Route as DashboardSharp_hrEmployeesIndexRouteImport } from './routes/dashboard/sharp_hr/employees/index'
+import { Route as DashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/index'
+import { Route as DashboardSharp_hospitalityHotelIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/index'
+import { Route as DashboardSharp_accountingReportsIndexRouteImport } from './routes/dashboard/sharp_accounting/reports/index'
+import { Route as DashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/dashboard/sharp_hr/employees/$employeeId'
+import { Route as DashboardSharp_hospitalityRestaurantTableIdRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/$tableId'
+import { Route as DashboardSharp_hospitalityHotelRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/$roomId'
+import { Route as DashboardSharp_accountingReportsTrialBalanceRouteImport } from './routes/dashboard/sharp_accounting/reports/trial-balance'
+import { Route as DashboardSharp_accountingReportsProfitLossRouteImport } from './routes/dashboard/sharp_accounting/reports/profit-loss'
+import { Route as DashboardSharp_accountingReportsLedgerRouteImport } from './routes/dashboard/sharp_accounting/reports/ledger'
+import { Route as DashboardSharp_accountingReportsBalanceSheetRouteImport } from './routes/dashboard/sharp_accounting/reports/balance-sheet'
+import { Route as DashboardSharp_accountingAccountingSetupChartOfAccountRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/chart-of-account'
+import { Route as DashboardSharp_accountingAccountingSetupBooksRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/books'
+import { Route as DashboardSharp_accountingAccountingSetupAccountMappingsRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/account-mappings'
+import { Route as DashboardSharp_hospitalityHotelBookingRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/$roomId'
 
+const UnauthorizedRoute = UnauthorizedRouteImport.update({
+  id: '/unauthorized',
+  path: '/unauthorized',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -98,505 +103,490 @@ const SignupCompleteRegistrationRoute =
     path: '/signup/complete-registration',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DashboarddashboardUnauthorizedRoute =
-  DashboarddashboardUnauthorizedRouteImport.update({
-    id: '/(dashboard)/unauthorized',
-    path: '/unauthorized',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboarddashboardSharp_marketingIndexRoute =
-  DashboarddashboardSharp_marketingIndexRouteImport.update({
-    id: '/(dashboard)/sharp_marketing/',
+const DashboardSharp_marketingIndexRoute =
+  DashboardSharp_marketingIndexRouteImport.update({
+    id: '/sharp_marketing/',
     path: '/sharp_marketing/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingIndexRoute =
-  DashboarddashboardSharp_accountingIndexRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/',
+const DashboardSharp_accountingIndexRoute =
+  DashboardSharp_accountingIndexRouteImport.update({
+    id: '/sharp_accounting/',
     path: '/sharp_accounting/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeIndexRoute =
-  DashboarddashboardEmployeeIndexRouteImport.update({
-    id: '/(dashboard)/employee/',
-    path: '/employee/',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboarddashboardSharp_marketingSocial_media_managementRoute =
-  DashboarddashboardSharp_marketingSocial_media_managementRouteImport.update({
-    id: '/(dashboard)/sharp_marketing/social_media_management',
+const DashboardEmployeeIndexRoute = DashboardEmployeeIndexRouteImport.update({
+  id: '/employee/',
+  path: '/employee/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSharp_marketingSocial_media_managementRoute =
+  DashboardSharp_marketingSocial_media_managementRouteImport.update({
+    id: '/sharp_marketing/social_media_management',
     path: '/sharp_marketing/social_media_management',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_marketingReportsRoute =
-  DashboarddashboardSharp_marketingReportsRouteImport.update({
-    id: '/(dashboard)/sharp_marketing/reports',
+const DashboardSharp_marketingReportsRoute =
+  DashboardSharp_marketingReportsRouteImport.update({
+    id: '/sharp_marketing/reports',
     path: '/sharp_marketing/reports',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_marketingLeadsRoute =
-  DashboarddashboardSharp_marketingLeadsRouteImport.update({
-    id: '/(dashboard)/sharp_marketing/leads',
+const DashboardSharp_marketingLeadsRoute =
+  DashboardSharp_marketingLeadsRouteImport.update({
+    id: '/sharp_marketing/leads',
     path: '/sharp_marketing/leads',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_marketingCampaignsRoute =
-  DashboarddashboardSharp_marketingCampaignsRouteImport.update({
-    id: '/(dashboard)/sharp_marketing/campaigns',
+const DashboardSharp_marketingCampaignsRoute =
+  DashboardSharp_marketingCampaignsRouteImport.update({
+    id: '/sharp_marketing/campaigns',
     path: '/sharp_marketing/campaigns',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrSettingsRoute =
-  DashboarddashboardSharp_hrSettingsRouteImport.update({
-    id: '/(dashboard)/sharp_hr/settings',
+const DashboardSharp_hrSettingsRoute =
+  DashboardSharp_hrSettingsRouteImport.update({
+    id: '/sharp_hr/settings',
     path: '/sharp_hr/settings',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrReportsRoute =
-  DashboarddashboardSharp_hrReportsRouteImport.update({
-    id: '/(dashboard)/sharp_hr/reports',
+const DashboardSharp_hrReportsRoute =
+  DashboardSharp_hrReportsRouteImport.update({
+    id: '/sharp_hr/reports',
     path: '/sharp_hr/reports',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrPayrollRoute =
-  DashboarddashboardSharp_hrPayrollRouteImport.update({
-    id: '/(dashboard)/sharp_hr/payroll',
+const DashboardSharp_hrPayrollRoute =
+  DashboardSharp_hrPayrollRouteImport.update({
+    id: '/sharp_hr/payroll',
     path: '/sharp_hr/payroll',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrLeaves_managementRoute =
-  DashboarddashboardSharp_hrLeaves_managementRouteImport.update({
-    id: '/(dashboard)/sharp_hr/leaves_management',
+const DashboardSharp_hrLeaves_managementRoute =
+  DashboardSharp_hrLeaves_managementRouteImport.update({
+    id: '/sharp_hr/leaves_management',
     path: '/sharp_hr/leaves_management',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrEmployeeRoute =
-  DashboarddashboardSharp_hrEmployeeRouteImport.update({
-    id: '/(dashboard)/sharp_hr/employee',
+const DashboardSharp_hrEmployeeRoute =
+  DashboardSharp_hrEmployeeRouteImport.update({
+    id: '/sharp_hr/employee',
     path: '/sharp_hr/employee',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalitySettingsRoute =
-  DashboarddashboardSharp_hospitalitySettingsRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/settings',
+const DashboardSharp_hospitalitySettingsRoute =
+  DashboardSharp_hospitalitySettingsRouteImport.update({
+    id: '/sharp_hospitality/settings',
     path: '/sharp_hospitality/settings',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityServicesRoute =
-  DashboarddashboardSharp_hospitalityServicesRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/services',
+const DashboardSharp_hospitalityServicesRoute =
+  DashboardSharp_hospitalityServicesRouteImport.update({
+    id: '/sharp_hospitality/services',
     path: '/sharp_hospitality/services',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityRestaurantRoute =
-  DashboarddashboardSharp_hospitalityRestaurantRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/restaurant',
+const DashboardSharp_hospitalityRestaurantRoute =
+  DashboardSharp_hospitalityRestaurantRouteImport.update({
+    id: '/sharp_hospitality/restaurant',
     path: '/sharp_hospitality/restaurant',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityOrgConfigRoute =
-  DashboarddashboardSharp_hospitalityOrgConfigRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/orgConfig',
+const DashboardSharp_hospitalityOrgConfigRoute =
+  DashboardSharp_hospitalityOrgConfigRouteImport.update({
+    id: '/sharp_hospitality/orgConfig',
     path: '/sharp_hospitality/orgConfig',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityMenuRoute =
-  DashboarddashboardSharp_hospitalityMenuRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/menu',
+const DashboardSharp_hospitalityMenuRoute =
+  DashboardSharp_hospitalityMenuRouteImport.update({
+    id: '/sharp_hospitality/menu',
     path: '/sharp_hospitality/menu',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityKitchenRoute =
-  DashboarddashboardSharp_hospitalityKitchenRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/kitchen',
+const DashboardSharp_hospitalityKitchenRoute =
+  DashboardSharp_hospitalityKitchenRouteImport.update({
+    id: '/sharp_hospitality/kitchen',
     path: '/sharp_hospitality/kitchen',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityInventoryRoute =
-  DashboarddashboardSharp_hospitalityInventoryRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/inventory',
+const DashboardSharp_hospitalityInventoryRoute =
+  DashboardSharp_hospitalityInventoryRouteImport.update({
+    id: '/sharp_hospitality/inventory',
     path: '/sharp_hospitality/inventory',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityHousekeepingRoute =
-  DashboarddashboardSharp_hospitalityHousekeepingRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/housekeeping',
+const DashboardSharp_hospitalityHousekeepingRoute =
+  DashboardSharp_hospitalityHousekeepingRouteImport.update({
+    id: '/sharp_hospitality/housekeeping',
     path: '/sharp_hospitality/housekeeping',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityHotelRoute =
-  DashboarddashboardSharp_hospitalityHotelRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/hotel',
+const DashboardSharp_hospitalityHotelRoute =
+  DashboardSharp_hospitalityHotelRouteImport.update({
+    id: '/sharp_hospitality/hotel',
     path: '/sharp_hospitality/hotel',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityGuestsRoute =
-  DashboarddashboardSharp_hospitalityGuestsRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/guests',
+const DashboardSharp_hospitalityGuestsRoute =
+  DashboardSharp_hospitalityGuestsRouteImport.update({
+    id: '/sharp_hospitality/guests',
     path: '/sharp_hospitality/guests',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityBarRoute =
-  DashboarddashboardSharp_hospitalityBarRouteImport.update({
-    id: '/(dashboard)/sharp_hospitality/bar',
+const DashboardSharp_hospitalityBarRoute =
+  DashboardSharp_hospitalityBarRouteImport.update({
+    id: '/sharp_hospitality/bar',
     path: '/sharp_hospitality/bar',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeReviewsRoute =
-  DashboarddashboardEmployeeReviewsRouteImport.update({
-    id: '/(dashboard)/employee/reviews',
+const DashboardEmployeeReviewsRoute =
+  DashboardEmployeeReviewsRouteImport.update({
+    id: '/employee/reviews',
     path: '/employee/reviews',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeRequestsRoute =
-  DashboarddashboardEmployeeRequestsRouteImport.update({
-    id: '/(dashboard)/employee/requests',
+const DashboardEmployeeRequestsRoute =
+  DashboardEmployeeRequestsRouteImport.update({
+    id: '/employee/requests',
     path: '/employee/requests',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeProfileRoute =
-  DashboarddashboardEmployeeProfileRouteImport.update({
-    id: '/(dashboard)/employee/profile',
+const DashboardEmployeeProfileRoute =
+  DashboardEmployeeProfileRouteImport.update({
+    id: '/employee/profile',
     path: '/employee/profile',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeOvertimeRoute =
-  DashboarddashboardEmployeeOvertimeRouteImport.update({
-    id: '/(dashboard)/employee/overtime',
+const DashboardEmployeeOvertimeRoute =
+  DashboardEmployeeOvertimeRouteImport.update({
+    id: '/employee/overtime',
     path: '/employee/overtime',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeLeavesRoute =
-  DashboarddashboardEmployeeLeavesRouteImport.update({
-    id: '/(dashboard)/employee/leaves',
-    path: '/employee/leaves',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboarddashboardEmployeeGreivencesRoute =
-  DashboarddashboardEmployeeGreivencesRouteImport.update({
-    id: '/(dashboard)/employee/greivences',
+const DashboardEmployeeLeavesRoute = DashboardEmployeeLeavesRouteImport.update({
+  id: '/employee/leaves',
+  path: '/employee/leaves',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardEmployeeGreivencesRoute =
+  DashboardEmployeeGreivencesRouteImport.update({
+    id: '/employee/greivences',
     path: '/employee/greivences',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeFeedbackRoute =
-  DashboarddashboardEmployeeFeedbackRouteImport.update({
-    id: '/(dashboard)/employee/feedback',
+const DashboardEmployeeFeedbackRoute =
+  DashboardEmployeeFeedbackRouteImport.update({
+    id: '/employee/feedback',
     path: '/employee/feedback',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardEmployeeEmployee_attendanceRoute =
-  DashboarddashboardEmployeeEmployee_attendanceRouteImport.update({
-    id: '/(dashboard)/employee/employee_attendance',
+const DashboardEmployeeEmployee_attendanceRoute =
+  DashboardEmployeeEmployee_attendanceRouteImport.update({
+    id: '/employee/employee_attendance',
     path: '/employee/employee_attendance',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingTransactionsRouteRoute =
-  DashboarddashboardSharp_accountingTransactionsRouteRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/transactions',
+const DashboardSharp_accountingTransactionsRouteRoute =
+  DashboardSharp_accountingTransactionsRouteRouteImport.update({
+    id: '/sharp_accounting/transactions',
     path: '/sharp_accounting/transactions',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingSettingsRouteRoute =
-  DashboarddashboardSharp_accountingSettingsRouteRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/settings',
+const DashboardSharp_accountingSettingsRouteRoute =
+  DashboardSharp_accountingSettingsRouteRouteImport.update({
+    id: '/sharp_accounting/settings',
     path: '/sharp_accounting/settings',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingAuditAndLogsRouteRoute =
-  DashboarddashboardSharp_accountingAuditAndLogsRouteRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/auditAndLogs',
+const DashboardSharp_accountingAuditAndLogsRouteRoute =
+  DashboardSharp_accountingAuditAndLogsRouteRouteImport.update({
+    id: '/sharp_accounting/auditAndLogs',
     path: '/sharp_accounting/auditAndLogs',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingAccountingSetupRouteRoute =
-  DashboarddashboardSharp_accountingAccountingSetupRouteRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/accounting-setup',
+const DashboardSharp_accountingAccountingSetupRouteRoute =
+  DashboardSharp_accountingAccountingSetupRouteRouteImport.update({
+    id: '/sharp_accounting/accounting-setup',
     path: '/sharp_accounting/accounting-setup',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrEmployeesIndexRoute =
-  DashboarddashboardSharp_hrEmployeesIndexRouteImport.update({
-    id: '/(dashboard)/sharp_hr/employees/',
+const DashboardSharp_hrEmployeesIndexRoute =
+  DashboardSharp_hrEmployeesIndexRouteImport.update({
+    id: '/sharp_hr/employees/',
     path: '/sharp_hr/employees/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityRestaurantIndexRoute =
-  DashboarddashboardSharp_hospitalityRestaurantIndexRouteImport.update({
+const DashboardSharp_hospitalityRestaurantIndexRoute =
+  DashboardSharp_hospitalityRestaurantIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => DashboarddashboardSharp_hospitalityRestaurantRoute,
+    getParentRoute: () => DashboardSharp_hospitalityRestaurantRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityHotelIndexRoute =
-  DashboarddashboardSharp_hospitalityHotelIndexRouteImport.update({
+const DashboardSharp_hospitalityHotelIndexRoute =
+  DashboardSharp_hospitalityHotelIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => DashboarddashboardSharp_hospitalityHotelRoute,
+    getParentRoute: () => DashboardSharp_hospitalityHotelRoute,
   } as any)
-const DashboarddashboardSharp_accountingReportsIndexRoute =
-  DashboarddashboardSharp_accountingReportsIndexRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/reports/',
+const DashboardSharp_accountingReportsIndexRoute =
+  DashboardSharp_accountingReportsIndexRouteImport.update({
+    id: '/sharp_accounting/reports/',
     path: '/sharp_accounting/reports/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hrEmployeesEmployeeIdRoute =
-  DashboarddashboardSharp_hrEmployeesEmployeeIdRouteImport.update({
-    id: '/(dashboard)/sharp_hr/employees/$employeeId',
+const DashboardSharp_hrEmployeesEmployeeIdRoute =
+  DashboardSharp_hrEmployeesEmployeeIdRouteImport.update({
+    id: '/sharp_hr/employees/$employeeId',
     path: '/sharp_hr/employees/$employeeId',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityRestaurantTableIdRoute =
-  DashboarddashboardSharp_hospitalityRestaurantTableIdRouteImport.update({
+const DashboardSharp_hospitalityRestaurantTableIdRoute =
+  DashboardSharp_hospitalityRestaurantTableIdRouteImport.update({
     id: '/$tableId',
     path: '/$tableId',
-    getParentRoute: () => DashboarddashboardSharp_hospitalityRestaurantRoute,
+    getParentRoute: () => DashboardSharp_hospitalityRestaurantRoute,
   } as any)
-const DashboarddashboardSharp_hospitalityHotelRoomIdRoute =
-  DashboarddashboardSharp_hospitalityHotelRoomIdRouteImport.update({
+const DashboardSharp_hospitalityHotelRoomIdRoute =
+  DashboardSharp_hospitalityHotelRoomIdRouteImport.update({
     id: '/$roomId',
     path: '/$roomId',
-    getParentRoute: () => DashboarddashboardSharp_hospitalityHotelRoute,
+    getParentRoute: () => DashboardSharp_hospitalityHotelRoute,
   } as any)
-const DashboarddashboardSharp_accountingReportsTrialBalanceRoute =
-  DashboarddashboardSharp_accountingReportsTrialBalanceRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/reports/trial-balance',
+const DashboardSharp_accountingReportsTrialBalanceRoute =
+  DashboardSharp_accountingReportsTrialBalanceRouteImport.update({
+    id: '/sharp_accounting/reports/trial-balance',
     path: '/sharp_accounting/reports/trial-balance',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingReportsProfitLossRoute =
-  DashboarddashboardSharp_accountingReportsProfitLossRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/reports/profit-loss',
+const DashboardSharp_accountingReportsProfitLossRoute =
+  DashboardSharp_accountingReportsProfitLossRouteImport.update({
+    id: '/sharp_accounting/reports/profit-loss',
     path: '/sharp_accounting/reports/profit-loss',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingReportsLedgerRoute =
-  DashboarddashboardSharp_accountingReportsLedgerRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/reports/ledger',
+const DashboardSharp_accountingReportsLedgerRoute =
+  DashboardSharp_accountingReportsLedgerRouteImport.update({
+    id: '/sharp_accounting/reports/ledger',
     path: '/sharp_accounting/reports/ledger',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingReportsBalanceSheetRoute =
-  DashboarddashboardSharp_accountingReportsBalanceSheetRouteImport.update({
-    id: '/(dashboard)/sharp_accounting/reports/balance-sheet',
+const DashboardSharp_accountingReportsBalanceSheetRoute =
+  DashboardSharp_accountingReportsBalanceSheetRouteImport.update({
+    id: '/sharp_accounting/reports/balance-sheet',
     path: '/sharp_accounting/reports/balance-sheet',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute =
-  DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRouteImport.update(
-    {
-      id: '/chart-of-account',
-      path: '/chart-of-account',
-      getParentRoute: () =>
-        DashboarddashboardSharp_accountingAccountingSetupRouteRoute,
-    } as any,
-  )
-const DashboarddashboardSharp_accountingAccountingSetupBooksRoute =
-  DashboarddashboardSharp_accountingAccountingSetupBooksRouteImport.update({
+const DashboardSharp_accountingAccountingSetupChartOfAccountRoute =
+  DashboardSharp_accountingAccountingSetupChartOfAccountRouteImport.update({
+    id: '/chart-of-account',
+    path: '/chart-of-account',
+    getParentRoute: () => DashboardSharp_accountingAccountingSetupRouteRoute,
+  } as any)
+const DashboardSharp_accountingAccountingSetupBooksRoute =
+  DashboardSharp_accountingAccountingSetupBooksRouteImport.update({
     id: '/books',
     path: '/books',
-    getParentRoute: () =>
-      DashboarddashboardSharp_accountingAccountingSetupRouteRoute,
+    getParentRoute: () => DashboardSharp_accountingAccountingSetupRouteRoute,
   } as any)
-const DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute =
-  DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRouteImport.update(
-    {
-      id: '/account-mappings',
-      path: '/account-mappings',
-      getParentRoute: () =>
-        DashboarddashboardSharp_accountingAccountingSetupRouteRoute,
-    } as any,
-  )
-const DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute =
-  DashboarddashboardSharp_hospitalityHotelBookingRoomIdRouteImport.update({
+const DashboardSharp_accountingAccountingSetupAccountMappingsRoute =
+  DashboardSharp_accountingAccountingSetupAccountMappingsRouteImport.update({
+    id: '/account-mappings',
+    path: '/account-mappings',
+    getParentRoute: () => DashboardSharp_accountingAccountingSetupRouteRoute,
+  } as any)
+const DashboardSharp_hospitalityHotelBookingRoomIdRoute =
+  DashboardSharp_hospitalityHotelBookingRoomIdRouteImport.update({
     id: '/booking/$roomId',
     path: '/booking/$roomId',
-    getParentRoute: () => DashboarddashboardSharp_hospitalityHotelRoute,
+    getParentRoute: () => DashboardSharp_hospitalityHotelRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/unauthorized': typeof UnauthorizedRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/signup': typeof SignupIndexRoute
-  '/dashboard/unauthorized': typeof DashboarddashboardUnauthorizedRoute
-  '/dashboard/sharp_accounting/accounting-setup': typeof DashboarddashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  '/dashboard/sharp_accounting/auditAndLogs': typeof DashboarddashboardSharp_accountingAuditAndLogsRouteRoute
-  '/dashboard/sharp_accounting/settings': typeof DashboarddashboardSharp_accountingSettingsRouteRoute
-  '/dashboard/sharp_accounting/transactions': typeof DashboarddashboardSharp_accountingTransactionsRouteRoute
-  '/dashboard/employee/employee_attendance': typeof DashboarddashboardEmployeeEmployee_attendanceRoute
-  '/dashboard/employee/feedback': typeof DashboarddashboardEmployeeFeedbackRoute
-  '/dashboard/employee/greivences': typeof DashboarddashboardEmployeeGreivencesRoute
-  '/dashboard/employee/leaves': typeof DashboarddashboardEmployeeLeavesRoute
-  '/dashboard/employee/overtime': typeof DashboarddashboardEmployeeOvertimeRoute
-  '/dashboard/employee/profile': typeof DashboarddashboardEmployeeProfileRoute
-  '/dashboard/employee/requests': typeof DashboarddashboardEmployeeRequestsRoute
-  '/dashboard/employee/reviews': typeof DashboarddashboardEmployeeReviewsRoute
-  '/dashboard/sharp_hospitality/bar': typeof DashboarddashboardSharp_hospitalityBarRoute
-  '/dashboard/sharp_hospitality/guests': typeof DashboarddashboardSharp_hospitalityGuestsRoute
-  '/dashboard/sharp_hospitality/hotel': typeof DashboarddashboardSharp_hospitalityHotelRouteWithChildren
-  '/dashboard/sharp_hospitality/housekeeping': typeof DashboarddashboardSharp_hospitalityHousekeepingRoute
-  '/dashboard/sharp_hospitality/inventory': typeof DashboarddashboardSharp_hospitalityInventoryRoute
-  '/dashboard/sharp_hospitality/kitchen': typeof DashboarddashboardSharp_hospitalityKitchenRoute
-  '/dashboard/sharp_hospitality/menu': typeof DashboarddashboardSharp_hospitalityMenuRoute
-  '/dashboard/sharp_hospitality/orgConfig': typeof DashboarddashboardSharp_hospitalityOrgConfigRoute
-  '/dashboard/sharp_hospitality/restaurant': typeof DashboarddashboardSharp_hospitalityRestaurantRouteWithChildren
-  '/dashboard/sharp_hospitality/services': typeof DashboarddashboardSharp_hospitalityServicesRoute
-  '/dashboard/sharp_hospitality/settings': typeof DashboarddashboardSharp_hospitalitySettingsRoute
-  '/dashboard/sharp_hr/employee': typeof DashboarddashboardSharp_hrEmployeeRoute
-  '/dashboard/sharp_hr/leaves_management': typeof DashboarddashboardSharp_hrLeaves_managementRoute
-  '/dashboard/sharp_hr/payroll': typeof DashboarddashboardSharp_hrPayrollRoute
-  '/dashboard/sharp_hr/reports': typeof DashboarddashboardSharp_hrReportsRoute
-  '/dashboard/sharp_hr/settings': typeof DashboarddashboardSharp_hrSettingsRoute
-  '/dashboard/sharp_marketing/campaigns': typeof DashboarddashboardSharp_marketingCampaignsRoute
-  '/dashboard/sharp_marketing/leads': typeof DashboarddashboardSharp_marketingLeadsRoute
-  '/dashboard/sharp_marketing/reports': typeof DashboarddashboardSharp_marketingReportsRoute
-  '/dashboard/sharp_marketing/social_media_management': typeof DashboarddashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/employee': typeof DashboarddashboardEmployeeIndexRoute
-  '/dashboard/sharp_accounting': typeof DashboarddashboardSharp_accountingIndexRoute
-  '/dashboard/sharp_marketing': typeof DashboarddashboardSharp_marketingIndexRoute
-  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboarddashboardSharp_accountingAccountingSetupBooksRoute
-  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute
-  '/dashboard/sharp_accounting/reports/balance-sheet': typeof DashboarddashboardSharp_accountingReportsBalanceSheetRoute
-  '/dashboard/sharp_accounting/reports/ledger': typeof DashboarddashboardSharp_accountingReportsLedgerRoute
-  '/dashboard/sharp_accounting/reports/profit-loss': typeof DashboarddashboardSharp_accountingReportsProfitLossRoute
-  '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboarddashboardSharp_accountingReportsTrialBalanceRoute
-  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboarddashboardSharp_hospitalityHotelRoomIdRoute
-  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboarddashboardSharp_hospitalityRestaurantTableIdRoute
-  '/dashboard/sharp_hr/employees/$employeeId': typeof DashboarddashboardSharp_hrEmployeesEmployeeIdRoute
-  '/dashboard/sharp_accounting/reports': typeof DashboarddashboardSharp_accountingReportsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/': typeof DashboarddashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/': typeof DashboarddashboardSharp_hospitalityRestaurantIndexRoute
-  '/dashboard/sharp_hr/employees': typeof DashboarddashboardSharp_hrEmployeesIndexRoute
-  '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute
+  '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
+  '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
+  '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
+  '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
+  '/dashboard/employee/feedback': typeof DashboardEmployeeFeedbackRoute
+  '/dashboard/employee/greivences': typeof DashboardEmployeeGreivencesRoute
+  '/dashboard/employee/leaves': typeof DashboardEmployeeLeavesRoute
+  '/dashboard/employee/overtime': typeof DashboardEmployeeOvertimeRoute
+  '/dashboard/employee/profile': typeof DashboardEmployeeProfileRoute
+  '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
+  '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
+  '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarRoute
+  '/dashboard/sharp_hospitality/guests': typeof DashboardSharp_hospitalityGuestsRoute
+  '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelRouteWithChildren
+  '/dashboard/sharp_hospitality/housekeeping': typeof DashboardSharp_hospitalityHousekeepingRoute
+  '/dashboard/sharp_hospitality/inventory': typeof DashboardSharp_hospitalityInventoryRoute
+  '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
+  '/dashboard/sharp_hospitality/menu': typeof DashboardSharp_hospitalityMenuRoute
+  '/dashboard/sharp_hospitality/orgConfig': typeof DashboardSharp_hospitalityOrgConfigRoute
+  '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantRouteWithChildren
+  '/dashboard/sharp_hospitality/services': typeof DashboardSharp_hospitalityServicesRoute
+  '/dashboard/sharp_hospitality/settings': typeof DashboardSharp_hospitalitySettingsRoute
+  '/dashboard/sharp_hr/employee': typeof DashboardSharp_hrEmployeeRoute
+  '/dashboard/sharp_hr/leaves_management': typeof DashboardSharp_hrLeaves_managementRoute
+  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollRoute
+  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsRoute
+  '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
+  '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
+  '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
+  '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
+  '/dashboard/employee': typeof DashboardEmployeeIndexRoute
+  '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
+  '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
+  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
+  '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboardSharp_accountingAccountingSetupBooksRoute
+  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
+  '/dashboard/sharp_accounting/reports/balance-sheet': typeof DashboardSharp_accountingReportsBalanceSheetRoute
+  '/dashboard/sharp_accounting/reports/ledger': typeof DashboardSharp_accountingReportsLedgerRoute
+  '/dashboard/sharp_accounting/reports/profit-loss': typeof DashboardSharp_accountingReportsProfitLossRoute
+  '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboardSharp_accountingReportsTrialBalanceRoute
+  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboardSharp_hospitalityHotelRoomIdRoute
+  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
+  '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_hospitality/hotel/': typeof DashboardSharp_hospitalityHotelIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
+  '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/unauthorized': typeof UnauthorizedRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/dashboard': typeof DashboardIndexRoute
   '/signup': typeof SignupIndexRoute
-  '/dashboard/unauthorized': typeof DashboarddashboardUnauthorizedRoute
-  '/dashboard/sharp_accounting/accounting-setup': typeof DashboarddashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  '/dashboard/sharp_accounting/auditAndLogs': typeof DashboarddashboardSharp_accountingAuditAndLogsRouteRoute
-  '/dashboard/sharp_accounting/settings': typeof DashboarddashboardSharp_accountingSettingsRouteRoute
-  '/dashboard/sharp_accounting/transactions': typeof DashboarddashboardSharp_accountingTransactionsRouteRoute
-  '/dashboard/employee/employee_attendance': typeof DashboarddashboardEmployeeEmployee_attendanceRoute
-  '/dashboard/employee/feedback': typeof DashboarddashboardEmployeeFeedbackRoute
-  '/dashboard/employee/greivences': typeof DashboarddashboardEmployeeGreivencesRoute
-  '/dashboard/employee/leaves': typeof DashboarddashboardEmployeeLeavesRoute
-  '/dashboard/employee/overtime': typeof DashboarddashboardEmployeeOvertimeRoute
-  '/dashboard/employee/profile': typeof DashboarddashboardEmployeeProfileRoute
-  '/dashboard/employee/requests': typeof DashboarddashboardEmployeeRequestsRoute
-  '/dashboard/employee/reviews': typeof DashboarddashboardEmployeeReviewsRoute
-  '/dashboard/sharp_hospitality/bar': typeof DashboarddashboardSharp_hospitalityBarRoute
-  '/dashboard/sharp_hospitality/guests': typeof DashboarddashboardSharp_hospitalityGuestsRoute
-  '/dashboard/sharp_hospitality/housekeeping': typeof DashboarddashboardSharp_hospitalityHousekeepingRoute
-  '/dashboard/sharp_hospitality/inventory': typeof DashboarddashboardSharp_hospitalityInventoryRoute
-  '/dashboard/sharp_hospitality/kitchen': typeof DashboarddashboardSharp_hospitalityKitchenRoute
-  '/dashboard/sharp_hospitality/menu': typeof DashboarddashboardSharp_hospitalityMenuRoute
-  '/dashboard/sharp_hospitality/orgConfig': typeof DashboarddashboardSharp_hospitalityOrgConfigRoute
-  '/dashboard/sharp_hospitality/services': typeof DashboarddashboardSharp_hospitalityServicesRoute
-  '/dashboard/sharp_hospitality/settings': typeof DashboarddashboardSharp_hospitalitySettingsRoute
-  '/dashboard/sharp_hr/employee': typeof DashboarddashboardSharp_hrEmployeeRoute
-  '/dashboard/sharp_hr/leaves_management': typeof DashboarddashboardSharp_hrLeaves_managementRoute
-  '/dashboard/sharp_hr/payroll': typeof DashboarddashboardSharp_hrPayrollRoute
-  '/dashboard/sharp_hr/reports': typeof DashboarddashboardSharp_hrReportsRoute
-  '/dashboard/sharp_hr/settings': typeof DashboarddashboardSharp_hrSettingsRoute
-  '/dashboard/sharp_marketing/campaigns': typeof DashboarddashboardSharp_marketingCampaignsRoute
-  '/dashboard/sharp_marketing/leads': typeof DashboarddashboardSharp_marketingLeadsRoute
-  '/dashboard/sharp_marketing/reports': typeof DashboarddashboardSharp_marketingReportsRoute
-  '/dashboard/sharp_marketing/social_media_management': typeof DashboarddashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/employee': typeof DashboarddashboardEmployeeIndexRoute
-  '/dashboard/sharp_accounting': typeof DashboarddashboardSharp_accountingIndexRoute
-  '/dashboard/sharp_marketing': typeof DashboarddashboardSharp_marketingIndexRoute
-  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboarddashboardSharp_accountingAccountingSetupBooksRoute
-  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute
-  '/dashboard/sharp_accounting/reports/balance-sheet': typeof DashboarddashboardSharp_accountingReportsBalanceSheetRoute
-  '/dashboard/sharp_accounting/reports/ledger': typeof DashboarddashboardSharp_accountingReportsLedgerRoute
-  '/dashboard/sharp_accounting/reports/profit-loss': typeof DashboarddashboardSharp_accountingReportsProfitLossRoute
-  '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboarddashboardSharp_accountingReportsTrialBalanceRoute
-  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboarddashboardSharp_hospitalityHotelRoomIdRoute
-  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboarddashboardSharp_hospitalityRestaurantTableIdRoute
-  '/dashboard/sharp_hr/employees/$employeeId': typeof DashboarddashboardSharp_hrEmployeesEmployeeIdRoute
-  '/dashboard/sharp_accounting/reports': typeof DashboarddashboardSharp_accountingReportsIndexRoute
-  '/dashboard/sharp_hospitality/hotel': typeof DashboarddashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/restaurant': typeof DashboarddashboardSharp_hospitalityRestaurantIndexRoute
-  '/dashboard/sharp_hr/employees': typeof DashboarddashboardSharp_hrEmployeesIndexRoute
-  '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute
+  '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
+  '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
+  '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
+  '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
+  '/dashboard/employee/feedback': typeof DashboardEmployeeFeedbackRoute
+  '/dashboard/employee/greivences': typeof DashboardEmployeeGreivencesRoute
+  '/dashboard/employee/leaves': typeof DashboardEmployeeLeavesRoute
+  '/dashboard/employee/overtime': typeof DashboardEmployeeOvertimeRoute
+  '/dashboard/employee/profile': typeof DashboardEmployeeProfileRoute
+  '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
+  '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
+  '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarRoute
+  '/dashboard/sharp_hospitality/guests': typeof DashboardSharp_hospitalityGuestsRoute
+  '/dashboard/sharp_hospitality/housekeeping': typeof DashboardSharp_hospitalityHousekeepingRoute
+  '/dashboard/sharp_hospitality/inventory': typeof DashboardSharp_hospitalityInventoryRoute
+  '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
+  '/dashboard/sharp_hospitality/menu': typeof DashboardSharp_hospitalityMenuRoute
+  '/dashboard/sharp_hospitality/orgConfig': typeof DashboardSharp_hospitalityOrgConfigRoute
+  '/dashboard/sharp_hospitality/services': typeof DashboardSharp_hospitalityServicesRoute
+  '/dashboard/sharp_hospitality/settings': typeof DashboardSharp_hospitalitySettingsRoute
+  '/dashboard/sharp_hr/employee': typeof DashboardSharp_hrEmployeeRoute
+  '/dashboard/sharp_hr/leaves_management': typeof DashboardSharp_hrLeaves_managementRoute
+  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollRoute
+  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsRoute
+  '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
+  '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
+  '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
+  '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
+  '/dashboard/employee': typeof DashboardEmployeeIndexRoute
+  '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
+  '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
+  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
+  '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboardSharp_accountingAccountingSetupBooksRoute
+  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
+  '/dashboard/sharp_accounting/reports/balance-sheet': typeof DashboardSharp_accountingReportsBalanceSheetRoute
+  '/dashboard/sharp_accounting/reports/ledger': typeof DashboardSharp_accountingReportsLedgerRoute
+  '/dashboard/sharp_accounting/reports/profit-loss': typeof DashboardSharp_accountingReportsProfitLossRoute
+  '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboardSharp_accountingReportsTrialBalanceRoute
+  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboardSharp_hospitalityHotelRoomIdRoute
+  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
+  '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelIndexRoute
+  '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantIndexRoute
+  '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/unauthorized': typeof UnauthorizedRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/signup/': typeof SignupIndexRoute
-  '/dashboard/(dashboard)/unauthorized': typeof DashboarddashboardUnauthorizedRoute
-  '/dashboard/(dashboard)/sharp_accounting/accounting-setup': typeof DashboarddashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  '/dashboard/(dashboard)/sharp_accounting/auditAndLogs': typeof DashboarddashboardSharp_accountingAuditAndLogsRouteRoute
-  '/dashboard/(dashboard)/sharp_accounting/settings': typeof DashboarddashboardSharp_accountingSettingsRouteRoute
-  '/dashboard/(dashboard)/sharp_accounting/transactions': typeof DashboarddashboardSharp_accountingTransactionsRouteRoute
-  '/dashboard/(dashboard)/employee/employee_attendance': typeof DashboarddashboardEmployeeEmployee_attendanceRoute
-  '/dashboard/(dashboard)/employee/feedback': typeof DashboarddashboardEmployeeFeedbackRoute
-  '/dashboard/(dashboard)/employee/greivences': typeof DashboarddashboardEmployeeGreivencesRoute
-  '/dashboard/(dashboard)/employee/leaves': typeof DashboarddashboardEmployeeLeavesRoute
-  '/dashboard/(dashboard)/employee/overtime': typeof DashboarddashboardEmployeeOvertimeRoute
-  '/dashboard/(dashboard)/employee/profile': typeof DashboarddashboardEmployeeProfileRoute
-  '/dashboard/(dashboard)/employee/requests': typeof DashboarddashboardEmployeeRequestsRoute
-  '/dashboard/(dashboard)/employee/reviews': typeof DashboarddashboardEmployeeReviewsRoute
-  '/dashboard/(dashboard)/sharp_hospitality/bar': typeof DashboarddashboardSharp_hospitalityBarRoute
-  '/dashboard/(dashboard)/sharp_hospitality/guests': typeof DashboarddashboardSharp_hospitalityGuestsRoute
-  '/dashboard/(dashboard)/sharp_hospitality/hotel': typeof DashboarddashboardSharp_hospitalityHotelRouteWithChildren
-  '/dashboard/(dashboard)/sharp_hospitality/housekeeping': typeof DashboarddashboardSharp_hospitalityHousekeepingRoute
-  '/dashboard/(dashboard)/sharp_hospitality/inventory': typeof DashboarddashboardSharp_hospitalityInventoryRoute
-  '/dashboard/(dashboard)/sharp_hospitality/kitchen': typeof DashboarddashboardSharp_hospitalityKitchenRoute
-  '/dashboard/(dashboard)/sharp_hospitality/menu': typeof DashboarddashboardSharp_hospitalityMenuRoute
-  '/dashboard/(dashboard)/sharp_hospitality/orgConfig': typeof DashboarddashboardSharp_hospitalityOrgConfigRoute
-  '/dashboard/(dashboard)/sharp_hospitality/restaurant': typeof DashboarddashboardSharp_hospitalityRestaurantRouteWithChildren
-  '/dashboard/(dashboard)/sharp_hospitality/services': typeof DashboarddashboardSharp_hospitalityServicesRoute
-  '/dashboard/(dashboard)/sharp_hospitality/settings': typeof DashboarddashboardSharp_hospitalitySettingsRoute
-  '/dashboard/(dashboard)/sharp_hr/employee': typeof DashboarddashboardSharp_hrEmployeeRoute
-  '/dashboard/(dashboard)/sharp_hr/leaves_management': typeof DashboarddashboardSharp_hrLeaves_managementRoute
-  '/dashboard/(dashboard)/sharp_hr/payroll': typeof DashboarddashboardSharp_hrPayrollRoute
-  '/dashboard/(dashboard)/sharp_hr/reports': typeof DashboarddashboardSharp_hrReportsRoute
-  '/dashboard/(dashboard)/sharp_hr/settings': typeof DashboarddashboardSharp_hrSettingsRoute
-  '/dashboard/(dashboard)/sharp_marketing/campaigns': typeof DashboarddashboardSharp_marketingCampaignsRoute
-  '/dashboard/(dashboard)/sharp_marketing/leads': typeof DashboarddashboardSharp_marketingLeadsRoute
-  '/dashboard/(dashboard)/sharp_marketing/reports': typeof DashboarddashboardSharp_marketingReportsRoute
-  '/dashboard/(dashboard)/sharp_marketing/social_media_management': typeof DashboarddashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/(dashboard)/employee/': typeof DashboarddashboardEmployeeIndexRoute
-  '/dashboard/(dashboard)/sharp_accounting/': typeof DashboarddashboardSharp_accountingIndexRoute
-  '/dashboard/(dashboard)/sharp_marketing/': typeof DashboarddashboardSharp_marketingIndexRoute
-  '/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings': typeof DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  '/dashboard/(dashboard)/sharp_accounting/accounting-setup/books': typeof DashboarddashboardSharp_accountingAccountingSetupBooksRoute
-  '/dashboard/(dashboard)/sharp_accounting/accounting-setup/chart-of-account': typeof DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute
-  '/dashboard/(dashboard)/sharp_accounting/reports/balance-sheet': typeof DashboarddashboardSharp_accountingReportsBalanceSheetRoute
-  '/dashboard/(dashboard)/sharp_accounting/reports/ledger': typeof DashboarddashboardSharp_accountingReportsLedgerRoute
-  '/dashboard/(dashboard)/sharp_accounting/reports/profit-loss': typeof DashboarddashboardSharp_accountingReportsProfitLossRoute
-  '/dashboard/(dashboard)/sharp_accounting/reports/trial-balance': typeof DashboarddashboardSharp_accountingReportsTrialBalanceRoute
-  '/dashboard/(dashboard)/sharp_hospitality/hotel/$roomId': typeof DashboarddashboardSharp_hospitalityHotelRoomIdRoute
-  '/dashboard/(dashboard)/sharp_hospitality/restaurant/$tableId': typeof DashboarddashboardSharp_hospitalityRestaurantTableIdRoute
-  '/dashboard/(dashboard)/sharp_hr/employees/$employeeId': typeof DashboarddashboardSharp_hrEmployeesEmployeeIdRoute
-  '/dashboard/(dashboard)/sharp_accounting/reports/': typeof DashboarddashboardSharp_accountingReportsIndexRoute
-  '/dashboard/(dashboard)/sharp_hospitality/hotel/': typeof DashboarddashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/(dashboard)/sharp_hospitality/restaurant/': typeof DashboarddashboardSharp_hospitalityRestaurantIndexRoute
-  '/dashboard/(dashboard)/sharp_hr/employees/': typeof DashboarddashboardSharp_hrEmployeesIndexRoute
-  '/dashboard/(dashboard)/sharp_hospitality/hotel/booking/$roomId': typeof DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute
+  '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
+  '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
+  '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
+  '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
+  '/dashboard/employee/feedback': typeof DashboardEmployeeFeedbackRoute
+  '/dashboard/employee/greivences': typeof DashboardEmployeeGreivencesRoute
+  '/dashboard/employee/leaves': typeof DashboardEmployeeLeavesRoute
+  '/dashboard/employee/overtime': typeof DashboardEmployeeOvertimeRoute
+  '/dashboard/employee/profile': typeof DashboardEmployeeProfileRoute
+  '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
+  '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
+  '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarRoute
+  '/dashboard/sharp_hospitality/guests': typeof DashboardSharp_hospitalityGuestsRoute
+  '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelRouteWithChildren
+  '/dashboard/sharp_hospitality/housekeeping': typeof DashboardSharp_hospitalityHousekeepingRoute
+  '/dashboard/sharp_hospitality/inventory': typeof DashboardSharp_hospitalityInventoryRoute
+  '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
+  '/dashboard/sharp_hospitality/menu': typeof DashboardSharp_hospitalityMenuRoute
+  '/dashboard/sharp_hospitality/orgConfig': typeof DashboardSharp_hospitalityOrgConfigRoute
+  '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantRouteWithChildren
+  '/dashboard/sharp_hospitality/services': typeof DashboardSharp_hospitalityServicesRoute
+  '/dashboard/sharp_hospitality/settings': typeof DashboardSharp_hospitalitySettingsRoute
+  '/dashboard/sharp_hr/employee': typeof DashboardSharp_hrEmployeeRoute
+  '/dashboard/sharp_hr/leaves_management': typeof DashboardSharp_hrLeaves_managementRoute
+  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollRoute
+  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsRoute
+  '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
+  '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
+  '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
+  '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
+  '/dashboard/employee/': typeof DashboardEmployeeIndexRoute
+  '/dashboard/sharp_accounting/': typeof DashboardSharp_accountingIndexRoute
+  '/dashboard/sharp_marketing/': typeof DashboardSharp_marketingIndexRoute
+  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
+  '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboardSharp_accountingAccountingSetupBooksRoute
+  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
+  '/dashboard/sharp_accounting/reports/balance-sheet': typeof DashboardSharp_accountingReportsBalanceSheetRoute
+  '/dashboard/sharp_accounting/reports/ledger': typeof DashboardSharp_accountingReportsLedgerRoute
+  '/dashboard/sharp_accounting/reports/profit-loss': typeof DashboardSharp_accountingReportsProfitLossRoute
+  '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboardSharp_accountingReportsTrialBalanceRoute
+  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboardSharp_hospitalityHotelRoomIdRoute
+  '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
+  '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  '/dashboard/sharp_accounting/reports/': typeof DashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_hospitality/hotel/': typeof DashboardSharp_hospitalityHotelIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
+  '/dashboard/sharp_hr/employees/': typeof DashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/unauthorized'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/dashboard/'
     | '/signup'
-    | '/dashboard/unauthorized'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
     | '/dashboard/sharp_accounting/settings'
@@ -650,11 +640,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/unauthorized'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/dashboard'
     | '/signup'
-    | '/dashboard/unauthorized'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
     | '/dashboard/sharp_accounting/settings'
@@ -707,66 +697,67 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/unauthorized'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/dashboard/'
     | '/signup/'
-    | '/dashboard/(dashboard)/unauthorized'
-    | '/dashboard/(dashboard)/sharp_accounting/accounting-setup'
-    | '/dashboard/(dashboard)/sharp_accounting/auditAndLogs'
-    | '/dashboard/(dashboard)/sharp_accounting/settings'
-    | '/dashboard/(dashboard)/sharp_accounting/transactions'
-    | '/dashboard/(dashboard)/employee/employee_attendance'
-    | '/dashboard/(dashboard)/employee/feedback'
-    | '/dashboard/(dashboard)/employee/greivences'
-    | '/dashboard/(dashboard)/employee/leaves'
-    | '/dashboard/(dashboard)/employee/overtime'
-    | '/dashboard/(dashboard)/employee/profile'
-    | '/dashboard/(dashboard)/employee/requests'
-    | '/dashboard/(dashboard)/employee/reviews'
-    | '/dashboard/(dashboard)/sharp_hospitality/bar'
-    | '/dashboard/(dashboard)/sharp_hospitality/guests'
-    | '/dashboard/(dashboard)/sharp_hospitality/hotel'
-    | '/dashboard/(dashboard)/sharp_hospitality/housekeeping'
-    | '/dashboard/(dashboard)/sharp_hospitality/inventory'
-    | '/dashboard/(dashboard)/sharp_hospitality/kitchen'
-    | '/dashboard/(dashboard)/sharp_hospitality/menu'
-    | '/dashboard/(dashboard)/sharp_hospitality/orgConfig'
-    | '/dashboard/(dashboard)/sharp_hospitality/restaurant'
-    | '/dashboard/(dashboard)/sharp_hospitality/services'
-    | '/dashboard/(dashboard)/sharp_hospitality/settings'
-    | '/dashboard/(dashboard)/sharp_hr/employee'
-    | '/dashboard/(dashboard)/sharp_hr/leaves_management'
-    | '/dashboard/(dashboard)/sharp_hr/payroll'
-    | '/dashboard/(dashboard)/sharp_hr/reports'
-    | '/dashboard/(dashboard)/sharp_hr/settings'
-    | '/dashboard/(dashboard)/sharp_marketing/campaigns'
-    | '/dashboard/(dashboard)/sharp_marketing/leads'
-    | '/dashboard/(dashboard)/sharp_marketing/reports'
-    | '/dashboard/(dashboard)/sharp_marketing/social_media_management'
-    | '/dashboard/(dashboard)/employee/'
-    | '/dashboard/(dashboard)/sharp_accounting/'
-    | '/dashboard/(dashboard)/sharp_marketing/'
-    | '/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings'
-    | '/dashboard/(dashboard)/sharp_accounting/accounting-setup/books'
-    | '/dashboard/(dashboard)/sharp_accounting/accounting-setup/chart-of-account'
-    | '/dashboard/(dashboard)/sharp_accounting/reports/balance-sheet'
-    | '/dashboard/(dashboard)/sharp_accounting/reports/ledger'
-    | '/dashboard/(dashboard)/sharp_accounting/reports/profit-loss'
-    | '/dashboard/(dashboard)/sharp_accounting/reports/trial-balance'
-    | '/dashboard/(dashboard)/sharp_hospitality/hotel/$roomId'
-    | '/dashboard/(dashboard)/sharp_hospitality/restaurant/$tableId'
-    | '/dashboard/(dashboard)/sharp_hr/employees/$employeeId'
-    | '/dashboard/(dashboard)/sharp_accounting/reports/'
-    | '/dashboard/(dashboard)/sharp_hospitality/hotel/'
-    | '/dashboard/(dashboard)/sharp_hospitality/restaurant/'
-    | '/dashboard/(dashboard)/sharp_hr/employees/'
-    | '/dashboard/(dashboard)/sharp_hospitality/hotel/booking/$roomId'
+    | '/dashboard/sharp_accounting/accounting-setup'
+    | '/dashboard/sharp_accounting/auditAndLogs'
+    | '/dashboard/sharp_accounting/settings'
+    | '/dashboard/sharp_accounting/transactions'
+    | '/dashboard/employee/employee_attendance'
+    | '/dashboard/employee/feedback'
+    | '/dashboard/employee/greivences'
+    | '/dashboard/employee/leaves'
+    | '/dashboard/employee/overtime'
+    | '/dashboard/employee/profile'
+    | '/dashboard/employee/requests'
+    | '/dashboard/employee/reviews'
+    | '/dashboard/sharp_hospitality/bar'
+    | '/dashboard/sharp_hospitality/guests'
+    | '/dashboard/sharp_hospitality/hotel'
+    | '/dashboard/sharp_hospitality/housekeeping'
+    | '/dashboard/sharp_hospitality/inventory'
+    | '/dashboard/sharp_hospitality/kitchen'
+    | '/dashboard/sharp_hospitality/menu'
+    | '/dashboard/sharp_hospitality/orgConfig'
+    | '/dashboard/sharp_hospitality/restaurant'
+    | '/dashboard/sharp_hospitality/services'
+    | '/dashboard/sharp_hospitality/settings'
+    | '/dashboard/sharp_hr/employee'
+    | '/dashboard/sharp_hr/leaves_management'
+    | '/dashboard/sharp_hr/payroll'
+    | '/dashboard/sharp_hr/reports'
+    | '/dashboard/sharp_hr/settings'
+    | '/dashboard/sharp_marketing/campaigns'
+    | '/dashboard/sharp_marketing/leads'
+    | '/dashboard/sharp_marketing/reports'
+    | '/dashboard/sharp_marketing/social_media_management'
+    | '/dashboard/employee/'
+    | '/dashboard/sharp_accounting/'
+    | '/dashboard/sharp_marketing/'
+    | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
+    | '/dashboard/sharp_accounting/accounting-setup/books'
+    | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
+    | '/dashboard/sharp_accounting/reports/balance-sheet'
+    | '/dashboard/sharp_accounting/reports/ledger'
+    | '/dashboard/sharp_accounting/reports/profit-loss'
+    | '/dashboard/sharp_accounting/reports/trial-balance'
+    | '/dashboard/sharp_hospitality/hotel/$roomId'
+    | '/dashboard/sharp_hospitality/restaurant/$tableId'
+    | '/dashboard/sharp_hr/employees/$employeeId'
+    | '/dashboard/sharp_accounting/reports/'
+    | '/dashboard/sharp_hospitality/hotel/'
+    | '/dashboard/sharp_hospitality/restaurant/'
+    | '/dashboard/sharp_hr/employees/'
+    | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  UnauthorizedRoute: typeof UnauthorizedRoute
   SignupCompleteRegistrationRoute: typeof SignupCompleteRegistrationRoute
   SignupVerifyOtpRoute: typeof SignupVerifyOtpRoute
   SignupIndexRoute: typeof SignupIndexRoute
@@ -774,6 +765,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unauthorized': {
+      id: '/unauthorized'
+      path: '/unauthorized'
+      fullPath: '/unauthorized'
+      preLoaderRoute: typeof UnauthorizedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -816,558 +814,531 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupCompleteRegistrationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/(dashboard)/unauthorized': {
-      id: '/dashboard/(dashboard)/unauthorized'
-      path: '/unauthorized'
-      fullPath: '/dashboard/unauthorized'
-      preLoaderRoute: typeof DashboarddashboardUnauthorizedRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/(dashboard)/sharp_marketing/': {
-      id: '/dashboard/(dashboard)/sharp_marketing/'
+    '/dashboard/sharp_marketing/': {
+      id: '/dashboard/sharp_marketing/'
       path: '/sharp_marketing'
       fullPath: '/dashboard/sharp_marketing'
-      preLoaderRoute: typeof DashboarddashboardSharp_marketingIndexRouteImport
+      preLoaderRoute: typeof DashboardSharp_marketingIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/': {
-      id: '/dashboard/(dashboard)/sharp_accounting/'
+    '/dashboard/sharp_accounting/': {
+      id: '/dashboard/sharp_accounting/'
       path: '/sharp_accounting'
       fullPath: '/dashboard/sharp_accounting'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingIndexRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/': {
-      id: '/dashboard/(dashboard)/employee/'
+    '/dashboard/employee/': {
+      id: '/dashboard/employee/'
       path: '/employee'
       fullPath: '/dashboard/employee'
-      preLoaderRoute: typeof DashboarddashboardEmployeeIndexRouteImport
+      preLoaderRoute: typeof DashboardEmployeeIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_marketing/social_media_management': {
-      id: '/dashboard/(dashboard)/sharp_marketing/social_media_management'
+    '/dashboard/sharp_marketing/social_media_management': {
+      id: '/dashboard/sharp_marketing/social_media_management'
       path: '/sharp_marketing/social_media_management'
       fullPath: '/dashboard/sharp_marketing/social_media_management'
-      preLoaderRoute: typeof DashboarddashboardSharp_marketingSocial_media_managementRouteImport
+      preLoaderRoute: typeof DashboardSharp_marketingSocial_media_managementRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_marketing/reports': {
-      id: '/dashboard/(dashboard)/sharp_marketing/reports'
+    '/dashboard/sharp_marketing/reports': {
+      id: '/dashboard/sharp_marketing/reports'
       path: '/sharp_marketing/reports'
       fullPath: '/dashboard/sharp_marketing/reports'
-      preLoaderRoute: typeof DashboarddashboardSharp_marketingReportsRouteImport
+      preLoaderRoute: typeof DashboardSharp_marketingReportsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_marketing/leads': {
-      id: '/dashboard/(dashboard)/sharp_marketing/leads'
+    '/dashboard/sharp_marketing/leads': {
+      id: '/dashboard/sharp_marketing/leads'
       path: '/sharp_marketing/leads'
       fullPath: '/dashboard/sharp_marketing/leads'
-      preLoaderRoute: typeof DashboarddashboardSharp_marketingLeadsRouteImport
+      preLoaderRoute: typeof DashboardSharp_marketingLeadsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_marketing/campaigns': {
-      id: '/dashboard/(dashboard)/sharp_marketing/campaigns'
+    '/dashboard/sharp_marketing/campaigns': {
+      id: '/dashboard/sharp_marketing/campaigns'
       path: '/sharp_marketing/campaigns'
       fullPath: '/dashboard/sharp_marketing/campaigns'
-      preLoaderRoute: typeof DashboarddashboardSharp_marketingCampaignsRouteImport
+      preLoaderRoute: typeof DashboardSharp_marketingCampaignsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/settings': {
-      id: '/dashboard/(dashboard)/sharp_hr/settings'
+    '/dashboard/sharp_hr/settings': {
+      id: '/dashboard/sharp_hr/settings'
       path: '/sharp_hr/settings'
       fullPath: '/dashboard/sharp_hr/settings'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrSettingsRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrSettingsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/reports': {
-      id: '/dashboard/(dashboard)/sharp_hr/reports'
+    '/dashboard/sharp_hr/reports': {
+      id: '/dashboard/sharp_hr/reports'
       path: '/sharp_hr/reports'
       fullPath: '/dashboard/sharp_hr/reports'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrReportsRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrReportsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/payroll': {
-      id: '/dashboard/(dashboard)/sharp_hr/payroll'
+    '/dashboard/sharp_hr/payroll': {
+      id: '/dashboard/sharp_hr/payroll'
       path: '/sharp_hr/payroll'
       fullPath: '/dashboard/sharp_hr/payroll'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrPayrollRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrPayrollRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/leaves_management': {
-      id: '/dashboard/(dashboard)/sharp_hr/leaves_management'
+    '/dashboard/sharp_hr/leaves_management': {
+      id: '/dashboard/sharp_hr/leaves_management'
       path: '/sharp_hr/leaves_management'
       fullPath: '/dashboard/sharp_hr/leaves_management'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrLeaves_managementRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrLeaves_managementRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/employee': {
-      id: '/dashboard/(dashboard)/sharp_hr/employee'
+    '/dashboard/sharp_hr/employee': {
+      id: '/dashboard/sharp_hr/employee'
       path: '/sharp_hr/employee'
       fullPath: '/dashboard/sharp_hr/employee'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrEmployeeRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrEmployeeRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/settings': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/settings'
+    '/dashboard/sharp_hospitality/settings': {
+      id: '/dashboard/sharp_hospitality/settings'
       path: '/sharp_hospitality/settings'
       fullPath: '/dashboard/sharp_hospitality/settings'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalitySettingsRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalitySettingsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/services': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/services'
+    '/dashboard/sharp_hospitality/services': {
+      id: '/dashboard/sharp_hospitality/services'
       path: '/sharp_hospitality/services'
       fullPath: '/dashboard/sharp_hospitality/services'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityServicesRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityServicesRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/restaurant': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/restaurant'
+    '/dashboard/sharp_hospitality/restaurant': {
+      id: '/dashboard/sharp_hospitality/restaurant'
       path: '/sharp_hospitality/restaurant'
       fullPath: '/dashboard/sharp_hospitality/restaurant'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityRestaurantRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityRestaurantRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/orgConfig': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/orgConfig'
+    '/dashboard/sharp_hospitality/orgConfig': {
+      id: '/dashboard/sharp_hospitality/orgConfig'
       path: '/sharp_hospitality/orgConfig'
       fullPath: '/dashboard/sharp_hospitality/orgConfig'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityOrgConfigRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityOrgConfigRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/menu': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/menu'
+    '/dashboard/sharp_hospitality/menu': {
+      id: '/dashboard/sharp_hospitality/menu'
       path: '/sharp_hospitality/menu'
       fullPath: '/dashboard/sharp_hospitality/menu'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityMenuRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityMenuRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/kitchen': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/kitchen'
+    '/dashboard/sharp_hospitality/kitchen': {
+      id: '/dashboard/sharp_hospitality/kitchen'
       path: '/sharp_hospitality/kitchen'
       fullPath: '/dashboard/sharp_hospitality/kitchen'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityKitchenRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityKitchenRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/inventory': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/inventory'
+    '/dashboard/sharp_hospitality/inventory': {
+      id: '/dashboard/sharp_hospitality/inventory'
       path: '/sharp_hospitality/inventory'
       fullPath: '/dashboard/sharp_hospitality/inventory'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityInventoryRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityInventoryRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/housekeeping': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/housekeeping'
+    '/dashboard/sharp_hospitality/housekeeping': {
+      id: '/dashboard/sharp_hospitality/housekeeping'
       path: '/sharp_hospitality/housekeeping'
       fullPath: '/dashboard/sharp_hospitality/housekeeping'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityHousekeepingRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityHousekeepingRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/hotel': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/hotel'
+    '/dashboard/sharp_hospitality/hotel': {
+      id: '/dashboard/sharp_hospitality/hotel'
       path: '/sharp_hospitality/hotel'
       fullPath: '/dashboard/sharp_hospitality/hotel'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityHotelRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityHotelRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/guests': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/guests'
+    '/dashboard/sharp_hospitality/guests': {
+      id: '/dashboard/sharp_hospitality/guests'
       path: '/sharp_hospitality/guests'
       fullPath: '/dashboard/sharp_hospitality/guests'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityGuestsRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityGuestsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/bar': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/bar'
+    '/dashboard/sharp_hospitality/bar': {
+      id: '/dashboard/sharp_hospitality/bar'
       path: '/sharp_hospitality/bar'
       fullPath: '/dashboard/sharp_hospitality/bar'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityBarRouteImport
+      preLoaderRoute: typeof DashboardSharp_hospitalityBarRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/reviews': {
-      id: '/dashboard/(dashboard)/employee/reviews'
+    '/dashboard/employee/reviews': {
+      id: '/dashboard/employee/reviews'
       path: '/employee/reviews'
       fullPath: '/dashboard/employee/reviews'
-      preLoaderRoute: typeof DashboarddashboardEmployeeReviewsRouteImport
+      preLoaderRoute: typeof DashboardEmployeeReviewsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/requests': {
-      id: '/dashboard/(dashboard)/employee/requests'
+    '/dashboard/employee/requests': {
+      id: '/dashboard/employee/requests'
       path: '/employee/requests'
       fullPath: '/dashboard/employee/requests'
-      preLoaderRoute: typeof DashboarddashboardEmployeeRequestsRouteImport
+      preLoaderRoute: typeof DashboardEmployeeRequestsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/profile': {
-      id: '/dashboard/(dashboard)/employee/profile'
+    '/dashboard/employee/profile': {
+      id: '/dashboard/employee/profile'
       path: '/employee/profile'
       fullPath: '/dashboard/employee/profile'
-      preLoaderRoute: typeof DashboarddashboardEmployeeProfileRouteImport
+      preLoaderRoute: typeof DashboardEmployeeProfileRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/overtime': {
-      id: '/dashboard/(dashboard)/employee/overtime'
+    '/dashboard/employee/overtime': {
+      id: '/dashboard/employee/overtime'
       path: '/employee/overtime'
       fullPath: '/dashboard/employee/overtime'
-      preLoaderRoute: typeof DashboarddashboardEmployeeOvertimeRouteImport
+      preLoaderRoute: typeof DashboardEmployeeOvertimeRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/leaves': {
-      id: '/dashboard/(dashboard)/employee/leaves'
+    '/dashboard/employee/leaves': {
+      id: '/dashboard/employee/leaves'
       path: '/employee/leaves'
       fullPath: '/dashboard/employee/leaves'
-      preLoaderRoute: typeof DashboarddashboardEmployeeLeavesRouteImport
+      preLoaderRoute: typeof DashboardEmployeeLeavesRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/greivences': {
-      id: '/dashboard/(dashboard)/employee/greivences'
+    '/dashboard/employee/greivences': {
+      id: '/dashboard/employee/greivences'
       path: '/employee/greivences'
       fullPath: '/dashboard/employee/greivences'
-      preLoaderRoute: typeof DashboarddashboardEmployeeGreivencesRouteImport
+      preLoaderRoute: typeof DashboardEmployeeGreivencesRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/feedback': {
-      id: '/dashboard/(dashboard)/employee/feedback'
+    '/dashboard/employee/feedback': {
+      id: '/dashboard/employee/feedback'
       path: '/employee/feedback'
       fullPath: '/dashboard/employee/feedback'
-      preLoaderRoute: typeof DashboarddashboardEmployeeFeedbackRouteImport
+      preLoaderRoute: typeof DashboardEmployeeFeedbackRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/employee/employee_attendance': {
-      id: '/dashboard/(dashboard)/employee/employee_attendance'
+    '/dashboard/employee/employee_attendance': {
+      id: '/dashboard/employee/employee_attendance'
       path: '/employee/employee_attendance'
       fullPath: '/dashboard/employee/employee_attendance'
-      preLoaderRoute: typeof DashboarddashboardEmployeeEmployee_attendanceRouteImport
+      preLoaderRoute: typeof DashboardEmployeeEmployee_attendanceRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/transactions': {
-      id: '/dashboard/(dashboard)/sharp_accounting/transactions'
+    '/dashboard/sharp_accounting/transactions': {
+      id: '/dashboard/sharp_accounting/transactions'
       path: '/sharp_accounting/transactions'
       fullPath: '/dashboard/sharp_accounting/transactions'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingTransactionsRouteRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingTransactionsRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/settings': {
-      id: '/dashboard/(dashboard)/sharp_accounting/settings'
+    '/dashboard/sharp_accounting/settings': {
+      id: '/dashboard/sharp_accounting/settings'
       path: '/sharp_accounting/settings'
       fullPath: '/dashboard/sharp_accounting/settings'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingSettingsRouteRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingSettingsRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/auditAndLogs': {
-      id: '/dashboard/(dashboard)/sharp_accounting/auditAndLogs'
+    '/dashboard/sharp_accounting/auditAndLogs': {
+      id: '/dashboard/sharp_accounting/auditAndLogs'
       path: '/sharp_accounting/auditAndLogs'
       fullPath: '/dashboard/sharp_accounting/auditAndLogs'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingAuditAndLogsRouteRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingAuditAndLogsRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/accounting-setup': {
-      id: '/dashboard/(dashboard)/sharp_accounting/accounting-setup'
+    '/dashboard/sharp_accounting/accounting-setup': {
+      id: '/dashboard/sharp_accounting/accounting-setup'
       path: '/sharp_accounting/accounting-setup'
       fullPath: '/dashboard/sharp_accounting/accounting-setup'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingAccountingSetupRouteRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/employees/': {
-      id: '/dashboard/(dashboard)/sharp_hr/employees/'
+    '/dashboard/sharp_hr/employees/': {
+      id: '/dashboard/sharp_hr/employees/'
       path: '/sharp_hr/employees'
       fullPath: '/dashboard/sharp_hr/employees'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrEmployeesIndexRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrEmployeesIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/restaurant/': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/restaurant/'
+    '/dashboard/sharp_hospitality/restaurant/': {
+      id: '/dashboard/sharp_hospitality/restaurant/'
       path: '/'
       fullPath: '/dashboard/sharp_hospitality/restaurant/'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityRestaurantIndexRouteImport
-      parentRoute: typeof DashboarddashboardSharp_hospitalityRestaurantRoute
+      preLoaderRoute: typeof DashboardSharp_hospitalityRestaurantIndexRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityRestaurantRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/hotel/': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/hotel/'
+    '/dashboard/sharp_hospitality/hotel/': {
+      id: '/dashboard/sharp_hospitality/hotel/'
       path: '/'
       fullPath: '/dashboard/sharp_hospitality/hotel/'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityHotelIndexRouteImport
-      parentRoute: typeof DashboarddashboardSharp_hospitalityHotelRoute
+      preLoaderRoute: typeof DashboardSharp_hospitalityHotelIndexRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityHotelRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/reports/': {
-      id: '/dashboard/(dashboard)/sharp_accounting/reports/'
+    '/dashboard/sharp_accounting/reports/': {
+      id: '/dashboard/sharp_accounting/reports/'
       path: '/sharp_accounting/reports'
       fullPath: '/dashboard/sharp_accounting/reports'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingReportsIndexRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingReportsIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hr/employees/$employeeId': {
-      id: '/dashboard/(dashboard)/sharp_hr/employees/$employeeId'
+    '/dashboard/sharp_hr/employees/$employeeId': {
+      id: '/dashboard/sharp_hr/employees/$employeeId'
       path: '/sharp_hr/employees/$employeeId'
       fullPath: '/dashboard/sharp_hr/employees/$employeeId'
-      preLoaderRoute: typeof DashboarddashboardSharp_hrEmployeesEmployeeIdRouteImport
+      preLoaderRoute: typeof DashboardSharp_hrEmployeesEmployeeIdRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/restaurant/$tableId': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/restaurant/$tableId'
+    '/dashboard/sharp_hospitality/restaurant/$tableId': {
+      id: '/dashboard/sharp_hospitality/restaurant/$tableId'
       path: '/$tableId'
       fullPath: '/dashboard/sharp_hospitality/restaurant/$tableId'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityRestaurantTableIdRouteImport
-      parentRoute: typeof DashboarddashboardSharp_hospitalityRestaurantRoute
+      preLoaderRoute: typeof DashboardSharp_hospitalityRestaurantTableIdRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityRestaurantRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/hotel/$roomId': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/hotel/$roomId'
+    '/dashboard/sharp_hospitality/hotel/$roomId': {
+      id: '/dashboard/sharp_hospitality/hotel/$roomId'
       path: '/$roomId'
       fullPath: '/dashboard/sharp_hospitality/hotel/$roomId'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityHotelRoomIdRouteImport
-      parentRoute: typeof DashboarddashboardSharp_hospitalityHotelRoute
+      preLoaderRoute: typeof DashboardSharp_hospitalityHotelRoomIdRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityHotelRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/reports/trial-balance': {
-      id: '/dashboard/(dashboard)/sharp_accounting/reports/trial-balance'
+    '/dashboard/sharp_accounting/reports/trial-balance': {
+      id: '/dashboard/sharp_accounting/reports/trial-balance'
       path: '/sharp_accounting/reports/trial-balance'
       fullPath: '/dashboard/sharp_accounting/reports/trial-balance'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingReportsTrialBalanceRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingReportsTrialBalanceRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/reports/profit-loss': {
-      id: '/dashboard/(dashboard)/sharp_accounting/reports/profit-loss'
+    '/dashboard/sharp_accounting/reports/profit-loss': {
+      id: '/dashboard/sharp_accounting/reports/profit-loss'
       path: '/sharp_accounting/reports/profit-loss'
       fullPath: '/dashboard/sharp_accounting/reports/profit-loss'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingReportsProfitLossRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingReportsProfitLossRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/reports/ledger': {
-      id: '/dashboard/(dashboard)/sharp_accounting/reports/ledger'
+    '/dashboard/sharp_accounting/reports/ledger': {
+      id: '/dashboard/sharp_accounting/reports/ledger'
       path: '/sharp_accounting/reports/ledger'
       fullPath: '/dashboard/sharp_accounting/reports/ledger'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingReportsLedgerRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingReportsLedgerRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/reports/balance-sheet': {
-      id: '/dashboard/(dashboard)/sharp_accounting/reports/balance-sheet'
+    '/dashboard/sharp_accounting/reports/balance-sheet': {
+      id: '/dashboard/sharp_accounting/reports/balance-sheet'
       path: '/sharp_accounting/reports/balance-sheet'
       fullPath: '/dashboard/sharp_accounting/reports/balance-sheet'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingReportsBalanceSheetRouteImport
+      preLoaderRoute: typeof DashboardSharp_accountingReportsBalanceSheetRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/accounting-setup/chart-of-account': {
-      id: '/dashboard/(dashboard)/sharp_accounting/accounting-setup/chart-of-account'
+    '/dashboard/sharp_accounting/accounting-setup/chart-of-account': {
+      id: '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
       path: '/chart-of-account'
       fullPath: '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRouteImport
-      parentRoute: typeof DashboarddashboardSharp_accountingAccountingSetupRouteRoute
+      preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupChartOfAccountRouteImport
+      parentRoute: typeof DashboardSharp_accountingAccountingSetupRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/accounting-setup/books': {
-      id: '/dashboard/(dashboard)/sharp_accounting/accounting-setup/books'
+    '/dashboard/sharp_accounting/accounting-setup/books': {
+      id: '/dashboard/sharp_accounting/accounting-setup/books'
       path: '/books'
       fullPath: '/dashboard/sharp_accounting/accounting-setup/books'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingAccountingSetupBooksRouteImport
-      parentRoute: typeof DashboarddashboardSharp_accountingAccountingSetupRouteRoute
+      preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupBooksRouteImport
+      parentRoute: typeof DashboardSharp_accountingAccountingSetupRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings': {
-      id: '/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings'
+    '/dashboard/sharp_accounting/accounting-setup/account-mappings': {
+      id: '/dashboard/sharp_accounting/accounting-setup/account-mappings'
       path: '/account-mappings'
       fullPath: '/dashboard/sharp_accounting/accounting-setup/account-mappings'
-      preLoaderRoute: typeof DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRouteImport
-      parentRoute: typeof DashboarddashboardSharp_accountingAccountingSetupRouteRoute
+      preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupAccountMappingsRouteImport
+      parentRoute: typeof DashboardSharp_accountingAccountingSetupRouteRoute
     }
-    '/dashboard/(dashboard)/sharp_hospitality/hotel/booking/$roomId': {
-      id: '/dashboard/(dashboard)/sharp_hospitality/hotel/booking/$roomId'
+    '/dashboard/sharp_hospitality/hotel/booking/$roomId': {
+      id: '/dashboard/sharp_hospitality/hotel/booking/$roomId'
       path: '/booking/$roomId'
       fullPath: '/dashboard/sharp_hospitality/hotel/booking/$roomId'
-      preLoaderRoute: typeof DashboarddashboardSharp_hospitalityHotelBookingRoomIdRouteImport
-      parentRoute: typeof DashboarddashboardSharp_hospitalityHotelRoute
+      preLoaderRoute: typeof DashboardSharp_hospitalityHotelBookingRoomIdRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityHotelRoute
     }
   }
 }
 
-interface DashboarddashboardSharp_accountingAccountingSetupRouteRouteChildren {
-  DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute: typeof DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  DashboarddashboardSharp_accountingAccountingSetupBooksRoute: typeof DashboarddashboardSharp_accountingAccountingSetupBooksRoute
-  DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute: typeof DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute
+interface DashboardSharp_accountingAccountingSetupRouteRouteChildren {
+  DashboardSharp_accountingAccountingSetupAccountMappingsRoute: typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
+  DashboardSharp_accountingAccountingSetupBooksRoute: typeof DashboardSharp_accountingAccountingSetupBooksRoute
+  DashboardSharp_accountingAccountingSetupChartOfAccountRoute: typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
 }
 
-const DashboarddashboardSharp_accountingAccountingSetupRouteRouteChildren: DashboarddashboardSharp_accountingAccountingSetupRouteRouteChildren =
+const DashboardSharp_accountingAccountingSetupRouteRouteChildren: DashboardSharp_accountingAccountingSetupRouteRouteChildren =
   {
-    DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute:
-      DashboarddashboardSharp_accountingAccountingSetupAccountMappingsRoute,
-    DashboarddashboardSharp_accountingAccountingSetupBooksRoute:
-      DashboarddashboardSharp_accountingAccountingSetupBooksRoute,
-    DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute:
-      DashboarddashboardSharp_accountingAccountingSetupChartOfAccountRoute,
+    DashboardSharp_accountingAccountingSetupAccountMappingsRoute:
+      DashboardSharp_accountingAccountingSetupAccountMappingsRoute,
+    DashboardSharp_accountingAccountingSetupBooksRoute:
+      DashboardSharp_accountingAccountingSetupBooksRoute,
+    DashboardSharp_accountingAccountingSetupChartOfAccountRoute:
+      DashboardSharp_accountingAccountingSetupChartOfAccountRoute,
   }
 
-const DashboarddashboardSharp_accountingAccountingSetupRouteRouteWithChildren =
-  DashboarddashboardSharp_accountingAccountingSetupRouteRoute._addFileChildren(
-    DashboarddashboardSharp_accountingAccountingSetupRouteRouteChildren,
+const DashboardSharp_accountingAccountingSetupRouteRouteWithChildren =
+  DashboardSharp_accountingAccountingSetupRouteRoute._addFileChildren(
+    DashboardSharp_accountingAccountingSetupRouteRouteChildren,
   )
 
-interface DashboarddashboardSharp_hospitalityHotelRouteChildren {
-  DashboarddashboardSharp_hospitalityHotelRoomIdRoute: typeof DashboarddashboardSharp_hospitalityHotelRoomIdRoute
-  DashboarddashboardSharp_hospitalityHotelIndexRoute: typeof DashboarddashboardSharp_hospitalityHotelIndexRoute
-  DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute: typeof DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute
+interface DashboardSharp_hospitalityHotelRouteChildren {
+  DashboardSharp_hospitalityHotelRoomIdRoute: typeof DashboardSharp_hospitalityHotelRoomIdRoute
+  DashboardSharp_hospitalityHotelIndexRoute: typeof DashboardSharp_hospitalityHotelIndexRoute
+  DashboardSharp_hospitalityHotelBookingRoomIdRoute: typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
 }
 
-const DashboarddashboardSharp_hospitalityHotelRouteChildren: DashboarddashboardSharp_hospitalityHotelRouteChildren =
+const DashboardSharp_hospitalityHotelRouteChildren: DashboardSharp_hospitalityHotelRouteChildren =
   {
-    DashboarddashboardSharp_hospitalityHotelRoomIdRoute:
-      DashboarddashboardSharp_hospitalityHotelRoomIdRoute,
-    DashboarddashboardSharp_hospitalityHotelIndexRoute:
-      DashboarddashboardSharp_hospitalityHotelIndexRoute,
-    DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute:
-      DashboarddashboardSharp_hospitalityHotelBookingRoomIdRoute,
+    DashboardSharp_hospitalityHotelRoomIdRoute:
+      DashboardSharp_hospitalityHotelRoomIdRoute,
+    DashboardSharp_hospitalityHotelIndexRoute:
+      DashboardSharp_hospitalityHotelIndexRoute,
+    DashboardSharp_hospitalityHotelBookingRoomIdRoute:
+      DashboardSharp_hospitalityHotelBookingRoomIdRoute,
   }
 
-const DashboarddashboardSharp_hospitalityHotelRouteWithChildren =
-  DashboarddashboardSharp_hospitalityHotelRoute._addFileChildren(
-    DashboarddashboardSharp_hospitalityHotelRouteChildren,
+const DashboardSharp_hospitalityHotelRouteWithChildren =
+  DashboardSharp_hospitalityHotelRoute._addFileChildren(
+    DashboardSharp_hospitalityHotelRouteChildren,
   )
 
-interface DashboarddashboardSharp_hospitalityRestaurantRouteChildren {
-  DashboarddashboardSharp_hospitalityRestaurantTableIdRoute: typeof DashboarddashboardSharp_hospitalityRestaurantTableIdRoute
-  DashboarddashboardSharp_hospitalityRestaurantIndexRoute: typeof DashboarddashboardSharp_hospitalityRestaurantIndexRoute
+interface DashboardSharp_hospitalityRestaurantRouteChildren {
+  DashboardSharp_hospitalityRestaurantTableIdRoute: typeof DashboardSharp_hospitalityRestaurantTableIdRoute
+  DashboardSharp_hospitalityRestaurantIndexRoute: typeof DashboardSharp_hospitalityRestaurantIndexRoute
 }
 
-const DashboarddashboardSharp_hospitalityRestaurantRouteChildren: DashboarddashboardSharp_hospitalityRestaurantRouteChildren =
+const DashboardSharp_hospitalityRestaurantRouteChildren: DashboardSharp_hospitalityRestaurantRouteChildren =
   {
-    DashboarddashboardSharp_hospitalityRestaurantTableIdRoute:
-      DashboarddashboardSharp_hospitalityRestaurantTableIdRoute,
-    DashboarddashboardSharp_hospitalityRestaurantIndexRoute:
-      DashboarddashboardSharp_hospitalityRestaurantIndexRoute,
+    DashboardSharp_hospitalityRestaurantTableIdRoute:
+      DashboardSharp_hospitalityRestaurantTableIdRoute,
+    DashboardSharp_hospitalityRestaurantIndexRoute:
+      DashboardSharp_hospitalityRestaurantIndexRoute,
   }
 
-const DashboarddashboardSharp_hospitalityRestaurantRouteWithChildren =
-  DashboarddashboardSharp_hospitalityRestaurantRoute._addFileChildren(
-    DashboarddashboardSharp_hospitalityRestaurantRouteChildren,
+const DashboardSharp_hospitalityRestaurantRouteWithChildren =
+  DashboardSharp_hospitalityRestaurantRoute._addFileChildren(
+    DashboardSharp_hospitalityRestaurantRouteChildren,
   )
 
 interface DashboardRouteRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
-  DashboarddashboardUnauthorizedRoute: typeof DashboarddashboardUnauthorizedRoute
-  DashboarddashboardSharp_accountingAccountingSetupRouteRoute: typeof DashboarddashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  DashboarddashboardSharp_accountingAuditAndLogsRouteRoute: typeof DashboarddashboardSharp_accountingAuditAndLogsRouteRoute
-  DashboarddashboardSharp_accountingSettingsRouteRoute: typeof DashboarddashboardSharp_accountingSettingsRouteRoute
-  DashboarddashboardSharp_accountingTransactionsRouteRoute: typeof DashboarddashboardSharp_accountingTransactionsRouteRoute
-  DashboarddashboardEmployeeEmployee_attendanceRoute: typeof DashboarddashboardEmployeeEmployee_attendanceRoute
-  DashboarddashboardEmployeeFeedbackRoute: typeof DashboarddashboardEmployeeFeedbackRoute
-  DashboarddashboardEmployeeGreivencesRoute: typeof DashboarddashboardEmployeeGreivencesRoute
-  DashboarddashboardEmployeeLeavesRoute: typeof DashboarddashboardEmployeeLeavesRoute
-  DashboarddashboardEmployeeOvertimeRoute: typeof DashboarddashboardEmployeeOvertimeRoute
-  DashboarddashboardEmployeeProfileRoute: typeof DashboarddashboardEmployeeProfileRoute
-  DashboarddashboardEmployeeRequestsRoute: typeof DashboarddashboardEmployeeRequestsRoute
-  DashboarddashboardEmployeeReviewsRoute: typeof DashboarddashboardEmployeeReviewsRoute
-  DashboarddashboardSharp_hospitalityBarRoute: typeof DashboarddashboardSharp_hospitalityBarRoute
-  DashboarddashboardSharp_hospitalityGuestsRoute: typeof DashboarddashboardSharp_hospitalityGuestsRoute
-  DashboarddashboardSharp_hospitalityHotelRoute: typeof DashboarddashboardSharp_hospitalityHotelRouteWithChildren
-  DashboarddashboardSharp_hospitalityHousekeepingRoute: typeof DashboarddashboardSharp_hospitalityHousekeepingRoute
-  DashboarddashboardSharp_hospitalityInventoryRoute: typeof DashboarddashboardSharp_hospitalityInventoryRoute
-  DashboarddashboardSharp_hospitalityKitchenRoute: typeof DashboarddashboardSharp_hospitalityKitchenRoute
-  DashboarddashboardSharp_hospitalityMenuRoute: typeof DashboarddashboardSharp_hospitalityMenuRoute
-  DashboarddashboardSharp_hospitalityOrgConfigRoute: typeof DashboarddashboardSharp_hospitalityOrgConfigRoute
-  DashboarddashboardSharp_hospitalityRestaurantRoute: typeof DashboarddashboardSharp_hospitalityRestaurantRouteWithChildren
-  DashboarddashboardSharp_hospitalityServicesRoute: typeof DashboarddashboardSharp_hospitalityServicesRoute
-  DashboarddashboardSharp_hospitalitySettingsRoute: typeof DashboarddashboardSharp_hospitalitySettingsRoute
-  DashboarddashboardSharp_hrEmployeeRoute: typeof DashboarddashboardSharp_hrEmployeeRoute
-  DashboarddashboardSharp_hrLeaves_managementRoute: typeof DashboarddashboardSharp_hrLeaves_managementRoute
-  DashboarddashboardSharp_hrPayrollRoute: typeof DashboarddashboardSharp_hrPayrollRoute
-  DashboarddashboardSharp_hrReportsRoute: typeof DashboarddashboardSharp_hrReportsRoute
-  DashboarddashboardSharp_hrSettingsRoute: typeof DashboarddashboardSharp_hrSettingsRoute
-  DashboarddashboardSharp_marketingCampaignsRoute: typeof DashboarddashboardSharp_marketingCampaignsRoute
-  DashboarddashboardSharp_marketingLeadsRoute: typeof DashboarddashboardSharp_marketingLeadsRoute
-  DashboarddashboardSharp_marketingReportsRoute: typeof DashboarddashboardSharp_marketingReportsRoute
-  DashboarddashboardSharp_marketingSocial_media_managementRoute: typeof DashboarddashboardSharp_marketingSocial_media_managementRoute
-  DashboarddashboardEmployeeIndexRoute: typeof DashboarddashboardEmployeeIndexRoute
-  DashboarddashboardSharp_accountingIndexRoute: typeof DashboarddashboardSharp_accountingIndexRoute
-  DashboarddashboardSharp_marketingIndexRoute: typeof DashboarddashboardSharp_marketingIndexRoute
-  DashboarddashboardSharp_accountingReportsBalanceSheetRoute: typeof DashboarddashboardSharp_accountingReportsBalanceSheetRoute
-  DashboarddashboardSharp_accountingReportsLedgerRoute: typeof DashboarddashboardSharp_accountingReportsLedgerRoute
-  DashboarddashboardSharp_accountingReportsProfitLossRoute: typeof DashboarddashboardSharp_accountingReportsProfitLossRoute
-  DashboarddashboardSharp_accountingReportsTrialBalanceRoute: typeof DashboarddashboardSharp_accountingReportsTrialBalanceRoute
-  DashboarddashboardSharp_hrEmployeesEmployeeIdRoute: typeof DashboarddashboardSharp_hrEmployeesEmployeeIdRoute
-  DashboarddashboardSharp_accountingReportsIndexRoute: typeof DashboarddashboardSharp_accountingReportsIndexRoute
-  DashboarddashboardSharp_hrEmployeesIndexRoute: typeof DashboarddashboardSharp_hrEmployeesIndexRoute
+  DashboardSharp_accountingAccountingSetupRouteRoute: typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
+  DashboardSharp_accountingAuditAndLogsRouteRoute: typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  DashboardSharp_accountingSettingsRouteRoute: typeof DashboardSharp_accountingSettingsRouteRoute
+  DashboardSharp_accountingTransactionsRouteRoute: typeof DashboardSharp_accountingTransactionsRouteRoute
+  DashboardEmployeeEmployee_attendanceRoute: typeof DashboardEmployeeEmployee_attendanceRoute
+  DashboardEmployeeFeedbackRoute: typeof DashboardEmployeeFeedbackRoute
+  DashboardEmployeeGreivencesRoute: typeof DashboardEmployeeGreivencesRoute
+  DashboardEmployeeLeavesRoute: typeof DashboardEmployeeLeavesRoute
+  DashboardEmployeeOvertimeRoute: typeof DashboardEmployeeOvertimeRoute
+  DashboardEmployeeProfileRoute: typeof DashboardEmployeeProfileRoute
+  DashboardEmployeeRequestsRoute: typeof DashboardEmployeeRequestsRoute
+  DashboardEmployeeReviewsRoute: typeof DashboardEmployeeReviewsRoute
+  DashboardSharp_hospitalityBarRoute: typeof DashboardSharp_hospitalityBarRoute
+  DashboardSharp_hospitalityGuestsRoute: typeof DashboardSharp_hospitalityGuestsRoute
+  DashboardSharp_hospitalityHotelRoute: typeof DashboardSharp_hospitalityHotelRouteWithChildren
+  DashboardSharp_hospitalityHousekeepingRoute: typeof DashboardSharp_hospitalityHousekeepingRoute
+  DashboardSharp_hospitalityInventoryRoute: typeof DashboardSharp_hospitalityInventoryRoute
+  DashboardSharp_hospitalityKitchenRoute: typeof DashboardSharp_hospitalityKitchenRoute
+  DashboardSharp_hospitalityMenuRoute: typeof DashboardSharp_hospitalityMenuRoute
+  DashboardSharp_hospitalityOrgConfigRoute: typeof DashboardSharp_hospitalityOrgConfigRoute
+  DashboardSharp_hospitalityRestaurantRoute: typeof DashboardSharp_hospitalityRestaurantRouteWithChildren
+  DashboardSharp_hospitalityServicesRoute: typeof DashboardSharp_hospitalityServicesRoute
+  DashboardSharp_hospitalitySettingsRoute: typeof DashboardSharp_hospitalitySettingsRoute
+  DashboardSharp_hrEmployeeRoute: typeof DashboardSharp_hrEmployeeRoute
+  DashboardSharp_hrLeaves_managementRoute: typeof DashboardSharp_hrLeaves_managementRoute
+  DashboardSharp_hrPayrollRoute: typeof DashboardSharp_hrPayrollRoute
+  DashboardSharp_hrReportsRoute: typeof DashboardSharp_hrReportsRoute
+  DashboardSharp_hrSettingsRoute: typeof DashboardSharp_hrSettingsRoute
+  DashboardSharp_marketingCampaignsRoute: typeof DashboardSharp_marketingCampaignsRoute
+  DashboardSharp_marketingLeadsRoute: typeof DashboardSharp_marketingLeadsRoute
+  DashboardSharp_marketingReportsRoute: typeof DashboardSharp_marketingReportsRoute
+  DashboardSharp_marketingSocial_media_managementRoute: typeof DashboardSharp_marketingSocial_media_managementRoute
+  DashboardEmployeeIndexRoute: typeof DashboardEmployeeIndexRoute
+  DashboardSharp_accountingIndexRoute: typeof DashboardSharp_accountingIndexRoute
+  DashboardSharp_marketingIndexRoute: typeof DashboardSharp_marketingIndexRoute
+  DashboardSharp_accountingReportsBalanceSheetRoute: typeof DashboardSharp_accountingReportsBalanceSheetRoute
+  DashboardSharp_accountingReportsLedgerRoute: typeof DashboardSharp_accountingReportsLedgerRoute
+  DashboardSharp_accountingReportsProfitLossRoute: typeof DashboardSharp_accountingReportsProfitLossRoute
+  DashboardSharp_accountingReportsTrialBalanceRoute: typeof DashboardSharp_accountingReportsTrialBalanceRoute
+  DashboardSharp_hrEmployeesEmployeeIdRoute: typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  DashboardSharp_accountingReportsIndexRoute: typeof DashboardSharp_accountingReportsIndexRoute
+  DashboardSharp_hrEmployeesIndexRoute: typeof DashboardSharp_hrEmployeesIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardIndexRoute: DashboardIndexRoute,
-  DashboarddashboardUnauthorizedRoute: DashboarddashboardUnauthorizedRoute,
-  DashboarddashboardSharp_accountingAccountingSetupRouteRoute:
-    DashboarddashboardSharp_accountingAccountingSetupRouteRouteWithChildren,
-  DashboarddashboardSharp_accountingAuditAndLogsRouteRoute:
-    DashboarddashboardSharp_accountingAuditAndLogsRouteRoute,
-  DashboarddashboardSharp_accountingSettingsRouteRoute:
-    DashboarddashboardSharp_accountingSettingsRouteRoute,
-  DashboarddashboardSharp_accountingTransactionsRouteRoute:
-    DashboarddashboardSharp_accountingTransactionsRouteRoute,
-  DashboarddashboardEmployeeEmployee_attendanceRoute:
-    DashboarddashboardEmployeeEmployee_attendanceRoute,
-  DashboarddashboardEmployeeFeedbackRoute:
-    DashboarddashboardEmployeeFeedbackRoute,
-  DashboarddashboardEmployeeGreivencesRoute:
-    DashboarddashboardEmployeeGreivencesRoute,
-  DashboarddashboardEmployeeLeavesRoute: DashboarddashboardEmployeeLeavesRoute,
-  DashboarddashboardEmployeeOvertimeRoute:
-    DashboarddashboardEmployeeOvertimeRoute,
-  DashboarddashboardEmployeeProfileRoute:
-    DashboarddashboardEmployeeProfileRoute,
-  DashboarddashboardEmployeeRequestsRoute:
-    DashboarddashboardEmployeeRequestsRoute,
-  DashboarddashboardEmployeeReviewsRoute:
-    DashboarddashboardEmployeeReviewsRoute,
-  DashboarddashboardSharp_hospitalityBarRoute:
-    DashboarddashboardSharp_hospitalityBarRoute,
-  DashboarddashboardSharp_hospitalityGuestsRoute:
-    DashboarddashboardSharp_hospitalityGuestsRoute,
-  DashboarddashboardSharp_hospitalityHotelRoute:
-    DashboarddashboardSharp_hospitalityHotelRouteWithChildren,
-  DashboarddashboardSharp_hospitalityHousekeepingRoute:
-    DashboarddashboardSharp_hospitalityHousekeepingRoute,
-  DashboarddashboardSharp_hospitalityInventoryRoute:
-    DashboarddashboardSharp_hospitalityInventoryRoute,
-  DashboarddashboardSharp_hospitalityKitchenRoute:
-    DashboarddashboardSharp_hospitalityKitchenRoute,
-  DashboarddashboardSharp_hospitalityMenuRoute:
-    DashboarddashboardSharp_hospitalityMenuRoute,
-  DashboarddashboardSharp_hospitalityOrgConfigRoute:
-    DashboarddashboardSharp_hospitalityOrgConfigRoute,
-  DashboarddashboardSharp_hospitalityRestaurantRoute:
-    DashboarddashboardSharp_hospitalityRestaurantRouteWithChildren,
-  DashboarddashboardSharp_hospitalityServicesRoute:
-    DashboarddashboardSharp_hospitalityServicesRoute,
-  DashboarddashboardSharp_hospitalitySettingsRoute:
-    DashboarddashboardSharp_hospitalitySettingsRoute,
-  DashboarddashboardSharp_hrEmployeeRoute:
-    DashboarddashboardSharp_hrEmployeeRoute,
-  DashboarddashboardSharp_hrLeaves_managementRoute:
-    DashboarddashboardSharp_hrLeaves_managementRoute,
-  DashboarddashboardSharp_hrPayrollRoute:
-    DashboarddashboardSharp_hrPayrollRoute,
-  DashboarddashboardSharp_hrReportsRoute:
-    DashboarddashboardSharp_hrReportsRoute,
-  DashboarddashboardSharp_hrSettingsRoute:
-    DashboarddashboardSharp_hrSettingsRoute,
-  DashboarddashboardSharp_marketingCampaignsRoute:
-    DashboarddashboardSharp_marketingCampaignsRoute,
-  DashboarddashboardSharp_marketingLeadsRoute:
-    DashboarddashboardSharp_marketingLeadsRoute,
-  DashboarddashboardSharp_marketingReportsRoute:
-    DashboarddashboardSharp_marketingReportsRoute,
-  DashboarddashboardSharp_marketingSocial_media_managementRoute:
-    DashboarddashboardSharp_marketingSocial_media_managementRoute,
-  DashboarddashboardEmployeeIndexRoute: DashboarddashboardEmployeeIndexRoute,
-  DashboarddashboardSharp_accountingIndexRoute:
-    DashboarddashboardSharp_accountingIndexRoute,
-  DashboarddashboardSharp_marketingIndexRoute:
-    DashboarddashboardSharp_marketingIndexRoute,
-  DashboarddashboardSharp_accountingReportsBalanceSheetRoute:
-    DashboarddashboardSharp_accountingReportsBalanceSheetRoute,
-  DashboarddashboardSharp_accountingReportsLedgerRoute:
-    DashboarddashboardSharp_accountingReportsLedgerRoute,
-  DashboarddashboardSharp_accountingReportsProfitLossRoute:
-    DashboarddashboardSharp_accountingReportsProfitLossRoute,
-  DashboarddashboardSharp_accountingReportsTrialBalanceRoute:
-    DashboarddashboardSharp_accountingReportsTrialBalanceRoute,
-  DashboarddashboardSharp_hrEmployeesEmployeeIdRoute:
-    DashboarddashboardSharp_hrEmployeesEmployeeIdRoute,
-  DashboarddashboardSharp_accountingReportsIndexRoute:
-    DashboarddashboardSharp_accountingReportsIndexRoute,
-  DashboarddashboardSharp_hrEmployeesIndexRoute:
-    DashboarddashboardSharp_hrEmployeesIndexRoute,
+  DashboardSharp_accountingAccountingSetupRouteRoute:
+    DashboardSharp_accountingAccountingSetupRouteRouteWithChildren,
+  DashboardSharp_accountingAuditAndLogsRouteRoute:
+    DashboardSharp_accountingAuditAndLogsRouteRoute,
+  DashboardSharp_accountingSettingsRouteRoute:
+    DashboardSharp_accountingSettingsRouteRoute,
+  DashboardSharp_accountingTransactionsRouteRoute:
+    DashboardSharp_accountingTransactionsRouteRoute,
+  DashboardEmployeeEmployee_attendanceRoute:
+    DashboardEmployeeEmployee_attendanceRoute,
+  DashboardEmployeeFeedbackRoute: DashboardEmployeeFeedbackRoute,
+  DashboardEmployeeGreivencesRoute: DashboardEmployeeGreivencesRoute,
+  DashboardEmployeeLeavesRoute: DashboardEmployeeLeavesRoute,
+  DashboardEmployeeOvertimeRoute: DashboardEmployeeOvertimeRoute,
+  DashboardEmployeeProfileRoute: DashboardEmployeeProfileRoute,
+  DashboardEmployeeRequestsRoute: DashboardEmployeeRequestsRoute,
+  DashboardEmployeeReviewsRoute: DashboardEmployeeReviewsRoute,
+  DashboardSharp_hospitalityBarRoute: DashboardSharp_hospitalityBarRoute,
+  DashboardSharp_hospitalityGuestsRoute: DashboardSharp_hospitalityGuestsRoute,
+  DashboardSharp_hospitalityHotelRoute:
+    DashboardSharp_hospitalityHotelRouteWithChildren,
+  DashboardSharp_hospitalityHousekeepingRoute:
+    DashboardSharp_hospitalityHousekeepingRoute,
+  DashboardSharp_hospitalityInventoryRoute:
+    DashboardSharp_hospitalityInventoryRoute,
+  DashboardSharp_hospitalityKitchenRoute:
+    DashboardSharp_hospitalityKitchenRoute,
+  DashboardSharp_hospitalityMenuRoute: DashboardSharp_hospitalityMenuRoute,
+  DashboardSharp_hospitalityOrgConfigRoute:
+    DashboardSharp_hospitalityOrgConfigRoute,
+  DashboardSharp_hospitalityRestaurantRoute:
+    DashboardSharp_hospitalityRestaurantRouteWithChildren,
+  DashboardSharp_hospitalityServicesRoute:
+    DashboardSharp_hospitalityServicesRoute,
+  DashboardSharp_hospitalitySettingsRoute:
+    DashboardSharp_hospitalitySettingsRoute,
+  DashboardSharp_hrEmployeeRoute: DashboardSharp_hrEmployeeRoute,
+  DashboardSharp_hrLeaves_managementRoute:
+    DashboardSharp_hrLeaves_managementRoute,
+  DashboardSharp_hrPayrollRoute: DashboardSharp_hrPayrollRoute,
+  DashboardSharp_hrReportsRoute: DashboardSharp_hrReportsRoute,
+  DashboardSharp_hrSettingsRoute: DashboardSharp_hrSettingsRoute,
+  DashboardSharp_marketingCampaignsRoute:
+    DashboardSharp_marketingCampaignsRoute,
+  DashboardSharp_marketingLeadsRoute: DashboardSharp_marketingLeadsRoute,
+  DashboardSharp_marketingReportsRoute: DashboardSharp_marketingReportsRoute,
+  DashboardSharp_marketingSocial_media_managementRoute:
+    DashboardSharp_marketingSocial_media_managementRoute,
+  DashboardEmployeeIndexRoute: DashboardEmployeeIndexRoute,
+  DashboardSharp_accountingIndexRoute: DashboardSharp_accountingIndexRoute,
+  DashboardSharp_marketingIndexRoute: DashboardSharp_marketingIndexRoute,
+  DashboardSharp_accountingReportsBalanceSheetRoute:
+    DashboardSharp_accountingReportsBalanceSheetRoute,
+  DashboardSharp_accountingReportsLedgerRoute:
+    DashboardSharp_accountingReportsLedgerRoute,
+  DashboardSharp_accountingReportsProfitLossRoute:
+    DashboardSharp_accountingReportsProfitLossRoute,
+  DashboardSharp_accountingReportsTrialBalanceRoute:
+    DashboardSharp_accountingReportsTrialBalanceRoute,
+  DashboardSharp_hrEmployeesEmployeeIdRoute:
+    DashboardSharp_hrEmployeesEmployeeIdRoute,
+  DashboardSharp_accountingReportsIndexRoute:
+    DashboardSharp_accountingReportsIndexRoute,
+  DashboardSharp_hrEmployeesIndexRoute: DashboardSharp_hrEmployeesIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
@@ -1377,6 +1348,7 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  UnauthorizedRoute: UnauthorizedRoute,
   SignupCompleteRegistrationRoute: SignupCompleteRegistrationRoute,
   SignupVerifyOtpRoute: SignupVerifyOtpRoute,
   SignupIndexRoute: SignupIndexRoute,

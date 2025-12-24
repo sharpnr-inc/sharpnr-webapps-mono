@@ -1,0 +1,12 @@
+import ServicePage from '@/_hospitalityapp/shared/ServicePage'
+import { createFileRoute } from '@tanstack/react-router'
+import { ServerCogIcon } from 'lucide-react'
+
+export const Route = createFileRoute('/dashboard/sharp_hospitality/services')({
+  component: ServicePage,
+  context:()=>({
+    heading: "Service",
+    subheading: "Section for Service",
+    HeaderIcon:ServerCogIcon
+  })
+})

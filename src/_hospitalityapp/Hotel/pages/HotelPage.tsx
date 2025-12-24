@@ -3,7 +3,7 @@ import HotelBookingSection from "../sections/HotelBookingSection";
 import HotelOverviewSection from "../sections/HotelOverviewSection";
 import HotelRequestSection from "../sections/HotelRequestSection";
 import { useUIRenderer } from "@/context/ui-rendererContext";
-import { Route } from "@/routes/dashboard/(dashboard)/sharp_hospitality/hotel";
+import { Route } from "@/routes/dashboard/sharp_hospitality/hotel";
 
 // This is the page we need APIs for fetching the details
 export default function SharpHospitalityHotelPage() {
