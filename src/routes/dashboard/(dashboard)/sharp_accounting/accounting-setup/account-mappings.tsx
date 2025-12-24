@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
-  '/dashboard/(dashboard)/sharp_accounting/accounting-setup/',
+  '/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings',
 )({
   component: RouteComponent,
 })
@@ -9,7 +9,8 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <div>
-      Hello "/dashboard/(dashboard)/sharp_accounting/accounting-setup/"!
+      Hello
+      "/dashboard/(dashboard)/sharp_accounting/accounting-setup/account-mappings"!
     </div>
   )
 }

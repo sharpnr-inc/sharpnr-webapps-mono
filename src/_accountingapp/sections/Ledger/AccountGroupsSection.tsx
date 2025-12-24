@@ -1,5 +1,4 @@
-"use client";
-
+// This is Cart of Account of Page
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -29,6 +28,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
 export default function AccountGroupsSection() {
+  
   // 📘 Mock Account Group Data (replace later with API)
   const [expandedGroups, setExpandedGroups] = useState<string[]>(["Assets"]);
 

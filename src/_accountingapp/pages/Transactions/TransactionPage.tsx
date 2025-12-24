@@ -49,3 +49,4 @@ export default function AccountingTransactionPage() {
     </div>
   );
 }
+// this is the transactions page which have multiple tabs which can display what we are going to display on this page 

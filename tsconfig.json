@@ -8,7 +8,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@hospitalityapp/*": ["./src/_hospitalityapp/*"]
+      "@hospitalityapp/*": ["src/_hospitalityapp/*"]
     }
   }
 }

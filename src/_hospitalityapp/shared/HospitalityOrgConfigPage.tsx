@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import OverviewSection from "@/_hospitalityapp/OverviewSection";
+import OverviewSection from "@/_hospitalityapp/HospitalityOrgOverviewSection";
 import BarConfigSection from "@/_hospitalityapp/Bar/sections/BarConfigSection";
 import HotelConfigSection from "@/_hospitalityapp/Hotel/sections/HotelConfigSection";
 import RestaurantConfigSection from "@/_hospitalityapp/Restaurant/sections/RestaurantConfigSection";
