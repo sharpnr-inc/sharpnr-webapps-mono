@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { AccountingSetupLayout } from "@/_accountingapp/pages/accounting-setup/AccountingSetupLayout";
+import { AccountingSetupSideBarWrapper } from "@/_accountingapp/pages/accounting-setup/SideBarWrapper";
 
 export const Route = createFileRoute(
   "/dashboard/sharp_accounting/accounting-setup"
@@ -14,5 +14,5 @@ export const Route = createFileRoute(
     }
   },
 
-  component: AccountingSetupLayout,
+  component: AccountingSetupSideBarWrapper
 });

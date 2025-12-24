@@ -15,8 +15,8 @@ function RouteComponent() {
       <EmployeePolicyProvider>
         <HeaderProvider>
           <BookingAndOrdersNotificationProvider>
-            <DashboardHeader useremail={"kashifsocl@gmail.com"} />
-            <div className="h-full">
+            <DashboardHeader useremail="kashifsocl@gmail.com" />
+            <div className="h-[calc(100vh-4rem)] overflow-auto">
               <Outlet />
             </div>
           </BookingAndOrdersNotificationProvider>
