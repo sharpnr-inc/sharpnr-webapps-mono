@@ -1,4 +1,3 @@
-// FormModalContext.tsx
 "use client";
 
 import React, {
@@ -6,11 +5,9 @@ import React, {
   useContext,
   useState,
   type ReactNode,
-  useEffect,
 } from "react";
-
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { XCircleIcon } from "lucide-react";
-import ReactDOM from "react-dom";
 
 interface FormModalState {
   heading: string;
@@ -56,70 +53,60 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
     component: ReactNode
   ) => {
     setModalState({ heading, description, component, isOpen: true });
-    document.body.style.overflow = "hidden"; // prevent background scroll
   };
 
   const closeModal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
-    document.body.style.overflow = ""; // restore scroll
   };
-
-  // Close modal on Escape key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && modalState.isOpen) closeModal();
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [modalState.isOpen]);
-
-  // Render modal via portal for proper stacking
-  const modalContent = modalState.isOpen ? (
-<div
-  className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md p-6"
-  onClick={closeModal}
->
-  <div
-    className="relative w-full max-w-[90vw] max-h-[90vh] bg-background rounded-xl backdrop-blur-3xl border-2 border-stone-700 flex flex-col overflow-hidden"
-    onClick={(e) => e.stopPropagation()}
-  >
-    {/* Close button */}
-    <button
-      onClick={closeModal}
-      className="absolute top-4 right-4 z-50 hover:opacity-70 transition-opacity hover:scale-120 cursor-pointer"
-      aria-label="Close modal"
-    >
-      <XCircleIcon className="w-6 h-6 " />
-    </button>
-
-    {/* Sticky header */}
-    <div className="sticky top-0 z-10 backdrop-blur-3xl border-b border-stone-700 p-4 ">
-      {modalState.heading && (
-        <h2 className="text-2xl font-semibold mb-2">
-          {modalState.heading}
-        </h2>
-      )}
-      {modalState.description && (
-        <p className="text-sm  leading-relaxed">
-          {modalState.description}
-        </p>
-      )}
-    </div>
-
-    {/* Scrollable content */}
-    <div className="overflow-y-auto p-2">
-      {modalState.component}
-    </div>
-  </div>
-</div>
-  ) : null;
 
   return (
     <FormModalContext.Provider value={{ showModal, closeModal }}>
       {children}
-      {typeof document !== "undefined"
-        ? ReactDOM.createPortal(modalContent, document.body)
-        : null}
+      
+      <DialogPrimitive.Root 
+        open={modalState.isOpen} 
+        onOpenChange={(open) => !open && closeModal()}
+      >
+        <DialogPrimitive.Portal>
+          {/* Overlay */}
+          <DialogPrimitive.Overlay 
+            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          />
+          
+          {/* Content */}
+          <DialogPrimitive.Content
+            className="fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] w-full max-w-[90vw] max-h-[90vh] bg-background rounded-xl border-2 border-stone-700 flex flex-col overflow-hidden shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]"
+            onInteractOutside={closeModal}
+          >
+            {/* Close button */}
+            <DialogPrimitive.Close
+              className="absolute top-4 right-4 z-50 hover:opacity-70 transition-opacity hover:scale-110 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-stone-400"
+              aria-label="Close modal"
+            >
+              <XCircleIcon className="w-6 h-6" />
+            </DialogPrimitive.Close>
+
+            {/* Header */}
+            <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm border-b border-stone-700 p-6">
+              {modalState.heading && (
+                <DialogPrimitive.Title className="text-2xl font-semibold mb-2">
+                  {modalState.heading}
+                </DialogPrimitive.Title>
+              )}
+              {modalState.description && (
+                <DialogPrimitive.Description className="text-sm text-muted-foreground leading-relaxed">
+                  {modalState.description}
+                </DialogPrimitive.Description>
+              )}
+            </div>
+
+            {/* Scrollable content */}
+            <div className="overflow-y-auto p-6">
+              {modalState.component}
+            </div>
+          </DialogPrimitive.Content>
+        </DialogPrimitive.Portal>
+      </DialogPrimitive.Root>
     </FormModalContext.Provider>
   );
 };

@@ -3,14 +3,9 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetFooter,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
 
-type SheetSize = "1/4" | "2/4" | "3/4";
+type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 
 interface SheetState {
   title?: string;
@@ -23,8 +18,8 @@ interface SheetState {
 interface SheetContextProps {
   openSheet: (
     content: ReactNode,
-    title?: string,
-    description?: string,
+    // title?: string,
+    // description?: string,
     size?: SheetSize
   ) => void;
   closeSheet: () => void;
@@ -41,19 +36,19 @@ export const useSheet = () => {
 export const SheetProvider = ({ children }: { children: ReactNode }) => {
   const [sheet, setSheet] = useState<SheetState>({
     isOpen: false,
-    title: undefined,
-    description: undefined,
+    // title: undefined,
+    // description: undefined,
     content: undefined,
     size: "2/4",
   });
 
   const openSheet = (
     content: ReactNode,
-    title?: string,
-    description?: string,
+    // title?: string,
+    // description?: string,
     size: SheetSize = "2/4"
   ) => {
-    setSheet({ content, title, description, size, isOpen: true });
+    setSheet({ content, size, isOpen: true });
   };
 
   const closeSheet = () => {
@@ -69,6 +64,8 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
         return "sm:w-2/4 w-3/4 p-4";
       case "3/4":
         return "w-3/4 p-4 ";
+      case "full":
+        return "w-full p-4 ";
       default:
         return "w-2/4 p-4";
     }
@@ -78,27 +75,27 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
     <SheetContext.Provider value={{ openSheet, closeSheet }}>
       {children}
 
-      <Sheet open={sheet.isOpen} onOpenChange={closeSheet} >
-        <SheetContent side="right" className={`w-full max-w-none overflow-y-scroll ${getWidthClass(sheet.size)} 
+      <Sheet open={sheet.isOpen} onOpenChange={closeSheet}>
+        <SheetContent
+          side="right"
+          className={`w-full max-w-none overflow-y-scroll ${getWidthClass(sheet.size)} 
             [&::-webkit-scrollbar]:w-[6px]
             [&::-webkit-scrollbar-track]:bg-transparent
             [&::-webkit-scrollbar-thumb]:bg-slate-300
             [&::-webkit-scrollbar-thumb]:rounded-full
             hover:[&::-webkit-scrollbar-thumb]:bg-slate-400
             scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300`}
-         >
-          <SheetHeader>
+        >
+          {/* <SheetHeader>
             {sheet.title && <SheetTitle>{sheet.title}</SheetTitle>}
-            {sheet.description && <SheetDescription>{sheet.description}</SheetDescription>}
-          </SheetHeader>
+            {sheet.description && (
+              <SheetDescription>{sheet.description}</SheetDescription>
+            )}
+          </SheetHeader> */}
 
-          <div className="py-2">{sheet.content}</div>
+          <div>{sheet.content}</div>
 
-          <SheetFooter>
-            <Button variant="default" onClick={closeSheet}>
-              Close
-            </Button>
-          </SheetFooter>
+     
         </SheetContent>
       </Sheet>
     </SheetContext.Provider>

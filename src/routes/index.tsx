@@ -1,4 +1,4 @@
-import LoginPage from "@/components/Landing/LoginPage";
+import LoginPage from "@/CoreOrchestrator/auth/Landing/LoginPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
