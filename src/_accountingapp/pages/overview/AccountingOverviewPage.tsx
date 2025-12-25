@@ -10,10 +10,8 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import {
-  useAccountingGroupOfBook,
-  useOrgAccountingBooks,
-} from "@/_accountingapp/api/queries/books";
+import { useOrgAccountingBooks } from "@/_accountingapp/api/queries/books";
+import { useAccountingGroupOfBook } from "@/_accountingapp/api/queries/accounting_groups";
 
 export function AccountingOverviewPage() {
   const [selectedBookId, setSelectedBookId] = useState<string | undefined>();
@@ -101,9 +99,7 @@ export function AccountingOverviewPage() {
       {/* 🔹 Accounting Groups */}
       {selectedBookId && (
         <>
-          {isGroupsLoading && (
-            <Skeleton className="h-24 w-full rounded-md" />
-          )}
+          {isGroupsLoading && <Skeleton className="h-24 w-full rounded-md" />}
 
           {isGroupsError && (
             <Alert variant="destructive">
@@ -127,9 +123,7 @@ export function AccountingOverviewPage() {
                     className="rounded-md border px-3 py-2 text-sm flex justify-between"
                   >
                     <span>{group.name}</span>
-                    <span className="text-muted-foreground">
-                      {group.type}
-                    </span>
+                    <span className="text-muted-foreground">{group.type}</span>
                   </li>
                 ))}
               </ul>
