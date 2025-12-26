@@ -62,20 +62,30 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <FormModalContext.Provider value={{ showModal, closeModal }}>
       {children}
-      
-      <DialogPrimitive.Root 
-        open={modalState.isOpen} 
+
+      <DialogPrimitive.Root
+        open={modalState.isOpen}
         onOpenChange={(open) => !open && closeModal()}
       >
         <DialogPrimitive.Portal>
           {/* Overlay */}
-          <DialogPrimitive.Overlay 
-            className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-          />
-          
+          <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+
           {/* Content */}
           <DialogPrimitive.Content
-            className="fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] w-full max-w-[90vw] max-h-[90vh] bg-background rounded-xl border-2 border-stone-700 flex flex-col overflow-hidden shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]"
+            className="fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] w-full max-w-[90vw] max-h-[90vh] bg-background rounded-xl border-2 border-stone-700 flex flex-col overflow-hidden shadow-2xl 
+    /* Base State */
+    duration-200 
+    /* Open Animation: Scale up slightly and fade in from the center */
+    data-[state=open]:animate-in 
+    data-[state=open]:fade-in-0 
+    data-[state=open]:zoom-in-[98%] 
+    data-[state=open]:duration-300
+    /* Closed Animation: Scale down slightly and fade out */
+    data-[state=closed]:animate-out 
+    data-[state=closed]:fade-out-0 
+    data-[state=closed]:zoom-out-[98%] 
+    data-[state=closed]:duration-200"
             onInteractOutside={closeModal}
           >
             {/* Close button */}
@@ -101,9 +111,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
             </div>
 
             {/* Scrollable content */}
-            <div className="overflow-y-auto p-6">
-              {modalState.component}
-            </div>
+            <div className="overflow-y-auto p-6">{modalState.component}</div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
       </DialogPrimitive.Root>

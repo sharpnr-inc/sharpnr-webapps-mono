@@ -12,6 +12,12 @@ export const AccountingAppAPIEndpoints = {
 
   Accounts: {
     GetAccounts: (groupId: string) => `/accounting/account/${groupId}`,
+    CreateAccount:(bookId:string)=> `/accounting/books/${bookId}/create-account`
   },
+
+  AccountMapping:{
+    GetAccountMappings:"/accounting/mappings",
+    CreateAccountMapping:"/accounting/mappings"
+  }
 };
 //
