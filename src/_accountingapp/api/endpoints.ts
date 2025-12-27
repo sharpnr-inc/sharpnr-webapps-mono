@@ -18,6 +18,10 @@ export const AccountingAppAPIEndpoints = {
   AccountMapping:{
     GetAccountMappings:"/accounting/mappings",
     CreateAccountMapping:"/accounting/mappings"
+  },
+
+  Transactions:{
+    GetTransactions:"/accounting/transactions"
   }
 };
 //

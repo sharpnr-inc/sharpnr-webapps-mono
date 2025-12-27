@@ -1,6 +1,7 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
 import type { CreateAccountRequest } from "../schemas/interfaces/requests";
+import type { TransactionsParams } from "./queries/transactions";
 
 /******************************************************
  * All API Call for Accounting Books of  Organization *
@@ -59,8 +60,10 @@ export const CreateAccounts = async (req: CreateAccountRequest) => {
  * All the API for related to Transactions *
  *******************************************/
 
-export const GetTransactions = async () => {
-  const res = await api.get(AccountingAppAPIEndpoints.Books.get_ac_allBooks);
+export const GetTransactions = async (params: TransactionsParams) => {
+  const res = await api.get(AccountingAppAPIEndpoints.Transactions.GetTransactions,{
+    params,
+  });
   return res.data;
 };
 
