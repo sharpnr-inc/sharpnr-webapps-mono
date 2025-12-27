@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetTransactions } from "../api_calls";
+import { GetTransactionDetails, GetTransactions } from "../api_calls";
 
 export interface TransactionsParams {
   book_id: string;
@@ -7,7 +7,6 @@ export interface TransactionsParams {
   to: string;
   offset: number;
 }
-
 
 export function useTransactions(params: TransactionsParams) {
   return useQuery({
@@ -17,3 +16,10 @@ export function useTransactions(params: TransactionsParams) {
   });
 }
 
+export function useTransactionDetails(transactionId: string) {
+  return useQuery({
+    queryKey: ["Accounting", "Transaction", transactionId],
+    queryFn: () => GetTransactionDetails(transactionId),
+    enabled:!!transactionId
+  });
+}

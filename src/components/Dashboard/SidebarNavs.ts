@@ -138,6 +138,13 @@ export const SharpAccountingNavs: NavSection[] = [
       },
 
       {
+        id: "acc_ledger",
+        label: "Ledger",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/ledger",
+      },
+
+      {
         id: "acc_reports",
         label: "Reports",
         icon: BarChart3,

@@ -67,6 +67,11 @@ export const GetTransactions = async (params: TransactionsParams) => {
   return res.data;
 };
 
+export const GetTransactionDetails = async(transactionId:string) =>{
+  const res = await api.get(AccountingAppAPIEndpoints.Transactions.GetTransactionDetails(transactionId))
+  return res.data
+}
+
 //-------------------------------------------------------------------------------------//
 
 /********************************************

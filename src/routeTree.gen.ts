@@ -49,6 +49,7 @@ import { Route as DashboardEmployeeFeedbackRouteImport } from './routes/dashboar
 import { Route as DashboardEmployeeEmployee_attendanceRouteImport } from './routes/dashboard/employee/employee_attendance'
 import { Route as DashboardSharp_accountingTransactionsRouteRouteImport } from './routes/dashboard/sharp_accounting/transactions/route'
 import { Route as DashboardSharp_accountingSettingsRouteRouteImport } from './routes/dashboard/sharp_accounting/settings/route'
+import { Route as DashboardSharp_accountingLedgerRouteRouteImport } from './routes/dashboard/sharp_accounting/ledger/route'
 import { Route as DashboardSharp_accountingAuditAndLogsRouteRouteImport } from './routes/dashboard/sharp_accounting/auditAndLogs/route'
 import { Route as DashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/route'
 import { Route as DashboardSharp_hrEmployeesIndexRouteImport } from './routes/dashboard/sharp_hr/employees/index'
@@ -299,6 +300,12 @@ const DashboardSharp_accountingSettingsRouteRoute =
     path: '/sharp_accounting/settings',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
+const DashboardSharp_accountingLedgerRouteRoute =
+  DashboardSharp_accountingLedgerRouteRouteImport.update({
+    id: '/sharp_accounting/ledger',
+    path: '/sharp_accounting/ledger',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 const DashboardSharp_accountingAuditAndLogsRouteRoute =
   DashboardSharp_accountingAuditAndLogsRouteRouteImport.update({
     id: '/sharp_accounting/auditAndLogs',
@@ -412,6 +419,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  '/dashboard/sharp_accounting/ledger': typeof DashboardSharp_accountingLedgerRouteRoute
   '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
   '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
@@ -470,6 +478,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  '/dashboard/sharp_accounting/ledger': typeof DashboardSharp_accountingLedgerRouteRoute
   '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
   '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
@@ -528,6 +537,7 @@ export interface FileRoutesById {
   '/signup/': typeof SignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  '/dashboard/sharp_accounting/ledger': typeof DashboardSharp_accountingLedgerRouteRoute
   '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
   '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
@@ -589,6 +599,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
+    | '/dashboard/sharp_accounting/ledger'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/employee/employee_attendance'
@@ -647,6 +658,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
+    | '/dashboard/sharp_accounting/ledger'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/employee/employee_attendance'
@@ -704,6 +716,7 @@ export interface FileRouteTypes {
     | '/signup/'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
+    | '/dashboard/sharp_accounting/ledger'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/employee/employee_attendance'
@@ -1045,6 +1058,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_accountingSettingsRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/sharp_accounting/ledger': {
+      id: '/dashboard/sharp_accounting/ledger'
+      path: '/sharp_accounting/ledger'
+      fullPath: '/dashboard/sharp_accounting/ledger'
+      preLoaderRoute: typeof DashboardSharp_accountingLedgerRouteRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/sharp_accounting/auditAndLogs': {
       id: '/dashboard/sharp_accounting/auditAndLogs'
       path: '/sharp_accounting/auditAndLogs'
@@ -1231,6 +1251,7 @@ interface DashboardRouteRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute
   DashboardSharp_accountingAccountingSetupRouteRoute: typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   DashboardSharp_accountingAuditAndLogsRouteRoute: typeof DashboardSharp_accountingAuditAndLogsRouteRoute
+  DashboardSharp_accountingLedgerRouteRoute: typeof DashboardSharp_accountingLedgerRouteRoute
   DashboardSharp_accountingSettingsRouteRoute: typeof DashboardSharp_accountingSettingsRouteRoute
   DashboardSharp_accountingTransactionsRouteRoute: typeof DashboardSharp_accountingTransactionsRouteRoute
   DashboardEmployeeEmployee_attendanceRoute: typeof DashboardEmployeeEmployee_attendanceRoute
@@ -1279,6 +1300,8 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
     DashboardSharp_accountingAccountingSetupRouteRouteWithChildren,
   DashboardSharp_accountingAuditAndLogsRouteRoute:
     DashboardSharp_accountingAuditAndLogsRouteRoute,
+  DashboardSharp_accountingLedgerRouteRoute:
+    DashboardSharp_accountingLedgerRouteRoute,
   DashboardSharp_accountingSettingsRouteRoute:
     DashboardSharp_accountingSettingsRouteRoute,
   DashboardSharp_accountingTransactionsRouteRoute:

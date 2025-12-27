@@ -21,7 +21,8 @@ export const AccountingAppAPIEndpoints = {
   },
 
   Transactions:{
-    GetTransactions:"/accounting/transactions"
+    GetTransactions:"/accounting/transactions",
+    GetTransactionDetails:(transactionId:string)=> `/accounting/transactions/entry/${transactionId}`
   }
 };
-//
+
