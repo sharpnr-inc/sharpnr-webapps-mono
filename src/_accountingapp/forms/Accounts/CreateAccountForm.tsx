@@ -23,8 +23,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@radix-ui/react-switch";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 
 export function CreateAccountForm() {
   // this will fetch the All the books available in Organization
