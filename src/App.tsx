@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
-import MarketingApp from "./app/public/MarketingApp";
-import SharpnrApp from "./app/sharpnrapp/SharpnrApp";
+import LandingPage from "./app/pages/LandingPage";
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<MarketingApp />} />
-          <Route path="/sharpnrapp/*" element={<SharpnrApp />} />
+          <Route path="/" element={<LandingPage/>} />
         </Routes>
       </Suspense>
     </Router>
