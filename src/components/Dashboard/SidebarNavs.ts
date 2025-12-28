@@ -106,7 +106,7 @@ export const SharpHospitalityNavs: NavSection[] = [
         id: "org_config",
         label: "Org Configs",
         icon: TableConfig,
-        to: "/dashboard/sharp_hospitality/orgConfig",
+        to: "/dashboard/sharp_hospitality/org-config",
       },
     ],
   },
