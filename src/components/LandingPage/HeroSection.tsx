@@ -17,7 +17,8 @@ export function HeroSection(): React.JSX.Element {
   return (
     <div ref={heroRef} className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden text-center px-4 bg-transparent">
       <div className="relative z-10 flex flex-col items-center">
-        <h1 className="hero-title max-w-4xl text-4xl font-bold md:text-5xl lg:text-7xl text-foreground">
+        <h1 className="hero-title max-w-4xl text-4xl font-bold md:text-5xl lg:text-7xl">
+          Sharpnr <br></br>
           Build faster. Operate smarter.
         </h1>
         <p className="hero-subtitle mt-6 max-w-2xl text-lg text-muted-foreground">
