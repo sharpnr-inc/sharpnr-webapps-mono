@@ -1,60 +1,38 @@
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export function HeroSection(): React.JSX.Element {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
+  const heroRef = useRef<HTMLDivElement>(null);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
-  };
+  useEffect(() => {
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    tl.fromTo(".hero-title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1 });
+    tl.fromTo(".hero-subtitle", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.6");
+    tl.fromTo(".hero-button", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5 }, "-=0.5");
+
+  }, []);
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden text-center px-4">
-      <BackgroundRippleEffect />
+    <div ref={heroRef} className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden text-center px-4 bg-transparent">
+      <div className="relative z-10 flex flex-col items-center">
+        <h1 className="hero-title max-w-4xl text-4xl font-bold md:text-5xl lg:text-7xl text-foreground">
+          Build faster. Operate smarter.
+        </h1>
+        <p className="hero-subtitle mt-6 max-w-2xl text-lg text-muted-foreground">
+          A freemium, modular SaaS platform for hospitality and operations-driven businesses.
+        </p>
 
-      <motion.div
-        className="relative z-10 flex flex-col items-center"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.h1
-          className="max-w-4xl text-4xl font-bold text-neutral-800 md:text-5xl lg:text-7xl dark:text-neutral-100"
-          variants={itemVariants}
-        >
-          The Ultimate CRM x ERP Platform
-        </motion.h1>
-        <motion.p
-          className="mt-6 max-w-2xl text-lg text-neutral-600 dark:text-neutral-300"
-          variants={itemVariants}
-        >
-          Streamline your operations, boost productivity, and drive growth with a single, unified solution.
-        </motion.p>
-
-        <motion.div className="mt-8" variants={itemVariants}>
-          <Button size="lg" className="bg-cyan-400 hover:bg-cyan-500 text-white shadow-lg">
+        <div className="hero-button mt-8">
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
             Get Started for Free
           </Button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
+
+
 

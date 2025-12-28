@@ -1,28 +1,39 @@
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export function CTA() {
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".cta-section",
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tl.fromTo(".cta-title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" })
+      .fromTo(".cta-text", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.6")
+      .fromTo(".cta-button", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, "-=0.5");
+  }, []);
+
   return (
-    <section className="py-20 px-4 bg-white dark:bg-black">
+    <section className="cta-section py-24 px-4 bg-transparent">
       <div className="container mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
-            Ready to take your business to the next level?
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
-            Join thousands of satisfied customers and see the difference our CRM x ERP solution can make for your business.
-          </p>
-          <div className="mt-8">
-            <Button size="lg" className="bg-cyan-400 hover:bg-cyan-500 text-white">
-              Get Started for Free
-            </Button>
-          </div>
-        </motion.div>
+        <h2 className="cta-title text-4xl font-bold text-foreground md:text-5xl">
+          Sharpnr is designed to grow with you.
+        </h2>
+        <p className="cta-text text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+          Start free. Enable what you need. Scale when ready.
+        </p>
+        <div className="cta-button mt-8">
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg">
+            Get Started for Free
+          </Button>
+        </div>
       </div>
     </section>
   );

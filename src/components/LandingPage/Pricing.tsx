@@ -1,121 +1,103 @@
-import { motion } from "framer-motion";
+import { useEffect } from "react";
+import gsap from "gsap";
 import { Button } from "@/components/ui/button";
+import { Check } from "lucide-react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const plans = [
   {
-    name: "Starter",
-    price: "$49",
-    period: "/month",
+    name: "Free Forever",
+    price: "$0",
+    period: "",
     features: [
-      "Basic CRM features",
-      "Up to 5 users",
-      "1GB storage",
-      "Email support",
+      "Core operational workflows",
+      "Essential modules",
+      "Single organization",
+      "No forced upgrades",
     ],
-    cta: "Choose Plan",
+    cta: "Start for Free",
   },
   {
-    name: "Business",
-    price: "$99",
-    period: "/month",
-    features: [
-      "Advanced CRM & ERP features",
-      "Up to 20 users",
-      "10GB storage",
-      "Priority email support",
-    ],
-    cta: "Choose Plan",
-    popular: true,
-  },
-  {
-    name: "Enterprise",
+    name: "Paid When You Grow",
     price: "Custom",
     period: "",
     features: [
-      "All features included",
-      "Unlimited users",
-      "Dedicated infrastructure",
-      "24/7 support",
+      "Multiple properties",
+      "Advanced reports",
+      "AI-powered insights",
+      "Custom integrations",
+      "Priority support",
     ],
-    cta: "Contact Us",
+    cta: "Contact Sales",
+    popular: true,
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: (i: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  }),
-};
-
 export function Pricing() {
+    useEffect(() => {
+        gsap.fromTo(
+          ".pricing-card",
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".pricing-grid",
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }, []);
+
   return (
-    <section className="py-20 px-4 bg-white dark:bg-black">
+    <section className="py-24 px-4 bg-transparent">
       <div className="container mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
-            Find the perfect plan for your business
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-foreground md:text-5xl">
+            Pay only when you scale.
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
-            Simple, transparent pricing. No hidden fees.
+          <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
+            Sharpnr is free to start and scales only when you do. No dark patterns. No forced upgrades.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {plans.map((plan, i) => (
-            <motion.div
+        <div className="pricing-grid grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {plans.map((plan) => (
+            <div
               key={plan.name}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.5 }}
-              variants={cardVariants}
-              className={`rounded-lg shadow-lg p-8 flex flex-col ${
-                plan.popular ? "border-2 border-cyan-400" : "border border-gray-200 dark:border-gray-700"
+              className={`pricing-card rounded-lg p-8 flex flex-col transition-transform duration-300 hover:-translate-y-2 bg-card/80 backdrop-blur-sm ${
+                plan.popular ? "shadow-2xl shadow-primary/20 border-2 border-primary" : "shadow-lg border border-border"
               }`}
             >
               {plan.popular && (
                 <div className="text-center mb-4">
-                  <span className="bg-cyan-400 text-white text-sm font-bold px-3 py-1 rounded-full">
+                  <span className="bg-primary text-primary-foreground text-sm font-bold px-4 py-1 rounded-full">
                     Most Popular
                   </span>
                 </div>
               )}
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-white text-center">
+              <h3 className="text-2xl font-bold text-foreground text-center">
                 {plan.name}
               </h3>
               <div className="text-center mt-4">
-                <span className="text-4xl font-bold text-gray-800 dark:text-white">
+                <span className="text-4xl font-bold text-foreground">
                   {plan.price}
                 </span>
                 {plan.period && (
-                  <span className="text-gray-500 dark:text-gray-400">
+                  <span className="text-muted-foreground">
                     {plan.period}
                   </span>
                 )}
               </div>
-              <ul className="mt-8 space-y-4 text-gray-600 dark:text-gray-400 flex-grow">
+              <ul className="mt-8 space-y-4 text-muted-foreground flex-grow">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center">
-                    <svg
-                      className="w-5 h-5 mr-2 text-green-500"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
+                    <Check className="w-5 h-5 mr-2 text-primary" />
                     {feature}
                   </li>
                 ))}
@@ -128,10 +110,11 @@ export function Pricing() {
                   {plan.cta}
                 </Button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
