@@ -2,8 +2,7 @@ import HotelOverviewSection from '@/_hospitalityapp/orchestrator/pages/Hospitali
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
-  '/dashboard/sharp_hospitality/org-config/overview',
+  '/dashboard/sharp_hospitality/org-config/',
 )({
   component: HotelOverviewSection,
 })
-
