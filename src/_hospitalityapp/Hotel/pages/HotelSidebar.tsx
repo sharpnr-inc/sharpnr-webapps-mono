@@ -1,0 +1,134 @@
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+} from "@/components/ui/sidebar";
+import {
+  BookOpen,
+  ListTree,
+  Link2,
+  RemoveFormattingIcon,
+  User,
+  Calendar,
+  DoorClosedIcon,
+  CalendarCheck2,
+  BarChart3,
+  BedDoubleIcon,
+} from "lucide-react";
+
+export function HotelSidebar() {
+  const { location } = useRouterState();
+  const pathname = location.pathname;
+
+  return (
+    <SidebarContent className="sm:pt-16 md:pt-16">
+      <SidebarGroup>
+        <SidebarGroupLabel>Hotel Management</SidebarGroupLabel>
+
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/overview"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/overview">
+                <BarChart3 />
+                <span>Overview</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/reservations"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/reservations">
+                <CalendarCheck2 />
+                <span>Reservations</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/houseKeeping"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/houseKeeping">
+                <DoorClosedIcon />
+                <span>Room Management</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+                <Calendar />
+                <span>Calendar</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+                <User />
+                <span>Guests(Pending)</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+                <BedDoubleIcon />
+                <span>Housekeeping(Pending)</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+                <BedDoubleIcon />
+                <span>Requests(Pending)</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </SidebarContent>
+  );
+}

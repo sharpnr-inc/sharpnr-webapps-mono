@@ -16,7 +16,7 @@ function RouteComponent() {
         <HeaderProvider>
           <BookingAndOrdersNotificationProvider>
             <DashboardHeader useremail="kashifsocl@gmail.com" />
-            <div className="h-[calc(100vh-4rem)] overflow-auto">
+            <div className="">
               <Outlet />
             </div>
           </BookingAndOrdersNotificationProvider>

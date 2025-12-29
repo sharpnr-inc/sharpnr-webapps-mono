@@ -6,7 +6,7 @@ export const Route = createFileRoute("/dashboard/sharp_hospitality/settings")({
   component: SharpHospitalitySettings,
   context: () => ({
     heading: "Settings",
-    subheading: "Configure the Organisations",
+    subheading: "Configure the Organizations",
     HeaderIcon: Settings2Icon,
   }),
 });

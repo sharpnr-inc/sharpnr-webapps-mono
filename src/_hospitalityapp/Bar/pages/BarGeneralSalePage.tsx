@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 
-export default function BarInventorySection() {
+export default function BarGeneralSalePage() {
   const menuItems = [
     { id: 1, name: "Whiskey", price: 350 },
     { id: 2, name: "Beer (Pint)", price: 180 },
@@ -21,7 +21,7 @@ export default function BarInventorySection() {
   ];
 
   return (
-    <div className="p-4 flex flex-col md:flex-row gap-6">
+    <div className=" flex flex-col md:flex-row gap-6">
       {/* SALES COUNTER */}
       <Card className="w-full md:w-1/3 shadow-md border">
         <CardHeader>

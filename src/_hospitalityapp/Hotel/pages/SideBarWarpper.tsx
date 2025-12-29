@@ -1,50 +1,61 @@
-import { cn } from "@/lib/utils";
 import { Outlet } from "@tanstack/react-router";
-import { PanelLeft, PanelLeftClose } from "lucide-react";
-import { useState } from "react";
-import { HotelPageMainPageLayout } from "./HotelPageMainLayout";
+import {
+  SidebarProvider,
+  Sidebar,
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { HotelSidebar } from "./HotelSidebar";
+import { Separator } from "@/components/ui/separator";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export function HotelSideBarWrapper() {
-  const [collapsed, setCollapsed] = useState(false)
   return (
-    <div className="relative h-full w-full overflow-hidden">
-      {/* Floating Sidebar */}
-      <aside
-        className={cn(
-          "absolute left-2 top-2 bottom-2 z-20",
-          "rounded-xl border bg-background shadow-lg",
-          "transition-all duration-300 ease-in-out",
-          collapsed ? "w-14" : "w-64"
-        )}
-      >
-        {/* Toggle Button */}
-        <button
-          onClick={() => setCollapsed(v => !v)}
-          className="absolute -right-3 top-6 z-30 rounded-full border bg-background p-1 shadow hover:bg-accent"
-          aria-label="Toggle sidebar"
-        >
-          {collapsed ? (
-            <PanelLeft className="h-4 w-4" />
-          ) : (
-            <PanelLeftClose className="h-4 w-4" />
-          )}
-        </button>
+    <SidebarProvider defaultOpen>
+      <div className="flex w-full">
+        {/* Sidebar */}
+        <Sidebar collapsible="icon">
+          <HotelSidebar />
+        </Sidebar>
 
-        {/* Sidebar Content */}
-       <HotelPageMainPageLayout collapsed={collapsed}/>
-      </aside>
+        {/* Main content */}
+        <SidebarInset className="border m-2">
+          <div className="flex flex-col">
+            {/* Top bar */}
+            <header className="flex h-12 items-center border-b px-3">
+              <div className="flex items-center gap-2 px-3">
+                <SidebarTrigger />
+                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Breadcrumb>
+                  <BreadcrumbList>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href="#">
+                        Building Your Application
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </BreadcrumbList>
+                </Breadcrumb>
+              </div>
+            </header>
 
-      {/* Main Content */}
-      <div
-        className={cn(
-          "h-full transition-all duration-300 ease-in-out",
-          collapsed ? "pl-20" : "pl-72"
-        )}
-      >
-        <div className="h-full overflow-auto p-2">
-          <Outlet />
-        </div>
+            {/* Page content */}
+            <main className="flex-1 overflow-auto p-3">
+              <Outlet />
+            </main>
+          </div>
+        </SidebarInset>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }

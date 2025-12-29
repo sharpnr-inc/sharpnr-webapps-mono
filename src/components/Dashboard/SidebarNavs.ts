@@ -1,14 +1,12 @@
 import {
   UserCog,
   ClipboardList,
-  Database,
   BarChart3,
   CalendarDays,
   Settings,
   Utensils,
   BookOpen,
   Package,
-  Sparkles,
   MessageSquare,
   Shield,
   Wrench,
@@ -53,12 +51,6 @@ export const SharpHospitalityNavs: NavSection[] = [
         to: "/dashboard/sharp_hospitality/bar",
       },
       {
-        id: "hotel_guests",
-        label: "Guests",
-        icon: Database,
-        to: "/dashboard/sharp_hospitality/guests",
-      },
-      {
         id: "hotel_restaurant",
         label: "Restaurant",
         icon: Utensils, // Better icon for restaurant
@@ -88,18 +80,6 @@ export const SharpHospitalityNavs: NavSection[] = [
         label: "Inventory",
         icon: Package, // Better icon for inventory
         to: "/dashboard/sharp_hospitality/inventory",
-      },
-      {
-        id: "hotel_housekeeping",
-        label: "House Keeping",
-        icon: Sparkles, // Better icon for housekeeping
-        to: "/dashboard/sharp_hospitality/housekeeping", // Fixed: was pointing to inventory
-      },
-      {
-        id: "hotel_settings",
-        label: "Settings",
-        icon: Settings,
-        to: "/dashboard/sharp_accounting/settings",
       },
 
       {
