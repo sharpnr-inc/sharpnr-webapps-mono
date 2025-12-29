@@ -7,7 +7,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useRouterState, Link } from "@tanstack/react-router";
-import { BookOpen, ListTree,} from "lucide-react";
+import { BookOpen, ListTree } from "lucide-react";
 
 export function BarSideBarNav() {
   const { location } = useRouterState();
@@ -15,7 +15,21 @@ export function BarSideBarNav() {
   return (
     <SidebarContent className="sm:pt-16 md:pt-16">
       <SidebarGroup>
-        <SidebarGroupLabel>Hotel Management</SidebarGroupLabel>
+        <SidebarGroupLabel>Bar Management</SidebarGroupLabel>
+
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            asChild
+            isActive={
+              pathname === "/dashboard/sharp_hospitality/bar"
+            }
+          >
+            <Link to="/dashboard/sharp_hospitality/bar">
+              <BookOpen />
+              <span>Overview</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
 
         <SidebarMenu>
           <SidebarMenuItem>

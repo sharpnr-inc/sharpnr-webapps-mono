@@ -52,6 +52,7 @@ import { Route as DashboardSharp_accountingAuditAndLogsRouteRouteImport } from '
 import { Route as DashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/route'
 import { Route as DashboardSharp_hrEmployeesIndexRouteImport } from './routes/dashboard/sharp_hr/employees/index'
 import { Route as DashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/index'
+import { Route as DashboardSharp_hospitalityBarIndexRouteImport } from './routes/dashboard/sharp_hospitality/bar/index'
 import { Route as DashboardSharp_accountingReportsIndexRouteImport } from './routes/dashboard/sharp_accounting/reports/index'
 import { Route as DashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/dashboard/sharp_hr/employees/$employeeId'
 import { Route as DashboardSharp_hospitalityRestaurantTableIdRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/$tableId'
@@ -327,6 +328,12 @@ const DashboardSharp_hospitalityRestaurantIndexRoute =
     path: '/',
     getParentRoute: () => DashboardSharp_hospitalityRestaurantRoute,
   } as any)
+const DashboardSharp_hospitalityBarIndexRoute =
+  DashboardSharp_hospitalityBarIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardSharp_hospitalityBarRouteRoute,
+  } as any)
 const DashboardSharp_accountingReportsIndexRoute =
   DashboardSharp_accountingReportsIndexRouteImport.update({
     id: '/sharp_accounting/reports/',
@@ -537,6 +544,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_hospitality/bar/': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
@@ -553,7 +561,6 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/ledger': typeof DashboardSharp_accountingLedgerRouteRoute
   '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
-  '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarRouteRouteWithChildren
   '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/dashboard/sharp_hospitality/org-config': typeof DashboardSharp_hospitalityOrgConfigRouteRouteWithChildren
   '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
@@ -604,6 +611,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
@@ -674,6 +682,7 @@ export interface FileRoutesById {
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_accounting/reports/': typeof DashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_hospitality/bar/': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees/': typeof DashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
@@ -745,6 +754,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_accounting/reports'
+    | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
@@ -761,7 +771,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/ledger'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
-    | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
     | '/dashboard/sharp_hospitality/org-config'
     | '/dashboard/employee/employee_attendance'
@@ -812,6 +821,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_accounting/reports'
+    | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
@@ -881,6 +891,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_accounting/reports/'
+    | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees/'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
@@ -1198,6 +1209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_hospitalityRestaurantIndexRouteImport
       parentRoute: typeof DashboardSharp_hospitalityRestaurantRoute
     }
+    '/dashboard/sharp_hospitality/bar/': {
+      id: '/dashboard/sharp_hospitality/bar/'
+      path: '/'
+      fullPath: '/dashboard/sharp_hospitality/bar/'
+      preLoaderRoute: typeof DashboardSharp_hospitalityBarIndexRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityBarRouteRoute
+    }
     '/dashboard/sharp_accounting/reports/': {
       id: '/dashboard/sharp_accounting/reports/'
       path: '/sharp_accounting/reports'
@@ -1393,6 +1411,7 @@ const DashboardSharp_accountingAccountingSetupRouteRouteWithChildren =
 interface DashboardSharp_hospitalityBarRouteRouteChildren {
   DashboardSharp_hospitalityBarSaleCounterRoute: typeof DashboardSharp_hospitalityBarSaleCounterRoute
   DashboardSharp_hospitalityBarTablesManagementRoute: typeof DashboardSharp_hospitalityBarTablesManagementRoute
+  DashboardSharp_hospitalityBarIndexRoute: typeof DashboardSharp_hospitalityBarIndexRoute
 }
 
 const DashboardSharp_hospitalityBarRouteRouteChildren: DashboardSharp_hospitalityBarRouteRouteChildren =
@@ -1401,6 +1420,8 @@ const DashboardSharp_hospitalityBarRouteRouteChildren: DashboardSharp_hospitalit
       DashboardSharp_hospitalityBarSaleCounterRoute,
     DashboardSharp_hospitalityBarTablesManagementRoute:
       DashboardSharp_hospitalityBarTablesManagementRoute,
+    DashboardSharp_hospitalityBarIndexRoute:
+      DashboardSharp_hospitalityBarIndexRoute,
   }
 
 const DashboardSharp_hospitalityBarRouteRouteWithChildren =
