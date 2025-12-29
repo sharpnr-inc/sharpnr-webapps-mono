@@ -1,16 +1,12 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BedDouble, CalendarDays, DoorOpen } from "lucide-react";
-import EmptyHotelPlaceHolder from "./EmptyHotelComponenet";
+import EmptyHotelPlaceHolder from "../../sections/EmptyHotelComponenet";
 import { useState } from "react";
-// import { useQuery } from "@tanstack/react-query";
-// import { useHotelOverview } from "@/core-apis/queries/HospitalityQueries/Hotel";
 
-export default function HotelOverviewSection() {
-  
+export default function HotelOverviewMainPage() {
   // const query = useQuery(useHotelOverview());
 
-  const [isdata, setData] = useState(false);
-  console.log(setData)
+  const [isdata] = useState(false);
 
   return (
     <div className="space-y-2">

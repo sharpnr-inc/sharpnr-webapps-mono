@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import HotelBookingSection from "../sections/HotelBookingSection";
-import HotelOverviewSection from "../sections/HotelOverviewSection";
+import HotelOverviewSection from "./overview/HotelOverviewPage";
 import HotelRequestSection from "../sections/HotelRequestSection";
 import { useUIRenderer } from "@/context/ui-rendererContext";
 import { Route } from "@/routes/dashboard/sharp_hospitality/hotel";

@@ -17,7 +17,7 @@ export default function EmptyHotelPlaceHolder() {
  const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate({ to: "/dashboard/sharp_hospitality/orgConfig" });
+    navigate({ to: "/dashboard/sharp_hospitality/org-config/hotel-settings" });
   };
   return (
     <div className="p-2">
