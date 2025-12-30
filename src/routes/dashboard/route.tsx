@@ -16,9 +16,7 @@ function RouteComponent() {
         <HeaderProvider>
           <BookingAndOrdersNotificationProvider>
             <DashboardHeader useremail="kashifsocl@gmail.com" />
-            <div className="">
-              <Outlet />
-            </div>
+            <Outlet />
           </BookingAndOrdersNotificationProvider>
         </HeaderProvider>
       </EmployeePolicyProvider>

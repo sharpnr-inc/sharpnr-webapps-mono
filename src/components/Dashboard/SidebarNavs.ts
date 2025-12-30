@@ -13,7 +13,6 @@ import {
   Cookie,
   HotelIcon,
   TableConfig,
-  Server,
   type LucideIcon,
   Wallet,
 } from "lucide-react";
@@ -182,7 +181,7 @@ export const SharpHRNavs: NavSection[] = [
         id: "hr_recruitment",
         label: "Recruitment",
         icon: UserCog,
-        to: "/dashboard/sharp_hr/employees",
+        to: "/dashboard/sharp_hr/recruitment",
       },
       {
         id: "hr_payroll",

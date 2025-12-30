@@ -49,12 +49,12 @@ export default function DashboardHeader({
   return (
     <header
       className={cn(
-        " sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        "   sticky top-0 inset-x-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       )}
     >
-      <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="flex h-14 items-center justify-between gap-4 px-4">
         {/* Left Section */}
-        <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-5 flex-1">
           <MainMenuButton />
 
           <div className="hidden lg:block text-sm font-semibold text-muted-foreground whitespace-nowrap">

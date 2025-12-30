@@ -32,7 +32,7 @@ export function HospitalityOrchestratorRootLayout() {
             <header className="flex h-12 items-center border-b px-3">
               <div className="flex items-center gap-2 px-3">
                 <SidebarTrigger />
-                <Separator orientation="vertical" className="mr-2 h-4" />
+                <Separator orientation="vertical" className=" h-4" />
                 <Breadcrumb>
                   <BreadcrumbList>
                     <BreadcrumbItem className="hidden md:block">
@@ -50,7 +50,7 @@ export function HospitalityOrchestratorRootLayout() {
             </header>
 
             {/* Page content */}
-            <main className="flex-1 overflow-auto p-3">
+            <main className="flex-1 overflow-auto p-2">
               <Outlet />
             </main>
           </div>

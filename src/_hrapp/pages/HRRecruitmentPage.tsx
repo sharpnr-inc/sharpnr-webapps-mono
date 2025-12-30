@@ -10,12 +10,12 @@ import {
   FieldLegend,
   FieldSet,
 } from "@/components/ui/field";
-import { Input } from "../../../components/ui/input";
-import { Switch } from "../../../components/ui/switch";
-import { Button } from "../../../components/ui/button";
-import { Textarea } from "../../../components/ui/textarea";
+import { Input } from "../../components/ui/input";
+import { Switch } from "../../components/ui/switch";
+import { Button } from "../../components/ui/button";
+import { Textarea } from "../../components/ui/textarea";
 
-export default function EmployeeAddEmployeeSection() {
+export default function HRRecruitmentAddEmployeePage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [hasOnlineAccess, setHasOnlineAccess] = useState(false);
 

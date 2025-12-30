@@ -19,7 +19,7 @@ import {
 export function HotelSideBarWrapper() {
   return (
     <SidebarProvider defaultOpen>
-      <div className="flex w-full">
+      <div className="flex w-full ">
         {/* Sidebar */}
         <Sidebar collapsible="icon">
           <HotelSidebar />

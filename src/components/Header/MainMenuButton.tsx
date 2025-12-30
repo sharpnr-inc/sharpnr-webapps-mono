@@ -20,7 +20,7 @@ import {
   SharpHRNavs,
   SharpMarketingNavs,
 } from "@/components/Dashboard/SidebarNavs";
-import { Server } from "lucide-react";
+import sharpnrLogo from "../../../public/AppIcon.png";
 
 export default function MainMenuButton() {
   const navigate = useNavigate();
@@ -34,10 +34,18 @@ export default function MainMenuButton() {
 
   return (
     <div about="Header for the Sharpnr">
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            <Server />
+          <Button variant="outline" size="sm" className="group">
+            <img
+              src={sharpnrLogo}
+              alt="Menu"
+              className="
+          h-6 w-6
+          transition-transform duration-200 ease-in-out
+          group-data-[state=open]:rotate-180
+        "
+            />
           </Button>
         </DropdownMenuTrigger>
 
@@ -47,11 +55,11 @@ export default function MainMenuButton() {
               <DropdownMenuLabel className="text-sm font-semibold">
                 {section.title}
               </DropdownMenuLabel>
-              
+
               {section.items.map((item) => (
                 <DropdownMenuSub key={item.id}>
                   <DropdownMenuSubTrigger className="flex items-center gap-2">
-                    <item.icon className="w-4 h-4" />
+                    <item.icon className="h-4 w-4" />
                     {item.label}
                   </DropdownMenuSubTrigger>
 
@@ -61,14 +69,14 @@ export default function MainMenuButton() {
                         className="flex items-center gap-2"
                         onClick={() => navigate({ to: item.to })}
                       >
-                        <item.icon className="w-4 h-4" />
+                        <item.icon className="h-4 w-4" />
                         Open {item.label}
                       </DropdownMenuItem>
                     </DropdownMenuSubContent>
                   </DropdownMenuPortal>
                 </DropdownMenuSub>
               ))}
-              
+
               {index < allModules.length - 1 && <DropdownMenuSeparator />}
             </DropdownMenuGroup>
           ))}

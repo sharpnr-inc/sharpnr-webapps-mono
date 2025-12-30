@@ -1,14 +1,20 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../components/ui/card";
-import AllEmployeeDataTable from "../../components/employee/AllEmployeeDataTable";
+} from "../../components/ui/card";
+import { EmployeesTable } from "../components/employee/EmployeeTable";
+import { PlusIcon } from "lucide-react";
+import { useRouter } from "@tanstack/react-router";
 
-
-export default function EmployeeAllEmployeeSection() {
+export default function HRAllEmployeePage() {
+  const router = useRouter();
+  const handleCreateEmployee = () => {
+    router.navigate({ to: "/dashboard/sharp_hr/employees/direct-hire" });
+  };
   return (
     <div className="p-2 space-y-2">
       <div className="grid grig-cols-1 md:grid-cols-4 gap-5">
@@ -49,8 +55,11 @@ export default function EmployeeAllEmployeeSection() {
           </CardHeader>
         </Card>
       </div>
-     
-      <AllEmployeeDataTable/>
+      <Button onClick={() => handleCreateEmployee()} className="">
+        {" "}
+        <PlusIcon /> Add Employee
+      </Button>
+      <EmployeesTable />
     </div>
   );
 }
