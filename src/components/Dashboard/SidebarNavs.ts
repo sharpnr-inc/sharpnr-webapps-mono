@@ -178,6 +178,12 @@ export const SharpHRNavs: NavSection[] = [
         icon: UserCog,
         to: "/dashboard/sharp_hr/employees",
       },
+       {
+        id: "hr_recruitment",
+        label: "Recruitment",
+        icon: UserCog,
+        to: "/dashboard/sharp_hr/employees",
+      },
       {
         id: "hr_payroll",
         label: "Payroll",

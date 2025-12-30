@@ -23,11 +23,6 @@ import { Route as DashboardSharp_marketingSocial_media_managementRouteImport } f
 import { Route as DashboardSharp_marketingReportsRouteImport } from './routes/dashboard/sharp_marketing/reports'
 import { Route as DashboardSharp_marketingLeadsRouteImport } from './routes/dashboard/sharp_marketing/leads'
 import { Route as DashboardSharp_marketingCampaignsRouteImport } from './routes/dashboard/sharp_marketing/campaigns'
-import { Route as DashboardSharp_hrSettingsRouteImport } from './routes/dashboard/sharp_hr/settings'
-import { Route as DashboardSharp_hrReportsRouteImport } from './routes/dashboard/sharp_hr/reports'
-import { Route as DashboardSharp_hrPayrollRouteImport } from './routes/dashboard/sharp_hr/payroll'
-import { Route as DashboardSharp_hrLeaves_managementRouteImport } from './routes/dashboard/sharp_hr/leaves_management'
-import { Route as DashboardSharp_hrEmployeeRouteImport } from './routes/dashboard/sharp_hr/employee'
 import { Route as DashboardSharp_hospitalityKitchenRouteImport } from './routes/dashboard/sharp_hospitality/kitchen'
 import { Route as DashboardEmployeeReviewsRouteImport } from './routes/dashboard/employee/reviews'
 import { Route as DashboardEmployeeRequestsRouteImport } from './routes/dashboard/employee/requests'
@@ -46,6 +41,11 @@ import { Route as DashboardSharp_accountingSettingsRouteRouteImport } from './ro
 import { Route as DashboardSharp_accountingLedgerRouteRouteImport } from './routes/dashboard/sharp_accounting/ledger/route'
 import { Route as DashboardSharp_accountingAuditAndLogsRouteRouteImport } from './routes/dashboard/sharp_accounting/auditAndLogs/route'
 import { Route as DashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/route'
+import { Route as DashboardSharp_hrSettingsIndexRouteImport } from './routes/dashboard/sharp_hr/settings/index'
+import { Route as DashboardSharp_hrReportsIndexRouteImport } from './routes/dashboard/sharp_hr/reports/index'
+import { Route as DashboardSharp_hrRecruitmentIndexRouteImport } from './routes/dashboard/sharp_hr/recruitment/index'
+import { Route as DashboardSharp_hrPayrollIndexRouteImport } from './routes/dashboard/sharp_hr/payroll/index'
+import { Route as DashboardSharp_hrLeavesIndexRouteImport } from './routes/dashboard/sharp_hr/leaves/index'
 import { Route as DashboardSharp_hrEmployeesIndexRouteImport } from './routes/dashboard/sharp_hr/employees/index'
 import { Route as DashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/index'
 import { Route as DashboardSharp_hospitalityOrgConfigIndexRouteImport } from './routes/dashboard/sharp_hospitality/org-config/index'
@@ -54,6 +54,7 @@ import { Route as DashboardSharp_hospitalityInventoryIndexRouteImport } from './
 import { Route as DashboardSharp_hospitalityHotelIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/index'
 import { Route as DashboardSharp_hospitalityBarIndexRouteImport } from './routes/dashboard/sharp_hospitality/bar/index'
 import { Route as DashboardSharp_accountingReportsIndexRouteImport } from './routes/dashboard/sharp_accounting/reports/index'
+import { Route as DashboardSharp_hrLeavesRequestsRouteImport } from './routes/dashboard/sharp_hr/leaves/requests'
 import { Route as DashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/dashboard/sharp_hr/employees/$employeeId'
 import { Route as DashboardSharp_hospitalityRestaurantTableIdRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/$tableId'
 import { Route as DashboardSharp_hospitalityOrgConfigRestaurantSettingsRouteImport } from './routes/dashboard/sharp_hospitality/org-config/restaurant-settings'
@@ -72,6 +73,8 @@ import { Route as DashboardSharp_accountingReportsBalanceSheetRouteImport } from
 import { Route as DashboardSharp_accountingAccountingSetupChartOfAccountRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/chart-of-account'
 import { Route as DashboardSharp_accountingAccountingSetupBooksRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/books'
 import { Route as DashboardSharp_accountingAccountingSetupAccountMappingsRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/account-mappings'
+import { Route as DashboardSharp_hrEmployeesPrivilegesIndexRouteImport } from './routes/dashboard/sharp_hr/employees/privileges/index'
+import { Route as DashboardSharp_hrEmployeesDocumentsIndexRouteImport } from './routes/dashboard/sharp_hr/employees/documents/index'
 import { Route as DashboardSharp_hospitalityRestaurantTableIndexRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/table/index'
 import { Route as DashboardSharp_hospitalityHotelGuestsIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/guests/index'
 import { Route as DashboardSharp_hospitalityHotelBookingIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/index'
@@ -153,36 +156,6 @@ const DashboardSharp_marketingCampaignsRoute =
   DashboardSharp_marketingCampaignsRouteImport.update({
     id: '/sharp_marketing/campaigns',
     path: '/sharp_marketing/campaigns',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardSharp_hrSettingsRoute =
-  DashboardSharp_hrSettingsRouteImport.update({
-    id: '/sharp_hr/settings',
-    path: '/sharp_hr/settings',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardSharp_hrReportsRoute =
-  DashboardSharp_hrReportsRouteImport.update({
-    id: '/sharp_hr/reports',
-    path: '/sharp_hr/reports',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardSharp_hrPayrollRoute =
-  DashboardSharp_hrPayrollRouteImport.update({
-    id: '/sharp_hr/payroll',
-    path: '/sharp_hr/payroll',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardSharp_hrLeaves_managementRoute =
-  DashboardSharp_hrLeaves_managementRouteImport.update({
-    id: '/sharp_hr/leaves_management',
-    path: '/sharp_hr/leaves_management',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardSharp_hrEmployeeRoute =
-  DashboardSharp_hrEmployeeRouteImport.update({
-    id: '/sharp_hr/employee',
-    path: '/sharp_hr/employee',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
 const DashboardSharp_hospitalityKitchenRoute =
@@ -292,6 +265,36 @@ const DashboardSharp_accountingAccountingSetupRouteRoute =
     path: '/sharp_accounting/accounting-setup',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
+const DashboardSharp_hrSettingsIndexRoute =
+  DashboardSharp_hrSettingsIndexRouteImport.update({
+    id: '/sharp_hr/settings/',
+    path: '/sharp_hr/settings/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardSharp_hrReportsIndexRoute =
+  DashboardSharp_hrReportsIndexRouteImport.update({
+    id: '/sharp_hr/reports/',
+    path: '/sharp_hr/reports/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardSharp_hrRecruitmentIndexRoute =
+  DashboardSharp_hrRecruitmentIndexRouteImport.update({
+    id: '/sharp_hr/recruitment/',
+    path: '/sharp_hr/recruitment/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardSharp_hrPayrollIndexRoute =
+  DashboardSharp_hrPayrollIndexRouteImport.update({
+    id: '/sharp_hr/payroll/',
+    path: '/sharp_hr/payroll/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardSharp_hrLeavesIndexRoute =
+  DashboardSharp_hrLeavesIndexRouteImport.update({
+    id: '/sharp_hr/leaves/',
+    path: '/sharp_hr/leaves/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 const DashboardSharp_hrEmployeesIndexRoute =
   DashboardSharp_hrEmployeesIndexRouteImport.update({
     id: '/sharp_hr/employees/',
@@ -338,6 +341,12 @@ const DashboardSharp_accountingReportsIndexRoute =
   DashboardSharp_accountingReportsIndexRouteImport.update({
     id: '/sharp_accounting/reports/',
     path: '/sharp_accounting/reports/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardSharp_hrLeavesRequestsRoute =
+  DashboardSharp_hrLeavesRequestsRouteImport.update({
+    id: '/sharp_hr/leaves/requests',
+    path: '/sharp_hr/leaves/requests',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
 const DashboardSharp_hrEmployeesEmployeeIdRoute =
@@ -448,6 +457,18 @@ const DashboardSharp_accountingAccountingSetupAccountMappingsRoute =
     path: '/account-mappings',
     getParentRoute: () => DashboardSharp_accountingAccountingSetupRouteRoute,
   } as any)
+const DashboardSharp_hrEmployeesPrivilegesIndexRoute =
+  DashboardSharp_hrEmployeesPrivilegesIndexRouteImport.update({
+    id: '/sharp_hr/employees/privileges/',
+    path: '/sharp_hr/employees/privileges/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
+const DashboardSharp_hrEmployeesDocumentsIndexRoute =
+  DashboardSharp_hrEmployeesDocumentsIndexRouteImport.update({
+    id: '/sharp_hr/employees/documents/',
+    path: '/sharp_hr/employees/documents/',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 const DashboardSharp_hospitalityRestaurantTableIndexRoute =
   DashboardSharp_hospitalityRestaurantTableIndexRouteImport.update({
     id: '/table/',
@@ -505,11 +526,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
-  '/dashboard/sharp_hr/employee': typeof DashboardSharp_hrEmployeeRoute
-  '/dashboard/sharp_hr/leaves_management': typeof DashboardSharp_hrLeaves_managementRoute
-  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollRoute
-  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsRoute
-  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
@@ -535,6 +551,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/org-config/restaurant-settings': typeof DashboardSharp_hospitalityOrgConfigRestaurantSettingsRoute
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  '/dashboard/sharp_hr/leaves/requests': typeof DashboardSharp_hrLeavesRequestsRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar/': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof DashboardSharp_hospitalityHotelIndexRoute
@@ -543,10 +560,17 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/org-config/': typeof DashboardSharp_hospitalityOrgConfigIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hr/leaves': typeof DashboardSharp_hrLeavesIndexRoute
+  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollIndexRoute
+  '/dashboard/sharp_hr/recruitment': typeof DashboardSharp_hrRecruitmentIndexRoute
+  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsIndexRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
   '/dashboard/sharp_hospitality/hotel/booking': typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   '/dashboard/sharp_hospitality/hotel/guests': typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table': typeof DashboardSharp_hospitalityRestaurantTableIndexRoute
+  '/dashboard/sharp_hr/employees/documents': typeof DashboardSharp_hrEmployeesDocumentsIndexRoute
+  '/dashboard/sharp_hr/employees/privileges': typeof DashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 export interface FileRoutesByTo {
@@ -570,11 +594,6 @@ export interface FileRoutesByTo {
   '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
-  '/dashboard/sharp_hr/employee': typeof DashboardSharp_hrEmployeeRoute
-  '/dashboard/sharp_hr/leaves_management': typeof DashboardSharp_hrLeaves_managementRoute
-  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollRoute
-  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsRoute
-  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
@@ -600,6 +619,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/org-config/restaurant-settings': typeof DashboardSharp_hospitalityOrgConfigRestaurantSettingsRoute
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  '/dashboard/sharp_hr/leaves/requests': typeof DashboardSharp_hrLeavesRequestsRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelIndexRoute
@@ -608,10 +628,17 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/org-config': typeof DashboardSharp_hospitalityOrgConfigIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hr/leaves': typeof DashboardSharp_hrLeavesIndexRoute
+  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollIndexRoute
+  '/dashboard/sharp_hr/recruitment': typeof DashboardSharp_hrRecruitmentIndexRoute
+  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsIndexRoute
+  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
   '/dashboard/sharp_hospitality/hotel/booking': typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   '/dashboard/sharp_hospitality/hotel/guests': typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table': typeof DashboardSharp_hospitalityRestaurantTableIndexRoute
+  '/dashboard/sharp_hr/employees/documents': typeof DashboardSharp_hrEmployeesDocumentsIndexRoute
+  '/dashboard/sharp_hr/employees/privileges': typeof DashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 export interface FileRoutesById {
@@ -641,11 +668,6 @@ export interface FileRoutesById {
   '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
   '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
-  '/dashboard/sharp_hr/employee': typeof DashboardSharp_hrEmployeeRoute
-  '/dashboard/sharp_hr/leaves_management': typeof DashboardSharp_hrLeaves_managementRoute
-  '/dashboard/sharp_hr/payroll': typeof DashboardSharp_hrPayrollRoute
-  '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsRoute
-  '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
@@ -671,6 +693,7 @@ export interface FileRoutesById {
   '/dashboard/sharp_hospitality/org-config/restaurant-settings': typeof DashboardSharp_hospitalityOrgConfigRestaurantSettingsRoute
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  '/dashboard/sharp_hr/leaves/requests': typeof DashboardSharp_hrLeavesRequestsRoute
   '/dashboard/sharp_accounting/reports/': typeof DashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar/': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof DashboardSharp_hospitalityHotelIndexRoute
@@ -679,10 +702,17 @@ export interface FileRoutesById {
   '/dashboard/sharp_hospitality/org-config/': typeof DashboardSharp_hospitalityOrgConfigIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees/': typeof DashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hr/leaves/': typeof DashboardSharp_hrLeavesIndexRoute
+  '/dashboard/sharp_hr/payroll/': typeof DashboardSharp_hrPayrollIndexRoute
+  '/dashboard/sharp_hr/recruitment/': typeof DashboardSharp_hrRecruitmentIndexRoute
+  '/dashboard/sharp_hr/reports/': typeof DashboardSharp_hrReportsIndexRoute
+  '/dashboard/sharp_hr/settings/': typeof DashboardSharp_hrSettingsIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
   '/dashboard/sharp_hospitality/hotel/booking/': typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   '/dashboard/sharp_hospitality/hotel/guests/': typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table/': typeof DashboardSharp_hospitalityRestaurantTableIndexRoute
+  '/dashboard/sharp_hr/employees/documents/': typeof DashboardSharp_hrEmployeesDocumentsIndexRoute
+  '/dashboard/sharp_hr/employees/privileges/': typeof DashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 export interface FileRouteTypes {
@@ -713,11 +743,6 @@ export interface FileRouteTypes {
     | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
     | '/dashboard/sharp_hospitality/kitchen'
-    | '/dashboard/sharp_hr/employee'
-    | '/dashboard/sharp_hr/leaves_management'
-    | '/dashboard/sharp_hr/payroll'
-    | '/dashboard/sharp_hr/reports'
-    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -743,6 +768,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/org-config/restaurant-settings'
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
+    | '/dashboard/sharp_hr/leaves/requests'
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
@@ -751,10 +777,17 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/org-config/'
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees'
+    | '/dashboard/sharp_hr/leaves'
+    | '/dashboard/sharp_hr/payroll'
+    | '/dashboard/sharp_hr/recruitment'
+    | '/dashboard/sharp_hr/reports'
+    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
     | '/dashboard/sharp_hospitality/hotel/booking'
     | '/dashboard/sharp_hospitality/hotel/guests'
     | '/dashboard/sharp_hospitality/restaurant/table'
+    | '/dashboard/sharp_hr/employees/documents'
+    | '/dashboard/sharp_hr/employees/privileges'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -778,11 +811,6 @@ export interface FileRouteTypes {
     | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
     | '/dashboard/sharp_hospitality/kitchen'
-    | '/dashboard/sharp_hr/employee'
-    | '/dashboard/sharp_hr/leaves_management'
-    | '/dashboard/sharp_hr/payroll'
-    | '/dashboard/sharp_hr/reports'
-    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -808,6 +836,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/org-config/restaurant-settings'
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
+    | '/dashboard/sharp_hr/leaves/requests'
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
@@ -816,10 +845,17 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/org-config'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hr/employees'
+    | '/dashboard/sharp_hr/leaves'
+    | '/dashboard/sharp_hr/payroll'
+    | '/dashboard/sharp_hr/recruitment'
+    | '/dashboard/sharp_hr/reports'
+    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
     | '/dashboard/sharp_hospitality/hotel/booking'
     | '/dashboard/sharp_hospitality/hotel/guests'
     | '/dashboard/sharp_hospitality/restaurant/table'
+    | '/dashboard/sharp_hr/employees/documents'
+    | '/dashboard/sharp_hr/employees/privileges'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
   id:
     | '__root__'
@@ -848,11 +884,6 @@ export interface FileRouteTypes {
     | '/dashboard/employee/requests'
     | '/dashboard/employee/reviews'
     | '/dashboard/sharp_hospitality/kitchen'
-    | '/dashboard/sharp_hr/employee'
-    | '/dashboard/sharp_hr/leaves_management'
-    | '/dashboard/sharp_hr/payroll'
-    | '/dashboard/sharp_hr/reports'
-    | '/dashboard/sharp_hr/settings'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -878,6 +909,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/org-config/restaurant-settings'
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
+    | '/dashboard/sharp_hr/leaves/requests'
     | '/dashboard/sharp_accounting/reports/'
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
@@ -886,10 +918,17 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/org-config/'
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees/'
+    | '/dashboard/sharp_hr/leaves/'
+    | '/dashboard/sharp_hr/payroll/'
+    | '/dashboard/sharp_hr/recruitment/'
+    | '/dashboard/sharp_hr/reports/'
+    | '/dashboard/sharp_hr/settings/'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
     | '/dashboard/sharp_hospitality/hotel/booking/'
     | '/dashboard/sharp_hospitality/hotel/guests/'
     | '/dashboard/sharp_hospitality/restaurant/table/'
+    | '/dashboard/sharp_hr/employees/documents/'
+    | '/dashboard/sharp_hr/employees/privileges/'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
   fileRoutesById: FileRoutesById
 }
@@ -1000,41 +1039,6 @@ declare module '@tanstack/react-router' {
       path: '/sharp_marketing/campaigns'
       fullPath: '/dashboard/sharp_marketing/campaigns'
       preLoaderRoute: typeof DashboardSharp_marketingCampaignsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/sharp_hr/settings': {
-      id: '/dashboard/sharp_hr/settings'
-      path: '/sharp_hr/settings'
-      fullPath: '/dashboard/sharp_hr/settings'
-      preLoaderRoute: typeof DashboardSharp_hrSettingsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/sharp_hr/reports': {
-      id: '/dashboard/sharp_hr/reports'
-      path: '/sharp_hr/reports'
-      fullPath: '/dashboard/sharp_hr/reports'
-      preLoaderRoute: typeof DashboardSharp_hrReportsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/sharp_hr/payroll': {
-      id: '/dashboard/sharp_hr/payroll'
-      path: '/sharp_hr/payroll'
-      fullPath: '/dashboard/sharp_hr/payroll'
-      preLoaderRoute: typeof DashboardSharp_hrPayrollRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/sharp_hr/leaves_management': {
-      id: '/dashboard/sharp_hr/leaves_management'
-      path: '/sharp_hr/leaves_management'
-      fullPath: '/dashboard/sharp_hr/leaves_management'
-      preLoaderRoute: typeof DashboardSharp_hrLeaves_managementRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/sharp_hr/employee': {
-      id: '/dashboard/sharp_hr/employee'
-      path: '/sharp_hr/employee'
-      fullPath: '/dashboard/sharp_hr/employee'
-      preLoaderRoute: typeof DashboardSharp_hrEmployeeRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/sharp_hospitality/kitchen': {
@@ -1163,6 +1167,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/sharp_hr/settings/': {
+      id: '/dashboard/sharp_hr/settings/'
+      path: '/sharp_hr/settings'
+      fullPath: '/dashboard/sharp_hr/settings'
+      preLoaderRoute: typeof DashboardSharp_hrSettingsIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/sharp_hr/reports/': {
+      id: '/dashboard/sharp_hr/reports/'
+      path: '/sharp_hr/reports'
+      fullPath: '/dashboard/sharp_hr/reports'
+      preLoaderRoute: typeof DashboardSharp_hrReportsIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/sharp_hr/recruitment/': {
+      id: '/dashboard/sharp_hr/recruitment/'
+      path: '/sharp_hr/recruitment'
+      fullPath: '/dashboard/sharp_hr/recruitment'
+      preLoaderRoute: typeof DashboardSharp_hrRecruitmentIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/sharp_hr/payroll/': {
+      id: '/dashboard/sharp_hr/payroll/'
+      path: '/sharp_hr/payroll'
+      fullPath: '/dashboard/sharp_hr/payroll'
+      preLoaderRoute: typeof DashboardSharp_hrPayrollIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/sharp_hr/leaves/': {
+      id: '/dashboard/sharp_hr/leaves/'
+      path: '/sharp_hr/leaves'
+      fullPath: '/dashboard/sharp_hr/leaves'
+      preLoaderRoute: typeof DashboardSharp_hrLeavesIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/sharp_hr/employees/': {
       id: '/dashboard/sharp_hr/employees/'
       path: '/sharp_hr/employees'
@@ -1217,6 +1256,13 @@ declare module '@tanstack/react-router' {
       path: '/sharp_accounting/reports'
       fullPath: '/dashboard/sharp_accounting/reports'
       preLoaderRoute: typeof DashboardSharp_accountingReportsIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/sharp_hr/leaves/requests': {
+      id: '/dashboard/sharp_hr/leaves/requests'
+      path: '/sharp_hr/leaves/requests'
+      fullPath: '/dashboard/sharp_hr/leaves/requests'
+      preLoaderRoute: typeof DashboardSharp_hrLeavesRequestsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/sharp_hr/employees/$employeeId': {
@@ -1344,6 +1390,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_accounting/accounting-setup/account-mappings'
       preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupAccountMappingsRouteImport
       parentRoute: typeof DashboardSharp_accountingAccountingSetupRouteRoute
+    }
+    '/dashboard/sharp_hr/employees/privileges/': {
+      id: '/dashboard/sharp_hr/employees/privileges/'
+      path: '/sharp_hr/employees/privileges'
+      fullPath: '/dashboard/sharp_hr/employees/privileges'
+      preLoaderRoute: typeof DashboardSharp_hrEmployeesPrivilegesIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/sharp_hr/employees/documents/': {
+      id: '/dashboard/sharp_hr/employees/documents/'
+      path: '/sharp_hr/employees/documents'
+      fullPath: '/dashboard/sharp_hr/employees/documents'
+      preLoaderRoute: typeof DashboardSharp_hrEmployeesDocumentsIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/sharp_hospitality/restaurant/table/': {
       id: '/dashboard/sharp_hospitality/restaurant/table/'
@@ -1529,11 +1589,6 @@ interface DashboardRouteRouteChildren {
   DashboardEmployeeRequestsRoute: typeof DashboardEmployeeRequestsRoute
   DashboardEmployeeReviewsRoute: typeof DashboardEmployeeReviewsRoute
   DashboardSharp_hospitalityKitchenRoute: typeof DashboardSharp_hospitalityKitchenRoute
-  DashboardSharp_hrEmployeeRoute: typeof DashboardSharp_hrEmployeeRoute
-  DashboardSharp_hrLeaves_managementRoute: typeof DashboardSharp_hrLeaves_managementRoute
-  DashboardSharp_hrPayrollRoute: typeof DashboardSharp_hrPayrollRoute
-  DashboardSharp_hrReportsRoute: typeof DashboardSharp_hrReportsRoute
-  DashboardSharp_hrSettingsRoute: typeof DashboardSharp_hrSettingsRoute
   DashboardSharp_marketingCampaignsRoute: typeof DashboardSharp_marketingCampaignsRoute
   DashboardSharp_marketingLeadsRoute: typeof DashboardSharp_marketingLeadsRoute
   DashboardSharp_marketingReportsRoute: typeof DashboardSharp_marketingReportsRoute
@@ -1546,10 +1601,18 @@ interface DashboardRouteRouteChildren {
   DashboardSharp_accountingReportsProfitLossRoute: typeof DashboardSharp_accountingReportsProfitLossRoute
   DashboardSharp_accountingReportsTrialBalanceRoute: typeof DashboardSharp_accountingReportsTrialBalanceRoute
   DashboardSharp_hrEmployeesEmployeeIdRoute: typeof DashboardSharp_hrEmployeesEmployeeIdRoute
+  DashboardSharp_hrLeavesRequestsRoute: typeof DashboardSharp_hrLeavesRequestsRoute
   DashboardSharp_accountingReportsIndexRoute: typeof DashboardSharp_accountingReportsIndexRoute
   DashboardSharp_hospitalityInventoryIndexRoute: typeof DashboardSharp_hospitalityInventoryIndexRoute
   DashboardSharp_hospitalityMenuIndexRoute: typeof DashboardSharp_hospitalityMenuIndexRoute
   DashboardSharp_hrEmployeesIndexRoute: typeof DashboardSharp_hrEmployeesIndexRoute
+  DashboardSharp_hrLeavesIndexRoute: typeof DashboardSharp_hrLeavesIndexRoute
+  DashboardSharp_hrPayrollIndexRoute: typeof DashboardSharp_hrPayrollIndexRoute
+  DashboardSharp_hrRecruitmentIndexRoute: typeof DashboardSharp_hrRecruitmentIndexRoute
+  DashboardSharp_hrReportsIndexRoute: typeof DashboardSharp_hrReportsIndexRoute
+  DashboardSharp_hrSettingsIndexRoute: typeof DashboardSharp_hrSettingsIndexRoute
+  DashboardSharp_hrEmployeesDocumentsIndexRoute: typeof DashboardSharp_hrEmployeesDocumentsIndexRoute
+  DashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof DashboardSharp_hrEmployeesPrivilegesIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
@@ -1583,12 +1646,6 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardEmployeeReviewsRoute: DashboardEmployeeReviewsRoute,
   DashboardSharp_hospitalityKitchenRoute:
     DashboardSharp_hospitalityKitchenRoute,
-  DashboardSharp_hrEmployeeRoute: DashboardSharp_hrEmployeeRoute,
-  DashboardSharp_hrLeaves_managementRoute:
-    DashboardSharp_hrLeaves_managementRoute,
-  DashboardSharp_hrPayrollRoute: DashboardSharp_hrPayrollRoute,
-  DashboardSharp_hrReportsRoute: DashboardSharp_hrReportsRoute,
-  DashboardSharp_hrSettingsRoute: DashboardSharp_hrSettingsRoute,
   DashboardSharp_marketingCampaignsRoute:
     DashboardSharp_marketingCampaignsRoute,
   DashboardSharp_marketingLeadsRoute: DashboardSharp_marketingLeadsRoute,
@@ -1608,6 +1665,7 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
     DashboardSharp_accountingReportsTrialBalanceRoute,
   DashboardSharp_hrEmployeesEmployeeIdRoute:
     DashboardSharp_hrEmployeesEmployeeIdRoute,
+  DashboardSharp_hrLeavesRequestsRoute: DashboardSharp_hrLeavesRequestsRoute,
   DashboardSharp_accountingReportsIndexRoute:
     DashboardSharp_accountingReportsIndexRoute,
   DashboardSharp_hospitalityInventoryIndexRoute:
@@ -1615,6 +1673,16 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSharp_hospitalityMenuIndexRoute:
     DashboardSharp_hospitalityMenuIndexRoute,
   DashboardSharp_hrEmployeesIndexRoute: DashboardSharp_hrEmployeesIndexRoute,
+  DashboardSharp_hrLeavesIndexRoute: DashboardSharp_hrLeavesIndexRoute,
+  DashboardSharp_hrPayrollIndexRoute: DashboardSharp_hrPayrollIndexRoute,
+  DashboardSharp_hrRecruitmentIndexRoute:
+    DashboardSharp_hrRecruitmentIndexRoute,
+  DashboardSharp_hrReportsIndexRoute: DashboardSharp_hrReportsIndexRoute,
+  DashboardSharp_hrSettingsIndexRoute: DashboardSharp_hrSettingsIndexRoute,
+  DashboardSharp_hrEmployeesDocumentsIndexRoute:
+    DashboardSharp_hrEmployeesDocumentsIndexRoute,
+  DashboardSharp_hrEmployeesPrivilegesIndexRoute:
+    DashboardSharp_hrEmployeesPrivilegesIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
