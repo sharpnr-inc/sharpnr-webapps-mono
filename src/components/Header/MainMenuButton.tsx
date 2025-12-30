@@ -28,8 +28,8 @@ export default function MainMenuButton() {
   const allModules = [
     ...SharpHospitalityNavs,
     ...SharpAccountingNavs,
-    ...SharpMarketingNavs,
     ...SharpHRNavs,
+    ...SharpMarketingNavs,
   ];
 
   return (

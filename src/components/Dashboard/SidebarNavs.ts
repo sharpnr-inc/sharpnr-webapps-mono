@@ -56,13 +56,7 @@ export const SharpHospitalityNavs: NavSection[] = [
         icon: Utensils, // Better icon for restaurant
         to: "/dashboard/sharp_hospitality/restaurant", // Fixed typo: restaurant -> restaurant
       },
-
-      {
-        id: "hotel_services",
-        label: "Service",
-        icon: Server, // Better icon for restaurant
-        to: "/dashboard/sharp_hospitality/services", // Fixed typo: restaurant -> restaurant
-      },
+      
       {
         id: "hotel_menu",
         label: "Menu",
