@@ -8,10 +8,6 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import {
-  BookOpen,
-  ListTree,
-  Link2,
-  RemoveFormattingIcon,
   User,
   Calendar,
   DoorClosedIcon,
@@ -34,10 +30,10 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/overview"
+                pathname === "/dashboard/sharp_hospitality/hotel"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/overview">
+              <Link to="/dashboard/sharp_hospitality/hotel">
                 <BarChart3 />
                 <span>Overview</span>
               </Link>
