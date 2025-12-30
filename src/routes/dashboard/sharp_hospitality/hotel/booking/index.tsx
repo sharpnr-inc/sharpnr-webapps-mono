@@ -2,7 +2,8 @@ import HotelBookingSection from '@/_hospitalityapp/Hotel/sections/HotelBookingSe
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
-  '/dashboard/sharp_hospitality/hotel/bookings',
+  '/dashboard/sharp_hospitality/hotel/booking/',
 )({
   component: HotelBookingSection,
 })
+

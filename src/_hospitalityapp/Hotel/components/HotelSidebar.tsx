@@ -42,10 +42,10 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/bookings"
+                pathname === "/dashboard/sharp_hospitality/hotel/booking"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/bookings">
+              <Link to="/dashboard/sharp_hospitality/hotel/booking">
                 <CalendarCheck2 />
                 <span>Booking</span>
               </Link>

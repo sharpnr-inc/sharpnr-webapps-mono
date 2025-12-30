@@ -1,4 +1,5 @@
-import AddBookingForm from "@/_hospitalityapp/Hotel/pages/RoomPages/AddBookingForm";
+
+import { HotelRoomMainPage } from "@/_hospitalityapp/Hotel/pages/RoomPages/RoomMainPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
@@ -8,6 +9,7 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
-    const { roomId } = Route.useParams();
-  return <AddBookingForm roomId={roomId}/>;
+  //  const { roomId } = Route.useParams();
+  return <div><HotelRoomMainPage/></div>
 }
+

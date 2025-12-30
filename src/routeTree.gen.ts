@@ -63,8 +63,6 @@ import { Route as DashboardSharp_hospitalityOrgConfigBarSettingsRouteImport } fr
 import { Route as DashboardSharp_hospitalityHotelReservationsRouteImport } from './routes/dashboard/sharp_hospitality/hotel/reservations'
 import { Route as DashboardSharp_hospitalityHotelHouseKeepingRouteImport } from './routes/dashboard/sharp_hospitality/hotel/houseKeeping'
 import { Route as DashboardSharp_hospitalityHotelGenralSettingsRouteImport } from './routes/dashboard/sharp_hospitality/hotel/genral-settings'
-import { Route as DashboardSharp_hospitalityHotelBookingsRouteImport } from './routes/dashboard/sharp_hospitality/hotel/bookings'
-import { Route as DashboardSharp_hospitalityHotelRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/$roomId'
 import { Route as DashboardSharp_hospitalityBarTablesManagementRouteImport } from './routes/dashboard/sharp_hospitality/bar/tables-management'
 import { Route as DashboardSharp_hospitalityBarSaleCounterRouteImport } from './routes/dashboard/sharp_hospitality/bar/sale-counter'
 import { Route as DashboardSharp_accountingReportsTrialBalanceRouteImport } from './routes/dashboard/sharp_accounting/reports/trial-balance'
@@ -76,7 +74,9 @@ import { Route as DashboardSharp_accountingAccountingSetupBooksRouteImport } fro
 import { Route as DashboardSharp_accountingAccountingSetupAccountMappingsRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/account-mappings'
 import { Route as DashboardSharp_hospitalityRestaurantTableIndexRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/table/index'
 import { Route as DashboardSharp_hospitalityHotelGuestsIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/guests/index'
+import { Route as DashboardSharp_hospitalityHotelBookingIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/index'
 import { Route as DashboardSharp_hospitalityHotelBookingRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/$roomId'
+import { Route as DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
@@ -394,18 +394,6 @@ const DashboardSharp_hospitalityHotelGenralSettingsRoute =
     path: '/genral-settings',
     getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
   } as any)
-const DashboardSharp_hospitalityHotelBookingsRoute =
-  DashboardSharp_hospitalityHotelBookingsRouteImport.update({
-    id: '/bookings',
-    path: '/bookings',
-    getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
-  } as any)
-const DashboardSharp_hospitalityHotelRoomIdRoute =
-  DashboardSharp_hospitalityHotelRoomIdRouteImport.update({
-    id: '/$roomId',
-    path: '/$roomId',
-    getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
-  } as any)
 const DashboardSharp_hospitalityBarTablesManagementRoute =
   DashboardSharp_hospitalityBarTablesManagementRouteImport.update({
     id: '/tables-management',
@@ -472,10 +460,22 @@ const DashboardSharp_hospitalityHotelGuestsIndexRoute =
     path: '/guests/',
     getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
   } as any)
+const DashboardSharp_hospitalityHotelBookingIndexRoute =
+  DashboardSharp_hospitalityHotelBookingIndexRouteImport.update({
+    id: '/booking/',
+    path: '/booking/',
+    getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
+  } as any)
 const DashboardSharp_hospitalityHotelBookingRoomIdRoute =
   DashboardSharp_hospitalityHotelBookingRoomIdRouteImport.update({
     id: '/booking/$roomId',
     path: '/booking/$roomId',
+    getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
+  } as any)
+const DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute =
+  DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport.update({
+    id: '/booking/create-booking/$roomId',
+    path: '/booking/create-booking/$roomId',
     getParentRoute: () => DashboardSharp_hospitalityHotelRouteRoute,
   } as any)
 
@@ -526,8 +526,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboardSharp_accountingReportsTrialBalanceRoute
   '/dashboard/sharp_hospitality/bar/sale-counter': typeof DashboardSharp_hospitalityBarSaleCounterRoute
   '/dashboard/sharp_hospitality/bar/tables-management': typeof DashboardSharp_hospitalityBarTablesManagementRoute
-  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboardSharp_hospitalityHotelRoomIdRoute
-  '/dashboard/sharp_hospitality/hotel/bookings': typeof DashboardSharp_hospitalityHotelBookingsRoute
   '/dashboard/sharp_hospitality/hotel/genral-settings': typeof DashboardSharp_hospitalityHotelGenralSettingsRoute
   '/dashboard/sharp_hospitality/hotel/houseKeeping': typeof DashboardSharp_hospitalityHotelHouseKeepingRoute
   '/dashboard/sharp_hospitality/hotel/reservations': typeof DashboardSharp_hospitalityHotelReservationsRoute
@@ -546,8 +544,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
+  '/dashboard/sharp_hospitality/hotel/booking': typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   '/dashboard/sharp_hospitality/hotel/guests': typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table': typeof DashboardSharp_hospitalityRestaurantTableIndexRoute
+  '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -591,8 +591,6 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboardSharp_accountingReportsTrialBalanceRoute
   '/dashboard/sharp_hospitality/bar/sale-counter': typeof DashboardSharp_hospitalityBarSaleCounterRoute
   '/dashboard/sharp_hospitality/bar/tables-management': typeof DashboardSharp_hospitalityBarTablesManagementRoute
-  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboardSharp_hospitalityHotelRoomIdRoute
-  '/dashboard/sharp_hospitality/hotel/bookings': typeof DashboardSharp_hospitalityHotelBookingsRoute
   '/dashboard/sharp_hospitality/hotel/genral-settings': typeof DashboardSharp_hospitalityHotelGenralSettingsRoute
   '/dashboard/sharp_hospitality/hotel/houseKeeping': typeof DashboardSharp_hospitalityHotelHouseKeepingRoute
   '/dashboard/sharp_hospitality/hotel/reservations': typeof DashboardSharp_hospitalityHotelReservationsRoute
@@ -611,8 +609,10 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof DashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
+  '/dashboard/sharp_hospitality/hotel/booking': typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   '/dashboard/sharp_hospitality/hotel/guests': typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table': typeof DashboardSharp_hospitalityRestaurantTableIndexRoute
+  '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -662,8 +662,6 @@ export interface FileRoutesById {
   '/dashboard/sharp_accounting/reports/trial-balance': typeof DashboardSharp_accountingReportsTrialBalanceRoute
   '/dashboard/sharp_hospitality/bar/sale-counter': typeof DashboardSharp_hospitalityBarSaleCounterRoute
   '/dashboard/sharp_hospitality/bar/tables-management': typeof DashboardSharp_hospitalityBarTablesManagementRoute
-  '/dashboard/sharp_hospitality/hotel/$roomId': typeof DashboardSharp_hospitalityHotelRoomIdRoute
-  '/dashboard/sharp_hospitality/hotel/bookings': typeof DashboardSharp_hospitalityHotelBookingsRoute
   '/dashboard/sharp_hospitality/hotel/genral-settings': typeof DashboardSharp_hospitalityHotelGenralSettingsRoute
   '/dashboard/sharp_hospitality/hotel/houseKeeping': typeof DashboardSharp_hospitalityHotelHouseKeepingRoute
   '/dashboard/sharp_hospitality/hotel/reservations': typeof DashboardSharp_hospitalityHotelReservationsRoute
@@ -682,8 +680,10 @@ export interface FileRoutesById {
   '/dashboard/sharp_hospitality/restaurant/': typeof DashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees/': typeof DashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
+  '/dashboard/sharp_hospitality/hotel/booking/': typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   '/dashboard/sharp_hospitality/hotel/guests/': typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table/': typeof DashboardSharp_hospitalityRestaurantTableIndexRoute
+  '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -734,8 +734,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports/trial-balance'
     | '/dashboard/sharp_hospitality/bar/sale-counter'
     | '/dashboard/sharp_hospitality/bar/tables-management'
-    | '/dashboard/sharp_hospitality/hotel/$roomId'
-    | '/dashboard/sharp_hospitality/hotel/bookings'
     | '/dashboard/sharp_hospitality/hotel/genral-settings'
     | '/dashboard/sharp_hospitality/hotel/houseKeeping'
     | '/dashboard/sharp_hospitality/hotel/reservations'
@@ -754,8 +752,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
+    | '/dashboard/sharp_hospitality/hotel/booking'
     | '/dashboard/sharp_hospitality/hotel/guests'
     | '/dashboard/sharp_hospitality/restaurant/table'
+    | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -799,8 +799,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports/trial-balance'
     | '/dashboard/sharp_hospitality/bar/sale-counter'
     | '/dashboard/sharp_hospitality/bar/tables-management'
-    | '/dashboard/sharp_hospitality/hotel/$roomId'
-    | '/dashboard/sharp_hospitality/hotel/bookings'
     | '/dashboard/sharp_hospitality/hotel/genral-settings'
     | '/dashboard/sharp_hospitality/hotel/houseKeeping'
     | '/dashboard/sharp_hospitality/hotel/reservations'
@@ -819,8 +817,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
+    | '/dashboard/sharp_hospitality/hotel/booking'
     | '/dashboard/sharp_hospitality/hotel/guests'
     | '/dashboard/sharp_hospitality/restaurant/table'
+    | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
   id:
     | '__root__'
     | '/'
@@ -869,8 +869,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports/trial-balance'
     | '/dashboard/sharp_hospitality/bar/sale-counter'
     | '/dashboard/sharp_hospitality/bar/tables-management'
-    | '/dashboard/sharp_hospitality/hotel/$roomId'
-    | '/dashboard/sharp_hospitality/hotel/bookings'
     | '/dashboard/sharp_hospitality/hotel/genral-settings'
     | '/dashboard/sharp_hospitality/hotel/houseKeeping'
     | '/dashboard/sharp_hospitality/hotel/reservations'
@@ -889,8 +887,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees/'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
+    | '/dashboard/sharp_hospitality/hotel/booking/'
     | '/dashboard/sharp_hospitality/hotel/guests/'
     | '/dashboard/sharp_hospitality/restaurant/table/'
+    | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1282,20 +1282,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_hospitalityHotelGenralSettingsRouteImport
       parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
     }
-    '/dashboard/sharp_hospitality/hotel/bookings': {
-      id: '/dashboard/sharp_hospitality/hotel/bookings'
-      path: '/bookings'
-      fullPath: '/dashboard/sharp_hospitality/hotel/bookings'
-      preLoaderRoute: typeof DashboardSharp_hospitalityHotelBookingsRouteImport
-      parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/dashboard/sharp_hospitality/hotel/$roomId': {
-      id: '/dashboard/sharp_hospitality/hotel/$roomId'
-      path: '/$roomId'
-      fullPath: '/dashboard/sharp_hospitality/hotel/$roomId'
-      preLoaderRoute: typeof DashboardSharp_hospitalityHotelRoomIdRouteImport
-      parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
-    }
     '/dashboard/sharp_hospitality/bar/tables-management': {
       id: '/dashboard/sharp_hospitality/bar/tables-management'
       path: '/tables-management'
@@ -1373,11 +1359,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_hospitalityHotelGuestsIndexRouteImport
       parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
     }
+    '/dashboard/sharp_hospitality/hotel/booking/': {
+      id: '/dashboard/sharp_hospitality/hotel/booking/'
+      path: '/booking'
+      fullPath: '/dashboard/sharp_hospitality/hotel/booking'
+      preLoaderRoute: typeof DashboardSharp_hospitalityHotelBookingIndexRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
+    }
     '/dashboard/sharp_hospitality/hotel/booking/$roomId': {
       id: '/dashboard/sharp_hospitality/hotel/booking/$roomId'
       path: '/booking/$roomId'
       fullPath: '/dashboard/sharp_hospitality/hotel/booking/$roomId'
       preLoaderRoute: typeof DashboardSharp_hospitalityHotelBookingRoomIdRouteImport
+      parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
+    }
+    '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': {
+      id: '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
+      path: '/booking/create-booking/$roomId'
+      fullPath: '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
+      preLoaderRoute: typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport
       parentRoute: typeof DashboardSharp_hospitalityHotelRouteRoute
     }
   }
@@ -1426,22 +1426,18 @@ const DashboardSharp_hospitalityBarRouteRouteWithChildren =
   )
 
 interface DashboardSharp_hospitalityHotelRouteRouteChildren {
-  DashboardSharp_hospitalityHotelRoomIdRoute: typeof DashboardSharp_hospitalityHotelRoomIdRoute
-  DashboardSharp_hospitalityHotelBookingsRoute: typeof DashboardSharp_hospitalityHotelBookingsRoute
   DashboardSharp_hospitalityHotelGenralSettingsRoute: typeof DashboardSharp_hospitalityHotelGenralSettingsRoute
   DashboardSharp_hospitalityHotelHouseKeepingRoute: typeof DashboardSharp_hospitalityHotelHouseKeepingRoute
   DashboardSharp_hospitalityHotelReservationsRoute: typeof DashboardSharp_hospitalityHotelReservationsRoute
   DashboardSharp_hospitalityHotelIndexRoute: typeof DashboardSharp_hospitalityHotelIndexRoute
   DashboardSharp_hospitalityHotelBookingRoomIdRoute: typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
+  DashboardSharp_hospitalityHotelBookingIndexRoute: typeof DashboardSharp_hospitalityHotelBookingIndexRoute
   DashboardSharp_hospitalityHotelGuestsIndexRoute: typeof DashboardSharp_hospitalityHotelGuestsIndexRoute
+  DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute: typeof DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
 }
 
 const DashboardSharp_hospitalityHotelRouteRouteChildren: DashboardSharp_hospitalityHotelRouteRouteChildren =
   {
-    DashboardSharp_hospitalityHotelRoomIdRoute:
-      DashboardSharp_hospitalityHotelRoomIdRoute,
-    DashboardSharp_hospitalityHotelBookingsRoute:
-      DashboardSharp_hospitalityHotelBookingsRoute,
     DashboardSharp_hospitalityHotelGenralSettingsRoute:
       DashboardSharp_hospitalityHotelGenralSettingsRoute,
     DashboardSharp_hospitalityHotelHouseKeepingRoute:
@@ -1452,8 +1448,12 @@ const DashboardSharp_hospitalityHotelRouteRouteChildren: DashboardSharp_hospital
       DashboardSharp_hospitalityHotelIndexRoute,
     DashboardSharp_hospitalityHotelBookingRoomIdRoute:
       DashboardSharp_hospitalityHotelBookingRoomIdRoute,
+    DashboardSharp_hospitalityHotelBookingIndexRoute:
+      DashboardSharp_hospitalityHotelBookingIndexRoute,
     DashboardSharp_hospitalityHotelGuestsIndexRoute:
       DashboardSharp_hospitalityHotelGuestsIndexRoute,
+    DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute:
+      DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute,
   }
 
 const DashboardSharp_hospitalityHotelRouteRouteWithChildren =
