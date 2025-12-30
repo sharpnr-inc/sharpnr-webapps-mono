@@ -113,10 +113,10 @@ export function HotelSidebar() {
               asChild
               isActive={
                 pathname ===
-                "/dashboard/sharp_hospitality/hotel/genral-settings"
+                "/dashboard/sharp_hospitality/hotel/general-settings"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/genral-settings">
+              <Link to="/dashboard/sharp_hospitality/hotel/general-settings">
                 <BedDoubleIcon />
                 <span>General Settings(Pending)</span>
               </Link>
@@ -128,10 +128,10 @@ export function HotelSidebar() {
               asChild
               isActive={
                 pathname ===
-                "/dashboard/sharp_hospitality/hotel/genral-settings"
+                "/dashboard/sharp_hospitality/hotel/general-settings"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/genral-settings">
+              <Link to="/dashboard/sharp_hospitality/hotel/general-settings">
                 <BedDoubleIcon />
                 <span>Table Service(Pending)</span>
               </Link>

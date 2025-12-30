@@ -84,206 +84,257 @@ export function HotelRoomMainPage() {
   }
 
   return (
-    <div className="space-y-6 p-6">
+   <div className="mx-auto max-w-6xl space-y-6 p-4">
       {/* ───────── HEADER ───────── */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Room {room.roomName}</h1>
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Room {room.roomName}
+          </h1>
+          <p className="text-sm text-muted-foreground truncate">
+            Booking ID · {booking.id}
+          </p>
+        </div>
 
-        <Badge variant="secondary">{booking.status}</Badge>
+        <div className="flex items-center gap-3">
+          <Badge variant="secondary">{booking.status}</Badge>
+          <Button size="sm" onClick={handleAddPayments}>
+            Add Payment
+          </Button>
+        </div>
       </div>
 
-      {/* ───────── BOOKING INFO ───────── */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Booking Details</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="text-muted-foreground">Check-in</p>
-            <p>{formatDateTime(booking.checkInDate)}</p>
-          </div>
+      {/* ───────── MAIN GRID ───────── */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {/* LEFT COLUMN */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">
+                Booking Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <InfoRow
+                label="Check-in"
+                value={formatDateTime(booking.checkInDate)}
+              />
+              <InfoRow
+                label="Check-out"
+                value={formatDateTime(booking.checkOutDate)}
+              />
+              <InfoRow
+                label="Created At"
+                value={formatDateTime(booking.createdAt)}
+              />
+            </CardContent>
+          </Card>
 
-          <div>
-            <p className="text-muted-foreground">Check-out</p>
-            <p>{formatDateTime(booking.checkOutDate)}</p>
-          </div>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">
+                Primary Guest
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <InfoRow label="Name" value={guest.name} />
+              <InfoRow label="Mobile" value={guest.mobile} />
+            </CardContent>
+          </Card>
+        </div>
 
-          <div>
-            <p className="text-muted-foreground">Booking ID</p>
-            <p className="truncate">{booking.id}</p>
-          </div>
+        {/* RIGHT COLUMN */}
+        <div className="space-y-6 lg:col-span-2">
+          {/* Charges */}
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">
+                Charges
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {charges.length === 0 ? (
+                <EmptyState text="No charges added yet" />
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Description</TableHead>
+                      <TableHead className="text-right">
+                        Amount
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {charges.map((c) => (
+                      <TableRow key={c.id}>
+                        <TableCell>{c.description}</TableCell>
+                        <TableCell className="text-right font-medium">
+                          ₹{c.amount}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
 
-          <div>
-            <p className="text-muted-foreground">Created At</p>
-            <p>{formatDateTime(booking.createdAt).toLocaleString()}</p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* ───────── GUEST INFO ───────── */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Primary Guest</CardTitle>
-        </CardHeader>
-        <CardContent className="text-sm space-y-1">
-          <p>
-            <span className="text-muted-foreground">Name:</span> {guest.name}
-          </p>
-          <p>
-            <span className="text-muted-foreground">Mobile:</span>{" "}
-            {guest.mobile}
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* ───────── CHARGES TABLE ───────── */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Charges</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {charges.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              No charges added yet
-            </p>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Description</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {charges.map((c: any) => (
-                  <TableRow key={c.id}>
-                    <TableCell>{c.description}</TableCell>
-                    <TableCell className="text-right">₹{c.amount}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* ───────── PAYMENTS TABLE ───────── */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Payments</CardTitle>
-          <Button onClick={handleAddPayments} className="w-fit">Add Payments</Button>
-        </CardHeader>
-        <CardContent>
-          {payments.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              No payments recorded
-            </p>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Method</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {payments.map((p: any) => (
-                  <TableRow key={p.id}>
-                    <TableCell>{p.method}</TableCell>
-                    <TableCell className="text-right">₹{p.amount}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
-        </CardContent>
-      </Card>
-
-      <Separator />
-
-      {/* ───────── BALANCE ───────── */}
-      <div className="flex justify-end text-lg font-semibold">
-        Balance: ₹{balance}
+          {/* Payments */}
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">
+                Payments
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {payments.length === 0 ? (
+                <EmptyState text="No payments recorded" />
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Method</TableHead>
+                      <TableHead className="text-right">
+                        Amount
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {payments.map((p:any) => (
+                      <TableRow key={p.id}>
+                        <TableCell>{p.method}</TableCell>
+                        <TableCell className="text-right font-medium">
+                          ₹{p.amount}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
+      {/* ───────── BILL SUMMARY ───────── */}
       {previewBill && (
-        <Card>
+        <Card className="border-primary/20 bg-primary/5">
           <CardHeader>
-            <CardTitle>Bill Preview</CardTitle>
+            <CardTitle>Bill Summary</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            {/* Base Amount */}
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-medium">Base Amount</span>
-              <span className="text-sm">
-                {formatCurrency(previewBill.BaseAmount)}
-              </span>
-            </div>
+
+          <CardContent className="space-y-3">
+            <SummaryRow
+              label="Base Amount"
+              value={previewBill.BaseAmount}
+            />
+
+            {previewBill.TaxBreakup?.length ? (
+              <>
+                <Separator />
+                <div className="space-y-1">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Tax Breakup
+                  </p>
+                  {previewBill.TaxBreakup.map((tax, i) => (
+                    <div
+                      key={i}
+                      className="flex justify-between pl-4 text-sm text-muted-foreground"
+                    >
+                      <span>
+                        {tax.ComponentType} ({tax.Rate}%)
+                      </span>
+                      <span>
+                        {formatCurrency(tax.Amount)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : null}
+
+            <SummaryRow
+              label="Total Tax"
+              value={previewBill.TaxAmount}
+            />
 
             <Separator />
 
-            {/* Tax Breakup */}
-            {previewBill.TaxBreakup && previewBill.TaxBreakup.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-muted-foreground">
-                  Tax Breakup
-                </p>
-                {previewBill.TaxBreakup.map((tax, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center pl-4 py-1"
-                  >
-                    <span className="text-sm text-muted-foreground">
-                      {tax.ComponentType} ({tax.Rate}%)
-                    </span>
-                    <span className="text-sm">
-                      {formatCurrency(tax.Amount)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
+            <SummaryRow
+              label="Total Amount"
+              value={previewBill.TotalAmount}
+              strong
+            />
 
-            {/* Total Tax */}
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-medium">Total Tax</span>
-              <span className="text-sm">
-                {formatCurrency(previewBill.TaxAmount)}
+            <SummaryRow
+              label="Paid"
+              value={previewBill.PaidAmount}
+              className="text-green-600"
+            />
+
+            <div className="flex items-center justify-between rounded-lg bg-muted px-4 py-3">
+              <span className="font-semibold">
+                Balance Due
               </span>
-            </div>
-
-            <Separator className="my-2" />
-
-            {/* Total Amount */}
-            <div className="flex justify-between items-center py-2">
-              <span className="text-base font-semibold">Total Amount</span>
-              <span className="text-base font-semibold">
-                {formatCurrency(previewBill.TotalAmount)}
-              </span>
-            </div>
-
-            <Separator className="my-2" />
-
-            {/* Paid Amount */}
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-medium text-green-600">
-                Paid Amount
-              </span>
-              <span className="text-sm text-green-600">
-                {formatCurrency(previewBill.PaidAmount)}
-              </span>
-            </div>
-
-            {/* Balance */}
-            <div className="flex justify-between items-center py-3 bg-muted/50 px-4 rounded-lg">
-              <span className="text-base font-semibold">Balance Due</span>
-              <span className="text-base font-semibold text-orange-600">
+              <span className="font-semibold text-orange-600">
                 {formatCurrency(previewBill.Balance)}
               </span>
             </div>
           </CardContent>
         </Card>
       )}
+
+      {/* ───────── FOOTER BALANCE ───────── */}
+      <div className="flex justify-end text-lg font-semibold">
+        Balance: ₹{balance}
+      </div>
     </div>
   );
+}
+
+function SummaryRow({
+  label,
+  value,
+  strong,
+  className,
+}: {
+  label: string
+  value: number
+  strong?: boolean
+  className?: string
+}) {
+  return (
+    <div className={`flex justify-between ${className ?? ""}`}>
+      <span className={strong ? "font-semibold" : "text-sm"}>
+        {label}
+      </span>
+      <span className={strong ? "font-semibold" : "text-sm"}>
+        {formatCurrency(value)}
+      </span>
+    </div>
+  )
+}
+
+function InfoRow({
+  label,
+  value,
+}: {
+  label: string
+  value: React.ReactNode
+}) {
+  return (
+    <div className="flex justify-between gap-4">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="font-medium text-right">{value}</span>
+    </div>
+  )
+}
+
+function EmptyState({ text }: { text: string }) {
+  return (
+    <p className="py-6 text-center text-sm text-muted-foreground">
+      {text}
+    </p>
+  )
 }
