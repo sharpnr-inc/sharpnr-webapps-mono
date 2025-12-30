@@ -1,4 +1,4 @@
-import { HotelSideBarWrapper } from '@/_hospitalityapp/Hotel/pages/SideBarWarpper'
+import { HotelSideBarWrapper } from '@/_hospitalityapp/Hotel/components/SideBarWarpper'
 import { createFileRoute } from '@tanstack/react-router'
 import { Hotel } from 'lucide-react'
 
