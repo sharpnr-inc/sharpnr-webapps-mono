@@ -44,12 +44,12 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/reservations"
+                pathname === "/dashboard/sharp_hospitality/hotel/bookings"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/reservations">
+              <Link to="/dashboard/sharp_hospitality/hotel/bookings">
                 <CalendarCheck2 />
-                <span>Reservations</span>
+                <span>Booking</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -72,12 +72,12 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+                pathname === "/dashboard/sharp_hospitality/hotel/reservations"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+              <Link to="/dashboard/sharp_hospitality/hotel/reservations">
                 <Calendar />
-                <span>Calendar</span>
+                <span>Reservations</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -86,10 +86,10 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+                pathname === "/dashboard/sharp_hospitality/hotel/guests"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+              <Link to="/dashboard/sharp_hospitality/hotel/guests">
                 <User />
                 <span>Guests(Pending)</span>
               </Link>
@@ -100,10 +100,10 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+                pathname === "/dashboard/sharp_hospitality/hotel/houseKeeping"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+              <Link to="/dashboard/sharp_hospitality/hotel/houseKeeping">
                 <BedDoubleIcon />
                 <span>Housekeeping(Pending)</span>
               </Link>
@@ -114,12 +114,12 @@ export function HotelSidebar() {
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/schedules"
+                pathname === "/dashboard/sharp_hospitality/hotel/genral-settings"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/schedules">
+              <Link to="/dashboard/sharp_hospitality/hotel/genral-settings">
                 <BedDoubleIcon />
-                <span>Requests(Pending)</span>
+                <span>General Settings(Pending)</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
