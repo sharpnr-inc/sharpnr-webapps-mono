@@ -11,10 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-// import { useOrchestratorQuery } from "@/core-apis/queries/OrchestratorQueries/Orchestrator";
 
 export default function ORGConfigSection() {
-// const {data } = useOrchestratorQuery()
 
   const form = useForm({
     defaultValues: {

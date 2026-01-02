@@ -13,9 +13,13 @@ import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as SignupVerifyOtpRouteImport } from './routes/signup/verify-otp'
 import { Route as SignupCompleteRegistrationRouteImport } from './routes/signup/complete-registration'
+import { Route as OrgSignupOnBoardingRouteImport } from './routes/org-signup/on-boarding'
+import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
+import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
 import { Route as DashboardSharp_marketingIndexRouteImport } from './routes/dashboard/sharp_marketing/index'
 import { Route as DashboardSharp_accountingIndexRouteImport } from './routes/dashboard/sharp_accounting/index'
 import { Route as DashboardEmployeeIndexRouteImport } from './routes/dashboard/employee/index'
@@ -102,6 +106,11 @@ const SignupIndexRoute = SignupIndexRouteImport.update({
   path: '/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
+  id: '/org-signup/',
+  path: '/org-signup/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -116,6 +125,23 @@ const SignupCompleteRegistrationRoute =
   SignupCompleteRegistrationRouteImport.update({
     id: '/signup/complete-registration',
     path: '/signup/complete-registration',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OrgSignupOnBoardingRoute = OrgSignupOnBoardingRouteImport.update({
+  id: '/org-signup/on-boarding',
+  path: '/org-signup/on-boarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SharpOrgEmployeeVerificationIndexRoute =
+  SharpOrgEmployeeVerificationIndexRouteImport.update({
+    id: '/sharp-org-employee/verification/',
+    path: '/sharp-org-employee/verification/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const SharpOrgEmployeeSetPasswordIndexRoute =
+  SharpOrgEmployeeSetPasswordIndexRouteImport.update({
+    id: '/sharp-org-employee/set-password/',
+    path: '/sharp-org-employee/set-password/',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DashboardSharp_marketingIndexRoute =
@@ -511,9 +537,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/unauthorized': typeof UnauthorizedRoute
+  '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/org-signup': typeof OrgSignupIndexRoute
   '/signup': typeof SignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
@@ -540,6 +568,8 @@ export interface FileRoutesByFullPath {
   '/dashboard/employee': typeof DashboardEmployeeIndexRoute
   '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
+  '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
+  '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
   '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboardSharp_accountingAccountingSetupBooksRoute
   '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
@@ -584,9 +614,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/org-signup': typeof OrgSignupIndexRoute
   '/signup': typeof SignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
@@ -609,6 +641,8 @@ export interface FileRoutesByTo {
   '/dashboard/employee': typeof DashboardEmployeeIndexRoute
   '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
+  '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
+  '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
   '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboardSharp_accountingAccountingSetupBooksRoute
   '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
@@ -655,9 +689,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/unauthorized': typeof UnauthorizedRoute
+  '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/signup/complete-registration': typeof SignupCompleteRegistrationRoute
   '/signup/verify-otp': typeof SignupVerifyOtpRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/org-signup/': typeof OrgSignupIndexRoute
   '/signup/': typeof SignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
@@ -684,6 +720,8 @@ export interface FileRoutesById {
   '/dashboard/employee/': typeof DashboardEmployeeIndexRoute
   '/dashboard/sharp_accounting/': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing/': typeof DashboardSharp_marketingIndexRoute
+  '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
+  '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
   '/dashboard/sharp_accounting/accounting-setup/books': typeof DashboardSharp_accountingAccountingSetupBooksRoute
   '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof DashboardSharp_accountingAccountingSetupChartOfAccountRoute
@@ -731,9 +769,11 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/unauthorized'
+    | '/org-signup/on-boarding'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/dashboard/'
+    | '/org-signup'
     | '/signup'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
@@ -760,6 +800,8 @@ export interface FileRouteTypes {
     | '/dashboard/employee'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
+    | '/sharp-org-employee/set-password'
+    | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
     | '/dashboard/sharp_accounting/accounting-setup/books'
     | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
@@ -804,9 +846,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/unauthorized'
+    | '/org-signup/on-boarding'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/dashboard'
+    | '/org-signup'
     | '/signup'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
@@ -829,6 +873,8 @@ export interface FileRouteTypes {
     | '/dashboard/employee'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
+    | '/sharp-org-employee/set-password'
+    | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
     | '/dashboard/sharp_accounting/accounting-setup/books'
     | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
@@ -874,9 +920,11 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/unauthorized'
+    | '/org-signup/on-boarding'
     | '/signup/complete-registration'
     | '/signup/verify-otp'
     | '/dashboard/'
+    | '/org-signup/'
     | '/signup/'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
@@ -903,6 +951,8 @@ export interface FileRouteTypes {
     | '/dashboard/employee/'
     | '/dashboard/sharp_accounting/'
     | '/dashboard/sharp_marketing/'
+    | '/sharp-org-employee/set-password/'
+    | '/sharp-org-employee/verification/'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
     | '/dashboard/sharp_accounting/accounting-setup/books'
     | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
@@ -949,9 +999,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   UnauthorizedRoute: typeof UnauthorizedRoute
+  OrgSignupOnBoardingRoute: typeof OrgSignupOnBoardingRoute
   SignupCompleteRegistrationRoute: typeof SignupCompleteRegistrationRoute
   SignupVerifyOtpRoute: typeof SignupVerifyOtpRoute
+  OrgSignupIndexRoute: typeof OrgSignupIndexRoute
   SignupIndexRoute: typeof SignupIndexRoute
+  SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
+  SharpOrgEmployeeVerificationIndexRoute: typeof SharpOrgEmployeeVerificationIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -984,6 +1038,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/org-signup/': {
+      id: '/org-signup/'
+      path: '/org-signup'
+      fullPath: '/org-signup'
+      preLoaderRoute: typeof OrgSignupIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/'
@@ -1003,6 +1064,27 @@ declare module '@tanstack/react-router' {
       path: '/signup/complete-registration'
       fullPath: '/signup/complete-registration'
       preLoaderRoute: typeof SignupCompleteRegistrationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/org-signup/on-boarding': {
+      id: '/org-signup/on-boarding'
+      path: '/org-signup/on-boarding'
+      fullPath: '/org-signup/on-boarding'
+      preLoaderRoute: typeof OrgSignupOnBoardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sharp-org-employee/verification/': {
+      id: '/sharp-org-employee/verification/'
+      path: '/sharp-org-employee/verification'
+      fullPath: '/sharp-org-employee/verification'
+      preLoaderRoute: typeof SharpOrgEmployeeVerificationIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sharp-org-employee/set-password/': {
+      id: '/sharp-org-employee/set-password/'
+      path: '/sharp-org-employee/set-password'
+      fullPath: '/sharp-org-employee/set-password'
+      preLoaderRoute: typeof SharpOrgEmployeeSetPasswordIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/sharp_marketing/': {
@@ -1716,9 +1798,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   UnauthorizedRoute: UnauthorizedRoute,
+  OrgSignupOnBoardingRoute: OrgSignupOnBoardingRoute,
   SignupCompleteRegistrationRoute: SignupCompleteRegistrationRoute,
   SignupVerifyOtpRoute: SignupVerifyOtpRoute,
+  OrgSignupIndexRoute: OrgSignupIndexRoute,
   SignupIndexRoute: SignupIndexRoute,
+  SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
+  SharpOrgEmployeeVerificationIndexRoute:
+    SharpOrgEmployeeVerificationIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

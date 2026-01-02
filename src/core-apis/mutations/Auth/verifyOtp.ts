@@ -3,7 +3,7 @@ import { useModal } from "@/context/ModalContext";
 import { useToastService } from "@/context/ToastContext";
 import type { ApiResponse } from "@/interfaces/ResponseEnvelop";
 import { useMutation } from "@tanstack/react-query";
-import { VerifyOtp, type OtpVerificactionResponseDTO } from "../../apis/Auth/auth_api";
+import { VerifyOtp, type OtpVerificationResponseDTO } from "../../apis/Auth/auth_api";
 import type { VerifyOTPRequestPayload } from "@/schemas/Auth";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -14,7 +14,7 @@ export function useVerifyOtpRegistration() {
   const navigate = useNavigate(); // ✅ TanStack Router navigation
 
   return useMutation<
-    ApiResponse<OtpVerificactionResponseDTO>,
+    ApiResponse<OtpVerificationResponseDTO>,
     unknown,
     VerifyOTPRequestPayload
   >({

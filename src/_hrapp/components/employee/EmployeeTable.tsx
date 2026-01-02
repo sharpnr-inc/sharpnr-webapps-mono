@@ -39,12 +39,12 @@ export function EmployeesTable() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div>
+      {/* <div>
         <h1 className="text-xl font-semibold">Employees</h1>
         <p className="text-sm text-muted-foreground">
           Employee directory (route test)
         </p>
-      </div>
+      </div> */}
 
       {/* Table */}
       <div className="rounded-md border">

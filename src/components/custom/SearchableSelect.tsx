@@ -20,8 +20,9 @@ import {
 } from "@/components/ui/popover";
 
 type Option = {
-  label: string;
-  value: string;
+  name: string;
+  id:string;
+  emoji:any
 };
 
 interface SearchableSelectProps {
@@ -80,7 +81,7 @@ export function SearchableSelect({
                       value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  {option.label}
+                  {option?.name}
                 </CommandItem>
               ))}
             </CommandGroup>
