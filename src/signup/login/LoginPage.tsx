@@ -151,7 +151,7 @@ export default function LoginPage(): React.JSX.Element {
               variant="outline"
               className="w-full"
               onClick={() => {
-                navigate({ to: "/signup" });
+                navigate({ to: "/org-signup" });
               }}
             >
               Sign Up

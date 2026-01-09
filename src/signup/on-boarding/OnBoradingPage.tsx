@@ -70,7 +70,6 @@ export function OrgOnBoardingPage() {
   const allSectors = sectorList?.data?.ORG_TYPE ?? [];
 
   const { data: sectorModules } = useSectorsModules(selectedSector!!);
-  console.log(sectorModules);
   const allModules = sectorModules?.data?.submodules ?? [];
 
   // Countries data
@@ -99,7 +98,7 @@ export function OrgOnBoardingPage() {
   });
 
   return (
-    <div className="p-4 rounded-2xl m-2 space-y-4">
+    <div className=" m-2 space-y-4 max-w-7xl mx-auto">
       <div className="p-6">
         <h1>Welcome to On-Boarding to Sharpnr </h1>
         <div>
