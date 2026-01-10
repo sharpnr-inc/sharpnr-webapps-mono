@@ -3,19 +3,104 @@ import { Button } from "@/components/ui/button";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
+import { useForm } from "@tanstack/react-form";
+import { useInitiateSignUpMutation } from "@/apis/mutation";
+import type { OrgSignupPayload } from "@/apis/api_service";
+import { useNavigate } from "@tanstack/react-router";
+
+interface OrgSignupFormData {
+  org_name: string;
+  org_email: string;
+  org_password: string;
+  org_mobile: string;
+  confirm_password: string;
+}
+
+const defaultOrgForm: OrgSignupFormData = {
+  org_name: "",
+  org_email: "",
+  org_mobile: "",
+  org_password: "",
+  confirm_password: "",
+};
+
+function mapFormToPayload(formData: OrgSignupFormData): OrgSignupPayload {
+  const { confirm_password, ...payload } = formData;
+  return payload;
+}
+
+// Validation helpers
+const validateEmail = (email: string): string | undefined => {
+  if (!email) return "Email is required";
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) return "Please enter a valid email address";
+  return undefined;
+};
+
+const validateMobile = (mobile: string): string | undefined => {
+  if (!mobile) return "Mobile number is required";
+  const mobileRegex = /^\d{10}$/;
+  if (!mobileRegex.test(mobile))
+    return "Mobile number must be exactly 10 digits";
+  return undefined;
+};
+
+const validatePassword = (password: string): string | undefined => {
+  if (!password) return "Password is required";
+  if (password.length < 8) return "Password must be at least 8 characters long";
+  if (!/[A-Z]/.test(password))
+    return "Password must contain at least one uppercase letter";
+  if (!/[a-z]/.test(password))
+    return "Password must contain at least one lowercase letter";
+  if (!/[0-9]/.test(password))
+    return "Password must contain at least one number";
+  return undefined;
+};
+
+interface InitialSignupFormProps extends React.ComponentProps<"form"> {
+  setShowOtp: (show: boolean) => void;
+  setUserEmail: (email: string) => void;
+}
 
 export function InitialSignupForm({
   className,
+  setShowOtp,
+  setUserEmail,
   ...props
-}: React.ComponentProps<"form">) {
+}: InitialSignupFormProps) {
+  const navigate = useNavigate();
+  const startRegistration = useInitiateSignUpMutation();
+
+  const form = useForm({
+    defaultValues: defaultOrgForm,
+    onSubmit: async ({ value }) => {
+      const payload = mapFormToPayload(value);
+
+      try {
+        await startRegistration.mutateAsync(payload);
+        setShowOtp(true);
+        setUserEmail(payload.org_email);
+      } catch (error) {}
+    },
+  });
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+      className={cn("flex flex-col gap-6", className)}
+      {...props}
+    >
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your account</h1>
@@ -24,57 +109,200 @@ export function InitialSignupForm({
           </p>
         </div>
 
-        <div className="flex gap-4">
-          <Field>
-            <FieldLabel htmlFor="name">Organization Name</FieldLabel>
-            <Input id="name" type="text" placeholder="John Doe" required />
-          </Field>
-          <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-            <FieldDescription>
-              We&apos;ll use this to contact you. We will not share your email
-              with anyone else.
-            </FieldDescription>
-          </Field>
+        {/* Organization Name */}
+        <form.Field
+          name="org_name"
+          validators={{
+            onChange: ({ value }) =>
+              !value
+                ? "Organization name is required"
+                : value.length < 3
+                  ? "Organization name must be at least 3 characters"
+                  : undefined,
+          }}
+          children={(field) => (
+            <Field>
+              <FieldLabel htmlFor={field.name}>Organization Name</FieldLabel>
+              <Input
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                onBlur={field.handleBlur}
+                id={field.name}
+                type="text"
+                placeholder="Acme Corp"
+                required
+              />
+              <FieldDescription>
+                The name of your organization or company
+              </FieldDescription>
+              {field.state.meta.isTouched &&
+                field.state.meta.errors.length > 0 && (
+                  <FieldError>{field.state.meta.errors[0]}</FieldError>
+                )}
+            </Field>
+          )}
+        />
+
+        {/* Email and Mobile Row */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <form.Field
+            name="org_email"
+            validators={{
+              onChange: ({ value }) => validateEmail(value),
+            }}
+            children={(field) => (
+              <Field>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                <Input
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                  id={field.name}
+                  type="email"
+                  placeholder="name@company.com"
+                  required
+                />
+                <FieldDescription>
+                  We&apos;ll use this to contact you
+                </FieldDescription>
+                {field.state.meta.isTouched &&
+                  field.state.meta.errors.length > 0 && (
+                    <FieldError>{field.state.meta.errors[0]}</FieldError>
+                  )}
+              </Field>
+            )}
+          />
+
+          <form.Field
+            name="org_mobile"
+            validators={{
+              onChange: ({ value }) => validateMobile(value),
+            }}
+            children={(field) => (
+              <Field>
+                <FieldLabel htmlFor={field.name}>Mobile Number</FieldLabel>
+                <Input
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                  id={field.name}
+                  type="tel"
+                  placeholder="9876543210"
+                  maxLength={10}
+                  required
+                />
+                <FieldDescription>Used for account recovery</FieldDescription>
+                {field.state.meta.isTouched &&
+                  field.state.meta.errors.length > 0 && (
+                    <FieldError>{field.state.meta.errors[0]}</FieldError>
+                  )}
+              </Field>
+            )}
+          />
         </div>
 
-        <Field>
-          <FieldLabel htmlFor="password">Password</FieldLabel>
-          <Input id="password" type="password" required />
-          <FieldDescription>
-            Must be at least 8 characters long.
-          </FieldDescription>
-        </Field>
+        {/* Password Row */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <form.Field
+            name="org_password"
+            validators={{
+              onChange: ({ value }) => validatePassword(value),
+            }}
+            children={(field) => (
+              <Field>
+                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <Input
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                  id={field.name}
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                />
+                <FieldDescription>
+                  At least 8 characters with uppercase, lowercase & number
+                </FieldDescription>
+                {field.state.meta.isTouched &&
+                  field.state.meta.errors.length > 0 && (
+                    <FieldError>{field.state.meta.errors[0]}</FieldError>
+                  )}
+              </Field>
+            )}
+          />
+
+          <form.Field
+            name="confirm_password"
+            validators={{
+              onChangeListenTo: ["org_password"],
+              onChange: ({ value, fieldApi }) => {
+                const password = fieldApi.form.getFieldValue("org_password");
+                if (!value) return "Please confirm your password";
+                if (value !== password) return "Passwords do not match";
+                return undefined;
+              },
+            }}
+            children={(field) => (
+              <Field>
+                <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
+                <Input
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(e.target.value)}
+                  onBlur={field.handleBlur}
+                  id={field.name}
+                  type="password"
+                  placeholder="••••••••"
+                  required
+                />
+                <FieldDescription>Re-enter your password</FieldDescription>
+                {field.state.meta.isTouched &&
+                  field.state.meta.errors.length > 0 && (
+                    <FieldError>{field.state.meta.errors[0]}</FieldError>
+                  )}
+              </Field>
+            )}
+          />
+        </div>
+
+        {/* Submit Button */}
+        <form.Subscribe
+          selector={(state) => [state.canSubmit, state.isSubmitting]}
+          children={([canSubmit, isSubmitting]) => (
+            <Field>
+              <Button
+                type="submit"
+                disabled={!canSubmit || isSubmitting}
+                className="w-full"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating account...
+                  </>
+                ) : (
+                  <>
+                    Continue & Verify Email
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </Field>
+          )}
+        />
+
+        <FieldSeparator>Or</FieldSeparator>
 
         <Field>
-          <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
-          <Input id="confirm-password" type="password" required />
-          <FieldDescription>Please confirm your password.</FieldDescription>
-        </Field>
-        <Field>
-          <Button type="submit">
-            Continue & Verify Email <ArrowRight />
-          </Button>
-        </Field>
-        <FieldSeparator>Or continue with</FieldSeparator>
-        <Field>
-          <Button variant="outline" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path
-                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                fill="currentColor"
-              />
-            </svg>
-            Sign up with GitHub
-          </Button>
-          <FieldDescription className="px-6 text-center">
-            Already have an account? <a href="#">Sign in</a>
+          <FieldDescription className="text-center">
+            Already have an account?{" "}
+            <Button
+              variant="link"
+              className="p-0 h-auto font-semibold"
+              onClick={() => navigate({ to: "/" })}
+              type="button"
+            >
+              Sign in
+            </Button>
           </FieldDescription>
         </Field>
       </FieldGroup>

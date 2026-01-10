@@ -1,24 +1,55 @@
 import api from "@/middlewares/axios";
 import { AuthApiEndpoints, CoreUtilityEndpoints } from "./Endpoints";
 
-// Signup Function
-export async function InitializeSignup() {
+//--------------------------------------------------------------------------------//
+
+export interface OrgSignupPayload {
+  org_name: string;
+  org_email: string;
+  org_password: string;
+  org_mobile: string;
+}
+
+export async function InitializeSignup(payload:OrgSignupPayload) {
   const res = await api.post(
     AuthApiEndpoints.Signup.initializeOnboarding,
-    null
+    payload
   );
   return res.data;
 }
 
-export async function VerifyOtp(otp: any) {
+//--------------------------------------------------------------------------------//
+export interface OtpPayload {
+  otp: string
+}
+export async function VerifyOtp(otp: OtpPayload) {
   const res = await api.post(AuthApiEndpoints.Signup.verifyOtp, otp);
   return res.data;
 }
 
-export async function CompleteOnBoarding() {
-  const res = await api.post(AuthApiEndpoints.Signup.OnBoarding);
+export async function VerifySignupCookie(){
+  const res = await api.get(AuthApiEndpoints.Signup.checkToken)
+  return res.data
+}
+
+//--------------------------------------------------------------------------------//
+
+export interface OrgOnBoardingPayload {
+  org_sector: string;
+  org_sector_modules: string[];
+  org_address_line: string;
+  org_city: string;
+  org_state: string;
+  org_country: string;
+  org_pincode: string;
+}
+
+export async function CompleteOnBoarding(payload:OrgOnBoardingPayload) {
+  const res = await api.post(AuthApiEndpoints.Signup.OnBoarding, payload);
   return res.data;
 }
+
+//--------------------------------------------------------------------------------//
 
 // All Core Utility APIs
 export async function fetchSharpnrSectors() {

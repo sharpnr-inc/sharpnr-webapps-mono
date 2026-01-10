@@ -1,4 +1,3 @@
-import { useLoginUser } from "@/core-apis/mutations/Auth/useLogin";
 import { LoginSchema, type LoginPayload } from "@/schemas/Auth";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
@@ -12,13 +11,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button"; 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import api from "@/middlewares/axios";
 
 export default function LoginPage(): React.JSX.Element {
-  const loginUser = useLoginUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,15 +38,7 @@ export default function LoginPage(): React.JSX.Element {
       email: "",
       password: "",
     } as LoginPayload,
-    onSubmit: ({ value }) => {
-      console.log(value);
-      loginUser.mutate(value, {
-        onSuccess: () => {
-          navigate({ to: "/dashboard" });
-        },
-      });
-      form.reset();
-    },
+    onSubmit: ({ value }) => {},
   });
 
   // ------------------------ UI -------------------------------------

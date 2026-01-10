@@ -26,9 +26,12 @@ type NewSearchableSelectProps<T> = {
 
   getValue: (item: T) => string
   getLabel: (item: T) => string
+  getMainValue:(item:T) => string
+
+
   renderOption?: (item: T) => React.ReactNode
 
-  onChange: (value: string, item: T) => void
+  onChange: (value: string, item: T, mainValue:string) => void
 }
 
 
@@ -40,6 +43,7 @@ export function NewSearchableSelect<T>({
   disabled,
   getValue,
   getLabel,
+  getMainValue,
   renderOption,
   onChange,
 }: NewSearchableSelectProps<T>) {
@@ -72,13 +76,14 @@ export function NewSearchableSelect<T>({
               {options.map((item) => {
                 const itemValue = getValue(item)
                 const label = getLabel(item)
+                const mainValue = getMainValue(item)
 
                 return (
                   <CommandItem
                     key={itemValue}
                     value={label}
                     onSelect={() => {
-                      onChange(itemValue, item)
+                      onChange(itemValue, item, mainValue)
                       setOpen(false)
                     }}
                   >

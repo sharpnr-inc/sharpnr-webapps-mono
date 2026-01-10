@@ -1,10 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import {
   fetchCities,
   fetchCountryList,
   fetchSharpnrSectors,
   fetchStateList,
   fetchTheSectorsModule,
+  VerifySignupCookie,
 } from "./api_service";
 
 export function useCountries() {
@@ -44,3 +45,16 @@ export function useSectorsModules(sec: string) {
     enabled: !!sec,
   });
 }
+
+export function useVerifySignupCookies(){
+  return useQuery({
+    queryKey:["Auth", "Verify-Cookie-session"],
+    queryFn:VerifySignupCookie
+  })
+}
+
+
+export const verifySignupCookieQuery = queryOptions({
+  queryKey: ['Auth', 'Verify-Cookie'],
+  queryFn: VerifySignupCookie
+})

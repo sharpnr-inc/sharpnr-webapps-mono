@@ -1,9 +1,9 @@
 export const AuthApiEndpoints = {
   Signup: {
-    initializeOnboarding: "/register",
-    verifyOtp: "/otp-verify",
-    OnBoarding: "/complete-registration/",
-    checkToken: "",
+    initializeOnboarding: "/signup/initiate",
+    verifyOtp: "/signup/verify-otp",
+    OnBoarding: "/signup/onBoarding",
+    checkToken: "signup/verify-token",
     resendEmail: "",
   },
 
