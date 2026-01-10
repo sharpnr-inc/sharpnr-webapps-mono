@@ -39,6 +39,8 @@ import {
   useStateOfCountries,
 } from "@/apis/Queries";
 import { NewSearchableSelect } from "../NewLocationDropdown";
+import type { OrgOnBoardingPayload } from "@/apis/api_service";
+import { Route } from "@/routes/org-signup/on-boarding";
 
 type Country = {
   id: string;
@@ -62,6 +64,8 @@ export type CityShape = {
 };
 
 export function OrgOnBoardingPage() {
+  const { stagingOrg } = Route.useRouteContext();
+
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [selectedSector, setSelectedSector] = useState<string>("");
@@ -84,21 +88,25 @@ export function OrgOnBoardingPage() {
   const { data: citiesList, isPending } = useCitiesOfState(country!!, state!!);
   const allCities = citiesList?.data ?? [];
 
+  const defaultOnBoardingVal: OrgOnBoardingPayload = {
+    org_address_line: "",
+    org_city: "",
+    org_country: "",
+    org_pincode: "",
+    org_sector: "",
+    org_sector_modules: [],
+    org_state: "",
+  };
+
   const form = useForm({
-    defaultValues: {
-      sector: "",
-      sectorModules: [""],
-      address_line: "",
-      city: "",
-      state: "",
-      country: "",
-      pincode: "",
-      super_admin_name: "",
+    defaultValues: defaultOnBoardingVal,
+    onSubmit: async ({ value }) => {
+      console.log(value);
     },
   });
 
   return (
-    <div className=" m-2 space-y-4 max-w-7xl mx-auto">
+    <div className="m-3 mb-12 space-y-4 max-w-7xl mx-auto">
       <div className="p-6">
         <h1>Welcome to On-Boarding to Sharpnr </h1>
         <div>
@@ -121,19 +129,19 @@ export function OrgOnBoardingPage() {
           {/* Organization Name */}
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">Organization Name</p>
-            <p className="font-medium">Acme Hospitality Pvt Ltd</p>
+            <p className="font-medium">{stagingOrg?.Org?.org_name}</p>
           </div>
 
           {/* Root Email */}
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">Root Email</p>
-            <p className="font-medium">admin@acme.com</p>
+            <p className="font-medium">{stagingOrg?.Org?.org_email}</p>
           </div>
 
           {/* Mobile */}
           <div className="space-y-1">
             <p className="text-sm text-muted-foreground">Mobile Number</p>
-            <p className="font-medium">+91 98765 43210</p>
+            <p className="font-medium">{stagingOrg?.Org?.org_phone}</p>
           </div>
         </CardContent>
 
@@ -161,7 +169,7 @@ export function OrgOnBoardingPage() {
 
             <FieldGroup>
               <form.Field
-                name="sector"
+                name="org_sector"
                 // listeners={}
                 children={(field) => {
                   return (
@@ -196,7 +204,7 @@ export function OrgOnBoardingPage() {
             <FieldLegend>Select the Modules</FieldLegend>
             <FieldDescription>Something</FieldDescription>
             <FieldGroup>
-              <form.Field name="sectorModules" mode="array">
+              <form.Field name="org_sector_modules" mode="array">
                 {(field) => {
                   const selectedValues = field.state.value ?? [];
 
@@ -239,7 +247,7 @@ export function OrgOnBoardingPage() {
 
           <div className="flex flex-col gap-5">
             <form.Field
-              name="address_line"
+              name="org_address_line"
               children={(field) => {
                 return (
                   <Field>
@@ -254,7 +262,7 @@ export function OrgOnBoardingPage() {
             />
             <div className="grid grid-cols-2 gap-6">
               <form.Field
-                name="country"
+                name="org_country"
                 children={(field) => {
                   return (
                     <Field>
@@ -281,7 +289,7 @@ export function OrgOnBoardingPage() {
               />
 
               <form.Field
-                name="state"
+                name="org_state"
                 children={(field) => {
                   return (
                     <Field>
@@ -303,7 +311,7 @@ export function OrgOnBoardingPage() {
               />
 
               <form.Field
-                name="city"
+                name="org_city"
                 children={(field) => {
                   return (
                     <Field>
@@ -330,7 +338,7 @@ export function OrgOnBoardingPage() {
               />
 
               <form.Field
-                name="pincode"
+                name="org_pincode"
                 children={(field) => {
                   return (
                     <Field>
@@ -343,7 +351,7 @@ export function OrgOnBoardingPage() {
             </div>
           </div>
           <FieldGroup className="items-center">
-            <Button className="w-fit">
+            <Button className="w-full">
               Continue <ArrowRight />
             </Button>
           </FieldGroup>
