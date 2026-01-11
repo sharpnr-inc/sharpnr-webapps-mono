@@ -33,7 +33,7 @@ Ensure you have the correct versions installed before running the project to pre
 | **Styling** | Tailwind CSS / SCSS / Styled Components |
 | **State Management** | Redux Toolkit / Context API |
 | **Routing** | React Router / Angular Router |
-| **Build Tool** | Vite / Webpack / Angular CLI |
+| **Build Tool** | Vite |
 | **Version Control** | Git + GitHub |
 | **API Communication** | REST APIs / Axios / Fetch API |
 
