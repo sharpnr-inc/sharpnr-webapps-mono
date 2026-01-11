@@ -80,3 +80,8 @@ export async function fetchCities(countryCode: string, state: string) {
   );
   return res.data;
 }
+
+export async function LoginUser(payload:any){
+  const res = await api.post(AuthApiEndpoints.Auth.login, payload)
+  return res.data
+}

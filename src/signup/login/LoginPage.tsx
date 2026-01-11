@@ -1,4 +1,3 @@
-import { LoginSchema, type LoginPayload } from "@/schemas/Auth";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -13,32 +12,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
-import api from "@/middlewares/axios";
+import { useUserAuth } from "@/apis/mutation";
 
 export default function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const checkCookies = async () => {
-      try {
-        const res = await api.get("/check-cookies", { withCredentials: true });
-        console.log("Cookie valid:", res.data);
-      } catch (err) {
-        console.error("Cookie check failed:");
-      }
-    };
-
-    checkCookies();
-  }, []);
+  const loginUser = useUserAuth();
 
   const form = useForm({
-    validators: { onBlur: LoginSchema, onMount: LoginSchema },
     defaultValues: {
       email: "",
       password: "",
-    } as LoginPayload,
-    onSubmit: ({ value }) => {},
+    },
+    onSubmit: ({ value }) => {
+      loginUser.mutateAsync(value, {
+        onSuccess: () => {
+          navigate({ to: "/dashboard" });
+        },
+      });
+    },
   });
 
   // ------------------------ UI -------------------------------------
@@ -78,11 +69,6 @@ export default function LoginPage(): React.JSX.Element {
                         "!border-red-500 !ring-red-500"
                     )}
                   />
-                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
-                    <p className="text-destructive">
-                      {state.meta.errors[0]?.message}
-                    </p>
-                  ) : null}
                 </div>
               )}
             </form.Field>
@@ -97,9 +83,6 @@ export default function LoginPage(): React.JSX.Element {
                     onBlur={handleBlur}
                     onChange={(e) => handleChange(e.target.value)}
                   />
-                  {state.meta.errors.length > 0 && state.meta.isTouched ? (
-                    <p>{state.meta.errors[0]?.message}</p>
-                  ) : null}
                 </div>
               )}
             </form.Field>

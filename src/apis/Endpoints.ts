@@ -8,7 +8,7 @@ export const AuthApiEndpoints = {
   },
 
   Auth: {
-    login: "/login",
+    login: "identity/web/login",
     ForgetPassword: "",
     fetchRenderer: "",
     fetchIdentity: "",

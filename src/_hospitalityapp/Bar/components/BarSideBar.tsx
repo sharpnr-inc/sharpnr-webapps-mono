@@ -20,9 +20,7 @@ export function BarSideBarNav() {
         <SidebarMenuItem>
           <SidebarMenuButton
             asChild
-            isActive={
-              pathname === "/dashboard/sharp_hospitality/bar"
-            }
+            isActive={pathname === "/dashboard/sharp_hospitality/bar"}
           >
             <Link to="/dashboard/sharp_hospitality/bar">
               <BookOpen />
@@ -57,6 +55,49 @@ export function BarSideBarNav() {
               <Link to="/dashboard/sharp_hospitality/bar/tables-management">
                 <ListTree />
                 <span>Tables</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname ===
+                "/dashboard/sharp_hospitality/bar/bar-tender"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/bar/bar-tender">
+                <ListTree />
+                <span>Bar Tender</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/bar/bar-kitchen"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/bar/bar-kitchen">
+                <ListTree />
+                <span>Kitchen</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/bar/inventory"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/bar/inventory">
+                <ListTree />
+                <span>Inventory</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

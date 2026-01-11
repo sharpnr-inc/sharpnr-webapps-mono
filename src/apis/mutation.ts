@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { CompleteOnBoarding, InitializeSignup, VerifyOtp } from "./api_service";
+import { CompleteOnBoarding, InitializeSignup, LoginUser, VerifyOtp } from "./api_service";
 
 export function useInitiateSignUpMutation() {
   return useMutation({
@@ -20,4 +20,12 @@ export function useOrgOnBoardingMutation() {
     mutationKey: ["OnBoarding"],
     mutationFn: CompleteOnBoarding,
   });
+}
+
+export function useUserAuth(){
+  return useMutation({
+    mutationKey:["Authentication"],
+    mutationFn:LoginUser
+  }
+  )
 }
