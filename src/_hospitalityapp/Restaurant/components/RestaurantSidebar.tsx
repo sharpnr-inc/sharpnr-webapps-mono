@@ -38,9 +38,7 @@ export function RestaurantSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={
-                pathname === "/dashboard/sharp_hospitality/"
-              }
+              isActive={pathname === "/dashboard/sharp_hospitality/"}
             >
               <Link to="/dashboard/sharp_hospitality/restaurant/table">
                 <CalendarCheck2 />
@@ -49,35 +47,59 @@ export function RestaurantSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
 
-      
-
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname === "/dashboard/sharp_hospitality/hotel/reservations"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/hotel/reservations">
-                <Calendar />
-                <span>Reservations</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-
-
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               isActive={
                 pathname ===
-                "/dashboard/sharp_hospitality/hotel/genral-settings"
+                "/dashboard/sharp_hospitality/restaurant/general-settings"
               }
             >
-              <Link to="/dashboard/sharp_hospitality/hotel/genral-settings">
+              <Link to="/dashboard/sharp_hospitality/restaurant/general-settings">
                 <BedDoubleIcon />
-                <span>General Settings(Pending)</span>
+                <span>General Settings</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/restaurant/kitchen"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/restaurant/kitchen">
+                <BedDoubleIcon />
+                <span>Kitchen</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/restaurant/inventory"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/restaurant/inventory">
+                <BedDoubleIcon />
+                <span>Inventory</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/restaurant/sales-terminal"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/restaurant/sales-terminal">
+                <BedDoubleIcon />
+                <span>Sales Terminal</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

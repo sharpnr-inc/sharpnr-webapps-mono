@@ -1,7 +1,6 @@
 import { getCookie } from "@/utilities/cookie";
 import api from "./axios";
 
-
 api.interceptors.request.use(
   (config) => {
     const method = config.method?.toUpperCase();
@@ -11,7 +10,7 @@ api.interceptors.request.use(
       const csrfToken = getCookie("_dev_csrf");
 
       if (csrfToken) {
-        config.headers["X-XSRF-TOKEN"] = csrfToken;
+        config.headers["X-CSRF-Token"] = csrfToken;
       }
     }
 
