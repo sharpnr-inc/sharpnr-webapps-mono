@@ -7,7 +7,13 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BookOpen, Link2, ListTree } from "lucide-react";
+import {
+  LayoutDashboard,
+NetworkIcon,
+  UtensilsCrossed,
+  Wine,
+  Hotel,
+} from "lucide-react";
 
 export function HospitalityOrchestratorSideBar() {
   const { location } = useRouterState();
@@ -16,29 +22,35 @@ export function HospitalityOrchestratorSideBar() {
   return (
     <SidebarContent className="sm:pt-16 md:pt-16">
       <SidebarGroup>
-        <SidebarGroupLabel>Organization setting</SidebarGroupLabel>
+        <SidebarGroupLabel>Organization Settings</SidebarGroupLabel>
+
         <SidebarMenu>
           {/* Overview */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/org-config"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/org-config"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/org-config">
-                <BookOpen className="h-4 w-4" />
+                <LayoutDashboard className="h-4 w-4" />
                 <span>Overview</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
-          {/* Parent Organization / Orchestrator */}
+          {/* Parent Organization */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/org-config/orchestrator"}
+              isActive={
+                pathname ===
+                "/dashboard/sharp_hospitality/org-config/orchestrator"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/org-config/orchestrator">
-                <ListTree className="h-4 w-4" />
+                <NetworkIcon className="h-4 w-4" />
                 <span>Parent Organization</span>
               </Link>
             </SidebarMenuButton>
@@ -48,11 +60,14 @@ export function HospitalityOrchestratorSideBar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/org-config/restaurant-settings"}
+              isActive={
+                pathname ===
+                "/dashboard/sharp_hospitality/org-config/restaurant-settings"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/org-config/restaurant-settings">
-                <Link2 className="h-4 w-4" />
-                <span>Restaurant config</span>
+                <UtensilsCrossed className="h-4 w-4" />
+                <span>Restaurant Config</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -61,11 +76,14 @@ export function HospitalityOrchestratorSideBar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/org-config/bar-settings"}
+              isActive={
+                pathname ===
+                "/dashboard/sharp_hospitality/org-config/bar-settings"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/org-config/bar-settings">
-                <Link2 className="h-4 w-4" />
-                <span>Bar config</span>
+                <Wine className="h-4 w-4" />
+                <span>Bar Config</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -74,11 +92,14 @@ export function HospitalityOrchestratorSideBar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/org-config/hotel-settings"}
+              isActive={
+                pathname ===
+                "/dashboard/sharp_hospitality/org-config/hotel-settings"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/org-config/hotel-settings">
-                <Link2 className="h-4 w-4" />
-                <span>Hotel config</span>
+                <Hotel className="h-4 w-4" />
+                <span>Hotel Config</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

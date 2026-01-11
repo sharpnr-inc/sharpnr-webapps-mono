@@ -7,43 +7,55 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useRouterState, Link } from "@tanstack/react-router";
-import { BookOpen, ListTree } from "lucide-react";
+import {
+  LayoutDashboard,
+  ShoppingCart,
+  Grid3x3,
+  UserRound,
+  ChefHat,
+  Boxes,
+} from "lucide-react";
 
 export function BarSideBarNav() {
   const { location } = useRouterState();
   const pathname = location.pathname;
+
   return (
     <SidebarContent className="sm:pt-16 md:pt-16">
       <SidebarGroup>
         <SidebarGroupLabel>Bar Management</SidebarGroupLabel>
 
+        {/* Overview */}
         <SidebarMenuItem>
           <SidebarMenuButton
             asChild
             isActive={pathname === "/dashboard/sharp_hospitality/bar"}
           >
             <Link to="/dashboard/sharp_hospitality/bar">
-              <BookOpen />
+              <LayoutDashboard />
               <span>Overview</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
 
         <SidebarMenu>
+          {/* Sale Counter */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/bar/sale-counter"
+                pathname ===
+                "/dashboard/sharp_hospitality/bar/sale-counter"
               }
             >
               <Link to="/dashboard/sharp_hospitality/bar/sale-counter">
-                <BookOpen />
-                <span>Sale counter</span>
+                <ShoppingCart />
+                <span>Sale Counter</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
+          {/* Tables */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
@@ -53,12 +65,13 @@ export function BarSideBarNav() {
               }
             >
               <Link to="/dashboard/sharp_hospitality/bar/tables-management">
-                <ListTree />
+                <Grid3x3 />
                 <span>Tables</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
+          {/* Bar Tender */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
@@ -68,35 +81,39 @@ export function BarSideBarNav() {
               }
             >
               <Link to="/dashboard/sharp_hospitality/bar/bar-tender">
-                <ListTree />
+                <UserRound />
                 <span>Bar Tender</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
+          {/* Kitchen */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/bar/bar-kitchen"
+                pathname ===
+                "/dashboard/sharp_hospitality/bar/bar-kitchen"
               }
             >
               <Link to="/dashboard/sharp_hospitality/bar/bar-kitchen">
-                <ListTree />
+                <ChefHat />
                 <span>Kitchen</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
+          {/* Inventory */}
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
               isActive={
-                pathname === "/dashboard/sharp_hospitality/bar/inventory"
+                pathname ===
+                "/dashboard/sharp_hospitality/bar/inventory"
               }
             >
               <Link to="/dashboard/sharp_hospitality/bar/inventory">
-                <ListTree />
+                <Boxes />
                 <span>Inventory</span>
               </Link>
             </SidebarMenuButton>
