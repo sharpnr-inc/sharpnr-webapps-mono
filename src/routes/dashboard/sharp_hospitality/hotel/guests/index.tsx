@@ -1,11 +1,9 @@
+import { HotelGuestPage } from '@/_hospitalityapp/Hotel/pages/guests/HotelGuestPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
   '/dashboard/sharp_hospitality/hotel/guests/',
 )({
-  component: RouteComponent,
+  component: HotelGuestPage,
 })
 
-function RouteComponent() {
-  return <div>Hello "/dashboard/sharp_hospitality/hotel/guests/"!</div>
-}
