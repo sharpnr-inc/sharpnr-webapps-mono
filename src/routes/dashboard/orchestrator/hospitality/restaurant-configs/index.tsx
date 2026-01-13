@@ -2,7 +2,7 @@ import RestaurantConfigSection from '@/_hospitalityapp/Restaurant/sections/Resta
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
-  '/dashboard/sharp_hospitality/org-config/restaurant-settings',
+  '/dashboard/orchestrator/hospitality/restaurant-configs/',
 )({
   component: RestaurantConfigSection,
 })
