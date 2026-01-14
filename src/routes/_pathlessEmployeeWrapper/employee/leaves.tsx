@@ -1,7 +1,7 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/employee/leaves')({
+export const Route = createFileRoute('/_pathlessEmployeeWrapper/employee/leaves')({
   component: MyLeavesPage,
 })
 

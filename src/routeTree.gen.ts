@@ -13,22 +13,22 @@ import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as PathlessEmployeeWrapperRouteRouteImport } from './routes/_pathlessEmployeeWrapper/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
-import { Route as EmployeeIndexRouteImport } from './routes/employee/index'
 import { Route as OrgSignupOnBoardingRouteImport } from './routes/org-signup/on-boarding'
-import { Route as EmployeeReviewsRouteImport } from './routes/employee/reviews'
-import { Route as EmployeeRequestsRouteImport } from './routes/employee/requests'
-import { Route as EmployeeProfileRouteImport } from './routes/employee/profile'
-import { Route as EmployeeOvertimeRouteImport } from './routes/employee/overtime'
-import { Route as EmployeeLeavesRouteImport } from './routes/employee/leaves'
-import { Route as EmployeeGreivencesRouteImport } from './routes/employee/greivences'
-import { Route as EmployeeFeedbackRouteImport } from './routes/employee/feedback'
-import { Route as EmployeeEmployee_attendanceRouteImport } from './routes/employee/employee_attendance'
 import { Route as PathlessEmployeeWrapperOrchestratorRouteRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/route'
 import { Route as PathlessEmployeeWrapperDashboardRouteRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/route'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
 import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
 import { Route as PathlessEmployeeWrapperOrchestratorIndexRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/index'
+import { Route as PathlessEmployeeWrapperEmployeeIndexRouteImport } from './routes/_pathlessEmployeeWrapper/employee/index'
 import { Route as PathlessEmployeeWrapperDashboardIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/index'
+import { Route as PathlessEmployeeWrapperEmployeeReviewsRouteImport } from './routes/_pathlessEmployeeWrapper/employee/reviews'
+import { Route as PathlessEmployeeWrapperEmployeeRequestsRouteImport } from './routes/_pathlessEmployeeWrapper/employee/requests'
+import { Route as PathlessEmployeeWrapperEmployeeProfileRouteImport } from './routes/_pathlessEmployeeWrapper/employee/profile'
+import { Route as PathlessEmployeeWrapperEmployeeOvertimeRouteImport } from './routes/_pathlessEmployeeWrapper/employee/overtime'
+import { Route as PathlessEmployeeWrapperEmployeeLeavesRouteImport } from './routes/_pathlessEmployeeWrapper/employee/leaves'
+import { Route as PathlessEmployeeWrapperEmployeeGreivencesRouteImport } from './routes/_pathlessEmployeeWrapper/employee/greivences'
+import { Route as PathlessEmployeeWrapperEmployeeFeedbackRouteImport } from './routes/_pathlessEmployeeWrapper/employee/feedback'
+import { Route as PathlessEmployeeWrapperEmployeeEmployee_attendanceRouteImport } from './routes/_pathlessEmployeeWrapper/employee/employee_attendance'
 import { Route as PathlessEmployeeWrapperOrchestratorHospitalityIndexRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/hospitality/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_marketingIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_marketing/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_accountingIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_accounting/index'
@@ -114,57 +114,11 @@ const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
   path: '/org-signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmployeeIndexRoute = EmployeeIndexRouteImport.update({
-  id: '/employee/',
-  path: '/employee/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const OrgSignupOnBoardingRoute = OrgSignupOnBoardingRouteImport.update({
   id: '/org-signup/on-boarding',
   path: '/org-signup/on-boarding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmployeeReviewsRoute = EmployeeReviewsRouteImport.update({
-  id: '/employee/reviews',
-  path: '/employee/reviews',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeRequestsRoute = EmployeeRequestsRouteImport.update({
-  id: '/employee/requests',
-  path: '/employee/requests',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeProfileRoute = EmployeeProfileRouteImport.update({
-  id: '/employee/profile',
-  path: '/employee/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeOvertimeRoute = EmployeeOvertimeRouteImport.update({
-  id: '/employee/overtime',
-  path: '/employee/overtime',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeLeavesRoute = EmployeeLeavesRouteImport.update({
-  id: '/employee/leaves',
-  path: '/employee/leaves',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeGreivencesRoute = EmployeeGreivencesRouteImport.update({
-  id: '/employee/greivences',
-  path: '/employee/greivences',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeFeedbackRoute = EmployeeFeedbackRouteImport.update({
-  id: '/employee/feedback',
-  path: '/employee/feedback',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmployeeEmployee_attendanceRoute =
-  EmployeeEmployee_attendanceRouteImport.update({
-    id: '/employee/employee_attendance',
-    path: '/employee/employee_attendance',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const PathlessEmployeeWrapperOrchestratorRouteRoute =
   PathlessEmployeeWrapperOrchestratorRouteRouteImport.update({
     id: '/orchestrator',
@@ -195,11 +149,65 @@ const PathlessEmployeeWrapperOrchestratorIndexRoute =
     path: '/',
     getParentRoute: () => PathlessEmployeeWrapperOrchestratorRouteRoute,
   } as any)
+const PathlessEmployeeWrapperEmployeeIndexRoute =
+  PathlessEmployeeWrapperEmployeeIndexRouteImport.update({
+    id: '/employee/',
+    path: '/employee/',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
 const PathlessEmployeeWrapperDashboardIndexRoute =
   PathlessEmployeeWrapperDashboardIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => PathlessEmployeeWrapperDashboardRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeReviewsRoute =
+  PathlessEmployeeWrapperEmployeeReviewsRouteImport.update({
+    id: '/employee/reviews',
+    path: '/employee/reviews',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeRequestsRoute =
+  PathlessEmployeeWrapperEmployeeRequestsRouteImport.update({
+    id: '/employee/requests',
+    path: '/employee/requests',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeProfileRoute =
+  PathlessEmployeeWrapperEmployeeProfileRouteImport.update({
+    id: '/employee/profile',
+    path: '/employee/profile',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeOvertimeRoute =
+  PathlessEmployeeWrapperEmployeeOvertimeRouteImport.update({
+    id: '/employee/overtime',
+    path: '/employee/overtime',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeLeavesRoute =
+  PathlessEmployeeWrapperEmployeeLeavesRouteImport.update({
+    id: '/employee/leaves',
+    path: '/employee/leaves',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeGreivencesRoute =
+  PathlessEmployeeWrapperEmployeeGreivencesRouteImport.update({
+    id: '/employee/greivences',
+    path: '/employee/greivences',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeFeedbackRoute =
+  PathlessEmployeeWrapperEmployeeFeedbackRouteImport.update({
+    id: '/employee/feedback',
+    path: '/employee/feedback',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
+  } as any)
+const PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute =
+  PathlessEmployeeWrapperEmployeeEmployee_attendanceRouteImport.update({
+    id: '/employee/employee_attendance',
+    path: '/employee/employee_attendance',
+    getParentRoute: () => PathlessEmployeeWrapperRouteRoute,
   } as any)
 const PathlessEmployeeWrapperOrchestratorHospitalityIndexRoute =
   PathlessEmployeeWrapperOrchestratorHospitalityIndexRouteImport.update({
@@ -712,18 +720,18 @@ export interface FileRoutesByFullPath {
   '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof PathlessEmployeeWrapperDashboardRouteRouteWithChildren
   '/orchestrator': typeof PathlessEmployeeWrapperOrchestratorRouteRouteWithChildren
-  '/employee/employee_attendance': typeof EmployeeEmployee_attendanceRoute
-  '/employee/feedback': typeof EmployeeFeedbackRoute
-  '/employee/greivences': typeof EmployeeGreivencesRoute
-  '/employee/leaves': typeof EmployeeLeavesRoute
-  '/employee/overtime': typeof EmployeeOvertimeRoute
-  '/employee/profile': typeof EmployeeProfileRoute
-  '/employee/requests': typeof EmployeeRequestsRoute
-  '/employee/reviews': typeof EmployeeReviewsRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
-  '/employee': typeof EmployeeIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
+  '/employee/employee_attendance': typeof PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute
+  '/employee/feedback': typeof PathlessEmployeeWrapperEmployeeFeedbackRoute
+  '/employee/greivences': typeof PathlessEmployeeWrapperEmployeeGreivencesRoute
+  '/employee/leaves': typeof PathlessEmployeeWrapperEmployeeLeavesRoute
+  '/employee/overtime': typeof PathlessEmployeeWrapperEmployeeOvertimeRoute
+  '/employee/profile': typeof PathlessEmployeeWrapperEmployeeProfileRoute
+  '/employee/requests': typeof PathlessEmployeeWrapperEmployeeRequestsRoute
+  '/employee/reviews': typeof PathlessEmployeeWrapperEmployeeReviewsRoute
   '/dashboard/': typeof PathlessEmployeeWrapperDashboardIndexRoute
+  '/employee': typeof PathlessEmployeeWrapperEmployeeIndexRoute
   '/orchestrator/': typeof PathlessEmployeeWrapperOrchestratorIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
@@ -795,18 +803,18 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unauthorized': typeof UnauthorizedRoute
-  '/employee/employee_attendance': typeof EmployeeEmployee_attendanceRoute
-  '/employee/feedback': typeof EmployeeFeedbackRoute
-  '/employee/greivences': typeof EmployeeGreivencesRoute
-  '/employee/leaves': typeof EmployeeLeavesRoute
-  '/employee/overtime': typeof EmployeeOvertimeRoute
-  '/employee/profile': typeof EmployeeProfileRoute
-  '/employee/requests': typeof EmployeeRequestsRoute
-  '/employee/reviews': typeof EmployeeReviewsRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
-  '/employee': typeof EmployeeIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
+  '/employee/employee_attendance': typeof PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute
+  '/employee/feedback': typeof PathlessEmployeeWrapperEmployeeFeedbackRoute
+  '/employee/greivences': typeof PathlessEmployeeWrapperEmployeeGreivencesRoute
+  '/employee/leaves': typeof PathlessEmployeeWrapperEmployeeLeavesRoute
+  '/employee/overtime': typeof PathlessEmployeeWrapperEmployeeOvertimeRoute
+  '/employee/profile': typeof PathlessEmployeeWrapperEmployeeProfileRoute
+  '/employee/requests': typeof PathlessEmployeeWrapperEmployeeRequestsRoute
+  '/employee/reviews': typeof PathlessEmployeeWrapperEmployeeReviewsRoute
   '/dashboard': typeof PathlessEmployeeWrapperDashboardIndexRoute
+  '/employee': typeof PathlessEmployeeWrapperEmployeeIndexRoute
   '/orchestrator': typeof PathlessEmployeeWrapperOrchestratorIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
@@ -879,18 +887,18 @@ export interface FileRoutesById {
   '/unauthorized': typeof UnauthorizedRoute
   '/_pathlessEmployeeWrapper/dashboard': typeof PathlessEmployeeWrapperDashboardRouteRouteWithChildren
   '/_pathlessEmployeeWrapper/orchestrator': typeof PathlessEmployeeWrapperOrchestratorRouteRouteWithChildren
-  '/employee/employee_attendance': typeof EmployeeEmployee_attendanceRoute
-  '/employee/feedback': typeof EmployeeFeedbackRoute
-  '/employee/greivences': typeof EmployeeGreivencesRoute
-  '/employee/leaves': typeof EmployeeLeavesRoute
-  '/employee/overtime': typeof EmployeeOvertimeRoute
-  '/employee/profile': typeof EmployeeProfileRoute
-  '/employee/requests': typeof EmployeeRequestsRoute
-  '/employee/reviews': typeof EmployeeReviewsRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
-  '/employee/': typeof EmployeeIndexRoute
   '/org-signup/': typeof OrgSignupIndexRoute
+  '/_pathlessEmployeeWrapper/employee/employee_attendance': typeof PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute
+  '/_pathlessEmployeeWrapper/employee/feedback': typeof PathlessEmployeeWrapperEmployeeFeedbackRoute
+  '/_pathlessEmployeeWrapper/employee/greivences': typeof PathlessEmployeeWrapperEmployeeGreivencesRoute
+  '/_pathlessEmployeeWrapper/employee/leaves': typeof PathlessEmployeeWrapperEmployeeLeavesRoute
+  '/_pathlessEmployeeWrapper/employee/overtime': typeof PathlessEmployeeWrapperEmployeeOvertimeRoute
+  '/_pathlessEmployeeWrapper/employee/profile': typeof PathlessEmployeeWrapperEmployeeProfileRoute
+  '/_pathlessEmployeeWrapper/employee/requests': typeof PathlessEmployeeWrapperEmployeeRequestsRoute
+  '/_pathlessEmployeeWrapper/employee/reviews': typeof PathlessEmployeeWrapperEmployeeReviewsRoute
   '/_pathlessEmployeeWrapper/dashboard/': typeof PathlessEmployeeWrapperDashboardIndexRoute
+  '/_pathlessEmployeeWrapper/employee/': typeof PathlessEmployeeWrapperEmployeeIndexRoute
   '/_pathlessEmployeeWrapper/orchestrator/': typeof PathlessEmployeeWrapperOrchestratorIndexRoute
   '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
@@ -966,6 +974,8 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/dashboard'
     | '/orchestrator'
+    | '/org-signup/on-boarding'
+    | '/org-signup'
     | '/employee/employee_attendance'
     | '/employee/feedback'
     | '/employee/greivences'
@@ -974,10 +984,8 @@ export interface FileRouteTypes {
     | '/employee/profile'
     | '/employee/requests'
     | '/employee/reviews'
-    | '/org-signup/on-boarding'
-    | '/employee'
-    | '/org-signup'
     | '/dashboard/'
+    | '/employee'
     | '/orchestrator/'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
@@ -1049,6 +1057,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/unauthorized'
+    | '/org-signup/on-boarding'
+    | '/org-signup'
     | '/employee/employee_attendance'
     | '/employee/feedback'
     | '/employee/greivences'
@@ -1057,10 +1067,8 @@ export interface FileRouteTypes {
     | '/employee/profile'
     | '/employee/requests'
     | '/employee/reviews'
-    | '/org-signup/on-boarding'
-    | '/employee'
-    | '/org-signup'
     | '/dashboard'
+    | '/employee'
     | '/orchestrator'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
@@ -1132,18 +1140,18 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/_pathlessEmployeeWrapper/dashboard'
     | '/_pathlessEmployeeWrapper/orchestrator'
-    | '/employee/employee_attendance'
-    | '/employee/feedback'
-    | '/employee/greivences'
-    | '/employee/leaves'
-    | '/employee/overtime'
-    | '/employee/profile'
-    | '/employee/requests'
-    | '/employee/reviews'
     | '/org-signup/on-boarding'
-    | '/employee/'
     | '/org-signup/'
+    | '/_pathlessEmployeeWrapper/employee/employee_attendance'
+    | '/_pathlessEmployeeWrapper/employee/feedback'
+    | '/_pathlessEmployeeWrapper/employee/greivences'
+    | '/_pathlessEmployeeWrapper/employee/leaves'
+    | '/_pathlessEmployeeWrapper/employee/overtime'
+    | '/_pathlessEmployeeWrapper/employee/profile'
+    | '/_pathlessEmployeeWrapper/employee/requests'
+    | '/_pathlessEmployeeWrapper/employee/reviews'
     | '/_pathlessEmployeeWrapper/dashboard/'
+    | '/_pathlessEmployeeWrapper/employee/'
     | '/_pathlessEmployeeWrapper/orchestrator/'
     | '/sharp-org-employee/set-password/'
     | '/sharp-org-employee/verification/'
@@ -1217,16 +1225,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PathlessEmployeeWrapperRouteRoute: typeof PathlessEmployeeWrapperRouteRouteWithChildren
   UnauthorizedRoute: typeof UnauthorizedRoute
-  EmployeeEmployee_attendanceRoute: typeof EmployeeEmployee_attendanceRoute
-  EmployeeFeedbackRoute: typeof EmployeeFeedbackRoute
-  EmployeeGreivencesRoute: typeof EmployeeGreivencesRoute
-  EmployeeLeavesRoute: typeof EmployeeLeavesRoute
-  EmployeeOvertimeRoute: typeof EmployeeOvertimeRoute
-  EmployeeProfileRoute: typeof EmployeeProfileRoute
-  EmployeeRequestsRoute: typeof EmployeeRequestsRoute
-  EmployeeReviewsRoute: typeof EmployeeReviewsRoute
   OrgSignupOnBoardingRoute: typeof OrgSignupOnBoardingRoute
-  EmployeeIndexRoute: typeof EmployeeIndexRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
   SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
   SharpOrgEmployeeVerificationIndexRoute: typeof SharpOrgEmployeeVerificationIndexRoute
@@ -1262,74 +1261,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrgSignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/employee/': {
-      id: '/employee/'
-      path: '/employee'
-      fullPath: '/employee'
-      preLoaderRoute: typeof EmployeeIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/org-signup/on-boarding': {
       id: '/org-signup/on-boarding'
       path: '/org-signup/on-boarding'
       fullPath: '/org-signup/on-boarding'
       preLoaderRoute: typeof OrgSignupOnBoardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/reviews': {
-      id: '/employee/reviews'
-      path: '/employee/reviews'
-      fullPath: '/employee/reviews'
-      preLoaderRoute: typeof EmployeeReviewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/requests': {
-      id: '/employee/requests'
-      path: '/employee/requests'
-      fullPath: '/employee/requests'
-      preLoaderRoute: typeof EmployeeRequestsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/profile': {
-      id: '/employee/profile'
-      path: '/employee/profile'
-      fullPath: '/employee/profile'
-      preLoaderRoute: typeof EmployeeProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/overtime': {
-      id: '/employee/overtime'
-      path: '/employee/overtime'
-      fullPath: '/employee/overtime'
-      preLoaderRoute: typeof EmployeeOvertimeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/leaves': {
-      id: '/employee/leaves'
-      path: '/employee/leaves'
-      fullPath: '/employee/leaves'
-      preLoaderRoute: typeof EmployeeLeavesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/greivences': {
-      id: '/employee/greivences'
-      path: '/employee/greivences'
-      fullPath: '/employee/greivences'
-      preLoaderRoute: typeof EmployeeGreivencesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/feedback': {
-      id: '/employee/feedback'
-      path: '/employee/feedback'
-      fullPath: '/employee/feedback'
-      preLoaderRoute: typeof EmployeeFeedbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/employee/employee_attendance': {
-      id: '/employee/employee_attendance'
-      path: '/employee/employee_attendance'
-      fullPath: '/employee/employee_attendance'
-      preLoaderRoute: typeof EmployeeEmployee_attendanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_pathlessEmployeeWrapper/orchestrator': {
@@ -1367,12 +1303,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorIndexRouteImport
       parentRoute: typeof PathlessEmployeeWrapperOrchestratorRouteRoute
     }
+    '/_pathlessEmployeeWrapper/employee/': {
+      id: '/_pathlessEmployeeWrapper/employee/'
+      path: '/employee'
+      fullPath: '/employee'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeIndexRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
     '/_pathlessEmployeeWrapper/dashboard/': {
       id: '/_pathlessEmployeeWrapper/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof PathlessEmployeeWrapperDashboardIndexRouteImport
       parentRoute: typeof PathlessEmployeeWrapperDashboardRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/reviews': {
+      id: '/_pathlessEmployeeWrapper/employee/reviews'
+      path: '/employee/reviews'
+      fullPath: '/employee/reviews'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeReviewsRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/requests': {
+      id: '/_pathlessEmployeeWrapper/employee/requests'
+      path: '/employee/requests'
+      fullPath: '/employee/requests'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeRequestsRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/profile': {
+      id: '/_pathlessEmployeeWrapper/employee/profile'
+      path: '/employee/profile'
+      fullPath: '/employee/profile'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeProfileRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/overtime': {
+      id: '/_pathlessEmployeeWrapper/employee/overtime'
+      path: '/employee/overtime'
+      fullPath: '/employee/overtime'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeOvertimeRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/leaves': {
+      id: '/_pathlessEmployeeWrapper/employee/leaves'
+      path: '/employee/leaves'
+      fullPath: '/employee/leaves'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeLeavesRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/greivences': {
+      id: '/_pathlessEmployeeWrapper/employee/greivences'
+      path: '/employee/greivences'
+      fullPath: '/employee/greivences'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeGreivencesRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/feedback': {
+      id: '/_pathlessEmployeeWrapper/employee/feedback'
+      path: '/employee/feedback'
+      fullPath: '/employee/feedback'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeFeedbackRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/employee/employee_attendance': {
+      id: '/_pathlessEmployeeWrapper/employee/employee_attendance'
+      path: '/employee/employee_attendance'
+      fullPath: '/employee/employee_attendance'
+      preLoaderRoute: typeof PathlessEmployeeWrapperEmployeeEmployee_attendanceRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperRouteRoute
     }
     '/_pathlessEmployeeWrapper/orchestrator/hospitality/': {
       id: '/_pathlessEmployeeWrapper/orchestrator/hospitality/'
@@ -2098,6 +2097,15 @@ const PathlessEmployeeWrapperOrchestratorRouteRouteWithChildren =
 interface PathlessEmployeeWrapperRouteRouteChildren {
   PathlessEmployeeWrapperDashboardRouteRoute: typeof PathlessEmployeeWrapperDashboardRouteRouteWithChildren
   PathlessEmployeeWrapperOrchestratorRouteRoute: typeof PathlessEmployeeWrapperOrchestratorRouteRouteWithChildren
+  PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute: typeof PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute
+  PathlessEmployeeWrapperEmployeeFeedbackRoute: typeof PathlessEmployeeWrapperEmployeeFeedbackRoute
+  PathlessEmployeeWrapperEmployeeGreivencesRoute: typeof PathlessEmployeeWrapperEmployeeGreivencesRoute
+  PathlessEmployeeWrapperEmployeeLeavesRoute: typeof PathlessEmployeeWrapperEmployeeLeavesRoute
+  PathlessEmployeeWrapperEmployeeOvertimeRoute: typeof PathlessEmployeeWrapperEmployeeOvertimeRoute
+  PathlessEmployeeWrapperEmployeeProfileRoute: typeof PathlessEmployeeWrapperEmployeeProfileRoute
+  PathlessEmployeeWrapperEmployeeRequestsRoute: typeof PathlessEmployeeWrapperEmployeeRequestsRoute
+  PathlessEmployeeWrapperEmployeeReviewsRoute: typeof PathlessEmployeeWrapperEmployeeReviewsRoute
+  PathlessEmployeeWrapperEmployeeIndexRoute: typeof PathlessEmployeeWrapperEmployeeIndexRoute
 }
 
 const PathlessEmployeeWrapperRouteRouteChildren: PathlessEmployeeWrapperRouteRouteChildren =
@@ -2106,6 +2114,24 @@ const PathlessEmployeeWrapperRouteRouteChildren: PathlessEmployeeWrapperRouteRou
       PathlessEmployeeWrapperDashboardRouteRouteWithChildren,
     PathlessEmployeeWrapperOrchestratorRouteRoute:
       PathlessEmployeeWrapperOrchestratorRouteRouteWithChildren,
+    PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute:
+      PathlessEmployeeWrapperEmployeeEmployee_attendanceRoute,
+    PathlessEmployeeWrapperEmployeeFeedbackRoute:
+      PathlessEmployeeWrapperEmployeeFeedbackRoute,
+    PathlessEmployeeWrapperEmployeeGreivencesRoute:
+      PathlessEmployeeWrapperEmployeeGreivencesRoute,
+    PathlessEmployeeWrapperEmployeeLeavesRoute:
+      PathlessEmployeeWrapperEmployeeLeavesRoute,
+    PathlessEmployeeWrapperEmployeeOvertimeRoute:
+      PathlessEmployeeWrapperEmployeeOvertimeRoute,
+    PathlessEmployeeWrapperEmployeeProfileRoute:
+      PathlessEmployeeWrapperEmployeeProfileRoute,
+    PathlessEmployeeWrapperEmployeeRequestsRoute:
+      PathlessEmployeeWrapperEmployeeRequestsRoute,
+    PathlessEmployeeWrapperEmployeeReviewsRoute:
+      PathlessEmployeeWrapperEmployeeReviewsRoute,
+    PathlessEmployeeWrapperEmployeeIndexRoute:
+      PathlessEmployeeWrapperEmployeeIndexRoute,
   }
 
 const PathlessEmployeeWrapperRouteRouteWithChildren =
@@ -2118,16 +2144,7 @@ const rootRouteChildren: RootRouteChildren = {
   PathlessEmployeeWrapperRouteRoute:
     PathlessEmployeeWrapperRouteRouteWithChildren,
   UnauthorizedRoute: UnauthorizedRoute,
-  EmployeeEmployee_attendanceRoute: EmployeeEmployee_attendanceRoute,
-  EmployeeFeedbackRoute: EmployeeFeedbackRoute,
-  EmployeeGreivencesRoute: EmployeeGreivencesRoute,
-  EmployeeLeavesRoute: EmployeeLeavesRoute,
-  EmployeeOvertimeRoute: EmployeeOvertimeRoute,
-  EmployeeProfileRoute: EmployeeProfileRoute,
-  EmployeeRequestsRoute: EmployeeRequestsRoute,
-  EmployeeReviewsRoute: EmployeeReviewsRoute,
   OrgSignupOnBoardingRoute: OrgSignupOnBoardingRoute,
-  EmployeeIndexRoute: EmployeeIndexRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
   SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
   SharpOrgEmployeeVerificationIndexRoute:

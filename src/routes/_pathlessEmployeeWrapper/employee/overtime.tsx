@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/employee/overtime')({
+export const Route = createFileRoute('/_pathlessEmployeeWrapper/employee/overtime')({
   component: RouteComponent,
 })
 
