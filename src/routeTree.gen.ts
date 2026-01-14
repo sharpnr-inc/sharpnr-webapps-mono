@@ -10,16 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
+import { Route as OrchestratorRouteRouteImport } from './routes/orchestrator/route'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
+import { Route as OrchestratorIndexRouteImport } from './routes/orchestrator/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as OrgSignupOnBoardingRouteImport } from './routes/org-signup/on-boarding'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
 import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
+import { Route as OrchestratorHospitalityIndexRouteImport } from './routes/orchestrator/hospitality/index'
 import { Route as DashboardSharp_marketingIndexRouteImport } from './routes/dashboard/sharp_marketing/index'
 import { Route as DashboardSharp_accountingIndexRouteImport } from './routes/dashboard/sharp_accounting/index'
-import { Route as DashboardOrchestratorIndexRouteImport } from './routes/dashboard/orchestrator/index'
 import { Route as DashboardEmployeeIndexRouteImport } from './routes/dashboard/employee/index'
 import { Route as DashboardSharp_marketingSocial_media_managementRouteImport } from './routes/dashboard/sharp_marketing/social_media_management'
 import { Route as DashboardSharp_marketingReportsRouteImport } from './routes/dashboard/sharp_marketing/reports'
@@ -42,6 +44,9 @@ import { Route as DashboardSharp_accountingSettingsRouteRouteImport } from './ro
 import { Route as DashboardSharp_accountingLedgerRouteRouteImport } from './routes/dashboard/sharp_accounting/ledger/route'
 import { Route as DashboardSharp_accountingAuditAndLogsRouteRouteImport } from './routes/dashboard/sharp_accounting/auditAndLogs/route'
 import { Route as DashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/dashboard/sharp_accounting/accounting-setup/route'
+import { Route as OrchestratorHospitalityRestaurantConfigsIndexRouteImport } from './routes/orchestrator/hospitality/restaurant-configs/index'
+import { Route as OrchestratorHospitalityHotelConfigsIndexRouteImport } from './routes/orchestrator/hospitality/hotel-configs/index'
+import { Route as OrchestratorHospitalityBarConfigsIndexRouteImport } from './routes/orchestrator/hospitality/bar-configs/index'
 import { Route as DashboardSharp_hrSettingsIndexRouteImport } from './routes/dashboard/sharp_hr/settings/index'
 import { Route as DashboardSharp_hrReportsIndexRouteImport } from './routes/dashboard/sharp_hr/reports/index'
 import { Route as DashboardSharp_hrRecruitmentIndexRouteImport } from './routes/dashboard/sharp_hr/recruitment/index'
@@ -54,7 +59,6 @@ import { Route as DashboardSharp_hospitalityInventoryIndexRouteImport } from './
 import { Route as DashboardSharp_hospitalityHotelIndexRouteImport } from './routes/dashboard/sharp_hospitality/hotel/index'
 import { Route as DashboardSharp_hospitalityBarIndexRouteImport } from './routes/dashboard/sharp_hospitality/bar/index'
 import { Route as DashboardSharp_accountingReportsIndexRouteImport } from './routes/dashboard/sharp_accounting/reports/index'
-import { Route as DashboardOrchestratorHospitalityIndexRouteImport } from './routes/dashboard/orchestrator/hospitality/index'
 import { Route as DashboardSharp_hrLeavesRequestsRouteImport } from './routes/dashboard/sharp_hr/leaves/requests'
 import { Route as DashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/dashboard/sharp_hr/employees/$employeeId'
 import { Route as DashboardSharp_hospitalityRestaurantTableIdRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/$tableId'
@@ -86,15 +90,17 @@ import { Route as DashboardSharp_hospitalityHotelBookingIndexRouteImport } from 
 import { Route as DashboardSharp_hospitalityBarInventoryIndexRouteImport } from './routes/dashboard/sharp_hospitality/bar/inventory/index'
 import { Route as DashboardSharp_hospitalityBarBarTenderIndexRouteImport } from './routes/dashboard/sharp_hospitality/bar/bar-tender/index'
 import { Route as DashboardSharp_hospitalityBarBarKitchenIndexRouteImport } from './routes/dashboard/sharp_hospitality/bar/bar-kitchen/index'
-import { Route as DashboardOrchestratorHospitalityRestaurantConfigsIndexRouteImport } from './routes/dashboard/orchestrator/hospitality/restaurant-configs/index'
-import { Route as DashboardOrchestratorHospitalityHotelConfigsIndexRouteImport } from './routes/dashboard/orchestrator/hospitality/hotel-configs/index'
-import { Route as DashboardOrchestratorHospitalityBarConfigsIndexRouteImport } from './routes/dashboard/orchestrator/hospitality/bar-configs/index'
 import { Route as DashboardSharp_hospitalityHotelBookingRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/$roomId'
 import { Route as DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 
 const UnauthorizedRoute = UnauthorizedRouteImport.update({
   id: '/unauthorized',
   path: '/unauthorized',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrchestratorRouteRoute = OrchestratorRouteRouteImport.update({
+  id: '/orchestrator',
+  path: '/orchestrator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -111,6 +117,11 @@ const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
   id: '/org-signup/',
   path: '/org-signup/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const OrchestratorIndexRoute = OrchestratorIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OrchestratorRouteRoute,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
@@ -134,6 +145,12 @@ const SharpOrgEmployeeSetPasswordIndexRoute =
     path: '/sharp-org-employee/set-password/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OrchestratorHospitalityIndexRoute =
+  OrchestratorHospitalityIndexRouteImport.update({
+    id: '/hospitality/',
+    path: '/hospitality/',
+    getParentRoute: () => OrchestratorRouteRoute,
+  } as any)
 const DashboardSharp_marketingIndexRoute =
   DashboardSharp_marketingIndexRouteImport.update({
     id: '/sharp_marketing/',
@@ -144,12 +161,6 @@ const DashboardSharp_accountingIndexRoute =
   DashboardSharp_accountingIndexRouteImport.update({
     id: '/sharp_accounting/',
     path: '/sharp_accounting/',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardOrchestratorIndexRoute =
-  DashboardOrchestratorIndexRouteImport.update({
-    id: '/orchestrator/',
-    path: '/orchestrator/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
 const DashboardEmployeeIndexRoute = DashboardEmployeeIndexRouteImport.update({
@@ -282,6 +293,24 @@ const DashboardSharp_accountingAccountingSetupRouteRoute =
     path: '/sharp_accounting/accounting-setup',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
+const OrchestratorHospitalityRestaurantConfigsIndexRoute =
+  OrchestratorHospitalityRestaurantConfigsIndexRouteImport.update({
+    id: '/hospitality/restaurant-configs/',
+    path: '/hospitality/restaurant-configs/',
+    getParentRoute: () => OrchestratorRouteRoute,
+  } as any)
+const OrchestratorHospitalityHotelConfigsIndexRoute =
+  OrchestratorHospitalityHotelConfigsIndexRouteImport.update({
+    id: '/hospitality/hotel-configs/',
+    path: '/hospitality/hotel-configs/',
+    getParentRoute: () => OrchestratorRouteRoute,
+  } as any)
+const OrchestratorHospitalityBarConfigsIndexRoute =
+  OrchestratorHospitalityBarConfigsIndexRouteImport.update({
+    id: '/hospitality/bar-configs/',
+    path: '/hospitality/bar-configs/',
+    getParentRoute: () => OrchestratorRouteRoute,
+  } as any)
 const DashboardSharp_hrSettingsIndexRoute =
   DashboardSharp_hrSettingsIndexRouteImport.update({
     id: '/sharp_hr/settings/',
@@ -352,12 +381,6 @@ const DashboardSharp_accountingReportsIndexRoute =
   DashboardSharp_accountingReportsIndexRouteImport.update({
     id: '/sharp_accounting/reports/',
     path: '/sharp_accounting/reports/',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardOrchestratorHospitalityIndexRoute =
-  DashboardOrchestratorHospitalityIndexRouteImport.update({
-    id: '/orchestrator/hospitality/',
-    path: '/orchestrator/hospitality/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
 const DashboardSharp_hrLeavesRequestsRoute =
@@ -546,24 +569,6 @@ const DashboardSharp_hospitalityBarBarKitchenIndexRoute =
     path: '/bar-kitchen/',
     getParentRoute: () => DashboardSharp_hospitalityBarRouteRoute,
   } as any)
-const DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute =
-  DashboardOrchestratorHospitalityRestaurantConfigsIndexRouteImport.update({
-    id: '/orchestrator/hospitality/restaurant-configs/',
-    path: '/orchestrator/hospitality/restaurant-configs/',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardOrchestratorHospitalityHotelConfigsIndexRoute =
-  DashboardOrchestratorHospitalityHotelConfigsIndexRouteImport.update({
-    id: '/orchestrator/hospitality/hotel-configs/',
-    path: '/orchestrator/hospitality/hotel-configs/',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardOrchestratorHospitalityBarConfigsIndexRoute =
-  DashboardOrchestratorHospitalityBarConfigsIndexRouteImport.update({
-    id: '/orchestrator/hospitality/bar-configs/',
-    path: '/orchestrator/hospitality/bar-configs/',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
 const DashboardSharp_hospitalityHotelBookingRoomIdRoute =
   DashboardSharp_hospitalityHotelBookingRoomIdRouteImport.update({
     id: '/booking/$roomId',
@@ -580,9 +585,11 @@ const DashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/orchestrator': typeof OrchestratorRouteRouteWithChildren
   '/unauthorized': typeof UnauthorizedRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/orchestrator/': typeof OrchestratorIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
@@ -606,9 +613,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
   '/dashboard/employee': typeof DashboardEmployeeIndexRoute
-  '/dashboard/orchestrator': typeof DashboardOrchestratorIndexRoute
   '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
+  '/orchestrator/hospitality': typeof OrchestratorHospitalityIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
@@ -624,7 +631,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof DashboardSharp_hrLeavesRequestsRoute
-  '/dashboard/orchestrator/hospitality': typeof DashboardOrchestratorHospitalityIndexRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar/': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof DashboardSharp_hospitalityHotelIndexRoute
@@ -637,10 +643,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/recruitment': typeof DashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsIndexRoute
+  '/orchestrator/hospitality/bar-configs': typeof OrchestratorHospitalityBarConfigsIndexRoute
+  '/orchestrator/hospitality/hotel-configs': typeof OrchestratorHospitalityHotelConfigsIndexRoute
+  '/orchestrator/hospitality/restaurant-configs': typeof OrchestratorHospitalityRestaurantConfigsIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
-  '/dashboard/orchestrator/hospitality/bar-configs': typeof DashboardOrchestratorHospitalityBarConfigsIndexRoute
-  '/dashboard/orchestrator/hospitality/hotel-configs': typeof DashboardOrchestratorHospitalityHotelConfigsIndexRoute
-  '/dashboard/orchestrator/hospitality/restaurant-configs': typeof DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute
   '/dashboard/sharp_hospitality/bar/bar-kitchen': typeof DashboardSharp_hospitalityBarBarKitchenIndexRoute
   '/dashboard/sharp_hospitality/bar/bar-tender': typeof DashboardSharp_hospitalityBarBarTenderIndexRoute
   '/dashboard/sharp_hospitality/bar/inventory': typeof DashboardSharp_hospitalityBarInventoryIndexRoute
@@ -666,6 +672,7 @@ export interface FileRoutesByTo {
   '/unauthorized': typeof UnauthorizedRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/orchestrator': typeof OrchestratorIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
@@ -686,9 +693,9 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
   '/dashboard/employee': typeof DashboardEmployeeIndexRoute
-  '/dashboard/orchestrator': typeof DashboardOrchestratorIndexRoute
   '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
+  '/orchestrator/hospitality': typeof OrchestratorHospitalityIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
@@ -704,7 +711,6 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof DashboardSharp_hrLeavesRequestsRoute
-  '/dashboard/orchestrator/hospitality': typeof DashboardOrchestratorHospitalityIndexRoute
   '/dashboard/sharp_accounting/reports': typeof DashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelIndexRoute
@@ -717,10 +723,10 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/recruitment': typeof DashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports': typeof DashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof DashboardSharp_hrSettingsIndexRoute
+  '/orchestrator/hospitality/bar-configs': typeof OrchestratorHospitalityBarConfigsIndexRoute
+  '/orchestrator/hospitality/hotel-configs': typeof OrchestratorHospitalityHotelConfigsIndexRoute
+  '/orchestrator/hospitality/restaurant-configs': typeof OrchestratorHospitalityRestaurantConfigsIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
-  '/dashboard/orchestrator/hospitality/bar-configs': typeof DashboardOrchestratorHospitalityBarConfigsIndexRoute
-  '/dashboard/orchestrator/hospitality/hotel-configs': typeof DashboardOrchestratorHospitalityHotelConfigsIndexRoute
-  '/dashboard/orchestrator/hospitality/restaurant-configs': typeof DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute
   '/dashboard/sharp_hospitality/bar/bar-kitchen': typeof DashboardSharp_hospitalityBarBarKitchenIndexRoute
   '/dashboard/sharp_hospitality/bar/bar-tender': typeof DashboardSharp_hospitalityBarBarTenderIndexRoute
   '/dashboard/sharp_hospitality/bar/inventory': typeof DashboardSharp_hospitalityBarInventoryIndexRoute
@@ -745,9 +751,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/orchestrator': typeof OrchestratorRouteRouteWithChildren
   '/unauthorized': typeof UnauthorizedRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/orchestrator/': typeof OrchestratorIndexRoute
   '/org-signup/': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
   '/dashboard/sharp_accounting/auditAndLogs': typeof DashboardSharp_accountingAuditAndLogsRouteRoute
@@ -771,9 +779,9 @@ export interface FileRoutesById {
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
   '/dashboard/employee/': typeof DashboardEmployeeIndexRoute
-  '/dashboard/orchestrator/': typeof DashboardOrchestratorIndexRoute
   '/dashboard/sharp_accounting/': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing/': typeof DashboardSharp_marketingIndexRoute
+  '/orchestrator/hospitality/': typeof OrchestratorHospitalityIndexRoute
   '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof DashboardSharp_accountingAccountingSetupAccountMappingsRoute
@@ -789,7 +797,6 @@ export interface FileRoutesById {
   '/dashboard/sharp_hospitality/restaurant/$tableId': typeof DashboardSharp_hospitalityRestaurantTableIdRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof DashboardSharp_hrLeavesRequestsRoute
-  '/dashboard/orchestrator/hospitality/': typeof DashboardOrchestratorHospitalityIndexRoute
   '/dashboard/sharp_accounting/reports/': typeof DashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar/': typeof DashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof DashboardSharp_hospitalityHotelIndexRoute
@@ -802,10 +809,10 @@ export interface FileRoutesById {
   '/dashboard/sharp_hr/recruitment/': typeof DashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports/': typeof DashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings/': typeof DashboardSharp_hrSettingsIndexRoute
+  '/orchestrator/hospitality/bar-configs/': typeof OrchestratorHospitalityBarConfigsIndexRoute
+  '/orchestrator/hospitality/hotel-configs/': typeof OrchestratorHospitalityHotelConfigsIndexRoute
+  '/orchestrator/hospitality/restaurant-configs/': typeof OrchestratorHospitalityRestaurantConfigsIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/$roomId': typeof DashboardSharp_hospitalityHotelBookingRoomIdRoute
-  '/dashboard/orchestrator/hospitality/bar-configs/': typeof DashboardOrchestratorHospitalityBarConfigsIndexRoute
-  '/dashboard/orchestrator/hospitality/hotel-configs/': typeof DashboardOrchestratorHospitalityHotelConfigsIndexRoute
-  '/dashboard/orchestrator/hospitality/restaurant-configs/': typeof DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute
   '/dashboard/sharp_hospitality/bar/bar-kitchen/': typeof DashboardSharp_hospitalityBarBarKitchenIndexRoute
   '/dashboard/sharp_hospitality/bar/bar-tender/': typeof DashboardSharp_hospitalityBarBarTenderIndexRoute
   '/dashboard/sharp_hospitality/bar/inventory/': typeof DashboardSharp_hospitalityBarInventoryIndexRoute
@@ -831,9 +838,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/orchestrator'
     | '/unauthorized'
     | '/org-signup/on-boarding'
     | '/dashboard/'
+    | '/orchestrator/'
     | '/org-signup'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
@@ -857,9 +866,9 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/employee'
-    | '/dashboard/orchestrator'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
+    | '/orchestrator/hospitality'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
@@ -875,7 +884,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
-    | '/dashboard/orchestrator/hospitality'
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
@@ -888,10 +896,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment'
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
+    | '/orchestrator/hospitality/bar-configs'
+    | '/orchestrator/hospitality/hotel-configs'
+    | '/orchestrator/hospitality/restaurant-configs'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
-    | '/dashboard/orchestrator/hospitality/bar-configs'
-    | '/dashboard/orchestrator/hospitality/hotel-configs'
-    | '/dashboard/orchestrator/hospitality/restaurant-configs'
     | '/dashboard/sharp_hospitality/bar/bar-kitchen'
     | '/dashboard/sharp_hospitality/bar/bar-tender'
     | '/dashboard/sharp_hospitality/bar/inventory'
@@ -917,6 +925,7 @@ export interface FileRouteTypes {
     | '/unauthorized'
     | '/org-signup/on-boarding'
     | '/dashboard'
+    | '/orchestrator'
     | '/org-signup'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
@@ -937,9 +946,9 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/employee'
-    | '/dashboard/orchestrator'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
+    | '/orchestrator/hospitality'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
@@ -955,7 +964,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
-    | '/dashboard/orchestrator/hospitality'
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
@@ -968,10 +976,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment'
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
+    | '/orchestrator/hospitality/bar-configs'
+    | '/orchestrator/hospitality/hotel-configs'
+    | '/orchestrator/hospitality/restaurant-configs'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
-    | '/dashboard/orchestrator/hospitality/bar-configs'
-    | '/dashboard/orchestrator/hospitality/hotel-configs'
-    | '/dashboard/orchestrator/hospitality/restaurant-configs'
     | '/dashboard/sharp_hospitality/bar/bar-kitchen'
     | '/dashboard/sharp_hospitality/bar/bar-tender'
     | '/dashboard/sharp_hospitality/bar/inventory'
@@ -995,9 +1003,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/orchestrator'
     | '/unauthorized'
     | '/org-signup/on-boarding'
     | '/dashboard/'
+    | '/orchestrator/'
     | '/org-signup/'
     | '/dashboard/sharp_accounting/accounting-setup'
     | '/dashboard/sharp_accounting/auditAndLogs'
@@ -1021,9 +1031,9 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/employee/'
-    | '/dashboard/orchestrator/'
     | '/dashboard/sharp_accounting/'
     | '/dashboard/sharp_marketing/'
+    | '/orchestrator/hospitality/'
     | '/sharp-org-employee/set-password/'
     | '/sharp-org-employee/verification/'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
@@ -1039,7 +1049,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/$tableId'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
-    | '/dashboard/orchestrator/hospitality/'
     | '/dashboard/sharp_accounting/reports/'
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
@@ -1052,10 +1061,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment/'
     | '/dashboard/sharp_hr/reports/'
     | '/dashboard/sharp_hr/settings/'
+    | '/orchestrator/hospitality/bar-configs/'
+    | '/orchestrator/hospitality/hotel-configs/'
+    | '/orchestrator/hospitality/restaurant-configs/'
     | '/dashboard/sharp_hospitality/hotel/booking/$roomId'
-    | '/dashboard/orchestrator/hospitality/bar-configs/'
-    | '/dashboard/orchestrator/hospitality/hotel-configs/'
-    | '/dashboard/orchestrator/hospitality/restaurant-configs/'
     | '/dashboard/sharp_hospitality/bar/bar-kitchen/'
     | '/dashboard/sharp_hospitality/bar/bar-tender/'
     | '/dashboard/sharp_hospitality/bar/inventory/'
@@ -1080,6 +1089,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
+  OrchestratorRouteRoute: typeof OrchestratorRouteRouteWithChildren
   UnauthorizedRoute: typeof UnauthorizedRoute
   OrgSignupOnBoardingRoute: typeof OrgSignupOnBoardingRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
@@ -1094,6 +1104,13 @@ declare module '@tanstack/react-router' {
       path: '/unauthorized'
       fullPath: '/unauthorized'
       preLoaderRoute: typeof UnauthorizedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orchestrator': {
+      id: '/orchestrator'
+      path: '/orchestrator'
+      fullPath: '/orchestrator'
+      preLoaderRoute: typeof OrchestratorRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -1116,6 +1133,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/org-signup'
       preLoaderRoute: typeof OrgSignupIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/orchestrator/': {
+      id: '/orchestrator/'
+      path: '/'
+      fullPath: '/orchestrator/'
+      preLoaderRoute: typeof OrchestratorIndexRouteImport
+      parentRoute: typeof OrchestratorRouteRoute
     }
     '/dashboard/': {
       id: '/dashboard/'
@@ -1145,6 +1169,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SharpOrgEmployeeSetPasswordIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/orchestrator/hospitality/': {
+      id: '/orchestrator/hospitality/'
+      path: '/hospitality'
+      fullPath: '/orchestrator/hospitality'
+      preLoaderRoute: typeof OrchestratorHospitalityIndexRouteImport
+      parentRoute: typeof OrchestratorRouteRoute
+    }
     '/dashboard/sharp_marketing/': {
       id: '/dashboard/sharp_marketing/'
       path: '/sharp_marketing'
@@ -1157,13 +1188,6 @@ declare module '@tanstack/react-router' {
       path: '/sharp_accounting'
       fullPath: '/dashboard/sharp_accounting'
       preLoaderRoute: typeof DashboardSharp_accountingIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/orchestrator/': {
-      id: '/dashboard/orchestrator/'
-      path: '/orchestrator'
-      fullPath: '/dashboard/orchestrator'
-      preLoaderRoute: typeof DashboardOrchestratorIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/employee/': {
@@ -1320,6 +1344,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_accountingAccountingSetupRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/orchestrator/hospitality/restaurant-configs/': {
+      id: '/orchestrator/hospitality/restaurant-configs/'
+      path: '/hospitality/restaurant-configs'
+      fullPath: '/orchestrator/hospitality/restaurant-configs'
+      preLoaderRoute: typeof OrchestratorHospitalityRestaurantConfigsIndexRouteImport
+      parentRoute: typeof OrchestratorRouteRoute
+    }
+    '/orchestrator/hospitality/hotel-configs/': {
+      id: '/orchestrator/hospitality/hotel-configs/'
+      path: '/hospitality/hotel-configs'
+      fullPath: '/orchestrator/hospitality/hotel-configs'
+      preLoaderRoute: typeof OrchestratorHospitalityHotelConfigsIndexRouteImport
+      parentRoute: typeof OrchestratorRouteRoute
+    }
+    '/orchestrator/hospitality/bar-configs/': {
+      id: '/orchestrator/hospitality/bar-configs/'
+      path: '/hospitality/bar-configs'
+      fullPath: '/orchestrator/hospitality/bar-configs'
+      preLoaderRoute: typeof OrchestratorHospitalityBarConfigsIndexRouteImport
+      parentRoute: typeof OrchestratorRouteRoute
+    }
     '/dashboard/sharp_hr/settings/': {
       id: '/dashboard/sharp_hr/settings/'
       path: '/sharp_hr/settings'
@@ -1402,13 +1447,6 @@ declare module '@tanstack/react-router' {
       path: '/sharp_accounting/reports'
       fullPath: '/dashboard/sharp_accounting/reports'
       preLoaderRoute: typeof DashboardSharp_accountingReportsIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/orchestrator/hospitality/': {
-      id: '/dashboard/orchestrator/hospitality/'
-      path: '/orchestrator/hospitality'
-      fullPath: '/dashboard/orchestrator/hospitality'
-      preLoaderRoute: typeof DashboardOrchestratorHospitalityIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/sharp_hr/leaves/requests': {
@@ -1628,27 +1666,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_hospitalityBarBarKitchenIndexRouteImport
       parentRoute: typeof DashboardSharp_hospitalityBarRouteRoute
     }
-    '/dashboard/orchestrator/hospitality/restaurant-configs/': {
-      id: '/dashboard/orchestrator/hospitality/restaurant-configs/'
-      path: '/orchestrator/hospitality/restaurant-configs'
-      fullPath: '/dashboard/orchestrator/hospitality/restaurant-configs'
-      preLoaderRoute: typeof DashboardOrchestratorHospitalityRestaurantConfigsIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/orchestrator/hospitality/hotel-configs/': {
-      id: '/dashboard/orchestrator/hospitality/hotel-configs/'
-      path: '/orchestrator/hospitality/hotel-configs'
-      fullPath: '/dashboard/orchestrator/hospitality/hotel-configs'
-      preLoaderRoute: typeof DashboardOrchestratorHospitalityHotelConfigsIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/orchestrator/hospitality/bar-configs/': {
-      id: '/dashboard/orchestrator/hospitality/bar-configs/'
-      path: '/orchestrator/hospitality/bar-configs'
-      fullPath: '/dashboard/orchestrator/hospitality/bar-configs'
-      preLoaderRoute: typeof DashboardOrchestratorHospitalityBarConfigsIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
     '/dashboard/sharp_hospitality/hotel/booking/$roomId': {
       id: '/dashboard/sharp_hospitality/hotel/booking/$roomId'
       path: '/booking/$roomId'
@@ -1819,7 +1836,6 @@ interface DashboardRouteRouteChildren {
   DashboardSharp_marketingReportsRoute: typeof DashboardSharp_marketingReportsRoute
   DashboardSharp_marketingSocial_media_managementRoute: typeof DashboardSharp_marketingSocial_media_managementRoute
   DashboardEmployeeIndexRoute: typeof DashboardEmployeeIndexRoute
-  DashboardOrchestratorIndexRoute: typeof DashboardOrchestratorIndexRoute
   DashboardSharp_accountingIndexRoute: typeof DashboardSharp_accountingIndexRoute
   DashboardSharp_marketingIndexRoute: typeof DashboardSharp_marketingIndexRoute
   DashboardSharp_accountingReportsBalanceSheetRoute: typeof DashboardSharp_accountingReportsBalanceSheetRoute
@@ -1828,7 +1844,6 @@ interface DashboardRouteRouteChildren {
   DashboardSharp_accountingReportsTrialBalanceRoute: typeof DashboardSharp_accountingReportsTrialBalanceRoute
   DashboardSharp_hrEmployeesEmployeeIdRoute: typeof DashboardSharp_hrEmployeesEmployeeIdRoute
   DashboardSharp_hrLeavesRequestsRoute: typeof DashboardSharp_hrLeavesRequestsRoute
-  DashboardOrchestratorHospitalityIndexRoute: typeof DashboardOrchestratorHospitalityIndexRoute
   DashboardSharp_accountingReportsIndexRoute: typeof DashboardSharp_accountingReportsIndexRoute
   DashboardSharp_hospitalityInventoryIndexRoute: typeof DashboardSharp_hospitalityInventoryIndexRoute
   DashboardSharp_hospitalityMenuIndexRoute: typeof DashboardSharp_hospitalityMenuIndexRoute
@@ -1838,9 +1853,6 @@ interface DashboardRouteRouteChildren {
   DashboardSharp_hrRecruitmentIndexRoute: typeof DashboardSharp_hrRecruitmentIndexRoute
   DashboardSharp_hrReportsIndexRoute: typeof DashboardSharp_hrReportsIndexRoute
   DashboardSharp_hrSettingsIndexRoute: typeof DashboardSharp_hrSettingsIndexRoute
-  DashboardOrchestratorHospitalityBarConfigsIndexRoute: typeof DashboardOrchestratorHospitalityBarConfigsIndexRoute
-  DashboardOrchestratorHospitalityHotelConfigsIndexRoute: typeof DashboardOrchestratorHospitalityHotelConfigsIndexRoute
-  DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute: typeof DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute
   DashboardSharp_hrEmployeesDirectHireIndexRoute: typeof DashboardSharp_hrEmployeesDirectHireIndexRoute
   DashboardSharp_hrEmployeesDocumentsIndexRoute: typeof DashboardSharp_hrEmployeesDocumentsIndexRoute
   DashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof DashboardSharp_hrEmployeesPrivilegesIndexRoute
@@ -1882,7 +1894,6 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSharp_marketingSocial_media_managementRoute:
     DashboardSharp_marketingSocial_media_managementRoute,
   DashboardEmployeeIndexRoute: DashboardEmployeeIndexRoute,
-  DashboardOrchestratorIndexRoute: DashboardOrchestratorIndexRoute,
   DashboardSharp_accountingIndexRoute: DashboardSharp_accountingIndexRoute,
   DashboardSharp_marketingIndexRoute: DashboardSharp_marketingIndexRoute,
   DashboardSharp_accountingReportsBalanceSheetRoute:
@@ -1896,8 +1907,6 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSharp_hrEmployeesEmployeeIdRoute:
     DashboardSharp_hrEmployeesEmployeeIdRoute,
   DashboardSharp_hrLeavesRequestsRoute: DashboardSharp_hrLeavesRequestsRoute,
-  DashboardOrchestratorHospitalityIndexRoute:
-    DashboardOrchestratorHospitalityIndexRoute,
   DashboardSharp_accountingReportsIndexRoute:
     DashboardSharp_accountingReportsIndexRoute,
   DashboardSharp_hospitalityInventoryIndexRoute:
@@ -1911,12 +1920,6 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
     DashboardSharp_hrRecruitmentIndexRoute,
   DashboardSharp_hrReportsIndexRoute: DashboardSharp_hrReportsIndexRoute,
   DashboardSharp_hrSettingsIndexRoute: DashboardSharp_hrSettingsIndexRoute,
-  DashboardOrchestratorHospitalityBarConfigsIndexRoute:
-    DashboardOrchestratorHospitalityBarConfigsIndexRoute,
-  DashboardOrchestratorHospitalityHotelConfigsIndexRoute:
-    DashboardOrchestratorHospitalityHotelConfigsIndexRoute,
-  DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute:
-    DashboardOrchestratorHospitalityRestaurantConfigsIndexRoute,
   DashboardSharp_hrEmployeesDirectHireIndexRoute:
     DashboardSharp_hrEmployeesDirectHireIndexRoute,
   DashboardSharp_hrEmployeesDocumentsIndexRoute:
@@ -1929,9 +1932,32 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
 )
 
+interface OrchestratorRouteRouteChildren {
+  OrchestratorIndexRoute: typeof OrchestratorIndexRoute
+  OrchestratorHospitalityIndexRoute: typeof OrchestratorHospitalityIndexRoute
+  OrchestratorHospitalityBarConfigsIndexRoute: typeof OrchestratorHospitalityBarConfigsIndexRoute
+  OrchestratorHospitalityHotelConfigsIndexRoute: typeof OrchestratorHospitalityHotelConfigsIndexRoute
+  OrchestratorHospitalityRestaurantConfigsIndexRoute: typeof OrchestratorHospitalityRestaurantConfigsIndexRoute
+}
+
+const OrchestratorRouteRouteChildren: OrchestratorRouteRouteChildren = {
+  OrchestratorIndexRoute: OrchestratorIndexRoute,
+  OrchestratorHospitalityIndexRoute: OrchestratorHospitalityIndexRoute,
+  OrchestratorHospitalityBarConfigsIndexRoute:
+    OrchestratorHospitalityBarConfigsIndexRoute,
+  OrchestratorHospitalityHotelConfigsIndexRoute:
+    OrchestratorHospitalityHotelConfigsIndexRoute,
+  OrchestratorHospitalityRestaurantConfigsIndexRoute:
+    OrchestratorHospitalityRestaurantConfigsIndexRoute,
+}
+
+const OrchestratorRouteRouteWithChildren =
+  OrchestratorRouteRoute._addFileChildren(OrchestratorRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  OrchestratorRouteRoute: OrchestratorRouteRouteWithChildren,
   UnauthorizedRoute: UnauthorizedRoute,
   OrgSignupOnBoardingRoute: OrgSignupOnBoardingRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
