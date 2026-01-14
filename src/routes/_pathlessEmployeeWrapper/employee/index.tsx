@@ -5,5 +5,5 @@ export const Route = createFileRoute('/_pathlessEmployeeWrapper/employee/')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/dashboard/employee/"!</div>
+  return <div>Hello this is employee Home page!</div>
 }
