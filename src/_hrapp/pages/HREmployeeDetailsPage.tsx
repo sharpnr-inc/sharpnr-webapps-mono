@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Route } from "@/routes/dashboard/sharp_hr/employees/$employeeId";
+import { Route } from "@/routes/_pathlessEmployeeWrapper/dashboard/sharp_hr/employees/$employeeId";
 import { ArrowLeft } from "lucide-react";
 
 export function HREmployeeDetailsPage() {
