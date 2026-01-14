@@ -140,7 +140,7 @@ export default function DashboardHeader({
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
-                onClick={() => nav({ to: "/dashboard/employee/profile" })}
+                onClick={() => nav({ to: "/employee/profile" })}
                 className="cursor-pointer"
               >
                 <UserCog className="mr-2 h-4 w-4" />

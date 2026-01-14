@@ -15,27 +15,27 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
 import { Route as OrchestratorIndexRouteImport } from './routes/orchestrator/index'
+import { Route as EmployeeIndexRouteImport } from './routes/employee/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as OrgSignupOnBoardingRouteImport } from './routes/org-signup/on-boarding'
+import { Route as EmployeeReviewsRouteImport } from './routes/employee/reviews'
+import { Route as EmployeeRequestsRouteImport } from './routes/employee/requests'
+import { Route as EmployeeProfileRouteImport } from './routes/employee/profile'
+import { Route as EmployeeOvertimeRouteImport } from './routes/employee/overtime'
+import { Route as EmployeeLeavesRouteImport } from './routes/employee/leaves'
+import { Route as EmployeeGreivencesRouteImport } from './routes/employee/greivences'
+import { Route as EmployeeFeedbackRouteImport } from './routes/employee/feedback'
+import { Route as EmployeeEmployee_attendanceRouteImport } from './routes/employee/employee_attendance'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
 import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
 import { Route as OrchestratorHospitalityIndexRouteImport } from './routes/orchestrator/hospitality/index'
 import { Route as DashboardSharp_marketingIndexRouteImport } from './routes/dashboard/sharp_marketing/index'
 import { Route as DashboardSharp_accountingIndexRouteImport } from './routes/dashboard/sharp_accounting/index'
-import { Route as DashboardEmployeeIndexRouteImport } from './routes/dashboard/employee/index'
 import { Route as DashboardSharp_marketingSocial_media_managementRouteImport } from './routes/dashboard/sharp_marketing/social_media_management'
 import { Route as DashboardSharp_marketingReportsRouteImport } from './routes/dashboard/sharp_marketing/reports'
 import { Route as DashboardSharp_marketingLeadsRouteImport } from './routes/dashboard/sharp_marketing/leads'
 import { Route as DashboardSharp_marketingCampaignsRouteImport } from './routes/dashboard/sharp_marketing/campaigns'
 import { Route as DashboardSharp_hospitalityKitchenRouteImport } from './routes/dashboard/sharp_hospitality/kitchen'
-import { Route as DashboardEmployeeReviewsRouteImport } from './routes/dashboard/employee/reviews'
-import { Route as DashboardEmployeeRequestsRouteImport } from './routes/dashboard/employee/requests'
-import { Route as DashboardEmployeeProfileRouteImport } from './routes/dashboard/employee/profile'
-import { Route as DashboardEmployeeOvertimeRouteImport } from './routes/dashboard/employee/overtime'
-import { Route as DashboardEmployeeLeavesRouteImport } from './routes/dashboard/employee/leaves'
-import { Route as DashboardEmployeeGreivencesRouteImport } from './routes/dashboard/employee/greivences'
-import { Route as DashboardEmployeeFeedbackRouteImport } from './routes/dashboard/employee/feedback'
-import { Route as DashboardEmployeeEmployee_attendanceRouteImport } from './routes/dashboard/employee/employee_attendance'
 import { Route as DashboardSharp_hospitalityRestaurantRouteRouteImport } from './routes/dashboard/sharp_hospitality/restaurant/route'
 import { Route as DashboardSharp_hospitalityHotelRouteRouteImport } from './routes/dashboard/sharp_hospitality/hotel/route'
 import { Route as DashboardSharp_hospitalityBarRouteRouteImport } from './routes/dashboard/sharp_hospitality/bar/route'
@@ -123,6 +123,11 @@ const OrchestratorIndexRoute = OrchestratorIndexRouteImport.update({
   path: '/',
   getParentRoute: () => OrchestratorRouteRoute,
 } as any)
+const EmployeeIndexRoute = EmployeeIndexRouteImport.update({
+  id: '/employee/',
+  path: '/employee/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -133,6 +138,47 @@ const OrgSignupOnBoardingRoute = OrgSignupOnBoardingRouteImport.update({
   path: '/org-signup/on-boarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmployeeReviewsRoute = EmployeeReviewsRouteImport.update({
+  id: '/employee/reviews',
+  path: '/employee/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeRequestsRoute = EmployeeRequestsRouteImport.update({
+  id: '/employee/requests',
+  path: '/employee/requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeProfileRoute = EmployeeProfileRouteImport.update({
+  id: '/employee/profile',
+  path: '/employee/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeOvertimeRoute = EmployeeOvertimeRouteImport.update({
+  id: '/employee/overtime',
+  path: '/employee/overtime',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeLeavesRoute = EmployeeLeavesRouteImport.update({
+  id: '/employee/leaves',
+  path: '/employee/leaves',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeGreivencesRoute = EmployeeGreivencesRouteImport.update({
+  id: '/employee/greivences',
+  path: '/employee/greivences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeFeedbackRoute = EmployeeFeedbackRouteImport.update({
+  id: '/employee/feedback',
+  path: '/employee/feedback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeEmployee_attendanceRoute =
+  EmployeeEmployee_attendanceRouteImport.update({
+    id: '/employee/employee_attendance',
+    path: '/employee/employee_attendance',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SharpOrgEmployeeVerificationIndexRoute =
   SharpOrgEmployeeVerificationIndexRouteImport.update({
     id: '/sharp-org-employee/verification/',
@@ -163,11 +209,6 @@ const DashboardSharp_accountingIndexRoute =
     path: '/sharp_accounting/',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
-const DashboardEmployeeIndexRoute = DashboardEmployeeIndexRouteImport.update({
-  id: '/employee/',
-  path: '/employee/',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
 const DashboardSharp_marketingSocial_media_managementRoute =
   DashboardSharp_marketingSocial_media_managementRouteImport.update({
     id: '/sharp_marketing/social_media_management',
@@ -196,53 +237,6 @@ const DashboardSharp_hospitalityKitchenRoute =
   DashboardSharp_hospitalityKitchenRouteImport.update({
     id: '/sharp_hospitality/kitchen',
     path: '/sharp_hospitality/kitchen',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeReviewsRoute =
-  DashboardEmployeeReviewsRouteImport.update({
-    id: '/employee/reviews',
-    path: '/employee/reviews',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeRequestsRoute =
-  DashboardEmployeeRequestsRouteImport.update({
-    id: '/employee/requests',
-    path: '/employee/requests',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeProfileRoute =
-  DashboardEmployeeProfileRouteImport.update({
-    id: '/employee/profile',
-    path: '/employee/profile',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeOvertimeRoute =
-  DashboardEmployeeOvertimeRouteImport.update({
-    id: '/employee/overtime',
-    path: '/employee/overtime',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeLeavesRoute = DashboardEmployeeLeavesRouteImport.update({
-  id: '/employee/leaves',
-  path: '/employee/leaves',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-const DashboardEmployeeGreivencesRoute =
-  DashboardEmployeeGreivencesRouteImport.update({
-    id: '/employee/greivences',
-    path: '/employee/greivences',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeFeedbackRoute =
-  DashboardEmployeeFeedbackRouteImport.update({
-    id: '/employee/feedback',
-    path: '/employee/feedback',
-    getParentRoute: () => DashboardRouteRoute,
-  } as any)
-const DashboardEmployeeEmployee_attendanceRoute =
-  DashboardEmployeeEmployee_attendanceRouteImport.update({
-    id: '/employee/employee_attendance',
-    path: '/employee/employee_attendance',
     getParentRoute: () => DashboardRouteRoute,
   } as any)
 const DashboardSharp_hospitalityRestaurantRouteRoute =
@@ -587,8 +581,17 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/orchestrator': typeof OrchestratorRouteRouteWithChildren
   '/unauthorized': typeof UnauthorizedRoute
+  '/employee/employee_attendance': typeof EmployeeEmployee_attendanceRoute
+  '/employee/feedback': typeof EmployeeFeedbackRoute
+  '/employee/greivences': typeof EmployeeGreivencesRoute
+  '/employee/leaves': typeof EmployeeLeavesRoute
+  '/employee/overtime': typeof EmployeeOvertimeRoute
+  '/employee/profile': typeof EmployeeProfileRoute
+  '/employee/requests': typeof EmployeeRequestsRoute
+  '/employee/reviews': typeof EmployeeReviewsRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/employee': typeof EmployeeIndexRoute
   '/orchestrator/': typeof OrchestratorIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
@@ -599,20 +602,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarRouteRouteWithChildren
   '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantRouteRouteWithChildren
-  '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
-  '/dashboard/employee/feedback': typeof DashboardEmployeeFeedbackRoute
-  '/dashboard/employee/greivences': typeof DashboardEmployeeGreivencesRoute
-  '/dashboard/employee/leaves': typeof DashboardEmployeeLeavesRoute
-  '/dashboard/employee/overtime': typeof DashboardEmployeeOvertimeRoute
-  '/dashboard/employee/profile': typeof DashboardEmployeeProfileRoute
-  '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
-  '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/employee': typeof DashboardEmployeeIndexRoute
   '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
   '/orchestrator/hospitality': typeof OrchestratorHospitalityIndexRoute
@@ -670,8 +664,17 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/unauthorized': typeof UnauthorizedRoute
+  '/employee/employee_attendance': typeof EmployeeEmployee_attendanceRoute
+  '/employee/feedback': typeof EmployeeFeedbackRoute
+  '/employee/greivences': typeof EmployeeGreivencesRoute
+  '/employee/leaves': typeof EmployeeLeavesRoute
+  '/employee/overtime': typeof EmployeeOvertimeRoute
+  '/employee/profile': typeof EmployeeProfileRoute
+  '/employee/requests': typeof EmployeeRequestsRoute
+  '/employee/reviews': typeof EmployeeReviewsRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/employee': typeof EmployeeIndexRoute
   '/orchestrator': typeof OrchestratorIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
@@ -679,20 +682,11 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/ledger': typeof DashboardSharp_accountingLedgerRouteRoute
   '/dashboard/sharp_accounting/settings': typeof DashboardSharp_accountingSettingsRouteRoute
   '/dashboard/sharp_accounting/transactions': typeof DashboardSharp_accountingTransactionsRouteRoute
-  '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
-  '/dashboard/employee/feedback': typeof DashboardEmployeeFeedbackRoute
-  '/dashboard/employee/greivences': typeof DashboardEmployeeGreivencesRoute
-  '/dashboard/employee/leaves': typeof DashboardEmployeeLeavesRoute
-  '/dashboard/employee/overtime': typeof DashboardEmployeeOvertimeRoute
-  '/dashboard/employee/profile': typeof DashboardEmployeeProfileRoute
-  '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
-  '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/employee': typeof DashboardEmployeeIndexRoute
   '/dashboard/sharp_accounting': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof DashboardSharp_marketingIndexRoute
   '/orchestrator/hospitality': typeof OrchestratorHospitalityIndexRoute
@@ -753,8 +747,17 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/orchestrator': typeof OrchestratorRouteRouteWithChildren
   '/unauthorized': typeof UnauthorizedRoute
+  '/employee/employee_attendance': typeof EmployeeEmployee_attendanceRoute
+  '/employee/feedback': typeof EmployeeFeedbackRoute
+  '/employee/greivences': typeof EmployeeGreivencesRoute
+  '/employee/leaves': typeof EmployeeLeavesRoute
+  '/employee/overtime': typeof EmployeeOvertimeRoute
+  '/employee/profile': typeof EmployeeProfileRoute
+  '/employee/requests': typeof EmployeeRequestsRoute
+  '/employee/reviews': typeof EmployeeReviewsRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/employee/': typeof EmployeeIndexRoute
   '/orchestrator/': typeof OrchestratorIndexRoute
   '/org-signup/': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof DashboardSharp_accountingAccountingSetupRouteRouteWithChildren
@@ -765,20 +768,11 @@ export interface FileRoutesById {
   '/dashboard/sharp_hospitality/bar': typeof DashboardSharp_hospitalityBarRouteRouteWithChildren
   '/dashboard/sharp_hospitality/hotel': typeof DashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/dashboard/sharp_hospitality/restaurant': typeof DashboardSharp_hospitalityRestaurantRouteRouteWithChildren
-  '/dashboard/employee/employee_attendance': typeof DashboardEmployeeEmployee_attendanceRoute
-  '/dashboard/employee/feedback': typeof DashboardEmployeeFeedbackRoute
-  '/dashboard/employee/greivences': typeof DashboardEmployeeGreivencesRoute
-  '/dashboard/employee/leaves': typeof DashboardEmployeeLeavesRoute
-  '/dashboard/employee/overtime': typeof DashboardEmployeeOvertimeRoute
-  '/dashboard/employee/profile': typeof DashboardEmployeeProfileRoute
-  '/dashboard/employee/requests': typeof DashboardEmployeeRequestsRoute
-  '/dashboard/employee/reviews': typeof DashboardEmployeeReviewsRoute
   '/dashboard/sharp_hospitality/kitchen': typeof DashboardSharp_hospitalityKitchenRoute
   '/dashboard/sharp_marketing/campaigns': typeof DashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof DashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof DashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof DashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/employee/': typeof DashboardEmployeeIndexRoute
   '/dashboard/sharp_accounting/': typeof DashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing/': typeof DashboardSharp_marketingIndexRoute
   '/orchestrator/hospitality/': typeof OrchestratorHospitalityIndexRoute
@@ -840,8 +834,17 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/orchestrator'
     | '/unauthorized'
+    | '/employee/employee_attendance'
+    | '/employee/feedback'
+    | '/employee/greivences'
+    | '/employee/leaves'
+    | '/employee/overtime'
+    | '/employee/profile'
+    | '/employee/requests'
+    | '/employee/reviews'
     | '/org-signup/on-boarding'
     | '/dashboard/'
+    | '/employee'
     | '/orchestrator/'
     | '/org-signup'
     | '/dashboard/sharp_accounting/accounting-setup'
@@ -852,20 +855,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
     | '/dashboard/sharp_hospitality/restaurant'
-    | '/dashboard/employee/employee_attendance'
-    | '/dashboard/employee/feedback'
-    | '/dashboard/employee/greivences'
-    | '/dashboard/employee/leaves'
-    | '/dashboard/employee/overtime'
-    | '/dashboard/employee/profile'
-    | '/dashboard/employee/requests'
-    | '/dashboard/employee/reviews'
     | '/dashboard/sharp_hospitality/kitchen'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
-    | '/dashboard/employee'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
     | '/orchestrator/hospitality'
@@ -923,8 +917,17 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/unauthorized'
+    | '/employee/employee_attendance'
+    | '/employee/feedback'
+    | '/employee/greivences'
+    | '/employee/leaves'
+    | '/employee/overtime'
+    | '/employee/profile'
+    | '/employee/requests'
+    | '/employee/reviews'
     | '/org-signup/on-boarding'
     | '/dashboard'
+    | '/employee'
     | '/orchestrator'
     | '/org-signup'
     | '/dashboard/sharp_accounting/accounting-setup'
@@ -932,20 +935,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/ledger'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_accounting/transactions'
-    | '/dashboard/employee/employee_attendance'
-    | '/dashboard/employee/feedback'
-    | '/dashboard/employee/greivences'
-    | '/dashboard/employee/leaves'
-    | '/dashboard/employee/overtime'
-    | '/dashboard/employee/profile'
-    | '/dashboard/employee/requests'
-    | '/dashboard/employee/reviews'
     | '/dashboard/sharp_hospitality/kitchen'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
-    | '/dashboard/employee'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
     | '/orchestrator/hospitality'
@@ -1005,8 +999,17 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/orchestrator'
     | '/unauthorized'
+    | '/employee/employee_attendance'
+    | '/employee/feedback'
+    | '/employee/greivences'
+    | '/employee/leaves'
+    | '/employee/overtime'
+    | '/employee/profile'
+    | '/employee/requests'
+    | '/employee/reviews'
     | '/org-signup/on-boarding'
     | '/dashboard/'
+    | '/employee/'
     | '/orchestrator/'
     | '/org-signup/'
     | '/dashboard/sharp_accounting/accounting-setup'
@@ -1017,20 +1020,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
     | '/dashboard/sharp_hospitality/restaurant'
-    | '/dashboard/employee/employee_attendance'
-    | '/dashboard/employee/feedback'
-    | '/dashboard/employee/greivences'
-    | '/dashboard/employee/leaves'
-    | '/dashboard/employee/overtime'
-    | '/dashboard/employee/profile'
-    | '/dashboard/employee/requests'
-    | '/dashboard/employee/reviews'
     | '/dashboard/sharp_hospitality/kitchen'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
-    | '/dashboard/employee/'
     | '/dashboard/sharp_accounting/'
     | '/dashboard/sharp_marketing/'
     | '/orchestrator/hospitality/'
@@ -1091,7 +1085,16 @@ export interface RootRouteChildren {
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   OrchestratorRouteRoute: typeof OrchestratorRouteRouteWithChildren
   UnauthorizedRoute: typeof UnauthorizedRoute
+  EmployeeEmployee_attendanceRoute: typeof EmployeeEmployee_attendanceRoute
+  EmployeeFeedbackRoute: typeof EmployeeFeedbackRoute
+  EmployeeGreivencesRoute: typeof EmployeeGreivencesRoute
+  EmployeeLeavesRoute: typeof EmployeeLeavesRoute
+  EmployeeOvertimeRoute: typeof EmployeeOvertimeRoute
+  EmployeeProfileRoute: typeof EmployeeProfileRoute
+  EmployeeRequestsRoute: typeof EmployeeRequestsRoute
+  EmployeeReviewsRoute: typeof EmployeeReviewsRoute
   OrgSignupOnBoardingRoute: typeof OrgSignupOnBoardingRoute
+  EmployeeIndexRoute: typeof EmployeeIndexRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
   SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
   SharpOrgEmployeeVerificationIndexRoute: typeof SharpOrgEmployeeVerificationIndexRoute
@@ -1141,6 +1144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrchestratorIndexRouteImport
       parentRoute: typeof OrchestratorRouteRoute
     }
+    '/employee/': {
+      id: '/employee/'
+      path: '/employee'
+      fullPath: '/employee'
+      preLoaderRoute: typeof EmployeeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/'
@@ -1153,6 +1163,62 @@ declare module '@tanstack/react-router' {
       path: '/org-signup/on-boarding'
       fullPath: '/org-signup/on-boarding'
       preLoaderRoute: typeof OrgSignupOnBoardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/reviews': {
+      id: '/employee/reviews'
+      path: '/employee/reviews'
+      fullPath: '/employee/reviews'
+      preLoaderRoute: typeof EmployeeReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/requests': {
+      id: '/employee/requests'
+      path: '/employee/requests'
+      fullPath: '/employee/requests'
+      preLoaderRoute: typeof EmployeeRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/profile': {
+      id: '/employee/profile'
+      path: '/employee/profile'
+      fullPath: '/employee/profile'
+      preLoaderRoute: typeof EmployeeProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/overtime': {
+      id: '/employee/overtime'
+      path: '/employee/overtime'
+      fullPath: '/employee/overtime'
+      preLoaderRoute: typeof EmployeeOvertimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/leaves': {
+      id: '/employee/leaves'
+      path: '/employee/leaves'
+      fullPath: '/employee/leaves'
+      preLoaderRoute: typeof EmployeeLeavesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/greivences': {
+      id: '/employee/greivences'
+      path: '/employee/greivences'
+      fullPath: '/employee/greivences'
+      preLoaderRoute: typeof EmployeeGreivencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/feedback': {
+      id: '/employee/feedback'
+      path: '/employee/feedback'
+      fullPath: '/employee/feedback'
+      preLoaderRoute: typeof EmployeeFeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/employee_attendance': {
+      id: '/employee/employee_attendance'
+      path: '/employee/employee_attendance'
+      fullPath: '/employee/employee_attendance'
+      preLoaderRoute: typeof EmployeeEmployee_attendanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sharp-org-employee/verification/': {
@@ -1190,13 +1256,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSharp_accountingIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/employee/': {
-      id: '/dashboard/employee/'
-      path: '/employee'
-      fullPath: '/dashboard/employee'
-      preLoaderRoute: typeof DashboardEmployeeIndexRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
     '/dashboard/sharp_marketing/social_media_management': {
       id: '/dashboard/sharp_marketing/social_media_management'
       path: '/sharp_marketing/social_media_management'
@@ -1230,62 +1289,6 @@ declare module '@tanstack/react-router' {
       path: '/sharp_hospitality/kitchen'
       fullPath: '/dashboard/sharp_hospitality/kitchen'
       preLoaderRoute: typeof DashboardSharp_hospitalityKitchenRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/reviews': {
-      id: '/dashboard/employee/reviews'
-      path: '/employee/reviews'
-      fullPath: '/dashboard/employee/reviews'
-      preLoaderRoute: typeof DashboardEmployeeReviewsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/requests': {
-      id: '/dashboard/employee/requests'
-      path: '/employee/requests'
-      fullPath: '/dashboard/employee/requests'
-      preLoaderRoute: typeof DashboardEmployeeRequestsRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/profile': {
-      id: '/dashboard/employee/profile'
-      path: '/employee/profile'
-      fullPath: '/dashboard/employee/profile'
-      preLoaderRoute: typeof DashboardEmployeeProfileRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/overtime': {
-      id: '/dashboard/employee/overtime'
-      path: '/employee/overtime'
-      fullPath: '/dashboard/employee/overtime'
-      preLoaderRoute: typeof DashboardEmployeeOvertimeRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/leaves': {
-      id: '/dashboard/employee/leaves'
-      path: '/employee/leaves'
-      fullPath: '/dashboard/employee/leaves'
-      preLoaderRoute: typeof DashboardEmployeeLeavesRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/greivences': {
-      id: '/dashboard/employee/greivences'
-      path: '/employee/greivences'
-      fullPath: '/dashboard/employee/greivences'
-      preLoaderRoute: typeof DashboardEmployeeGreivencesRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/feedback': {
-      id: '/dashboard/employee/feedback'
-      path: '/employee/feedback'
-      fullPath: '/dashboard/employee/feedback'
-      preLoaderRoute: typeof DashboardEmployeeFeedbackRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/employee/employee_attendance': {
-      id: '/dashboard/employee/employee_attendance'
-      path: '/employee/employee_attendance'
-      fullPath: '/dashboard/employee/employee_attendance'
-      preLoaderRoute: typeof DashboardEmployeeEmployee_attendanceRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/sharp_hospitality/restaurant': {
@@ -1822,20 +1825,11 @@ interface DashboardRouteRouteChildren {
   DashboardSharp_hospitalityBarRouteRoute: typeof DashboardSharp_hospitalityBarRouteRouteWithChildren
   DashboardSharp_hospitalityHotelRouteRoute: typeof DashboardSharp_hospitalityHotelRouteRouteWithChildren
   DashboardSharp_hospitalityRestaurantRouteRoute: typeof DashboardSharp_hospitalityRestaurantRouteRouteWithChildren
-  DashboardEmployeeEmployee_attendanceRoute: typeof DashboardEmployeeEmployee_attendanceRoute
-  DashboardEmployeeFeedbackRoute: typeof DashboardEmployeeFeedbackRoute
-  DashboardEmployeeGreivencesRoute: typeof DashboardEmployeeGreivencesRoute
-  DashboardEmployeeLeavesRoute: typeof DashboardEmployeeLeavesRoute
-  DashboardEmployeeOvertimeRoute: typeof DashboardEmployeeOvertimeRoute
-  DashboardEmployeeProfileRoute: typeof DashboardEmployeeProfileRoute
-  DashboardEmployeeRequestsRoute: typeof DashboardEmployeeRequestsRoute
-  DashboardEmployeeReviewsRoute: typeof DashboardEmployeeReviewsRoute
   DashboardSharp_hospitalityKitchenRoute: typeof DashboardSharp_hospitalityKitchenRoute
   DashboardSharp_marketingCampaignsRoute: typeof DashboardSharp_marketingCampaignsRoute
   DashboardSharp_marketingLeadsRoute: typeof DashboardSharp_marketingLeadsRoute
   DashboardSharp_marketingReportsRoute: typeof DashboardSharp_marketingReportsRoute
   DashboardSharp_marketingSocial_media_managementRoute: typeof DashboardSharp_marketingSocial_media_managementRoute
-  DashboardEmployeeIndexRoute: typeof DashboardEmployeeIndexRoute
   DashboardSharp_accountingIndexRoute: typeof DashboardSharp_accountingIndexRoute
   DashboardSharp_marketingIndexRoute: typeof DashboardSharp_marketingIndexRoute
   DashboardSharp_accountingReportsBalanceSheetRoute: typeof DashboardSharp_accountingReportsBalanceSheetRoute
@@ -1876,15 +1870,6 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
     DashboardSharp_hospitalityHotelRouteRouteWithChildren,
   DashboardSharp_hospitalityRestaurantRouteRoute:
     DashboardSharp_hospitalityRestaurantRouteRouteWithChildren,
-  DashboardEmployeeEmployee_attendanceRoute:
-    DashboardEmployeeEmployee_attendanceRoute,
-  DashboardEmployeeFeedbackRoute: DashboardEmployeeFeedbackRoute,
-  DashboardEmployeeGreivencesRoute: DashboardEmployeeGreivencesRoute,
-  DashboardEmployeeLeavesRoute: DashboardEmployeeLeavesRoute,
-  DashboardEmployeeOvertimeRoute: DashboardEmployeeOvertimeRoute,
-  DashboardEmployeeProfileRoute: DashboardEmployeeProfileRoute,
-  DashboardEmployeeRequestsRoute: DashboardEmployeeRequestsRoute,
-  DashboardEmployeeReviewsRoute: DashboardEmployeeReviewsRoute,
   DashboardSharp_hospitalityKitchenRoute:
     DashboardSharp_hospitalityKitchenRoute,
   DashboardSharp_marketingCampaignsRoute:
@@ -1893,7 +1878,6 @@ const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSharp_marketingReportsRoute: DashboardSharp_marketingReportsRoute,
   DashboardSharp_marketingSocial_media_managementRoute:
     DashboardSharp_marketingSocial_media_managementRoute,
-  DashboardEmployeeIndexRoute: DashboardEmployeeIndexRoute,
   DashboardSharp_accountingIndexRoute: DashboardSharp_accountingIndexRoute,
   DashboardSharp_marketingIndexRoute: DashboardSharp_marketingIndexRoute,
   DashboardSharp_accountingReportsBalanceSheetRoute:
@@ -1959,7 +1943,16 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
   OrchestratorRouteRoute: OrchestratorRouteRouteWithChildren,
   UnauthorizedRoute: UnauthorizedRoute,
+  EmployeeEmployee_attendanceRoute: EmployeeEmployee_attendanceRoute,
+  EmployeeFeedbackRoute: EmployeeFeedbackRoute,
+  EmployeeGreivencesRoute: EmployeeGreivencesRoute,
+  EmployeeLeavesRoute: EmployeeLeavesRoute,
+  EmployeeOvertimeRoute: EmployeeOvertimeRoute,
+  EmployeeProfileRoute: EmployeeProfileRoute,
+  EmployeeRequestsRoute: EmployeeRequestsRoute,
+  EmployeeReviewsRoute: EmployeeReviewsRoute,
   OrgSignupOnBoardingRoute: OrgSignupOnBoardingRoute,
+  EmployeeIndexRoute: EmployeeIndexRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
   SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
   SharpOrgEmployeeVerificationIndexRoute:
