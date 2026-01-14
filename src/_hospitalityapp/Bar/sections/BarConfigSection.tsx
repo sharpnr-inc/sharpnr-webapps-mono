@@ -13,7 +13,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { formatDateTime } from "@/lib/formatDate";
 import { Button } from "@/components/ui/button";
-import { UpdateBarGeneralDetailsForm } from "../forms/UpdateBarGeneralDetailsForm";
+import { UpdateBarGeneralDetailsForm } from "../../../_orchestrator/components/UpdateBarGeneralDetailsForm";
 import { useFormsModal } from "@/context/FormModalContext";
 import { PlusCircle, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

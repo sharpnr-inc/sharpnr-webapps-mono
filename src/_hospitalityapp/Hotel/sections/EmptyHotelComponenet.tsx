@@ -8,17 +8,10 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { ArrowUpRightIcon, Settings2Icon } from "lucide-react";
-import { useNavigate } from "@tanstack/react-router";
 
 
 
 export default function EmptyHotelPlaceHolder() {
-
- const navigate = useNavigate();
-
-  const handleNavigate = () => {
-    navigate({ to: "/dashboard/sharp_hospitality/org-config/hotel-settings" });
-  };
   return (
     <div className="p-2">
       <Empty>
@@ -33,7 +26,7 @@ export default function EmptyHotelPlaceHolder() {
         </EmptyHeader>
         <EmptyContent>
           <div className="flex gap-2">
-            <Button onClick={handleNavigate}>Configure Hotel</Button>
+            <Button>Configure Hotel</Button>
           </div>
         </EmptyContent>
         <Button
