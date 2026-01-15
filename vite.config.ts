@@ -5,7 +5,6 @@ import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { VitePWA } from "vite-plugin-pwa";
-import fs from "fs";
 
 // https://vite.dev/config/
 export default defineConfig({
