@@ -48,6 +48,7 @@ import { Route as PathlessEmployeeWrapperDashboardSharp_accountingAccountingSetu
 import { Route as PathlessEmployeeWrapperOrchestratorHospitalityRestaurantConfigsIndexRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/hospitality/restaurant-configs/index'
 import { Route as PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/hospitality/hotel-configs/index'
 import { Route as PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/hospitality/bar-configs/index'
+import { Route as PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/(orchestrator_configs)/configurations/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hrSettingsIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hr/settings/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hrReportsIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hr/reports/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hrRecruitmentIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hr/recruitment/index'
@@ -342,6 +343,14 @@ const PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute =
     {
       id: '/hospitality/bar-configs/',
       path: '/hospitality/bar-configs/',
+      getParentRoute: () => PathlessEmployeeWrapperOrchestratorRouteRoute,
+    } as any,
+  )
+const PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute =
+  PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRouteImport.update(
+    {
+      id: '/(orchestrator_configs)/configurations/',
+      path: '/configurations/',
       getParentRoute: () => PathlessEmployeeWrapperOrchestratorRouteRoute,
     } as any,
   )
@@ -776,6 +785,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/recruitment': typeof PathlessEmployeeWrapperDashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports': typeof PathlessEmployeeWrapperDashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof PathlessEmployeeWrapperDashboardSharp_hrSettingsIndexRoute
+  '/orchestrator/configurations': typeof PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute
   '/orchestrator/hospitality/bar-configs': typeof PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute
   '/orchestrator/hospitality/hotel-configs': typeof PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRoute
   '/orchestrator/hospitality/restaurant-configs': typeof PathlessEmployeeWrapperOrchestratorHospitalityRestaurantConfigsIndexRoute
@@ -856,6 +866,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/recruitment': typeof PathlessEmployeeWrapperDashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports': typeof PathlessEmployeeWrapperDashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof PathlessEmployeeWrapperDashboardSharp_hrSettingsIndexRoute
+  '/orchestrator/configurations': typeof PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute
   '/orchestrator/hospitality/bar-configs': typeof PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute
   '/orchestrator/hospitality/hotel-configs': typeof PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRoute
   '/orchestrator/hospitality/restaurant-configs': typeof PathlessEmployeeWrapperOrchestratorHospitalityRestaurantConfigsIndexRoute
@@ -943,6 +954,7 @@ export interface FileRoutesById {
   '/_pathlessEmployeeWrapper/dashboard/sharp_hr/recruitment/': typeof PathlessEmployeeWrapperDashboardSharp_hrRecruitmentIndexRoute
   '/_pathlessEmployeeWrapper/dashboard/sharp_hr/reports/': typeof PathlessEmployeeWrapperDashboardSharp_hrReportsIndexRoute
   '/_pathlessEmployeeWrapper/dashboard/sharp_hr/settings/': typeof PathlessEmployeeWrapperDashboardSharp_hrSettingsIndexRoute
+  '/_pathlessEmployeeWrapper/orchestrator/(orchestrator_configs)/configurations/': typeof PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute
   '/_pathlessEmployeeWrapper/orchestrator/hospitality/bar-configs/': typeof PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute
   '/_pathlessEmployeeWrapper/orchestrator/hospitality/hotel-configs/': typeof PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRoute
   '/_pathlessEmployeeWrapper/orchestrator/hospitality/restaurant-configs/': typeof PathlessEmployeeWrapperOrchestratorHospitalityRestaurantConfigsIndexRoute
@@ -1030,6 +1042,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment'
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
+    | '/orchestrator/configurations'
     | '/orchestrator/hospitality/bar-configs'
     | '/orchestrator/hospitality/hotel-configs'
     | '/orchestrator/hospitality/restaurant-configs'
@@ -1110,6 +1123,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment'
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
+    | '/orchestrator/configurations'
     | '/orchestrator/hospitality/bar-configs'
     | '/orchestrator/hospitality/hotel-configs'
     | '/orchestrator/hospitality/restaurant-configs'
@@ -1196,6 +1210,7 @@ export interface FileRouteTypes {
     | '/_pathlessEmployeeWrapper/dashboard/sharp_hr/recruitment/'
     | '/_pathlessEmployeeWrapper/dashboard/sharp_hr/reports/'
     | '/_pathlessEmployeeWrapper/dashboard/sharp_hr/settings/'
+    | '/_pathlessEmployeeWrapper/orchestrator/(orchestrator_configs)/configurations/'
     | '/_pathlessEmployeeWrapper/orchestrator/hospitality/bar-configs/'
     | '/_pathlessEmployeeWrapper/orchestrator/hospitality/hotel-configs/'
     | '/_pathlessEmployeeWrapper/orchestrator/hospitality/restaurant-configs/'
@@ -1504,6 +1519,13 @@ declare module '@tanstack/react-router' {
       path: '/hospitality/bar-configs'
       fullPath: '/orchestrator/hospitality/bar-configs'
       preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRouteImport
+      parentRoute: typeof PathlessEmployeeWrapperOrchestratorRouteRoute
+    }
+    '/_pathlessEmployeeWrapper/orchestrator/(orchestrator_configs)/configurations/': {
+      id: '/_pathlessEmployeeWrapper/orchestrator/(orchestrator_configs)/configurations/'
+      path: '/configurations'
+      fullPath: '/orchestrator/configurations'
+      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRouteImport
       parentRoute: typeof PathlessEmployeeWrapperOrchestratorRouteRoute
     }
     '/_pathlessEmployeeWrapper/dashboard/sharp_hr/settings/': {
@@ -2070,6 +2092,7 @@ const PathlessEmployeeWrapperDashboardRouteRouteWithChildren =
 interface PathlessEmployeeWrapperOrchestratorRouteRouteChildren {
   PathlessEmployeeWrapperOrchestratorIndexRoute: typeof PathlessEmployeeWrapperOrchestratorIndexRoute
   PathlessEmployeeWrapperOrchestratorHospitalityIndexRoute: typeof PathlessEmployeeWrapperOrchestratorHospitalityIndexRoute
+  PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute: typeof PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute
   PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute: typeof PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute
   PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRoute: typeof PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRoute
   PathlessEmployeeWrapperOrchestratorHospitalityRestaurantConfigsIndexRoute: typeof PathlessEmployeeWrapperOrchestratorHospitalityRestaurantConfigsIndexRoute
@@ -2081,6 +2104,8 @@ const PathlessEmployeeWrapperOrchestratorRouteRouteChildren: PathlessEmployeeWra
       PathlessEmployeeWrapperOrchestratorIndexRoute,
     PathlessEmployeeWrapperOrchestratorHospitalityIndexRoute:
       PathlessEmployeeWrapperOrchestratorHospitalityIndexRoute,
+    PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute:
+      PathlessEmployeeWrapperOrchestratororchestrator_configsConfigurationsIndexRoute,
     PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute:
       PathlessEmployeeWrapperOrchestratorHospitalityBarConfigsIndexRoute,
     PathlessEmployeeWrapperOrchestratorHospitalityHotelConfigsIndexRoute:

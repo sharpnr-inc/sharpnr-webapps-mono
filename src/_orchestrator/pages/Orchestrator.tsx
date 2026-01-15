@@ -2,7 +2,7 @@
 // We we first Pull data we need to know the sector of the Organization
 // then based on that we fetch what modules they have
 
-import { HospitalityWrapperSection } from "./hospitality_configs/HospitalityWrapper";
+import { OrgConfigSetup } from "./configspages/OrgConfigSetup";
 import { OverviewPage } from "./overview/OverviewPage";
 
 // For example Bar Kitchen etc
@@ -16,16 +16,13 @@ export function OrchestratorIndex() {
   its legal compliances and Based on the sector Org type can configure overview section
   */
 
-  
   return (
     <div className="p-2">
-      {/* Orchestrator Overview sections */}
+      <div>
+        <OrgConfigSetup />
+      </div>
       <div>
         <OverviewPage />
-      </div>
-
-      <div>
-        <HospitalityWrapperSection />
       </div>
     </div>
   );

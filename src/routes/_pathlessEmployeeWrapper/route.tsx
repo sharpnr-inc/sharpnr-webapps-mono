@@ -9,7 +9,7 @@ function RootComponent() {
   return (
     <>
       <GlobalHeader />
-      <Outlet />;
+      <Outlet />
     </>
   );
 }
