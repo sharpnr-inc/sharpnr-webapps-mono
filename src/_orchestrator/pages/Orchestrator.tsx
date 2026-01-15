@@ -2,7 +2,7 @@
 // We we first Pull data we need to know the sector of the Organization
 // then based on that we fetch what modules they have
 
-import { OrgConfigSetup } from "./configspages/OrgConfigSetup";
+import { OrgConfigSetup } from "../components/shared/OrgConfigSetup";
 import { OverviewPage } from "./overview/OverviewPage";
 
 // For example Bar Kitchen etc

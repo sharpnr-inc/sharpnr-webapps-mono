@@ -54,7 +54,6 @@ type Country = {
   name: string;
   iso2: string;
   emoji: string;
-  phonecode: string;
 };
 
 export type StateShape = {

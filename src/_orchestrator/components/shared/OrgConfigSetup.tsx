@@ -25,12 +25,6 @@ export function OrgConfigSetup() {
             Complete the configuration to unlock all features and start managing
             your operations from one place.
           </p>
-
-          {/* <div className="flex justify-end">
-            <Button size="lg">
-              Continue Setup <ArrowRight/>
-            </Button>
-          </div> */}
         </CardContent>
       </Card>
     </div>

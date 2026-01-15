@@ -11,19 +11,15 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { OrchestratorHQSetup } from "@/_orchestrator/components/orchestratorConfigSteps/OrchestHQSetup";
+import OrchestratorGeneralDetailsSetup from "@/_orchestrator/components/orchestratorConfigSteps/OrchestGenDetailsSetup";
+import OrchestratorDomainSetup from "@/_orchestrator/components/orchestratorConfigSteps/OrchestDomainSetup";
+
 
 /* ------------------------------------------------------
  * Step Configuration
  * ---------------------------------------------------- */
-const STEPS = [
-  "Orchestrator",
-  "Address",
-  "Compliance",
-  "Domain",
-  "Modules",
-];
+const STEPS = ["Org HQ", "Domain", "Org Legal Details", "Compliances", "Summary"];
 
 /* ------------------------------------------------------
  * Main Page
@@ -35,13 +31,11 @@ export function OrgSetupConfiguration() {
   const progressPercent = ((step - 1) / (totalSteps - 1)) * 100;
 
   return (
-    <div className="h-lvh  flex justify-center p-4">
+    <div className="flex justify-center p-4">
       <Card className="w-full rounded-2xl">
         {/* Header */}
         <CardHeader className="space-y-4">
-          <CardTitle className="text-2xl">
-            Organization Setup
-          </CardTitle>
+          <CardTitle className="text-2xl">Organization Setup</CardTitle>
           <CardDescription>
             Configure your Orchestrator to unlock all features.
           </CardDescription>
@@ -60,9 +54,9 @@ export function OrgSetupConfiguration() {
 
         {/* Content */}
         <CardContent className="space-y-6">
-          {step === 1 && <OrchestratorStep />}
-          {step === 2 && <AddressStep />}
-          {step === 3 && <ComplianceStep />}
+          {step === 1 && <OrchestratorHQSetup />}
+          {step === 2 && <OrchestratorDomainSetup />}
+          {step === 3 && <OrchestratorGeneralDetailsSetup />}
           {step === 4 && <DomainStep />}
           {step === 5 && <ModulesStep />}
 
@@ -85,9 +79,7 @@ export function OrgSetupConfiguration() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             ) : (
-              <Button>
-                Finish Setup
-              </Button>
+              <Button>Finish Setup</Button>
             )}
           </div>
         </CardContent>
@@ -151,59 +143,6 @@ function ProgressTimeline({
           );
         })}
       </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------
- * Step Components (Placeholders)
- * ---------------------------------------------------- */
-function OrchestratorStep() {
-  return (
-    <div className="space-y-6">
-      <div className="space-y-1">
-        <h3 className="font-medium">Orchestrator Details</h3>
-        <p className="text-sm text-muted-foreground">
-          Set up the core organization details that control your entire system.
-        </p>
-      </div>
-
-      {/* Phone Field */}
-      <div className="space-y-2 max-w-sm">
-        <Label htmlFor="phone">Primary Contact Number</Label>
-        <Input
-          id="phone"
-          type="tel"
-          placeholder="+91 98765 43210"
-          defaultValue="+91 98765 43210"
-          disabled
-        />
-        <p className="text-xs text-muted-foreground">
-          This number is pre-filled from your account and can be updated later.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function AddressStep() {
-  return (
-    <div className="space-y-2">
-      <h3 className="font-medium">Organization Address</h3>
-      <p className="text-sm text-muted-foreground">
-        Used for compliance, invoicing, and official communication.
-      </p>
-    </div>
-  );
-}
-
-function ComplianceStep() {
-  return (
-    <div className="space-y-2">
-      <h3 className="font-medium">Compliance Information</h3>
-      <p className="text-sm text-muted-foreground">
-        Add regulatory and legal details required for your business.
-      </p>
     </div>
   );
 }
