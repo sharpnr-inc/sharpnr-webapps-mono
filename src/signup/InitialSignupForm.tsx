@@ -109,42 +109,8 @@ export function InitialSignupForm({
           </p>
         </div>
 
-        {/* Organization Name */}
-        <form.Field
-          name="org_name"
-          validators={{
-            onChange: ({ value }) =>
-              !value
-                ? "Organization name is required"
-                : value.length < 3
-                  ? "Organization name must be at least 3 characters"
-                  : undefined,
-          }}
-          children={(field) => (
-            <Field>
-              <FieldLabel htmlFor={field.name}>Organization Name</FieldLabel>
-              <Input
-                value={field.state.value}
-                onChange={(e) => field.handleChange(e.target.value)}
-                onBlur={field.handleBlur}
-                id={field.name}
-                type="text"
-                placeholder="Acme Corp"
-                required
-              />
-              <FieldDescription>
-                The name of your organization or company
-              </FieldDescription>
-              {field.state.meta.isTouched &&
-                field.state.meta.errors.length > 0 && (
-                  <FieldError>{field.state.meta.errors[0]}</FieldError>
-                )}
-            </Field>
-          )}
-        />
-
         {/* Email and Mobile Row */}
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-1">
           <form.Field
             name="org_email"
             validators={{
