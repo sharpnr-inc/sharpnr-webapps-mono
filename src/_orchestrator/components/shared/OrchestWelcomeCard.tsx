@@ -6,9 +6,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export function OrgConfigSetup() {
+export function OrchestWelcomeCard() {
   return (
-    <div className="place-items-center flex items-center justify-center p-4">
+    <div className="place-items-center flex items-center justify-center p-2">
       <Card className="w-full rounded-2xl shadow-md">
         <CardHeader className="space-y-2">
           <CardTitle className="text-3xl font-semibold">
@@ -19,7 +19,7 @@ export function OrgConfigSetup() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-2">
           <p className="text-sm leading-relaxed text-muted-foreground">
             You’re just a few steps away from setting up your organization.
             Complete the configuration to unlock all features and start managing

@@ -13,7 +13,7 @@ import { Link } from "@tanstack/react-router";
 
 export function OverviewPage() {
   return (
-    <div className="p-4 space-y-2">
+    <div className="p-2 space-y-2">
       {/* Page Header */}
       <Card>
         <CardHeader className="space-y-1">
