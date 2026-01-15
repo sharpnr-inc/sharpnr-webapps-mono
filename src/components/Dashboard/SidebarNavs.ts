@@ -1,21 +1,18 @@
 import {
   UserCog,
   ClipboardList,
-  Database,
   BarChart3,
   CalendarDays,
   Settings,
   Utensils,
   BookOpen,
   Package,
-  Sparkles,
   MessageSquare,
   Shield,
   Wrench,
   Cookie,
   HotelIcon,
   TableConfig,
-  Server,
   type LucideIcon,
   Wallet,
 } from "lucide-react";
@@ -53,60 +50,36 @@ export const SharpHospitalityNavs: NavSection[] = [
         to: "/dashboard/sharp_hospitality/bar",
       },
       {
-        id: "hotel_guests",
-        label: "Guests",
-        icon: Database,
-        to: "/dashboard/sharp_hospitality/guests",
-      },
-      {
         id: "hotel_restaurant",
         label: "Restaurant",
         icon: Utensils, // Better icon for restaurant
         to: "/dashboard/sharp_hospitality/restaurant", // Fixed typo: restaurant -> restaurant
       },
-
-      {
-        id: "hotel_services",
-        label: "Service",
-        icon: Server, // Better icon for restaurant
-        to: "/dashboard/sharp_hospitality/services", // Fixed typo: restaurant -> restaurant
-      },
-      {
-        id: "hotel_menu",
-        label: "Menu",
-        icon: BookOpen, // Better icon for menu
-        to: "/dashboard/sharp_hospitality/menu",
-      },
-      {
-        id: "hotel_kitchen",
-        label: "Kitchen",
-        icon: Cookie, // Better icon for menu
-        to: "/dashboard/sharp_hospitality/kitchen",
-      },
-      {
-        id: "hotel_inventory",
-        label: "Inventory",
-        icon: Package, // Better icon for inventory
-        to: "/dashboard/sharp_hospitality/inventory",
-      },
-      {
-        id: "hotel_housekeeping",
-        label: "House Keeping",
-        icon: Sparkles, // Better icon for housekeeping
-        to: "/dashboard/sharp_hospitality/housekeeping", // Fixed: was pointing to inventory
-      },
-      {
-        id: "hotel_settings",
-        label: "Settings",
-        icon: Settings,
-        to: "/dashboard/sharp_accounting/settings",
-      },
+      
+      // {
+      //   id: "hotel_menu",
+      //   label: "Menu",
+      //   icon: BookOpen, // Better icon for menu
+      //   to: "/dashboard/sharp_hospitality/menu",
+      // },
+      // {
+      //   id: "hotel_kitchen",
+      //   label: "Kitchen",
+      //   icon: Cookie, // Better icon for menu
+      //   to: "/dashboard/sharp_hospitality/kitchen",
+      // },
+      // {
+      //   id: "hotel_inventory",
+      //   label: "Inventory",
+      //   icon: Package, // Better icon for inventory
+      //   to: "/dashboard/sharp_hospitality/inventory",
+      // },
 
       {
         id: "org_config",
-        label: "Org Configs",
+        label: "Orchestrator",
         icon: TableConfig,
-        to: "/dashboard/sharp_hospitality/orgConfig",
+        to: "/orchestrator",
       },
     ],
   },
@@ -135,6 +108,13 @@ export const SharpAccountingNavs: NavSection[] = [
         label: "Transactions",
         icon: Wallet,
         to: "/dashboard/sharp_accounting/transactions",
+      },
+
+      {
+        id: "acc_ledger",
+        label: "Ledger",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/ledger",
       },
 
       {
@@ -196,6 +176,12 @@ export const SharpHRNavs: NavSection[] = [
         label: "Employee",
         icon: UserCog,
         to: "/dashboard/sharp_hr/employees",
+      },
+       {
+        id: "hr_recruitment",
+        label: "Recruitment",
+        icon: UserCog,
+        to: "/dashboard/sharp_hr/recruitment",
       },
       {
         id: "hr_payroll",

@@ -20,7 +20,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { useHeader } from "@/context/HeaderContext";
 import MainMenuButton from "@/components/Header/MainMenuButton";
 import { Badge } from "@/components/ui/badge";
-import { useLogoutMutation } from "@/core-apis/mutations/Auth/useLogout";
 
 interface DashboardHeaderProps {
   useremail: string;
@@ -35,7 +34,6 @@ export default function DashboardHeader({
   
   const { heading, subheading, HeaderIcon } = useHeader();
   const nav = useNavigate();
-  const { mutate: logout, isPending } = useLogoutMutation();
 
   const getUserInitials = (email: string) => {
     const name = email.split("@")[0];
@@ -49,12 +47,12 @@ export default function DashboardHeader({
   return (
     <header
       className={cn(
-        " sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        "   sticky top-0 inset-x-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       )}
     >
-      <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="flex h-14 items-center justify-between gap-4 px-4">
         {/* Left Section */}
-        <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-5 flex-1">
           <MainMenuButton />
 
           <div className="hidden lg:block text-sm font-semibold text-muted-foreground whitespace-nowrap">
@@ -142,7 +140,7 @@ export default function DashboardHeader({
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
-                onClick={() => nav({ to: "/dashboard/employee/profile" })}
+                onClick={() => nav({ to: "/employee/profile" })}
                 className="cursor-pointer"
               >
                 <UserCog className="mr-2 h-4 w-4" />
@@ -162,8 +160,6 @@ export default function DashboardHeader({
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
-                onClick={() => logout()}
-                disabled={isPending}
                 className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
               >
                 <LogOut className="mr-2 h-4 w-4" />

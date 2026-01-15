@@ -47,9 +47,9 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
     <FormModalContext.Provider value={{ openModal, closeModal }}>
       {children}
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-h-[90vh] w-full overflow-y-auto rounded-2xl">
-          <DialogHeader>
+      <Dialog open={isOpen} onOpenChange={setIsOpen} >
+        <DialogContent className=" rounded-2xl">
+          <DialogHeader className="hidden">
             {modalTitle ? (
               <DialogTitle>{modalTitle}</DialogTitle>
             ) : (
@@ -63,7 +63,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
             )}
           </DialogHeader>
 
-          <div className="mt-2">{modalContent}</div>
+          <div className="">{modalContent}</div>
 
           <DialogFooter />
         </DialogContent>

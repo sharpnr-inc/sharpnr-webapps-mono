@@ -52,12 +52,12 @@ export default function HotelBookingSection() {
 
     if (status === "BOOKED") {
       router.navigate({
-        to: "/dashboard/sharp_hospitality/hotel/$roomId",
+        to: "/dashboard/sharp_hospitality/hotel/booking/$roomId",
         params: { roomId: room.room_id },
       });
     } else if (status === "AVAILABLE") {
       router.navigate({
-        to: "/dashboard/sharp_hospitality/hotel/booking/$roomId",
+        to: "/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId",
         params: { roomId: room.room_id },
       });
     } else {
