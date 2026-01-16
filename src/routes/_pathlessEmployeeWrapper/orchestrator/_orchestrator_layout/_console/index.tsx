@@ -7,11 +7,3 @@ export const Route = createFileRoute(
   component: OrchestratorAdminConsole,
 })
 
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/console/"!
-    </div>
-  )
-}

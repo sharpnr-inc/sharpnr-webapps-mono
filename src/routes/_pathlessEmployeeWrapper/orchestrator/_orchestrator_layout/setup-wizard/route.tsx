@@ -6,5 +6,4 @@ export const Route = createFileRoute(
   component: Outlet,
 })
 
-// Here can put the Routes guard if Setup is complete then we can move the user
-// then we can reroute the user to other place or dashboard
+
