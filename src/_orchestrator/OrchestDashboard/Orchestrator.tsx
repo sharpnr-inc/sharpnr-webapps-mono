@@ -1,8 +1,8 @@
-import { OrchestWelcomeCard } from "./components/shared/OrchestWelcomeCard";
-import { OverviewPage } from "./OrchestSetupWizard/OverviewPage";
+import { OrchestWelcomeCard } from "../components/shared/OrchestWelcomeCard";
+import { OverviewPage } from "../OrchestSetupWizard/OverviewPage";
 
 // For example Bar Kitchen etc
-export function OrchestratorIndex() {
+export function OrchestratorAdminConsole() {
 
   return (
     <div className="p-2">

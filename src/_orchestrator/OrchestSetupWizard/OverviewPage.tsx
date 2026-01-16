@@ -94,7 +94,7 @@ export function OverviewPage() {
         </CardFooter>
         <CardFooter className="flex justify-end">
           <Button asChild>
-            <Link to="/orchestrator/configurations">
+            <Link to="/orchestrator/setup-wizard">
               Continue Orchestrator Setup
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
