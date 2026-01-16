@@ -1,7 +1,5 @@
-"use client";
-
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion,} from "framer-motion";
 import {
   Card,
   CardContent,
@@ -14,17 +12,18 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { OrchestratorHQSetup } from "@/_orchestrator/components/orchestratorConfigSteps/OrchestHQSetup";
 import OrchestratorGeneralDetailsSetup from "@/_orchestrator/components/orchestratorConfigSteps/OrchestGenDetailsSetup";
 import OrchestratorDomainSetup from "@/_orchestrator/components/orchestratorConfigSteps/OrchestDomainSetup";
+import { OrgPropertySetupForm } from "./components/OrgSetupSteps/OrgPropertySetup";
 
 
 /* ------------------------------------------------------
  * Step Configuration
  * ---------------------------------------------------- */
-const STEPS = ["Org HQ", "Domain", "Org Legal Details", "Compliances", "Summary"];
+const STEPS = ["Org HQ", "Property", "Domain", "Legal Entity", "Summary" , "Sum"];
 
 /* ------------------------------------------------------
  * Main Page
  * ---------------------------------------------------- */
-export function OrgSetupConfiguration() {
+export function OrgSetupWrapper() {
   const [step, setStep] = useState(1);
 
   const totalSteps = STEPS.length;
@@ -55,10 +54,11 @@ export function OrgSetupConfiguration() {
         {/* Content */}
         <CardContent className="space-y-6">
           {step === 1 && <OrchestratorHQSetup />}
-          {step === 2 && <OrchestratorDomainSetup />}
-          {step === 3 && <OrchestratorGeneralDetailsSetup />}
-          {step === 4 && <DomainStep />}
-          {step === 5 && <ModulesStep />}
+           {step === 2 && <OrgPropertySetupForm />}
+          {step === 3 && <OrchestratorDomainSetup />}
+          {step === 4 && <OrchestratorGeneralDetailsSetup />}
+          {step === 5 && <DomainStep />}
+          {step === 6 && <ModulesStep />}
 
           {/* Actions */}
           <div className="flex items-center justify-between pt-4">

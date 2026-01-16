@@ -1,5 +1,5 @@
 import { OrchestWelcomeCard } from "../components/shared/OrchestWelcomeCard";
-import { OrchestSetupWizardIndex} from "./OverviewPage";
+import { OrchestSetupWizardIndex} from "./SetupIndexPage";
 
 // For example Bar Kitchen etc
 export function OrchestratorSetupWizardIndex() {

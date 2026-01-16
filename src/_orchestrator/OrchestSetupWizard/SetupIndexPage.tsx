@@ -14,18 +14,6 @@ import { Link } from "@tanstack/react-router";
 export function OrchestSetupWizardIndex() {
   return (
     <div className="p-2 space-y-2">
-      {/* Page Header */}
-      <Card>
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Overview</CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
-            The Orchestrator is the control center of your organization. From
-            here, you can manage multiple properties, monitor business
-            performance, and gain insights into growth — all in one unified
-            view.
-          </CardDescription>
-        </CardHeader>
-      </Card>
 
       {/* Organization Summary */}
       <Card>
@@ -60,34 +48,8 @@ export function OrchestSetupWizardIndex() {
               <p className="font-medium">+91 98288 23314</p>
             </div>
           </div>
-
-          {/* Address Info */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 border-t pt-4">
-            {/* Address Line */}
-            <div className="md:col-span-2">
-              <p className="text-xs text-muted-foreground">Address</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-
-            {/* City */}
-            <div>
-              <p className="text-xs text-muted-foreground">City</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-
-            {/* State */}
-            <div>
-              <p className="text-xs text-muted-foreground">State</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-
-            {/* Country */}
-            <div>
-              <p className="text-xs text-muted-foreground">Country</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-          </div>
         </CardContent>
+
         <CardFooter className="text-sm text-muted-foreground">
           To get started, configure the main Orchestrator. This step is required
           before managing properties, users, and modules.
