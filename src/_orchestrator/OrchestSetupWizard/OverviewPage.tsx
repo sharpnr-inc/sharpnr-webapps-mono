@@ -11,7 +11,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 
-export function OverviewPage() {
+export function OrchestSetupWizardIndex() {
   return (
     <div className="p-2 space-y-2">
       {/* Page Header */}

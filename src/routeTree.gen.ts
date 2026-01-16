@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnauthorizedRouteImport } from './routes/unauthorized'
 import { Route as PathlessEmployeeWrapperRouteRouteImport } from './routes/_pathlessEmployeeWrapper/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
@@ -96,11 +95,6 @@ import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityBarBarKitchen
 import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingRoomIdRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/$roomId'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 
-const UnauthorizedRoute = UnauthorizedRouteImport.update({
-  id: '/unauthorized',
-  path: '/unauthorized',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PathlessEmployeeWrapperRouteRoute =
   PathlessEmployeeWrapperRouteRouteImport.update({
     id: '/_pathlessEmployeeWrapper',
@@ -743,7 +737,6 @@ const PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingCreateBooking
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/unauthorized': typeof UnauthorizedRoute
   '/dashboard': typeof PathlessEmployeeWrapperDashboardRouteRouteWithChildren
   '/orchestrator': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
@@ -828,7 +821,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/unauthorized': typeof UnauthorizedRoute
   '/orchestrator': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup': typeof OrgSignupIndexRoute
@@ -908,7 +900,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_pathlessEmployeeWrapper': typeof PathlessEmployeeWrapperRouteRouteWithChildren
-  '/unauthorized': typeof UnauthorizedRoute
   '/_pathlessEmployeeWrapper/dashboard': typeof PathlessEmployeeWrapperDashboardRouteRouteWithChildren
   '/_pathlessEmployeeWrapper/orchestrator': typeof PathlessEmployeeWrapperOrchestratorRouteRouteWithChildren
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
@@ -997,7 +988,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/unauthorized'
     | '/dashboard'
     | '/orchestrator'
     | '/org-signup/on-boarding'
@@ -1082,7 +1072,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/unauthorized'
     | '/orchestrator'
     | '/org-signup/on-boarding'
     | '/org-signup'
@@ -1161,7 +1150,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_pathlessEmployeeWrapper'
-    | '/unauthorized'
     | '/_pathlessEmployeeWrapper/dashboard'
     | '/_pathlessEmployeeWrapper/orchestrator'
     | '/org-signup/on-boarding'
@@ -1250,7 +1238,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PathlessEmployeeWrapperRouteRoute: typeof PathlessEmployeeWrapperRouteRouteWithChildren
-  UnauthorizedRoute: typeof UnauthorizedRoute
   OrgSignupOnBoardingRoute: typeof OrgSignupOnBoardingRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
   SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
@@ -1259,13 +1246,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/unauthorized': {
-      id: '/unauthorized'
-      path: '/unauthorized'
-      fullPath: '/unauthorized'
-      preLoaderRoute: typeof UnauthorizedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_pathlessEmployeeWrapper': {
       id: '/_pathlessEmployeeWrapper'
       path: ''
@@ -2237,7 +2217,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessEmployeeWrapperRouteRoute:
     PathlessEmployeeWrapperRouteRouteWithChildren,
-  UnauthorizedRoute: UnauthorizedRoute,
   OrgSignupOnBoardingRoute: OrgSignupOnBoardingRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
   SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
