@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { OrchestratorHQSetup } from "@/_orchestrator/components/orchestratorConfigSteps/OrchestHQSetup";
-import OrchestratorGeneralDetailsSetup from "@/_orchestrator/components/orchestratorConfigSteps/OrchestGenDetailsSetup";
-import OrchestratorDomainSetup from "@/_orchestrator/components/orchestratorConfigSteps/OrchestDomainSetup";
+import { OrchestratorHQSetup } from "@/_orchestrator/OrchestSetupWizard/components/OrchestHQSetup";
+import OrchestratorGeneralDetailsSetup from "@/_orchestrator/OrchestSetupWizard/components/OrchestGenDetailsSetup";
+import OrchestratorDomainSetup from "@/_orchestrator/OrchestSetupWizard/components/OrgSetupSteps/OrchestDomainSetup";
 import { OrgPropertySetupForm } from "./components/OrgSetupSteps/OrgPropertySetup";
 
 
