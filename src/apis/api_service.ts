@@ -4,10 +4,9 @@ import { AuthApiEndpoints, CoreUtilityEndpoints } from "./Endpoints";
 //--------------------------------------------------------------------------------//
 
 export interface OrgSignupPayload {
-  org_name: string;
-  org_email: string;
-  org_password: string;
-  org_mobile: string;
+  email: string;
+  password: string;
+  mobile: string;
 }
 
 export async function InitializeSignup(payload:OrgSignupPayload) {

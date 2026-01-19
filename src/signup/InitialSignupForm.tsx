@@ -16,18 +16,16 @@ import type { OrgSignupPayload } from "@/apis/api_service";
 import { useNavigate } from "@tanstack/react-router";
 
 interface OrgSignupFormData {
-  org_name: string;
-  org_email: string;
-  org_password: string;
-  org_mobile: string;
+  email: string;
+  password: string;
+  mobile: string;
   confirm_password: string;
 }
 
 const defaultOrgForm: OrgSignupFormData = {
-  org_name: "",
-  org_email: "",
-  org_mobile: "",
-  org_password: "",
+  email: "",
+  mobile: "",
+  password: "",
   confirm_password: "",
 };
 
@@ -86,7 +84,7 @@ export function InitialSignupForm({
       try {
         await startRegistration.mutateAsync(payload);
         setShowOtp(true);
-        setUserEmail(payload.org_email);
+        setUserEmail(payload.email);
       } catch (error) {}
     },
   });
@@ -112,7 +110,7 @@ export function InitialSignupForm({
         {/* Email and Mobile Row */}
         <div className="grid gap-4 sm:grid-cols-1">
           <form.Field
-            name="org_email"
+            name="email"
             validators={{
               onChange: ({ value }) => validateEmail(value),
             }}
@@ -140,7 +138,7 @@ export function InitialSignupForm({
           />
 
           <form.Field
-            name="org_mobile"
+            name="mobile"
             validators={{
               onChange: ({ value }) => validateMobile(value),
             }}
@@ -170,7 +168,7 @@ export function InitialSignupForm({
         {/* Password Row */}
         <div className="grid gap-4 sm:grid-cols-2">
           <form.Field
-            name="org_password"
+            name="password"
             validators={{
               onChange: ({ value }) => validatePassword(value),
             }}
@@ -200,9 +198,9 @@ export function InitialSignupForm({
           <form.Field
             name="confirm_password"
             validators={{
-              onChangeListenTo: ["org_password"],
+              onChangeListenTo: ["password"],
               onChange: ({ value, fieldApi }) => {
-                const password = fieldApi.form.getFieldValue("org_password");
+                const password = fieldApi.form.getFieldValue("password");
                 if (!value) return "Please confirm your password";
                 if (value !== password) return "Passwords do not match";
                 return undefined;

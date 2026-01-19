@@ -1,79 +1,121 @@
-import React, { useState } from 'react';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { 
-  Building2, 
-  Store, 
-  Heart, 
-  Hotel, 
-  Wine, 
-  UtensilsCrossed, 
-  ChefHat, 
+import React, { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Building2,
+  Store,
+  Heart,
+  Hotel,
+  Wine,
+  UtensilsCrossed,
+  ChefHat,
   Music,
   Info,
-  CheckCircle2
-} from 'lucide-react';
+  CheckCircle2,
+} from "lucide-react";
 
 export default function OrchestratorDomainSetup() {
-  const [selectedDomain, setSelectedDomain] = useState('');
+  const [selectedDomain, setSelectedDomain] = useState("");
   const [selectedModules, setSelectedModules] = useState([]);
   const [showConfigForm, setShowConfigForm] = useState(false);
-  const [sharedKitchen, setSharedKitchen] = useState('');
-  const [sameLegalEntity, setSameLegalEntity] = useState('');
+  const [sharedKitchen, setSharedKitchen] = useState("");
+  const [sameLegalEntity, setSameLegalEntity] = useState("");
+
+  const properties = [
+  {
+    id: 'prop-1',
+    name: 'Sharpnr Central Hospitality',
+    address: 'Indiranagar, Bangalore',
+  },
+  {
+    id: 'prop-2',
+    name: 'Sharpnr Airport Suites',
+    address: 'Devanahalli, Bangalore',
+  },
+  {
+    id: 'prop-3',
+    name: 'Sharpnr Downtown Residency',
+    address: 'MG Road, Bangalore',
+  },
+];
+
+const [selectedPropertyId, setSelectedPropertyId] = useState(properties[0].id);
+
+const selectedProperty = properties.find(
+  (p) => p.id === selectedPropertyId
+);
+
 
   const hospitalityModules = [
     {
-      id: 'hotel',
-      title: 'Hotel',
-      description: 'Complete hotel management with room booking, housekeeping, and guest services',
+      id: "hotel",
+      title: "Hotel",
+      description:
+        "Complete hotel management with room booking, housekeeping, and guest services",
       icon: Hotel,
-      available: true
+      available: true,
     },
     {
-      id: 'bar',
-      title: 'Bar',
-      description: 'Bar operations with inventory management, billing, and mixology features',
+      id: "bar",
+      title: "Bar",
+      description:
+        "Bar operations with inventory management, billing, and mixology features",
       icon: Wine,
-      available: true
+      available: true,
     },
     {
-      id: 'restaurant',
-      title: 'Restaurant',
-      description: 'Full-service restaurant management with table ordering, kitchen display, and POS',
+      id: "restaurant",
+      title: "Restaurant",
+      description:
+        "Full-service restaurant management with table ordering, kitchen display, and POS",
       icon: UtensilsCrossed,
-      available: true
+      available: true,
     },
     {
-      id: 'cloud-kitchen',
-      title: 'Cloud Kitchen / Takeaways',
-      description: 'Delivery-focused operations with online ordering and kitchen management',
+      id: "cloud-kitchen",
+      title: "Cloud Kitchen / Takeaways",
+      description:
+        "Delivery-focused operations with online ordering and kitchen management",
       icon: ChefHat,
-      available: true
+      available: true,
     },
     {
-      id: 'pubs-lounges',
-      title: 'Pubs and Lounges',
-      description: 'Nightlife venue management with entertainment, reservations, and beverage control',
+      id: "pubs-lounges",
+      title: "Pubs and Lounges",
+      description:
+        "Nightlife venue management with entertainment, reservations, and beverage control",
       icon: Music,
-      available: true
-    }
+      available: true,
+    },
   ];
 
-  const handleDomainChange = (value) => {
+  const handleDomainChange = (value: React.SetStateAction<string>) => {
     setSelectedDomain(value);
     setSelectedModules([]);
     setShowConfigForm(false);
   };
 
-  const handleModuleToggle = (moduleId) => {
-    setSelectedModules(prev => {
+  const handleModuleToggle = (moduleId: string) => {
+    setSelectedModules((prev) => {
       if (prev.includes(moduleId)) {
-        return prev.filter(id => id !== moduleId);
+        return prev.filter((id) => id !== moduleId);
       } else {
         return [...prev, moduleId];
       }
@@ -88,19 +130,19 @@ export default function OrchestratorDomainSetup() {
   };
 
   const handleContinue = () => {
-    console.log('Configuration:', {
+    console.log("Configuration:", {
       domain: selectedDomain,
       modules: selectedModules,
       sharedKitchen,
-      sameLegalEntity
+      sameLegalEntity,
     });
-    alert('Configuration saved! Proceeding to next step...');
+    alert("Configuration saved! Proceeding to next step...");
   };
 
   const getSelectedModuleNames = () => {
     return selectedModules
-      .map(id => hospitalityModules.find(m => m.id === id)?.title)
-      .join(', ');
+      .map((id) => hospitalityModules.find((m) => m.id === id)?.title)
+      .join(", ");
   };
 
   return (
@@ -108,9 +150,51 @@ export default function OrchestratorDomainSetup() {
       <div className="space-y-2">
         <h1 className="text-xl font-bold">Domain Setup</h1>
         <p className="text-muted-foreground">
-          Select your business domain and specific modules to get started with the configuration
+          Select your business domain and specific modules to get started with
+          the configuration
         </p>
       </div>
+
+  <Card>
+  <CardHeader>
+    <CardTitle className="flex items-center gap-2">
+      <Building2 className="h-5 w-5" />
+      Select Property
+    </CardTitle>
+    <CardDescription>
+      Choose which property you want to configure
+    </CardDescription>
+  </CardHeader>
+
+  <CardContent className="space-y-4">
+    <div className="space-y-2">
+      <Label>Property</Label>
+      <Select
+        value={selectedPropertyId}
+        onValueChange={setSelectedPropertyId}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select a property" />
+        </SelectTrigger>
+        <SelectContent>
+          {properties.map((property) => (
+            <SelectItem key={property.id} value={property.id}>
+              <div className="flex flex-col">
+                <span className="font-medium">{property.name}</span>
+                <span className="text-xs text-muted-foreground">
+                  {property.address}
+                </span>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+
+    <Badge variant="secondary">Draft</Badge>
+  </CardContent>
+</Card>
+
 
       <Card>
         <CardHeader>
@@ -156,14 +240,17 @@ export default function OrchestratorDomainSetup() {
         </CardContent>
       </Card>
 
-      {selectedDomain === 'hospitality' && (
+      {selectedDomain === "hospitality" && (
         <div className="space-y-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-semibold mb-2">Select Your Modules</h2>
+                <h2 className="text-2xl font-semibold mb-2">
+                  Select Your Modules
+                </h2>
                 <p className="text-muted-foreground">
-                  Choose one or more hospitality modules that match your business operations
+                  Choose one or more hospitality modules that match your
+                  business operations
                 </p>
               </div>
               {selectedModules.length > 0 && (
@@ -177,12 +264,12 @@ export default function OrchestratorDomainSetup() {
               {hospitalityModules.map((module) => {
                 const Icon = module.icon;
                 const isSelected = selectedModules.includes(module.id);
-                
+
                 return (
                   <Card
                     key={module.id}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
-                      isSelected ? 'ring-2 ring-primary' : ''
+                      isSelected ? "ring-2 ring-primary" : ""
                     }`}
                     onClick={() => handleModuleToggle(module.id)}
                   >
@@ -212,7 +299,9 @@ export default function OrchestratorDomainSetup() {
                 <CheckCircle2 className="h-4 w-4" />
                 <AlertTitle>Modules Selected</AlertTitle>
                 <AlertDescription>
-                  You have selected {selectedModules.length} module{selectedModules.length > 1 ? 's' : ''}: {getSelectedModuleNames()}
+                  You have selected {selectedModules.length} module
+                  {selectedModules.length > 1 ? "s" : ""}:{" "}
+                  {getSelectedModuleNames()}
                 </AlertDescription>
               </Alert>
             )}
@@ -223,28 +312,42 @@ export default function OrchestratorDomainSetup() {
               <CardHeader>
                 <CardTitle>Module Configuration</CardTitle>
                 <CardDescription>
-                  Please answer the following questions about your {selectedModules.length} selected module{selectedModules.length > 1 ? 's' : ''}
+                  Please answer the following questions about your{" "}
+                  {selectedModules.length} selected module
+                  {selectedModules.length > 1 ? "s" : ""}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div className="space-y-3 p-4 rounded-lg border">
                     <Label className="text-base font-medium">
-                      Do all these {selectedModules.length} module{selectedModules.length > 1 ? 's' : ''} share the same kitchen?
+                      Do all these {selectedModules.length} module
+                      {selectedModules.length > 1 ? "s" : ""} share the same
+                      kitchen?
                     </Label>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Select if your selected modules operate from a common kitchen facility
+                      Select if your selected modules operate from a common
+                      kitchen facility
                     </p>
-                    <RadioGroup value={sharedKitchen} onValueChange={setSharedKitchen}>
+                    <RadioGroup
+                      value={sharedKitchen}
+                      onValueChange={setSharedKitchen}
+                    >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="yes" id="kitchen-yes" />
-                        <Label htmlFor="kitchen-yes" className="font-normal cursor-pointer">
+                        <Label
+                          htmlFor="kitchen-yes"
+                          className="font-normal cursor-pointer"
+                        >
                           Yes
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="no" id="kitchen-no" />
-                        <Label htmlFor="kitchen-no" className="font-normal cursor-pointer">
+                        <Label
+                          htmlFor="kitchen-no"
+                          className="font-normal cursor-pointer"
+                        >
                           No
                         </Label>
                       </div>
@@ -253,21 +356,32 @@ export default function OrchestratorDomainSetup() {
 
                   <div className="space-y-3 p-4 rounded-lg border">
                     <Label className="text-base font-medium">
-                      Do all these module{selectedModules.length > 1 ? 's' : ''} come under the same legal entity?
+                      Do all these module{selectedModules.length > 1 ? "s" : ""}{" "}
+                      come under the same legal entity?
                     </Label>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Select if all selected modules are registered under one business entity
+                      Select if all selected modules are registered under one
+                      business entity
                     </p>
-                    <RadioGroup value={sameLegalEntity} onValueChange={setSameLegalEntity}>
+                    <RadioGroup
+                      value={sameLegalEntity}
+                      onValueChange={setSameLegalEntity}
+                    >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="yes" id="entity-yes" />
-                        <Label htmlFor="entity-yes" className="font-normal cursor-pointer">
+                        <Label
+                          htmlFor="entity-yes"
+                          className="font-normal cursor-pointer"
+                        >
                           Yes
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="no" id="entity-no" />
-                        <Label htmlFor="entity-no" className="font-normal cursor-pointer">
+                        <Label
+                          htmlFor="entity-no"
+                          className="font-normal cursor-pointer"
+                        >
                           No
                         </Label>
                       </div>
@@ -280,7 +394,7 @@ export default function OrchestratorDomainSetup() {
         </div>
       )}
 
-      {(selectedDomain === 'retail' || selectedDomain === 'medical') && (
+      {(selectedDomain === "retail" || selectedDomain === "medical") && (
         <Alert>
           <Info className="h-4 w-4" />
           <AlertTitle className="flex items-center gap-2">
@@ -288,14 +402,14 @@ export default function OrchestratorDomainSetup() {
             <Badge variant="secondary">In Development</Badge>
           </AlertTitle>
           <AlertDescription>
-            {selectedDomain === 'retail' 
-              ? 'Retail modules are currently under development and will be available soon. Stay tuned for updates!'
-              : 'Medical modules are currently under development and will be available soon. Stay tuned for updates!'}
+            {selectedDomain === "retail"
+              ? "Retail modules are currently under development and will be available soon. Stay tuned for updates!"
+              : "Medical modules are currently under development and will be available soon. Stay tuned for updates!"}
           </AlertDescription>
         </Alert>
       )}
 
-      {selectedDomain && selectedDomain !== 'hospitality' && (
+      {selectedDomain && selectedDomain !== "hospitality" && (
         <div className="flex justify-end gap-3 pt-4">
           <Button type="button" variant="outline">
             Back

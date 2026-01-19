@@ -18,7 +18,7 @@ import { OrgPropertySetupForm } from "./components/OrgSetupSteps/OrgPropertySetu
 /* ------------------------------------------------------
  * Step Configuration
  * ---------------------------------------------------- */
-const STEPS = ["Org HQ", "Property", "Domain", "Legal Entity", "Summary" , "Sum"];
+const STEPS = ["Org HQ", "Property", "Domain", "Module Config", "Summary" , "Sum"];
 
 /* ------------------------------------------------------
  * Main Page

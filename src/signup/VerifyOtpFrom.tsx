@@ -47,7 +47,7 @@ export function VerifyOtpForm({
       try {
         await verifyOtp.mutateAsync(value, {
           onSuccess:()=>{
-            navigate({ to: "/org-signup/on-boarding" });
+            navigate({ to: "/orchestrator" });
           }
         })
         
