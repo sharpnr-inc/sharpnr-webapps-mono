@@ -23,7 +23,7 @@ const STEPS = ["Org HQ", "Property", "Domain", "Module Config", "Summary" , "Sum
 /* ------------------------------------------------------
  * Main Page
  * ---------------------------------------------------- */
-export function OrgSetupWrapper() {
+export function OrgSetupWizLayout() {
   const [step, setStep] = useState(1);
 
   const totalSteps = STEPS.length;

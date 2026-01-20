@@ -1,4 +1,3 @@
-import { GlobalHeader } from "@/components/Header/global/GlobalHeader";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_pathlessEmployeeWrapper")({
@@ -8,7 +7,6 @@ export const Route = createFileRoute("/_pathlessEmployeeWrapper")({
 function RootComponent() {
   return (
     <>
-      <GlobalHeader />
       <Outlet />
     </>
   );
