@@ -1,8 +1,29 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router'
+import { SetupWizardLayout } from "@/_orchestrator/OrchestSetupWizard/components/ui/SetupWizard";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard',
+  "/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard",
 )({
-  component: Outlet,
-})
+  component: RouteComponent,
+});
 
+// This is layout for the setup wizard
+// this is version one
+
+const mockWizardStatus = {
+  step_id: "step-org-hq",
+  status: "IN_PROGRESS",
+  current_step: "ADD_ORGANIZATION_DETAILS",
+  completed_steps: ["VERIFY_EMAIL"],
+  total_steps: 5,
+  completed_count: 1,
+} as const;
+
+
+function RouteComponent() {
+  return (
+    <SetupWizardLayout status={mockWizardStatus}>
+      <Outlet />
+    </SetupWizardLayout>
+  );
+}
