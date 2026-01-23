@@ -1,4 +1,4 @@
-import { OrchestratorSetupWizardIndex } from "@/_orchestrator/OrchestSetupWizard/OrchestratorSetupIndex";
+import { OrchestratorSetupWizardWelcomePage } from "@/_orchestrator/OrchestSetupWizard/OrchestratorSetupWelcomePage";
 import { OrchestratorConsoleIndex } from "@/_orchestrator/OrchestDashboard/OrchestratorConsole";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -18,8 +18,13 @@ function RouteComponent() {
   const { configured } = Route.useRouteContext();
 
   if (!configured) {
-    return <OrchestratorSetupWizardIndex />;
+    return <OrchestratorSetupWizardWelcomePage />;
   }
 
   return <OrchestratorConsoleIndex />;
 }
+
+
+// *So this page checks the if organization is configured or not if configured then 
+// *Then moves throw the user to the Setup index page
+// *OrchestratorSetupWizardWelcomePage page is the Welcome page for the New organization

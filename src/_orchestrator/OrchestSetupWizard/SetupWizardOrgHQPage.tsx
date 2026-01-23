@@ -6,10 +6,12 @@ import {
   useStateOfCountries,
 } from "@/apis/Queries";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -29,9 +31,9 @@ import type {
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { AlertCircle, CheckCircle2, Loader2, MapPin } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export function OrchestratorHQSetup() {
+export function OrchestratorHQSetup({exam}:{exam:string}) { 
   const navigate = useNavigate();
   const startOnBoarding = useOrgOnBoardingMutation();
   const [country, setCountry] = useState("");
@@ -87,68 +89,7 @@ export function OrchestratorHQSetup() {
     },
   });
   return (
-    <div className="space-y-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Organization setup</CardTitle>
-          <CardDescription>
-            First we setup the Organization/Orchestrator this is you Sharpnr
-            Accounts think of this as the control pane or command center
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Primary Info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Organization Name */}
-            <div>
-              <p className="text-xs text-muted-foreground">Organization</p>
-              <p className="font-medium">XYZ Pvt Ltd</p>
-            </div>
-
-            {/* Email */}
-            <div>
-              <p className="text-xs text-muted-foreground">Primary Email</p>
-              <div className="flex items-center gap-2">
-                <span className="font-medium">somecompany101@example.com</span>
-                <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-              </div>
-            </div>
-
-            {/* Phone */}
-            <div>
-              <p className="text-xs text-muted-foreground">Contact Number</p>
-              <p className="font-medium">+91 98288 23314</p>
-            </div>
-          </div>
-
-          {/* Address Info */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 border-t pt-4">
-            {/* Address Line */}
-            <div className="md:col-span-2">
-              <p className="text-xs text-muted-foreground">Address</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-
-            {/* City */}
-            <div>
-              <p className="text-xs text-muted-foreground">City</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-
-            {/* State */}
-            <div>
-              <p className="text-xs text-muted-foreground">State</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-
-            {/* Country */}
-            <div>
-              <p className="text-xs text-muted-foreground">Country</p>
-              <p className="font-medium text-muted-foreground">N/A</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="space-y-4 p-6">
       <form>
         <Card className="border-2 shadow-lg overflow-hidden">
           <CardHeader className="">
@@ -344,7 +285,7 @@ export function OrchestratorHQSetup() {
                           console.log(
                             "Selected City:",
                             city.latitude,
-                            city.longitude
+                            city.longitude,
                           );
                         }}
                         disabled={!state || isCityPending}
@@ -399,6 +340,10 @@ export function OrchestratorHQSetup() {
               />
             </div>
           </CardContent>
+          <CardFooter>
+            <Button>Use my location</Button>
+            {/* {location && <pre>{JSON.stringify(location, null, 2)}</pre>} */}
+          </CardFooter>
         </Card>
       </form>
     </div>

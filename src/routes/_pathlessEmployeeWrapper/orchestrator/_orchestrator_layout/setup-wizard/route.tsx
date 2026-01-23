@@ -27,3 +27,7 @@ function RouteComponent() {
     </SetupWizardLayout>
   );
 }
+
+
+// * This is the Page which Calls the API for the fetching the Steps of Setup Wizards
+// * This 

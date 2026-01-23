@@ -5,12 +5,12 @@ export const Route = createFileRoute(
 )({
    beforeLoad: () => {
     throw redirect({
-      to: "/orchestrator/setup-wizard/step",
-      params: {
-        step: "organization", // ✅ ONLY the value
-      },
+      to: "/orchestrator/setup-wizard/step/organization",
     });
   },
-  // component: OrgSetupWizLayout,
 });
+
+//*This page will call the API and for the Steps
+// *and each step page will invalidate the API call cache as soon as user did minimum task in that 
+// *we drive user to Next step process
 

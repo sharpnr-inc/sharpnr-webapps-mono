@@ -109,8 +109,8 @@ function SetupWizard({ children }: { children: React.ReactNode }) {
 
 function SetupWizardHeader({ progressPercent, currentStep }: { progressPercent: number, currentStep: number }) {
   return (
-    <CardHeader className="space-y-4">
-      <CardTitle className="text-2xl">Organization Setup</CardTitle>
+    <CardHeader className="space-y-2 p-4">
+      <CardTitle className="text-xl">Organization Setup</CardTitle>
       <CardDescription>
         Configure your Orchestrator to unlock all features.
       </CardDescription>
