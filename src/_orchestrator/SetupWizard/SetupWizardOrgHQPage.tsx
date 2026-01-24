@@ -1,5 +1,4 @@
 import type { OrgOnBoardingPayload } from "@/apis/api_service";
-// import { useOrgOnBoardingMutation } from "@/apis/mutation";
 import {
   useCitiesOfState,
   useCountries,
@@ -25,25 +24,21 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { NewSearchableSelect } from "@/signup_and_auth/NewLocationDropdown";
 import { useForm } from "@tanstack/react-form";
-import { useNavigate } from "@tanstack/react-router";
-import { AlertCircle,  Loader2, MapPin } from "lucide-react";
+import { AlertCircle, Loader2, MapPin, MoveRight } from "lucide-react";
+import "leaflet/dist/leaflet.css";
+import { useState, useEffect } from "react";
+import L from "leaflet";
 
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useState, useMemo } from 'react';
-import L from 'leaflet';
-
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 let DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
 });
 L.Marker.prototype.options.icon = DefaultIcon;
-
 
 type Country = {
   id: string;
@@ -65,43 +60,13 @@ export type CityShape = {
   name: string;
 };
 
-export function OrchestratorHQSetup({exam}:{exam:string}) { 
-  const [position, setPosition] = useState({ lat: 26.8206, lng: 75.8415 });
-  const navigate = useNavigate();
-  // const startOnBoarding = useOrgOnBoardingMutation();
+export function OrchestratorHQSetup() {
+  //------------Hoisting-------------
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [isLocating, setIsLocating] = useState(false);
+  // -----------------------------------------------------
 
-  function LocationMarker() {
-    useMapEvents({
-      click(e:any) {
-        setPosition(e.latlng);
-        console.log("Coordinate for Go:", e.latlng.lat, e.latlng.lng);
-      },
-    });
-
-    return (
-      <Marker 
-        position={position} 
-        draggable={true}
-        eventHandlers={useMemo(() => ({
-          dragend(e: { target: any; }) {
-            const marker = e.target;
-            const newPos = marker.getLatLng();
-            setPosition(newPos);
-          },
-        }), [])}
-      />
-    );
-  }
-
-  type Country = {
-    id: string;
-    name: string;
-    iso2: string;
-    emoji: string;
-  };
   // Countries data with loading/error states
   const {
     data: countryList,
@@ -125,21 +90,62 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
   const allCities = citiesList?.data ?? [];
 
   const defaultOnBoardingVal: OrgOnBoardingPayload = {
-    org_address_line: "",
-    org_city: "",
-    org_country: "",
-    org_pincode: "",
-    org_sector: "",
-    org_sector_modules: [],
-    org_state: "",
+    address_line: "",
+    city: "",
+    state: "",
+    country: "",
+    pincode: "",
+
+    latitude: undefined,
+    longitude: undefined,
+    accuracy_m: undefined,
   };
 
   const form = useForm({
     defaultValues: defaultOnBoardingVal,
     onSubmit: async ({ value }) => {
-  
+      console.log(value);
     },
   });
+
+  // Auto-detect location on component mount
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.log("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+
+        // Set form values
+        form.setFieldValue("latitude", latitude);
+        form.setFieldValue("longitude", longitude);
+        form.setFieldValue("accuracy_m", accuracy);
+
+        // Console log the values
+        console.log("Auto-detected Location:");
+        console.log("Latitude:", latitude);
+        console.log("Longitude:", longitude);
+        console.log("Accuracy (meters):", accuracy);
+
+        setIsLocating(false);
+      },
+      (error) => {
+        setIsLocating(false);
+        console.error("Error getting location:", error);
+        console.log(`Location Error: ${error.message}`);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 60000,
+      },
+    );
+  }, []); // Empty dependency array means this runs once on mount
 
   const handleGeolocation = (e: React.MouseEvent) => {
     e.preventDefault(); // STOP THE RELOAD
@@ -155,36 +161,45 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude, accuracy } = position.coords;
+
+        // Set form values
+        form.setFieldValue("latitude", latitude);
+        form.setFieldValue("longitude", longitude);
+        form.setFieldValue("accuracy_m", accuracy);
+
         setIsLocating(false);
-        
+
         console.log("Coordinates captured:", { latitude, longitude, accuracy });
 
         // ALERT the user so you know it worked
-        alert(`Location found!\nLat: ${latitude}\nLong: ${longitude}\nAccuracy: ${accuracy} meters`);
-
-        /* NEXT STEP: 
-           You can now send these to your Go backend 
-           or set them into your form state 
-        */
+        alert(
+          `Location found!\nLat: ${latitude}\nLong: ${longitude}\nAccuracy: ${accuracy} meters`,
+        );
       },
       (error) => {
         setIsLocating(false);
+
         console.error("Error getting location:", error);
         alert(`Location Error: ${error.message}`);
       },
-      { 
-        enableHighAccuracy: true, 
-        timeout: 15000, 
-        maximumAge: 60000
-      }
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 60000,
+      },
     );
   };
 
-
-
   return (
     <div className="space-y-4 p-6 flex">
-      <form className="flex-1">
+      <form
+        className="flex-1"
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+      >
         <Card className="border-2 shadow-lg overflow-hidden">
           <CardHeader className="">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -198,7 +213,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
           <CardContent className="pt-6 space-y-6">
             {/* Full Address */}
             <form.Field
-              name="org_address_line"
+              name="address_line"
               validators={{
                 onChange: ({ value }) =>
                   !value || value.length < 10
@@ -230,7 +245,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
             <div className="grid gap-6 sm:grid-cols-2">
               {/* Country */}
               <form.Field
-                name="org_country"
+                name="country"
                 validators={{
                   onChange: ({ value }) =>
                     !value ? "Please select a country" : undefined,
@@ -269,8 +284,8 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
                           field.handleChange(c);
 
                           setState("");
-                          form.setFieldValue("org_state", "");
-                          form.setFieldValue("org_city", "");
+                          form.setFieldValue("state", "");
+                          form.setFieldValue("city", "");
                         }}
                         disabled={isCountryFetching}
                       />
@@ -291,7 +306,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
 
               {/* State */}
               <form.Field
-                name="org_state"
+                name="state"
                 validators={{
                   onChange: ({ value }) =>
                     !value ? "Please select a state" : undefined,
@@ -321,7 +336,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
                         onChange={(value, stateData, c) => {
                           setState(value);
                           field.handleChange(c);
-                          form.setFieldValue("org_city", "");
+                          form.setFieldValue("city", "");
                         }}
                         disabled={!country || isStateFetching}
                       />
@@ -347,7 +362,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
 
               {/* City */}
               <form.Field
-                name="org_city"
+                name="city"
                 validators={{
                   onChange: ({ value }) =>
                     !value ? "Please select a city" : undefined,
@@ -406,7 +421,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
 
               {/* Pincode */}
               <form.Field
-                name="org_pincode"
+                name="pincode"
                 validators={{
                   onChange: ({ value }) => {
                     if (!value) return "Pincode is required";
@@ -434,10 +449,10 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
               />
             </div>
           </CardContent>
-          <CardFooter>
-           <Button 
-              type="button" 
-              variant="outline" 
+          <CardFooter className="flex flex-col gap-3">
+            <Button
+              type="button"
+              variant="outline"
               className="w-full flex gap-2"
               onClick={handleGeolocation}
               disabled={isLocating}
@@ -449,34 +464,19 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
               )}
               {isLocating ? "Fetching Location..." : "Auto-detect Location"}
             </Button>
-           
+            <Button
+              type="button"
+              variant="default"
+              className="w-full flex gap-2"
+              onClick={handleGeolocation}
+              disabled={isLocating}
+            >
+              Save and Continue
+              <MoveRight/>
+            </Button>
           </CardFooter>
         </Card>
       </form>
-      <Card className="flex-1 overflow-hidden border-2 shadow-lg">
-      <CardHeader>
-        <CardTitle className="text-sm">Location Picker (OpenStreetMap)</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="h-[400px] w-full rounded-md border overflow-hidden">
-          <MapContainer 
-            center={position} 
-            zoom={13} 
-            scrollWheelZoom={true} 
-            style={{ height: '100%', width: '100%' }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <LocationMarker />
-          </MapContainer>
-        </div>
-      </CardContent>
-      <CardFooter className="text-xs text-muted-foreground">
-        Current: {position.lat.toFixed(4)}, {position.lng.toFixed(4)}
-      </CardFooter>
-    </Card>
     </div>
   );
 }

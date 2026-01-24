@@ -34,14 +34,17 @@ export async function VerifySignupCookie(){
 //--------------------------------------------------------------------------------//
 
 export interface OrgOnBoardingPayload {
-  org_sector: string;
-  org_sector_modules: string[];
-  org_address_line: string;
-  org_city: string;
-  org_state: string;
-  org_country: string;
-  org_pincode: string;
+  address_line: string;
+  city: string;
+  state: string;
+  country: string;
+  pincode: string;
+
+  latitude?: number;
+  longitude?: number;
+  accuracy_m?: number;
 }
+
 
 //--------------------------------------------------------------------------------//
 

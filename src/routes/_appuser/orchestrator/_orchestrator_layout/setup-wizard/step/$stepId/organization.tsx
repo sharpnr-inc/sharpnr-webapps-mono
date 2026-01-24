@@ -10,7 +10,7 @@ export const Route = createFileRoute(
 function RouteComponent(){
   return(
     <div>
-      <OrchestratorHQSetup exam ={"lodu"}/>
+      <OrchestratorHQSetup/>
     </div>
   )
 }

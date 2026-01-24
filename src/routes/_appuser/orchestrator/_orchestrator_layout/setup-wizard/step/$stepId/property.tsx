@@ -1,4 +1,4 @@
-import { SetupWizardPropertyPage } from "@/_orchestrator/SetupWizard/SetupLegalEntityPage";
+import { SetupWizardProperty } from "@/_orchestrator/SetupWizard/SetupWizardPropertyPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
@@ -10,7 +10,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
   return (
     <div>
-      <SetupWizardPropertyPage />
+      <SetupWizardProperty />
     </div>
   );
 }
