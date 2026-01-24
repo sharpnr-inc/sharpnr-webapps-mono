@@ -43,11 +43,6 @@ export interface OrgOnBoardingPayload {
   org_pincode: string;
 }
 
-export async function CompleteOnBoarding(payload:OrgOnBoardingPayload) {
-  const res = await api.post(AuthApiEndpoints.Signup.OnBoarding, payload);
-  return res.data;
-}
-
 //--------------------------------------------------------------------------------//
 
 // All Core Utility APIs
