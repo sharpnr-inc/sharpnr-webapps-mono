@@ -93,11 +93,10 @@ import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityBarInventoryI
 import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityBarBarTenderIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/bar/bar-tender/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityBarBarKitchenIndexRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/bar/bar-kitchen/index'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingRoomIdRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/$roomId'
-import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/summary'
-import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/propertydomain'
-import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/property'
-import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/organization'
-import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/modules'
+import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
+import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
+import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
+import { Route as PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport } from './routes/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
 import { Route as PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 
 const PathlessEmployeeWrapperRouteRoute =
@@ -730,47 +729,38 @@ const PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingRoomIdRoute =
         PathlessEmployeeWrapperDashboardSharp_hospitalityHotelRouteRoute,
     } as any,
   )
-const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute =
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRouteImport.update(
+const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute =
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRouteImport.update(
     {
-      id: '/step/_steps/summary',
-      path: '/step/summary',
+      id: '/step/$stepId/summary',
+      path: '/step/$stepId/summary',
       getParentRoute: () =>
         PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
     } as any,
   )
-const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute =
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRouteImport.update(
+const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute =
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport.update(
     {
-      id: '/step/_steps/propertydomain',
-      path: '/step/propertydomain',
+      id: '/step/$stepId/property',
+      path: '/step/$stepId/property',
       getParentRoute: () =>
         PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
     } as any,
   )
-const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute =
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRouteImport.update(
+const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute =
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport.update(
     {
-      id: '/step/_steps/property',
-      path: '/step/property',
+      id: '/step/$stepId/organization',
+      path: '/step/$stepId/organization',
       getParentRoute: () =>
         PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
     } as any,
   )
-const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute =
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRouteImport.update(
+const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute =
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport.update(
     {
-      id: '/step/_steps/organization',
-      path: '/step/organization',
-      getParentRoute: () =>
-        PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
-    } as any,
-  )
-const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute =
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRouteImport.update(
-    {
-      id: '/step/_steps/modules',
-      path: '/step/modules',
+      id: '/step/$stepId/legal-entity',
+      path: '/step/$stepId/legal-entity',
       getParentRoute: () =>
         PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
     } as any,
@@ -868,11 +858,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/employees/privileges': typeof PathlessEmployeeWrapperDashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/orchestrator/hospitality/': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
-  '/orchestrator/setup-wizard/step/modules': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute
-  '/orchestrator/setup-wizard/step/organization': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute
-  '/orchestrator/setup-wizard/step/property': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute
-  '/orchestrator/setup-wizard/step/propertydomain': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute
-  '/orchestrator/setup-wizard/step/summary': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute
+  '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
+  '/orchestrator/setup-wizard/step/$stepId/organization': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
+  '/orchestrator/setup-wizard/step/$stepId/property': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
+  '/orchestrator/setup-wizard/step/$stepId/summary': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -950,11 +939,10 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/employees/privileges': typeof PathlessEmployeeWrapperDashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/orchestrator/hospitality': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
-  '/orchestrator/setup-wizard/step/modules': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute
-  '/orchestrator/setup-wizard/step/organization': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute
-  '/orchestrator/setup-wizard/step/property': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute
-  '/orchestrator/setup-wizard/step/propertydomain': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute
-  '/orchestrator/setup-wizard/step/summary': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute
+  '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
+  '/orchestrator/setup-wizard/step/$stepId/organization': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
+  '/orchestrator/setup-wizard/step/$stepId/property': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
+  '/orchestrator/setup-wizard/step/$stepId/summary': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -1043,11 +1031,10 @@ export interface FileRoutesById {
   '/_pathlessEmployeeWrapper/dashboard/sharp_hr/employees/privileges/': typeof PathlessEmployeeWrapperDashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/_console/hospitality/': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
   '/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
-  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/modules': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute
-  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/organization': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute
-  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/property': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute
-  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/propertydomain': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute
-  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/summary': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute
+  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
+  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
+  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
+  '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary': typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1134,11 +1121,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/employees/privileges'
     | '/orchestrator/hospitality/'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-    | '/orchestrator/setup-wizard/step/modules'
-    | '/orchestrator/setup-wizard/step/organization'
-    | '/orchestrator/setup-wizard/step/property'
-    | '/orchestrator/setup-wizard/step/propertydomain'
-    | '/orchestrator/setup-wizard/step/summary'
+    | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
+    | '/orchestrator/setup-wizard/step/$stepId/organization'
+    | '/orchestrator/setup-wizard/step/$stepId/property'
+    | '/orchestrator/setup-wizard/step/$stepId/summary'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1216,11 +1202,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/employees/privileges'
     | '/orchestrator/hospitality'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-    | '/orchestrator/setup-wizard/step/modules'
-    | '/orchestrator/setup-wizard/step/organization'
-    | '/orchestrator/setup-wizard/step/property'
-    | '/orchestrator/setup-wizard/step/propertydomain'
-    | '/orchestrator/setup-wizard/step/summary'
+    | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
+    | '/orchestrator/setup-wizard/step/$stepId/organization'
+    | '/orchestrator/setup-wizard/step/$stepId/property'
+    | '/orchestrator/setup-wizard/step/$stepId/summary'
   id:
     | '__root__'
     | '/'
@@ -1308,11 +1293,10 @@ export interface FileRouteTypes {
     | '/_pathlessEmployeeWrapper/dashboard/sharp_hr/employees/privileges/'
     | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/_console/hospitality/'
     | '/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/modules'
-    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/organization'
-    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/property'
-    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/propertydomain'
-    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/summary'
+    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
+    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
+    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
+    | '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1914,39 +1898,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PathlessEmployeeWrapperDashboardSharp_hospitalityHotelBookingRoomIdRouteImport
       parentRoute: typeof PathlessEmployeeWrapperDashboardSharp_hospitalityHotelRouteRoute
     }
-    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/summary': {
-      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/summary'
-      path: '/step/summary'
-      fullPath: '/orchestrator/setup-wizard/step/summary'
-      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRouteImport
+    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary': {
+      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
+      path: '/step/$stepId/summary'
+      fullPath: '/orchestrator/setup-wizard/step/$stepId/summary'
+      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRouteImport
       parentRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute
     }
-    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/propertydomain': {
-      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/propertydomain'
-      path: '/step/propertydomain'
-      fullPath: '/orchestrator/setup-wizard/step/propertydomain'
-      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRouteImport
+    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property': {
+      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
+      path: '/step/$stepId/property'
+      fullPath: '/orchestrator/setup-wizard/step/$stepId/property'
+      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport
       parentRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute
     }
-    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/property': {
-      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/property'
-      path: '/step/property'
-      fullPath: '/orchestrator/setup-wizard/step/property'
-      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRouteImport
+    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization': {
+      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
+      path: '/step/$stepId/organization'
+      fullPath: '/orchestrator/setup-wizard/step/$stepId/organization'
+      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport
       parentRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute
     }
-    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/organization': {
-      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/organization'
-      path: '/step/organization'
-      fullPath: '/orchestrator/setup-wizard/step/organization'
-      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRouteImport
-      parentRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute
-    }
-    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/modules': {
-      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/_steps/modules'
-      path: '/step/modules'
-      fullPath: '/orchestrator/setup-wizard/step/modules'
-      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRouteImport
+    '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity': {
+      id: '/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
+      path: '/step/$stepId/legal-entity'
+      fullPath: '/orchestrator/setup-wizard/step/$stepId/legal-entity'
+      preLoaderRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport
       parentRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRoute
     }
     '/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': {
@@ -2237,27 +2214,24 @@ const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutConsoleRouteRouteWit
 
 interface PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren {
   PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardIndexRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardIndexRoute
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute
-  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
+  PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute: typeof PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
 }
 
 const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren: PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren =
   {
     PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardIndexRoute:
       PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardIndexRoute,
-    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute:
-      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsModulesRoute,
-    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute:
-      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsOrganizationRoute,
-    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute:
-      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertyRoute,
-    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute:
-      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsPropertydomainRoute,
-    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute:
-      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepsSummaryRoute,
+    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute:
+      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute,
+    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute:
+      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute,
+    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute:
+      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute,
+    PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute:
+      PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute,
   }
 
 const PathlessEmployeeWrapperOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren =

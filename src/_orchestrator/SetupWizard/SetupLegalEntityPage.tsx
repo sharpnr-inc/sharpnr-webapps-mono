@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-export function SetupWizardPropertyPage() {
+export function SetupLegalEntityPage() {
   return (
     <div>
       <Card className="">

@@ -1,4 +1,14 @@
-import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// TODO This component needs to Fix the
+// * This components needs a rework
+// FIXME this component need fixing this is still using the old 
+// 
+
+import {
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import type React from "react";
 import { createContext, useContext } from "react";
 import { motion } from "framer-motion";
@@ -13,7 +23,7 @@ const STEP_ROUTES = {
   ADD_USERS: "module-config",
 } as const;
 
-const STEPS = ["Org HQ", "Property", "Domain", "Module Config", "Summary"];
+const STEPS = ["Org HQ", "Property", "Legal-Entity", "Summary"];
 
 type StepStatus = {
   step_id: string;
@@ -92,12 +102,16 @@ export function SetupWizardLayout({
       }}
     >
       <SetupWizard>
-         <SetupWizardHeader progressPercent={progressPercent} currentStep={currentStepIndex + 1} />
+        <SetupWizardHeader
+          progressPercent={progressPercent}
+          currentStep={currentStepIndex + 1}
+        />
         <SetupWizardContent>{children}</SetupWizardContent>
       </SetupWizard>
     </WizardContext.Provider>
   );
 }
+
 
 function SetupWizard({ children }: { children: React.ReactNode }) {
   return (
@@ -107,7 +121,13 @@ function SetupWizard({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SetupWizardHeader({ progressPercent, currentStep }: { progressPercent: number, currentStep: number }) {
+function SetupWizardHeader({
+  progressPercent,
+  currentStep,
+}: {
+  progressPercent: number;
+  currentStep: number;
+}) {
   return (
     <CardHeader className="space-y-2 p-4">
       <CardTitle className="text-xl">Organization Setup</CardTitle>
@@ -126,9 +146,8 @@ function SetupWizardHeader({ progressPercent, currentStep }: { progressPercent: 
         Step {currentStep} of {STEPS.length} · {STEPS[currentStep - 1]}
       </p>
     </CardHeader>
-  )
+  );
 }
-
 
 function SetupWizardContent({ children }: { children: React.ReactNode }) {
   return <CardContent className="space-y-4">{children}</CardContent>;
