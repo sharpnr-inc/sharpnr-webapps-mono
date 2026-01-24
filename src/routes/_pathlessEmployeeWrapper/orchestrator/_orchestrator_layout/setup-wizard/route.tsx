@@ -1,4 +1,4 @@
-import { SetupWizardLayout } from "@/_orchestrator/OrchestSetupWizard/components/ui/SetupWizard";
+import { SetupWizardLayout } from "@/_orchestrator/SetupWizard/components/ui/SetupWizard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

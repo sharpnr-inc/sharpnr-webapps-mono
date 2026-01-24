@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { FetchSetupProgress } from "../service";
+import { queryOptions } from "@tanstack/react-query";
 
 export function useSetupProgress(){
     return useQuery({
@@ -8,7 +9,6 @@ export function useSetupProgress(){
     })
 }
 
-import { queryOptions } from "@tanstack/react-query";
 
 export const setupProgressQuery = queryOptions({
   queryKey: ["Orchestrator", "Setup-progress"],

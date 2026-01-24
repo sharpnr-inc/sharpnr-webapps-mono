@@ -30,14 +30,54 @@ import type {
 } from "@/signup/on-boarding/OnBoradingPage";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { AlertCircle, CheckCircle2, Loader2, MapPin } from "lucide-react";
-import { useEffect, useState } from "react";
+import { AlertCircle,  Loader2, MapPin } from "lucide-react";
+
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useState, useMemo } from 'react';
+import L from 'leaflet';
+
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 export function OrchestratorHQSetup({exam}:{exam:string}) { 
+  const [position, setPosition] = useState({ lat: 26.8206, lng: 75.8415 });
   const navigate = useNavigate();
   const startOnBoarding = useOrgOnBoardingMutation();
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
+  const [isLocating, setIsLocating] = useState(false);
+
+  function LocationMarker() {
+    useMapEvents({
+      click(e:any) {
+        setPosition(e.latlng);
+        console.log("Coordinate for Go:", e.latlng.lat, e.latlng.lng);
+      },
+    });
+
+    return (
+      <Marker 
+        position={position} 
+        draggable={true}
+        eventHandlers={useMemo(() => ({
+          dragend(e: { target: any; }) {
+            const marker = e.target;
+            const newPos = marker.getLatLng();
+            setPosition(newPos);
+          },
+        }), [])}
+      />
+    );
+  }
 
   type Country = {
     id: string;
@@ -88,9 +128,51 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
       });
     },
   });
+
+  const handleGeolocation = (e: React.MouseEvent) => {
+    e.preventDefault(); // STOP THE RELOAD
+    e.stopPropagation();
+
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude, accuracy } = position.coords;
+        setIsLocating(false);
+        
+        console.log("Coordinates captured:", { latitude, longitude, accuracy });
+
+        // ALERT the user so you know it worked
+        alert(`Location found!\nLat: ${latitude}\nLong: ${longitude}\nAccuracy: ${accuracy} meters`);
+
+        /* NEXT STEP: 
+           You can now send these to your Go backend 
+           or set them into your form state 
+        */
+      },
+      (error) => {
+        setIsLocating(false);
+        console.error("Error getting location:", error);
+        alert(`Location Error: ${error.message}`);
+      },
+      { 
+        enableHighAccuracy: true, 
+        timeout: 15000, 
+        maximumAge: 60000
+      }
+    );
+  };
+
+
+
   return (
-    <div className="space-y-4 p-6">
-      <form>
+    <div className="space-y-4 p-6 flex">
+      <form className="flex-1">
         <Card className="border-2 shadow-lg overflow-hidden">
           <CardHeader className="">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -341,11 +423,48 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Use my location</Button>
-            {/* {location && <pre>{JSON.stringify(location, null, 2)}</pre>} */}
+           <Button 
+              type="button" 
+              variant="outline" 
+              className="w-full flex gap-2"
+              onClick={handleGeolocation}
+              disabled={isLocating}
+            >
+              {isLocating ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <MapPin className="w-4 h-4" />
+              )}
+              {isLocating ? "Fetching Location..." : "Auto-detect Location"}
+            </Button>
+           
           </CardFooter>
         </Card>
       </form>
+      <Card className="flex-1 overflow-hidden border-2 shadow-lg">
+      <CardHeader>
+        <CardTitle className="text-sm">Location Picker (OpenStreetMap)</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-[400px] w-full rounded-md border overflow-hidden">
+          <MapContainer 
+            center={position} 
+            zoom={13} 
+            scrollWheelZoom={true} 
+            style={{ height: '100%', width: '100%' }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <LocationMarker />
+          </MapContainer>
+        </div>
+      </CardContent>
+      <CardFooter className="text-xs text-muted-foreground">
+        Current: {position.lat.toFixed(4)}, {position.lng.toFixed(4)}
+      </CardFooter>
+    </Card>
     </div>
   );
 }

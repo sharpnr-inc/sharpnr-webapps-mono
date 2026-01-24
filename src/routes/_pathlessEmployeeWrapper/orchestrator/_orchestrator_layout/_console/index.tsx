@@ -1,4 +1,4 @@
-import { OrchestratorSetupWizardWelcomePage } from "@/_orchestrator/OrchestSetupWizard/OrchestratorSetupWelcomePage";
+import { OrchestratorSetupWizardWelcomePage } from "@/_orchestrator/SetupWizard/OrchestratorSetupWelcomePage";
 import { OrchestratorConsoleIndex } from "@/_orchestrator/OrchestDashboard/OrchestratorConsole";
 import { createFileRoute } from "@tanstack/react-router";
 
