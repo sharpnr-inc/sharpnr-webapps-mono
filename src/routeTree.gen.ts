@@ -17,16 +17,16 @@ import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/
 import { Route as AppuserDashboardRouteRouteImport } from './routes/_appuser/dashboard/route'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
 import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
-import { Route as AppuserEmployeeIndexRouteImport } from './routes/_appuser/employee/index'
+import { Route as AppuserIamIndexRouteImport } from './routes/_appuser/iam/index'
 import { Route as AppuserDashboardIndexRouteImport } from './routes/_appuser/dashboard/index'
-import { Route as AppuserEmployeeReviewsRouteImport } from './routes/_appuser/employee/reviews'
-import { Route as AppuserEmployeeRequestsRouteImport } from './routes/_appuser/employee/requests'
-import { Route as AppuserEmployeeProfileRouteImport } from './routes/_appuser/employee/profile'
-import { Route as AppuserEmployeeOvertimeRouteImport } from './routes/_appuser/employee/overtime'
-import { Route as AppuserEmployeeLeavesRouteImport } from './routes/_appuser/employee/leaves'
-import { Route as AppuserEmployeeGreivencesRouteImport } from './routes/_appuser/employee/greivences'
-import { Route as AppuserEmployeeFeedbackRouteImport } from './routes/_appuser/employee/feedback'
-import { Route as AppuserEmployeeEmployee_attendanceRouteImport } from './routes/_appuser/employee/employee_attendance'
+import { Route as AppuserIamReviewsRouteImport } from './routes/_appuser/iam/reviews'
+import { Route as AppuserIamRequestsRouteImport } from './routes/_appuser/iam/requests'
+import { Route as AppuserIamProfileRouteImport } from './routes/_appuser/iam/profile'
+import { Route as AppuserIamOvertimeRouteImport } from './routes/_appuser/iam/overtime'
+import { Route as AppuserIamLeavesRouteImport } from './routes/_appuser/iam/leaves'
+import { Route as AppuserIamGreivencesRouteImport } from './routes/_appuser/iam/greivences'
+import { Route as AppuserIamFeedbackRouteImport } from './routes/_appuser/iam/feedback'
+import { Route as AppuserIamEmployee_attendanceRouteImport } from './routes/_appuser/iam/employee_attendance'
 import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
 import { Route as AppuserDashboardSharp_marketingIndexRouteImport } from './routes/_appuser/dashboard/sharp_marketing/index'
 import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
@@ -141,9 +141,9 @@ const SharpOrgEmployeeSetPasswordIndexRoute =
     path: '/sharp-org-employee/set-password/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppuserEmployeeIndexRoute = AppuserEmployeeIndexRouteImport.update({
-  id: '/employee/',
-  path: '/employee/',
+const AppuserIamIndexRoute = AppuserIamIndexRouteImport.update({
+  id: '/iam/',
+  path: '/iam/',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserDashboardIndexRoute = AppuserDashboardIndexRouteImport.update({
@@ -151,46 +151,45 @@ const AppuserDashboardIndexRoute = AppuserDashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppuserDashboardRouteRoute,
 } as any)
-const AppuserEmployeeReviewsRoute = AppuserEmployeeReviewsRouteImport.update({
-  id: '/employee/reviews',
-  path: '/employee/reviews',
+const AppuserIamReviewsRoute = AppuserIamReviewsRouteImport.update({
+  id: '/iam/reviews',
+  path: '/iam/reviews',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserEmployeeRequestsRoute = AppuserEmployeeRequestsRouteImport.update({
-  id: '/employee/requests',
-  path: '/employee/requests',
+const AppuserIamRequestsRoute = AppuserIamRequestsRouteImport.update({
+  id: '/iam/requests',
+  path: '/iam/requests',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserEmployeeProfileRoute = AppuserEmployeeProfileRouteImport.update({
-  id: '/employee/profile',
-  path: '/employee/profile',
+const AppuserIamProfileRoute = AppuserIamProfileRouteImport.update({
+  id: '/iam/profile',
+  path: '/iam/profile',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserEmployeeOvertimeRoute = AppuserEmployeeOvertimeRouteImport.update({
-  id: '/employee/overtime',
-  path: '/employee/overtime',
+const AppuserIamOvertimeRoute = AppuserIamOvertimeRouteImport.update({
+  id: '/iam/overtime',
+  path: '/iam/overtime',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserEmployeeLeavesRoute = AppuserEmployeeLeavesRouteImport.update({
-  id: '/employee/leaves',
-  path: '/employee/leaves',
+const AppuserIamLeavesRoute = AppuserIamLeavesRouteImport.update({
+  id: '/iam/leaves',
+  path: '/iam/leaves',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserEmployeeGreivencesRoute =
-  AppuserEmployeeGreivencesRouteImport.update({
-    id: '/employee/greivences',
-    path: '/employee/greivences',
-    getParentRoute: () => AppuserRouteRoute,
-  } as any)
-const AppuserEmployeeFeedbackRoute = AppuserEmployeeFeedbackRouteImport.update({
-  id: '/employee/feedback',
-  path: '/employee/feedback',
+const AppuserIamGreivencesRoute = AppuserIamGreivencesRouteImport.update({
+  id: '/iam/greivences',
+  path: '/iam/greivences',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserEmployeeEmployee_attendanceRoute =
-  AppuserEmployeeEmployee_attendanceRouteImport.update({
-    id: '/employee/employee_attendance',
-    path: '/employee/employee_attendance',
+const AppuserIamFeedbackRoute = AppuserIamFeedbackRouteImport.update({
+  id: '/iam/feedback',
+  path: '/iam/feedback',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserIamEmployee_attendanceRoute =
+  AppuserIamEmployee_attendanceRouteImport.update({
+    id: '/iam/employee_attendance',
+    path: '/iam/employee_attendance',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutRouteRoute =
@@ -659,16 +658,16 @@ export interface FileRoutesByFullPath {
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup': typeof OrgSignupIndexRoute
-  '/employee/employee_attendance': typeof AppuserEmployeeEmployee_attendanceRoute
-  '/employee/feedback': typeof AppuserEmployeeFeedbackRoute
-  '/employee/greivences': typeof AppuserEmployeeGreivencesRoute
-  '/employee/leaves': typeof AppuserEmployeeLeavesRoute
-  '/employee/overtime': typeof AppuserEmployeeOvertimeRoute
-  '/employee/profile': typeof AppuserEmployeeProfileRoute
-  '/employee/requests': typeof AppuserEmployeeRequestsRoute
-  '/employee/reviews': typeof AppuserEmployeeReviewsRoute
+  '/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
+  '/iam/feedback': typeof AppuserIamFeedbackRoute
+  '/iam/greivences': typeof AppuserIamGreivencesRoute
+  '/iam/leaves': typeof AppuserIamLeavesRoute
+  '/iam/overtime': typeof AppuserIamOvertimeRoute
+  '/iam/profile': typeof AppuserIamProfileRoute
+  '/iam/requests': typeof AppuserIamRequestsRoute
+  '/iam/reviews': typeof AppuserIamReviewsRoute
   '/dashboard/': typeof AppuserDashboardIndexRoute
-  '/employee': typeof AppuserEmployeeIndexRoute
+  '/iam': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
@@ -746,16 +745,16 @@ export interface FileRoutesByTo {
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup': typeof OrgSignupIndexRoute
-  '/employee/employee_attendance': typeof AppuserEmployeeEmployee_attendanceRoute
-  '/employee/feedback': typeof AppuserEmployeeFeedbackRoute
-  '/employee/greivences': typeof AppuserEmployeeGreivencesRoute
-  '/employee/leaves': typeof AppuserEmployeeLeavesRoute
-  '/employee/overtime': typeof AppuserEmployeeOvertimeRoute
-  '/employee/profile': typeof AppuserEmployeeProfileRoute
-  '/employee/requests': typeof AppuserEmployeeRequestsRoute
-  '/employee/reviews': typeof AppuserEmployeeReviewsRoute
+  '/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
+  '/iam/feedback': typeof AppuserIamFeedbackRoute
+  '/iam/greivences': typeof AppuserIamGreivencesRoute
+  '/iam/leaves': typeof AppuserIamLeavesRoute
+  '/iam/overtime': typeof AppuserIamOvertimeRoute
+  '/iam/profile': typeof AppuserIamProfileRoute
+  '/iam/requests': typeof AppuserIamRequestsRoute
+  '/iam/reviews': typeof AppuserIamReviewsRoute
   '/dashboard': typeof AppuserDashboardIndexRoute
-  '/employee': typeof AppuserEmployeeIndexRoute
+  '/iam': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting/accounting-setup': typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
@@ -831,16 +830,16 @@ export interface FileRoutesById {
   '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup/': typeof OrgSignupIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
-  '/_appuser/employee/employee_attendance': typeof AppuserEmployeeEmployee_attendanceRoute
-  '/_appuser/employee/feedback': typeof AppuserEmployeeFeedbackRoute
-  '/_appuser/employee/greivences': typeof AppuserEmployeeGreivencesRoute
-  '/_appuser/employee/leaves': typeof AppuserEmployeeLeavesRoute
-  '/_appuser/employee/overtime': typeof AppuserEmployeeOvertimeRoute
-  '/_appuser/employee/profile': typeof AppuserEmployeeProfileRoute
-  '/_appuser/employee/requests': typeof AppuserEmployeeRequestsRoute
-  '/_appuser/employee/reviews': typeof AppuserEmployeeReviewsRoute
+  '/_appuser/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
+  '/_appuser/iam/feedback': typeof AppuserIamFeedbackRoute
+  '/_appuser/iam/greivences': typeof AppuserIamGreivencesRoute
+  '/_appuser/iam/leaves': typeof AppuserIamLeavesRoute
+  '/_appuser/iam/overtime': typeof AppuserIamOvertimeRoute
+  '/_appuser/iam/profile': typeof AppuserIamProfileRoute
+  '/_appuser/iam/requests': typeof AppuserIamRequestsRoute
+  '/_appuser/iam/reviews': typeof AppuserIamReviewsRoute
   '/_appuser/dashboard/': typeof AppuserDashboardIndexRoute
-  '/_appuser/employee/': typeof AppuserEmployeeIndexRoute
+  '/_appuser/iam/': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
   '/_appuser/dashboard/sharp_accounting/accounting-setup': typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
@@ -922,16 +921,16 @@ export interface FileRouteTypes {
     | '/orchestrator'
     | '/org-signup/on-boarding'
     | '/org-signup'
-    | '/employee/employee_attendance'
-    | '/employee/feedback'
-    | '/employee/greivences'
-    | '/employee/leaves'
-    | '/employee/overtime'
-    | '/employee/profile'
-    | '/employee/requests'
-    | '/employee/reviews'
+    | '/iam/employee_attendance'
+    | '/iam/feedback'
+    | '/iam/greivences'
+    | '/iam/leaves'
+    | '/iam/overtime'
+    | '/iam/profile'
+    | '/iam/requests'
+    | '/iam/reviews'
     | '/dashboard/'
-    | '/employee'
+    | '/iam'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting/accounting-setup'
@@ -1009,16 +1008,16 @@ export interface FileRouteTypes {
     | '/orchestrator'
     | '/org-signup/on-boarding'
     | '/org-signup'
-    | '/employee/employee_attendance'
-    | '/employee/feedback'
-    | '/employee/greivences'
-    | '/employee/leaves'
-    | '/employee/overtime'
-    | '/employee/profile'
-    | '/employee/requests'
-    | '/employee/reviews'
+    | '/iam/employee_attendance'
+    | '/iam/feedback'
+    | '/iam/greivences'
+    | '/iam/leaves'
+    | '/iam/overtime'
+    | '/iam/profile'
+    | '/iam/requests'
+    | '/iam/reviews'
     | '/dashboard'
-    | '/employee'
+    | '/iam'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting/accounting-setup'
@@ -1093,16 +1092,16 @@ export interface FileRouteTypes {
     | '/org-signup/on-boarding'
     | '/org-signup/'
     | '/_appuser/orchestrator/_orchestrator_layout'
-    | '/_appuser/employee/employee_attendance'
-    | '/_appuser/employee/feedback'
-    | '/_appuser/employee/greivences'
-    | '/_appuser/employee/leaves'
-    | '/_appuser/employee/overtime'
-    | '/_appuser/employee/profile'
-    | '/_appuser/employee/requests'
-    | '/_appuser/employee/reviews'
+    | '/_appuser/iam/employee_attendance'
+    | '/_appuser/iam/feedback'
+    | '/_appuser/iam/greivences'
+    | '/_appuser/iam/leaves'
+    | '/_appuser/iam/overtime'
+    | '/_appuser/iam/profile'
+    | '/_appuser/iam/requests'
+    | '/_appuser/iam/reviews'
     | '/_appuser/dashboard/'
-    | '/_appuser/employee/'
+    | '/_appuser/iam/'
     | '/sharp-org-employee/set-password/'
     | '/sharp-org-employee/verification/'
     | '/_appuser/dashboard/sharp_accounting/accounting-setup'
@@ -1244,11 +1243,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SharpOrgEmployeeSetPasswordIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_appuser/employee/': {
-      id: '/_appuser/employee/'
-      path: '/employee'
-      fullPath: '/employee'
-      preLoaderRoute: typeof AppuserEmployeeIndexRouteImport
+    '/_appuser/iam/': {
+      id: '/_appuser/iam/'
+      path: '/iam'
+      fullPath: '/iam'
+      preLoaderRoute: typeof AppuserIamIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/dashboard/': {
@@ -1258,60 +1257,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardIndexRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
     }
-    '/_appuser/employee/reviews': {
-      id: '/_appuser/employee/reviews'
-      path: '/employee/reviews'
-      fullPath: '/employee/reviews'
-      preLoaderRoute: typeof AppuserEmployeeReviewsRouteImport
+    '/_appuser/iam/reviews': {
+      id: '/_appuser/iam/reviews'
+      path: '/iam/reviews'
+      fullPath: '/iam/reviews'
+      preLoaderRoute: typeof AppuserIamReviewsRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/requests': {
-      id: '/_appuser/employee/requests'
-      path: '/employee/requests'
-      fullPath: '/employee/requests'
-      preLoaderRoute: typeof AppuserEmployeeRequestsRouteImport
+    '/_appuser/iam/requests': {
+      id: '/_appuser/iam/requests'
+      path: '/iam/requests'
+      fullPath: '/iam/requests'
+      preLoaderRoute: typeof AppuserIamRequestsRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/profile': {
-      id: '/_appuser/employee/profile'
-      path: '/employee/profile'
-      fullPath: '/employee/profile'
-      preLoaderRoute: typeof AppuserEmployeeProfileRouteImport
+    '/_appuser/iam/profile': {
+      id: '/_appuser/iam/profile'
+      path: '/iam/profile'
+      fullPath: '/iam/profile'
+      preLoaderRoute: typeof AppuserIamProfileRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/overtime': {
-      id: '/_appuser/employee/overtime'
-      path: '/employee/overtime'
-      fullPath: '/employee/overtime'
-      preLoaderRoute: typeof AppuserEmployeeOvertimeRouteImport
+    '/_appuser/iam/overtime': {
+      id: '/_appuser/iam/overtime'
+      path: '/iam/overtime'
+      fullPath: '/iam/overtime'
+      preLoaderRoute: typeof AppuserIamOvertimeRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/leaves': {
-      id: '/_appuser/employee/leaves'
-      path: '/employee/leaves'
-      fullPath: '/employee/leaves'
-      preLoaderRoute: typeof AppuserEmployeeLeavesRouteImport
+    '/_appuser/iam/leaves': {
+      id: '/_appuser/iam/leaves'
+      path: '/iam/leaves'
+      fullPath: '/iam/leaves'
+      preLoaderRoute: typeof AppuserIamLeavesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/greivences': {
-      id: '/_appuser/employee/greivences'
-      path: '/employee/greivences'
-      fullPath: '/employee/greivences'
-      preLoaderRoute: typeof AppuserEmployeeGreivencesRouteImport
+    '/_appuser/iam/greivences': {
+      id: '/_appuser/iam/greivences'
+      path: '/iam/greivences'
+      fullPath: '/iam/greivences'
+      preLoaderRoute: typeof AppuserIamGreivencesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/feedback': {
-      id: '/_appuser/employee/feedback'
-      path: '/employee/feedback'
-      fullPath: '/employee/feedback'
-      preLoaderRoute: typeof AppuserEmployeeFeedbackRouteImport
+    '/_appuser/iam/feedback': {
+      id: '/_appuser/iam/feedback'
+      path: '/iam/feedback'
+      fullPath: '/iam/feedback'
+      preLoaderRoute: typeof AppuserIamFeedbackRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/employee/employee_attendance': {
-      id: '/_appuser/employee/employee_attendance'
-      path: '/employee/employee_attendance'
-      fullPath: '/employee/employee_attendance'
-      preLoaderRoute: typeof AppuserEmployeeEmployee_attendanceRouteImport
+    '/_appuser/iam/employee_attendance': {
+      id: '/_appuser/iam/employee_attendance'
+      path: '/iam/employee_attendance'
+      fullPath: '/iam/employee_attendance'
+      preLoaderRoute: typeof AppuserIamEmployee_attendanceRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout': {
@@ -2151,30 +2150,29 @@ const AppuserOrchestratorRouteRouteWithChildren =
 interface AppuserRouteRouteChildren {
   AppuserDashboardRouteRoute: typeof AppuserDashboardRouteRouteWithChildren
   AppuserOrchestratorRouteRoute: typeof AppuserOrchestratorRouteRouteWithChildren
-  AppuserEmployeeEmployee_attendanceRoute: typeof AppuserEmployeeEmployee_attendanceRoute
-  AppuserEmployeeFeedbackRoute: typeof AppuserEmployeeFeedbackRoute
-  AppuserEmployeeGreivencesRoute: typeof AppuserEmployeeGreivencesRoute
-  AppuserEmployeeLeavesRoute: typeof AppuserEmployeeLeavesRoute
-  AppuserEmployeeOvertimeRoute: typeof AppuserEmployeeOvertimeRoute
-  AppuserEmployeeProfileRoute: typeof AppuserEmployeeProfileRoute
-  AppuserEmployeeRequestsRoute: typeof AppuserEmployeeRequestsRoute
-  AppuserEmployeeReviewsRoute: typeof AppuserEmployeeReviewsRoute
-  AppuserEmployeeIndexRoute: typeof AppuserEmployeeIndexRoute
+  AppuserIamEmployee_attendanceRoute: typeof AppuserIamEmployee_attendanceRoute
+  AppuserIamFeedbackRoute: typeof AppuserIamFeedbackRoute
+  AppuserIamGreivencesRoute: typeof AppuserIamGreivencesRoute
+  AppuserIamLeavesRoute: typeof AppuserIamLeavesRoute
+  AppuserIamOvertimeRoute: typeof AppuserIamOvertimeRoute
+  AppuserIamProfileRoute: typeof AppuserIamProfileRoute
+  AppuserIamRequestsRoute: typeof AppuserIamRequestsRoute
+  AppuserIamReviewsRoute: typeof AppuserIamReviewsRoute
+  AppuserIamIndexRoute: typeof AppuserIamIndexRoute
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserDashboardRouteRoute: AppuserDashboardRouteRouteWithChildren,
   AppuserOrchestratorRouteRoute: AppuserOrchestratorRouteRouteWithChildren,
-  AppuserEmployeeEmployee_attendanceRoute:
-    AppuserEmployeeEmployee_attendanceRoute,
-  AppuserEmployeeFeedbackRoute: AppuserEmployeeFeedbackRoute,
-  AppuserEmployeeGreivencesRoute: AppuserEmployeeGreivencesRoute,
-  AppuserEmployeeLeavesRoute: AppuserEmployeeLeavesRoute,
-  AppuserEmployeeOvertimeRoute: AppuserEmployeeOvertimeRoute,
-  AppuserEmployeeProfileRoute: AppuserEmployeeProfileRoute,
-  AppuserEmployeeRequestsRoute: AppuserEmployeeRequestsRoute,
-  AppuserEmployeeReviewsRoute: AppuserEmployeeReviewsRoute,
-  AppuserEmployeeIndexRoute: AppuserEmployeeIndexRoute,
+  AppuserIamEmployee_attendanceRoute: AppuserIamEmployee_attendanceRoute,
+  AppuserIamFeedbackRoute: AppuserIamFeedbackRoute,
+  AppuserIamGreivencesRoute: AppuserIamGreivencesRoute,
+  AppuserIamLeavesRoute: AppuserIamLeavesRoute,
+  AppuserIamOvertimeRoute: AppuserIamOvertimeRoute,
+  AppuserIamProfileRoute: AppuserIamProfileRoute,
+  AppuserIamRequestsRoute: AppuserIamRequestsRoute,
+  AppuserIamReviewsRoute: AppuserIamReviewsRoute,
+  AppuserIamIndexRoute: AppuserIamIndexRoute,
 }
 
 const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
