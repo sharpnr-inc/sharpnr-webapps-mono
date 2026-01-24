@@ -3,7 +3,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 export const Route = createFileRoute(
   "/_pathlessEmployeeWrapper/orchestrator/_orchestrator_layout/setup-wizard/",
 )({
-  beforeLoad: () => {
+  beforeLoad: ({ context }) => {
     throw redirect({
       to: "/orchestrator/setup-wizard/step/$stepId/organization",
       params: {

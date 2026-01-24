@@ -7,12 +7,12 @@ export const queryClient = new QueryClient();
 export const router = createRouter({
   routeTree,
   context: {
-    queryClient,
+    queryClient:queryClient,
   },
 });
 
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
+// declare module "@tanstack/react-router" {
+//   interface Register {
+//     router: typeof router;
+//   }
+// }
