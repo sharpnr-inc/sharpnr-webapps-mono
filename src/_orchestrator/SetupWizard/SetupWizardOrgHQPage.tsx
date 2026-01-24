@@ -1,5 +1,5 @@
 import type { OrgOnBoardingPayload } from "@/apis/api_service";
-import { useOrgOnBoardingMutation } from "@/apis/mutation";
+// import { useOrgOnBoardingMutation } from "@/apis/mutation";
 import {
   useCitiesOfState,
   useCountries,
@@ -68,7 +68,7 @@ export type CityShape = {
 export function OrchestratorHQSetup({exam}:{exam:string}) { 
   const [position, setPosition] = useState({ lat: 26.8206, lng: 75.8415 });
   const navigate = useNavigate();
-  const startOnBoarding = useOrgOnBoardingMutation();
+  // const startOnBoarding = useOrgOnBoardingMutation();
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [isLocating, setIsLocating] = useState(false);
@@ -137,12 +137,7 @@ export function OrchestratorHQSetup({exam}:{exam:string}) {
   const form = useForm({
     defaultValues: defaultOnBoardingVal,
     onSubmit: async ({ value }) => {
-      console.log(value);
-      await startOnBoarding.mutateAsync(value, {
-        onSuccess: () => {
-          navigate({ to: "/dashboard" });
-        },
-      });
+  
     },
   });
 

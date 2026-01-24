@@ -1,14 +1,23 @@
+import { setupProgressQuery } from "@/_orchestrator/SetupWizard/api/queries";
+import { resolveSetupWizardRoute, } from "@/lib/setup_route_resolver";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/setup-wizard/",
 )({
-  beforeLoad: ({ context }) => {
+  beforeLoad: async ({ context }) => {
+    const progress = await context.queryClient.fetchQuery(setupProgressQuery)
+    console.log(progress)
+
+     const { routeSegment, stepId } = resolveSetupWizardRoute(progress.data)
+     console.log(routeSegment, stepId)
+
     throw redirect({
-      to: "/orchestrator/setup-wizard/step/$stepId/organization",
-      params: {
-        stepId: "sehgohsgvoiheroigvh",
-      },
+      to: "/orchestrator/setup-wizard/step/$stepId/$stepRoute",
+       params: {
+      stepId,
+      stepRoute: routeSegment,
+    },
     });
   },
 });
