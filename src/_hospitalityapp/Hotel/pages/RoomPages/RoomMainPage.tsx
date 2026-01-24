@@ -16,7 +16,7 @@ import {
   useBookingPreviewBill,
   useHotelBookingDetails,
 } from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
-import { Route } from "@/routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/$roomId";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/hotel/booking/$roomId";
 import { Button } from "@/components/ui/button";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { AddPaymentsInHotelRoomBookingForm } from "../../components/AddPaymentsForm";
