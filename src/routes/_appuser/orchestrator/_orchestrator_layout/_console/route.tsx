@@ -5,3 +5,6 @@ export const Route = createFileRoute(
 )({
   component: Outlet,
 })
+
+
+// TODO Add the dashboard header and sidebar here this is the console before user load the console we check and redirect them to the setup wizard

@@ -23,11 +23,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { NewSearchableSelect } from "@/signup/NewLocationDropdown";
-import type {
-  CityShape,
-  StateShape,
-} from "@/signup/on-boarding/OnBoradingPage";
+import { NewSearchableSelect } from "@/signup_and_auth/NewLocationDropdown";
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
 import { AlertCircle,  Loader2, MapPin } from "lucide-react";
@@ -47,6 +43,27 @@ let DefaultIcon = L.icon({
     iconAnchor: [12, 41]
 });
 L.Marker.prototype.options.icon = DefaultIcon;
+
+
+type Country = {
+  id: string;
+  name: string;
+  iso2: string;
+  emoji: string;
+};
+
+export type StateShape = {
+  id: string;
+  iso2: string;
+  name: string;
+};
+
+export type CityShape = {
+  id: string;
+  latitude: string;
+  longitude: string;
+  name: string;
+};
 
 export function OrchestratorHQSetup({exam}:{exam:string}) { 
   const [position, setPosition] = useState({ lat: 26.8206, lng: 75.8415 });

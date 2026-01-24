@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
-import { Route as OrgSignupOnBoardingRouteImport } from './routes/org-signup/on-boarding'
 import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/orchestrator/route'
 import { Route as AppuserDashboardRouteRouteImport } from './routes/_appuser/dashboard/route'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
@@ -111,11 +110,6 @@ const IndexRoute = IndexRouteImport.update({
 const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
   id: '/org-signup/',
   path: '/org-signup/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrgSignupOnBoardingRoute = OrgSignupOnBoardingRouteImport.update({
-  id: '/org-signup/on-boarding',
-  path: '/org-signup/on-boarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppuserOrchestratorRouteRoute =
@@ -656,7 +650,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-  '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
   '/iam/feedback': typeof AppuserIamFeedbackRoute
@@ -743,7 +736,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
   '/iam/feedback': typeof AppuserIamFeedbackRoute
@@ -827,7 +819,6 @@ export interface FileRoutesById {
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/_appuser/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
-  '/org-signup/on-boarding': typeof OrgSignupOnBoardingRoute
   '/org-signup/': typeof OrgSignupIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
   '/_appuser/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
@@ -919,7 +910,6 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/orchestrator'
-    | '/org-signup/on-boarding'
     | '/org-signup'
     | '/iam/employee_attendance'
     | '/iam/feedback'
@@ -1006,7 +996,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/orchestrator'
-    | '/org-signup/on-boarding'
     | '/org-signup'
     | '/iam/employee_attendance'
     | '/iam/feedback'
@@ -1089,7 +1078,6 @@ export interface FileRouteTypes {
     | '/_appuser'
     | '/_appuser/dashboard'
     | '/_appuser/orchestrator'
-    | '/org-signup/on-boarding'
     | '/org-signup/'
     | '/_appuser/orchestrator/_orchestrator_layout'
     | '/_appuser/iam/employee_attendance'
@@ -1179,7 +1167,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
-  OrgSignupOnBoardingRoute: typeof OrgSignupOnBoardingRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
   SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
   SharpOrgEmployeeVerificationIndexRoute: typeof SharpOrgEmployeeVerificationIndexRoute
@@ -1206,13 +1193,6 @@ declare module '@tanstack/react-router' {
       path: '/org-signup'
       fullPath: '/org-signup'
       preLoaderRoute: typeof OrgSignupIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/org-signup/on-boarding': {
-      id: '/org-signup/on-boarding'
-      path: '/org-signup/on-boarding'
-      fullPath: '/org-signup/on-boarding'
-      preLoaderRoute: typeof OrgSignupOnBoardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_appuser/orchestrator': {
@@ -2182,7 +2162,6 @@ const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
-  OrgSignupOnBoardingRoute: OrgSignupOnBoardingRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
   SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
   SharpOrgEmployeeVerificationIndexRoute:
