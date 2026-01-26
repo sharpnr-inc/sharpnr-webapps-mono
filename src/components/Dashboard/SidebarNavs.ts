@@ -5,12 +5,9 @@ import {
   CalendarDays,
   Settings,
   Utensils,
-  BookOpen,
-  Package,
   MessageSquare,
   Shield,
   Wrench,
-  Cookie,
   HotelIcon,
   TableConfig,
   type LucideIcon,
@@ -56,24 +53,6 @@ export const SharpHospitalityNavs: NavSection[] = [
         to: "/dashboard/sharp_hospitality/restaurant", // Fixed typo: restaurant -> restaurant
       },
       
-      // {
-      //   id: "hotel_menu",
-      //   label: "Menu",
-      //   icon: BookOpen, // Better icon for menu
-      //   to: "/dashboard/sharp_hospitality/menu",
-      // },
-      // {
-      //   id: "hotel_kitchen",
-      //   label: "Kitchen",
-      //   icon: Cookie, // Better icon for menu
-      //   to: "/dashboard/sharp_hospitality/kitchen",
-      // },
-      // {
-      //   id: "hotel_inventory",
-      //   label: "Inventory",
-      //   icon: Package, // Better icon for inventory
-      //   to: "/dashboard/sharp_hospitality/inventory",
-      // },
 
       {
         id: "org_config",

@@ -21,7 +21,7 @@ export function RestaurantSidebar() {
   const pathname = location.pathname;
 
   return (
-    <SidebarContent className="sm:pt-16 md:pt-16">
+    <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>Restaurant Management</SidebarGroupLabel>
 

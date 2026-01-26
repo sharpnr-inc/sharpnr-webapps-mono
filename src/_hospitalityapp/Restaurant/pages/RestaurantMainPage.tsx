@@ -1,4 +1,4 @@
-import RestaurantTableManagementSection from "@/_hospitalityapp/Restaurant/sections/RestaurantTableManagementSection";
+
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function RestaurantMainPage() {
@@ -22,7 +22,7 @@ export default function RestaurantMainPage() {
       {/* Tab Contents */}
 
       <TabsContent value="table_management">
-        <RestaurantTableManagementSection />
+        <div>Nothing</div>
       </TabsContent>
 
       <TabsContent value="order">

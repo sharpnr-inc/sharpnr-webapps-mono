@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_appuser")({
 function RootComponent() {
   return (
 
-    <div className="relative min-h-screen">
+    <div className="relative">
       
       {/* Top Right Header Controls */}
       <div className="absolute right-4 top-4 z-40 flex items-center gap-3">
@@ -57,14 +57,14 @@ function RootComponent() {
             <DropdownMenuSeparator />
 
             <DropdownMenuItem asChild>
-              <Link to="/_appuser/profile">
+              <Link to="/">
                 <User className="mr-2 h-4 w-4" />
                 Profile
               </Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link to="/_appuser/settings">
+              <Link to="/">
                 <Settings className="mr-2 h-4 w-4" />
                 Settings
               </Link>
