@@ -27,10 +27,7 @@ type NewSearchableSelectProps<T> = {
   getValue: (item: T) => string
   getLabel: (item: T) => string
   getMainValue:(item:T) => string
-
-
   renderOption?: (item: T) => React.ReactNode
-
   onChange: (value: string, item: T, mainValue:string) => void
 }
 
@@ -41,11 +38,13 @@ export function NewSearchableSelect<T>({
   placeholder,
   searchPlaceholder = "Search...",
   disabled,
+
   getValue,
   getLabel,
   getMainValue,
   renderOption,
   onChange,
+
 }: NewSearchableSelectProps<T>) {
   const [open, setOpen] = React.useState(false)
 

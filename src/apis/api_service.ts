@@ -34,6 +34,7 @@ export async function VerifySignupCookie(){
 //--------------------------------------------------------------------------------//
 
 export interface OrgOnBoardingPayload {
+  step_id:string,
   address_line: string;
   city: string;
   state: string;

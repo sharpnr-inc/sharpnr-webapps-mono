@@ -27,18 +27,11 @@ import { useForm } from "@tanstack/react-form";
 import { AlertCircle, Loader2, MapPin, MoveRight } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
-import L from "leaflet";
 
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import { useParams } from "@tanstack/react-router";
 
-let DefaultIcon = L.icon({
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
-L.Marker.prototype.options.icon = DefaultIcon;
+
+
 
 type Country = {
   id: string;
@@ -67,6 +60,8 @@ export function OrchestratorHQSetup() {
   const [isLocating, setIsLocating] = useState(false);
   // -----------------------------------------------------
 
+  const { stepId } = useParams({ strict: false });
+
   // Countries data with loading/error states
   const {
     data: countryList,
@@ -90,6 +85,7 @@ export function OrchestratorHQSetup() {
   const allCities = citiesList?.data ?? [];
 
   const defaultOnBoardingVal: OrgOnBoardingPayload = {
+    step_id: stepId,
     address_line: "",
     city: "",
     state: "",
@@ -451,6 +447,16 @@ export function OrchestratorHQSetup() {
           </CardContent>
           <CardFooter className="flex flex-col gap-3">
             <Button
+              type="submit"
+              variant="default"
+              className="w-full flex gap-2"
+              disabled={isLocating}
+            >
+              Save and Continue
+              <MoveRight />
+            </Button>
+
+            <Button
               type="button"
               variant="outline"
               className="w-full flex gap-2"
@@ -463,16 +469,6 @@ export function OrchestratorHQSetup() {
                 <MapPin className="w-4 h-4" />
               )}
               {isLocating ? "Fetching Location..." : "Auto-detect Location"}
-            </Button>
-            <Button
-              type="button"
-              variant="default"
-              className="w-full flex gap-2"
-              onClick={handleGeolocation}
-              disabled={isLocating}
-            >
-              Save and Continue
-              <MoveRight/>
             </Button>
           </CardFooter>
         </Card>

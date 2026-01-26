@@ -4,12 +4,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { useNavigate } from "@tanstack/react-router";
 import {
   SharpAccountingNavs,
@@ -30,11 +28,10 @@ export default function MainMenuButton() {
     ...SharpMarketingNavs,
   ];
 
-  // ⌘M (mac) / Ctrl+M (win, linux)
+  // ⌘M / Ctrl+M
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       const isMac = navigator.platform.toUpperCase().includes("MAC");
-
       if (
         (isMac && e.metaKey && e.key.toLowerCase() === "m") ||
         (!isMac && e.ctrlKey && e.key.toLowerCase() === "m")
@@ -49,48 +46,73 @@ export default function MainMenuButton() {
   }, []);
 
   return (
-    <div about="Header for the Sharpnr">
-      <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" className="group">
-            <img
-              src={sharpnrLogo}
-              alt="Menu"
-              className="
-                h-6 w-6
-                transition-transform duration-200 ease-in-out
-                group-data-[state=open]:rotate-180
-              "
-            />
-          </Button>
-        </DropdownMenuTrigger>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-10 w-10 rounded-full grid place-items-center"
+        >
+          <img
+            src={sharpnrLogo}
+            alt="Menu"
+            className="h-10 w-10 rounded-full object-cover"
+          />
+        </Button>
+      </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="w-64" align="start">
-          {allModules.map((section, index) => (
-            <DropdownMenuGroup key={section.id}>
-              <DropdownMenuLabel className="text-sm font-semibold">
-                {section.title}
-              </DropdownMenuLabel>
+      <DropdownMenuContent align="center" className="w-auto p-2">
+        {allModules.map((section, index) => (
+          <DropdownMenuGroup key={section.id}>
+            <DropdownMenuLabel className="px-2 py-1 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+              {section.title}
+            </DropdownMenuLabel>
 
+            {/* 🔲 Grid Launcher */}
+            <div className="grid grid-cols-3 gap-2 px-2 pb-3">
               {section.items.map((item) => (
-                <DropdownMenuItem
+                <button
                   key={item.id}
-                  className="flex items-center gap-2"
+                  type="button"
                   onClick={() => {
                     navigate({ to: item.to });
-                    setOpen(false); // 🔥 close after click
+                    setOpen(false);
                   }}
+                  className="
+                    group
+                    flex flex-col items-center justify-center
+                    h-16 w-full
+                    rounded-xl
+                    border border-border
+                    bg-background
+                    hover:bg-accent
+                    focus-visible:ring-2 focus-visible:ring-ring
+                    transition-all
+                    text-xs font-medium
+                  "
                 >
-                  <item.icon className="h-4 w-4" />
-                  {item.label}
-                </DropdownMenuItem>
-              ))}
+                  <item.icon
+                    className="
+                      h-5 w-5 mb-1
+                      text-muted-foreground
+                      group-hover:text-foreground
+                      transition-colors
+                    "
+                  />
 
-              {index < allModules.length - 1 && <DropdownMenuSeparator />}
-            </DropdownMenuGroup>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+                  <span className="line-clamp-2 text-center text-xs leading-tight">
+                    {item.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {index < allModules.length - 1 && (
+              <DropdownMenuSeparator className="my-2" />
+            )}
+          </DropdownMenuGroup>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

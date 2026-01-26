@@ -13,7 +13,7 @@ export default function HotelOverviewMainPage() {
       {!isdata ? (
         <>
           {" "}
-          <div className="border rounded p-2 space-y-2">
+          <div className=" rounded p-2 space-y-2">
             <div>
               <h2 className="text-xl font-semibold flex items-center gap-2">
                 Hotel Overview
@@ -57,9 +57,7 @@ export default function HotelOverviewMainPage() {
               />
             </div>
           </div>
-          <div className="p-2 border rounded-2xl">
-            {/* <HotelBookingOverviewTable /> */}
-          </div>
+          
         </>
       ) : (
         <EmptyHotelPlaceHolder />

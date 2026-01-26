@@ -6,7 +6,16 @@ export async function fetchOrgSetupProgress() {
   return res.data;
 }
 
+// Step 1 for setup-wiz version 1
 export async function AddOrgHQAddress() {
-  const res = await api.post(SetupWizardEndpoint.add_org_hq);
+  const res = await api.post(SetupWizardEndpoint.step_one_AddOrgHQ);
   return res.data;
 }
+
+// Step 2 for setup-wiz version 1
+export async function AddProperty() {
+  const res = await api.post(SetupWizardEndpoint.step_two_AddProperty);
+  return res.data;
+}
+
+

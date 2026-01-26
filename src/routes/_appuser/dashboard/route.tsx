@@ -1,3 +1,4 @@
+import DynamicIslandHost from "@/components/custom/DynamicIslandHost";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import { HeaderProvider } from "@/context/HeaderContext";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
@@ -8,9 +9,13 @@ export const Route = createFileRoute("/_appuser/dashboard")({
 
 function RouteComponent() {
   return (
-    <HeaderProvider>
-      <DashboardHeader useremail="kashifsocl@gmail.com" />
+    <>
+      {/* <DynamicIslandHost /> */}
+
       <Outlet />
-    </HeaderProvider>
+    </>
+    // <HeaderProvider>
+
+    // </HeaderProvider>
   );
 }

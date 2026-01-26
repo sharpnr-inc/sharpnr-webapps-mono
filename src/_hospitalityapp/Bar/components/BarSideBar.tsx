@@ -21,7 +21,7 @@ export function BarSideBarNav() {
   const pathname = location.pathname;
 
   return (
-    <SidebarContent className="sm:pt-16 md:pt-16">
+    <SidebarContent className="">
       <SidebarGroup>
         <SidebarGroupLabel>Bar Management</SidebarGroupLabel>
 

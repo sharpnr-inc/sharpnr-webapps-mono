@@ -6,6 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
@@ -18,14 +19,23 @@ import {
   Boxes,
   Settings,
 } from "lucide-react";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function HotelSidebar() {
   const { location } = useRouterState();
   const pathname = location.pathname;
 
   return (
-    <SidebarContent className="sm:pt-16 md:pt-16">
+    <SidebarContent className="">
       <SidebarGroup>
+        <div className="p-2">
+        
+        </div>
+        {/* <Card className="bg-amber-50 text-gray-800 hover:bg-emerald-300">
+          <CardHeader className="">
+          <CardTitle>Dearie Clubs</CardTitle>
+          </CardHeader>
+        </Card> */}
         <SidebarGroupLabel>Hotel Management</SidebarGroupLabel>
 
         <SidebarMenu>

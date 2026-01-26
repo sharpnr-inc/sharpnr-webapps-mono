@@ -26,12 +26,12 @@ export function HotelSideBarWrapper() {
         </Sidebar>
 
         {/* Main content */}
-        <SidebarInset className="border m-2">
+        <SidebarInset className=" m-2">
           <div className="flex flex-col">
             {/* Top bar */}
-            <header className="flex h-12 items-center border-b px-3">
+            {/* <header className="flex h-12 items-center border-b px-3">
               <div className="flex items-center gap-2 px-3">
-                <SidebarTrigger />
+               
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <Breadcrumb>
                   <BreadcrumbList>
@@ -47,7 +47,8 @@ export function HotelSideBarWrapper() {
                   </BreadcrumbList>
                 </Breadcrumb>
               </div>
-            </header>
+            </header> */}
+             <SidebarTrigger />
 
             {/* Page content */}
             <main className="flex-1 overflow-auto p-3">

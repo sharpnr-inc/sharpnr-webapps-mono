@@ -17,10 +17,10 @@ export function BarSideBarWrapper() {
         </Sidebar>
 
         {/* Main content */}
-        <SidebarInset className="border m-2">
+        <SidebarInset className=" m-2">
           <div className="flex h-full flex-col">
             {/* Top bar */}
-            <header className="flex h-12 items-center border-b px-3">
+            <header className="flex h-12 items-center -b px-3">
               <SidebarTrigger />
             </header>
 

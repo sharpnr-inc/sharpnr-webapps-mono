@@ -7,23 +7,24 @@ export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/_console/",
 )({
   beforeLoad: async ({ context }) => {
-    const status = await context.queryClient.fetchQuery(
-      organizationStatusQuery,
-    );
+    // const status = await context.queryClient.fetchQuery(
+    //   organizationStatusQuery,
+    // );
 
-    //  console.log("[beforeLoad] organization status:", status);
+    // //  console.log("[beforeLoad] organization status:", status);
 
-    return {
-      configured: status.data.setup_completed, // or status.status === "COMPLETED"
-      status,
-    };
+    // return {
+    //   configured: status.data.setup_completed, // or status.status === "COMPLETED"
+    //   status,
+    // };
   },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { configured } = Route.useRouteContext();
+  // const { configured } = Route.useRouteContext();
 
+  const configured = true
 
   if (!configured) {
     return <OrchestratorSetupWizardWelcomePage />;

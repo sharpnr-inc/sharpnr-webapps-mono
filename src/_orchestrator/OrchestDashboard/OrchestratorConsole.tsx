@@ -66,31 +66,12 @@ export function OrchestratorConsoleIndex() {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-white border-r">
-        <div className="flex items-center justify-center h-16 border-b">
-          <h1 className="text-xl font-bold">Admin</h1>
-        </div>
-        <nav className="mt-6">
-          {adminSections.map((section) => (
-            <a
-              key={section.title}
-              href="#"
-              className="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-200"
-            >
-              {section.icon && (
-                <div className="w-8 h-8 mr-3">{section.icon}</div>
-              )}
-              <span>{section.title}</span>
-            </a>
-          ))}
-        </nav>
-      </div>
+    <div className="flex">
+    
 
       {/* Main Content */}
-      <div className="flex-1 p-6">
-        <h1 className="text-3xl font-bold mb-6">Admin Console</h1>
+      <div className="flex-1 ">
+        <h1 className="text-xl font-bold mb-2 p-2">Console</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {adminSections.map((section) => (
             <Card
