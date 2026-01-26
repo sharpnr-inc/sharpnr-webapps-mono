@@ -11,13 +11,14 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Outlet } from "@tanstack/react-router";
+import { Link, Outlet, useNavigate } from "@tanstack/react-router";
 
 type OrchestratorLayoutProps = {
   children?: React.ReactNode;
 };
 
 export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
+  const navigate = useNavigate();
   return (
     <SidebarProvider>
       {/* Sidebar */}
@@ -29,8 +30,12 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton className="text-amber-50">
-                    Properties
+                  <SidebarMenuButton>Organization</SidebarMenuButton>
+                </SidebarMenuItem>
+
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link to="/orchestrator/property">Properties</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
@@ -43,10 +48,14 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                 <SidebarMenuItem>
                   <SidebarMenuButton>Setting</SidebarMenuButton>
                 </SidebarMenuItem>
-                 <SidebarMenuItem>
-                  <SidebarMenuButton>Organization</SidebarMenuButton>
+
+                <SidebarMenuItem>
+                  <SidebarMenuButton onClick={() => navigate({ to: "/" })}>
+                    Organization
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
-                  <SidebarMenuItem>
+
+                <SidebarMenuItem>
                   <SidebarMenuButton>Reports</SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
