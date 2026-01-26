@@ -11,3 +11,9 @@ export async function GetOrganizationsProperties(){
   const res =  await api.get(OrchestratorConsole.property.getAll)
   return res.data
 }
+
+export async function GetPropertyDetails(propertyID:string){
+  const res = await api.get(OrchestratorConsole.property.PropertyDetails(propertyID))
+  return res.data
+
+}
