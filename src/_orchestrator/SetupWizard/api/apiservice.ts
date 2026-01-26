@@ -7,14 +7,14 @@ export async function fetchOrgSetupProgress() {
 }
 
 // Step 1 for setup-wiz version 1
-export async function AddOrgHQAddress() {
-  const res = await api.post(SetupWizardEndpoint.step_one_AddOrgHQ);
+export async function AddOrgHQAddress(payload:any) {
+  const res = await api.post(SetupWizardEndpoint.step_one_AddOrgHQ, payload);
   return res.data;
 }
 
 // Step 2 for setup-wiz version 1
-export async function AddProperty() {
-  const res = await api.post(SetupWizardEndpoint.step_two_AddProperty);
+export async function AddProperty(payload:any) {
+  const res = await api.post(SetupWizardEndpoint.step_two_AddProperty, payload);
   return res.data;
 }
 

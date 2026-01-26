@@ -6,6 +6,7 @@ export function useAddOrgHQMutation() {
   return useMutation({
     mutationKey: ["Setup-wiz", "step1"],
     mutationFn: AddOrgHQAddress,
+    
   });
 }
 // TODO --> Create types 

@@ -6,26 +6,26 @@ export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/setup-wizard/",
 )({
   beforeLoad: async ({ context }) => {
-    // const progress = await context.queryClient.fetchQuery(setupProgressQuery)
-    // console.log(progress)
+    const progress = await context.queryClient.fetchQuery(setupProgressQuery)
+    console.log(progress)
 
-    //  const { routeSegment, stepId } = resolveSetupWizardRoute(progress.data)
-    //  console.log(routeSegment, stepId)
+     const { routeSegment, stepId } = resolveSetupWizardRoute(progress.data)
+     console.log(routeSegment, stepId)
 
-    // throw redirect({
-    //   to: "/orchestrator/setup-wizard/step/$stepId/$stepRoute",
-    //    params: {
-    //   stepId,
-    //   stepRoute: routeSegment,
-    // },
-    // });
+    throw redirect({
+      to: "/orchestrator/setup-wizard/step/$stepId/$stepRoute",
+       params: {
+      stepId,
+      stepRoute: routeSegment,
+    },
+    });
 
-    redirect({
-      to:"/orchestrator/setup-wizard/step/$stepId/organization",
-      params:{
-        stepId:"sdijgvisj"
-      }
-    })
+    // redirect({
+    //   to:"/orchestrator/setup-wizard/step/$stepId/organization",
+    //   params:{
+    //     stepId:"sdijgvisj"
+    //   }
+    // })
   },
 });
 

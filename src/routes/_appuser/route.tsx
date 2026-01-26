@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 
 // 👇 Cult UI Dynamic Island
 import {
-  DynamicIsland,
   DynamicIslandProvider,
 } from "@/components/ui/dynamic-island";
 

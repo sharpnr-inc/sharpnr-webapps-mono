@@ -26,7 +26,7 @@ export default function LoginPage(): React.JSX.Element {
     onSubmit: ({ value }) => {
       loginUser.mutateAsync(value, {
         onSuccess: () => {
-          navigate({ to: "/dashboard" });
+          navigate({ to: "/orchestrator" });
         },
       });
     },

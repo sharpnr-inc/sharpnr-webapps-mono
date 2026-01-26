@@ -29,9 +29,9 @@ import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
 
 import { useParams } from "@tanstack/react-router";
-
-
-
+import { useAddOrgHQMutation } from "./api/mutation";
+import { useQueryClient } from "@tanstack/react-query";
+import { setupProgressQuery } from "./api/queries";
 
 type Country = {
   id: string;
@@ -59,7 +59,8 @@ export function OrchestratorHQSetup() {
   const [state, setState] = useState("");
   const [isLocating, setIsLocating] = useState(false);
   // -----------------------------------------------------
-
+  const queryClient = useQueryClient();
+  const addOrgHq = useAddOrgHQMutation();
   const { stepId } = useParams({ strict: false });
 
   // Countries data with loading/error states
@@ -92,15 +93,22 @@ export function OrchestratorHQSetup() {
     country: "",
     pincode: "",
 
-    latitude: undefined,
-    longitude: undefined,
-    accuracy_m: undefined,
+    latitude: 0,
+    longitude: 0,
+    accuracy_m: 0,
   };
 
   const form = useForm({
     defaultValues: defaultOnBoardingVal,
     onSubmit: async ({ value }) => {
       console.log(value);
+      await addOrgHq.mutateAsync(value, {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: setupProgressQuery.queryKey,
+          });
+        },
+      });
     },
   });
 
@@ -196,6 +204,17 @@ export function OrchestratorHQSetup() {
           form.handleSubmit();
         }}
       >
+        <form.Field name="latitude">
+          {(field) => <input type="hidden" value={field.state.value ?? 0} />}
+        </form.Field>
+
+        <form.Field name="longitude">
+          {(field) => <input type="hidden" value={field.state.value ?? 0} />}
+        </form.Field>
+
+        <form.Field name="accuracy_m">
+          {(field) => <input type="hidden" value={field.state.value ?? 0} />}
+        </form.Field>
         <Card className="border-2 shadow-lg overflow-hidden">
           <CardHeader className="">
             <CardTitle className="text-lg flex items-center gap-2">
