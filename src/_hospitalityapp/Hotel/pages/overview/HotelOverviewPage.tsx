@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BedDouble, CalendarDays, DoorOpen } from "lucide-react";
-import EmptyHotelPlaceHolder from "../../sections/EmptyHotelComponenet";
 import { useState } from "react";
 
 export default function HotelOverviewMainPage() {
@@ -60,7 +59,7 @@ export default function HotelOverviewMainPage() {
           
         </>
       ) : (
-        <EmptyHotelPlaceHolder />
+        <div></div>
       )}
     </div>
   );

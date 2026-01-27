@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/card";
 import {
   Sidebar,
   SidebarContent,
@@ -26,6 +27,9 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
+            <Card>
+              
+            </Card>
 
             <SidebarGroupContent>
               <SidebarMenu>
