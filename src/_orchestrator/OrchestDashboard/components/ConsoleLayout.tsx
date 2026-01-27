@@ -45,7 +45,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton className="text-amber-50">
-                    Legal Entities
+                   <Link to="/orchestrator/legal_entity">Legal Entity</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
@@ -61,6 +61,10 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton>Reports</SidebarMenuButton>
+                </SidebarMenuItem>
+
+                <SidebarMenuItem>
+                  <SidebarMenuButton>User Directory</SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>

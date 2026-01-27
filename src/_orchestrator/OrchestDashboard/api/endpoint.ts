@@ -5,5 +5,8 @@ export const OrchestratorConsole = {
     getAll: "/orchestrator/console/property",
     PropertyDetails: (propID: string) =>
       `/orchestrator/console/property/${propID}`,
+
+    AddDomain: (propertyID: string) =>
+      `/orchestrator/console/property/${propertyID}/add-domain`,
   },
 };

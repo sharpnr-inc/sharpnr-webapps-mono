@@ -71,8 +71,10 @@ import { Route as AppuserDashboardSharp_accountingReportsBalanceSheetRouteImport
 import { Route as AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account'
 import { Route as AppuserDashboardSharp_accountingAccountingSetupBooksRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/books'
 import { Route as AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/index'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/index'
 import { Route as AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/privileges/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/documents/index'
@@ -98,6 +100,7 @@ import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSum
 import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
 import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
 import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
 import { Route as AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 
@@ -466,6 +469,15 @@ const AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute =
         AppuserDashboardSharp_accountingAccountingSetupRouteRoute,
     } as any,
   )
+const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute =
+  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport.update(
+    {
+      id: '/legal_entity',
+      path: '/legal_entity',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    } as any,
+  )
 const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteImport.update(
     {
@@ -482,6 +494,15 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute =
     getParentRoute: () =>
       AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
   } as any)
+const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport.update(
+    {
+      id: '/',
+      path: '/',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute,
+    } as any,
+  )
 const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRouteImport.update(
     {
@@ -656,6 +677,15 @@ const AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRout
         AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
     } as any,
   )
+const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute =
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport.update(
+    {
+      id: '/property/$propertyId/property-configuration',
+      path: '/property/$propertyId/property-configuration',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    } as any,
+  )
 const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute =
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport.update(
     {
@@ -708,6 +738,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingIndexRoute
   '/orchestrator/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
+  '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute
   '/dashboard/sharp_accounting/accounting-setup/books': typeof AppuserDashboardSharp_accountingAccountingSetupBooksRoute
   '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute
@@ -756,9 +787,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/orchestrator/hospitality/': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
+  '/orchestrator/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
+  '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
   '/orchestrator/setup-wizard/step/$stepId/organization': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
   '/orchestrator/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
@@ -839,9 +872,11 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/orchestrator/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
+  '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
+  '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
   '/orchestrator/setup-wizard/step/$stepId/organization': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
   '/orchestrator/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
@@ -885,6 +920,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
   '/_appuser/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
+  '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   '/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute
   '/_appuser/dashboard/sharp_accounting/accounting-setup/books': typeof AppuserDashboardSharp_accountingAccountingSetupBooksRoute
   '/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute
@@ -933,9 +969,11 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hr/employees/documents/': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/privileges/': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
@@ -977,6 +1015,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_marketing'
     | '/orchestrator/hospitality'
+    | '/orchestrator/legal_entity'
     | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
     | '/dashboard/sharp_accounting/accounting-setup/books'
     | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
@@ -1025,9 +1064,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
     | '/orchestrator/hospitality/'
+    | '/orchestrator/legal_entity/'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/orchestrator/property/$propertyId/details'
+    | '/orchestrator/property/$propertyId/property-configuration'
     | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
     | '/orchestrator/setup-wizard/step/$stepId/organization'
     | '/orchestrator/setup-wizard/step/$stepId/property'
@@ -1108,9 +1149,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
     | '/orchestrator/hospitality'
+    | '/orchestrator/legal_entity'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/orchestrator/property/$propertyId/details'
+    | '/orchestrator/property/$propertyId/property-configuration'
     | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
     | '/orchestrator/setup-wizard/step/$stepId/organization'
     | '/orchestrator/setup-wizard/step/$stepId/property'
@@ -1153,6 +1196,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/'
     | '/_appuser/dashboard/sharp_marketing/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
     | '/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings'
     | '/_appuser/dashboard/sharp_accounting/accounting-setup/books'
     | '/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account'
@@ -1201,9 +1245,11 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hr/employees/documents/'
     | '/_appuser/dashboard/sharp_hr/employees/privileges/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
     | '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
@@ -1654,6 +1700,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRouteImport
       parentRoute: typeof AppuserDashboardSharp_accountingAccountingSetupRouteRoute
     }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
+      path: '/legal_entity'
+      fullPath: '/orchestrator/legal_entity'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+    }
     '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality'
       path: '/hospitality'
@@ -1667,6 +1720,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/orchestrator/property'
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+    }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
+      path: '/'
+      fullPath: '/orchestrator/legal_entity/'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/'
@@ -1842,6 +1902,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/orchestrator/setup-wizard/step/$stepId/legal-entity'
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute
+    }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
+      path: '/property/$propertyId/property-configuration'
+      fullPath: '/orchestrator/property/$propertyId/property-configuration'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
@@ -2116,18 +2183,37 @@ const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChil
     AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteChildren,
   )
 
+interface AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren {
+  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
+}
+
+const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren =
+  {
+    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute,
+  }
+
+const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren =
+  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute._addFileChildren(
+    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren,
+  )
+
 interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
+  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
 }
 
 const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren =
   {
     AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren,
+    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute:
+      AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren,
     AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute:
@@ -2136,6 +2222,8 @@ const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren: AppuserOr
       AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute,
+    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute:
+      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute,
   }
 
 const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren =

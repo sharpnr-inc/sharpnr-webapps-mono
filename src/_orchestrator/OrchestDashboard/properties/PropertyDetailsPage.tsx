@@ -1,18 +1,10 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePropertyDetails } from "../api/queries/general";
 import { WrenchIcon, AlertCircle } from "lucide-react";
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useNavigate } from "@tanstack/react-router";
 
 interface PropertyDetailsPageProps {
   propertyId: string;
@@ -22,6 +14,8 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   const { data, isLoading } = usePropertyDetails(propertyId);
   const property = data?.data;
   const isNotConfigured = !property?.Domain || property?.Modules === null;
+
+  const nav = useNavigate();
 
   return (
     <div className="p-2 space-y-4">
@@ -42,7 +36,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         </div>
       ) : (
         <>
-          {isNotConfigured && (
+          {!isNotConfigured && (
             <Alert variant="warning">
               <AlertCircle />
               <AlertTitle>Property not fully configured</AlertTitle>
@@ -51,7 +45,21 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                   This property is not fully configured. Some features may be
                   unavailable.
                 </p>
-                <Button size="sm" className="mt-2">
+                <Button
+                  size="sm"
+                  className="mt-2"
+                  onClick={() =>
+                    nav({
+                      to: "/orchestrator/property/$propertyId/property-configuration",
+                      params: {
+                        propertyId: propertyId,
+                      },
+                      search:{
+                        p_name:property?.Name,
+                      }
+                    })
+                  }
+                >
                   Configure
                   <WrenchIcon className="ml-2 h-4 w-4" />
                 </Button>

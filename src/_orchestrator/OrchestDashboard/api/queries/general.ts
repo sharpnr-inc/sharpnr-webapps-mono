@@ -17,6 +17,10 @@ export function useOrganizationProperties() {
   });
 }
 
+
+export const PROPERTY_DETAILS_QK = (propertyID: string) =>
+  ["property", "details", propertyID] as const;
+
 export function usePropertyDetails(propertyID: string) {
   return useQuery({
     queryKey: ["Property Details", propertyID],
