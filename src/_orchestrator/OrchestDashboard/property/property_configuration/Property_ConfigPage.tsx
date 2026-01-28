@@ -65,7 +65,7 @@ export function PropertyConfigurationPage() {
   const property = propertyDetails?.data;
 
   const hasDomain =
-    !!property?.Domain && property.Domain.trim() !== "";
+    !!property?.domain && property.domain.trim() !== "";
 
   return (
     <div className="p-2 space-y-4">
@@ -134,7 +134,7 @@ export function PropertyConfigurationPage() {
       {/* Show ONLY when domain exists */}
       {hasDomain && (
         <ModulesSelectionSection
-          domain={property.Domain}
+          domain={property.domain}
           propertyID={propertyId}
         />
       )}

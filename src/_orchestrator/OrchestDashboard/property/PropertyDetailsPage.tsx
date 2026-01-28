@@ -183,7 +183,13 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                                 variant="outline"
                                 className="w-full"
                                 onClick={() => {
-                                  // handle action (navigate, open modal, etc.)
+                                 nav({
+                                  to:"/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
+                                  params:{
+                                    hotelId: item.ID,
+                                    propertyId:propertyId
+                                  }
+                                 })
                                 }}
                               >
                                 Configure
