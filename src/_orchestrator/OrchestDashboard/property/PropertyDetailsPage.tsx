@@ -19,8 +19,8 @@ interface PropertyDetailsPageProps {
 export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   const { data, isLoading } = usePropertyDetails(propertyId);
   const property = data?.data;
-  const isModuleConfigured = property?.Modules === null;
-  const isDomain = property?.Domain;
+  const isModuleConfigured = property?.modules;
+  const isDomain = property?.domain;
 
   const nav = useNavigate();
 
@@ -93,9 +93,9 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <KeyValue label="City" value={property.City} />
-                  <KeyValue label="State" value={property.State} />
-                  <KeyValue label="Country" value={property.Country} />
+                  <KeyValue label="City" value={property.city} />
+                  <KeyValue label="State" value={property.state} />
+                  <KeyValue label="Country" value={property.country} />
                 </div>
               </div>
             </CardContent>
@@ -141,31 +141,55 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
               </CardHeader>
 
               <CardContent className="space-y-6">
-                {Object.entries(property?.Modules).map(
+                {Object.entries(property?.modules)?.map(
                   ([moduleName, entities]: any) => (
                     <div key={moduleName} className="space-y-2">
                       {/* Module Name */}
                       <div className="text-sm font-semibold">{moduleName}</div>
 
                       {/* Module Entities */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {entities.map((item: any) => (
-                          <div
+                          <Card
                             key={item.ID}
-                            className="flex items-center justify-between rounded-md border p-3 text-sm"
+                            className="flex flex-col transition-shadow hover:shadow-md"
                           >
-                            <span className="font-medium">{item.Name}</span>
+                            <CardHeader className="pb-2">
+                              <CardTitle className="text-sm font-semibold">
+                                {item.Name}
+                              </CardTitle>
+                            </CardHeader>
 
-                            <span
-                              className={
-                                item.Status
-                                  ? "text-green-600"
-                                  : "text-muted-foreground"
-                              }
-                            >
-                              {item.Status ? "Active" : "Inactive"}
-                            </span>
-                          </div>
+                            <CardContent className="flex-1">
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-muted-foreground">
+                                  Status
+                                </span>
+                                <span
+                                  className={
+                                    item.Status
+                                      ? "text-green-600 font-medium"
+                                      : "text-muted-foreground"
+                                  }
+                                >
+                                  {item.Status ? "Active" : "Inactive"}
+                                </span>
+                              </div>
+                            </CardContent>
+
+                            <CardFooter className="pt-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="w-full"
+                                onClick={() => {
+                                  // handle action (navigate, open modal, etc.)
+                                }}
+                              >
+                                Configure
+                              </Button>
+                            </CardFooter>
+                          </Card>
                         ))}
                       </div>
                     </div>

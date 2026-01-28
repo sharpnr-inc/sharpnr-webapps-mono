@@ -11,6 +11,8 @@ import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Building, PlusIcon } from "lucide-react";
+import { AddPropertyCard } from "./components/AddPropertyCard";
+import { useFormsModal } from "@/context/FormModalContext";
 
 type Property = {
   ID: string;
@@ -25,6 +27,11 @@ type Property = {
 
 export function PropertyIndexPage() {
   const { data, isLoading } = useOrganizationProperties();
+  const { showModal, closeModal } = useFormsModal();
+
+  const handleAddProperty = () => {
+    showModal("Add Property", "", <AddPropertyCard />);
+  };
 
   const properties: Property[] = data?.data?.Properties ?? [];
   const navigate = useNavigate();
@@ -40,13 +47,7 @@ export function PropertyIndexPage() {
           </p>
         </div>
 
-        <Button
-          onClick={() =>
-            navigate({
-              to: "/",
-            })
-          }
-        >
+        <Button onClick={() => handleAddProperty()}>
           <PlusIcon /> <Building />
           Add Property
         </Button>
