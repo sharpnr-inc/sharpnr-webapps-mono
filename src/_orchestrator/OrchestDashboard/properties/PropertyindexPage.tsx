@@ -4,35 +4,52 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 
-import { Skeleton } from "@/components/ui/skeleton"
-import { useOrganizationProperties } from "../api/queries/general"
-import { useNavigate } from "@tanstack/react-router"
+import { Skeleton } from "@/components/ui/skeleton";
+import { useOrganizationProperties } from "../api/queries/general";
+import { useNavigate } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { Building, PlusIcon } from "lucide-react";
 
 type Property = {
-  ID: string
-  Name: string
-  City: string
-  State: string
-  Domain: string
-  Code: string
-}
+  ID: string;
+  Name: string;
+  City: string;
+  State: string;
+  Domain: string;
+  Code: string;
+};
+
+// This page list all the Properties of the organization
 
 export function PropertyIndexPage() {
-  const { data, isLoading } = useOrganizationProperties()
+  const { data, isLoading } = useOrganizationProperties();
 
-  const properties: Property[] = data?.data?.Properties ?? []
-  const navigate = useNavigate()
+  const properties: Property[] = data?.data?.Properties ?? [];
+  const navigate = useNavigate();
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 space-y-2">
       {/* Page Header */}
-      <div>
-        <h1 className="text-xl font-semibold">Properties</h1>
-        <p className="text-sm text-muted-foreground">
-          Manage and access all properties
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-xl font-semibold">Properties</h1>
+          <p className="text-sm text-muted-foreground">
+            Manage and access all properties
+          </p>
+        </div>
+
+        <Button
+          onClick={() =>
+            navigate({
+              to: "/",
+            })
+          }
+        >
+          <PlusIcon /> <Building />
+          Add Property
+        </Button>
       </div>
 
       {/* Content */}
@@ -47,9 +64,9 @@ export function PropertyIndexPage() {
           {properties.map((property) => (
             <Card
               key={property.ID}
-               role="button"
+              role="button"
               className="cursor-pointer transition-shadow hover:shadow-2xl"
-                onClick={() =>
+              onClick={() =>
                 navigate({
                   to: "/orchestrator/property/$propertyId/details",
                   params: {
@@ -57,12 +74,9 @@ export function PropertyIndexPage() {
                   },
                 })
               }
-              
             >
               <CardHeader className="pb-3">
-                <CardTitle className="text-base">
-                  {property.Name}
-                </CardTitle>
+                <CardTitle className="text-base">{property.Name}</CardTitle>
                 <CardDescription>
                   {property.City}, {property.State}
                 </CardDescription>
@@ -84,9 +98,8 @@ export function PropertyIndexPage() {
         </div>
       )}
     </div>
-  )
+  );
 }
-
 
 function PropertyCardSkeleton() {
   return (
@@ -104,6 +117,5 @@ function PropertyCardSkeleton() {
         </Card>
       ))}
     </div>
-  )
+  );
 }
-

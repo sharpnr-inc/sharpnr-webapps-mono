@@ -22,6 +22,7 @@ import { PlaneIcon } from "lucide-react";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration";
 import { ModulesSelectionSection } from "./ModulesSelection";
 import { usePropertyDetails } from "../../api/queries/general";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function PropertyConfigurationPage() {
   const { propertyId } = Route.useParams();
@@ -31,12 +32,8 @@ export function PropertyConfigurationPage() {
 
   const { data: propertyDetails, isLoading } = usePropertyDetails(propertyId);
 
-  const property = propertyDetails?.data;
-
-  const hasDomain = !!property?.Domain && property.Domain.trim() !== "";
-
-  const { data } = useSharpSectorList();
-  const orgTypes = data?.data?.ORG_TYPE ?? [];
+  const { data: sharpSectorData } = useSharpSectorList();
+  const orgTypes = sharpSectorData?.data?.ORG_TYPE ?? [];
 
   const addDomain = useAddPropertyDomainMutation();
 
@@ -45,13 +42,30 @@ export function PropertyConfigurationPage() {
       domain: "",
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
       await addDomain.mutateAsync({
         domain: value.domain,
         propertyID: propertyId,
       });
     },
   });
+
+  /* ----------------------------
+   * LOADING STATE (early return)
+   * ---------------------------- */
+  if (isLoading) {
+    return (
+      <div className="p-2 space-y-4">
+        <Skeleton className="h-6 w-40" />
+        <Skeleton className="h-8 w-64" />
+        <Skeleton className="h-48 w-full" />
+      </div>
+    );
+  }
+
+  const property = propertyDetails?.data;
+
+  const hasDomain =
+    !!property?.Domain && property.Domain.trim() !== "";
 
   return (
     <div className="p-2 space-y-4">
@@ -113,13 +127,14 @@ export function PropertyConfigurationPage() {
               </form.Subscribe>
             </CardFooter>
           </Card>
+          
         </form>
       )}
 
       {/* Show ONLY when domain exists */}
       {hasDomain && (
         <ModulesSelectionSection
-          domain={property?.Domain}
+          domain={property.Domain}
           propertyID={propertyId}
         />
       )}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useSectorsModules } from "@/apis/Queries";
 import {
   Card,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useAddModulesInProperty } from "../../api/mutations/property_mutation";
 
 /* ---------- Types ---------- */
 
@@ -23,10 +24,22 @@ interface SubModule {
   description: string;
 }
 
-/**
- * System-level capability (can this module EVER have a kitchen?)
- * This should ideally come from backend later.
- */
+/* ---------- Backend-aligned Payload Types ---------- */
+
+type ModuleConfigurationPayload = {
+  name: string;
+  kitchen_capable: boolean;
+  kitchen_enabled: boolean;
+};
+
+type PropertyModuleConfigurationPayload = {
+  property_id: string;
+  domain: string;
+  modules: ModuleConfigurationPayload[];
+};
+
+/* ---------- System Capability Map ---------- */
+
 const MODULE_KITCHEN_CAPABLE: Record<string, boolean> = {
   HOTEL: true,
   RESTAURANT: true,
@@ -44,18 +57,14 @@ export function ModulesSelectionSection({
   const { data, isLoading } = useSectorsModules(domain.toLowerCase());
   const submodules: SubModule[] = data?.data?.submodules ?? [];
 
-  /* Selected modules */
-  const [selectedModules, setSelectedModules] = useState<string[]>([]);
+  const addModules = useAddModulesInProperty();
 
-  /* Per-module kitchen enabled (user choice) */
+  /* ---------- Local State ---------- */
+
+  const [selectedModules, setSelectedModules] = useState<string[]>([]);
   const [moduleKitchenEnabled, setModuleKitchenEnabled] = useState<
     Record<string, boolean | undefined>
   >({});
-
-  /* Shared vs Separate */
-  const [kitchenSharing, setKitchenSharing] = useState<
-    "COMMON" | "SEPARATE" | null
-  >(null);
 
   /* ---------- Derived State ---------- */
 
@@ -67,20 +76,9 @@ export function ModulesSelectionSection({
     [selectedModules]
   );
 
-  const kitchenEnabledModules = useMemo(
-    () =>
-      kitchenCapableModules.filter(
-        (m) => moduleKitchenEnabled[m] === true
-      ),
-    [kitchenCapableModules, moduleKitchenEnabled]
+  const hasUnansweredKitchenQuestion = kitchenCapableModules.some(
+    (m) => moduleKitchenEnabled[m] === undefined
   );
-
-  /* Reset sharing if no longer applicable */
-  useEffect(() => {
-    if (kitchenEnabledModules.length <= 1) {
-      setKitchenSharing(null);
-    }
-  }, [kitchenEnabledModules]);
 
   /* ---------- Actions ---------- */
 
@@ -92,40 +90,40 @@ export function ModulesSelectionSection({
     );
   };
 
-  /* ---------- Summary Payload ---------- */
-
-  const summary = useMemo(() => {
+  const buildPayload = (): PropertyModuleConfigurationPayload => {
     return {
       property_id: propertyID,
       domain,
-      modules: selectedModules.map((m) => ({
-        name: m,
-        kitchen_capable: MODULE_KITCHEN_CAPABLE[m],
-        kitchen_enabled:
-          MODULE_KITCHEN_CAPABLE[m] ? moduleKitchenEnabled[m] ?? false : false,
-      })),
-      kitchen: {
-        applicable_modules: kitchenEnabledModules,
-        sharing:
-          kitchenEnabledModules.length > 1
-            ? kitchenSharing
-            : null,
-      },
-    };
-  }, [
-    propertyID,
-    domain,
-    selectedModules,
-    moduleKitchenEnabled,
-    kitchenEnabledModules,
-    kitchenSharing,
-  ]);
+      modules: selectedModules.map((moduleName) => {
+        const kitchenCapable = !!MODULE_KITCHEN_CAPABLE[moduleName];
+        const kitchenEnabled =
+          kitchenCapable && moduleKitchenEnabled[moduleName] === true;
 
-  const logSummary = () => {
-    console.log("FINAL CONFIGURATION →", summary);
+        return {
+          name: moduleName,
+          kitchen_capable: kitchenCapable,
+          kitchen_enabled: kitchenEnabled,
+        };
+      }),
+    };
   };
 
-  if (isLoading) return <div>Loading modules…</div>;
+  const handleAddModules = async () => {
+    const payload = buildPayload();
+
+    await addModules.mutateAsync({
+      propertyID,
+      payload,
+    });
+  };
+
+  /* ---------- Loading ---------- */
+
+  if (isLoading) {
+    return <div className="p-4">Loading modules…</div>;
+  }
+
+  /* ---------- Render ---------- */
 
   return (
     <div className="space-y-8">
@@ -154,7 +152,7 @@ export function ModulesSelectionSection({
               )}
             >
               <CardHeader>
-                <CardTitle className="flex justify-between">
+                <CardTitle className="flex justify-between items-center">
                   {module.module_name}
                   {isSelected && (
                     <span className="text-xs text-primary">Selected</span>
@@ -169,7 +167,7 @@ export function ModulesSelectionSection({
         })}
       </div>
 
-      {/* ---------- Per-module Kitchen Questions ---------- */}
+      {/* ---------- Kitchen Configuration ---------- */}
       {kitchenCapableModules.length > 0 && (
         <Card className="border-dashed">
           <CardHeader>
@@ -177,7 +175,7 @@ export function ModulesSelectionSection({
               Kitchen Availability
             </CardTitle>
             <CardDescription>
-              Tell us which modules actually have kitchens
+              Tell us which selected modules actually have kitchens
             </CardDescription>
           </CardHeader>
 
@@ -191,15 +189,15 @@ export function ModulesSelectionSection({
 
                 <div className="flex gap-2">
                   <Button
+                    size="sm"
                     variant={
                       moduleKitchenEnabled[module] === true
                         ? "default"
                         : "outline"
                     }
-                    size="sm"
                     onClick={() =>
-                      setModuleKitchenEnabled((p) => ({
-                        ...p,
+                      setModuleKitchenEnabled((prev) => ({
+                        ...prev,
                         [module]: true,
                       }))
                     }
@@ -208,15 +206,15 @@ export function ModulesSelectionSection({
                   </Button>
 
                   <Button
+                    size="sm"
                     variant={
                       moduleKitchenEnabled[module] === false
                         ? "default"
                         : "outline"
                     }
-                    size="sm"
                     onClick={() =>
-                      setModuleKitchenEnabled((p) => ({
-                        ...p,
+                      setModuleKitchenEnabled((prev) => ({
+                        ...prev,
                         [module]: false,
                       }))
                     }
@@ -230,62 +228,17 @@ export function ModulesSelectionSection({
         </Card>
       )}
 
-      {/* ---------- Kitchen Sharing ---------- */}
-      {kitchenEnabledModules.length > 1 && (
-        <Card className="border-dashed">
-          <CardHeader>
-            <CardTitle className="text-base">
-              Kitchen Sharing
-            </CardTitle>
-            <CardDescription>
-              These modules use kitchens:
-              <strong> {kitchenEnabledModules.join(", ")}</strong>
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="flex gap-3">
-            <Button
-              variant={
-                kitchenSharing === "COMMON" ? "default" : "outline"
-              }
-              onClick={() => setKitchenSharing("COMMON")}
-            >
-              Shared Kitchen
-            </Button>
-
-            <Button
-              variant={
-                kitchenSharing === "SEPARATE" ? "default" : "outline"
-              }
-              onClick={() => setKitchenSharing("SEPARATE")}
-            >
-              Separate Kitchens
-            </Button>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* ---------- Summary ---------- */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
-            Configuration Summary
-          </CardTitle>
-          <CardDescription>
-            This is the complete picture of what the user configured
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-3">
-          <pre className="bg-muted p-4 rounded-md text-sm overflow-auto">
-            {JSON.stringify(summary, null, 2)}
-          </pre>
-
-          <Button onClick={logSummary}>
-            Console.log Summary
-          </Button>
-        </CardContent>
-      </Card>
+      {/* ---------- Submit ---------- */}
+      <Button
+        onClick={handleAddModules}
+        disabled={
+          selectedModules.length === 0 ||
+          hasUnansweredKitchenQuestion ||
+          addModules.isPending
+        }
+      >
+        {addModules.isPending ? "Adding Modules..." : "Add Modules"}
+      </Button>
     </div>
   );
 }

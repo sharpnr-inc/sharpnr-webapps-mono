@@ -8,5 +8,8 @@ export const OrchestratorConsole = {
 
     AddDomain: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/add-domain`,
+
+    AddModules: (propertyID: string) =>
+      `/orchestrator/console/property/${propertyID}/add-modules`,
   },
 };

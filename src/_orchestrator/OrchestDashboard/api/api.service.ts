@@ -35,3 +35,25 @@ export async function SetDomainOfProperty({
   );
   return res.data;
 }
+
+//================================================================================//
+type ModuleConfigurationPayload = {
+  name: string;
+  kitchen_capable: boolean;
+  kitchen_enabled: boolean;
+};
+type PropertyModuleConfigurationPayload = {
+  property_id: string;
+  domain: string;
+  modules: ModuleConfigurationPayload[];
+};
+type AddModulesInPropertyPayload = {
+  propertyID : string;
+  payload :PropertyModuleConfigurationPayload
+}
+export async function AddModulesInProperty({payload, propertyID}:AddModulesInPropertyPayload){
+  const res = await api.post(OrchestratorConsole.property.AddModules(propertyID),payload )
+  return res.data
+}
+
+//================================================================================//

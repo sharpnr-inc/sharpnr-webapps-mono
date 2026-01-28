@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePropertyDetails } from "../api/queries/general";
@@ -13,7 +19,8 @@ interface PropertyDetailsPageProps {
 export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   const { data, isLoading } = usePropertyDetails(propertyId);
   const property = data?.data;
-  const isNotConfigured = !property?.Domain || property?.Modules === null;
+  const isModuleConfigured = property?.Modules === null;
+  const isDomain = property?.Domain;
 
   const nav = useNavigate();
 
@@ -36,7 +43,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         </div>
       ) : (
         <>
-          {!isNotConfigured && (
+          {!isDomain && (
             <Alert variant="warning">
               <AlertCircle />
               <AlertTitle>Property not fully configured</AlertTitle>
@@ -54,9 +61,9 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                       params: {
                         propertyId: propertyId,
                       },
-                      search:{
-                        p_name:property?.Name,
-                      }
+                      search: {
+                        p_name: property?.Name,
+                      },
                     })
                   }
                 >
@@ -92,7 +99,81 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                 </div>
               </div>
             </CardContent>
+            {!isModuleConfigured && (
+              <CardFooter>
+                <Button
+                  onClick={() =>
+                    nav({
+                      to: "/orchestrator/property/$propertyId/property-configuration",
+                      params: {
+                        propertyId: propertyId,
+                      },
+                      search: {
+                        p_name: property?.Name,
+                      },
+                    })
+                  }
+                >
+                  Add Modules
+                </Button>
+              </CardFooter>
+            )}
           </Card>
+
+          {isModuleConfigured && (
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="text-base">Configured Modules</CardTitle>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    nav({
+                      to: "/orchestrator/property/$propertyId/property-configuration",
+                      params: { propertyId },
+                      search: { p_name: property?.Name },
+                    })
+                  }
+                >
+                  Manage Modules
+                </Button>
+              </CardHeader>
+
+              <CardContent className="space-y-6">
+                {Object.entries(property?.Modules).map(
+                  ([moduleName, entities]: any) => (
+                    <div key={moduleName} className="space-y-2">
+                      {/* Module Name */}
+                      <div className="text-sm font-semibold">{moduleName}</div>
+
+                      {/* Module Entities */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                        {entities.map((item: any) => (
+                          <div
+                            key={item.ID}
+                            className="flex items-center justify-between rounded-md border p-3 text-sm"
+                          >
+                            <span className="font-medium">{item.Name}</span>
+
+                            <span
+                              className={
+                                item.Status
+                                  ? "text-green-600"
+                                  : "text-muted-foreground"
+                              }
+                            >
+                              {item.Status ? "Active" : "Inactive"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ),
+                )}
+              </CardContent>
+            </Card>
+          )}
         </>
       )}
     </div>
