@@ -1,4 +1,4 @@
-import { PropertyIndexPage } from "@/_orchestrator/OrchestDashboard/properties/PropertyindexPage";
+import { PropertyIndexPage } from "@/_orchestrator/OrchestDashboard/property/PropertyindexPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
