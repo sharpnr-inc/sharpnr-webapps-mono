@@ -6,118 +6,113 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useRouterState, Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard,
   ShoppingCart,
-  Grid3x3,
   UserRound,
   ChefHat,
   Boxes,
 } from "lucide-react";
+import type { ToPathOption } from "@tanstack/react-router";
 
+/* ===============================
+   Types
+================================ */
+type BarSidebarItem = {
+  label: string;
+  to: ToPathOption;
+  icon: React.ComponentType<any>;
+  match: (pathname: string) => boolean;
+};
+
+/* ===============================
+   Menu Configuration
+================================ */
+const barSidebarMenu: BarSidebarItem[] = [
+  {
+    label: "Overview",
+    to: "/dashboard/sharp_hospitality/bar",
+    icon: LayoutDashboard,
+    match: (pathname) =>
+      pathname === "/dashboard/sharp_hospitality/bar",
+  },
+  {
+    label: "Sale Counter",
+    to: "/dashboard/sharp_hospitality/bar/bar_pos",
+    icon: ShoppingCart,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/bar/bar_pos"
+      ),
+  },
+  {
+    label: "Bar Tender",
+    to: "/dashboard/sharp_hospitality/bar/bar-tender",
+    icon: UserRound,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/bar/bar-tender"
+      ),
+  },
+  {
+    label: "Kitchen",
+    to: "/dashboard/sharp_hospitality/bar/bar-kitchen",
+    icon: ChefHat,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/bar/bar-kitchen"
+      ),
+  },
+  {
+    label: "Inventory",
+    to: "/dashboard/sharp_hospitality/bar/inventory",
+    icon: Boxes,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/bar/inventory"
+      ),
+  },
+  {
+    label: "General Setting",
+    to: "/dashboard/sharp_hospitality/bar/settings",
+    icon: Boxes,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/bar/settings"
+      ),
+  },
+];
+
+/* ===============================
+   Component
+================================ */
 export function BarSideBarNav() {
-  const { location } = useRouterState();
-  const pathname = location.pathname;
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
 
   return (
-    <SidebarContent className="sm:pt-16 md:pt-16">
+    <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>Bar Management</SidebarGroupLabel>
 
-        {/* Overview */}
-        <SidebarMenuItem>
-          <SidebarMenuButton
-            asChild
-            isActive={pathname === "/dashboard/sharp_hospitality/bar"}
-          >
-            <Link to="/dashboard/sharp_hospitality/bar">
-              <LayoutDashboard />
-              <span>Overview</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-
         <SidebarMenu>
-          {/* Sale Counter */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/bar/sale-counter"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/bar/sale-counter">
-                <ShoppingCart />
-                <span>Sale Counter</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {barSidebarMenu.map((item) => {
+            const Icon = item.icon;
+            const isActive = item.match(pathname);
 
-          {/* Tables */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/bar/tables-management"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/bar/tables-management">
-                <Grid3x3 />
-                <span>Tables</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Bar Tender */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/bar/bar-tender"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/bar/bar-tender">
-                <UserRound />
-                <span>Bar Tender</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Kitchen */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/bar/bar-kitchen"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/bar/bar-kitchen">
-                <ChefHat />
-                <span>Kitchen</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Inventory */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/bar/inventory"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/bar/inventory">
-                <Boxes />
-                <span>Inventory</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+            return (
+              <SidebarMenuItem key={item.label}>
+                <SidebarMenuButton asChild isActive={isActive}>
+                  <Link to={item.to}>
+                    <Icon />
+                    <span>{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroup>
     </SidebarContent>

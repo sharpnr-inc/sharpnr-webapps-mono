@@ -4,10 +4,9 @@ import { AuthApiEndpoints, CoreUtilityEndpoints } from "./Endpoints";
 //--------------------------------------------------------------------------------//
 
 export interface OrgSignupPayload {
-  org_name: string;
-  org_email: string;
-  org_password: string;
-  org_mobile: string;
+  email: string;
+  password: string;
+  mobile: string;
 }
 
 export async function InitializeSignup(payload:OrgSignupPayload) {
@@ -35,19 +34,18 @@ export async function VerifySignupCookie(){
 //--------------------------------------------------------------------------------//
 
 export interface OrgOnBoardingPayload {
-  org_sector: string;
-  org_sector_modules: string[];
-  org_address_line: string;
-  org_city: string;
-  org_state: string;
-  org_country: string;
-  org_pincode: string;
+  step_id:string,
+  address_line: string;
+  city: string;
+  state: string;
+  country: string;
+  pincode: string;
+
+  latitude: number;
+  longitude: number;
+  accuracy_m: number;
 }
 
-export async function CompleteOnBoarding(payload:OrgOnBoardingPayload) {
-  const res = await api.post(AuthApiEndpoints.Signup.OnBoarding, payload);
-  return res.data;
-}
 
 //--------------------------------------------------------------------------------//
 

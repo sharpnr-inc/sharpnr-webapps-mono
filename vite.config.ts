@@ -24,6 +24,8 @@ export default defineConfig({
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
+      generatedRouteTree:'./src/routeTree.gen.ts'
+
     }),
     react(),
     VitePWA({
@@ -61,11 +63,9 @@ export default defineConfig({
     },
   },
 
-  // preview: {
-  //   host: true,
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, "ssl/key.pem")),
-  //     cert: fs.readFileSync(path.resolve(__dirname, "ssl/cert.pem")),
-  //   },
-  // },
+  server:{
+    allowedHosts :[
+       ".trycloudflare.com", // 👈 allow all Cloudflare quick tunnels
+    ]
+  }
 });

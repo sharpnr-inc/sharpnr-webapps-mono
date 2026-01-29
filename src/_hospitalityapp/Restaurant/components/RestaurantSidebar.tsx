@@ -14,107 +14,116 @@ import {
   Boxes,
   ShoppingCart,
   Settings,
+  LucideListOrdered,
 } from "lucide-react";
+import type { ToPathOption } from "@tanstack/react-router";
 
+/* ===============================
+   Types
+================================ */
+type RestaurantSidebarItem = {
+  label: string;
+  to: ToPathOption;
+  icon: React.ComponentType<any>;
+  match: (pathname: string) => boolean;
+};
+
+/* ===============================
+   Menu Configuration
+================================ */
+const restaurantSidebarMenu: RestaurantSidebarItem[] = [
+  {
+    label: "Overview",
+    to: "/dashboard/sharp_hospitality/restaurant",
+    icon: LayoutDashboard,
+    match: (pathname) => pathname === "/dashboard/sharp_hospitality/restaurant",
+  },
+  {
+    label: "Table Management",
+    to: "/dashboard/sharp_hospitality/restaurant/table",
+    icon: Grid3x3,
+    match: (pathname) =>
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table"),
+  },
+  {
+    label: "Reservations",
+    to: "/dashboard/sharp_hospitality/restaurant/table",
+    icon: Grid3x3,
+    match: (pathname) =>
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table"),
+  },
+  {
+    label: "Kitchen",
+    to: "/dashboard/sharp_hospitality/restaurant/kitchen",
+    icon: ChefHat,
+    match: (pathname) =>
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/kitchen"),
+  },
+  {
+    label: "Inventory",
+    to: "/dashboard/sharp_hospitality/restaurant/inventory",
+    icon: Boxes,
+    match: (pathname) =>
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/inventory"),
+  },
+  {
+    label: "Sales Terminal",
+    to: "/dashboard/sharp_hospitality/restaurant/sales-terminal",
+    icon: ShoppingCart,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/restaurant/sales-terminal",
+      ),
+  },
+  {
+    label: "Orders",
+    to: "/dashboard/sharp_hospitality/restaurant/general-settings",
+    icon: LucideListOrdered,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/restaurant/general-settings",
+      ),
+  },
+  {
+    label: "General Settings",
+    to: "/dashboard/sharp_hospitality/restaurant/general-settings",
+    icon: Settings,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/restaurant/general-settings",
+      ),
+  },
+];
+
+/* ===============================
+   Component
+================================ */
 export function RestaurantSidebar() {
-  const { location } = useRouterState();
-  const pathname = location.pathname;
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
 
   return (
-    <SidebarContent className="sm:pt-16 md:pt-16">
+    <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>Restaurant Management</SidebarGroupLabel>
 
         <SidebarMenu>
-          {/* Overview */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/restaurant"}
-            >
-              <Link to="/dashboard/sharp_hospitality/restaurant">
-                <LayoutDashboard />
-                <span>Overview</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {restaurantSidebarMenu.map((item) => {
+            const Icon = item.icon;
+            const isActive = item.match(pathname);
 
-          {/* Tables */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname === "/dashboard/sharp_hospitality/restaurant/table"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/restaurant/table">
-                <Grid3x3 />
-                <span>Table Management</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Kitchen */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname === "/dashboard/sharp_hospitality/restaurant/kitchen"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/restaurant/kitchen">
-                <ChefHat />
-                <span>Kitchen</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Inventory */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname === "/dashboard/sharp_hospitality/restaurant/inventory"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/restaurant/inventory">
-                <Boxes />
-                <span>Inventory</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Sales Terminal */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/restaurant/sales-terminal"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/restaurant/sales-terminal">
-                <ShoppingCart />
-                <span>Sales Terminal</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Settings */}
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              isActive={
-                pathname ===
-                "/dashboard/sharp_hospitality/restaurant/general-settings"
-              }
-            >
-              <Link to="/dashboard/sharp_hospitality/restaurant/general-settings">
-                <Settings />
-                <span>General Settings</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+            return (
+              <SidebarMenuItem key={item.label}>
+                <SidebarMenuButton asChild isActive={isActive}>
+                  <Link to={item.to}>
+                    <Icon />
+                    <span>{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
         </SidebarMenu>
       </SidebarGroup>
     </SidebarContent>

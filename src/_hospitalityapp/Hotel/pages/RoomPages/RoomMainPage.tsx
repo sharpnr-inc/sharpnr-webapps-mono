@@ -1,4 +1,3 @@
-"use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +15,7 @@ import {
   useBookingPreviewBill,
   useHotelBookingDetails,
 } from "@/_hospitalityapp/Hotel/apis/queries/Hotel";
-import { Route } from "@/routes/_pathlessEmployeeWrapper/dashboard/sharp_hospitality/hotel/booking/$roomId";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/hotel/booking/$roomId";
 import { Button } from "@/components/ui/button";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { AddPaymentsInHotelRoomBookingForm } from "../../components/AddPaymentsForm";
@@ -166,7 +165,7 @@ export function HotelRoomMainPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {charges.map((c) => (
+                    {charges.map((c:any) => (
                       <TableRow key={c.id}>
                         <TableCell>{c.description}</TableCell>
                         <TableCell className="text-right font-medium">

@@ -1,8 +1,9 @@
+// TODO --> Add Resend OTP Endpoint
+
 export const AuthApiEndpoints = {
   Signup: {
     initializeOnboarding: "/signup/initiate",
     verifyOtp: "/signup/verify-otp",
-    OnBoarding: "/signup/onBoarding",
     checkToken: "signup/verify-token",
     resendEmail: "",
   },

@@ -1,5 +1,5 @@
 import { useMenuGroup } from "@/_hospitalityapp/shared/Menu/apis/Menu";
-import MenuSectionDetails from "@/_hospitalityapp/shared/Menu/sections/MenuDetailsSection";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function MenuPage() {
@@ -20,12 +20,7 @@ export default function MenuPage() {
         ))}
       </TabsList>
 
-      {menuGroups.map((group: any) => (
-        <TabsContent key={group.Id} value={group.Type.toLowerCase()}>
-          {/* Only 1 component */}
-          <MenuSectionDetails group={group} />
-        </TabsContent>
-      ))}
+     
     </Tabs>
   );
 }
