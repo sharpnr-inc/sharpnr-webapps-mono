@@ -6,7 +6,7 @@ import { Bell } from "lucide-react";
 import { DynamicIslandProvider } from "../ui/dynamic-island";
 import { useSheet } from "@/context/DrawerContext";
 import UserRootMenu from "@/app_user/components/UserRootMenu";
-import { ModeToggle } from "../Dashboard/ThemeToggle";
+import { ModeToggle } from "../ui/ThemeToggle";
 interface UserRootLayoutProps {}
 
 const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
