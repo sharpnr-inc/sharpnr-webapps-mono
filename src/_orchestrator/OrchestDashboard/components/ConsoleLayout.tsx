@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+// ANCHOR This is the orchestrator's layout this component wraps the Orchestrator
 import {
   Sidebar,
   SidebarContent,
@@ -27,9 +27,6 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
         <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
-            <Card>
-              
-            </Card>
 
             <SidebarGroupContent>
               <SidebarMenu>
@@ -45,7 +42,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
 
                 <SidebarMenuItem>
                   <SidebarMenuButton className="text-amber-50">
-                   <Link to="/orchestrator/legal_entity">Legal Entity</Link>
+                    <Link to="/orchestrator/legal_entity">Legal Entity</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 

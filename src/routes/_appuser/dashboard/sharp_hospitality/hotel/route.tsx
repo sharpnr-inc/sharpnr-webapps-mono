@@ -1,12 +1,6 @@
-import { HotelSideBarWrapper } from '@/_hospitalityapp/Hotel/components/SideBarWarpper'
+import { HotelRootLayout } from '@/_hospitalityapp/Hotel/components/HotelRootLayout'
 import { createFileRoute } from '@tanstack/react-router'
-import { Hotel } from 'lucide-react'
 
 export const Route = createFileRoute('/_appuser/dashboard/sharp_hospitality/hotel')({
-  component: HotelSideBarWrapper,
-   context: () => ({
-      heading: "Hotel Terminal",
-      subheading: "Manage Collective Hotel operations",
-      HeaderIcon: Hotel,
-    }),
+  component: HotelRootLayout,
 })

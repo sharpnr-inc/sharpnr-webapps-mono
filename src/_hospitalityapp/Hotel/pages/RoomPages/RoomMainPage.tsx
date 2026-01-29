@@ -1,4 +1,3 @@
-"use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -166,7 +165,7 @@ export function HotelRoomMainPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {charges.map((c) => (
+                    {charges.map((c:any) => (
                       <TableRow key={c.id}>
                         <TableCell>{c.description}</TableCell>
                         <TableCell className="text-right font-medium">

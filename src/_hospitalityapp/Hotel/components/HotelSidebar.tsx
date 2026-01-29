@@ -6,7 +6,6 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
@@ -19,23 +18,14 @@ import {
   Boxes,
   Settings,
 } from "lucide-react";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 export function HotelSidebar() {
   const { location } = useRouterState();
   const pathname = location.pathname;
 
   return (
-    <SidebarContent className="">
+    <SidebarContent>
       <SidebarGroup>
-        <div className="p-2">
-        
-        </div>
-        {/* <Card className="bg-amber-50 text-gray-800 hover:bg-emerald-300">
-          <CardHeader className="">
-          <CardTitle>Dearie Clubs</CardTitle>
-          </CardHeader>
-        </Card> */}
         <SidebarGroupLabel>Hotel Management</SidebarGroupLabel>
 
         <SidebarMenu>
@@ -56,7 +46,9 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/booking"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/booking"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/booking">
                 <CalendarCheck2 />
@@ -69,7 +61,7 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/room-request"}
+              isActive={pathname === "/dashboard/sharp_hospitality/hotel/"}
             >
               <Link to="/dashboard/sharp_hospitality/hotel/room-request">
                 <DoorClosed />
@@ -82,7 +74,9 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/reservations"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/reservations"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/reservations">
                 <CalendarDays />
@@ -95,7 +89,9 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/guests"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/guests"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/guests">
                 <Users />
@@ -108,7 +104,9 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/housekeeping"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/housekeeping"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/housekeeping">
                 <BedDouble />
@@ -121,7 +119,9 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/kitchen"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/kitchen"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/kitchen">
                 <ChefHat />
@@ -134,7 +134,9 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/inventory"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/inventory"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/inventory">
                 <Boxes />
@@ -147,11 +149,27 @@ export function HotelSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              isActive={pathname === "/dashboard/sharp_hospitality/hotel/hotel-settings"}
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/hotel-settings"
+              }
             >
               <Link to="/dashboard/sharp_hospitality/hotel/hotel-settings">
                 <Settings />
                 <span>General Settings</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          {/* Settings */}
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              isActive={
+                pathname === "/dashboard/sharp_hospitality/hotel/hotel-settings"
+              }
+            >
+              <Link to="/dashboard/sharp_hospitality/hotel/hotel-settings">
+                <Settings />
+                <span>Order for Booking</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
