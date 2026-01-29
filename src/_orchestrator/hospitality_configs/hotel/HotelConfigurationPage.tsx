@@ -12,6 +12,7 @@ import {
 import { HotelOpTimingConfiguration } from "./components/HotelOpTimingConfiguration";
 import { HotelFloorConfiguration } from "./components/HotelFloorConfiguration";
 
+
 export function HotelConfigurationPage() {
   return (
     <div className="space-y-2">
@@ -30,6 +31,8 @@ export function HotelConfigurationPage() {
           </CardContent>
         }
       </Card>
+      {/* <HotelKitchenSelection/> */}
+      
     </div>
   );
 }

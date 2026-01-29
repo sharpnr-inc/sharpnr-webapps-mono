@@ -21,7 +21,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { registerSW } from "virtual:pwa-register";
-import { queryClient, router } from "./router_config.ts";
+import { queryClient, router } from "./router_config.tsx";
 
 registerSW({
   onNeedRefresh() {
