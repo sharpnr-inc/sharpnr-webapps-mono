@@ -1,136 +1,120 @@
-import { useState } from "react";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useOrgAccountingBooks } from "@/_accountingapp/api/queries/books";
-import { useAccountingGroupOfBook } from "@/_accountingapp/api/queries/accounting_groups";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Wallet,
+  BarChart3,
+  BookOpen,
+  Settings,
+  ArrowRight,
+} from "lucide-react";
 
 export function AccountingOverviewPage() {
-  const [selectedBookId, setSelectedBookId] = useState<string | undefined>();
-
-  /* ---------------- Books ---------------- */
-  const {
-    data: books,
-    isLoading: isBooksLoading,
-    isError: isBooksError,
-    error: booksError,
-  } = useOrgAccountingBooks();
-
-  /* ---------------- Groups ---------------- */
-  const {
-    data: accGroups,
-    isLoading: isGroupsLoading,
-    isError: isGroupsError,
-    error: groupsError,
-  } = useAccountingGroupOfBook(selectedBookId);
-
-  /* ---------------- Loading (Books) ---------------- */
-  if (isBooksLoading) {
-    return (
-      <div className="p-4 max-w-sm">
-        <Skeleton className="h-10 w-full rounded-md" />
-      </div>
-    );
-  }
-
-  /* ---------------- Error (Books) ---------------- */
-  if (isBooksError) {
-    return (
-      <div className="p-4 max-w-sm">
-        <Alert variant="destructive">
-          <AlertDescription>
-            {(booksError as any)?.message ?? "Failed to load accounting books"}
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  const accountBooks = books?.data?.account_books ?? [];
-
-  /* ---------------- Empty (Books) ---------------- */
-  if (accountBooks.length === 0) {
-    return (
-      <div className="p-4 max-w-sm">
-        <Alert>
-          <AlertDescription>
-            No accounting books found for this organization.
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  const accountGroups = accGroups?.data?.account_groups ?? [];
-
-  /* ---------------- Success ---------------- */
   return (
-    <div className="p-4 max-w-sm space-y-4">
-      <div>Wait is this page showing every where ?</div>
-      {/* 🔹 Accounting Book Select */}
-      <Select
-        value={selectedBookId}
-        onValueChange={(value) => setSelectedBookId(value)}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Select Accounting Book" />
-        </SelectTrigger>
+    <div className="p-6 space-y-10">
+      {/* ================= Hero ================= */}
+      <div className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          Welcome to <span className="text-primary">Sharp Accounting</span>
+        </h1>
+        <p className="text-muted-foreground max-w-2xl">
+          Manage books, track transactions, and generate financial reports —
+          all in one clean, reliable accounting workspace.
+        </p>
+      </div>
 
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Accounting Books</SelectLabel>
-            {accountBooks.map((ac: any) => (
-              <SelectItem key={ac.id} value={ac.id}>
-                {ac.name}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      {/* ================= Quick Actions ================= */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="hover:shadow-md transition">
+          <CardHeader className="flex flex-row items-center gap-3">
+            <Wallet className="h-6 w-6 text-muted-foreground" />
+            <CardTitle className="text-base">Overview</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Get a quick snapshot of balances, cash flow, and totals.
+            </CardDescription>
+          </CardContent>
+        </Card>
 
-      {/* 🔹 Accounting Groups */}
-      {selectedBookId && (
-        <>
-          {isGroupsLoading && <Skeleton className="h-24 w-full rounded-md" />}
+        <Card className="hover:shadow-md transition">
+          <CardHeader className="flex flex-row items-center gap-3">
+            <BookOpen className="h-6 w-6 text-muted-foreground" />
+            <CardTitle className="text-base">Ledger</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Maintain clean and accurate accounting ledgers.
+            </CardDescription>
+          </CardContent>
+        </Card>
 
-          {isGroupsError && (
-            <Alert variant="destructive">
-              <AlertDescription>
-                {(groupsError as any)?.message ??
-                  "Failed to load accounting groups"}
-              </AlertDescription>
-            </Alert>
-          )}
+        <Card className="hover:shadow-md transition">
+          <CardHeader className="flex flex-row items-center gap-3">
+            <BarChart3 className="h-6 w-6 text-muted-foreground" />
+            <CardTitle className="text-base">Reports</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Generate balance sheets, P&L, and financial reports.
+            </CardDescription>
+          </CardContent>
+        </Card>
 
-          {!isGroupsLoading && !isGroupsError && (
-            <div className="space-y-2">
-              <h3 className="text-sm font-semibold text-muted-foreground">
-                Accounting Groups
-              </h3>
+        <Card className="hover:shadow-md transition">
+          <CardHeader className="flex flex-row items-center gap-3">
+            <Settings className="h-6 w-6 text-muted-foreground" />
+            <CardTitle className="text-base">Setup</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CardDescription>
+              Configure accounting books, groups, and preferences.
+            </CardDescription>
+          </CardContent>
+        </Card>
+      </div>
 
-              <ul className="space-y-2">
-                {accountGroups.map((group: any) => (
-                  <li
-                    key={group.id}
-                    className="rounded-md border px-3 py-2 text-sm flex justify-between"
-                  >
-                    <span>{group.name}</span>
-                    <span className="text-muted-foreground">{group.type}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </>
-      )}
+      {/* ================= Getting Started ================= */}
+      <Card className="max-w-3xl">
+        <CardHeader>
+          <CardTitle>Getting Started</CardTitle>
+          <CardDescription>
+            Follow these steps to start managing your accounting efficiently.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between border rounded-md p-3">
+            <span className="text-sm">
+              1. Create or select an accounting book
+            </span>
+            <ArrowRight className="h-4 w-4 text-muted-foreground" />
+          </div>
+
+          <div className="flex items-center justify-between border rounded-md p-3">
+            <span className="text-sm">
+              2. Define accounting groups and ledgers
+            </span>
+            <ArrowRight className="h-4 w-4 text-muted-foreground" />
+          </div>
+
+          <div className="flex items-center justify-between border rounded-md p-3">
+            <span className="text-sm">
+              3. Start recording transactions
+            </span>
+            <ArrowRight className="h-4 w-4 text-muted-foreground" />
+          </div>
+
+          <Button className="mt-4 w-fit">
+            Go to Accounting Setup
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

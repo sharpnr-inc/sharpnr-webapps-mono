@@ -3,16 +3,13 @@ import {
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table"
-import type { AccountingBookRow } from "@/_accountingapp/schemas/types/books/tables"
-import { accountingBooksColumns } from "@/_accountingapp/schemas/types/books/tables"
 
-interface AccountingBooksTableProps {
-  data: AccountingBookRow[]
-}
+
+
 
 export function AccountingBooksTable({
   data,
-}: AccountingBooksTableProps) {
+}: any) {
   const table = useReactTable({
     data,
     columns: accountingBooksColumns,

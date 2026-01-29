@@ -70,42 +70,9 @@ export const SharpAccountingNavs: NavSection[] = [
     items: [
       {
         id: "acc_overview",
-        label: "Overview",
+        label: "Accounting",
         icon: Wallet,
         to: "/dashboard/sharp_accounting",
-      },
-
-      {
-        id: "acc_acc_setup",
-        label: "Accounting Setup",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/accounting-setup",
-      },
-      {
-        id: "acc_transactions",
-        label: "Transactions",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/transactions",
-      },
-
-      {
-        id: "acc_ledger",
-        label: "Ledger",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/ledger",
-      },
-
-      {
-        id: "acc_reports",
-        label: "Reports",
-        icon: BarChart3,
-        to: "/dashboard/sharp_accounting/reports",
-      },
-      {
-        id: "acc_settings",
-        label: "Settings",
-        icon: Settings,
-        to: "/dashboard/sharp_accounting/settings",
       },
     ],
   },
