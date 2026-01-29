@@ -72,7 +72,10 @@ import { Route as AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexR
 import { Route as AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/privileges/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/documents/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/direct-hire/index'
+import { Route as AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/table-management/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/index'
+import { Route as AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/reservations/index'
+import { Route as AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/orders/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/inventory/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/index'
@@ -484,6 +487,15 @@ const AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute =
     path: '/sharp_hr/employees/direct-hire/',
     getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
+const AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute =
+  AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport.update(
+    {
+      id: '/table-management/',
+      path: '/table-management/',
+      getParentRoute: () =>
+        AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
+    } as any,
+  )
 const AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRouteImport.update(
     {
@@ -493,6 +505,21 @@ const AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute =
         AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
     } as any,
   )
+const AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute =
+  AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRouteImport.update(
+    {
+      id: '/reservations/',
+      path: '/reservations/',
+      getParentRoute: () =>
+        AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
+    } as any,
+  )
+const AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute =
+  AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRouteImport.update({
+    id: '/orders/',
+    path: '/orders/',
+    getParentRoute: () => AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
+  } as any)
 const AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRouteImport.update({
     id: '/kitchen/',
@@ -761,7 +788,10 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   '/dashboard/sharp_hospitality/restaurant/kitchen': typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
   '/dashboard/sharp_hr/employees/direct-hire': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
@@ -843,7 +873,10 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   '/dashboard/sharp_hospitality/restaurant/kitchen': typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
   '/dashboard/sharp_hr/employees/direct-hire': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
@@ -937,7 +970,10 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/': typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/inventory/': typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/': typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  '/_appuser/dashboard/sharp_hospitality/restaurant/orders/': typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/': typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/': typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/': typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/direct-hire/': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/documents/': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/privileges/': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
@@ -1029,7 +1065,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/general-settings'
     | '/dashboard/sharp_hospitality/restaurant/inventory'
     | '/dashboard/sharp_hospitality/restaurant/kitchen'
+    | '/dashboard/sharp_hospitality/restaurant/orders'
+    | '/dashboard/sharp_hospitality/restaurant/reservations'
     | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
+    | '/dashboard/sharp_hospitality/restaurant/table-management'
     | '/dashboard/sharp_hr/employees/direct-hire'
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
@@ -1111,7 +1150,10 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/general-settings'
     | '/dashboard/sharp_hospitality/restaurant/inventory'
     | '/dashboard/sharp_hospitality/restaurant/kitchen'
+    | '/dashboard/sharp_hospitality/restaurant/orders'
+    | '/dashboard/sharp_hospitality/restaurant/reservations'
     | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
+    | '/dashboard/sharp_hospitality/restaurant/table-management'
     | '/dashboard/sharp_hr/employees/direct-hire'
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
@@ -1204,7 +1246,10 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/inventory/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/'
+    | '/_appuser/dashboard/sharp_hospitality/restaurant/orders/'
+    | '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/'
+    | '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/'
     | '/_appuser/dashboard/sharp_hr/employees/direct-hire/'
     | '/_appuser/dashboard/sharp_hr/employees/documents/'
     | '/_appuser/dashboard/sharp_hr/employees/privileges/'
@@ -1672,11 +1717,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
     }
+    '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/': {
+      id: '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/'
+      path: '/table-management'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/table-management'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
+    }
     '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/'
       path: '/sales-terminal'
       fullPath: '/dashboard/sharp_hospitality/restaurant/sales-terminal'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/': {
+      id: '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/'
+      path: '/reservations'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/reservations'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hospitality/restaurant/orders/': {
+      id: '/_appuser/dashboard/sharp_hospitality/restaurant/orders/'
+      path: '/orders'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/orders'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/': {
@@ -1975,7 +2041,10 @@ interface AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren {
   AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
 }
 
 const AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren: AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren =
@@ -1988,8 +2057,14 @@ const AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren: AppuserDash
       AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute,
     AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute:
       AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute,
+    AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute:
+      AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute,
+    AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute:
+      AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute,
     AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute:
       AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute,
+    AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute:
+      AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute,
   }
 
 const AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren =
