@@ -1,12 +1,10 @@
 
+import AppUserAttendancePage from '@/app_user/AppUserAttendancePage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_appuser/iam/my-attendance')(
   {
-    component: RouteComponent,
+    component: AppUserAttendancePage,
   },
 )
 
-function RouteComponent() {
-  return <div>This is Vlaendfjn</div>
-}

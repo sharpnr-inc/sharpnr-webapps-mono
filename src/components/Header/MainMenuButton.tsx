@@ -60,7 +60,7 @@ export default function MainMenuButton() {
           <img
             src={sharpnrLogo}
             alt="SharpNR"
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-10 w-10 rounded-full object-cover hover:border-2 hover:border-blue-300 cursor-pointer"
           />
         </Button>
       </DropdownMenuTrigger>

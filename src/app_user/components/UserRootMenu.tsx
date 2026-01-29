@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "@tanstack/react-router";
-import { LogOut, Settings, User } from "lucide-react";
+import { Calendar, LogOut, Settings, User } from "lucide-react";
 import type { ToPathOption } from "@tanstack/react-router";
 
 interface MenuItem {
@@ -25,6 +25,11 @@ const menuItems: MenuItem[] = [
     label: "Profile",
     icon: <User className="mr-2 h-4 w-4" />,
     to: "/iam",
+  },
+   {
+    label: "Attendance & Leaves",
+    icon: <Calendar className="mr-2 h-4 w-4" />,
+    to: "/iam/my-attendance",
   },
   {
     label: "Organization Profile",
