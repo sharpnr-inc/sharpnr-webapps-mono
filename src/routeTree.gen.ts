@@ -52,8 +52,6 @@ import { Route as AppuserDashboardSharp_hrPayrollIndexRouteImport } from './rout
 import { Route as AppuserDashboardSharp_hrLeavesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/leaves/index'
 import { Route as AppuserDashboardSharp_hrEmployeesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/index'
-import { Route as AppuserDashboardSharp_hospitalityMenuIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/menu/index'
-import { Route as AppuserDashboardSharp_hospitalityInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/inventory/index'
 import { Route as AppuserDashboardSharp_hospitalityHotelIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/index'
 import { Route as AppuserDashboardSharp_hospitalityBarIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/index'
 import { Route as AppuserDashboardSharp_accountingReportsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/reports/index'
@@ -345,18 +343,6 @@ const AppuserDashboardSharp_hospitalityRestaurantIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityMenuIndexRoute =
-  AppuserDashboardSharp_hospitalityMenuIndexRouteImport.update({
-    id: '/sharp_hospitality/menu/',
-    path: '/sharp_hospitality/menu/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityInventoryIndexRoute =
-  AppuserDashboardSharp_hospitalityInventoryIndexRouteImport.update({
-    id: '/sharp_hospitality/inventory/',
-    path: '/sharp_hospitality/inventory/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityHotelIndexRoute =
   AppuserDashboardSharp_hospitalityHotelIndexRouteImport.update({
@@ -747,8 +733,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/reports': typeof AppuserDashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/inventory': typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  '/dashboard/sharp_hospitality/menu': typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hr/leaves': typeof AppuserDashboardSharp_hrLeavesIndexRoute
@@ -832,8 +816,6 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/reports': typeof AppuserDashboardSharp_accountingReportsIndexRoute
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/inventory': typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  '/dashboard/sharp_hospitality/menu': typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hr/leaves': typeof AppuserDashboardSharp_hrLeavesIndexRoute
@@ -927,8 +909,6 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/reports/': typeof AppuserDashboardSharp_accountingReportsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/inventory/': typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/menu/': typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/_appuser/dashboard/sharp_hr/leaves/': typeof AppuserDashboardSharp_hrLeavesIndexRoute
@@ -1021,8 +1001,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
-    | '/dashboard/sharp_hospitality/inventory'
-    | '/dashboard/sharp_hospitality/menu'
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hr/leaves'
@@ -1106,8 +1084,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
-    | '/dashboard/sharp_hospitality/inventory'
-    | '/dashboard/sharp_hospitality/menu'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hr/leaves'
@@ -1200,8 +1176,6 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/reports/'
     | '/_appuser/dashboard/sharp_hospitality/bar/'
     | '/_appuser/dashboard/sharp_hospitality/hotel/'
-    | '/_appuser/dashboard/sharp_hospitality/inventory/'
-    | '/_appuser/dashboard/sharp_hospitality/menu/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/'
     | '/_appuser/dashboard/sharp_hr/employees/'
     | '/_appuser/dashboard/sharp_hr/leaves/'
@@ -1557,20 +1531,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_hospitality/restaurant/'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/menu/': {
-      id: '/_appuser/dashboard/sharp_hospitality/menu/'
-      path: '/sharp_hospitality/menu'
-      fullPath: '/dashboard/sharp_hospitality/menu'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityMenuIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/inventory/': {
-      id: '/_appuser/dashboard/sharp_hospitality/inventory/'
-      path: '/sharp_hospitality/inventory'
-      fullPath: '/dashboard/sharp_hospitality/inventory'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityInventoryIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/hotel/': {
       id: '/_appuser/dashboard/sharp_hospitality/hotel/'
@@ -2060,8 +2020,6 @@ interface AppuserDashboardRouteRouteChildren {
   AppuserDashboardSharp_hrEmployeesEmployeeIdRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
   AppuserDashboardSharp_accountingReportsIndexRoute: typeof AppuserDashboardSharp_accountingReportsIndexRoute
-  AppuserDashboardSharp_hospitalityInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  AppuserDashboardSharp_hospitalityMenuIndexRoute: typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   AppuserDashboardSharp_hrEmployeesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
   AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
@@ -2117,10 +2075,6 @@ const AppuserDashboardRouteRouteChildren: AppuserDashboardRouteRouteChildren = {
     AppuserDashboardSharp_hrLeavesRequestsRoute,
   AppuserDashboardSharp_accountingReportsIndexRoute:
     AppuserDashboardSharp_accountingReportsIndexRoute,
-  AppuserDashboardSharp_hospitalityInventoryIndexRoute:
-    AppuserDashboardSharp_hospitalityInventoryIndexRoute,
-  AppuserDashboardSharp_hospitalityMenuIndexRoute:
-    AppuserDashboardSharp_hospitalityMenuIndexRoute,
   AppuserDashboardSharp_hrEmployeesIndexRoute:
     AppuserDashboardSharp_hrEmployeesIndexRoute,
   AppuserDashboardSharp_hrLeavesIndexRoute:
