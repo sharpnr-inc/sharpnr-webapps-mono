@@ -47,7 +47,7 @@ const AppUserAttendancePage: React.FC<AppUserAttendancePageProps> = () => {
   ];
 
   return (
-    <div className="p-4 mt-2 space-y-6">
+    <div className="p-6 mt-2 space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -57,7 +57,7 @@ const AppUserAttendancePage: React.FC<AppUserAttendancePageProps> = () => {
           </h2>
           <p className="text-sm text-muted-foreground">Manage your work logs and time-off requests.</p>
         </div>
-        <Button className="bg-blue-600 hover:bg-blue-700">
+        <Button className="bg-blue-600 hover:bg-blue-700 absolute right-3/12 top-6">
           <Clock className="mr-2 h-4 w-4" /> Clock In
         </Button>
       </div>
