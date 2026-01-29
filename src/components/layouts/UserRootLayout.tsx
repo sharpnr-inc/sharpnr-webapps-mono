@@ -14,10 +14,11 @@ import {
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { DynamicIslandProvider } from "../ui/dynamic-island";
 import { useSheet } from "@/context/DrawerContext";
+import UserRootMenu from "@/app_user/components/UserRootMenu";
 interface UserRootLayoutProps {}
 
 const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
-  const { openSheet} = useSheet();
+  const { openSheet } = useSheet();
 
   // TODO :..:..: Need To Create the Notification component
   // STUB API is needed to Fetch the user Notification
@@ -46,44 +47,7 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
         </Button>
 
         {/* User Menu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar className="h-10 w-10 grid place-items-center cursor-pointer">
-              <AvatarFallback className="text-xs font-medium">U</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem asChild>
-              <Link to="/">
-                <User className="mr-2 h-4 w-4" />
-                Profile
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem asChild>
-              <Link to="/">
-                <Settings className="mr-2 h-4 w-4" />
-                Settings
-              </Link>
-            </DropdownMenuItem>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
-              className="text-red-600 focus:text-red-600"
-              onClick={() => {
-                // logout()
-              }}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <UserRootMenu />
       </div>
 
       {/* Routed Content */}

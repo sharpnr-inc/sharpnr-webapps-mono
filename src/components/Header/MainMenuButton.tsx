@@ -14,7 +14,7 @@ import {
   SharpHospitalityNavs,
   SharpHRNavs,
   SharpMarketingNavs,
-} from "@/components/Dashboard/SidebarNavs";
+} from "@/components/Dashboard/app_navs";
 import sharpnrLogo from "../../../public/AppIcon.png";
 
 export default function MainMenuButton() {

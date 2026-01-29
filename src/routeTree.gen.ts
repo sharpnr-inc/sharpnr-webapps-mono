@@ -22,10 +22,10 @@ import { Route as AppuserIamReviewsRouteImport } from './routes/_appuser/iam/rev
 import { Route as AppuserIamRequestsRouteImport } from './routes/_appuser/iam/requests'
 import { Route as AppuserIamProfileRouteImport } from './routes/_appuser/iam/profile'
 import { Route as AppuserIamOvertimeRouteImport } from './routes/_appuser/iam/overtime'
+import { Route as AppuserIamMyAttendanceRouteImport } from './routes/_appuser/iam/my-attendance'
 import { Route as AppuserIamLeavesRouteImport } from './routes/_appuser/iam/leaves'
-import { Route as AppuserIamGreivencesRouteImport } from './routes/_appuser/iam/greivences'
+import { Route as AppuserIamGrievancesRouteImport } from './routes/_appuser/iam/grievances'
 import { Route as AppuserIamFeedbackRouteImport } from './routes/_appuser/iam/feedback'
-import { Route as AppuserIamEmployee_attendanceRouteImport } from './routes/_appuser/iam/employee_attendance'
 import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
 import { Route as AppuserDashboardSharp_marketingIndexRouteImport } from './routes/_appuser/dashboard/sharp_marketing/index'
 import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
@@ -169,14 +169,19 @@ const AppuserIamOvertimeRoute = AppuserIamOvertimeRouteImport.update({
   path: '/iam/overtime',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserIamMyAttendanceRoute = AppuserIamMyAttendanceRouteImport.update({
+  id: '/iam/my-attendance',
+  path: '/iam/my-attendance',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserIamLeavesRoute = AppuserIamLeavesRouteImport.update({
   id: '/iam/leaves',
   path: '/iam/leaves',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserIamGreivencesRoute = AppuserIamGreivencesRouteImport.update({
-  id: '/iam/greivences',
-  path: '/iam/greivences',
+const AppuserIamGrievancesRoute = AppuserIamGrievancesRouteImport.update({
+  id: '/iam/grievances',
+  path: '/iam/grievances',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserIamFeedbackRoute = AppuserIamFeedbackRouteImport.update({
@@ -184,12 +189,6 @@ const AppuserIamFeedbackRoute = AppuserIamFeedbackRouteImport.update({
   path: '/iam/feedback',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserIamEmployee_attendanceRoute =
-  AppuserIamEmployee_attendanceRouteImport.update({
-    id: '/iam/employee_attendance',
-    path: '/iam/employee_attendance',
-    getParentRoute: () => AppuserRouteRoute,
-  } as any)
 const AppuserOrchestratorOrchestrator_layoutRouteRoute =
   AppuserOrchestratorOrchestrator_layoutRouteRouteImport.update({
     id: '/_orchestrator_layout',
@@ -700,10 +699,10 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
-  '/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
   '/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/iam/greivences': typeof AppuserIamGreivencesRoute
+  '/iam/grievances': typeof AppuserIamGrievancesRoute
   '/iam/leaves': typeof AppuserIamLeavesRoute
+  '/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
   '/iam/overtime': typeof AppuserIamOvertimeRoute
   '/iam/profile': typeof AppuserIamProfileRoute
   '/iam/requests': typeof AppuserIamRequestsRoute
@@ -790,10 +789,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
-  '/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
   '/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/iam/greivences': typeof AppuserIamGreivencesRoute
+  '/iam/grievances': typeof AppuserIamGrievancesRoute
   '/iam/leaves': typeof AppuserIamLeavesRoute
+  '/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
   '/iam/overtime': typeof AppuserIamOvertimeRoute
   '/iam/profile': typeof AppuserIamProfileRoute
   '/iam/requests': typeof AppuserIamRequestsRoute
@@ -877,10 +876,10 @@ export interface FileRoutesById {
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
-  '/_appuser/iam/employee_attendance': typeof AppuserIamEmployee_attendanceRoute
   '/_appuser/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/_appuser/iam/greivences': typeof AppuserIamGreivencesRoute
+  '/_appuser/iam/grievances': typeof AppuserIamGrievancesRoute
   '/_appuser/iam/leaves': typeof AppuserIamLeavesRoute
+  '/_appuser/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
   '/_appuser/iam/overtime': typeof AppuserIamOvertimeRoute
   '/_appuser/iam/profile': typeof AppuserIamProfileRoute
   '/_appuser/iam/requests': typeof AppuserIamRequestsRoute
@@ -971,10 +970,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/orchestrator'
     | '/org-signup'
-    | '/iam/employee_attendance'
     | '/iam/feedback'
-    | '/iam/greivences'
+    | '/iam/grievances'
     | '/iam/leaves'
+    | '/iam/my-attendance'
     | '/iam/overtime'
     | '/iam/profile'
     | '/iam/requests'
@@ -1061,10 +1060,10 @@ export interface FileRouteTypes {
     | '/'
     | '/orchestrator'
     | '/org-signup'
-    | '/iam/employee_attendance'
     | '/iam/feedback'
-    | '/iam/greivences'
+    | '/iam/grievances'
     | '/iam/leaves'
+    | '/iam/my-attendance'
     | '/iam/overtime'
     | '/iam/profile'
     | '/iam/requests'
@@ -1147,10 +1146,10 @@ export interface FileRouteTypes {
     | '/_appuser/orchestrator'
     | '/org-signup/'
     | '/_appuser/orchestrator/_orchestrator_layout'
-    | '/_appuser/iam/employee_attendance'
     | '/_appuser/iam/feedback'
-    | '/_appuser/iam/greivences'
+    | '/_appuser/iam/grievances'
     | '/_appuser/iam/leaves'
+    | '/_appuser/iam/my-attendance'
     | '/_appuser/iam/overtime'
     | '/_appuser/iam/profile'
     | '/_appuser/iam/requests'
@@ -1336,6 +1335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserIamOvertimeRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/iam/my-attendance': {
+      id: '/_appuser/iam/my-attendance'
+      path: '/iam/my-attendance'
+      fullPath: '/iam/my-attendance'
+      preLoaderRoute: typeof AppuserIamMyAttendanceRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/iam/leaves': {
       id: '/_appuser/iam/leaves'
       path: '/iam/leaves'
@@ -1343,11 +1349,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserIamLeavesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/iam/greivences': {
-      id: '/_appuser/iam/greivences'
-      path: '/iam/greivences'
-      fullPath: '/iam/greivences'
-      preLoaderRoute: typeof AppuserIamGreivencesRouteImport
+    '/_appuser/iam/grievances': {
+      id: '/_appuser/iam/grievances'
+      path: '/iam/grievances'
+      fullPath: '/iam/grievances'
+      preLoaderRoute: typeof AppuserIamGrievancesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/iam/feedback': {
@@ -1355,13 +1361,6 @@ declare module '@tanstack/react-router' {
       path: '/iam/feedback'
       fullPath: '/iam/feedback'
       preLoaderRoute: typeof AppuserIamFeedbackRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/employee_attendance': {
-      id: '/_appuser/iam/employee_attendance'
-      path: '/iam/employee_attendance'
-      fullPath: '/iam/employee_attendance'
-      preLoaderRoute: typeof AppuserIamEmployee_attendanceRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout': {
@@ -2253,10 +2252,10 @@ const AppuserOrchestratorRouteRouteWithChildren =
 interface AppuserRouteRouteChildren {
   AppuserDashboardRouteRoute: typeof AppuserDashboardRouteRouteWithChildren
   AppuserOrchestratorRouteRoute: typeof AppuserOrchestratorRouteRouteWithChildren
-  AppuserIamEmployee_attendanceRoute: typeof AppuserIamEmployee_attendanceRoute
   AppuserIamFeedbackRoute: typeof AppuserIamFeedbackRoute
-  AppuserIamGreivencesRoute: typeof AppuserIamGreivencesRoute
+  AppuserIamGrievancesRoute: typeof AppuserIamGrievancesRoute
   AppuserIamLeavesRoute: typeof AppuserIamLeavesRoute
+  AppuserIamMyAttendanceRoute: typeof AppuserIamMyAttendanceRoute
   AppuserIamOvertimeRoute: typeof AppuserIamOvertimeRoute
   AppuserIamProfileRoute: typeof AppuserIamProfileRoute
   AppuserIamRequestsRoute: typeof AppuserIamRequestsRoute
@@ -2267,10 +2266,10 @@ interface AppuserRouteRouteChildren {
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserDashboardRouteRoute: AppuserDashboardRouteRouteWithChildren,
   AppuserOrchestratorRouteRoute: AppuserOrchestratorRouteRouteWithChildren,
-  AppuserIamEmployee_attendanceRoute: AppuserIamEmployee_attendanceRoute,
   AppuserIamFeedbackRoute: AppuserIamFeedbackRoute,
-  AppuserIamGreivencesRoute: AppuserIamGreivencesRoute,
+  AppuserIamGrievancesRoute: AppuserIamGrievancesRoute,
   AppuserIamLeavesRoute: AppuserIamLeavesRoute,
+  AppuserIamMyAttendanceRoute: AppuserIamMyAttendanceRoute,
   AppuserIamOvertimeRoute: AppuserIamOvertimeRoute,
   AppuserIamProfileRoute: AppuserIamProfileRoute,
   AppuserIamRequestsRoute: AppuserIamRequestsRoute,

@@ -1,12 +1,7 @@
-import EmployeeProfilePage from "@/_employee_app/pages/profile/EmployeeProfilePage";
+import AppUserProfilePage from "@/app_user/AppUserProfilePage";
 import { createFileRoute } from "@tanstack/react-router";
-import { PersonStanding } from "lucide-react";
 
 export const Route = createFileRoute("/_appuser/iam/profile")({
-  component: EmployeeProfilePage,
-  context: () => ({
-    heading: "Employees Profile",
-    subheading: "Manage your Profile",
-    HeaderIcon: PersonStanding,
-  }),
+  component: AppUserProfilePage,
+
 });
