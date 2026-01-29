@@ -80,8 +80,8 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
               <div className="md:col-span-1 space-y-4">
-                <KeyValue label="Property Code" value={property.Code} />
-                <KeyValue label="Domain" value={property.Domain || "—"} />
+                <KeyValue label="Property Code" value={property.code} />
+                <KeyValue label="Domain" value={property.domain || "—"} />
               </div>
               <div className="md:col-span-2 space-y-4">
                 <div>
