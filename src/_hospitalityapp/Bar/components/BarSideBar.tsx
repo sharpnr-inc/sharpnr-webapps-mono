@@ -73,6 +73,15 @@ const barSidebarMenu: BarSidebarItem[] = [
         "/dashboard/sharp_hospitality/bar/inventory"
       ),
   },
+  {
+    label: "General Setting",
+    to: "/dashboard/sharp_hospitality/bar/settings",
+    icon: Boxes,
+    match: (pathname) =>
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/bar/settings"
+      ),
+  },
 ];
 
 /* ===============================

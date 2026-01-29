@@ -7,12 +7,14 @@ import {
   SidebarGroupLabel,
   SidebarInset,
   SidebarMenu,
-  SidebarMenuButton,
+
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { Building2 } from "lucide-react";
 
 type OrchestratorLayoutProps = {
   children?: React.ReactNode;
@@ -20,48 +22,85 @@ type OrchestratorLayoutProps = {
 
 export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
   const navigate = useNavigate();
+
   return (
     <SidebarProvider>
       {/* Sidebar */}
       <Sidebar>
         <SidebarContent>
+          {/* ===== Organization Card ===== */}
+          <div className="p-2">
+            <div
+              onClick={() => navigate({ to: "/orchestrator" })}
+              className="cursor-pointer rounded-lg border bg-card p-3 hover:bg-accent transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                  <Building2 className="size-4" />
+                </div>
+
+                <div className="flex flex-col leading-tight">
+                  <span className="text-sm font-medium">
+                    Sharp Hospitality
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Organization
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <SidebarGroup>
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
-
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>Organization</SidebarMenuButton>
+                  <SidebarMenuButton asChild>
+                    <Link to="/">
+                      Organization
+                    </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild>
-                    <Link to="/orchestrator/property">Properties</Link>
+                    <Link to="/orchestrator/property">
+                      Properties
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton className="text-amber-50">
-                    <Link to="/orchestrator/legal_entity">Legal Entity</Link>
+                  <SidebarMenuButton asChild>
+                    <Link to="/orchestrator/legal_entity">
+                      Legal Entity
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton>Setting</SidebarMenuButton>
+                  <SidebarMenuButton>
+                    Settings
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
                   <SidebarMenuButton onClick={() => navigate({ to: "/" })}>
-                    Organization
+                    Exit Console
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton>Reports</SidebarMenuButton>
+                  <SidebarMenuButton>
+                    Reports
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton>User Directory</SidebarMenuButton>
+                  <SidebarMenuButton>
+                    User Directory
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
@@ -75,7 +114,9 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
           <SidebarTrigger />
         </div>
 
-        <main className="flex-1 p-4">{children ?? <Outlet />}</main>
+        <main className="flex-1 p-4">
+          {children ?? <Outlet />}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
