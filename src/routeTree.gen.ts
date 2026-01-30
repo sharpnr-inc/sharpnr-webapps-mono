@@ -13,23 +13,20 @@ import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
 import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/orchestrator/route'
+import { Route as AppuserIamRouteRouteImport } from './routes/_appuser/iam/route'
 import { Route as AppuserDashboardRouteRouteImport } from './routes/_appuser/dashboard/route'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
 import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
-import { Route as AppuserIamIndexRouteImport } from './routes/_appuser/iam/index'
 import { Route as AppuserDashboardIndexRouteImport } from './routes/_appuser/dashboard/index'
-import { Route as AppuserIamReviewsRouteImport } from './routes/_appuser/iam/reviews'
-import { Route as AppuserIamRequestsRouteImport } from './routes/_appuser/iam/requests'
-import { Route as AppuserIamProfileRouteImport } from './routes/_appuser/iam/profile'
-import { Route as AppuserIamOvertimeRouteImport } from './routes/_appuser/iam/overtime'
-import { Route as AppuserIamMyAttendanceRouteImport } from './routes/_appuser/iam/my-attendance'
-import { Route as AppuserIamLeavesRouteImport } from './routes/_appuser/iam/leaves'
-import { Route as AppuserIamGrievancesRouteImport } from './routes/_appuser/iam/grievances'
-import { Route as AppuserIamFeedbackRouteImport } from './routes/_appuser/iam/feedback'
 import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
 import { Route as AppuserDashboardSharp_marketingRouteRouteImport } from './routes/_appuser/dashboard/sharp_marketing/route'
 import { Route as AppuserDashboardSharp_hrRouteRouteImport } from './routes/_appuser/dashboard/sharp_hr/route'
 import { Route as AppuserDashboardSharp_accountingRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/route'
+import { Route as AppuserIamTasksIndexRouteImport } from './routes/_appuser/iam/tasks/index'
+import { Route as AppuserIamRequestsIndexRouteImport } from './routes/_appuser/iam/requests/index'
+import { Route as AppuserIamProfileIndexRouteImport } from './routes/_appuser/iam/profile/index'
+import { Route as AppuserIamMessagesIndexRouteImport } from './routes/_appuser/iam/messages/index'
+import { Route as AppuserIamLegalIndexRouteImport } from './routes/_appuser/iam/legal/index'
 import { Route as AppuserDashboardSharp_marketingIndexRouteImport } from './routes/_appuser/dashboard/sharp_marketing/index'
 import { Route as AppuserDashboardSharp_hrIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/index'
 import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
@@ -125,6 +122,11 @@ const AppuserOrchestratorRouteRoute =
     path: '/orchestrator',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserIamRouteRoute = AppuserIamRouteRouteImport.update({
+  id: '/iam',
+  path: '/iam',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserDashboardRouteRoute = AppuserDashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -142,55 +144,10 @@ const SharpOrgEmployeeSetPasswordIndexRoute =
     path: '/sharp-org-employee/set-password/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppuserIamIndexRoute = AppuserIamIndexRouteImport.update({
-  id: '/iam/',
-  path: '/iam/',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
 const AppuserDashboardIndexRoute = AppuserDashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppuserDashboardRouteRoute,
-} as any)
-const AppuserIamReviewsRoute = AppuserIamReviewsRouteImport.update({
-  id: '/iam/reviews',
-  path: '/iam/reviews',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamRequestsRoute = AppuserIamRequestsRouteImport.update({
-  id: '/iam/requests',
-  path: '/iam/requests',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamProfileRoute = AppuserIamProfileRouteImport.update({
-  id: '/iam/profile',
-  path: '/iam/profile',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamOvertimeRoute = AppuserIamOvertimeRouteImport.update({
-  id: '/iam/overtime',
-  path: '/iam/overtime',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamMyAttendanceRoute = AppuserIamMyAttendanceRouteImport.update({
-  id: '/iam/my-attendance',
-  path: '/iam/my-attendance',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamLeavesRoute = AppuserIamLeavesRouteImport.update({
-  id: '/iam/leaves',
-  path: '/iam/leaves',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamGrievancesRoute = AppuserIamGrievancesRouteImport.update({
-  id: '/iam/grievances',
-  path: '/iam/grievances',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamFeedbackRoute = AppuserIamFeedbackRouteImport.update({
-  id: '/iam/feedback',
-  path: '/iam/feedback',
-  getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserOrchestratorOrchestrator_layoutRouteRoute =
   AppuserOrchestratorOrchestrator_layoutRouteRouteImport.update({
@@ -215,6 +172,31 @@ const AppuserDashboardSharp_accountingRouteRoute =
     path: '/sharp_accounting',
     getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
+const AppuserIamTasksIndexRoute = AppuserIamTasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamRequestsIndexRoute = AppuserIamRequestsIndexRouteImport.update({
+  id: '/requests/',
+  path: '/requests/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamProfileIndexRoute = AppuserIamProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamMessagesIndexRoute = AppuserIamMessagesIndexRouteImport.update({
+  id: '/messages/',
+  path: '/messages/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamLegalIndexRoute = AppuserIamLegalIndexRouteImport.update({
+  id: '/legal/',
+  path: '/legal/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
 const AppuserDashboardSharp_marketingIndexRoute =
   AppuserDashboardSharp_marketingIndexRouteImport.update({
     id: '/',
@@ -717,21 +699,13 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hosp
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
+  '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
   '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
-  '/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/iam/grievances': typeof AppuserIamGrievancesRoute
-  '/iam/leaves': typeof AppuserIamLeavesRoute
-  '/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
-  '/iam/overtime': typeof AppuserIamOvertimeRoute
-  '/iam/profile': typeof AppuserIamProfileRoute
-  '/iam/requests': typeof AppuserIamRequestsRoute
-  '/iam/reviews': typeof AppuserIamReviewsRoute
   '/dashboard/': typeof AppuserDashboardIndexRoute
-  '/iam': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
@@ -745,6 +719,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
   '/dashboard/sharp_hr/': typeof AppuserDashboardSharp_hrIndexRoute
   '/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/iam/legal': typeof AppuserIamLegalIndexRoute
+  '/iam/messages': typeof AppuserIamMessagesIndexRoute
+  '/iam/profile': typeof AppuserIamProfileIndexRoute
+  '/iam/requests': typeof AppuserIamRequestsIndexRoute
+  '/iam/tasks': typeof AppuserIamTasksIndexRoute
   '/orchestrator/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
   '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
@@ -810,18 +789,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
-  '/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/iam/grievances': typeof AppuserIamGrievancesRoute
-  '/iam/leaves': typeof AppuserIamLeavesRoute
-  '/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
-  '/iam/overtime': typeof AppuserIamOvertimeRoute
-  '/iam/profile': typeof AppuserIamProfileRoute
-  '/iam/requests': typeof AppuserIamRequestsRoute
-  '/iam/reviews': typeof AppuserIamReviewsRoute
   '/dashboard': typeof AppuserDashboardIndexRoute
-  '/iam': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
@@ -831,6 +802,11 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
   '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrIndexRoute
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/iam/legal': typeof AppuserIamLegalIndexRoute
+  '/iam/messages': typeof AppuserIamMessagesIndexRoute
+  '/iam/profile': typeof AppuserIamProfileIndexRoute
+  '/iam/requests': typeof AppuserIamRequestsIndexRoute
+  '/iam/tasks': typeof AppuserIamTasksIndexRoute
   '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingReportsProfitLossRoute
@@ -896,22 +872,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/_appuser/dashboard': typeof AppuserDashboardRouteRouteWithChildren
+  '/_appuser/iam': typeof AppuserIamRouteRouteWithChildren
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
   '/_appuser/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
   '/_appuser/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
-  '/_appuser/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/_appuser/iam/grievances': typeof AppuserIamGrievancesRoute
-  '/_appuser/iam/leaves': typeof AppuserIamLeavesRoute
-  '/_appuser/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
-  '/_appuser/iam/overtime': typeof AppuserIamOvertimeRoute
-  '/_appuser/iam/profile': typeof AppuserIamProfileRoute
-  '/_appuser/iam/requests': typeof AppuserIamRequestsRoute
-  '/_appuser/iam/reviews': typeof AppuserIamReviewsRoute
   '/_appuser/dashboard/': typeof AppuserDashboardIndexRoute
-  '/_appuser/iam/': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
   '/_appuser/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
@@ -926,6 +894,11 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
   '/_appuser/dashboard/sharp_hr/': typeof AppuserDashboardSharp_hrIndexRoute
   '/_appuser/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/_appuser/iam/legal/': typeof AppuserIamLegalIndexRoute
+  '/_appuser/iam/messages/': typeof AppuserIamMessagesIndexRoute
+  '/_appuser/iam/profile/': typeof AppuserIamProfileIndexRoute
+  '/_appuser/iam/requests/': typeof AppuserIamRequestsIndexRoute
+  '/_appuser/iam/tasks/': typeof AppuserIamTasksIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   '/_appuser/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
@@ -994,21 +967,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/iam'
     | '/orchestrator'
     | '/org-signup'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_hr'
     | '/dashboard/sharp_marketing'
-    | '/iam/feedback'
-    | '/iam/grievances'
-    | '/iam/leaves'
-    | '/iam/my-attendance'
-    | '/iam/overtime'
-    | '/iam/profile'
-    | '/iam/requests'
-    | '/iam/reviews'
     | '/dashboard/'
-    | '/iam'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_hospitality/bar'
@@ -1022,6 +987,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/'
     | '/dashboard/sharp_hr/'
     | '/dashboard/sharp_marketing/'
+    | '/iam/legal'
+    | '/iam/messages'
+    | '/iam/profile'
+    | '/iam/requests'
+    | '/iam/tasks'
     | '/orchestrator/hospitality'
     | '/orchestrator/legal_entity'
     | '/dashboard/sharp_accounting/reports/balance-sheet'
@@ -1087,18 +1057,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/iam'
     | '/orchestrator'
     | '/org-signup'
-    | '/iam/feedback'
-    | '/iam/grievances'
-    | '/iam/leaves'
-    | '/iam/my-attendance'
-    | '/iam/overtime'
-    | '/iam/profile'
-    | '/iam/requests'
-    | '/iam/reviews'
     | '/dashboard'
-    | '/iam'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_marketing/campaigns'
@@ -1108,6 +1070,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_hr'
     | '/dashboard/sharp_marketing'
+    | '/iam/legal'
+    | '/iam/messages'
+    | '/iam/profile'
+    | '/iam/requests'
+    | '/iam/tasks'
     | '/dashboard/sharp_accounting/reports/balance-sheet'
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
@@ -1172,22 +1139,14 @@ export interface FileRouteTypes {
     | '/'
     | '/_appuser'
     | '/_appuser/dashboard'
+    | '/_appuser/iam'
     | '/_appuser/orchestrator'
     | '/org-signup/'
     | '/_appuser/dashboard/sharp_accounting'
     | '/_appuser/dashboard/sharp_hr'
     | '/_appuser/dashboard/sharp_marketing'
     | '/_appuser/orchestrator/_orchestrator_layout'
-    | '/_appuser/iam/feedback'
-    | '/_appuser/iam/grievances'
-    | '/_appuser/iam/leaves'
-    | '/_appuser/iam/my-attendance'
-    | '/_appuser/iam/overtime'
-    | '/_appuser/iam/profile'
-    | '/_appuser/iam/requests'
-    | '/_appuser/iam/reviews'
     | '/_appuser/dashboard/'
-    | '/_appuser/iam/'
     | '/sharp-org-employee/set-password/'
     | '/sharp-org-employee/verification/'
     | '/_appuser/dashboard/sharp_hospitality/bar'
@@ -1202,6 +1161,11 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/'
     | '/_appuser/dashboard/sharp_hr/'
     | '/_appuser/dashboard/sharp_marketing/'
+    | '/_appuser/iam/legal/'
+    | '/_appuser/iam/messages/'
+    | '/_appuser/iam/profile/'
+    | '/_appuser/iam/requests/'
+    | '/_appuser/iam/tasks/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
     | '/_appuser/dashboard/sharp_accounting/reports/balance-sheet'
@@ -1304,6 +1268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/iam': {
+      id: '/_appuser/iam'
+      path: '/iam'
+      fullPath: '/iam'
+      preLoaderRoute: typeof AppuserIamRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/dashboard': {
       id: '/_appuser/dashboard'
       path: '/dashboard'
@@ -1325,75 +1296,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SharpOrgEmployeeSetPasswordIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_appuser/iam/': {
-      id: '/_appuser/iam/'
-      path: '/iam'
-      fullPath: '/iam'
-      preLoaderRoute: typeof AppuserIamIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
     '/_appuser/dashboard/': {
       id: '/_appuser/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AppuserDashboardIndexRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/iam/reviews': {
-      id: '/_appuser/iam/reviews'
-      path: '/iam/reviews'
-      fullPath: '/iam/reviews'
-      preLoaderRoute: typeof AppuserIamReviewsRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/requests': {
-      id: '/_appuser/iam/requests'
-      path: '/iam/requests'
-      fullPath: '/iam/requests'
-      preLoaderRoute: typeof AppuserIamRequestsRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/profile': {
-      id: '/_appuser/iam/profile'
-      path: '/iam/profile'
-      fullPath: '/iam/profile'
-      preLoaderRoute: typeof AppuserIamProfileRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/overtime': {
-      id: '/_appuser/iam/overtime'
-      path: '/iam/overtime'
-      fullPath: '/iam/overtime'
-      preLoaderRoute: typeof AppuserIamOvertimeRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/my-attendance': {
-      id: '/_appuser/iam/my-attendance'
-      path: '/iam/my-attendance'
-      fullPath: '/iam/my-attendance'
-      preLoaderRoute: typeof AppuserIamMyAttendanceRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/leaves': {
-      id: '/_appuser/iam/leaves'
-      path: '/iam/leaves'
-      fullPath: '/iam/leaves'
-      preLoaderRoute: typeof AppuserIamLeavesRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/grievances': {
-      id: '/_appuser/iam/grievances'
-      path: '/iam/grievances'
-      fullPath: '/iam/grievances'
-      preLoaderRoute: typeof AppuserIamGrievancesRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/feedback': {
-      id: '/_appuser/iam/feedback'
-      path: '/iam/feedback'
-      fullPath: '/iam/feedback'
-      preLoaderRoute: typeof AppuserIamFeedbackRouteImport
-      parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout': {
       id: '/_appuser/orchestrator/_orchestrator_layout'
@@ -1422,6 +1330,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_accounting'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingRouteRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
+    }
+    '/_appuser/iam/tasks/': {
+      id: '/_appuser/iam/tasks/'
+      path: '/tasks'
+      fullPath: '/iam/tasks'
+      preLoaderRoute: typeof AppuserIamTasksIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/requests/': {
+      id: '/_appuser/iam/requests/'
+      path: '/requests'
+      fullPath: '/iam/requests'
+      preLoaderRoute: typeof AppuserIamRequestsIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/profile/': {
+      id: '/_appuser/iam/profile/'
+      path: '/profile'
+      fullPath: '/iam/profile'
+      preLoaderRoute: typeof AppuserIamProfileIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/messages/': {
+      id: '/_appuser/iam/messages/'
+      path: '/messages'
+      fullPath: '/iam/messages'
+      preLoaderRoute: typeof AppuserIamMessagesIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/legal/': {
+      id: '/_appuser/iam/legal/'
+      path: '/legal'
+      fullPath: '/iam/legal'
+      preLoaderRoute: typeof AppuserIamLegalIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
     }
     '/_appuser/dashboard/sharp_marketing/': {
       id: '/_appuser/dashboard/sharp_marketing/'
@@ -2208,6 +2151,26 @@ const AppuserDashboardRouteRouteWithChildren =
     AppuserDashboardRouteRouteChildren,
   )
 
+interface AppuserIamRouteRouteChildren {
+  AppuserIamLegalIndexRoute: typeof AppuserIamLegalIndexRoute
+  AppuserIamMessagesIndexRoute: typeof AppuserIamMessagesIndexRoute
+  AppuserIamProfileIndexRoute: typeof AppuserIamProfileIndexRoute
+  AppuserIamRequestsIndexRoute: typeof AppuserIamRequestsIndexRoute
+  AppuserIamTasksIndexRoute: typeof AppuserIamTasksIndexRoute
+}
+
+const AppuserIamRouteRouteChildren: AppuserIamRouteRouteChildren = {
+  AppuserIamLegalIndexRoute: AppuserIamLegalIndexRoute,
+  AppuserIamMessagesIndexRoute: AppuserIamMessagesIndexRoute,
+  AppuserIamProfileIndexRoute: AppuserIamProfileIndexRoute,
+  AppuserIamRequestsIndexRoute: AppuserIamRequestsIndexRoute,
+  AppuserIamTasksIndexRoute: AppuserIamTasksIndexRoute,
+}
+
+const AppuserIamRouteRouteWithChildren = AppuserIamRouteRoute._addFileChildren(
+  AppuserIamRouteRouteChildren,
+)
+
 interface AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
 }
@@ -2336,30 +2299,14 @@ const AppuserOrchestratorRouteRouteWithChildren =
 
 interface AppuserRouteRouteChildren {
   AppuserDashboardRouteRoute: typeof AppuserDashboardRouteRouteWithChildren
+  AppuserIamRouteRoute: typeof AppuserIamRouteRouteWithChildren
   AppuserOrchestratorRouteRoute: typeof AppuserOrchestratorRouteRouteWithChildren
-  AppuserIamFeedbackRoute: typeof AppuserIamFeedbackRoute
-  AppuserIamGrievancesRoute: typeof AppuserIamGrievancesRoute
-  AppuserIamLeavesRoute: typeof AppuserIamLeavesRoute
-  AppuserIamMyAttendanceRoute: typeof AppuserIamMyAttendanceRoute
-  AppuserIamOvertimeRoute: typeof AppuserIamOvertimeRoute
-  AppuserIamProfileRoute: typeof AppuserIamProfileRoute
-  AppuserIamRequestsRoute: typeof AppuserIamRequestsRoute
-  AppuserIamReviewsRoute: typeof AppuserIamReviewsRoute
-  AppuserIamIndexRoute: typeof AppuserIamIndexRoute
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserDashboardRouteRoute: AppuserDashboardRouteRouteWithChildren,
+  AppuserIamRouteRoute: AppuserIamRouteRouteWithChildren,
   AppuserOrchestratorRouteRoute: AppuserOrchestratorRouteRouteWithChildren,
-  AppuserIamFeedbackRoute: AppuserIamFeedbackRoute,
-  AppuserIamGrievancesRoute: AppuserIamGrievancesRoute,
-  AppuserIamLeavesRoute: AppuserIamLeavesRoute,
-  AppuserIamMyAttendanceRoute: AppuserIamMyAttendanceRoute,
-  AppuserIamOvertimeRoute: AppuserIamOvertimeRoute,
-  AppuserIamProfileRoute: AppuserIamProfileRoute,
-  AppuserIamRequestsRoute: AppuserIamRequestsRoute,
-  AppuserIamReviewsRoute: AppuserIamReviewsRoute,
-  AppuserIamIndexRoute: AppuserIamIndexRoute,
 }
 
 const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(

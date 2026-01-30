@@ -98,7 +98,7 @@ const SharpMarktRootLayout: React.FC<SharpMarktRootLayoutProps> = () => {
 
       {/* ================= Main Content ================= */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 border-b px-4">
+        <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
           <span className="font-medium">Sharp Marketing</span>
         </header>

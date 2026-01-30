@@ -7,12 +7,9 @@ export const Route = createFileRoute("/_appuser/dashboard")({
 function RouteComponent() {
   return (
     <>
-      {/* <DynamicIslandHost /> */}
-
       <Outlet />
     </>
   );
 }
 
-
-// Should we create the 
+// Should we create the
