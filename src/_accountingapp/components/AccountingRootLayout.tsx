@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Outlet, Link } from "@tanstack/react-router"
 import {
   Sidebar,
@@ -13,26 +14,35 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
   Wallet,
   BarChart3,
   Settings,
+  Building2,
+  ChevronsUpDown,
+  Check,
 } from "lucide-react"
 
 /* ================================
-   Sidebar Config (ARRAY-DRIVEN)
+   Sidebar Menu (ARRAY)
 ================================ */
 const accountingSidebarItems = [
   {
     id: "acc_overview",
     label: "Overview",
     icon: Wallet,
-    to: "/dashboard/sharp_accounting",
+    to: "/dashboard/sharp_accounting/overview",
   },
   {
     id: "acc_acc_setup",
-    label: "Accounting Setup",
+    label: "Chart Of Account",
     icon: Wallet,
-    to: "/dashboard/sharp_accounting/accounting-setup",
+    to: "/dashboard/sharp_accounting/chart-of-account",
   },
   {
     id: "acc_transactions",
@@ -61,14 +71,73 @@ const accountingSidebarItems = [
 ]
 
 /* ================================
+   Dummy Legal Entities
+================================ */
+const LEGAL_ENTITIES = [
+  "Sharp Hospitality Pvt Ltd",
+  "Sharp Foods LLP",
+]
+
+/* ================================
    Layout
 ================================ */
 const AccountingRootLayout: React.FC = () => {
+  const [selectedEntity, setSelectedEntity] = useState(
+    LEGAL_ENTITIES[0]
+  )
+
   return (
     <SidebarProvider>
-      {/* ================= Sidebar ================= */}
       <Sidebar collapsible="icon">
         <SidebarContent>
+          {/* 🔁 Legal Entity Switcher */}
+          <div className="p-2 border m-1 rounded-xl">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                    <Building2 className="size-4" />
+                  </div>
+
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="font-medium truncate">
+                      {selectedEntity}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Legal Entity
+                    </span>
+                  </div>
+
+                  <ChevronsUpDown className="ml-auto size-4 opacity-60" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent
+                align="start"
+                className="min-w-[240px]"
+              >
+                {LEGAL_ENTITIES.map((entity) => (
+                  <DropdownMenuItem
+                    key={entity}
+                    onSelect={() =>
+                      setSelectedEntity(entity)
+                    }
+                    className="flex items-center"
+                  >
+                    {entity}
+                    {entity === selectedEntity && (
+                      <Check className="ml-auto size-4" />
+                    )}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          {/* ================= Menu ================= */}
           <SidebarGroup>
             <SidebarGroupLabel>
               Accounting
@@ -96,9 +165,9 @@ const AccountingRootLayout: React.FC = () => {
         </SidebarContent>
       </Sidebar>
 
-      {/* ================= Main Content ================= */}
+      {/* ================= Main ================= */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 px-4">
+        <header className="flex h-14 items-center gap-2 px-4 ">
           <SidebarTrigger />
           <span className="font-medium">
             Accounting

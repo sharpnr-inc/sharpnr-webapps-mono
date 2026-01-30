@@ -14,7 +14,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-export function AccountingOverviewPage() {
+export function AccountingWelcomePage() {
   return (
     <div className="p-6 space-y-10">
       {/* ================= Hero ================= */}

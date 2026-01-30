@@ -26,7 +26,6 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
     absolute right-4 top-4 z-40
     flex items-center gap-3
     p-2 rounded-full border
-    text-white
     backdrop-blur-md shadow-md
     bg-[linear-gradient(120deg,#0a2540,#ffffff,#0a2540,#14b8a6)]
     bg-[length:300%_300%]

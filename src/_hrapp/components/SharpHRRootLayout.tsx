@@ -19,7 +19,9 @@ import {
   ClipboardList,
   BarChart3,
   Settings,
+  Building2,
 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const hrSidebarItems = [
   {
@@ -68,8 +70,33 @@ const SharpHRRootLayout: React.FC<SharpHRRootLayoutProps> = () => {
       {/* ================= Sidebar ================= */}
       <Sidebar collapsible="icon">
         <SidebarContent>
+          {/* ================= Organization Card ================= */}
+          <div className="">
+            <Card className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:border-none border-none">
+              <CardContent className="flex items-center gap-3  group-data-[collapsible=icon]:p-2">
+                {/* Icon always visible */}
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <Building2 className="h-4 w-4" />
+                </div>
+
+                {/* Text hidden when collapsed */}
+                <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
+                  <span className="font-medium">
+                    Sharpnr LLP
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    Organization
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* ================= Menu ================= */}
           <SidebarGroup>
-            <SidebarGroupLabel>HR</SidebarGroupLabel>
+            <SidebarGroupLabel>
+              HR
+            </SidebarGroupLabel>
 
             <SidebarGroupContent>
               <SidebarMenu>
@@ -95,9 +122,11 @@ const SharpHRRootLayout: React.FC<SharpHRRootLayoutProps> = () => {
 
       {/* ================= Main Content ================= */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 border-b px-4">
+        <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
-          <span className="font-medium">Sharp HR</span>
+          <span className="font-medium">
+            Sharp HR
+          </span>
         </header>
 
         <main className="flex-1 p-4">

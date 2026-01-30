@@ -138,7 +138,7 @@ export default function MainMenuButton() {
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full p-0 transition-transform active:scale-90">
-          <img src={sharpnrLogo} alt="SharpNR" className="h-9 w-9 rounded-full object-cover ring-1 ring-border" />
+          <img src={sharpnrLogo} alt="Sharpnr" className="h-10 w-10 rounded-full object-cover ring-1 ring-border" />
         </Button>
       </DropdownMenuTrigger>
 
