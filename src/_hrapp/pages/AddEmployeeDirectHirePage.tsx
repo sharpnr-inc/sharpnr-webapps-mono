@@ -11,10 +11,9 @@ import {
 import { useForm } from "@tanstack/react-form";
 import { useAddEmployeeMutation } from "../api/mutations/Employee";
 import { ArrowLeft } from "lucide-react";
-import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useRouter } from "@tanstack/react-router";
 
 export function AddEmployeeDirectHirePage() {
-  const nav = useNavigate();
   const router = useRouter();
   const handleBack = () => {
     router.history.back();

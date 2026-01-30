@@ -1,16 +1,18 @@
 import { Outlet } from "@tanstack/react-router";
 import MainMenuButton from "../Header/MainMenuButton";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Bell } from "lucide-react";
+import { Bell, Search } from "lucide-react";
 import { DynamicIslandProvider } from "../ui/dynamic-island";
 import { useSheet } from "@/context/DrawerContext";
 import UserRootMenu from "@/app_user/components/UserRootMenu";
 import { ModeToggle } from "../ui/ThemeToggle";
+import { useState } from "react";
+import { GlobalSearch } from "../custom/global-search";
 interface UserRootLayoutProps {}
 
 const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
   const { openSheet } = useSheet();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // TODO :..:..: Need To Create the Notification component
   // STUB API is needed to Fetch the user Notification
@@ -20,6 +22,7 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
 
   return (
     <div className="relative">
+      <GlobalSearch open={isSearchOpen} setOpen={setIsSearchOpen} />
       {/* Top Right Header Controls */}
       <header
         className="
@@ -34,16 +37,7 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
       >
         <MainMenuButton />
 
-        {/* Search */}
-        <label htmlFor="global-search" className="sr-only">
-          Search
-        </label>
-        <Input
-          id="global-search"
-          type="search"
-          placeholder="Search"
-          className="h-10 w-56 rounded-full px-4"
-        />
+        <SearchTrigger onClick={() => setIsSearchOpen(true)} />
 
         {/* Notification Bell */}
         <Button
@@ -74,3 +68,18 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
 };
 
 export default UserRootLayout;
+
+const SearchTrigger = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      className="flex h-10 w-56 items-center gap-2 rounded-full border border-input bg-background px-4 text-sm text-muted-foreground transition-all hover:ring-2 hover:ring-primary/20 focus:outline-none"
+    >
+      <Search className="h-4 w-4" />
+      <span className="flex-1 text-left">Search...</span>
+      <kbd className="hidden items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+        <span className="text-xs">⌘</span>K
+      </kbd>
+    </button>
+  );
+};
