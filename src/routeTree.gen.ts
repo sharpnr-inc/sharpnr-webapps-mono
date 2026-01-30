@@ -21,6 +21,7 @@ import { Route as AppuserDashboardIndexRouteImport } from './routes/_appuser/das
 import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
 import { Route as AppuserDashboardSharp_marketingRouteRouteImport } from './routes/_appuser/dashboard/sharp_marketing/route'
 import { Route as AppuserDashboardSharp_hrRouteRouteImport } from './routes/_appuser/dashboard/sharp_hr/route'
+import { Route as AppuserDashboardSharp_hospitalityRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/route'
 import { Route as AppuserDashboardSharp_accountingRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/route'
 import { Route as AppuserIamTasksIndexRouteImport } from './routes/_appuser/iam/tasks/index'
 import { Route as AppuserIamRequestsIndexRouteImport } from './routes/_appuser/iam/requests/index'
@@ -167,6 +168,12 @@ const AppuserDashboardSharp_hrRouteRoute =
     path: '/sharp_hr',
     getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
+const AppuserDashboardSharp_hospitalityRouteRoute =
+  AppuserDashboardSharp_hospitalityRouteRouteImport.update({
+    id: '/sharp_hospitality',
+    path: '/sharp_hospitality',
+    getParentRoute: () => AppuserDashboardRouteRoute,
+  } as any)
 const AppuserDashboardSharp_accountingRouteRoute =
   AppuserDashboardSharp_accountingRouteRouteImport.update({
     id: '/sharp_accounting',
@@ -259,21 +266,21 @@ const AppuserDashboardSharp_hrEmployeesRouteRoute =
   } as any)
 const AppuserDashboardSharp_hospitalityRestaurantRouteRoute =
   AppuserDashboardSharp_hospitalityRestaurantRouteRouteImport.update({
-    id: '/sharp_hospitality/restaurant',
-    path: '/sharp_hospitality/restaurant',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/restaurant',
+    path: '/restaurant',
+    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityHotelRouteRoute =
   AppuserDashboardSharp_hospitalityHotelRouteRouteImport.update({
-    id: '/sharp_hospitality/hotel',
-    path: '/sharp_hospitality/hotel',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/hotel',
+    path: '/hotel',
+    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityBarRouteRoute =
   AppuserDashboardSharp_hospitalityBarRouteRouteImport.update({
-    id: '/sharp_hospitality/bar',
-    path: '/sharp_hospitality/bar',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/bar',
+    path: '/bar',
+    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute =
   AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRouteImport.update({
@@ -708,6 +715,7 @@ export interface FileRoutesByFullPath {
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
+  '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/dashboard/': typeof AppuserDashboardIndexRoute
@@ -798,6 +806,7 @@ export interface FileRoutesByTo {
   '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
+  '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/dashboard': typeof AppuserDashboardIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
@@ -883,6 +892,7 @@ export interface FileRoutesById {
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
   '/_appuser/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
+  '/_appuser/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
   '/_appuser/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
@@ -979,6 +989,7 @@ export interface FileRouteTypes {
     | '/orchestrator'
     | '/org-signup'
     | '/dashboard/sharp_accounting'
+    | '/dashboard/sharp_hospitality'
     | '/dashboard/sharp_hr'
     | '/dashboard/sharp_marketing'
     | '/dashboard/'
@@ -1069,6 +1080,7 @@ export interface FileRouteTypes {
     | '/iam'
     | '/orchestrator'
     | '/org-signup'
+    | '/dashboard/sharp_hospitality'
     | '/dashboard'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
@@ -1153,6 +1165,7 @@ export interface FileRouteTypes {
     | '/_appuser/orchestrator'
     | '/org-signup/'
     | '/_appuser/dashboard/sharp_accounting'
+    | '/_appuser/dashboard/sharp_hospitality'
     | '/_appuser/dashboard/sharp_hr'
     | '/_appuser/dashboard/sharp_marketing'
     | '/_appuser/orchestrator/_orchestrator_layout'
@@ -1335,6 +1348,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_hrRouteRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
     }
+    '/_appuser/dashboard/sharp_hospitality': {
+      id: '/_appuser/dashboard/sharp_hospitality'
+      path: '/sharp_hospitality'
+      fullPath: '/dashboard/sharp_hospitality'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRouteRouteImport
+      parentRoute: typeof AppuserDashboardRouteRoute
+    }
     '/_appuser/dashboard/sharp_accounting': {
       id: '/_appuser/dashboard/sharp_accounting'
       path: '/sharp_accounting'
@@ -1449,24 +1469,24 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant'
-      path: '/sharp_hospitality/restaurant'
+      path: '/restaurant'
       fullPath: '/dashboard/sharp_hospitality/restaurant'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/hotel': {
       id: '/_appuser/dashboard/sharp_hospitality/hotel'
-      path: '/sharp_hospitality/hotel'
+      path: '/hotel'
       fullPath: '/dashboard/sharp_hospitality/hotel'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/bar': {
       id: '/_appuser/dashboard/sharp_hospitality/bar'
-      path: '/sharp_hospitality/bar'
+      path: '/bar'
       fullPath: '/dashboard/sharp_hospitality/bar'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/'
@@ -1950,95 +1970,6 @@ const AppuserDashboardSharp_accountingRouteRouteWithChildren =
     AppuserDashboardSharp_accountingRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hrEmployeesRouteRouteChildren {
-  AppuserDashboardSharp_hrEmployeesEmployeeIdRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
-  AppuserDashboardSharp_hrEmployeesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRoute
-  AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
-  AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
-  AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
-}
-
-const AppuserDashboardSharp_hrEmployeesRouteRouteChildren: AppuserDashboardSharp_hrEmployeesRouteRouteChildren =
-  {
-    AppuserDashboardSharp_hrEmployeesEmployeeIdRoute:
-      AppuserDashboardSharp_hrEmployeesEmployeeIdRoute,
-    AppuserDashboardSharp_hrEmployeesIndexRoute:
-      AppuserDashboardSharp_hrEmployeesIndexRoute,
-    AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute:
-      AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute,
-    AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute:
-      AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute,
-    AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute:
-      AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute,
-  }
-
-const AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren =
-  AppuserDashboardSharp_hrEmployeesRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hrEmployeesRouteRouteChildren,
-  )
-
-interface AppuserDashboardSharp_hrRouteRouteChildren {
-  AppuserDashboardSharp_hrEmployeesRouteRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
-  AppuserDashboardSharp_hrIndexRoute: typeof AppuserDashboardSharp_hrIndexRoute
-  AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
-  AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
-  AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
-  AppuserDashboardSharp_hrRecruitmentIndexRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
-  AppuserDashboardSharp_hrReportsIndexRoute: typeof AppuserDashboardSharp_hrReportsIndexRoute
-  AppuserDashboardSharp_hrSettingsIndexRoute: typeof AppuserDashboardSharp_hrSettingsIndexRoute
-}
-
-const AppuserDashboardSharp_hrRouteRouteChildren: AppuserDashboardSharp_hrRouteRouteChildren =
-  {
-    AppuserDashboardSharp_hrEmployeesRouteRoute:
-      AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren,
-    AppuserDashboardSharp_hrIndexRoute: AppuserDashboardSharp_hrIndexRoute,
-    AppuserDashboardSharp_hrLeavesRequestsRoute:
-      AppuserDashboardSharp_hrLeavesRequestsRoute,
-    AppuserDashboardSharp_hrLeavesIndexRoute:
-      AppuserDashboardSharp_hrLeavesIndexRoute,
-    AppuserDashboardSharp_hrPayrollIndexRoute:
-      AppuserDashboardSharp_hrPayrollIndexRoute,
-    AppuserDashboardSharp_hrRecruitmentIndexRoute:
-      AppuserDashboardSharp_hrRecruitmentIndexRoute,
-    AppuserDashboardSharp_hrReportsIndexRoute:
-      AppuserDashboardSharp_hrReportsIndexRoute,
-    AppuserDashboardSharp_hrSettingsIndexRoute:
-      AppuserDashboardSharp_hrSettingsIndexRoute,
-  }
-
-const AppuserDashboardSharp_hrRouteRouteWithChildren =
-  AppuserDashboardSharp_hrRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hrRouteRouteChildren,
-  )
-
-interface AppuserDashboardSharp_marketingRouteRouteChildren {
-  AppuserDashboardSharp_marketingCampaignsRoute: typeof AppuserDashboardSharp_marketingCampaignsRoute
-  AppuserDashboardSharp_marketingLeadsRoute: typeof AppuserDashboardSharp_marketingLeadsRoute
-  AppuserDashboardSharp_marketingReportsRoute: typeof AppuserDashboardSharp_marketingReportsRoute
-  AppuserDashboardSharp_marketingSocial_media_managementRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
-  AppuserDashboardSharp_marketingIndexRoute: typeof AppuserDashboardSharp_marketingIndexRoute
-}
-
-const AppuserDashboardSharp_marketingRouteRouteChildren: AppuserDashboardSharp_marketingRouteRouteChildren =
-  {
-    AppuserDashboardSharp_marketingCampaignsRoute:
-      AppuserDashboardSharp_marketingCampaignsRoute,
-    AppuserDashboardSharp_marketingLeadsRoute:
-      AppuserDashboardSharp_marketingLeadsRoute,
-    AppuserDashboardSharp_marketingReportsRoute:
-      AppuserDashboardSharp_marketingReportsRoute,
-    AppuserDashboardSharp_marketingSocial_media_managementRoute:
-      AppuserDashboardSharp_marketingSocial_media_managementRoute,
-    AppuserDashboardSharp_marketingIndexRoute:
-      AppuserDashboardSharp_marketingIndexRoute,
-  }
-
-const AppuserDashboardSharp_marketingRouteRouteWithChildren =
-  AppuserDashboardSharp_marketingRouteRoute._addFileChildren(
-    AppuserDashboardSharp_marketingRouteRouteChildren,
-  )
-
 interface AppuserDashboardSharp_hospitalityBarRouteRouteChildren {
   AppuserDashboardSharp_hospitalityBarIndexRoute: typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   AppuserDashboardSharp_hospitalityBarBarKitchenIndexRoute: typeof AppuserDashboardSharp_hospitalityBarBarKitchenIndexRoute
@@ -2153,30 +2084,134 @@ const AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren =
     AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren,
   )
 
-interface AppuserDashboardRouteRouteChildren {
-  AppuserDashboardSharp_accountingRouteRoute: typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
-  AppuserDashboardSharp_hrRouteRoute: typeof AppuserDashboardSharp_hrRouteRouteWithChildren
-  AppuserDashboardSharp_marketingRouteRoute: typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
-  AppuserDashboardIndexRoute: typeof AppuserDashboardIndexRoute
+interface AppuserDashboardSharp_hospitalityRouteRouteChildren {
   AppuserDashboardSharp_hospitalityBarRouteRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   AppuserDashboardSharp_hospitalityHotelRouteRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   AppuserDashboardSharp_hospitalityRestaurantRouteRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren
 }
 
+const AppuserDashboardSharp_hospitalityRouteRouteChildren: AppuserDashboardSharp_hospitalityRouteRouteChildren =
+  {
+    AppuserDashboardSharp_hospitalityBarRouteRoute:
+      AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren,
+    AppuserDashboardSharp_hospitalityHotelRouteRoute:
+      AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren,
+    AppuserDashboardSharp_hospitalityRestaurantRouteRoute:
+      AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren,
+  }
+
+const AppuserDashboardSharp_hospitalityRouteRouteWithChildren =
+  AppuserDashboardSharp_hospitalityRouteRoute._addFileChildren(
+    AppuserDashboardSharp_hospitalityRouteRouteChildren,
+  )
+
+interface AppuserDashboardSharp_hrEmployeesRouteRouteChildren {
+  AppuserDashboardSharp_hrEmployeesEmployeeIdRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
+  AppuserDashboardSharp_hrEmployeesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRoute
+  AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
+  AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
+  AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
+}
+
+const AppuserDashboardSharp_hrEmployeesRouteRouteChildren: AppuserDashboardSharp_hrEmployeesRouteRouteChildren =
+  {
+    AppuserDashboardSharp_hrEmployeesEmployeeIdRoute:
+      AppuserDashboardSharp_hrEmployeesEmployeeIdRoute,
+    AppuserDashboardSharp_hrEmployeesIndexRoute:
+      AppuserDashboardSharp_hrEmployeesIndexRoute,
+    AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute:
+      AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute,
+    AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute:
+      AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute,
+    AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute:
+      AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute,
+  }
+
+const AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren =
+  AppuserDashboardSharp_hrEmployeesRouteRoute._addFileChildren(
+    AppuserDashboardSharp_hrEmployeesRouteRouteChildren,
+  )
+
+interface AppuserDashboardSharp_hrRouteRouteChildren {
+  AppuserDashboardSharp_hrEmployeesRouteRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
+  AppuserDashboardSharp_hrIndexRoute: typeof AppuserDashboardSharp_hrIndexRoute
+  AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
+  AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
+  AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
+  AppuserDashboardSharp_hrRecruitmentIndexRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
+  AppuserDashboardSharp_hrReportsIndexRoute: typeof AppuserDashboardSharp_hrReportsIndexRoute
+  AppuserDashboardSharp_hrSettingsIndexRoute: typeof AppuserDashboardSharp_hrSettingsIndexRoute
+}
+
+const AppuserDashboardSharp_hrRouteRouteChildren: AppuserDashboardSharp_hrRouteRouteChildren =
+  {
+    AppuserDashboardSharp_hrEmployeesRouteRoute:
+      AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren,
+    AppuserDashboardSharp_hrIndexRoute: AppuserDashboardSharp_hrIndexRoute,
+    AppuserDashboardSharp_hrLeavesRequestsRoute:
+      AppuserDashboardSharp_hrLeavesRequestsRoute,
+    AppuserDashboardSharp_hrLeavesIndexRoute:
+      AppuserDashboardSharp_hrLeavesIndexRoute,
+    AppuserDashboardSharp_hrPayrollIndexRoute:
+      AppuserDashboardSharp_hrPayrollIndexRoute,
+    AppuserDashboardSharp_hrRecruitmentIndexRoute:
+      AppuserDashboardSharp_hrRecruitmentIndexRoute,
+    AppuserDashboardSharp_hrReportsIndexRoute:
+      AppuserDashboardSharp_hrReportsIndexRoute,
+    AppuserDashboardSharp_hrSettingsIndexRoute:
+      AppuserDashboardSharp_hrSettingsIndexRoute,
+  }
+
+const AppuserDashboardSharp_hrRouteRouteWithChildren =
+  AppuserDashboardSharp_hrRouteRoute._addFileChildren(
+    AppuserDashboardSharp_hrRouteRouteChildren,
+  )
+
+interface AppuserDashboardSharp_marketingRouteRouteChildren {
+  AppuserDashboardSharp_marketingCampaignsRoute: typeof AppuserDashboardSharp_marketingCampaignsRoute
+  AppuserDashboardSharp_marketingLeadsRoute: typeof AppuserDashboardSharp_marketingLeadsRoute
+  AppuserDashboardSharp_marketingReportsRoute: typeof AppuserDashboardSharp_marketingReportsRoute
+  AppuserDashboardSharp_marketingSocial_media_managementRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
+  AppuserDashboardSharp_marketingIndexRoute: typeof AppuserDashboardSharp_marketingIndexRoute
+}
+
+const AppuserDashboardSharp_marketingRouteRouteChildren: AppuserDashboardSharp_marketingRouteRouteChildren =
+  {
+    AppuserDashboardSharp_marketingCampaignsRoute:
+      AppuserDashboardSharp_marketingCampaignsRoute,
+    AppuserDashboardSharp_marketingLeadsRoute:
+      AppuserDashboardSharp_marketingLeadsRoute,
+    AppuserDashboardSharp_marketingReportsRoute:
+      AppuserDashboardSharp_marketingReportsRoute,
+    AppuserDashboardSharp_marketingSocial_media_managementRoute:
+      AppuserDashboardSharp_marketingSocial_media_managementRoute,
+    AppuserDashboardSharp_marketingIndexRoute:
+      AppuserDashboardSharp_marketingIndexRoute,
+  }
+
+const AppuserDashboardSharp_marketingRouteRouteWithChildren =
+  AppuserDashboardSharp_marketingRouteRoute._addFileChildren(
+    AppuserDashboardSharp_marketingRouteRouteChildren,
+  )
+
+interface AppuserDashboardRouteRouteChildren {
+  AppuserDashboardSharp_accountingRouteRoute: typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
+  AppuserDashboardSharp_hospitalityRouteRoute: typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
+  AppuserDashboardSharp_hrRouteRoute: typeof AppuserDashboardSharp_hrRouteRouteWithChildren
+  AppuserDashboardSharp_marketingRouteRoute: typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
+  AppuserDashboardIndexRoute: typeof AppuserDashboardIndexRoute
+}
+
 const AppuserDashboardRouteRouteChildren: AppuserDashboardRouteRouteChildren = {
   AppuserDashboardSharp_accountingRouteRoute:
     AppuserDashboardSharp_accountingRouteRouteWithChildren,
+  AppuserDashboardSharp_hospitalityRouteRoute:
+    AppuserDashboardSharp_hospitalityRouteRouteWithChildren,
   AppuserDashboardSharp_hrRouteRoute:
     AppuserDashboardSharp_hrRouteRouteWithChildren,
   AppuserDashboardSharp_marketingRouteRoute:
     AppuserDashboardSharp_marketingRouteRouteWithChildren,
   AppuserDashboardIndexRoute: AppuserDashboardIndexRoute,
-  AppuserDashboardSharp_hospitalityBarRouteRoute:
-    AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren,
-  AppuserDashboardSharp_hospitalityHotelRouteRoute:
-    AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren,
-  AppuserDashboardSharp_hospitalityRestaurantRouteRoute:
-    AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren,
 }
 
 const AppuserDashboardRouteRouteWithChildren =

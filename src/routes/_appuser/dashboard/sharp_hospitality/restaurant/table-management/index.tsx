@@ -5,4 +5,7 @@ export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/',
 )({
   component: RestaurantTableManagementPage,
+  staticData:{
+    breadcrumb:"Table Management"
+  }
 })
