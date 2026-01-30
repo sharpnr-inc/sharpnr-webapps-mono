@@ -27,7 +27,7 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
     flex items-center gap-3
     p-2 rounded-full border
     backdrop-blur-md shadow-md
-    bg-[linear-gradient(120deg,#0a2540,#ffffff,#0a2540,#14b8a6)]
+    bg-[linear-gradient(120deg,#0a2540,#561DD1,#0a2540,#272EF5)]
     bg-[length:300%_300%]
     animate-[gradient_20s_ease_infinite]
   "
