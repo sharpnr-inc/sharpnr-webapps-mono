@@ -1,4 +1,5 @@
 // ANCHOR Orchestrator layout with collapsible icon sidebar
+import * as React from "react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,14 +13,13 @@ import {
   SidebarInset,
   SidebarMenu,
   SidebarMenuItem,
+  SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
-  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import {
   Link,
   Outlet,
-  useNavigate,
   useRouterState,
 } from "@tanstack/react-router";
 import {
@@ -32,16 +32,83 @@ import {
   ChevronsUpDown,
 } from "lucide-react";
 
+/* =========================
+   Sidebar Configuration
+========================= */
+
+type SidebarLink = {
+  label: string;
+  path?: string;
+  icon: React.ElementType;
+  tooltip?: string;
+  exact?: boolean;
+};
+
+const orchestratorLinks: SidebarLink[] = [
+  {
+    label: "Dashboard Home",
+    path: "/orchestrator",
+    icon: Home,
+    tooltip: "Dashboard Home",
+    exact: true,
+  },
+  {
+    label: "Organization",
+    path: "/orchestrator/organization",
+    icon: Home,
+    tooltip: "Organization",
+    exact: true,
+  },
+  {
+    label: "Properties",
+    path: "/orchestrator/property",
+    icon: Boxes,
+    tooltip: "Properties",
+    exact: false,
+  },
+  {
+    label: "Legal Entity",
+    path: "/orchestrator/legal_entity",
+    icon: FileText,
+    tooltip: "Legal Entity",
+    exact: false,
+  },
+  {
+    label: "Settings",
+    path:"",
+    icon: Settings,
+    tooltip: "Settings",
+  },
+  {
+    label: "Reports",
+    path:"",
+    icon: FileText,
+    tooltip: "Reports",
+  },
+  {
+    label: "User Directory",
+    path:"/orchestrator/org-users",
+    icon: Users,
+    tooltip: "User Directory",
+  },
+];
+
+/* =========================
+   Layout Component
+========================= */
+
 type OrchestratorLayoutProps = {
   children?: React.ReactNode;
 };
 
 export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
-  const navigate = useNavigate();
   const { location } = useRouterState();
   const pathname = location.pathname;
 
-  const isActive = (path: string) => pathname.startsWith(path);
+  const isActive = (path: string, exact = false) => {
+    if (exact) return pathname === path;
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
 
   return (
     <SidebarProvider>
@@ -54,17 +121,15 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                 <SidebarMenuButton
                   size="lg"
                   className="
-          cursor-not-allowed
-          data-[state=open]:bg-sidebar-accent
-          data-[state=open]:text-sidebar-accent-foreground
-        "
+                    cursor-not-allowed
+                    data-[state=open]:bg-sidebar-accent
+                    data-[state=open]:text-sidebar-accent-foreground
+                  "
                 >
-                  {/* Icon */}
                   <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                     <Building2 className="size-4" />
                   </div>
 
-                  {/* Text */}
                   <div className="flex flex-col gap-0.5 leading-none">
                     <span className="font-medium truncate">
                       Sharp Hospitality
@@ -74,7 +139,6 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                     </span>
                   </div>
 
-                  {/* Chevron (visual only) */}
                   <ChevronsUpDown className="ml-auto size-4 opacity-40" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -86,65 +150,35 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    tooltip="Organization"
-                    asChild
-                    isActive={isActive("/orchestrator")}
-                  >
-                    <Link to="/orchestrator">
-                      <Home />
-                      <span>Organization</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                {orchestratorLinks.map((item) => {
+                  const Icon = item.icon;
 
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    tooltip="Properties"
-                    asChild
-                    isActive={isActive("/orchestrator/property")}
-                  >
-                    <Link to="/orchestrator/property">
-                      <Boxes />
-                      <span>Properties</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton
-                    tooltip="Legal Entity"
-                    asChild
-                    isActive={isActive("/orchestrator/legal_entity")}
-                  >
-                    <Link to="/orchestrator/legal_entity">
-                      <FileText />
-                      <span>Legal Entity</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Settings">
-                    <Settings />
-                    <span>Settings</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="Reports">
-                    <FileText />
-                    <span>Reports</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton tooltip="User Directory">
-                    <Users />
-                    <span>User Directory</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                  return (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton
+                        tooltip={item.tooltip}
+                        asChild={!!item.path}
+                        isActive={
+                          item.path
+                            ? isActive(item.path, item.exact)
+                            : false
+                        }
+                      >
+                        {item.path ? (
+                          <Link to={item.path}>
+                            <Icon />
+                            <span>{item.label}</span>
+                          </Link>
+                        ) : (
+                          <>
+                            <Icon />
+                            <span>{item.label}</span>
+                          </>
+                        )}
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
@@ -159,7 +193,6 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
         </header>
 
         <main className="p-4 mt-4">
-    
           <Outlet />
         </main>
       </SidebarInset>
