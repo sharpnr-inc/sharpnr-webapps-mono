@@ -10,8 +10,16 @@ import {
 } from "@/components/ui/select";
 import { useForm } from "@tanstack/react-form";
 import { useAddEmployeeMutation } from "../api/mutations/Employee";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate, useRouter } from "@tanstack/react-router";
 
 export function AddEmployeeDirectHirePage() {
+  const nav = useNavigate();
+  const router = useRouter();
+  const handleBack = () => {
+    router.history.back();
+  };
+
   const addEmployee = useAddEmployeeMutation();
   const form = useForm({
     defaultValues: {
@@ -31,10 +39,13 @@ export function AddEmployeeDirectHirePage() {
   });
 
   return (
-    <div className="m-2 h-full rounded-md border p-4 space-y-4">
+    <div className="m-2 h-full p-4 space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <Button variant="outline">Back to Employees</Button>
+        <Button onClick={()=>handleBack()} variant="link">
+          <ArrowLeft />
+          Back to Employees
+        </Button>
       </div>
 
       {/* Form */}

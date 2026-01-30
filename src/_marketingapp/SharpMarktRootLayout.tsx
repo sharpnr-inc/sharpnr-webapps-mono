@@ -1,4 +1,4 @@
-import { Outlet, Link } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -60,12 +60,16 @@ export const marketingSidebarItems = [
   },
 ];
 
+const SharpMarktRootLayout: React.FC = () => {
+  const { location } = useRouterState();
+  const pathname = location.pathname;
+
+ const isActive = (to: string) =>
+  to === "/dashboard/sharp_marketing"
+    ? pathname === to
+    : pathname.startsWith(`${to}/`) || pathname === to;
 
 
-
-interface SharpMarktRootLayoutProps {}
-
-const SharpMarktRootLayout: React.FC<SharpMarktRootLayoutProps> = () => {
   return (
     <SidebarProvider>
       {/* ================= Sidebar ================= */}
@@ -81,7 +85,11 @@ const SharpMarktRootLayout: React.FC<SharpMarktRootLayoutProps> = () => {
 
                   return (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton asChild>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={isActive(item.to)}
+                        tooltip={item.label}
+                      >
                         <Link to={item.to}>
                           <Icon />
                           <span>{item.label}</span>
@@ -98,12 +106,12 @@ const SharpMarktRootLayout: React.FC<SharpMarktRootLayoutProps> = () => {
 
       {/* ================= Main Content ================= */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 px-4">
+        <header className="flex h-14 items-center gap-2 px-4 ">
           <SidebarTrigger />
           <span className="font-medium">Sharp Marketing</span>
         </header>
 
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-2">
           <Outlet />
         </main>
       </SidebarInset>

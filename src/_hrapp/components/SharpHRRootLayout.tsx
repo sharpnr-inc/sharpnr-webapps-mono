@@ -1,4 +1,4 @@
-import { Outlet, Link } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -20,6 +20,7 @@ import {
   Settings,
   Building2,
 } from "lucide-react";
+import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 export const hrSidebarItems = [
   {
@@ -35,22 +36,22 @@ export const hrSidebarItems = [
     to: "/dashboard/sharp_hr/employees",
   },
   {
-    id: "hr_attendance",
-    label: "Attendance",
-    icon: CalendarDays,
-    to: "/dashboard/sharp_hr/attendance",
-  },
-  {
     id: "hr_leave",
     label: "Leave Requests",
     icon: ClipboardList,
-    to: "/dashboard/sharp_hr/leave",
+    to: "/dashboard/sharp_hr/leaves",
   },
   {
     id: "hr_recruitment",
     label: "Recruitment",
     icon: UserPlus,
     to: "/dashboard/sharp_hr/recruitment",
+  },
+  {
+    id: "hr_attendance",
+    label: "Reports",
+    icon: CalendarDays,
+    to: "/dashboard/sharp_hr/reports",
   },
   {
     id: "hr_settings",
@@ -60,25 +61,28 @@ export const hrSidebarItems = [
   },
 ];
 
-interface SharpHRRootLayoutProps {}
+const SharpHRRootLayout: React.FC = () => {
+  const { location } = useRouterState();
+  const pathname = location.pathname;
 
-const SharpHRRootLayout: React.FC<SharpHRRootLayoutProps> = () => {
+  const isActive = (to: string) =>
+    to === "/dashboard/sharp_hr"
+      ? pathname === to
+      : pathname.startsWith(`${to}/`) || pathname === to;
+
   return (
     <SidebarProvider>
       {/* ================= Sidebar ================= */}
       <Sidebar collapsible="icon">
         <SidebarContent>
-          {/* ================= Organization Card ================= */}
-
+          {/* ================= Organization Switcher (static for now) ================= */}
           <SidebarGroup>
             <div className="p-2">
               <div className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-sidebar-accent group-data-[collapsible=icon]:px-2">
-                {/* Icon always visible */}
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Building2 className="h-4 w-4" />
                 </div>
 
-                {/* Text hidden when sidebar is collapsed */}
                 <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
                   <span className="font-medium">Sharpnr LLP</span>
                   <span className="text-xs text-muted-foreground">
@@ -88,10 +92,9 @@ const SharpHRRootLayout: React.FC<SharpHRRootLayoutProps> = () => {
               </div>
             </div>
           </SidebarGroup>
+
           {/* ================= Menu ================= */}
           <SidebarGroup>
-           
-
             <SidebarGroupContent>
               <SidebarMenu>
                 {hrSidebarItems.map((item) => {
@@ -99,7 +102,7 @@ const SharpHRRootLayout: React.FC<SharpHRRootLayoutProps> = () => {
 
                   return (
                     <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton asChild>
+                      <SidebarMenuButton asChild isActive={isActive(item.to)}>
                         <Link to={item.to}>
                           <Icon />
                           <span>{item.label}</span>
@@ -116,12 +119,14 @@ const SharpHRRootLayout: React.FC<SharpHRRootLayoutProps> = () => {
 
       {/* ================= Main Content ================= */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 px-4">
+        <header className="flex h-14 items-center gap-2 px-4 ">
           <SidebarTrigger />
-          <span className="font-medium">Sharp HR</span>
+          <div className="h-4 w-[1px] bg-border mx-2" />{" "}
+          {/* Custom vertical line */}
+          <RouteBreadcrumbs />
         </header>
 
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-2">
           <Outlet />
         </main>
       </SidebarInset>

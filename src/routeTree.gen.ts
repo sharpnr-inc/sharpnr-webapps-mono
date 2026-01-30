@@ -36,6 +36,7 @@ import { Route as AppuserDashboardSharp_marketingLeadsRouteImport } from './rout
 import { Route as AppuserDashboardSharp_marketingCampaignsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/campaigns'
 import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/route'
+import { Route as AppuserDashboardSharp_hrEmployeesRouteRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/route'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/route'
 import { Route as AppuserDashboardSharp_hospitalityHotelRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/route'
 import { Route as AppuserDashboardSharp_hospitalityBarRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/route'
@@ -250,6 +251,12 @@ const AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute =
     id: '/_console',
     getParentRoute: () => AppuserOrchestratorOrchestrator_layoutRouteRoute,
   } as any)
+const AppuserDashboardSharp_hrEmployeesRouteRoute =
+  AppuserDashboardSharp_hrEmployeesRouteRouteImport.update({
+    id: '/employees',
+    path: '/employees',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
+  } as any)
 const AppuserDashboardSharp_hospitalityRestaurantRouteRoute =
   AppuserDashboardSharp_hospitalityRestaurantRouteRouteImport.update({
     id: '/sharp_hospitality/restaurant',
@@ -314,9 +321,9 @@ const AppuserDashboardSharp_hrLeavesIndexRoute =
   } as any)
 const AppuserDashboardSharp_hrEmployeesIndexRoute =
   AppuserDashboardSharp_hrEmployeesIndexRouteImport.update({
-    id: '/employees/',
-    path: '/employees/',
-    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserDashboardSharp_hrEmployeesRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityRestaurantIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport.update({
@@ -380,9 +387,9 @@ const AppuserDashboardSharp_hrLeavesRequestsRoute =
   } as any)
 const AppuserDashboardSharp_hrEmployeesEmployeeIdRoute =
   AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport.update({
-    id: '/employees/$employeeId',
-    path: '/employees/$employeeId',
-    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
+    id: '/$employeeId',
+    path: '/$employeeId',
+    getParentRoute: () => AppuserDashboardSharp_hrEmployeesRouteRoute,
   } as any)
 const AppuserDashboardSharp_accountingReportsTrialBalanceRoute =
   AppuserDashboardSharp_accountingReportsTrialBalanceRouteImport.update({
@@ -451,21 +458,21 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute =
   )
 const AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute =
   AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport.update({
-    id: '/employees/privileges/',
-    path: '/employees/privileges/',
-    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
+    id: '/privileges/',
+    path: '/privileges/',
+    getParentRoute: () => AppuserDashboardSharp_hrEmployeesRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute =
   AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport.update({
-    id: '/employees/documents/',
-    path: '/employees/documents/',
-    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
+    id: '/documents/',
+    path: '/documents/',
+    getParentRoute: () => AppuserDashboardSharp_hrEmployeesRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute =
   AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport.update({
-    id: '/employees/direct-hire/',
-    path: '/employees/direct-hire/',
-    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
+    id: '/direct-hire/',
+    path: '/direct-hire/',
+    getParentRoute: () => AppuserDashboardSharp_hrEmployeesRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport.update(
@@ -709,6 +716,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren
+  '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
   '/orchestrator/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
   '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
@@ -738,7 +746,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
-  '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
+  '/dashboard/sharp_hr/employees/': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hr/leaves': typeof AppuserDashboardSharp_hrLeavesIndexRoute
   '/dashboard/sharp_hr/payroll': typeof AppuserDashboardSharp_hrPayrollIndexRoute
   '/dashboard/sharp_hr/recruitment': typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
@@ -884,6 +892,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren
+  '/_appuser/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
   '/_appuser/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
@@ -978,6 +987,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
     | '/dashboard/sharp_hospitality/restaurant'
+    | '/dashboard/sharp_hr/employees'
     | '/orchestrator/setup-wizard'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
@@ -1007,7 +1017,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
     | '/dashboard/sharp_hospitality/restaurant/'
-    | '/dashboard/sharp_hr/employees'
+    | '/dashboard/sharp_hr/employees/'
     | '/dashboard/sharp_hr/leaves'
     | '/dashboard/sharp_hr/payroll'
     | '/dashboard/sharp_hr/recruitment'
@@ -1152,6 +1162,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/bar'
     | '/_appuser/dashboard/sharp_hospitality/hotel'
     | '/_appuser/dashboard/sharp_hospitality/restaurant'
+    | '/_appuser/dashboard/sharp_hr/employees'
     | '/_appuser/orchestrator/_orchestrator_layout/_console'
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard'
     | '/_appuser/dashboard/sharp_marketing/campaigns'
@@ -1429,6 +1440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRoute
     }
+    '/_appuser/dashboard/sharp_hr/employees': {
+      id: '/_appuser/dashboard/sharp_hr/employees'
+      path: '/employees'
+      fullPath: '/dashboard/sharp_hr/employees'
+      preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+    }
     '/_appuser/dashboard/sharp_hospitality/restaurant': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant'
       path: '/sharp_hospitality/restaurant'
@@ -1501,10 +1519,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/dashboard/sharp_hr/employees/': {
       id: '/_appuser/dashboard/sharp_hr/employees/'
-      path: '/employees'
-      fullPath: '/dashboard/sharp_hr/employees'
+      path: '/'
+      fullPath: '/dashboard/sharp_hr/employees/'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant/': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant/'
@@ -1578,10 +1596,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/dashboard/sharp_hr/employees/$employeeId': {
       id: '/_appuser/dashboard/sharp_hr/employees/$employeeId'
-      path: '/employees/$employeeId'
+      path: '/$employeeId'
       fullPath: '/dashboard/sharp_hr/employees/$employeeId'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRoute
     }
     '/_appuser/dashboard/sharp_accounting/reports/trial-balance': {
       id: '/_appuser/dashboard/sharp_accounting/reports/trial-balance'
@@ -1648,24 +1666,24 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/dashboard/sharp_hr/employees/privileges/': {
       id: '/_appuser/dashboard/sharp_hr/employees/privileges/'
-      path: '/employees/privileges'
+      path: '/privileges'
       fullPath: '/dashboard/sharp_hr/employees/privileges'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/documents/': {
       id: '/_appuser/dashboard/sharp_hr/employees/documents/'
-      path: '/employees/documents'
+      path: '/documents'
       fullPath: '/dashboard/sharp_hr/employees/documents'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/direct-hire/': {
       id: '/_appuser/dashboard/sharp_hr/employees/direct-hire/'
-      path: '/employees/direct-hire'
+      path: '/direct-hire'
       fullPath: '/dashboard/sharp_hr/employees/direct-hire'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/'
@@ -1932,30 +1950,51 @@ const AppuserDashboardSharp_accountingRouteRouteWithChildren =
     AppuserDashboardSharp_accountingRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hrRouteRouteChildren {
-  AppuserDashboardSharp_hrIndexRoute: typeof AppuserDashboardSharp_hrIndexRoute
+interface AppuserDashboardSharp_hrEmployeesRouteRouteChildren {
   AppuserDashboardSharp_hrEmployeesEmployeeIdRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
-  AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
   AppuserDashboardSharp_hrEmployeesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRoute
-  AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
-  AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
-  AppuserDashboardSharp_hrRecruitmentIndexRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
-  AppuserDashboardSharp_hrReportsIndexRoute: typeof AppuserDashboardSharp_hrReportsIndexRoute
-  AppuserDashboardSharp_hrSettingsIndexRoute: typeof AppuserDashboardSharp_hrSettingsIndexRoute
   AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
 }
 
-const AppuserDashboardSharp_hrRouteRouteChildren: AppuserDashboardSharp_hrRouteRouteChildren =
+const AppuserDashboardSharp_hrEmployeesRouteRouteChildren: AppuserDashboardSharp_hrEmployeesRouteRouteChildren =
   {
-    AppuserDashboardSharp_hrIndexRoute: AppuserDashboardSharp_hrIndexRoute,
     AppuserDashboardSharp_hrEmployeesEmployeeIdRoute:
       AppuserDashboardSharp_hrEmployeesEmployeeIdRoute,
-    AppuserDashboardSharp_hrLeavesRequestsRoute:
-      AppuserDashboardSharp_hrLeavesRequestsRoute,
     AppuserDashboardSharp_hrEmployeesIndexRoute:
       AppuserDashboardSharp_hrEmployeesIndexRoute,
+    AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute:
+      AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute,
+    AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute:
+      AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute,
+    AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute:
+      AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute,
+  }
+
+const AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren =
+  AppuserDashboardSharp_hrEmployeesRouteRoute._addFileChildren(
+    AppuserDashboardSharp_hrEmployeesRouteRouteChildren,
+  )
+
+interface AppuserDashboardSharp_hrRouteRouteChildren {
+  AppuserDashboardSharp_hrEmployeesRouteRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
+  AppuserDashboardSharp_hrIndexRoute: typeof AppuserDashboardSharp_hrIndexRoute
+  AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
+  AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
+  AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
+  AppuserDashboardSharp_hrRecruitmentIndexRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
+  AppuserDashboardSharp_hrReportsIndexRoute: typeof AppuserDashboardSharp_hrReportsIndexRoute
+  AppuserDashboardSharp_hrSettingsIndexRoute: typeof AppuserDashboardSharp_hrSettingsIndexRoute
+}
+
+const AppuserDashboardSharp_hrRouteRouteChildren: AppuserDashboardSharp_hrRouteRouteChildren =
+  {
+    AppuserDashboardSharp_hrEmployeesRouteRoute:
+      AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren,
+    AppuserDashboardSharp_hrIndexRoute: AppuserDashboardSharp_hrIndexRoute,
+    AppuserDashboardSharp_hrLeavesRequestsRoute:
+      AppuserDashboardSharp_hrLeavesRequestsRoute,
     AppuserDashboardSharp_hrLeavesIndexRoute:
       AppuserDashboardSharp_hrLeavesIndexRoute,
     AppuserDashboardSharp_hrPayrollIndexRoute:
@@ -1966,12 +2005,6 @@ const AppuserDashboardSharp_hrRouteRouteChildren: AppuserDashboardSharp_hrRouteR
       AppuserDashboardSharp_hrReportsIndexRoute,
     AppuserDashboardSharp_hrSettingsIndexRoute:
       AppuserDashboardSharp_hrSettingsIndexRoute,
-    AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute:
-      AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute,
-    AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute:
-      AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute,
-    AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute:
-      AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute,
   }
 
 const AppuserDashboardSharp_hrRouteRouteWithChildren =
