@@ -4,6 +4,9 @@ export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/hotel/reservations/',
 )({
   component: RouteComponent,
+  staticData:{
+    breadcrumb:"Reservations"
+  }
 })
 
 function RouteComponent() {
