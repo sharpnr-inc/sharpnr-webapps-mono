@@ -1,4 +1,8 @@
-// ANCHOR This is the orchestrator's layout this component wraps the Orchestrator
+// ANCHOR Orchestrator layout with collapsible icon sidebar
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -7,14 +11,26 @@ import {
   SidebarGroupLabel,
   SidebarInset,
   SidebarMenu,
-
   SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { Building2 } from "lucide-react";
+import {
+  Link,
+  Outlet,
+  useNavigate,
+  useRouterState,
+} from "@tanstack/react-router";
+import {
+  Building2,
+  Boxes,
+  Settings,
+  FileText,
+  Users,
+  Home,
+  ChevronsUpDown,
+} from "lucide-react";
 
 type OrchestratorLayoutProps = {
   children?: React.ReactNode;
@@ -22,84 +38,111 @@ type OrchestratorLayoutProps = {
 
 export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
   const navigate = useNavigate();
+  const { location } = useRouterState();
+  const pathname = location.pathname;
+
+  const isActive = (path: string) => pathname.startsWith(path);
 
   return (
     <SidebarProvider>
-      {/* Sidebar */}
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarContent>
           {/* ===== Organization Card ===== */}
-          <div className="p-2">
-            <div
-              onClick={() => navigate({ to: "/orchestrator" })}
-              className="cursor-pointer rounded-lg border bg-card p-3 hover:bg-accent transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                  <Building2 className="size-4" />
-                </div>
+          <div className="p-2 border rounded-xl">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  size="lg"
+                  className="
+          cursor-not-allowed
+          data-[state=open]:bg-sidebar-accent
+          data-[state=open]:text-sidebar-accent-foreground
+        "
+                >
+                  {/* Icon */}
+                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                    <Building2 className="size-4" />
+                  </div>
 
-                <div className="flex flex-col leading-tight">
-                  <span className="text-sm font-medium">
-                    Sharp Hospitality
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    Organization
-                  </span>
-                </div>
-              </div>
-            </div>
+                  {/* Text */}
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="font-medium truncate">
+                      Sharp Hospitality
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Organization
+                    </span>
+                  </div>
+
+                  {/* Chevron (visual only) */}
+                  <ChevronsUpDown className="ml-auto size-4 opacity-40" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+            </DropdownMenu>
           </div>
 
+          {/* ===== Orchestrator Menu ===== */}
           <SidebarGroup>
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link to="/">
-                      Organization
+                  <SidebarMenuButton
+                    tooltip="Organization"
+                    asChild
+                    isActive={isActive("/orchestrator")}
+                  >
+                    <Link to="/orchestrator">
+                      <Home />
+                      <span>Organization</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    tooltip="Properties"
+                    asChild
+                    isActive={isActive("/orchestrator/property")}
+                  >
                     <Link to="/orchestrator/property">
-                      Properties
+                      <Boxes />
+                      <span>Properties</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    tooltip="Legal Entity"
+                    asChild
+                    isActive={isActive("/orchestrator/legal_entity")}
+                  >
                     <Link to="/orchestrator/legal_entity">
-                      Legal Entity
+                      <FileText />
+                      <span>Legal Entity</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    Settings
+                  <SidebarMenuButton tooltip="Settings">
+                    <Settings />
+                    <span>Settings</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton onClick={() => navigate({ to: "/" })}>
-                    Exit Console
+                  <SidebarMenuButton tooltip="Reports">
+                    <FileText />
+                    <span>Reports</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
 
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    Reports
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    User Directory
+                  <SidebarMenuButton tooltip="User Directory">
+                    <Users />
+                    <span>User Directory</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
@@ -108,14 +151,16 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
         </SidebarContent>
       </Sidebar>
 
-      {/* Main Content */}
+      {/* ===== Main Content ===== */}
       <SidebarInset>
-        <div className="p-4">
+        <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
-        </div>
+          <span className="text-sm font-semibold">Orchestrator</span>
+        </header>
 
-        <main className="flex-1 p-4">
-          {children ?? <Outlet />}
+        <main className="p-4 mt-4">
+    
+          <Outlet />
         </main>
       </SidebarInset>
     </SidebarProvider>
