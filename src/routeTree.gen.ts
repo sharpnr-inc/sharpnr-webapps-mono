@@ -13,21 +13,22 @@ import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
 import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/orchestrator/route'
+import { Route as AppuserIamRouteRouteImport } from './routes/_appuser/iam/route'
 import { Route as AppuserDashboardRouteRouteImport } from './routes/_appuser/dashboard/route'
 import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
 import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
-import { Route as AppuserIamIndexRouteImport } from './routes/_appuser/iam/index'
 import { Route as AppuserDashboardIndexRouteImport } from './routes/_appuser/dashboard/index'
-import { Route as AppuserIamReviewsRouteImport } from './routes/_appuser/iam/reviews'
-import { Route as AppuserIamRequestsRouteImport } from './routes/_appuser/iam/requests'
-import { Route as AppuserIamProfileRouteImport } from './routes/_appuser/iam/profile'
-import { Route as AppuserIamOvertimeRouteImport } from './routes/_appuser/iam/overtime'
-import { Route as AppuserIamMyAttendanceRouteImport } from './routes/_appuser/iam/my-attendance'
-import { Route as AppuserIamLeavesRouteImport } from './routes/_appuser/iam/leaves'
-import { Route as AppuserIamGrievancesRouteImport } from './routes/_appuser/iam/grievances'
-import { Route as AppuserIamFeedbackRouteImport } from './routes/_appuser/iam/feedback'
 import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
+import { Route as AppuserDashboardSharp_marketingRouteRouteImport } from './routes/_appuser/dashboard/sharp_marketing/route'
+import { Route as AppuserDashboardSharp_hrRouteRouteImport } from './routes/_appuser/dashboard/sharp_hr/route'
+import { Route as AppuserDashboardSharp_accountingRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/route'
+import { Route as AppuserIamTasksIndexRouteImport } from './routes/_appuser/iam/tasks/index'
+import { Route as AppuserIamRequestsIndexRouteImport } from './routes/_appuser/iam/requests/index'
+import { Route as AppuserIamProfileIndexRouteImport } from './routes/_appuser/iam/profile/index'
+import { Route as AppuserIamMessagesIndexRouteImport } from './routes/_appuser/iam/messages/index'
+import { Route as AppuserIamLegalIndexRouteImport } from './routes/_appuser/iam/legal/index'
 import { Route as AppuserDashboardSharp_marketingIndexRouteImport } from './routes/_appuser/dashboard/sharp_marketing/index'
+import { Route as AppuserDashboardSharp_hrIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/index'
 import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
 import { Route as AppuserDashboardSharp_marketingSocial_media_managementRouteImport } from './routes/_appuser/dashboard/sharp_marketing/social_media_management'
 import { Route as AppuserDashboardSharp_marketingReportsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/reports'
@@ -38,11 +39,6 @@ import { Route as AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport 
 import { Route as AppuserDashboardSharp_hospitalityRestaurantRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/route'
 import { Route as AppuserDashboardSharp_hospitalityHotelRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/route'
 import { Route as AppuserDashboardSharp_hospitalityBarRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/route'
-import { Route as AppuserDashboardSharp_accountingTransactionsRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/transactions/route'
-import { Route as AppuserDashboardSharp_accountingSettingsRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/settings/route'
-import { Route as AppuserDashboardSharp_accountingLedgerRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/ledger/route'
-import { Route as AppuserDashboardSharp_accountingAuditAndLogsRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/auditAndLogs/route'
-import { Route as AppuserDashboardSharp_accountingAccountingSetupRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/index'
 import { Route as AppuserDashboardSharp_hrSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/settings/index'
@@ -52,29 +48,32 @@ import { Route as AppuserDashboardSharp_hrPayrollIndexRouteImport } from './rout
 import { Route as AppuserDashboardSharp_hrLeavesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/leaves/index'
 import { Route as AppuserDashboardSharp_hrEmployeesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/index'
-import { Route as AppuserDashboardSharp_hospitalityMenuIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/menu/index'
-import { Route as AppuserDashboardSharp_hospitalityInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/inventory/index'
 import { Route as AppuserDashboardSharp_hospitalityHotelIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/index'
 import { Route as AppuserDashboardSharp_hospitalityBarIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/index'
+import { Route as AppuserDashboardSharp_accountingTransactionsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/transactions/index'
+import { Route as AppuserDashboardSharp_accountingSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/settings/index'
 import { Route as AppuserDashboardSharp_accountingReportsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/reports/index'
+import { Route as AppuserDashboardSharp_accountingOverviewIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/overview/index'
+import { Route as AppuserDashboardSharp_accountingLedgerIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/ledger/index'
+import { Route as AppuserDashboardSharp_accountingChartOfAccountIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/chart-of-account/index'
 import { Route as AppuserDashboardSharp_hrLeavesRequestsRouteImport } from './routes/_appuser/dashboard/sharp_hr/leaves/requests'
 import { Route as AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/$employeeId'
 import { Route as AppuserDashboardSharp_accountingReportsTrialBalanceRouteImport } from './routes/_appuser/dashboard/sharp_accounting/reports/trial-balance'
 import { Route as AppuserDashboardSharp_accountingReportsProfitLossRouteImport } from './routes/_appuser/dashboard/sharp_accounting/reports/profit-loss'
 import { Route as AppuserDashboardSharp_accountingReportsLedgerRouteImport } from './routes/_appuser/dashboard/sharp_accounting/reports/ledger'
 import { Route as AppuserDashboardSharp_accountingReportsBalanceSheetRouteImport } from './routes/_appuser/dashboard/sharp_accounting/reports/balance-sheet'
-import { Route as AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account'
-import { Route as AppuserDashboardSharp_accountingAccountingSetupBooksRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/books'
-import { Route as AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRouteImport } from './routes/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/index'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/organization/index'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/org-users/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/index'
 import { Route as AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/privileges/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/documents/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/direct-hire/index'
+import { Route as AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/table-management/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/index'
+import { Route as AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/reservations/index'
+import { Route as AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/orders/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/inventory/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/index'
@@ -123,6 +122,11 @@ const AppuserOrchestratorRouteRoute =
     path: '/orchestrator',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserIamRouteRoute = AppuserIamRouteRouteImport.update({
+  id: '/iam',
+  path: '/iam',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserDashboardRouteRoute = AppuserDashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -140,96 +144,100 @@ const SharpOrgEmployeeSetPasswordIndexRoute =
     path: '/sharp-org-employee/set-password/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppuserIamIndexRoute = AppuserIamIndexRouteImport.update({
-  id: '/iam/',
-  path: '/iam/',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
 const AppuserDashboardIndexRoute = AppuserDashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppuserDashboardRouteRoute,
-} as any)
-const AppuserIamReviewsRoute = AppuserIamReviewsRouteImport.update({
-  id: '/iam/reviews',
-  path: '/iam/reviews',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamRequestsRoute = AppuserIamRequestsRouteImport.update({
-  id: '/iam/requests',
-  path: '/iam/requests',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamProfileRoute = AppuserIamProfileRouteImport.update({
-  id: '/iam/profile',
-  path: '/iam/profile',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamOvertimeRoute = AppuserIamOvertimeRouteImport.update({
-  id: '/iam/overtime',
-  path: '/iam/overtime',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamMyAttendanceRoute = AppuserIamMyAttendanceRouteImport.update({
-  id: '/iam/my-attendance',
-  path: '/iam/my-attendance',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamLeavesRoute = AppuserIamLeavesRouteImport.update({
-  id: '/iam/leaves',
-  path: '/iam/leaves',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamGrievancesRoute = AppuserIamGrievancesRouteImport.update({
-  id: '/iam/grievances',
-  path: '/iam/grievances',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserIamFeedbackRoute = AppuserIamFeedbackRouteImport.update({
-  id: '/iam/feedback',
-  path: '/iam/feedback',
-  getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserOrchestratorOrchestrator_layoutRouteRoute =
   AppuserOrchestratorOrchestrator_layoutRouteRouteImport.update({
     id: '/_orchestrator_layout',
     getParentRoute: () => AppuserOrchestratorRouteRoute,
   } as any)
+const AppuserDashboardSharp_marketingRouteRoute =
+  AppuserDashboardSharp_marketingRouteRouteImport.update({
+    id: '/sharp_marketing',
+    path: '/sharp_marketing',
+    getParentRoute: () => AppuserDashboardRouteRoute,
+  } as any)
+const AppuserDashboardSharp_hrRouteRoute =
+  AppuserDashboardSharp_hrRouteRouteImport.update({
+    id: '/sharp_hr',
+    path: '/sharp_hr',
+    getParentRoute: () => AppuserDashboardRouteRoute,
+  } as any)
+const AppuserDashboardSharp_accountingRouteRoute =
+  AppuserDashboardSharp_accountingRouteRouteImport.update({
+    id: '/sharp_accounting',
+    path: '/sharp_accounting',
+    getParentRoute: () => AppuserDashboardRouteRoute,
+  } as any)
+const AppuserIamTasksIndexRoute = AppuserIamTasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamRequestsIndexRoute = AppuserIamRequestsIndexRouteImport.update({
+  id: '/requests/',
+  path: '/requests/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamProfileIndexRoute = AppuserIamProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamMessagesIndexRoute = AppuserIamMessagesIndexRouteImport.update({
+  id: '/messages/',
+  path: '/messages/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
+const AppuserIamLegalIndexRoute = AppuserIamLegalIndexRouteImport.update({
+  id: '/legal/',
+  path: '/legal/',
+  getParentRoute: () => AppuserIamRouteRoute,
+} as any)
 const AppuserDashboardSharp_marketingIndexRoute =
   AppuserDashboardSharp_marketingIndexRouteImport.update({
-    id: '/sharp_marketing/',
-    path: '/sharp_marketing/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
+  } as any)
+const AppuserDashboardSharp_hrIndexRoute =
+  AppuserDashboardSharp_hrIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_accountingIndexRoute =
   AppuserDashboardSharp_accountingIndexRouteImport.update({
-    id: '/sharp_accounting/',
-    path: '/sharp_accounting/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
   } as any)
 const AppuserDashboardSharp_marketingSocial_media_managementRoute =
   AppuserDashboardSharp_marketingSocial_media_managementRouteImport.update({
-    id: '/sharp_marketing/social_media_management',
-    path: '/sharp_marketing/social_media_management',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/social_media_management',
+    path: '/social_media_management',
+    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
   } as any)
 const AppuserDashboardSharp_marketingReportsRoute =
   AppuserDashboardSharp_marketingReportsRouteImport.update({
-    id: '/sharp_marketing/reports',
-    path: '/sharp_marketing/reports',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports',
+    path: '/reports',
+    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
   } as any)
 const AppuserDashboardSharp_marketingLeadsRoute =
   AppuserDashboardSharp_marketingLeadsRouteImport.update({
-    id: '/sharp_marketing/leads',
-    path: '/sharp_marketing/leads',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/leads',
+    path: '/leads',
+    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
   } as any)
 const AppuserDashboardSharp_marketingCampaignsRoute =
   AppuserDashboardSharp_marketingCampaignsRouteImport.update({
-    id: '/sharp_marketing/campaigns',
-    path: '/sharp_marketing/campaigns',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/campaigns',
+    path: '/campaigns',
+    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute =
   AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteImport.update({
@@ -260,36 +268,6 @@ const AppuserDashboardSharp_hospitalityBarRouteRoute =
     path: '/sharp_hospitality/bar',
     getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
-const AppuserDashboardSharp_accountingTransactionsRouteRoute =
-  AppuserDashboardSharp_accountingTransactionsRouteRouteImport.update({
-    id: '/sharp_accounting/transactions',
-    path: '/sharp_accounting/transactions',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingSettingsRouteRoute =
-  AppuserDashboardSharp_accountingSettingsRouteRouteImport.update({
-    id: '/sharp_accounting/settings',
-    path: '/sharp_accounting/settings',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLedgerRouteRoute =
-  AppuserDashboardSharp_accountingLedgerRouteRouteImport.update({
-    id: '/sharp_accounting/ledger',
-    path: '/sharp_accounting/ledger',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingAuditAndLogsRouteRoute =
-  AppuserDashboardSharp_accountingAuditAndLogsRouteRouteImport.update({
-    id: '/sharp_accounting/auditAndLogs',
-    path: '/sharp_accounting/auditAndLogs',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingAccountingSetupRouteRoute =
-  AppuserDashboardSharp_accountingAccountingSetupRouteRouteImport.update({
-    id: '/sharp_accounting/accounting-setup',
-    path: '/sharp_accounting/accounting-setup',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
 const AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute =
   AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRouteImport.update({
     id: '/',
@@ -306,57 +284,45 @@ const AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute =
   } as any)
 const AppuserDashboardSharp_hrSettingsIndexRoute =
   AppuserDashboardSharp_hrSettingsIndexRouteImport.update({
-    id: '/sharp_hr/settings/',
-    path: '/sharp_hr/settings/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrReportsIndexRoute =
   AppuserDashboardSharp_hrReportsIndexRouteImport.update({
-    id: '/sharp_hr/reports/',
-    path: '/sharp_hr/reports/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports/',
+    path: '/reports/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrRecruitmentIndexRoute =
   AppuserDashboardSharp_hrRecruitmentIndexRouteImport.update({
-    id: '/sharp_hr/recruitment/',
-    path: '/sharp_hr/recruitment/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/recruitment/',
+    path: '/recruitment/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrPayrollIndexRoute =
   AppuserDashboardSharp_hrPayrollIndexRouteImport.update({
-    id: '/sharp_hr/payroll/',
-    path: '/sharp_hr/payroll/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/payroll/',
+    path: '/payroll/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrLeavesIndexRoute =
   AppuserDashboardSharp_hrLeavesIndexRouteImport.update({
-    id: '/sharp_hr/leaves/',
-    path: '/sharp_hr/leaves/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/leaves/',
+    path: '/leaves/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrEmployeesIndexRoute =
   AppuserDashboardSharp_hrEmployeesIndexRouteImport.update({
-    id: '/sharp_hr/employees/',
-    path: '/sharp_hr/employees/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/employees/',
+    path: '/employees/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityRestaurantIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityMenuIndexRoute =
-  AppuserDashboardSharp_hospitalityMenuIndexRouteImport.update({
-    id: '/sharp_hospitality/menu/',
-    path: '/sharp_hospitality/menu/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityInventoryIndexRoute =
-  AppuserDashboardSharp_hospitalityInventoryIndexRouteImport.update({
-    id: '/sharp_hospitality/inventory/',
-    path: '/sharp_hospitality/inventory/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityHotelIndexRoute =
   AppuserDashboardSharp_hospitalityHotelIndexRouteImport.update({
@@ -370,73 +336,78 @@ const AppuserDashboardSharp_hospitalityBarIndexRoute =
     path: '/',
     getParentRoute: () => AppuserDashboardSharp_hospitalityBarRouteRoute,
   } as any)
+const AppuserDashboardSharp_accountingTransactionsIndexRoute =
+  AppuserDashboardSharp_accountingTransactionsIndexRouteImport.update({
+    id: '/transactions/',
+    path: '/transactions/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
+  } as any)
+const AppuserDashboardSharp_accountingSettingsIndexRoute =
+  AppuserDashboardSharp_accountingSettingsIndexRouteImport.update({
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
+  } as any)
 const AppuserDashboardSharp_accountingReportsIndexRoute =
   AppuserDashboardSharp_accountingReportsIndexRouteImport.update({
-    id: '/sharp_accounting/reports/',
-    path: '/sharp_accounting/reports/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports/',
+    path: '/reports/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
+  } as any)
+const AppuserDashboardSharp_accountingOverviewIndexRoute =
+  AppuserDashboardSharp_accountingOverviewIndexRouteImport.update({
+    id: '/overview/',
+    path: '/overview/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
+  } as any)
+const AppuserDashboardSharp_accountingLedgerIndexRoute =
+  AppuserDashboardSharp_accountingLedgerIndexRouteImport.update({
+    id: '/ledger/',
+    path: '/ledger/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
+  } as any)
+const AppuserDashboardSharp_accountingChartOfAccountIndexRoute =
+  AppuserDashboardSharp_accountingChartOfAccountIndexRouteImport.update({
+    id: '/chart-of-account/',
+    path: '/chart-of-account/',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrLeavesRequestsRoute =
   AppuserDashboardSharp_hrLeavesRequestsRouteImport.update({
-    id: '/sharp_hr/leaves/requests',
-    path: '/sharp_hr/leaves/requests',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/leaves/requests',
+    path: '/leaves/requests',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrEmployeesEmployeeIdRoute =
   AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport.update({
-    id: '/sharp_hr/employees/$employeeId',
-    path: '/sharp_hr/employees/$employeeId',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/employees/$employeeId',
+    path: '/employees/$employeeId',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_accountingReportsTrialBalanceRoute =
   AppuserDashboardSharp_accountingReportsTrialBalanceRouteImport.update({
-    id: '/sharp_accounting/reports/trial-balance',
-    path: '/sharp_accounting/reports/trial-balance',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports/trial-balance',
+    path: '/reports/trial-balance',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
   } as any)
 const AppuserDashboardSharp_accountingReportsProfitLossRoute =
   AppuserDashboardSharp_accountingReportsProfitLossRouteImport.update({
-    id: '/sharp_accounting/reports/profit-loss',
-    path: '/sharp_accounting/reports/profit-loss',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports/profit-loss',
+    path: '/reports/profit-loss',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
   } as any)
 const AppuserDashboardSharp_accountingReportsLedgerRoute =
   AppuserDashboardSharp_accountingReportsLedgerRouteImport.update({
-    id: '/sharp_accounting/reports/ledger',
-    path: '/sharp_accounting/reports/ledger',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports/ledger',
+    path: '/reports/ledger',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
   } as any)
 const AppuserDashboardSharp_accountingReportsBalanceSheetRoute =
   AppuserDashboardSharp_accountingReportsBalanceSheetRouteImport.update({
-    id: '/sharp_accounting/reports/balance-sheet',
-    path: '/sharp_accounting/reports/balance-sheet',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/reports/balance-sheet',
+    path: '/reports/balance-sheet',
+    getParentRoute: () => AppuserDashboardSharp_accountingRouteRoute,
   } as any)
-const AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute =
-  AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRouteImport.update(
-    {
-      id: '/chart-of-account',
-      path: '/chart-of-account',
-      getParentRoute: () =>
-        AppuserDashboardSharp_accountingAccountingSetupRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_accountingAccountingSetupBooksRoute =
-  AppuserDashboardSharp_accountingAccountingSetupBooksRouteImport.update({
-    id: '/books',
-    path: '/books',
-    getParentRoute: () =>
-      AppuserDashboardSharp_accountingAccountingSetupRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute =
-  AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRouteImport.update(
-    {
-      id: '/account-mappings',
-      path: '/account-mappings',
-      getParentRoute: () =>
-        AppuserDashboardSharp_accountingAccountingSetupRouteRoute,
-    } as any,
-  )
 const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport.update(
     {
@@ -446,19 +417,26 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute =
         AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteImport.update(
-    {
-      id: '/hospitality',
-      path: '/hospitality',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
 const AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute =
   AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport.update({
     id: '/property/',
     path: '/property/',
+    getParentRoute: () =>
+      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+  } as any)
+const AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport.update(
+    {
+      id: '/organization/',
+      path: '/organization/',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    } as any,
+  )
+const AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport.update({
+    id: '/org-users/',
+    path: '/org-users/',
     getParentRoute: () =>
       AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
   } as any)
@@ -471,33 +449,33 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute =
         AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRouteImport.update(
-    {
-      id: '/',
-      path: '/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute,
-    } as any,
-  )
 const AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute =
   AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport.update({
-    id: '/sharp_hr/employees/privileges/',
-    path: '/sharp_hr/employees/privileges/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/employees/privileges/',
+    path: '/employees/privileges/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute =
   AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport.update({
-    id: '/sharp_hr/employees/documents/',
-    path: '/sharp_hr/employees/documents/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/employees/documents/',
+    path: '/employees/documents/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
 const AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute =
   AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport.update({
-    id: '/sharp_hr/employees/direct-hire/',
-    path: '/sharp_hr/employees/direct-hire/',
-    getParentRoute: () => AppuserDashboardRouteRoute,
+    id: '/employees/direct-hire/',
+    path: '/employees/direct-hire/',
+    getParentRoute: () => AppuserDashboardSharp_hrRouteRoute,
   } as any)
+const AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute =
+  AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport.update(
+    {
+      id: '/table-management/',
+      path: '/table-management/',
+      getParentRoute: () =>
+        AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
+    } as any,
+  )
 const AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRouteImport.update(
     {
@@ -507,6 +485,21 @@ const AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute =
         AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
     } as any,
   )
+const AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute =
+  AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRouteImport.update(
+    {
+      id: '/reservations/',
+      path: '/reservations/',
+      getParentRoute: () =>
+        AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
+    } as any,
+  )
+const AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute =
+  AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRouteImport.update({
+    id: '/orders/',
+    path: '/orders/',
+    getParentRoute: () => AppuserDashboardSharp_hospitalityRestaurantRouteRoute,
+  } as any)
 const AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRouteImport.update({
     id: '/kitchen/',
@@ -704,25 +697,15 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hosp
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
+  '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
-  '/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/iam/grievances': typeof AppuserIamGrievancesRoute
-  '/iam/leaves': typeof AppuserIamLeavesRoute
-  '/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
-  '/iam/overtime': typeof AppuserIamOvertimeRoute
-  '/iam/profile': typeof AppuserIamProfileRoute
-  '/iam/requests': typeof AppuserIamRequestsRoute
-  '/iam/reviews': typeof AppuserIamReviewsRoute
+  '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
+  '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
+  '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/dashboard/': typeof AppuserDashboardIndexRoute
-  '/iam': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
-  '/dashboard/sharp_accounting/accounting-setup': typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  '/dashboard/sharp_accounting/auditAndLogs': typeof AppuserDashboardSharp_accountingAuditAndLogsRouteRoute
-  '/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLedgerRouteRoute
-  '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingSettingsRouteRoute
-  '/dashboard/sharp_accounting/transactions': typeof AppuserDashboardSharp_accountingTransactionsRouteRoute
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren
@@ -731,24 +714,29 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
-  '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingIndexRoute
-  '/orchestrator/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
+  '/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
+  '/dashboard/sharp_hr/': typeof AppuserDashboardSharp_hrIndexRoute
+  '/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/iam/legal': typeof AppuserIamLegalIndexRoute
+  '/iam/messages': typeof AppuserIamMessagesIndexRoute
+  '/iam/profile': typeof AppuserIamProfileIndexRoute
+  '/iam/requests': typeof AppuserIamRequestsIndexRoute
+  '/iam/tasks': typeof AppuserIamTasksIndexRoute
   '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  '/dashboard/sharp_accounting/accounting-setup/books': typeof AppuserDashboardSharp_accountingAccountingSetupBooksRoute
-  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute
   '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingReportsProfitLossRoute
   '/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingReportsTrialBalanceRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof AppuserDashboardSharp_hrLeavesRequestsRoute
+  '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingChartOfAccountIndexRoute
+  '/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLedgerIndexRoute
+  '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingOverviewIndexRoute
   '/dashboard/sharp_accounting/reports': typeof AppuserDashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingSettingsIndexRoute
+  '/dashboard/sharp_accounting/transactions': typeof AppuserDashboardSharp_accountingTransactionsIndexRoute
   '/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/inventory': typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  '/dashboard/sharp_hospitality/menu': typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   '/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hr/leaves': typeof AppuserDashboardSharp_hrLeavesIndexRoute
@@ -777,12 +765,16 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   '/dashboard/sharp_hospitality/restaurant/kitchen': typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
   '/dashboard/sharp_hr/employees/direct-hire': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
-  '/orchestrator/hospitality/': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
   '/orchestrator/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
+  '/orchestrator/org-users': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
+  '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
@@ -795,45 +787,38 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
-  '/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/iam/grievances': typeof AppuserIamGrievancesRoute
-  '/iam/leaves': typeof AppuserIamLeavesRoute
-  '/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
-  '/iam/overtime': typeof AppuserIamOvertimeRoute
-  '/iam/profile': typeof AppuserIamProfileRoute
-  '/iam/requests': typeof AppuserIamRequestsRoute
-  '/iam/reviews': typeof AppuserIamReviewsRoute
   '/dashboard': typeof AppuserDashboardIndexRoute
-  '/iam': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
-  '/dashboard/sharp_accounting/accounting-setup': typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  '/dashboard/sharp_accounting/auditAndLogs': typeof AppuserDashboardSharp_accountingAuditAndLogsRouteRoute
-  '/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLedgerRouteRoute
-  '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingSettingsRouteRoute
-  '/dashboard/sharp_accounting/transactions': typeof AppuserDashboardSharp_accountingTransactionsRouteRoute
   '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
   '/dashboard/sharp_marketing/social_media_management': typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
+  '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrIndexRoute
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingIndexRoute
-  '/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  '/dashboard/sharp_accounting/accounting-setup/books': typeof AppuserDashboardSharp_accountingAccountingSetupBooksRoute
-  '/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute
+  '/iam/legal': typeof AppuserIamLegalIndexRoute
+  '/iam/messages': typeof AppuserIamMessagesIndexRoute
+  '/iam/profile': typeof AppuserIamProfileIndexRoute
+  '/iam/requests': typeof AppuserIamRequestsIndexRoute
+  '/iam/tasks': typeof AppuserIamTasksIndexRoute
   '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingReportsProfitLossRoute
   '/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingReportsTrialBalanceRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof AppuserDashboardSharp_hrLeavesRequestsRoute
+  '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingChartOfAccountIndexRoute
+  '/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLedgerIndexRoute
+  '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingOverviewIndexRoute
   '/dashboard/sharp_accounting/reports': typeof AppuserDashboardSharp_accountingReportsIndexRoute
+  '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingSettingsIndexRoute
+  '/dashboard/sharp_accounting/transactions': typeof AppuserDashboardSharp_accountingTransactionsIndexRoute
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/inventory': typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  '/dashboard/sharp_hospitality/menu': typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/dashboard/sharp_hr/leaves': typeof AppuserDashboardSharp_hrLeavesIndexRoute
@@ -861,12 +846,16 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   '/dashboard/sharp_hospitality/restaurant/kitchen': typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
   '/dashboard/sharp_hr/employees/direct-hire': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
-  '/orchestrator/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
   '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
+  '/orchestrator/org-users': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
+  '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
@@ -882,26 +871,16 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/_appuser/dashboard': typeof AppuserDashboardRouteRouteWithChildren
+  '/_appuser/iam': typeof AppuserIamRouteRouteWithChildren
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
+  '/_appuser/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
+  '/_appuser/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
+  '/_appuser/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
-  '/_appuser/iam/feedback': typeof AppuserIamFeedbackRoute
-  '/_appuser/iam/grievances': typeof AppuserIamGrievancesRoute
-  '/_appuser/iam/leaves': typeof AppuserIamLeavesRoute
-  '/_appuser/iam/my-attendance': typeof AppuserIamMyAttendanceRoute
-  '/_appuser/iam/overtime': typeof AppuserIamOvertimeRoute
-  '/_appuser/iam/profile': typeof AppuserIamProfileRoute
-  '/_appuser/iam/requests': typeof AppuserIamRequestsRoute
-  '/_appuser/iam/reviews': typeof AppuserIamReviewsRoute
   '/_appuser/dashboard/': typeof AppuserDashboardIndexRoute
-  '/_appuser/iam/': typeof AppuserIamIndexRoute
   '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
-  '/_appuser/dashboard/sharp_accounting/accounting-setup': typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_accounting/auditAndLogs': typeof AppuserDashboardSharp_accountingAuditAndLogsRouteRoute
-  '/_appuser/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLedgerRouteRoute
-  '/_appuser/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingSettingsRouteRoute
-  '/_appuser/dashboard/sharp_accounting/transactions': typeof AppuserDashboardSharp_accountingTransactionsRouteRoute
   '/_appuser/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren
@@ -912,23 +891,28 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
   '/_appuser/dashboard/sharp_marketing/social_media_management': typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
   '/_appuser/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
+  '/_appuser/dashboard/sharp_hr/': typeof AppuserDashboardSharp_hrIndexRoute
   '/_appuser/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
+  '/_appuser/iam/legal/': typeof AppuserIamLegalIndexRoute
+  '/_appuser/iam/messages/': typeof AppuserIamMessagesIndexRoute
+  '/_appuser/iam/profile/': typeof AppuserIamProfileIndexRoute
+  '/_appuser/iam/requests/': typeof AppuserIamRequestsIndexRoute
+  '/_appuser/iam/tasks/': typeof AppuserIamTasksIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings': typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  '/_appuser/dashboard/sharp_accounting/accounting-setup/books': typeof AppuserDashboardSharp_accountingAccountingSetupBooksRoute
-  '/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account': typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute
   '/_appuser/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
   '/_appuser/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingReportsLedgerRoute
   '/_appuser/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingReportsProfitLossRoute
   '/_appuser/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingReportsTrialBalanceRoute
   '/_appuser/dashboard/sharp_hr/employees/$employeeId': typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   '/_appuser/dashboard/sharp_hr/leaves/requests': typeof AppuserDashboardSharp_hrLeavesRequestsRoute
+  '/_appuser/dashboard/sharp_accounting/chart-of-account/': typeof AppuserDashboardSharp_accountingChartOfAccountIndexRoute
+  '/_appuser/dashboard/sharp_accounting/ledger/': typeof AppuserDashboardSharp_accountingLedgerIndexRoute
+  '/_appuser/dashboard/sharp_accounting/overview/': typeof AppuserDashboardSharp_accountingOverviewIndexRoute
   '/_appuser/dashboard/sharp_accounting/reports/': typeof AppuserDashboardSharp_accountingReportsIndexRoute
+  '/_appuser/dashboard/sharp_accounting/settings/': typeof AppuserDashboardSharp_accountingSettingsIndexRoute
+  '/_appuser/dashboard/sharp_accounting/transactions/': typeof AppuserDashboardSharp_accountingTransactionsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/inventory/': typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/menu/': typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/': typeof AppuserDashboardSharp_hrEmployeesIndexRoute
   '/_appuser/dashboard/sharp_hr/leaves/': typeof AppuserDashboardSharp_hrLeavesIndexRoute
@@ -957,12 +941,16 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/': typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/inventory/': typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/': typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  '/_appuser/dashboard/sharp_hospitality/restaurant/orders/': typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/': typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/': typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/': typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/direct-hire/': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/documents/': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/privileges/': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/': typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
@@ -978,25 +966,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/dashboard'
+    | '/iam'
     | '/orchestrator'
     | '/org-signup'
-    | '/iam/feedback'
-    | '/iam/grievances'
-    | '/iam/leaves'
-    | '/iam/my-attendance'
-    | '/iam/overtime'
-    | '/iam/profile'
-    | '/iam/requests'
-    | '/iam/reviews'
+    | '/dashboard/sharp_accounting'
+    | '/dashboard/sharp_hr'
+    | '/dashboard/sharp_marketing'
     | '/dashboard/'
-    | '/iam'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
-    | '/dashboard/sharp_accounting/accounting-setup'
-    | '/dashboard/sharp_accounting/auditAndLogs'
-    | '/dashboard/sharp_accounting/ledger'
-    | '/dashboard/sharp_accounting/settings'
-    | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
     | '/dashboard/sharp_hospitality/restaurant'
@@ -1005,24 +983,29 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
-    | '/dashboard/sharp_accounting'
-    | '/dashboard/sharp_marketing'
-    | '/orchestrator/hospitality'
+    | '/dashboard/sharp_accounting/'
+    | '/dashboard/sharp_hr/'
+    | '/dashboard/sharp_marketing/'
+    | '/iam/legal'
+    | '/iam/messages'
+    | '/iam/profile'
+    | '/iam/requests'
+    | '/iam/tasks'
     | '/orchestrator/legal_entity'
-    | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
-    | '/dashboard/sharp_accounting/accounting-setup/books'
-    | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
     | '/dashboard/sharp_accounting/reports/balance-sheet'
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
     | '/dashboard/sharp_accounting/reports/trial-balance'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
+    | '/dashboard/sharp_accounting/chart-of-account'
+    | '/dashboard/sharp_accounting/ledger'
+    | '/dashboard/sharp_accounting/overview'
     | '/dashboard/sharp_accounting/reports'
+    | '/dashboard/sharp_accounting/settings'
+    | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/sharp_hospitality/bar/'
     | '/dashboard/sharp_hospitality/hotel/'
-    | '/dashboard/sharp_hospitality/inventory'
-    | '/dashboard/sharp_hospitality/menu'
     | '/dashboard/sharp_hospitality/restaurant/'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hr/leaves'
@@ -1051,12 +1034,16 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/general-settings'
     | '/dashboard/sharp_hospitality/restaurant/inventory'
     | '/dashboard/sharp_hospitality/restaurant/kitchen'
+    | '/dashboard/sharp_hospitality/restaurant/orders'
+    | '/dashboard/sharp_hospitality/restaurant/reservations'
     | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
+    | '/dashboard/sharp_hospitality/restaurant/table-management'
     | '/dashboard/sharp_hr/employees/direct-hire'
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
-    | '/orchestrator/hospitality/'
     | '/orchestrator/legal_entity/'
+    | '/orchestrator/org-users'
+    | '/orchestrator/organization'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/orchestrator/property/$propertyId/details'
@@ -1069,45 +1056,38 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/iam'
     | '/orchestrator'
     | '/org-signup'
-    | '/iam/feedback'
-    | '/iam/grievances'
-    | '/iam/leaves'
-    | '/iam/my-attendance'
-    | '/iam/overtime'
-    | '/iam/profile'
-    | '/iam/requests'
-    | '/iam/reviews'
     | '/dashboard'
-    | '/iam'
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
-    | '/dashboard/sharp_accounting/accounting-setup'
-    | '/dashboard/sharp_accounting/auditAndLogs'
-    | '/dashboard/sharp_accounting/ledger'
-    | '/dashboard/sharp_accounting/settings'
-    | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
     | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/sharp_accounting'
+    | '/dashboard/sharp_hr'
     | '/dashboard/sharp_marketing'
-    | '/dashboard/sharp_accounting/accounting-setup/account-mappings'
-    | '/dashboard/sharp_accounting/accounting-setup/books'
-    | '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
+    | '/iam/legal'
+    | '/iam/messages'
+    | '/iam/profile'
+    | '/iam/requests'
+    | '/iam/tasks'
     | '/dashboard/sharp_accounting/reports/balance-sheet'
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
     | '/dashboard/sharp_accounting/reports/trial-balance'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
+    | '/dashboard/sharp_accounting/chart-of-account'
+    | '/dashboard/sharp_accounting/ledger'
+    | '/dashboard/sharp_accounting/overview'
     | '/dashboard/sharp_accounting/reports'
+    | '/dashboard/sharp_accounting/settings'
+    | '/dashboard/sharp_accounting/transactions'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
-    | '/dashboard/sharp_hospitality/inventory'
-    | '/dashboard/sharp_hospitality/menu'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hr/employees'
     | '/dashboard/sharp_hr/leaves'
@@ -1135,12 +1115,16 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/general-settings'
     | '/dashboard/sharp_hospitality/restaurant/inventory'
     | '/dashboard/sharp_hospitality/restaurant/kitchen'
+    | '/dashboard/sharp_hospitality/restaurant/orders'
+    | '/dashboard/sharp_hospitality/restaurant/reservations'
     | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
+    | '/dashboard/sharp_hospitality/restaurant/table-management'
     | '/dashboard/sharp_hr/employees/direct-hire'
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
-    | '/orchestrator/hospitality'
     | '/orchestrator/legal_entity'
+    | '/orchestrator/org-users'
+    | '/orchestrator/organization'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/orchestrator/property/$propertyId/details'
@@ -1155,26 +1139,16 @@ export interface FileRouteTypes {
     | '/'
     | '/_appuser'
     | '/_appuser/dashboard'
+    | '/_appuser/iam'
     | '/_appuser/orchestrator'
     | '/org-signup/'
+    | '/_appuser/dashboard/sharp_accounting'
+    | '/_appuser/dashboard/sharp_hr'
+    | '/_appuser/dashboard/sharp_marketing'
     | '/_appuser/orchestrator/_orchestrator_layout'
-    | '/_appuser/iam/feedback'
-    | '/_appuser/iam/grievances'
-    | '/_appuser/iam/leaves'
-    | '/_appuser/iam/my-attendance'
-    | '/_appuser/iam/overtime'
-    | '/_appuser/iam/profile'
-    | '/_appuser/iam/requests'
-    | '/_appuser/iam/reviews'
     | '/_appuser/dashboard/'
-    | '/_appuser/iam/'
     | '/sharp-org-employee/set-password/'
     | '/sharp-org-employee/verification/'
-    | '/_appuser/dashboard/sharp_accounting/accounting-setup'
-    | '/_appuser/dashboard/sharp_accounting/auditAndLogs'
-    | '/_appuser/dashboard/sharp_accounting/ledger'
-    | '/_appuser/dashboard/sharp_accounting/settings'
-    | '/_appuser/dashboard/sharp_accounting/transactions'
     | '/_appuser/dashboard/sharp_hospitality/bar'
     | '/_appuser/dashboard/sharp_hospitality/hotel'
     | '/_appuser/dashboard/sharp_hospitality/restaurant'
@@ -1185,23 +1159,28 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_marketing/reports'
     | '/_appuser/dashboard/sharp_marketing/social_media_management'
     | '/_appuser/dashboard/sharp_accounting/'
+    | '/_appuser/dashboard/sharp_hr/'
     | '/_appuser/dashboard/sharp_marketing/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality'
+    | '/_appuser/iam/legal/'
+    | '/_appuser/iam/messages/'
+    | '/_appuser/iam/profile/'
+    | '/_appuser/iam/requests/'
+    | '/_appuser/iam/tasks/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
-    | '/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings'
-    | '/_appuser/dashboard/sharp_accounting/accounting-setup/books'
-    | '/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account'
     | '/_appuser/dashboard/sharp_accounting/reports/balance-sheet'
     | '/_appuser/dashboard/sharp_accounting/reports/ledger'
     | '/_appuser/dashboard/sharp_accounting/reports/profit-loss'
     | '/_appuser/dashboard/sharp_accounting/reports/trial-balance'
     | '/_appuser/dashboard/sharp_hr/employees/$employeeId'
     | '/_appuser/dashboard/sharp_hr/leaves/requests'
+    | '/_appuser/dashboard/sharp_accounting/chart-of-account/'
+    | '/_appuser/dashboard/sharp_accounting/ledger/'
+    | '/_appuser/dashboard/sharp_accounting/overview/'
     | '/_appuser/dashboard/sharp_accounting/reports/'
+    | '/_appuser/dashboard/sharp_accounting/settings/'
+    | '/_appuser/dashboard/sharp_accounting/transactions/'
     | '/_appuser/dashboard/sharp_hospitality/bar/'
     | '/_appuser/dashboard/sharp_hospitality/hotel/'
-    | '/_appuser/dashboard/sharp_hospitality/inventory/'
-    | '/_appuser/dashboard/sharp_hospitality/menu/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/'
     | '/_appuser/dashboard/sharp_hr/employees/'
     | '/_appuser/dashboard/sharp_hr/leaves/'
@@ -1230,12 +1209,16 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/inventory/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/'
+    | '/_appuser/dashboard/sharp_hospitality/restaurant/orders/'
+    | '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/'
+    | '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/'
     | '/_appuser/dashboard/sharp_hr/employees/direct-hire/'
     | '/_appuser/dashboard/sharp_hr/employees/documents/'
     | '/_appuser/dashboard/sharp_hr/employees/privileges/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
     | '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
@@ -1285,6 +1268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/iam': {
+      id: '/_appuser/iam'
+      path: '/iam'
+      fullPath: '/iam'
+      preLoaderRoute: typeof AppuserIamRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/dashboard': {
       id: '/_appuser/dashboard'
       path: '/dashboard'
@@ -1306,75 +1296,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SharpOrgEmployeeSetPasswordIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_appuser/iam/': {
-      id: '/_appuser/iam/'
-      path: '/iam'
-      fullPath: '/iam'
-      preLoaderRoute: typeof AppuserIamIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
     '/_appuser/dashboard/': {
       id: '/_appuser/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AppuserDashboardIndexRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/iam/reviews': {
-      id: '/_appuser/iam/reviews'
-      path: '/iam/reviews'
-      fullPath: '/iam/reviews'
-      preLoaderRoute: typeof AppuserIamReviewsRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/requests': {
-      id: '/_appuser/iam/requests'
-      path: '/iam/requests'
-      fullPath: '/iam/requests'
-      preLoaderRoute: typeof AppuserIamRequestsRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/profile': {
-      id: '/_appuser/iam/profile'
-      path: '/iam/profile'
-      fullPath: '/iam/profile'
-      preLoaderRoute: typeof AppuserIamProfileRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/overtime': {
-      id: '/_appuser/iam/overtime'
-      path: '/iam/overtime'
-      fullPath: '/iam/overtime'
-      preLoaderRoute: typeof AppuserIamOvertimeRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/my-attendance': {
-      id: '/_appuser/iam/my-attendance'
-      path: '/iam/my-attendance'
-      fullPath: '/iam/my-attendance'
-      preLoaderRoute: typeof AppuserIamMyAttendanceRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/leaves': {
-      id: '/_appuser/iam/leaves'
-      path: '/iam/leaves'
-      fullPath: '/iam/leaves'
-      preLoaderRoute: typeof AppuserIamLeavesRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/grievances': {
-      id: '/_appuser/iam/grievances'
-      path: '/iam/grievances'
-      fullPath: '/iam/grievances'
-      preLoaderRoute: typeof AppuserIamGrievancesRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/iam/feedback': {
-      id: '/_appuser/iam/feedback'
-      path: '/iam/feedback'
-      fullPath: '/iam/feedback'
-      preLoaderRoute: typeof AppuserIamFeedbackRouteImport
-      parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout': {
       id: '/_appuser/orchestrator/_orchestrator_layout'
@@ -1383,47 +1310,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRouteImport
       parentRoute: typeof AppuserOrchestratorRouteRoute
     }
-    '/_appuser/dashboard/sharp_marketing/': {
-      id: '/_appuser/dashboard/sharp_marketing/'
+    '/_appuser/dashboard/sharp_marketing': {
+      id: '/_appuser/dashboard/sharp_marketing'
       path: '/sharp_marketing'
       fullPath: '/dashboard/sharp_marketing'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingIndexRouteImport
+      preLoaderRoute: typeof AppuserDashboardSharp_marketingRouteRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hr': {
+      id: '/_appuser/dashboard/sharp_hr'
+      path: '/sharp_hr'
+      fullPath: '/dashboard/sharp_hr'
+      preLoaderRoute: typeof AppuserDashboardSharp_hrRouteRouteImport
+      parentRoute: typeof AppuserDashboardRouteRoute
+    }
+    '/_appuser/dashboard/sharp_accounting': {
+      id: '/_appuser/dashboard/sharp_accounting'
+      path: '/sharp_accounting'
+      fullPath: '/dashboard/sharp_accounting'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingRouteRouteImport
+      parentRoute: typeof AppuserDashboardRouteRoute
+    }
+    '/_appuser/iam/tasks/': {
+      id: '/_appuser/iam/tasks/'
+      path: '/tasks'
+      fullPath: '/iam/tasks'
+      preLoaderRoute: typeof AppuserIamTasksIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/requests/': {
+      id: '/_appuser/iam/requests/'
+      path: '/requests'
+      fullPath: '/iam/requests'
+      preLoaderRoute: typeof AppuserIamRequestsIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/profile/': {
+      id: '/_appuser/iam/profile/'
+      path: '/profile'
+      fullPath: '/iam/profile'
+      preLoaderRoute: typeof AppuserIamProfileIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/messages/': {
+      id: '/_appuser/iam/messages/'
+      path: '/messages'
+      fullPath: '/iam/messages'
+      preLoaderRoute: typeof AppuserIamMessagesIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/legal/': {
+      id: '/_appuser/iam/legal/'
+      path: '/legal'
+      fullPath: '/iam/legal'
+      preLoaderRoute: typeof AppuserIamLegalIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/dashboard/sharp_marketing/': {
+      id: '/_appuser/dashboard/sharp_marketing/'
+      path: '/'
+      fullPath: '/dashboard/sharp_marketing/'
+      preLoaderRoute: typeof AppuserDashboardSharp_marketingIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hr/': {
+      id: '/_appuser/dashboard/sharp_hr/'
+      path: '/'
+      fullPath: '/dashboard/sharp_hr/'
+      preLoaderRoute: typeof AppuserDashboardSharp_hrIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_accounting/': {
       id: '/_appuser/dashboard/sharp_accounting/'
-      path: '/sharp_accounting'
-      fullPath: '/dashboard/sharp_accounting'
+      path: '/'
+      fullPath: '/dashboard/sharp_accounting/'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
     }
     '/_appuser/dashboard/sharp_marketing/social_media_management': {
       id: '/_appuser/dashboard/sharp_marketing/social_media_management'
-      path: '/sharp_marketing/social_media_management'
+      path: '/social_media_management'
       fullPath: '/dashboard/sharp_marketing/social_media_management'
       preLoaderRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
     }
     '/_appuser/dashboard/sharp_marketing/reports': {
       id: '/_appuser/dashboard/sharp_marketing/reports'
-      path: '/sharp_marketing/reports'
+      path: '/reports'
       fullPath: '/dashboard/sharp_marketing/reports'
       preLoaderRoute: typeof AppuserDashboardSharp_marketingReportsRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
     }
     '/_appuser/dashboard/sharp_marketing/leads': {
       id: '/_appuser/dashboard/sharp_marketing/leads'
-      path: '/sharp_marketing/leads'
+      path: '/leads'
       fullPath: '/dashboard/sharp_marketing/leads'
       preLoaderRoute: typeof AppuserDashboardSharp_marketingLeadsRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
     }
     '/_appuser/dashboard/sharp_marketing/campaigns': {
       id: '/_appuser/dashboard/sharp_marketing/campaigns'
-      path: '/sharp_marketing/campaigns'
+      path: '/campaigns'
       fullPath: '/dashboard/sharp_marketing/campaigns'
       preLoaderRoute: typeof AppuserDashboardSharp_marketingCampaignsRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/setup-wizard': {
       id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard'
@@ -1460,41 +1450,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
     }
-    '/_appuser/dashboard/sharp_accounting/transactions': {
-      id: '/_appuser/dashboard/sharp_accounting/transactions'
-      path: '/sharp_accounting/transactions'
-      fullPath: '/dashboard/sharp_accounting/transactions'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingTransactionsRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/settings': {
-      id: '/_appuser/dashboard/sharp_accounting/settings'
-      path: '/sharp_accounting/settings'
-      fullPath: '/dashboard/sharp_accounting/settings'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingSettingsRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/ledger': {
-      id: '/_appuser/dashboard/sharp_accounting/ledger'
-      path: '/sharp_accounting/ledger'
-      fullPath: '/dashboard/sharp_accounting/ledger'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLedgerRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/auditAndLogs': {
-      id: '/_appuser/dashboard/sharp_accounting/auditAndLogs'
-      path: '/sharp_accounting/auditAndLogs'
-      fullPath: '/dashboard/sharp_accounting/auditAndLogs'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingAuditAndLogsRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/accounting-setup': {
-      id: '/_appuser/dashboard/sharp_accounting/accounting-setup'
-      path: '/sharp_accounting/accounting-setup'
-      fullPath: '/dashboard/sharp_accounting/accounting-setup'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
     '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/'
       path: '/'
@@ -1511,45 +1466,45 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/dashboard/sharp_hr/settings/': {
       id: '/_appuser/dashboard/sharp_hr/settings/'
-      path: '/sharp_hr/settings'
+      path: '/settings'
       fullPath: '/dashboard/sharp_hr/settings'
       preLoaderRoute: typeof AppuserDashboardSharp_hrSettingsIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/reports/': {
       id: '/_appuser/dashboard/sharp_hr/reports/'
-      path: '/sharp_hr/reports'
+      path: '/reports'
       fullPath: '/dashboard/sharp_hr/reports'
       preLoaderRoute: typeof AppuserDashboardSharp_hrReportsIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/recruitment/': {
       id: '/_appuser/dashboard/sharp_hr/recruitment/'
-      path: '/sharp_hr/recruitment'
+      path: '/recruitment'
       fullPath: '/dashboard/sharp_hr/recruitment'
       preLoaderRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/payroll/': {
       id: '/_appuser/dashboard/sharp_hr/payroll/'
-      path: '/sharp_hr/payroll'
+      path: '/payroll'
       fullPath: '/dashboard/sharp_hr/payroll'
       preLoaderRoute: typeof AppuserDashboardSharp_hrPayrollIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/leaves/': {
       id: '/_appuser/dashboard/sharp_hr/leaves/'
-      path: '/sharp_hr/leaves'
+      path: '/leaves'
       fullPath: '/dashboard/sharp_hr/leaves'
       preLoaderRoute: typeof AppuserDashboardSharp_hrLeavesIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/': {
       id: '/_appuser/dashboard/sharp_hr/employees/'
-      path: '/sharp_hr/employees'
+      path: '/employees'
       fullPath: '/dashboard/sharp_hr/employees'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant/': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant/'
@@ -1557,20 +1512,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_hospitality/restaurant/'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/menu/': {
-      id: '/_appuser/dashboard/sharp_hospitality/menu/'
-      path: '/sharp_hospitality/menu'
-      fullPath: '/dashboard/sharp_hospitality/menu'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityMenuIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/inventory/': {
-      id: '/_appuser/dashboard/sharp_hospitality/inventory/'
-      path: '/sharp_hospitality/inventory'
-      fullPath: '/dashboard/sharp_hospitality/inventory'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityInventoryIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/hotel/': {
       id: '/_appuser/dashboard/sharp_hospitality/hotel/'
@@ -1586,88 +1527,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRoute
     }
+    '/_appuser/dashboard/sharp_accounting/transactions/': {
+      id: '/_appuser/dashboard/sharp_accounting/transactions/'
+      path: '/transactions'
+      fullPath: '/dashboard/sharp_accounting/transactions'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingTransactionsIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
+    }
+    '/_appuser/dashboard/sharp_accounting/settings/': {
+      id: '/_appuser/dashboard/sharp_accounting/settings/'
+      path: '/settings'
+      fullPath: '/dashboard/sharp_accounting/settings'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingSettingsIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
+    }
     '/_appuser/dashboard/sharp_accounting/reports/': {
       id: '/_appuser/dashboard/sharp_accounting/reports/'
-      path: '/sharp_accounting/reports'
+      path: '/reports'
       fullPath: '/dashboard/sharp_accounting/reports'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingReportsIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
+    }
+    '/_appuser/dashboard/sharp_accounting/overview/': {
+      id: '/_appuser/dashboard/sharp_accounting/overview/'
+      path: '/overview'
+      fullPath: '/dashboard/sharp_accounting/overview'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingOverviewIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
+    }
+    '/_appuser/dashboard/sharp_accounting/ledger/': {
+      id: '/_appuser/dashboard/sharp_accounting/ledger/'
+      path: '/ledger'
+      fullPath: '/dashboard/sharp_accounting/ledger'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingLedgerIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
+    }
+    '/_appuser/dashboard/sharp_accounting/chart-of-account/': {
+      id: '/_appuser/dashboard/sharp_accounting/chart-of-account/'
+      path: '/chart-of-account'
+      fullPath: '/dashboard/sharp_accounting/chart-of-account'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingChartOfAccountIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/leaves/requests': {
       id: '/_appuser/dashboard/sharp_hr/leaves/requests'
-      path: '/sharp_hr/leaves/requests'
+      path: '/leaves/requests'
       fullPath: '/dashboard/sharp_hr/leaves/requests'
       preLoaderRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/$employeeId': {
       id: '/_appuser/dashboard/sharp_hr/employees/$employeeId'
-      path: '/sharp_hr/employees/$employeeId'
+      path: '/employees/$employeeId'
       fullPath: '/dashboard/sharp_hr/employees/$employeeId'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_accounting/reports/trial-balance': {
       id: '/_appuser/dashboard/sharp_accounting/reports/trial-balance'
-      path: '/sharp_accounting/reports/trial-balance'
+      path: '/reports/trial-balance'
       fullPath: '/dashboard/sharp_accounting/reports/trial-balance'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingReportsTrialBalanceRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
     }
     '/_appuser/dashboard/sharp_accounting/reports/profit-loss': {
       id: '/_appuser/dashboard/sharp_accounting/reports/profit-loss'
-      path: '/sharp_accounting/reports/profit-loss'
+      path: '/reports/profit-loss'
       fullPath: '/dashboard/sharp_accounting/reports/profit-loss'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingReportsProfitLossRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
     }
     '/_appuser/dashboard/sharp_accounting/reports/ledger': {
       id: '/_appuser/dashboard/sharp_accounting/reports/ledger'
-      path: '/sharp_accounting/reports/ledger'
+      path: '/reports/ledger'
       fullPath: '/dashboard/sharp_accounting/reports/ledger'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingReportsLedgerRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
     }
     '/_appuser/dashboard/sharp_accounting/reports/balance-sheet': {
       id: '/_appuser/dashboard/sharp_accounting/reports/balance-sheet'
-      path: '/sharp_accounting/reports/balance-sheet'
+      path: '/reports/balance-sheet'
       fullPath: '/dashboard/sharp_accounting/reports/balance-sheet'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingReportsBalanceSheetRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account': {
-      id: '/_appuser/dashboard/sharp_accounting/accounting-setup/chart-of-account'
-      path: '/chart-of-account'
-      fullPath: '/dashboard/sharp_accounting/accounting-setup/chart-of-account'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingAccountingSetupRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/accounting-setup/books': {
-      id: '/_appuser/dashboard/sharp_accounting/accounting-setup/books'
-      path: '/books'
-      fullPath: '/dashboard/sharp_accounting/accounting-setup/books'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingAccountingSetupBooksRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingAccountingSetupRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings': {
-      id: '/_appuser/dashboard/sharp_accounting/accounting-setup/account-mappings'
-      path: '/account-mappings'
-      fullPath: '/dashboard/sharp_accounting/accounting-setup/account-mappings'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingAccountingSetupRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_accountingRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
       path: '/legal_entity'
       fullPath: '/orchestrator/legal_entity'
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality'
-      path: '/hospitality'
-      fullPath: '/orchestrator/hospitality'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/property/': {
@@ -1677,6 +1625,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
+      path: '/organization'
+      fullPath: '/orchestrator/organization'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+    }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/'
+      path: '/org-users'
+      fullPath: '/orchestrator/org-users'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+    }
     '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
       path: '/'
@@ -1684,39 +1646,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/hospitality/'
-      path: '/'
-      fullPath: '/orchestrator/hospitality/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute
-    }
     '/_appuser/dashboard/sharp_hr/employees/privileges/': {
       id: '/_appuser/dashboard/sharp_hr/employees/privileges/'
-      path: '/sharp_hr/employees/privileges'
+      path: '/employees/privileges'
       fullPath: '/dashboard/sharp_hr/employees/privileges'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/documents/': {
       id: '/_appuser/dashboard/sharp_hr/employees/documents/'
-      path: '/sharp_hr/employees/documents'
+      path: '/employees/documents'
       fullPath: '/dashboard/sharp_hr/employees/documents'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/direct-hire/': {
       id: '/_appuser/dashboard/sharp_hr/employees/direct-hire/'
-      path: '/sharp_hr/employees/direct-hire'
+      path: '/employees/direct-hire'
       fullPath: '/dashboard/sharp_hr/employees/direct-hire'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
+      parentRoute: typeof AppuserDashboardSharp_hrRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/': {
+      id: '/_appuser/dashboard/sharp_hospitality/restaurant/table-management/'
+      path: '/table-management'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/table-management'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/'
       path: '/sales-terminal'
       fullPath: '/dashboard/sharp_hospitality/restaurant/sales-terminal'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/': {
+      id: '/_appuser/dashboard/sharp_hospitality/restaurant/reservations/'
+      path: '/reservations'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/reservations'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
+    }
+    '/_appuser/dashboard/sharp_hospitality/restaurant/orders/': {
+      id: '/_appuser/dashboard/sharp_hospitality/restaurant/orders/'
+      path: '/orders'
+      fullPath: '/dashboard/sharp_hospitality/restaurant/orders'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality/restaurant/kitchen/': {
@@ -1911,25 +1887,123 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AppuserDashboardSharp_accountingAccountingSetupRouteRouteChildren {
-  AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute: typeof AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute
-  AppuserDashboardSharp_accountingAccountingSetupBooksRoute: typeof AppuserDashboardSharp_accountingAccountingSetupBooksRoute
-  AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute: typeof AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute
+interface AppuserDashboardSharp_accountingRouteRouteChildren {
+  AppuserDashboardSharp_accountingIndexRoute: typeof AppuserDashboardSharp_accountingIndexRoute
+  AppuserDashboardSharp_accountingReportsBalanceSheetRoute: typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
+  AppuserDashboardSharp_accountingReportsLedgerRoute: typeof AppuserDashboardSharp_accountingReportsLedgerRoute
+  AppuserDashboardSharp_accountingReportsProfitLossRoute: typeof AppuserDashboardSharp_accountingReportsProfitLossRoute
+  AppuserDashboardSharp_accountingReportsTrialBalanceRoute: typeof AppuserDashboardSharp_accountingReportsTrialBalanceRoute
+  AppuserDashboardSharp_accountingChartOfAccountIndexRoute: typeof AppuserDashboardSharp_accountingChartOfAccountIndexRoute
+  AppuserDashboardSharp_accountingLedgerIndexRoute: typeof AppuserDashboardSharp_accountingLedgerIndexRoute
+  AppuserDashboardSharp_accountingOverviewIndexRoute: typeof AppuserDashboardSharp_accountingOverviewIndexRoute
+  AppuserDashboardSharp_accountingReportsIndexRoute: typeof AppuserDashboardSharp_accountingReportsIndexRoute
+  AppuserDashboardSharp_accountingSettingsIndexRoute: typeof AppuserDashboardSharp_accountingSettingsIndexRoute
+  AppuserDashboardSharp_accountingTransactionsIndexRoute: typeof AppuserDashboardSharp_accountingTransactionsIndexRoute
 }
 
-const AppuserDashboardSharp_accountingAccountingSetupRouteRouteChildren: AppuserDashboardSharp_accountingAccountingSetupRouteRouteChildren =
+const AppuserDashboardSharp_accountingRouteRouteChildren: AppuserDashboardSharp_accountingRouteRouteChildren =
   {
-    AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute:
-      AppuserDashboardSharp_accountingAccountingSetupAccountMappingsRoute,
-    AppuserDashboardSharp_accountingAccountingSetupBooksRoute:
-      AppuserDashboardSharp_accountingAccountingSetupBooksRoute,
-    AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute:
-      AppuserDashboardSharp_accountingAccountingSetupChartOfAccountRoute,
+    AppuserDashboardSharp_accountingIndexRoute:
+      AppuserDashboardSharp_accountingIndexRoute,
+    AppuserDashboardSharp_accountingReportsBalanceSheetRoute:
+      AppuserDashboardSharp_accountingReportsBalanceSheetRoute,
+    AppuserDashboardSharp_accountingReportsLedgerRoute:
+      AppuserDashboardSharp_accountingReportsLedgerRoute,
+    AppuserDashboardSharp_accountingReportsProfitLossRoute:
+      AppuserDashboardSharp_accountingReportsProfitLossRoute,
+    AppuserDashboardSharp_accountingReportsTrialBalanceRoute:
+      AppuserDashboardSharp_accountingReportsTrialBalanceRoute,
+    AppuserDashboardSharp_accountingChartOfAccountIndexRoute:
+      AppuserDashboardSharp_accountingChartOfAccountIndexRoute,
+    AppuserDashboardSharp_accountingLedgerIndexRoute:
+      AppuserDashboardSharp_accountingLedgerIndexRoute,
+    AppuserDashboardSharp_accountingOverviewIndexRoute:
+      AppuserDashboardSharp_accountingOverviewIndexRoute,
+    AppuserDashboardSharp_accountingReportsIndexRoute:
+      AppuserDashboardSharp_accountingReportsIndexRoute,
+    AppuserDashboardSharp_accountingSettingsIndexRoute:
+      AppuserDashboardSharp_accountingSettingsIndexRoute,
+    AppuserDashboardSharp_accountingTransactionsIndexRoute:
+      AppuserDashboardSharp_accountingTransactionsIndexRoute,
   }
 
-const AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren =
-  AppuserDashboardSharp_accountingAccountingSetupRouteRoute._addFileChildren(
-    AppuserDashboardSharp_accountingAccountingSetupRouteRouteChildren,
+const AppuserDashboardSharp_accountingRouteRouteWithChildren =
+  AppuserDashboardSharp_accountingRouteRoute._addFileChildren(
+    AppuserDashboardSharp_accountingRouteRouteChildren,
+  )
+
+interface AppuserDashboardSharp_hrRouteRouteChildren {
+  AppuserDashboardSharp_hrIndexRoute: typeof AppuserDashboardSharp_hrIndexRoute
+  AppuserDashboardSharp_hrEmployeesEmployeeIdRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
+  AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
+  AppuserDashboardSharp_hrEmployeesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRoute
+  AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
+  AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
+  AppuserDashboardSharp_hrRecruitmentIndexRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
+  AppuserDashboardSharp_hrReportsIndexRoute: typeof AppuserDashboardSharp_hrReportsIndexRoute
+  AppuserDashboardSharp_hrSettingsIndexRoute: typeof AppuserDashboardSharp_hrSettingsIndexRoute
+  AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
+  AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
+  AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
+}
+
+const AppuserDashboardSharp_hrRouteRouteChildren: AppuserDashboardSharp_hrRouteRouteChildren =
+  {
+    AppuserDashboardSharp_hrIndexRoute: AppuserDashboardSharp_hrIndexRoute,
+    AppuserDashboardSharp_hrEmployeesEmployeeIdRoute:
+      AppuserDashboardSharp_hrEmployeesEmployeeIdRoute,
+    AppuserDashboardSharp_hrLeavesRequestsRoute:
+      AppuserDashboardSharp_hrLeavesRequestsRoute,
+    AppuserDashboardSharp_hrEmployeesIndexRoute:
+      AppuserDashboardSharp_hrEmployeesIndexRoute,
+    AppuserDashboardSharp_hrLeavesIndexRoute:
+      AppuserDashboardSharp_hrLeavesIndexRoute,
+    AppuserDashboardSharp_hrPayrollIndexRoute:
+      AppuserDashboardSharp_hrPayrollIndexRoute,
+    AppuserDashboardSharp_hrRecruitmentIndexRoute:
+      AppuserDashboardSharp_hrRecruitmentIndexRoute,
+    AppuserDashboardSharp_hrReportsIndexRoute:
+      AppuserDashboardSharp_hrReportsIndexRoute,
+    AppuserDashboardSharp_hrSettingsIndexRoute:
+      AppuserDashboardSharp_hrSettingsIndexRoute,
+    AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute:
+      AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute,
+    AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute:
+      AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute,
+    AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute:
+      AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute,
+  }
+
+const AppuserDashboardSharp_hrRouteRouteWithChildren =
+  AppuserDashboardSharp_hrRouteRoute._addFileChildren(
+    AppuserDashboardSharp_hrRouteRouteChildren,
+  )
+
+interface AppuserDashboardSharp_marketingRouteRouteChildren {
+  AppuserDashboardSharp_marketingCampaignsRoute: typeof AppuserDashboardSharp_marketingCampaignsRoute
+  AppuserDashboardSharp_marketingLeadsRoute: typeof AppuserDashboardSharp_marketingLeadsRoute
+  AppuserDashboardSharp_marketingReportsRoute: typeof AppuserDashboardSharp_marketingReportsRoute
+  AppuserDashboardSharp_marketingSocial_media_managementRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
+  AppuserDashboardSharp_marketingIndexRoute: typeof AppuserDashboardSharp_marketingIndexRoute
+}
+
+const AppuserDashboardSharp_marketingRouteRouteChildren: AppuserDashboardSharp_marketingRouteRouteChildren =
+  {
+    AppuserDashboardSharp_marketingCampaignsRoute:
+      AppuserDashboardSharp_marketingCampaignsRoute,
+    AppuserDashboardSharp_marketingLeadsRoute:
+      AppuserDashboardSharp_marketingLeadsRoute,
+    AppuserDashboardSharp_marketingReportsRoute:
+      AppuserDashboardSharp_marketingReportsRoute,
+    AppuserDashboardSharp_marketingSocial_media_managementRoute:
+      AppuserDashboardSharp_marketingSocial_media_managementRoute,
+    AppuserDashboardSharp_marketingIndexRoute:
+      AppuserDashboardSharp_marketingIndexRoute,
+  }
+
+const AppuserDashboardSharp_marketingRouteRouteWithChildren =
+  AppuserDashboardSharp_marketingRouteRoute._addFileChildren(
+    AppuserDashboardSharp_marketingRouteRouteChildren,
   )
 
 interface AppuserDashboardSharp_hospitalityBarRouteRouteChildren {
@@ -2015,7 +2089,10 @@ interface AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren {
   AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantGeneralSettingsIndexRoute
   AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute
   AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute
+  AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute
+  AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute
   AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute
+  AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute
 }
 
 const AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren: AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren =
@@ -2028,8 +2105,14 @@ const AppuserDashboardSharp_hospitalityRestaurantRouteRouteChildren: AppuserDash
       AppuserDashboardSharp_hospitalityRestaurantInventoryIndexRoute,
     AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute:
       AppuserDashboardSharp_hospitalityRestaurantKitchenIndexRoute,
+    AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute:
+      AppuserDashboardSharp_hospitalityRestaurantOrdersIndexRoute,
+    AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute:
+      AppuserDashboardSharp_hospitalityRestaurantReservationsIndexRoute,
     AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute:
       AppuserDashboardSharp_hospitalityRestaurantSalesTerminalIndexRoute,
+    AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute:
+      AppuserDashboardSharp_hospitalityRestaurantTableManagementIndexRoute,
   }
 
 const AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren =
@@ -2038,107 +2121,29 @@ const AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren =
   )
 
 interface AppuserDashboardRouteRouteChildren {
+  AppuserDashboardSharp_accountingRouteRoute: typeof AppuserDashboardSharp_accountingRouteRouteWithChildren
+  AppuserDashboardSharp_hrRouteRoute: typeof AppuserDashboardSharp_hrRouteRouteWithChildren
+  AppuserDashboardSharp_marketingRouteRoute: typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   AppuserDashboardIndexRoute: typeof AppuserDashboardIndexRoute
-  AppuserDashboardSharp_accountingAccountingSetupRouteRoute: typeof AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren
-  AppuserDashboardSharp_accountingAuditAndLogsRouteRoute: typeof AppuserDashboardSharp_accountingAuditAndLogsRouteRoute
-  AppuserDashboardSharp_accountingLedgerRouteRoute: typeof AppuserDashboardSharp_accountingLedgerRouteRoute
-  AppuserDashboardSharp_accountingSettingsRouteRoute: typeof AppuserDashboardSharp_accountingSettingsRouteRoute
-  AppuserDashboardSharp_accountingTransactionsRouteRoute: typeof AppuserDashboardSharp_accountingTransactionsRouteRoute
   AppuserDashboardSharp_hospitalityBarRouteRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   AppuserDashboardSharp_hospitalityHotelRouteRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   AppuserDashboardSharp_hospitalityRestaurantRouteRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren
-  AppuserDashboardSharp_marketingCampaignsRoute: typeof AppuserDashboardSharp_marketingCampaignsRoute
-  AppuserDashboardSharp_marketingLeadsRoute: typeof AppuserDashboardSharp_marketingLeadsRoute
-  AppuserDashboardSharp_marketingReportsRoute: typeof AppuserDashboardSharp_marketingReportsRoute
-  AppuserDashboardSharp_marketingSocial_media_managementRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
-  AppuserDashboardSharp_accountingIndexRoute: typeof AppuserDashboardSharp_accountingIndexRoute
-  AppuserDashboardSharp_marketingIndexRoute: typeof AppuserDashboardSharp_marketingIndexRoute
-  AppuserDashboardSharp_accountingReportsBalanceSheetRoute: typeof AppuserDashboardSharp_accountingReportsBalanceSheetRoute
-  AppuserDashboardSharp_accountingReportsLedgerRoute: typeof AppuserDashboardSharp_accountingReportsLedgerRoute
-  AppuserDashboardSharp_accountingReportsProfitLossRoute: typeof AppuserDashboardSharp_accountingReportsProfitLossRoute
-  AppuserDashboardSharp_accountingReportsTrialBalanceRoute: typeof AppuserDashboardSharp_accountingReportsTrialBalanceRoute
-  AppuserDashboardSharp_hrEmployeesEmployeeIdRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
-  AppuserDashboardSharp_hrLeavesRequestsRoute: typeof AppuserDashboardSharp_hrLeavesRequestsRoute
-  AppuserDashboardSharp_accountingReportsIndexRoute: typeof AppuserDashboardSharp_accountingReportsIndexRoute
-  AppuserDashboardSharp_hospitalityInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityInventoryIndexRoute
-  AppuserDashboardSharp_hospitalityMenuIndexRoute: typeof AppuserDashboardSharp_hospitalityMenuIndexRoute
-  AppuserDashboardSharp_hrEmployeesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesIndexRoute
-  AppuserDashboardSharp_hrLeavesIndexRoute: typeof AppuserDashboardSharp_hrLeavesIndexRoute
-  AppuserDashboardSharp_hrPayrollIndexRoute: typeof AppuserDashboardSharp_hrPayrollIndexRoute
-  AppuserDashboardSharp_hrRecruitmentIndexRoute: typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
-  AppuserDashboardSharp_hrReportsIndexRoute: typeof AppuserDashboardSharp_hrReportsIndexRoute
-  AppuserDashboardSharp_hrSettingsIndexRoute: typeof AppuserDashboardSharp_hrSettingsIndexRoute
-  AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
-  AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute: typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
-  AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute: typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
 }
 
 const AppuserDashboardRouteRouteChildren: AppuserDashboardRouteRouteChildren = {
+  AppuserDashboardSharp_accountingRouteRoute:
+    AppuserDashboardSharp_accountingRouteRouteWithChildren,
+  AppuserDashboardSharp_hrRouteRoute:
+    AppuserDashboardSharp_hrRouteRouteWithChildren,
+  AppuserDashboardSharp_marketingRouteRoute:
+    AppuserDashboardSharp_marketingRouteRouteWithChildren,
   AppuserDashboardIndexRoute: AppuserDashboardIndexRoute,
-  AppuserDashboardSharp_accountingAccountingSetupRouteRoute:
-    AppuserDashboardSharp_accountingAccountingSetupRouteRouteWithChildren,
-  AppuserDashboardSharp_accountingAuditAndLogsRouteRoute:
-    AppuserDashboardSharp_accountingAuditAndLogsRouteRoute,
-  AppuserDashboardSharp_accountingLedgerRouteRoute:
-    AppuserDashboardSharp_accountingLedgerRouteRoute,
-  AppuserDashboardSharp_accountingSettingsRouteRoute:
-    AppuserDashboardSharp_accountingSettingsRouteRoute,
-  AppuserDashboardSharp_accountingTransactionsRouteRoute:
-    AppuserDashboardSharp_accountingTransactionsRouteRoute,
   AppuserDashboardSharp_hospitalityBarRouteRoute:
     AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren,
   AppuserDashboardSharp_hospitalityHotelRouteRoute:
     AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren,
   AppuserDashboardSharp_hospitalityRestaurantRouteRoute:
     AppuserDashboardSharp_hospitalityRestaurantRouteRouteWithChildren,
-  AppuserDashboardSharp_marketingCampaignsRoute:
-    AppuserDashboardSharp_marketingCampaignsRoute,
-  AppuserDashboardSharp_marketingLeadsRoute:
-    AppuserDashboardSharp_marketingLeadsRoute,
-  AppuserDashboardSharp_marketingReportsRoute:
-    AppuserDashboardSharp_marketingReportsRoute,
-  AppuserDashboardSharp_marketingSocial_media_managementRoute:
-    AppuserDashboardSharp_marketingSocial_media_managementRoute,
-  AppuserDashboardSharp_accountingIndexRoute:
-    AppuserDashboardSharp_accountingIndexRoute,
-  AppuserDashboardSharp_marketingIndexRoute:
-    AppuserDashboardSharp_marketingIndexRoute,
-  AppuserDashboardSharp_accountingReportsBalanceSheetRoute:
-    AppuserDashboardSharp_accountingReportsBalanceSheetRoute,
-  AppuserDashboardSharp_accountingReportsLedgerRoute:
-    AppuserDashboardSharp_accountingReportsLedgerRoute,
-  AppuserDashboardSharp_accountingReportsProfitLossRoute:
-    AppuserDashboardSharp_accountingReportsProfitLossRoute,
-  AppuserDashboardSharp_accountingReportsTrialBalanceRoute:
-    AppuserDashboardSharp_accountingReportsTrialBalanceRoute,
-  AppuserDashboardSharp_hrEmployeesEmployeeIdRoute:
-    AppuserDashboardSharp_hrEmployeesEmployeeIdRoute,
-  AppuserDashboardSharp_hrLeavesRequestsRoute:
-    AppuserDashboardSharp_hrLeavesRequestsRoute,
-  AppuserDashboardSharp_accountingReportsIndexRoute:
-    AppuserDashboardSharp_accountingReportsIndexRoute,
-  AppuserDashboardSharp_hospitalityInventoryIndexRoute:
-    AppuserDashboardSharp_hospitalityInventoryIndexRoute,
-  AppuserDashboardSharp_hospitalityMenuIndexRoute:
-    AppuserDashboardSharp_hospitalityMenuIndexRoute,
-  AppuserDashboardSharp_hrEmployeesIndexRoute:
-    AppuserDashboardSharp_hrEmployeesIndexRoute,
-  AppuserDashboardSharp_hrLeavesIndexRoute:
-    AppuserDashboardSharp_hrLeavesIndexRoute,
-  AppuserDashboardSharp_hrPayrollIndexRoute:
-    AppuserDashboardSharp_hrPayrollIndexRoute,
-  AppuserDashboardSharp_hrRecruitmentIndexRoute:
-    AppuserDashboardSharp_hrRecruitmentIndexRoute,
-  AppuserDashboardSharp_hrReportsIndexRoute:
-    AppuserDashboardSharp_hrReportsIndexRoute,
-  AppuserDashboardSharp_hrSettingsIndexRoute:
-    AppuserDashboardSharp_hrSettingsIndexRoute,
-  AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute:
-    AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute,
-  AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute:
-    AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute,
-  AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute:
-    AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute,
 }
 
 const AppuserDashboardRouteRouteWithChildren =
@@ -2146,20 +2151,25 @@ const AppuserDashboardRouteRouteWithChildren =
     AppuserDashboardRouteRouteChildren,
   )
 
-interface AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute
+interface AppuserIamRouteRouteChildren {
+  AppuserIamLegalIndexRoute: typeof AppuserIamLegalIndexRoute
+  AppuserIamMessagesIndexRoute: typeof AppuserIamMessagesIndexRoute
+  AppuserIamProfileIndexRoute: typeof AppuserIamProfileIndexRoute
+  AppuserIamRequestsIndexRoute: typeof AppuserIamRequestsIndexRoute
+  AppuserIamTasksIndexRoute: typeof AppuserIamTasksIndexRoute
 }
 
-const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleHospitalityIndexRoute,
-  }
+const AppuserIamRouteRouteChildren: AppuserIamRouteRouteChildren = {
+  AppuserIamLegalIndexRoute: AppuserIamLegalIndexRoute,
+  AppuserIamMessagesIndexRoute: AppuserIamMessagesIndexRoute,
+  AppuserIamProfileIndexRoute: AppuserIamProfileIndexRoute,
+  AppuserIamRequestsIndexRoute: AppuserIamRequestsIndexRoute,
+  AppuserIamTasksIndexRoute: AppuserIamTasksIndexRoute,
+}
 
-const AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteChildren,
-  )
+const AppuserIamRouteRouteWithChildren = AppuserIamRouteRoute._addFileChildren(
+  AppuserIamRouteRouteChildren,
+)
 
 interface AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
@@ -2177,10 +2187,11 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChi
   )
 
 interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren
   AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
+  AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
+  AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
@@ -2189,14 +2200,16 @@ interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
 
 const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren =
   {
-    AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleHospitalityRouteRouteWithChildren,
     AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren,
     AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute,
+    AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute,
+    AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute:
@@ -2274,30 +2287,14 @@ const AppuserOrchestratorRouteRouteWithChildren =
 
 interface AppuserRouteRouteChildren {
   AppuserDashboardRouteRoute: typeof AppuserDashboardRouteRouteWithChildren
+  AppuserIamRouteRoute: typeof AppuserIamRouteRouteWithChildren
   AppuserOrchestratorRouteRoute: typeof AppuserOrchestratorRouteRouteWithChildren
-  AppuserIamFeedbackRoute: typeof AppuserIamFeedbackRoute
-  AppuserIamGrievancesRoute: typeof AppuserIamGrievancesRoute
-  AppuserIamLeavesRoute: typeof AppuserIamLeavesRoute
-  AppuserIamMyAttendanceRoute: typeof AppuserIamMyAttendanceRoute
-  AppuserIamOvertimeRoute: typeof AppuserIamOvertimeRoute
-  AppuserIamProfileRoute: typeof AppuserIamProfileRoute
-  AppuserIamRequestsRoute: typeof AppuserIamRequestsRoute
-  AppuserIamReviewsRoute: typeof AppuserIamReviewsRoute
-  AppuserIamIndexRoute: typeof AppuserIamIndexRoute
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserDashboardRouteRoute: AppuserDashboardRouteRouteWithChildren,
+  AppuserIamRouteRoute: AppuserIamRouteRouteWithChildren,
   AppuserOrchestratorRouteRoute: AppuserOrchestratorRouteRouteWithChildren,
-  AppuserIamFeedbackRoute: AppuserIamFeedbackRoute,
-  AppuserIamGrievancesRoute: AppuserIamGrievancesRoute,
-  AppuserIamLeavesRoute: AppuserIamLeavesRoute,
-  AppuserIamMyAttendanceRoute: AppuserIamMyAttendanceRoute,
-  AppuserIamOvertimeRoute: AppuserIamOvertimeRoute,
-  AppuserIamProfileRoute: AppuserIamProfileRoute,
-  AppuserIamRequestsRoute: AppuserIamRequestsRoute,
-  AppuserIamReviewsRoute: AppuserIamReviewsRoute,
-  AppuserIamIndexRoute: AppuserIamIndexRoute,
 }
 
 const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(

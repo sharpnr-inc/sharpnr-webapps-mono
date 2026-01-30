@@ -1,5 +1,3 @@
-import DynamicIslandHost from "@/components/custom/DynamicIslandHost";
-import { HeaderProvider } from "@/context/HeaderContext";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_appuser/dashboard")({
@@ -9,12 +7,9 @@ export const Route = createFileRoute("/_appuser/dashboard")({
 function RouteComponent() {
   return (
     <>
-      {/* <DynamicIslandHost /> */}
-
       <Outlet />
     </>
   );
 }
 
-
-// Should we create the 
+// Should we create the

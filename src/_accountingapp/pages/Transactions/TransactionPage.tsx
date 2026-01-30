@@ -1,101 +1,155 @@
-import { useOrgAccountingBooks } from "@/_accountingapp/api/queries/books";
-import { useTransactions } from "@/_accountingapp/api/queries/transactions";
-import { TransactionTable } from "@/_accountingapp/components/transactions/transactions-table";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-// ♓ Main Accounting Transactions Page ♓//
-export default function AccountingTransactionPage() {
-  const [selectedBookId, setSelectedBookId] = useState<string | undefined>();
+interface TransactionPageProps {}
 
-  /* ---------------- Books ---------------- */
-  const {
-    data: books,
-    isLoading: isBooksLoading,
-    isError: isBooksError,
-    error: booksError,
-  } = useOrgAccountingBooks();
+type TransactionType = "credit" | "debit";
 
-  const { data, isLoading } = useTransactions({
-    book_id: selectedBookId!,
-    from: "2025-12-01",
-    to: "2025-12-31",
-    offset: 0,
-  });
+interface Transaction {
+  id: string;
+  date: string;
+  reference: string;
+  description: string;
+  account: string;
+  type: TransactionType;
+  amount: number;
+}
 
-  /* ---------------- Loading (Books) ---------------- */
-  if (isBooksLoading) {
-    return (
-      <div className="p-4 max-w-sm">
-        <Skeleton className="h-10 w-full rounded-md" />
-      </div>
-    );
-  }
+/* ================= Dummy Data ================= */
+const DUMMY_TRANSACTIONS: Transaction[] = [
+  {
+    id: "txn_001",
+    date: "2026-01-25",
+    reference: "INV-1001",
+    description: "Room booking payment",
+    account: "Cash",
+    type: "credit",
+    amount: 12500,
+  },
+  {
+    id: "txn_002",
+    date: "2026-01-26",
+    reference: "EXP-2001",
+    description: "Laundry expense",
+    account: "Expenses",
+    type: "debit",
+    amount: 1800,
+  },
+  {
+    id: "txn_003",
+    date: "2026-01-26",
+    reference: "INV-1002",
+    description: "Restaurant payment",
+    account: "Bank",
+    type: "credit",
+    amount: 8600,
+  },
+  {
+    id: "txn_004",
+    date: "2026-01-27",
+    reference: "SAL-3001",
+    description: "Staff salary payout",
+    account: "Bank",
+    type: "debit",
+    amount: 42000,
+  },
+];
 
-  /* ---------------- Error (Books) ---------------- */
-  if (isBooksError) {
-    return (
-      <div className="p-4 max-w-sm">
-        <Alert variant="destructive">
-          <AlertDescription>
-            {(booksError as any)?.message ?? "Failed to load accounting books"}
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  const accountBooks = books?.data?.account_books ?? [];
-
-  /* ---------------- Empty (Books) ---------------- */
-  if (accountBooks.length === 0) {
-    return (
-      <div className="p-4 max-w-sm">
-        <Alert>
-          <AlertDescription>
-            No accounting books found for this organization.
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
+/* ================= Page ================= */
+const TransactionPage: React.FC<TransactionPageProps> = () => {
   return (
-    <div className="p-2">
-      <div>
-        <Select
-          value={selectedBookId}
-          onValueChange={(value) => setSelectedBookId(value)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select Accounting Book" />
-          </SelectTrigger>
-
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Accounting Books</SelectLabel>
-              {accountBooks.map((ac: any) => (
-                <SelectItem key={ac.id} value={ac.id}>
-                  {ac.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">
+          Transactions
+        </h1>
+        <Button>Add Transaction</Button>
       </div>
-      {selectedBookId && !isLoading && (
-        <TransactionTable transactions={data?.data?.items} />
-      )}
+
+      {/* Table */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Recent Transactions</CardTitle>
+        </CardHeader>
+
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Date</TableHead>
+                <TableHead>Reference</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Account</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead className="text-right">
+                  Amount
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {DUMMY_TRANSACTIONS.map((txn) => (
+                <TableRow key={txn.id}>
+                  <TableCell>{txn.date}</TableCell>
+                  <TableCell>{txn.reference}</TableCell>
+                  <TableCell>{txn.description}</TableCell>
+                  <TableCell>{txn.account}</TableCell>
+
+                  <TableCell>
+                    <Badge
+                      className={
+                        txn.type === "credit"
+                          ? "bg-emerald-500/15 text-emerald-700 border border-emerald-500/30"
+                          : "bg-red-500/15 text-red-700 border border-red-500/30"
+                      }
+                    >
+                      {txn.type}
+                    </Badge>
+                  </TableCell>
+
+                  <TableCell
+                    className={`text-right font-medium ${
+                      txn.type === "credit"
+                        ? "text-emerald-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    ₹{txn.amount.toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {DUMMY_TRANSACTIONS.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={6}
+                    className="text-center text-muted-foreground py-6"
+                  >
+                    No transactions found
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
-}
+};
+
+export default TransactionPage;

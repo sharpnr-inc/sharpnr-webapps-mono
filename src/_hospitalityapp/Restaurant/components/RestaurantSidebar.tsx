@@ -40,17 +40,17 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
   },
   {
     label: "Table Management",
-    to: "/dashboard/sharp_hospitality/restaurant/table",
+    to: "/dashboard/sharp_hospitality/restaurant/table-management",
     icon: Grid3x3,
     match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table"),
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table-management"),
   },
   {
     label: "Reservations",
-    to: "/dashboard/sharp_hospitality/restaurant/table",
+    to: "/dashboard/sharp_hospitality/restaurant/reservations",
     icon: Grid3x3,
     match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table"),
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/reservations"),
   },
   {
     label: "Kitchen",
@@ -77,11 +77,11 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
   },
   {
     label: "Orders",
-    to: "/dashboard/sharp_hospitality/restaurant/general-settings",
+    to: "/dashboard/sharp_hospitality/restaurant/orders",
     icon: LucideListOrdered,
     match: (pathname) =>
       pathname.startsWith(
-        "/dashboard/sharp_hospitality/restaurant/general-settings",
+        "/dashboard/sharp_hospitality/restaurant/orders",
       ),
   },
   {

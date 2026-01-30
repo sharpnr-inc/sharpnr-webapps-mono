@@ -1,4 +1,9 @@
-// ANCHOR This is the orchestrator's layout this component wraps the Orchestrator
+// ANCHOR Orchestrator layout with collapsible icon sidebar
+import * as React from "react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Sidebar,
   SidebarContent,
@@ -7,115 +12,188 @@ import {
   SidebarGroupLabel,
   SidebarInset,
   SidebarMenu,
-
   SidebarMenuItem,
+  SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
-  SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
-import { Building2 } from "lucide-react";
+import {
+  Link,
+  Outlet,
+  useRouterState,
+} from "@tanstack/react-router";
+import {
+  Building2,
+  Boxes,
+  Settings,
+  FileText,
+  Users,
+  Home,
+  ChevronsUpDown,
+} from "lucide-react";
+
+/* =========================
+   Sidebar Configuration
+========================= */
+
+type SidebarLink = {
+  label: string;
+  path?: string;
+  icon: React.ElementType;
+  tooltip?: string;
+  exact?: boolean;
+};
+
+const orchestratorLinks: SidebarLink[] = [
+  {
+    label: "Dashboard Home",
+    path: "/orchestrator",
+    icon: Home,
+    tooltip: "Dashboard Home",
+    exact: true,
+  },
+  {
+    label: "Organization",
+    path: "/orchestrator/organization",
+    icon: Home,
+    tooltip: "Organization",
+    exact: true,
+  },
+  {
+    label: "Properties",
+    path: "/orchestrator/property",
+    icon: Boxes,
+    tooltip: "Properties",
+    exact: false,
+  },
+  {
+    label: "Legal Entity",
+    path: "/orchestrator/legal_entity",
+    icon: FileText,
+    tooltip: "Legal Entity",
+    exact: false,
+  },
+  {
+    label: "Settings",
+    path:"",
+    icon: Settings,
+    tooltip: "Settings",
+  },
+  {
+    label: "Reports",
+    path:"",
+    icon: FileText,
+    tooltip: "Reports",
+  },
+  {
+    label: "User Directory",
+    path:"/orchestrator/org-users",
+    icon: Users,
+    tooltip: "User Directory",
+  },
+];
+
+/* =========================
+   Layout Component
+========================= */
 
 type OrchestratorLayoutProps = {
   children?: React.ReactNode;
 };
 
 export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
-  const navigate = useNavigate();
+  const { location } = useRouterState();
+  const pathname = location.pathname;
+
+  const isActive = (path: string, exact = false) => {
+    if (exact) return pathname === path;
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
 
   return (
     <SidebarProvider>
-      {/* Sidebar */}
-      <Sidebar>
+      <Sidebar collapsible="icon">
         <SidebarContent>
           {/* ===== Organization Card ===== */}
-          <div className="p-2">
-            <div
-              onClick={() => navigate({ to: "/orchestrator" })}
-              className="cursor-pointer rounded-lg border bg-card p-3 hover:bg-accent transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                  <Building2 className="size-4" />
-                </div>
+          <div className="p-2 border rounded-xl">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SidebarMenuButton
+                  size="lg"
+                  className="
+                    cursor-not-allowed
+                    data-[state=open]:bg-sidebar-accent
+                    data-[state=open]:text-sidebar-accent-foreground
+                  "
+                >
+                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                    <Building2 className="size-4" />
+                  </div>
 
-                <div className="flex flex-col leading-tight">
-                  <span className="text-sm font-medium">
-                    Sharp Hospitality
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    Organization
-                  </span>
-                </div>
-              </div>
-            </div>
+                  <div className="flex flex-col gap-0.5 leading-none">
+                    <span className="font-medium truncate">
+                      Sharp Hospitality
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Organization
+                    </span>
+                  </div>
+
+                  <ChevronsUpDown className="ml-auto size-4 opacity-40" />
+                </SidebarMenuButton>
+              </DropdownMenuTrigger>
+            </DropdownMenu>
           </div>
 
+          {/* ===== Orchestrator Menu ===== */}
           <SidebarGroup>
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link to="/">
-                      Organization
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                {orchestratorLinks.map((item) => {
+                  const Icon = item.icon;
 
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link to="/orchestrator/property">
-                      Properties
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <Link to="/orchestrator/legal_entity">
-                      Legal Entity
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    Settings
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton onClick={() => navigate({ to: "/" })}>
-                    Exit Console
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    Reports
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-
-                <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    User Directory
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                  return (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton
+                        tooltip={item.tooltip}
+                        asChild={!!item.path}
+                        isActive={
+                          item.path
+                            ? isActive(item.path, item.exact)
+                            : false
+                        }
+                      >
+                        {item.path ? (
+                          <Link to={item.path}>
+                            <Icon />
+                            <span>{item.label}</span>
+                          </Link>
+                        ) : (
+                          <>
+                            <Icon />
+                            <span>{item.label}</span>
+                          </>
+                        )}
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
 
-      {/* Main Content */}
+      {/* ===== Main Content ===== */}
       <SidebarInset>
-        <div className="p-4">
+        <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
-        </div>
+          <span className="text-sm font-semibold">Orchestrator</span>
+        </header>
 
-        <main className="flex-1 p-4">
-          {children ?? <Outlet />}
+        <main className="p-4 mt-4">
+          <Outlet />
         </main>
       </SidebarInset>
     </SidebarProvider>

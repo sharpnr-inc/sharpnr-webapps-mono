@@ -8,6 +8,7 @@ export const queryClient = new QueryClient();
 export const router = createRouter({
   routeTree,
   defaultPendingComponent:() => (<AnthropicLoader/>),
+  defaultViewTransition:true,
   
   context: {
     queryClient:queryClient,
