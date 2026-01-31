@@ -3,6 +3,7 @@ import { useFieldContext } from "../form-context";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type TextfieldProps = {
   label: string;
@@ -17,6 +18,7 @@ const TextField = ({ label }: TextfieldProps) => {
         id={field.name}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
+        className={""}
       />
       {error && (
         <Alert variant="destructive" className="mt-2">

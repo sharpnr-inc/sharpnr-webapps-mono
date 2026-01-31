@@ -19,7 +19,7 @@ const CreateHotelAmenitiesForm = () => {
         e.stopPropagation();
         form.handleSubmit();
       }}
-      className="space-y-6 p-4 border rounded-lg"
+      className="space-y-2 p-4 rounded-lg"
     >
       <div className="space-y-4">
         {/* 1. Subscribe to the 'amenities' field to map over the array */}
@@ -40,7 +40,7 @@ const CreateHotelAmenitiesForm = () => {
                     </Button>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     {/* 2. Use your custom TextField inside the array */}
                     <form.AppField
                       name={`amenities[${i}].name`}
