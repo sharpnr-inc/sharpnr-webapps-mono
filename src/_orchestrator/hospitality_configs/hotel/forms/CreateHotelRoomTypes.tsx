@@ -1,5 +1,12 @@
 import { useAppForm } from "@/components/forms";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { DeleteIcon } from "lucide-react";
 
 interface CreateHotelRoomTypesProps {}
@@ -20,51 +27,61 @@ const CreateHotelRoomTypes: React.FC<CreateHotelRoomTypesProps> = () => {
   });
 
   return (
-    <div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}
-      >
-        <div>
+    <Card className=" mx-auto">
+      <CardHeader>
+        <CardTitle>Room Category / Type</CardTitle>
+        <CardDescription>
+          Create and manage hotel room categories.
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+          className="space-y-4"
+        >
           <form.Field name="hotel_room_categories" mode="array">
             {(field) => (
-              <div>
+              <div className="space-y-4">
                 {field.state.value.map((_, i) => (
-                  <div key={i}>
+                  <div
+                    key={i}
+                    className="rounded-lg border p-4 space-y-3"
+                  >
                     <div className="flex justify-between items-center">
                       <h3 className="font-medium">
-                        Room Category/Type #{i + 1}
+                        Room Category / Type #{i + 1}
                       </h3>
+
                       <Button
-                        variant={"destructive"}
+                        variant="destructive"
                         onClick={() => field.removeValue(i)}
-                        className="text-xs  hover:underline"
+                        className="text-xs"
+                        type="button"
                       >
+                        <DeleteIcon className="mr-1 h-4 w-4" />
                         Remove
-                        <DeleteIcon />
                       </Button>
                     </div>
 
-                    <div>
-                      <form.AppField name={`hotel_room_categories[${i}].name`}
-                      children={(field)=> (
-                        <field.TextField label="Category Name"/>
+                    <form.AppField
+                      name={`hotel_room_categories[${i}].name`}
+                      children={(field) => (
+                        <field.TextField label="Category Name" />
                       )}
-                      />
-                    </div>
+                    />
                   </div>
                 ))}
               </div>
-              
             )}
           </form.Field>
-
-        </div>
-      </form>
-    </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 

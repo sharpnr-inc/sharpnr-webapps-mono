@@ -1,7 +1,9 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -75,6 +77,10 @@ export function HotelOpTimingConfiguration() {
           </div>
         </div>
       </CardContent>
+      <CardFooter className="flex gap-5">
+        <Button>Save</Button>
+         <Button>Reset</Button>
+      </CardFooter>
     </Card>
   );
 }

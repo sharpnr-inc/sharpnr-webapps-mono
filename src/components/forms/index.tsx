@@ -3,6 +3,7 @@ import TextField from "./fieldcomps/text-field";
 import { fieldContext, formContext } from "./form-context";
 import TextAreaField from "./fieldcomps/text-area-field";
 import SelectField from "./fieldcomps/select-field";
+import SubmitButton from "./SubmitBottom";
 
 export const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
@@ -10,7 +11,9 @@ export const { useAppForm, withForm } = createFormHook({
     TextAreaField,
     SelectField,
   },
-  formComponents: {},
+  formComponents: {
+    SubmitButton
+  },
   fieldContext,
   formContext,
 });
