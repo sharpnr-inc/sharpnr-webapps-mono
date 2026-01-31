@@ -95,6 +95,7 @@ const APP_MODULES: NavSection[] = [
       { id: "hotel", label: "Hotel", icon: HotelLogo, to: "/dashboard/sharp_hospitality/hotel", theme: "bg-gradient-to-br from-blue-500 to-blue-700" },
       { id: "bar", label: "Bar", icon: BarLogo, to: "/dashboard/sharp_hospitality/bar", theme: "bg-gradient-to-br from-amber-400 to-orange-600" },
       { id: "resto", label: "Restaurant", icon: RestoLogo, to: "/dashboard/sharp_hospitality/restaurant", theme: "bg-gradient-to-br from-orange-500 to-red-600" },
+      { id: "ngc", label: "Night Club", icon: RestoLogo, to: "/dashboard/sharp_hospitality/restaurant", theme: "bg-gradient-to-br from-orange-500 to-red-600" },
     ],
   },
   {

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { HotelOpTimingConfiguration } from "./components/HotelOpTimingConfiguration";
 import { HotelFloorConfiguration } from "./components/HotelFloorConfiguration";
+import CreateHotelAmenitiesForm from "./forms/CreateHotelAmenitiesForm";
 
 
 export function HotelConfigurationPage() {
@@ -24,6 +25,12 @@ export function HotelConfigurationPage() {
             Configure Your Hotel, and setup the hotels
           </CardDescription>
         </CardHeader>
+
+        <Card>
+          <CardContent>
+            <CreateHotelAmenitiesForm/>
+          </CardContent>
+        </Card>
 
         {
           <CardContent>
