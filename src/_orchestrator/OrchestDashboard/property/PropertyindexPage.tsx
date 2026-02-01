@@ -1,3 +1,6 @@
+// this is the page show all the property of the organization
+// This more data 
+
 import {
   Card,
   CardContent,
@@ -26,7 +29,12 @@ type Property = {
 // This page list all the Properties of the organization
 
 export function PropertyIndexPage() {
+
+  // *this query hook the fetch all property that organization have 
+  // *this return the array of the property
   const { data, isLoading } = useOrganizationProperties();
+
+  //*hook for opening the modal  
   const { showModal, closeModal } = useFormsModal();
 
   const handleAddProperty = () => {
@@ -66,7 +74,7 @@ export function PropertyIndexPage() {
             <Card
               key={property.ID}
               role="button"
-              className="cursor-pointer transition-shadow hover:shadow-2xl"
+              className="cursor-pointer transition-shadow hover:shadow-2xl hover:bg-accent-foreground hover:text-accent"
               onClick={() =>
                 navigate({
                   to: "/orchestrator/property/$propertyId/details",
@@ -85,7 +93,7 @@ export function PropertyIndexPage() {
 
               <CardContent className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Code</span>
+                  <span className="">Code</span>
                   <span>{property.Code}</span>
                 </div>
 

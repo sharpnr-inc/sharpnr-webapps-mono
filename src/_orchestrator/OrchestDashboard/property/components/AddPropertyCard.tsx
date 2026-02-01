@@ -33,8 +33,6 @@ import {
 } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
-
-import { useParams } from "@tanstack/react-router";
 import { useAddPropertyMutation } from "@/_orchestrator/SetupWizard/api/mutation";
 
 

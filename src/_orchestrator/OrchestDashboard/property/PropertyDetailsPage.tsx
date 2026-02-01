@@ -1,6 +1,17 @@
+//this page shows the details of property
+// this component is domain agnostic
+// TODO we need a body witch will be domain agnostic
+// FIXME Here the there is an mistake with response body
+// FIXME  We need Property modules and infra section because the Kitchen is an infra
+// *Kitchen is an infra of the property where order is processed
+
+// TODO remove the API integration and then Create and Domain agnostic schema
+// We will also gonna need the flags in modules that if the property's modules are configure or Not
+
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -8,218 +19,303 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePropertyDetails } from "../api/queries/general";
-import { WrenchIcon, AlertCircle } from "lucide-react";
+import {
+  WrenchIcon,
+  AlertCircle,
+  ArrowLeft,
+  MapPin,
+  AlertCircleIcon,
+  ArrowRight,
+  PlusCircleIcon,
+} from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useNavigate } from "@tanstack/react-router";
+import { createId } from "@/utilities/id";
+import { Badge as SB } from "@/components/ui/badge";
+
+/*
+this component takes the propertyID as prop from the tanstack router
+NOTE make sure we use the useParams from the tanstack router
+*/
 
 interface PropertyDetailsPageProps {
   propertyId: string;
 }
 
-export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
-  const { data, isLoading } = usePropertyDetails(propertyId);
-  const property = data?.data;
-  const isModuleConfigured = property?.modules;
-  const isDomain = property?.domain;
-
-  const nav = useNavigate();
-
-  return (
-    <div className="p-2 space-y-4">
-      {/* ===== Header ===== */}
-      <div className="flex items-start justify-between">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            {property?.Name || "Property Details"}
-          </h1>
-        </div>
-      </div>
-
-      {isLoading ? (
-        <PropertyDetailsSkeleton />
-      ) : !property ? (
-        <div className="text-sm text-muted-foreground">
-          Property details not found.
-        </div>
-      ) : (
-        <>
-          {!isDomain && (
-            <Alert variant="warning">
-              <AlertCircle />
-              <AlertTitle>Property not fully configured</AlertTitle>
-              <AlertDescription>
-                <p>
-                  This property is not fully configured. Some features may be
-                  unavailable.
-                </p>
-                <Button
-                  size="sm"
-                  className="mt-2"
-                  onClick={() =>
-                    nav({
-                      to: "/orchestrator/property/$propertyId/property-configuration",
-                      params: {
-                        propertyId: propertyId,
-                      },
-                      search: {
-                        p_name: property?.Name,
-                      },
-                    })
-                  }
-                >
-                  Configure
-                  <WrenchIcon className="ml-2 h-4 w-4" />
-                </Button>
-              </AlertDescription>
-            </Alert>
-          )}
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-base">Property Details</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-              <div className="md:col-span-1 space-y-4">
-                <KeyValue label="Property Code" value={property.code} />
-                <KeyValue label="Domain" value={property.domain || "—"} />
-              </div>
-              <div className="md:col-span-2 space-y-4">
-                <div>
-                  <div className="text-xs text-muted-foreground uppercase tracking-wide">
-                    Address
-                  </div>
-                  <p className="font-medium leading-relaxed">
-                    {property.AddressLine}
-                  </p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <KeyValue label="City" value={property.city} />
-                  <KeyValue label="State" value={property.state} />
-                  <KeyValue label="Country" value={property.country} />
-                </div>
-              </div>
-            </CardContent>
-            {!isModuleConfigured && (
-              <CardFooter>
-                <Button
-                  onClick={() =>
-                    nav({
-                      to: "/orchestrator/property/$propertyId/property-configuration",
-                      params: {
-                        propertyId: propertyId,
-                      },
-                      search: {
-                        p_name: property?.Name,
-                      },
-                    })
-                  }
-                >
-                  Add Modules
-                </Button>
-              </CardFooter>
-            )}
-          </Card>
-
-          {isModuleConfigured && (
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-base">Configured Modules</CardTitle>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() =>
-                    nav({
-                      to: "/orchestrator/property/$propertyId/property-configuration",
-                      params: { propertyId },
-                      search: { p_name: property?.Name },
-                    })
-                  }
-                >
-                  Manage Modules
-                </Button>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                {Object.entries(property?.modules)?.map(
-                  ([moduleName, entities]: any) => (
-                    <div key={moduleName} className="space-y-2">
-                      {/* Module Name */}
-                      <div className="text-sm font-semibold">{moduleName}</div>
-
-                      {/* Module Entities */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {entities.map((item: any) => (
-                          <Card
-                            key={item.ID}
-                            className="flex flex-col transition-shadow hover:shadow-md"
-                          >
-                            <CardHeader className="pb-2">
-                              <CardTitle className="text-sm font-semibold">
-                                {item.Name}
-                              </CardTitle>
-                            </CardHeader>
-
-                            <CardContent className="flex-1">
-                              <div className="flex items-center justify-between text-sm">
-                                <span className="text-muted-foreground">
-                                  Status
-                                </span>
-                                <span
-                                  className={
-                                    item.Status
-                                      ? "text-green-600 font-medium"
-                                      : "text-muted-foreground"
-                                  }
-                                >
-                                  {item.Status ? "Active" : "Inactive"}
-                                </span>
-                              </div>
-                            </CardContent>
-
-                            <CardFooter className="pt-2">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                className="w-full"
-                                onClick={() => {
-                                 nav({
-                                  to:"/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
-                                  params:{
-                                    hotelId: item.ID,
-                                    propertyId:propertyId
-                                  }
-                                 })
-                                }}
-                              >
-                                Configure
-                              </Button>
-                            </CardFooter>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-                  ),
-                )}
-              </CardContent>
-            </Card>
-          )}
-        </>
-      )}
-    </div>
-  );
+// STUB this is the schema that we want
+interface PropertyModules {
+  id: string;
+  name: string;
+  moduleType: string;
+  status: boolean;
+  isSetup_complete: boolean;
 }
 
-/* ----------------------------- */
-/* Small key-value row           */
-/* ----------------------------- */
-function KeyValue({ label, value }: { label: string; value?: string }) {
+interface PropertyInfra {
+  id: string;
+  name: string;
+  isSetup_complete?: boolean;
+}
+
+interface PropertyDetailsData {
+  propertyID: string;
+  domain: string;
+  modules: PropertyModules[];
+  property_infra: PropertyInfra[];
+}
+
+const propertyDetails: PropertyDetailsData = {
+  propertyID: createId(),
+  domain: "hospitality",
+  modules: [
+    {
+      id: createId(),
+      name: "Hotel",
+      isSetup_complete: true,
+      status: false,
+      moduleType: "HOTEL",
+    },
+    {
+      id: createId(),
+      name: "Bar",
+      isSetup_complete: true,
+      status: false,
+      moduleType: "BAR",
+    },
+    {
+      id: createId(),
+      name: "Restaurant",
+      isSetup_complete: true,
+      status: false,
+      moduleType: "RESTAURANT",
+    },
+    {
+      id: createId(),
+      name: "Night Club",
+      isSetup_complete: false,
+      status: true,
+      moduleType: "NIGHT_CLUB",
+    },
+  ],
+  property_infra: [
+    {
+      id: createId(),
+      name: "Reception",
+      isSetup_complete: true,
+    },
+    {
+      id: createId(),
+      name: "Kitchen",
+      // intentionally undefined → Not Configured
+    },
+    {
+      id: createId(),
+      name: "Power Backup",
+      isSetup_complete: false,
+    },
+  ],
+};
+export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
+  // *this query hook takes the PropertyID to fetch the data
+  // *In this section we need the domain agnostic data
+  // const { data, isLoading } = usePropertyDetails(propertyId);
+  // const property = data?.data;
+  // const isModuleConfigured = property?.modules;
+  // const isDomain = property?.domain;
+  const nav = useNavigate();
+  const handleModuleConfigure = (module: PropertyModules) => {
+    if (module.moduleType == "HOTEL") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
+        params: {
+          hotelId: module.id,
+          propertyId: propertyId,
+        },
+      });
+    } else if (module.moduleType == "RESTAURANT") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration",
+        params: {
+         restaurantId:module.id,
+          propertyId: propertyId,
+        },
+      });
+    } else if (module.moduleType == "BAR") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration",
+        params: {
+          barId: module.id,
+          propertyId: propertyId,
+        },
+      });
+    } else if (module.moduleType == "NIGHT_CLUB") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
+        params: {
+          hotelId: module.id,
+          propertyId: propertyId,
+        },
+      });
+    }
+  };
+
+  const handlePropertySettingPage=()=>{
+    nav({
+      to:"/orchestrator/property/$propertyId/property_settings",
+      params:{
+        propertyId:propertyId
+      }
+    })
+  }
+
   return (
-    <div className="space-y-1">
-      <div className="text-xs text-muted-foreground uppercase tracking-wide">
-        {label}
+    <div className="space-y-2">
+      <div>
+        <Button
+          variant={"link"}
+          onClick={() =>
+            nav({
+              to: "/orchestrator/property",
+            })
+          }
+        >
+          <ArrowLeft />
+          Property page
+        </Button>
       </div>
-      <div className="font-medium">{value || "—"}</div>
+      <Card className="relative">
+        <CardHeader className="flex flex-row items-start justify-between gap-4">
+          <div className="space-y-2">
+            <CardTitle className="text-lg">Property Name</CardTitle>
+
+            <CardDescription className="space-y-3">
+              {/* Address */}
+              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+                <span>Joshi Marg, Jhotwara, Jaipur, Rajasthan 302012</span>
+              </div>
+
+              {/* Domain */}
+              <div className="flex items-center gap-3">
+                <p className="text-sm text-muted-foreground">Domain</p>
+                <SB variant="secondary">Hospitality</SB>
+              </div>
+            </CardDescription>
+          </div>
+
+          {/* Settings Button */}
+          <Button onClick={()=>handlePropertySettingPage()} size="default" variant="default" className="shrink-0">
+            <WrenchIcon className="mr-2 h-4 w-4" />
+            Settings
+          </Button>
+        </CardHeader>
+
+        {/* Footer */}
+        <CardFooter className="pt-0">
+          <Button variant="link" className="px-0">
+            <AlertCircleIcon />
+            Learn more about the property’s domain
+          </Button>
+        </CardFooter>
+      </Card>
+
+      {/* Modules */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Modules</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-3.5 sm:grid-cols-3">
+          {propertyDetails.modules.map((module) => (
+            <Card
+              key={module.id}
+              className="h-fit hover:border-2 hover:border-accent-foreground transform transition-transform duration-300 ease-out hover:scale-[1.01] hover:-translate-y-0.3 hover:shadow-xl"
+            >
+              <CardHeader>
+                <CardTitle>{module.name}</CardTitle>
+                <CardDescription>
+                  {module.status ? (
+                    <SB variant={"secondary"}>Active</SB>
+                  ) : (
+                    <SB variant={"destructive"}>Not Active</SB>
+                  )}
+                </CardDescription>
+              </CardHeader>
+
+              {module.isSetup_complete && (
+                <CardContent>
+                  {
+                    <Alert variant={"warning"}>
+                      <AlertTitle className="flex items-center gap-2">
+                        <AlertCircleIcon className="h-4 w-4" />
+                        Module Not Configured
+                      </AlertTitle>
+
+                      <AlertDescription>
+                        Click the modules below to configure this module.
+                      </AlertDescription>
+                    </Alert>
+                  }
+                </CardContent>
+              )}
+
+              <CardFooter>
+                {module.isSetup_complete ? (
+                  <Button onClick={()=>handleModuleConfigure(module)} className="w-full" variant={"outline"}>
+                    Configure
+                  </Button>
+                ) : (
+                  <Button className="w-full">
+                    Go to Module <ArrowRight />
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          ))}
+          {/* */}
+        </CardContent>
+      </Card>
+
+      {/* Infrastructure */}
+      <Card className="relative">
+        <CardHeader className="space-y-2">
+          <CardTitle>Infrastructure</CardTitle>
+
+          <CardDescription className="space-y-2">
+            <p>
+              Property infrastructure defines how modules are ordered and how
+              operations are processed within the property.
+            </p>
+
+            <Button variant="link" className="h-auto p-0">
+              <AlertCircle />
+              Learn more about property infrastructure
+            </Button>
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="grid gap-5 sm:grid-cols-2">
+          {propertyDetails.property_infra.map((infra) => (
+            <Card key={infra.id}>
+              <CardHeader>
+                {infra.name}
+                <CardDescription>
+                  {"This is the default Description of the Property infra"}
+                </CardDescription>
+              </CardHeader>
+              <CardFooter>
+                <Button>
+                  View Details
+                  <ArrowRight />
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </CardContent>
+        {/* this button open modal to add the infra for the property */}
+        <Button className="absolute top-5 right-5">
+          <PlusCircleIcon /> Add Infra
+        </Button>
+      </Card>
     </div>
   );
 }

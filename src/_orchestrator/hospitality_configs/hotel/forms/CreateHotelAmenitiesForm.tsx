@@ -9,13 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formOptions } from "@tanstack/react-form";
-import { DeleteIcon, Loader2, PlusIcon } from "lucide-react";
+import { DeleteIcon, PlusIcon } from "lucide-react";
 import { z } from "zod";
 
 // 1. Interfaces
 export interface Amenity {
   name: string;
-  description: string; 
+  description: string;
 }
 
 export interface HotelAmenitiesFormValues {
@@ -48,8 +48,8 @@ const CreateHotelAmenitiesForm = () => {
       onChange: amenitySchema,
     },
     defaultState: {
-    canSubmit: true, 
-  },
+      canSubmit: true,
+    },
     onSubmit: ({ value }) => {
       console.log("Submitted Data:", value);
     },
@@ -124,8 +124,6 @@ const CreateHotelAmenitiesForm = () => {
         </CardContent>
 
         <CardFooter className=" flex justify-end">
-        
-
           <form.AppForm>
             <form.SubmitButton>Create Amenities</form.SubmitButton>
           </form.AppForm>
@@ -136,24 +134,3 @@ const CreateHotelAmenitiesForm = () => {
 };
 
 export default CreateHotelAmenitiesForm;
-
-  {/* <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-          >
-            {([canSubmit, isSubmitting]) => (
-              <Button
-                type="submit"
-                disabled={!canSubmit || isSubmitting}
-                className="min-w-[160px]"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Saving…
-                  </>
-                ) : (
-                  "Save Amenities"
-                )}
-              </Button>
-            )}
-          </form.Subscribe> */}
