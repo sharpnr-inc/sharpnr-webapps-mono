@@ -4,6 +4,5 @@ export const Route = createFileRoute("/_appuser/orchestrator")({
   component: Outlet,
   staticData:{
     breadcrumb:"Console"
-
   }
 });

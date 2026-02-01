@@ -1,57 +1,128 @@
 // this is the page show all the property of the organization
-// This more data 
+// This more data
 
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { useOrganizationProperties } from "../api/queries/general";
+// import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Building, PlusIcon } from "lucide-react";
+import { Building, LucideBuilding, PlusIcon } from "lucide-react";
 import { AddPropertyCard } from "./components/AddPropertyCard";
 import { useFormsModal } from "@/context/FormModalContext";
+import { createId } from "@/utilities/id";
+import { Badge } from "@/components/ui/badge";
+import { Alert } from "@/components/ui/alert";
 
-type Property = {
-  ID: string;
-  Name: string;
-  City: string;
-  State: string;
-  Domain: string;
-  Code: string;
-};
+interface NewProperty {
+  id: string;
+  name: string;
+  address_line: string;
+  property_code: string;
+  state: string;
+  country: string;
+  city: string;
+  domain: string | null;
+  isConfigured: boolean;
+}
+
+const propertyList: NewProperty[] = [
+  {
+    id: createId(),
+    name: "Azure Bay Resort",
+    property_code: "ABR-101",
+    state: "Queensland",
+    country: "Australia",
+    city: "Gold Coast",
+    domain: "HOSPITALITY",
+    isConfigured: true,
+    address_line: "72 Ocean Parade, Surfers Paradise",
+  },
+  {
+    id: createId(),
+    name: "The Alpine Lodge",
+    property_code: "TAL-202",
+    state: "Tyrol",
+    country: "Austria",
+    city: "Innsbruck",
+    domain: "HOSPITALITY",
+    isConfigured: false,
+    address_line: "Herzog-Friedrich-Straße 15",
+  },
+  {
+    id: createId(),
+    name: "Neon Skyline Hotel",
+    property_code: "NSH-303",
+    state: "Tokyo",
+    country: "Japan",
+    city: "Shinjuku",
+    domain: "HOSPITALITY",
+    isConfigured: true,
+    address_line: "1-chōme-2-3 Kabukicho",
+  },
+  {
+    id: createId(),
+    name: "Safari Sands Villas",
+    property_code: "SSV-404",
+    state: "Western Cape",
+    country: "South Africa",
+    city: "Cape Town",
+    domain: "HOSPITALITY",
+    isConfigured: true,
+    address_line: "Boulders Beach Road 12",
+  },
+  {
+    id: createId(),
+    name: "Emerald Forest Inn",
+    property_code: "EFI-505",
+    state: "Oregon",
+    country: "USA",
+    city: "Portland",
+    domain: null,
+    isConfigured: false,
+    address_line: "4500 SW Canyon Rd",
+  },
+];
 
 // This page list all the Properties of the organization
 
 export function PropertyIndexPage() {
-
-  // *this query hook the fetch all property that organization have 
+  // *this query hook the fetch all property that organization have
   // *this return the array of the property
-  const { data, isLoading } = useOrganizationProperties();
+  // const { data, isLoading } = useOrganizationProperties();
 
-  //*hook for opening the modal  
-  const { showModal, closeModal } = useFormsModal();
+  //*hook for opening the modal
+  const { showModal } = useFormsModal();
 
   const handleAddProperty = () => {
     showModal("Add Property", "", <AddPropertyCard />);
   };
 
-  const properties: Property[] = data?.data?.Properties ?? [];
   const navigate = useNavigate();
 
   return (
     <div className="p-2 space-y-2">
-      {/* Page Header */}
+      {/* Header start */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-semibold">Properties</h1>
           <p className="text-sm text-muted-foreground">
-            Manage and access all properties
+            {"Manage all the properties here"}
           </p>
         </div>
 
@@ -60,71 +131,145 @@ export function PropertyIndexPage() {
           Add Property
         </Button>
       </div>
+      {/* Header ends */}
+      <section>
+        {propertyList.length == 0 ? (
+          <EmptyPropertySection />
+        ) : (
+          <div className="grid grid-cols-3 gap-2">
+            {propertyList.map((p) => (
+              <Card
+                key={p.id}
+                className="flex flex-col justify-between hover:shadow-lg transition-shadow"
+              >
+                <CardHeader>
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="text-xl">{p.name}</CardTitle>
+                      <CardDescription className="font-mono text-sm">
+                        CODE: {p.property_code}
+                      </CardDescription>
+                    </div>
+                    <div className="flex flex-col gap-2 items-end">
+                      {p.domain ? (
+                        <Badge variant="default" className="">
+                          {p.domain}
+                        </Badge>
+                      ) : (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 text-destructive border-destructive border px-2 text-[10px]"
+                        >
+                          + Add Domain
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </CardHeader>
 
-      {/* Content */}
-      {isLoading ? (
-        <PropertyCardSkeleton />
-      ) : properties.length === 0 ? (
-        <div className="text-sm text-muted-foreground">
-          No properties found.
-        </div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {properties.map((property) => (
-            <Card
-              key={property.ID}
-              role="button"
-              className="cursor-pointer transition-shadow hover:shadow-2xl hover:bg-accent-foreground hover:text-accent"
-              onClick={() =>
-                navigate({
-                  to: "/orchestrator/property/$propertyId/details",
-                  params: {
-                    propertyId: property.ID,
-                  },
-                })
-              }
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">{property.Name}</CardTitle>
-                <CardDescription>
-                  {property.City}, {property.State}
-                </CardDescription>
-              </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="text-sm text-muted-foreground">
+                    <p className="font-medium text-foreground">
+                      {p.address_line}
+                    </p>
+                    <p>
+                      {p.city}, {p.state}, {p.country}
+                    </p>
+                  </div>
 
-              <CardContent className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="">Code</span>
-                  <span>{property.Code}</span>
-                </div>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={`h-2 w-2 rounded-full ${p.isConfigured ? "bg-green-500" : "bg-red-500"}`}
+                    />
+                    <span className="text-xs font-semibold uppercase tracking-wider">
+                      {p.isConfigured ? "Active" : "Pending Setup"}
+                    </span>
+                  </div>
+                </CardContent>
 
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Domain</span>
-                  <span>{property.Domain || "—"}</span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+                <CardFooter className="pt-0">
+                  {!p.isConfigured ? (
+                    <Alert
+                      variant="destructive"
+                      className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full bg-destructive/5"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs">
+                          {p.domain === null
+                            ? "Domain Configuration Pending"
+                            : "Setup is incomplete for this property."}
+                        </span>
+                      </div>
+
+                      {/* Logic: Show 'Configure' only if domain exists */}
+                      {p.domain !== null ? (
+                        <Button size="sm" className="w-full sm:w-auto">
+                          Configure Now
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          disabled
+                          className="w-full sm:w-auto opacity-50"
+                        >
+                          Waiting for Domain...
+                        </Button>
+                      )}
+                    </Alert>
+                  ) : (
+                    <Button variant="secondary" className="w-full">
+                      View Dashboard
+                    </Button>
+                  )}
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
     </div>
   );
 }
 
-function PropertyCardSkeleton() {
+function EmptyPropertySection() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <Card key={i}>
-          <CardHeader>
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-3 w-1/2" />
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Skeleton className="h-3 w-full" />
-            <Skeleton className="h-3 w-full" />
-          </CardContent>
-        </Card>
-      ))}
+    <div>
+      <Empty>
+        <EmptyHeader>
+          <EmptyMedia variant={"icon"}>
+            <LucideBuilding />
+          </EmptyMedia>
+          <EmptyTitle>{"No property"}</EmptyTitle>
+          <EmptyDescription>
+            You haven&apos;t created any projects yet. Get started by creating
+            your first project.
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent className="flex-row justify-center gap-2">
+          <Button>Create Property</Button>
+        </EmptyContent>
+      </Empty>
     </div>
   );
 }
+
+// function PropertyCardSkeleton() {
+//   return (
+//     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+//       {Array.from({ length: 6 }).map((_, i) => (
+//         <Card key={i}>
+//           <CardHeader>
+//             <Skeleton className="h-4 w-3/4" />
+//             <Skeleton className="h-3 w-1/2" />
+//           </CardHeader>
+//           <CardContent className="space-y-2">
+//             <Skeleton className="h-3 w-full" />
+//             <Skeleton className="h-3 w-full" />
+//           </CardContent>
+//         </Card>
+//       ))}
+//     </div>
+//   );
+// }

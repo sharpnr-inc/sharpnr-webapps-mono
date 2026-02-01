@@ -5,6 +5,9 @@ export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details",
 )({
   component: RouteComponent,
+  staticData:{
+    breadcrumb:"Property Detail"
+  }
 });
 
 function RouteComponent() {

@@ -8,4 +8,7 @@ export const Route = createFileRoute(
     p_name: typeof search.p_name === "string" ? search.p_name : undefined,
   }),
   component: PropertyConfigurationPage,
+  staticData:{
+    breadcrumb:"Property Configuration"
+  }
 });

@@ -31,6 +31,7 @@ import {
   Home,
   ChevronsUpDown,
 } from "lucide-react";
+import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 /* =========================
    Sidebar Configuration
@@ -189,7 +190,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
-          <span className="text-sm font-semibold">Orchestrator</span>
+          <RouteBreadcrumbs/>
         </header>
 
         <main className="p-4 mt-4">

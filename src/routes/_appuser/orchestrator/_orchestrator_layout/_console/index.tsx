@@ -19,6 +19,9 @@ export const Route = createFileRoute(
     // };
   },
   component: RouteComponent,
+  staticData:{
+    breadcrumb:"Home"
+  }
 });
 
 function RouteComponent() {
