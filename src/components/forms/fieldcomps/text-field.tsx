@@ -22,7 +22,7 @@ const TextField = ({ label }: TextfieldProps) => {
       {error && (
         <Alert variant="destructive" className="mt-2">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>{error.message}</AlertDescription>
         </Alert>
       )}
     </div>

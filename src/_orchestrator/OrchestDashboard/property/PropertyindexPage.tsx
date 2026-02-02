@@ -22,12 +22,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 // import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Building, LucideBuilding, PlusIcon } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  Building,
+  LucideBuilding,
+  PlusIcon,
+} from "lucide-react";
 import { AddPropertyCard } from "./components/AddPropertyCard";
 import { useFormsModal } from "@/context/FormModalContext";
 import { createId } from "@/utilities/id";
 import { Badge } from "@/components/ui/badge";
-import { Alert } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Select,
   SelectContent,
@@ -141,21 +147,20 @@ export function PropertyIndexPage() {
       navigate({
         to: "/orchestrator/property/$propertyId/property-configuration",
         search: {
-          p_domain:p.domain,
+          p_domain: p.domain,
           p_name: p.name,
-
         },
         params: {
           propertyId: p.id,
         },
       });
-    }else{
+    } else {
       navigate({
-        to:"/orchestrator/property/$propertyId/details",
-        params:{
-          propertyId:p.id
-        }
-      })
+        to: "/orchestrator/property/$propertyId/details",
+        params: {
+          propertyId: p.id,
+        },
+      });
     }
   };
 
@@ -323,7 +328,11 @@ export function PropertyIndexPage() {
                       )}
                     </Alert>
                   ) : (
-                    <Button onClick={()=>handlePropertyNavigation(p)} variant="secondary" className="w-full">
+                    <Button
+                      onClick={() => handlePropertyNavigation(p)}
+                      variant="secondary"
+                      className="w-full"
+                    >
                       View Dashboard
                     </Button>
                   )}
@@ -348,6 +357,15 @@ export function PropertyIndexPage() {
               be available for configuration.
             </DialogDescription>
           </DialogHeader>
+          <Alert variant={"destructive"}>
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle className="font-bold">
+              This operation is Irreversible
+            </AlertTitle>
+            <AlertDescription>
+              Once you set it up it cannot be changed
+            </AlertDescription>
+          </Alert>
 
           <div className="space-y-4 py-4">
             {/* Documentation Link Section */}

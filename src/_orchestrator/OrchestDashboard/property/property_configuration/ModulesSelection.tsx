@@ -14,9 +14,11 @@ import { createId } from "@/utilities/id";
 import {
   AlertCircle,
   AlertTriangle,
+  Apple,
   Building2,
   CheckCircle2,
   LayoutGrid,
+  Play,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -169,9 +171,7 @@ export function ModulesSelectionSection({
             <LayoutGrid size={22} />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-slate-900">
-              Business Modules
-            </h2>
+            <h2 className="text-2xl font-bold">Business Modules</h2>
             <p className="text-sm text-slate-500">
               Revenue-generating units operating within this property.
             </p>
@@ -228,9 +228,7 @@ export function ModulesSelectionSection({
             <Building2 size={22} />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-slate-900">
-              Property Infrastructure
-            </h2>
+            <h2 className="text-2xl font-bold">Property Infrastructure</h2>
             <p className="text-sm text-slate-500">
               Shared physical service points and facilities.
             </p>
@@ -287,8 +285,79 @@ export function ModulesSelectionSection({
         </div>
       </section>
 
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        {/* Background set to transparent and border/shadow simplified */}
+        <Card className="bg-transparent shadow-none overflow-hidden">
+          <CardHeader className="flex flex-row items-start gap-4 space-y-0 p-6">
+          
+            <div className="space-y-1">
+              <CardTitle className="text-lg font-bold">
+                Access All Infrastructure via Our Mobile App
+              </CardTitle>
+              <CardDescription className="leading-relaxed max-w-3xl ">
+                Manage your Property, Bar, and Kitchen modules from anywhere.
+              </CardDescription>
+
+              {/* Official Store Buttons */}
+              <div className="flex flex-wrap gap-3 pt-4">
+                {/* Play Store */}
+                <Button
+                  variant="outline"
+                  className="flex items-center gap-2 h-12 px-4"
+                >
+                  <svg viewBox="0 0 512 512" width="20" height="20">
+                    <path fill="#4285F4" d="M103 44L284 225 103 406z" />
+                    <path
+                      fill="#34A853"
+                      d="M380 321L284 225 103 44c-3-2-7-3-11-2l217 217z"
+                    />
+                    <path
+                      fill="#FBBC04"
+                      d="M380 125L284 225l96 96c4-3 7-8 7-14V139c0-6-3-11-7-14z"
+                    />
+                    <path
+                      fill="#EA4335"
+                      d="M103 406c4 1 8 0 11-2l266-151-96-96z"
+                    />
+                  </svg>
+                  <div className="flex flex-col items-start leading-none">
+                    <span className="text-[10px] uppercase">Get it on</span>
+                    <span className="text-sm font-semibold">Google Play</span>
+                  </div>
+                </Button>
+
+                {/* App Store */}
+                <Button
+                  variant="outline"
+                  className="flex items-center gap-2 h-12 px-4"
+                >
+                  <svg viewBox="0 0 384 512" width="20" height="20">
+                    <path
+                      fill="currentColor"
+                      d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 21.8-88.5 21.8-11.4 0-51.1-22.1-82.6-21.5-41.6.8-79.8 24.3-101.3 61.5-43.5 75.2-11.1 186.4 30.9 247.2 20.5 29.8 44.8 63.3 76.8 62.1 30.4-1.2 41.8-19.8 78.6-19.8 36.8 0 47.3 19.8 79.2 19.2 32.5-.5 53.3-30.3 73.1-59.2 22.8-33.3 32.2-65.6 32.6-67.3-.8-.3-62.7-24.1-63.1-98.4zm-63.1-192.3c15.2-18.4 25.5-44 22.7-69.4-21.9 1.1-48.4 14.8-64.1 33.1-14.1 16.2-26.4 42.6-23.1 67.2 24.5 1.9 48.4-12.8 64.5-30.9z"
+                    />
+                  </svg>
+                  <div className="flex flex-col items-start leading-none">
+                    <span className="text-[10px] uppercase">
+                      Download on the
+                    </span>
+                    <span className="text-sm font-semibold">App Store</span>
+                  </div>
+                </Button>
+              </div>
+            </div>
+          </CardHeader>
+
+        
+        </Card>
+      </motion.div>
+
       {/* --- 3. FINAL SUMMARY (HORIZONTAL ACTION BAR) --- */}
-      <Card className="bg-slate-900 border-none shadow-2xl rounded-[2rem] overflow-hidden text-white">
+      <Card className="bg-slate-900 border-none shadow-2xl rounded-[2rem] overflow-hidden ">
         <div className="p-8 md:p-10 flex flex-col md:flex-row items-center gap-8 justify-between">
           <div className="space-y-4 text-center md:text-left flex-1">
             <h3 className="text-xl font-bold text-blue-100">

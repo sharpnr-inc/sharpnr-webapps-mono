@@ -79,10 +79,10 @@ export function PropertyConfigurationPage() {
                   </span>
                   <div className="h-px flex-1 bg-white/10" />
                 </div>
-                <CardTitle className="text-2xl font-bold text-white">
+                <CardTitle className="text-2xl font-bold ">
                   Welcome to Sharpnr's Hospitality
                 </CardTitle>
-                <CardDescription className="text-slate-400">
+                <CardDescription>
                   A quick overview of what's possible in this domain.
                 </CardDescription>
               </CardHeader>
@@ -94,18 +94,16 @@ export function PropertyConfigurationPage() {
                       <CarouselItem key={index}>
                         <div className="p-8 flex flex-col items-center text-center space-y-4 bg-white/5 border border-white/10 rounded-xl shadow-inner">
                           <span className="text-5xl mb-2">{slide.icon}</span>
-                          <h3 className="font-bold text-xl text-blue-100">
-                            {slide.title}
-                          </h3>
-                          <p className="text-sm text-slate-300 max-w-md leading-relaxed">
+                          <h3 className="font-bold text-xl">{slide.title}</h3>
+                          <p className="text-sm max-w-md leading-relaxed">
                             {slide.description}
                           </p>
                         </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="bg-white/10 border-white/20 text-white hover:bg-white/20" />
-                  <CarouselNext className="bg-white/10 border-white/20 text-white hover:bg-white/20" />
+                  <CarouselPrevious />
+                  <CarouselNext />
                 </Carousel>
               </CardContent>
 
@@ -113,12 +111,7 @@ export function PropertyConfigurationPage() {
                 <p className="text-[11px] text-slate-400 italic">
                   Tip: These modules can be toggled individually below.
                 </p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleSkip}
-                  className="text-slate-300 hover:text-white hover:bg-white/10"
-                >
+                <Button variant="outline" size="sm" onClick={handleSkip}>
                   Skip
                 </Button>
               </CardFooter>
@@ -135,39 +128,31 @@ export function PropertyConfigurationPage() {
                 </div>
                 <CardTitle className="text-2xl font-light">
                   Understanding{" "}
-                  <span className="font-bold text-white">
-                    Property Configuration
-                  </span>
+                  <span className="font-bold">Property Configuration</span>
                 </CardTitle>
               </CardHeader>
 
               <CardContent className="grid gap-6 md:grid-cols-2 pt-4">
                 <div className="space-y-3 p-4 rounded-xl bg-white/5 border border-white/10">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
-                      💼
-                    </div>
-                    <h4 className="font-bold text-blue-100">
-                      Business Modules
-                    </h4>
+                    <div className="p-2 bg-blue-500/20 rounded-lg">💼</div>
+                    <h4 className="font-bold ">Business Modules</h4>
                   </div>
-                  <p className="text-sm text-slate-300 leading-relaxed">
+                  <p className="text-sm leading-relaxed">
                     Revenue-generating units like your{" "}
                     <strong>Hotel, Bar, or Restaurant</strong>. Each can operate
                     as a distinct legal entity with specific settings.
                   </p>
                 </div>
 
-                <div className="space-y-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div className="space-y-3 p-4 rounded-xl bg-white/5 border">
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-400">
                       🏗️
                     </div>
-                    <h4 className="font-bold text-emerald-100">
-                      Shared Infrastructure
-                    </h4>
+                    <h4 className="font-bold ">Shared Infrastructure</h4>
                   </div>
-                  <p className="text-sm text-slate-300 leading-relaxed">
+                  <p className="text-sm leading-relaxed">
                     Service points like your <strong>Kitchen</strong>. One
                     property can house separate businesses that all utilize the
                     same shared infra.
@@ -175,17 +160,12 @@ export function PropertyConfigurationPage() {
                 </div>
               </CardContent>
 
-              <CardFooter className="bg-white/5 border-t border-white/10 py-3 px-6 flex justify-between items-center">
-                <p className="text-[11px] text-slate-400">
+              <CardFooter className=" py-3 px-6 flex justify-between items-center">
+                <p className="text-[11px]">
                   Connect business units to physical service points in the next
                   step.
                 </p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-slate-300 hover:text-white hover:bg-white/10"
-                  onClick={handleSkip}
-                >
+                <Button variant="outline" size="sm" onClick={handleSkip}>
                   Dismiss All
                 </Button>
               </CardFooter>

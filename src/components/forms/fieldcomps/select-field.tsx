@@ -31,7 +31,7 @@ const SelectField = ({placeholder, options}: SelectFieldProps) => {
       </Select>
 
       {error && (
-        <p className="text-sm text-destructive">{error}</p>
+        <p className="text-sm text-destructive">{error.message}</p>
       )}
     </div>
   );
