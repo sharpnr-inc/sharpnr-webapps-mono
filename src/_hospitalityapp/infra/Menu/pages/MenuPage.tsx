@@ -1,4 +1,4 @@
-import { useMenuGroup } from "@/_hospitalityapp/shared/Menu/apis/Menu";
+import { useMenuGroup } from "@/_hospitalityapp/infra/Menu/apis/Menu";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

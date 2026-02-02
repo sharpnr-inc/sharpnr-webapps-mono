@@ -11,7 +11,6 @@ import {
   LayoutDashboard,
   ShoppingCart,
   UserRound,
-  ChefHat,
   Boxes,
 } from "lucide-react";
 import type { ToPathOption } from "@tanstack/react-router";
@@ -53,15 +52,6 @@ const barSidebarMenu: BarSidebarItem[] = [
     match: (pathname) =>
       pathname.startsWith(
         "/dashboard/sharp_hospitality/bar/bar-tender"
-      ),
-  },
-  {
-    label: "Kitchen",
-    to: "/dashboard/sharp_hospitality/bar/bar-kitchen",
-    icon: ChefHat,
-    match: (pathname) =>
-      pathname.startsWith(
-        "/dashboard/sharp_hospitality/bar/bar-kitchen"
       ),
   },
   {

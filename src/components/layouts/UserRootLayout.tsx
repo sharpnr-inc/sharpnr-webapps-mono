@@ -1,5 +1,4 @@
 import { Outlet } from "@tanstack/react-router";
-import MainMenuButton from "../Header/MainMenuButton";
 import { Button } from "../ui/button";
 import { Bell, Search } from "lucide-react";
 import { DynamicIslandProvider } from "../ui/dynamic-island";
@@ -8,6 +7,7 @@ import UserRootMenu from "@/app_user/components/UserRootMenu";
 import { ModeToggle } from "../ui/ThemeToggle";
 import { useState } from "react";
 import { GlobalSearch } from "../custom/global-search";
+import SharpnrLauncher from "../SharpnrLauncher/SharpnrLauncher";
 interface UserRootLayoutProps {}
 
 const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
@@ -35,7 +35,7 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
     animate-[gradient_20s_ease_infinite]
   "
       >
-        <MainMenuButton />
+        <SharpnrLauncher />
 
         <SearchTrigger onClick={() => setIsSearchOpen(true)} />
 

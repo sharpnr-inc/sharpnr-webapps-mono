@@ -18,7 +18,6 @@ import {
   DoorClosed,
   Users,
   BedDouble,
-  ChefHat,
   Boxes,
   Settings,
   CheckSquare2Icon,
@@ -61,11 +60,6 @@ export const hotelSidebarMenu: SidebarItem[] = [
     label: "Housekeeping",
     to: "/dashboard/sharp_hospitality/hotel/housekeeping",
     icon: BedDouble,
-  },
-  {
-    label: "Kitchen",
-    to: "/dashboard/sharp_hospitality/hotel/kitchen",
-    icon: ChefHat,
   },
   {
     label: "Inventory",

@@ -10,7 +10,6 @@ import {
 import {
   LayoutDashboard,
   Grid3x3,
-  ChefHat,
   Boxes,
   ShoppingCart,
   Settings,
@@ -51,13 +50,6 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
     icon: Grid3x3,
     match: (pathname) =>
       pathname.startsWith("/dashboard/sharp_hospitality/restaurant/reservations"),
-  },
-  {
-    label: "Kitchen",
-    to: "/dashboard/sharp_hospitality/restaurant/kitchen",
-    icon: ChefHat,
-    match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/kitchen"),
   },
   {
     label: "Inventory",
