@@ -116,7 +116,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
       <Sidebar collapsible="icon">
         <SidebarContent>
           {/* ===== Organization Card ===== */}
-          <div className="p-2 border rounded-xl">
+          <div className="p-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
@@ -135,7 +135,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                     <span className="font-medium truncate">
                       Sharp Hospitality
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs">
                       Organization
                     </span>
                   </div>
@@ -193,7 +193,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
           <RouteBreadcrumbs/>
         </header>
 
-        <main className="p-4 mt-4">
+        <main className="p-2.5">
           <Outlet />
         </main>
       </SidebarInset>

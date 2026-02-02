@@ -18,7 +18,7 @@ export function HotelConfigurationPage() {
   console.log(propertyId);
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 p-4">
       <HotelOpTimingConfiguration hotelID={hotelId} propertyID={propertyId} />
       <CreateHotelAmenitiesForm hotelID={hotelId} propertyID={propertyId} />
       <CreateHotelRoomAddonForm hotelID={hotelId} propertyID={propertyId} />

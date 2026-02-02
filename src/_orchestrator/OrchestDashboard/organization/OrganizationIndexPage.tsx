@@ -7,7 +7,7 @@ interface OrganizationIndexPageProps {}
 
 const OrganizationIndexPage: React.FC<OrganizationIndexPageProps> = () => {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-2">
       {/* Page Header */}
       <div className="space-y-1">
         <h1 className="text-2xl font-semibold tracking-tight">
