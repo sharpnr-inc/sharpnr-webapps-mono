@@ -28,6 +28,22 @@ import { useFormsModal } from "@/context/FormModalContext";
 import { createId } from "@/utilities/id";
 import { Badge } from "@/components/ui/badge";
 import { Alert } from "@/components/ui/alert";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 interface NewProperty {
   id: string;
@@ -102,6 +118,11 @@ const propertyList: NewProperty[] = [
 // This page list all the Properties of the organization
 
 export function PropertyIndexPage() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [pendingSelection, setPendingSelection] = useState<{
+    id: string;
+    domain: string;
+  } | null>(null);
   // *this query hook the fetch all property that organization have
   // *this return the array of the property
   // const { data, isLoading } = useOrganizationProperties();
@@ -114,6 +135,52 @@ export function PropertyIndexPage() {
   };
 
   const navigate = useNavigate();
+
+  const handlePropertyNavigation = (p: NewProperty) => {
+    if (!p.isConfigured && p.domain != null) {
+      navigate({
+        to: "/orchestrator/property/$propertyId/property-configuration",
+        search: {
+          p_domain:p.domain,
+          p_name: p.name,
+
+        },
+        params: {
+          propertyId: p.id,
+        },
+      });
+    }else{
+      navigate({
+        to:"/orchestrator/property/$propertyId/details",
+        params:{
+          propertyId:p.id
+        }
+      })
+    }
+  };
+
+  const handleSelectChange = (propertyId: string, domainValue: string) => {
+    setPendingSelection({ id: propertyId, domain: domainValue });
+    setIsDialogOpen(true);
+  };
+
+  const confirmDomainChange = () => {
+    if (pendingSelection) {
+      // 1. Update your propertyList state here
+      console.log(
+        `Updating ${pendingSelection.id} to ${pendingSelection.domain}`,
+      );
+
+      // 2. Close and reset
+      setIsDialogOpen(false);
+      setPendingSelection(null);
+    }
+  };
+
+  const cancelDomainChange = () => {
+    setIsDialogOpen(false);
+    setPendingSelection(null); // This resets the select because it's controlled
+  };
 
   return (
     <div className="p-2 space-y-2">
@@ -136,7 +203,7 @@ export function PropertyIndexPage() {
         {propertyList.length == 0 ? (
           <EmptyPropertySection />
         ) : (
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid sm: grid-cols-1 md:grid-cols-3 gap-2">
             {propertyList.map((p) => (
               <Card
                 key={p.id}
@@ -156,13 +223,46 @@ export function PropertyIndexPage() {
                           {p.domain}
                         </Badge>
                       ) : (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 text-destructive border-destructive border px-2 text-[10px]"
+                        <Select
+                          onValueChange={(value) =>
+                            handleSelectChange(p.id, value)
+                          }
                         >
-                          + Add Domain
-                        </Button>
+                          <SelectTrigger className="h-8 w-fit text-xs border-destructive text-destructive">
+                            <SelectValue placeholder="Select Domain" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {/* Hospitality Option */}
+                            <SelectItem value="HOSPITALITY">
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-bold">Hospitality</span>
+                                <span className="text-[10px] text-muted-foreground leading-tight">
+                                  Enables Kitchen & Bar modules
+                                </span>
+                              </div>
+                            </SelectItem>
+
+                            {/* Retail Option */}
+                            <SelectItem value="RETAIL">
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-bold">Retail</span>
+                                <span className="text-[10px] text-muted-foreground leading-tight">
+                                  Inventory & POS focused
+                                </span>
+                              </div>
+                            </SelectItem>
+
+                            {/* Office Option */}
+                            <SelectItem value="OFFICE">
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-bold">Office</span>
+                                <span className="text-[10px] text-muted-foreground leading-tight">
+                                  Space & desk management
+                                </span>
+                              </div>
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
                       )}
                     </div>
                   </div>
@@ -204,7 +304,11 @@ export function PropertyIndexPage() {
 
                       {/* Logic: Show 'Configure' only if domain exists */}
                       {p.domain !== null ? (
-                        <Button size="sm" className="w-full sm:w-auto">
+                        <Button
+                          onClick={() => handlePropertyNavigation(p)}
+                          size="sm"
+                          className="w-full sm:w-auto"
+                        >
                           Configure Now
                         </Button>
                       ) : (
@@ -212,14 +316,14 @@ export function PropertyIndexPage() {
                           size="sm"
                           variant="outline"
                           disabled
-                          className="w-full sm:w-auto opacity-50"
+                          className="w-full sm:w-auto opacity-50 animate-pulse"
                         >
                           Waiting for Domain...
                         </Button>
                       )}
                     </Alert>
                   ) : (
-                    <Button variant="secondary" className="w-full">
+                    <Button onClick={()=>handlePropertyNavigation(p)} variant="secondary" className="w-full">
                       View Dashboard
                     </Button>
                   )}
@@ -229,6 +333,54 @@ export function PropertyIndexPage() {
           </div>
         )}
       </section>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-xl">
+              Confirm Domain Selection
+            </DialogTitle>
+            <DialogDescription className="pt-2">
+              You are setting the domain to{" "}
+              <strong className="text-foreground">
+                {pendingSelection?.domain}
+              </strong>
+              . This action determines which modules (like Kitchen or Bar) will
+              be available for configuration.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            {/* Documentation Link Section */}
+            <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                We highly recommend reviewing our <strong>Domain Manual</strong>{" "}
+                to understand how this selection affects your property setup.
+              </p>
+              <Button
+                variant="link"
+                className="h-auto p-0 text-primary font-semibold"
+                asChild
+              >
+                <a
+                  href={`/docs/domains/${pendingSelection?.domain?.toLowerCase()}`}
+                  target="_blank"
+                >
+                  Learn more about {pendingSelection?.domain} Domain →
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="ghost" onClick={cancelDomainChange}>
+              Cancel
+            </Button>
+            <Button onClick={confirmDomainChange} className="bg-primary">
+              Confirm & Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
