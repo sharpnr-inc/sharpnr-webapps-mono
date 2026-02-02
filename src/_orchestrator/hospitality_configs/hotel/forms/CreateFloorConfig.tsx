@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { DeleteIcon, PlusIcon, Edit2, CheckCircle2, Loader2, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 
 interface CreateHotelFloorConfigProps {
   hotelID: string;
@@ -21,6 +22,7 @@ interface CreateHotelFloorConfigProps {
 
 const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID, propertyID }) => {
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
+  const nav = useNavigate()
 
   const form = useAppForm({
     defaultValues: {
@@ -41,7 +43,7 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
   });
 
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full ">
       <AnimatePresence mode="wait">
         {status !== "saved" ? (
           /* --- ORIGINAL LOGIC / IMPROVED UI --- */
@@ -81,7 +83,7 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                               {/* Floor Identity */}
                               <div className="md:col-span-2">
                                 <form.AppField name={`floors[${i}].floor_number`}>
-                                  {(f) => <f.TextField label="Floor #"  />}
+                                  {(f) => <f.TextField label="Floor #" />}
                                 </form.AppField>
                               </div>
 
@@ -95,7 +97,7 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                               {/* Room Count */}
                               <div className="md:col-span-3">
                                 <form.AppField name={`floors[${i}].room_count`}>
-                                  {(f) => <f.TextField label="Room Count"  />}
+                                  {(f) => <f.TextField label="Room Count" />}
                                 </form.AppField>
                               </div>
 
@@ -181,14 +183,14 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                 {form.state.values.floors.map((floor, i) => (
                   <div key={i} className="flex items-center justify-between p-4 border rounded-lg shadow-sm bg-background">
                     <div className="flex items-center gap-4">
-                       <div className="h-10 w-10 rounded border flex flex-col items-center justify-center bg-muted/10">
-                          <span className="text-[8px] font-black text-muted-foreground uppercase leading-none">Floor</span>
-                          <span className="text-sm font-bold">{floor.floor_number}</span>
-                       </div>
-                       <div>
-                         <p className="font-bold text-sm uppercase tracking-tight">{floor.floor_name || "Standard Level"}</p>
-                         <p className="text-[10px] text-muted-foreground font-mono italic">REF: FL-{floor.floor_number}</p>
-                       </div>
+                      <div className="h-10 w-10 rounded border flex flex-col items-center justify-center bg-muted/10">
+                        <span className="text-[8px] font-black text-muted-foreground uppercase leading-none">Floor</span>
+                        <span className="text-sm font-bold">{floor.floor_number}</span>
+                      </div>
+                      <div>
+                        <p className="font-bold text-sm uppercase tracking-tight">{floor.floor_name || "Standard Level"}</p>
+                        <p className="text-[10px] text-muted-foreground font-mono italic">REF: FL-{floor.floor_number}</p>
+                      </div>
                     </div>
                     <Badge variant="outline" className="px-4 py-1 font-mono">
                       {floor.room_count} ROOMS
@@ -196,7 +198,7 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                   </div>
                 ))}
               </CardContent>
-              
+
               <CardFooter className="bg-muted/10 border-t py-4 px-6 flex justify-between items-center text-[10px] font-mono text-muted-foreground">
                 <span className="uppercase tracking-widest">Property ID: {propertyID}</span>
                 <span className="font-bold">TOTAL: {form.state.values.floors.reduce((acc, f) => acc + Number(f.room_count || 0), 0)} ROOMS</span>
@@ -204,7 +206,19 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
             </Card>
           </motion.div>
         )}
+        <div className="p-6">
+          <Button onClick={() => nav({
+            to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
+            params: {
+              hotelId: hotelID,
+              propertyId: propertyID
+            }
+
+          })} className="w-full">Complete Setup</Button>
+        </div>
+
       </AnimatePresence>
+
     </div>
   );
 };

@@ -104,6 +104,8 @@ import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyI
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
 import { Route as AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/index'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/bar_config/$barId/configuration'
@@ -717,6 +719,24 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_se
         AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
     } as any,
   )
+const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
+    {
+      id: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
+      path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    } as any,
+  )
+const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport.update(
+    {
+      id: '/',
+      path: '/',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
+    } as any,
+  )
 const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRoute =
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRouteImport.update(
     {
@@ -838,9 +858,11 @@ export interface FileRoutesByFullPath {
   '/orchestrator/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
   '/orchestrator/setup-wizard/step/$stepId/summary': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
   '/orchestrator/property/$propertyId/property_settings': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
+  '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute
   '/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRoute
   '/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRoute
+  '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -927,6 +949,7 @@ export interface FileRoutesByTo {
   '/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute
   '/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRoute
   '/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRoute
+  '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -1025,9 +1048,11 @@ export interface FileRoutesById {
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/bar_config/$barId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -1124,9 +1149,11 @@ export interface FileRouteTypes {
     | '/orchestrator/setup-wizard/step/$stepId/property'
     | '/orchestrator/setup-wizard/step/$stepId/summary'
     | '/orchestrator/property/$propertyId/property_settings'
+    | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration'
     | '/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration'
     | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration'
+    | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -1213,6 +1240,7 @@ export interface FileRouteTypes {
     | '/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration'
     | '/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration'
     | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration'
+    | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
   id:
     | '__root__'
     | '/'
@@ -1310,9 +1338,11 @@ export interface FileRouteTypes {
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/bar_config/$barId/configuration'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1990,6 +2020,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+    }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+      path: '/'
+      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
+    }
     '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration'
       path: '/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration'
@@ -2346,6 +2390,21 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChi
     AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren,
   )
 
+interface AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+}
+
+const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren =
+  {
+    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute,
+  }
+
+const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
+    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
+  )
+
 interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
@@ -2356,6 +2415,7 @@ interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
+  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_configRestaurantIdConfigurationRoute
@@ -2381,6 +2441,8 @@ const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren: AppuserOr
       AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute,
+    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
+      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityBar_configBarIdConfigurationRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_configHotelIdConfigurationRoute:
