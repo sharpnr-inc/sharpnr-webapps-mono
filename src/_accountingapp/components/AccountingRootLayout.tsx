@@ -9,6 +9,9 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
@@ -26,75 +29,130 @@ import {
   Building2,
   ChevronsUpDown,
   Check,
+  DollarSignIcon,
+  BadgeDollarSignIcon,
 } from "lucide-react";
 
 /* ================================
-   Sidebar Menu (ARRAY)
+   Sidebar Config (shadcn compatible)
 ================================ */
-const accountingSidebarItems = [
+const accountingSidebar = [
   {
-    id: "acc_overview",
-    label: "Overview",
-    icon: Wallet,
-    to: "/dashboard/sharp_accounting/overview",
+    group: "Overview",
+    items: [
+      {
+        label: "Dashboard",
+        icon: BarChart3,
+        to: "/dashboard/sharp_accounting/overview",
+      },
+    ],
   },
   {
-    id: "acc_acc_setup",
-    label: "Chart Of Account",
-    icon: Wallet,
-    to: "/dashboard/sharp_accounting/chart-of-account",
+    group: "Master Data",
+    items: [
+      {
+        label: "Chart of Accounts",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/chart-of-account",
+      },
+      {
+        label: "Tax",
+        icon: BadgeDollarSignIcon,
+        children: [
+          {
+            label: "Tax Codes",
+            to: "/dashboard/sharp_accounting/tax-codes",
+          },
+          {
+            label: "Tax Rates",
+            to: "/dashboard/sharp_accounting/tax-rates",
+          },
+        ],
+      },
+    ],
   },
   {
-    id: "acc_transactions",
-    label: "Transactions",
-    icon: Wallet,
-    to: "/dashboard/sharp_accounting/transactions",
+    group: "Operations",
+    items: [
+      {
+        label: "Transactions",
+        icon: DollarSignIcon,
+        to: "/dashboard/sharp_accounting/transactions",
+      },
+      {
+        label: "Expenses",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/expenses",
+      },
+      {
+        label: "Ledger",
+        icon: Wallet,
+        to: "/dashboard/sharp_accounting/ledger",
+      },
+    ],
   },
   {
-    id: "acc_ledger",
-    label: "Ledger",
-    icon: Wallet,
-    to: "/dashboard/sharp_accounting/ledger",
+    group: "Reports",
+    items: [
+      {
+        label: "Reports",
+        icon: BarChart3,
+        children: [
+          {
+            label: "Trial Balance",
+            to: "/dashboard/sharp_accounting/reports/trial-balance",
+          },
+          {
+            label: "Profit & Loss",
+            to: "/dashboard/sharp_accounting/reports/pnl",
+          },
+          {
+            label: "Balance Sheet",
+            to: "/dashboard/sharp_accounting/reports/balance-sheet",
+          },
+        ],
+      },
+    ],
   },
   {
-    id: "acc_reports",
-    label: "Reports",
-    icon: BarChart3,
-    to: "/dashboard/sharp_accounting/reports",
-  },
-  {
-    id: "acc_settings",
-    label: "Settings",
-    icon: Settings,
-    to: "/dashboard/sharp_accounting/settings",
+    group: "Controls",
+    items: [
+      {
+        label: "Settings",
+        icon: Settings,
+        to: "/dashboard/sharp_accounting/settings",
+      },
+    ],
   },
 ];
 
 /* ================================
    Dummy Legal Entities
 ================================ */
-const LEGAL_ENTITIES = ["Sharp Hospitality Pvt Ltd", "Sharp Foods LLP"];
+const LEGAL_ENTITIES = [
+  "Sharp Hospitality Pvt Ltd",
+  "Sharp Foods LLP",
+];
 
 /* ================================
    Layout
 ================================ */
-const AccountingRootLayout: React.FC = () => {
+const AccountingRootLayout = () => {
   const [selectedEntity, setSelectedEntity] = useState(LEGAL_ENTITIES[0]);
 
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
         <SidebarContent>
-          {/* 🔁 Legal Entity Switcher */}
+          {/* ========= Legal Entity Switcher ========= */}
           <div className="p-1 m-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg" className="">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                <SidebarMenuButton size="lg">
+                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex size-8 items-center justify-center rounded-lg">
                     <Building2 className="size-4" />
                   </div>
-
-                  <div className="flex flex-col gap-0.5 leading-none">
+                  <div className="flex flex-col leading-none">
                     <span className="font-medium truncate">
                       {selectedEntity}
                     </span>
@@ -102,7 +160,6 @@ const AccountingRootLayout: React.FC = () => {
                       Legal Entity
                     </span>
                   </div>
-
                   <ChevronsUpDown className="ml-auto size-4 opacity-60" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -112,7 +169,6 @@ const AccountingRootLayout: React.FC = () => {
                   <DropdownMenuItem
                     key={entity}
                     onSelect={() => setSelectedEntity(entity)}
-                    className="flex items-center"
                   >
                     {entity}
                     {entity === selectedEntity && (
@@ -124,40 +180,61 @@ const AccountingRootLayout: React.FC = () => {
             </DropdownMenu>
           </div>
 
-          {/* ================= Menu ================= */}
-          <SidebarGroup>
-            <SidebarGroupLabel>Accounting</SidebarGroupLabel>
+          {/* ========= Sidebar ========= */}
+          {accountingSidebar.map((section) => (
+            <SidebarGroup key={section.group}>
+              <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
 
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {accountingSidebarItems.map((item) => {
-                  const Icon = item.icon;
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {section.items.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      {/* 🔽 WITH CHILDREN (shadcn dropdown) */}
+                      {item.children ? (
+                        <>
+                          <SidebarMenuButton>
+                            <item.icon />
+                            <span>{item.label}</span>
+                          </SidebarMenuButton>
 
-                  return (
-                    <SidebarMenuItem key={item.id}>
-                      <SidebarMenuButton asChild>
-                        <Link to={item.to}>
-                          <Icon />
-                          <span>{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
+                          <SidebarMenuSub>
+                            {item.children.map((child) => (
+                              <SidebarMenuSubItem key={child.label}>
+                                <SidebarMenuSubButton asChild>
+                                  <Link to={child.to}>
+                                    <span>{child.label}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            ))}
+                          </SidebarMenuSub>
+                        </>
+                      ) : (
+                        /* 🔹 NORMAL LINK */
+                        <SidebarMenuButton asChild>
+                          <Link to={item.to}>
+                            <item.icon />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      )}
                     </SidebarMenuItem>
-                  );
-                })}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
         </SidebarContent>
       </Sidebar>
 
-      {/* ================= Main ================= */}
+      {/* ========= Main ========= */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 px-4 ">
+        <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
           <span className="font-medium">Accounting</span>
         </header>
 
-        <main className="flex-1">
+        <main className="flex-1 p-4">
           <Outlet />
         </main>
       </SidebarInset>
