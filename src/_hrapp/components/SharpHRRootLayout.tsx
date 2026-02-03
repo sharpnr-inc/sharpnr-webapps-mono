@@ -126,7 +126,7 @@ const SharpHRRootLayout: React.FC = () => {
           <RouteBreadcrumbs />
         </header>
 
-        <main className="flex-1 p-2">
+        <main className="flex-1">
           <Outlet />
         </main>
       </SidebarInset>

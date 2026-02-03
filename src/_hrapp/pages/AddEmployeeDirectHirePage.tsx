@@ -38,7 +38,7 @@ export function AddEmployeeDirectHirePage() {
   });
 
   return (
-    <div className="m-2 h-full p-4 space-y-4">
+    <div className=" p-2">
       {/* Header */}
       <div className="flex items-center justify-between">
         <Button onClick={()=>handleBack()} variant="link">
@@ -54,7 +54,7 @@ export function AddEmployeeDirectHirePage() {
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className="space-y-4 max-w-xl"
+        className="space-y-4 justify-center max-w-xl"
       >
         {/* Name */}
         <form.Field

@@ -1,6 +1,7 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TabsContent } from "@radix-ui/react-tabs";
-import RestaurantTimingSettings from "../components/RestaurantTimingSettings";
+import RestaurantTimingSettings from "../components/GeneralSettings/RestaurantTimingSettings";
+import RestaurantKitchenSettings from "../components/GeneralSettings/RestaurantKitchenSettings";
 
 interface RestaurantGenSettingsPageProps {}
 
@@ -9,20 +10,22 @@ const RestaurantGenSettingsPage: React.FC<
 > = () => {
   return (
     <div>
-      <Tabs defaultValue="overview">
+      <Tabs defaultValue="operation_timings">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics">Timing</TabsTrigger>
-          <TabsTrigger value="reports">Kitchen</TabsTrigger>
-          <TabsTrigger value="settings">Menu</TabsTrigger>
-          <TabsTrigger value="settings">Table & Floors</TabsTrigger>
+          <TabsTrigger value="operation_timings">Operation Timing</TabsTrigger>
+          <TabsTrigger value="Kitchen_Settings">Kitchen Settings</TabsTrigger>
+          <TabsTrigger value="Legal_Entity">Legal Entity</TabsTrigger>
+          <TabsTrigger value="tables_floor">Table & Floors</TabsTrigger>
+          <TabsTrigger value="menu">Menu</TabsTrigger>
+          <TabsTrigger value="app_settings">App Settings</TabsTrigger>
+          <TabsTrigger value="integrations">Integrations</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview">
+        <TabsContent value="operation_timings">
           <RestaurantTimingSettings />
         </TabsContent>
-        <TabsContent value="analytics">
-          <RestaurantTimingSettings />
+        <TabsContent value="Kitchen_Settings">
+          <RestaurantKitchenSettings />
         </TabsContent>
       </Tabs>
     </div>
