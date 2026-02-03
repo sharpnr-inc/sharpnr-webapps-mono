@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { Bell, Search } from "lucide-react";
 import { DynamicIslandProvider } from "../ui/dynamic-island";
 import { useSheet } from "@/context/DrawerContext";
-import UserRootMenu from "@/app_user/components/UserRootMenu";
+import UserRootMenu from "@/_app_user_/components/UserRootMenu";
 import { ModeToggle } from "../ui/ThemeToggle";
 import { useState } from "react";
 import { GlobalSearch } from "../custom/global-search";
