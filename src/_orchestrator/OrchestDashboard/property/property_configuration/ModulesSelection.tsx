@@ -1,8 +1,7 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useSectorsModules } from "@/apis/Queries";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -13,16 +12,11 @@ import { cn } from "@/lib/utils";
 import { createId } from "@/utilities/id";
 import {
   AlertCircle,
-  AlertTriangle,
-  Apple,
   Building2,
   CheckCircle2,
   LayoutGrid,
-  Play,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertDialog } from "@/components/ui/alert-dialog";
 import { motion } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 

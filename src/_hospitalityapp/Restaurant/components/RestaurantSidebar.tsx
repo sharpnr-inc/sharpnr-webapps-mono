@@ -9,11 +9,12 @@ import {
 } from "@/components/ui/sidebar";
 import {
   LayoutDashboard,
-  Grid3x3,
   Boxes,
   ShoppingCart,
   Settings,
   LucideListOrdered,
+  Table2Icon,
+  Calendar
 } from "lucide-react";
 import type { ToPathOption } from "@tanstack/react-router";
 
@@ -40,14 +41,14 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
   {
     label: "Table Management",
     to: "/dashboard/sharp_hospitality/restaurant/table-management",
-    icon: Grid3x3,
+    icon: Table2Icon,
     match: (pathname) =>
       pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table-management"),
   },
   {
     label: "Reservations",
     to: "/dashboard/sharp_hospitality/restaurant/reservations",
-    icon: Grid3x3,
+    icon: Calendar,
     match: (pathname) =>
       pathname.startsWith("/dashboard/sharp_hospitality/restaurant/reservations"),
   },

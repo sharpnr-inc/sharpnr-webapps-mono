@@ -1,17 +1,20 @@
 import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import AnthropicLoader from "./components/loaders/anthropic_loader";
+import AnthropicLoader from "./components/shared_pages/anthropic_loader";
+import NotFound from "./components/shared_pages/404Page";
 
 export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,
-  defaultPendingComponent:() => (<AnthropicLoader/>),
-  defaultViewTransition:true,
+  defaultPendingComponent: () => <AnthropicLoader />,
+  defaultNotFoundComponent: () => <NotFound />,
+  defaultViewTransition: true,
   
+
   context: {
-    queryClient:queryClient,
+    queryClient: queryClient,
   },
 });
 

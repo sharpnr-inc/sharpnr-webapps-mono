@@ -33,7 +33,7 @@ export function RestaurantRootLayout() {
     React.useState<(typeof properties)[number]>(defaultProperty);
 
   return (
-    <SidebarProvider defaultOpen>
+    <SidebarProvider defaultOpen={false}>
       <div className="flex w-full">
         {/* Sidebar */}
         <Sidebar collapsible="icon">

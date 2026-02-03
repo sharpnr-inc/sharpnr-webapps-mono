@@ -1,3 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useDialogModal } from "@/context/DialogModalContext";
+
 interface RestaurantTableManagementPageProps {}
 
 type TableStatus = "available" | "occupied";
@@ -20,6 +25,15 @@ const tables: RestaurantTable[] = [
 const RestaurantTableManagementPage: React.FC<
   RestaurantTableManagementPageProps
 > = () => {
+  const { openModal } = useDialogModal();
+
+  const handleCreateSession = (table: RestaurantTable) => {
+    if (table.status == "occupied") {
+      return;
+    } else {
+      openModal(<CreateTableSessionForm table={table} />);
+    }
+  };
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -49,6 +63,7 @@ const RestaurantTableManagementPage: React.FC<
         {tables.map((table) => (
           <div
             key={table.id}
+            onClick={() => handleCreateSession(table)}
             className={`
               aspect-square rounded-lg border
               flex items-center justify-center
@@ -75,3 +90,17 @@ const RestaurantTableManagementPage: React.FC<
 };
 
 export default RestaurantTableManagementPage;
+
+interface CreateTableSessionFormProp {
+  table: RestaurantTable;
+}
+function CreateTableSessionForm({}: CreateTableSessionFormProp) {
+  return (
+    <div className="space-y-2">
+      <Label>Customer Name</Label>
+      <Input />
+      
+      <Button>Create Session</Button>
+    </div>
+  );
+}

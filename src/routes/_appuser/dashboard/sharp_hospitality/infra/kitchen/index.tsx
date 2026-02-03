@@ -5,5 +5,8 @@ export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/infra/kitchen/',
 )({
   component: KitchenPage,
+  staticData:{
+    breadcrumb:"Kitchen"
+  }
 })
 

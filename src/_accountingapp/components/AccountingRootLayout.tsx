@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { Outlet, Link } from "@tanstack/react-router"
+import { useState } from "react";
+import { Outlet, Link } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -12,13 +12,13 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import {
   Wallet,
   BarChart3,
@@ -26,7 +26,7 @@ import {
   Building2,
   ChevronsUpDown,
   Check,
-} from "lucide-react"
+} from "lucide-react";
 
 /* ================================
    Sidebar Menu (ARRAY)
@@ -68,36 +68,28 @@ const accountingSidebarItems = [
     icon: Settings,
     to: "/dashboard/sharp_accounting/settings",
   },
-]
+];
 
 /* ================================
    Dummy Legal Entities
 ================================ */
-const LEGAL_ENTITIES = [
-  "Sharp Hospitality Pvt Ltd",
-  "Sharp Foods LLP",
-]
+const LEGAL_ENTITIES = ["Sharp Hospitality Pvt Ltd", "Sharp Foods LLP"];
 
 /* ================================
    Layout
 ================================ */
 const AccountingRootLayout: React.FC = () => {
-  const [selectedEntity, setSelectedEntity] = useState(
-    LEGAL_ENTITIES[0]
-  )
+  const [selectedEntity, setSelectedEntity] = useState(LEGAL_ENTITIES[0]);
 
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
         <SidebarContent>
           {/* 🔁 Legal Entity Switcher */}
-          <div className="p-2 border m-1 rounded-xl">
+          <div className="p-1 m-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
+                <SidebarMenuButton size="lg" className="">
                   <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                     <Building2 className="size-4" />
                   </div>
@@ -115,16 +107,11 @@ const AccountingRootLayout: React.FC = () => {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                align="start"
-                className="min-w-[240px]"
-              >
+              <DropdownMenuContent align="start" className="min-w-[240px]">
                 {LEGAL_ENTITIES.map((entity) => (
                   <DropdownMenuItem
                     key={entity}
-                    onSelect={() =>
-                      setSelectedEntity(entity)
-                    }
+                    onSelect={() => setSelectedEntity(entity)}
                     className="flex items-center"
                   >
                     {entity}
@@ -139,14 +126,12 @@ const AccountingRootLayout: React.FC = () => {
 
           {/* ================= Menu ================= */}
           <SidebarGroup>
-            <SidebarGroupLabel>
-              Accounting
-            </SidebarGroupLabel>
+            <SidebarGroupLabel>Accounting</SidebarGroupLabel>
 
             <SidebarGroupContent>
               <SidebarMenu>
                 {accountingSidebarItems.map((item) => {
-                  const Icon = item.icon
+                  const Icon = item.icon;
 
                   return (
                     <SidebarMenuItem key={item.id}>
@@ -157,7 +142,7 @@ const AccountingRootLayout: React.FC = () => {
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
-                  )
+                  );
                 })}
               </SidebarMenu>
             </SidebarGroupContent>
@@ -169,17 +154,15 @@ const AccountingRootLayout: React.FC = () => {
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 px-4 ">
           <SidebarTrigger />
-          <span className="font-medium">
-            Accounting
-          </span>
+          <span className="font-medium">Accounting</span>
         </header>
 
-        <main className="flex-1 p-4">
+        <main className="flex-1">
           <Outlet />
         </main>
       </SidebarInset>
     </SidebarProvider>
-  )
-}
+  );
+};
 
-export default AccountingRootLayout
+export default AccountingRootLayout;
