@@ -91,7 +91,7 @@ export function OrchestratorSetupWizardWelcomePage() {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className="flex items-center justify-center p-4">
       <Card className="w-full max-w-3xl shadow-2xl overflow-hidden border-0">
         <motion.div
           className="p-8 text-center"

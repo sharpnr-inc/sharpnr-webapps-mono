@@ -44,7 +44,6 @@ import { Route as AppuserDashboardSharp_hospitalityNcRouteRouteImport } from './
 import { Route as AppuserDashboardSharp_hospitalityInfraRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/route'
 import { Route as AppuserDashboardSharp_hospitalityHotelRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/route'
 import { Route as AppuserDashboardSharp_hospitalityBarRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/index'
 import { Route as AppuserDashboardSharp_hrSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/settings/index'
 import { Route as AppuserDashboardSharp_hrReportsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/reports/index'
@@ -307,13 +306,6 @@ const AppuserDashboardSharp_hospitalityBarRouteRoute =
     id: '/bar',
     path: '/bar',
     getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleIndexRouteImport.update({
@@ -844,7 +836,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/reports': typeof AppuserDashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof AppuserDashboardSharp_hrSettingsIndexRoute
   '/orchestrator/': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  '/orchestrator/setup-wizard/': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute
   '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/dashboard/sharp_hospitality/bar/bar_pos': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
   '/dashboard/sharp_hospitality/bar/inventory': typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
@@ -900,6 +891,7 @@ export interface FileRoutesByTo {
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
+  '/orchestrator/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
   '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
@@ -934,7 +926,6 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/recruitment': typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports': typeof AppuserDashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof AppuserDashboardSharp_hrSettingsIndexRoute
-  '/orchestrator/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute
   '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/dashboard/sharp_hospitality/bar/bar_pos': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
   '/dashboard/sharp_hospitality/bar/inventory': typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
@@ -1039,7 +1030,6 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hr/reports/': typeof AppuserDashboardSharp_hrReportsIndexRoute
   '/_appuser/dashboard/sharp_hr/settings/': typeof AppuserDashboardSharp_hrSettingsIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
   '/_appuser/dashboard/sharp_hospitality/bar/inventory/': typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
@@ -1143,7 +1133,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
     | '/orchestrator/'
-    | '/orchestrator/setup-wizard/'
     | '/orchestrator/property/routes'
     | '/dashboard/sharp_hospitality/bar/bar_pos'
     | '/dashboard/sharp_hospitality/bar/inventory'
@@ -1199,6 +1188,7 @@ export interface FileRouteTypes {
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_hospitality/infra'
+    | '/orchestrator/setup-wizard'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -1233,7 +1223,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment'
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
-    | '/orchestrator/setup-wizard'
     | '/orchestrator/property/routes'
     | '/dashboard/sharp_hospitality/bar/bar_pos'
     | '/dashboard/sharp_hospitality/bar/inventory'
@@ -1337,7 +1326,6 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hr/reports/'
     | '/_appuser/dashboard/sharp_hr/settings/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/'
-    | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
     | '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/'
     | '/_appuser/dashboard/sharp_hospitality/bar/inventory/'
@@ -1638,13 +1626,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_hospitality/bar'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/'
-      path: '/'
-      fullPath: '/orchestrator/setup-wizard/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/'
@@ -2547,7 +2528,6 @@ const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren =
   )
 
 interface AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute
   AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
   AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
   AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
@@ -2556,8 +2536,6 @@ interface AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren {
 
 const AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren =
   {
-    AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutSetupWizardIndexRoute,
     AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute:
       AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute,
     AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute:
