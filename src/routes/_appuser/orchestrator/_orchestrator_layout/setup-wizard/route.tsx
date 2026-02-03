@@ -1,7 +1,7 @@
-import { SetupWizardLayout } from "@/_orchestrator/SetupWizard/components/ui/SetupWizard";
+import { SetupWizardLayout } from "@/_setup_wizard_/SetupWizard/components/ui/SetupWizard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { resolveSetupWizardRoute, } from "@/lib/setup_route_resolver";
-import { setupProgressQuery } from "@/_orchestrator/SetupWizard/api/queries";
+import { setupProgressQuery } from "@/_setup_wizard_/SetupWizard/api/queries";
 
 export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/setup-wizard",

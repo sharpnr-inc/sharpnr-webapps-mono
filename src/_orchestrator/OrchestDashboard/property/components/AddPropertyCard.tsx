@@ -33,7 +33,7 @@ import {
 } from "lucide-react";
 import "leaflet/dist/leaflet.css";
 import { useState, useEffect } from "react";
-import { useAddPropertyMutation } from "@/_orchestrator/SetupWizard/api/mutation";
+import { useAddPropertyMutation } from "@/_setup_wizard_/SetupWizard/api/mutation";
 
 
 

@@ -1,4 +1,4 @@
-import { SetupWizardProperty } from "@/_orchestrator/SetupWizard/SetupWizardPropertyPage";
+import { SetupWizardProperty } from "@/_setup_wizard_/SetupWizard/SetupWizardPropertyPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

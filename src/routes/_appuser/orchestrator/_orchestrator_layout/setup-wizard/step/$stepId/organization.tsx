@@ -1,4 +1,4 @@
-import { OrchestratorHQSetup } from '@/_orchestrator/SetupWizard/SetupWizardOrgHQPage'
+import { OrchestratorHQSetup } from '@/_setup_wizard_/SetupWizard/SetupWizardOrgHQPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
