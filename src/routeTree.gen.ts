@@ -102,6 +102,7 @@ import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrg
 import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
+import { Route as AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
 import { Route as AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
@@ -701,6 +702,14 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRout
         AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
     } as any,
   )
+const AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute =
+  AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport.update(
+    {
+      id: '/kitchen/$service_point/service',
+      path: '/kitchen/$service_point/service',
+      getParentRoute: () => AppuserDashboardSharp_hospitalityInfraRouteRoute,
+    } as any,
+  )
 const AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute =
   AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport.update(
     {
@@ -850,6 +859,7 @@ export interface FileRoutesByFullPath {
   '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
+  '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
@@ -938,6 +948,7 @@ export interface FileRoutesByTo {
   '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
+  '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
@@ -1040,6 +1051,7 @@ export interface FileRoutesById {
   '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
+  '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
@@ -1141,6 +1153,7 @@ export interface FileRouteTypes {
     | '/orchestrator/organization'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
+    | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
     | '/orchestrator/property/$propertyId/details'
     | '/orchestrator/property/$propertyId/property-configuration'
     | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
@@ -1229,6 +1242,7 @@ export interface FileRouteTypes {
     | '/orchestrator/organization'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
+    | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
     | '/orchestrator/property/$propertyId/details'
     | '/orchestrator/property/$propertyId/property-configuration'
     | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
@@ -1330,6 +1344,7 @@ export interface FileRouteTypes {
     | '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
     | '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
+    | '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
     | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
@@ -2006,6 +2021,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
+    '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': {
+      id: '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
+      path: '/kitchen/$service_point/service'
+      fullPath: '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
+      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport
+      parentRoute: typeof AppuserDashboardSharp_hospitalityInfraRouteRoute
+    }
     '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': {
       id: '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
       path: '/booking/create-booking/$roomId'
@@ -2177,12 +2199,15 @@ const AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren =
 
 interface AppuserDashboardSharp_hospitalityInfraRouteRouteChildren {
   AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute
+  AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
 }
 
 const AppuserDashboardSharp_hospitalityInfraRouteRouteChildren: AppuserDashboardSharp_hospitalityInfraRouteRouteChildren =
   {
     AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute:
       AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute,
+    AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute:
+      AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute,
   }
 
 const AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren =
