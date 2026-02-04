@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -41,6 +42,10 @@ const HOSPITALITY_SLIDES = [
     icon: "🏨",
   },
 ];
+
+
+// ** INFO :-->This component is basically a guide what user is doing
+// ** Selection happens in the ModulesSelection.tsx component
 
 export function PropertyConfigurationPage() {
   const [isVisible, setIsVisible] = useState(false);

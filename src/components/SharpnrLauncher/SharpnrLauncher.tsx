@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import sharpnrLogo from "../../../public/AppIcon.png";
 
 // --- Custom Sharp Logos (SVG Components) ---
 const SharpLogo = ({ children }: { children: React.ReactNode }) => (
@@ -148,7 +147,7 @@ export default function SharpnrLauncher() {
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full p-0 transition-transform active:scale-90 ring-1 ring-border">
-          <img src={sharpnrLogo} alt="Sharpnr" className="h-10 w-10 rounded-full object-cover" />
+          <img src="/AppIcon.png" alt="Sharpnr" className="h-10 w-10 rounded-full object-cover" />
         </Button>
       </DropdownMenuTrigger>
 
