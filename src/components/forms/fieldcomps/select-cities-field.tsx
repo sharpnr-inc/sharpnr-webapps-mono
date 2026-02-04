@@ -47,7 +47,7 @@ const CitySelect = () => {
 
   return (
     <div className="space-y-2">
-      <Label>City</Label>
+      <Label htmlFor={field.name}>City</Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -63,7 +63,7 @@ const CitySelect = () => {
         {countryCode && (
           <PopoverContent className="p-0">
             <Command>
-              <CommandInput placeholder="Search City..." />
+              <CommandInput placeholder="Search City..." id={field.name}/>
               <CommandList className="max-h-64 overflow-y-auto">
                 <CommandEmpty>No State Found</CommandEmpty>
 
@@ -100,7 +100,7 @@ const CitySelect = () => {
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertDescription>
-            {countryMissingError ?? formError}
+            {countryMissingError ?? formError?.message}
           </AlertDescription>
         </Alert>
       )}

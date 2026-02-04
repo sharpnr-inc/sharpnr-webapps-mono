@@ -22,7 +22,6 @@ import React from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { Country } from "../apiservice/csc";
 
-
 const CountrySelect = () => {
   const [open, setOpen] = React.useState(false);
   const field = useFieldContext<string>();
@@ -37,7 +36,7 @@ const CountrySelect = () => {
 
   return (
     <div className="space-y-2">
-      <Label>Country</Label>
+      <Label htmlFor={field.name}>Country</Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -51,8 +50,8 @@ const CountrySelect = () => {
         </PopoverTrigger>
         <PopoverContent>
           <Command>
-            <CommandInput placeholder="Search Country ..." />
-             <CommandList className="max-h-90">
+            <CommandInput placeholder="Search Country ..." id={field.name} />
+            <CommandList className="max-h-90">
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
                 {countries?.map((country: Country) => (
@@ -87,7 +86,9 @@ const CountrySelect = () => {
       {error && (
         <Alert variant="destructive" className="mt-2">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>
+            {typeof error === "object" ? error?.message : String(error)}
+          </AlertDescription>
         </Alert>
       )}
     </div>

@@ -13,7 +13,7 @@ const TextAreaField = ({ label }: TextAreaFieldProps) => {
   const error = field.state.meta.errors?.[0];
   return (
     <div className="p-2 space-y-2">
-      <Label htmlFor="field.name">{label}</Label>
+      <Label htmlFor={field.name}>{label}</Label>
       <Textarea
         className=""
         id={field.name}
@@ -23,7 +23,7 @@ const TextAreaField = ({ label }: TextAreaFieldProps) => {
       {error && (
         <Alert variant="destructive" className="mt-2">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>{error?.message}</AlertDescription>
         </Alert>
       )}
     </div>

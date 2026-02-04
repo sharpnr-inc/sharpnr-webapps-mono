@@ -22,12 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 // import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import {
-  AlertCircle,
-  Building,
-  LucideBuilding,
-  PlusIcon,
-} from "lucide-react";
+import { AlertCircle, Building, LucideBuilding, PlusIcon } from "lucide-react";
 import { useFormsModal } from "@/context/FormModalContext";
 import { createId } from "@/utilities/id";
 import { Badge } from "@/components/ui/badge";
@@ -48,6 +43,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import AddPropertyForm from "./forms/AddPropertyForm";
+import { useDialogModal } from "@/context/DialogModalContext";
 
 interface NewProperty {
   id: string;
@@ -132,10 +129,15 @@ export function PropertyIndexPage() {
   // const { data, isLoading } = useOrganizationProperties();
 
   //*hook for opening the modal
-  const { showModal } = useFormsModal();
+  const { openModal } = useDialogModal();
+  const {showModal} = useFormsModal();
 
   const handleAddProperty = () => {
-    showModal("Add Property", "", <div>Coming Soon</div>);
+    showModal(
+      "Add Property",
+      "create Property in the organization",
+      <AddPropertyForm />,
+    );
   };
 
   const navigate = useNavigate();
