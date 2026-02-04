@@ -24,12 +24,10 @@ import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import {
   AlertCircle,
-  AlertTriangle,
   Building,
   LucideBuilding,
   PlusIcon,
 } from "lucide-react";
-import { AddPropertyCard } from "./components/AddPropertyCard";
 import { useFormsModal } from "@/context/FormModalContext";
 import { createId } from "@/utilities/id";
 import { Badge } from "@/components/ui/badge";
@@ -137,7 +135,7 @@ export function PropertyIndexPage() {
   const { showModal } = useFormsModal();
 
   const handleAddProperty = () => {
-    showModal("Add Property", "", <AddPropertyCard />);
+    showModal("Add Property", "", <div>Coming Soon</div>);
   };
 
   const navigate = useNavigate();

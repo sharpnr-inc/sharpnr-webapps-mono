@@ -21,6 +21,7 @@ import { useStateStore } from "@/store/utilities/state/store";
 import { Button } from "@/components/ui/button";
 import { useStates } from "../apiservice/queries";
 import { useCityStore } from "@/store/utilities/city/store";
+import type { State } from "../apiservice/csc";
 
 export interface StateInterface {}
 
@@ -36,7 +37,7 @@ const StateSelect = () => {
   const formError = field.state.meta.errors?.[0];
 
   const selectedState = states?.find(
-    (s:any) => s.name === field.state.value
+    (s:State) => s.name === field.state.value
   );
 
   const countryMissingError = !countryCode
@@ -67,7 +68,7 @@ const StateSelect = () => {
                 <CommandEmpty>No State Found</CommandEmpty>
 
                 <CommandGroup>
-                  {states?.map((state:any) => (
+                  {states?.map((state:State) => (
                     <CommandItem
                       key={state.iso2}
                       value={state.name}

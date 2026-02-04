@@ -21,6 +21,7 @@ import { useStateStore } from "@/store/utilities/state/store";
 import { Button } from "@/components/ui/button";
 import { useCities } from "../apiservice/queries";
 import { useCityStore } from "@/store/utilities/city/store";
+import type { City } from "../apiservice/csc";
 
 export interface StateInterface {}
 
@@ -37,17 +38,16 @@ const CitySelect = () => {
   const formError = field.state.meta.errors?.[0];
 
   const selectedState = cities?.find(
-    (s:any) => s.name === field.state.value
+    (c:City) => c.name === field.state.value
   );
 
   const countryMissingError = !countryCode || !stateCode
-    ? "Please select a country first"
+    ? "Please select a state and a country first"
     : undefined;
 
   return (
     <div className="space-y-2">
       <Label>City</Label>
-
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -68,9 +68,9 @@ const CitySelect = () => {
                 <CommandEmpty>No State Found</CommandEmpty>
 
                 <CommandGroup>
-                  {cities?.map((city:any) => (
+                  {cities?.map((city:City) => (
                     <CommandItem
-                      key={city.iso2}
+                      key={city.id}
                       value={city.name}
                       onSelect={() => {
                         field.handleChange(city.name);

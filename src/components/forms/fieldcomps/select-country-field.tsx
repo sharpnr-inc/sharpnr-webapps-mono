@@ -20,18 +20,8 @@ import { cn } from "@/lib/utils";
 import { useStateStore } from "@/store/utilities/state/store";
 import React from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import type { Country } from "../apiservice/csc";
 
-export interface CountryInterface {
-  id: string;
-  name: string;
-  iso2: string;
-  iso3: string;
-  phonecode: string;
-  capital: string;
-  currency: string;
-  native: string;
-  emoji: string;
-}
 
 const CountrySelect = () => {
   const [open, setOpen] = React.useState(false);
@@ -42,7 +32,7 @@ const CountrySelect = () => {
   const setCountryCode = useStateStore((s) => s.setCountryCode);
   const error = field.state.meta.errors?.[0];
   const selectedCountry = countries?.find(
-    (c: any) => c.name === field.state.value,
+    (c: Country) => c.name === field.state.value,
   );
 
   return (
@@ -65,7 +55,7 @@ const CountrySelect = () => {
              <CommandList className="max-h-90">
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {countries?.map((country: any) => (
+                {countries?.map((country: Country) => (
                   <CommandItem
                     key={country.iso2}
                     value={country.name}
@@ -78,7 +68,7 @@ const CountrySelect = () => {
                     <CheckIcon
                       className={cn(
                         "mr-2 h-4 w-4",
-                        field.state.value === country.iso2
+                        field.state.value === country.name
                           ? "opacity-100"
                           : "opacity-0",
                       )}
