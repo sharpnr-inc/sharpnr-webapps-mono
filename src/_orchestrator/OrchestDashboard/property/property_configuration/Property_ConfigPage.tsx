@@ -65,7 +65,7 @@ export function PropertyConfigurationPage() {
   };
 
   return (
-    <div className="space-y-6 p-2 mx-auto">
+    <div className="space-y-6 mt-4 p-2 mx-auto">
       <AnimatePresence>
         {isVisible && (
           <motion.div

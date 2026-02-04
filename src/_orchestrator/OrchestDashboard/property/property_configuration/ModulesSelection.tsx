@@ -132,7 +132,7 @@ export function ModulesSelectionSection({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-blue-100  shadow-sm overflow-hidden">
+        <Card className="border-blue-100 shadow-sm overflow-hidden">
           <CardHeader className="flex flex-row items-start gap-4 space-y-0 p-6">
             <div className="bg-blue-600 p-2 rounded-lg shadow-md">
               <AlertCircle size={20} />

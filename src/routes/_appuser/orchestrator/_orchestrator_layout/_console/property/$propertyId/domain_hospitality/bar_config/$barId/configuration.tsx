@@ -1,3 +1,4 @@
+import TempComps from "@/_orchestrator/hospitality_configs/bar/temp";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
@@ -14,14 +15,5 @@ export const Route = createFileRoute(
     };
   },
 
-  component: RouteComponent,
+  component: TempComps,
 });
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/bar_config/$barId/configuration"!
-    </div>
-  );
-}

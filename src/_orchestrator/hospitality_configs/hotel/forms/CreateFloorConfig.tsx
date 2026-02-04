@@ -9,8 +9,14 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { DeleteIcon, PlusIcon, Edit2, CheckCircle2, Loader2, Building2 } from "lucide-react";
+import {
+  DeleteIcon,
+  PlusIcon,
+  Edit2,
+  CheckCircle2,
+  Loader2,
+  Building2,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
@@ -20,9 +26,12 @@ interface CreateHotelFloorConfigProps {
   propertyID: string;
 }
 
-const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID, propertyID }) => {
+const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({
+  hotelID,
+  propertyID,
+}) => {
   const [status, setStatus] = useState<"idle" | "saving" | "saved">("idle");
-  const nav = useNavigate()
+  const nav = useNavigate();
 
   const form = useAppForm({
     defaultValues: {
@@ -82,7 +91,9 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
                               {/* Floor Identity */}
                               <div className="md:col-span-2">
-                                <form.AppField name={`floors[${i}].floor_number`}>
+                                <form.AppField
+                                  name={`floors[${i}].floor_number`}
+                                >
                                   {(f) => <f.TextField label="Floor #" />}
                                 </form.AppField>
                               </div>
@@ -140,10 +151,18 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                 </CardContent>
 
                 <CardFooter className="flex justify-end gap-3 border-t p-6 mt-4">
-                  <Button type="button" variant="ghost" onClick={() => form.reset()}>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => form.reset()}
+                  >
                     Reset
                   </Button>
-                  <Button type="submit" className="px-10 font-bold" disabled={status === "saving"}>
+                  <Button
+                    type="submit"
+                    className="px-10 font-bold"
+                    disabled={status === "saving"}
+                  >
                     {status === "saving" ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -170,26 +189,43 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={18} />
-                    <CardTitle className="text-xl">Vertical Layout Saved</CardTitle>
+                    <CardTitle className="text-xl">
+                      Vertical Layout Saved
+                    </CardTitle>
                   </div>
                   <CardDescription>Hotel: {hotelID}</CardDescription>
                 </div>
-                <Button variant="outline" size="sm" onClick={() => setStatus("idle")}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setStatus("idle")}
+                >
                   <Edit2 size={14} className="mr-2" /> Modify Floors
                 </Button>
               </CardHeader>
 
               <CardContent className="py-6 space-y-3">
                 {form.state.values.floors.map((floor, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 border rounded-lg shadow-sm bg-background">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between p-4 border rounded-lg shadow-sm bg-background"
+                  >
                     <div className="flex items-center gap-4">
                       <div className="h-10 w-10 rounded border flex flex-col items-center justify-center bg-muted/10">
-                        <span className="text-[8px] font-black text-muted-foreground uppercase leading-none">Floor</span>
-                        <span className="text-sm font-bold">{floor.floor_number}</span>
+                        <span className="text-[8px] font-black text-muted-foreground uppercase leading-none">
+                          Floor
+                        </span>
+                        <span className="text-sm font-bold">
+                          {floor.floor_number}
+                        </span>
                       </div>
                       <div>
-                        <p className="font-bold text-sm uppercase tracking-tight">{floor.floor_name || "Standard Level"}</p>
-                        <p className="text-[10px] text-muted-foreground font-mono italic">REF: FL-{floor.floor_number}</p>
+                        <p className="font-bold text-sm uppercase tracking-tight">
+                          {floor.floor_name || "Standard Level"}
+                        </p>
+                        <p className="text-[10px] text-muted-foreground font-mono italic">
+                          REF: FL-{floor.floor_number}
+                        </p>
                       </div>
                     </div>
                     <Badge variant="outline" className="px-4 py-1 font-mono">
@@ -200,25 +236,38 @@ const CreateHotelFloorConfig: React.FC<CreateHotelFloorConfigProps> = ({ hotelID
               </CardContent>
 
               <CardFooter className="bg-muted/10 border-t py-4 px-6 flex justify-between items-center text-[10px] font-mono text-muted-foreground">
-                <span className="uppercase tracking-widest">Property ID: {propertyID}</span>
-                <span className="font-bold">TOTAL: {form.state.values.floors.reduce((acc, f) => acc + Number(f.room_count || 0), 0)} ROOMS</span>
+                <span className="uppercase tracking-widest">
+                  Property ID: {propertyID}
+                </span>
+                <span className="font-bold">
+                  TOTAL:{" "}
+                  {form.state.values.floors.reduce(
+                    (acc, f) => acc + Number(f.room_count || 0),
+                    0,
+                  )}{" "}
+                  ROOMS
+                </span>
               </CardFooter>
             </Card>
           </motion.div>
         )}
         <div className="p-6">
-          <Button onClick={() => nav({
-            to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
-            params: {
-              hotelId: hotelID,
-              propertyId: propertyID
+          <Button
+            onClick={() =>
+              nav({
+                to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
+                params: {
+                  hotelId: hotelID,
+                  propertyId: propertyID,
+                },
+              })
             }
-
-          })} className="w-full">Complete Setup</Button>
+            className="w-full"
+          >
+            Complete Setup
+          </Button>
         </div>
-
       </AnimatePresence>
-
     </div>
   );
 };
