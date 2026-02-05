@@ -44,8 +44,10 @@ import {
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
 import { useOrganizationProperties } from "../api/queries/general";
+import { useDomainType } from "./api/queries";
+import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
 
-interface Property {
+export interface Property {
   id: string;
   name: string;
   property_code: string;
@@ -65,6 +67,7 @@ export function PropertyIndexPage() {
   // *this query hook the fetch all property that organization have
   // *this return the array of the property
   const { data: properties, isLoading } = useOrganizationProperties();
+  // const { data: domainTypes, isLoading: isDomainLoading } = useDomainType();
 
   const propoertyarray = properties?.data?.Properties ?? [];
 
@@ -101,29 +104,6 @@ export function PropertyIndexPage() {
         },
       });
     }
-  };
-
-  const handleSelectChange = (propertyId: string, domainValue: string) => {
-    setPendingSelection({ id: propertyId, domain: domainValue });
-    setIsDialogOpen(true);
-  };
-
-  const confirmDomainChange = () => {
-    if (pendingSelection) {
-      // 1. Update your propertyList state here
-      console.log(
-        `Updating ${pendingSelection.id} to ${pendingSelection.domain}`,
-      );
-
-      // 2. Close and reset
-      setIsDialogOpen(false);
-      setPendingSelection(null);
-    }
-  };
-
-  const cancelDomainChange = () => {
-    setIsDialogOpen(false);
-    setPendingSelection(null); // This resets the select because it's controlled
   };
 
   return (
@@ -169,46 +149,18 @@ export function PropertyIndexPage() {
                           {p.domain}
                         </Badge>
                       ) : (
-                        <Select
-                          onValueChange={(value) =>
-                            handleSelectChange(p.id, value)
-                          }
-                        >
-                          <SelectTrigger className="h-8 w-fit text-xs border-destructive text-destructive">
-                            <SelectValue placeholder="Select Domain" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {/* Hospitality Option */}
-                            <SelectItem value="HOSPITALITY">
-                              <div className="flex flex-col gap-0.5">
-                                <span className="font-bold">Hospitality</span>
-                                <span className="text-[10px] text-muted-foreground leading-tight">
-                                  Enables Kitchen & Bar modules
-                                </span>
-                              </div>
-                            </SelectItem>
-
-                            {/* Retail Option */}
-                            <SelectItem value="RETAIL">
-                              <div className="flex flex-col gap-0.5">
-                                <span className="font-bold">Retail</span>
-                                <span className="text-[10px] text-muted-foreground leading-tight">
-                                  Inventory & POS focused
-                                </span>
-                              </div>
-                            </SelectItem>
-
-                            {/* Office Option */}
-                            <SelectItem value="OFFICE">
-                              <div className="flex flex-col gap-0.5">
-                                <span className="font-bold">Office</span>
-                                <span className="text-[10px] text-muted-foreground leading-tight">
-                                  Space & desk management
-                                </span>
-                              </div>
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <>
+                          <Button onClick={()=> setIsDialogOpen(true)}>Select Domain</Button>
+                          <PropertyDomainSelection
+                            onConfirm={(domainId) => {
+                              // call mutation here
+                              console.log("Confirmed domain:", domainId);
+                            }}
+                            property={p}
+                            onOpenChange={setIsDialogOpen}
+                            open={isDialogOpen}
+                          />
+                        </>
                       )}
                     </div>
                   </div>
@@ -280,64 +232,6 @@ export function PropertyIndexPage() {
           </div>
         )}
       </section>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle className="text-xl">
-              Confirm Domain Selection
-            </DialogTitle>
-            <DialogDescription className="pt-2">
-              You are setting the domain to{" "}
-              <strong className="text-foreground">
-                {pendingSelection?.domain}
-              </strong>
-              . This action determines which modules (like Kitchen or Bar) will
-              be available for configuration.
-            </DialogDescription>
-          </DialogHeader>
-          <Alert variant={"destructive"}>
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle className="font-bold">
-              This operation is Irreversible
-            </AlertTitle>
-            <AlertDescription>
-              Once you set it up it cannot be changed
-            </AlertDescription>
-          </Alert>
-
-          <div className="space-y-4 py-4">
-            {/* Documentation Link Section */}
-            <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                We highly recommend reviewing our <strong>Domain Manual</strong>{" "}
-                to understand how this selection affects your property setup.
-              </p>
-              <Button
-                variant="link"
-                className="h-auto p-0 text-primary font-semibold"
-                asChild
-              >
-                <a
-                  href={`/docs/domains/${pendingSelection?.domain?.toLowerCase()}`}
-                  target="_blank"
-                >
-                  Learn more about {pendingSelection?.domain} Domain →
-                </a>
-              </Button>
-            </div>
-          </div>
-
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="ghost" onClick={cancelDomainChange}>
-              Cancel
-            </Button>
-            <Button onClick={confirmDomainChange} className="bg-primary">
-              Confirm & Save
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

@@ -5,7 +5,7 @@ const PropertyEndpoints = {
   AddProperty: "/orchestrator/console/property/create",
   allProperty:"/orchestrator/console/property",
   utils: {
-    allDomain: "/orchestrator/console/property/utils/domain",
+    allDomain: "/orchestrator/console/property/utils/domains",
   },
 };
 
@@ -21,5 +21,11 @@ export async function AddProperty(payload: PropertyPayload) {
 
 export async function ListAllProperties(){
   const res = await api.get(PropertyEndpoints.allProperty)
+  return res.data
+}
+
+
+export async function GetHospitalityDomainMods(domain:string){
+  const res = await api.get(`/utils/${domain}`)
   return res.data
 }
