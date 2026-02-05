@@ -23,7 +23,7 @@ const SelectField = ({placeholder, options}: SelectFieldProps) => {
 
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
+            <SelectItem key={opt.value} value={opt.label}>
               {opt.label}
             </SelectItem>
           ))}
@@ -31,7 +31,7 @@ const SelectField = ({placeholder, options}: SelectFieldProps) => {
       </Select>
 
       {error && (
-        <p className="text-sm text-destructive">{error.message}</p>
+        <p className="text-sm text-destructive">{error?.message}</p>
       )}
     </div>
   );

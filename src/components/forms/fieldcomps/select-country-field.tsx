@@ -24,6 +24,7 @@ import type { Country } from "../apiservice/csc";
 
 const CountrySelect = () => {
   const [open, setOpen] = React.useState(false);
+  const [searchValue, setSearchValue] = React.useState("");
   const field = useFieldContext<string>();
 
   const { data: countries, isLoading } = useCountries();
@@ -33,6 +34,16 @@ const CountrySelect = () => {
   const selectedCountry = countries?.find(
     (c: Country) => c.name === field.state.value,
   );
+
+  // Filter countries based on search
+  const filteredCountries = React.useMemo(() => {
+    if (!countries) return [];
+    if (!searchValue) return countries;
+    
+    return countries.filter((country: Country) =>
+      country.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [countries, searchValue]);
 
   return (
     <div className="space-y-2">
@@ -49,18 +60,24 @@ const CountrySelect = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent>
-          <Command>
-            <CommandInput placeholder="Search Country ..." id={field.name} />
+          <Command shouldFilter={false}>
+            <CommandInput 
+              placeholder="Search Country ..." 
+              id={field.name}
+              value={searchValue}
+              onValueChange={setSearchValue}
+            />
             <CommandList className="max-h-90">
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {countries?.map((country: Country) => (
+                {filteredCountries?.map((country: Country) => (
                   <CommandItem
                     key={country.iso2}
                     value={country.name}
                     onSelect={() => {
                       field.handleChange(country.name);
                       setCountryCode(country.iso2);
+                      setSearchValue("");
                       setOpen(false);
                     }}
                   >

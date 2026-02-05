@@ -78,11 +78,11 @@ export function LegalEntityIndexPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4 p-2">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Legal Entities</h1>
-        <Button onClick={()=> handleCreateLE()}>Add Legal Entity</Button>
+        <Button onClick={() => handleCreateLE()}>Add Legal Entity</Button>
       </div>
 
       {/* Grid */}
@@ -139,7 +139,10 @@ export function LegalEntityIndexPage() {
                   variant="outline"
                   onClick={() =>
                     navigate({
-                      to: "/",
+                      to: "/orchestrator/legal_entity/$leID/details",
+                      params: {
+                        leID: entity.id,
+                      },
                     })
                   }
                 >
