@@ -1,5 +1,6 @@
 import { useAppForm } from "@/components/forms";
 import { z } from "zod";
+import { useCreatePropertyMutation } from "../api/mutation";
 
 interface AddPropertyFormProps {}
 
@@ -13,7 +14,11 @@ const propertySchema = z.object({
   pincode: z.string().regex(/^[0-9]{6}$/, "Invalid pincode format"),
 });
 
+export type PropertyPayload = z.infer<typeof propertySchema>;
+
 const AddPropertyForm: React.FC<AddPropertyFormProps> = () => {
+  const createProperty = useCreatePropertyMutation();
+
   const form = useAppForm({
     validators: {
       onChange: propertySchema,
@@ -27,7 +32,11 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = () => {
       country: "",
       pincode: "",
     },
-    onSubmit: ({ value }) => console.log(value),
+    onSubmit: async ({ value, formApi }) => {
+      await createProperty.mutateAsync(value, {
+        onSuccess: () => formApi.reset(),
+      });
+    },
   });
 
   return (

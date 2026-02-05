@@ -24,7 +24,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Building, LucideBuilding, PlusIcon } from "lucide-react";
 import { useFormsModal } from "@/context/FormModalContext";
-import { createId } from "@/utilities/id";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
@@ -44,80 +43,19 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
-import { useDialogModal } from "@/context/DialogModalContext";
+import { useOrganizationProperties } from "../api/queries/general";
 
-interface NewProperty {
+interface Property {
   id: string;
   name: string;
-  address_line: string;
   property_code: string;
   state: string;
-  country: string;
   city: string;
   domain: string | null;
-  isConfigured: boolean;
+  is_configured: boolean;
 }
 
-const propertyList: NewProperty[] = [
-  {
-    id: createId(),
-    name: "Azure Bay Resort",
-    property_code: "ABR-101",
-    state: "Queensland",
-    country: "Australia",
-    city: "Gold Coast",
-    domain: "HOSPITALITY",
-    isConfigured: true,
-    address_line: "72 Ocean Parade, Surfers Paradise",
-  },
-  {
-    id: createId(),
-    name: "The Alpine Lodge",
-    property_code: "TAL-202",
-    state: "Tyrol",
-    country: "Austria",
-    city: "Innsbruck",
-    domain: "HOSPITALITY",
-    isConfigured: false,
-    address_line: "Herzog-Friedrich-Straße 15",
-  },
-  {
-    id: createId(),
-    name: "Neon Skyline Hotel",
-    property_code: "NSH-303",
-    state: "Tokyo",
-    country: "Japan",
-    city: "Shinjuku",
-    domain: "HOSPITALITY",
-    isConfigured: true,
-    address_line: "1-chōme-2-3 Kabukicho",
-  },
-  {
-    id: createId(),
-    name: "Safari Sands Villas",
-    property_code: "SSV-404",
-    state: "Western Cape",
-    country: "South Africa",
-    city: "Cape Town",
-    domain: "HOSPITALITY",
-    isConfigured: true,
-    address_line: "Boulders Beach Road 12",
-  },
-  {
-    id: createId(),
-    name: "Emerald Forest Inn",
-    property_code: "EFI-505",
-    state: "Oregon",
-    country: "USA",
-    city: "Portland",
-    domain: null,
-    isConfigured: false,
-    address_line: "4500 SW Canyon Rd",
-  },
-];
-
 // This page list all the Properties of the organization
-
 export function PropertyIndexPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [pendingSelection, setPendingSelection] = useState<{
@@ -126,11 +64,12 @@ export function PropertyIndexPage() {
   } | null>(null);
   // *this query hook the fetch all property that organization have
   // *this return the array of the property
-  // const { data, isLoading } = useOrganizationProperties();
+  const { data: properties, isLoading } = useOrganizationProperties();
+
+  const propoertyarray = properties?.data?.Properties ?? [];
 
   //*hook for opening the modal
-  const { openModal } = useDialogModal();
-  const {showModal} = useFormsModal();
+  const { showModal } = useFormsModal();
 
   const handleAddProperty = () => {
     showModal(
@@ -142,8 +81,8 @@ export function PropertyIndexPage() {
 
   const navigate = useNavigate();
 
-  const handlePropertyNavigation = (p: NewProperty) => {
-    if (!p.isConfigured && p.domain != null) {
+  const handlePropertyNavigation = (p: Property) => {
+    if (!p.is_configured && p.domain != null) {
       navigate({
         to: "/orchestrator/property/$propertyId/property-configuration",
         search: {
@@ -205,11 +144,13 @@ export function PropertyIndexPage() {
       </div>
       {/* Header ends */}
       <section>
-        {propertyList.length == 0 ? (
+        {isLoading ? (
+          <PropertyCardSkeleton />
+        ) : propoertyarray.length == 0 ? (
           <EmptyPropertySection />
         ) : (
           <div className="grid sm: grid-cols-1 md:grid-cols-3 gap-2">
-            {propertyList.map((p) => (
+            {propoertyarray.map((p: any) => (
               <Card
                 key={p.id}
                 className="flex flex-col justify-between hover:shadow-lg transition-shadow"
@@ -219,7 +160,7 @@ export function PropertyIndexPage() {
                     <div>
                       <CardTitle className="text-xl">{p.name}</CardTitle>
                       <CardDescription className="font-mono text-sm">
-                        CODE: {p.property_code}
+                        CODE: {p.code}
                       </CardDescription>
                     </div>
                     <div className="flex flex-col gap-2 items-end">
@@ -275,26 +216,23 @@ export function PropertyIndexPage() {
 
                 <CardContent className="space-y-4">
                   <div className="text-sm text-muted-foreground">
-                    <p className="font-medium text-foreground">
-                      {p.address_line}
-                    </p>
                     <p>
-                      {p.city}, {p.state}, {p.country}
+                      {p.city}, {p.state},
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <div
-                      className={`h-2 w-2 rounded-full ${p.isConfigured ? "bg-green-500" : "bg-red-500"}`}
+                      className={`h-2 w-2 rounded-full ${p.is_configured ? "bg-green-500" : "bg-red-500"}`}
                     />
                     <span className="text-xs font-semibold uppercase tracking-wider">
-                      {p.isConfigured ? "Active" : "Pending Setup"}
+                      {p.is_configured ? "Active" : "Pending Setup"}
                     </span>
                   </div>
                 </CardContent>
 
                 <CardFooter className="pt-0">
-                  {!p.isConfigured ? (
+                  {!p.is_configured ? (
                     <Alert
                       variant="destructive"
                       className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full bg-destructive/5"
@@ -342,6 +280,7 @@ export function PropertyIndexPage() {
           </div>
         )}
       </section>
+
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
@@ -425,21 +364,30 @@ function EmptyPropertySection() {
   );
 }
 
-// function PropertyCardSkeleton() {
-//   return (
-//     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-//       {Array.from({ length: 6 }).map((_, i) => (
-//         <Card key={i}>
-//           <CardHeader>
-//             <Skeleton className="h-4 w-3/4" />
-//             <Skeleton className="h-3 w-1/2" />
-//           </CardHeader>
-//           <CardContent className="space-y-2">
-//             <Skeleton className="h-3 w-full" />
-//             <Skeleton className="h-3 w-full" />
-//           </CardContent>
-//         </Card>
-//       ))}
-//     </div>
-//   );
-// }
+function PropertyCardSkeleton() {
+  return (
+    <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-2">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <Card key={i} className="flex flex-col justify-between">
+          <CardHeader>
+            <Skeleton className="h-5 w-3/4" />
+            <Skeleton className="h-3 w-1/2" />
+          </CardHeader>
+
+          <CardContent className="space-y-3">
+            <Skeleton className="h-3 w-2/3" />
+            <Skeleton className="h-3 w-1/3" />
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-2 w-2 rounded-full" />
+              <Skeleton className="h-3 w-20" />
+            </div>
+          </CardContent>
+
+          <CardFooter>
+            <Skeleton className="h-9 w-full" />
+          </CardFooter>
+        </Card>
+      ))}
+    </div>
+  );
+}
