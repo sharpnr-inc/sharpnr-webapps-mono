@@ -42,6 +42,7 @@ export function ModulesSelectionSection({
   const form = useAppForm({
     defaultValues: {
       propertyID: "",
+      domain:domain,
       modules: [] as string[],
       infrastructure: [] as InfrastructureItem[],
     },
@@ -49,12 +50,12 @@ export function ModulesSelectionSection({
     onSubmit: async ({ value }) => {
       console.log("FORM SUBMIT:", value);
 
-      // navigate({
-      //   to: "/orchestrator/property/$propertyId/details",
-      //   params: {
-      //     propertyId: value.propertyID,
-      //   },
-      // });
+      navigate({
+        to: "/orchestrator/property/$propertyId/details",
+        params: {
+          propertyId: value.propertyID,
+        },
+      });
     },
   });
 

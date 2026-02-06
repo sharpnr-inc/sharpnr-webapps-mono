@@ -16,7 +16,7 @@ const SubmitButton = ({ children }: SubmitButtonProps) => {
   ]);
 
   return (
-    <Button type="submit" disabled={isSubmitting || !canSubmit}>
+    <Button type="submit" className="w-full" disabled={isSubmitting || !canSubmit}>
       {children}
     </Button>
   );

@@ -7,6 +7,7 @@ import SubmitButton from "./SubmitBottom";
 import CountrySelect from "./fieldcomps/select-country-field";
 import StateSelect from "./fieldcomps/select-state-field";
 import CitySelect from "./fieldcomps/select-cities-field";
+import NumberField from "./fieldcomps/number_field";
 
 export const { useAppForm, withForm, withFieldGroup } = createFormHook({
   fieldComponents: {
@@ -15,7 +16,8 @@ export const { useAppForm, withForm, withFieldGroup } = createFormHook({
     SelectField,
     CountrySelect,
     StateSelect,
-    CitySelect
+    CitySelect,
+    NumberField
   },
   formComponents: {
     SubmitButton

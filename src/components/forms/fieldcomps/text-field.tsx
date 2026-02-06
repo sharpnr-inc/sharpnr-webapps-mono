@@ -11,13 +11,13 @@ const TextField = ({ label }: TextfieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
   return (
-    <div className="p-2 space-y-2">
+    <div className="p-2 space-y-2 w-full">
       <Label htmlFor={field.name}>{label}</Label>
       <Input
         id={field.name}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
-        className={""}
+        className={"w-full"}
       />
       {error && (
         <Alert variant="destructive" className="mt-2">
