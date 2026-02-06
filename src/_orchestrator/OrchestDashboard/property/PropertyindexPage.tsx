@@ -191,14 +191,14 @@ export function PropertyIndexPage() {
                     >
                       <div className="flex items-center gap-2">
                         <span className="text-xs">
-                          {p.domain === null
+                          {p.domain === ""
                             ? "Domain Configuration Pending"
                             : "Setup is incomplete for this property."}
                         </span>
                       </div>
 
                       {/* Logic: Show 'Configure' only if domain exists */}
-                      {p.domain !== null ? (
+                      {p.domain !== "" ? (
                         <Button
                           onClick={() => handlePropertyNavigation(p)}
                           size="sm"

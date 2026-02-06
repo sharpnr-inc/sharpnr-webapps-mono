@@ -30,8 +30,9 @@ import {
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useNavigate } from "@tanstack/react-router";
-import { createId } from "@/utilities/id";
 import { Badge as SB } from "@/components/ui/badge";
+import { useFormsModal } from "@/context/FormModalContext";
+import AddModulesInProperty from "./forms/AddModulesInProperty";
 
 /*
 this component takes the propertyID as prop from the tanstack router
@@ -42,89 +43,56 @@ interface PropertyDetailsPageProps {
   propertyId: string;
 }
 
-// STUB this is the schema that we want
-interface PropertyModules {
-  id: string;
+// If you use UUIDs as strings on the frontend
+type UUID = string;
+
+/**
+ * Matches: ModulesDetails_dto
+ */
+export interface ModulesDetailsDto {
+  id: UUID;
   name: string;
-  moduleType: string;
   status: boolean;
-  isSetup_complete: boolean;
+  module_type: string;
+  is_configured: boolean;
 }
 
-interface PropertyInfra {
-  id: string;
+/**
+ * Matches: PropertyInfra_res_dto
+ */
+export interface PropertyInfraResDto {
+  id: UUID;
   name: string;
-  isSetup_complete?: boolean;
+  status: boolean;
+  infra_type: string;
 }
 
-interface PropertyDetailsData {
-  propertyID: string;
-  domain: string;
-  modules: PropertyModules[];
-  property_infra: PropertyInfra[];
+/**
+ * Matches: PropertyDetails_res_dto
+ */
+export interface PropertyDetailsResDto {
+  name: string;
+  code: string;
+  city: string;
+  address_line: string;
+  state: string;
+  country: string;
+
+  // pointer + omitempty → optional
+  domain?: "";
+
+  __modules__data__?: ModulesDetailsDto[];
+
+  infra?: PropertyInfraResDto[];
 }
 
-const propertyDetails: PropertyDetailsData = {
-  propertyID: createId(),
-  domain: "hospitality",
-  modules: [
-    {
-      id: createId(),
-      name: "Hotel",
-      isSetup_complete: true,
-      status: false,
-      moduleType: "HOTEL",
-    },
-    {
-      id: createId(),
-      name: "Bar",
-      isSetup_complete: true,
-      status: false,
-      moduleType: "BAR",
-    },
-    {
-      id: createId(),
-      name: "Restaurant",
-      isSetup_complete: true,
-      status: false,
-      moduleType: "RESTAURANT",
-    },
-    {
-      id: createId(),
-      name: "Night Club",
-      isSetup_complete: false,
-      status: true,
-      moduleType: "NIGHT_CLUB",
-    },
-  ],
-  property_infra: [
-    {
-      id: createId(),
-      name: "Reception",
-      isSetup_complete: true,
-    },
-    {
-      id: createId(),
-      name: "Kitchen",
-      // intentionally undefined → Not Configured
-    },
-    {
-      id: createId(),
-      name: "Power Backup",
-      isSetup_complete: false,
-    },
-  ],
-};
 export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
-  // *this query hook takes the PropertyID to fetch the data
-  // *In this section we need the domain agnostic data
-  // const { data, isLoading } = usePropertyDetails(propertyId);
-  // const property = data?.data;
-  // const isModuleConfigured = property?.modules;
-  // const isDomain = property?.domain;
+  const { data, isLoading } = usePropertyDetails(propertyId);
+  const property = data?.data;
+
   const nav = useNavigate();
-  const handleModuleConfigure = (module: PropertyModules) => {
-    if (module.moduleType == "HOTEL") {
+  const handleModuleConfigure = (module: ModulesDetailsDto) => {
+    if (module.module_type == "HOTEL") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
         params: {
@@ -132,15 +100,15 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           propertyId: propertyId,
         },
       });
-    } else if (module.moduleType == "RESTAURANT") {
+    } else if (module.module_type == "RESTAURANT") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration",
         params: {
-         restaurantId:module.id,
+          restaurantId: module.id,
           propertyId: propertyId,
         },
       });
-    } else if (module.moduleType == "BAR") {
+    } else if (module.module_type == "BAR") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration",
         params: {
@@ -148,7 +116,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           propertyId: propertyId,
         },
       });
-    } else if (module.moduleType == "NIGHT_CLUB") {
+    } else if (module.module_type == "NIGHT_CLUB") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
         params: {
@@ -159,14 +127,40 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
     }
   };
 
-  const handlePropertySettingPage=()=>{
+  const handleModuleNav = (module: ModulesDetailsDto) => {
+    console.log(module);
+    if (!module.is_configured && module.module_type == "HOTEL") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
+        params: {
+          hotelId: module.id,
+          propertyId: propertyId,
+        },
+      });
+    }
+  };
+
+  const handlePropertySettingPage = () => {
     nav({
-      to:"/orchestrator/property/$propertyId/property_settings",
-      params:{
-        propertyId:propertyId
-      }
-    })
-  }
+      to: "/orchestrator/property/$propertyId/property_settings",
+      params: {
+        propertyId: propertyId,
+      },
+    });
+  };
+
+  const { showModal, closeModal } = useFormsModal();
+  const handleAddModules = (domain: string) => {
+    showModal(
+      "Add Modules",
+      "Choose Modules",
+      <AddModulesInProperty
+        domain={domain}
+        propertyID={propertyId}
+        closeModal={closeModal}
+      />,
+    );
+  };
 
   return (
     <div className="space-y-2">
@@ -204,7 +198,12 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           </div>
 
           {/* Settings Button */}
-          <Button onClick={()=>handlePropertySettingPage()} size="default" variant="default" className="shrink-0">
+          <Button
+            onClick={() => handlePropertySettingPage()}
+            size="default"
+            variant="default"
+            className="shrink-0"
+          >
             <WrenchIcon className="mr-2 h-4 w-4" />
             Settings
           </Button>
@@ -220,15 +219,22 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
       </Card>
 
       {/* Modules */}
-      <Card>
+      <Card className="relative">
         <CardHeader>
           <CardTitle>Modules</CardTitle>
         </CardHeader>
+        <Button
+          className="absolute top-3.5 right-3.5"
+          onClick={() => handleAddModules(property?.domain)}
+        >
+          <PlusCircleIcon />
+          Add Modules
+        </Button>
         <CardContent className="grid gap-3.5 sm:grid-cols-3">
-          {propertyDetails.modules.map((module) => (
+          {property?.__modules__data__?.map((module: ModulesDetailsDto) => (
             <Card
               key={module.id}
-              className="h-fit hover:border-2 hover:border-accent-foreground transform transition-transform duration-300 ease-out hover:scale-[1.01] hover:-translate-y-0.3 hover:shadow-xl"
+              className="h-fit relative hover:border-2 hover:border-accent-foreground transform transition-transform duration-300 ease-out hover:scale-[1.01] hover:-translate-y-0.3 hover:shadow-xl"
             >
               <CardHeader>
                 <CardTitle>{module.name}</CardTitle>
@@ -240,8 +246,12 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                   )}
                 </CardDescription>
               </CardHeader>
-
-              {module.isSetup_complete && (
+              {module.module_type && (
+                <SB className="absolute top-3.5 right-3.5">
+                  {module.module_type}
+                </SB>
+              )}
+              {!module.is_configured && (
                 <CardContent>
                   {
                     <Alert variant={"warning"}>
@@ -259,19 +269,25 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
               )}
 
               <CardFooter>
-                {module.isSetup_complete ? (
-                  <Button onClick={()=>handleModuleConfigure(module)} className="w-full" variant={"outline"}>
+                {!module.is_configured ? (
+                  <Button
+                    onClick={() => handleModuleConfigure(module)}
+                    className="w-full"
+                    variant={"outline"}
+                  >
                     Configure
                   </Button>
                 ) : (
-                  <Button className="w-full">
+                  <Button
+                    className="w-full"
+                    onClick={() => handleModuleNav(module)}
+                  >
                     Go to Module <ArrowRight />
                   </Button>
                 )}
               </CardFooter>
             </Card>
           ))}
-          {/* */}
         </CardContent>
       </Card>
 
@@ -294,10 +310,10 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         </CardHeader>
 
         <CardContent className="grid gap-5 sm:grid-cols-2">
-          {propertyDetails.property_infra.map((infra) => (
-            <Card key={infra.id}>
+          {property?.infra?.map((inf: PropertyInfraResDto) => (
+            <Card key={inf.id}>
               <CardHeader>
-                {infra.name}
+                {inf.name}
                 <CardDescription>
                   {"This is the default Description of the Property infra"}
                 </CardDescription>
