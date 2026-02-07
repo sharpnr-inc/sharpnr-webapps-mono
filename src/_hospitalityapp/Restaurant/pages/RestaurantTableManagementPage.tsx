@@ -1,39 +1,34 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useDialogModal } from "@/context/DialogModalContext";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
+import { useRestaurantLayout } from "../apis/queries";
 
-interface RestaurantTableManagementPageProps {}
-
-type TableStatus = "available" | "occupied";
-
-interface RestaurantTable {
-  id: number;
-  name: string;
-  status: TableStatus;
+export interface RestaurantTableLayout {
+  TableName: string;
+  TableCode: string;
+  FloorID: string; // UUID string
+  TableID: string; // UUID string
 }
 
-const tables: RestaurantTable[] = [
-  { id: 1, name: "T1", status: "available" },
-  { id: 2, name: "T2", status: "occupied" },
-  { id: 3, name: "T3", status: "available" },
-  { id: 4, name: "T4", status: "occupied" },
-  { id: 5, name: "T5", status: "available" },
-  { id: 6, name: "T6", status: "available" },
-];
+export interface RestaurantFloorLayout {
+  Floor_Name: string;
+  Floor_Number: number;
+  Tables: RestaurantTableLayout[];
+}
+
+export interface RestaurantLayoutResponse {
+  layout: RestaurantFloorLayout[];
+}
+
+interface RestaurantTableManagementPageProps {}
 
 const RestaurantTableManagementPage: React.FC<
   RestaurantTableManagementPageProps
 > = () => {
-  const { openModal } = useDialogModal();
+  const { restaurantID } = Route.useLoaderData();
+  const { data, isLoading } = useRestaurantLayout(restaurantID);
+  console.log(data?.data);
+  const resLayout = data?.data.Layout ?? [];
+  console.log(resLayout);
 
-  const handleCreateSession = (table: RestaurantTable) => {
-    if (table.status == "occupied") {
-      return;
-    } else {
-      openModal(<CreateTableSessionForm table={table} />);
-    }
-  };
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -59,48 +54,56 @@ const RestaurantTableManagementPage: React.FC<
       </div>
 
       {/* Floor Layout */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-        {tables.map((table) => (
-          <div
-            key={table.id}
-            onClick={() => handleCreateSession(table)}
-            className={`
-              aspect-square rounded-lg border
-              flex items-center justify-center
-              font-medium cursor-pointer
-              transition hover:scale-[1.02]
-              ${
-                table.status === "available"
-                  ? "bg-green-500/10 border-green-500 text-green-700"
-                  : "bg-red-500/10 border-red-500 text-red-700"
-              }
-            `}
-          >
-            <div className="text-center">
-              <div className="text-lg">{table.name}</div>
-              <div className="text-xs opacity-70">
-                {table.status === "available" ? "Available" : "Session Ongoing"}
+      <div className="flex flex-col gap-6">
+        {resLayout.map((floor: RestaurantFloorLayout) => {
+          return (
+            <section key={floor.Floor_Number} className="border rounded-xl">
+              {/* Floor Header */}
+              <div className="flex items-center justify-between border-b px-6 py-4">
+                <div className="flex flex-col">
+                  <h2 className="text-lg font-bold tracking-tight">
+                    {floor.Floor_Name}
+                  </h2>
+                  <p className="text-xs text-muted-foreground">
+                    Floor Level {floor.Floor_Number}
+                  </p>
+                </div>
+                <div className="text-xs font-medium border px-2 py-1 rounded">
+                  {floor.Tables.length} Tables
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+
+              {/* Tables Grid */}
+              <div className="p-4">
+                <div className="grid  grid-cols-12 gap-4">
+                  {floor.Tables.map((table: RestaurantTableLayout) => {
+                    return (
+                      <div
+                        key={table.TableID}
+                        className="group flex flex-col justify-between p-4 border rounded-lg transition-all hover:ring-1 hover:ring-black cursor-pointer aspect-square"
+                      >
+                        <div className="flex justify-between items-start">
+                          <span className="text-[10px] font-mono text-muted-foreground uppercase">
+                            {table.TableCode}
+                          </span>
+                        </div>
+
+                        <div className="flex flex-col">
+                          <span className="text-sm font-semibold">
+                            {table.TableName}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );
 };
 
 export default RestaurantTableManagementPage;
-
-interface CreateTableSessionFormProp {
-  table: RestaurantTable;
-}
-function CreateTableSessionForm({}: CreateTableSessionFormProp) {
-  return (
-    <div className="space-y-2">
-      <Label>Customer Name</Label>
-      <Input />
-      
-      <Button>Create Session</Button>
-    </div>
-  );
-}

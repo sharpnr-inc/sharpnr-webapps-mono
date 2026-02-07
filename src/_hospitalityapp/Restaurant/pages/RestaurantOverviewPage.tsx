@@ -1,9 +1,9 @@
-
 // This is can also be considered as the Dashboard of the Hotel
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {  IndianRupee, Utensils, Users } from "lucide-react";
+import { IndianRupee, Utensils, Users } from "lucide-react";
 import { PieChart, Pie, Cell } from "recharts";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 
 const stats = [
   {
@@ -21,12 +21,12 @@ const stats = [
     value: "₹38,400",
     icon: <IndianRupee className="h-5 w-5 text-muted-foreground" />,
   },
-   {
+  {
     label: "Today Revenue",
     value: "₹38,400",
     icon: <IndianRupee className="h-5 w-5 text-muted-foreground" />,
   },
-   {
+  {
     label: "Today Revenue",
     value: "₹38,400",
     icon: <IndianRupee className="h-5 w-5 text-muted-foreground" />,
@@ -45,6 +45,8 @@ const COLORS = ["#22c55e", "#e5e7eb"];
 
 export default function RestaurantOverviewPage() {
   const occupancyPercent = Math.round((occupiedTables / totalTables) * 100);
+  const { propertyID, restaurantID } = Route.useLoaderData();
+  console.log(restaurantID)
 
   return (
     <div className="space-y-3">

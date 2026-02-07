@@ -68,7 +68,7 @@ interface RestaurantConfigurationProps {}
 const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
   const { propertyId, restaurantId } = Route.useParams();
 
-  const { data, isLoading } = usePropertyDetails(propertyId);
+  const { data } = usePropertyDetails(propertyId);
   const { mutateAsync } = useConfigureRestuarantMutations();
 
   const propertyInfra = data?.data?.infra ?? [];
