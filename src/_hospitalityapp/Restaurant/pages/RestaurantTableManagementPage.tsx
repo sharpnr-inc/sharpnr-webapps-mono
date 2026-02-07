@@ -3,6 +3,8 @@ import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/
 import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useSheet } from "@/context/DrawerContext";
+import RestaurantSaleTerminalPage from "./RestaurantSaleTerminalPage";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -21,7 +23,8 @@ export interface RestaurantFloorLayout {
 const RestaurantTableManagementPage: React.FC = () => {
   const { restaurantID } = Route.useLoaderData();
   const { data, isLoading } = useRestaurantLayout(restaurantID);
-  
+  const { openSheet } = useSheet();
+
   // Adjusted to match your Go API response structure
   const resLayout = data?.data?.Layout ?? [];
 
@@ -31,6 +34,12 @@ const RestaurantTableManagementPage: React.FC = () => {
     RESERVED: "bg-blue-400 text-blue-950 border-blue-500",
     BLOCKED: "bg-zinc-800 text-white border-black",
     UNDER_CLEANING: "bg-cyan-300 text-cyan-950 border-cyan-500",
+  };
+
+  const handleTest = (t: RestaurantTableLayout) => {
+    if (t.Status === "AVAILABLE") {
+      openSheet(<RestaurantSaleTerminalPage />, "3/4");
+    }
   };
 
   return (
@@ -71,82 +80,91 @@ const RestaurantTableManagementPage: React.FC = () => {
 
       {/* Main Layout Area */}
       <div className="flex flex-col gap-6">
-        {isLoading ? (
-          // --- SKELETON STATE ---
-          [1, 2].map((i) => (
-            <section key={i} className="border rounded-xl bg-card overflow-hidden">
-              <div className="flex items-center justify-between border-b px-6 py-4">
-                <div className="space-y-2">
-                  <Skeleton className="h-5 w-32" />
-                  <Skeleton className="h-3 w-20" />
-                </div>
-                <Skeleton className="h-6 w-24" />
-              </div>
-              <div className="p-4">
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
-                  {Array.from({ length: 12 }).map((_, idx) => (
-                    <Skeleton key={idx} className="aspect-square rounded-lg" />
-                  ))}
-                </div>
-              </div>
-            </section>
-          ))
-        ) : (
-          // --- DATA STATE ---
-          resLayout.map((floor: RestaurantFloorLayout) => {
-            return (
-              <section key={floor.Floor_Number} className="border rounded-xl bg-card">
-                {/* Floor Header */}
-                <div className="flex items-center justify-between border-b px-6 py-3">
-                  <div className="flex flex-col">
-                    <h2 className="text-lg font-bold tracking-tight">
-                      {floor.Floor_Name}
-                    </h2>
-                    <p className="text-xs text-muted-foreground">
-                      Floor Level {floor.Floor_Number}
-                    </p>
+        {isLoading
+          ? // --- SKELETON STATE ---
+            [1, 2].map((i) => (
+              <section
+                key={i}
+                className="border rounded-xl bg-card overflow-hidden"
+              >
+                <div className="flex items-center justify-between border-b px-6 py-4">
+                  <div className="space-y-2">
+                    <Skeleton className="h-5 w-32" />
+                    <Skeleton className="h-3 w-20" />
                   </div>
-                  <div className="text-[10px] font-mono font-medium border px-2 py-1 rounded bg-muted/50 uppercase">
-                    {floor.Tables.length} Tables
-                  </div>
+                  <Skeleton className="h-6 w-24" />
                 </div>
-
-                {/* Grid */}
                 <div className="p-4">
-                  <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-3">
-                    {floor.Tables.map((table: RestaurantTableLayout) => {
-                      return (
-                        <div
-                          key={table.TableID}
-                          className={cn(
-                            "group flex flex-col justify-between p-2 border rounded-lg transition-all hover:shadow-md cursor-pointer aspect-auto",
-                            statusStyles[table.Status] || "bg-background text-foreground"
-                          )}
-                        >
-                          <div className="flex justify-between items-start">
-                            <span className="text-[9px] uppercase">
-                              {table.TableCode}
-                            </span>
-                            <div className="size-1.5 rounded-full bg-current opacity-40" />
-                          </div>
-
-                          <div className="flex flex-col overflow-hidden">
-                            <span className="text-xs font-bold leading-tight truncate">
-                              {table.TableName}
-                            </span>
-                            <span className="text-[9px] uppercase font-bold opacity-60 mt-0.5 tracking-tighter">
-                              {table.Status.replace("_", " ")}
-                            </span>
-                          </div>
-                        </div>
-                      );
-                    })}
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
+                    {Array.from({ length: 12 }).map((_, idx) => (
+                      <Skeleton
+                        key={idx}
+                        className="aspect-square rounded-lg"
+                      />
+                    ))}
                   </div>
                 </div>
               </section>
-            );
-          })
-        )}
+            ))
+          : // --- DATA STATE ---
+            resLayout.map((floor: RestaurantFloorLayout) => {
+              return (
+                <section
+                  key={floor.Floor_Number}
+                  className="border rounded-xl bg-card"
+                >
+                  {/* Floor Header */}
+                  <div className="flex items-center justify-between border-b px-6 py-3">
+                    <div className="flex flex-col">
+                      <h2 className="text-lg font-bold tracking-tight">
+                        {floor.Floor_Name}
+                      </h2>
+                      <p className="text-xs text-muted-foreground">
+                        Floor Level {floor.Floor_Number}
+                      </p>
+                    </div>
+                    <div className="text-[10px] font-mono font-medium border px-2 py-1 rounded bg-muted/50 uppercase">
+                      {floor.Tables.length} Tables
+                    </div>
+                  </div>
+
+                  {/* Grid */}
+                  <div className="p-4">
+                    <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-3">
+                      {floor.Tables.map((table: RestaurantTableLayout) => {
+                        return (
+                          <div
+                            onClick={() => handleTest(table)}
+                            key={table.TableID}
+                            className={cn(
+                              "group flex flex-col justify-between p-2 border rounded-lg transition-all hover:shadow-md cursor-pointer aspect-auto",
+                              statusStyles[table.Status] ||
+                                "bg-background text-foreground",
+                            )}
+                          >
+                            <div className="flex justify-between items-start">
+                              <span className="text-[9px] uppercase">
+                                {table.TableCode}
+                              </span>
+                              <div className="size-1.5 rounded-full bg-current opacity-40" />
+                            </div>
+
+                            <div className="flex flex-col overflow-hidden">
+                              <span className="text-xs font-bold leading-tight truncate">
+                                {table.TableName}
+                              </span>
+                              <span className="text-[9px] uppercase font-bold opacity-60 mt-0.5 tracking-tighter">
+                                {table.Status.replace("_", " ")}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </section>
+              );
+            })}
 
         {/* Empty State */}
         {!isLoading && resLayout.length === 0 && (

@@ -76,7 +76,7 @@ export function OrchestratorConsoleIndex() {
           {adminSections.map((section) => (
             <Card
               key={section.title}
-              className="hover:shadow-lg transition-shadow cursor-pointer"
+              className="hover:shadow-[4px_4px_0px_0px_rgba(7,7,2,1)] transition-all cursor-pointer"
             >
               <CardHeader className="flex flex-row items-center gap-4">
                 {section.icon}
