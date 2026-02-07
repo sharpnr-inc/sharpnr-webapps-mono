@@ -6,8 +6,9 @@ import { AlertCircle } from "lucide-react";
 
 type TextfieldProps = {
   label: string;
+  type?: React.HTMLInputTypeAttribute;
 };
-const TextField = ({ label }: TextfieldProps) => {
+const TextField = ({ label, type="text" }: TextfieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
   return (
@@ -15,6 +16,7 @@ const TextField = ({ label }: TextfieldProps) => {
       <Label htmlFor={field.name}>{label}</Label>
       <Input
         id={field.name}
+        type={type}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}
         className={"w-full"}

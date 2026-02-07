@@ -65,3 +65,13 @@ export async function AddModulesInProperty({
 }
 
 //================================================================================//
+
+export interface ConfigureRestaurantRequest {
+  payload:any
+  propertyID :string
+}
+
+export async function ConfigureRestaurant({payload, propertyID}:ConfigureRestaurantRequest){
+  const res = await api.post(OrchestratorConsole.property.ConfigureRestaurant(propertyID), payload)
+  return res.data
+}

@@ -11,6 +11,10 @@ import { getFloorNameShort } from "@/utilities/floor_naming";
 import { PlusCircle, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
+import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration";
+import { usePropertyDetails } from "@/_orchestrator/OrchestDashboard/api/queries/general";
+import { Badge } from "@/components/ui/badge";
+import { useConfigureRestuarantMutations } from "@/_orchestrator/OrchestDashboard/api/mutations/property_mutation";
 
 const RestaurantConfigurationFormSchema = z.object({
   propertyID: z.string(),
@@ -18,6 +22,7 @@ const RestaurantConfigurationFormSchema = z.object({
 
   general_details: z.object({
     name: z.string().min(1, "Restaurant name is required"),
+    is_pure_veg: z.boolean(),
     opening_time: z.string().min(1, "Opening time is required"),
     closing_time: z.string().min(1, "Closing time is required"),
   }),
@@ -61,16 +66,24 @@ export type RestaurantConfigurationForm = z.infer<
 interface RestaurantConfigurationProps {}
 
 const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
+  const { propertyId, restaurantId } = Route.useParams();
+
+  const { data, isLoading } = usePropertyDetails(propertyId);
+  const { mutateAsync } = useConfigureRestuarantMutations();
+
+  const propertyInfra = data?.data?.infra ?? [];
+
   const form = useAppForm({
     validators: {
       onChange: RestaurantConfigurationFormSchema,
     },
 
     defaultValues: {
-      propertyID: "",
-      restaurantID: "",
+      propertyID: propertyId,
+      restaurantID: restaurantId,
       general_details: {
         name: "",
+        is_pure_veg: false,
         opening_time: "",
         closing_time: "",
       },
@@ -94,15 +107,20 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
     onSubmit: ({ value }) => {
       console.log(value);
       const transformedValue = {
-      ...value,
-      restaurant_layout: value.restaurant_layout.map(layout => ({
-        ...layout,
-        floor_number: parseInt(layout.floor_number, 10),
-        number_of_tables: parseInt(layout.number_of_tables, 10),
-      }))
-    };
-    
-    console.log(transformedValue);
+        ...value,
+        restaurant_layout: value.restaurant_layout.map((layout) => ({
+          ...layout,
+          floor_number: parseInt(layout.floor_number, 10),
+          number_of_tables: parseInt(layout.number_of_tables, 10),
+        })),
+      };
+
+      console.log(transformedValue);
+      mutateAsync({ payload: transformedValue, propertyID: propertyId }, {
+        onSuccess:()=>{
+          console.log("Done")
+        }
+      });
     },
   });
   return (
@@ -129,14 +147,29 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
                   name="general_details.name"
                   children={(f) => <f.TextField label="Restaurant Name" />}
                 />
+                <form.AppField
+                  name="general_details.is_pure_veg"
+                  children={(f) => (
+                    <f.CheckboxField
+                      checkedLabel="You serve pure veg"
+                      uncheckedLabel="This property is hidden from customers"
+                      label="Pure Veg"
+                      description="Is you Restaurant Pure Veg, or Do you serve only pure veg food"
+                    />
+                  )}
+                />
                 <div className="grid grid-cols-2 gap-2.5">
                   <form.AppField
                     name="general_details.opening_time"
-                    children={(f) => <f.TextField label="Opening Time" />}
+                    children={(f) => (
+                      <f.TextField label="Opening Time" type={"time"} />
+                    )}
                   />
                   <form.AppField
                     name="general_details.closing_time"
-                    children={(f) => <f.TextField label="Closing Time" />}
+                    children={(f) => (
+                      <f.TextField label="Closing Time" type={"time"} />
+                    )}
                   />
                 </div>
               </CardContent>
@@ -257,7 +290,32 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
                   Choose Which Kitchen you want to use
                 </CardDescription>
               </CardHeader>
-              <CardContent></CardContent>
+              <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {propertyInfra.map((i: any) => {
+                  // 🔮 future logic goes here
+                  // if (!i.enabled) return null;
+
+                  return (
+                    <div
+                      key={i.id ?? i.name}
+                      className="group rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <h3 className="text-lg font-semibold leading-tight">
+                          {i.name}
+                        </h3>
+
+                        <Badge
+                          variant="secondary"
+                          className="shrink-0 capitalize"
+                        >
+                          {i.infra_type}
+                        </Badge>
+                      </div>
+                    </div>
+                  );
+                })}
+              </CardContent>
             </Card>
 
             <Card>
