@@ -128,13 +128,20 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   };
 
   const handleModuleNav = (module: ModulesDetailsDto) => {
-    console.log(module);
     if (!module.is_configured && module.module_type == "HOTEL") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
         params: {
           hotelId: module.id,
           propertyId: propertyId,
+        },
+      });
+    } else if (module.module_type == "RESTAURANT") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID",
+        params: {
+          propertyId: propertyId,
+          restaurantID: module.id,
         },
       });
     }
