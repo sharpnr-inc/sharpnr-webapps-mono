@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { useMenuStore } from "../stores/Menu/menu_store";
 import { useMenuCtx } from "./menu.context";
 import {
@@ -8,7 +9,11 @@ import {
   CardContent,
 } from "@/components/ui/card";
 
-const MenuItems = () => {
+interface MenuItemProps {
+  className?: string;
+}
+
+const MenuItems = ({ className }: MenuItemProps) => {
   const { dummyMenuData } = useMenuCtx();
   const { activeSubCategoryID } = useMenuStore();
 
@@ -34,9 +39,9 @@ const MenuItems = () => {
   }
 
   return (
-    <div className="grid grid-cols-6  gap-4">
+    <div className={cn("grid grid-cols-3 lg:grid-cols-5 gap-4", className)}>
       {items.map((item) => (
-        <Card key={item.id} className="">
+        <Card key={item.id} className="h-full text-sm">
           <CardHeader>
             <CardTitle>{item.name}</CardTitle>
             <CardDescription>{item.description}</CardDescription>

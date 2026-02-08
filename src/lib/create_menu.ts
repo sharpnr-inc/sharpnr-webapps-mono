@@ -97,6 +97,44 @@ export const dummyMenuData: MenuInterface = {
               menuItemVariants: { variants: [] },
               addOns: [],
             },
+
+            // --- Added 50 Items ---
+
+            ...Array.from({ length: 50 }).map((_, i) => ({
+              id: createId(),
+              name: `Test Starter Item ${i + 1}`,
+              description: `Sample description for item ${i + 1}`,
+              base_price: (8 + (i % 5)).toFixed(2),
+              dietaryType:
+                i % 3 === 0
+                  ? DietaryType.VEG
+                  : i % 3 === 1
+                    ? DietaryType.NON_VEG
+                    : DietaryType.VEGAN,
+              menuItemVariants: {
+                variants:
+                  i % 2 === 0
+                    ? [
+                        {
+                          id: createId(),
+                          name: "Regular",
+                          description: "",
+                          price: "0",
+                        },
+                        {
+                          id: createId(),
+                          name: "Large",
+                          description: "",
+                          price: "3",
+                        },
+                      ]
+                    : [],
+              },
+              addOns:
+                i % 4 === 0
+                  ? [{ id: createId(), name: "Extra Dip", price: "1" }]
+                  : [],
+            })),
           ],
         },
         {
@@ -111,9 +149,7 @@ export const dummyMenuData: MenuInterface = {
               base_price: "14.00",
               dietaryType: DietaryType.NON_VEG,
               menuItemVariants: { variants: [] },
-              addOns: [
-                { id: createId(), name: "Extra Dip", price: "2" },
-              ],
+              addOns: [{ id: createId(), name: "Extra Dip", price: "2" }],
             },
           ],
         },
@@ -138,8 +174,18 @@ export const dummyMenuData: MenuInterface = {
               dietaryType: DietaryType.VEG,
               menuItemVariants: {
                 variants: [
-                  { id: createId(), name: "Plain", description: "", price: "0" },
-                  { id: createId(), name: "Butter Loaded", description: "", price: "1" },
+                  {
+                    id: createId(),
+                    name: "Plain",
+                    description: "",
+                    price: "0",
+                  },
+                  {
+                    id: createId(),
+                    name: "Butter Loaded",
+                    description: "",
+                    price: "1",
+                  },
                 ],
               },
               addOns: [],
@@ -159,13 +205,21 @@ export const dummyMenuData: MenuInterface = {
               dietaryType: DietaryType.VEG,
               menuItemVariants: {
                 variants: [
-                  { id: createId(), name: "Regular", description: "", price: "0" },
-                  { id: createId(), name: "Large Bowl", description: "", price: "4" },
+                  {
+                    id: createId(),
+                    name: "Regular",
+                    description: "",
+                    price: "0",
+                  },
+                  {
+                    id: createId(),
+                    name: "Large Bowl",
+                    description: "",
+                    price: "4",
+                  },
                 ],
               },
-              addOns: [
-                { id: createId(), name: "Extra Butter", price: "1.5" },
-              ],
+              addOns: [{ id: createId(), name: "Extra Butter", price: "1.5" }],
             },
             {
               id: createId(),
@@ -199,13 +253,21 @@ export const dummyMenuData: MenuInterface = {
               dietaryType: DietaryType.EGG,
               menuItemVariants: {
                 variants: [
-                  { id: createId(), name: "2 Egg", description: "", price: "0" },
-                  { id: createId(), name: "3 Egg", description: "", price: "2" },
+                  {
+                    id: createId(),
+                    name: "2 Egg",
+                    description: "",
+                    price: "0",
+                  },
+                  {
+                    id: createId(),
+                    name: "3 Egg",
+                    description: "",
+                    price: "2",
+                  },
                 ],
               },
-              addOns: [
-                { id: createId(), name: "Extra Cheese", price: "1.5" },
-              ],
+              addOns: [{ id: createId(), name: "Extra Cheese", price: "1.5" }],
             },
           ],
         },
@@ -256,8 +318,18 @@ export const dummyMenuData: MenuInterface = {
               dietaryType: DietaryType.VEGAN,
               menuItemVariants: {
                 variants: [
-                  { id: createId(), name: "Regular", description: "", price: "0" },
-                  { id: createId(), name: "Large", description: "", price: "2" },
+                  {
+                    id: createId(),
+                    name: "Regular",
+                    description: "",
+                    price: "0",
+                  },
+                  {
+                    id: createId(),
+                    name: "Large",
+                    description: "",
+                    price: "2",
+                  },
                 ],
               },
               addOns: [],

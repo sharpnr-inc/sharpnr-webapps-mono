@@ -12,12 +12,13 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Search, Trash2, ReceiptText } from "lucide-react";
 import Menu from "@/_hospitalityapp/infra/Menu/menu/menu";
+import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
 
 const RestaurantSaleTerminalPage: React.FC = () => {
   return (
-    <div className="flex w-full gap-4 p-4 overflow-hidden">
+    <div className="flex w-full gap-4  overflow-hidden">
       {/* LEFT: Product Catalog Section */}
-      <section className="flex flex-col flex-1 gap-4">
+      <section className="flex flex-col flex-1 gap-2">
         <header className="flex items-center gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
@@ -38,14 +39,19 @@ const RestaurantSaleTerminalPage: React.FC = () => {
 
         <Menu>
           <Menu.MenuCategories />
-          <Separator/>
+          <Separator />
           <Menu.MenuSubCategories />
-          <Separator/>
-          <Menu.MenuItems />
+          <Separator />
+          <ScrollArea className="border p-2 h-[65vh]">
+            <Menu.MenuItems />
+          </ScrollArea>
+
+          <MenuCart>
+            <MenuCart.MenuCartItems />
+          </MenuCart>
         </Menu>
       </section>
 
-      {/* RIGHT: Order Summary Section */}
       <aside className="w-[400px] flex flex-col gap-4 max-h-[95vh] ">
         <Card className="flex-1 w-[400px] border-2 border-black flex flex-col fixed top-20 right-5">
           <CardHeader className="border-b border-black">
