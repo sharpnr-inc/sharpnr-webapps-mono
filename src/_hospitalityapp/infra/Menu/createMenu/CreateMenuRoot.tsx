@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CreateMenuContext from "./create-menu.context";
 import { dummyMenuData } from "@/lib/create_menu";
-import type { Menu } from "@/_orchestrator/hospitality_configs/hotel/forms/CreateMenuForm";
+import type { Menu } from "@/lib/create_menu";
 import {
   Carousel,
   CarouselContent,
@@ -58,7 +58,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({ children }) => {
         step,
       }}
     >
-      <Carousel setApi={setApi} className="w-full">
+      <Carousel setApi={setApi} className="w-full" opts={{ watchDrag: false }}>
         <CarouselContent>
           {steps.map((child, i) => (
             <CarouselItem key={i}>{child}</CarouselItem>

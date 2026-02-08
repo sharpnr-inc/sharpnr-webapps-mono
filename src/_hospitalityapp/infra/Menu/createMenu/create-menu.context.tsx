@@ -1,4 +1,4 @@
-import type { Menu } from "@/_orchestrator/hospitality_configs/hotel/forms/CreateMenuForm";
+import type { Menu } from "@/lib/create_menu";
 import { createContext, useContext } from "react";
 
 interface CreateMenuContextType {

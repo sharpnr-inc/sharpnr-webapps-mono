@@ -1,136 +1,270 @@
-import type { Menu } from "@/_orchestrator/hospitality_configs/hotel/forms/CreateMenuForm";
 import { createId } from "@/utilities/id";
+
+export const DietaryType = {
+  VEG: "VEG",
+  NON_VEG: "NON_VEG",
+  VEGAN: "VEGAN",
+  EGG: "EGG",
+} as const;
+
+export type DietaryType = (typeof DietaryType)[keyof typeof DietaryType];
+
+export interface Menu {
+  id: string;
+  name: string;
+  description: string;
+  menuCategory: MenuCategory[];
+}
+
+interface MenuCategory {
+  id: string;
+  name: string;
+  description: string;
+  menuSubCategory: MenuSubCategory[];
+}
+
+interface MenuSubCategory {
+  id: string;
+  name: string;
+  description: string;
+  menu_item: MenuItem[];
+}
+
+interface MenuItem {
+  id: string;
+  name: string;
+  description: string;
+  base_price: string;
+  menuItemVariants: VariantGroup;
+  addOns: MenuAddOn[];
+  dietaryType: DietaryType;
+}
+
+interface VariantGroup {
+  variants: Variant[];
+}
+
+interface Variant {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+}
+
+interface MenuAddOn {
+  id: string;
+  name: string;
+  price: string;
+}
 
 export const dummyMenuData: Menu = {
   id: createId(),
-  name: "Lakeside Veranda Dinner",
-  description: "Evening fine dining experience overlooking the property gardens.",
+  name: "Grand Lakeside Multi-Cuisine Menu",
+  description: "Full property dining experience menu.",
   menuCategory: [
     {
       id: createId(),
-      name: "Main Course",
-      description: "Signature entrees prepared by our executive chef.",
+      name: "Starters",
+      description: "Appetizers to begin your experience.",
       menuSubCategory: [
         {
           id: createId(),
-          name: "Gourmet Pizzas",
-          description: "Wood-fired artisanal pizzas using local ingredients.",
+          name: "Veg Starters",
+          description: "",
           menu_item: [
             {
               id: createId(),
-              name: "Truffle Mushroom Pizza",
-              description: "Wild forest mushrooms, mozzarella, and white truffle oil drizzle.",
-              base_price: "24.00",
+              name: "Paneer Tikka",
+              description: "Char grilled cottage cheese cubes",
+              base_price: "12.00",
+              dietaryType: DietaryType.VEG,
               menuItemVariants: {
                 variants: [
-                  {
-                    id: createId(),
-                    name: "Personal 10\"",
-                    description: "Serves one person",
-                    price: "0.00", // No additional cost to base
-                  },
-                  {
-                    id: createId(),
-                    name: "Large 14\"",
-                    description: "Family size",
-                    price: "12.00", // Add 12 to base
-                  }
-                ]
+                  { id: createId(), name: "Half", description: "", price: "0" },
+                  { id: createId(), name: "Full", description: "", price: "6" },
+                ],
               },
               addOns: [
-                {
-                  id: createId(),
-                  name: "Extra Truffle Oil",
-                  price: "3.50"
-                },
-                {
-                  id: createId(),
-                  name: "Gluten-Free Crust",
-                  price: "5.00"
-                }
-              ]
-            }
-          ]
+                { id: createId(), name: "Extra Mint Chutney", price: "1" },
+              ],
+            },
+            {
+              id: createId(),
+              name: "Hara Bhara Kebab",
+              description: "Spinach and peas patties",
+              base_price: "10.00",
+              dietaryType: DietaryType.VEG,
+              menuItemVariants: { variants: [] },
+              addOns: [],
+            },
+          ],
         },
         {
           id: createId(),
-          name: "Grill & Steaks",
-          description: "Premium cuts of meat aged for 21 days.",
+          name: "Non Veg Starters",
+          description: "",
           menu_item: [
             {
               id: createId(),
-              name: "Prime Ribeye",
-              description: "300g grass-fed ribeye served with roasted garlic.",
-              base_price: "45.00",
-              menuItemVariants: {
-                variants: [
-                  {
-                    id: createId(),
-                    name: "Medium Rare",
-                    description: "Warm red center",
-                    price: "0.00"
-                  },
-                  {
-                    id: createId(),
-                    name: "Well Done",
-                    description: "Cooked through",
-                    price: "0.00"
-                  }
-                ]
-              },
+              name: "Chicken Malai Tikka",
+              description: "Creamy boneless chicken",
+              base_price: "14.00",
+              dietaryType: DietaryType.NON_VEG,
+              menuItemVariants: { variants: [] },
               addOns: [
-                {
-                  id: createId(),
-                  name: "Peppercorn Sauce",
-                  price: "2.00"
-                },
-                {
-                  id: createId(),
-                  name: "Grilled Prawn Skewer",
-                  price: "12.00"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                { id: createId(), name: "Extra Dip", price: "2" },
+              ],
+            },
+          ],
+        },
+      ],
     },
+
     {
       id: createId(),
-      name: "Beverages",
-      description: "Refreshing cocktails and house-made infusions.",
+      name: "Main Course",
+      description: "Chef’s Signature Dishes",
       menuSubCategory: [
         {
           id: createId(),
-          name: "Signature Cocktails",
-          description: "Curated mixology inspired by the property heritage.",
+          name: "Indian Breads",
+          description: "",
           menu_item: [
             {
               id: createId(),
-              name: "Garden Gin Fizz",
-              description: "Local gin, elderflower, cucumber, and soda water.",
-              base_price: "14.00",
+              name: "Butter Naan",
+              description: "",
+              base_price: "3.00",
+              dietaryType: DietaryType.VEG,
               menuItemVariants: {
                 variants: [
-                  {
-                    id: createId(),
-                    name: "Standard",
-                    description: "Single shot",
-                    price: "0.00"
-                  },
-                  {
-                    id: createId(),
-                    name: "Double Up",
-                    description: "Double shot of premium gin",
-                    price: "6.00"
-                  }
-                ]
+                  { id: createId(), name: "Plain", description: "", price: "0" },
+                  { id: createId(), name: "Butter Loaded", description: "", price: "1" },
+                ],
               },
-              addOns: []
-            }
-          ]
-        }
-      ]
-    }
-  ]
+              addOns: [],
+            },
+          ],
+        },
+        {
+          id: createId(),
+          name: "Curries",
+          description: "",
+          menu_item: [
+            {
+              id: createId(),
+              name: "Dal Makhani",
+              description: "Slow cooked black lentils",
+              base_price: "11.00",
+              dietaryType: DietaryType.VEG,
+              menuItemVariants: {
+                variants: [
+                  { id: createId(), name: "Regular", description: "", price: "0" },
+                  { id: createId(), name: "Large Bowl", description: "", price: "4" },
+                ],
+              },
+              addOns: [
+                { id: createId(), name: "Extra Butter", price: "1.5" },
+              ],
+            },
+            {
+              id: createId(),
+              name: "Chicken Butter Masala",
+              description: "Classic creamy tomato gravy",
+              base_price: "16.00",
+              dietaryType: DietaryType.NON_VEG,
+              menuItemVariants: { variants: [] },
+              addOns: [],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: createId(),
+      name: "Breakfast",
+      description: "Morning Specials",
+      menuSubCategory: [
+        {
+          id: createId(),
+          name: "Egg Specials",
+          description: "",
+          menu_item: [
+            {
+              id: createId(),
+              name: "Cheese Omelette",
+              description: "",
+              base_price: "7.00",
+              dietaryType: DietaryType.EGG,
+              menuItemVariants: {
+                variants: [
+                  { id: createId(), name: "2 Egg", description: "", price: "0" },
+                  { id: createId(), name: "3 Egg", description: "", price: "2" },
+                ],
+              },
+              addOns: [
+                { id: createId(), name: "Extra Cheese", price: "1.5" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: createId(),
+      name: "Desserts",
+      description: "Sweet Endings",
+      menuSubCategory: [
+        {
+          id: createId(),
+          name: "Indian Sweets",
+          description: "",
+          menu_item: [
+            {
+              id: createId(),
+              name: "Gulab Jamun",
+              description: "",
+              base_price: "5.00",
+              dietaryType: DietaryType.VEG,
+              menuItemVariants: { variants: [] },
+              addOns: [
+                { id: createId(), name: "Vanilla Ice Cream", price: "2" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: createId(),
+      name: "Beverages",
+      description: "Hot & Cold Drinks",
+      menuSubCategory: [
+        {
+          id: createId(),
+          name: "Healthy",
+          description: "",
+          menu_item: [
+            {
+              id: createId(),
+              name: "Fresh Orange Juice",
+              description: "",
+              base_price: "4.00",
+              dietaryType: DietaryType.VEGAN,
+              menuItemVariants: {
+                variants: [
+                  { id: createId(), name: "Regular", description: "", price: "0" },
+                  { id: createId(), name: "Large", description: "", price: "2" },
+                ],
+              },
+              addOns: [],
+            },
+          ],
+        },
+      ],
+    },
+  ],
 };

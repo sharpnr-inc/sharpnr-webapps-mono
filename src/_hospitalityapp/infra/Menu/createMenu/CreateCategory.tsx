@@ -36,7 +36,7 @@ const CreateCategory = () => {
 
   return (
     <div>
-      <Card className="relative">
+      <Card className="">
         <CardHeader>
           <CardTitle>Menu Categories</CardTitle>
           <CardDescription>
@@ -67,13 +67,11 @@ const CreateCategory = () => {
             })}
           </div>
         </CardContent>
-
-        <Button
-          className="absolute top-5 right-5"
-          onClick={() => console.log("Clicked")}
-        >
-          <PlusCircle /> Add Category
-        </Button>
+        <CardFooter>
+          <Button className="w-full" onClick={() => setOpen(true)}>
+            <PlusCircle /> Add Category
+          </Button>
+        </CardFooter>
       </Card>
 
       {/* Dialog */}

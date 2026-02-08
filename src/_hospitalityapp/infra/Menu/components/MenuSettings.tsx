@@ -31,8 +31,8 @@ const MenuSettings: React.FC<MenuSettingsProps> = ({ moduleID }) => {
       <EmptyMenu /> */}
       <CreateMenu DummyData={dummyMenuData}>
         <CreateMenu.CreateCategory />
-
         <CreateMenu.CreateSubCategory />
+        <CreateMenu.CreateItem />
       </CreateMenu>
     </div>
   );
