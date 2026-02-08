@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
-import { useMenuStore } from "../stores/MenuStore/menu_store";
-import { menuActions } from "../stores/MenuStore/add_menu_in_store.action";
+import { useMenuStore } from "../stores/Menu/menu_store";
+import { menuActions } from "../stores/Menu/action";
 import { DUMMY_MENU_DATA } from "@/__dummy_data__/Menu";
 import {
   Sheet,
