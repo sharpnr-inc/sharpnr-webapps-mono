@@ -34,9 +34,9 @@ const MenuItems = () => {
   }
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-6  gap-4">
       {items.map((item) => (
-        <Card key={item.id}>
+        <Card key={item.id} className="">
           <CardHeader>
             <CardTitle>{item.name}</CardTitle>
             <CardDescription>{item.description}</CardDescription>

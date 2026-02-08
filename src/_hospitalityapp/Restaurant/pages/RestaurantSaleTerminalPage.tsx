@@ -38,7 +38,9 @@ const RestaurantSaleTerminalPage: React.FC = () => {
 
         <Menu>
           <Menu.MenuCategories />
+          <Separator/>
           <Menu.MenuSubCategories />
+          <Separator/>
           <Menu.MenuItems />
         </Menu>
       </section>
