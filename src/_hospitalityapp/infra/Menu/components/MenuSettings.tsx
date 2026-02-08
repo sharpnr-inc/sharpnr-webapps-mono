@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/card";
 import EmptyMenu from "./EmptyMenu";
 import CreateMenu from "../createMenu/CreatMenu";
-import { dummyMenuData } from "@/lib/create_menu";
 
 interface MenuSettingsProps {
   moduleID: string;
@@ -29,10 +28,11 @@ const MenuSettings: React.FC<MenuSettingsProps> = ({ moduleID }) => {
         <CardContent></CardContent>
       </Card>
       <EmptyMenu /> */}
-      <CreateMenu DummyData={dummyMenuData}>
+      <CreateMenu>
         <CreateMenu.CreateCategory />
         <CreateMenu.CreateSubCategory />
         <CreateMenu.CreateItem />
+        <CreateMenu.CreateVariantsAndAddons/>
       </CreateMenu>
     </div>
   );

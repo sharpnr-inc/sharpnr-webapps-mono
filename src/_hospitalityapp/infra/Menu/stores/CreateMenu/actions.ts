@@ -6,7 +6,9 @@ export const createMenuAction = {
 
   setActiveSubCategory: (id: string | null) =>
     useCreateMenuStore.getState().setActiveSubCategory(id),
+  
+  setActiveItem: (id: string | null) =>
+    useCreateMenuStore.getState().setActiveItem(id),
 
-  resetSelection: () =>
-    useCreateMenuStore.getState().resetSelection(),
+  resetSelection: () => useCreateMenuStore.getState().resetSelection(),
 };

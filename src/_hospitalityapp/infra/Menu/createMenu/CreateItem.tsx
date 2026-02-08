@@ -17,9 +17,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DietaryBadgeColor } from "./utils";
+import { createMenuAction } from "../stores/CreateMenu/actions";
 
 const CreateItem = () => {
-  const { dummyMenuData, prevStep } = useCreateMenuCtx();
+  const { dummyMenuData, prevStep, nextStep } = useCreateMenuCtx();
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
 
   // Find Active SubCategory (search inside all categories)
@@ -69,6 +70,8 @@ const CreateItem = () => {
                       onClick={() => {
                         // later you can open edit modal here
                         console.log("Edit Item", item.id);
+                        createMenuAction.setActiveItem(item.id);
+                        nextStep();
                       }}
                     >
                       <CardHeader>
