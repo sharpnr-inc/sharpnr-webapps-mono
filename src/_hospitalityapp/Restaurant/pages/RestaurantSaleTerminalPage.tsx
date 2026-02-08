@@ -11,7 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Search, Trash2, ReceiptText } from "lucide-react";
-import Menu from "@/_hospitalityapp/infra/Menu/ui/Menu";
+import Menu from "@/_hospitalityapp/infra/Menu/menu/menu";
 
 const RestaurantSaleTerminalPage: React.FC = () => {
   return (
@@ -36,16 +36,11 @@ const RestaurantSaleTerminalPage: React.FC = () => {
           </div>
         </header>
 
-        <ScrollArea className="flex-1 border-2 border-black rounded-lg p-4">
-          <Menu moduleID="RESTAURANT_01">
-            <Menu.Categories />
-            <Menu.SubCategories>
-              <Menu.Items />
-            </Menu.SubCategories>
-            <Menu.ItemSheet/>
-            <Menu.CartSheet />
-          </Menu>
-        </ScrollArea>
+        <Menu>
+          <Menu.MenuCategories />
+          <Menu.MenuSubCategories />
+          <Menu.MenuItems />
+        </Menu>
       </section>
 
       {/* RIGHT: Order Summary Section */}

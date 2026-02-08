@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CreateMenuContext from "./create-menu.context";
 import { dummyMenuData } from "@/lib/create_menu";
-import type { Menu } from "@/lib/create_menu";
+import type { MenuInterface } from "@/lib/create_menu";
 import {
   Carousel,
   CarouselContent,
@@ -11,7 +11,7 @@ import type { CarouselApi } from "@/components/ui/carousel";
 
 interface CreateMenuRootProps {
   children: React.ReactNode;
-  DummyData?: Menu;
+  DummyData?: MenuInterface;
 }
 
 const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({ children }) => {

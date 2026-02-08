@@ -1,8 +1,8 @@
-import type { Menu } from "@/lib/create_menu";
+import type { MenuInterface } from "@/lib/create_menu";
 import { createContext, useContext } from "react";
 
 interface CreateMenuContextType {
-  dummyMenuData: Menu;
+  dummyMenuData: MenuInterface;
   step: number;
   nextStep: () => void;
   prevStep: () => void;

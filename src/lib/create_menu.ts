@@ -9,7 +9,7 @@ export const DietaryType = {
 
 export type DietaryType = (typeof DietaryType)[keyof typeof DietaryType];
 
-export interface Menu {
+export interface MenuInterface {
   id: string;
   name: string;
   description: string;
@@ -57,7 +57,7 @@ interface MenuAddOn {
   price: string;
 }
 
-export const dummyMenuData: Menu = {
+export const dummyMenuData: MenuInterface = {
   id: createId(),
   name: "Grand Lakeside Multi-Cuisine Menu",
   description: "Full property dining experience menu.",
