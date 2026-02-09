@@ -41,7 +41,11 @@ const MenuItems = ({ className }: MenuItemProps) => {
   return (
     <div className={cn("grid grid-cols-3 lg:grid-cols-5 gap-4", className)}>
       {items.map((item) => (
-        <Card key={item.id} className="h-full text-sm">
+        <Card
+          key={item.id}
+          className="h-full text-sm hover:border-accent-foreground cursor-pointer"
+          onClick={() => console.log(item.id)}
+        >
           <CardHeader>
             <CardTitle>{item.name}</CardTitle>
             <CardDescription>{item.description}</CardDescription>

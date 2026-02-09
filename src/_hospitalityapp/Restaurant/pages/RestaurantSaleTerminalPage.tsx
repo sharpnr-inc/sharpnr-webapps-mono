@@ -16,44 +16,45 @@ import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
 
 const RestaurantSaleTerminalPage: React.FC = () => {
   return (
-    <div className="flex w-full gap-4  overflow-hidden">
-      {/* LEFT: Product Catalog Section */}
-      <section className="flex flex-col flex-1 gap-2">
-        <header className="flex items-center gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
-            <Input
-              placeholder="Search items..."
-              className="pl-10 border-black focus-visible:ring-black"
-            />
-          </div>
-          {/* Module Tabs (Future Bar/Kitchen) */}
-          <div className="flex gap-2">
-            <Button variant="outline" className="border-black">
-              All
-            </Button>
-            <Button variant="ghost">Kitchen</Button>
-            <Button variant="ghost">Bar</Button>
-          </div>
-        </header>
+    <div className="flex  w-full gap-4">
+      <div className="w-full">
+        <section className="flex flex-col flex-1 gap-2">
+          <header className="flex items-center gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
+              <Input
+                placeholder="Search items..."
+                className="pl-10 border-black focus-visible:ring-black"
+              />
+            </div>
+            {/* Module Tabs (Future Bar/Kitchen) */}
+            <div className="flex gap-2">
+              <Button variant="outline" className="border-black">
+                All
+              </Button>
+              <Button variant="ghost">Kitchen</Button>
+              <Button variant="ghost">Bar</Button>
+            </div>
+          </header>
 
-        <Menu>
-          <Menu.MenuCategories />
-          <Separator />
-          <Menu.MenuSubCategories />
-          <Separator />
-          <ScrollArea className="border p-2 h-[65vh]">
-            <Menu.MenuItems />
-          </ScrollArea>
+          <Menu>
+            <Menu.MenuCategories />
+            <Separator />
+            <Menu.MenuSubCategories />
+            <Separator />
+            <ScrollArea className="border p-2 h-[65vh]">
+              <Menu.MenuItems className="relative"/>
+            </ScrollArea>
 
-          <MenuCart>
-            <MenuCart.MenuCartItems />
-          </MenuCart>
-        </Menu>
-      </section>
+            <MenuCart>
+              <MenuCart.MenuCartItems />
+            </MenuCart>
+          </Menu>
+        </section>
+      </div>
 
-      <aside className="w-[400px] flex flex-col gap-4 max-h-[95vh] ">
-        <Card className="flex-1 w-[400px] border-2 border-black flex flex-col fixed top-20 right-5">
+      <aside className="flex flex-col gap-4 max-h-[60vh] h-[50vh] w-1/3">
+        <Card className="flex-1  border-2 border-black flex flex-col ">
           <CardHeader className="border-b border-black">
             <CardTitle className="flex items-center gap-2">
               <ReceiptText className="h-5 w-5" />
@@ -70,16 +71,10 @@ const RestaurantSaleTerminalPage: React.FC = () => {
                   className="flex justify-between items-center mb-4"
                 >
                   <div className="flex flex-col">
-                    <span className="font-bold uppercase text-sm">
+                    <span className="font-bold uppercase text-xs">
                       Classic Burger
                     </span>
                     <span className="text-xs opacity-60">Qty: 1 x $15.00</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="font-mono">$15.00</span>
-                    <Button size="icon" variant="ghost" className="h-8 w-8">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
                   </div>
                 </div>
               ))}
@@ -103,18 +98,7 @@ const RestaurantSaleTerminalPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 w-full">
-              <Button variant="outline" className="border-black w-full">
-                CANCEL
-              </Button>
-              <Button className="bg-black text-white w-full">PAYMENT</Button>
-            </div>
-            <Button
-              variant="secondary"
-              className="w-full border border-black uppercase font-bold"
-            >
-              Send to Kitchen & Bar
-            </Button>
+            <Button className="bg-black text-white w-full">PAYMENT</Button>
           </CardFooter>
         </Card>
       </aside>
