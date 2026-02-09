@@ -1,5 +1,11 @@
 import { useFieldContext } from "../form-context";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type SelectFieldProps = {
   placeholder?: string;
@@ -8,16 +14,14 @@ type SelectFieldProps = {
     value: string;
   }[];
 };
-const SelectField = ({placeholder, options}: SelectFieldProps) => {
+const SelectField = ({ placeholder, options }: SelectFieldProps) => {
   const field = useFieldContext();
   const error = field.state.meta.errors?.[0];
 
   return (
-   <div className="space-y-1">
-      <Select
-        onValueChange={(value) => field.handleChange(value)}
-      >
-        <SelectTrigger>
+    <div className="space-y-1">
+      <Select onValueChange={(value) => field.handleChange(value)}>
+        <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder ?? "Select an option"} />
         </SelectTrigger>
 
@@ -30,9 +34,7 @@ const SelectField = ({placeholder, options}: SelectFieldProps) => {
         </SelectContent>
       </Select>
 
-      {error && (
-        <p className="text-sm text-destructive">{error?.message}</p>
-      )}
+      {error && <p className="text-sm text-destructive">{error?.message}</p>}
     </div>
   );
 };

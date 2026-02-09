@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/dialog";
 import { useAppForm } from "@/components/forms";
 import { PlusCircle } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
 import { createMenuAction } from "../stores/CreateMenu/actions";
 
 const CreateCategory = () => {
@@ -29,8 +28,12 @@ const CreateCategory = () => {
   const form = useAppForm({
     defaultValues: {
       owners_id: "",
+      menu_id:"",
       category_name: "",
       category_description: "",
+    },
+    onSubmit: ({ value }) => {
+      console.log(value)
     },
   });
 
@@ -80,20 +83,31 @@ const CreateCategory = () => {
           <DialogHeader>
             <DialogTitle>Create Category</DialogTitle>
           </DialogHeader>
-
-          <div className="space-y-3">
-            <Input placeholder="Category Name" />
-          </div>
-          <div className="space-y-3">
-            <Textarea placeholder="Category Description" />
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Close
-            </Button>
-            <Button onClick={() => setOpen(false)}>Save</Button>
-          </DialogFooter>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+          >
+            <form.AppField
+              name="category_name"
+              children={(f) => {
+                return <f.TextField label="Category Name" />;
+              }}
+            />
+            <form.AppField
+              name="category_description"
+              children={(f) => {
+                return <f.TextAreaField label="Category Description" />;
+              }}
+            />
+            <DialogFooter>
+              <form.AppForm>
+                <form.SubmitButton>Add Category</form.SubmitButton>
+              </form.AppForm>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

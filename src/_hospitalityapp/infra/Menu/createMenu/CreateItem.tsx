@@ -18,10 +18,24 @@ import {
 } from "@/components/ui/tooltip";
 import { DietaryBadgeColor } from "./utils";
 import { createMenuAction } from "../stores/CreateMenu/actions";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+import { useAppForm } from "@/components/forms";
+import {
+  DietaryType,
+  type DietaryType as DietaryTypeUnion,
+} from "@/lib/create_menu";
 
 const CreateItem = () => {
   const { dummyMenuData, prevStep, nextStep } = useCreateMenuCtx();
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
+  const [open, setOpen] = useState(false);
 
   // Find Active SubCategory (search inside all categories)
   const activeSubCategory = dummyMenuData.menuCategory
@@ -29,6 +43,27 @@ const CreateItem = () => {
     .find((sc) => sc.id === activeSubCategoryID);
 
   const items = activeSubCategory?.menu_item || [];
+
+  const DietaryTypeSelectOptions = [
+    { label: "Vegetarian", value: DietaryType.VEG },
+    { label: "Non-Vegetarian", value: DietaryType.NON_VEG },
+    { label: "Vegan", value: DietaryType.VEGAN },
+    { label: "Contains Egg", value: DietaryType.EGG },
+  ];
+
+  const form = useAppForm({
+    defaultValues: {
+      category_id: "",
+      subCategoryID: "",
+      item_name: "",
+      item_description: "",
+      base_price: 0,
+      dietary_type: "" as DietaryTypeUnion | "",
+    },
+    onSubmit:({value})=> {
+    console.log(value)
+    }
+  });
 
   return (
     <div className="border p-2">
@@ -165,10 +200,62 @@ const CreateItem = () => {
           </div>
         </CardContent>
 
-        <Button className="m-3" onClick={() => console.log("clicked")}>
+        <Button className="m-3" onClick={() => setOpen(true)}>
           <PlusIcon /> {`Add Item in ${activeSubCategory?.name}`}
         </Button>
       </Card>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="w-6xl">
+          <DialogHeader>
+            <DialogTitle>Add Item In Menu</DialogTitle>
+          </DialogHeader>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+          >
+            <form.AppField
+              name="item_name"
+              children={(f) => {
+                return <f.TextField label="Item Name" />;
+              }}
+            />
+            <form.AppField
+              name="item_description"
+              children={(f) => {
+                return <f.TextAreaField label="Item Description" />;
+              }}
+            />
+            <form.AppField
+              name="base_price"
+              children={(f) => {
+                return <f.NumberField label="Base Price" />;
+              }}
+            />
+
+            <form.AppField
+              name="dietary_type"
+              children={(f) => {
+                return (
+                  <f.SelectField
+                    placeholder="Select Food Type"
+                    options={DietaryTypeSelectOptions}
+                  />
+                );
+              }}
+            />
+
+            <DialogFooter>
+              <form.AppForm>
+                <form.SubmitButton>Create Item</form.SubmitButton>
+              </form.AppForm>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
