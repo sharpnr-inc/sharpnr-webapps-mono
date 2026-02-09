@@ -21,7 +21,7 @@ export default function BarGeneralSalePage() {
   ];
 
   return (
-    <div className=" flex flex-col md:flex-row gap-6">
+    <div className=" flex flex-col md:flex-row gap-4 mt-4">
       {/* SALES COUNTER */}
       <Card className="w-full md:w-1/3 shadow-md border">
         <CardHeader>

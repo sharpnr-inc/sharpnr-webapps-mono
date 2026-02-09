@@ -1,4 +1,4 @@
-import { SetupLegalEntityPage } from '@/_orchestrator/SetupWizard/SetupLegalEntityPage'
+import { SetupLegalEntityPage } from '@/_setup_wizard_/SetupWizard/SetupLegalEntityPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(

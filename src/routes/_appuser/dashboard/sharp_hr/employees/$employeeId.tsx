@@ -5,4 +5,7 @@ export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hr/employees/$employeeId',
 )({
   component: HREmployeeDetailsPage,
+  staticData:{
+    breadcrumb:"Employee Details"
+  }
 })

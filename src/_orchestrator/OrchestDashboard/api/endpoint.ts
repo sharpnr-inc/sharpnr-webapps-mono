@@ -11,5 +11,7 @@ export const OrchestratorConsole = {
 
     AddModules: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/add-modules`,
+    ConfigureRestaurant: (propertyID: string) =>
+      `/orchestrator/console/property/${propertyID}/configure-restaurant`,
   },
 };

@@ -1,14 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
-import { useSectorsModules } from "@/apis/Queries";
+import { useEffect } from "react";
 import {
   Card,
-  CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { AlertCircle, Building2, CheckCircle2, LayoutGrid } from "lucide-react";
+import { motion } from "framer-motion";
+import { useNavigate } from "@tanstack/react-router";
+import { useHospitalityDomainModInfra } from "../api/queries";
+import { useAppForm } from "@/components/forms";
 
 /* ---------- Types ---------- */
 
@@ -17,275 +22,343 @@ interface ModulesSelectionProps {
   domain: string;
 }
 
-interface SubModule {
-  id: string;
-  module_name: string;
-  description: string;
-}
-
-/**
- * System-level capability (can this module EVER have a kitchen?)
- * This should ideally come from backend later.
- */
-const MODULE_KITCHEN_CAPABLE: Record<string, boolean> = {
-  HOTEL: true,
-  RESTAURANT: true,
-  BAR: true,
-  "PUB/CLUB": true,
-  "CLOUD KITCHEN/TAKEAWAYS": true,
+type InfrastructureItem = {
+  infra_name: string;
+  qty: number;
 };
-
-/* ---------- Component ---------- */
 
 export function ModulesSelectionSection({
   domain,
   propertyID,
 }: ModulesSelectionProps) {
-  const { data, isLoading } = useSectorsModules(domain.toLowerCase());
-  const submodules: SubModule[] = data?.data?.submodules ?? [];
+  const navigate = useNavigate();
+  const { data: domainData, isLoading } = useHospitalityDomainModInfra(domain);
 
-  /* Selected modules */
-  const [selectedModules, setSelectedModules] = useState<string[]>([]);
+  const modules = domainData?.data?.modules ?? [];
+  const infrastructure = domainData?.data?.infrastructure ?? [];
 
-  /* Per-module kitchen enabled (user choice) */
-  const [moduleKitchenEnabled, setModuleKitchenEnabled] = useState<
-    Record<string, boolean | undefined>
-  >({});
+  /* ---------- Form ---------- */
 
-  /* Shared vs Separate */
-  const [kitchenSharing, setKitchenSharing] = useState<
-    "COMMON" | "SEPARATE" | null
-  >(null);
+  const form = useAppForm({
+    defaultValues: {
+      propertyID: "",
+      domain:domain,
+      modules: [] as string[],
+      infrastructure: [] as InfrastructureItem[],
+    },
 
-  /* ---------- Derived State ---------- */
+    onSubmit: async ({ value }) => {
+      console.log("FORM SUBMIT:", value);
 
-  const kitchenCapableModules = useMemo(
-    () =>
-      selectedModules.filter(
-        (m) => MODULE_KITCHEN_CAPABLE[m]
-      ),
-    [selectedModules]
-  );
+      navigate({
+        to: "/orchestrator/property/$propertyId/details",
+        params: {
+          propertyId: value.propertyID,
+        },
+      });
+    },
+  });
 
-  const kitchenEnabledModules = useMemo(
-    () =>
-      kitchenCapableModules.filter(
-        (m) => moduleKitchenEnabled[m] === true
-      ),
-    [kitchenCapableModules, moduleKitchenEnabled]
-  );
+  /* ---------- Sync propertyID ---------- */
 
-  /* Reset sharing if no longer applicable */
   useEffect(() => {
-    if (kitchenEnabledModules.length <= 1) {
-      setKitchenSharing(null);
-    }
-  }, [kitchenEnabledModules]);
+    form.setFieldValue("propertyID", propertyID);
+  }, [propertyID]);
 
-  /* ---------- Actions ---------- */
-
-  const toggleModule = (moduleName: string) => {
-    setSelectedModules((prev) =>
-      prev.includes(moduleName)
-        ? prev.filter((m) => m !== moduleName)
-        : [...prev, moduleName]
-    );
-  };
-
-  /* ---------- Summary Payload ---------- */
-
-  const summary = useMemo(() => {
-    return {
-      property_id: propertyID,
-      domain,
-      modules: selectedModules.map((m) => ({
-        name: m,
-        kitchen_capable: MODULE_KITCHEN_CAPABLE[m],
-        kitchen_enabled:
-          MODULE_KITCHEN_CAPABLE[m] ? moduleKitchenEnabled[m] ?? false : false,
-      })),
-      kitchen: {
-        applicable_modules: kitchenEnabledModules,
-        sharing:
-          kitchenEnabledModules.length > 1
-            ? kitchenSharing
-            : null,
-      },
-    };
-  }, [
-    propertyID,
-    domain,
-    selectedModules,
-    moduleKitchenEnabled,
-    kitchenEnabledModules,
-    kitchenSharing,
-  ]);
-
-  const logSummary = () => {
-    console.log("FINAL CONFIGURATION →", summary);
-  };
-
-  if (isLoading) return <div>Loading modules…</div>;
+  /* =====================================================
+     RENDER
+  ===================================================== */
 
   return (
-    <div className="space-y-8">
-      {/* ---------- Header ---------- */}
-      <div>
-        <h2 className="text-xl font-semibold">Module Configuration</h2>
-        <p className="text-sm text-muted-foreground">
-          Select modules and configure operational details
-        </p>
-      </div>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
+      <div className="mx-auto space-y-12 pb-20">
+        {/* ================= GUIDE ================= */}
 
-      {/* ---------- Module Selection ---------- */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {submodules.map((module) => {
-          const isSelected = selectedModules.includes(module.module_name);
-
-          return (
-            <Card
-              key={module.id}
-              onClick={() => toggleModule(module.module_name)}
-              className={cn(
-                "cursor-pointer transition-all border",
-                isSelected
-                  ? "border-primary bg-primary/5"
-                  : "hover:border-primary/50"
-              )}
-            >
-              <CardHeader>
-                <CardTitle className="flex justify-between">
-                  {module.module_name}
-                  {isSelected && (
-                    <span className="text-xs text-primary">Selected</span>
-                  )}
-                </CardTitle>
-                <CardDescription>
-                  {module.description}
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          );
-        })}
-      </div>
-
-      {/* ---------- Per-module Kitchen Questions ---------- */}
-      {kitchenCapableModules.length > 0 && (
-        <Card className="border-dashed">
-          <CardHeader>
-            <CardTitle className="text-base">
-              Kitchen Availability
-            </CardTitle>
-            <CardDescription>
-              Tell us which modules actually have kitchens
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="space-y-4">
-            {kitchenCapableModules.map((module) => (
-              <div
-                key={module}
-                className="flex items-center justify-between p-3 border rounded-md"
-              >
-                <div className="font-medium">{module}</div>
-
-                <div className="flex gap-2">
-                  <Button
-                    variant={
-                      moduleKitchenEnabled[module] === true
-                        ? "default"
-                        : "outline"
-                    }
-                    size="sm"
-                    onClick={() =>
-                      setModuleKitchenEnabled((p) => ({
-                        ...p,
-                        [module]: true,
-                      }))
-                    }
-                  >
-                    Has Kitchen
-                  </Button>
-
-                  <Button
-                    variant={
-                      moduleKitchenEnabled[module] === false
-                        ? "default"
-                        : "outline"
-                    }
-                    size="sm"
-                    onClick={() =>
-                      setModuleKitchenEnabled((p) => ({
-                        ...p,
-                        [module]: false,
-                      }))
-                    }
-                  >
-                    No Kitchen
-                  </Button>
-                </div>
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Card className="border-blue-100 shadow-sm">
+            <CardHeader className="flex flex-row gap-4 p-6">
+              <div className="bg-blue-600 p-2 rounded-lg text-white">
+                <AlertCircle size={20} />
               </div>
-            ))}
-          </CardContent>
+              <div>
+                <CardTitle className="text-lg font-bold">
+                  Optimization Guide
+                </CardTitle>
+                <CardDescription className="max-w-3xl">
+                  Infrastructure is designed for <strong>shared utility</strong>
+                  . Select shared facilities once here.
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardFooter>
+              <Button variant="outline">
+                View property configuration guide
+              </Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
+
+        {/* ================= MODULES ================= */}
+
+        <section className="space-y-6">
+          <div className="flex items-center gap-4 border-b pb-4">
+            <div className="p-2.5 bg-blue-600 rounded-xl text-white">
+              <LayoutGrid size={22} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Business Modules</h2>
+              <p className="text-sm text-slate-500">
+                Revenue-generating units.
+              </p>
+            </div>
+          </div>
+
+          <form.Field name="modules">
+            {(field) => (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {isLoading ? (
+                  <div className="col-span-full py-20 text-center border-2 border-dashed rounded-2xl">
+                    Loading modules…
+                  </div>
+                ) : (
+                  modules.map((module: any) => {
+                    const selected = field.state.value.includes(
+                      module.ModuleName,
+                    );
+
+                    return (
+                      <motion.div
+                        key={module.ID}
+                        whileHover={module.IsAvailable ? { y: -4 } : undefined}
+                        onClick={() => {
+                          if (!module.IsAvailable) return;
+
+                          field.handleChange(
+                            selected
+                              ? field.state.value.filter(
+                                  (m) => m !== module.ModuleName,
+                                )
+                              : [...field.state.value, module.ModuleName],
+                          );
+                        }}
+                        className={cn(
+                          "relative p-6 rounded-2xl border-2 transition-all min-h-[160px]",
+                          selected
+                            ? "border-blue-600"
+                            : "border-slate-100 hover:border-slate-300",
+                          !module.IsAvailable &&
+                            "opacity-60 cursor-not-allowed grayscale",
+                        )}
+                      >
+                        <div className="flex justify-between">
+                          <span className="font-bold">{module.ModuleName}</span>
+                          {selected && (
+                            <CheckCircle2 className="h-6 w-6 text-blue-600" />
+                          )}
+                        </div>
+
+                        <p className="text-xs text-slate-500 line-clamp-3 mt-4">
+                          {module.Description}
+                        </p>
+
+                        {!module.IsAvailable && (
+                          <Badge
+                            variant="secondary"
+                            className="absolute top-4 right-4 text-[10px]"
+                          >
+                            Coming Soon
+                          </Badge>
+                        )}
+                      </motion.div>
+                    );
+                  })
+                )}
+              </div>
+            )}
+          </form.Field>
+        </section>
+
+        {/* ================= INFRASTRUCTURE ================= */}
+
+        <section className="space-y-6">
+          <div className="flex items-center gap-4 border-b pb-4">
+            <div className="p-2.5 bg-emerald-600 rounded-xl text-white">
+              <Building2 size={22} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold">Property Infrastructure</h2>
+              <p className="text-sm text-slate-500">
+                Shared physical facilities (max 3).
+              </p>
+            </div>
+          </div>
+
+          <form.Field name="infrastructure" mode="array">
+            {(field) => (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {infrastructure.map((infra: any) => {
+                  const index = field.state.value.findIndex(
+                    (i) => i.infra_name === infra.ModuleName,
+                  );
+
+                  const selected = index !== -1;
+                  const limitReached =
+                    !selected && field.state.value.length >= 3;
+
+                  const qty = selected ? field.state.value[index].qty : 0;
+
+                  return (
+                    <motion.div
+                      key={infra.ID}
+                      whileHover={
+                        infra.IsAvailable && !limitReached
+                          ? { y: -4 }
+                          : undefined
+                      }
+                      onClick={() => {
+                        if (!infra.IsAvailable || limitReached) return;
+
+                        selected
+                          ? field.removeValue(index)
+                          : field.pushValue({
+                              infra_name: infra.ModuleName,
+                              qty: 1,
+                            });
+                      }}
+                      className={cn(
+                        "relative p-6 rounded-2xl border-2 transition-all min-h-[180px]",
+                        selected
+                          ? "border-emerald-600 "
+                          : "border-slate-100 hover:border-slate-300",
+                        (!infra.IsAvailable || limitReached) &&
+                          "opacity-60 cursor-not-allowed grayscale",
+                      )}
+                    >
+                      {/* Header */}
+                      <div className="flex justify-between items-start">
+                        <span className="text-3xl">
+                          {infra.ModuleName.toLowerCase().includes("kitchen")
+                            ? "🍳"
+                            : "🏗️"}
+                        </span>
+
+                        {selected && (
+                          <CheckCircle2 className="h-6 w-6 text-emerald-600" />
+                        )}
+                      </div>
+
+                      {/* Content */}
+                      <div className="mt-4 space-y-1">
+                        <h4 className="font-bold">{infra.ModuleName}</h4>
+                        <p className="text-[11px] text-slate-500 line-clamp-2">
+                          {infra.Description}
+                        </p>
+                      </div>
+
+                      {/* QTY CONTROLS (ONLY WHEN SELECTED) */}
+                      {selected && (
+                        <div
+                          className="mt-4 flex items-center justify-between bg-white/60 rounded-xl border px-3 py-2"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span className="text-xs text-gray-950">
+                            Quantity
+                          </span>
+
+                          <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (qty <= 1) return;
+
+                                const next = [...field.state.value];
+                                next[index] = {
+                                  ...next[index],
+                                  qty: next[index].qty - 1,
+                                };
+                                field.setValue(next);
+                              }}
+                              className="h-7 w-7 rounded-md border text-sm font-bold"
+                            >
+                              −
+                            </button>
+
+                            <span className="min-w-[20px] text-center font-semibold">
+                              {qty}
+                            </span>
+
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const next = [...field.state.value];
+                                next[index] = {
+                                  ...next[index],
+                                  qty: next[index].qty + 1,
+                                };
+                                field.setValue(next);
+                              }}
+                              className="h-7 w-7 rounded-md border text-sm font-bold"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {limitReached && (
+                        <Badge
+                          variant="secondary"
+                          className="absolute top-4 right-4 text-[10px]"
+                        >
+                          Max 3 allowed
+                        </Badge>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
+          </form.Field>
+        </section>
+
+        {/* ================= ACTION BAR ================= */}
+
+        <Card className="bg-slate-900 border-none rounded-[2rem]">
+          <div className="p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-blue-100">
+                Configuration Ready
+              </h3>
+              <p className="text-sm text-slate-400 mt-2">
+                Review your selections before continuing.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4 min-w-[280px]">
+              <Button
+                type="submit"
+                size="lg"
+                className="h-16 rounded-2xl text-lg"
+              >
+                Confirm Setup
+              </Button>
+
+              <p className="text-[10px] text-slate-500 text-center uppercase">
+                Property ID: {propertyID}
+              </p>
+            </div>
+          </div>
         </Card>
-      )}
-
-      {/* ---------- Kitchen Sharing ---------- */}
-      {kitchenEnabledModules.length > 1 && (
-        <Card className="border-dashed">
-          <CardHeader>
-            <CardTitle className="text-base">
-              Kitchen Sharing
-            </CardTitle>
-            <CardDescription>
-              These modules use kitchens:
-              <strong> {kitchenEnabledModules.join(", ")}</strong>
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="flex gap-3">
-            <Button
-              variant={
-                kitchenSharing === "COMMON" ? "default" : "outline"
-              }
-              onClick={() => setKitchenSharing("COMMON")}
-            >
-              Shared Kitchen
-            </Button>
-
-            <Button
-              variant={
-                kitchenSharing === "SEPARATE" ? "default" : "outline"
-              }
-              onClick={() => setKitchenSharing("SEPARATE")}
-            >
-              Separate Kitchens
-            </Button>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* ---------- Summary ---------- */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
-            Configuration Summary
-          </CardTitle>
-          <CardDescription>
-            This is the complete picture of what the user configured
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-3">
-          <pre className="bg-muted p-4 rounded-md text-sm overflow-auto">
-            {JSON.stringify(summary, null, 2)}
-          </pre>
-
-          <Button onClick={logSummary}>
-            Console.log Summary
-          </Button>
-        </CardContent>
-      </Card>
-    </div>
+      </div>
+    </form>
   );
 }

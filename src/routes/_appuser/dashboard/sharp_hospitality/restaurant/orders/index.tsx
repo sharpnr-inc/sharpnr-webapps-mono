@@ -1,13 +1,11 @@
+import RestaurantOrdersPage from '@/_hospitalityapp/Restaurant/pages/RestaurantOrdersPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/restaurant/orders/',
 )({
-  component: RouteComponent,
+  component: RestaurantOrdersPage,
+  staticData:{
+    breadcrumb:"Orders"
+  }
 })
-
-function RouteComponent() {
-  return (
-    <div>Hello "/_appuser/dashboard/sharp_hospitality/restaurant/orders/"!</div>
-  )
-}

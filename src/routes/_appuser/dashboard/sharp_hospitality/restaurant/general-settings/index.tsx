@@ -1,15 +1,11 @@
+import RestaurantGenSettingsPage from '@/_hospitalityapp/Restaurant/pages/RestaurantGenSettingsPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/restaurant/general-settings/',
 )({
-  component: RouteComponent,
+  component: RestaurantGenSettingsPage,
+  staticData:{
+    breadcrumb:"General Setting"
+  }
 })
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello "/dashboard/sharp_hospitality/restaurant/general-settings/"!
-    </div>
-  )
-}

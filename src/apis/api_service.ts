@@ -1,5 +1,5 @@
 import api from "@/middlewares/axios";
-import { AuthApiEndpoints, CoreUtilityEndpoints } from "./Endpoints";
+import { AuthApiEndpoints } from "./Endpoints";
 
 //--------------------------------------------------------------------------------//
 
@@ -33,51 +33,6 @@ export async function VerifySignupCookie(){
 
 //--------------------------------------------------------------------------------//
 
-export interface OrgOnBoardingPayload {
-  step_id:string,
-  address_line: string;
-  city: string;
-  state: string;
-  country: string;
-  pincode: string;
-
-  latitude: number;
-  longitude: number;
-  accuracy_m: number;
-}
-
-
-//--------------------------------------------------------------------------------//
-
-// All Core Utility APIs
-export async function fetchSharpnrSectors() {
-  const res = await api.get(CoreUtilityEndpoints.sharpModules.getAllSector);
-  return res.data;
-}
-
-export async function fetchTheSectorsModule(sector: string) {
-  const res = await api.get(
-    CoreUtilityEndpoints.sharpModules.GetModulesOfSector(sector)
-  );
-  return res.data;
-}
-
-export async function fetchCountryList() {
-  const res = await api.get(CoreUtilityEndpoints.locations.country);
-  return res.data;
-}
-
-export async function fetchStateList(countryCode: string) {
-  const res = await api.get(CoreUtilityEndpoints.locations.state(countryCode));
-  return res.data;
-}
-
-export async function fetchCities(countryCode: string, state: string) {
-  const res = await api.get(
-    CoreUtilityEndpoints.locations.city(countryCode, state)
-  );
-  return res.data;
-}
 
 export async function LoginUser(payload:any){
   const res = await api.post(AuthApiEndpoints.Auth.login, payload)

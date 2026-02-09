@@ -6,6 +6,10 @@ export const Route = createFileRoute(
 )({
   validateSearch: (search) => ({
     p_name: typeof search.p_name === "string" ? search.p_name : undefined,
+    p_domain:typeof search.p_domain ==="string"? search.p_domain:"",
   }),
   component: PropertyConfigurationPage,
+  staticData:{
+    breadcrumb:"Property Configuration"
+  }
 });

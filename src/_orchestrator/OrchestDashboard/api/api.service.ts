@@ -37,23 +37,41 @@ export async function SetDomainOfProperty({
 }
 
 //================================================================================//
-type ModuleConfigurationPayload = {
-  name: string;
-  kitchen_capable: boolean;
-  kitchen_enabled: boolean;
-};
-type PropertyModuleConfigurationPayload = {
+export interface PropertyInfraConfigurationPayload {
+  infra_name: string;
+  qty: number;
+}
+
+export interface PropertyModuleConfigurationPayload {
   property_id: string;
   domain: string;
-  modules: ModuleConfigurationPayload[];
-};
-type AddModulesInPropertyPayload = {
-  propertyID : string;
-  payload :PropertyModuleConfigurationPayload
+  modules?: string[]; // maps to *[]string + omitempty
+  infrastructure?: PropertyInfraConfigurationPayload[];
 }
-export async function AddModulesInProperty({payload, propertyID}:AddModulesInPropertyPayload){
-  const res = await api.post(OrchestratorConsole.property.AddModules(propertyID),payload )
-  return res.data
+export interface AddModulesInPropertyInput {
+  propertyID: string;
+  payload: PropertyModuleConfigurationPayload;
+}
+
+export async function AddModulesInProperty({
+  payload,
+  propertyID,
+}: AddModulesInPropertyInput) {
+  const res = await api.post(
+    OrchestratorConsole.property.AddModules(propertyID),
+    payload,
+  );
+  return res.data;
 }
 
 //================================================================================//
+
+export interface ConfigureRestaurantRequest {
+  payload:any
+  propertyID :string
+}
+
+export async function ConfigureRestaurant({payload, propertyID}:ConfigureRestaurantRequest){
+  const res = await api.post(OrchestratorConsole.property.ConfigureRestaurant(propertyID), payload)
+  return res.data
+}

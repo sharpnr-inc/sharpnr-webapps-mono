@@ -5,4 +5,7 @@ export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hr/employees/direct-hire/',
 )({
   component: AddEmployeeDirectHirePage,
+  staticData:{
+    breadcrumb:"Direct Hire"
+  }
 })

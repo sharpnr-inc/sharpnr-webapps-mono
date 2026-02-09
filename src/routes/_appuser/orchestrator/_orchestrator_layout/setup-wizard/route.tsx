@@ -1,5 +1,7 @@
-import { SetupWizardLayout } from "@/_orchestrator/SetupWizard/components/ui/SetupWizard";
+import { SetupWizardLayout } from "@/_setup_wizard_/SetupWizard/components/ui/SetupWizard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { resolveSetupWizardRoute, } from "@/lib/setup_route_resolver";
+import { setupProgressQuery } from "@/_setup_wizard_/SetupWizard/api/queries";
 
 export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/setup-wizard",
@@ -30,4 +32,4 @@ function RouteComponent() {
 
 
 // * This is the Page which Calls the API for the fetching the Steps of Setup Wizards
-// * This 
+// * This SHOULD Call the API for the Steps it need

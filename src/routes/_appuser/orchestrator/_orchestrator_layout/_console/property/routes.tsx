@@ -1,16 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes',
 )({
-  component: RouteComponent,
+  component: Outlet,
+  staticData:{
+    breadcrumb:"Property"
+  }
 })
 
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_appuser/orchestrator/_orchestrator_layout/_console/property/routes"!
-    </div>
-  )
-}
+

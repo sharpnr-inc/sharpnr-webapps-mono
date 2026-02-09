@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
+import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 /* ===============================
    Dummy Property Data
@@ -29,9 +30,7 @@ const defaultProperty = properties[0];
 
 export function HotelRootLayout() {
   const [selectedProperty, setSelectedProperty] =
-    React.useState<(typeof properties)[number]>(
-      defaultProperty
-    );
+    React.useState<(typeof properties)[number]>(defaultProperty);
 
   return (
     <SidebarProvider defaultOpen>
@@ -51,9 +50,7 @@ export function HotelRootLayout() {
                   </div>
 
                   <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-medium">
-                      {selectedProperty}
-                    </span>
+                    <span className="font-medium">{selectedProperty}</span>
                     <span className="text-xs text-muted-foreground">
                       Property
                     </span>
@@ -63,16 +60,11 @@ export function HotelRootLayout() {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                align="start"
-                className="min-w-[240px]"
-              >
+              <DropdownMenuContent align="start" className="min-w-[240px]">
                 {properties.map((property) => (
                   <DropdownMenuItem
                     key={property}
-                    onSelect={() =>
-                      setSelectedProperty(property)
-                    }
+                    onSelect={() => setSelectedProperty(property)}
                   >
                     {property}
                     {property === selectedProperty && (
@@ -89,16 +81,17 @@ export function HotelRootLayout() {
         </Sidebar>
 
         {/* Main content */}
-        <SidebarInset className="m-2">
-          <div className="flex flex-col">
-            <div className="p-2">
-              <SidebarTrigger />
-            </div>
+        <SidebarInset>
+          <header className="flex h-12 items-center gap-2 px-4 ">
+            <SidebarTrigger />
+            <div className="h-4 w-[1px] bg-border mx-2" />{" "}
+            {/* Custom vertical line */}
+            <RouteBreadcrumbs />
+          </header>
 
-            <main className="flex-1 overflow-auto p-3">
-              <Outlet />
-            </main>
-          </div>
+          <main className=" p-6">
+            <Outlet />
+          </main>
         </SidebarInset>
       </div>
     </SidebarProvider>

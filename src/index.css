@@ -17,7 +17,7 @@
 ::-webkit-scrollbar-thumb {
   background-color: hsl(var(--border)); 
   border-radius: 10px;
-  border: 2px solid hsl(var(--background)); 
+  border: 1px solid hsl(var(--background)); 
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -108,8 +108,8 @@
   --chart-3: oklch(0.9456 0.1989 109.6679);
   --chart-4: oklch(0.7170 0.1395 169.2961);
   --chart-5: oklch(0.5832 0.2198 27.1499);
-  --sidebar: oklch(0.9784 0.0011 197.1387);
-  --sidebar-foreground: oklch(0.2020 0.0206 271.5136);
+  --sidebar: oklch(16.62% 0.11519 264.073);
+  --sidebar-foreground: oklch(90.67% 0.0001 271.152);
   --sidebar-primary: oklch(0.5402 0.2297 263.1287);
   --sidebar-primary-foreground: oklch(1.0000 0 0);
   --sidebar-accent: oklch(0.9274 0.0219 277.4773);
@@ -163,8 +163,8 @@
   --chart-3: oklch(0.9456 0.1989 109.6679);
   --chart-4: oklch(0.7170 0.1395 169.2961);
   --chart-5: oklch(0.5832 0.2198 27.1499);
-  --sidebar: oklch(0.2069 0.0098 285.5081);
-  --sidebar-foreground: oklch(0.8853 0 0);
+  --sidebar: oklch(16.62% 0.11519 264.073);
+   --sidebar-foreground: oklch(90.67% 0.0001 271.152);
   --sidebar-primary: oklch(0.5464 0.2277 262.6203);
   --sidebar-primary-foreground: oklch(1.0000 0 0);
   --sidebar-accent: oklch(0.1868 0.0544 266.5961);

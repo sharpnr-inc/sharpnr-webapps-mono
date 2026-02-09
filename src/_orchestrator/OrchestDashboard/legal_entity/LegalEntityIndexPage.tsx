@@ -1,32 +1,32 @@
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { useNavigate } from "@tanstack/react-router"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "@tanstack/react-router";
+import { useFormsModal } from "@/context/FormModalContext";
+import CreateLegalEntityForm from "./CreateLegalEntityForm";
 
 export interface LegalEntity {
-  id: string
+  id: string;
 
   // Core
-  name: string
-  type: "PRIVATE_LIMITED" | "LLP" | "SOLE_PROPRIETORSHIP"
-  status: "ACTIVE" | "INACTIVE"
+  name: string;
+  type: "PRIVATE_LIMITED" | "LLP" | "SOLE_PROPRIETORSHIP";
+  status: "ACTIVE" | "INACTIVE";
 
   // Registrations
-  gstNumber?: string
-  cinNumber?: string
-  panNumber?: string
+  gstNumber?: string;
+  cinNumber?: string;
+  panNumber?: string;
 
   // Meta
-  country: string
-  registeredOn: string
+  country: string;
+  registeredOn: string;
 
   // Address
-  addressLine: string
-  city: string
-  state: string
+  addressLine: string;
+  city: string;
+  state: string;
 }
-
 
 const dummyLegalEntities: LegalEntity[] = [
   {
@@ -63,18 +63,26 @@ const dummyLegalEntities: LegalEntity[] = [
     city: "Navi Mumbai",
     state: "Maharashtra",
   },
-]
-
+];
 
 export function LegalEntityIndexPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { showModal } = useFormsModal();
+
+  const handleCreateLE = () => {
+    showModal(
+      "Create legal Entity",
+      "Here you can Create Legal Entity",
+      <CreateLegalEntityForm />,
+    );
+  };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4 p-2">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Legal Entities</h1>
-        <Button>Add Legal Entity</Button>
+        <Button onClick={() => handleCreateLE()}>Add Legal Entity</Button>
       </div>
 
       {/* Grid */}
@@ -82,9 +90,7 @@ export function LegalEntityIndexPage() {
         {dummyLegalEntities.map((entity) => (
           <Card key={entity.id}>
             <CardHeader className="pb-2">
-              <CardTitle className="truncate">
-                {entity.name}
-              </CardTitle>
+              <CardTitle className="truncate">{entity.name}</CardTitle>
             </CardHeader>
 
             <CardContent className="space-y-3 text-sm">
@@ -102,14 +108,24 @@ export function LegalEntityIndexPage() {
 
               {/* Registrations */}
               <div className="grid gap-1">
-                <div><span className="font-medium">GST:</span> {entity.gstNumber ?? "—"}</div>
-                <div><span className="font-medium">CIN:</span> {entity.cinNumber ?? "—"}</div>
-                <div><span className="font-medium">PAN:</span> {entity.panNumber ?? "—"}</div>
+                <div>
+                  <span className="font-medium">GST:</span>{" "}
+                  {entity.gstNumber ?? "—"}
+                </div>
+                <div>
+                  <span className="font-medium">CIN:</span>{" "}
+                  {entity.cinNumber ?? "—"}
+                </div>
+                <div>
+                  <span className="font-medium">PAN:</span>{" "}
+                  {entity.panNumber ?? "—"}
+                </div>
               </div>
 
               {/* Address */}
               <div className="text-muted-foreground text-xs">
-                {entity.addressLine}, {entity.city}, {entity.state}, {entity.country}
+                {entity.addressLine}, {entity.city}, {entity.state},{" "}
+                {entity.country}
               </div>
 
               {/* Footer */}
@@ -123,8 +139,10 @@ export function LegalEntityIndexPage() {
                   variant="outline"
                   onClick={() =>
                     navigate({
-                      to: "/",
-                     
+                      to: "/orchestrator/legal_entity/$leID/details",
+                      params: {
+                        leID: entity.id,
+                      },
                     })
                   }
                 >
@@ -136,5 +154,5 @@ export function LegalEntityIndexPage() {
         ))}
       </div>
     </div>
-  )
+  );
 }

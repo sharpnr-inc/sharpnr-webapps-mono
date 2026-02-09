@@ -1,13 +1,9 @@
+import RestaurantSaleTerminalPage from '@/_hospitalityapp/Restaurant/pages/RestaurantSaleTerminalPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/restaurant/sales-terminal/',
 )({
-  component: RouteComponent,
+  component: RestaurantSaleTerminalPage,
 })
 
-function RouteComponent() {
-  return (
-    <div>Hello "/dashboard/sharp_hospitality/restaurant/sales-terminal/"!</div>
-  )
-}

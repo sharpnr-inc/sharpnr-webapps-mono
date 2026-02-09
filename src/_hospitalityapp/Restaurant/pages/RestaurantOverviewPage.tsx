@@ -1,7 +1,9 @@
+// This is can also be considered as the Dashboard of the Hotel
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {  IndianRupee, Utensils, Users, Plus } from "lucide-react";
+import { IndianRupee, Utensils, Users } from "lucide-react";
 import { PieChart, Pie, Cell } from "recharts";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 
 const stats = [
   {
@@ -19,12 +21,12 @@ const stats = [
     value: "₹38,400",
     icon: <IndianRupee className="h-5 w-5 text-muted-foreground" />,
   },
-   {
+  {
     label: "Today Revenue",
     value: "₹38,400",
     icon: <IndianRupee className="h-5 w-5 text-muted-foreground" />,
   },
-   {
+  {
     label: "Today Revenue",
     value: "₹38,400",
     icon: <IndianRupee className="h-5 w-5 text-muted-foreground" />,
@@ -43,9 +45,11 @@ const COLORS = ["#22c55e", "#e5e7eb"];
 
 export default function RestaurantOverviewPage() {
   const occupancyPercent = Math.round((occupiedTables / totalTables) * 100);
+  const { propertyID, restaurantID } = Route.useLoaderData();
+  console.log(restaurantID)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -54,15 +58,10 @@ export default function RestaurantOverviewPage() {
             Live snapshot of restaurant operations
           </p>
         </div>
-
-        <Button size="sm">
-          <Plus className="mr-2 h-4 w-4" />
-          New Order
-        </Button>
       </div>
 
       {/* Top Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
         {/* Occupancy Chart */}
         <Card className="lg:col-span-1">
           <CardHeader>
@@ -101,10 +100,10 @@ export default function RestaurantOverviewPage() {
         </Card>
 
         {/* Stats Column */}
-        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
           {stats.map((item) => (
-            <Card key={item.label} className="h-fit">
-              <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <Card key={item.label} className="h-full">
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-sm font-medium">
                   {item.label}
                 </CardTitle>

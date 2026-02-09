@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
+import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 /* ===============================
    Dummy Property Data
@@ -94,6 +95,7 @@ export function BarRootLayout() {
             {/* Top bar */}
             <header className="flex h-12 items-center px-3">
               <SidebarTrigger />
+              <RouteBreadcrumbs />
             </header>
 
             {/* Page content */}

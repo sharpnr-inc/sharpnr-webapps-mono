@@ -31,6 +31,7 @@ import {
   Home,
   ChevronsUpDown,
 } from "lucide-react";
+import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 /* =========================
    Sidebar Configuration
@@ -115,7 +116,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
       <Sidebar collapsible="icon">
         <SidebarContent>
           {/* ===== Organization Card ===== */}
-          <div className="p-2 border rounded-xl">
+          <div className="p-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton
@@ -134,7 +135,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                     <span className="font-medium truncate">
                       Sharp Hospitality
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs">
                       Organization
                     </span>
                   </div>
@@ -189,10 +190,10 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
-          <span className="text-sm font-semibold">Orchestrator</span>
+          <RouteBreadcrumbs/>
         </header>
 
-        <main className="p-4 mt-4">
+        <main className="p-2.5">
           <Outlet />
         </main>
       </SidebarInset>

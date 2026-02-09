@@ -29,5 +29,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "login/LoginPage.tsx"]
+  "include": ["src", "login/LoginPage.tsx", "src/_hospitalityapp/infra/Menu/pages/.tsx"]
 }
