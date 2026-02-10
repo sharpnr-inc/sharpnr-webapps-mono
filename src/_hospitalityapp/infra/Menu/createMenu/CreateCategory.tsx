@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useCreateMenuCtx } from "./create-menu.context";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,22 +18,43 @@ import {
 import { useAppForm } from "@/components/forms";
 import { createMenuAction } from "../stores/CreateMenu/actions";
 import EmptyMenu from "../components/EmptyMenu";
-import { useCreateMenuMutation } from "../apis/api.Mutations";
+import {
+  useAddCategoryInMenuMutation,
+  useCreateMenuMutation,
+} from "../apis/api.Mutations";
+import { Button } from "@/components/ui/button";
+import { PlusIcon } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateCategory = () => {
   const { Menus, nextStep, ownersID, ownersType } = useCreateMenuCtx();
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
+  const queryClient = useQueryClient();
+  const createCategory = useAddCategoryInMenuMutation();
 
   const form = useAppForm({
     defaultValues: {
-      owners_id: "",
       menu_id: "",
       category_name: "",
       category_description: "",
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      createCategory.mutateAsync(
+        {
+          OwnersID: ownersID,
+          request_payload: value,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+
+            setOpen(false);
+          },
+        },
+      );
     },
   });
 
@@ -47,16 +68,20 @@ const CreateCategory = () => {
       owner_module_type: ownersType,
     },
     onSubmit: ({ value }) => {
-      console.log(value);
-      addMenu.mutateAsync({
-        ownersID: ownersID,
-        request_payload: value,
-      });
+      addMenu.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: value,
+        },
+        {
+          onSuccess: () => {},
+        },
+      );
     },
   });
 
   return (
-    <div>
+    <div className="">
       <Card className="">
         <CardHeader>
           <CardTitle>Menu</CardTitle>
@@ -65,53 +90,64 @@ const CreateCategory = () => {
           </CardDescription>
         </CardHeader>
         {!Menus || Menus.length === 0 ? (
-          <div className="p-6 text-sm text-muted-foreground">
+          <div className="p-4 text-sm text-muted-foreground">
             <EmptyMenu onCreateClick={() => setOpenMenuForm(true)} />
           </div>
         ) : (
           Menus.map((m) => {
             return (
-              <CardContent key={m.id}>
-                <div className="border rounded-xl p-4 shadow-sm ">
-                  <div className="text-lg font-semibold">{m.menu_name}</div>
-
-                  <div className="text-sm text-muted-foreground mt-1">
-                    {m.menu_description || "No description"}
-                  </div>
-
-                  <div className="mt-3 text-xs text-gray-400">{m.id}</div>
-                </div>
-
-                {!m.categories || m.categories.length === 0 ? (
-                  <div className="p-3 text-xs text-muted-foreground">
-                    No categories yet
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-6 gap-5 p-3 cursor-pointer">
-                    {m.categories.map((c) => {
-                      return (
-                        <div
-                          key={c.id}
-                          onClick={() => {
-                            createMenuAction.setActiveCategory(c.id);
-                            nextStep();
-                          }}
-                        >
-                          <Card className="hover:border hover:border-accent-foreground h-full">
-                            <CardHeader>
-                              <CardTitle>{c.category_name}</CardTitle>
-                              <CardDescription>
-                                {c.category_description || "No description"}
-                              </CardDescription>
-                            </CardHeader>
-                          </Card>
-                        </div>
-                      );
-                    })}
-
-                    <Button>Add Category</Button>
-                  </div>
-                )}
+              <CardContent key={m.id} className="">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{m.menu_name}</CardTitle>
+                    <CardDescription>{m?.menu_description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {!m.categories || m.categories.length === 0 ? (
+                      <div className="p-3 text-xs text-muted-foreground">
+                        No categories yet
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-6 gap-5 p-3 cursor-pointer">
+                        {m.categories.map((c) => {
+                          return (
+                            <div
+                              key={c.id}
+                              onClick={() => {
+                                createMenuAction.setActiveCategory(c.id);
+                                createMenuAction.setModulesMenu(m);
+                                nextStep();
+                              }}
+                            >
+                              <Card className="hover:border hover:border-accent-foreground h-full">
+                                <CardHeader>
+                                  <CardTitle>{c.category_name}</CardTitle>
+                                  <CardDescription>
+                                    {c.category_description || "No description"}
+                                  </CardDescription>
+                                </CardHeader>
+                              </Card>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      className="w-full"
+                      onClick={() => {
+                        form.setFieldValue("menu_id", m.id);
+                        const test = form.getFieldValue("menu_id");
+                        console.log(test);
+                        setOpen(true);
+                      }}
+                    >
+                      <PlusIcon />
+                      {`Add Category in ${m.menu_name}`}
+                    </Button>
+                  </CardFooter>
+                </Card>
               </CardContent>
             );
           })

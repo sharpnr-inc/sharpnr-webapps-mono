@@ -32,14 +32,14 @@ export function useAddSubCategoryInCategoryMutation() {
 
 export function useAddMenuItemMutation() {
   return useMutation({
-    mutationKey: [""],
+    mutationKey: ["AddItemInMenu"],
     mutationFn: AddMenuItemInSubCategory,
   });
 }
 
 export function useAddVariantGroupMutation() {
   return useMutation({
-    mutationKey: [""],
+    mutationKey: ["AddVariantGroup"],
     mutationFn: AddVariantGroup,
   });
 }

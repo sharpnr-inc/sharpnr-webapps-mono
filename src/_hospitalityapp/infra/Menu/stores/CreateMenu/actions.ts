@@ -1,3 +1,4 @@
+import type { MenuOutput } from "../../createMenu/types";
 import { useCreateMenuStore } from "./create-menu_store";
 
 export const createMenuAction = {
@@ -12,5 +13,5 @@ export const createMenuAction = {
 
   resetSelection: () => useCreateMenuStore.getState().resetSelection(),
 
-  setModulesMenu: (menu: any) => useCreateMenuStore.getState().setMenus(menu),
+  setModulesMenu: (menu: MenuOutput) => useCreateMenuStore.getState().setMenu(menu),
 };

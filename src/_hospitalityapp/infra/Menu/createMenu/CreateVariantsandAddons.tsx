@@ -1,28 +1,40 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MoveLeft, Pencil, Plus } from "lucide-react";
+import { MoveLeft, PlusIcon } from "lucide-react";
 
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/CreateMenu/create-menu_store";
 import { DietaryType } from "@/lib/create_menu";
+import { useAppForm } from "@/components/forms";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useAddVariantGroupMutation } from "../apis/api.Mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
-const DietaryColorMap = {
-  [DietaryType.VEG]: "bg-green-600",
-  [DietaryType.NON_VEG]: "bg-red-600",
+export const DietaryColorMap = {
+  [DietaryType.VEGETARIAN]: "bg-green-600",
+  [DietaryType.NON_VEGETARIAN]: "bg-red-600",
   [DietaryType.VEGAN]: "bg-emerald-500",
   [DietaryType.EGG]: "bg-yellow-500",
-};
+  [DietaryType.JAIN]: "bg-lime-500",
+  [DietaryType.GLUTEN_FREE]: "bg-blue-500",
+} as const;
 
 const CreateVariantsAndAddons = () => {
-  const { Menus, prevStep } = useCreateMenuCtx();
+  const queryClient = useQueryClient();
+  const { Menus, prevStep, ownersID } = useCreateMenuCtx();
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
-  const [editMode, setEditMode] = useState(false);
+  const [open, setOpen] = useState(false);
 
   // Find Active Item from Menus tree
   const activeItem = useMemo(() => {
-    return Menus
-      ?.flatMap((m) => m.categories)
+    return Menus?.flatMap((m) => m.categories)
       .flatMap((c) => c.sub_categories)
       .flatMap((sc) => sc.menu_items)
       .find((item) => item.id === activeItemID);
@@ -48,6 +60,48 @@ const CreateVariantsAndAddons = () => {
     }
     return null;
   }, [Menus, activeItemID]);
+
+  const addVariantGroup = useAddVariantGroupMutation();
+
+  const addVariantGroupForm = useAppForm({
+    defaultValues: {
+      menu_item_id: activeItemID,
+      variant_group_name: "",
+    },
+
+    onSubmit: ({ value }) => {
+      addVariantGroup.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: value,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+            addVariantGroupForm.reset();
+            setOpen(false);
+          },
+        },
+      );
+    },
+  });
+
+  const addAddonsForm = useAppForm({
+    defaultValues: {
+      variant_group_id: "",
+      menu_item_id: "",
+      name: "",
+      price: "",
+    },
+  });
+
+  const addVariantsForm = useAppForm({
+    defaultValues:{
+    
+    }
+  });
 
   if (!activeItem) {
     return (
@@ -80,34 +134,14 @@ const CreateVariantsAndAddons = () => {
           )}
 
           <CardTitle>{activeItem.name}</CardTitle>
-
-          {/* <div className="flex items-center gap-2 mt-1">
-            <div
-              className={`w-3 h-3 rounded-sm ${
-                DietaryColorMap[activeItem.dietaryType]
-              }`}
-            />
-            <span className="text-xs">{activeItem.dietaryType}</span>
-          </div> */}
         </div>
-
-        <Button
-          variant={editMode ? "secondary" : "outline"}
-          size="sm"
-          onClick={() => setEditMode((p) => !p)}
-        >
-          <Pencil size={16} />
-          {editMode ? "Editing" : "Edit"}
-        </Button>
       </CardHeader>
 
       <CardContent className="space-y-4 overflow-auto max-h-[75vh]">
         {/* Item Details */}
-        <div className="border rounded p-2">
-          <div className="text-sm font-semibold">Description</div>
-          <div className="text-sm text-muted-foreground">
-            {activeItem.description}
-          </div>
+        <div>
+          <div className="   text-sm text-muted-foreground">Description</div>
+          <div className="text-sm font-semibold ">{activeItem.description}</div>
 
           <div className="mt-2 font-semibold">
             Base Price: ₹ {activeItem.base_price}
@@ -116,16 +150,6 @@ const CreateVariantsAndAddons = () => {
 
         {/* Variants */}
         <div>
-          <div className="flex justify-between items-center mb-2">
-            <div className="font-semibold">Variants</div>
-
-            {editMode && (
-              <Button size="sm">
-                <Plus size={14} /> Add Variant
-              </Button>
-            )}
-          </div>
-
           <div className="space-y-2">
             {activeItem.variant_groups?.length ? (
               activeItem.variant_groups.flatMap((vg) =>
@@ -137,26 +161,17 @@ const CreateVariantsAndAddons = () => {
                     <div className="font-medium text-sm">{v.name}</div>
                     <div className="text-sm">+ ₹ {v.price}</div>
                   </div>
-                ))
+                )),
               )
             ) : (
               <div className="text-xs text-muted-foreground">No Variants</div>
             )}
           </div>
+          <Button onClick={() => setOpen(true)}>Add Variants</Button>
         </div>
 
         {/* AddOns */}
         <div>
-          <div className="flex justify-between items-center mb-2">
-            <div className="font-semibold">AddOns</div>
-
-            {editMode && (
-              <Button size="sm">
-                <Plus size={14} /> Add AddOn
-              </Button>
-            )}
-          </div>
-
           <div className="space-y-2">
             {activeItem.add_ons?.length ? (
               activeItem.add_ons.map((a) => (
@@ -174,6 +189,40 @@ const CreateVariantsAndAddons = () => {
           </div>
         </div>
       </CardContent>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              Create Variant group in the {activeItem.name}
+            </DialogTitle>
+          </DialogHeader>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addVariantGroupForm.handleSubmit();
+            }}
+          >
+            <addVariantGroupForm.AppField
+              name="variant_group_name"
+              children={(f) => {
+                return <f.TextField label="Variants Group Name" />;
+              }}
+            />
+
+            <DialogFooter>
+              <addVariantGroupForm.AppForm>
+                <addVariantGroupForm.SubmitButton>
+                  <PlusIcon />
+                  Add Variant group
+                </addVariantGroupForm.SubmitButton>
+              </addVariantGroupForm.AppForm>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };

@@ -1,8 +1,9 @@
-import type { MenuInterface } from "@/lib/create_menu";
+
 import { createContext, useContext } from "react";
+import type { MenuOutput } from "../createMenu/types";
 
 interface MenuContextType {
-  dummyMenuData:MenuInterface;
+  MenuData:MenuOutput[] | undefined;
 }
 
 export const MenuContext = createContext<MenuContextType | null>(null);

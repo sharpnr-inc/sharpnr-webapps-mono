@@ -29,6 +29,7 @@ export interface MenuItemOutput {
   description: string;
   unit: string;
   base_price: number;
+  dietary_type:string;
   variant_groups: VariantGroupOutput[];
   add_ons: AddOnOutput[];
 }

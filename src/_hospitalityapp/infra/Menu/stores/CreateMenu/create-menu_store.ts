@@ -1,23 +1,24 @@
 import { create } from "zustand";
+import type { MenuOutput } from "../../createMenu/types";
 
 interface CreateMenuState {
   activeCategoryID: string | null;
   activeSubCategoryID: string | null;
   activeItemID: string | null;
-  Menus: [] | null;
+  activeMenu: MenuOutput | null;
 
   setActiveCategory: (id: string | null) => void;
   setActiveSubCategory: (id: string | null) => void;
   setActiveItem: (id: string | null) => void;
   resetSelection: () => void;
-  setMenus: (menu: any) => void;
+  setMenu: (menu: MenuOutput) => void;
 }
 
 export const useCreateMenuStore = create<CreateMenuState>((set) => ({
   activeCategoryID: null,
   activeSubCategoryID: null,
   activeItemID: null,
-  Menus: [],
+  activeMenu: null,
 
   setActiveCategory: (id) =>
     set(() => ({
@@ -41,8 +42,8 @@ export const useCreateMenuStore = create<CreateMenuState>((set) => ({
       activeSubCategoryID: null,
     })),
 
-  setMenus: (menu: any) =>
+  setMenu: (menu: MenuOutput) =>
     set(() => ({
-      Menus: menu,
+      activeMenu: menu,
     })),
 }));

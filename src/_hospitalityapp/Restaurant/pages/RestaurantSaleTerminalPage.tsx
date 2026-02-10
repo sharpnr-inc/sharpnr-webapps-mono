@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
-import { Search, Trash2, ReceiptText } from "lucide-react";
+import { Search, ReceiptText } from "lucide-react";
 import Menu from "@/_hospitalityapp/infra/Menu/menu/menu";
 import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
 
@@ -37,11 +37,11 @@ const RestaurantSaleTerminalPage: React.FC = () => {
             </div>
           </header>
 
-          <Menu>
+          <Menu ownersID="53452cd3-5636-4465-a05d-e4dbc292eefc">
             <Menu.MenuCategories />
             <Separator />
             <Menu.MenuSubCategories />
-            <Separator />
+            <Separator /> 
             <ScrollArea className="border p-2 h-[65vh]">
               <Menu.MenuItems className="relative" />
             </ScrollArea>

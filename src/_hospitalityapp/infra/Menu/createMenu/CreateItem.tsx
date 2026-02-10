@@ -30,10 +30,14 @@ import {
   DietaryType,
   type DietaryType as DietaryTypeUnion,
 } from "@/lib/create_menu";
+import { useAddMenuItemMutation } from "../apis/api.Mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateItem = () => {
-  const { Menus, prevStep, nextStep } = useCreateMenuCtx();
+  const queryClient = useQueryClient();
+  const { Menus, prevStep, nextStep, ownersID } = useCreateMenuCtx();
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
+  const activeMenu = useCreateMenuStore((s) => s.activeMenu?.id);
   const [open, setOpen] = useState(false);
 
   const activeSubCategory = Menus?.flatMap((m) => m.categories)
@@ -43,23 +47,45 @@ const CreateItem = () => {
   const items = activeSubCategory?.menu_items ?? [];
 
   const DietaryTypeSelectOptions = [
-    { label: "Vegetarian", value: DietaryType.VEG },
-    { label: "Non-Vegetarian", value: DietaryType.NON_VEG },
+    { label: "Vegetarian", value: DietaryType.VEGETARIAN },
+    { label: "Non-Vegetarian", value: DietaryType.NON_VEGETARIAN },
     { label: "Vegan", value: DietaryType.VEGAN },
     { label: "Contains Egg", value: DietaryType.EGG },
+    { label: "Jain", value: DietaryType.JAIN },
+    { label: "Gluten Free", value: DietaryType.GLUTEN_FREE },
   ];
+
+  const addMenuItem = useAddMenuItemMutation();
 
   const form = useAppForm({
     defaultValues: {
-      category_id: "",
-      subCategoryID: "",
-      item_name: "",
-      item_description: "",
+      menu_id: activeMenu,
+      menu_sub_category_id: activeSubCategoryID,
+      name: "",
+      description: "",
+      unit: "",
       base_price: 0,
       dietary_type: "" as DietaryTypeUnion | "",
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      addMenuItem.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: {
+            ...value,
+            base_price: Number(value.base_price),
+          },
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+            form.reset();
+            setOpen(false);
+          },
+        },
+      );
     },
   });
 
@@ -88,21 +114,16 @@ const CreateItem = () => {
             <div className="text-sm text-muted-foreground">No Items Found</div>
           )}
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2  md:grid-cols-4  gap-4">
             {items.map((item) => (
               <TooltipProvider key={item.id}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Card
-                      className="
-            cursor-pointer
-            transition-all
-            hover:border-primary
-            hover:bg-muted/40
-          "
+                      className="cursor-pointer transition-all hover:border-primary hover:bg-muted/40"
                       onClick={() => {
                         // later you can open edit modal here
-                        console.log("Edit Item", item.id);
+
                         createMenuAction.setActiveItem(item.id);
                         nextStep();
                       }}
@@ -113,14 +134,12 @@ const CreateItem = () => {
                             {item.name}
                           </CardTitle>
 
-                          {/* <div className="flex items-center gap-2">
-                            <div
-                              className={`w-3 h-3 rounded-sm ${DietaryBadgeColor[item.dietaryType]}`}
-                            />
+                          <div className="flex items-center gap-2">
+                            <div className={`w-3 h-3 rounded-sm ${``}`} />
                             <span className="text-xs text-muted-foreground">
-                              {item.dietaryType}
+                              {item.dietary_type}
                             </span>
-                          </div> */}
+                          </div>
                         </div>
 
                         <CardDescription>{item.description}</CardDescription>
@@ -218,15 +237,21 @@ const CreateItem = () => {
             }}
           >
             <form.AppField
-              name="item_name"
+              name="name"
               children={(f) => {
                 return <f.TextField label="Item Name" />;
               }}
             />
             <form.AppField
-              name="item_description"
+              name="description"
               children={(f) => {
                 return <f.TextAreaField label="Item Description" />;
+              }}
+            />
+            <form.AppField
+              name="unit"
+              children={(f) => {
+                return <f.TextField label="Item Unit" />;
               }}
             />
             <form.AppField

@@ -19,23 +19,55 @@ export async function CreateMenu(payLoad: AddMenuPayload) {
   return res.data;
 }
 
-export async function AddCategoryInMenu(ownersID: string) {
-  const res = await api.post(MenuModuleEndpoints.AddCategory(ownersID));
+interface AddCategoryInMenuPayload {
+  OwnersID: string;
+  request_payload: any;
+}
+export async function AddCategoryInMenu(payLoad: AddCategoryInMenuPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddCategory(payLoad.OwnersID),
+    payLoad.request_payload,
+  );
   return res.data;
 }
 
-export async function AddSubCategoryInCategory(ownersID: string) {
-  const res = await api.post(MenuModuleEndpoints.AddSubCategory(ownersID));
+interface AddSubCategoryInCategoryPayload {
+  ownersID: string;
+  request_payload: any;
+}
+export async function AddSubCategoryInCategory(
+  payLoad: AddSubCategoryInCategoryPayload,
+) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddSubCategory(payLoad.ownersID),
+    payLoad.request_payload,
+  );
   return res.data;
 }
 
-export async function AddMenuItemInSubCategory(ownersID: string) {
-  const res = await api.post(MenuModuleEndpoints.AddMenuItem(ownersID));
+interface AddMenuItemPayload {
+  ownersID: string;
+  request_payload: any;
+}
+
+export async function AddMenuItemInSubCategory(payLoad: AddMenuItemPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddMenuItem(payLoad.ownersID),
+    payLoad.request_payload,
+  );
   return res.data;
 }
 
-export async function AddVariantGroup(ownersID: string) {
-  const res = await api.post(MenuModuleEndpoints.AddVariantGroup(ownersID));
+interface AddVariantGroupPayload {
+  ownersID: string;
+  request_payload: any;
+}
+
+export async function AddVariantGroup(payload: AddVariantGroupPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddVariantGroup(payload.ownersID),
+    payload.request_payload,
+  );
   return res.data;
 }
 

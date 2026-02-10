@@ -1,10 +1,12 @@
 import { createId } from "@/utilities/id";
 
 export const DietaryType = {
-  VEG: "VEG",
-  NON_VEG: "NON_VEG",
+  VEGETARIAN: "VEGETARIAN",
+  NON_VEGETARIAN: "NON_VEGETARIAN",
   VEGAN: "VEGAN",
   EGG: "EGG",
+  JAIN: "JAIN",
+  GLUTEN_FREE: "GLUTEN_FREE",
 } as const;
 
 export type DietaryType = (typeof DietaryType)[keyof typeof DietaryType];

@@ -20,9 +20,12 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { useAddSubCategoryInCategoryMutation } from "../apis/api.Mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateSubCategory = () => {
-  const { Menus, prevStep, nextStep } = useCreateMenuCtx();
+  const queryClient = useQueryClient();
+  const { Menus, prevStep, nextStep, ownersID } = useCreateMenuCtx();
   const activeCategoryID = useCreateMenuStore((s) => s.activeCategoryID);
   const [open, setOpen] = useState(false);
 
@@ -33,18 +36,30 @@ const CreateSubCategory = () => {
 
   // Get its sub categories safely
   const subCategories = activeCat?.sub_categories ?? [];
+  const addSubCategory = useAddSubCategoryInCategoryMutation();
 
   const form = useAppForm({
     defaultValues: {
-      ownersID: "",
-      category_id: "",
-      name: "",
-      description: "",
+      menu_category_id: activeCat?.id,
+      sub_cat_name: "",
+      sub_cat_description: "",
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
-      setOpen(false);
-      form.reset();
+      addSubCategory.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: value,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+            form.reset();
+            setOpen(false);
+          },
+        },
+      );
     },
   });
 
@@ -128,13 +143,13 @@ const CreateSubCategory = () => {
             }}
           >
             <form.AppField
-              name="name"
+              name="sub_cat_name"
               children={(f) => {
                 return <f.TextField label="SubCategory Name" />;
               }}
             />
             <form.AppField
-              name="description"
+              name="sub_cat_description"
               children={(f) => {
                 return <f.TextAreaField label="SubCategory Description" />;
               }}
