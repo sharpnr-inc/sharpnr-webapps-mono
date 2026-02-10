@@ -44,11 +44,29 @@ const RestaurantGenSettingsPage: React.FC<
             <RestaurantTimingSettings />
           </ScrollArea>
         </TabsContent>
+
         <TabsContent value="Kitchen_Settings">
           <RestaurantKitchenSettings />
         </TabsContent>
+
+        <TabsContent value="Legal_Entity">
+          <div className="p-4">Legal Entity settings coming soon</div>
+        </TabsContent>
+
+        <TabsContent value="tables_floor">
+          <div className="p-4">Table & Floor configuration coming soon</div>
+        </TabsContent>
+
         <TabsContent value="menu">
           <MenuSettings moduleID={restaurantID} propertyID={propertyID} />
+        </TabsContent>
+
+        <TabsContent value="app_settings">
+          <div className="p-4">App settings coming soon</div>
+        </TabsContent>
+
+        <TabsContent value="integrations">
+          <div className="p-4">Integrations setup coming soon</div>
         </TabsContent>
       </Tabs>
     </div>
