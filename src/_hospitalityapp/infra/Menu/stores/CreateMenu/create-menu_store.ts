@@ -4,17 +4,20 @@ interface CreateMenuState {
   activeCategoryID: string | null;
   activeSubCategoryID: string | null;
   activeItemID: string | null;
+  Menus: [] | null;
 
   setActiveCategory: (id: string | null) => void;
   setActiveSubCategory: (id: string | null) => void;
   setActiveItem: (id: string | null) => void;
   resetSelection: () => void;
+  setMenus: (menu: any) => void;
 }
 
 export const useCreateMenuStore = create<CreateMenuState>((set) => ({
   activeCategoryID: null,
   activeSubCategoryID: null,
   activeItemID: null,
+  Menus: [],
 
   setActiveCategory: (id) =>
     set(() => ({
@@ -36,5 +39,10 @@ export const useCreateMenuStore = create<CreateMenuState>((set) => ({
     set(() => ({
       activeCategoryID: null,
       activeSubCategoryID: null,
+    })),
+
+  setMenus: (menu: any) =>
+    set(() => ({
+      Menus: menu,
     })),
 }));

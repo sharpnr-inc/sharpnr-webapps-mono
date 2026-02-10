@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import CreateMenuContext from "./create-menu.context";
-import { dummyMenuData } from "@/lib/create_menu";
-import type { MenuInterface } from "@/lib/create_menu";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
 import type { CarouselApi } from "@/components/ui/carousel";
+import { useModulesMenu } from "../apis/api.Queries";
 
 interface CreateMenuRootProps {
   children: React.ReactNode;
-  DummyData?: MenuInterface;
+  ownersID: string;
+  ownersType: string;
+  propertyID: string | undefined;
 }
 
-const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({ children }) => {
+const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
+  children,
+  ownersID,
+  ownersType,
+}) => {
   const [step, setStep] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
 
@@ -48,14 +53,24 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({ children }) => {
     if (index >= 0 && index < steps.length) setStep(index);
   };
 
+  const {
+    data: Menus,
+    isLoading: isMenuLoading,
+    isSuccess: isMenuLoaded,
+  } = useModulesMenu(ownersID);
+
   return (
     <CreateMenuContext.Provider
       value={{
-        dummyMenuData,
+        Menus,
+        isMenuLoading,
+        isMenuLoaded,
         nextStep,
         prevStep,
         goToStep,
         step,
+        ownersID,
+        ownersType,
       }}
     >
       <Carousel setApi={setApi} className="w-full" opts={{ watchDrag: false }}>

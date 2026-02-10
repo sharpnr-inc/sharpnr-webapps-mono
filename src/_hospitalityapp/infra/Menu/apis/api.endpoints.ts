@@ -1,7 +1,7 @@
 export const MenuModuleEndpoints = {
   GetMenu: (ownersID: string) => `/sharp-hospitality/${ownersID}/menu`,
 
-  AddMenu: (ownersID: string) => `/sharp-hospitality/${ownersID}/menu`,
+  AddMenu: (ownersID: string) => `/sharp-hospitality/${ownersID}/menu/add`,
 
   AddCategory: (ownersID: string) =>
     `/sharp-hospitality/${ownersID}/menu/addCategory`,

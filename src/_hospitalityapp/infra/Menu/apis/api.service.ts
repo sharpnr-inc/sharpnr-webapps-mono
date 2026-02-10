@@ -1,13 +1,21 @@
 import api from "@/middlewares/axios";
 import { MenuModuleEndpoints } from "./api.endpoints";
+import type { MenuOutput } from "../createMenu/types";
 
-export async function GetMenu(ownersID: string) {
+export async function GetMenu(ownersID: string): Promise<MenuOutput[]> {
   const res = await api.get(MenuModuleEndpoints.GetMenu(ownersID));
-  return res.data;
+  return res.data.data;
 }
 
-export async function CreateMenu(ownersID: string) {
-  const res = await api.get(MenuModuleEndpoints.AddMenu(ownersID));
+interface AddMenuPayload {
+  ownersID: string;
+  request_payload: any;
+}
+export async function CreateMenu(payLoad: AddMenuPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddMenu(payLoad.ownersID),
+    payLoad.request_payload,
+  );
   return res.data;
 }
 

@@ -22,19 +22,22 @@ import {
 import { useState } from "react";
 
 const CreateSubCategory = () => {
-  const { dummyMenuData, prevStep, nextStep } = useCreateMenuCtx();
+  const { Menus, prevStep, nextStep } = useCreateMenuCtx();
   const activeCategoryID = useCreateMenuStore((s) => s.activeCategoryID);
   const [open, setOpen] = useState(false);
 
-  const categories = dummyMenuData.menuCategory;
-  const activeCat = categories.find((c) => c.id === activeCategoryID);
+  // Find the active category from all menus
+  const activeCat = Menus?.flatMap((m) => m.categories).find(
+    (c) => c.id === activeCategoryID,
+  );
 
-  const subCategories = activeCat?.menuSubCategory || [];
+  // Get its sub categories safely
+  const subCategories = activeCat?.sub_categories ?? [];
 
   const form = useAppForm({
     defaultValues: {
       ownersID: "",
-      category_id: activeCategoryID ? activeCategoryID : "",
+      category_id: "",
       name: "",
       description: "",
     },
@@ -57,9 +60,9 @@ const CreateSubCategory = () => {
 
           <div>
             <CardTitle className="text-xl">
-              {activeCat ? activeCat.name : "Select Category"}
+              {activeCat ? activeCat.category_name : "Select Category"}
             </CardTitle>
-            <CardDescription>{activeCat?.description}</CardDescription>
+            <CardDescription>{activeCat?.category_description}</CardDescription>
           </div>
         </CardHeader>
 
@@ -82,9 +85,11 @@ const CreateSubCategory = () => {
                     }}
                   >
                     <CardHeader className="p-4">
-                      <CardTitle className="text-base">{sc.name}</CardTitle>
+                      <CardTitle className="text-base">
+                        {sc.sub_cat_name}
+                      </CardTitle>
                       <CardDescription className="text-xs">
-                        {sc.description}
+                        {sc.sub_cat_description}
                       </CardDescription>
                     </CardHeader>
                   </Card>
@@ -102,7 +107,7 @@ const CreateSubCategory = () => {
             onClick={() => setOpen(true)}
           >
             <PlusIcon className="mr-2 h-4 w-4" />
-            {`Add Sub-Categories in ${activeCat?.name}`}
+            {`Add Sub-Categories in ${activeCat?.category_name}`}
           </Button>
         </CardFooter>
       </Card>
@@ -111,7 +116,7 @@ const CreateSubCategory = () => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
-              Create Sub Category in the {activeCat?.name}
+              Create Sub Category in the {activeCat?.category_name}
             </DialogTitle>
           </DialogHeader>
 

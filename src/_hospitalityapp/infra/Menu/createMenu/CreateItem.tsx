@@ -16,7 +16,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DietaryBadgeColor } from "./utils";
 import { createMenuAction } from "../stores/CreateMenu/actions";
 import {
   Dialog,
@@ -33,16 +32,15 @@ import {
 } from "@/lib/create_menu";
 
 const CreateItem = () => {
-  const { dummyMenuData, prevStep, nextStep } = useCreateMenuCtx();
+  const { Menus, prevStep, nextStep } = useCreateMenuCtx();
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
   const [open, setOpen] = useState(false);
 
-  // Find Active SubCategory (search inside all categories)
-  const activeSubCategory = dummyMenuData.menuCategory
-    .flatMap((cat) => cat.menuSubCategory)
+  const activeSubCategory = Menus?.flatMap((m) => m.categories)
+    .flatMap((c) => c.sub_categories)
     .find((sc) => sc.id === activeSubCategoryID);
 
-  const items = activeSubCategory?.menu_item || [];
+  const items = activeSubCategory?.menu_items ?? [];
 
   const DietaryTypeSelectOptions = [
     { label: "Vegetarian", value: DietaryType.VEG },
@@ -60,9 +58,9 @@ const CreateItem = () => {
       base_price: 0,
       dietary_type: "" as DietaryTypeUnion | "",
     },
-    onSubmit:({value})=> {
-    console.log(value)
-    }
+    onSubmit: ({ value }) => {
+      console.log(value);
+    },
   });
 
   return (
@@ -76,7 +74,7 @@ const CreateItem = () => {
           <div>
             <CardTitle>
               {activeSubCategory
-                ? activeSubCategory.name
+                ? activeSubCategory.sub_cat_name
                 : "Select SubCategory"}
             </CardTitle>
             <CardDescription>
@@ -115,14 +113,14 @@ const CreateItem = () => {
                             {item.name}
                           </CardTitle>
 
-                          <div className="flex items-center gap-2">
+                          {/* <div className="flex items-center gap-2">
                             <div
                               className={`w-3 h-3 rounded-sm ${DietaryBadgeColor[item.dietaryType]}`}
                             />
                             <span className="text-xs text-muted-foreground">
                               {item.dietaryType}
                             </span>
-                          </div>
+                          </div> */}
                         </div>
 
                         <CardDescription>{item.description}</CardDescription>
@@ -140,16 +138,18 @@ const CreateItem = () => {
                           </div>
 
                           <div className="space-y-1 max-h-28 overflow-auto">
-                            {item.menuItemVariants?.variants?.length ? (
-                              item.menuItemVariants.variants.map((v) => (
-                                <div
-                                  key={v.id}
-                                  className="flex justify-between text-sm border rounded-md px-2 py-1"
-                                >
-                                  <span>{v.name}</span>
-                                  <span>+ ₹ {v.price}</span>
-                                </div>
-                              ))
+                            {item.variant_groups?.length ? (
+                              item.variant_groups.flatMap((vg) =>
+                                vg.variants.map((v) => (
+                                  <div
+                                    key={v.id}
+                                    className="flex justify-between text-sm border rounded-md px-2 py-1"
+                                  >
+                                    <span>{v.name}</span>
+                                    <span>+ ₹ {v.price}</span>
+                                  </div>
+                                )),
+                              )
                             ) : (
                               <div className="text-xs text-muted-foreground">
                                 No Variants
@@ -165,8 +165,8 @@ const CreateItem = () => {
                           </div>
 
                           <div className="space-y-1 max-h-28 overflow-auto">
-                            {item.addOns?.length ? (
-                              item.addOns.map((a) => (
+                            {item.add_ons?.length ? (
+                              item.add_ons.map((a) => (
                                 <div
                                   key={a.id}
                                   className="flex justify-between text-sm border rounded-md px-2 py-1"
@@ -201,7 +201,7 @@ const CreateItem = () => {
         </CardContent>
 
         <Button className="m-3" onClick={() => setOpen(true)}>
-          <PlusIcon /> {`Add Item in ${activeSubCategory?.name}`}
+          <PlusIcon /> {`Add Item in ${activeSubCategory?.sub_cat_name}`}
         </Button>
       </Card>
 

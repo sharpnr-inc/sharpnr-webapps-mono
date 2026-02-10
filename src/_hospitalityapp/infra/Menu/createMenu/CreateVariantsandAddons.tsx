@@ -15,37 +15,39 @@ const DietaryColorMap = {
 };
 
 const CreateVariantsAndAddons = () => {
-  const { dummyMenuData, prevStep } = useCreateMenuCtx();
+  const { Menus, prevStep } = useCreateMenuCtx();
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
-
   const [editMode, setEditMode] = useState(false);
 
-  // Find Active Item
+  // Find Active Item from Menus tree
   const activeItem = useMemo(() => {
-    return dummyMenuData.menuCategory
-      .flatMap((c) => c.menuSubCategory)
-      .flatMap((sc) => sc.menu_item)
+    return Menus
+      ?.flatMap((m) => m.categories)
+      .flatMap((c) => c.sub_categories)
+      .flatMap((sc) => sc.menu_items)
       .find((item) => item.id === activeItemID);
-  }, [dummyMenuData, activeItemID]);
+  }, [Menus, activeItemID]);
 
-  // Build Trail Path
+  // Build breadcrumb path
   const path = useMemo(() => {
-    if (!activeItemID) return null;
+    if (!Menus || !activeItemID) return null;
 
-    for (const cat of dummyMenuData.menuCategory) {
-      for (const sub of cat.menuSubCategory) {
-        const item = sub.menu_item.find((i) => i.id === activeItemID);
-        if (item) {
-          return {
-            categoryName: cat.name,
-            subCategoryName: sub.name,
-            itemName: item.name,
-          };
+    for (const m of Menus) {
+      for (const c of m.categories) {
+        for (const sc of c.sub_categories) {
+          const item = sc.menu_items.find((i) => i.id === activeItemID);
+          if (item) {
+            return {
+              categoryName: c.category_name,
+              subCategoryName: sc.sub_cat_name,
+              itemName: item.name,
+            };
+          }
         }
       }
     }
     return null;
-  }, [dummyMenuData, activeItemID]);
+  }, [Menus, activeItemID]);
 
   if (!activeItem) {
     return (
@@ -79,14 +81,14 @@ const CreateVariantsAndAddons = () => {
 
           <CardTitle>{activeItem.name}</CardTitle>
 
-          <div className="flex items-center gap-2 mt-1">
+          {/* <div className="flex items-center gap-2 mt-1">
             <div
               className={`w-3 h-3 rounded-sm ${
                 DietaryColorMap[activeItem.dietaryType]
               }`}
             />
             <span className="text-xs">{activeItem.dietaryType}</span>
-          </div>
+          </div> */}
         </div>
 
         <Button
@@ -125,21 +127,21 @@ const CreateVariantsAndAddons = () => {
           </div>
 
           <div className="space-y-2">
-            {activeItem.menuItemVariants.variants.map((v) => (
-              <div
-                key={v.id}
-                className="border rounded p-2 flex justify-between"
-              >
-                <div>
-                  <div className="font-medium text-sm">{v.name}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {v.description}
+            {activeItem.variant_groups?.length ? (
+              activeItem.variant_groups.flatMap((vg) =>
+                vg.variants.map((v) => (
+                  <div
+                    key={v.id}
+                    className="border rounded p-2 flex justify-between"
+                  >
+                    <div className="font-medium text-sm">{v.name}</div>
+                    <div className="text-sm">+ ₹ {v.price}</div>
                   </div>
-                </div>
-
-                <div className="text-sm">+ ₹ {v.price}</div>
-              </div>
-            ))}
+                ))
+              )
+            ) : (
+              <div className="text-xs text-muted-foreground">No Variants</div>
+            )}
           </div>
         </div>
 
@@ -156,15 +158,19 @@ const CreateVariantsAndAddons = () => {
           </div>
 
           <div className="space-y-2">
-            {activeItem.addOns.map((a) => (
-              <div
-                key={a.id}
-                className="border rounded p-2 flex justify-between"
-              >
-                <div className="font-medium text-sm">{a.name}</div>
-                <div className="text-sm">+ ₹ {a.price}</div>
-              </div>
-            ))}
+            {activeItem.add_ons?.length ? (
+              activeItem.add_ons.map((a) => (
+                <div
+                  key={a.id}
+                  className="border rounded p-2 flex justify-between"
+                >
+                  <div className="font-medium text-sm">{a.name}</div>
+                  <div className="text-sm">+ ₹ {a.price}</div>
+                </div>
+              ))
+            ) : (
+              <div className="text-xs text-muted-foreground">No AddOns</div>
+            )}
           </div>
         </div>
       </CardContent>

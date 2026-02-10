@@ -5,7 +5,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import EmptyMenu from "./EmptyMenu";
 import CreateMenu from "../createMenu/CreatMenu";
 
 interface MenuSettingsProps {
@@ -13,10 +12,13 @@ interface MenuSettingsProps {
   propertyID?: string;
 }
 
-const MenuSettings: React.FC<MenuSettingsProps> = ({ moduleID }) => {
+const MenuSettings: React.FC<MenuSettingsProps> = ({
+  moduleID,
+  propertyID,
+}) => {
   return (
-    <div>
-      {/* <Card>
+    <div className="space-y-2">
+      <Card>
         <CardHeader>
           <CardTitle>Set Who serves the Menu</CardTitle>
           <CardDescription>
@@ -25,15 +27,19 @@ const MenuSettings: React.FC<MenuSettingsProps> = ({ moduleID }) => {
             different kitchens
           </CardDescription>
         </CardHeader>
-        <CardContent></CardContent>
+        <CardContent>
+          <CreateMenu
+            ownersID={moduleID}
+            propertyID={propertyID}
+            ownersType="RESTAURANT"
+          >
+            <CreateMenu.CreateCategory />
+            <CreateMenu.CreateSubCategory />
+            <CreateMenu.CreateItem />
+            <CreateMenu.CreateVariantsAndAddons />
+          </CreateMenu>
+        </CardContent>
       </Card>
-      <EmptyMenu /> */}
-      <CreateMenu>
-        <CreateMenu.CreateCategory />
-        <CreateMenu.CreateSubCategory />
-        <CreateMenu.CreateItem />
-        <CreateMenu.CreateVariantsAndAddons/>
-      </CreateMenu>
     </div>
   );
 };

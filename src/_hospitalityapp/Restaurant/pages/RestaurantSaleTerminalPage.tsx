@@ -43,7 +43,7 @@ const RestaurantSaleTerminalPage: React.FC = () => {
             <Menu.MenuSubCategories />
             <Separator />
             <ScrollArea className="border p-2 h-[65vh]">
-              <Menu.MenuItems className="relative"/>
+              <Menu.MenuItems className="relative" />
             </ScrollArea>
 
             <MenuCart>

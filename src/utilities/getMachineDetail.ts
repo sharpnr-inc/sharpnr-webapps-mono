@@ -1,6 +1,4 @@
-import type { DeviceInfo } from "@/interfaces/DeviceInfo";
-
-export async function getDeviceInfo(): Promise<DeviceInfo> {
+export async function getDeviceInfo(): Promise<any> {
   const userAgent = navigator.userAgent;
 
   let os = "Unknown OS";

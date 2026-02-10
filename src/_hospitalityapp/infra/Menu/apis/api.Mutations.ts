@@ -6,10 +6,14 @@ import {
   AddSubCategoryInCategory,
   AddVariantGroup,
   AddVariantsInVariantGroup,
+  CreateMenu,
 } from "./api.service";
 
 export function useCreateMenuMutation() {
-  return useMutation({});
+  return useMutation({
+    mutationFn:CreateMenu,
+    mutationKey:["Create Menu"]
+  });
 }
 
 export function useAddCategoryInMenuMutation() {
