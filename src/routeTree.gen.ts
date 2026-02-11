@@ -29,6 +29,7 @@ import { Route as AppuserIamRequestsIndexRouteImport } from './routes/_appuser/i
 import { Route as AppuserIamProfileIndexRouteImport } from './routes/_appuser/iam/profile/index'
 import { Route as AppuserIamMessagesIndexRouteImport } from './routes/_appuser/iam/messages/index'
 import { Route as AppuserIamLegalIndexRouteImport } from './routes/_appuser/iam/legal/index'
+import { Route as AppuserIamAttendanceIndexRouteImport } from './routes/_appuser/iam/attendance/index'
 import { Route as AppuserDashboardSharp_marketingIndexRouteImport } from './routes/_appuser/dashboard/sharp_marketing/index'
 import { Route as AppuserDashboardSharp_hrIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/index'
 import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
@@ -221,6 +222,12 @@ const AppuserIamLegalIndexRoute = AppuserIamLegalIndexRouteImport.update({
   path: '/legal/',
   getParentRoute: () => AppuserIamRouteRoute,
 } as any)
+const AppuserIamAttendanceIndexRoute =
+  AppuserIamAttendanceIndexRouteImport.update({
+    id: '/attendance/',
+    path: '/attendance/',
+    getParentRoute: () => AppuserIamRouteRoute,
+  } as any)
 const AppuserDashboardSharp_marketingIndexRoute =
   AppuserDashboardSharp_marketingIndexRouteImport.update({
     id: '/',
@@ -837,6 +844,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
   '/dashboard/sharp_hr/': typeof AppuserDashboardSharp_hrIndexRoute
   '/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/iam/attendance': typeof AppuserIamAttendanceIndexRoute
   '/iam/legal': typeof AppuserIamLegalIndexRoute
   '/iam/messages': typeof AppuserIamMessagesIndexRoute
   '/iam/profile': typeof AppuserIamProfileIndexRoute
@@ -932,6 +940,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
   '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrIndexRoute
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/iam/attendance': typeof AppuserIamAttendanceIndexRoute
   '/iam/legal': typeof AppuserIamLegalIndexRoute
   '/iam/messages': typeof AppuserIamMessagesIndexRoute
   '/iam/profile': typeof AppuserIamProfileIndexRoute
@@ -1037,6 +1046,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
   '/_appuser/dashboard/sharp_hr/': typeof AppuserDashboardSharp_hrIndexRoute
   '/_appuser/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
+  '/_appuser/iam/attendance/': typeof AppuserIamAttendanceIndexRoute
   '/_appuser/iam/legal/': typeof AppuserIamLegalIndexRoute
   '/_appuser/iam/messages/': typeof AppuserIamMessagesIndexRoute
   '/_appuser/iam/profile/': typeof AppuserIamProfileIndexRoute
@@ -1143,6 +1153,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/'
     | '/dashboard/sharp_hr/'
     | '/dashboard/sharp_marketing/'
+    | '/iam/attendance'
     | '/iam/legal'
     | '/iam/messages'
     | '/iam/profile'
@@ -1238,6 +1249,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_hr'
     | '/dashboard/sharp_marketing'
+    | '/iam/attendance'
     | '/iam/legal'
     | '/iam/messages'
     | '/iam/profile'
@@ -1342,6 +1354,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/'
     | '/_appuser/dashboard/sharp_hr/'
     | '/_appuser/dashboard/sharp_marketing/'
+    | '/_appuser/iam/attendance/'
     | '/_appuser/iam/legal/'
     | '/_appuser/iam/messages/'
     | '/_appuser/iam/profile/'
@@ -1568,6 +1581,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/iam/legal'
       preLoaderRoute: typeof AppuserIamLegalIndexRouteImport
+      parentRoute: typeof AppuserIamRouteRoute
+    }
+    '/_appuser/iam/attendance/': {
+      id: '/_appuser/iam/attendance/'
+      path: '/attendance'
+      fullPath: '/iam/attendance'
+      preLoaderRoute: typeof AppuserIamAttendanceIndexRouteImport
       parentRoute: typeof AppuserIamRouteRoute
     }
     '/_appuser/dashboard/sharp_marketing/': {
@@ -2496,6 +2516,7 @@ const AppuserDashboardRouteRouteWithChildren =
   )
 
 interface AppuserIamRouteRouteChildren {
+  AppuserIamAttendanceIndexRoute: typeof AppuserIamAttendanceIndexRoute
   AppuserIamLegalIndexRoute: typeof AppuserIamLegalIndexRoute
   AppuserIamMessagesIndexRoute: typeof AppuserIamMessagesIndexRoute
   AppuserIamProfileIndexRoute: typeof AppuserIamProfileIndexRoute
@@ -2504,6 +2525,7 @@ interface AppuserIamRouteRouteChildren {
 }
 
 const AppuserIamRouteRouteChildren: AppuserIamRouteRouteChildren = {
+  AppuserIamAttendanceIndexRoute: AppuserIamAttendanceIndexRoute,
   AppuserIamLegalIndexRoute: AppuserIamLegalIndexRoute,
   AppuserIamMessagesIndexRoute: AppuserIamMessagesIndexRoute,
   AppuserIamProfileIndexRoute: AppuserIamProfileIndexRoute,

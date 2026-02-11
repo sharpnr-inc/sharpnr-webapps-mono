@@ -22,7 +22,7 @@ export function IamSidebar() {
   const isActive = (path: string) => pathname.startsWith(path);
 
   return (
-    <SidebarContent >
+    <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>IAM</SidebarGroupLabel>
 
@@ -73,6 +73,15 @@ export function IamSidebar() {
               <Link to="/iam/legal">
                 <FileText />
                 <span>Legal</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={isActive("/iam/attendance")}>
+              <Link to="/iam/attendance">
+                <FileText />
+                <span>Attendance</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
