@@ -5,7 +5,6 @@ import { MoveLeft, PlusIcon } from "lucide-react";
 
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/CreateMenu/create-menu_store";
-import { DietaryType } from "@/lib/create_menu";
 import { useAppForm } from "@/components/forms";
 import {
   Dialog,
@@ -14,23 +13,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useAddVariantGroupMutation } from "../apis/api.Mutations";
+import {
+  useAddVariantGroupMutation,
+  useAddVariantsInVariantGroup,
+} from "../apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
-
-export const DietaryColorMap = {
-  [DietaryType.VEGETARIAN]: "bg-green-600",
-  [DietaryType.NON_VEGETARIAN]: "bg-red-600",
-  [DietaryType.VEGAN]: "bg-emerald-500",
-  [DietaryType.EGG]: "bg-yellow-500",
-  [DietaryType.JAIN]: "bg-lime-500",
-  [DietaryType.GLUTEN_FREE]: "bg-blue-500",
-} as const;
 
 const CreateVariantsAndAddons = () => {
   const queryClient = useQueryClient();
   const { Menus, prevStep, ownersID } = useCreateMenuCtx();
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
   const [open, setOpen] = useState(false);
+  const [openVariantForm, setOpenVariantForm] = useState(false);
+  const addVariants = useAddVariantsInVariantGroup();
 
   // Find Active Item from Menus tree
   const activeItem = useMemo(() => {
@@ -98,9 +93,36 @@ const CreateVariantsAndAddons = () => {
   });
 
   const addVariantsForm = useAppForm({
-    defaultValues:{
-    
-    }
+    defaultValues: {
+      variant_group_id: "",
+      menu_item_id: activeItemID,
+      name: "",
+      price: "",
+    },
+
+    onSubmit: ({ value }) => {
+      const payload = {
+        ...value,
+        price: Number(value.price), // explicit conversion
+      };
+
+      console.log(payload);
+
+      addVariants.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: payload,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+            setOpenVariantForm(false);
+          },
+        },
+      );
+    },
   });
 
   if (!activeItem) {
@@ -149,25 +171,96 @@ const CreateVariantsAndAddons = () => {
         </div>
 
         {/* Variants */}
-        <div>
-          <div className="space-y-2">
-            {activeItem.variant_groups?.length ? (
-              activeItem.variant_groups.flatMap((vg) =>
-                vg.variants.map((v) => (
-                  <div
-                    key={v.id}
-                    className="border rounded p-2 flex justify-between"
-                  >
-                    <div className="font-medium text-sm">{v.name}</div>
-                    <div className="text-sm">+ ₹ {v.price}</div>
-                  </div>
-                )),
-              )
-            ) : (
-              <div className="text-xs text-muted-foreground">No Variants</div>
-            )}
+        <div className="border p-4 rounded-2xl space-y-4">
+          {/* Add Variant Group Button */}
+          <div className="flex justify-end">
+            <Button
+              size="sm"
+              onClick={() => {
+                setOpen(true)
+              }}
+            >
+              + Add Variant Group
+            </Button>
           </div>
-          <Button onClick={() => setOpen(true)}>Add Variants</Button>
+
+          {(() => {
+            if (!activeItem) {
+              return null;
+            }
+
+            if (
+              !activeItem.variant_groups ||
+              activeItem.variant_groups.length === 0
+            ) {
+              return (
+                <div className="text-sm text-muted-foreground">
+                  No variant groups available
+                </div>
+              );
+            }
+
+            return activeItem.variant_groups.map((vg) => {
+              return (
+                <div key={vg.id} className="border rounded-xl p-4 space-y-3">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <div className="font-semibold">{vg.variant_group_name}</div>
+
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        addVariantsForm.setFieldValue(
+                          "variant_group_id",
+                          vg.id,
+                        );
+                        setOpenVariantForm(true);
+                      }}
+                    >
+                      + Add Variant
+                    </Button>
+                  </div>
+
+                  {/* Variants */}
+                  {(() => {
+                    if (!vg.variants || vg.variants.length === 0) {
+                      return (
+                        <div className="text-sm text-muted-foreground">
+                          No variants available
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div className="pl-2 space-y-2">
+                        {vg.variants.map((variant) => {
+                          return (
+                            <div
+                              key={variant.id}
+                              className="flex justify-between items-center border rounded-lg p-2"
+                            >
+                              <div>{variant.name}</div>
+
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => {
+                                  // handleEditVariant(variant.id)
+                                }}
+                              >
+                                Edit
+                              </Button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
+                </div>
+              );
+            });
+          })()}
         </div>
 
         {/* AddOns */}
@@ -209,6 +302,47 @@ const CreateVariantsAndAddons = () => {
               name="variant_group_name"
               children={(f) => {
                 return <f.TextField label="Variants Group Name" />;
+              }}
+            />
+
+            <DialogFooter>
+              <addVariantGroupForm.AppForm>
+                <addVariantGroupForm.SubmitButton>
+                  <PlusIcon />
+                  Add Variant group
+                </addVariantGroupForm.SubmitButton>
+              </addVariantGroupForm.AppForm>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={openVariantForm} onOpenChange={setOpenVariantForm}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              Create Variant group in the {activeItem.name}
+            </DialogTitle>
+          </DialogHeader>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addVariantsForm.handleSubmit();
+            }}
+          >
+            <addVariantsForm.AppField
+              name="name"
+              children={(f) => {
+                return <f.TextField label="Variants Name" />;
+              }}
+            />
+
+            <addVariantsForm.AppField
+              name="price"
+              children={(f) => {
+                return <f.TextField label="Variants Price" />;
               }}
             />
 

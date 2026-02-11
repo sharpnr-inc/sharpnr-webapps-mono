@@ -46,7 +46,7 @@ export function useAddVariantGroupMutation() {
 
 export function useAddVariantsInVariantGroup() {
   return useMutation({
-    mutationKey: [""],
+    mutationKey: ["ADD_VARIANTS"],
     mutationFn: AddVariantsInVariantGroup,
   });
 }

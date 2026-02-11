@@ -71,8 +71,15 @@ export async function AddVariantGroup(payload: AddVariantGroupPayload) {
   return res.data;
 }
 
-export async function AddVariantsInVariantGroup(ownersID: string) {
-  const res = await api.post(MenuModuleEndpoints.AddVariant(ownersID));
+interface AddVariantsPayload {
+  ownersID: string;
+  request_payload: any;
+}
+export async function AddVariantsInVariantGroup(payload: AddVariantsPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddVariant(payload.ownersID),
+    payload.request_payload,
+  );
   return res.data;
 }
 

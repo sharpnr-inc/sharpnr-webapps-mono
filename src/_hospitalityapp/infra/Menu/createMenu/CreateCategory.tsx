@@ -32,7 +32,8 @@ const CreateCategory = () => {
   const [openMenuForm, setOpenMenuForm] = useState(false);
   const queryClient = useQueryClient();
   const createCategory = useAddCategoryInMenuMutation();
-
+  const addMenu = useCreateMenuMutation();
+  
   const form = useAppForm({
     defaultValues: {
       menu_id: "",
@@ -58,7 +59,6 @@ const CreateCategory = () => {
     },
   });
 
-  const addMenu = useCreateMenuMutation();
   const menuForm = useAppForm({
     defaultValues: {
       owner_id: ownersID,
