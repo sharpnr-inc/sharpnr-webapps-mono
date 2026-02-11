@@ -67,11 +67,29 @@ export async function AddModulesInProperty({
 //================================================================================//
 
 export interface ConfigureRestaurantRequest {
-  payload:any
-  propertyID :string
+  payload: any;
+  propertyID: string;
 }
 
-export async function ConfigureRestaurant({payload, propertyID}:ConfigureRestaurantRequest){
-  const res = await api.post(OrchestratorConsole.property.ConfigureRestaurant(propertyID), payload)
-  return res.data
+export async function ConfigureRestaurant({
+  payload,
+  propertyID,
+}: ConfigureRestaurantRequest) {
+  const res = await api.post(
+    OrchestratorConsole.property.ConfigureRestaurant(propertyID),
+    payload,
+  );
+  return res.data;
+}
+
+interface ConfigureHotelPayload {
+  propertyID: string;
+  request_payload: any;
+}
+export async function ConfigureHotel(payload: ConfigureHotelPayload) {
+  const res = await api.post(
+    OrchestratorConsole.property.ConfigureHotel(payload.propertyID),
+    payload.request_payload,
+  );
+  return res.data;
 }

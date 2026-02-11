@@ -7,5 +7,6 @@ export function useModulesMenu(ownersID: string) {
     queryFn: () => GetMenu(ownersID),
     queryKey: ["Menu", ownersID],
     enabled: !!ownersID,
+
   });
 }

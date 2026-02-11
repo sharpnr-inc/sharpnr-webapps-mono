@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import {
   AddModulesInProperty,
+  ConfigureHotel,
   ConfigureRestaurant,
   SetDomainOfProperty,
 } from "../api.service";
@@ -23,5 +24,12 @@ export function useConfigureRestuarantMutations() {
   return useMutation({
     mutationKey: ["Property", "configuration", "Restaurant"],
     mutationFn: ConfigureRestaurant,
+  });
+}
+
+export function useConfigureHotelMutation() {
+  return useMutation({
+    mutationFn: ConfigureHotel,
+    mutationKey: ["Property", "Configuration", "Hotel"],
   });
 }
