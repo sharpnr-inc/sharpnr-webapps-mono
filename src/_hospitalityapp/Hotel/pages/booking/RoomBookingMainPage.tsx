@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react"
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/hotel/route";
+import { useHotelLayout } from "../../apis/queries";
+import { BedDouble, IndianRupee } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 /* ================================
    Types
@@ -8,165 +12,137 @@ type RoomStatus =
   | "occupied"
   | "reserved"
   | "cleaning"
-  | "out_of_service"
+  | "out_of_service";
 
-interface Room {
-  id: string
-  number: string
-  floor: number
-  type: string
-  status: RoomStatus
+interface StatusConfig {
+  label: string;
+  cardClass: string;
+  dotColor: string;
 }
 
 /* ================================
-   Dummy Data (inline for now)
+   Status Configuration
 ================================ */
-const DUMMY_ROOMS: Room[] = [
-  { id: "1", number: "G01", floor: 0, type: "Standard", status: "available" },
-  { id: "2", number: "G02", floor: 0, type: "Standard", status: "occupied" },
-  { id: "3", number: "G03", floor: 0, type: "Deluxe", status: "cleaning" },
-
-  { id: "4", number: "101", floor: 1, type: "Standard", status: "available" },
-  { id: "5", number: "102", floor: 1, type: "Deluxe", status: "reserved" },
-  { id: "6", number: "103", floor: 1, type: "Suite", status: "occupied" },
-  { id: "7", number: "104", floor: 1, type: "Standard", status: "available" },
-
-  { id: "8", number: "201", floor: 2, type: "Standard", status: "available" },
-  { id: "9", number: "202", floor: 2, type: "Deluxe", status: "occupied" },
-  { id: "10", number: "203", floor: 2, type: "Suite", status: "out_of_service" },
-  { id: "11", number: "204", floor: 2, type: "Standard", status: "cleaning" },
-
-  { id: "8", number: "201", floor: 2, type: "Standard", status: "available" },
-  { id: "9", number: "202", floor: 2, type: "Deluxe", status: "occupied" },
-  { id: "10", number: "203", floor: 2, type: "Suite", status: "out_of_service" },
-  { id: "11", number: "204", floor: 2, type: "Standard", status: "cleaning" },
-]
+const statusConfig: { [K in RoomStatus]: StatusConfig } = {
+  available: {
+    label: "Available",
+    cardClass: "border-emerald-200 bg-green-200 hover:bg-emerald-100 hover:border-emerald-300",
+    dotColor: "bg-emerald-500",
+  },
+  occupied: {
+    label: "Occupied",
+    cardClass: "border-red-200 bg-red-50 hover:bg-red-100 hover:border-red-300",
+    dotColor: "bg-red-500",
+  },
+  reserved: {
+    label: "Reserved",
+    cardClass: "border-amber-200 bg-amber-50 hover:bg-amber-100 hover:border-amber-300",
+    dotColor: "bg-amber-500",
+  },
+  cleaning: {
+    label: "Cleaning",
+    cardClass: "border-sky-200 bg-sky-50 hover:bg-sky-100 hover:border-sky-300",
+    dotColor: "bg-sky-500",
+  },
+  out_of_service: {
+    label: "Out of Service",
+    cardClass: "border-zinc-200 bg-zinc-50 hover:bg-zinc-100 hover:border-zinc-300",
+    dotColor: "bg-zinc-400",
+  },
+};
 
 /* ================================
-   Status Styles
+   Helper
 ================================ */
-const statusStyles: Record<RoomStatus, string> = {
-  available:
-    "bg-emerald-500/15 border-emerald-500/30 text-emerald-700",
-  occupied:
-    "bg-red-500/15 border-red-500/30 text-red-700",
-  reserved:
-    "bg-yellow-500/15 border-yellow-500/30 text-yellow-800",
-  cleaning:
-    "bg-sky-500/15 border-sky-500/30 text-sky-700",
-  out_of_service:
-    "bg-zinc-500/15 border-zinc-500/30 text-zinc-600",
+function normalizeStatus(status: string): RoomStatus {
+  return status.toLowerCase() as RoomStatus;
 }
 
 /* ================================
-   Room Card
-================================ */
-function RoomCard({
-  room,
-  onClick,
-}: {
-  room: Room
-  onClick?: (room: Room) => void
-}) {
-  return (
-    <button
-      onClick={() => onClick?.(room)}
-      className={`
-        aspect-square rounded-xl border p-3
-        flex flex-col justify-between
-        transition-all duration-200
-        hover:scale-[1.03] hover:shadow-md
-        ${statusStyles[room.status]}
-      `}
-    >
-      <div className="text-xl font-semibold">
-        {room.number}
-      </div>
-
-      <div className="text-xs opacity-70">
-        {room.type}
-      </div>
-
-      <div className="text-xs font-medium capitalize">
-        {room.status.replace("_", " ")}
-      </div>
-    </button>
-  )
-}
-
-/* ================================
-   Main Page
+   Page Component
 ================================ */
 export default function RoomBookingPage() {
-  const [rooms, setRooms] = useState<Room[]>([])
-  const [floor, setFloor] = useState<number | "all">("all")
+  const { hotelID } = Route.useLoaderData();
+  const { data: hotelLayout } = useHotelLayout(hotelID);
 
-  // Fake API call (inline)
-  useEffect(() => {
-    setTimeout(() => {
-      setRooms(DUMMY_ROOMS)
-    }, 300)
-  }, [])
+  const layout = hotelLayout?.data?.Layout ?? [];
 
-  const filteredRooms =
-    floor === "all"
-      ? rooms
-      : rooms.filter((r) => r.floor === floor)
+  if (!layout.length) {
+    return (
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <p className="text-muted-foreground">No rooms available</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">
-          Room Booking
-        </h1>
-
-        {/* Floor Filter */}
-        <div className="flex gap-2">
-          {["all", 0, 1, 2].map((f) => (
-            <button
-              key={f}
-              onClick={() => setFloor(f as any)}
-              className={`px-3 py-1 rounded-full text-sm border
-                ${
-                  floor === f
-                    ? "bg-black text-white"
-                    : "bg-white hover:bg-zinc-100"
-                }`}
-            >
-              {f === "all" ? "All" : `Floor ${f}`}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
-        {filteredRooms.map((room) => (
-          <RoomCard
-            key={room.id}
-            room={room}
-            onClick={(r) => {
-              // later → openSheet(r)
-              console.log("Room clicked:", r)
-            }}
-          />
-        ))}
-      </div>
-
+    <div className="space-y-6 p-4">
       {/* Legend */}
-      <div className="flex flex-wrap gap-3 text-sm pt-4">
-        {Object.keys(statusStyles).map((status) => (
-          <div
-            key={status}
-            className={`px-3 py-1 rounded-full border ${
-              statusStyles[status as RoomStatus]
-            }`}
-          >
-            {status.replace("_", " ")}
+      <div className="flex flex-wrap items-center gap-3 pb-3 border-b ">
+        <span className="text-xs font-medium text-muted-foreground">Status:</span>
+        {Object.entries(statusConfig).map(([status, config]) => (
+          <div key={status} className="flex items-center gap-1.5">
+            <div className={cn("h-2 w-2 rounded-full", config.dotColor)} />
+            <span className="text-xs">{config.label}</span>
           </div>
         ))}
       </div>
+
+      {layout.map((floor: any) => {
+        const rooms = floor.Rooms ?? [];
+
+        return (
+          <section key={floor.FloorID} className="space-y-3 text-gray-900">
+            {/* Floor Header */}
+            <div className="flex items-center gap-3">
+              <h2 className="text-base font-semibold">{floor.FloorName}</h2>
+              <span className="text-xs text-muted-foreground">
+                ({rooms.length} rooms)
+              </span>
+            </div>
+
+            {/* Compact Rooms Grid */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 2xl:grid-cols-12 gap-2">
+              {rooms.map((room: any) => {
+                const status = normalizeStatus(room.Status);
+                const config = statusConfig[status];
+
+                return (
+                  <button
+                    key={room.RoomID}
+                    className={cn(
+                      "relative border rounded-md p-2 transition-all duration-150 hover:shadow-sm hover:-translate-y-0.5 text-left",
+                      config.cardClass
+                    )}
+                  >
+                    {/* Status Dot */}
+                    <div
+                      className={cn(
+                        "absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full",
+                        config.dotColor
+                      )}
+                    />
+
+                    {/* Room Code */}
+                    <div className="text-xs font-bold mb-1 pr-3">{room.RoomName}</div>
+
+                    {/* Room Name */}
+                    <div className="text-[10px] leading-tight mb-1.5 line-clamp-1 opacity-80">
+                      {room.Code}
+                    </div>
+
+                    {/* Price */}
+                    <div className="flex items-center gap-0.5 text-[10px] font-semibold">
+                      <IndianRupee className="h-2.5 w-2.5" />
+                      {room.Price?.toLocaleString("en-IN")}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
     </div>
-  )
+  );
 }

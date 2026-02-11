@@ -27,7 +27,7 @@ const SelectField = ({ placeholder, options }: SelectFieldProps) => {
 
         <SelectContent>
           {options.map((opt) => (
-            <SelectItem key={opt.value} value={opt.label}>
+            <SelectItem key={opt.value} value={opt.value}>
               {opt.label}
             </SelectItem>
           ))}

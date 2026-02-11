@@ -1,22 +1,17 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
-import { Search, Trash2, ReceiptText } from "lucide-react";
+import { Search } from "lucide-react";
 import Menu from "@/_hospitalityapp/infra/Menu/menu/menu";
 import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 
 const RestaurantSaleTerminalPage: React.FC = () => {
+  const { restaurantID, propertyID } = Route.useLoaderData();
   return (
-    <div className="flex  w-full gap-4">
+    <div className="mt-2">
       <div className="w-full">
         <section className="flex flex-col flex-1 gap-2">
           <header className="flex items-center gap-4">
@@ -37,13 +32,13 @@ const RestaurantSaleTerminalPage: React.FC = () => {
             </div>
           </header>
 
-          <Menu>
+          <Menu ownersID={restaurantID}>
             <Menu.MenuCategories />
             <Separator />
             <Menu.MenuSubCategories />
             <Separator />
             <ScrollArea className="border p-2 h-[65vh]">
-              <Menu.MenuItems className="relative"/>
+              <Menu.MenuItems className="relative" />
             </ScrollArea>
 
             <MenuCart>
@@ -52,56 +47,6 @@ const RestaurantSaleTerminalPage: React.FC = () => {
           </Menu>
         </section>
       </div>
-
-      <aside className="flex flex-col gap-4 max-h-[60vh] h-[50vh] w-1/3">
-        <Card className="flex-1  border-2 border-black flex flex-col ">
-          <CardHeader className="border-b border-black">
-            <CardTitle className="flex items-center gap-2">
-              <ReceiptText className="h-5 w-5" />
-              Current Order
-            </CardTitle>
-          </CardHeader>
-
-          <CardContent className="flex-1 p-0">
-            <ScrollArea className="h-[450px] p-4">
-              {/* Sample Order Line Items */}
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <div
-                  key={item}
-                  className="flex justify-between items-center mb-4"
-                >
-                  <div className="flex flex-col">
-                    <span className="font-bold uppercase text-xs">
-                      Classic Burger
-                    </span>
-                    <span className="text-xs opacity-60">Qty: 1 x $15.00</span>
-                  </div>
-                </div>
-              ))}
-            </ScrollArea>
-          </CardContent>
-
-          <CardFooter className="flex flex-col gap-4 border-t border-black p-4">
-            <div className="w-full space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Subtotal</span>
-                <span>$45.00</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span>Tax (10%)</span>
-                <span>$4.50</span>
-              </div>
-              <Separator className="bg-black" />
-              <div className="flex justify-between text-xl font-black">
-                <span>TOTAL</span>
-                <span>$49.50</span>
-              </div>
-            </div>
-
-            <Button className="bg-black text-white w-full">PAYMENT</Button>
-          </CardFooter>
-        </Card>
-      </aside>
     </div>
   );
 };

@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import EmptyMenu from "./EmptyMenu";
+import { Card, CardContent } from "@/components/ui/card";
 import CreateMenu from "../createMenu/CreatMenu";
 
 interface MenuSettingsProps {
@@ -13,27 +6,24 @@ interface MenuSettingsProps {
   propertyID?: string;
 }
 
-const MenuSettings: React.FC<MenuSettingsProps> = ({ moduleID }) => {
+const MenuSettings: React.FC<MenuSettingsProps> = ({
+  moduleID,
+  propertyID,
+}) => {
   return (
-    <div>
-      {/* <Card>
-        <CardHeader>
-          <CardTitle>Set Who serves the Menu</CardTitle>
-          <CardDescription>
-            Here you can set the Which Property's Accessible kitchen can serve
-            your Whole Menu, you can even set the Each Menu Item can serve by
-            different kitchens
-          </CardDescription>
-        </CardHeader>
-        <CardContent></CardContent>
-      </Card>
-      <EmptyMenu /> */}
-      <CreateMenu>
-        <CreateMenu.CreateCategory />
-        <CreateMenu.CreateSubCategory />
-        <CreateMenu.CreateItem />
-        <CreateMenu.CreateVariantsAndAddons/>
-      </CreateMenu>
+    <div className="space-y-2 w-full">
+      <CardContent>
+        <CreateMenu
+          ownersID={moduleID}
+          propertyID={propertyID}
+          ownersType="RESTAURANT"
+        >
+          <CreateMenu.CreateCategory />
+          <CreateMenu.CreateSubCategory />
+          <CreateMenu.CreateItem />
+          <CreateMenu.CreateVariantsAndAddons />
+        </CreateMenu>
+      </CardContent>
     </div>
   );
 };

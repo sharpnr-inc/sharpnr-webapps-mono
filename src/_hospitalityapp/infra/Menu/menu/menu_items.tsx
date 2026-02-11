@@ -14,15 +14,16 @@ interface MenuItemProps {
 }
 
 const MenuItems = ({ className }: MenuItemProps) => {
-  const { dummyMenuData } = useMenuCtx();
+  const { MenuData } = useMenuCtx();
   const { activeSubCategoryID } = useMenuStore();
 
   // Find SubCategory from all categories
-  const subCategory = dummyMenuData.menuCategory
-    .flatMap((cat) => cat.menuSubCategory)
+  if (!MenuData?.length) return null;
+  const subCategory = MenuData[0]?.categories
+    .flatMap((cat) => cat.sub_categories)
     .find((sub) => sub.id === activeSubCategoryID);
 
-  const items = subCategory?.menu_item ?? [];
+  const items = subCategory?.menu_items ?? [];
 
   // Fallback 1
   if (!activeSubCategoryID) {
@@ -57,7 +58,7 @@ const MenuItems = ({ className }: MenuItemProps) => {
             </div>
 
             <div className="text-xs text-muted-foreground">
-              {item.dietaryType}
+              {item.dietary_type}
             </div>
           </CardContent>
         </Card>

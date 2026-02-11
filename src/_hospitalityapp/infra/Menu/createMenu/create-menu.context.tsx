@@ -1,12 +1,17 @@
-import type { MenuInterface } from "@/lib/create_menu";
 import { createContext, useContext } from "react";
+import type { MenuOutput } from "./types";
 
 interface CreateMenuContextType {
-  dummyMenuData: MenuInterface;
+  Menus: MenuOutput[] | undefined;
+  isMenuLoading: boolean;
+  isMenuLoaded: boolean;
   step: number;
   nextStep: () => void;
   prevStep: () => void;
   goToStep: (index: number) => void;
+
+  ownersID: string;
+  ownersType: string;
 }
 
 const CreateMenuContext = createContext<CreateMenuContextType | null>(null);

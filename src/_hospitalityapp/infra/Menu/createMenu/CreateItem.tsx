@@ -16,7 +16,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DietaryBadgeColor } from "./utils";
 import { createMenuAction } from "../stores/CreateMenu/actions";
 import {
   Dialog,
@@ -31,38 +30,63 @@ import {
   DietaryType,
   type DietaryType as DietaryTypeUnion,
 } from "@/lib/create_menu";
+import { useAddMenuItemMutation } from "../apis/api.Mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateItem = () => {
-  const { dummyMenuData, prevStep, nextStep } = useCreateMenuCtx();
+  const queryClient = useQueryClient();
+  const { Menus, prevStep, nextStep, ownersID } = useCreateMenuCtx();
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
+  const activeMenu = useCreateMenuStore((s) => s.activeMenu?.id);
   const [open, setOpen] = useState(false);
 
-  // Find Active SubCategory (search inside all categories)
-  const activeSubCategory = dummyMenuData.menuCategory
-    .flatMap((cat) => cat.menuSubCategory)
+  const activeSubCategory = Menus?.flatMap((m) => m.categories)
+    .flatMap((c) => c.sub_categories)
     .find((sc) => sc.id === activeSubCategoryID);
 
-  const items = activeSubCategory?.menu_item || [];
+  const items = activeSubCategory?.menu_items ?? [];
 
   const DietaryTypeSelectOptions = [
-    { label: "Vegetarian", value: DietaryType.VEG },
-    { label: "Non-Vegetarian", value: DietaryType.NON_VEG },
+    { label: "Vegetarian", value: DietaryType.VEGETARIAN },
+    { label: "Non-Vegetarian", value: DietaryType.NON_VEGETARIAN },
     { label: "Vegan", value: DietaryType.VEGAN },
     { label: "Contains Egg", value: DietaryType.EGG },
+    { label: "Jain", value: DietaryType.JAIN },
+    { label: "Gluten Free", value: DietaryType.GLUTEN_FREE },
   ];
+
+  const addMenuItem = useAddMenuItemMutation();
 
   const form = useAppForm({
     defaultValues: {
-      category_id: "",
-      subCategoryID: "",
-      item_name: "",
-      item_description: "",
+      menu_id: activeMenu,
+      menu_sub_category_id: activeSubCategoryID,
+      name: "",
+      description: "",
+      unit: "",
       base_price: 0,
       dietary_type: "" as DietaryTypeUnion | "",
     },
-    onSubmit:({value})=> {
-    console.log(value)
-    }
+    onSubmit: ({ value }) => {
+      addMenuItem.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: {
+            ...value,
+            base_price: Number(value.base_price),
+          },
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+            form.reset();
+            setOpen(false);
+          },
+        },
+      );
+    },
   });
 
   return (
@@ -76,7 +100,7 @@ const CreateItem = () => {
           <div>
             <CardTitle>
               {activeSubCategory
-                ? activeSubCategory.name
+                ? activeSubCategory.sub_cat_name
                 : "Select SubCategory"}
             </CardTitle>
             <CardDescription>
@@ -90,21 +114,16 @@ const CreateItem = () => {
             <div className="text-sm text-muted-foreground">No Items Found</div>
           )}
 
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2  md:grid-cols-4  gap-4">
             {items.map((item) => (
               <TooltipProvider key={item.id}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Card
-                      className="
-            cursor-pointer
-            transition-all
-            hover:border-primary
-            hover:bg-muted/40
-          "
+                      className="cursor-pointer transition-all hover:border-primary hover:bg-muted/40"
                       onClick={() => {
                         // later you can open edit modal here
-                        console.log("Edit Item", item.id);
+
                         createMenuAction.setActiveItem(item.id);
                         nextStep();
                       }}
@@ -116,11 +135,9 @@ const CreateItem = () => {
                           </CardTitle>
 
                           <div className="flex items-center gap-2">
-                            <div
-                              className={`w-3 h-3 rounded-sm ${DietaryBadgeColor[item.dietaryType]}`}
-                            />
+                            <div className={`w-3 h-3 rounded-sm ${``}`} />
                             <span className="text-xs text-muted-foreground">
-                              {item.dietaryType}
+                              {item.dietary_type}
                             </span>
                           </div>
                         </div>
@@ -140,16 +157,18 @@ const CreateItem = () => {
                           </div>
 
                           <div className="space-y-1 max-h-28 overflow-auto">
-                            {item.menuItemVariants?.variants?.length ? (
-                              item.menuItemVariants.variants.map((v) => (
-                                <div
-                                  key={v.id}
-                                  className="flex justify-between text-sm border rounded-md px-2 py-1"
-                                >
-                                  <span>{v.name}</span>
-                                  <span>+ ₹ {v.price}</span>
-                                </div>
-                              ))
+                            {item.variant_groups?.length ? (
+                              item.variant_groups.flatMap((vg) =>
+                                vg.variants.map((v) => (
+                                  <div
+                                    key={v.id}
+                                    className="flex justify-between text-sm border rounded-md px-2 py-1"
+                                  >
+                                    <span>{v.name}</span>
+                                    <span>+ ₹ {v.price}</span>
+                                  </div>
+                                )),
+                              )
                             ) : (
                               <div className="text-xs text-muted-foreground">
                                 No Variants
@@ -165,8 +184,8 @@ const CreateItem = () => {
                           </div>
 
                           <div className="space-y-1 max-h-28 overflow-auto">
-                            {item.addOns?.length ? (
-                              item.addOns.map((a) => (
+                            {item.add_ons?.length ? (
+                              item.add_ons.map((a) => (
                                 <div
                                   key={a.id}
                                   className="flex justify-between text-sm border rounded-md px-2 py-1"
@@ -201,7 +220,7 @@ const CreateItem = () => {
         </CardContent>
 
         <Button className="m-3" onClick={() => setOpen(true)}>
-          <PlusIcon /> {`Add Item in ${activeSubCategory?.name}`}
+          <PlusIcon /> {`Add Item in ${activeSubCategory?.sub_cat_name}`}
         </Button>
       </Card>
 
@@ -218,15 +237,21 @@ const CreateItem = () => {
             }}
           >
             <form.AppField
-              name="item_name"
+              name="name"
               children={(f) => {
                 return <f.TextField label="Item Name" />;
               }}
             />
             <form.AppField
-              name="item_description"
+              name="description"
               children={(f) => {
                 return <f.TextAreaField label="Item Description" />;
+              }}
+            />
+            <form.AppField
+              name="unit"
+              children={(f) => {
+                return <f.TextField label="Item Unit" />;
               }}
             />
             <form.AppField

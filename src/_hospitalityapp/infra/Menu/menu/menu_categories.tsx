@@ -4,14 +4,12 @@ import { menuActions } from "../stores/Menu/action";
 import { useMenuStore } from "../stores/Menu/menu_store";
 
 const MenuCategories = () => {
-  const { dummyMenuData } = useMenuCtx();
+  const { MenuData } = useMenuCtx();
   const { activeCategoryID } = useMenuStore();
-
+  if (!MenuData?.length) return null;
   return (
     <div className="flex gap-3 p-2 overflow-x-auto">
-      {dummyMenuData.menuCategory.map((c) => {
-       
-
+      {MenuData[0]?.categories.map((c) => {
         return (
           <Button
             size={"sm"}
@@ -22,7 +20,7 @@ const MenuCategories = () => {
               menuActions.setCategory(c.id);
             }}
           >
-            {c.name}
+            {c.category_name}
           </Button>
         );
       })}

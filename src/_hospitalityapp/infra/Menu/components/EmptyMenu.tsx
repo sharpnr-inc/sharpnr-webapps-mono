@@ -10,7 +10,7 @@ interface EmptyMenuProps {
 const EmptyMenu: React.FC<EmptyMenuProps> = ({ onCreateClick }) => {
   return (
     <div className="flex h-full w-full items-center justify-center p-6">
-      <Card className="w-full max-w-md border-dashed">
+      <Card className="w-full border-dashed">
         <CardContent className="flex flex-col items-center justify-center gap-4 py-10 text-center">
           
           <div className="rounded-full bg-muted p-4">

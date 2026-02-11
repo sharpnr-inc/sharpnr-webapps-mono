@@ -4,7 +4,6 @@ import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSheet } from "@/context/DrawerContext";
-import RestaurantSaleTerminalPage from "./RestaurantSaleTerminalPage";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -38,7 +37,7 @@ const RestaurantTableManagementPage: React.FC = () => {
 
   const handleTest = (t: RestaurantTableLayout) => {
     if (t.Status === "AVAILABLE") {
-      openSheet(<RestaurantSaleTerminalPage />, "3/4");
+      openSheet(<div>Testing</div>, "3/4");
     }
   };
 
