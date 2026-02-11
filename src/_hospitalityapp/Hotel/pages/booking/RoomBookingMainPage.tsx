@@ -124,11 +124,11 @@ export default function RoomBookingPage() {
                     />
 
                     {/* Room Code */}
-                    <div className="text-xs font-bold mb-1 pr-3">{room.Code}</div>
+                    <div className="text-xs font-bold mb-1 pr-3">{room.RoomName}</div>
 
                     {/* Room Name */}
                     <div className="text-[10px] leading-tight mb-1.5 line-clamp-1 opacity-80">
-                      {room.RoomName}
+                      {room.Code}
                     </div>
 
                     {/* Price */}
