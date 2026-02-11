@@ -2,10 +2,10 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   SidebarContent,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   FileText,
@@ -13,19 +13,42 @@ import {
   User,
   ClipboardList,
   CheckSquare,
+  Building2,
 } from "lucide-react";
 
 export function IamSidebar() {
   const { location } = useRouterState();
   const pathname = location.pathname;
 
+  const { state } = useSidebar();
+  const collapsed = state === "collapsed";
   const isActive = (path: string) => pathname.startsWith(path);
 
   return (
     <SidebarContent>
-      <SidebarGroup>
-        <SidebarGroupLabel>IAM</SidebarGroupLabel>
+      <div className="p-2">
+        <div
+          className={`
+        flex items-center gap-3 rounded-lg
+        
+        ${collapsed ? "justify-center p-2" : "p-2"}
+      `}
+        >
+          <div className="h-9 w-9 rounded-md bg-primary/10 flex items-center justify-center shrink-0">
+            <Building2 className="h-5 w-5 text-primary" />
+          </div>
 
+          {!collapsed && (
+            <div className="flex flex-col overflow-hidden">
+              <span className="text-sm font-semibold truncate">
+                Acme Corporation
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <SidebarGroup>
         <SidebarMenu>
           {/* Profile */}
           <SidebarMenuItem>
