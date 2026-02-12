@@ -10,10 +10,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { useAppUserProfile } from "./api/queries";
 
 interface AppUserProfilePageProps {}
 
 const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
+  const { data: employeeProfileData, isLoading, isError } = useAppUserProfile();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading profile</div>;
+  }
+
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -24,13 +35,17 @@ const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
           </Avatar>
 
           <div className="space-y-2">
-            <h2 className="text-2xl font-semibold">Arjun Rao</h2>
+            <h2 className="text-2xl font-semibold">
+              {employeeProfileData?.data.first_name +
+                " " +
+                employeeProfileData?.data.last_name || "Name Not Available"}
+            </h2>
             <div className="flex items-center gap-2">
               <Badge>Administrator</Badge>
               <Badge variant="secondary">Active</Badge>
             </div>
             <p className="text-sm text-muted-foreground">
-              arjun.rao@acmecorp.com
+              {employeeProfileData?.data.email || "Email Not Available"}
             </p>
           </div>
 

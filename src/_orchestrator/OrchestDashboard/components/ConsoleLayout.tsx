@@ -92,6 +92,12 @@ const orchestratorLinks: SidebarLink[] = [
     icon: Users,
     tooltip: "User Directory",
   },
+   {
+    label: "Audit Logs",
+    path:"/orchestrator/audit-logs",
+    icon: FileText,
+    tooltip: "Audit Logs",
+  },
 ];
 
 /* =========================
