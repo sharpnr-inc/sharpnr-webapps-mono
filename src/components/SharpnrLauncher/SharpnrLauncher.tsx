@@ -25,7 +25,7 @@ export default function SharpnrLauncher() {
   useEffect(() => {
     // Simulate API fetch
     setTimeout(() => {
-      setPermissions(["hotel", "bar", "kitchen", "hr", "orchestrator"]);
+      setPermissions(["resto", "bar", "kitchen", "hr", "orchestrator"]);
       setIsLoading(false);
     }, 2000);
   }, []);
@@ -52,7 +52,11 @@ export default function SharpnrLauncher() {
           size="icon"
           className="h-10 w-10 rounded-full p-0 transition-transform active:scale-90 ring-1 ring-border"
         >
-          <img src="/AppIcon.png" alt="Sharpnr" className="h-10 w-10 rounded-full grayscale" />
+          <img
+            src="/AppIcon.png"
+            alt="Sharpnr"
+            className="h-10 w-10 rounded-full grayscale"
+          />
         </Button>
       </DropdownMenuTrigger>
 
@@ -68,12 +72,17 @@ export default function SharpnrLauncher() {
             modules.map((section, index) => (
               <DropdownMenuGroup
                 key={section.id}
-                className={cn("mb-6 last:mb-0", section.isSubSection && "-mt-4")}
+                className={cn(
+                  "mb-6 last:mb-0",
+                  section.isSubSection && "-mt-4",
+                )}
               >
                 <DropdownMenuLabel
                   className={cn(
                     "mb-3 px-2 text-[10px] font-bold uppercase tracking-[0.15em]",
-                    section.isSubSection ? "text-muted-foreground/40 italic" : "text-muted-foreground/60"
+                    section.isSubSection
+                      ? "text-muted-foreground/40 italic"
+                      : "text-muted-foreground/60",
                   )}
                 >
                   {section.title}
