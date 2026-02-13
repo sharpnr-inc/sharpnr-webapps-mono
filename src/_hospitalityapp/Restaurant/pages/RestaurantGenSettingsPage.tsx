@@ -17,7 +17,9 @@ interface RestaurantGenSettingsPageProps {}
 const RestaurantGenSettingsPage: React.FC<
   RestaurantGenSettingsPageProps
 > = () => {
-  const { restaurantID, propertyID } = Route.useLoaderData();
+  const { properties } = Route.useLoaderData();
+  const selectedProperty = properties?.[0];
+  const restaurantID = selectedProperty?.Restaurents;
   return (
     <div className="w-full mt-4 space-y-2">
       <Card>
@@ -58,7 +60,10 @@ const RestaurantGenSettingsPage: React.FC<
         </TabsContent>
 
         <TabsContent value="menu">
-          <MenuSettings moduleID={restaurantID} propertyID={propertyID} />
+          <MenuSettings
+            moduleID={restaurantID}
+            propertyID={selectedProperty.PropertyID}
+          />
         </TabsContent>
 
         <TabsContent value="app_settings">

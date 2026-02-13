@@ -9,7 +9,9 @@ import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 
 const RestaurantSaleTerminalPage: React.FC = () => {
-  const { restaurantID, propertyID } = Route.useLoaderData();
+  const { properties } = Route.useLoaderData();
+  const selectedProperty = properties?.[0];
+  const restaurantID = selectedProperty?.Restaurents;
   return (
     <div className="mt-2">
       <div className="w-full">

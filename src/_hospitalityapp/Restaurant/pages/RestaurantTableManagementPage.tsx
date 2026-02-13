@@ -20,7 +20,9 @@ export interface RestaurantFloorLayout {
 }
 
 const RestaurantTableManagementPage: React.FC = () => {
-  const { restaurantID } = Route.useLoaderData();
+  const { properties } = Route.useLoaderData();
+  const selectedProperty = properties?.[0];
+  const restaurantID = selectedProperty?.Restaurents;
   const { data, isLoading } = useRestaurantLayout(restaurantID);
   const { openSheet } = useSheet();
 

@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { IndianRupee, Utensils, Users } from "lucide-react";
 import { PieChart, Pie, Cell } from "recharts";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
-import { useRestaurantContext } from "../apis/queries";
 
 const stats = [
   {
@@ -46,10 +45,8 @@ const COLORS = ["#22c55e", "#e5e7eb"];
 
 export default function RestaurantOverviewPage() {
   const occupancyPercent = Math.round((occupiedTables / totalTables) * 100);
-  const { propertyID, restaurantID } = Route.useLoaderData();
-  console.log(restaurantID)
-
-  const { data: restaurantContext } =useRestaurantContext();
+  const { properties } = Route.useLoaderData();
+  console.log(properties[0]);
 
   return (
     <div className="space-y-3">
