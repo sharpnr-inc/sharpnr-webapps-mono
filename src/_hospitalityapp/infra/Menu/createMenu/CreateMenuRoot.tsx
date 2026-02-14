@@ -19,6 +19,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
   children,
   ownersID,
   ownersType,
+  propertyID,
 }) => {
   const [step, setStep] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
@@ -71,6 +72,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
         step,
         ownersID,
         ownersType,
+        propertyID
       }}
     >
       <Carousel setApi={setApi} className="" opts={{ watchDrag: false }}>

@@ -78,11 +78,11 @@ export const hotelSidebarMenu: SidebarItem[] = [
     to: "/dashboard/sharp_hospitality/hotel/checkout",
     icon: CheckSquare2Icon,
   },
-  {
-    label: "General Settings",
-    to: "/dashboard/sharp_hospitality/hotel/hotel-settings",
-    icon: Settings,
-  },
+  // {
+  //   label: "General Settings",
+  //   to: "/dashboard/sharp_hospitality/hotel/hotel-settings",
+  //   icon: Settings,
+  // },
 ];
 
 export function HotelSidebar() {

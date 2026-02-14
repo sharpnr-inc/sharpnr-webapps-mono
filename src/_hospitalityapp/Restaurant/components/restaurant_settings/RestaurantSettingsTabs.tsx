@@ -5,8 +5,9 @@ import RestaurantGeneralSettingsComp from "./components_forms/RestaurantGeneralS
 
 const RestaurantSettingsTabs = () => {
   const { restaurantID, propertyId } = Route.useParams();
+  
   return (
-    <div className="p-4 mt-4">
+    <div className="p-2 mt-4">
       <div>
         <h2 className="text-xl font-semibold">Restaurant Settings</h2>
         <p className="text-gray-600">
@@ -21,6 +22,13 @@ const RestaurantSettingsTabs = () => {
             <TabsTrigger value="Menu">Menu</TabsTrigger>
             <TabsTrigger value="Hours">Hours</TabsTrigger>
             <TabsTrigger value="Staff">Staff</TabsTrigger>
+            <TabsTrigger value="LegalEntity">Legal Entity</TabsTrigger>
+            <TabsTrigger value="Integrations">
+              Layouts
+            </TabsTrigger>
+            <TabsTrigger value="Notifications" disabled>
+              Notifications
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="Generals">
             <RestaurantGeneralSettingsComp />
@@ -30,6 +38,11 @@ const RestaurantSettingsTabs = () => {
           </TabsContent>
           <TabsContent value="Hours">Hours Settings Content</TabsContent>
           <TabsContent value="Staff">Staff Settings Content</TabsContent>
+          <TabsContent value="LegalEntity">Legal Entity Settings Content</TabsContent>
+          <TabsContent value="Integrations">Integrations Settings Content</TabsContent>
+          <TabsContent value="Notifications">
+            Notifications Settings Content
+          </TabsContent>
         </Tabs>
       </div>
     </div>

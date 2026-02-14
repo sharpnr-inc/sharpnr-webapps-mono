@@ -12,6 +12,7 @@ interface CreateMenuContextType {
 
   ownersID: string;
   ownersType: string;
+  propertyID?: string;
 }
 
 const CreateMenuContext = createContext<CreateMenuContextType | null>(null);

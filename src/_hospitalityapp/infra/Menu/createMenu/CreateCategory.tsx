@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useCreateMenuCtx } from "./create-menu.context";
 import {
   Card,
@@ -25,15 +25,37 @@ import {
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+// Dummy data mimicking your Hospitality modules
+const STATIONS = [
+  { id: "uuid-1", name: "Main Kitchen", type: "KITCHEN" },
+  { id: "uuid-2", name: "Poolside Bar", type: "BAR" },
+  { id: "uuid-3", name: "Pastry Unit", type: "BAKERY" },
+  { id: "uuid-4", name: "Service Bar 2", type: "BAR" },
+];
 
 const CreateCategory = () => {
-  const { Menus, nextStep, ownersID, ownersType } = useCreateMenuCtx();
+  const { Menus, nextStep, ownersID, ownersType, propertyID } =
+    useCreateMenuCtx();
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
   const queryClient = useQueryClient();
+  const test = queryClient.getQueryData(["Property Details", !!propertyID]);
+  console.log(test);
   const createCategory = useAddCategoryInMenuMutation();
   const addMenu = useCreateMenuMutation();
-  
+
+  const [selectedId, setSelectedId] = React.useState<string>("");
+
   const form = useAppForm({
     defaultValues: {
       menu_id: "",
@@ -101,6 +123,44 @@ const CreateCategory = () => {
                   <CardHeader>
                     <CardTitle>{m.menu_name}</CardTitle>
                     <CardDescription>{m?.menu_description}</CardDescription>
+
+                    <div className="p-4 space-y-2">
+                      <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        Assign Menu to Station
+                      </label>
+
+                      <Select onValueChange={(value) => setSelectedId(value)}>
+                        <SelectTrigger className="w-[240px]">
+                          <SelectValue placeholder="Select a station" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Available Stations</SelectLabel>
+                            {STATIONS.map((station) => (
+                              <SelectItem key={station.id} value={station.id}>
+                                <div className="flex items-center gap-2">
+                                  <span>
+                                    {station.type === "BAR"
+                                      ? "🍷"
+                                      : station.type === "BAKERY"
+                                        ? "🍰"
+                                        : "🍳"}
+                                  </span>
+                                  <span>{station.name}</span>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+
+                      {selectedId && (
+                        <p className="text-xs text-muted-foreground mt-2">
+                          Selected UUID:{" "}
+                          <span className="font-mono">{selectedId}</span>
+                        </p>
+                      )}
+                    </div>
                   </CardHeader>
                   <CardContent>
                     {!m.categories || m.categories.length === 0 ? (
