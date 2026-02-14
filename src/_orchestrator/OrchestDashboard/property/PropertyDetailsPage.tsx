@@ -1,13 +1,3 @@
-//this page shows the details of property
-// this component is domain agnostic
-// TODO we need a body witch will be domain agnostic
-// FIXME Here the there is an mistake with response body
-// FIXME  We need Property modules and infra section because the Kitchen is an infra
-// *Kitchen is an infra of the property where order is processed
-
-// TODO remove the API integration and then Create and Domain agnostic schema
-// We will also gonna need the flags in modules that if the property's modules are configure or Not
-
 import {
   Card,
   CardContent,
@@ -91,6 +81,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   const property = data?.data;
 
   const nav = useNavigate();
+
   const handleModuleConfigure = (module: ModulesDetailsDto) => {
     if (module.module_type == "HOTEL") {
       nav({
@@ -128,7 +119,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   };
 
   const handleModuleNav = (module: ModulesDetailsDto) => {
-    if (!module.is_configured && module.module_type == "HOTEL") {
+    if (module.is_configured && module.module_type == "HOTEL") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
         params: {
@@ -184,43 +175,60 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           Property page
         </Button>
       </div>
-      <Card className="relative">
-        <CardHeader className="flex flex-row items-start justify-between gap-4">
-          <div className="space-y-2">
-            <CardTitle className="text-lg">Property Name</CardTitle>
-
-            <CardDescription className="space-y-3">
-              {/* Address */}
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
-                <span>Joshi Marg, Jhotwara, Jaipur, Rajasthan 302012</span>
-              </div>
+      <Card className="group transition-all hover:shadow-md">
+        <CardHeader className="space-y-4">
+          {/* Top Row */}
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-1">
+              <CardTitle className="text-lg leading-tight">
+                {property?.name}
+              </CardTitle>
 
               {/* Domain */}
-              <div className="flex items-center gap-3">
-                <p className="text-sm text-muted-foreground">Domain</p>
-                <SB variant="secondary">Hospitality</SB>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Domain:</span>
+                <SB variant="secondary" className="text-xs">
+                  Hospitality
+                </SB>
               </div>
-            </CardDescription>
+            </div>
+
+            <Button
+              onClick={handlePropertySettingPage}
+              size="sm"
+              className="shrink-0"
+            >
+              <WrenchIcon className="mr-2 h-4 w-4" />
+              Settings
+            </Button>
           </div>
 
-          {/* Settings Button */}
-          <Button
-            onClick={() => handlePropertySettingPage()}
-            size="default"
-            variant="default"
-            className="shrink-0"
-          >
-            <WrenchIcon className="mr-2 h-4 w-4" />
-            Settings
-          </Button>
+          {/* Address */}
+          <CardDescription>
+            <div className="flex items-start gap-2 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+              <span>
+                {[
+                  property?.address_line,
+                  property?.city,
+                  property?.state,
+                  property?.country,
+                ]
+                  .filter(Boolean)
+                  .join(", ")}
+              </span>
+            </div>
+          </CardDescription>
         </CardHeader>
 
-        {/* Footer */}
-        <CardFooter className="pt-0">
-          <Button variant="link" className="px-0">
-            <AlertCircleIcon />
-            Learn more about the property’s domain
+        <CardFooter className="border-t pt-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <AlertCircleIcon className="mr-2 h-4 w-4" />
+            Learn more about this domain
           </Button>
         </CardFooter>
       </Card>
