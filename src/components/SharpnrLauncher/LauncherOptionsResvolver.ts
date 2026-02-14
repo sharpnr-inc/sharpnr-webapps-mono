@@ -5,13 +5,13 @@
 import { useMemo } from "react";
 import { APP_MODULES, type NavSection } from "./LaunchOptionsResgistry";
 
-// Mock API Call - Replace with your actual TanStack Query or fetch logic
-const fetchUserModules = async (): Promise<string[]> => {
-  // Simulating API delay
-  await new Promise((resolve) => setTimeout(resolve, 1500));
-  // Return list of IDs the user has access to
-  return ["hotel", "bar", "kitchen", "hr", "orchestrator"]; 
-};
+// // Mock API Call - Replace with your actual TanStack Query or fetch logic
+// const fetchUserModules = async (): Promise<string[]> => {
+//   // Simulating API delay
+//   await new Promise((resolve) => setTimeout(resolve, 1500));
+//   // Return list of IDs the user has access to
+//   return ["hotel", "bar", "kitchen", "hr", "orchestrator"]; 
+// };
 
 export function useLauncherResolver(userPermissions: string[] | undefined, isLoading: boolean) {
   const resolvedModules = useMemo(() => {
