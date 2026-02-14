@@ -6,3 +6,5 @@ const RestaurantSettings = Object.assign(RestaurantSettingsRoot, {
 });
 
 export default RestaurantSettings;
+
+

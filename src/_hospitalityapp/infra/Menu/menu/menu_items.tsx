@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import { usePOSCartStore } from "../../pos/Cart/store/cart.store";
 
 interface MenuItemProps {
   className?: string;
@@ -16,6 +17,9 @@ interface MenuItemProps {
 const MenuItems = ({ className }: MenuItemProps) => {
   const { MenuData } = useMenuCtx();
   const { activeSubCategoryID } = useMenuStore();
+  const setCartItem = usePOSCartStore((s)=> s.setCartItem)
+  const cartItem = usePOSCartStore((state)=> state.cart)
+  console.log(cartItem)
 
   // Find SubCategory from all categories
   if (!MenuData?.length) return null;
@@ -45,7 +49,8 @@ const MenuItems = ({ className }: MenuItemProps) => {
         <Card
           key={item.id}
           className="h-full text-sm hover:border-accent-foreground cursor-pointer"
-          onClick={() => console.log(item.id)}
+          onClick={() => setCartItem(item)
+          }
         >
           <CardHeader>
             <CardTitle>{item.name}</CardTitle>

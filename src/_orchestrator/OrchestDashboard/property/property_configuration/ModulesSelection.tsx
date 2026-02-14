@@ -34,6 +34,7 @@ export function ModulesSelectionSection({
   const navigate = useNavigate();
   const { data: domainData, isLoading } = useHospitalityDomainModInfra(domain);
 
+  console.log(domainData, "domainData");
   const modules = domainData?.data?.modules ?? [];
   const infrastructure = domainData?.data?.infrastructure ?? [];
 

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "@tanstack/react-router";
 import { useFormsModal } from "@/context/FormModalContext";
 import CreateLegalEntityForm from "./CreateLegalEntityForm";
+import { useOrganizationLegalEntities } from "../api/queries/legal_entity";
 
 export interface LegalEntity {
   id: string;
@@ -66,6 +67,8 @@ const dummyLegalEntities: LegalEntity[] = [
 ];
 
 export function LegalEntityIndexPage() {
+  const { data: legalEntities, isLoading } = useOrganizationLegalEntities();
+  console.log("Legal Entities from API:", legalEntities);
   const navigate = useNavigate();
   const { showModal } = useFormsModal();
 

@@ -17,4 +17,9 @@ export const OrchestratorConsole = {
     ConfigureHotel: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/configure-hotel`,
   },
+
+  legalEntity:{
+    getAll: "/orchestrator/console/legal-entity",
+    create: "/orchestrator/console/legal-entity/create",
+  }
 };

@@ -73,8 +73,8 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
         ownersType,
       }}
     >
-      <Carousel setApi={setApi} className="w-full" opts={{ watchDrag: false }}>
-        <CarouselContent>
+      <Carousel setApi={setApi} className="" opts={{ watchDrag: false }}>
+        <CarouselContent className="">
           {steps.map((child, i) => (
             <CarouselItem key={i}>{child}</CarouselItem>
           ))}

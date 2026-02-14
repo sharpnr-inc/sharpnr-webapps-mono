@@ -25,6 +25,7 @@ export function usePropertyDetails(propertyID: string) {
   return useQuery({
     queryKey: ["Property Details", propertyID],
     queryFn: () => GetPropertyDetails(propertyID),
-    enabled: !!propertyID
+    enabled: !!propertyID,
+    staleTime: 1000 * 60 * 5,
   });
 }

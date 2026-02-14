@@ -1,5 +1,6 @@
 import { useAppForm } from "@/components/forms";
 import { z } from "zod";
+import { useCreateLegalEntityMutation } from "../api/mutations/legal_entity_mutations";
 
 interface CreateLegalEntityFormProps {}
 
@@ -18,6 +19,7 @@ const legalEntitySchema = z.object({
 });
 
 const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = () => {
+  const createLegalEntity = useCreateLegalEntityMutation();
   const form = useAppForm({
     validators: {
       onChange: legalEntitySchema,
@@ -36,7 +38,11 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = () => {
       pincode: "",
     },
     onSubmit: ({ value }) => {
-      console.log(value);
+      createLegalEntity.mutateAsync(value, {
+        onSuccess: () => {
+          form.reset();
+        },
+      });
     },
   });
   return (
