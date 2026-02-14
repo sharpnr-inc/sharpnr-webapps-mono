@@ -77,15 +77,15 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
         "/dashboard/sharp_hospitality/restaurant/orders",
       ),
   },
-  {
-    label: "General Settings",
-    to: "/dashboard/sharp_hospitality/restaurant/general-settings",
-    icon: Settings,
-    match: (pathname) =>
-      pathname.startsWith(
-        "/dashboard/sharp_hospitality/restaurant/general-settings",
-      ),
-  },
+  // {
+  //   label: "General Settings",
+  //   to: "/dashboard/sharp_hospitality/restaurant/general-settings",
+  //   icon: Settings,
+  //   match: (pathname) =>
+  //     pathname.startsWith(
+  //       "/dashboard/sharp_hospitality/restaurant/general-settings",
+  //     ),
+  // },
 ];
 
 /* ===============================
