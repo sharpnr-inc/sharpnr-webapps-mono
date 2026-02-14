@@ -34,6 +34,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePropertyDetails } from "@/_orchestrator/OrchestDashboard/api/queries/general";
+import api from "@/middlewares/axios";
 
 // Dummy data mimicking your Hospitality modules
 const STATIONS = [
@@ -49,8 +51,12 @@ const CreateCategory = () => {
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
   const queryClient = useQueryClient();
-  const test = queryClient.getQueryData(["Property Details", !!propertyID]);
-  console.log(test);
+  const {
+    data: propertyDetails,
+    isLoading,
+    error,
+  } = usePropertyDetails(propertyID || "");
+
   const createCategory = useAddCategoryInMenuMutation();
   const addMenu = useCreateMenuMutation();
 
@@ -102,6 +108,20 @@ const CreateCategory = () => {
     },
   });
 
+  const handleStationSelect = async (kitchenID: string, menuId: string) => {
+    const payload = {
+      menu_id: menuId,
+      kitchen_id: kitchenID,
+    };
+
+    const res = await api.post(
+      `/sharp-hospitality/${ownersID}/menu/attchKitchen/menu`,
+      payload,
+    );
+
+    return null;
+  };
+
   return (
     <div className="">
       <Card className="">
@@ -129,14 +149,18 @@ const CreateCategory = () => {
                         Assign Menu to Station
                       </label>
 
-                      <Select onValueChange={(value) => setSelectedId(value)}>
+                      <Select
+                        onValueChange={(value) => {
+                          handleStationSelect(value, m.id);
+                        }}
+                      >
                         <SelectTrigger className="w-[240px]">
                           <SelectValue placeholder="Select a station" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Available Stations</SelectLabel>
-                            {STATIONS.map((station) => (
+                            {propertyDetails.data.infra.map((station: any) => (
                               <SelectItem key={station.id} value={station.id}>
                                 <div className="flex items-center gap-2">
                                   <span>

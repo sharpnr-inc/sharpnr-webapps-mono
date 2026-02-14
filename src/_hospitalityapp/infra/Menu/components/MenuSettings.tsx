@@ -9,7 +9,10 @@ interface MenuSettingsProps {
 const MenuSettings: React.FC<MenuSettingsProps> = ({
   moduleID,
   propertyID,
+
 }) => {
+
+  console.log(propertyID)
   return (
     <div className="space-y-2 w-full">
       <CardContent>

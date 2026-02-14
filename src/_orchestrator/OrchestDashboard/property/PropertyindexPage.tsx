@@ -22,29 +22,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 // import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Building, LucideBuilding, PlusIcon } from "lucide-react";
+import { Building, LucideBuilding, PlusIcon } from "lucide-react";
 import { useFormsModal } from "@/context/FormModalContext";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
 import { useOrganizationProperties } from "../api/queries/general";
-import { useDomainType } from "./api/queries";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
 
 export interface Property {
@@ -60,10 +44,6 @@ export interface Property {
 // This page list all the Properties of the organization
 export function PropertyIndexPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [pendingSelection, setPendingSelection] = useState<{
-    id: string;
-    domain: string;
-  } | null>(null);
   // *this query hook the fetch all property that organization have
   // *this return the array of the property
   const { data: properties, isLoading } = useOrganizationProperties();
