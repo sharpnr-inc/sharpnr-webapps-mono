@@ -1,6 +1,9 @@
+import MenuSettings from "@/_hospitalityapp/infra/Menu/components/MenuSettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 
 const RestaurantSettingsTabs = () => {
+  const { restaurantID, propertyId } = Route.useParams();
   return (
     <div className="p-4 mt-4">
       <div>
@@ -19,7 +22,9 @@ const RestaurantSettingsTabs = () => {
             <TabsTrigger value="Staff">Staff</TabsTrigger>
           </TabsList>
           <TabsContent value="Generals">General Settings Content</TabsContent>
-          <TabsContent value="Menu">Menu Settings Content</TabsContent>
+          <TabsContent value="Menu">
+            <MenuSettings moduleID={restaurantID} propertyID={propertyId} />
+          </TabsContent>
           <TabsContent value="Hours">Hours Settings Content</TabsContent>
           <TabsContent value="Staff">Staff Settings Content</TabsContent>
         </Tabs>
