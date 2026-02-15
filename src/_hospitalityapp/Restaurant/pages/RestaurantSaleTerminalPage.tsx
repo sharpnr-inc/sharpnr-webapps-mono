@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import Menu from "@/_hospitalityapp/infra/Menu/menu/menu";
+import Menu from "@/_hospitalityapp/infra/pos/menu/menu";
 import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 import POS from "@/_hospitalityapp/infra/pos/Pos/POS";

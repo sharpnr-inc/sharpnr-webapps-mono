@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSheet } from "@/context/DrawerContext";
 import POS from "@/_hospitalityapp/infra/pos/Pos/POS";
-import Menu from "@/_hospitalityapp/infra/Menu/menu/menu";
+import Menu from "@/_hospitalityapp/infra/pos/menu/menu";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";

@@ -1,4 +1,4 @@
-import type { MenuOutput } from "../../createMenu/types";
+import type { MenuOutput } from "../createMenu/types";
 import { useCreateMenuStore } from "./create-menu_store";
 
 export const createMenuAction = {

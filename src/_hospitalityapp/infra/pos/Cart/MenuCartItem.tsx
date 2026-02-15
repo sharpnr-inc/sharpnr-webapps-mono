@@ -25,9 +25,7 @@ const MenuCartItems = () => {
   const totalAmount = useMemo(() => {
     return cart.reduce((acc, item) => {
       const price =
-        item.variant_groups?.[0]?.variants?.[0]?.price ??
-        item.base_price ??
-        0;
+        item.variant_groups?.[0]?.variants?.[0]?.price ?? item.base_price ?? 0;
 
       return acc + price * (item.quantity ?? 1);
     }, 0);
@@ -38,9 +36,8 @@ const MenuCartItems = () => {
   return (
     <>
       {/* Bottom Cart Bar */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-card shadow-md px-4 py-3">
+      <div className="absolute bottom-5 border-t bg-card shadow-md px-4 py-3">
         <div className="flex items-center justify-between">
-
           {/* LEFT */}
           <div className="flex items-center gap-4">
             <div className="relative">
@@ -57,9 +54,7 @@ const MenuCartItems = () => {
               <div className="text-xs text-muted-foreground">
                 Items Selected
               </div>
-              <div className="text-lg font-semibold">
-                ₹ {totalAmount}
-              </div>
+              <div className="text-lg font-semibold">₹ {totalAmount}</div>
             </div>
           </div>
 

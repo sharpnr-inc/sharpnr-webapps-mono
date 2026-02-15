@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { MoveLeft, PlusIcon } from "lucide-react";
 
 import { useCreateMenuCtx } from "./create-menu.context";
-import { useCreateMenuStore } from "../stores/CreateMenu/create-menu_store";
+import { useCreateMenuStore } from "../stores/create-menu_store";
 import { useAppForm } from "@/components/forms";
 import {
   Dialog,

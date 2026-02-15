@@ -1,6 +1,6 @@
 
 import { createContext, useContext } from "react";
-import type { MenuOutput } from "../createMenu/types";
+import type { MenuOutput } from "../../Menu/createMenu/types";
 
 interface MenuContextType {
   MenuData:MenuOutput[] | undefined;

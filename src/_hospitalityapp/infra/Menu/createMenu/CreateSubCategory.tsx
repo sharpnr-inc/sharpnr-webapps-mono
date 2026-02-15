@@ -6,11 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCreateMenuStore } from "../stores/CreateMenu/create-menu_store";
+import { useCreateMenuStore } from "../stores/create-menu_store";
 import { useCreateMenuCtx } from "./create-menu.context";
 import { Button } from "@/components/ui/button";
 import { MoveLeftIcon, PlusIcon } from "lucide-react";
-import { createMenuAction } from "../stores/CreateMenu/actions";
+import { createMenuAction } from "../stores/actions";
 import { useAppForm } from "@/components/forms";
 import {
   Dialog,

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useMenuCtx } from "./menu.context";
-import { menuActions } from "../stores/Menu/action";
-import { useMenuStore } from "../stores/Menu/menu_store";
+import { menuActions } from "./store/action";
+import { useMenuStore } from "./store/menu_store";
 
 const MenuCategories = () => {
   const { MenuData } = useMenuCtx();

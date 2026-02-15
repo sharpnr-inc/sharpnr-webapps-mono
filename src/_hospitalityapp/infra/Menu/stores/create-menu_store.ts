@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { MenuOutput } from "../../createMenu/types";
+import type { MenuOutput } from "../createMenu/types";
 
 interface CreateMenuState {
   activeCategoryID: string | null;

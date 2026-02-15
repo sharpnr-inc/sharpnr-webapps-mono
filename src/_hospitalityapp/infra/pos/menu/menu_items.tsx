@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { useMenuStore } from "../stores/Menu/menu_store";
+import { useMenuStore } from "./store/menu_store";
 import { useMenuCtx } from "./menu.context";
 import {
   Card,

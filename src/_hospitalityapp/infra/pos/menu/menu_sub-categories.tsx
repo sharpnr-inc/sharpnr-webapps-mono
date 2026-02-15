@@ -1,5 +1,5 @@
-import { menuActions } from "../stores/Menu/action";
-import { useMenuStore } from "../stores/Menu/menu_store";
+import { menuActions } from "./store/action";
+import { useMenuStore } from "./store/menu_store";
 import { useMenuCtx } from "./menu.context";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +8,7 @@ const MenuSubCategories = () => {
   const { MenuData } = useMenuCtx();
   if (!MenuData?.length) return null;
   const category = MenuData[0]?.categories.find(
-    (cat) => cat.id === activeCategoryID,
+    (cat:any) => cat.id === activeCategoryID,
   );
 
   const subCategories = category?.sub_categories ?? [];
@@ -30,7 +30,7 @@ const MenuSubCategories = () => {
   return (
     <div className="space-y-2">
       <div className="flex gap-2 flex-wrap">
-        {subCategories.map((sub) => {
+        {subCategories.map((sub:any) => {
           return (
             <Button
               size={"sm"}

@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useCreateMenuCtx } from "./create-menu.context";
-import { useCreateMenuStore } from "../stores/CreateMenu/create-menu_store";
+import { useCreateMenuStore } from "../stores/create-menu_store";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, PlusIcon } from "lucide-react";
 import {
@@ -16,7 +16,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { createMenuAction } from "../stores/CreateMenu/actions";
+import { createMenuAction } from "../stores/actions";
 import {
   Dialog,
   DialogContent,

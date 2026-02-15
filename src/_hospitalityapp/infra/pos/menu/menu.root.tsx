@@ -1,5 +1,5 @@
 import { MenuContext } from "./menu.context";
-import { useModulesMenu } from "../apis/api.Queries";
+import { useModulesMenu } from "../../Menu/apis/api.Queries";
 import { useToastService } from "@/context/ToastContext";
 import { useEffect } from "react";
 import { cn } from "@/lib/utils";

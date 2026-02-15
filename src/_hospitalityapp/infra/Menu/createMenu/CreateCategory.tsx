@@ -16,7 +16,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useAppForm } from "@/components/forms";
-import { createMenuAction } from "../stores/CreateMenu/actions";
+import { createMenuAction } from "../stores/actions";
 import EmptyMenu from "../components/EmptyMenu";
 import {
   useAddCategoryInMenuMutation,
