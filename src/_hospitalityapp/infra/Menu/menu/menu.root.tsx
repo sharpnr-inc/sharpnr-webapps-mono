@@ -2,13 +2,19 @@ import { MenuContext } from "./menu.context";
 import { useModulesMenu } from "../apis/api.Queries";
 import { useToastService } from "@/context/ToastContext";
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface MenuRootProps {
   children: React.ReactNode;
   ownersID: string;
+  className?: string;
 }
 
-const MenuRoot: React.FC<MenuRootProps> = ({ children, ownersID }) => {
+const MenuRoot: React.FC<MenuRootProps> = ({
+  children,
+  ownersID,
+  className,
+}) => {
   const { data: MenuData, dataUpdatedAt } = useModulesMenu(ownersID);
   const toast = useToastService();
 
@@ -20,7 +26,7 @@ const MenuRoot: React.FC<MenuRootProps> = ({ children, ownersID }) => {
 
   return (
     <MenuContext.Provider value={{ MenuData }}>
-      <div className="space-y-2">{children}</div>
+      <div className={cn("w-full space-y-2", className)}>{children}</div>
     </MenuContext.Provider>
   );
 };

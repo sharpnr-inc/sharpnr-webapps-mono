@@ -11,7 +11,7 @@ const RestaurantSaleTerminalPage: React.FC = () => {
   const selectedProperty = properties?.[0];
   const restaurantID = selectedProperty?.Restaurents;
   return (
-    <POS>
+    <POS className="flex w-full gap-4">
       <Menu ownersID={restaurantID}>
         <Menu.MenuCategories />
         <Separator />
@@ -20,11 +20,13 @@ const RestaurantSaleTerminalPage: React.FC = () => {
         <ScrollArea className="border p-2 h-[65vh]">
           <Menu.MenuItems className="relative" />
         </ScrollArea>
+        <MenuCart>
+          <MenuCart.MenuCartItems />
+        </MenuCart>
       </Menu>
-
-      <MenuCart>
-        <MenuCart.MenuCartItems />
-      </MenuCart>
+      <div className=" border-l w-1/3">
+        <div></div>
+      </div>
     </POS>
   );
 };
