@@ -25,7 +25,7 @@ export default function SharpnrLauncher() {
   useEffect(() => {
     // Simulate API fetch
     setTimeout(() => {
-      setPermissions(["resto", "bar", "kitchen", "hr", "acc","mkt", "orchestrator", "hotel", "ngc"]);
+      setPermissions(["resto", "kitchen", "hr", "acc","mkt", "orchestrator", "hotel", "ngc"]);
       setIsLoading(false);
     }, 2000);
   }, []);

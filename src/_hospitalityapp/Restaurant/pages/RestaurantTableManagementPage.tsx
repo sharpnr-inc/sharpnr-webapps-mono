@@ -4,11 +4,7 @@ import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSheet } from "@/context/DrawerContext";
-import POS from "@/_hospitalityapp/infra/pos/Pos/POS";
-import Menu from "@/_hospitalityapp/infra/pos/menu/menu";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import MenuCart from "@/_hospitalityapp/infra/pos/Cart/MenuCart";
+import MenuSection from "../components/Menu/MenuSection";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -47,21 +43,11 @@ const RestaurantTableManagementPage: React.FC = () => {
       openSheet(
         <div>
           {" "}
-          <POS>
-            <Menu ownersID={restaurantID}>
-              <Menu.MenuCategories />
-              <Separator />
-              <Menu.MenuSubCategories />
-              <Separator />
-              <ScrollArea className="border p-2 h-[65vh]">
-                <Menu.MenuItems className="relative" />
-              </ScrollArea>
-            </Menu>
-
-            <MenuCart>
-              <MenuCart.MenuCartItems />
-            </MenuCart>
-          </POS>
+          <MenuSection OwnerID={restaurantID}>
+            <MenuSection.CategorySection />
+            <MenuSection.SubCategorySection />
+            <MenuSection.ItemSection />
+          </MenuSection>
         </div>,
         "3/4",
       );
