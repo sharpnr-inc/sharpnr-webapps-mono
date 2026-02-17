@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
-import { useRestaurantLayout } from "../apis/queries";
+import { useDiningSessionOrders, useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSheet } from "@/context/DrawerContext";
-import MenuSection from "../components/Menu/MenuSection";
+import StartDineInSessionDialog from "../components/DineInSessionDialog";
+import { useStartDineInSession } from "../apis/mutations";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -24,10 +25,14 @@ const RestaurantTableManagementPage: React.FC = () => {
   const { properties } = Route.useLoaderData();
   const selectedProperty = properties?.[0];
   const restaurantID = selectedProperty?.Restaurents;
-  const { data, isLoading } = useRestaurantLayout(restaurantID);
-  const { openSheet } = useSheet();
 
-  // Adjusted to match your Go API response structure
+  const { data, isLoading, refetch } = useRestaurantLayout(restaurantID);
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedTable, setSelectedTable] =
+    useState<RestaurantTableLayout | null>(null);
+  const [loading, setLoading] = useState(false);
+
   const resLayout = data?.data?.Layout ?? [];
 
   const statusStyles: Record<string, string> = {
@@ -38,20 +43,38 @@ const RestaurantTableManagementPage: React.FC = () => {
     UNDER_CLEANING: "bg-cyan-300 text-cyan-950 border-cyan-500",
   };
 
-  const handleTest = (t: RestaurantTableLayout) => {
+  const { openSheet } = useSheet();
+
+  const handleTableSession = (t: RestaurantTableLayout) => {
     if (t.Status === "AVAILABLE") {
-      openSheet(
-        <div>
-          {" "}
-          <MenuSection OwnerID={restaurantID}>
-            <MenuSection.CategorySection />
-            <MenuSection.SubCategorySection />
-            <MenuSection.ItemSection />
-          </MenuSection>
-        </div>,
-        "3/4",
-      );
+      setSelectedTable(t);
+      setOpenDialog(true);
+    } else if (t.Status === "OCCUPIED") {
+      openSheet(<div></div>, "3/4");
     }
+  };
+
+  const startSession = useStartDineInSession();
+
+  const { data: orders } = useDiningSessionOrders(
+    restaurantID,
+    "c86e8cd1-f70e-4c23-a09f-86e3fa89199d",
+  );
+
+  const handleStartSession = async () => {
+    if (!selectedTable) return;
+    setLoading(true);
+    startSession.mutateAsync(
+      {
+        tableID: selectedTable.TableID,
+        restaurantID: restaurantID,
+      },
+      {
+        onSuccess: () => {
+          setLoading(false);
+        },
+      },
+    );
   };
 
   return (
@@ -68,33 +91,27 @@ const RestaurantTableManagementPage: React.FC = () => {
 
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-6 px-4 py-3 border rounded-lg bg-muted/20">
-        <div className="flex items-center gap-2 text-xs font-medium">
-          <span className="h-3 w-3 rounded-sm bg-green-400 border border-green-600" />
-          Available
-        </div>
-        <div className="flex items-center gap-2 text-xs font-medium">
-          <span className="h-3 w-3 rounded-sm bg-amber-500 border border-amber-700" />
-          Occupied
-        </div>
-        <div className="flex items-center gap-2 text-xs font-medium">
-          <span className="h-3 w-3 rounded-sm bg-blue-400 border border-blue-600" />
-          Reserved
-        </div>
-        <div className="flex items-center gap-2 text-xs font-medium">
-          <span className="h-3 w-3 rounded-sm bg-cyan-300 border border-cyan-500" />
-          Cleaning
-        </div>
-        <div className="flex items-center gap-2 text-xs font-medium">
-          <span className="h-3 w-3 rounded-sm bg-zinc-800 border border-black" />
-          Blocked
-        </div>
+        {Object.entries(statusStyles).map(([status, style]) => (
+          <div
+            key={status}
+            className="flex items-center gap-2 text-xs font-medium capitalize"
+          >
+            <span
+              className={cn(
+                "h-3 w-3 rounded-sm border",
+                style.split(" ")[0],
+                style.split(" ")[2],
+              )}
+            />
+            {status.toLowerCase().replace("_", " ")}
+          </div>
+        ))}
       </div>
 
       {/* Main Layout Area */}
       <div className="flex flex-col gap-6">
         {isLoading
-          ? // --- SKELETON STATE ---
-            [1, 2].map((i) => (
+          ? [1, 2].map((i) => (
               <section
                 key={i}
                 className="border rounded-xl bg-card overflow-hidden"
@@ -118,73 +135,73 @@ const RestaurantTableManagementPage: React.FC = () => {
                 </div>
               </section>
             ))
-          : // --- DATA STATE ---
-            resLayout.map((floor: RestaurantFloorLayout) => {
-              return (
-                <section
-                  key={floor.Floor_Number}
-                  className="border rounded-xl bg-card"
-                >
-                  {/* Floor Header */}
-                  <div className="flex items-center justify-between border-b px-6 py-3">
-                    <div className="flex flex-col">
-                      <h2 className="text-lg font-bold tracking-tight">
-                        {floor.Floor_Name}
-                      </h2>
-                      <p className="text-xs text-muted-foreground">
-                        Floor Level {floor.Floor_Number}
-                      </p>
-                    </div>
-                    <div className="text-[10px] font-mono font-medium border px-2 py-1 rounded bg-muted/50 uppercase">
-                      {floor.Tables.length} Tables
-                    </div>
+          : resLayout.map((floor: RestaurantFloorLayout) => (
+              <section
+                key={floor.Floor_Number}
+                className="border rounded-xl bg-card"
+              >
+                <div className="flex items-center justify-between border-b px-6 py-3">
+                  <div className="flex flex-col">
+                    <h2 className="text-lg font-bold tracking-tight">
+                      {floor.Floor_Name}
+                    </h2>
+                    <p className="text-xs text-muted-foreground">
+                      Floor Level {floor.Floor_Number}
+                    </p>
                   </div>
-
-                  {/* Grid */}
-                  <div className="p-4">
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-3">
-                      {floor.Tables.map((table: RestaurantTableLayout) => {
-                        return (
-                          <div
-                            onClick={() => handleTest(table)}
-                            key={table.TableID}
-                            className={cn(
-                              "group flex flex-col justify-between p-2 border rounded-lg transition-all hover:shadow-md cursor-pointer aspect-auto",
-                              statusStyles[table.Status] ||
-                                "bg-background text-foreground",
-                            )}
-                          >
-                            <div className="flex justify-between items-start">
-                              <span className="text-[9px] uppercase">
-                                {table.TableCode}
-                              </span>
-                              <div className="size-1.5 rounded-full bg-current opacity-40" />
-                            </div>
-
-                            <div className="flex flex-col overflow-hidden">
-                              <span className="text-xs font-bold leading-tight truncate">
-                                {table.TableName}
-                              </span>
-                              <span className="text-[9px] uppercase font-bold opacity-60 mt-0.5 tracking-tighter">
-                                {table.Status.replace("_", " ")}
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
+                  <div className="text-[10px] font-mono font-medium border px-2 py-1 rounded bg-muted/50 uppercase">
+                    {floor.Tables.length} Tables
                   </div>
-                </section>
-              );
-            })}
+                </div>
 
-        {/* Empty State */}
+                <div className="p-4">
+                  <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-3">
+                    {floor.Tables.map((table: RestaurantTableLayout) => (
+                      <div
+                        onClick={() => handleTableSession(table)}
+                        key={table.TableID}
+                        className={cn(
+                          "group flex flex-col justify-between p-2 border rounded-lg transition-all hover:shadow-md cursor-pointer ",
+                          statusStyles[table.Status] ||
+                            "bg-background text-foreground",
+                        )}
+                      >
+                        <div className="flex justify-between items-start">
+                          <span className="text-[9px] uppercase font-bold">
+                            {table.TableCode}
+                          </span>
+                          <div className="size-1.5 rounded-full bg-current opacity-40" />
+                        </div>
+                        <div className="flex flex-col overflow-hidden">
+                          <span className="text-xs font-bold leading-tight truncate">
+                            {table.TableName}
+                          </span>
+                          <span className="text-[8px] uppercase font-bold opacity-70 tracking-tighter">
+                            {table.Status.replace("_", " ")}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ))}
+
         {!isLoading && resLayout.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 border border-dashed rounded-xl text-muted-foreground">
             <p>No floor layouts found for this restaurant.</p>
           </div>
         )}
       </div>
+
+      {/* --- TABLE SESSION DIALOG --- */}
+      <StartDineInSessionDialog
+        isOpen={openDialog}
+        onOpenChange={setOpenDialog}
+        selectedTable={selectedTable}
+        onConfirm={handleStartSession} // Your API call function
+        isLoading={loading}
+      />
     </div>
   );
 };

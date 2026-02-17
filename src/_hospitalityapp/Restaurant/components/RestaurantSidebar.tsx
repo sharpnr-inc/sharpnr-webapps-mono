@@ -39,7 +39,7 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
     match: (pathname) => pathname === "/dashboard/sharp_hospitality/restaurant",
   },
   {
-    label: "Table Management",
+    label: "Dine In",
     to: "/dashboard/sharp_hospitality/restaurant/table-management",
     icon: Table2Icon,
     match: (pathname) =>
@@ -60,7 +60,7 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
       pathname.startsWith("/dashboard/sharp_hospitality/restaurant/inventory"),
   },
   {
-    label: "Sales Terminal",
+    label: "Pickup",
     to: "/dashboard/sharp_hospitality/restaurant/sales-terminal",
     icon: ShoppingCart,
     match: (pathname) =>
