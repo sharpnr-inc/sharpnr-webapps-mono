@@ -26,13 +26,11 @@ const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
         <div className="w-4/6 flex flex-col gap-4 overflow-hidden">
           {/* Menu Section */}
           <div className="flex-1 rounded-xl shadow-sm border overflow-hidden flex flex-col">
-            <div className="px-4 py-3 border-b font-medium">Menu</div>
-
             <div className="flex-1 overflow-y-auto p-4">
               <MenuSection OwnerID={restaurantID[0]}>
                 <MenuSection.CategorySection />
                 <MenuSection.SubCategorySection />
-                <ScrollArea className="h-[63vh]">
+                <ScrollArea className="h-[65vh]">
                   <MenuSection.ItemSection />
                 </ScrollArea>
               </MenuSection>
