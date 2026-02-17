@@ -10,6 +10,8 @@ const ItemSection: React.FC<ItemSectionProps> = ({ className }) => {
   const { categories, allItems, activeCategoryId, activeSubCategoryId } =
     useMenuStore();
 
+  const openVariant = useMenuStore((state) => state.openVariant);
+
   /* -----------------------------
      Resolve Items Dynamically
   ----------------------------- */
@@ -39,8 +41,7 @@ const ItemSection: React.FC<ItemSectionProps> = ({ className }) => {
     const hasAddons = item.add_ons.length > 0;
 
     if (hasVariants || hasAddons) {
-      console.log("Open Variant Sheet", item);
-      // openVariantSheet(item)
+      openVariant(item);
       return;
     }
 

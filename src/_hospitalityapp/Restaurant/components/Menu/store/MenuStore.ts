@@ -20,7 +20,7 @@ interface MenuState {
   setActiveCategory: (id: string) => void;
   setActiveSubCategory: (id: string) => void;
 
-  openVariant: () => void;
+  openVariant: (item: any) => void;
   closeVariant: () => void;
   openAddon: () => void;
   closeAddon: () => void;
@@ -41,7 +41,7 @@ export const useMenuStore = create<MenuState>((set) => ({
 
   setMenuData: (menu) => {
     const allItems = menu.categories.flatMap((cat) =>
-      cat.sub_categories.flatMap((sub) => sub.menu_items)
+      cat.sub_categories.flatMap((sub) => sub.menu_items),
     );
 
     const allCategory: MenuCategory = {
@@ -49,7 +49,7 @@ export const useMenuStore = create<MenuState>((set) => ({
       category_name: "All",
       sub_categories: [],
       menu_id: "",
-      category_description: ""
+      category_description: "",
     };
 
     set({
@@ -63,10 +63,13 @@ export const useMenuStore = create<MenuState>((set) => ({
   setActiveCategory: (id) =>
     set({ activeCategoryId: id, activeSubCategoryId: null }),
 
-  setActiveSubCategory: (id) =>
-    set({ activeSubCategoryId: id }),
+  setActiveSubCategory: (id) => set({ activeSubCategoryId: id }),
 
-  openVariant: () => set({ isVariantOpen: true }),
+  openVariant: (item: any) =>
+    set({
+      isVariantOpen: true,
+      selectedItem: item,
+    }),
   closeVariant: () => set({ isVariantOpen: false }),
 
   openAddon: () => set({ isAddonOpen: true }),

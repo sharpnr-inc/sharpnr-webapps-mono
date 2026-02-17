@@ -1,7 +1,6 @@
 import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
 import { MenuSectionContext } from "./Context";
 import VariantSelector from "./VariantSelector";
-import AddOnSelector from "./AddOnSelector";
 import { useEffect } from "react";
 import { useMenuStore } from "./store/MenuStore";
 
@@ -28,7 +27,6 @@ const MenuRootComponent = ({ children, OwnerID }: MenuRootComponentProps) => {
     >
       <div className="space-y-2">{children}</div>
       <VariantSelector />
-      <AddOnSelector />
     </MenuSectionContext.Provider>
   );
 };
