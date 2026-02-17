@@ -1,11 +1,11 @@
-import MenuSettings from "@/_hospitalityapp/infra/Menu/components/MenuSettings";
+import MenuSettings from "@/_hospitalityapp/infra/components/MenuSettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantGeneralSettingsComp from "./components_forms/RestaurantGeneralSettings";
 
 const RestaurantSettingsTabs = () => {
   const { restaurantID, propertyId } = Route.useParams();
-  
+
   return (
     <div className="p-2 mt-4">
       <div>
@@ -23,9 +23,7 @@ const RestaurantSettingsTabs = () => {
             <TabsTrigger value="Hours">Hours</TabsTrigger>
             <TabsTrigger value="Staff">Staff</TabsTrigger>
             <TabsTrigger value="LegalEntity">Legal Entity</TabsTrigger>
-            <TabsTrigger value="Integrations">
-              Layouts
-            </TabsTrigger>
+            <TabsTrigger value="Integrations">Layouts</TabsTrigger>
             <TabsTrigger value="Notifications" disabled>
               Notifications
             </TabsTrigger>
@@ -38,8 +36,12 @@ const RestaurantSettingsTabs = () => {
           </TabsContent>
           <TabsContent value="Hours">Hours Settings Content</TabsContent>
           <TabsContent value="Staff">Staff Settings Content</TabsContent>
-          <TabsContent value="LegalEntity">Legal Entity Settings Content</TabsContent>
-          <TabsContent value="Integrations">Integrations Settings Content</TabsContent>
+          <TabsContent value="LegalEntity">
+            Legal Entity Settings Content
+          </TabsContent>
+          <TabsContent value="Integrations">
+            Integrations Settings Content
+          </TabsContent>
           <TabsContent value="Notifications">
             Notifications Settings Content
           </TabsContent>

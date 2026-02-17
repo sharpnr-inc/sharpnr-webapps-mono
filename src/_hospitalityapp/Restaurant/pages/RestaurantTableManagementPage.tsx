@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
-import { useDiningSessionOrders, useRestaurantLayout } from "../apis/queries";
+import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSheet } from "@/context/DrawerContext";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
+import DiningSessionTerminal from "../components/DiningSessionTerminal";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -23,10 +25,11 @@ export interface RestaurantFloorLayout {
 
 const RestaurantTableManagementPage: React.FC = () => {
   const { properties } = Route.useLoaderData();
+  const queryClient = useQueryClient();
   const selectedProperty = properties?.[0];
   const restaurantID = selectedProperty?.Restaurents;
 
-  const { data, isLoading, refetch } = useRestaurantLayout(restaurantID);
+  const { data, isLoading } = useRestaurantLayout(restaurantID);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTable, setSelectedTable] =
@@ -50,16 +53,14 @@ const RestaurantTableManagementPage: React.FC = () => {
       setSelectedTable(t);
       setOpenDialog(true);
     } else if (t.Status === "OCCUPIED") {
-      openSheet(<div></div>, "3/4");
+      openSheet(
+        <DiningSessionTerminal restaurantID={restaurantID} table={t} />,
+        "3/4",
+      );
     }
   };
 
   const startSession = useStartDineInSession();
-
-  const { data: orders } = useDiningSessionOrders(
-    restaurantID,
-    "c86e8cd1-f70e-4c23-a09f-86e3fa89199d",
-  );
 
   const handleStartSession = async () => {
     if (!selectedTable) return;
@@ -72,6 +73,7 @@ const RestaurantTableManagementPage: React.FC = () => {
       {
         onSuccess: () => {
           setLoading(false);
+          // queryClient.invalidateQueries()
         },
       },
     );

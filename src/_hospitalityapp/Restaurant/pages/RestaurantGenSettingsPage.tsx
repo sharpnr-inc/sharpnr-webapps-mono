@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import MenuSettings from "@/_hospitalityapp/infra/Menu/components/MenuSettings";
+import MenuSettings from "@/_hospitalityapp/infra/components/MenuSettings";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 import { ScrollArea } from "@/components/ui/scroll-area";
 

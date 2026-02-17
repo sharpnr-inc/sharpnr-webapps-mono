@@ -8,25 +8,19 @@ import { useMenuStore } from "./store/MenuStore";
 import { Button } from "@/components/ui/button";
 
 const VariantSelector = () => {
-  const {
-    selectedItem,
-    isVariantOpen,
-    closeVariant,
-    openAddon,
-  } = useMenuStore();
+  const { selectedItem, isVariantOpen, closeVariant, openAddon } =
+    useMenuStore();
 
   return (
     <Sheet open={isVariantOpen} onOpenChange={closeVariant}>
-      <SheetContent side="right">
+      <SheetContent side="bottom" className="p-4 mb-5 h-[40vh]">
         <SheetHeader>
           <SheetTitle>Select Variant</SheetTitle>
         </SheetHeader>
 
         {selectedItem?.variant_groups.map((group) => (
           <div key={group.id} className="mt-4">
-            <h4 className="font-semibold">
-              {group.variant_group_name}
-            </h4>
+            <h4 className="font-semibold">{group.variant_group_name}</h4>
             {group.variants.map((variant) => (
               <Button
                 key={variant.id}

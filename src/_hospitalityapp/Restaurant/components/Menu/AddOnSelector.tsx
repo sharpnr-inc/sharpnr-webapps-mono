@@ -8,12 +8,11 @@ import { useMenuStore } from "./store/MenuStore";
 import { Button } from "@/components/ui/button";
 
 const AddOnSelector = () => {
-  const { selectedItem, isAddonOpen, closeAddon } =
-    useMenuStore();
+  const { selectedItem, isAddonOpen, closeAddon } = useMenuStore();
 
   return (
     <Sheet open={isAddonOpen} onOpenChange={closeAddon}>
-      <SheetContent side="right">
+      <SheetContent side="bottom" className="p-4 mb-5 h-[40vh]">
         <SheetHeader>
           <SheetTitle>Select Addons</SheetTitle>
         </SheetHeader>

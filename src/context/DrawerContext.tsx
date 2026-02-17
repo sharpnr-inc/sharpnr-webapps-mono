@@ -1,9 +1,6 @@
 // src/context/SheetContext.tsx
 import { createContext, useContext, useState, type ReactNode } from "react";
-import {
-  Sheet,
-  SheetContent,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 
@@ -20,7 +17,7 @@ interface SheetContextProps {
     content: ReactNode,
     // title?: string,
     // description?: string,
-    size?: SheetSize
+    size?: SheetSize,
   ) => void;
   closeSheet: () => void;
 }
@@ -46,7 +43,7 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
     content: ReactNode,
     // title?: string,
     // description?: string,
-    size: SheetSize = "2/4"
+    size: SheetSize = "2/4",
   ) => {
     setSheet({ content, size, isOpen: true });
   };
@@ -94,8 +91,6 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
           </SheetHeader> */}
 
           <div>{sheet.content}</div>
-
-     
         </SheetContent>
       </Sheet>
     </SheetContext.Provider>

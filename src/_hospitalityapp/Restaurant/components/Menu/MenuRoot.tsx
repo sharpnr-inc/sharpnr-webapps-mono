@@ -1,4 +1,4 @@
-import { useModulesMenu } from "@/_hospitalityapp/infra/Menu/apis/api.Queries";
+import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
 import { MenuSectionContext } from "./Context";
 import VariantSelector from "./VariantSelector";
 import AddOnSelector from "./AddOnSelector";
