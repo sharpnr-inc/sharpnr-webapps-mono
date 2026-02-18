@@ -17,11 +17,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  Link,
-  Outlet,
-  useRouterState,
-} from "@tanstack/react-router";
+import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
   Building2,
   Boxes,
@@ -76,25 +72,25 @@ const orchestratorLinks: SidebarLink[] = [
   },
   {
     label: "Settings",
-    path:"",
+    path: "",
     icon: Settings,
     tooltip: "Settings",
   },
   {
     label: "Reports",
-    path:"",
+    path: "",
     icon: FileText,
     tooltip: "Reports",
   },
   {
     label: "User Directory",
-    path:"/orchestrator/org-users",
+    path: "/orchestrator/org-users",
     icon: Users,
     tooltip: "User Directory",
   },
-   {
+  {
     label: "Audit Logs",
-    path:"/orchestrator/audit-logs",
+    path: "/orchestrator/audit-logs",
     icon: FileText,
     tooltip: "Audit Logs",
   },
@@ -108,7 +104,7 @@ type OrchestratorLayoutProps = {
   children?: React.ReactNode;
 };
 
-export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
+export function ConsoleLayout({}: OrchestratorLayoutProps) {
   const { location } = useRouterState();
   const pathname = location.pathname;
 
@@ -141,9 +137,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                     <span className="font-medium truncate">
                       Sharp Hospitality
                     </span>
-                    <span className="text-xs">
-                      Organization
-                    </span>
+                    <span className="text-xs">Organization</span>
                   </div>
 
                   <ChevronsUpDown className="ml-auto size-4 opacity-40" />
@@ -166,9 +160,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
                         tooltip={item.tooltip}
                         asChild={!!item.path}
                         isActive={
-                          item.path
-                            ? isActive(item.path, item.exact)
-                            : false
+                          item.path ? isActive(item.path, item.exact) : false
                         }
                       >
                         {item.path ? (
@@ -196,7 +188,7 @@ export function ConsoleLayout({ children }: OrchestratorLayoutProps) {
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
-          <RouteBreadcrumbs/>
+          <RouteBreadcrumbs />
         </header>
 
         <main className="p-2.5">

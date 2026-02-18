@@ -1,12 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Beer,
-  Users,
-  Clock,
-  IndianRupee,
-  Plus,
-} from "lucide-react";
+import { Beer, Users, Clock, IndianRupee } from "lucide-react";
 
 interface BarOverviewPageProps {}
 

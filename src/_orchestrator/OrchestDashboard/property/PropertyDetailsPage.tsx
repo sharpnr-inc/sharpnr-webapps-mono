@@ -77,7 +77,7 @@ export interface PropertyDetailsResDto {
 }
 
 export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
-  const { data, isLoading } = usePropertyDetails(propertyId);
+  const { data } = usePropertyDetails(propertyId);
   const property = data?.data;
 
   const nav = useNavigate();

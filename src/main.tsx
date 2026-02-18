@@ -55,15 +55,15 @@ createRoot(document.getElementById("root")!).render(
           </SpinnerProvider>
         </FormsModalProvider>
       </ThemeProvider>
-      {/* <TanStackDevtools plugins={[FormDevtoolsPlugin()]} /> */}
+      <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
       {/* 🔹 Show Devtools only in development */}
-      {/* {import.meta.env.DEV && (
+      {import.meta.env.DEV && (
         <ReactQueryDevtools
           buttonPosition="bottom-right"
           initialIsOpen={false}
         />
-      )} */}
+      )}
     </QueryClientProvider>
   </StrictMode>,
 );

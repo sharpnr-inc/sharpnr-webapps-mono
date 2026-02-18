@@ -13,10 +13,7 @@ const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
   table,
   restaurantID,
 }) => {
-  const { data: orders } = useDiningSessionOrders(
-    restaurantID,
-    table.CurrentDineSessionID,
-  );
+  const {} = useDiningSessionOrders(restaurantID, table.CurrentDineSessionID);
 
   return (
     <div className=" flex flex-col">

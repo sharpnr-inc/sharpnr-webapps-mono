@@ -8,7 +8,6 @@ import { ModeToggle } from "../ui/ThemeToggle";
 import { useState } from "react";
 import { GlobalSearch } from "../custom/global-search";
 import SharpnrLauncher from "../SharpnrLauncher/SharpnrLauncher";
-import { ToastProvider } from "@/context/ToastContext";
 interface UserRootLayoutProps {}
 
 const UserRootLayout: React.FC<UserRootLayoutProps> = () => {

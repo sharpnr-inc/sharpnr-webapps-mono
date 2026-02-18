@@ -37,30 +37,18 @@ import {
 import { usePropertyDetails } from "@/_orchestrator/OrchestDashboard/api/queries/general";
 import api from "@/middlewares/axios";
 
-// Dummy data mimicking your Hospitality modules
-const STATIONS = [
-  { id: "uuid-1", name: "Main Kitchen", type: "KITCHEN" },
-  { id: "uuid-2", name: "Poolside Bar", type: "BAR" },
-  { id: "uuid-3", name: "Pastry Unit", type: "BAKERY" },
-  { id: "uuid-4", name: "Service Bar 2", type: "BAR" },
-];
-
 const CreateCategory = () => {
   const { Menus, nextStep, ownersID, ownersType, propertyID } =
     useCreateMenuCtx();
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
   const queryClient = useQueryClient();
-  const {
-    data: propertyDetails,
-    isLoading,
-    error,
-  } = usePropertyDetails(propertyID || "");
+  const { data: propertyDetails } = usePropertyDetails(propertyID || "");
 
   const createCategory = useAddCategoryInMenuMutation();
   const addMenu = useCreateMenuMutation();
 
-  const [selectedId, setSelectedId] = React.useState<string>("");
+  const [selectedId] = React.useState<string>("");
 
   const form = useAppForm({
     defaultValues: {
@@ -119,7 +107,7 @@ const CreateCategory = () => {
       payload,
     );
 
-    return null;
+    return res.data;
   };
 
   return (

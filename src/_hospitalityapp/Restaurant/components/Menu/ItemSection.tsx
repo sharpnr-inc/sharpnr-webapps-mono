@@ -98,7 +98,7 @@ const ItemSection: React.FC<ItemSectionProps> = ({ className }) => {
           0,
         );
 
-        const hasCustomization = totalVariants > 0 || item.add_ons.length > 0;
+        // const hasCustomization = totalVariants > 0 || item.add_ons.length > 0;
 
         return (
           <div

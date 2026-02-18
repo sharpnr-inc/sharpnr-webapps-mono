@@ -1,7 +1,4 @@
-import {
-  RestaurantSettingsContext,
-  type RestaurantSettings,
-} from "./RestaurantSettingsContext";
+import { RestaurantSettingsContext } from "./RestaurantSettingsContext";
 
 const RestaurantSettingsRoot = ({
   children,

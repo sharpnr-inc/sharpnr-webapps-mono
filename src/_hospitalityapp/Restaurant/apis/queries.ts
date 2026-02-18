@@ -3,7 +3,6 @@ import {
   FetchRestaurantLayout,
   FetchRestaurentContext,
   GetDiningSessionOrders,
-  StartDiningSession,
 } from "./restaurant.api";
 
 export function useRestaurantLayout(restaurantID: string) {

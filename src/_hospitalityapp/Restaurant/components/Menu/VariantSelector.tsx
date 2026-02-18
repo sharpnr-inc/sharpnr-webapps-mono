@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react"; // Added an icon for visual flair
 import { useMenuStore } from "./store/MenuStore";
 import { useOrderCart } from "../OrderCart/store/order-cart-store";
 
@@ -16,16 +16,18 @@ const VariantSelector = () => {
   const { selectedItem, isVariantOpen, closeVariant } = useMenuStore();
   const addItem = useOrderCart((state) => state.addItem);
 
+  // States
   const [selectedVariants, setSelectedVariants] = useState<Record<string, any>>(
     {},
   );
+  const [selectedAddOns, setSelectedAddOns] = useState<Record<string, any>>({});
   const [quantity, setQuantity] = useState(1);
   const [instructions, setInstructions] = useState("");
 
-  // Reset local state when the sheet opens for a new item
   useEffect(() => {
     if (isVariantOpen) {
       setSelectedVariants({});
+      setSelectedAddOns({}); // Reset add-ons
       setQuantity(1);
       setInstructions("");
     }
@@ -33,29 +35,47 @@ const VariantSelector = () => {
 
   if (!selectedItem) return null;
 
-  // 1. Direct Filtering: Remove groups with no variants (e.g., your empty "Sauce" group)
+  // 1. Data Prep
   const activeVariantGroups =
     selectedItem.variant_groups?.filter(
       (vg) => vg.variants && vg.variants.length > 0,
     ) || [];
 
-  // 2. Direct Price Calculation
+  const hasAddOns = selectedItem.add_ons && selectedItem.add_ons.length > 0;
+
+  // 2. Calculation (Variants + Add-ons)
   const variantsCost = Object.values(selectedVariants).reduce(
     (acc, curr) => acc + (curr.price || 0),
     0,
   );
-  const totalPrice = (selectedItem.base_price + variantsCost) * quantity;
 
-  // 3. Validation Logic
-  const canAddToCart =
-    activeVariantGroups.length === Object.keys(selectedVariants).length;
+  const addOnsCost = Object.values(selectedAddOns).reduce(
+    (acc, curr) => acc + curr.price * curr.qty,
+    0,
+  );
 
+  const totalPrice =
+    (selectedItem.base_price + variantsCost + addOnsCost) * quantity;
+
+  // 3. Logic Handlers
   const handleSelectVariant = (groupId: string, variant: any) => {
     setSelectedVariants((prev) => ({ ...prev, [groupId]: variant }));
   };
 
+  const handleUpdateAddOn = (addOn: any, delta: number) => {
+    setSelectedAddOns((prev) => {
+      const current = prev[addOn.id] || { ...addOn, qty: 0 };
+      const newQty = Math.max(0, current.qty + delta);
+
+      if (newQty === 0) {
+        const { [addOn.id]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [addOn.id]: { ...current, qty: newQty } };
+    });
+  };
+
   const handleAddToCart = () => {
-    // Map the selected variants to the array structure the backend/store expects
     const variantsArray = Object.entries(selectedVariants).map(
       ([groupId, v]) => ({
         variant_group_id: groupId,
@@ -65,13 +85,21 @@ const VariantSelector = () => {
       }),
     );
 
+    const addOnsArray = Object.values(selectedAddOns).map((addon) => ({
+      id: addon.id,
+      name: addon.name,
+      qty: addon.qty,
+      price_at_order: addon.price || 0,
+    }));
+
     addItem({
       menu_item_id: selectedItem.id,
       item_name: selectedItem.name,
+      base_price_at_order: selectedItem.base_price, // <--- Add this line
       quantity: quantity,
       selected_variants: variantsArray,
-      selected_add_ons: [],
-      module_type: "KITCHEN", // Will default to Kitchen; Bar items can be logic-switched later
+      selected_add_ons: addOnsArray,
+      module_type: "KITCHEN",
       special_instructions: instructions,
     });
 
@@ -82,7 +110,7 @@ const VariantSelector = () => {
     <Sheet open={isVariantOpen} onOpenChange={closeVariant}>
       <SheetContent
         side="bottom"
-        className="p-4 h-[85vh] flex flex-col border-t rounded-t-xl bg-background"
+        className="p-4 h-[90vh] flex flex-col border-t rounded-t-2xl bg-background"
       >
         <SheetHeader className="text-left">
           <SheetTitle className="text-xl font-bold">
@@ -94,18 +122,12 @@ const VariantSelector = () => {
         </SheetHeader>
 
         <div className="flex-1 overflow-y-auto py-6 space-y-8">
-          {/* Render only groups that have options */}
+          {/* Variants Section */}
           {activeVariantGroups.map((vg) => (
             <div key={vg.id} className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-xs uppercase tracking-widest text-foreground">
-                  {vg.variant_group_name}
-                </span>
-                <span className="text-[10px] border border-border px-2 py-0.5 rounded text-muted-foreground uppercase">
-                  Required
-                </span>
-              </div>
-
+              <span className="font-bold text-xs uppercase tracking-widest text-foreground">
+                Select {vg.variant_group_name}
+              </span>
               <div className="grid grid-cols-1 gap-2">
                 {vg.variants.map((v) => {
                   const isSelected = selectedVariants[vg.id]?.id === v.id;
@@ -116,17 +138,11 @@ const VariantSelector = () => {
                       className={`flex items-center justify-between p-4 border rounded-xl transition-all ${
                         isSelected
                           ? "border-foreground bg-secondary ring-1 ring-foreground"
-                          : "border-border hover:bg-muted/30"
+                          : "border-border"
                       }`}
                     >
-                      <span
-                        className={`text-sm ${isSelected ? "font-semibold" : "font-medium"}`}
-                      >
-                        {v.name}
-                      </span>
-                      <span className="text-sm font-mono">
-                        {v.price > 0 ? `+₹${v.price}` : "Included"}
-                      </span>
+                      <span className="text-sm font-medium">{v.name}</span>
+                      <span className="text-sm font-mono">+₹{v.price}</span>
                     </button>
                   );
                 })}
@@ -134,21 +150,67 @@ const VariantSelector = () => {
             </div>
           ))}
 
-          {/* Special Instructions / Notes */}
+          {/* Add-ons Section */}
+          {hasAddOns && (
+            <div className="space-y-4">
+              <span className="font-bold text-xs uppercase tracking-widest text-foreground">
+                Extra Add-ons
+              </span>
+              <div className="space-y-2">
+                {selectedItem.add_ons.map((addon) => {
+                  const currentQty = selectedAddOns[addon.id]?.qty || 0;
+                  return (
+                    <div
+                      key={addon.id}
+                      className="flex items-center justify-between p-4 border border-dashed rounded-xl"
+                    >
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">
+                          {addon.name}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          ₹{addon.price}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-3 bg-secondary/50 rounded-lg p-1">
+                        <button
+                          onClick={() => handleUpdateAddOn(addon, -1)}
+                          className="p-1 hover:bg-background rounded-md transition-colors"
+                        >
+                          <Minus className="h-3 w-3" />
+                        </button>
+                        <span className="text-xs font-bold w-4 text-center">
+                          {currentQty}
+                        </span>
+                        <button
+                          onClick={() => handleUpdateAddOn(addon, 1)}
+                          className="p-1 hover:bg-background rounded-md transition-colors"
+                        >
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Notes */}
           <div className="space-y-3">
             <span className="font-bold text-xs uppercase tracking-widest text-foreground">
-              Special Notes
+              Notes
             </span>
             <Textarea
-              placeholder="Any allergies or specific preferences?"
+              placeholder="Any special requests?"
               value={instructions}
               onChange={(e) => setInstructions(e.target.value)}
-              className="min-h-[80px] focus-visible:ring-foreground bg-transparent border-border"
+              className="min-h-[80px] bg-transparent border-border focus-visible:ring-foreground"
             />
           </div>
         </div>
 
-        {/* Action Footer */}
         <SheetFooter className="border-t pt-4 flex-row items-center justify-between gap-4">
           <div className="flex items-center border border-border rounded-xl p-1">
             <Button
@@ -175,7 +237,10 @@ const VariantSelector = () => {
           <Button
             className="flex-1 py-7 text-base font-bold rounded-xl"
             onClick={handleAddToCart}
-            disabled={!canAddToCart}
+            disabled={
+              activeVariantGroups.length !==
+              Object.keys(selectedVariants).length
+            }
           >
             Add to Order • ₹{totalPrice}
           </Button>

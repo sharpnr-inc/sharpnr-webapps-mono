@@ -4,13 +4,13 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/",
 )({
-  beforeLoad: ({ params }) => {
+  beforeLoad: () => {
     // const { hotelId, propertyId } = params;
   },
   component: RouteComponent,
-  staticData:{
-    breadcrumb:`Hotel Details`
-  }
+  staticData: {
+    breadcrumb: `Hotel Details`,
+  },
 });
 
 function RouteComponent() {

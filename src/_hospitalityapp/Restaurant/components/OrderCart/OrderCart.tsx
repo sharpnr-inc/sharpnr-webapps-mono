@@ -28,17 +28,23 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
   const [openSheet, setOpenSheet] = useState(false);
   const { items, clearCart, updateQuantity } = useOrderCart();
 
-  // --- Direct Calculations (No useMemo) ---
+  // --- Fixed Calculations (Calculated directly in render) ---
   const totalItemsCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const grandTotal = items.reduce((acc, item) => {
-    const variantsCost = item.selected_variants.reduce(
+    const variantsSum = item.selected_variants.reduce(
       (vAcc, v) => vAcc + v.price_at_order,
       0,
     );
-    // Note: Assuming you might want to add base_price to the item in the store later,
-    // for now we calculate based on selected variants + base logic
-    return acc + variantsCost * item.quantity;
+    const addOnsSum = item.selected_add_ons.reduce(
+      (aAcc, a) => aAcc + a.price_at_order * a.qty,
+      0,
+    );
+
+    // Logic: (Base + Variants + Addons) * Quantity
+    const itemTotal =
+      (item.base_price_at_order + variantsSum + addOnsSum) * item.quantity;
+    return acc + itemTotal;
   }, 0);
 
   return (
@@ -48,7 +54,7 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
         className,
       )}
     >
-      {/* Top Row: Summary */}
+      {/* Top Summary Row */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="p-2 border rounded-lg bg-secondary">
@@ -59,14 +65,14 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
               Current Order
             </p>
             <p className="text-xs text-muted-foreground">
-              {totalItemsCount} items added
+              {totalItemsCount} items
             </p>
           </div>
         </div>
 
         <div className="text-right leading-tight">
           <p className="text-[10px] font-bold uppercase text-muted-foreground">
-            Total Amount
+            Total
           </p>
           <p className="text-lg font-mono font-bold">
             ₹{grandTotal.toFixed(2)}
@@ -74,7 +80,7 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
         </div>
       </div>
 
-      {/* Primary Actions */}
+      {/* Action Buttons */}
       <div className="flex gap-2">
         <Button
           variant="outline"
@@ -96,12 +102,9 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
         </Button>
       </div>
 
-      {/* Cart Detail Sheet */}
+      {/* The Detail Sheet */}
       <Sheet open={openSheet} onOpenChange={setOpenSheet}>
-        <SheetContent
-          side="left"
-          className="w-full sm:max-w-md flex flex-col p-0"
-        >
+        <SheetContent side="bottom" className="w-full flex flex-col p-0">
           <SheetHeader className="p-6 border-b">
             <SheetTitle className="flex items-center gap-2">
               <ShoppingBasket className="h-5 w-5" />
@@ -116,50 +119,77 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                 <p>Your cart is empty</p>
               </div>
             ) : (
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {items.map((item, idx) => {
                   const itemVariantIds = item.selected_variants.map(
                     (v) => v.variant_id,
                   );
-                  const itemPrice = item.selected_variants.reduce(
+
+                  // Math for each individual row
+                  const variantsSum = item.selected_variants.reduce(
                     (acc, v) => acc + v.price_at_order,
                     0,
                   );
+                  const addOnsSum = item.selected_add_ons.reduce(
+                    (acc, a) => acc + a.price_at_order * a.qty,
+                    0,
+                  );
+                  const unitPriceTotal =
+                    item.base_price_at_order + variantsSum + addOnsSum;
 
                   return (
-                    <div key={`${item.menu_item_id}-${idx}`} className="group">
-                      <div className="flex justify-between items-start mb-1">
-                        <div>
+                    <div
+                      key={`${item.menu_item_id}-${idx}`}
+                      className="group space-y-3"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div className="space-y-1">
                           <div className="flex items-center gap-2">
                             {item.module_type === "BAR" ? (
                               <GlassWater className="h-3 w-3" />
                             ) : (
                               <Utensils className="h-3 w-3" />
                             )}
-                            <h4 className="font-bold text-sm">
+                            <h4 className="font-bold text-sm uppercase">
                               {item.item_name}
                             </h4>
                           </div>
-                          {/* Selected Variants List */}
-                          <p className="text-xs text-muted-foreground italic">
-                            {item.selected_variants
-                              .map((v) => v.variant_name)
-                              .join(", ")}
-                          </p>
+
+                          {/* Selected details */}
+                          <div className="space-y-0.5">
+                            {item.selected_variants.map((v) => (
+                              <p
+                                key={v.variant_id}
+                                className="text-[11px] text-muted-foreground italic"
+                              >
+                                + {v.variant_name} (₹{v.price_at_order})
+                              </p>
+                            ))}
+                            {item.selected_add_ons.map((a) => (
+                              <p
+                                key={a.id}
+                                className="text-[11px] text-muted-foreground italic"
+                              >
+                                + {a.name} x{a.qty} (₹{a.price_at_order * a.qty}
+                                )
+                              </p>
+                            ))}
+                          </div>
                         </div>
                         <p className="font-mono text-sm font-bold">
-                          ₹{(itemPrice * item.quantity).toFixed(2)}
+                          ₹{(unitPriceTotal * item.quantity).toFixed(2)}
                         </p>
                       </div>
 
                       {item.special_instructions && (
-                        <p className="text-[11px] bg-muted p-1.5 rounded mt-1 mb-2 border-l-2 border-foreground/20">
-                          “{item.special_instructions}”
+                        <p className="text-[11px] bg-secondary/50 p-2 rounded border-l-2 border-foreground/30 italic">
+                          "{item.special_instructions}"
                         </p>
                       )}
 
-                      <div className="flex items-center justify-between mt-3">
-                        <div className="flex items-center border rounded-lg bg-background">
+                      {/* Quantity & Delete Controls */}
+                      <div className="flex items-center justify-between pt-2">
+                        <div className="flex items-center border rounded-lg bg-background shadow-sm">
                           <button
                             onClick={() =>
                               updateQuantity(
@@ -205,7 +235,7 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                         </Button>
                       </div>
                       {idx !== items.length - 1 && (
-                        <Separator className="mt-6" />
+                        <Separator className="mt-6 opacity-50" />
                       )}
                     </div>
                   );
@@ -214,19 +244,24 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
             )}
           </ScrollArea>
 
-          <SheetFooter className="p-6 border-t bg-muted/30">
+          <SheetFooter className="p-6 border-t bg-secondary/10">
             <div className="w-full space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">Subtotal</span>
-                <span className="text-lg font-mono font-bold">
+                <span className="text-sm font-bold uppercase tracking-widest">
+                  Grand Total
+                </span>
+                <span className="text-xl font-mono font-bold text-foreground">
                   ₹{grandTotal.toFixed(2)}
                 </span>
               </div>
               <Button
-                className="w-full py-6 text-base font-bold uppercase tracking-widest"
+              onClick={()=> {
+                console.log(items)
+              }}
+                className="w-full py-7 text-base font-bold uppercase tracking-widest rounded-xl"
                 disabled={items.length === 0}
               >
-                Place Order
+                Send to {items[0]?.module_type || "Kitchen"}
               </Button>
             </div>
           </SheetFooter>

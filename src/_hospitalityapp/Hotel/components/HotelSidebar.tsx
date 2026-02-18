@@ -19,7 +19,6 @@ import {
   Users,
   BedDouble,
   Boxes,
-  Settings,
   CheckSquare2Icon,
   ServerCogIcon,
 } from "lucide-react";

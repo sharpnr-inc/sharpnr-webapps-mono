@@ -1,7 +1,5 @@
 import { SetupWizardLayout } from "@/_setup_wizard_/SetupWizard/components/ui/SetupWizard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import { resolveSetupWizardRoute, } from "@/lib/setup_route_resolver";
-import { setupProgressQuery } from "@/_setup_wizard_/SetupWizard/api/queries";
 
 export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/setup-wizard",
@@ -21,7 +19,6 @@ const mockWizardStatus = {
   completed_count: 1,
 } as const;
 
-
 function RouteComponent() {
   return (
     <SetupWizardLayout status={mockWizardStatus}>
@@ -29,7 +26,6 @@ function RouteComponent() {
     </SetupWizardLayout>
   );
 }
-
 
 // * This is the Page which Calls the API for the fetching the Steps of Setup Wizards
 // * This SHOULD Call the API for the Steps it need

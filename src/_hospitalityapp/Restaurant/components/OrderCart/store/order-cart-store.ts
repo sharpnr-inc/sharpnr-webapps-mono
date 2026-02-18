@@ -11,6 +11,7 @@ interface OrderItem {
   menu_item_id: string;
   item_name: string;
   quantity: number;
+  base_price_at_order: number; // <--- ADD THIS
 
   // Array because an item can have multiple variant groups (Size, Sauce, etc.)
   selected_variants: SelectedVariant[];
@@ -52,8 +53,6 @@ interface OrderCartState {
   ) => void;
   clearCart: () => void;
 }
-
-
 
 export const useOrderCart = create<OrderCartState>((set) => ({
   table_id: "",

@@ -1,6 +1,5 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
-import type { CreateAccountRequest } from "../schemas/interfaces/requests";
 import type { TransactionsParams } from "./queries/transactions";
 
 /******************************************************
@@ -28,7 +27,7 @@ export const GetAllAccountingBooksOfOrg = async () => {
  *************************************/
 export const GetAccountingGroups = async (bookId: string) => {
   const res = await api.get(
-    AccountingAppAPIEndpoints.AccountingGroups.GetGroupsOfBooks(bookId)
+    AccountingAppAPIEndpoints.AccountingGroups.GetGroupsOfBooks(bookId),
   );
   return res.data;
 };
@@ -41,15 +40,7 @@ export const GetAccountingGroups = async (bookId: string) => {
 
 export const GetAccountOfAccountingGroup = async (groupId: string) => {
   const res = await api.get(
-    AccountingAppAPIEndpoints.Accounts.GetAccounts(groupId)
-  );
-  return res.data;
-};
-
-export const CreateAccounts = async (req: CreateAccountRequest) => {
-  const res = await api.post(
-    AccountingAppAPIEndpoints.Accounts.CreateAccount(req.accounting_book_id),
-    req
+    AccountingAppAPIEndpoints.Accounts.GetAccounts(groupId),
   );
   return res.data;
 };
@@ -61,16 +52,21 @@ export const CreateAccounts = async (req: CreateAccountRequest) => {
  *******************************************/
 
 export const GetTransactions = async (params: TransactionsParams) => {
-  const res = await api.get(AccountingAppAPIEndpoints.Transactions.GetTransactions,{
-    params,
-  });
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Transactions.GetTransactions,
+    {
+      params,
+    },
+  );
   return res.data;
 };
 
-export const GetTransactionDetails = async(transactionId:string) =>{
-  const res = await api.get(AccountingAppAPIEndpoints.Transactions.GetTransactionDetails(transactionId))
-  return res.data
-}
+export const GetTransactionDetails = async (transactionId: string) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Transactions.GetTransactionDetails(transactionId),
+  );
+  return res.data;
+};
 
 //-------------------------------------------------------------------------------------//
 
@@ -80,7 +76,7 @@ export const GetTransactionDetails = async(transactionId:string) =>{
 
 export const GetAccountMappingOfOrgs = async () => {
   const res = await api.get(
-    AccountingAppAPIEndpoints.AccountMapping.GetAccountMappings
+    AccountingAppAPIEndpoints.AccountMapping.GetAccountMappings,
   );
   return res.data;
 };
@@ -88,7 +84,7 @@ export const GetAccountMappingOfOrgs = async () => {
 export const CreateAccountMapping = async (req: any) => {
   const res = await api.post(
     AccountingAppAPIEndpoints.AccountMapping.CreateAccountMapping,
-    req
+    req,
   );
   return res.data;
 };
