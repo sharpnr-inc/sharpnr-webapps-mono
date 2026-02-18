@@ -53,7 +53,7 @@ export function useAddVariantsInVariantGroup() {
 
 export function useAddAddOnsOfMenuItem() {
   return useMutation({
-    mutationKey: [""],
+    mutationKey: ["ADD", "ADDONS"],
     mutationFn: AddAddon,
   });
 }

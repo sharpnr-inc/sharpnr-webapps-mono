@@ -83,7 +83,15 @@ export async function AddVariantsInVariantGroup(payload: AddVariantsPayload) {
   return res.data;
 }
 
-export async function AddAddon(ownersID: string) {
-  const res = await api.post(MenuModuleEndpoints.AddAddon(ownersID));
+interface AddonPayload {
+  ownersID: string;
+  payload: any;
+}
+
+export async function AddAddon(payload: AddonPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddAddon(payload.ownersID),
+    payload.payload,
+  );
   return res.data;
 }

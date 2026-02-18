@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import {
+  useAddAddOnsOfMenuItem,
   useAddVariantGroupMutation,
   useAddVariantsInVariantGroup,
 } from "../apis/api.Mutations";
@@ -25,6 +26,7 @@ const CreateVariantsAndAddons = () => {
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
   const [open, setOpen] = useState(false);
   const [openVariantForm, setOpenVariantForm] = useState(false);
+  const [openAddOnForm, setOpenAddOnForm] = useState(false);
   const addVariants = useAddVariantsInVariantGroup();
 
   // Find Active Item from Menus tree
@@ -83,12 +85,28 @@ const CreateVariantsAndAddons = () => {
     },
   });
 
+  const addAddOns = useAddAddOnsOfMenuItem();
+
   const addAddonsForm = useAppForm({
     defaultValues: {
-      variant_group_id: "",
-      menu_item_id: "",
+      menu_item_id: activeItemID,
       name: "",
       price: "",
+    },
+    onSubmit: ({ value }) => {
+      const payload = {
+        ...value,
+        price: Number(value.price), // ✅ converts "25" → 25
+      };
+
+      addAddOns.mutateAsync(
+        { ownersID: ownersID, payload },
+        {
+          onSuccess: () => {
+            console.log("Done");
+          },
+        },
+      );
     },
   });
 
@@ -177,7 +195,7 @@ const CreateVariantsAndAddons = () => {
             <Button
               size="sm"
               onClick={() => {
-                setOpen(true)
+                setOpen(true);
               }}
             >
               + Add Variant Group
@@ -280,6 +298,7 @@ const CreateVariantsAndAddons = () => {
               <div className="text-xs text-muted-foreground">No AddOns</div>
             )}
           </div>
+          <Button onClick={() => setOpenAddOnForm(true)}>Add On</Button>
         </div>
       </CardContent>
 
@@ -353,6 +372,45 @@ const CreateVariantsAndAddons = () => {
                   Add Variant group
                 </addVariantGroupForm.SubmitButton>
               </addVariantGroupForm.AppForm>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={openAddOnForm} onOpenChange={setOpenAddOnForm}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Create Add On in {activeItem.name}</DialogTitle>
+          </DialogHeader>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addAddonsForm.handleSubmit();
+            }}
+          >
+            <addAddonsForm.AppField
+              name="name"
+              children={(f) => {
+                return <f.TextField label="Variants Name" />;
+              }}
+            />
+
+            <addAddonsForm.AppField
+              name="price"
+              children={(f) => {
+                return <f.TextField label="Variants Price" />;
+              }}
+            />
+
+            <DialogFooter>
+              <addAddonsForm.AppForm>
+                <addAddonsForm.SubmitButton>
+                  <PlusIcon />
+                  Add AddOn
+                </addAddonsForm.SubmitButton>
+              </addAddonsForm.AppForm>
             </DialogFooter>
           </form>
         </DialogContent>
