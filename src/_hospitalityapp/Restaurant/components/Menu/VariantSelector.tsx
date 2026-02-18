@@ -6,28 +6,42 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useMenuStore } from "./store/MenuStore";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 const VariantSelector = () => {
   const { selectedItem, isVariantOpen, closeVariant } = useMenuStore();
 
+  /* ---------------- Local State ---------------- */
   const [selectedVariants, setSelectedVariants] = useState<
     Record<string, string>
   >({});
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [quantity, setQuantity] = useState<number>(1);
 
-  if (!selectedItem) return null;
+  /* ---------------- Reset When Sheet Opens ---------------- */
+  useEffect(() => {
+    if (isVariantOpen) {
+      setSelectedVariants({});
+      setSelectedAddons([]);
+      setQuantity(1);
+    }
+  }, [isVariantOpen]);
 
-  /* ---------------- Filter Valid Variant Groups ---------------- */
-  const validVariantGroups = selectedItem.variant_groups.filter(
-    (group) => group.variants.length > 0,
-  );
+  /* ---------------- Safe Variant Groups ---------------- */
+  const validVariantGroups = useMemo(() => {
+    if (!selectedItem) return [];
+    return selectedItem.variant_groups.filter(
+      (group) => group.variants.length > 0,
+    );
+  }, [selectedItem]);
 
   /* ---------------- Price Calculation ---------------- */
   const totalPrice = useMemo(() => {
+    if (!selectedItem) return 0;
+
     let total = selectedItem.base_price;
 
-    // Add variant prices
+    // Variant price modifiers
     validVariantGroups.forEach((group) => {
       const selectedVariantId = selectedVariants[group.id];
       const variant = group.variants.find((v) => v.id === selectedVariantId);
@@ -36,15 +50,21 @@ const VariantSelector = () => {
       }
     });
 
-    // Add addon prices
+    // Add-on prices
     selectedItem.add_ons.forEach((addon) => {
       if (selectedAddons.includes(addon.id)) {
         total += addon.price;
       }
     });
 
-    return total;
-  }, [selectedItem, selectedVariants, selectedAddons]);
+    return total * quantity;
+  }, [
+    selectedItem,
+    validVariantGroups,
+    selectedVariants,
+    selectedAddons,
+    quantity,
+  ]);
 
   /* ---------------- Handlers ---------------- */
   const handleSelectVariant = (groupId: string, variantId: string) => {
@@ -62,23 +82,37 @@ const VariantSelector = () => {
     );
   };
 
+  const handleQuantityChange = (type: "inc" | "dec") => {
+    setQuantity((prev) => {
+      if (type === "dec" && prev > 1) return prev - 1;
+      if (type === "inc") return prev + 1;
+      return prev;
+    });
+  };
+
   const handleAddToCart = () => {
+    if (!selectedItem) return;
+
     console.log({
       item: selectedItem,
       selectedVariants,
       selectedAddons,
+      quantity,
       totalPrice,
     });
 
-    // 👉 here call your cart store
+    // 👉 integrate with cart store here
     // addToCart({...})
 
     closeVariant();
   };
 
+  /* ---------------- AFTER ALL HOOKS ---------------- */
+  if (!selectedItem) return null;
+
   return (
     <Sheet open={isVariantOpen} onOpenChange={closeVariant}>
-      <SheetContent side="bottom" className="p-4 h-[60vh] overflow-y-auto">
+      <SheetContent side="bottom" className="p-4 h-[65vh] overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="text-base font-semibold">
             {selectedItem.name}
@@ -145,6 +179,26 @@ const VariantSelector = () => {
               No Add-ons available
             </p>
           )}
+        </div>
+
+        {/* ---------------- Quantity ---------------- */}
+        <div className="mt-6 flex items-center gap-3">
+          <h4 className="text-sm font-semibold">Quantity:</h4>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => handleQuantityChange("dec")}
+          >
+            -
+          </Button>
+          <span className="font-semibold">{quantity}</span>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => handleQuantityChange("inc")}
+          >
+            +
+          </Button>
         </div>
 
         {/* ---------------- Footer ---------------- */}
