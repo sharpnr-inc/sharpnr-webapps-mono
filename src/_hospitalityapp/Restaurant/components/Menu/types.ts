@@ -57,7 +57,7 @@ export interface Variant {
   variant_group_id: string;
 
   name: string;
-  price_modifier: number; // +20, +50 etc
+  price: number; // +20, +50 etc
   is_default?: boolean;
 }
 

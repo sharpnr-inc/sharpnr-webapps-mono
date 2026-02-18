@@ -128,10 +128,7 @@ const RestaurantTableManagementPage: React.FC = () => {
                 <div className="p-4">
                   <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
                     {Array.from({ length: 12 }).map((_, idx) => (
-                      <Skeleton
-                        key={idx}
-                        className="aspect-square rounded-lg"
-                      />
+                      <Skeleton key={idx} className="rounded-full" />
                     ))}
                   </div>
                 </div>
