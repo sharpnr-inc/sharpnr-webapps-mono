@@ -21,13 +21,12 @@ import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 export function RestaurantRootLayout() {
   const { properties } = Route.useLoaderData();
 
-  const [selectedPropertyId, setSelectedPropertyId] =
-    React.useState<string | undefined>(
-      properties?.[0]?.PropertyID
-    );
+  const [selectedPropertyId, setSelectedPropertyId] = React.useState<
+    string | undefined
+  >(properties?.[0]?.PropertyID);
 
   const selectedProperty = properties?.find(
-    (p: any) => p.PropertyID === selectedPropertyId
+    (p: any) => p.PropertyID === selectedPropertyId,
   );
 
   return (
@@ -60,9 +59,7 @@ export function RestaurantRootLayout() {
                 {properties?.map((property: any) => (
                   <DropdownMenuItem
                     key={property.PropertyID}
-                    onSelect={() =>
-                      setSelectedPropertyId(property.PropertyID)
-                    }
+                    onSelect={() => setSelectedPropertyId(property.PropertyID)}
                   >
                     {property.PropertyName}
 

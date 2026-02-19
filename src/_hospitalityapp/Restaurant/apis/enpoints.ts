@@ -10,4 +10,7 @@ export const RestaurantEndpoints = {
 
   GetDiningSessionOrders: (restaurantID: string, diningSessionID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/dining-session/${diningSessionID}/orders`,
+
+  AddOrderInDiningSession: (restaurantID: string, diningSessionID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/dining-session/${diningSessionID}/add-order`,
 };

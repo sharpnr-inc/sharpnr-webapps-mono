@@ -33,5 +33,25 @@ export async function GetDiningSessionOrders(
   const res = await api.get(
     RestaurantEndpoints.GetDiningSessionOrders(restaurantID, diningSessionID),
   );
-  return res.data
+  return res.data;
+}
+
+/* ---------------------------------- </\> ---------------------------------- */
+interface AddOrderInDiningSessionPayload {
+  restaurantID: string;
+  diningSessionID: string;
+  req_payload: any;
+}
+export async function AddOrdersInDiningSession(
+  payload: AddOrderInDiningSessionPayload,
+) {
+  const res = await api.post(
+    RestaurantEndpoints.AddOrderInDiningSession(
+      payload.restaurantID,
+      payload.diningSessionID,
+    ),
+    payload.req_payload,
+  );
+
+  return res.data;
 }

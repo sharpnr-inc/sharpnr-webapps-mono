@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { StartDiningSession } from "./restaurant.api";
+import { AddOrdersInDiningSession, StartDiningSession } from "./restaurant.api";
 
 export function useStartDineInSession() {
   return useMutation({
@@ -10,5 +10,12 @@ export function useStartDineInSession() {
       restaurantID: string;
       tableID: string;
     }) => StartDiningSession(restaurantID, tableID),
+  });
+}
+
+export function useAddOrderInDiningSessionMutation() {
+  return useMutation({
+    mutationFn: AddOrdersInDiningSession,
+    mutationKey: ["Order"],
   });
 }

@@ -35,7 +35,12 @@ const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
           </div>
 
           {/* Cart / KOT Section */}
-          <OrderCart className="" />
+          <OrderCart
+            className=""
+            restaurantID={restaurantID}
+            tableID={table.TableID}
+            DiningSessionID={table.CurrentDineSessionID}
+          />
         </div>
 
         {/* RIGHT SIDE (Tables Panel) */}

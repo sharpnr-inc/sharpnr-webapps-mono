@@ -99,7 +99,6 @@ const VariantSelector = () => {
       quantity: quantity,
       selected_variants: variantsArray,
       selected_add_ons: addOnsArray,
-      module_type: "KITCHEN",
       special_instructions: instructions,
     });
 

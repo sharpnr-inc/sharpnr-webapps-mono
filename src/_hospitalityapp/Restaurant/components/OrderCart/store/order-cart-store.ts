@@ -19,8 +19,6 @@ interface OrderItem {
   // Array for multi-select add-ons
   selected_add_ons: SelectedAddOn[];
 
-  // Future-proofing for Bar/Kitchen routing
-  module_type: "KITCHEN" | "BAR";
   special_instructions?: string;
 }
 

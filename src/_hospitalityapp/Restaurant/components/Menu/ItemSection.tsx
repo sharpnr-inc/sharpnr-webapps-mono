@@ -37,16 +37,8 @@ const ItemSection: React.FC<ItemSectionProps> = ({ className }) => {
      Click Handler
   ----------------------------- */
   const handleSelectItem = (item: MenuItem) => {
-    const hasVariants = item.variant_groups.length > 0;
-    const hasAddons = item.add_ons.length > 0;
-
-    if (hasVariants || hasAddons) {
-      openVariant(item);
-      return;
-    }
-
+    openVariant(item);
     console.log("Add Directly to Cart", item);
-    // addToCart(item)
   };
 
   /* -----------------------------

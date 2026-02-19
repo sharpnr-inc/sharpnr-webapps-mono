@@ -9,26 +9,33 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import {
-  ShoppingBasket,
-  Trash2,
-  Plus,
-  Minus,
-  Utensils,
-  GlassWater,
-} from "lucide-react";
+import { ShoppingBasket, Trash2, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import { useOrderCart } from "./store/order-cart-store";
+import { useAddOrderInDiningSessionMutation } from "../../apis/mutations";
 
 interface OrderCartProps {
   className?: string;
+  restaurantID: string;
+  tableID: string;
+  DiningSessionID: string;
 }
 
-const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
+const OrderCart: React.FC<OrderCartProps> = ({
+  className,
+  DiningSessionID,
+  restaurantID,
+  tableID,
+}) => {
   const [openSheet, setOpenSheet] = useState(false);
   const { items, clearCart, updateQuantity } = useOrderCart();
 
-  // --- Fixed Calculations (Calculated directly in render) ---
+  const addOrders = useAddOrderInDiningSessionMutation();
+
+  /* =========================
+     CALCULATIONS
+  ========================== */
+
   const totalItemsCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const grandTotal = items.reduce((acc, item) => {
@@ -36,16 +43,78 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
       (vAcc, v) => vAcc + v.price_at_order,
       0,
     );
+
     const addOnsSum = item.selected_add_ons.reduce(
       (aAcc, a) => aAcc + a.price_at_order * a.qty,
       0,
     );
 
-    // Logic: (Base + Variants + Addons) * Quantity
     const itemTotal =
       (item.base_price_at_order + variantsSum + addOnsSum) * item.quantity;
+
     return acc + itemTotal;
   }, 0);
+
+  /* =========================
+     PAYLOAD BUILDER
+  ========================== */
+
+  const buildDiningSessionPayload = () => {
+    return {
+      table_id: tableID,
+      items: items.map((item) => ({
+        menu_item_id: item.menu_item_id,
+        item_name: item.item_name,
+        quantity: item.quantity,
+        base_price_at_order: item.base_price_at_order,
+        special_instructions: item.special_instructions ?? "",
+        selected_variants: item.selected_variants.map((v) => ({
+          variant_group_id: v.variant_group_id,
+          variant_id: v.variant_id,
+          variant_name: v.variant_name,
+          price_at_order: v.price_at_order,
+        })),
+        selected_add_ons: item.selected_add_ons.map((a) => ({
+          id: a.id,
+          name: a.name,
+          qty: a.qty,
+          price_at_order: a.price_at_order,
+        })),
+      })),
+    };
+  };
+
+  /* =========================
+     SEND HANDLER
+  ========================== */
+
+  const handleSendToKitchen = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (items.length === 0) return;
+
+    const reqBody = buildDiningSessionPayload();
+
+    try {
+      await addOrders.mutateAsync({
+        restaurantID,
+        diningSessionID: DiningSessionID,
+        req_payload: reqBody,
+      });
+
+      clearCart();
+      setOpenSheet(false);
+    } catch (error) {
+      console.error("Failed to send order:", error);
+    }
+  };
+
+  /* =========================
+     UI
+  ========================== */
 
   return (
     <div
@@ -54,7 +123,7 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
         className,
       )}
     >
-      {/* Top Summary Row */}
+      {/* Top Summary */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="p-2 border rounded-lg bg-secondary">
@@ -80,14 +149,14 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
         </div>
       </div>
 
-      {/* Action Buttons */}
+      {/* Buttons */}
       <div className="flex gap-2">
         <Button
           variant="outline"
           size="sm"
           className="flex-1 font-semibold"
           onClick={clearCart}
-          disabled={items.length === 0}
+          disabled={items.length === 0 || addOrders.isPending}
         >
           Reset
         </Button>
@@ -102,7 +171,7 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
         </Button>
       </div>
 
-      {/* The Detail Sheet */}
+      {/* Sheet */}
       <Sheet open={openSheet} onOpenChange={setOpenSheet}>
         <SheetContent side="bottom" className="w-full flex flex-col p-0">
           <SheetHeader className="p-6 border-b">
@@ -125,15 +194,16 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                     (v) => v.variant_id,
                   );
 
-                  // Math for each individual row
                   const variantsSum = item.selected_variants.reduce(
                     (acc, v) => acc + v.price_at_order,
                     0,
                   );
+
                   const addOnsSum = item.selected_add_ons.reduce(
                     (acc, a) => acc + a.price_at_order * a.qty,
                     0,
                   );
+
                   const unitPriceTotal =
                     item.base_price_at_order + variantsSum + addOnsSum;
 
@@ -144,50 +214,39 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                     >
                       <div className="flex justify-between items-start">
                         <div className="space-y-1">
-                          <div className="flex items-center gap-2">
-                            {item.module_type === "BAR" ? (
-                              <GlassWater className="h-3 w-3" />
-                            ) : (
-                              <Utensils className="h-3 w-3" />
-                            )}
-                            <h4 className="font-bold text-sm uppercase">
-                              {item.item_name}
-                            </h4>
-                          </div>
+                          <h4 className="font-bold text-sm uppercase">
+                            {item.item_name}
+                          </h4>
 
-                          {/* Selected details */}
                           <div className="space-y-0.5">
                             {item.selected_variants.map((v) => (
                               <p
                                 key={v.variant_id}
                                 className="text-[11px] text-muted-foreground italic"
                               >
-                                + {v.variant_name} (₹{v.price_at_order})
+                                + {v.variant_name} (₹
+                                {v.price_at_order})
                               </p>
                             ))}
+
                             {item.selected_add_ons.map((a) => (
                               <p
                                 key={a.id}
                                 className="text-[11px] text-muted-foreground italic"
                               >
-                                + {a.name} x{a.qty} (₹{a.price_at_order * a.qty}
-                                )
+                                + {a.name} x{a.qty} (₹
+                                {a.price_at_order * a.qty})
                               </p>
                             ))}
                           </div>
                         </div>
+
                         <p className="font-mono text-sm font-bold">
                           ₹{(unitPriceTotal * item.quantity).toFixed(2)}
                         </p>
                       </div>
 
-                      {item.special_instructions && (
-                        <p className="text-[11px] bg-secondary/50 p-2 rounded border-l-2 border-foreground/30 italic">
-                          "{item.special_instructions}"
-                        </p>
-                      )}
-
-                      {/* Quantity & Delete Controls */}
+                      {/* Quantity Controls */}
                       <div className="flex items-center justify-between pt-2">
                         <div className="flex items-center border rounded-lg bg-background shadow-sm">
                           <button
@@ -202,9 +261,11 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                           >
                             <Minus className="h-3 w-3" />
                           </button>
+
                           <span className="px-3 text-xs font-bold border-x">
                             {item.quantity}
                           </span>
+
                           <button
                             onClick={() =>
                               updateQuantity(
@@ -234,6 +295,7 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
+
                       {idx !== items.length - 1 && (
                         <Separator className="mt-6 opacity-50" />
                       )}
@@ -250,18 +312,18 @@ const OrderCart: React.FC<OrderCartProps> = ({ className }) => {
                 <span className="text-sm font-bold uppercase tracking-widest">
                   Grand Total
                 </span>
-                <span className="text-xl font-mono font-bold text-foreground">
+                <span className="text-xl font-mono font-bold">
                   ₹{grandTotal.toFixed(2)}
                 </span>
               </div>
+
               <Button
-              onClick={()=> {
-                console.log(items)
-              }}
+                type="button"
+                onClick={handleSendToKitchen}
                 className="w-full py-7 text-base font-bold uppercase tracking-widest rounded-xl"
-                disabled={items.length === 0}
+                disabled={items.length === 0 || addOrders.isPending}
               >
-                Send to {items[0]?.module_type || "Kitchen"}
+                {addOrders.isPending ? "Sending..." : "Send to Kitchen"}
               </Button>
             </div>
           </SheetFooter>
