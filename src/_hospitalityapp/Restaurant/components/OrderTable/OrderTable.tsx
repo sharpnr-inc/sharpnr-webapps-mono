@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
   type ColumnDef,
-  flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -31,13 +30,13 @@ const OrderTable: React.FC<OrderTableProps> = ({
   diningSessionID,
   restaurantID,
 }) => {
-  const { data, isLoading } = useDiningSessionOrders(
+  const { data, isLoading, isError, error } = useDiningSessionOrders(
     restaurantID,
     diningSessionID,
   );
 
   /**
-   * Flatten orders -> items into table rows
+   * Flatten orders -> items
    */
   const rows = useMemo<TableRow[]>(() => {
     if (!data?.data?.orders) return [];
@@ -69,47 +68,12 @@ const OrderTable: React.FC<OrderTableProps> = ({
   }, [data]);
 
   /**
-   * Table columns
+   * TanStack internal requirement
    */
   const columns = useMemo<ColumnDef<TableRow>[]>(
     () => [
       {
-        header: "Order #",
-        accessorKey: "orderNumber",
-      },
-      {
-        header: "Item",
         accessorKey: "name",
-      },
-      {
-        header: "Qty",
-        accessorKey: "quantity",
-      },
-      {
-        header: "Unit Price",
-        accessorKey: "unitPrice",
-        cell: ({ row }) => `₹${row.original.unitPrice}`,
-      },
-      {
-        header: "Total",
-        accessorKey: "total",
-        cell: ({ row }) => `₹${row.original.total}`,
-      },
-      {
-        header: "Variants",
-        accessorKey: "variants",
-      },
-      {
-        header: "Addons",
-        accessorKey: "addons",
-      },
-      {
-        header: "Status",
-        accessorKey: "status",
-      },
-      {
-        header: "Action",
-        cell: () => <Button size="sm">Edit</Button>,
       },
     ],
     [],
@@ -121,48 +85,92 @@ const OrderTable: React.FC<OrderTableProps> = ({
     getCoreRowModel: getCoreRowModel(),
   });
 
+  /**
+   * ==========================
+   * FALLBACK STATES (IMPORTANT)
+   * ==========================
+   */
+
+  // Loading
   if (isLoading) {
-    return <div className="p-4">Loading...</div>;
+    return (
+      <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+        Loading orders...
+      </div>
+    );
   }
 
+  // Error
+  if (isError) {
+    return (
+      <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+        Failed to load orders
+        {error instanceof Error ? `: ${error.message}` : ""}
+      </div>
+    );
+  }
+
+  // Empty
+  if (rows.length === 0) {
+    return (
+      <div className="flex h-full items-center justify-center text-sm text-muted-foreground border rounded-xl">
+        No Orders Found
+      </div>
+    );
+  }
+
+  /**
+   * ==========================
+   * MAIN UI
+   * ==========================
+   */
   return (
-    <div className="flex flex-col h-full border rounded-xl overflow-hidden">
-      <table className="w-full text-sm">
-        <thead className="bg-muted">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} className="text-left p-3 font-medium">
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+    <div className="flex flex-col h-full border rounded-xl overflow-y-auto p-3 space-y-3">
+      {table.getRowModel().rows.map((row) => {
+        const item = row.original;
 
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-t">
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="p-3">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
+        return (
+          <div key={row.id} className="border rounded-lg p-3 space-y-2 text-sm">
+            {/* Top */}
+            <div className="flex items-center justify-between">
+              <div className="font-semibold">
+                #{item.orderNumber} · {item.name}
+              </div>
 
-          {rows.length === 0 && (
-            <tr>
-              <td colSpan={columns.length} className="text-center p-6">
-                No Orders Found
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+              <div className="font-medium">₹{item.total}</div>
+            </div>
+
+            {/* Qty + Unit */}
+            <div className="flex items-center justify-between text-muted-foreground">
+              <span>Qty: {item.quantity}</span>
+              <span>Unit: ₹{item.unitPrice}</span>
+            </div>
+
+            {/* Variant */}
+            <div>
+              <span className="font-medium">Variant:</span>{" "}
+              <span className="text-muted-foreground">{item.variants}</span>
+            </div>
+
+            {/* Addons */}
+            <div>
+              <span className="font-medium">Addons:</span>{" "}
+              <span className="text-muted-foreground">{item.addons}</span>
+            </div>
+
+            {/* Bottom */}
+            <div className="flex items-center justify-between pt-1">
+              <span className="text-muted-foreground">
+                Status: {item.status}
+              </span>
+
+              <Button size="sm" variant="outline">
+                Edit
+              </Button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
