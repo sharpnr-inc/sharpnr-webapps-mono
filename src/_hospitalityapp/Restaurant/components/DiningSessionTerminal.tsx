@@ -1,5 +1,4 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useDiningSessionOrders } from "../apis/queries";
 import MenuSection from "./Menu/MenuSection";
 import OrderCart from "./OrderCart/OrderCart";
 import OrderTable from "./OrderTable/OrderTable";
@@ -13,8 +12,6 @@ const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
   table,
   restaurantID,
 }) => {
-  const {} = useDiningSessionOrders(restaurantID, table.CurrentDineSessionID);
-
   return (
     <div className=" flex flex-col">
       {/* Main Content */}
@@ -45,7 +42,10 @@ const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
 
         {/* RIGHT SIDE (Tables Panel) */}
         <div className="w-2/6 rounded-xl shadow-sm border flex flex-col overflow-hidden">
-          <OrderTable />
+          <OrderTable
+            diningSessionID={table.CurrentDineSessionID}
+            restaurantID={restaurantID}
+          />
         </div>
       </div>
     </div>
