@@ -5,14 +5,22 @@ import {
   Draggable,
   type DropResult,
 } from "@hello-pangea/dnd";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import KDSHeader from "../components/KDSHeader";
-import { Timer, AlertTriangle, ChefHat } from "lucide-react";
+import {
+  Timer,
+  AlertTriangle,
+  ChefHat,
+  Check,
+  CrossIcon,
+  DeleteIcon,
+} from "lucide-react";
 import { useKitchenKOTsSSE } from "../api/api.sse";
 import { UpdateKOTStatus } from "../api/api.service";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 type OrderStatus = "ordered" | "in_progress" | "cooked";
 
@@ -343,6 +351,23 @@ export default function KitchenPage() {
                                       ))}
                                     </div>
                                   </CardContent>
+                                  {order?.status === "ordered" && (
+                                    <CardFooter>
+                                      <div className="flex gap-5">
+                                        <Button size={"sm"}>
+                                          <Check />
+                                          Accept
+                                        </Button>
+                                        <Button
+                                          size={"sm"}
+                                          variant={"destructive"}
+                                        >
+                                          <DeleteIcon />
+                                          Reject
+                                        </Button>
+                                      </div>
+                                    </CardFooter>
+                                  )}
                                 </Card>
                               )}
                             </Draggable>
