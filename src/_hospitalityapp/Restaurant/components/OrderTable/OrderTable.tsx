@@ -1,31 +1,71 @@
 import { Button } from "@/components/ui/button";
-import {
-  type ColumnDef,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { Badge } from "@/components/ui/badge";
 import { useMemo } from "react";
 import { useDiningSessionOrders } from "../../apis/queries";
+import { cn } from "@/lib/utils";
+import { Clock } from "lucide-react";
 
 interface OrderTableProps {
   restaurantID: string;
   diningSessionID: string;
 }
 
-type TableRow = {
-  orderId: string;
-  orderNumber: string;
-  itemId: string;
+// ---- types ----
+interface ParsedAddon {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
+interface ParsedVariant {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface ParsedItem {
+  id: string;
   name: string;
   quantity: number;
   unitPrice: number;
   total: number;
-  variants: string;
-  addons: string;
+  notes: string | null;
+  variants: ParsedVariant[];
+  addons: ParsedAddon[];
+}
+
+interface ParsedOrder {
+  id: string;
+  orderNumber: string;
   status: string;
   createdAt: string;
-};
+  items: ParsedItem[];
+  orderTotal: number;
+}
 
+// ---- status style helper ----
+function statusStyle(status: string) {
+  switch (status.toUpperCase()) {
+    case "READY":
+      return "bg-green-100 text-green-700 border-green-300";
+    case "IN_PROGRESS":
+      return "bg-yellow-100 text-yellow-700 border-yellow-300";
+    case "PENDING":
+      return "bg-blue-100 text-blue-700 border-blue-300";
+    default:
+      return "bg-muted text-muted-foreground";
+  }
+}
+
+function formatTime(iso: string) {
+  return new Date(iso).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+// ---- component ----
 const OrderTable: React.FC<OrderTableProps> = ({
   diningSessionID,
   restaurantID,
@@ -35,63 +75,35 @@ const OrderTable: React.FC<OrderTableProps> = ({
     diningSessionID,
   );
 
-  /**
-   * Flatten orders -> items
-   */
-  const rows = useMemo<TableRow[]>(() => {
+  const orders = useMemo<ParsedOrder[]>(() => {
     if (!data?.data?.orders) return [];
 
-    return data.data.orders.flatMap((order: any) =>
-      order.items.map((item: any) => {
-        const variants =
-          item.variants?.map((v: any) => v.name).join(", ") || "-";
+    return data.data.orders.map((order: any) => {
+      const items: ParsedItem[] = (order.items ?? []).map((item: any) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        unitPrice: item.unit_price,
+        total: item.quantity * item.unit_price,
+        notes: item.notes ?? null,
+        variants: item.variants ?? [],
+        addons: (item.addons ?? []).filter(Boolean),
+      }));
 
-        const addons =
-          item.addons?.map((a: any) => `${a.name} x${a.quantity}`).join(", ") ||
-          "-";
+      const orderTotal = items.reduce((sum, i) => sum + i.total, 0);
 
-        return {
-          orderId: order.id,
-          orderNumber: order.order_number,
-          itemId: item.id,
-          name: item.name,
-          quantity: item.quantity,
-          unitPrice: item.unit_price,
-          total: item.quantity * item.unit_price,
-          variants,
-          addons,
-          status: item.status,
-          createdAt: order.created_at,
-        };
-      }),
-    );
+      return {
+        id: order.id,
+        orderNumber: order.order_number,
+        status: order.status,
+        createdAt: order.created_at,
+        items,
+        orderTotal,
+      };
+    });
   }, [data]);
 
-  /**
-   * TanStack internal requirement
-   */
-  const columns = useMemo<ColumnDef<TableRow>[]>(
-    () => [
-      {
-        accessorKey: "name",
-      },
-    ],
-    [],
-  );
-
-  const table = useReactTable({
-    data: rows,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
-
-  /**
-   * ==========================
-   * FALLBACK STATES (IMPORTANT)
-   * ==========================
-   */
-
-  // Loading
+  // ---- fallbacks ----
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
@@ -100,7 +112,6 @@ const OrderTable: React.FC<OrderTableProps> = ({
     );
   }
 
-  // Error
   if (isError) {
     return (
       <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
@@ -110,8 +121,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
     );
   }
 
-  // Empty
-  if (rows.length === 0) {
+  if (orders.length === 0) {
     return (
       <div className="flex h-full items-center justify-center text-sm text-muted-foreground border rounded-xl">
         No Orders Found
@@ -119,58 +129,124 @@ const OrderTable: React.FC<OrderTableProps> = ({
     );
   }
 
-  /**
-   * ==========================
-   * MAIN UI
-   * ==========================
-   */
+  // ---- main UI ----
   return (
-    <div className="flex flex-col h-full border rounded-xl overflow-y-auto p-3 space-y-3">
-      {table.getRowModel().rows.map((row) => {
-        const item = row.original;
-
-        return (
-          <div key={row.id} className="border rounded-lg p-3 space-y-2 text-sm">
-            {/* Top */}
-            <div className="flex items-center justify-between">
-              <div className="font-semibold">
-                #{item.orderNumber} · {item.name}
-              </div>
-
-              <div className="font-medium">₹{item.total}</div>
-            </div>
-
-            {/* Qty + Unit */}
-            <div className="flex items-center justify-between text-muted-foreground">
-              <span>Qty: {item.quantity}</span>
-              <span>Unit: ₹{item.unitPrice}</span>
-            </div>
-
-            {/* Variant */}
-            <div>
-              <span className="font-medium">Variant:</span>{" "}
-              <span className="text-muted-foreground">{item.variants}</span>
-            </div>
-
-            {/* Addons */}
-            <div>
-              <span className="font-medium">Addons:</span>{" "}
-              <span className="text-muted-foreground">{item.addons}</span>
-            </div>
-
-            {/* Bottom */}
-            <div className="flex items-center justify-between pt-1">
-              <span className="text-muted-foreground">
-                Status: {item.status}
+    <div className="flex flex-col h-full overflow-y-auto space-y-4 p-1">
+      {orders.map((order) => (
+        <div
+          key={order.id}
+          className="border rounded-xl overflow-hidden shadow-sm"
+        >
+          {/* ── Order Header ── */}
+          <div className="flex items-center justify-between px-4 py-2.5 bg-muted/40 border-b">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-sm">
+                Order #{order.orderNumber}
               </span>
+              <Badge
+                variant="outline"
+                className={cn(
+                  "text-[10px] px-2 py-0.5",
+                  statusStyle(order.status),
+                )}
+              >
+                {order.status}
+              </Badge>
+            </div>
 
-              <Button size="sm" variant="outline">
-                Edit
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                <Clock size={11} />
+                {formatTime(order.createdAt)}
+              </span>
+              <Button size="sm" variant="outline" className="h-7 text-xs">
+                Edit Order
               </Button>
             </div>
           </div>
-        );
-      })}
+
+          {/* ── Items List ── */}
+          <div className="divide-y">
+            {order.items.map((item, idx) => (
+              <div key={item.id} className="px-4 py-3 space-y-1.5">
+                {/* Item name + total */}
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-muted-foreground w-4 text-right">
+                      {idx + 1}.
+                    </span>
+                    <span className="font-medium text-sm">{item.name}</span>
+                  </div>
+                  <span className="font-semibold text-sm">₹{item.total}</span>
+                </div>
+
+                {/* Qty + unit price */}
+                <div className="flex items-center gap-4 pl-6 text-xs text-muted-foreground">
+                  <span>
+                    Qty:{" "}
+                    <strong className="text-foreground">{item.quantity}</strong>
+                  </span>
+                  <span>×</span>
+                  <span>₹{item.unitPrice}</span>
+                </div>
+
+                {/* Variants */}
+                {item.variants.length > 0 && (
+                  <div className="pl-6 flex items-center gap-1.5 flex-wrap">
+                    {item.variants.map((v) => (
+                      <Badge
+                        key={v.id}
+                        variant="secondary"
+                        className="text-[10px] px-2 py-0"
+                      >
+                        {v.name} · ₹{v.price}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                {/* Addons */}
+                {item.addons.length > 0 && (
+                  <div className="pl-6 flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[10px] text-muted-foreground">
+                      Add-ons:
+                    </span>
+                    {item.addons.map((a) => (
+                      <Badge
+                        key={a.id}
+                        variant="outline"
+                        className="text-[10px] px-2 py-0"
+                      >
+                        {a.name} ×{a.quantity} · ₹{a.price}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+
+                {/* Notes */}
+                {item.notes && (
+                  <div className="pl-6 text-[11px] text-orange-600 italic">
+                    "{item.notes}"
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* ── Order Footer ── */}
+          {/* <div className="flex items-center justify-between px-4 py-2.5 bg-muted/20 border-t">
+            <span className="text-xs text-muted-foreground">
+              {order.items.length} item{order.items.length !== 1 ? "s" : ""}
+            </span>
+            <div className="flex items-center gap-1.5 font-bold text-sm">
+              <span className="text-muted-foreground font-normal text-xs">
+                Order Total
+              </span>
+              ₹{order.orderTotal}
+            </div>
+          </div> */}
+        </div>
+      ))}
     </div>
   );
 };

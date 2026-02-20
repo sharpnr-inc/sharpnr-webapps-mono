@@ -12,6 +12,7 @@ import KDSHeader from "../components/KDSHeader";
 import { Timer, AlertTriangle, ChefHat } from "lucide-react";
 import { useKitchenKOTsSSE } from "../api/api.sse";
 import { UpdateKOTStatus } from "../api/api.service";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type OrderStatus = "ordered" | "in_progress" | "cooked";
 
@@ -247,111 +248,112 @@ export default function KitchenPage() {
                   {orders.filter((o) => o.status === col.id).length}
                 </Badge>
               </div>
+              <ScrollArea className="h-[75vh]">
+                <Droppable droppableId={col.id}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className={cn(
+                        "space-y-3 overflow-y-auto flex-1 min-h-[80px] rounded-lg transition-colors",
+                        snapshot.isDraggingOver && "bg-muted/40",
+                      )}
+                    >
+                      {orders
+                        .filter((o) => o.status === col.id)
+                        .map((order, index) => {
+                          const isLate = order.waitMinutes >= 12;
 
-              <Droppable droppableId={col.id}>
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    className={cn(
-                      "space-y-3 overflow-y-auto flex-1 min-h-[80px] rounded-lg transition-colors",
-                      snapshot.isDraggingOver && "bg-muted/40",
-                    )}
-                  >
-                    {orders
-                      .filter((o) => o.status === col.id)
-                      .map((order, index) => {
-                        const isLate = order.waitMinutes >= 12;
-
-                        return (
-                          <Draggable
-                            key={order.id}
-                            draggableId={order.id}
-                            index={index}
-                          >
-                            {(provided, snapshot) => (
-                              <Card
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className={cn(
-                                  "transition-shadow",
-                                  snapshot.isDragging &&
-                                    "rotate-1 scale-105 shadow-xl ring-2 ring-primary/30",
-                                  isLate && "border-orange-400",
-                                )}
-                              >
-                                <CardContent className="p-3">
-                                  <div className="flex justify-between mb-2">
-                                    <span className="text-xs font-bold">
-                                      {order.table}
-                                    </span>
-                                    <div
-                                      className={cn(
-                                        "text-[10px] flex items-center gap-1",
-                                        isLate
-                                          ? "text-orange-500 font-semibold"
-                                          : "text-muted-foreground",
-                                      )}
-                                    >
-                                      {isLate && <AlertTriangle size={10} />}
-                                      <Timer size={10} />
-                                      {order.waitMinutes}m
-                                    </div>
-                                  </div>
-
-                                  <div className="space-y-2">
-                                    {order.items.map((item) => (
+                          return (
+                            <Draggable
+                              key={order.id}
+                              draggableId={order.id}
+                              index={index}
+                            >
+                              {(provided, snapshot) => (
+                                <Card
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  className={cn(
+                                    "transition-shadow",
+                                    snapshot.isDragging &&
+                                      "rotate-1 scale-105 shadow-xl ring-2 ring-primary/30",
+                                    isLate && "border-orange-400",
+                                  )}
+                                >
+                                  <CardContent className="p-3">
+                                    <div className="flex justify-between mb-2">
+                                      <span className="text-xs font-bold">
+                                        {order.table}
+                                      </span>
                                       <div
-                                        key={item.id}
-                                        className="border rounded-md p-2 text-[11px] space-y-1"
+                                        className={cn(
+                                          "text-[10px] flex items-center gap-1",
+                                          isLate
+                                            ? "text-orange-500 font-semibold"
+                                            : "text-muted-foreground",
+                                        )}
                                       >
-                                        <div className="font-semibold">
-                                          {item.menu_item_id}
-                                          {item.variant_id && (
-                                            <span className="text-muted-foreground font-normal ml-1">
-                                              — {item.variant_id}
-                                            </span>
+                                        {isLate && <AlertTriangle size={10} />}
+                                        <Timer size={10} />
+                                        {order.waitMinutes}m
+                                      </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                      {order.items.map((item) => (
+                                        <div
+                                          key={item.id}
+                                          className="border rounded-md p-2 text-[11px] space-y-1"
+                                        >
+                                          <div className="font-semibold">
+                                            {item.menu_item_id}
+                                            {item.variant_id && (
+                                              <span className="text-muted-foreground font-normal ml-1">
+                                                — {item.variant_id}
+                                              </span>
+                                            )}
+                                          </div>
+
+                                          <div className="text-muted-foreground">
+                                            Qty: <strong>{item.qty}</strong>
+                                          </div>
+
+                                          {item.remarks && (
+                                            <div className="text-orange-600 italic">
+                                              "{item.remarks}"
+                                            </div>
+                                          )}
+
+                                          {item.addons.length > 0 && (
+                                            <div className="pl-2 space-y-0.5">
+                                              {item.addons.map((addon: any) => (
+                                                <div
+                                                  key={addon.id}
+                                                  className="text-muted-foreground"
+                                                >
+                                                  • {addon.addon_id} ×{" "}
+                                                  {addon.quantity}
+                                                </div>
+                                              ))}
+                                            </div>
                                           )}
                                         </div>
+                                      ))}
+                                    </div>
+                                  </CardContent>
+                                </Card>
+                              )}
+                            </Draggable>
+                          );
+                        })}
 
-                                        <div className="text-muted-foreground">
-                                          Qty: <strong>{item.qty}</strong>
-                                        </div>
-
-                                        {item.remarks && (
-                                          <div className="text-orange-600 italic">
-                                            "{item.remarks}"
-                                          </div>
-                                        )}
-
-                                        {item.addons.length > 0 && (
-                                          <div className="pl-2 space-y-0.5">
-                                            {item.addons.map((addon: any) => (
-                                              <div
-                                                key={addon.id}
-                                                className="text-muted-foreground"
-                                              >
-                                                • {addon.addon_id} ×{" "}
-                                                {addon.quantity}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        )}
-                                      </div>
-                                    ))}
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            )}
-                          </Draggable>
-                        );
-                      })}
-
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </ScrollArea>
             </div>
           ))}
         </div>
