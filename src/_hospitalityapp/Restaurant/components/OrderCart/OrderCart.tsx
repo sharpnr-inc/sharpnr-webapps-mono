@@ -98,6 +98,8 @@ const OrderCart: React.FC<OrderCartProps> = ({
 
     const reqBody = buildDiningSessionPayload();
 
+    console.log(reqBody);
+
     try {
       await addOrders.mutateAsync({
         restaurantID,

@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -10,7 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import KDSHeader from "../components/KDSHeader";
 import { Timer, AlertTriangle, ChefHat } from "lucide-react";
-import { useKitchenKOTs } from "../api/api.queries";
+import { useKitchenKOTsSSE } from "../api/api.sse";
+import { UpdateKOTStatus } from "../api/api.service";
 
 type OrderStatus = "ordered" | "in_progress" | "cooked";
 
@@ -31,10 +32,10 @@ interface KitchenOrder {
   waitMinutes: number;
 }
 
-const COLUMNS: { id: OrderStatus; label: string; accent: string }[] = [
-  { id: "ordered", label: "New Orders", accent: "bg-blue-500" },
-  { id: "in_progress", label: "In Progress", accent: "bg-yellow-500" },
-  { id: "cooked", label: "Ready", accent: "bg-green-600" },
+const COLUMNS: { id: OrderStatus; label: string }[] = [
+  { id: "ordered", label: "New Orders" },
+  { id: "in_progress", label: "In Progress" },
+  { id: "cooked", label: "Ready" },
 ];
 
 function mapStatus(status: string): OrderStatus {
@@ -51,87 +52,143 @@ function mapStatus(status: string): OrderStatus {
   }
 }
 
-function getWaitMinutes(createdAt: string) {
-  const created = new Date(createdAt).getTime();
-  return Math.max(0, Math.floor((Date.now() - created) / 60000));
+function mapUIToAPIStatus(
+  status: OrderStatus,
+): "PENDING" | "IN_PROGRESS" | "READY" {
+  switch (status) {
+    case "ordered":
+      return "PENDING";
+    case "in_progress":
+      return "IN_PROGRESS";
+    case "cooked":
+      return "READY";
+    default:
+      return "PENDING";
+  }
 }
 
-export default function KitchenPage() {
-  const { data, isLoading, isError } = useKitchenKOTs(
-    "0b501f34-1e3c-4ac8-adfd-7136e6832799",
+function getWaitMinutes(createdAt: string) {
+  return Math.max(
+    0,
+    Math.floor((Date.now() - new Date(createdAt).getTime()) / 60000),
   );
+}
 
-  console.log(data?.data);
+function parseKOT(kot: any): KitchenOrder {
+  return {
+    id: kot.id,
+    table: kot.ticket_no ?? "KOT",
+    status: mapStatus(kot.status),
+    waitMinutes: getWaitMinutes(kot.created_at),
+    items:
+      kot.items?.map((i: any) => ({
+        id: i.order_id,
+        menu_item_id: i.MenuItemName ?? i.menu_item_id,
+        variant_id: i.VaraintName ?? i.variant_id,
+        qty: i.quantity ?? 1,
+        remarks: i.remarks,
+        addons: i.addons ?? [],
+      })) ?? [],
+  };
+}
+
+const KITCHEN_ID = "0b501f34-1e3c-4ac8-adfd-7136e6832799";
+
+export default function KitchenPage() {
+  const { data, isLoading, isError } = useKitchenKOTsSSE(KITCHEN_ID);
+
+  const [orders, setOrders] = useState<KitchenOrder[]>([]);
 
   /**
-   * API → UI mapping
+   * pendingUpdates: tracks statuses the user dragged locally
+   * but the backend hasn't confirmed yet via SSE.
+   *
+   * Key   → order ID
+   * Value → the locally-set status we want to preserve
    */
-  const apiOrders = useMemo<KitchenOrder[]>(() => {
-    if (!data?.data) return [];
+  const pendingUpdates = useRef<Map<string, OrderStatus>>(new Map());
 
-    return data.data.map((kot: any) => ({
-      id: kot.id,
-      table: kot.ticket_no ?? "KOT",
-      status: mapStatus(kot.status),
-      waitMinutes: getWaitMinutes(kot.created_at),
-      items:
-        kot.items?.map((i: any) => ({
-          id: i.id,
-          menu_item_id: i.menu_item_id,
-          variant_id: i.variant_id,
-          qty: i.quantity ?? 1,
-          remarks: i.remarks,
-          addons: i.addons ?? [],
-        })) ?? [],
-    }));
+  /**
+   * SSE MERGE — respects pending drag updates
+   */
+  useEffect(() => {
+    if (!data?.data) return;
+
+    const incoming: KitchenOrder[] = data.data.map(parseKOT);
+
+    setOrders(
+      incoming.map((newOrder) => {
+        const pendingStatus = pendingUpdates.current.get(newOrder.id);
+
+        if (pendingStatus !== undefined) {
+          if (pendingStatus === newOrder.status) {
+            // ✅ SSE confirmed our optimistic update — stop overriding
+            pendingUpdates.current.delete(newOrder.id);
+            return newOrder;
+          }
+          // ⏳ SSE hasn't caught up yet — keep our local status
+          return { ...newOrder, status: pendingStatus };
+        }
+
+        return newOrder;
+      }),
+    );
   }, [data]);
 
   /**
-   * Local state (FIXED — prevents drag reset)
-   */
-  const [orders, setOrders] = useState<KitchenOrder[]>([]);
-
-  useEffect(() => {
-    if (orders.length === 0 && apiOrders.length > 0) {
-      setOrders(apiOrders);
-    }
-  }, [apiOrders, orders.length]);
-
-  /**
-   * Totals bar
+   * TOTALS (exclude ready orders)
    */
   const totals = useMemo(() => {
     const counts: Record<string, number> = {};
-
     orders
       .filter((o) => o.status !== "cooked")
-      .forEach((order) => {
+      .forEach((order) =>
         order.items.forEach((item) => {
           counts[item.menu_item_id] =
             (counts[item.menu_item_id] || 0) + item.qty;
-        });
-      });
-
+        }),
+      );
     return Object.entries(counts);
   }, [orders]);
 
-  const onDragEnd = (result: DropResult) => {
+  /**
+   * DRAG END
+   */
+  const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
 
     const { draggableId, destination } = result;
+    const newStatus = destination.droppableId as OrderStatus;
 
+    // 1️⃣ Register the pending update BEFORE state change
+    pendingUpdates.current.set(draggableId, newStatus);
+
+    // 2️⃣ Optimistic UI update
     setOrders((prev) =>
-      prev.map((order) =>
-        order.id === draggableId
-          ? { ...order, status: destination.droppableId as OrderStatus }
-          : order,
-      ),
+      prev.map((o) => (o.id === draggableId ? { ...o, status: newStatus } : o)),
     );
+
+    try {
+      await UpdateKOTStatus(
+        KITCHEN_ID,
+        draggableId,
+        mapUIToAPIStatus(newStatus),
+      );
+      // SSE will eventually confirm and clear the pending entry
+    } catch (err) {
+      console.error("Failed to update KOT status:", err);
+      // 3️⃣ Rollback on error
+      pendingUpdates.current.delete(draggableId);
+      setOrders((prev) =>
+        prev.map((o) =>
+          o.id === draggableId
+            ? { ...o, status: mapStatus("PENDING") } // revert to original
+            : o,
+        ),
+      );
+    }
   };
 
-  /**
-   * FALLBACKS
-   */
   if (isLoading) {
     return (
       <div className="h-full flex items-center justify-center text-sm text-muted-foreground">
@@ -160,13 +217,12 @@ export default function KitchenPage() {
     <div className="h-full flex flex-col gap-4 p-6 bg-background">
       <KDSHeader />
 
-      {/* TOTALS BAR */}
+      {/* TOTALS */}
       <div className="flex items-center gap-3 overflow-x-auto pb-2 border-b">
         <div className="flex items-center gap-2 px-3 py-1.5 border rounded-lg">
           <ChefHat size={14} />
           <span className="text-[10px] font-bold uppercase">Total Needs:</span>
         </div>
-
         {totals.map(([name, qty]) => (
           <div
             key={name}
@@ -185,16 +241,22 @@ export default function KitchenPage() {
               key={col.id}
               className="flex flex-col rounded-xl border bg-muted/20 p-3"
             >
-              <div className="mb-3 text-xs font-bold uppercase">
-                {col.label}
+              <div className="mb-3 flex items-center justify-between">
+                <span className="text-xs font-bold uppercase">{col.label}</span>
+                <Badge variant="outline">
+                  {orders.filter((o) => o.status === col.id).length}
+                </Badge>
               </div>
 
               <Droppable droppableId={col.id}>
-                {(provided) => (
+                {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className="space-y-3 overflow-y-auto"
+                    className={cn(
+                      "space-y-3 overflow-y-auto flex-1 min-h-[80px] rounded-lg transition-colors",
+                      snapshot.isDraggingOver && "bg-muted/40",
+                    )}
                   >
                     {orders
                       .filter((o) => o.status === col.id)
@@ -213,8 +275,10 @@ export default function KitchenPage() {
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
                                 className={cn(
+                                  "transition-shadow",
                                   snapshot.isDragging &&
-                                    "rotate-1 scale-105 shadow-xl",
+                                    "rotate-1 scale-105 shadow-xl ring-2 ring-primary/30",
+                                  isLate && "border-orange-400",
                                 )}
                               >
                                 <CardContent className="p-3">
@@ -222,75 +286,61 @@ export default function KitchenPage() {
                                     <span className="text-xs font-bold">
                                       {order.table}
                                     </span>
-
-                                    <div className="text-[10px] flex items-center gap-1">
+                                    <div
+                                      className={cn(
+                                        "text-[10px] flex items-center gap-1",
+                                        isLate
+                                          ? "text-orange-500 font-semibold"
+                                          : "text-muted-foreground",
+                                      )}
+                                    >
+                                      {isLate && <AlertTriangle size={10} />}
                                       <Timer size={10} />
                                       {order.waitMinutes}m
                                     </div>
                                   </div>
 
-                                  {/* FULL DETAILS */}
-                                  <div className="space-y-3">
+                                  <div className="space-y-2">
                                     {order.items.map((item) => (
                                       <div
                                         key={item.id}
                                         className="border rounded-md p-2 text-[11px] space-y-1"
                                       >
                                         <div className="font-semibold">
-                                          item_id: {item.id}
+                                          {item.menu_item_id}
+                                          {item.variant_id && (
+                                            <span className="text-muted-foreground font-normal ml-1">
+                                              — {item.variant_id}
+                                            </span>
+                                          )}
                                         </div>
 
                                         <div className="text-muted-foreground">
-                                          menu_item_id: {item.menu_item_id}
-                                        </div>
-
-                                        <div className="text-muted-foreground">
-                                          variant_id: {item.variant_id ?? "-"}
-                                        </div>
-
-                                        <div className="text-muted-foreground">
-                                          quantity: {item.qty}
+                                          Qty: <strong>{item.qty}</strong>
                                         </div>
 
                                         {item.remarks && (
-                                          <div className="text-muted-foreground">
-                                            remarks: {item.remarks}
+                                          <div className="text-orange-600 italic">
+                                            "{item.remarks}"
                                           </div>
                                         )}
 
-                                        <div>
-                                          <div className="font-medium">
-                                            addons:
+                                        {item.addons.length > 0 && (
+                                          <div className="pl-2 space-y-0.5">
+                                            {item.addons.map((addon: any) => (
+                                              <div
+                                                key={addon.id}
+                                                className="text-muted-foreground"
+                                              >
+                                                • {addon.addon_id} ×{" "}
+                                                {addon.quantity}
+                                              </div>
+                                            ))}
                                           </div>
-
-                                          {item.addons.length === 0 ? (
-                                            <div className="text-muted-foreground pl-2">
-                                              none
-                                            </div>
-                                          ) : (
-                                            <div className="pl-2 space-y-1">
-                                              {item.addons.map((addon: any) => (
-                                                <div
-                                                  key={addon.id}
-                                                  className="text-muted-foreground"
-                                                >
-                                                  • addon_id: {addon.addon_id} |
-                                                  qty: {addon.quantity}
-                                                </div>
-                                              ))}
-                                            </div>
-                                          )}
-                                        </div>
+                                        )}
                                       </div>
                                     ))}
                                   </div>
-
-                                  {isLate && (
-                                    <div className="mt-2 text-[10px] flex items-center gap-1">
-                                      <AlertTriangle size={10} />
-                                      Overdue
-                                    </div>
-                                  )}
                                 </CardContent>
                               </Card>
                             )}
