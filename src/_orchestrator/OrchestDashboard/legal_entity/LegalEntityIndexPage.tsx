@@ -67,7 +67,7 @@ const dummyLegalEntities: LegalEntity[] = [
 ];
 
 export function LegalEntityIndexPage() {
-  const { data: legalEntities, isLoading } = useOrganizationLegalEntities();
+  const { data: legalEntities } = useOrganizationLegalEntities();
   console.log("Legal Entities from API:", legalEntities);
   const navigate = useNavigate();
   const { showModal } = useFormsModal();

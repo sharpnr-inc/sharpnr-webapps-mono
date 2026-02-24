@@ -30,6 +30,7 @@ import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
 import { useOrganizationProperties } from "../api/queries/general";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
+import { useAddPropertyDomainMutation } from "../api/mutations/property_mutation";
 
 export interface Property {
   id: string;
@@ -48,6 +49,8 @@ export function PropertyIndexPage() {
   // *this return the array of the property
   const { data: properties, isLoading } = useOrganizationProperties();
   // const { data: domainTypes, isLoading: isDomainLoading } = useDomainType();
+
+  const adddomain = useAddPropertyDomainMutation();
 
   const propoertyarray = properties?.data?.Properties ?? [];
 
@@ -130,11 +133,15 @@ export function PropertyIndexPage() {
                         </Badge>
                       ) : (
                         <>
-                          <Button onClick={()=> setIsDialogOpen(true)}>Select Domain</Button>
+                          <Button onClick={() => setIsDialogOpen(true)}>
+                            Select Domain
+                          </Button>
                           <PropertyDomainSelection
                             onConfirm={(domainId) => {
-                              // call mutation here
-                              console.log("Confirmed domain:", domainId);
+                              adddomain.mutateAsync({
+                                domain: domainId,
+                                propertyID: p.id,
+                              });
                             }}
                             property={p}
                             onOpenChange={setIsDialogOpen}

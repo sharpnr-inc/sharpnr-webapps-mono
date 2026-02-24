@@ -9,14 +9,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import KDSHeader from "../components/KDSHeader";
-import {
-  Timer,
-  AlertTriangle,
-  ChefHat,
-  Check,
-  CrossIcon,
-  DeleteIcon,
-} from "lucide-react";
+import { Timer, AlertTriangle, ChefHat, Check, DeleteIcon } from "lucide-react";
 import { useKitchenKOTsSSE } from "../api/api.sse";
 import { UpdateKOTStatus } from "../api/api.service";
 import { ScrollArea } from "@/components/ui/scroll-area";

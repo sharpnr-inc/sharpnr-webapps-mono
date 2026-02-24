@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface OrderPayload {
-  table_id: string;
-  order_timestamp: string;
-  notes?: string; // General order notes
-  items: OrderItem[];
-}
+// interface OrderPayload {
+//   table_id: string;
+//   order_timestamp: string;
+//   notes?: string; // General order notes
+//   items: OrderItem[];
+// }
 
 interface OrderItem {
   menu_item_id: string;

@@ -1,72 +1,45 @@
-import type { OrgOnBoardingPayload } from "@/apis/api_service";
-import {
-  useCitiesOfState,
-  useCountries,
-  useStateOfCountries,
-} from "@/apis/Queries";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useForm } from "@tanstack/react-form";
-import { AlertCircle, Loader2, MapPin, MoveRight } from "lucide-react";
 import "leaflet/dist/leaflet.css";
-import { useState, useEffect } from "react";
 
-import { useParams } from "@tanstack/react-router";
-import { useAddOrgHQMutation } from "./api/mutation";
-import { useQueryClient } from "@tanstack/react-query";
-import { setupProgressQuery } from "./api/queries";
+// import { useParams } from "@tanstack/react-router";
+// import { useAddOrgHQMutation } from "./api/mutation";
+// import { useQueryClient } from "@tanstack/react-query";
+// import { setupProgressQuery } from "./api/queries";
 
 export function OrchestratorHQSetup() {
   // -----------------------------------------------------
-  const queryClient = useQueryClient();
-  const addOrgHq = useAddOrgHQMutation();
-  const { stepId } = useParams({ strict: false });
+  // const queryClient = useQueryClient();
+  // const addOrgHq = useAddOrgHQMutation();
+  // const { stepId } = useParams({ strict: false });
 
-  const defaultOnBoardingVal: OrgOnBoardingPayload = {
-    address_line: "",
-    city: "",
-    state: "",
-    country: "",
-    pincode: "",
+  // const defaultOnBoardingVal: OrgOnBoardingPayload = {
+  //   address_line: "",
+  //   city: "",
+  //   state: "",
+  //   country: "",
+  //   pincode: "",
 
-    latitude: 0,
-    longitude: 0,
-    accuracy_m: 0,
-  };
+  //   latitude: 0,
+  //   longitude: 0,
+  //   accuracy_m: 0,
+  // };
 
-  const form = useForm({
-    defaultValues: defaultOnBoardingVal,
-    onSubmit: async ({ value }) => {
-      console.log(value);
-      await addOrgHq.mutateAsync(value, {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries({
-            queryKey: setupProgressQuery.queryKey,
-          });
-        },
-      });
-    },
-  });
+  // const form = useForm({
+  //   defaultValues: defaultOnBoardingVal,
+  //   onSubmit: async ({ value }) => {
+  //     console.log(value);
+  //     await addOrgHq.mutateAsync(value, {
+  //       onSuccess: async () => {
+  //         await queryClient.invalidateQueries({
+  //           queryKey: setupProgressQuery.queryKey,
+  //         });
+  //       },
+  //     });
+  //   },
+  // });
 
   return (
     <div className="space-y-4 p-6 flex">
-      <form
+      {/* <form
         className="flex-1"
         onSubmit={(e) => {
           e.preventDefault();
@@ -96,7 +69,7 @@ export function OrchestratorHQSetup() {
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6 space-y-6">
-            {/* Full Address */}
+           
             <form.Field
               name="address_line"
               validators={{
@@ -127,7 +100,7 @@ export function OrchestratorHQSetup() {
             />
           </CardContent>
         </Card>
-      </form>
+      </form> */}
     </div>
   );
 }

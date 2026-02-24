@@ -7,7 +7,7 @@ import { useSheet } from "@/context/DrawerContext";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";
-import { useQueryClient } from "@tanstack/react-query";
+// import { useQueryClient } from "@tanstack/react-query";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -25,7 +25,7 @@ export interface RestaurantFloorLayout {
 
 const RestaurantTableManagementPage: React.FC = () => {
   const { properties } = Route.useLoaderData();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const selectedProperty = properties?.[0];
   const restaurantID = selectedProperty?.Restaurents;
 

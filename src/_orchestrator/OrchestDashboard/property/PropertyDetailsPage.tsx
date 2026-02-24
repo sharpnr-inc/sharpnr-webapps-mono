@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { usePropertyDetails } from "../api/queries/general";
 import {
   WrenchIcon,
@@ -354,20 +353,20 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 /* ----------------------------- */
 /* Skeleton                      */
 /* ----------------------------- */
-function PropertyDetailsSkeleton() {
-  return (
-    <div className="space-y-4">
-      {Array.from({ length: 1 }).map((_, i) => (
-        <Card key={i}>
-          <CardHeader>
-            <Skeleton className="h-4 w-1/3" />
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-2/3" />
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
+// function PropertyDetailsSkeleton() {
+//   return (
+//     <div className="space-y-4">
+//       {Array.from({ length: 1 }).map((_, i) => (
+//         <Card key={i}>
+//           <CardHeader>
+//             <Skeleton className="h-4 w-1/3" />
+//           </CardHeader>
+//           <CardContent className="space-y-2">
+//             <Skeleton className="h-4 w-full" />
+//             <Skeleton className="h-4 w-2/3" />
+//           </CardContent>
+//         </Card>
+//       ))}
+//     </div>
+//   );
+// }

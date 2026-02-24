@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import CreateMenu from "../createMenu/CreatMenu";
 
 interface MenuSettingsProps {
@@ -9,10 +9,8 @@ interface MenuSettingsProps {
 const MenuSettings: React.FC<MenuSettingsProps> = ({
   moduleID,
   propertyID,
-
 }) => {
-
-  console.log(propertyID)
+  console.log(propertyID);
   return (
     <div className="space-y-2 w-full">
       <CardContent>
