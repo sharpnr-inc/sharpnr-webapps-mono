@@ -1,4 +1,3 @@
 export const AppUserEndpoints = {
-    getAppUserProfile: `/identity/web/profile`,
-    
+  getAppUserProfile: `/identity/web/profile`,
 };

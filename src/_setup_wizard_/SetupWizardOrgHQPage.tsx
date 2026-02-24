@@ -1,42 +1,5 @@
 import "leaflet/dist/leaflet.css";
-
-// import { useParams } from "@tanstack/react-router";
-// import { useAddOrgHQMutation } from "./api/mutation";
-// import { useQueryClient } from "@tanstack/react-query";
-// import { setupProgressQuery } from "./api/queries";
-
 export function OrchestratorHQSetup() {
-  // -----------------------------------------------------
-  // const queryClient = useQueryClient();
-  // const addOrgHq = useAddOrgHQMutation();
-  // const { stepId } = useParams({ strict: false });
-
-  // const defaultOnBoardingVal: OrgOnBoardingPayload = {
-  //   address_line: "",
-  //   city: "",
-  //   state: "",
-  //   country: "",
-  //   pincode: "",
-
-  //   latitude: 0,
-  //   longitude: 0,
-  //   accuracy_m: 0,
-  // };
-
-  // const form = useForm({
-  //   defaultValues: defaultOnBoardingVal,
-  //   onSubmit: async ({ value }) => {
-  //     console.log(value);
-  //     await addOrgHq.mutateAsync(value, {
-  //       onSuccess: async () => {
-  //         await queryClient.invalidateQueries({
-  //           queryKey: setupProgressQuery.queryKey,
-  //         });
-  //       },
-  //     });
-  //   },
-  // });
-
   return (
     <div className="space-y-4 p-6 flex">
       {/* <form
