@@ -12,26 +12,23 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import { buildLauncherSections } from "./launcher.builder";
-import { fetchLauncherConfig } from "./launcher.mock";
-import type { NavSection } from "./launcher.types";
 import { LauncherSkeleton } from "./LauncherSkeleton";
+import { useLauncher } from "./api";
 
 export default function SharpnrLauncher() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [modules, setModules] = useState<NavSection[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchLauncherConfig().then((data) => {
-      setModules(buildLauncherSections(data));
-      setLoading(false);
-    });
-  }, []);
+  const { data, isLoading } = useLauncher();
 
+  // 👇 simple derived value (NO useMemo)
+  const modules = data ? buildLauncherSections(data) : [];
+
+  // CTRL + M shortcut
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const isMac = navigator.platform.toUpperCase().includes("MAC");
+
       if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === "m") {
         e.preventDefault();
         setOpen((p) => !p);
@@ -45,24 +42,38 @@ export default function SharpnrLauncher() {
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full p-0 ring-1 ring-border">
-          <img src="/AppIcon.png" alt="Sharpnr" className="h-10 w-10 rounded-full grayscale" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-10 w-10 rounded-full p-0 ring-1 ring-border"
+        >
+          <img
+            src="/AppIcon.png"
+            alt="Sharpnr"
+            className="h-10 w-10 rounded-full grayscale"
+          />
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="center" className="w-[340px] rounded-3xl border p-4 shadow-2xl bg-background">
+      <DropdownMenuContent
+        align="center"
+        className="w-[340px] rounded-3xl border p-4 shadow-2xl bg-background"
+      >
         <div className="max-h-[80vh] overflow-y-auto pr-1">
-          {loading ? (
+          {isLoading ? (
             <LauncherSkeleton />
           ) : (
             modules.map((section, index) => (
-              <DropdownMenuGroup key={section.id} className={cn("mb-6", section.isSubSection && "-mt-4")}>
+              <DropdownMenuGroup
+                key={section.id}
+                className={cn("mb-6", section.isSubSection && "-mt-4")}
+              >
                 <DropdownMenuLabel
                   className={cn(
                     "mb-3 px-2 text-[10px] font-bold uppercase tracking-[0.15em]",
                     section.isSubSection
                       ? "text-muted-foreground/40 italic"
-                      : "text-muted-foreground/60"
+                      : "text-muted-foreground/60",
                   )}
                 >
                   {section.title}
