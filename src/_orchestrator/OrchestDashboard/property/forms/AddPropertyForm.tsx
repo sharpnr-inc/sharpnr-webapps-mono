@@ -1,8 +1,11 @@
 import { useAppForm } from "@/components/forms";
 import { z } from "zod";
 import { useCreatePropertyMutation } from "../api/mutation";
+import { useQueryClient } from "@tanstack/react-query";
 
-interface AddPropertyFormProps {}
+interface AddPropertyFormProps {
+  closeModal: () => void;
+}
 
 const propertySchema = z.object({
   name: z.string().trim().min(1, "Name is required"),
@@ -16,8 +19,9 @@ const propertySchema = z.object({
 
 export type PropertyPayload = z.infer<typeof propertySchema>;
 
-const AddPropertyForm: React.FC<AddPropertyFormProps> = () => {
+const AddPropertyForm: React.FC<AddPropertyFormProps> = ({ closeModal }) => {
   const createProperty = useCreatePropertyMutation();
+  const qc = useQueryClient();
 
   const form = useAppForm({
     validators: {
@@ -34,7 +38,13 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = () => {
     },
     onSubmit: async ({ value, formApi }) => {
       await createProperty.mutateAsync(value, {
-        onSuccess: () => formApi.reset(),
+        onSuccess: () => {
+          formApi.reset();
+          qc.invalidateQueries({
+            queryKey: ["Orchestrator", "Properties"],
+          });
+          closeModal();
+        },
       });
     },
   });

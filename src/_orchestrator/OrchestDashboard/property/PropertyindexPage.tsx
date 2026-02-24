@@ -31,6 +31,7 @@ import AddPropertyForm from "./forms/AddPropertyForm";
 import { useOrganizationProperties } from "../api/queries/general";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
 import { useAddPropertyDomainMutation } from "../api/mutations/property_mutation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface Property {
   id: string;
@@ -51,17 +52,18 @@ export function PropertyIndexPage() {
   // const { data: domainTypes, isLoading: isDomainLoading } = useDomainType();
 
   const adddomain = useAddPropertyDomainMutation();
+  const qc = useQueryClient();
 
   const propoertyarray = properties?.data?.Properties ?? [];
 
   //*hook for opening the modal
-  const { showModal } = useFormsModal();
+  const { showModal, closeModal } = useFormsModal();
 
   const handleAddProperty = () => {
     showModal(
       "Add Property",
       "create Property in the organization",
-      <AddPropertyForm />,
+      <AddPropertyForm closeModal={closeModal} />,
     );
   };
 
@@ -141,6 +143,10 @@ export function PropertyIndexPage() {
                               adddomain.mutateAsync({
                                 domain: domainId,
                                 propertyID: p.id,
+                              });
+
+                              qc.invalidateQueries({
+                                queryKey: ["Orchestrator", "Properties"],
                               });
                             }}
                             property={p}

@@ -1,17 +1,17 @@
 import { getCookie } from "@/utilities/cookie";
 import api from "./axios";
 
-const CSRF_COOKIE_NAME = import.meta.env.VITE_API_CSRF;
-
 api.interceptors.request.use(
   (config) => {
-    const method = config.method?.toUpperCase();
+    const method = (config.method || "GET").toUpperCase();
 
-    // Only attach CSRF token for unsafe methods
-    if (method && !["GET", "HEAD", "OPTIONS"].includes(method)) {
-      const csrfToken = getCookie(CSRF_COOKIE_NAME);
+    if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
+      const csrfToken = getCookie(import.meta.env.VITE_API_CSRF);
+
+      console.log("CSRF:", csrfToken); // debug once
 
       if (csrfToken) {
+        config.headers = config.headers ?? {};
         config.headers["X-CSRF-Token"] = csrfToken;
       }
     }
