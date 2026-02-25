@@ -4,13 +4,14 @@ import "./index.css";
 import { ModalProvider } from "./context/ModalContext.tsx";
 import { ToastProvider } from "./context/ToastContext.tsx";
 import { LoaderProvider } from "./context/LoaderContext.tsx";
+import "@/middlewares/interceptor.ts";
+import "@/middlewares/unauthorized.ts";
 
 // 🔹 TanStack Query
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
-import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { routeTree } from "./routeTree.gen.ts";
+import { RouterProvider } from "@tanstack/react-router";
 import { SheetProvider } from "./context/DrawerContext.tsx";
 import { DialogModalProvider } from "./context/DialogModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
@@ -20,6 +21,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { registerSW } from "virtual:pwa-register";
+import { queryClient, router } from "./router_config.tsx";
 
 registerSW({
   onNeedRefresh() {
@@ -30,15 +32,6 @@ registerSW({
     console.log("App ready for offline use!");
   },
 });
-
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
-// Create a client instance
-const queryClient = new QueryClient();
-const router = createRouter({ routeTree });
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -62,15 +55,15 @@ createRoot(document.getElementById("root")!).render(
           </SpinnerProvider>
         </FormsModalProvider>
       </ThemeProvider>
-      {/* <TanStackDevtools plugins={[FormDevtoolsPlugin()]} /> */}
+      <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
       {/* 🔹 Show Devtools only in development */}
-      {/* {import.meta.env.DEV && (
+      {import.meta.env.DEV && (
         <ReactQueryDevtools
           buttonPosition="bottom-right"
           initialIsOpen={false}
         />
-      )} */}
+      )}
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );

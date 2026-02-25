@@ -1,0 +1,20 @@
+import { PropertyDetailsPage } from "@/_orchestrator/OrchestDashboard/property/PropertyDetailsPage";
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute(
+  "/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details",
+)({
+  component: RouteComponent,
+  staticData:{
+    breadcrumb:"Property Detail"
+  }
+});
+
+function RouteComponent() {
+  const { propertyId } = Route.useParams();
+  return (
+    <div>
+      <PropertyDetailsPage propertyId={propertyId} />
+    </div>
+  );
+}

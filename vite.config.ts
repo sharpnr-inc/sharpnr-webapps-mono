@@ -5,7 +5,6 @@ import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { VitePWA } from "vite-plugin-pwa";
-import fs from "fs";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -25,6 +24,8 @@ export default defineConfig({
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
+      generatedRouteTree:'./src/routeTree.gen.ts'
+
     }),
     react(),
     VitePWA({
@@ -62,11 +63,9 @@ export default defineConfig({
     },
   },
 
-  // preview: {
-  //   host: true,
-  //   https: {
-  //     key: fs.readFileSync(path.resolve(__dirname, "ssl/key.pem")),
-  //     cert: fs.readFileSync(path.resolve(__dirname, "ssl/cert.pem")),
-  //   },
-  // },
+  server:{
+    allowedHosts :[
+       ".trycloudflare.com", // 👈 allow all Cloudflare quick tunnels
+    ]
+  }
 });

@@ -1,5 +1,6 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
+import type { TransactionsParams } from "./queries/transactions";
 
 /******************************************************
  * All API Call for Accounting Books of  Organization *
@@ -19,15 +20,19 @@ export const GetAllAccountingBooksOfOrg = async () => {
   return res.data;
 };
 
+//-------------------------------------------------------------------------------------//
+
 /*************************************
  * All the API for Accounting Groups *
  *************************************/
 export const GetAccountingGroups = async (bookId: string) => {
   const res = await api.get(
-    AccountingAppAPIEndpoints.AccountingGroups.GetGroupsOfBooks(bookId)
+    AccountingAppAPIEndpoints.AccountingGroups.GetGroupsOfBooks(bookId),
   );
   return res.data;
 };
+
+//-------------------------------------------------------------------------------------//
 
 /********************************
  * All the API for the Accounts *
@@ -35,16 +40,51 @@ export const GetAccountingGroups = async (bookId: string) => {
 
 export const GetAccountOfAccountingGroup = async (groupId: string) => {
   const res = await api.get(
-    AccountingAppAPIEndpoints.Accounts.GetAccounts(groupId)
+    AccountingAppAPIEndpoints.Accounts.GetAccounts(groupId),
   );
   return res.data;
 };
+
+//-------------------------------------------------------------------------------------//
 
 /*******************************************
  * All the API for related to Transactions *
  *******************************************/
 
-export const GetTransactions = async () => {
-  const res = await api.get(AccountingAppAPIEndpoints.Books.get_ac_allBooks);
+export const GetTransactions = async (params: TransactionsParams) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Transactions.GetTransactions,
+    {
+      params,
+    },
+  );
+  return res.data;
+};
+
+export const GetTransactionDetails = async (transactionId: string) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Transactions.GetTransactionDetails(transactionId),
+  );
+  return res.data;
+};
+
+//-------------------------------------------------------------------------------------//
+
+/********************************************
+ * All the APIs Related to Account Mappings *
+ ********************************************/
+
+export const GetAccountMappingOfOrgs = async () => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.AccountMapping.GetAccountMappings,
+  );
+  return res.data;
+};
+
+export const CreateAccountMapping = async (req: any) => {
+  const res = await api.post(
+    AccountingAppAPIEndpoints.AccountMapping.CreateAccountMapping,
+    req,
+  );
   return res.data;
 };

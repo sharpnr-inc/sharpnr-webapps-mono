@@ -17,7 +17,7 @@ export function SidebarLink({ to, children }: SidebarLinkProps) {
         'block rounded-md px-3 py-2 text-sm transition-colors',
         isActive
           ? 'bg-muted text-primary font-medium'
-          : 'text-muted-foreground hover:bg-muted'
+          : ' hover:bg-muted'
       )}
     >
       {children}
