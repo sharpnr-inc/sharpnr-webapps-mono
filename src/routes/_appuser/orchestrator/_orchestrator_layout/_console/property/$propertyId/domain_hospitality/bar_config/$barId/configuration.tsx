@@ -1,4 +1,4 @@
-import TempComps from "@/_orchestrator/hospitality_configs/bar/temp";
+import TempComps from "@/_orchestrator/properties/hospitality_configs/bar/temp";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
@@ -7,7 +7,7 @@ export const Route = createFileRoute(
   beforeLoad: ({ params }) => {
     // You can access them here
     const { propertyId, barId } = params;
-    console.log(barId)
+    console.log(barId);
 
     return {
       propertyId,

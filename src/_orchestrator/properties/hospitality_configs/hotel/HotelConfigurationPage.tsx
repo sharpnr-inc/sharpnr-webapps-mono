@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { getFloorNameShort } from "@/utilities/floor_naming";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Trash } from "lucide-react";
-import { useConfigureHotelMutation } from "@/_orchestrator/OrchestDashboard/api/mutations/property_mutation";
+import { useConfigureHotelMutation } from "../../property/api/mutation";
 
 export interface ConfigureHotelRequestDto {
   propertyId: string; // uuid.UUID -> string

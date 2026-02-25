@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "@tanstack/react-router";
 import { useFormsModal } from "@/context/FormModalContext";
 import CreateLegalEntityForm from "./CreateLegalEntityForm";
-import { useOrganizationLegalEntities } from "../api/queries/legal_entity";
+import { useOrganizationLegalEntities } from "../OrchestDashboard/api/queries/legal_entity";
 
 export function LegalEntityIndexPage() {
   const { data: legalEntities, isLoading } = useOrganizationLegalEntities();
