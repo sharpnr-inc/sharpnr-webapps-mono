@@ -5,4 +5,7 @@ export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/",
 )({
   component: RestaurantDashboardPage,
+  staticData: {
+    breadcrumb: "Restaurant Dashboard",
+  },
 });

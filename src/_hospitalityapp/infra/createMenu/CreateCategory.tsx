@@ -148,20 +148,22 @@ const CreateCategory = () => {
                         <SelectContent>
                           <SelectGroup>
                             <SelectLabel>Available Stations</SelectLabel>
-                            {propertyDetails.data.infra.map((station: any) => (
-                              <SelectItem key={station.id} value={station.id}>
-                                <div className="flex items-center gap-2">
-                                  <span>
-                                    {station.type === "BAR"
-                                      ? "🍷"
-                                      : station.type === "BAKERY"
-                                        ? "🍰"
-                                        : "🍳"}
-                                  </span>
-                                  <span>{station.name}</span>
-                                </div>
-                              </SelectItem>
-                            ))}
+                            {propertyDetails.data?.infra?.map(
+                              (station: any) => (
+                                <SelectItem key={station.id} value={station.id}>
+                                  <div className="flex items-center gap-2">
+                                    <span>
+                                      {station.type === "BAR"
+                                        ? "🍷"
+                                        : station.type === "BAKERY"
+                                          ? "🍰"
+                                          : "🍳"}
+                                    </span>
+                                    <span>{station.name}</span>
+                                  </div>
+                                </SelectItem>
+                              ),
+                            )}
                           </SelectGroup>
                         </SelectContent>
                       </Select>

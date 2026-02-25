@@ -21,11 +21,10 @@ import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
   Building2,
   Boxes,
-  Settings,
   FileText,
-  Users,
   Home,
   ChevronsUpDown,
+  Origami,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
@@ -43,10 +42,10 @@ type SidebarLink = {
 
 const orchestratorLinks: SidebarLink[] = [
   {
-    label: "Dashboard Home",
+    label: "Home",
     path: "/orchestrator",
-    icon: Home,
-    tooltip: "Dashboard Home",
+    icon: Origami,
+    tooltip: "Home",
     exact: true,
   },
   {
@@ -70,30 +69,30 @@ const orchestratorLinks: SidebarLink[] = [
     tooltip: "Legal Entity",
     exact: false,
   },
-  {
-    label: "Settings",
-    path: "",
-    icon: Settings,
-    tooltip: "Settings",
-  },
-  {
-    label: "Reports",
-    path: "",
-    icon: FileText,
-    tooltip: "Reports",
-  },
-  {
-    label: "User Directory",
-    path: "/orchestrator/org-users",
-    icon: Users,
-    tooltip: "User Directory",
-  },
-  {
-    label: "Audit Logs",
-    path: "/orchestrator/audit-logs",
-    icon: FileText,
-    tooltip: "Audit Logs",
-  },
+  // {
+  //   label: "Settings",
+  //   path: "",
+  //   icon: Settings,
+  //   tooltip: "Settings",
+  // },
+  // {
+  //   label: "Reports",
+  //   path: "",
+  //   icon: FileText,
+  //   tooltip: "Reports",
+  // },
+  // {
+  //   label: "User Directory",
+  //   path: "/orchestrator/org-users",
+  //   icon: Users,
+  //   tooltip: "User Directory",
+  // },
+  // {
+  //   label: "Audit Logs",
+  //   path: "/orchestrator/audit-logs",
+  //   icon: FileText,
+  //   tooltip: "Audit Logs",
+  // },
 ];
 
 /* =========================
