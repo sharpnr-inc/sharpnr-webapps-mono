@@ -12,7 +12,7 @@ import { PlusCircle, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration";
-import { usePropertyDetails } from "@/_orchestrator/OrchestDashboard/api/queries/general";
+import { usePropertyDetails } from "@/_orchestrator/api/queries/general";
 import { Badge } from "@/components/ui/badge";
 import { useConfigureRestuarantMutations } from "@/_orchestrator/properties/property/api/mutation";
 

@@ -1,4 +1,4 @@
-import { ConsoleLayout } from "@/_orchestrator/OrchestDashboard/components/ConsoleLayout";
+import { ConsoleLayout } from "@/_orchestrator/components/ConsoleLayout";
 
 import { createFileRoute } from "@tanstack/react-router";
 

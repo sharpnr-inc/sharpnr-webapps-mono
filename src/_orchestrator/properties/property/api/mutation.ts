@@ -5,7 +5,7 @@ import {
   ConfigureHotel,
   ConfigureRestaurant,
   SetDomainOfProperty,
-} from "@/_orchestrator/OrchestDashboard/api/api.service";
+} from "@/_orchestrator/api/api.service";
 
 export function useCreatePropertyMutation() {
   return useMutation({

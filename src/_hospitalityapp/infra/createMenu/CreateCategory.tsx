@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePropertyDetails } from "@/_orchestrator/OrchestDashboard/api/queries/general";
+import { usePropertyDetails } from "@/_orchestrator/api/queries/general";
 import api from "@/middlewares/axios";
 
 const CreateCategory = () => {
