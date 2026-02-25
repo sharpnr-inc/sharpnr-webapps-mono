@@ -14,8 +14,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAppForm } from "@/components/forms";
-import { useAddModulesInProperty } from "../../api/mutations/property_mutation";
-
+import { useAddModulesInProperty } from "../api/mutation";
 /* ---------- Types ---------- */
 
 interface ModulesSelectionProps {

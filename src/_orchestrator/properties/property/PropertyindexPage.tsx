@@ -28,9 +28,9 @@ import { Badge } from "@/components/ui/badge";
 import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
-import { useOrganizationProperties } from "../api/queries/general";
+import { useOrganizationProperties } from "../../OrchestDashboard/api/queries/general";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
-import { useAddPropertyDomainMutation } from "../api/mutations/property_mutation";
+import { useAddPropertyDomainMutation } from "./api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
 
 export interface Property {

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
-import { useAddModulesInProperty } from "../../api/mutations/property_mutation";
+import { useAddModulesInProperty } from "../api/mutation";
 
 interface AddModulesInPropertyProps {
   domain: string;
