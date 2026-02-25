@@ -24,7 +24,19 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
     <div className="relative">
       <GlobalSearch open={isSearchOpen} setOpen={setIsSearchOpen} />
       {/* Top Right Header Controls */}
-      <header className="absolute right-4 top-4 z-40 flex items-center gap-3 p-2 rounded-full border backdrop-blur-md shadow-md bg-[linear-gradient(120deg,#0a2540,#561DD #0a2540,#272EF5)] bg-[length:300%_300%] animate-[gradient_20s_ease_infinite] ">
+      <header
+        className="
+    absolute right-4 top-4 z-40
+    flex items-center gap-3 p-2
+    rounded-full border border-white/10
+    backdrop-blur-md
+
+    bg-[linear-gradient(130deg,#020617,#0ea5e9,#6366f1,#a855f7,#020617)]
+    bg-[length:400%_400%]
+    animate-gradient
+    shadow-[0_0_40px_rgba(99,102,241,0.35)]
+  "
+      >
         <SharpnrLauncher />
 
         <SearchTrigger onClick={() => setIsSearchOpen(true)} />
