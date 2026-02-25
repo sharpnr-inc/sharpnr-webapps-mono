@@ -11,13 +11,13 @@ export function LegalEntityIndexPage() {
   const { data: legalEntities, isLoading } = useOrganizationLegalEntities();
 
   const navigate = useNavigate();
-  const { showModal } = useFormsModal();
+  const { showModal, closeModal } = useFormsModal();
 
   const handleCreateLE = () => {
     showModal(
       "Create legal Entity",
       "Here you can Create Legal Entity",
-      <CreateLegalEntityForm />,
+      <CreateLegalEntityForm closeModal={closeModal} />,
     );
   };
 

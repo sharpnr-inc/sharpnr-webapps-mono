@@ -2,7 +2,27 @@ import { useAppForm } from "@/components/forms";
 import { z } from "zod";
 import { useCreateLegalEntityMutation } from "../api/mutations/legal_entity_mutations";
 
-interface CreateLegalEntityFormProps {}
+interface CreateLegalEntityFormProps {
+  closeModal: () => void;
+}
+
+const BUSINESS_TYPES = [
+  { label: "Sole Proprietorship", value: "SOLE_PROPRIETORSHIP" },
+  { label: "Partnership Firm", value: "PARTNERSHIP_FIRM" },
+  { label: "Limited Liability Partnership (LLP)", value: "LLP" },
+  { label: "Private Limited Company", value: "PRIVATE_LIMITED" },
+  { label: "Public Limited Company", value: "PUBLIC_LIMITED" },
+  { label: "One Person Company (OPC)", value: "OPC" },
+  { label: "Section 8 Company (Non-Profit)", value: "SECTION_8" },
+  { label: "Hindu Undivided Family (HUF)", value: "HUF" },
+  { label: "Trust", value: "TRUST" },
+  { label: "Society", value: "SOCIETY" },
+  { label: "Producer Company", value: "PRODUCER_COMPANY" },
+  { label: "Joint Venture", value: "JOINT_VENTURE" },
+  { label: "Branch Office", value: "BRANCH_OFFICE" },
+  { label: "Liaison Office", value: "LIAISON_OFFICE" },
+  { label: "Subsidiary Company", value: "SUBSIDIARY" },
+];
 
 const legalEntitySchema = z.object({
   name: z.string().min(1, "Legal Entity Name is required"),
@@ -18,7 +38,9 @@ const legalEntitySchema = z.object({
   pincode: z.string().min(1, "Pincode is required"),
 });
 
-const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = () => {
+const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = ({
+  closeModal,
+}) => {
   const createLegalEntity = useCreateLegalEntityMutation();
   const form = useAppForm({
     validators: {
@@ -41,6 +63,7 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = () => {
       createLegalEntity.mutateAsync(value, {
         onSuccess: () => {
           form.reset();
+          closeModal();
         },
       });
     },
@@ -78,7 +101,12 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = () => {
 
           <form.AppField
             name="type"
-            children={(f) => <f.TextField label="Legal Entity Type" />}
+            children={(f) => (
+              <f.SelectField
+                placeholder="Select Legal Entity Type"
+                options={BUSINESS_TYPES}
+              />
+            )}
           />
 
           <form.AppField
@@ -93,7 +121,7 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = () => {
 
           <form.AppField
             name="pan_number"
-            children={(field) => <field.TextField label="CIN Number" />}
+            children={(field) => <field.TextField label="PAN Number" />}
           />
         </div>
         <div>
