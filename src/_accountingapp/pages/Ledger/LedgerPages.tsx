@@ -4,14 +4,8 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-  TabsContent,
 } from "@/components/ui/tabs";
 
-// 🧩 Import section components
-import ChartOfAccountsSection from "@/_accountingapp/sections/Ledger/ChartOfAccountsSection";
-import AccountGroupsSection from "@/_accountingapp/sections/Ledger/AccountGroupsSection"; 
-import ReconcileSection from "@/_accountingapp/sections/Ledger/ReconcileSection";
-import TrialBalanceSection from "@/_accountingapp/sections/Ledger/TrialBalanceSection"; 
 
 export default function AccountingLedgerPage() {
   return (
@@ -24,23 +18,6 @@ export default function AccountingLedgerPage() {
           <TabsTrigger value="reconcile">Reconcile</TabsTrigger>
           <TabsTrigger value="trial">Trial Balance</TabsTrigger>
         </TabsList>
-
-        {/* ---- Tabs Content ---- */}
-        <TabsContent value="chart">
-          <ChartOfAccountsSection />
-        </TabsContent>
-
-        <TabsContent value="groups">
-          <AccountGroupsSection />
-        </TabsContent>
-
-        <TabsContent value="reconcile">
-          <ReconcileSection />
-        </TabsContent>
-
-        <TabsContent value="trial">
-          <TrialBalanceSection />
-        </TabsContent>
       </Tabs>
     </div>
   );

@@ -3,7 +3,11 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
 } from "@/components/ui/sheet";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 
@@ -20,7 +24,7 @@ interface SheetContextProps {
     content: ReactNode,
     // title?: string,
     // description?: string,
-    size?: SheetSize
+    size?: SheetSize,
   ) => void;
   closeSheet: () => void;
 }
@@ -46,7 +50,7 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
     content: ReactNode,
     // title?: string,
     // description?: string,
-    size: SheetSize = "2/4"
+    size: SheetSize = "2/4",
   ) => {
     setSheet({ content, size, isOpen: true });
   };
@@ -86,16 +90,16 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
             hover:[&::-webkit-scrollbar-thumb]:bg-slate-400
             scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300`}
         >
-          {/* <SheetHeader>
-            {sheet.title && <SheetTitle>{sheet.title}</SheetTitle>}
-            {sheet.description && (
-              <SheetDescription>{sheet.description}</SheetDescription>
-            )}
-          </SheetHeader> */}
+          <VisuallyHidden>
+            <SheetHeader>
+              <SheetTitle>{sheet.title || "Sheet Dialog"}</SheetTitle>
 
+              {sheet.description && (
+                <SheetDescription>{sheet.description}</SheetDescription>
+              )}
+            </SheetHeader>
+          </VisuallyHidden>
           <div>{sheet.content}</div>
-
-     
         </SheetContent>
       </Sheet>
     </SheetContext.Provider>

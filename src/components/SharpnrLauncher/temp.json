@@ -1,0 +1,16 @@
+{
+    "Domains": [
+        {
+            "Hospitality": {
+                "Modules": [
+                    "BAR",
+                    "RESTAURANT",
+                    "HOTEL"
+                ],
+                "Infras": [
+                    "KITCHEN"
+                ]
+            }
+        }
+    ]
+}
