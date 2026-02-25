@@ -1,7 +1,6 @@
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/hotel/route";
 import { useHotelLayout } from "../../apis/queries";
-import { BedDouble, IndianRupee } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import {  IndianRupee } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ================================

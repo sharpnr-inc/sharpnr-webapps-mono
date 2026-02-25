@@ -15,42 +15,37 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Check, ChevronsUpDown, Building2 } from "lucide-react";
 import React from "react";
+import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
-/* ===============================
-   Dummy Property Data
-================================ */
-const properties = [
-  "Sharp Residency",
-  "Ocean View Hotel",
-  "City Center Inn",
-] as const;
-
-const defaultProperty = properties[0];
-
 export function RestaurantRootLayout() {
-  const [selectedProperty, setSelectedProperty] =
-    React.useState<(typeof properties)[number]>(defaultProperty);
+  const { properties } = Route.useLoaderData();
+
+  const [selectedPropertyId, setSelectedPropertyId] = React.useState<
+    string | undefined
+  >(properties?.[0]?.PropertyID);
+
+  const selectedProperty = properties?.find(
+    (p: any) => p.PropertyID === selectedPropertyId,
+  );
 
   return (
     <SidebarProvider defaultOpen={false}>
       <div className="flex w-full">
-        {/* Sidebar */}
         <Sidebar collapsible="icon">
           {/* ===== Property Switcher ===== */}
           <div className="p-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
+                <SidebarMenuButton size="lg">
                   <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                     <Building2 className="size-4" />
                   </div>
 
                   <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-medium">{selectedProperty}</span>
+                    <span className="font-medium">
+                      {selectedProperty?.PropertyName ?? "Select Property"}
+                    </span>
                     <span className="text-xs text-muted-foreground">
                       Property
                     </span>
@@ -61,13 +56,14 @@ export function RestaurantRootLayout() {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent align="start" className="min-w-[240px]">
-                {properties.map((property) => (
+                {properties?.map((property: any) => (
                   <DropdownMenuItem
-                    key={property}
-                    onSelect={() => setSelectedProperty(property)}
+                    key={property.PropertyID}
+                    onSelect={() => setSelectedPropertyId(property.PropertyID)}
                   >
-                    {property}
-                    {property === selectedProperty && (
+                    {property.PropertyName}
+
+                    {property.PropertyID === selectedPropertyId && (
                       <Check className="ml-auto size-4" />
                     )}
                   </DropdownMenuItem>
@@ -76,20 +72,17 @@ export function RestaurantRootLayout() {
             </DropdownMenu>
           </div>
 
-          {/* Module sidebar (Restaurant) */}
           <RestaurantSidebar />
         </Sidebar>
 
-        {/* Main content */}
         <SidebarInset>
-          <header className="flex h-12 items-center gap-2 px-4 ">
+          <header className="flex h-12 items-center gap-2 px-4">
             <SidebarTrigger />
-            <div className="h-4 w-[1px] bg-border mx-2" />{" "}
-            {/* Custom vertical line */}
+            <div className="h-4 w-[1px] bg-border mx-2" />
             <RouteBreadcrumbs />
           </header>
 
-          <main className=" p-6">
+          <main className="p-6">
             <Outlet />
           </main>
         </SidebarInset>

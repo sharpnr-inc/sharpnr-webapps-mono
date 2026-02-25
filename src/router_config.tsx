@@ -3,10 +3,10 @@ import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 import AnthropicLoader from "./components/shared_pages/anthropic_loader";
 import NotFound from "./components/shared_pages/404Page";
-import {
-  hotelDetailMask,
-  propertyDetailsMask,
-} from "./lib/route_masking/Orchestrator_masking";
+// import {
+//   hotelDetailMask,
+//   propertyDetailsMask,
+// } from "./lib/route_masking/Orchestrator_masking";
 
 export const queryClient = new QueryClient();
 

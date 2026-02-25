@@ -1,5 +1,5 @@
 // src/context/ToastContext.tsx
-import { createContext, useContext} from "react";
+import { createContext, useContext } from "react";
 import { toast, Toaster } from "sonner";
 import type { ReactNode } from "react";
 
@@ -14,7 +14,8 @@ const ToastContext = createContext<ToastContextProps | undefined>(undefined);
 
 export const useToastService = () => {
   const ctx = useContext(ToastContext);
-  if (!ctx) throw new Error("useToastService must be used within ToastProvider");
+  if (!ctx)
+    throw new Error("useToastService must be used within ToastProvider");
   return ctx;
 };
 
@@ -28,7 +29,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     <ToastContext.Provider value={{ success, error, warning, info }}>
       {children}
       {/* This must be mounted once at root */}
-      <Toaster richColors position="top-center" />
+      <Toaster richColors position="top-left" />
     </ToastContext.Provider>
   );
 };

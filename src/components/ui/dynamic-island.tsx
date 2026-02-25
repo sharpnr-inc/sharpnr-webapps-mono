@@ -1,22 +1,22 @@
 import React, {
   createContext,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
   useReducer,
   useRef,
   useState,
-} from "react"
-import { AnimatePresence, motion, useWillChange } from "motion/react"
+  type ReactNode,
+} from "react";
+import { AnimatePresence, motion, useWillChange } from "motion/react";
 
-const stiffness = 400
-const damping = 30
-const MIN_WIDTH = 691
-const MAX_HEIGHT_MOBILE_ULTRA = 400
-const MAX_HEIGHT_MOBILE_MASSIVE = 700
+const stiffness = 400;
+const damping = 30;
+const MIN_WIDTH = 691;
+const MAX_HEIGHT_MOBILE_ULTRA = 400;
+const MAX_HEIGHT_MOBILE_MASSIVE = 700;
 
-const min = (a: number, b: number) => (a < b ? a : b)
+const min = (a: number, b: number) => (a < b ? a : b);
 
 export type SizePresets =
   | "reset"
@@ -32,7 +32,7 @@ export type SizePresets =
   | "medium"
   | "tall"
   | "ultra"
-  | "massive"
+  | "massive";
 
 const SIZE_PRESETS = {
   RESET: "reset",
@@ -49,14 +49,14 @@ const SIZE_PRESETS = {
   TALL: "tall",
   ULTRA: "ultra",
   MASSIVE: "massive",
-} as const
+} as const;
 
 type Preset = {
-  width: number
-  height?: number
-  aspectRatio: number
-  borderRadius: number
-}
+  width: number;
+  height?: number;
+  aspectRatio: number;
+  borderRadius: number;
+};
 
 const DynamicIslandSizePresets: Record<SizePresets, Preset> = {
   [SIZE_PRESETS.RESET]: {
@@ -130,39 +130,39 @@ const DynamicIslandSizePresets: Record<SizePresets, Preset> = {
     aspectRatio: 891 / 891,
     borderRadius: 42,
   },
-}
+};
 
 type BlobStateType = {
-  size: SizePresets
-  previousSize: SizePresets | undefined
-  animationQueue: Array<{ size: SizePresets; delay: number }>
-  isAnimating: boolean
-}
+  size: SizePresets;
+  previousSize: SizePresets | undefined;
+  animationQueue: Array<{ size: SizePresets; delay: number }>;
+  isAnimating: boolean;
+};
 
 type BlobAction =
   | { type: "SET_SIZE"; newSize: SizePresets }
   | { type: "INITIALIZE"; firstState: SizePresets }
   | {
-      type: "SCHEDULE_ANIMATION"
-      animationSteps: Array<{ size: SizePresets; delay: number }>
+      type: "SCHEDULE_ANIMATION";
+      animationSteps: Array<{ size: SizePresets; delay: number }>;
     }
-  | { type: "ANIMATION_END" }
+  | { type: "ANIMATION_END" };
 
 type BlobContextType = {
-  state: BlobStateType
-  dispatch: React.Dispatch<BlobAction>
-  setSize: (size: SizePresets) => void
+  state: BlobStateType;
+  dispatch: React.Dispatch<BlobAction>;
+  setSize: (size: SizePresets) => void;
   scheduleAnimation: (
-    animationSteps: Array<{ size: SizePresets; delay: number }>
-  ) => void
-  presets: Record<SizePresets, Preset>
-}
+    animationSteps: Array<{ size: SizePresets; delay: number }>,
+  ) => void;
+  presets: Record<SizePresets, Preset>;
+};
 
-const BlobContext = createContext<BlobContextType | undefined>(undefined)
+const BlobContext = createContext<BlobContextType | undefined>(undefined);
 
 const blobReducer = (
   state: BlobStateType,
-  action: BlobAction
+  action: BlobAction,
 ): BlobStateType => {
   switch (action.type) {
     case "SET_SIZE":
@@ -171,34 +171,34 @@ const blobReducer = (
         size: action.newSize,
         previousSize: state.size,
         isAnimating: false, // Only set isAnimating to true if there are more steps
-      }
+      };
     case "SCHEDULE_ANIMATION":
       return {
         ...state,
         animationQueue: action.animationSteps,
         isAnimating: action.animationSteps.length > 0,
-      }
+      };
     case "INITIALIZE":
       return {
         ...state,
         size: action.firstState,
         previousSize: SIZE_PRESETS.EMPTY,
         isAnimating: false,
-      }
+      };
     case "ANIMATION_END":
       return {
         ...state,
         isAnimating: false,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
 interface DynamicIslandProviderProps {
-  children: React.ReactNode
-  initialSize?: SizePresets
-  initialAnimation?: Array<{ size: SizePresets; delay: number }>
+  children: React.ReactNode;
+  initialSize?: SizePresets;
+  initialAnimation?: Array<{ size: SizePresets; delay: number }>;
 }
 
 const DynamicIslandProvider: React.FC<DynamicIslandProviderProps> = ({
@@ -211,39 +211,39 @@ const DynamicIslandProvider: React.FC<DynamicIslandProviderProps> = ({
     previousSize: SIZE_PRESETS.EMPTY,
     animationQueue: initialAnimation,
     isAnimating: initialAnimation.length > 0,
-  }
+  };
 
-  const [state, dispatch] = useReducer(blobReducer, initialState)
+  const [state, dispatch] = useReducer(blobReducer, initialState);
 
   useEffect(() => {
     const processQueue = async () => {
       for (const step of state.animationQueue) {
-        await new Promise((resolve) => setTimeout(resolve, step.delay))
-        dispatch({ type: "SET_SIZE", newSize: step.size })
+        await new Promise((resolve) => setTimeout(resolve, step.delay));
+        dispatch({ type: "SET_SIZE", newSize: step.size });
       }
-      dispatch({ type: "ANIMATION_END" })
-    }
+      dispatch({ type: "ANIMATION_END" });
+    };
 
     if (state.animationQueue.length > 0) {
-      processQueue()
+      processQueue();
     }
-  }, [state.animationQueue])
+  }, [state.animationQueue]);
 
   const setSize = useCallback(
     (newSize: SizePresets) => {
       if (state.previousSize !== newSize && newSize !== state.size) {
-        dispatch({ type: "SET_SIZE", newSize })
+        dispatch({ type: "SET_SIZE", newSize });
       }
     },
-    [state.previousSize, state.size, dispatch]
-  )
+    [state.previousSize, state.size, dispatch],
+  );
 
   const scheduleAnimation = useCallback(
     (animationSteps: Array<{ size: SizePresets; delay: number }>) => {
-      dispatch({ type: "SCHEDULE_ANIMATION", animationSteps })
+      dispatch({ type: "SCHEDULE_ANIMATION", animationSteps });
     },
-    [dispatch]
-  )
+    [dispatch],
+  );
 
   const contextValue = {
     state,
@@ -251,68 +251,68 @@ const DynamicIslandProvider: React.FC<DynamicIslandProviderProps> = ({
     setSize,
     scheduleAnimation,
     presets: DynamicIslandSizePresets,
-  }
+  };
 
   return (
     <BlobContext.Provider value={contextValue}>{children}</BlobContext.Provider>
-  )
-}
+  );
+};
 
 const useDynamicIslandSize = () => {
-  const context = useContext(BlobContext)
+  const context = useContext(BlobContext);
   if (!context) {
     throw new Error(
-      "useDynamicIslandSize must be used within a DynamicIslandProvider"
-    )
+      "useDynamicIslandSize must be used within a DynamicIslandProvider",
+    );
   }
-  return context
-}
+  return context;
+};
 
 const useScheduledAnimations = (
-  animations: Array<{ size: SizePresets; delay: number }>
+  animations: Array<{ size: SizePresets; delay: number }>,
 ) => {
-  const { scheduleAnimation } = useDynamicIslandSize()
-  const animationsRef = useRef(animations)
+  const { scheduleAnimation } = useDynamicIslandSize();
+  const animationsRef = useRef(animations);
 
   useEffect(() => {
-    scheduleAnimation(animationsRef.current)
-  }, [scheduleAnimation])
-}
+    scheduleAnimation(animationsRef.current);
+  }, [scheduleAnimation]);
+};
 
 const DynamicIslandContainer = ({ children }: { children: ReactNode }) => {
   return (
     <div className="z-10 flex h-full w-full items-end justify-center bg-transparent">
       {children}
     </div>
-  )
-}
+  );
+};
 
 const DynamicIsland = ({
   children,
   id,
   ...props
 }: {
-  children: ReactNode
-  id: string
+  children: ReactNode;
+  id: string;
 }) => {
-  const willChange = useWillChange()
-  const [screenSize, setScreenSize] = useState("desktop")
+  const willChange = useWillChange();
+  const [screenSize, setScreenSize] = useState("desktop");
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 640) {
-        setScreenSize("mobile")
+        setScreenSize("mobile");
       } else if (window.innerWidth <= 1024) {
-        setScreenSize("tablet")
+        setScreenSize("tablet");
       } else {
-        setScreenSize("desktop")
+        setScreenSize("desktop");
       }
-    }
+    };
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <DynamicIslandContainer>
@@ -325,28 +325,28 @@ const DynamicIsland = ({
         {children}
       </DynamicIslandContent>
     </DynamicIslandContainer>
-  )
-}
+  );
+};
 
 const calculateDimensions = (
   size: SizePresets,
   screenSize: string,
-  currentSize: Preset
+  currentSize: Preset,
 ): { width: string; height: number } => {
-  const isMassiveOnMobile = size === "massive" && screenSize === "mobile"
-  const isUltraOnMobile = size === "ultra" && screenSize === "mobile"
+  const isMassiveOnMobile = size === "massive" && screenSize === "mobile";
+  const isUltraOnMobile = size === "ultra" && screenSize === "mobile";
 
   if (isMassiveOnMobile) {
-    return { width: "350px", height: MAX_HEIGHT_MOBILE_MASSIVE }
+    return { width: "350px", height: MAX_HEIGHT_MOBILE_MASSIVE };
   }
 
   if (isUltraOnMobile) {
-    return { width: "350px", height: MAX_HEIGHT_MOBILE_ULTRA }
+    return { width: "350px", height: MAX_HEIGHT_MOBILE_ULTRA };
   }
 
-  const width = min(currentSize.width, MIN_WIDTH)
-  return { width: `${width}px`, height: currentSize.aspectRatio * width }
-}
+  const width = min(currentSize.width, MIN_WIDTH);
+  return { width: `${width}px`, height: currentSize.aspectRatio * width };
+};
 
 const DynamicIslandContent = ({
   children,
@@ -355,16 +355,16 @@ const DynamicIslandContent = ({
   screenSize,
   ...props
 }: {
-  children: React.ReactNode
-  id: string
-  willChange: any
-  screenSize: string
-  [key: string]: any
+  children: React.ReactNode;
+  id: string;
+  willChange: any;
+  screenSize: string;
+  [key: string]: any;
 }) => {
-  const { state, presets } = useDynamicIslandSize()
-  const currentSize = presets[state.size]
+  const { state, presets } = useDynamicIslandSize();
+  const currentSize = presets[state.size];
 
-  const dimensions = calculateDimensions(state.size, screenSize, currentSize)
+  const dimensions = calculateDimensions(state.size, screenSize, currentSize);
 
   return (
     <motion.div
@@ -389,39 +389,39 @@ const DynamicIslandContent = ({
     >
       <AnimatePresence>{children}</AnimatePresence>
     </motion.div>
-  )
-}
+  );
+};
 
 type DynamicContainerProps = {
-  className?: string
-  children?: React.ReactNode
-}
+  className?: string;
+  children?: React.ReactNode;
+};
 
 const DynamicContainer = ({ className, children }: DynamicContainerProps) => {
-  const willChange = useWillChange()
-  const { state } = useDynamicIslandSize()
-  const { size, previousSize } = state
+  const willChange = useWillChange();
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
 
-  const isSizeChanged = size !== previousSize
+  const isSizeChanged = size !== previousSize;
 
   const initialState = {
     opacity: size === previousSize ? 1 : 0,
     scale: size === previousSize ? 1 : 0.9,
     y: size === previousSize ? 0 : 5,
-  }
+  };
 
   const animateState = {
     opacity: 1,
     scale: 1,
     y: 0,
-  }
+  };
 
   const transition = {
     type: "spring" as const,
     stiffness,
     damping,
     duration: isSizeChanged ? 0.5 : 0.8,
-  }
+  };
 
   return (
     <motion.div
@@ -434,18 +434,18 @@ const DynamicContainer = ({ className, children }: DynamicContainerProps) => {
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};
 
 type DynamicChildrenProps = {
-  className?: string
-  children?: React.ReactNode
-}
+  className?: string;
+  children?: React.ReactNode;
+};
 
 const DynamicDiv = ({ className, children }: DynamicChildrenProps) => {
-  const { state } = useDynamicIslandSize()
-  const { size, previousSize } = state
-  const willChange = useWillChange()
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const willChange = useWillChange();
 
   return (
     <motion.div
@@ -468,18 +468,18 @@ const DynamicDiv = ({ className, children }: DynamicChildrenProps) => {
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};
 
 type MotionProps = {
-  className: string
-  children: React.ReactNode
-}
+  className: string;
+  children: React.ReactNode;
+};
 
 const DynamicTitle = ({ className, children }: MotionProps) => {
-  const { state } = useDynamicIslandSize()
-  const { size, previousSize } = state
-  const willChange = useWillChange()
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const willChange = useWillChange();
 
   return (
     <motion.h3
@@ -494,13 +494,13 @@ const DynamicTitle = ({ className, children }: MotionProps) => {
     >
       {children}
     </motion.h3>
-  )
-}
+  );
+};
 
 const DynamicDescription = ({ className, children }: MotionProps) => {
-  const { state } = useDynamicIslandSize()
-  const { size, previousSize } = state
-  const willChange = useWillChange()
+  const { state } = useDynamicIslandSize();
+  const { size, previousSize } = state;
+  const willChange = useWillChange();
 
   return (
     <motion.p
@@ -515,8 +515,8 @@ const DynamicDescription = ({ className, children }: MotionProps) => {
     >
       {children}
     </motion.p>
-  )
-}
+  );
+};
 
 export {
   DynamicContainer,
@@ -532,6 +532,6 @@ export {
   useDynamicIslandSize,
   useScheduledAnimations,
   DynamicIslandProvider,
-}
+};
 
-export default DynamicIsland
+export default DynamicIsland;

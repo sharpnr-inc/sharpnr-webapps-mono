@@ -93,3 +93,21 @@ export async function ConfigureHotel(payload: ConfigureHotelPayload) {
   );
   return res.data;
 }
+
+/* -------------------------------------------------------------------------- */
+/*                          Legal Entity API services                         */
+/* -------------------------------------------------------------------------- */
+
+export async function CreateLegalEntity(payload: any) {
+  const res = await api.post(OrchestratorConsole.legalEntity.create, payload);
+  return res.data;
+}
+
+export async function GetLegalEntities() {
+  const res = await api.get(OrchestratorConsole.legalEntity.getAll);
+  return res.data;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                       Legal Entity API services Ends                       */
+/* -------------------------------------------------------------------------- */

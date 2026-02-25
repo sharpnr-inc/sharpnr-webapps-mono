@@ -8,7 +8,6 @@ import { ModeToggle } from "../ui/ThemeToggle";
 import { useState } from "react";
 import { GlobalSearch } from "../custom/global-search";
 import SharpnrLauncher from "../SharpnrLauncher/SharpnrLauncher";
-import { ToastProvider } from "@/context/ToastContext";
 interface UserRootLayoutProps {}
 
 const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
@@ -25,17 +24,7 @@ const UserRootLayout: React.FC<UserRootLayoutProps> = () => {
     <div className="relative">
       <GlobalSearch open={isSearchOpen} setOpen={setIsSearchOpen} />
       {/* Top Right Header Controls */}
-      <header
-        className="
-    absolute right-4 top-4 z-40
-    flex items-center gap-3
-    p-2 rounded-full border
-    backdrop-blur-md shadow-md
-    bg-[linear-gradient(120deg,#0a2540,#561DD1,#0a2540,#272EF5)]
-    bg-[length:300%_300%]
-    animate-[gradient_20s_ease_infinite]
-  "
-      >
+      <header className="absolute right-4 top-4 z-40 flex items-center gap-3 p-2 rounded-full border backdrop-blur-md shadow-md bg-[linear-gradient(120deg,#0a2540,#561DD #0a2540,#272EF5)] bg-[length:300%_300%] animate-[gradient_20s_ease_infinite] ">
         <SharpnrLauncher />
 
         <SearchTrigger onClick={() => setIsSearchOpen(true)} />

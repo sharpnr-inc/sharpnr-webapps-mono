@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAppForm } from "@/components/forms";
+import { useAddModulesInProperty } from "../../api/mutations/property_mutation";
 
 /* ---------- Types ---------- */
 
@@ -37,32 +38,42 @@ export function ModulesSelectionSection({
   const modules = domainData?.data?.modules ?? [];
   const infrastructure = domainData?.data?.infrastructure ?? [];
 
+  const addModules = useAddModulesInProperty();
+
   /* ---------- Form ---------- */
 
   const form = useAppForm({
     defaultValues: {
-      propertyID: "",
-      domain:domain,
+      property_id: "",
+      domain: domain,
       modules: [] as string[],
       infrastructure: [] as InfrastructureItem[],
     },
 
     onSubmit: async ({ value }) => {
-      console.log("FORM SUBMIT:", value);
-
-      navigate({
-        to: "/orchestrator/property/$propertyId/details",
-        params: {
-          propertyId: value.propertyID,
+      addModules.mutateAsync(
+        {
+          payload: value,
+          propertyID: value.property_id,
         },
-      });
+        {
+          onSuccess: () => {
+            navigate({
+              to: "/orchestrator/property/$propertyId/details",
+              params: {
+                propertyId: value.property_id,
+              },
+            });
+          },
+        },
+      );
     },
   });
 
   /* ---------- Sync propertyID ---------- */
 
   useEffect(() => {
-    form.setFieldValue("propertyID", propertyID);
+    form.setFieldValue("property_id", propertyID);
   }, [propertyID]);
 
   /* =====================================================

@@ -45,8 +45,8 @@ const COLORS = ["#22c55e", "#e5e7eb"];
 
 export default function RestaurantOverviewPage() {
   const occupancyPercent = Math.round((occupiedTables / totalTables) * 100);
-  const { propertyID, restaurantID } = Route.useLoaderData();
-  console.log(restaurantID)
+  const { properties } = Route.useLoaderData();
+  console.log(properties[0]);
 
   return (
     <div className="space-y-3">

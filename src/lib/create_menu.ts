@@ -79,7 +79,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Paneer Tikka",
               description: "Char grilled cottage cheese cubes",
               base_price: "12.00",
-              dietaryType: DietaryType.VEG,
+              dietaryType: DietaryType.VEGETARIAN,
               menuItemVariants: {
                 variants: [
                   { id: createId(), name: "Half", description: "", price: "0" },
@@ -95,7 +95,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Hara Bhara Kebab",
               description: "Spinach and peas patties",
               base_price: "10.00",
-              dietaryType: DietaryType.VEG,
+              dietaryType: DietaryType.VEGETARIAN,
               menuItemVariants: { variants: [] },
               addOns: [],
             },
@@ -109,9 +109,9 @@ export const dummyMenuData: MenuInterface = {
               base_price: (8 + (i % 5)).toFixed(2),
               dietaryType:
                 i % 3 === 0
-                  ? DietaryType.VEG
+                  ? DietaryType.VEGETARIAN
                   : i % 3 === 1
-                    ? DietaryType.NON_VEG
+                    ? DietaryType.NON_VEGETARIAN
                     : DietaryType.VEGAN,
               menuItemVariants: {
                 variants:
@@ -149,7 +149,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Chicken Malai Tikka",
               description: "Creamy boneless chicken",
               base_price: "14.00",
-              dietaryType: DietaryType.NON_VEG,
+              dietaryType: DietaryType.NON_VEGETARIAN,
               menuItemVariants: { variants: [] },
               addOns: [{ id: createId(), name: "Extra Dip", price: "2" }],
             },
@@ -173,7 +173,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Butter Naan",
               description: "",
               base_price: "3.00",
-              dietaryType: DietaryType.VEG,
+              dietaryType: DietaryType.VEGETARIAN,
               menuItemVariants: {
                 variants: [
                   {
@@ -204,7 +204,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Dal Makhani",
               description: "Slow cooked black lentils",
               base_price: "11.00",
-              dietaryType: DietaryType.VEG,
+              dietaryType: DietaryType.VEGETARIAN,
               menuItemVariants: {
                 variants: [
                   {
@@ -228,7 +228,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Chicken Butter Masala",
               description: "Classic creamy tomato gravy",
               base_price: "16.00",
-              dietaryType: DietaryType.NON_VEG,
+              dietaryType: DietaryType.NON_VEGETARIAN,
               menuItemVariants: { variants: [] },
               addOns: [],
             },
@@ -291,7 +291,7 @@ export const dummyMenuData: MenuInterface = {
               name: "Gulab Jamun",
               description: "",
               base_price: "5.00",
-              dietaryType: DietaryType.VEG,
+              dietaryType: DietaryType.VEGETARIAN,
               menuItemVariants: { variants: [] },
               addOns: [
                 { id: createId(), name: "Vanilla Ice Cream", price: "2" },

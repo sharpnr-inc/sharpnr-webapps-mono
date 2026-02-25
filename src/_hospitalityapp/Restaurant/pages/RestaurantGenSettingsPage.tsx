@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import MenuSettings from "@/_hospitalityapp/infra/Menu/components/MenuSettings";
+import MenuSettings from "@/_hospitalityapp/infra/components/MenuSettings";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -17,7 +17,9 @@ interface RestaurantGenSettingsPageProps {}
 const RestaurantGenSettingsPage: React.FC<
   RestaurantGenSettingsPageProps
 > = () => {
-  const { restaurantID, propertyID } = Route.useLoaderData();
+  const { properties } = Route.useLoaderData();
+  const selectedProperty = properties?.[0];
+  const restaurantID = selectedProperty?.Restaurents;
   return (
     <div className="w-full mt-4 space-y-2">
       <Card>
@@ -58,7 +60,10 @@ const RestaurantGenSettingsPage: React.FC<
         </TabsContent>
 
         <TabsContent value="menu">
-          <MenuSettings moduleID={restaurantID} propertyID={propertyID} />
+          <MenuSettings
+            moduleID={restaurantID}
+            propertyID={selectedProperty.PropertyID}
+          />
         </TabsContent>
 
         <TabsContent value="app_settings">

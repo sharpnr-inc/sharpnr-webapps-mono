@@ -1,19 +1,19 @@
+import { FetchRestaurentContext } from "@/_hospitalityapp/Restaurant/apis/restaurant.api";
 import { RestaurantRootLayout } from "@/_hospitalityapp/Restaurant/components/RestaurantRootLayout";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
   "/_appuser/dashboard/sharp_hospitality/restaurant",
 )({
-  beforeLoad: ({}) => {
-    return {
-      activePropertyId: "44c5706a-50f4-4c30-8802-000c7148aaf4",
-      activeRestaurantId: "53452cd3-5636-4465-a05d-e4dbc292eefc",
-    };
-  },
   loader: async ({ context }) => {
+    const data = await context.queryClient.ensureQueryData({
+      queryKey: ["PropertyContext", "Restaurant"],
+      queryFn: FetchRestaurentContext,
+    });
+    console.log("Loader fetched data:", data);
     return {
-      propertyID: "44c5706a-50f4-4c30-8802-000c7148aaf4",
-      restaurantID: "53452cd3-5636-4465-a05d-e4dbc292eefc",
+      properties: data?.data.Properties,
+      // 👈 full array
     };
   },
 

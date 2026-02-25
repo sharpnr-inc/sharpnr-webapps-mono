@@ -21,8 +21,9 @@ export function useDomainType() {
 
 export function useHospitalityDomainModInfra(domain: string) {
   return useQuery({
-    queryKey: ["Hospitality", "utils"],
+    queryKey: ["Hospitality", "utils", "Domain Mods", domain],
     queryFn: () => GetHospitalityDomainMods(domain),
     enabled: !!domain,
+    staleTime: 1000 * 60 * 5,
   });
 }

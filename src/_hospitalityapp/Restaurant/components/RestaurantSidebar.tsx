@@ -11,10 +11,9 @@ import {
   LayoutDashboard,
   Boxes,
   ShoppingCart,
-  Settings,
   LucideListOrdered,
   Table2Icon,
-  Calendar
+  Calendar,
 } from "lucide-react";
 import type { ToPathOption } from "@tanstack/react-router";
 
@@ -39,18 +38,22 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
     match: (pathname) => pathname === "/dashboard/sharp_hospitality/restaurant",
   },
   {
-    label: "Table Management",
+    label: "Dine In",
     to: "/dashboard/sharp_hospitality/restaurant/table-management",
     icon: Table2Icon,
     match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/table-management"),
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/restaurant/table-management",
+      ),
   },
   {
     label: "Reservations",
     to: "/dashboard/sharp_hospitality/restaurant/reservations",
     icon: Calendar,
     match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/reservations"),
+      pathname.startsWith(
+        "/dashboard/sharp_hospitality/restaurant/reservations",
+      ),
   },
   {
     label: "Inventory",
@@ -60,7 +63,7 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
       pathname.startsWith("/dashboard/sharp_hospitality/restaurant/inventory"),
   },
   {
-    label: "Sales Terminal",
+    label: "Pickup",
     to: "/dashboard/sharp_hospitality/restaurant/sales-terminal",
     icon: ShoppingCart,
     match: (pathname) =>
@@ -73,19 +76,17 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
     to: "/dashboard/sharp_hospitality/restaurant/orders",
     icon: LucideListOrdered,
     match: (pathname) =>
-      pathname.startsWith(
-        "/dashboard/sharp_hospitality/restaurant/orders",
-      ),
+      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/orders"),
   },
-  {
-    label: "General Settings",
-    to: "/dashboard/sharp_hospitality/restaurant/general-settings",
-    icon: Settings,
-    match: (pathname) =>
-      pathname.startsWith(
-        "/dashboard/sharp_hospitality/restaurant/general-settings",
-      ),
-  },
+  // {
+  //   label: "General Settings",
+  //   to: "/dashboard/sharp_hospitality/restaurant/general-settings",
+  //   icon: Settings,
+  //   match: (pathname) =>
+  //     pathname.startsWith(
+  //       "/dashboard/sharp_hospitality/restaurant/general-settings",
+  //     ),
+  // },
 ];
 
 /* ===============================

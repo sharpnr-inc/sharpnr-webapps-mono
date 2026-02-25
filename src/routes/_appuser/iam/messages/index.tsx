@@ -1,9 +1,6 @@
+import MessagePage from '@/_app_user_/MessagePage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_appuser/iam/messages/')({
-  component: RouteComponent,
+  component: MessagePage,
 })
-
-function RouteComponent() {
-  return <div>Hello "/_appuser/iam/messages/"!</div>
-}

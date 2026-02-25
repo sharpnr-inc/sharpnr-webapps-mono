@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { FileText, Search } from "lucide-react";
+import { FileText } from "lucide-react";
 
 // 1. Define the interface for the props
 interface GlobalSearchProps {

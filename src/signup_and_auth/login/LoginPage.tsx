@@ -13,10 +13,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useUserAuth } from "@/apis/mutation";
+import { useToastService } from "@/context/ToastContext";
 
 export default function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
   const loginUser = useUserAuth();
+  const { error, success } = useToastService();
 
   const form = useForm({
     defaultValues: {
@@ -25,7 +27,13 @@ export default function LoginPage(): React.JSX.Element {
     },
     onSubmit: ({ value }) => {
       loginUser.mutateAsync(value, {
+        onError: () => {
+          error("Invalid Email or Password");
+          form.reset();
+        },
+
         onSuccess: () => {
+          success("Logged In successfully");
           navigate({ to: "/orchestrator" });
         },
       });
@@ -66,7 +74,7 @@ export default function LoginPage(): React.JSX.Element {
                     className={cn(
                       state.meta.isTouched &&
                         state.meta.errors.length > 0 &&
-                        "!border-red-500 !ring-red-500"
+                        "!border-red-500 !ring-red-500",
                     )}
                   />
                 </div>

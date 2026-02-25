@@ -22,30 +22,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 // import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Building, LucideBuilding, PlusIcon } from "lucide-react";
+import { Building, LucideBuilding, PlusIcon } from "lucide-react";
 import { useFormsModal } from "@/context/FormModalContext";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
 import { useOrganizationProperties } from "../api/queries/general";
-import { useDomainType } from "./api/queries";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
+import { useAddPropertyDomainMutation } from "../api/mutations/property_mutation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface Property {
   id: string;
@@ -60,25 +46,24 @@ export interface Property {
 // This page list all the Properties of the organization
 export function PropertyIndexPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [pendingSelection, setPendingSelection] = useState<{
-    id: string;
-    domain: string;
-  } | null>(null);
   // *this query hook the fetch all property that organization have
   // *this return the array of the property
   const { data: properties, isLoading } = useOrganizationProperties();
   // const { data: domainTypes, isLoading: isDomainLoading } = useDomainType();
 
+  const adddomain = useAddPropertyDomainMutation();
+  const qc = useQueryClient();
+
   const propoertyarray = properties?.data?.Properties ?? [];
 
   //*hook for opening the modal
-  const { showModal } = useFormsModal();
+  const { showModal, closeModal } = useFormsModal();
 
   const handleAddProperty = () => {
     showModal(
       "Add Property",
       "create Property in the organization",
-      <AddPropertyForm />,
+      <AddPropertyForm closeModal={closeModal} />,
     );
   };
 
@@ -150,11 +135,19 @@ export function PropertyIndexPage() {
                         </Badge>
                       ) : (
                         <>
-                          <Button onClick={()=> setIsDialogOpen(true)}>Select Domain</Button>
+                          <Button onClick={() => setIsDialogOpen(true)}>
+                            Select Domain
+                          </Button>
                           <PropertyDomainSelection
                             onConfirm={(domainId) => {
-                              // call mutation here
-                              console.log("Confirmed domain:", domainId);
+                              adddomain.mutateAsync({
+                                domain: domainId,
+                                propertyID: p.id,
+                              });
+
+                              qc.invalidateQueries({
+                                queryKey: ["Orchestrator", "Properties"],
+                              });
                             }}
                             property={p}
                             onOpenChange={setIsDialogOpen}

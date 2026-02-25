@@ -1,25 +1,23 @@
-import { organizationStatusQuery } from "@/_orchestrator/OrchestDashboard/api/queries/general";
 import { ConsoleLayout } from "@/_orchestrator/OrchestDashboard/components/ConsoleLayout";
 
-import { createFileRoute} from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
   "/_appuser/orchestrator/_orchestrator_layout/_console",
 )({
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async () => {
     // const status = await context.queryClient.fetchQuery(
     //   organizationStatusQuery,
     // );
-
     // return {
     //   configured: status.data.setup_completed, // or status.status === "COMPLETED"
     //   status,
     // };
   },
   component: RouteComponent,
-  staticData:{
-    breadcrumb:"Console"
-  }
+  staticData: {
+    breadcrumb: "Console",
+  },
 });
 
 function RouteComponent() {

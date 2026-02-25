@@ -3,18 +3,20 @@ import api from "./axios";
 
 api.interceptors.request.use(
   (config) => {
-    const method = config.method?.toUpperCase();
+    const method = (config.method || "GET").toUpperCase();
 
-    // Only attach CSRF token for unsafe methods
-    if (method && !["GET", "HEAD", "OPTIONS"].includes(method)) {
-      const csrfToken = getCookie("_dev_csrf");
+    if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
+      const csrfToken = getCookie(import.meta.env.VITE_API_CSRF);
+
+      console.log("CSRF:", csrfToken); // debug once
 
       if (csrfToken) {
+        config.headers = config.headers ?? {};
         config.headers["X-CSRF-Token"] = csrfToken;
       }
     }
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );

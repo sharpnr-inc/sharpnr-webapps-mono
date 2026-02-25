@@ -1,16 +1,16 @@
-import { OrchestratorHQSetup } from '@/_setup_wizard_/SetupWizard/SetupWizardOrgHQPage'
-import { createFileRoute } from '@tanstack/react-router'
+import { OrchestratorHQSetup } from "@/_setup_wizard_/SetupWizardOrgHQPage";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization',
+  "/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization",
 )({
-  component: RouteComponent
-})
+  component: RouteComponent,
+});
 
-function RouteComponent(){
-  return(
+function RouteComponent() {
+  return (
     <div>
-      <OrchestratorHQSetup/>
+      <OrchestratorHQSetup />
     </div>
-  )
+  );
 }
