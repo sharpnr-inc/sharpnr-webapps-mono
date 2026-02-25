@@ -14,7 +14,7 @@ import { z } from "zod";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration";
 import { usePropertyDetails } from "@/_orchestrator/OrchestDashboard/api/queries/general";
 import { Badge } from "@/components/ui/badge";
-import { useConfigureRestuarantMutations } from "@/_orchestrator/OrchestDashboard/api/mutations/property_mutation";
+import { useConfigureRestuarantMutations } from "@/_orchestrator/properties/property/api/mutation";
 
 const RestaurantConfigurationFormSchema = z.object({
   propertyID: z.string(),
@@ -116,11 +116,14 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
       };
 
       console.log(transformedValue);
-      mutateAsync({ payload: transformedValue, propertyID: propertyId }, {
-        onSuccess:()=>{
-          console.log("Done")
-        }
-      });
+      mutateAsync(
+        { payload: transformedValue, propertyID: propertyId },
+        {
+          onSuccess: () => {
+            console.log("Done");
+          },
+        },
+      );
     },
   });
   return (
