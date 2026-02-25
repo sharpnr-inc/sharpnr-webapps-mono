@@ -70,30 +70,30 @@ const orchestratorLinks: SidebarLink[] = [
     tooltip: "Legal Entity",
     exact: false,
   },
-  {
-    label: "Settings",
-    path: "",
-    icon: Settings,
-    tooltip: "Settings",
-  },
-  {
-    label: "Reports",
-    path: "",
-    icon: FileText,
-    tooltip: "Reports",
-  },
-  {
-    label: "User Directory",
-    path: "/orchestrator/org-users",
-    icon: Users,
-    tooltip: "User Directory",
-  },
-  {
-    label: "Audit Logs",
-    path: "/orchestrator/audit-logs",
-    icon: FileText,
-    tooltip: "Audit Logs",
-  },
+  // {
+  //   label: "Settings",
+  //   path: "",
+  //   icon: Settings,
+  //   tooltip: "Settings",
+  // },
+  // {
+  //   label: "Reports",
+  //   path: "",
+  //   icon: FileText,
+  //   tooltip: "Reports",
+  // },
+  // {
+  //   label: "User Directory",
+  //   path: "/orchestrator/org-users",
+  //   icon: Users,
+  //   tooltip: "User Directory",
+  // },
+  // {
+  //   label: "Audit Logs",
+  //   path: "/orchestrator/audit-logs",
+  //   icon: FileText,
+  //   tooltip: "Audit Logs",
+  // },
 ];
 
 /* =========================
