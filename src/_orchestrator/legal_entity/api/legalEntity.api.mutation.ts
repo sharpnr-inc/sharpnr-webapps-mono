@@ -1,5 +1,5 @@
+import { CreateLegalEntity } from "@/_orchestrator/api/api.service";
 import { useMutation } from "@tanstack/react-query";
-import { CreateLegalEntity } from "../api.service";
 
 export function useCreateLegalEntityMutation() {
   return useMutation({

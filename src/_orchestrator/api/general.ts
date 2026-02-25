@@ -3,7 +3,7 @@ import {
   GetOrganizationsProperties,
   GetOrganizationStatus,
   GetPropertyDetails,
-} from "../api.service";
+} from "./api.service";
 
 export const organizationStatusQuery = queryOptions({
   queryKey: ["Org", "status"],
@@ -16,7 +16,6 @@ export function useOrganizationProperties() {
     queryFn: GetOrganizationsProperties,
   });
 }
-
 
 export const PROPERTY_DETAILS_QK = (propertyID: string) =>
   ["property", "details", propertyID] as const;

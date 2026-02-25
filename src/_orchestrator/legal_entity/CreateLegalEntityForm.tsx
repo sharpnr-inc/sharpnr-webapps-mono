@@ -1,6 +1,6 @@
 import { useAppForm } from "@/components/forms";
 import { z } from "zod";
-import { useCreateLegalEntityMutation } from "../api/mutations/legal_entity_mutations";
+import { useCreateLegalEntityMutation } from "./api/legalEntity.api.mutation";
 
 interface CreateLegalEntityFormProps {
   closeModal: () => void;

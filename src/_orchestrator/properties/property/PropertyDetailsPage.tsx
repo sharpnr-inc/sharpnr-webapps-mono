@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { usePropertyDetails } from "@/_orchestrator/api/queries/general";
+import { usePropertyDetails } from "@/_orchestrator/api/general";
 import {
   WrenchIcon,
   AlertCircle,
