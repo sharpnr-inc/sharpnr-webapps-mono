@@ -16,7 +16,7 @@ export default function OrganizationSetupGuard({
 
   const notConfigured = data?.data?.setup_completed === "NOT_CONFIGURED";
 
-  if (notConfigured) return <>{children}</>;
+  if (!notConfigured) return <>{children}</>;
 
   const { showModal, closeModal } = useFormsModal();
 
