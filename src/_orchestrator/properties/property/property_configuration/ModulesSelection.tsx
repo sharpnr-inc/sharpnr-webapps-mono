@@ -15,6 +15,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAppForm } from "@/components/forms";
 import { useAddModulesInProperty } from "../api/mutation";
+import { useQueryClient } from "@tanstack/react-query";
 /* ---------- Types ---------- */
 
 interface ModulesSelectionProps {
@@ -31,6 +32,7 @@ export function ModulesSelectionSection({
   domain,
   propertyID,
 }: ModulesSelectionProps) {
+  const q = useQueryClient();
   const navigate = useNavigate();
   const { data: domainData, isLoading } = useHospitalityDomainModInfra(domain);
 
@@ -62,6 +64,10 @@ export function ModulesSelectionSection({
               params: {
                 propertyId: value.property_id,
               },
+            });
+
+            q.invalidateQueries({
+              queryKey: ["launcher"],
             });
           },
         },

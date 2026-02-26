@@ -4,11 +4,27 @@ import { Building2, ArrowRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/index";
 import { useSetRestaurant } from "../store/selectors";
+import { useEffect } from "react";
 
 export default function RestaurantSelector() {
   const navigate = useNavigate();
   const { restaurants } = Route.useLoaderData();
   const setRestaurant = useSetRestaurant();
+
+  // ⭐ Auto-select if only one restaurant exists
+  useEffect(() => {
+    if (restaurants?.length === 1) {
+      const restaurant = restaurants[0];
+      setRestaurant(restaurant);
+
+      navigate({
+        to: "/dashboard/sharp_hospitality/restaurant/overview",
+      });
+    }
+  }, [restaurants, setRestaurant, navigate]);
+
+  // Optional: prevent flash of UI while redirecting
+  if (restaurants?.length === 1) return null;
 
   return (
     <div className="min-h-screen w-full bg-muted/30 flex items-center justify-center p-6">
