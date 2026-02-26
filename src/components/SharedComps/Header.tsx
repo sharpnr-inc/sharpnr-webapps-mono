@@ -47,8 +47,19 @@ function Header(): React.JSX.Element {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="outline">Login</Button>
-            <Button className="bg-indigo-950 hover:bg-cyan-500 text-white">
+            <Button
+              variant="outline"
+              onClick={() => window.open("https://app.sharpnr.com", "_blank")}
+            >
+              Login
+            </Button>
+
+            <Button
+              className="bg-indigo-950 hover:bg-cyan-500 text-white"
+              onClick={() =>
+                window.open("https://app.sharpnr.com/org-signup", "_blank")
+              }
+            >
               Get Started
             </Button>
           </div>
