@@ -28,6 +28,7 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = ({
   const createProperty = useCreatePropertyMutation();
   const qc = useQueryClient();
   const nav = useNavigate();
+  const q = useQueryClient();
 
   const form = useAppForm({
     validators: {
@@ -50,7 +51,10 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = ({
             queryKey: ["Orchestrator", "Properties"],
           });
           closeModal();
-          if (navigate) {
+          if (navigate != null) {
+            q.invalidateQueries({
+              queryKey: ["Org", "status"],
+            });
             nav({
               to: navigate,
             });

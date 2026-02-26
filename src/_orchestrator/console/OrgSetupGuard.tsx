@@ -13,12 +13,11 @@ export default function OrganizationSetupGuard({
   children: React.ReactNode;
 }) {
   const { data } = useOrganizationStatus();
+  const { showModal, closeModal } = useFormsModal();
 
   const notConfigured = data?.data?.setup_completed === "NOT_CONFIGURED";
 
   if (!notConfigured) return <>{children}</>;
-
-  const { showModal, closeModal } = useFormsModal();
 
   const handleAddProperty = () => {
     showModal(

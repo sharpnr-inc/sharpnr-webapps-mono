@@ -2,6 +2,7 @@ import { useAppForm } from "@/components/forms";
 import { z } from "zod";
 import { useCreateLegalEntityMutation } from "./api/legalEntity.api.mutation";
 import { useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CreateLegalEntityFormProps {
   closeModal: () => void;
@@ -46,6 +47,7 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = ({
 }) => {
   const navigate = useNavigate();
   const createLegalEntity = useCreateLegalEntityMutation();
+  const q = useQueryClient();
   const form = useAppForm({
     validators: {
       onChange: legalEntitySchema,
@@ -69,8 +71,11 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = ({
           form.reset();
           closeModal();
           if (nav) {
+            q.invalidateQueries({
+              queryKey: ["Org", "status"],
+            });
             navigate({
-              to: nav,
+              to: "/orchestrator/property",
             });
           }
         },
