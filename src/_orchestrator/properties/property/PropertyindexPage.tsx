@@ -206,7 +206,7 @@ export function PropertyIndexPage() {
                           disabled
                           className="w-full sm:w-auto opacity-50 animate-pulse"
                         >
-                          Waiting for Domain...
+                          Domain Not Provided
                         </Button>
                       )}
                     </Alert>

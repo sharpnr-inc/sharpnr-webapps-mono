@@ -1,9 +1,11 @@
 import { useAppForm } from "@/components/forms";
 import { z } from "zod";
 import { useCreateLegalEntityMutation } from "./api/legalEntity.api.mutation";
+import { useNavigate } from "@tanstack/react-router";
 
 interface CreateLegalEntityFormProps {
   closeModal: () => void;
+  nav?: string | null;
 }
 
 const BUSINESS_TYPES = [
@@ -40,7 +42,9 @@ const legalEntitySchema = z.object({
 
 const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = ({
   closeModal,
+  nav,
 }) => {
+  const navigate = useNavigate();
   const createLegalEntity = useCreateLegalEntityMutation();
   const form = useAppForm({
     validators: {
@@ -64,6 +68,11 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = ({
         onSuccess: () => {
           form.reset();
           closeModal();
+          if (nav) {
+            navigate({
+              to: nav,
+            });
+          }
         },
       });
     },

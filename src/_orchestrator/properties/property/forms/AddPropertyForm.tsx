@@ -2,9 +2,11 @@ import { useAppForm } from "@/components/forms";
 import { z } from "zod";
 import { useCreatePropertyMutation } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 interface AddPropertyFormProps {
   closeModal: () => void;
+  navigate?: string | null;
 }
 
 const propertySchema = z.object({
@@ -19,9 +21,13 @@ const propertySchema = z.object({
 
 export type PropertyPayload = z.infer<typeof propertySchema>;
 
-const AddPropertyForm: React.FC<AddPropertyFormProps> = ({ closeModal }) => {
+const AddPropertyForm: React.FC<AddPropertyFormProps> = ({
+  closeModal,
+  navigate,
+}) => {
   const createProperty = useCreatePropertyMutation();
   const qc = useQueryClient();
+  const nav = useNavigate();
 
   const form = useAppForm({
     validators: {
@@ -44,6 +50,11 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = ({ closeModal }) => {
             queryKey: ["Orchestrator", "Properties"],
           });
           closeModal();
+          if (navigate) {
+            nav({
+              to: navigate,
+            });
+          }
         },
       });
     },

@@ -10,6 +10,13 @@ export const organizationStatusQuery = queryOptions({
   queryFn: GetOrganizationStatus,
 });
 
+export function useOrganizationStatus() {
+  return useQuery({
+    queryKey: ["Org", "status"],
+    queryFn: GetOrganizationStatus,
+  });
+}
+
 export function useOrganizationProperties() {
   return useQuery({
     queryKey: ["Orchestrator", "Properties"],
