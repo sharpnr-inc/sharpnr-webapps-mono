@@ -63,15 +63,15 @@ export function LegalEntityIndexPage() {
 
               <div className="grid gap-1">
                 <div>
-                  <span className="font-medium">GST:</span> {entity.gst ?? "—"}
+                  <span className="font-medium">GST:</span> {entity?.gst ?? "—"}
                 </div>
                 <div>
                   <span className="font-medium">CIN:</span>{" "}
-                  {entity.cinNumber ?? "—"}
+                  {entity?.cinNumber ?? "—"}
                 </div>
                 <div>
                   <span className="font-medium">PAN:</span>{" "}
-                  {entity.panNumber ?? "—"}
+                  {entity?.panNumber ?? "—"}
                 </div>
               </div>
 

@@ -111,11 +111,11 @@ export function PropertyIndexPage() {
       <section>
         {isLoading ? (
           <PropertyCardSkeleton />
-        ) : propoertyarray.length == 0 ? (
+        ) : propoertyarray?.length == 0 ? (
           <EmptyPropertySection />
         ) : (
           <div className="grid sm: grid-cols-1 md:grid-cols-3 gap-2">
-            {propoertyarray.map((p: any) => (
+            {propoertyarray?.map((p: any) => (
               <Card
                 key={p.id}
                 className="flex flex-col justify-between hover:shadow-lg transition-shadow"
