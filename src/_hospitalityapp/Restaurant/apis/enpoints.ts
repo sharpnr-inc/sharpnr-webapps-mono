@@ -1,7 +1,7 @@
 export const RestaurantEndpoints = {
-  Layout: (restaurantID: string) =>
+  Layout: (restaurantID?: string | null) =>
     `/sharp-hospitality/restaurant/${restaurantID}/layout`,
-  Context: `/orchestrator/hospitality/restaurant`,
+  Context: `/orchestrator/hospitality/all-restaurants`,
 
   /* --------------------------------- DineIN --------------------------------- */
 

@@ -1,18 +1,20 @@
 import React from "react";
-import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 import MenuSection from "../components/Menu/MenuSection";
+import { useSelectedRestaurantID } from "../store/selectors";
 
 const RestaurantSaleTerminalPage: React.FC = () => {
-  const { properties } = Route.useLoaderData();
-  const selectedProperty = properties?.[0];
-  const restaurantID = selectedProperty?.Restaurents;
+  const restaurantID = useSelectedRestaurantID();
   return (
     <div>
-      <MenuSection OwnerID={restaurantID}>
-        <MenuSection.CategorySection />
-        <MenuSection.SubCategorySection />
-        <MenuSection.ItemSection />
-      </MenuSection>
+      {restaurantID ? (
+        <MenuSection OwnerID={restaurantID}>
+          <MenuSection.CategorySection />
+          <MenuSection.SubCategorySection />
+          <MenuSection.ItemSection />
+        </MenuSection>
+      ) : (
+        <div>Loading or select a restaurant...</div>
+      )}
     </div>
   );
 };

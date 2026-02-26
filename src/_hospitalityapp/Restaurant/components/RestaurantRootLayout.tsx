@@ -1,4 +1,4 @@
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import {
   SidebarProvider,
   Sidebar,
@@ -7,69 +7,42 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { RestaurantSidebar } from "./RestaurantSidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Check, ChevronsUpDown, Building2 } from "lucide-react";
-import React from "react";
-import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
+import { Building2 } from "lucide-react";
+
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
+import { useSelectedRestaurant } from "../store/selectors";
 
 export function RestaurantRootLayout() {
-  const { properties } = Route.useLoaderData();
-
-  const [selectedPropertyId, setSelectedPropertyId] = React.useState<
-    string | undefined
-  >(properties?.[0]?.PropertyID);
-
-  const selectedProperty = properties?.find(
-    (p: any) => p.PropertyID === selectedPropertyId,
-  );
+  const selectedRestaurant = useSelectedRestaurant();
+  const navigate = useNavigate();
 
   return (
     <SidebarProvider defaultOpen={false}>
       <div className="flex w-full">
         <Sidebar collapsible="icon">
-          {/* ===== Property Switcher ===== */}
           <div className="p-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                    <Building2 className="size-4" />
-                  </div>
+            <SidebarMenuButton
+              size="lg"
+              onClick={() =>
+                navigate({
+                  to: "/dashboard/sharp_hospitality/restaurant",
+                })
+              }
+            >
+              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                <Building2 className="size-4" />
+              </div>
 
-                  <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-medium">
-                      {selectedProperty?.PropertyName ?? "Select Property"}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      Property
-                    </span>
-                  </div>
+              <div className="flex flex-col gap-0.5 leading-none">
+                <span className="font-medium">
+                  {selectedRestaurant?.Name ?? "Select Restaurant"}
+                </span>
 
-                  <ChevronsUpDown className="ml-auto size-4 opacity-60" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="start" className="min-w-[240px]">
-                {properties?.map((property: any) => (
-                  <DropdownMenuItem
-                    key={property.PropertyID}
-                    onSelect={() => setSelectedPropertyId(property.PropertyID)}
-                  >
-                    {property.PropertyName}
-
-                    {property.PropertyID === selectedPropertyId && (
-                      <Check className="ml-auto size-4" />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                <span className="text-xs text-muted-foreground">
+                  {selectedRestaurant?.Property?.Name ?? "Property"}
+                </span>
+              </div>
+            </SidebarMenuButton>
           </div>
 
           <RestaurantSidebar />

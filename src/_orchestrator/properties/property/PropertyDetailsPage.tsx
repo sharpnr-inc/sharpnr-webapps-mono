@@ -219,17 +219,6 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
             </div>
           </CardDescription>
         </CardHeader>
-
-        <CardFooter className="border-t pt-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <AlertCircleIcon className="mr-2 h-4 w-4" />
-            Learn more about this domain
-          </Button>
-        </CardFooter>
       </Card>
 
       {/* Modules */}
@@ -305,7 +294,6 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         </CardContent>
       </Card>
 
-      {/* Infrastructure */}
       <Card className="relative">
         <CardHeader className="space-y-2">
           <CardTitle>Infrastructure</CardTitle>
@@ -341,7 +329,6 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
             </Card>
           ))}
         </CardContent>
-        {/* this button open modal to add the infra for the property */}
         <Button className="absolute top-5 right-5">
           <PlusCircleIcon /> Add Infra
         </Button>
@@ -349,24 +336,3 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
     </div>
   );
 }
-
-/* ----------------------------- */
-/* Skeleton                      */
-/* ----------------------------- */
-// function PropertyDetailsSkeleton() {
-//   return (
-//     <div className="space-y-4">
-//       {Array.from({ length: 1 }).map((_, i) => (
-//         <Card key={i}>
-//           <CardHeader>
-//             <Skeleton className="h-4 w-1/3" />
-//           </CardHeader>
-//           <CardContent className="space-y-2">
-//             <Skeleton className="h-4 w-full" />
-//             <Skeleton className="h-4 w-2/3" />
-//           </CardContent>
-//         </Card>
-//       ))}
-//     </div>
-//   );
-// }

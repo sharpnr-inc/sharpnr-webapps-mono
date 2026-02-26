@@ -5,7 +5,7 @@ import {
   GetDiningSessionOrders,
 } from "./restaurant.api";
 
-export function useRestaurantLayout(restaurantID: string) {
+export function useRestaurantLayout(restaurantID?: string | null) {
   return useQuery({
     queryKey: ["Restaurant", restaurantID],
     queryFn: () => FetchRestaurantLayout(restaurantID),
