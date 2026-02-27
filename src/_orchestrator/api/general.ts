@@ -19,7 +19,7 @@ export function useOrganizationStatus() {
 
 export function useOrganizationProperties() {
   return useQuery({
-    queryKey: ["Orchestrator", "Properties"],
+    queryKey: ["Orchestrator", "Properties", "All Properties"],
     queryFn: GetOrganizationsProperties,
   });
 }

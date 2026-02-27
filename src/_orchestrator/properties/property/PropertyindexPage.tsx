@@ -139,15 +139,23 @@ export function PropertyIndexPage() {
                             Select Domain
                           </Button>
                           <PropertyDomainSelection
-                            onConfirm={(domainId) => {
-                              adddomain.mutateAsync({
-                                domain: domainId,
-                                propertyID: p.id,
-                              });
+                            onConfirm={async (domainId) => {
+                              try {
+                                await adddomain.mutateAsync({
+                                  domain: domainId,
+                                  propertyID: p.id,
+                                });
 
-                              qc.invalidateQueries({
-                                queryKey: ["Orchestrator", "Properties"],
-                              });
+                                await qc.invalidateQueries({
+                                  queryKey: [
+                                    "Orchestrator",
+                                    "Properties",
+                                    "All Properties",
+                                  ],
+                                });
+                              } catch (error) {
+                                console.error("Failed to add domain:", error);
+                              }
                             }}
                             property={p}
                             onOpenChange={setIsDialogOpen}
