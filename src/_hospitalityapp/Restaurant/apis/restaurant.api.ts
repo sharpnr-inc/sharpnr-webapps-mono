@@ -13,6 +13,11 @@ export async function FetchRestaurentContext() {
   return res.data;
 }
 
+export async function GetRestaurantGeneralInfo(restaurantID: string) {
+  const res = await api.get(RestaurantEndpoints.GeneralInfo(restaurantID));
+  return res.data;
+}
+
 /* ----------------------------------- *** ---------------------------------- */
 
 export async function StartDiningSession(

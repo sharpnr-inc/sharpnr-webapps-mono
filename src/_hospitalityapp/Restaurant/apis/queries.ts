@@ -3,6 +3,7 @@ import {
   FetchRestaurantLayout,
   FetchRestaurentContext,
   GetDiningSessionOrders,
+  GetRestaurantGeneralInfo,
 } from "./restaurant.api";
 
 export function useRestaurantLayout(restaurantID?: string | null) {
@@ -27,5 +28,12 @@ export function useDiningSessionOrders(
   return useQuery({
     queryKey: ["session", "session_orders"],
     queryFn: () => GetDiningSessionOrders(restaurantID, diningSessionID),
+  });
+}
+
+export function useRestaurantGeneralInfo(restaurantID: string) {
+  return useQuery({
+    queryKey: ["Restaurant", "GeneralInfo", restaurantID],
+    queryFn: () => GetRestaurantGeneralInfo(restaurantID),
   });
 }

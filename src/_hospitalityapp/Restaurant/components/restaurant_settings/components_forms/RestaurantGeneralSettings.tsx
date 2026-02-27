@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -10,30 +10,77 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/queries";
+
+type FormState = {
+  name: string;
+  opening_time: string;
+  closing_time: string;
+};
 
 const RestaurantGeneralSettingsComp = () => {
   const [open, setOpen] = useState(false);
 
-  // mock data (replace with query data)
-  const [restaurant, setRestaurant] = useState({
-    name: "Sharp Hospitality Restaurant",
-    email: "contact@restaurant.com",
-    phone: "+91 9876543210",
-    address: "Hingona, Rajasthan",
+  const restaurantID = Route.useParams().restaurantID;
+  const { data, isLoading } = useRestaurantGeneralInfo(restaurantID!);
+
+  const restaurant = data?.data;
+
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    opening_time: "",
+    closing_time: "",
   });
 
-  const [form, setForm] = useState(restaurant);
+  // sync form when api data loads
+  useEffect(() => {
+    if (restaurant) {
+      setForm({
+        name: restaurant.name ?? "",
+        opening_time: restaurant.opening_time ?? "",
+        closing_time: restaurant.closing_time ?? "",
+      });
+    }
+  }, [restaurant]);
 
   const handleOpen = () => {
-    setForm(restaurant);
+    if (!restaurant) return;
+
+    setForm({
+      name: restaurant.name ?? "",
+      opening_time: restaurant.opening_time ?? "",
+      closing_time: restaurant.closing_time ?? "",
+    });
+
     setOpen(true);
   };
 
   const handleSave = () => {
     // TODO: call mutation here
-    setRestaurant(form);
+    // updateRestaurant.mutateAsync(form)
     setOpen(false);
   };
+
+  if (isLoading) {
+    return (
+      <Card className="rounded-2xl shadow-sm">
+        <CardContent className="p-6 text-sm text-muted-foreground">
+          Loading restaurant details...
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!restaurant) {
+    return (
+      <Card className="rounded-2xl shadow-sm">
+        <CardContent className="p-6 text-sm text-muted-foreground">
+          Restaurant details not found.
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <>
@@ -47,22 +94,28 @@ const RestaurantGeneralSettingsComp = () => {
         <CardContent className="space-y-3 text-sm">
           <div>
             <p className="text-muted-foreground">Name</p>
-            <p className="font-medium">{restaurant.name}</p>
+            <p className="font-medium">{restaurant.name || "-"}</p>
           </div>
 
           <div>
-            <p className="text-muted-foreground">Email</p>
-            <p className="font-medium">{restaurant.email}</p>
+            <p className="text-muted-foreground">Opening Time</p>
+            <p className="font-medium">
+              {restaurant.opening_time || "Not set"}
+            </p>
           </div>
 
           <div>
-            <p className="text-muted-foreground">Phone</p>
-            <p className="font-medium">{restaurant.phone}</p>
+            <p className="text-muted-foreground">Closing Time</p>
+            <p className="font-medium">
+              {restaurant.closing_time || "Not set"}
+            </p>
           </div>
 
           <div>
-            <p className="text-muted-foreground">Address</p>
-            <p className="font-medium">{restaurant.address}</p>
+            <p className="text-muted-foreground">Status</p>
+            <p className="font-medium">
+              {restaurant.is_active ? "Active" : "Inactive"}
+            </p>
           </div>
 
           <Button className="mt-4" onClick={handleOpen}>
@@ -71,6 +124,7 @@ const RestaurantGeneralSettingsComp = () => {
         </CardContent>
       </Card>
 
+      {/* UPDATE DIALOG */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-lg rounded-2xl">
           <DialogHeader>
@@ -89,31 +143,29 @@ const RestaurantGeneralSettingsComp = () => {
             </div>
 
             <div className="space-y-2">
-              <Label>Email</Label>
+              <Label>Opening Time</Label>
               <Input
-                value={form.email}
+                placeholder="09:00"
+                value={form.opening_time}
                 onChange={(e) =>
-                  setForm((p) => ({ ...p, email: e.target.value }))
+                  setForm((p) => ({
+                    ...p,
+                    opening_time: e.target.value,
+                  }))
                 }
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Phone</Label>
+              <Label>Closing Time</Label>
               <Input
-                value={form.phone}
+                placeholder="22:00"
+                value={form.closing_time}
                 onChange={(e) =>
-                  setForm((p) => ({ ...p, phone: e.target.value }))
-                }
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Address</Label>
-              <Input
-                value={form.address}
-                onChange={(e) =>
-                  setForm((p) => ({ ...p, address: e.target.value }))
+                  setForm((p) => ({
+                    ...p,
+                    closing_time: e.target.value,
+                  }))
                 }
               />
             </div>
