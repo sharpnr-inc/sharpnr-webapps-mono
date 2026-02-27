@@ -26,8 +26,11 @@ const RestaurantSettingsTabs = () => {
             <TabsTrigger value="Integrations">Layouts</TabsTrigger>
             <TabsTrigger value="Notifications" disabled>
               Notifications
-            </TabsTrigger>
+            </TabsTrigger>     
           </TabsList>
+
+
+          
           <TabsContent value="Generals">
             <RestaurantGeneralSettingsComp />
           </TabsContent>

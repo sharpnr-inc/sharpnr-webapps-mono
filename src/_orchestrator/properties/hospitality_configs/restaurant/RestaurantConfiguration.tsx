@@ -11,7 +11,7 @@ import { getFloorNameShort } from "@/utilities/floor_naming";
 import { PlusCircle, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration";
+import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import { usePropertyDetails } from "@/_orchestrator/api/general";
 import { Badge } from "@/components/ui/badge";
 import { useConfigureRestuarantMutations } from "@/_orchestrator/properties/property/api/mutation";
@@ -66,7 +66,7 @@ export type RestaurantConfigurationForm = z.infer<
 interface RestaurantConfigurationProps {}
 
 const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
-  const { propertyId, restaurantId } = Route.useParams();
+  const { propertyId, restaurantID } = Route.useParams();
 
   const { data } = usePropertyDetails(propertyId);
   const { mutateAsync } = useConfigureRestuarantMutations();
@@ -80,7 +80,7 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
 
     defaultValues: {
       propertyID: propertyId,
-      restaurantID: restaurantId,
+      restaurantID: restaurantID,
       general_details: {
         name: "",
         is_pure_veg: false,

@@ -272,22 +272,12 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
               )}
 
               <CardFooter>
-                {!module.is_configured ? (
-                  <Button
-                    onClick={() => handleModuleConfigure(module)}
-                    className="w-full"
-                    variant={"outline"}
-                  >
-                    Configure
-                  </Button>
-                ) : (
-                  <Button
-                    className="w-full"
-                    onClick={() => handleModuleNav(module)}
-                  >
-                    Go to Module <ArrowRight />
-                  </Button>
-                )}
+                <Button
+                  className="w-full"
+                  onClick={() => handleModuleNav(module)}
+                >
+                  Go to Module <ArrowRight />
+                </Button>
               </CardFooter>
             </Card>
           ))}

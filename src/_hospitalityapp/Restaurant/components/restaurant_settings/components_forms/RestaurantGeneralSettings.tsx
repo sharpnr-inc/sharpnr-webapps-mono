@@ -1,7 +1,9 @@
+import RestaurantConfiguration from "@/_orchestrator/properties/hospitality_configs/restaurant/RestaurantConfiguration";
+
 const RestaurantGeneralSettingsComp = () => {
   return (
     <div>
-      <div>This is Restaurant Settings Compo</div>
+      <RestaurantConfiguration />
     </div>
   );
 };
