@@ -18,6 +18,22 @@ export async function GetRestaurantGeneralInfo(restaurantID: string) {
   return res.data;
 }
 
+interface UpdateRestaurantGeneralInfoPayload {
+  restaurantID: string;
+  payload: any;
+}
+
+export async function UpdateRestaurantGeneralInfo({
+  restaurantID,
+  payload,
+}: UpdateRestaurantGeneralInfoPayload) {
+  const res = await api.post(
+    RestaurantEndpoints.UpdateGeneralInfo(restaurantID),
+    payload,
+  );
+  return res.data;
+}
+
 /* ----------------------------------- *** ---------------------------------- */
 
 export async function StartDiningSession(

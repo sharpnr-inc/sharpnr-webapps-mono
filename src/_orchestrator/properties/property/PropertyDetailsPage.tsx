@@ -81,42 +81,6 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
   const nav = useNavigate();
 
-  const handleModuleConfigure = (module: ModulesDetailsDto) => {
-    if (module.module_type == "HOTEL") {
-      nav({
-        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
-        params: {
-          hotelId: module.id,
-          propertyId: propertyId,
-        },
-      });
-    } else if (module.module_type == "RESTAURANT") {
-      nav({
-        to: "/orchestrator/property/$propertyId/domain_hospitality/restaurant_config/$restaurantId/configuration",
-        params: {
-          restaurantId: module.id,
-          propertyId: propertyId,
-        },
-      });
-    } else if (module.module_type == "BAR") {
-      nav({
-        to: "/orchestrator/property/$propertyId/domain_hospitality/bar_config/$barId/configuration",
-        params: {
-          barId: module.id,
-          propertyId: propertyId,
-        },
-      });
-    } else if (module.module_type == "NIGHT_CLUB") {
-      nav({
-        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_config/$hotelId/configuration",
-        params: {
-          hotelId: module.id,
-          propertyId: propertyId,
-        },
-      });
-    }
-  };
-
   const handleModuleNav = (module: ModulesDetailsDto) => {
     if (module.is_configured && module.module_type == "HOTEL") {
       nav({
@@ -135,6 +99,16 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         },
       });
     }
+  };
+
+  const handleInfraNav = (Id: string) => {
+    nav({
+      to: "/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID",
+      params: {
+        InfraID: Id,
+        propertyId,
+      },
+    });
   };
 
   const handlePropertySettingPage = () => {
@@ -311,7 +285,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                 </CardDescription>
               </CardHeader>
               <CardFooter>
-                <Button>
+                <Button onClick={() => handleInfraNav(inf.id)}>
                   View Details
                   <ArrowRight />
                 </Button>

@@ -6,6 +6,9 @@ export const RestaurantEndpoints = {
   GeneralInfo: (restaurantID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/general-details`,
 
+  UpdateGeneralInfo: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/update-general-details`,
+
   /* --------------------------------- DineIN --------------------------------- */
 
   StartDineSession: (restaurantID: string, tableID: string) =>

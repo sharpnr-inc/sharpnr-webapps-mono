@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -8,79 +9,60 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/queries";
+import { useAppForm } from "@/components/forms";
+import { useUpdateRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
-type FormState = {
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface Restaurant {
   name: string;
   opening_time: string;
   closing_time: string;
-};
+  is_active: boolean;
+  is_configured: boolean;
+}
 
-const RestaurantGeneralSettingsComp = () => {
+// ─── Inner Form Component (always receives real data) ────────────────────────
+
+function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
   const [open, setOpen] = useState(false);
-
   const restaurantID = Route.useParams().restaurantID;
-  const { data, isLoading } = useRestaurantGeneralInfo(restaurantID!);
+  const updateGeneralInfo = useUpdateRestaurantGeneralInfo();
+  const q = useQueryClient();
 
-  const restaurant = data?.data;
+  const form = useAppForm({
+    defaultValues: {
+      name: restaurant.name || "",
+      opening_time: restaurant.opening_time || "",
+      closing_time: restaurant.closing_time || "",
+    },
+    onSubmit: async ({ value, formApi }) => {
+      const dirtyFields = Object.keys(value).filter(
+        (key) => formApi.getFieldMeta(key as keyof typeof value)?.isDirty,
+      );
 
-  const [form, setForm] = useState<FormState>({
-    name: "",
-    opening_time: "",
-    closing_time: "",
+      const changedValues = Object.fromEntries(
+        dirtyFields.map((key) => [key, value[key as keyof typeof value]]),
+      );
+
+      updateGeneralInfo.mutateAsync(
+        {
+          restaurantID: restaurantID!,
+          payload: changedValues,
+        },
+        {
+          onSuccess: () => {
+            setOpen(false);
+            q.invalidateQueries()
+          },
+        },
+      );
+    },
   });
-
-  // sync form when api data loads
-  useEffect(() => {
-    if (restaurant) {
-      setForm({
-        name: restaurant.name ?? "",
-        opening_time: restaurant.opening_time ?? "",
-        closing_time: restaurant.closing_time ?? "",
-      });
-    }
-  }, [restaurant]);
-
-  const handleOpen = () => {
-    if (!restaurant) return;
-
-    setForm({
-      name: restaurant.name ?? "",
-      opening_time: restaurant.opening_time ?? "",
-      closing_time: restaurant.closing_time ?? "",
-    });
-
-    setOpen(true);
-  };
-
-  const handleSave = () => {
-    // TODO: call mutation here
-    // updateRestaurant.mutateAsync(form)
-    setOpen(false);
-  };
-
-  if (isLoading) {
-    return (
-      <Card className="rounded-2xl shadow-sm">
-        <CardContent className="p-6 text-sm text-muted-foreground">
-          Loading restaurant details...
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (!restaurant) {
-    return (
-      <Card className="rounded-2xl shadow-sm">
-        <CardContent className="p-6 text-sm text-muted-foreground">
-          Restaurant details not found.
-        </CardContent>
-      </Card>
-    );
-  }
 
   return (
     <>
@@ -91,7 +73,28 @@ const RestaurantGeneralSettingsComp = () => {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-3 text-sm">
+        <CardContent className="space-y-4 text-sm">
+          {!restaurant.is_configured && (
+            <div className="rounded-xl border border-border bg-secondary/20 p-3">
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 mt-0.5 text-foreground" />
+                <div className="text-foreground text-sm leading-relaxed">
+                  <p className="font-medium">
+                    Your restaurant is not configured yet.
+                  </p>
+                  <p className="mt-1 text-muted-foreground">
+                    Please complete the following setup:
+                  </p>
+                  <ul className="list-disc pl-5 mt-1 space-y-1 text-muted-foreground">
+                    <li>Add Menu</li>
+                    <li>Add at least 1 Table</li>
+                    <li>Complete General Details</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div>
             <p className="text-muted-foreground">Name</p>
             <p className="font-medium">{restaurant.name || "-"}</p>
@@ -118,7 +121,7 @@ const RestaurantGeneralSettingsComp = () => {
             </p>
           </div>
 
-          <Button className="mt-4" onClick={handleOpen}>
+          <Button className="mt-2" onClick={() => setOpen(true)}>
             Update Details
           </Button>
         </CardContent>
@@ -131,56 +134,77 @@ const RestaurantGeneralSettingsComp = () => {
             <DialogTitle>Update Restaurant Details</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4 py-2">
-            <div className="space-y-2">
-              <Label>Name</Label>
-              <Input
-                value={form.name}
-                onChange={(e) =>
-                  setForm((p) => ({ ...p, name: e.target.value }))
-                }
-              />
-            </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              form.handleSubmit();
+            }}
+          >
+            <form.AppField
+              name="name"
+              children={(f) => <f.TextField label="Restaurant Name" />}
+            />
+            <form.AppField
+              name="opening_time"
+              children={(f) => <f.TextField label="Opening Time" type="time" />}
+            />
+            <form.AppField
+              name="closing_time"
+              children={(f) => <f.TextField label="Closing Time" type="time" />}
+            />
 
-            <div className="space-y-2">
-              <Label>Opening Time</Label>
-              <Input
-                placeholder="09:00"
-                value={form.opening_time}
-                onChange={(e) =>
-                  setForm((p) => ({
-                    ...p,
-                    opening_time: e.target.value,
-                  }))
-                }
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Closing Time</Label>
-              <Input
-                placeholder="22:00"
-                value={form.closing_time}
-                onChange={(e) =>
-                  setForm((p) => ({
-                    ...p,
-                    closing_time: e.target.value,
-                  }))
-                }
-              />
-            </div>
-          </div>
-
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave}>Save Changes</Button>
-          </DialogFooter>
+            <DialogFooter className="mt-4">
+              <Button
+                variant="outline"
+                type="button"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </Button>
+              <form.AppForm>
+                <div>
+                  {" "}
+                  <form.SubmitButton>Save changes</form.SubmitButton>
+                </div>
+              </form.AppForm>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </>
   );
+}
+
+// ─── Outer Component (handles loading/error) ─────────────────────────────────
+
+const RestaurantGeneralSettingsComp = () => {
+  const restaurantID = Route.useParams().restaurantID;
+  const { data, isLoading } = useRestaurantGeneralInfo(restaurantID!);
+  const restaurant = data?.data;
+
+  if (isLoading) {
+    return (
+      <Card className="rounded-2xl shadow-sm">
+        <CardContent className="p-6 text-sm text-muted-foreground">
+          Loading restaurant details...
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!restaurant) {
+    return (
+      <Card className="rounded-2xl shadow-sm">
+        <CardContent className="p-6 text-sm text-muted-foreground">
+          Restaurant details not found.
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // ✅ Only renders RestaurantForm when real data exists
+  return <RestaurantForm restaurant={restaurant} />;
 };
 
 export default RestaurantGeneralSettingsComp;
