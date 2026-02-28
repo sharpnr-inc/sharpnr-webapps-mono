@@ -8,7 +8,7 @@ import {
 
 export function useRestaurantLayout(restaurantID?: string | null) {
   return useQuery({
-    queryKey: ["Restaurant", restaurantID],
+    queryKey: ["Restaurant", "Restaurant Layout", restaurantID],
     queryFn: () => FetchRestaurantLayout(restaurantID),
     enabled: !!restaurantID,
   });

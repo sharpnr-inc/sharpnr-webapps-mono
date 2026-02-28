@@ -11,22 +11,10 @@ import { getFloorNameShort } from "@/utilities/floor_naming";
 import { PlusCircle, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
-import { usePropertyDetails } from "@/_orchestrator/api/general";
-import { Badge } from "@/components/ui/badge";
-import { useConfigureRestuarantMutations } from "@/_orchestrator/properties/property/api/mutation";
+import { useAddRestaurantLayout } from "@/_hospitalityapp/Restaurant/apis/mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const RestaurantConfigurationFormSchema = z.object({
-  propertyID: z.string(),
-  restaurantID: z.string(),
-
-  general_details: z.object({
-    name: z.string().min(1, "Restaurant name is required"),
-    is_pure_veg: z.boolean(),
-    opening_time: z.string().min(1, "Opening time is required"),
-    closing_time: z.string().min(1, "Closing time is required"),
-  }),
-
   restaurant_layout: z
     .array(
       z.object({
@@ -50,28 +38,22 @@ const RestaurantConfigurationFormSchema = z.object({
       }),
     )
     .min(1, "At least one floor is required"),
-
-  // preferred_kitchen: z.object({
-  //   id: z.string().min(1, "Preferred kitchen is required"),
-  // }),
-
-  // legal_entity: z.object({
-  //   id: z.string().min(1, "Legal entity is required"),
-  // }),
 });
 
 export type RestaurantConfigurationForm = z.infer<
   typeof RestaurantConfigurationFormSchema
 >;
-interface RestaurantConfigurationProps {}
+interface RestaurantConfigurationProps {
+  restaurantID: string;
+  closeModal: () => void;
+}
 
-const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
-  const { propertyId, restaurantID } = Route.useParams();
-
-  const { data } = usePropertyDetails(propertyId);
-  const { mutateAsync } = useConfigureRestuarantMutations();
-
-  const propertyInfra = data?.data?.infra ?? [];
+const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = ({
+  restaurantID,
+  closeModal,
+}) => {
+  const { mutateAsync } = useAddRestaurantLayout();
+  const q = useQueryClient();
 
   const form = useAppForm({
     validators: {
@@ -79,15 +61,6 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
     },
 
     defaultValues: {
-      propertyID: propertyId,
-      restaurantID: restaurantID,
-      general_details: {
-        name: "",
-        is_pure_veg: false,
-        opening_time: "",
-        closing_time: "",
-      },
-
       restaurant_layout: [
         {
           floor_number: "",
@@ -95,17 +68,9 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
           number_of_tables: "",
         },
       ],
-      // preferred_kitchen: {
-      //   id: "",
-      // },
-
-      // legal_entity: {
-      //   id: "",
-      // },
     },
 
     onSubmit: ({ value }) => {
-      console.log(value);
       const transformedValue = {
         ...value,
         restaurant_layout: value.restaurant_layout.map((layout) => ({
@@ -115,12 +80,16 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
         })),
       };
 
-      console.log(transformedValue);
       mutateAsync(
-        { payload: transformedValue, propertyID: propertyId },
+        { payload: transformedValue, restaurantID },
         {
           onSuccess: () => {
-            console.log("Done");
+            closeModal();
+
+            // 🔥 REFRESH RESTAURANT LAYOUT
+            q.invalidateQueries({
+              queryKey: ["Restaurant", "Restaurant Layout", restaurantID],
+            });
           },
         },
       );
@@ -138,46 +107,6 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
               form.handleSubmit();
             }}
           >
-            <Card>
-              <CardHeader>
-                <CardTitle>Restaurant General Info</CardTitle>
-                <CardDescription>
-                  Save the restaurant general details
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form.AppField
-                  name="general_details.name"
-                  children={(f) => <f.TextField label="Restaurant Name" />}
-                />
-                <form.AppField
-                  name="general_details.is_pure_veg"
-                  children={(f) => (
-                    <f.CheckboxField
-                      checkedLabel="You serve pure veg"
-                      uncheckedLabel="This property is hidden from customers"
-                      label="Pure Veg"
-                      description="Is you Restaurant Pure Veg, or Do you serve only pure veg food"
-                    />
-                  )}
-                />
-                <div className="grid grid-cols-2 gap-2.5">
-                  <form.AppField
-                    name="general_details.opening_time"
-                    children={(f) => (
-                      <f.TextField label="Opening Time" type={"time"} />
-                    )}
-                  />
-                  <form.AppField
-                    name="general_details.closing_time"
-                    children={(f) => (
-                      <f.TextField label="Closing Time" type={"time"} />
-                    )}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
             <Card>
               <CardHeader>
                 <CardTitle>Restaurant Layout Details</CardTitle>
@@ -286,51 +215,6 @@ const RestaurantConfiguration: React.FC<RestaurantConfigurationProps> = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Kitchen and Order Processing</CardTitle>
-                <CardDescription>
-                  Choose Which Kitchen you want to use
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {propertyInfra.map((i: any) => {
-                  // 🔮 future logic goes here
-                  // if (!i.enabled) return null;
-
-                  return (
-                    <div
-                      key={i.id ?? i.name}
-                      className="group rounded-lg border bg-card p-4 shadow-sm transition-all hover:shadow-md"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="text-lg font-semibold leading-tight">
-                          {i.name}
-                        </h3>
-
-                        <Badge
-                          variant="secondary"
-                          className="shrink-0 capitalize"
-                        >
-                          {i.infra_type}
-                        </Badge>
-                      </div>
-                    </div>
-                  );
-                })}
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Legal entity & Account Tax Codes</CardTitle>
-                <CardDescription>
-                  choose which legal entity do you want to use for Accounting
-                  and Tax codes
-                </CardDescription>
-              </CardHeader>
-              <CardContent></CardContent>
-            </Card>
             <div className="p-6 w-full">
               <form.AppForm>
                 <form.SubmitButton>Save & Configure</form.SubmitButton>

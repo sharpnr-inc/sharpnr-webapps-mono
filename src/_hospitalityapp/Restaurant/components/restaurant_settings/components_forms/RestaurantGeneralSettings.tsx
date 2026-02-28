@@ -57,7 +57,7 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
         {
           onSuccess: () => {
             setOpen(false);
-            q.invalidateQueries()
+            q.invalidateQueries();
           },
         },
       );
@@ -66,26 +66,35 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
 
   return (
     <>
-      <Card className="rounded-2xl shadow-sm">
-        <CardHeader>
+      <Card className="relative rounded-2xl shadow-sm">
+        <CardHeader className="relative">
           <CardTitle className="text-xl font-semibold">
             Restaurant General Settings
           </CardTitle>
+
+          {/* TOP RIGHT BUTTON */}
+          <Button
+            className="absolute right-4 top-4"
+            onClick={() => setOpen(true)}
+            size="sm"
+          >
+            Update Details
+          </Button>
         </CardHeader>
 
         <CardContent className="space-y-4 text-sm">
           {!restaurant.is_configured && (
             <div className="rounded-xl border border-border bg-secondary/20 p-3">
               <div className="flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 mt-0.5 text-foreground" />
-                <div className="text-foreground text-sm leading-relaxed">
+                <AlertTriangle className="mt-0.5 h-4 w-4 text-foreground" />
+                <div className="text-sm leading-relaxed text-foreground">
                   <p className="font-medium">
                     Your restaurant is not configured yet.
                   </p>
                   <p className="mt-1 text-muted-foreground">
                     Please complete the following setup:
                   </p>
-                  <ul className="list-disc pl-5 mt-1 space-y-1 text-muted-foreground">
+                  <ul className="mt-1 list-disc space-y-1 pl-5 text-muted-foreground">
                     <li>Add Menu</li>
                     <li>Add at least 1 Table</li>
                     <li>Complete General Details</li>
@@ -120,10 +129,6 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
               {restaurant.is_active ? "Active" : "Inactive"}
             </p>
           </div>
-
-          <Button className="mt-2" onClick={() => setOpen(true)}>
-            Update Details
-          </Button>
         </CardContent>
       </Card>
 

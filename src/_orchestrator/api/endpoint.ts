@@ -11,15 +11,13 @@ export const OrchestratorConsole = {
 
     AddModules: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/add-modules`,
-    ConfigureRestaurant: (propertyID: string) =>
-      `/orchestrator/console/property/${propertyID}/configure-restaurant`,
 
     ConfigureHotel: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/configure-hotel`,
   },
 
-  legalEntity:{
+  legalEntity: {
     getAll: "/orchestrator/console/legal-entity",
     create: "/orchestrator/console/legal-entity/create",
-  }
+  },
 };

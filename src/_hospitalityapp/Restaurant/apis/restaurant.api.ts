@@ -8,6 +8,22 @@ export async function FetchRestaurantLayout(restaurantID?: string | null) {
   }
 }
 
+interface AddRestaurantLayoutPayload {
+  restaurantID: string;
+  payload: any;
+}
+
+export async function AddRestaurantFloorsAdnTables(
+  payload: AddRestaurantLayoutPayload,
+) {
+  const res = await api.post(
+    RestaurantEndpoints.AddLayout(payload.restaurantID),
+    payload.payload,
+  );
+
+  return res.data;
+}
+
 export async function FetchRestaurentContext() {
   const res = await api.get(RestaurantEndpoints.Context);
   return res.data;

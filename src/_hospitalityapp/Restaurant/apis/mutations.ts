@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import {
   AddOrdersInDiningSession,
+  AddRestaurantFloorsAdnTables,
   StartDiningSession,
   UpdateRestaurantGeneralInfo,
 } from "./restaurant.api";
@@ -28,5 +29,12 @@ export function useUpdateRestaurantGeneralInfo() {
   return useMutation({
     mutationFn: UpdateRestaurantGeneralInfo,
     mutationKey: ["UpdateRestaurantGeneralInfo"],
+  });
+}
+
+export function useAddRestaurantLayout() {
+  return useMutation({
+    mutationFn: AddRestaurantFloorsAdnTables,
+    mutationKey: ["AddRestaurantLayout"],
   });
 }
