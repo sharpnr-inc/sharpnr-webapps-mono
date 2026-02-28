@@ -1,6 +1,12 @@
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { useRestaurantLayout } from "@/_hospitalityapp/Restaurant/apis/queries";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
@@ -64,9 +70,9 @@ export function RestaurantLayoutSettings() {
   return (
     <div className="space-y-3">
       {/* EMPTY STATE */}
-      {floors.length === 0 && (
+      {floors.length === 0 ? (
         <Card className="rounded-2xl border-dashed">
-          <CardContent className="py-10 text-center space-y-3">
+          <CardContent className="space-y-3 py-10 text-center">
             <p className="text-sm text-muted-foreground">No layout found.</p>
 
             <Button onClick={handleAddFloor}>
@@ -75,71 +81,77 @@ export function RestaurantLayoutSettings() {
             </Button>
           </CardContent>
         </Card>
-      )}
+      ) : (
+        /* FLOOR CARD (ONLY WHEN FLOORS EXIST) */
+        <Card className="relative">
+          {/* HEADER */}
+          <CardHeader className="flex flex-row items-start justify-between">
+            <div>
+              <CardTitle>Restaurant Floors</CardTitle>
+              <CardDescription>This is Card Description</CardDescription>
+            </div>
 
-      <div className=" space-y-2">
-        <div>
-          <Button
-            onClick={() => {
-              handleAddFloor();
-            }}
-          >
-            <PlusIcon />
-            Add Floor and Tables
-          </Button>
-        </div>
-        {floors.map((floor) => (
-          <Card key={floor.id} className="rounded-2xl">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-lg">{floor.name}</CardTitle>
+            <Button onClick={handleAddFloor} size="sm">
+              Add Floors & Tables
+            </Button>
+          </CardHeader>
 
-              <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onEditFloor(floor)}
-                >
-                  <Pencil className="mr-1 h-4 w-4" />
-                  Edit
-                </Button>
+          {/* CONTENT */}
+          <CardContent className="space-y-3">
+            {floors.map((floor) => (
+              <Card key={floor.id} className="rounded-2xl">
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-lg">{floor.name}</CardTitle>
 
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => onDeleteFloor(floor)}
-                >
-                  <Trash2 className="mr-1 h-4 w-4" />
-                  Delete
-                </Button>
-              </div>
-            </CardHeader>
-
-            <CardContent>
-              {floor.tables.length === 0 ? (
-                <p className="text-sm text-muted-foreground">
-                  No tables found.
-                </p>
-              ) : (
-                <div className="flex flex-wrap gap-2">
-                  {floor.tables.map((table) => (
-                    <div
-                      key={table.id}
-                      className="
-                  h-16 w-16
-                  flex items-center justify-center
-                  rounded-md border bg-muted
-                  text-xs font-medium
-                "
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => onEditFloor(floor)}
                     >
-                      {table.name}
+                      <Pencil className="mr-1 h-4 w-4" />
+                      Edit
+                    </Button>
+
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => onDeleteFloor(floor)}
+                    >
+                      <Trash2 className="mr-1 h-4 w-4" />
+                      Delete
+                    </Button>
+                  </div>
+                </CardHeader>
+
+                <CardContent>
+                  {floor.tables.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      No tables found.
+                    </p>
+                  ) : (
+                    <div className="flex flex-wrap gap-2">
+                      {floor.tables.map((table) => (
+                        <div
+                          key={table.id}
+                          className="
+                          h-16 w-16
+                          flex items-center justify-center
+                          rounded-md border bg-muted
+                          text-xs font-medium
+                        "
+                        >
+                          {table.name}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
