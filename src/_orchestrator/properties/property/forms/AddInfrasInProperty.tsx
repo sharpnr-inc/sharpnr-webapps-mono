@@ -9,11 +9,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useHospitalityDomainModInfra } from "../api/queries";
+import { useAddInfraInProperty } from "../api/mutation";
 
 type QtyMap = Record<string, number>;
 
 export function AddInfraInProperty({
   closeModal,
+  propertyID,
 }: {
   propertyID: string;
   closeModal: () => void;
@@ -22,7 +24,7 @@ export function AddInfraInProperty({
     useHospitalityDomainModInfra("hospitality");
 
   const infrastructures = domainData?.data?.infrastructure ?? [];
-
+  const { mutateAsync } = useAddInfraInProperty();
   const [qty, setQty] = useState<QtyMap>({});
 
   const updateQty = (id: string, value: string) => {
@@ -32,20 +34,29 @@ export function AddInfraInProperty({
     }));
   };
 
-  const handleSubmit = () => {
-    const payload = infrastructures
-      .filter((infra: any) => infra.IsAvailable && (qty[infra.ID] ?? 0) > 0)
-      .map((infra: any) => ({
-        infra_id: infra.ID,
-        qty: qty[infra.ID],
-      }));
+  const handleSubmit = async () => {
+    const infra = infrastructures.find(
+      (infra: any) => infra.IsAvailable && (qty[infra.ID] ?? 0) > 0,
+    );
 
-    console.log("SUBMIT PAYLOAD:", payload);
+    if (!infra) return;
 
-    // TODO: API call
-    closeModal();
+    const payload = {
+      infra_name: infra.ModuleName,
+      qty: qty[infra.ID] ?? 1,
+    };
+
+    try {
+      await mutateAsync({
+        propertyID,
+        request_payload: payload,
+      });
+
+      closeModal();
+    } catch (err) {
+      console.error("Failed to add infra:", err);
+    }
   };
-
   if (isLoading) {
     return <p className="text-sm text-muted-foreground">Loading...</p>;
   }

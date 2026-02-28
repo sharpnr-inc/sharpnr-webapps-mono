@@ -12,6 +12,9 @@ export const OrchestratorConsole = {
     AddModules: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/add-modules`,
 
+    AddInfra: (propertyID: string) =>
+      `/orchestrator/console/property/${propertyID}/add-infra`,
+
     ConfigureHotel: (propertyID: string) =>
       `/orchestrator/console/property/${propertyID}/configure-hotel`,
   },

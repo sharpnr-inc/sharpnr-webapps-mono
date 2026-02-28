@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { AddProperty } from "./service";
 import {
+  AddInfraInProperty,
   AddModulesInProperty,
   ConfigureHotel,
   SetDomainOfProperty,
@@ -24,6 +25,13 @@ export function useAddModulesInProperty() {
   return useMutation({
     mutationKey: ["Property", "Modules"],
     mutationFn: AddModulesInProperty,
+  });
+}
+
+export function useAddInfraInProperty() {
+  return useMutation({
+    mutationFn: AddInfraInProperty,
+    mutationKey: ["Orchestrator", "Property"],
   });
 }
 

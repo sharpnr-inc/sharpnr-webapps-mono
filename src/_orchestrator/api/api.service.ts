@@ -64,6 +64,18 @@ export async function AddModulesInProperty({
   return res.data;
 }
 
+interface AddInfraInPropPayload {
+  request_payload: any;
+  propertyID: string;
+}
+export async function AddInfraInProperty(payload: AddInfraInPropPayload) {
+  const res = await api.post(
+    OrchestratorConsole.property.AddInfra(payload.propertyID),
+    payload.request_payload,
+  );
+  return res.data;
+}
+
 //================================================================================//
 
 interface ConfigureHotelPayload {

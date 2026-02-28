@@ -1,6 +1,19 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -31,12 +44,11 @@ const PropertyDomainSelection: React.FC<PropertyDomainSelectionProps> = ({
         <DialogHeader>
           <DialogTitle>Select Property Domain</DialogTitle>
           <DialogDescription>
-            Choose how <strong>{property.name}</strong> will operate.
-            This decision is <strong>irreversible</strong>.
+            Choose how <strong>{property.name}</strong> will operate. This
+            decision is <strong>irreversible</strong>.
           </DialogDescription>
         </DialogHeader>
 
-        {/* Domain cards */}
         <div className="grid md:grid-cols-3 gap-4">
           {isLoading
             ? Array.from({ length: 3 }).map((_, i) => (
@@ -53,7 +65,8 @@ const PropertyDomainSelection: React.FC<PropertyDomainSelectionProps> = ({
                       disabled
                         ? "opacity-50 cursor-not-allowed"
                         : "cursor-pointer hover:border-primary",
-                      selectedDomain?.ID === d.ID && "border-primary ring-1 ring-primary"
+                      selectedDomain?.ID === d.ID &&
+                        "border-primary ring-1 ring-primary",
                     )}
                     onClick={() => !disabled && setSelectedDomain(d)}
                   >
@@ -74,7 +87,9 @@ const PropertyDomainSelection: React.FC<PropertyDomainSelectionProps> = ({
 
                     <CardFooter>
                       <Button
-                        variant={selectedDomain?.ID === d.ID ? "default" : "outline"}
+                        variant={
+                          selectedDomain?.ID === d.ID ? "default" : "outline"
+                        }
                         disabled={disabled}
                         className="w-full"
                       >
@@ -93,8 +108,8 @@ const PropertyDomainSelection: React.FC<PropertyDomainSelectionProps> = ({
             <AlertTitle>Irreversible Action</AlertTitle>
             <AlertDescription>
               You are about to set the domain to{" "}
-              <strong>{selectedDomain.Name}</strong>.  
-              This cannot be changed later.
+              <strong>{selectedDomain.Name}</strong>. This cannot be changed
+              later.
             </AlertDescription>
           </Alert>
         )}
