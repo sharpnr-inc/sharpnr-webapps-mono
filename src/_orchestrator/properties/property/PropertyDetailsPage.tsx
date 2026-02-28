@@ -22,6 +22,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { Badge as SB } from "@/components/ui/badge";
 import { useFormsModal } from "@/context/FormModalContext";
 import AddModulesInProperty from "./forms/AddModulesInProperty";
+import { AddInfraInProperty } from "./forms/AddInfrasInProperty";
 
 /*
 this component takes the propertyID as prop from the tanstack router
@@ -133,6 +134,14 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
     );
   };
 
+  const handleAddInfra = () => {
+    showModal(
+      "Add Infra",
+      "Choose Infra",
+      <AddInfraInProperty propertyID={propertyId} closeModal={closeModal} />,
+    );
+  };
+
   return (
     <div className="space-y-2">
       <div>
@@ -148,36 +157,24 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           Property page
         </Button>
       </div>
-      <Card className="group transition-all hover:shadow-md">
-        <CardHeader className="space-y-4">
-          {/* Top Row */}
-          <div className="flex items-start justify-between gap-4">
-            <div className="space-y-1">
-              <CardTitle className="text-lg leading-tight">
-                {property?.name}
-              </CardTitle>
+      <div className="rounded-xl border bg-background p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          {/* LEFT SIDE */}
+          <div className="space-y-2">
+            {/* Property Name */}
+            <h2 className="text-xl font-semibold leading-tight">
+              {property?.name}
+            </h2>
 
-              {/* Domain */}
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Domain:</span>
-                <SB variant="secondary" className="text-xs">
-                  Hospitality
-                </SB>
-              </div>
+            {/* Domain */}
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Domain:</span>
+              <SB variant="secondary" className="text-xs">
+                Hospitality
+              </SB>
             </div>
 
-            <Button
-              onClick={handlePropertySettingPage}
-              size="sm"
-              className="shrink-0"
-            >
-              <WrenchIcon className="mr-2 h-4 w-4" />
-              Settings
-            </Button>
-          </div>
-
-          {/* Address */}
-          <CardDescription>
+            {/* Address */}
             <div className="flex items-start gap-2 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
               <span>
@@ -191,11 +188,20 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
                   .join(", ")}
               </span>
             </div>
-          </CardDescription>
-        </CardHeader>
-      </Card>
+          </div>
 
-      {/* Modules */}
+          {/* RIGHT SIDE */}
+          <Button
+            onClick={handlePropertySettingPage}
+            size="sm"
+            className="shrink-0"
+          >
+            <WrenchIcon className="mr-2 h-4 w-4" />
+            Settings
+          </Button>
+        </div>
+      </div>
+
       <Card className="relative">
         <CardHeader>
           <CardTitle>Modules</CardTitle>
@@ -275,26 +281,48 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="grid gap-5 sm:grid-cols-2">
-          {property?.infra?.map((inf: PropertyInfraResDto) => (
-            <Card key={inf.id}>
-              <CardHeader>
-                {inf.name}
-                <CardDescription>
-                  {"This is the default Description of the Property infra"}
-                </CardDescription>
-              </CardHeader>
-              <CardFooter>
-                <Button onClick={() => handleInfraNav(inf.id)}>
-                  View Details
-                  <ArrowRight />
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </CardContent>
-        <Button className="absolute top-5 right-5">
-          <PlusCircleIcon /> Add Infra
+        {/* EMPTY STATE */}
+        {property?.infra?.length === 0 || property?.infra === undefined ? (
+          <CardContent>
+            <Alert variant="warning">
+              <AlertTitle className="flex items-center gap-2">
+                <AlertCircleIcon className="h-4 w-4" />
+                No Infrastructure Added
+              </AlertTitle>
+
+              <AlertDescription>
+                Click the "Add Infra" button to add infrastructure to this
+                property.
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+        ) : (
+          /* LIST STATE */
+          <CardContent className="grid gap-5 sm:grid-cols-2">
+            {property?.infra?.map((inf: PropertyInfraResDto) => (
+              <Card key={inf.id}>
+                <CardHeader>
+                  {inf.name}
+                  <CardDescription>
+                    This is the default Description of the Property infra
+                  </CardDescription>
+                </CardHeader>
+
+                <CardFooter>
+                  <Button onClick={() => handleInfraNav(inf.id)}>
+                    View Details
+                    <ArrowRight />
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </CardContent>
+        )}
+
+        {/* FLOATING ACTION BUTTON */}
+        <Button className="absolute top-5 right-5" onClick={handleAddInfra}>
+          <PlusCircleIcon className="mr-2 h-4 w-4" />
+          Add Infra
         </Button>
       </Card>
     </div>
