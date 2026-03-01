@@ -7,10 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { ChefHat, Clock3, BellRing, Settings2, ArrowLeft } from "lucide-react";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
+import { useKitchenDetails } from "../api/quries";
 
 export function KitchenDashBoard() {
   const navigate = useNavigate();
-  const { propertyId } = Route.useParams();
+  const { propertyId, InfraID } = Route.useParams();
+  const { data } = useKitchenDetails(InfraID);
 
   const [settings, setSettings] = useState({
     autoAcceptOrders: true,
