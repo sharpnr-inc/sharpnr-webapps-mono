@@ -1,36 +1,29 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Info, Building2, CheckCircle2 } from "lucide-react";
+import { useOrganizationLegalEntities } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
 
 type LegalEntity = {
   id: string;
   name: string;
-  gst: string;
-  address: string;
+  gst: string | null;
+  addressLine: string;
+  city: string;
+  state: string;
 };
 
 export function RestaurantLegalEntity() {
-  const [selectedId, setSelectedId] = useState<string>("1");
+  const { data } = useOrganizationLegalEntities();
 
-  const legalEntities: LegalEntity[] = [
-    {
-      id: "1",
-      name: "Sharp Hospitality Pvt Ltd",
-      gst: "08ABCDE1234F1Z5",
-      address: "Jaipur, Rajasthan",
-    },
-    {
-      id: "2",
-      name: "Sharp Foods LLP",
-      gst: "08PQRSX5678K1Z2",
-      address: "Udaipur, Rajasthan",
-    },
-    {
-      id: "3",
-      name: "Sharp Ventures Pvt Ltd",
-      gst: "08LMNOP9876Q1Z8",
-      address: "Jodhpur, Rajasthan",
-    },
-  ];
+  // API entities
+  const legalEntities: LegalEntity[] = useMemo(() => {
+    return data?.data ?? [];
+  }, [data]);
+
+  // default select first entity when available
+  const [selectedId, setSelectedId] = useState<string>("");
+
+  const selectedEntity =
+    legalEntities.find((e) => e.id === selectedId) ?? legalEntities[0];
 
   return (
     <div className="space-y-4">
@@ -48,32 +41,22 @@ export function RestaurantLegalEntity() {
 
             <p className="text-sm text-blue-800 leading-relaxed">
               A <span className="font-medium">Legal Entity</span> is the
-              officially registered business that owns this restaurant. When you
-              assign a legal entity, all restaurant transactions, revenue,
-              expenses, and accounting records will be tracked under that
-              entity’s accounting books.
-            </p>
-
-            <p className="text-sm text-blue-800 leading-relaxed">
-              This helps maintain proper accounting, taxation, and compliance
-              across multiple restaurants or business units.
+              officially registered business that owns this restaurant.
             </p>
           </div>
         </div>
       </div>
 
-      {/* IMPORTANT NOTE */}
+      {/* NOTE */}
       <div className="rounded-xl border bg-muted/50 p-3 text-sm text-muted-foreground">
         <span className="font-medium text-foreground">Note:</span> You can
-        assign only <span className="font-medium">one legal entity</span> at a
-        time. The selected legal entity details will appear on invoices and
-        financial records.
+        assign only <span className="font-medium">one legal entity</span>.
       </div>
 
       {/* LEGAL ENTITY CARDS */}
       <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
         {legalEntities.map((entity) => {
-          const selected = entity.id === selectedId;
+          const selected = entity.id === (selectedId || selectedEntity?.id);
 
           return (
             <button
@@ -98,11 +81,13 @@ export function RestaurantLegalEntity() {
 
                 <div className="space-y-1">
                   <h4 className="text-sm font-semibold">{entity.name}</h4>
+
                   <p className="text-xs text-muted-foreground">
-                    GST: {entity.gst}
+                    GST: {entity.gst ?? "Not Available"}
                   </p>
+
                   <p className="text-xs text-muted-foreground">
-                    {entity.address}
+                    {[entity.city, entity.state].filter(Boolean).join(", ")}
                   </p>
                 </div>
               </div>
