@@ -5,14 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  ChefHat,
-  Clock3,
-  Settings2,
-  ArrowLeft,
-  Printer,
-  Activity,
-} from "lucide-react";
+import { ChefHat, Settings2, ArrowLeft, Printer, Activity } from "lucide-react";
 
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
 import { useKitchenConfiguration, useKitchenDetails } from "../api/quries";
