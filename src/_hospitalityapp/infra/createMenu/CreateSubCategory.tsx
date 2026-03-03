@@ -22,6 +22,13 @@ import {
 import { useState } from "react";
 import { useAddSubCategoryInCategoryMutation } from "../apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const CreateSubCategory = () => {
   const queryClient = useQueryClient();
@@ -64,24 +71,66 @@ const CreateSubCategory = () => {
   });
 
   return (
-    <div className="">
-      <Card className="shadow-sm">
-        {/* Header */}
-        <CardHeader className="flex flex-row items-center gap-4">
-          <Button variant="ghost" size="sm" onClick={prevStep}>
-            <MoveLeftIcon className="mr-2 h-4 w-4" />
-            Back
-          </Button>
+    <div>
+      <Card className="shadow-sm border rounded-2xl">
+        {/* ================= HEADER ================= */}
+        <CardHeader className="space-y-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" onClick={prevStep}>
+              <MoveLeftIcon className="mr-2 h-4 w-4" />
+              Back
+            </Button>
 
-          <div>
-            <CardTitle className="text-xl">
-              {activeCat ? activeCat.category_name : "Select Category"}
-            </CardTitle>
-            <CardDescription>{activeCat?.category_description}</CardDescription>
+            <div>
+              <CardTitle className="text-2xl font-semibold">
+                {activeCat ? activeCat.category_name : "Select Category"}
+              </CardTitle>
+              <CardDescription className="mt-1">
+                {activeCat?.category_description}
+              </CardDescription>
+            </div>
           </div>
         </CardHeader>
 
-        <CardContent className="pt-2">
+        {/* ================= KITCHEN SECTION ================= */}
+        <CardContent className="space-y-4 border-t pt-6">
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold text-muted-foreground">
+              Preferred Kitchen
+            </h3>
+
+            {activeCat?.preferred_kitchen ? (
+              <div className="rounded-xl border bg-muted/30 p-3 text-sm">
+                This category is linked to a specific kitchen.
+              </div>
+            ) : (
+              <div className="rounded-xl border border-dashed bg-muted/20 p-3 text-sm text-muted-foreground">
+                No preferred kitchen selected.
+                <div className="mt-1 text-xs">
+                  Note: If no preferred kitchen is selected, menu items will
+                  automatically route to the restaurant’s default preferred
+                  kitchen.
+                </div>
+              </div>
+            )}
+
+            {/* Dummy Select */}
+            <Select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Kitchen (Optional)" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="kitchen-1">Main Kitchen</SelectItem>
+                <SelectItem value="kitchen-2">Bar Kitchen</SelectItem>
+                <SelectItem value="kitchen-3">Outdoor Kitchen</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+
+        {/* ================= SUB CATEGORY SECTION ================= */}
+        <CardContent className="space-y-6">
           {subCategories.length === 0 ? (
             <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed bg-muted/30 text-center">
               <p className="text-sm font-medium text-muted-foreground">
@@ -92,39 +141,45 @@ const CreateSubCategory = () => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-              {subCategories.map((sc) => (
-                <Card
-                  key={sc.id}
-                  onClick={() => {
-                    createMenuAction.setActiveSubCategory(sc.id);
-                    nextStep();
-                  }}
-                  className="
-            group cursor-pointer rounded-xl 
-            border bg-background 
-            transition-all duration-200 
-            hover:shadow-lg hover:-translate-y-1
-            hover:border-primary/50
-          "
-                >
-                  <CardHeader className="p-4 space-y-1">
-                    <CardTitle className="text-sm font-semibold truncate">
-                      {sc.sub_cat_name}
-                    </CardTitle>
+            <div className="space-y-4">
+              <h3 className="text-sm font-semibold text-muted-foreground">
+                Subcategories of {activeCat?.category_name}
+              </h3>
 
-                    <CardDescription className="text-xs text-muted-foreground line-clamp-2">
-                      {sc.sub_cat_description || "No description provided"}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {subCategories.map((sc) => (
+                  <Card
+                    key={sc.id}
+                    onClick={() => {
+                      createMenuAction.setActiveSubCategory(sc.id);
+                      nextStep();
+                    }}
+                    className="
+                    group cursor-pointer rounded-xl 
+                    border bg-background 
+                    transition-all duration-200 
+                    hover:shadow-lg hover:-translate-y-1
+                    hover:border-primary/50
+                  "
+                  >
+                    <CardHeader className="p-4 space-y-1">
+                      <CardTitle className="text-sm font-semibold truncate">
+                        {sc.sub_cat_name}
+                      </CardTitle>
+
+                      <CardDescription className="text-xs text-muted-foreground line-clamp-2">
+                        {sc.sub_cat_description || "No description provided"}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                ))}
+              </div>
             </div>
           )}
         </CardContent>
 
-        {/* Footer */}
-        <CardFooter>
+        {/* ================= FOOTER ================= */}
+        <CardFooter className="border-t pt-6">
           <Button
             className="w-full"
             variant="secondary"
@@ -136,6 +191,7 @@ const CreateSubCategory = () => {
         </CardFooter>
       </Card>
 
+      {/* ================= DIALOG ================= */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -150,24 +206,24 @@ const CreateSubCategory = () => {
               e.stopPropagation();
               form.handleSubmit();
             }}
+            className="space-y-4"
           >
             <form.AppField
               name="sub_cat_name"
-              children={(f) => {
-                return <f.TextField label="SubCategory Name" />;
-              }}
+              children={(f) => <f.TextField label="SubCategory Name" />}
             />
+
             <form.AppField
               name="sub_cat_description"
-              children={(f) => {
-                return <f.TextAreaField label="SubCategory Description" />;
-              }}
+              children={(f) => (
+                <f.TextAreaField label="SubCategory Description" />
+              )}
             />
 
             <DialogFooter>
               <form.AppForm>
                 <form.SubmitButton>
-                  <PlusIcon />
+                  <PlusIcon className="mr-2 h-4 w-4" />
                   Add SubCategory
                 </form.SubmitButton>
               </form.AppForm>
