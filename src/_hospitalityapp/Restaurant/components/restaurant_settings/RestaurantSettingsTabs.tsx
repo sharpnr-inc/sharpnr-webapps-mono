@@ -51,7 +51,7 @@ const RestaurantSettingsTabs = () => {
             <RestaurantGeneralSettingsComp />
           </TabsContent>
 
-          <TabsContent value="Menu">
+          <TabsContent value="Menu" className="space-y-2">
             <RestaurantPreferredKitchen
               propertyID={propertyId}
               kitchenID={data?.data?.kitchen_id ?? null}

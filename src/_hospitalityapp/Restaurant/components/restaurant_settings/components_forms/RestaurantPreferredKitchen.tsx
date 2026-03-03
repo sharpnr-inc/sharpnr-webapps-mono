@@ -14,7 +14,7 @@ import { useAddPreferredKitchenMutation } from "@/_hospitalityapp/Restaurant/api
 interface RestaurantPreferredKitchenProps {
   kitchenID: string | null;
   propertyID: string;
-  restaurantID: string; // <-- REQUIRED for mutation
+  restaurantID: string;
 }
 
 export function RestaurantPreferredKitchen({
@@ -41,81 +41,106 @@ export function RestaurantPreferredKitchen({
   };
 
   if (isLoading) {
-    return <div>Loading kitchens...</div>;
+    return (
+      <div className="text-sm text-muted-foreground">Loading kitchens...</div>
+    );
   }
 
   return (
-    <div className="space-y-6">
-      {/* ========================= */}
-      {/* SECTION 1: Selected Kitchen */}
-      {/* ========================= */}
+    <div className="space-y-8">
+      {/* Header */}
       <div>
-        <div className="font-semibold mb-3">Selected Preferred Kitchen</div>
+        <h2 className="text-lg font-semibold">Preferred Kitchen</h2>
+        <p className="text-sm text-muted-foreground">
+          Select which kitchen will handle orders for this restaurant.
+        </p>
+      </div>
 
-        <Card className="border-green-500 ring-2 ring-green-200">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">
-              {selectedKitchen
-                ? selectedKitchen.name
-                : "No Preferred Kitchen Selected"}
-            </CardTitle>
+      {/* Responsive Grid Layout */}
+      <div className=" space-y-3">
+        {/* ========================= */}
+        {/* Selected Kitchen Card */}
+        {/* ========================= */}
+        <Card className="rounded-xl shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-base">Current Selection</CardTitle>
           </CardHeader>
 
-          <CardContent className="text-sm text-muted-foreground space-y-2">
+          <CardContent className="space-y-4">
             {selectedKitchen ? (
               <>
-                <div>Type: {selectedKitchen.infra_type}</div>
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">{selectedKitchen.name}</span>
 
-                <div>
-                  Status:{" "}
-                  <Badge
-                    variant="outline"
-                    className={
-                      selectedKitchen.status
-                        ? "border-green-500 text-green-600"
-                        : "border-red-500 text-red-500"
-                    }
-                  >
-                    {selectedKitchen.status ? "Active" : "Inactive"}
+                  <Badge className="bg-emerald-100 text-emerald-700">
+                    Preferred
                   </Badge>
                 </div>
 
-                <Badge className="bg-green-100 text-green-700">Preferred</Badge>
+                <div className="text-sm text-muted-foreground">
+                  Type: {selectedKitchen.infra_type}
+                </div>
+
+                <Badge
+                  variant="outline"
+                  className={
+                    selectedKitchen.status
+                      ? "border-emerald-500 text-emerald-600"
+                      : "border-red-500 text-red-500"
+                  }
+                >
+                  {selectedKitchen.status ? "Active" : "Inactive"}
+                </Badge>
               </>
             ) : (
-              <div className="text-yellow-600">
-                Please select a Restaurant Preferred Kitchen
+              <div className="text-sm text-muted-foreground">
+                No preferred kitchen selected yet.
               </div>
             )}
           </CardContent>
         </Card>
-      </div>
 
-      {/* ========================= */}
-      {/* SECTION 2: Dropdown Selector */}
-      {/* ========================= */}
-      <div>
-        <div className="font-semibold mb-3">Change Preferred Kitchen</div>
+        {/* ========================= */}
+        {/* Change Selector Card */}
+        {/* ========================= */}
+        <Card className="rounded-xl shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-base">Change Kitchen</CardTitle>
+          </CardHeader>
 
-        <Select value={selectedID ?? undefined} onValueChange={handleChange}>
-          <SelectTrigger className="w-full max-w-sm">
-            <SelectValue placeholder="Select a Kitchen" />
-          </SelectTrigger>
+          <CardContent className="space-y-4">
+            <Select
+              value={selectedID ?? undefined}
+              onValueChange={handleChange}
+              disabled={isPending}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a Kitchen" />
+              </SelectTrigger>
 
-          <SelectContent>
-            {kitchens.map((kitchen: any) => (
-              <SelectItem key={kitchen.id} value={kitchen.id}>
-                {kitchen.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+              <SelectContent>
+                {kitchens.map((kitchen: any) => (
+                  <SelectItem key={kitchen.id} value={kitchen.id}>
+                    <div className="flex items-center justify-between w-full">
+                      <span>{kitchen.name}</span>
+                      {!kitchen.status && (
+                        <span className="text-xs text-red-500 ml-2">
+                          (Inactive)
+                        </span>
+                      )}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-        {isPending && (
-          <div className="text-xs text-muted-foreground mt-2">
-            Updating preferred kitchen...
-          </div>
-        )}
+            {isPending && (
+              <div className="text-xs text-muted-foreground">
+                Updating preferred kitchen...
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

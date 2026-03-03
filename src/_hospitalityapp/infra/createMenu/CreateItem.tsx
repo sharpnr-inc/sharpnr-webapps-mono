@@ -90,7 +90,7 @@ const CreateItem = () => {
   });
 
   return (
-    <div className="border p-2">
+    <div className="">
       <Card>
         <CardHeader className="flex gap-5">
           <Button variant={"ghost"} onClick={() => prevStep()}>

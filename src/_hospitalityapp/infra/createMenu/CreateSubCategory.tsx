@@ -64,7 +64,7 @@ const CreateSubCategory = () => {
   });
 
   return (
-    <div className="p-4">
+    <div className="">
       <Card className="shadow-sm">
         {/* Header */}
         <CardHeader className="flex flex-row items-center gap-4">
