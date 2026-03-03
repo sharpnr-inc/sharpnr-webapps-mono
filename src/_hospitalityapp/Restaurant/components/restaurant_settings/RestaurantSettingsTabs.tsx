@@ -5,9 +5,12 @@ import RestaurantGeneralSettingsComp from "./components_forms/RestaurantGeneralS
 import { RestaurantLayoutSettings } from "./components_forms/RestaurantLayoutSettings";
 import { Settings2 } from "lucide-react";
 import { RestaurantLegalEntity } from "./components_forms/RestaurantLegalEntity";
+import { usePreferredKitchen } from "../../apis/queries";
+import { RestaurantPreferredKitchen } from "./components_forms/RestaurantPreferredKitchen";
 
 const RestaurantSettingsTabs = () => {
   const { restaurantID, propertyId } = Route.useParams();
+  const { data } = usePreferredKitchen(restaurantID);
 
   return (
     <div className="p-2 mt-4">
@@ -49,7 +52,19 @@ const RestaurantSettingsTabs = () => {
           </TabsContent>
 
           <TabsContent value="Menu">
-            <MenuSettings moduleID={restaurantID} propertyID={propertyId} />
+            <RestaurantPreferredKitchen
+              propertyID={propertyId}
+              kitchenID={data?.data?.kitchen_id ?? null}
+              restaurantID={restaurantID}
+            />
+
+            {data?.data?.kitchen_id ? (
+              <MenuSettings moduleID={restaurantID} propertyID={propertyId} />
+            ) : (
+              <div className="mt-4 p-4 rounded-md bg-yellow-50 text-yellow-700 border border-yellow-200">
+                First select a preferred kitchen to process orders.
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="LegalEntity">

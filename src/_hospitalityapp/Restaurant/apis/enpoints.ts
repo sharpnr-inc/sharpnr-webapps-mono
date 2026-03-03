@@ -1,6 +1,11 @@
 export const RestaurantEndpoints = {
   Layout: (restaurantID?: string | null) =>
     `/sharp-hospitality/restaurant/${restaurantID}/layout`,
+  PreferredKitchen: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/preferred-kitchen`,
+
+  AddPreferredKitchen: (restaurantID: string, kitchenID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/configs/add-preferred-kitchen/${kitchenID}`,
 
   AddLayout: (restaurantID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/configs/add-layout`,

@@ -94,3 +94,25 @@ export async function AddOrdersInDiningSession(
 
   return res.data;
 }
+
+export async function FetchPreferredKitchen(restaurantID: string) {
+  const res = await api.get(RestaurantEndpoints.PreferredKitchen(restaurantID));
+  return res.data;
+}
+
+interface AddPreferredKitchenPayloadType {
+  restaurantID: string;
+  kitchenID: string;
+}
+
+export async function AddPreferredKitchen({
+  kitchenID,
+  restaurantID,
+}: AddPreferredKitchenPayloadType) {
+  const res = await api.post(
+    RestaurantEndpoints.AddPreferredKitchen(restaurantID, kitchenID),
+    null,
+  );
+
+  return res.data;
+}
