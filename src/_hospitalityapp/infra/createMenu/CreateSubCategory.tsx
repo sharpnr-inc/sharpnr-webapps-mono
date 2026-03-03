@@ -81,35 +81,44 @@ const CreateSubCategory = () => {
           </div>
         </CardHeader>
 
-        {/* Content */}
-        <CardContent>
+        <CardContent className="pt-2">
           {subCategories.length === 0 ? (
-            <div className="flex h-40 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground">
-              No Sub-Categories Found
+            <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed bg-muted/30 text-center">
+              <p className="text-sm font-medium text-muted-foreground">
+                No Sub-Categories Found
+              </p>
+              <p className="text-xs text-muted-foreground/70 mt-1">
+                Create a sub-category to organize your menu items.
+              </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {subCategories.map((sc) => {
-                return (
-                  <Card
-                    key={sc.id}
-                    className="cursor-pointer transition-all hover:shadow-md hover:border-primary"
-                    onClick={() => {
-                      createMenuAction.setActiveSubCategory(sc.id);
-                      nextStep();
-                    }}
-                  >
-                    <CardHeader className="p-4">
-                      <CardTitle className="text-base">
-                        {sc.sub_cat_name}
-                      </CardTitle>
-                      <CardDescription className="text-xs">
-                        {sc.sub_cat_description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                );
-              })}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              {subCategories.map((sc) => (
+                <Card
+                  key={sc.id}
+                  onClick={() => {
+                    createMenuAction.setActiveSubCategory(sc.id);
+                    nextStep();
+                  }}
+                  className="
+            group cursor-pointer rounded-xl 
+            border bg-background 
+            transition-all duration-200 
+            hover:shadow-lg hover:-translate-y-1
+            hover:border-primary/50
+          "
+                >
+                  <CardHeader className="p-4 space-y-1">
+                    <CardTitle className="text-sm font-semibold truncate">
+                      {sc.sub_cat_name}
+                    </CardTitle>
+
+                    <CardDescription className="text-xs text-muted-foreground line-clamp-2">
+                      {sc.sub_cat_description || "No description provided"}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           )}
         </CardContent>
