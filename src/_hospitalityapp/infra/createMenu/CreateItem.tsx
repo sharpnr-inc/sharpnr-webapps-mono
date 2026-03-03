@@ -32,6 +32,13 @@ import {
 } from "@/lib/create_menu";
 import { useAddMenuItemMutation } from "../apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const CreateItem = () => {
   const queryClient = useQueryClient();
@@ -90,64 +97,116 @@ const CreateItem = () => {
   });
 
   return (
-    <div className="">
-      <Card>
-        <CardHeader className="flex gap-5">
-          <Button variant={"ghost"} onClick={() => prevStep()}>
-            <MoveLeft />
-            Back
-          </Button>
-          <div>
-            <CardTitle>
-              {activeSubCategory
-                ? activeSubCategory.sub_cat_name
-                : "Select SubCategory"}
-            </CardTitle>
-            <CardDescription>
-              This is the Card for the Item Display of Selected Field
-            </CardDescription>
+    <div>
+      <Card className="rounded-2xl shadow-sm border">
+        {/* ================= HEADER ================= */}
+        <CardHeader className="space-y-4">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={prevStep}>
+              <MoveLeft className="mr-2 h-4 w-4" />
+              Back
+            </Button>
+
+            <div>
+              <CardTitle className="text-2xl font-semibold">
+                {activeSubCategory
+                  ? activeSubCategory.sub_cat_name
+                  : "Select SubCategory"}
+              </CardTitle>
+              <CardDescription className="mt-1">
+                {activeSubCategory?.sub_cat_description || "Select SubCategory"}
+              </CardDescription>
+            </div>
           </div>
         </CardHeader>
 
-        <CardContent>
+        {/* ================= KITCHEN SECTION ================= */}
+        <CardContent className="border-t pt-6 space-y-4">
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold text-muted-foreground">
+              Kitchen Routing
+            </h3>
+
+            {activeSubCategory?.preferred_kitchen ? (
+              <div className="rounded-xl border bg-muted/30 p-3 text-sm">
+                This sub-category is linked to a preferred kitchen.
+              </div>
+            ) : (
+              <div className="rounded-xl border border-dashed bg-muted/20 p-3 text-sm text-muted-foreground">
+                No preferred kitchen selected.
+                <div className="text-xs mt-1">
+                  Note: If no preferred kitchen is selected, menu items will
+                  automatically route to the restaurant’s default preferred
+                  kitchen.
+                </div>
+              </div>
+            )}
+
+            <Select>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Kitchen (Optional)" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="kitchen-1">Main Kitchen</SelectItem>
+                <SelectItem value="kitchen-2">Bar Kitchen</SelectItem>
+                <SelectItem value="kitchen-3">Outdoor Kitchen</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </CardContent>
+
+        {/* ================= ITEMS SECTION ================= */}
+        <CardContent className="space-y-6">
           {items.length === 0 && (
-            <div className="text-sm text-muted-foreground">No Items Found</div>
+            <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed bg-muted/30 text-center">
+              <p className="text-sm font-medium text-muted-foreground">
+                No Items Found
+              </p>
+              <p className="text-xs text-muted-foreground/70 mt-1">
+                Add items to start building your menu.
+              </p>
+            </div>
           )}
 
-          <div className="grid grid-cols-2  md:grid-cols-4  gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             {items.map((item) => (
               <TooltipProvider key={item.id}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Card
-                      className="cursor-pointer transition-all hover:border-primary hover:bg-muted/40"
+                      className="
+                      cursor-pointer rounded-xl
+                      transition-all duration-200
+                      hover:shadow-lg hover:-translate-y-1
+                      hover:border-primary/50
+                    "
                       onClick={() => {
-                        // later you can open edit modal here
-
                         createMenuAction.setActiveItem(item.id);
                         nextStep();
                       }}
                     >
-                      <CardHeader>
+                      {/* ITEM HEADER */}
+                      <CardHeader className="p-4 space-y-2">
                         <div className="flex items-center justify-between">
-                          <CardTitle className="text-base">
+                          <CardTitle className="text-sm font-semibold truncate">
                             {item.name}
                           </CardTitle>
 
-                          <div className="flex items-center gap-2">
-                            <div className={`w-3 h-3 rounded-sm ${``}`} />
-                            <span className="text-xs text-muted-foreground">
-                              {item.dietary_type}
-                            </span>
-                          </div>
+                          <span className="text-xs text-muted-foreground">
+                            {item.dietary_type}
+                          </span>
                         </div>
 
-                        <CardDescription>{item.description}</CardDescription>
+                        <CardDescription className="text-xs line-clamp-2">
+                          {item.description || "No description provided"}
+                        </CardDescription>
                       </CardHeader>
 
-                      <CardContent className="space-y-3">
+                      {/* ITEM BODY */}
+                      <CardContent className="px-4 pb-4 space-y-3">
                         <div className="text-sm font-semibold">
-                          Base Price: ₹ {item.base_price}
+                          ₹ {item.base_price}
                         </div>
 
                         {/* Variants */}
@@ -156,13 +215,13 @@ const CreateItem = () => {
                             Variants
                           </div>
 
-                          <div className="space-y-1 max-h-28 overflow-auto">
+                          <div className="space-y-1 max-h-24 overflow-auto">
                             {item.variant_groups?.length ? (
                               item.variant_groups.flatMap((vg) =>
                                 vg.variants.map((v) => (
                                   <div
                                     key={v.id}
-                                    className="flex justify-between text-sm border rounded-md px-2 py-1"
+                                    className="flex justify-between text-xs border rounded-md px-2 py-1"
                                   >
                                     <span>{v.name}</span>
                                     <span>+ ₹ {v.price}</span>
@@ -183,12 +242,12 @@ const CreateItem = () => {
                             AddOns
                           </div>
 
-                          <div className="space-y-1 max-h-28 overflow-auto">
+                          <div className="space-y-1 max-h-24 overflow-auto">
                             {item.add_ons?.length ? (
                               item.add_ons.map((a) => (
                                 <div
                                   key={a.id}
-                                  className="flex justify-between text-sm border rounded-md px-2 py-1"
+                                  className="flex justify-between text-xs border rounded-md px-2 py-1"
                                 >
                                   <span>{a.name}</span>
                                   <span>+ ₹ {a.price}</span>
@@ -202,9 +261,11 @@ const CreateItem = () => {
                           </div>
                         </div>
                       </CardContent>
-                      <CardFooter className="text-xs ">
-                        <div className="border rounded-3xl w-fit p-1 px-2">
-                          Server by: Main Kitchen
+
+                      {/* ITEM FOOTER */}
+                      <CardFooter className="px-4 pb-4 text-xs">
+                        <div className="border rounded-3xl px-2 py-1 text-muted-foreground">
+                          Served by: Main Kitchen
                         </div>
                       </CardFooter>
                     </Card>
@@ -219,58 +280,64 @@ const CreateItem = () => {
           </div>
         </CardContent>
 
-        <Button className="m-3" onClick={() => setOpen(true)}>
-          <PlusIcon /> {`Add Item in ${activeSubCategory?.sub_cat_name}`}
-        </Button>
+        {/* ================= FOOTER ================= */}
+        <CardFooter className="border-t pt-6">
+          <Button
+            className="w-full"
+            variant="secondary"
+            onClick={() => setOpen(true)}
+          >
+            <PlusIcon className="mr-2 h-4 w-4" />
+            Add Item in {activeSubCategory?.sub_cat_name}
+          </Button>
+        </CardFooter>
       </Card>
 
+      {/* ================= DIALOG ================= */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="w-6xl">
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>Add Item In Menu</DialogTitle>
           </DialogHeader>
+
           <form
             onSubmit={(e) => {
               e.preventDefault();
               e.stopPropagation();
               form.handleSubmit();
             }}
+            className="space-y-4"
           >
             <form.AppField
               name="name"
-              children={(f) => {
-                return <f.TextField label="Item Name" />;
-              }}
-            />
-            <form.AppField
-              name="description"
-              children={(f) => {
-                return <f.TextAreaField label="Item Description" />;
-              }}
-            />
-            <form.AppField
-              name="unit"
-              children={(f) => {
-                return <f.TextField label="Item Unit" />;
-              }}
-            />
-            <form.AppField
-              name="base_price"
-              children={(f) => {
-                return <f.NumberField label="Base Price" />;
-              }}
+              children={(f) => <f.TextField label="Item Name" />}
             />
 
             <form.AppField
+              name="description"
+              children={(f) => <f.TextAreaField label="Item Description" />}
+            />
+
+            <div className="grid grid-cols-2 gap-4">
+              <form.AppField
+                name="unit"
+                children={(f) => <f.TextField label="Item Unit" />}
+              />
+
+              <form.AppField
+                name="base_price"
+                children={(f) => <f.NumberField label="Base Price" />}
+              />
+            </div>
+
+            <form.AppField
               name="dietary_type"
-              children={(f) => {
-                return (
-                  <f.SelectField
-                    placeholder="Select Food Type"
-                    options={DietaryTypeSelectOptions}
-                  />
-                );
-              }}
+              children={(f) => (
+                <f.SelectField
+                  placeholder="Select Food Type"
+                  options={DietaryTypeSelectOptions}
+                />
+              )}
             />
 
             <DialogFooter>
