@@ -25,6 +25,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const CreateCategory = () => {
   const { Menus, nextStep, ownersID, ownersType } = useCreateMenuCtx();
@@ -114,10 +121,48 @@ const CreateCategory = () => {
                   </div>
                 </CardHeader>
 
+                <CardContent className="space-y-4 border-t pt-6">
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold text-muted-foreground">
+                      Preferred Kitchen
+                    </h3>
+
+                    {m?.preferred_kitchen ? (
+                      <div className="rounded-xl border bg-muted/30 p-3 text-sm">
+                        This category is linked to a specific kitchen.
+                      </div>
+                    ) : (
+                      <div className="rounded-xl border border-dashed bg-muted/20 p-3 text-sm text-muted-foreground">
+                        No preferred kitchen selected.
+                        <div className="mt-1 text-xs">
+                          Note: If no preferred kitchen is selected, menu items
+                          will automatically route to the restaurant’s default
+                          preferred kitchen.
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Dummy Select */}
+                    <Select>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Kitchen (Optional)" />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectItem value="kitchen-1">Main Kitchen</SelectItem>
+                        <SelectItem value="kitchen-2">Bar Kitchen</SelectItem>
+                        <SelectItem value="kitchen-3">
+                          Outdoor Kitchen
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </CardContent>
+
                 {/* ================= Categories ================= */}
                 <CardContent>
                   {!m.categories || m.categories.length === 0 ? (
-                    <div className="text-xs text-muted-foreground py-4">
+                    <div className="text-xs text-muted-foreground py-2">
                       No categories added yet.
                     </div>
                   ) : (
@@ -148,7 +193,7 @@ const CreateCategory = () => {
                 </CardContent>
 
                 {/* ================= Footer ================= */}
-                <CardFooter className="pt-4">
+                <CardFooter className="pt-4 flex flex-col gap-4">
                   <Button
                     className="w-full"
                     onClick={() => {
@@ -164,6 +209,17 @@ const CreateCategory = () => {
             ))}
           </CardContent>
         )}
+        <CardFooter>
+          <Button
+            className="w-full"
+            onClick={() => {
+              setOpenMenuForm(true);
+            }}
+          >
+            <PlusIcon className="mr-2 h-4 w-4" />
+            Add New Menu
+          </Button>
+        </CardFooter>
       </Card>
 
       {/* Dialog */}

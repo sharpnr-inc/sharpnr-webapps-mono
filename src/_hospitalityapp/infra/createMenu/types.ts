@@ -2,6 +2,7 @@ export interface MenuOutput {
   id: string;
   menu_name: string;
   menu_description: string | null;
+  preferred_kitchen: string | null;
   categories: CategoryOutput[];
 }
 
