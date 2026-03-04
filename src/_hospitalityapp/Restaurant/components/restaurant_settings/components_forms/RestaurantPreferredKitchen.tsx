@@ -48,19 +48,13 @@ export function RestaurantPreferredKitchen({
 
   return (
     <div className="space-y-8">
-      {/* Header */}
       <div>
         <h2 className="text-lg font-semibold">Preferred Kitchen</h2>
         <p className="text-sm text-muted-foreground">
           Select which kitchen will handle orders for this restaurant.
         </p>
       </div>
-
-      {/* Responsive Grid Layout */}
       <div className=" space-y-3">
-        {/* ========================= */}
-        {/* Selected Kitchen Card */}
-        {/* ========================= */}
         <Card className="rounded-xl shadow-sm">
           <CardHeader>
             <CardTitle className="text-base">Current Selection</CardTitle>
@@ -100,9 +94,6 @@ export function RestaurantPreferredKitchen({
           </CardContent>
         </Card>
 
-        {/* ========================= */}
-        {/* Change Selector Card */}
-        {/* ========================= */}
         <Card className="rounded-xl shadow-sm">
           <CardHeader>
             <CardTitle className="text-base">Change Kitchen</CardTitle>

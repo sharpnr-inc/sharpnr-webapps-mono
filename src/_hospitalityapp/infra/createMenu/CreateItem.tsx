@@ -39,13 +39,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePropertyDetails } from "@/_orchestrator/api/general";
 
 const CreateItem = () => {
   const queryClient = useQueryClient();
-  const { Menus, prevStep, nextStep, ownersID } = useCreateMenuCtx();
+  const { Menus, prevStep, nextStep, ownersID, propertyID } =
+    useCreateMenuCtx();
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
   const activeMenu = useCreateMenuStore((s) => s.activeMenu?.id);
   const [open, setOpen] = useState(false);
+  const { data: propertyData, isLoading } = usePropertyDetails(propertyID!);
+  const kitchens = propertyData?.data?.infra ?? [];
 
   const activeSubCategory = Menus?.flatMap((m) => m.categories)
     .flatMap((c) => c.sub_categories)
@@ -142,15 +146,28 @@ const CreateItem = () => {
               </div>
             )}
 
-            <Select>
+            <Select
+              value={activeSubCategory?.preferred_kitchen ?? undefined}
+              // onValueChange={handleChange}
+              // disabled={isPending}
+            >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Kitchen (Optional)" />
+                <SelectValue placeholder="Select a Kitchen" />
               </SelectTrigger>
 
               <SelectContent>
-                <SelectItem value="kitchen-1">Main Kitchen</SelectItem>
-                <SelectItem value="kitchen-2">Bar Kitchen</SelectItem>
-                <SelectItem value="kitchen-3">Outdoor Kitchen</SelectItem>
+                {kitchens.map((kitchen: any) => (
+                  <SelectItem key={kitchen.id} value={kitchen.id}>
+                    <div className="flex items-center justify-between w-full">
+                      <span>{kitchen.name}</span>
+                      {!kitchen.status && (
+                        <span className="text-xs text-red-500 ml-2">
+                          (Inactive)
+                        </span>
+                      )}
+                    </div>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

@@ -32,12 +32,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePropertyDetails } from "@/_orchestrator/api/general";
 
 const CreateCategory = () => {
-  const { Menus, nextStep, ownersID, ownersType } = useCreateMenuCtx();
+  const { Menus, nextStep, ownersID, ownersType, propertyID } =
+    useCreateMenuCtx();
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
   const queryClient = useQueryClient();
+
+  const { data: propertyData, isLoading } = usePropertyDetails(propertyID!);
+  const kitchens = propertyData?.data?.infra ?? [];
 
   const createCategory = useAddCategoryInMenuMutation();
   const addMenu = useCreateMenuMutation();
@@ -143,17 +148,28 @@ const CreateCategory = () => {
                     )}
 
                     {/* Dummy Select */}
-                    <Select>
+                    <Select
+                      value={m.preferred_kitchen ?? undefined}
+                      // onValueChange={handleChange}
+                      // disabled={isPending}
+                    >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Kitchen (Optional)" />
+                        <SelectValue placeholder="Select a Kitchen" />
                       </SelectTrigger>
 
                       <SelectContent>
-                        <SelectItem value="kitchen-1">Main Kitchen</SelectItem>
-                        <SelectItem value="kitchen-2">Bar Kitchen</SelectItem>
-                        <SelectItem value="kitchen-3">
-                          Outdoor Kitchen
-                        </SelectItem>
+                        {kitchens.map((kitchen: any) => (
+                          <SelectItem key={kitchen.id} value={kitchen.id}>
+                            <div className="flex items-center justify-between w-full">
+                              <span>{kitchen.name}</span>
+                              {!kitchen.status && (
+                                <span className="text-xs text-red-500 ml-2">
+                                  (Inactive)
+                                </span>
+                              )}
+                            </div>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
