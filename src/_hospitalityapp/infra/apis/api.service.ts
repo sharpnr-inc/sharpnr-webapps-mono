@@ -1,8 +1,7 @@
 import api from "@/middlewares/axios";
 import { MenuModuleEndpoints } from "./api.endpoints";
-import type { Menu } from "@/_hospitalityapp/Restaurant/components/Menu/types";
 
-export async function GetMenu(ownersID: string): Promise<Menu[]> {
+export async function GetMenu(ownersID: string) {
   const res = await api.get(MenuModuleEndpoints.GetMenu(ownersID));
   return res.data.data;
 }
