@@ -47,14 +47,14 @@ export function RestaurantPreferredKitchen({
   }
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-lg font-semibold">Preferred Kitchen</h2>
-        <p className="text-sm text-muted-foreground">
-          Select which kitchen will handle orders for this restaurant.
-        </p>
-      </div>
-      <div className=" space-y-3">
+    <div>
+      <div className=" space-y-2">
+        <div>
+          <h2 className="text-lg font-semibold">Preferred Kitchen</h2>
+          <p className="text-sm text-muted-foreground">
+            Select which kitchen will handle orders for this restaurant.
+          </p>
+        </div>
         <Card className="rounded-xl shadow-sm">
           <CardHeader>
             <CardTitle className="text-base">Current Selection</CardTitle>

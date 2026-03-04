@@ -15,4 +15,16 @@ export const MenuModuleEndpoints = {
     `/sharp-hospitality/${ownersID}/menu/add-variant`,
   AddAddon: (ownersID: string) =>
     `/sharp-hospitality/${ownersID}/menu/add-addOns`,
+
+  AddPreferredKitchenToMenuGroup: (ownersID: string) =>
+    `/sharp-hospitality/${ownersID}/menu/configs/register/menugroup-kitchen`,
+
+  AddPreferredKitchenToMenuCategory: (ownersID: string) =>
+    `/sharp-hospitality/${ownersID}/menu/configs/register/category-kitchen`,
+
+  AddPreferredKitchenToMenuSubCategory: (ownersID: string) =>
+    `/sharp-hospitality/${ownersID}/menu/configs/register/sub-category-kitchen`,
+
+  AddPreferredKitchenToMenuItem: (ownersID: string) =>
+    `/sharp-hospitality/${ownersID}/menu/configs/register/menu-item-kitchen`,
 };

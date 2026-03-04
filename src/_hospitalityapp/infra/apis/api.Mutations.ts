@@ -3,6 +3,7 @@ import {
   AddAddon,
   AddCategoryInMenu,
   AddMenuItemInSubCategory,
+  AddPreferredKitchenToMenuGroup,
   AddSubCategoryInCategory,
   AddVariantGroup,
   AddVariantsInVariantGroup,
@@ -11,8 +12,8 @@ import {
 
 export function useCreateMenuMutation() {
   return useMutation({
-    mutationFn:CreateMenu,
-    mutationKey:["Create Menu"]
+    mutationFn: CreateMenu,
+    mutationKey: ["Create Menu"],
   });
 }
 
@@ -55,5 +56,12 @@ export function useAddAddOnsOfMenuItem() {
   return useMutation({
     mutationKey: ["ADD", "ADDONS"],
     mutationFn: AddAddon,
+  });
+}
+
+export function useAddPreferredKitchenToMenuGroupMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_GROUP"],
+    mutationFn: AddPreferredKitchenToMenuGroup,
   });
 }

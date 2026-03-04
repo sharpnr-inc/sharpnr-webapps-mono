@@ -94,3 +94,42 @@ export async function AddAddon(payload: AddonPayload) {
   );
   return res.data;
 }
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface AddPreferredKitchenToMenuGroupPayload {
+  ownersID: string;
+  payload: any;
+}
+
+export async function AddPreferredKitchenToMenuGroup({
+  ownersID,
+  payload,
+}: AddPreferredKitchenToMenuGroupPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddPreferredKitchenToMenuGroup(ownersID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface AddPreferredKitchenToMenuCategoryPayload {
+  ownersID: string;
+  payload: any;
+}
+
+export async function AddPreferredKitchenToMenuCategory({
+  ownersID,
+  payload,
+}: AddPreferredKitchenToMenuCategoryPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddPreferredKitchenToMenuCategory(ownersID),
+    payload,
+  );
+
+  return res.data;
+}
+/* ---------------------------------- <***> --------------------------------- */
