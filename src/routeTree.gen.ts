@@ -39,7 +39,6 @@ import { Route as AppuserDashboardSharp_marketingSocial_media_managementRouteImp
 import { Route as AppuserDashboardSharp_marketingReportsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/reports'
 import { Route as AppuserDashboardSharp_marketingLeadsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/leads'
 import { Route as AppuserDashboardSharp_marketingCampaignsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/campaigns'
-import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/route'
 import { Route as AppuserDashboardSharp_hrEmployeesRouteRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/route'
 import { Route as AppuserDashboardSharp_hospitalityNcRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/nc/route'
@@ -101,10 +100,6 @@ import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndex
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
-import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
-import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
-import { Route as AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details'
@@ -280,12 +275,6 @@ const AppuserDashboardSharp_marketingCampaignsRoute =
     id: '/campaigns',
     path: '/campaigns',
     getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteImport.update({
-    id: '/setup-wizard',
-    path: '/setup-wizard',
-    getParentRoute: () => AppuserOrchestratorOrchestrator_layoutRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport.update({
@@ -689,42 +678,6 @@ const AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
         AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRouteImport.update(
-    {
-      id: '/step/$stepId/summary',
-      path: '/step/$stepId/summary',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport.update(
-    {
-      id: '/step/$stepId/property',
-      path: '/step/$stepId/property',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport.update(
-    {
-      id: '/step/$stepId/organization',
-      path: '/step/$stepId/organization',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport.update(
-    {
-      id: '/step/$stepId/legal-entity',
-      path: '/step/$stepId/legal-entity',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute,
-    } as any,
-  )
 const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute =
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport.update(
     {
@@ -842,7 +795,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
   '/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
   '/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
-  '/orchestrator/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
   '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
@@ -909,10 +861,6 @@ export interface FileRoutesByFullPath {
   '/orchestrator/legal_entity/$leID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
-  '/orchestrator/setup-wizard/step/$stepId/organization': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
-  '/orchestrator/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
-  '/orchestrator/setup-wizard/step/$stepId/summary': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
   '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
   '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
@@ -938,7 +886,6 @@ export interface FileRoutesByTo {
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
   '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
-  '/orchestrator/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
   '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
   '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
   '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
@@ -1002,10 +949,6 @@ export interface FileRoutesByTo {
   '/orchestrator/legal_entity/$leID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
   '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/orchestrator/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
-  '/orchestrator/setup-wizard/step/$stepId/organization': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
-  '/orchestrator/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
-  '/orchestrator/setup-wizard/step/$stepId/summary': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
   '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
   '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
@@ -1042,7 +985,6 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hr/employees': typeof AppuserDashboardSharp_hrEmployeesRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
   '/_appuser/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
   '/_appuser/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
   '/_appuser/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
@@ -1110,10 +1052,6 @@ export interface FileRoutesById {
   '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
-  '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary': typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
@@ -1149,7 +1087,6 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/infra'
     | '/dashboard/sharp_hospitality/nc'
     | '/dashboard/sharp_hr/employees'
-    | '/orchestrator/setup-wizard'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -1216,10 +1153,6 @@ export interface FileRouteTypes {
     | '/orchestrator/legal_entity/$leID/details'
     | '/orchestrator/property/$propertyId/details'
     | '/orchestrator/property/$propertyId/property-configuration'
-    | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
-    | '/orchestrator/setup-wizard/step/$stepId/organization'
-    | '/orchestrator/setup-wizard/step/$stepId/property'
-    | '/orchestrator/setup-wizard/step/$stepId/summary'
     | '/dashboard/sharp_hospitality/restaurant/general-settings'
     | '/dashboard/sharp_hospitality/restaurant/inventory'
     | '/dashboard/sharp_hospitality/restaurant/orders'
@@ -1245,7 +1178,6 @@ export interface FileRouteTypes {
     | '/sharp-org-employee/set-password'
     | '/sharp-org-employee/verification'
     | '/dashboard/sharp_hospitality/infra'
-    | '/orchestrator/setup-wizard'
     | '/dashboard/sharp_marketing/campaigns'
     | '/dashboard/sharp_marketing/leads'
     | '/dashboard/sharp_marketing/reports'
@@ -1309,10 +1241,6 @@ export interface FileRouteTypes {
     | '/orchestrator/legal_entity/$leID/details'
     | '/orchestrator/property/$propertyId/details'
     | '/orchestrator/property/$propertyId/property-configuration'
-    | '/orchestrator/setup-wizard/step/$stepId/legal-entity'
-    | '/orchestrator/setup-wizard/step/$stepId/organization'
-    | '/orchestrator/setup-wizard/step/$stepId/property'
-    | '/orchestrator/setup-wizard/step/$stepId/summary'
     | '/dashboard/sharp_hospitality/restaurant/general-settings'
     | '/dashboard/sharp_hospitality/restaurant/inventory'
     | '/dashboard/sharp_hospitality/restaurant/orders'
@@ -1348,7 +1276,6 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/nc'
     | '/_appuser/dashboard/sharp_hr/employees'
     | '/_appuser/orchestrator/_orchestrator_layout/_console'
-    | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard'
     | '/_appuser/dashboard/sharp_marketing/campaigns'
     | '/_appuser/dashboard/sharp_marketing/leads'
     | '/_appuser/dashboard/sharp_marketing/reports'
@@ -1416,10 +1343,6 @@ export interface FileRouteTypes {
     | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
-    | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
-    | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
-    | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
-    | '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/'
@@ -1648,13 +1571,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_marketing/campaigns'
       preLoaderRoute: typeof AppuserDashboardSharp_marketingCampaignsRouteImport
       parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/setup-wizard': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard'
-      path: '/setup-wizard'
-      fullPath: '/orchestrator/setup-wizard'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console'
@@ -2082,34 +1998,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_hospitality/restaurant/general-settings'
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/summary'
-      path: '/step/$stepId/summary'
-      fullPath: '/orchestrator/setup-wizard/step/$stepId/summary'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/property'
-      path: '/step/$stepId/property'
-      fullPath: '/orchestrator/setup-wizard/step/$stepId/property'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/organization'
-      path: '/step/$stepId/organization'
-      fullPath: '/orchestrator/setup-wizard/step/$stepId/organization'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/setup-wizard/step/$stepId/legal-entity'
-      path: '/step/$stepId/legal-entity'
-      fullPath: '/orchestrator/setup-wizard/step/$stepId/legal-entity'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
@@ -2654,41 +2542,14 @@ const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren =
     AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren,
   )
 
-interface AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute
-  AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute:
-      AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdLegalEntityRoute,
-    AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute:
-      AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdOrganizationRoute,
-    AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute:
-      AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdPropertyRoute,
-    AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute:
-      AppuserOrchestratorOrchestrator_layoutSetupWizardStepStepIdSummaryRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteChildren,
-  )
-
 interface AppuserOrchestratorOrchestrator_layoutRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-  AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren
 }
 
 const AppuserOrchestratorOrchestrator_layoutRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutRouteRouteChildren =
   {
     AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren,
-    AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutSetupWizardRouteRouteWithChildren,
   }
 
 const AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren =
