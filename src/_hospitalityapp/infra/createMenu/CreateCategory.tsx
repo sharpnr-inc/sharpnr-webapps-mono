@@ -58,15 +58,15 @@ const CreateCategory = () => {
       category_name: "",
       category_description: "",
     },
-    onSubmit: ({ value }) => {
-      createCategory.mutateAsync(
+    onSubmit: async ({ value }) => {
+      await createCategory.mutateAsync(
         {
           OwnersID: ownersID,
           request_payload: value,
         },
         {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
               queryKey: ["Menu", ownersID],
             });
             setOpen(false);
