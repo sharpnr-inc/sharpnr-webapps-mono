@@ -20,7 +20,10 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { useAddSubCategoryInCategoryMutation } from "../apis/api.Mutations";
+import {
+  useAddPreferredKitchenToMenuCategoryMutation,
+  useAddSubCategoryInCategoryMutation,
+} from "../apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Select,
@@ -35,19 +38,28 @@ const CreateSubCategory = () => {
   const queryClient = useQueryClient();
   const { Menus, prevStep, nextStep, ownersID, propertyID } =
     useCreateMenuCtx();
+
   const activeCategoryID = useCreateMenuStore((s) => s.activeCategoryID);
   const [open, setOpen] = useState(false);
-  const { data: propertyData, isLoading } = usePropertyDetails(propertyID!);
+
+  const { data: propertyData } = usePropertyDetails(propertyID!);
   const kitchens = propertyData?.data?.infra ?? [];
 
-  // Find the active category from all menus
+  // Find active category
   const activeCat = Menus?.flatMap((m) => m.categories).find(
     (c) => c.id === activeCategoryID,
   );
 
-  // Get its sub categories safely
+  // Resolve preferred kitchen
+  const preferredKitchen = kitchens.find(
+    (k: any) => k.id === activeCat?.preferred_kitchen,
+  );
+
   const subCategories = activeCat?.sub_categories ?? [];
+
   const addSubCategory = useAddSubCategoryInCategoryMutation();
+  const { mutateAsync, isPending } =
+    useAddPreferredKitchenToMenuCategoryMutation();
 
   const form = useAppForm({
     defaultValues: {
@@ -74,10 +86,24 @@ const CreateSubCategory = () => {
     },
   });
 
+  const handleAddPreferredKitchenToMenuCategory = async (kitchenID: string) => {
+    await mutateAsync({
+      ownersID: ownersID,
+      payload: {
+        menu_category_id: activeCat?.id,
+        kitchen_id: kitchenID,
+      },
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["Menu", ownersID],
+    });
+  };
+
   return (
     <div>
       <Card className="shadow-sm border rounded-2xl">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <CardHeader className="space-y-4">
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm" onClick={prevStep}>
@@ -96,16 +122,20 @@ const CreateSubCategory = () => {
           </div>
         </CardHeader>
 
-        {/* ================= KITCHEN SECTION ================= */}
+        {/* PREFERRED KITCHEN */}
         <CardContent className="space-y-4 border-t pt-6">
           <div className="space-y-2">
             <h3 className="text-sm font-semibold text-muted-foreground">
               Preferred Kitchen
             </h3>
 
-            {activeCat?.preferred_kitchen ? (
-              <div className="rounded-xl border bg-muted/30 p-3 text-sm">
-                This category is linked to a specific kitchen.
+            {preferredKitchen ? (
+              <div className="rounded-xl border bg-muted/30 p-3 text-sm flex items-center justify-between">
+                <span>{preferredKitchen.name}</span>
+
+                {!preferredKitchen.status && (
+                  <span className="text-xs text-red-500">(Inactive)</span>
+                )}
               </div>
             ) : (
               <div className="rounded-xl border border-dashed bg-muted/20 p-3 text-sm text-muted-foreground">
@@ -119,9 +149,9 @@ const CreateSubCategory = () => {
             )}
 
             <Select
-              value={activeCat?.preferred_kitchen ?? undefined}
-              // onValueChange={handleChange}
-              // disabled={isPending}
+              value={activeCat?.preferred_kitchen ?? ""}
+              onValueChange={handleAddPreferredKitchenToMenuCategory}
+              disabled={isPending}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a Kitchen" />
@@ -132,6 +162,7 @@ const CreateSubCategory = () => {
                   <SelectItem key={kitchen.id} value={kitchen.id}>
                     <div className="flex items-center justify-between w-full">
                       <span>{kitchen.name}</span>
+
                       {!kitchen.status && (
                         <span className="text-xs text-red-500 ml-2">
                           (Inactive)
@@ -145,7 +176,7 @@ const CreateSubCategory = () => {
           </div>
         </CardContent>
 
-        {/* ================= SUB CATEGORY SECTION ================= */}
+        {/* SUB CATEGORY SECTION */}
         <CardContent className="space-y-6">
           {subCategories.length === 0 ? (
             <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed bg-muted/30 text-center">
@@ -170,13 +201,7 @@ const CreateSubCategory = () => {
                       createMenuAction.setActiveSubCategory(sc.id);
                       nextStep();
                     }}
-                    className="
-                    group cursor-pointer rounded-xl 
-                    border bg-background 
-                    transition-all duration-200 
-                    hover:shadow-lg hover:-translate-y-1
-                    hover:border-primary/50
-                  "
+                    className="group cursor-pointer rounded-xl border bg-background transition-all duration-200 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                   >
                     <CardHeader className="p-4 space-y-1">
                       <CardTitle className="text-sm font-semibold truncate">
@@ -194,7 +219,7 @@ const CreateSubCategory = () => {
           )}
         </CardContent>
 
-        {/* ================= FOOTER ================= */}
+        {/* FOOTER */}
         <CardFooter className="border-t pt-6">
           <Button
             className="w-full"
@@ -207,7 +232,7 @@ const CreateSubCategory = () => {
         </CardFooter>
       </Card>
 
-      {/* ================= DIALOG ================= */}
+      {/* DIALOG */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>

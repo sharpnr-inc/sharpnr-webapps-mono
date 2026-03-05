@@ -3,7 +3,10 @@ import {
   AddAddon,
   AddCategoryInMenu,
   AddMenuItemInSubCategory,
+  AddPreferredKitchenToMenuCategory,
   AddPreferredKitchenToMenuGroup,
+  AddPreferredKitchenToMenuItem,
+  AddPreferredKitchenToMenuSubCategory,
   AddSubCategoryInCategory,
   AddVariantGroup,
   AddVariantsInVariantGroup,
@@ -63,5 +66,24 @@ export function useAddPreferredKitchenToMenuGroupMutation() {
   return useMutation({
     mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_GROUP"],
     mutationFn: AddPreferredKitchenToMenuGroup,
+  });
+}
+
+export function useAddPreferredKitchenToMenuCategoryMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_CATEGORY"],
+    mutationFn: AddPreferredKitchenToMenuCategory,
+  });
+}
+export function useAddPreferredKitchenToMenuSubCategoryMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_SUB_CATEGORY"],
+    mutationFn: AddPreferredKitchenToMenuSubCategory,
+  });
+}
+export function useAddPreferredKitchenToMenuItemMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_ITEM"],
+    mutationFn: AddPreferredKitchenToMenuItem,
   });
 }

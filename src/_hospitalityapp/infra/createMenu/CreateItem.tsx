@@ -30,7 +30,10 @@ import {
   DietaryType,
   type DietaryType as DietaryTypeUnion,
 } from "@/lib/create_menu";
-import { useAddMenuItemMutation } from "../apis/api.Mutations";
+import {
+  useAddMenuItemMutation,
+  useAddPreferredKitchenToMenuSubCategoryMutation,
+} from "../apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Select,
@@ -45,15 +48,25 @@ const CreateItem = () => {
   const queryClient = useQueryClient();
   const { Menus, prevStep, nextStep, ownersID, propertyID } =
     useCreateMenuCtx();
+
   const activeSubCategoryID = useCreateMenuStore((s) => s.activeSubCategoryID);
   const activeMenu = useCreateMenuStore((s) => s.activeMenu?.id);
+
   const [open, setOpen] = useState(false);
-  const { data: propertyData, isLoading } = usePropertyDetails(propertyID!);
+
+  const { data: propertyData } = usePropertyDetails(propertyID!);
   const kitchens = propertyData?.data?.infra ?? [];
+
+  const { mutateAsync, isPending } =
+    useAddPreferredKitchenToMenuSubCategoryMutation();
 
   const activeSubCategory = Menus?.flatMap((m) => m.categories)
     .flatMap((c) => c.sub_categories)
     .find((sc) => sc.id === activeSubCategoryID);
+
+  const preferredKitchen = kitchens.find(
+    (k: any) => k.id === activeSubCategory?.preferred_kitchen,
+  );
 
   const items = activeSubCategory?.menu_items ?? [];
 
@@ -81,7 +94,7 @@ const CreateItem = () => {
     onSubmit: ({ value }) => {
       addMenuItem.mutateAsync(
         {
-          ownersID: ownersID,
+          ownersID,
           request_payload: {
             ...value,
             base_price: Number(value.base_price),
@@ -100,10 +113,26 @@ const CreateItem = () => {
     },
   });
 
+  const handleAddPreferredKitchenToMenuSubCategory = async (
+    kitchenID: string,
+  ) => {
+    await mutateAsync({
+      ownersID,
+      payload: {
+        menu_sub_category_id: activeSubCategory?.id,
+        kitchen_id: kitchenID,
+      },
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ["Menu", ownersID],
+    });
+  };
+
   return (
     <div>
       <Card className="rounded-2xl shadow-sm border">
-        {/* ================= HEADER ================= */}
+        {/* HEADER */}
         <CardHeader className="space-y-4">
           <div className="flex items-center gap-4">
             <Button variant="ghost" onClick={prevStep}>
@@ -117,6 +146,7 @@ const CreateItem = () => {
                   ? activeSubCategory.sub_cat_name
                   : "Select SubCategory"}
               </CardTitle>
+
               <CardDescription className="mt-1">
                 {activeSubCategory?.sub_cat_description || "Select SubCategory"}
               </CardDescription>
@@ -124,32 +154,35 @@ const CreateItem = () => {
           </div>
         </CardHeader>
 
-        {/* ================= KITCHEN SECTION ================= */}
+        {/* KITCHEN ROUTING */}
         <CardContent className="border-t pt-6 space-y-4">
           <div className="space-y-2">
             <h3 className="text-sm font-semibold text-muted-foreground">
               Kitchen Routing
             </h3>
 
-            {activeSubCategory?.preferred_kitchen ? (
-              <div className="rounded-xl border bg-muted/30 p-3 text-sm">
-                This sub-category is linked to a preferred kitchen.
+            {preferredKitchen ? (
+              <div className="rounded-xl border bg-muted/30 p-3 text-sm flex items-center justify-between">
+                <span>{preferredKitchen.name}</span>
+
+                {!preferredKitchen.status && (
+                  <span className="text-xs text-red-500">(Inactive)</span>
+                )}
               </div>
             ) : (
               <div className="rounded-xl border border-dashed bg-muted/20 p-3 text-sm text-muted-foreground">
                 No preferred kitchen selected.
                 <div className="text-xs mt-1">
-                  Note: If no preferred kitchen is selected, menu items will
-                  automatically route to the restaurant’s default preferred
+                  If none is selected, items route to the restaurant default
                   kitchen.
                 </div>
               </div>
             )}
 
             <Select
-              value={activeSubCategory?.preferred_kitchen ?? undefined}
-              // onValueChange={handleChange}
-              // disabled={isPending}
+              value={activeSubCategory?.preferred_kitchen ?? ""}
+              onValueChange={handleAddPreferredKitchenToMenuSubCategory}
+              disabled={isPending}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select a Kitchen" />
@@ -160,6 +193,7 @@ const CreateItem = () => {
                   <SelectItem key={kitchen.id} value={kitchen.id}>
                     <div className="flex items-center justify-between w-full">
                       <span>{kitchen.name}</span>
+
                       {!kitchen.status && (
                         <span className="text-xs text-red-500 ml-2">
                           (Inactive)
@@ -173,7 +207,7 @@ const CreateItem = () => {
           </div>
         </CardContent>
 
-        {/* ================= ITEMS SECTION ================= */}
+        {/* ITEMS */}
         <CardContent className="space-y-6">
           {items.length === 0 && (
             <div className="flex h-40 flex-col items-center justify-center rounded-xl border border-dashed bg-muted/30 text-center">
@@ -192,18 +226,12 @@ const CreateItem = () => {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Card
-                      className="
-                      cursor-pointer rounded-xl
-                      transition-all duration-200
-                      hover:shadow-lg hover:-translate-y-1
-                      hover:border-primary/50
-                    "
+                      className="cursor-pointer rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-1 hover:border-primary/50"
                       onClick={() => {
                         createMenuAction.setActiveItem(item.id);
                         nextStep();
                       }}
                     >
-                      {/* ITEM HEADER */}
                       <CardHeader className="p-4 space-y-2">
                         <div className="flex items-center justify-between">
                           <CardTitle className="text-sm font-semibold truncate">
@@ -220,69 +248,16 @@ const CreateItem = () => {
                         </CardDescription>
                       </CardHeader>
 
-                      {/* ITEM BODY */}
                       <CardContent className="px-4 pb-4 space-y-3">
                         <div className="text-sm font-semibold">
                           ₹ {item.base_price}
                         </div>
-
-                        {/* Variants */}
-                        <div>
-                          <div className="text-xs font-medium text-muted-foreground mb-1">
-                            Variants
-                          </div>
-
-                          <div className="space-y-1 max-h-24 overflow-auto">
-                            {item.variant_groups?.length ? (
-                              item.variant_groups.flatMap((vg) =>
-                                vg.variants.map((v) => (
-                                  <div
-                                    key={v.id}
-                                    className="flex justify-between text-xs border rounded-md px-2 py-1"
-                                  >
-                                    <span>{v.name}</span>
-                                    <span>+ ₹ {v.price}</span>
-                                  </div>
-                                )),
-                              )
-                            ) : (
-                              <div className="text-xs text-muted-foreground">
-                                No Variants
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* AddOns */}
-                        <div>
-                          <div className="text-xs font-medium text-muted-foreground mb-1">
-                            AddOns
-                          </div>
-
-                          <div className="space-y-1 max-h-24 overflow-auto">
-                            {item.add_ons?.length ? (
-                              item.add_ons.map((a) => (
-                                <div
-                                  key={a.id}
-                                  className="flex justify-between text-xs border rounded-md px-2 py-1"
-                                >
-                                  <span>{a.name}</span>
-                                  <span>+ ₹ {a.price}</span>
-                                </div>
-                              ))
-                            ) : (
-                              <div className="text-xs text-muted-foreground">
-                                No AddOns
-                              </div>
-                            )}
-                          </div>
-                        </div>
                       </CardContent>
 
-                      {/* ITEM FOOTER */}
                       <CardFooter className="px-4 pb-4 text-xs">
                         <div className="border rounded-3xl px-2 py-1 text-muted-foreground">
-                          Served by: Main Kitchen
+                          Served by:{" "}
+                          {preferredKitchen?.name ?? "Default Kitchen"}
                         </div>
                       </CardFooter>
                     </Card>
@@ -297,7 +272,6 @@ const CreateItem = () => {
           </div>
         </CardContent>
 
-        {/* ================= FOOTER ================= */}
         <CardFooter className="border-t pt-6">
           <Button
             className="w-full"
@@ -310,7 +284,7 @@ const CreateItem = () => {
         </CardFooter>
       </Card>
 
-      {/* ================= DIALOG ================= */}
+      {/* CREATE ITEM DIALOG */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -325,37 +299,32 @@ const CreateItem = () => {
             }}
             className="space-y-4"
           >
-            <form.AppField
-              name="name"
-              children={(f) => <f.TextField label="Item Name" />}
-            />
+            <form.AppField name="name">
+              {(f) => <f.TextField label="Item Name" />}
+            </form.AppField>
 
-            <form.AppField
-              name="description"
-              children={(f) => <f.TextAreaField label="Item Description" />}
-            />
+            <form.AppField name="description">
+              {(f) => <f.TextAreaField label="Item Description" />}
+            </form.AppField>
 
             <div className="grid grid-cols-2 gap-4">
-              <form.AppField
-                name="unit"
-                children={(f) => <f.TextField label="Item Unit" />}
-              />
+              <form.AppField name="unit">
+                {(f) => <f.TextField label="Item Unit" />}
+              </form.AppField>
 
-              <form.AppField
-                name="base_price"
-                children={(f) => <f.NumberField label="Base Price" />}
-              />
+              <form.AppField name="base_price">
+                {(f) => <f.NumberField label="Base Price" />}
+              </form.AppField>
             </div>
 
-            <form.AppField
-              name="dietary_type"
-              children={(f) => (
+            <form.AppField name="dietary_type">
+              {(f) => (
                 <f.SelectField
                   placeholder="Select Food Type"
                   options={DietaryTypeSelectOptions}
                 />
               )}
-            />
+            </form.AppField>
 
             <DialogFooter>
               <form.AppForm>

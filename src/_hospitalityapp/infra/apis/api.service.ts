@@ -133,3 +133,41 @@ export async function AddPreferredKitchenToMenuCategory({
   return res.data;
 }
 /* ---------------------------------- <***> --------------------------------- */
+
+interface AddPreferredKitchenToMenuSubCategoryPayload {
+  ownersID: string;
+  payload: any;
+}
+
+export async function AddPreferredKitchenToMenuSubCategory({
+  ownersID,
+  payload,
+}: AddPreferredKitchenToMenuSubCategoryPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddPreferredKitchenToMenuSubCategory(ownersID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface AddPreferredKitchenToMenuItemPayload {
+  ownersID: string;
+  payload: any;
+}
+
+export async function AddPreferredKitchenToMenuItem({
+  ownersID,
+  payload,
+}: AddPreferredKitchenToMenuItemPayload) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddPreferredKitchenToMenuItem(ownersID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
