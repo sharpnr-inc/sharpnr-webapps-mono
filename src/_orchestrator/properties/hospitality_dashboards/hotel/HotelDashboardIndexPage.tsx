@@ -1,8 +1,3 @@
-import { HotelOpTimingConfiguration } from "@/_orchestrator/properties/hospitality_configs/hotel/components/HotelOpTimingConfiguration";
-import CreateHotelFloorConfig from "@/_orchestrator/properties/hospitality_configs/hotel/forms/CreateFloorConfig";
-import CreateHotelAmenitiesForm from "@/_orchestrator/properties/hospitality_configs/hotel/forms/CreateHotelAmenitiesForm";
-import CreateHotelRoomAddonForm from "@/_orchestrator/properties/hospitality_configs/hotel/forms/CreateHotelRoomAddonForm";
-import CreateHotelRoomTypes from "@/_orchestrator/properties/hospitality_configs/hotel/forms/CreateHotelRoomTypes";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsTrigger } from "@/components/ui/tabs";
@@ -21,10 +16,9 @@ interface HotelDashboardIndexPageProps {
   propertyID: string;
 }
 
-const HotelDashboardIndexPage: React.FC<HotelDashboardIndexPageProps> = ({
-  hotelID,
-  propertyID,
-}) => {
+const HotelDashboardIndexPage: React.FC<
+  HotelDashboardIndexPageProps
+> = ({}) => {
   return (
     <div className="">
       {/* Header Section */}
@@ -68,28 +62,15 @@ const HotelDashboardIndexPage: React.FC<HotelDashboardIndexPageProps> = ({
 
         {/* Tab Contents */}
 
-        <TabsContent value="timing">
-          <HotelOpTimingConfiguration
-            hotelID={hotelID}
-            propertyID={propertyID}
-          />
-        </TabsContent>
+        <TabsContent value="timing"></TabsContent>
 
-        <TabsContent value="room-types">
-          <CreateHotelRoomTypes hotelID={hotelID} propertyID={propertyID} />
-        </TabsContent>
+        <TabsContent value="room-types"></TabsContent>
 
-        <TabsContent value="floors">
-          <CreateHotelFloorConfig hotelID={hotelID} propertyID={propertyID} />
-        </TabsContent>
+        <TabsContent value="floors"></TabsContent>
 
-        <TabsContent value="amenities">
-          <CreateHotelAmenitiesForm hotelID={hotelID} propertyID={propertyID} />
-        </TabsContent>
+        <TabsContent value="amenities"></TabsContent>
 
-        <TabsContent value="addons">
-          <CreateHotelRoomAddonForm hotelID={hotelID} propertyID={propertyID} />
-        </TabsContent>
+        <TabsContent value="addons"></TabsContent>
       </Tabs>
     </div>
   );
