@@ -15,21 +15,34 @@ import {
 } from "@/components/ui/dialog";
 import {
   useAddAddOnsOfMenuItem,
+  useAddPreferredKitchenToMenuItemMutation,
   useAddVariantGroupMutation,
   useAddVariantsInVariantGroup,
 } from "../apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { usePropertyDetails } from "@/_orchestrator/api/general";
 
 const CreateVariantsAndAddons = () => {
   const queryClient = useQueryClient();
-  const { Menus, prevStep, ownersID } = useCreateMenuCtx();
+  const { Menus, prevStep, ownersID, propertyID } = useCreateMenuCtx();
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
 
   const [open, setOpen] = useState(false);
   const [openVariantForm, setOpenVariantForm] = useState(false);
   const [openAddOnForm, setOpenAddOnForm] = useState(false);
 
+  const { data: propertyData } = usePropertyDetails(propertyID!);
+  const kitchens = propertyData?.data?.infra ?? [];
+
   const addVariants = useAddVariantsInVariantGroup();
+  const { mutateAsync, isPending } = useAddPreferredKitchenToMenuItemMutation();
 
   const activeItem = useMemo(() => {
     return Menus?.flatMap((m) => m.categories)
@@ -134,6 +147,19 @@ const CreateVariantsAndAddons = () => {
     );
   }
 
+  const handleAddPreferredKitchentoMenuItem = async (
+    activeItemID: string,
+    kitchenID: string,
+  ) => {
+    await mutateAsync({
+      ownersID: ownersID,
+      payload: {
+        menu_item_id: activeItemID,
+        kitchen_id: kitchenID,
+      },
+    });
+  };
+
   return (
     <Card className="">
       {/* HEADER */}
@@ -160,6 +186,40 @@ const CreateVariantsAndAddons = () => {
 
         <CardTitle className="text-xl">{activeItem.name}</CardTitle>
       </CardHeader>
+
+      <CardContent>
+        <div>
+          <div>Preferred Kitchen for this Menu Item</div>
+          <div>Kitchen</div>
+          <Select
+            value={activeItem.served_by ?? ""}
+            onValueChange={(kitchenID) =>
+              handleAddPreferredKitchentoMenuItem(activeItem.id, kitchenID)
+            }
+            disabled={isPending}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a Kitchen" />
+            </SelectTrigger>
+
+            <SelectContent>
+              {kitchens.map((kitchen: any) => (
+                <SelectItem key={kitchen.id} value={kitchen.id}>
+                  <div className="flex items-center justify-between w-full">
+                    <span>{kitchen.name}</span>
+
+                    {!kitchen.status && (
+                      <span className="text-xs text-red-500 ml-2">
+                        (Inactive)
+                      </span>
+                    )}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </CardContent>
 
       <CardContent className="space-y-6 overflow-auto max-h-[75vh]">
         {/* ITEM INFO */}

@@ -35,6 +35,7 @@ export interface MenuItemOutput {
   dietary_type: string;
   variant_groups: VariantGroupOutput[];
   add_ons: AddOnOutput[];
+  served_by: string;
 }
 
 export interface VariantGroupOutput {
