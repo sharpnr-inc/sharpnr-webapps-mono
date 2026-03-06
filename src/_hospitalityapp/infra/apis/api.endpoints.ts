@@ -16,6 +16,8 @@ export const MenuModuleEndpoints = {
   AddAddon: (ownersID: string) =>
     `/sharp-hospitality/${ownersID}/menu/add-addOns`,
 
+  // Menu Preferred Kitchen Register
+
   AddPreferredKitchenToMenuGroup: (ownersID: string) =>
     `/sharp-hospitality/${ownersID}/menu/configs/register/menugroup-kitchen`,
 

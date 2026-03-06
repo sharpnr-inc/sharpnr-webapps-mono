@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAddInfraInProperty } from "../api/mutation";
+import { useQueryClient } from "@tanstack/react-query";
 
 type QtyMap = Record<string, number>;
 
@@ -26,6 +27,8 @@ export function AddInfraInProperty({
   const infrastructures = domainData?.data?.infrastructure ?? [];
   const { mutateAsync } = useAddInfraInProperty();
   const [qty, setQty] = useState<QtyMap>({});
+
+  const q = useQueryClient();
 
   const updateQty = (id: string, value: string) => {
     setQty((prev) => ({
@@ -47,16 +50,26 @@ export function AddInfraInProperty({
     };
 
     try {
-      await mutateAsync({
-        propertyID,
-        request_payload: payload,
-      });
+      await mutateAsync(
+        {
+          propertyID,
+          request_payload: payload,
+        },
+        {
+          onSuccess: () => {
+            q.invalidateQueries({
+              queryKey: ["Property Details", propertyID],
+            });
+          },
+        },
+      );
 
       closeModal();
     } catch (err) {
       console.error("Failed to add infra:", err);
     }
   };
+
   if (isLoading) {
     return <p className="text-sm text-muted-foreground">Loading...</p>;
   }

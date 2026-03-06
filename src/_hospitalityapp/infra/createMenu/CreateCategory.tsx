@@ -84,11 +84,22 @@ const CreateCategory = () => {
       organization_id: "",
       owner_module_type: ownersType,
     },
-    onSubmit: ({ value }) => {
-      addMenu.mutateAsync({
-        ownersID: ownersID,
-        request_payload: value,
-      });
+    onSubmit: async ({ value }) => {
+      await addMenu.mutateAsync(
+        {
+          ownersID: ownersID,
+          request_payload: value,
+        },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
+              queryKey: ["Menu", ownersID],
+            });
+
+            setOpenMenuForm(false);
+          },
+        },
+      );
     },
   });
 
@@ -104,7 +115,7 @@ const CreateCategory = () => {
       },
     });
 
-    queryClient.invalidateQueries({
+    await queryClient.invalidateQueries({
       queryKey: ["Menu", ownersID],
     });
   };

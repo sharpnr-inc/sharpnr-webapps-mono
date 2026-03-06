@@ -17,12 +17,14 @@ import {
 } from "@/components/ui/dialog";
 import { useAppForm } from "@/components/forms";
 import { useUpdateKitchenGenralDetailsMutation } from "../api/mutation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function KitchenDashBoard() {
   const navigate = useNavigate();
   const { propertyId, InfraID } = Route.useParams();
   const [openGeneralDialog, setOpenGeneralDialog] = useState(false);
   const { mutateAsync } = useUpdateKitchenGenralDetailsMutation();
+  const q = useQueryClient();
 
   const form = useAppForm({
     defaultValues: {
@@ -31,7 +33,22 @@ export function KitchenDashBoard() {
     },
 
     onSubmit: async ({ value }) => {
-      mutateAsync({ kitchenID: InfraID, payload: value });
+      await mutateAsync(
+        { kitchenID: InfraID, payload: value },
+        {
+          onSuccess: async () => {
+            await q.invalidateQueries({
+              queryKey: ["Kitchen", "Kitchen-details", InfraID],
+            });
+
+            await q.invalidateQueries({
+              queryKey: ["Property Details", propertyId],
+            });
+
+            setOpenGeneralDialog(false);
+          },
+        },
+      );
     },
   });
 

@@ -1,12 +1,15 @@
 import api from "@/middlewares/axios";
 import { RestaurantEndpoints } from "./enpoints";
+import type { APIResponse } from "@/utilities/api_response";
 
+/* ---------------------------------- <***> --------------------------------- */
 export async function FetchRestaurantLayout(restaurantID?: string | null) {
   if (restaurantID !== null) {
     const res = await api.get(RestaurantEndpoints.Layout(restaurantID));
     return res.data;
   }
 }
+/* ---------------------------------- <***> --------------------------------- */
 
 interface AddRestaurantLayoutPayload {
   restaurantID: string;
@@ -24,8 +27,8 @@ export async function AddRestaurantFloorsAdnTables(
   return res.data;
 }
 
-export async function FetchRestaurentContext() {
-  const res = await api.get(RestaurantEndpoints.Context);
+export async function FetchRestaurentContext(): Promise<APIResponse<any>> {
+  const res = await api.get<APIResponse<any>>(RestaurantEndpoints.Context);
   return res.data;
 }
 

@@ -6,9 +6,10 @@ import {
   GetDiningSessionOrders,
   GetRestaurantGeneralInfo,
 } from "./restaurant.api";
+import type { APIResponse } from "@/utilities/api_response";
 
 export function useRestaurantLayout(restaurantID?: string | null) {
-  return useQuery({
+  return useQuery<APIResponse<any>>({
     queryKey: ["Restaurant", "Restaurant Layout", restaurantID],
     queryFn: () => FetchRestaurantLayout(restaurantID),
     enabled: !!restaurantID,
@@ -49,7 +50,5 @@ export function usePreferredKitchen(restaurantID: string) {
 export function useAddKitchenIdInRestaurant() {
   return useQuery({
     queryKey: ["ADD", "KITCHEN", "RESTAURANT", "PREFERRED"],
-    
-  
   });
 }
