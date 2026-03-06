@@ -1,11 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { AddProperty } from "./service";
 import {
   AddInfraInProperty,
   AddModulesInProperty,
+  AddProperty,
   ConfigureHotel,
   SetDomainOfProperty,
-} from "@/_orchestrator/api/api.service";
+} from "./service";
+import {} from "@/_orchestrator/api/api.service";
 
 export function useCreatePropertyMutation() {
   return useMutation({

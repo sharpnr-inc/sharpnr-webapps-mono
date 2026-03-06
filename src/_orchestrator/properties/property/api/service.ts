@@ -7,6 +7,14 @@ const PropertyEndpoints = {
   allProperty: "/orchestrator/console/property",
   PropertyDetails: (propID: string) =>
     `/orchestrator/console/property/${propID}`,
+  AddDomain: (propertyID: string) =>
+    `/orchestrator/console/property/${propertyID}/add-domain`,
+  AddModules: (propertyID: string) =>
+    `/orchestrator/console/property/${propertyID}/add-modules`,
+  AddInfra: (propertyID: string) =>
+    `/orchestrator/console/property/${propertyID}/add-infra`,
+  ConfigureHotel: (propertyID: string) =>
+    `/orchestrator/console/property/${propertyID}/configure-hotel`,
   utils: {
     allDomain: "/orchestrator/console/property/utils/domains",
   },
@@ -104,6 +112,77 @@ export async function GetPropertyDetails(
     PropertyEndpoints.PropertyDetails(propertyID),
   );
 
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+type AddDomainPayload = {
+  propertyID: string;
+  domain: string;
+};
+
+export async function SetDomainOfProperty({
+  propertyID,
+  domain,
+}: AddDomainPayload) {
+  const res = await api.post(PropertyEndpoints.AddDomain(propertyID), {
+    domain, // 👈 MUST be an object
+  });
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface PropertyInfraConfigurationPayload {
+  infra_name: string;
+  qty: number;
+}
+
+export interface PropertyModuleConfigurationPayload {
+  property_id: string;
+  domain: string;
+  modules?: string[];
+  infrastructure?: PropertyInfraConfigurationPayload[];
+}
+export interface AddModulesInPropertyInput {
+  propertyID: string;
+  payload: PropertyModuleConfigurationPayload;
+}
+
+export async function AddModulesInProperty({
+  payload,
+  propertyID,
+}: AddModulesInPropertyInput) {
+  const res = await api.post(PropertyEndpoints.AddModules(propertyID), payload);
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface AddInfraInPropPayload {
+  request_payload: any;
+  propertyID: string;
+}
+export async function AddInfraInProperty(payload: AddInfraInPropPayload) {
+  const res = await api.post(
+    PropertyEndpoints.AddInfra(payload.propertyID),
+    payload.request_payload,
+  );
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface ConfigureHotelPayload {
+  propertyID: string;
+  request_payload: any;
+}
+export async function ConfigureHotel(payload: ConfigureHotelPayload) {
+  const res = await api.post(
+    PropertyEndpoints.ConfigureHotel(payload.propertyID),
+    payload.request_payload,
+  );
   return res.data;
 }
 
