@@ -1,4 +1,4 @@
-import { GetLegalEntities } from "@/_orchestrator/api/api.service";
+import { GetLegalEntities } from "./legalEntity.api.service";
 import { useQuery } from "@tanstack/react-query";
 
 export function useOrganizationLegalEntities() {

@@ -178,6 +178,7 @@ interface ConfigureHotelPayload {
   propertyID: string;
   request_payload: any;
 }
+
 export async function ConfigureHotel(payload: ConfigureHotelPayload) {
   const res = await api.post(
     PropertyEndpoints.ConfigureHotel(payload.propertyID),
