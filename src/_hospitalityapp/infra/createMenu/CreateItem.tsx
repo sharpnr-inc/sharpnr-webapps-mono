@@ -42,7 +42,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePropertyDetails } from "@/_orchestrator/api/general";
+import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
 
 const CreateItem = () => {
   const queryClient = useQueryClient();

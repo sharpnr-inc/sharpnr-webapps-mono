@@ -48,7 +48,7 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = ({
         onSuccess: () => {
           formApi.reset();
           qc.invalidateQueries({
-            queryKey: ["Orchestrator", "Properties"],
+            queryKey: ["ORGANIZATION", "PROPERTIES", "ALL"],
           });
           closeModal();
           if (navigate != null) {

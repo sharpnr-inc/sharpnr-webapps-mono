@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePropertyDetails } from "@/_orchestrator/api/general";
+import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {

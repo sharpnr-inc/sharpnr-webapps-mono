@@ -2,18 +2,35 @@ import { useQuery } from "@tanstack/react-query";
 import {
   GetAllDomain,
   GetHospitalityDomainMods,
+  GetPropertyDetails,
   ListAllProperties,
+  type PropertiesOfOrganizationData,
+  type PropertyDetailsData,
+  type PropertyDomain,
 } from "./service";
+import type { APIResponse } from "@/utilities/api_response";
 
 export function useProperties() {
-  return useQuery({
-    queryKey: ["Properties", "All"],
+  return useQuery<APIResponse<PropertiesOfOrganizationData>>({
+    queryKey: ["ORGANIZATION", "PROPERTIES", "ALL"],
     queryFn: ListAllProperties,
   });
 }
 
+export const PROPERTY_DETAILS_QK = (propertyID: string) =>
+  ["property", "details", propertyID] as const;
+
+export function usePropertyDetails(propertyID: string) {
+  return useQuery<APIResponse<PropertyDetailsData>>({
+    queryKey: ["Property Details", propertyID],
+    queryFn: () => GetPropertyDetails(propertyID),
+    enabled: !!propertyID,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
 export function useDomainType() {
-  return useQuery({
+  return useQuery<APIResponse<PropertyDomain[]>>({
     queryKey: ["Property", "Domain Types"],
     queryFn: GetAllDomain,
   });

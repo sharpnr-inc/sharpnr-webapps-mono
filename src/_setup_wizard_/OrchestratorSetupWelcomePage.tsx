@@ -1,5 +1,3 @@
-
-
 // *This is landing page for the New organization
 import { motion, type Variants } from "framer-motion";
 import {
@@ -36,7 +34,11 @@ const AnimatedWords = ({
   return (
     <motion.span variants={container} initial="hidden" animate="visible">
       {words.map((word, index) => (
-        <motion.span variants={variants} key={index} className="inline-block mr-[0.25em]">
+        <motion.span
+          variants={variants}
+          key={index}
+          className="inline-block mr-[0.25em]"
+        >
           {word}
         </motion.span>
       ))}
@@ -75,20 +77,19 @@ export function OrchestratorSetupWizardWelcomePage() {
     },
   };
 
- const buttonVariants = {
-  hover: {
-    scale: 1.05,
-    transition: {
-      type: "spring" as const,
-      stiffness: 400,
-      damping: 10,
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      transition: {
+        type: "spring" as const,
+        stiffness: 400,
+        damping: 10,
+      },
     },
-  },
-  tap: {
-    scale: 0.95,
-  },
-};
-
+    tap: {
+      scale: 0.95,
+    },
+  };
 
   return (
     <div className="flex items-center justify-center p-4">
@@ -132,7 +133,7 @@ export function OrchestratorSetupWizardWelcomePage() {
                 whileTap="tap"
               >
                 <Button size={"lg"} asChild className="text-lg px-10 py-4">
-                  <Link to="/orchestrator/setup-wizard">
+                  <Link to="/orchestrator">
                     Continue to Setup
                     <ArrowRight className="ml-2 h-6 w-6" />
                   </Link>

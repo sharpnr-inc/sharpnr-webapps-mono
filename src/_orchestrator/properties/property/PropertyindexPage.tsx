@@ -28,33 +28,25 @@ import { Badge } from "@/components/ui/badge";
 import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
-import { useOrganizationProperties } from "../../api/general";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
 import { useAddPropertyDomainMutation } from "./api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
-
-export interface Property {
-  id: string;
-  name: string;
-  property_code: string;
-  state: string;
-  city: string;
-  domain: string | null;
-  is_configured: boolean;
-}
+import { useProperties } from "./api/queries";
+import type { Property } from "./api/service";
 
 // This page list all the Properties of the organization
 export function PropertyIndexPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   // *this query hook the fetch all property that organization have
   // *this return the array of the property
-  const { data: properties, isLoading } = useOrganizationProperties();
+  const { data: properties, isLoading } = useProperties();
+
   // const { data: domainTypes, isLoading: isDomainLoading } = useDomainType();
 
   const adddomain = useAddPropertyDomainMutation();
   const qc = useQueryClient();
 
-  const propoertyarray = properties?.data?.Properties ?? [];
+  const propertyArray = properties?.data?.properties ?? [];
 
   //*hook for opening the modal
   const { showModal, closeModal } = useFormsModal();
@@ -111,11 +103,11 @@ export function PropertyIndexPage() {
       <section>
         {isLoading ? (
           <PropertyCardSkeleton />
-        ) : propoertyarray?.length == 0 ? (
+        ) : propertyArray.length == 0 ? (
           <EmptyPropertySection />
         ) : (
           <div className="grid sm: grid-cols-1 md:grid-cols-3 gap-2">
-            {propoertyarray?.map((p: any) => (
+            {propertyArray.map((p: any) => (
               <Card
                 key={p.id}
                 className="flex flex-col justify-between hover:shadow-lg transition-shadow"
@@ -148,9 +140,9 @@ export function PropertyIndexPage() {
 
                                 await qc.invalidateQueries({
                                   queryKey: [
-                                    "Orchestrator",
-                                    "Properties",
-                                    "All Properties",
+                                    "ORGANIZATION",
+                                    "PROPERTIES",
+                                    "ALL",
                                   ],
                                 });
                               } catch (error) {

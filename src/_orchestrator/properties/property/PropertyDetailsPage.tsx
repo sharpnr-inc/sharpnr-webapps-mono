@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { usePropertyDetails } from "@/_orchestrator/api/general";
+import { usePropertyDetails } from "./api/queries";
 import {
   WrenchIcon,
   AlertCircle,
@@ -23,57 +23,11 @@ import { Badge as SB } from "@/components/ui/badge";
 import { useFormsModal } from "@/context/FormModalContext";
 import AddModulesInProperty from "./forms/AddModulesInProperty";
 import { AddInfraInProperty } from "./forms/AddInfrasInProperty";
+import type { PropertyModule } from "./api/service";
 
-/*
-this component takes the propertyID as prop from the tanstack router
-NOTE make sure we use the useParams from the tanstack router
-*/
 
 interface PropertyDetailsPageProps {
   propertyId: string;
-}
-
-// If you use UUIDs as strings on the frontend
-type UUID = string;
-
-/**
- * Matches: ModulesDetails_dto
- */
-export interface ModulesDetailsDto {
-  id: UUID;
-  name: string;
-  status: boolean;
-  module_type: string;
-  is_configured: boolean;
-}
-
-/**
- * Matches: PropertyInfra_res_dto
- */
-export interface PropertyInfraResDto {
-  id: UUID;
-  name: string;
-  status: boolean;
-  infra_type: string;
-}
-
-/**
- * Matches: PropertyDetails_res_dto
- */
-export interface PropertyDetailsResDto {
-  name: string;
-  code: string;
-  city: string;
-  address_line: string;
-  state: string;
-  country: string;
-
-  // pointer + omitempty → optional
-  domain?: "";
-
-  __modules__data__?: ModulesDetailsDto[];
-
-  infra?: PropertyInfraResDto[];
 }
 
 export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
@@ -82,7 +36,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
   const nav = useNavigate();
 
-  const handleModuleNav = (module: ModulesDetailsDto) => {
+  const handleModuleNav = (module: PropertyModule) => {
     if (module.is_configured && module.module_type == "HOTEL") {
       nav({
         to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
@@ -122,16 +76,18 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   };
 
   const { showModal, closeModal } = useFormsModal();
-  const handleAddModules = (domain: string) => {
-    showModal(
-      "Add Modules",
-      "Choose Modules",
-      <AddModulesInProperty
-        domain={domain}
-        propertyID={propertyId}
-        closeModal={closeModal}
-      />,
-    );
+  const handleAddModules = (domain: string | undefined) => {
+    if (domain) {
+      showModal(
+        "Add Modules",
+        "Choose Modules",
+        <AddModulesInProperty
+          domain={domain}
+          propertyID={propertyId}
+          closeModal={closeModal}
+        />,
+      );
+    }
   };
 
   const handleAddInfra = () => {
@@ -214,7 +170,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           Add Modules
         </Button>
         <CardContent className="grid gap-3.5 sm:grid-cols-3">
-          {property?.__modules__data__?.map((module: ModulesDetailsDto) => (
+          {property?.__modules__data__?.map((module) => (
             <Card
               key={module.id}
               className="h-fit relative hover:border-2 hover:border-accent-foreground transform transition-transform duration-300 ease-out hover:scale-[1.01] hover:-translate-y-0.3 hover:shadow-xl"
@@ -299,7 +255,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         ) : (
           /* LIST STATE */
           <CardContent className="grid gap-5 sm:grid-cols-2">
-            {property?.infra?.map((inf: PropertyInfraResDto) => (
+            {property?.infra?.map((inf) => (
               <Card key={inf.id}>
                 <CardHeader>
                   {inf.name}
