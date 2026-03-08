@@ -177,6 +177,7 @@ function RestaurantForm({ restaurant }: RestaurantFormProps) {
 
                 <Switch
                   id="restaurant-active"
+                  disabled={!restaurant.is_configured}
                   checked={restaurant.is_active}
                   onCheckedChange={handleRestaurantActivateOrDeactivate}
                 />
