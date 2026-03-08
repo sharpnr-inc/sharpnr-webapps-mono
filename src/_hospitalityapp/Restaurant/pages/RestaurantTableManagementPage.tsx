@@ -7,6 +7,7 @@ import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";
 import { useSelectedRestaurantID } from "../store/selectors";
+import { useQueryClient } from "@tanstack/react-query";
 // import { useQueryClient } from "@tanstack/react-query";
 
 export interface RestaurantTableLayout {
@@ -24,10 +25,9 @@ export interface RestaurantFloorLayout {
 }
 
 const RestaurantTableManagementPage: React.FC = () => {
+  const q = useQueryClient();
   const restaurantID = useSelectedRestaurantID();
-
   const { data, isLoading } = useRestaurantLayout(restaurantID);
-
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTable, setSelectedTable] =
     useState<RestaurantTableLayout | null>(null);
@@ -63,7 +63,7 @@ const RestaurantTableManagementPage: React.FC = () => {
 
     setLoading(true);
 
-    startSession.mutateAsync(
+    await startSession.mutateAsync(
       {
         tableID: selectedTable.TableID,
         restaurantID,
@@ -71,6 +71,10 @@ const RestaurantTableManagementPage: React.FC = () => {
       {
         onSuccess: () => {
           setLoading(false);
+          setOpenDialog(false);
+          q.invalidateQueries({
+            queryKey: ["Restaurant", "Restaurant Layout", restaurantID],
+          });
         },
       },
     );

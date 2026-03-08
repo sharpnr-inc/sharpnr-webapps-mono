@@ -56,7 +56,7 @@ const AddPropertyForm: React.FC<AddPropertyFormProps> = ({
               queryKey: ["Org", "status"],
             });
             nav({
-              to: navigate,
+              to: "/orchestrator/property",
             });
           }
         },
