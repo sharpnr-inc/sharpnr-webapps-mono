@@ -3,14 +3,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantGeneralSettingsComp from "./components_forms/RestaurantGeneralSettings";
 import { RestaurantLayoutSettings } from "./components_forms/RestaurantLayoutSettings";
-import { Settings2 } from "lucide-react";
+import { AlertTriangle, Plus, Settings2 } from "lucide-react";
 import { RestaurantLegalEntity } from "./components_forms/RestaurantLegalEntity";
-import { usePreferredKitchen } from "../../apis/queries";
-import { RestaurantPreferredKitchen } from "./components_forms/RestaurantPreferredKitchen";
+import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "@tanstack/react-router";
 
 const RestaurantSettingsTabs = () => {
   const { restaurantID, propertyId } = Route.useParams();
-  const { data } = usePreferredKitchen(restaurantID);
+  const { data: properyDetails } = usePropertyDetails(propertyId);
+  const navigate = useNavigate();
+  const handleNav = () => {
+    navigate({
+      to: "/orchestrator/property/$propertyId/details",
+      params: {
+        propertyId,
+      },
+    });
+  };
 
   return (
     <div className="p-2 mt-4">
@@ -46,27 +56,44 @@ const RestaurantSettingsTabs = () => {
               Notifications
             </TabsTrigger>
           </TabsList>
-
           <TabsContent value="Generals">
             <RestaurantGeneralSettingsComp />
           </TabsContent>
 
-          <TabsContent value="Menu" className="space-y-2">
-            <RestaurantPreferredKitchen
-              propertyID={propertyId}
-              kitchenID={data?.data?.kitchen_id ?? null}
-              restaurantID={restaurantID}
-            />
+          <TabsContent value="Menu" className="space-y-4">
+            {(() => {
+              const hasKitchen = properyDetails?.data?.infra?.some(
+                (infra) => infra.infra_type === "KITCHEN",
+              );
 
-            {data?.data?.kitchen_id ? (
-              <MenuSettings moduleID={restaurantID} propertyID={propertyId} />
-            ) : (
-              <div className="mt-4 p-4 rounded-md bg-yellow-50 text-yellow-700 border border-yellow-200">
-                First select a preferred kitchen to process orders.
-              </div>
-            )}
+              if (!hasKitchen) {
+                return (
+                  <div className="flex flex-col items-center justify-center rounded-lg border border-dashed py-14 text-center">
+                    <AlertTriangle className="mb-4 h-10 w-10 text-red-300" />
+
+                    <h3 className="text-lg font-semibold">No Kitchen Found</h3>
+
+                    <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+                      You need to create a kitchen before configuring the menu.
+                    </p>
+
+                    <Button
+                      onClick={() => handleNav()}
+                      size="sm"
+                      className="mt-6 gap-2"
+                    >
+                      <Plus className="h-4 w-4" />
+                      Add Kitchen
+                    </Button>
+                  </div>
+                );
+              }
+
+              return (
+                <MenuSettings moduleID={restaurantID} propertyID={propertyId} />
+              );
+            })()}
           </TabsContent>
-
           <TabsContent value="LegalEntity">
             <RestaurantLegalEntity />
           </TabsContent>

@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import {
-  FetchPreferredKitchen,
   FetchRestaurantLayout,
   FetchRestaurentContext,
   GetDiningSessionOrders,
@@ -44,12 +43,6 @@ export function useRestaurantGeneralInfo(restaurantID: string) {
 }
 
 /* ---------------------------------- <***> --------------------------------- */
-export function usePreferredKitchen(restaurantID: string) {
-  return useQuery({
-    queryKey: ["Restaurant", "PreferredKitchen", restaurantID],
-    queryFn: () => FetchPreferredKitchen(restaurantID),
-  });
-}
 
 export function useAddKitchenIdInRestaurant() {
   return useQuery({
