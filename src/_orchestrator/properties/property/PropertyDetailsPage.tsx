@@ -76,6 +76,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   };
 
   const { showModal, closeModal } = useFormsModal();
+  
   const handleAddModules = (domain: string | undefined) => {
     if (domain) {
       showModal(

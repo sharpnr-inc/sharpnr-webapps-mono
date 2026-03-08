@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -17,6 +23,8 @@ import { useUpdateRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/api
 import { useQueryClient } from "@tanstack/react-query";
 import type { RestaurantGeneralInfoInterface } from "@/_hospitalityapp/Restaurant/apis/restaurant.api";
 import { ProcessRestaurantConfigurationStatus } from "@/_hospitalityapp/Restaurant/utils/CongifurationStatus";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface RestaurantFormProps {
   restaurant: RestaurantGeneralInfoInterface;
@@ -91,7 +99,6 @@ function RestaurantForm({ restaurant }: RestaurantFormProps) {
         </CardHeader>
 
         <CardContent className="space-y-6">
-          {/* Configuration Warning */}
           {!restaurant.is_configured && (
             <div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
               <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-600" />
@@ -110,7 +117,57 @@ function RestaurantForm({ restaurant }: RestaurantFormProps) {
             </div>
           )}
 
-          {/* Info Grid */}
+          <Card
+            className={
+              restaurant.is_active
+                ? "border-green-300"
+                : "border-red-200 bg-red-50 dark:bg-red-950/20"
+            }
+          >
+            <CardHeader>
+              <CardTitle
+                className={
+                  restaurant.is_active ? "" : "text-red-700 dark:text-red-400"
+                }
+              >
+                Restaurant Operational Status
+              </CardTitle>
+
+              <CardDescription>
+                Control whether this restaurant is currently operational. When
+                the restaurant is inactive, customers will not be able to browse
+                menus or place orders. This can be used during maintenance,
+                holidays, or when the restaurant is temporarily closed.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <div className="flex items-start justify-between">
+                <div className="space-y-1">
+                  <Label htmlFor="restaurant-active">
+                    {restaurant.is_active
+                      ? "Restaurant is Operational and Running"
+                      : "Restaurant is Currently Inactive"}
+                  </Label>
+
+                  <p
+                    className={`text-sm ${
+                      restaurant.is_active
+                        ? "text-muted-foreground"
+                        : "text-red-600 dark:text-red-400"
+                    }`}
+                  >
+                    {restaurant.is_active
+                      ? "Customers can browse menus and place orders."
+                      : "Restaurant operations are currently stopped. Customers cannot place orders until it is activated."}
+                  </p>
+                </div>
+
+                <Switch id="restaurant-active" checked={restaurant.is_active} />
+              </div>
+            </CardContent>
+          </Card>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <InfoItem label="Restaurant Name" value={restaurant.name} />
 
@@ -142,8 +199,6 @@ function RestaurantForm({ restaurant }: RestaurantFormProps) {
           </div>
         </CardContent>
       </Card>
-
-      {/* Update Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-lg rounded-2xl">
           <DialogHeader>
