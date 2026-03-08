@@ -6,4 +6,7 @@ export const KitchenEndpoints = {
     `/sharp-hospitality/kitchen/${kitchenID}/kot/${kOTID}/status`,
 
   GetAllKitchen: "/orchestrator/hospitality/all-kitchen",
+
+  ActivateOrDeactivateKitchen: (kitchenID: string, kitchenSwitch: boolean) =>
+    `/sharp-hospitality/kitchen/${kitchenID}/configs/activate-dactivate/${kitchenSwitch}`,
 };

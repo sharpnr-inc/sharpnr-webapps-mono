@@ -18,6 +18,8 @@ import {
 import { useAppForm } from "@/components/forms";
 import { useUpdateKitchenGenralDetailsMutation } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
+import api from "@/middlewares/axios";
+import { KitchenEndpoints } from "@/_hospitalityapp/infra/Kitchen/api/api.endpoints";
 
 export function KitchenDashBoard() {
   const navigate = useNavigate();
@@ -25,11 +27,13 @@ export function KitchenDashBoard() {
   const [openGeneralDialog, setOpenGeneralDialog] = useState(false);
   const { mutateAsync } = useUpdateKitchenGenralDetailsMutation();
   const q = useQueryClient();
+  const { data: kitchenDetails } = useKitchenDetails(InfraID);
+  const { data: kitchenConfigData } = useKitchenConfiguration(InfraID);
 
   const form = useAppForm({
     defaultValues: {
-      name: "",
-      description: "",
+      name: kitchenDetails?.data?.Name,
+      description: kitchenDetails?.data?.Description,
     },
 
     onSubmit: async ({ value }) => {
@@ -51,9 +55,6 @@ export function KitchenDashBoard() {
       );
     },
   });
-
-  const { data: kitchenDetails } = useKitchenDetails(InfraID);
-  const { data: kitchenConfigData } = useKitchenConfiguration(InfraID);
 
   const [settings, setSettings] = useState({
     auto_accept: false,
@@ -104,8 +105,32 @@ export function KitchenDashBoard() {
     console.log("Saving kitchen config:", payload);
   };
 
+  const [loading, setLoading] = useState(false);
+
+  const handleActivateDeactiveKitchen = async (checked: boolean) => {
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      await api.patch(
+        KitchenEndpoints.ActivateOrDeactivateKitchen(InfraID, checked),
+      );
+
+      await q.invalidateQueries({
+        queryKey: ["Kitchen", "Kitchen-details", InfraID],
+      });
+
+      await q.invalidateQueries({
+        queryKey: ["Kitchen", "Kitchen-configuration"],
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 space-y-2">
       <Button
         variant="ghost"
         className="flex items-center gap-2 w-fit"
@@ -127,6 +152,7 @@ export function KitchenDashBoard() {
             <h1 className="text-2xl font-semibold">
               {kitchenDetails?.data?.Name || "Kitchen Settings"}
             </h1>
+            <p> {kitchenDetails?.data?.Description || "Kitchen Settings"}</p>
             <p className="text-sm text-muted-foreground">
               Status: {kitchenDetails?.data?.Status ? "Active" : "Inactive"}
             </p>
@@ -136,6 +162,55 @@ export function KitchenDashBoard() {
           </Button>
         </div>
       </div>
+
+      <Card
+        className={
+          kitchenConfigData?.data?.is_active
+            ? "border-green-300"
+            : "border-red-200 bg-red-50 dark:bg-red-950/20"
+        }
+      >
+        <CardHeader>
+          <CardTitle
+            className={
+              kitchenConfigData?.data?.is_active
+                ? ""
+                : "text-red-700 dark:text-red-400"
+            }
+          >
+            Kitchen Operational Status
+          </CardTitle>
+        </CardHeader>
+
+        <CardContent className="flex items-start justify-between">
+          <div className="space-y-1">
+            <Label htmlFor="kitchen-active">
+              {kitchenConfigData?.data?.is_active
+                ? "Kitchen is Active and Processing Orders"
+                : "Kitchen is Currently Inactive"}
+            </Label>
+
+            <p
+              className={`text-sm ${
+                kitchenConfigData?.data?.is_active
+                  ? "text-muted-foreground"
+                  : "text-red-600 dark:text-red-400"
+              }`}
+            >
+              {kitchenConfigData?.data?.is_active
+                ? "This kitchen can receive and process incoming orders."
+                : "This kitchen is currently disabled and will not receive any orders."}
+            </p>
+          </div>
+
+          <Switch
+            id="kitchen-active"
+            checked={kitchenConfigData?.data?.is_active ?? false}
+            onCheckedChange={handleActivateDeactiveKitchen}
+            disabled={loading}
+          />
+        </CardContent>
+      </Card>
 
       <Card className="rounded-2xl shadow-sm">
         <CardHeader>

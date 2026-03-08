@@ -8,7 +8,7 @@ type TextfieldProps = {
   label: string;
   type?: React.HTMLInputTypeAttribute;
 };
-const TextField = ({ label, type="text" }: TextfieldProps) => {
+const TextField = ({ label, type = "text" }: TextfieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
   return (
