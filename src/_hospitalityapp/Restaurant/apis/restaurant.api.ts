@@ -27,15 +27,61 @@ export async function AddRestaurantFloorsAdnTables(
   return res.data;
 }
 
-export async function FetchRestaurentContext(): Promise<APIResponse<any>> {
-  const res = await api.get<APIResponse<any>>(RestaurantEndpoints.Context);
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface RestaurantProperty {
+  ID: string;
+  Name: string;
+  AddressLine: string;
+  City: string;
+  State: string;
+  Country: string;
+}
+
+export interface RestaurantContext {
+  ID: string;
+  Name: string;
+  OrgID: string;
+  IsActive: boolean;
+  IsConfigured: boolean;
+  Property: RestaurantProperty;
+}
+
+export async function FetchRestaurentContext(): Promise<
+  APIResponse<RestaurantContext[]>
+> {
+  const res = await api.get<APIResponse<RestaurantContext[]>>(
+    RestaurantEndpoints.Context,
+  );
+
   return res.data;
 }
 
-export async function GetRestaurantGeneralInfo(restaurantID: string) {
-  const res = await api.get(RestaurantEndpoints.GeneralInfo(restaurantID));
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface RestaurantGeneralInfoInterface {
+  restaurant_id: string;
+  name: string;
+  opening_time: string;
+  closing_time: string;
+  is_pure_veg: boolean;
+  is_active: boolean;
+  is_configured: boolean;
+  current_configured_status: string;
+  last_updated: string;
+}
+
+export async function GetRestaurantGeneralInfo(
+  restaurantID: string,
+): Promise<APIResponse<RestaurantGeneralInfoInterface>> {
+  const res = await api.get<APIResponse<RestaurantGeneralInfoInterface>>(
+    RestaurantEndpoints.GeneralInfo(restaurantID),
+  );
+
   return res.data;
 }
+
+/* ---------------------------------- <***> --------------------------------- */
 
 interface UpdateRestaurantGeneralInfoPayload {
   restaurantID: string;

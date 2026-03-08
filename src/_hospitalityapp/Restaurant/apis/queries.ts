@@ -5,6 +5,7 @@ import {
   FetchRestaurentContext,
   GetDiningSessionOrders,
   GetRestaurantGeneralInfo,
+  type RestaurantGeneralInfoInterface,
 } from "./restaurant.api";
 import type { APIResponse } from "@/utilities/api_response";
 
@@ -32,14 +33,17 @@ export function useDiningSessionOrders(
     queryFn: () => GetDiningSessionOrders(restaurantID, diningSessionID),
   });
 }
+/* ---------------------------------- <***> --------------------------------- */
 
 export function useRestaurantGeneralInfo(restaurantID: string) {
-  return useQuery({
+  return useQuery<APIResponse<RestaurantGeneralInfoInterface>>({
     queryKey: ["Restaurant", "GeneralInfo", restaurantID],
     queryFn: () => GetRestaurantGeneralInfo(restaurantID),
+    enabled: !!restaurantID,
   });
 }
 
+/* ---------------------------------- <***> --------------------------------- */
 export function usePreferredKitchen(restaurantID: string) {
   return useQuery({
     queryKey: ["Restaurant", "PreferredKitchen", restaurantID],

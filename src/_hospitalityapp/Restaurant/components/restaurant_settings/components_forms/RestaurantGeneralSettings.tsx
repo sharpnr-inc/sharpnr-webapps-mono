@@ -15,20 +15,25 @@ import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/quer
 import { useAppForm } from "@/components/forms";
 import { useUpdateRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/mutations";
 import { useQueryClient } from "@tanstack/react-query";
+import type { RestaurantGeneralInfoInterface } from "@/_hospitalityapp/Restaurant/apis/restaurant.api";
+import { ProcessRestaurantConfigurationStatus } from "@/_hospitalityapp/Restaurant/utils/CongifurationStatus";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-interface Restaurant {
-  name: string;
-  opening_time: string;
-  closing_time: string;
-  is_active: boolean;
-  is_configured: boolean;
+interface RestaurantFormProps {
+  restaurant: RestaurantGeneralInfoInterface;
 }
 
-// ─── Inner Form Component (always receives real data) ────────────────────────
+function InfoItem({ label, value }: { label: string; value?: string | null }) {
+  return (
+    <div className="space-y-1">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        {label}
+      </p>
+      <p className="text-sm font-medium">{value || "-"}</p>
+    </div>
+  );
+}
 
-function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
+function RestaurantForm({ restaurant }: RestaurantFormProps) {
   const [open, setOpen] = useState(false);
   const restaurantID = Route.useParams().restaurantID;
   const updateGeneralInfo = useUpdateRestaurantGeneralInfo();
@@ -57,7 +62,9 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
         {
           onSuccess: () => {
             setOpen(false);
-            q.invalidateQueries();
+            q.invalidateQueries({
+              queryKey: ["Restaurant", "GeneralInfo", restaurantID],
+            });
           },
         },
       );
@@ -66,73 +73,77 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
 
   return (
     <>
-      <Card className="relative rounded-2xl shadow-sm">
-        <CardHeader className="relative">
-          <CardTitle className="text-xl font-semibold">
-            Restaurant General Settings
-          </CardTitle>
+      <Card className="rounded-2xl shadow-sm border">
+        {/* Header */}
+        <CardHeader className="flex flex-row items-start justify-between gap-4">
+          <div>
+            <CardTitle className="text-lg font-semibold">
+              Restaurant General Settings
+            </CardTitle>
+            <p className="text-sm text-muted-foreground">
+              Configure basic information and operating hours
+            </p>
+          </div>
 
-          {/* TOP RIGHT BUTTON */}
-          <Button
-            className="absolute right-4 top-4"
-            onClick={() => setOpen(true)}
-            size="sm"
-          >
+          <Button size="sm" onClick={() => setOpen(true)}>
             Update Details
           </Button>
         </CardHeader>
 
-        <CardContent className="space-y-4 text-sm">
+        <CardContent className="space-y-6">
+          {/* Configuration Warning */}
           {!restaurant.is_configured && (
-            <div className="rounded-xl border border-border bg-secondary/20 p-3">
-              <div className="flex items-start gap-2">
-                <AlertTriangle className="mt-0.5 h-4 w-4 text-foreground" />
-                <div className="text-sm leading-relaxed text-foreground">
-                  <p className="font-medium">
-                    Your restaurant is not configured yet.
-                  </p>
-                  <p className="mt-1 text-muted-foreground">
-                    Please complete the following setup:
-                  </p>
-                  <ul className="mt-1 list-disc space-y-1 pl-5 text-muted-foreground">
-                    <li>Add Menu</li>
-                    <li>Add at least 1 Table</li>
-                    <li>Complete General Details</li>
-                  </ul>
-                </div>
+            <div className="flex gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-600" />
+
+              <div className="space-y-1 text-sm">
+                <p className="font-medium text-amber-800">
+                  Restaurant configuration incomplete
+                </p>
+
+                <p className="text-amber-700">
+                  {ProcessRestaurantConfigurationStatus(
+                    restaurant.current_configured_status,
+                  )}
+                </p>
               </div>
             </div>
           )}
 
-          <div>
-            <p className="text-muted-foreground">Name</p>
-            <p className="font-medium">{restaurant.name || "-"}</p>
-          </div>
+          {/* Info Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <InfoItem label="Restaurant Name" value={restaurant.name} />
 
-          <div>
-            <p className="text-muted-foreground">Opening Time</p>
-            <p className="font-medium">
-              {restaurant.opening_time || "Not set"}
-            </p>
-          </div>
+            <InfoItem
+              label="Opening Time"
+              value={restaurant.opening_time || "Not set"}
+            />
 
-          <div>
-            <p className="text-muted-foreground">Closing Time</p>
-            <p className="font-medium">
-              {restaurant.closing_time || "Not set"}
-            </p>
-          </div>
+            <InfoItem
+              label="Closing Time"
+              value={restaurant.closing_time || "Not set"}
+            />
 
-          <div>
-            <p className="text-muted-foreground">Status</p>
-            <p className="font-medium">
-              {restaurant.is_active ? "Active" : "Inactive"}
-            </p>
+            <div className="space-y-1">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Status
+              </p>
+
+              <span
+                className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${
+                  restaurant.is_active
+                    ? "bg-green-100 text-green-700"
+                    : "bg-gray-100 text-gray-600"
+                }`}
+              >
+                {restaurant.is_active ? "Active" : "Inactive"}
+              </span>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* UPDATE DIALOG */}
+      {/* Update Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-lg rounded-2xl">
           <DialogHeader>
@@ -140,6 +151,7 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
           </DialogHeader>
 
           <form
+            className="space-y-4"
             onSubmit={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -150,16 +162,18 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
               name="name"
               children={(f) => <f.TextField label="Restaurant Name" />}
             />
+
             <form.AppField
               name="opening_time"
               children={(f) => <f.TextField label="Opening Time" type="time" />}
             />
+
             <form.AppField
               name="closing_time"
               children={(f) => <f.TextField label="Closing Time" type="time" />}
             />
 
-            <DialogFooter className="mt-4">
+            <DialogFooter className="pt-2">
               <Button
                 variant="outline"
                 type="button"
@@ -167,11 +181,9 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
               >
                 Cancel
               </Button>
+
               <form.AppForm>
-                <div>
-                  {" "}
-                  <form.SubmitButton>Save changes</form.SubmitButton>
-                </div>
+                <form.SubmitButton>Save Changes</form.SubmitButton>
               </form.AppForm>
             </DialogFooter>
           </form>
@@ -180,8 +192,6 @@ function RestaurantForm({ restaurant }: { restaurant: Restaurant }) {
     </>
   );
 }
-
-// ─── Outer Component (handles loading/error) ─────────────────────────────────
 
 const RestaurantGeneralSettingsComp = () => {
   const restaurantID = Route.useParams().restaurantID;
@@ -208,7 +218,6 @@ const RestaurantGeneralSettingsComp = () => {
     );
   }
 
-  // ✅ Only renders RestaurantForm when real data exists
   return <RestaurantForm restaurant={restaurant} />;
 };
 
