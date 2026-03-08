@@ -1,20 +1,27 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  Wallet,
-  BarChart3,
-  BookOpen,
-  Settings,
-  ArrowRight,
-} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Building2, MapPin, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useNavigate } from "@tanstack/react-router";
+import { Route } from "@/routes/_appuser/dashboard/sharp_accounting/index";
+
+type LegalEntity = {
+  id: string;
+  name: string;
+  type: string;
+  addressLine: string;
+  country: string;
+  state: string;
+  city: string;
+  pincode: string;
+  gst: string | null;
+  cinNumber: string | null;
+  panNumber: string | null;
+};
 
 export function AccountingWelcomePage() {
+  const navigate = useNavigate();
+  const { legalEntities } = Route.useLoaderData();
+
   return (
     <div className="p-6 space-y-10">
       {/* ================= Hero ================= */}
@@ -22,99 +29,72 @@ export function AccountingWelcomePage() {
         <h1 className="text-3xl font-semibold tracking-tight">
           Welcome to <span className="text-primary">Sharp Accounting</span>
         </h1>
+
         <p className="text-muted-foreground max-w-2xl">
-          Manage books, track transactions, and generate financial reports —
-          all in one clean, reliable accounting workspace.
+          Manage books, track transactions, and generate financial reports — all
+          in one clean, reliable accounting workspace.
         </p>
       </div>
 
-      {/* ================= Quick Actions ================= */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="hover:shadow-md transition">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <Wallet className="h-6 w-6 text-muted-foreground" />
-            <CardTitle className="text-base">Overview</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Get a quick snapshot of balances, cash flow, and totals.
-            </CardDescription>
-          </CardContent>
-        </Card>
+      {/* ================= Legal Entities ================= */}
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Select Legal Entity</h2>
 
-        <Card className="hover:shadow-md transition">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <BookOpen className="h-6 w-6 text-muted-foreground" />
-            <CardTitle className="text-base">Ledger</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Maintain clean and accurate accounting ledgers.
-            </CardDescription>
-          </CardContent>
-        </Card>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {legalEntities?.map((entity: LegalEntity, index: number) => {
+            return (
+              <motion.div
+                key={entity.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.05,
+                }}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Card
+                  className="cursor-pointer hover:shadow-lg transition-shadow border-border/60"
+                  onClick={() => {
+                    navigate({
+                      to: "/dashboard/sharp_accounting/overview",
+                      search: { entityId: entity.id },
+                    });
+                  }}
+                >
+                  <CardHeader className="flex flex-row items-center gap-3 pb-2">
+                    <div className="bg-primary/10 text-primary p-2 rounded-xl">
+                      <Building2 className="size-5" />
+                    </div>
 
-        <Card className="hover:shadow-md transition">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <BarChart3 className="h-6 w-6 text-muted-foreground" />
-            <CardTitle className="text-base">Reports</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Generate balance sheets, P&L, and financial reports.
-            </CardDescription>
-          </CardContent>
-        </Card>
+                    <CardTitle className="text-base font-semibold">
+                      {entity.name}
+                    </CardTitle>
+                  </CardHeader>
 
-        <Card className="hover:shadow-md transition">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <Settings className="h-6 w-6 text-muted-foreground" />
-            <CardTitle className="text-base">Setup</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CardDescription>
-              Configure accounting books, groups, and preferences.
-            </CardDescription>
-          </CardContent>
-        </Card>
+                  <CardContent className="space-y-2 pt-2">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <MapPin className="size-3.5" />
+                      <span>
+                        {entity.city}, {entity.state}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="text-xs text-muted-foreground">
+                        {entity.type}
+                      </span>
+
+                      <ArrowRight className="size-4 opacity-60" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
-
-      {/* ================= Getting Started ================= */}
-      <Card className="max-w-3xl">
-        <CardHeader>
-          <CardTitle>Getting Started</CardTitle>
-          <CardDescription>
-            Follow these steps to start managing your accounting efficiently.
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between border rounded-md p-3">
-            <span className="text-sm">
-              1. Create or select an accounting book
-            </span>
-            <ArrowRight className="h-4 w-4 text-muted-foreground" />
-          </div>
-
-          <div className="flex items-center justify-between border rounded-md p-3">
-            <span className="text-sm">
-              2. Define accounting groups and ledgers
-            </span>
-            <ArrowRight className="h-4 w-4 text-muted-foreground" />
-          </div>
-
-          <div className="flex items-center justify-between border rounded-md p-3">
-            <span className="text-sm">
-              3. Start recording transactions
-            </span>
-            <ArrowRight className="h-4 w-4 text-muted-foreground" />
-          </div>
-
-          <Button className="mt-4 w-fit">
-            Go to Accounting Setup
-          </Button>
-        </CardContent>
-      </Card>
     </div>
   );
 }

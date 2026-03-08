@@ -14,10 +14,18 @@ const MenuRootComponent = ({ children, OwnerID }: MenuRootComponentProps) => {
   const setMenuData = useMenuStore((s) => s.setMenuData);
 
   useEffect(() => {
-    if (data?.length) {
-      setMenuData(data[0]);
-    }
-  }, [data]);
+    if (!data?.length) return;
+
+    const mergedMenu = {
+      id: "merged-menu",
+      menu_name: "All Menus",
+      menu_description: "",
+      preferred_kitchen: null,
+      categories: data.flatMap((menu: any) => menu.categories),
+    };
+
+    setMenuData(mergedMenu);
+  }, [data, setMenuData]);
 
   return (
     <MenuSectionContext.Provider

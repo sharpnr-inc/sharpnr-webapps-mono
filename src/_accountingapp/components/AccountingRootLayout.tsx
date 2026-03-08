@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet, Link } from "@tanstack/react-router";
 import {
   Sidebar,
@@ -16,26 +15,15 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import {
   Wallet,
   BarChart3,
   Settings,
-  Building2,
-  ChevronsUpDown,
-  Check,
   DollarSignIcon,
   BadgeDollarSignIcon,
 } from "lucide-react";
 
-/* ================================
-   Sidebar Config (shadcn compatible)
-================================ */
 const accountingSidebar = [
   {
     group: "Overview",
@@ -127,58 +115,14 @@ const accountingSidebar = [
 ];
 
 /* ================================
-   Dummy Legal Entities
-================================ */
-const LEGAL_ENTITIES = [
-  "Sharp Hospitality Pvt Ltd",
-  "Sharp Foods LLP",
-];
-
-/* ================================
    Layout
 ================================ */
 const AccountingRootLayout = () => {
-  const [selectedEntity, setSelectedEntity] = useState(LEGAL_ENTITIES[0]);
-
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
         <SidebarContent>
-          {/* ========= Legal Entity Switcher ========= */}
-          <div className="p-1 m-1">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex size-8 items-center justify-center rounded-lg">
-                    <Building2 className="size-4" />
-                  </div>
-                  <div className="flex flex-col leading-none">
-                    <span className="font-medium truncate">
-                      {selectedEntity}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      Legal Entity
-                    </span>
-                  </div>
-                  <ChevronsUpDown className="ml-auto size-4 opacity-60" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="start" className="min-w-[240px]">
-                {LEGAL_ENTITIES.map((entity) => (
-                  <DropdownMenuItem
-                    key={entity}
-                    onSelect={() => setSelectedEntity(entity)}
-                  >
-                    {entity}
-                    {entity === selectedEntity && (
-                      <Check className="ml-auto size-4" />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          {/* Here Switcher Goes */}
 
           {/* ========= Sidebar ========= */}
           {accountingSidebar.map((section) => (
