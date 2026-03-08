@@ -79,6 +79,7 @@ const CreateCategory = () => {
   const menuForm = useAppForm({
     defaultValues: {
       owner_id: ownersID,
+      preferred_kitchen: "",
       menu_name: "",
       menu_description: "",
       organization_id: "",
@@ -323,6 +324,41 @@ const CreateCategory = () => {
               menuForm.handleSubmit();
             }}
           >
+            <menuForm.AppField name="preferred_kitchen">
+              {(f) => (
+                <Select
+                  value={f.state.value}
+                  onValueChange={(value) => f.handleChange(value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select preferred kitchen" />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    {kitchens?.map((kitchen) => (
+                      <SelectItem key={kitchen.id} value={kitchen.id}>
+                        <div className="flex w-full items-center justify-between">
+                          {/* Kitchen Name */}
+                          <span className="font-medium">{kitchen.name}</span>
+
+                          {/* Status */}
+                          <span
+                            className={`text-xs px-2 py-0.5 rounded-md ${
+                              kitchen.status
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                          >
+                            {kitchen.status ? "Active" : "Inactive"}
+                          </span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            </menuForm.AppField>
+
             <menuForm.AppField name="menu_name">
               {(f) => <f.TextField label="Menu Name" />}
             </menuForm.AppField>

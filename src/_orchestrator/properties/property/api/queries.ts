@@ -20,7 +20,7 @@ export function useProperties() {
 export const PROPERTY_DETAILS_QK = (propertyID: string) =>
   ["property", "details", propertyID] as const;
 
-export function usePropertyDetails(propertyID: string) {
+export function usePropertyDetails(propertyID: string | undefined) {
   return useQuery<APIResponse<PropertyDetailsData>>({
     queryKey: ["Property Details", propertyID],
     queryFn: () => GetPropertyDetails(propertyID),

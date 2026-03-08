@@ -5,7 +5,7 @@ import type { APIResponse } from "@/utilities/api_response";
 const PropertyEndpoints = {
   AddProperty: "/orchestrator/console/property/create",
   allProperty: "/orchestrator/console/property",
-  PropertyDetails: (propID: string) =>
+  PropertyDetails: (propID: string | undefined) =>
     `/orchestrator/console/property/${propID}`,
   AddDomain: (propertyID: string) =>
     `/orchestrator/console/property/${propertyID}/add-domain`,
@@ -106,7 +106,7 @@ export interface PropertyDetailsData {
 }
 
 export async function GetPropertyDetails(
-  propertyID: string,
+  propertyID: string | undefined,
 ): Promise<APIResponse<PropertyDetailsData>> {
   const res = await api.get<APIResponse<PropertyDetailsData>>(
     PropertyEndpoints.PropertyDetails(propertyID),
