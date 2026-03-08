@@ -2,6 +2,9 @@ export const RestaurantEndpoints = {
   Layout: (restaurantID?: string | null) =>
     `/sharp-hospitality/restaurant/${restaurantID}/layout`,
 
+  ActivateOrDeactivaeRestaurant: (restaurantID: string, resSwitch: boolean) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/configs/activate-deactivate/${resSwitch}`,
+
   AddPreferredKitchen: (restaurantID: string, kitchenID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/configs/add-preferred-kitchen/${kitchenID}`,
 

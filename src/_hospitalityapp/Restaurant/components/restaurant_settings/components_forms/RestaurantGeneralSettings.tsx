@@ -25,6 +25,8 @@ import type { RestaurantGeneralInfoInterface } from "@/_hospitalityapp/Restauran
 import { ProcessRestaurantConfigurationStatus } from "@/_hospitalityapp/Restaurant/utils/CongifurationStatus";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import api from "@/middlewares/axios";
+import { RestaurantEndpoints } from "@/_hospitalityapp/Restaurant/apis/enpoints";
 
 interface RestaurantFormProps {
   restaurant: RestaurantGeneralInfoInterface;
@@ -78,6 +80,16 @@ function RestaurantForm({ restaurant }: RestaurantFormProps) {
       );
     },
   });
+
+  const handleRestaurantActivateOrDeactivate = async (checked: boolean) => {
+    await api.patch(
+      RestaurantEndpoints.ActivateOrDeactivaeRestaurant(restaurantID, checked),
+    );
+
+    await q.invalidateQueries({
+      queryKey: ["Restaurant", "GeneralInfo", restaurantID],
+    });
+  };
 
   return (
     <>
@@ -163,7 +175,11 @@ function RestaurantForm({ restaurant }: RestaurantFormProps) {
                   </p>
                 </div>
 
-                <Switch id="restaurant-active" checked={restaurant.is_active} />
+                <Switch
+                  id="restaurant-active"
+                  checked={restaurant.is_active}
+                  onCheckedChange={handleRestaurantActivateOrDeactivate}
+                />
               </div>
             </CardContent>
           </Card>
