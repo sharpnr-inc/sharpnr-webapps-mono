@@ -1,13 +1,11 @@
-import RestaurantSettings from "@/_hospitalityapp/Restaurant/components/restaurant_settings/RestaurantSettings";
+import RestaurantSettingsTabs from "@/_hospitalityapp/Restaurant/components/restaurant_settings/RestaurantSettingsTabs";
 
 interface RestaurantDashboardPageProps {}
 
 const RestaurantDashboardPage: React.FC<RestaurantDashboardPageProps> = () => {
   return (
     <div>
-      <RestaurantSettings>
-        <RestaurantSettings.RestaurantSettingsTabs />
-      </RestaurantSettings>
+      <RestaurantSettingsTabs />
     </div>
   );
 };
