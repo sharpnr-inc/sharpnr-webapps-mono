@@ -10,7 +10,10 @@ export function RestaurantSaleTerminalMenuRoot({
   children,
   restaurantID,
 }: RestaurantSaleTerminalMenuRootProps) {
-  //   const { data } = useModulesMenu(restaurantID);
+  const { data } = useModulesMenu(restaurantID);
+  console.log(data);
+
+  // Here we Inject the Menu In the Zustand Store
 
   return (
     <SaleTerminalMenuSectionContext.Provider
