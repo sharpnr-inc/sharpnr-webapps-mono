@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
 import { SaleTerminalMenuSectionContext } from "./SaleTerminalMenuContext";
+import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 
 interface RestaurantSaleTerminalMenuRootProps {
   restaurantID: string;
@@ -11,9 +13,14 @@ export function RestaurantSaleTerminalMenuRoot({
   restaurantID,
 }: RestaurantSaleTerminalMenuRootProps) {
   const { data } = useModulesMenu(restaurantID);
-  console.log(data);
 
-  // Here we Inject the Menu In the Zustand Store
+  const setMenu = useSalePosTerminalMenuStore((s) => s.setMenu);
+
+  useEffect(() => {
+    if (data?.data) {
+      setMenu(data.data);
+    }
+  }, [data, setMenu]);
 
   return (
     <SaleTerminalMenuSectionContext.Provider
