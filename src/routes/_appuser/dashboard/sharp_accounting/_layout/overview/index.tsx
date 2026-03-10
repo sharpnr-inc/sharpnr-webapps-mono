@@ -1,11 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { AccountingOverviewPage } from "@/_accountingapp/pages/Overview/AccountingOverviewPage";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/dashboard/sharp_accounting/_layout/overview/',
+  "/_appuser/dashboard/sharp_accounting/_layout/overview/",
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/_appuser/dashboard/sharp_accounting/overview/"!</div>
-}
+  component: AccountingOverviewPage,
+});

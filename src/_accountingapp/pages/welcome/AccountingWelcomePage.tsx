@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, MapPin, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
-import { Route } from "@/routes/_appuser/dashboard/sharp_accounting/index";
+import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
 
 type LegalEntity = {
   id: string;
@@ -18,9 +18,13 @@ type LegalEntity = {
   panNumber: string | null;
 };
 
-export function AccountingWelcomePage() {
+export function AccountingLegalEntityPage() {
   const navigate = useNavigate();
-  const { legalEntities } = Route.useLoaderData();
+
+  const legalEntities = useAccountingStore((s) => s.legalEntities);
+  const setSelectedLegalEntity = useAccountingStore(
+    (s) => s.setSelectedLegalEntity,
+  );
 
   return (
     <div className="p-6 space-y-10">
@@ -57,9 +61,15 @@ export function AccountingWelcomePage() {
                 <Card
                   className="cursor-pointer hover:shadow-lg transition-shadow border-border/60"
                   onClick={() => {
+                    // Set selected entity in store
+                    setSelectedLegalEntity(entity);
+
                     navigate({
                       to: "/dashboard/sharp_accounting/overview",
-                      search: { entityId: entity.id },
+                      search: {
+                        entity_id: entity.id,
+                        entity_name: entity.name,
+                      },
                     });
                   }}
                 >

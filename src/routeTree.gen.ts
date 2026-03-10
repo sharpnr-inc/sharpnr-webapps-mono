@@ -58,7 +58,6 @@ import { Route as AppuserDashboardSharp_hospitalityHotelIndexRouteImport } from 
 import { Route as AppuserDashboardSharp_hospitalityBarIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/index'
 import { Route as AppuserDashboardSharp_hrLeavesRequestsRouteImport } from './routes/_appuser/dashboard/sharp_hr/leaves/requests'
 import { Route as AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/$employeeId'
-import { Route as AppuserDashboardSharp_accountingLayoutDashboardRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/Dashboard'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/route'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/index'
@@ -398,12 +397,6 @@ const AppuserDashboardSharp_hrEmployeesEmployeeIdRoute =
     id: '/$employeeId',
     path: '/$employeeId',
     getParentRoute: () => AppuserDashboardSharp_hrEmployeesRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutDashboardRoute =
-  AppuserDashboardSharp_accountingLayoutDashboardRouteImport.update({
-    id: '/Dashboard',
-    path: '/Dashboard',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport.update(
@@ -825,7 +818,6 @@ export interface FileRoutesByFullPath {
   '/iam/tasks': typeof AppuserIamTasksIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
   '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  '/dashboard/sharp_accounting/Dashboard': typeof AppuserDashboardSharp_accountingLayoutDashboardRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof AppuserDashboardSharp_hrLeavesRequestsRoute
   '/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
@@ -916,7 +908,6 @@ export interface FileRoutesByTo {
   '/iam/requests': typeof AppuserIamRequestsIndexRoute
   '/iam/tasks': typeof AppuserIamTasksIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
-  '/dashboard/sharp_accounting/Dashboard': typeof AppuserDashboardSharp_accountingLayoutDashboardRoute
   '/dashboard/sharp_hr/employees/$employeeId': typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   '/dashboard/sharp_hr/leaves/requests': typeof AppuserDashboardSharp_hrLeavesRequestsRoute
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
@@ -1019,7 +1010,6 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_accounting/_layout/Dashboard': typeof AppuserDashboardSharp_accountingLayoutDashboardRoute
   '/_appuser/dashboard/sharp_hr/employees/$employeeId': typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRoute
   '/_appuser/dashboard/sharp_hr/leaves/requests': typeof AppuserDashboardSharp_hrLeavesRequestsRoute
   '/_appuser/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
@@ -1121,7 +1111,6 @@ export interface FileRouteTypes {
     | '/iam/tasks'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/orchestrator/legal_entity'
-    | '/dashboard/sharp_accounting/Dashboard'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
     | '/dashboard/sharp_hospitality/bar/'
@@ -1212,7 +1201,6 @@ export interface FileRouteTypes {
     | '/iam/requests'
     | '/iam/tasks'
     | '/dashboard/sharp_hospitality/restaurant'
-    | '/dashboard/sharp_accounting/Dashboard'
     | '/dashboard/sharp_hr/employees/$employeeId'
     | '/dashboard/sharp_hr/leaves/requests'
     | '/dashboard/sharp_hospitality/bar'
@@ -1314,7 +1302,6 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/restaurant'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
-    | '/_appuser/dashboard/sharp_accounting/_layout/Dashboard'
     | '/_appuser/dashboard/sharp_hr/employees/$employeeId'
     | '/_appuser/dashboard/sharp_hr/leaves/requests'
     | '/_appuser/dashboard/sharp_hospitality/bar/'
@@ -1734,13 +1721,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/sharp_hr/employees/$employeeId'
       preLoaderRoute: typeof AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport
       parentRoute: typeof AppuserDashboardSharp_hrEmployeesRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/Dashboard': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/Dashboard'
-      path: '/Dashboard'
-      fullPath: '/dashboard/sharp_accounting/Dashboard'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutDashboardRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
@@ -2392,7 +2372,6 @@ const AppuserDashboardSharp_marketingRouteRouteWithChildren =
   )
 
 interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
-  AppuserDashboardSharp_accountingLayoutDashboardRoute: typeof AppuserDashboardSharp_accountingLayoutDashboardRoute
   AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute: typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
   AppuserDashboardSharp_accountingLayoutReportsLedgerRoute: typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute: typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
@@ -2407,8 +2386,6 @@ interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
 
 const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboardSharp_accountingLayoutRouteRouteChildren =
   {
-    AppuserDashboardSharp_accountingLayoutDashboardRoute:
-      AppuserDashboardSharp_accountingLayoutDashboardRoute,
     AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute:
       AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute,
     AppuserDashboardSharp_accountingLayoutReportsLedgerRoute:

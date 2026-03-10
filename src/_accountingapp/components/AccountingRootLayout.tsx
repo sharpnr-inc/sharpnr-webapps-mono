@@ -14,105 +14,19 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
+  useSidebar,
+  SidebarHeader,
 } from "@/components/ui/sidebar";
 
+import { Building2, Check, ChevronsUpDown } from "lucide-react";
+import { useAccountingStore } from "../store/accounting.store";
 import {
-  Wallet,
-  BarChart3,
-  Settings,
-  DollarSignIcon,
-  BadgeDollarSignIcon,
-} from "lucide-react";
-
-const accountingSidebar = [
-  {
-    group: "Overview",
-    items: [
-      {
-        label: "Dashboard",
-        icon: BarChart3,
-        to: "/dashboard/sharp_accounting/overview",
-      },
-    ],
-  },
-  {
-    group: "Master Data",
-    items: [
-      {
-        label: "Chart of Accounts",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/chart-of-account",
-      },
-      {
-        label: "Tax",
-        icon: BadgeDollarSignIcon,
-        children: [
-          {
-            label: "Tax Codes",
-            to: "/dashboard/sharp_accounting/tax-codes",
-          },
-          {
-            label: "Tax Rates",
-            to: "/dashboard/sharp_accounting/tax-rates",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    group: "Operations",
-    items: [
-      {
-        label: "Transactions",
-        icon: DollarSignIcon,
-        to: "/dashboard/sharp_accounting/transactions",
-      },
-      {
-        label: "Expenses",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/expenses",
-      },
-      {
-        label: "Ledger",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/ledger",
-      },
-    ],
-  },
-  {
-    group: "Reports",
-    items: [
-      {
-        label: "Reports",
-        icon: BarChart3,
-        children: [
-          {
-            label: "Trial Balance",
-            to: "/dashboard/sharp_accounting/reports/trial-balance",
-          },
-          {
-            label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/pnl",
-          },
-          {
-            label: "Balance Sheet",
-            to: "/dashboard/sharp_accounting/reports/balance-sheet",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    group: "Controls",
-    items: [
-      {
-        label: "Settings",
-        icon: Settings,
-        to: "/dashboard/sharp_accounting/settings",
-      },
-    ],
-  },
-];
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { accountingSidebar } from "./AccountingNavs";
 
 /* ================================
    Layout
@@ -121,10 +35,10 @@ const AccountingRootLayout = () => {
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
+        <SidebarHeader>
+          <LegalEntitySwitcher />
+        </SidebarHeader>
         <SidebarContent>
-          {/* Here Switcher Goes */}
-
-          {/* ========= Sidebar ========= */}
           {accountingSidebar.map((section) => (
             <SidebarGroup key={section.group}>
               <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
@@ -187,3 +101,68 @@ const AccountingRootLayout = () => {
 };
 
 export default AccountingRootLayout;
+
+export function LegalEntitySwitcher() {
+  const { state } = useSidebar(); // expanded | collapsed
+
+  const legalEntities = useAccountingStore((s) => s.legalEntities);
+  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
+  const setSelectedLegalEntity = useAccountingStore(
+    (s) => s.setSelectedLegalEntity,
+  );
+
+  const isCollapsed = state === "collapsed";
+
+  return (
+    <SidebarMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <SidebarMenuButton
+            size="lg"
+            tooltip={isCollapsed ? selectedLegalEntity?.name : undefined}
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          >
+            {/* ICON */}
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <Building2 className="size-4" />
+            </div>
+
+            {/* TEXT (hidden when collapsed) */}
+            {!isCollapsed && (
+              <>
+                <div className="flex flex-col gap-0.5 leading-none overflow-hidden">
+                  <span className="font-medium truncate">
+                    {selectedLegalEntity?.name ?? "Select Legal Entity"}
+                  </span>
+
+                  <span className="text-xs text-muted-foreground truncate">
+                    {selectedLegalEntity
+                      ? `${selectedLegalEntity.city}, ${selectedLegalEntity.state}`
+                      : "Accounting Workspace"}
+                  </span>
+                </div>
+
+                <ChevronsUpDown className="ml-auto size-4 opacity-50" />
+              </>
+            )}
+          </SidebarMenuButton>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="start" className="min-w-56">
+          {legalEntities.map((entity: any) => (
+            <DropdownMenuItem
+              key={entity.id}
+              onSelect={() => setSelectedLegalEntity(entity)}
+            >
+              {entity.name}
+
+              {entity.id === selectedLegalEntity?.id && (
+                <Check className="ml-auto size-4" />
+              )}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </SidebarMenuItem>
+  );
+}
