@@ -60,16 +60,12 @@ export function AccountingLegalEntityPage() {
               >
                 <Card
                   className="cursor-pointer hover:shadow-lg transition-shadow border-border/60"
-                  onClick={() => {
+                  onClick={async () => {
                     // Set selected entity in store
                     setSelectedLegalEntity(entity);
 
-                    navigate({
+                    await navigate({
                       to: "/dashboard/sharp_accounting/overview",
-                      search: {
-                        entity_id: entity.id,
-                        entity_name: entity.name,
-                      },
                     });
                   }}
                 >

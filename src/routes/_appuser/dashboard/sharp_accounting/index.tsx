@@ -1,4 +1,4 @@
-import { AccountingLegalEntityPage } from "@/_accountingapp/pages/welcome/AccountingWelcomePage";
+import { AccountingLegalEntityPage } from "@/_accountingapp/components/AccountingLegalEntitySwitcher";
 import { GetLegalEntities } from "@/_orchestrator/legal_entity/api/legalEntity.api.service";
 import { createFileRoute } from "@tanstack/react-router";
 import { useAccountingStore } from "@/_accountingapp/store/accounting.store";

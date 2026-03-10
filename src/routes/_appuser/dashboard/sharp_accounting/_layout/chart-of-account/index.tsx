@@ -1,13 +1,19 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { ChartOfAccountingPage } from "@/_accountingapp/pages/ChartOfAccounts/ChartOfAccountsPage";
+import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/',
+  "/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/",
 )({
-  component: RouteComponent,
-})
+  beforeLoad: () => {
+    const selectedLegalEntity =
+      useAccountingStore.getState().selectedLegalEntity;
 
-function RouteComponent() {
-  return (
-    <div>Hello "/_appuser/dashboard/sharp_accounting/chart-of-account/"!</div>
-  )
-}
+    if (!selectedLegalEntity) {
+      throw redirect({
+        to: "/dashboard/sharp_accounting",
+      });
+    }
+  },
+  component: ChartOfAccountingPage,
+});

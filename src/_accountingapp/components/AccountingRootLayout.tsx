@@ -27,11 +27,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { accountingSidebar } from "./AccountingNavs";
+import { useMatchRoute } from "@tanstack/react-router";
 
 /* ================================
    Layout
 ================================ */
 const AccountingRootLayout = () => {
+  const matchRoute = useMatchRoute();
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">

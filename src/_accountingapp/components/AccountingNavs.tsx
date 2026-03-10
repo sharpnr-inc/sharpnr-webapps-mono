@@ -31,7 +31,7 @@ export const accountingSidebar = [
         children: [
           {
             label: "Tax Codes",
-            to: "/dashboard/sharp_accounting/tax-codes",
+            to: "/dashboard/sharp_accounting/taxations/tax_codes",
           },
           {
             label: "Tax Rates",

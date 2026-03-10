@@ -89,6 +89,7 @@ import { Route as AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport
 import { Route as AppuserDashboardSharp_accountingLayoutLedgerIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/ledger/index'
 import { Route as AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
+import { Route as AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsProfitLossRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsLedgerRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/ledger'
@@ -599,6 +600,12 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute =
         AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
     } as any,
   )
+const AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute =
+  AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRouteImport.update({
+    id: '/taxations/tax_codes',
+    path: '/taxations/tax_codes',
+    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
+  } as any)
 const AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute =
   AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRouteImport.update({
     id: '/reports/trial-balance',
@@ -835,6 +842,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
   '/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
+  '/dashboard/sharp_accounting/taxations/tax_codes': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
   '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
   '/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLayoutLedgerIndexRoute
@@ -923,6 +931,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
   '/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
+  '/dashboard/sharp_accounting/taxations/tax_codes': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
   '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
   '/dashboard/sharp_accounting/ledger': typeof AppuserDashboardSharp_accountingLayoutLedgerIndexRoute
@@ -1027,6 +1036,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/_layout/reports/ledger': typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
   '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance': typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
+  '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/ledger/': typeof AppuserDashboardSharp_accountingLayoutLedgerIndexRoute
@@ -1128,6 +1138,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
     | '/dashboard/sharp_accounting/reports/trial-balance'
+    | '/dashboard/sharp_accounting/taxations/tax_codes'
     | '/orchestrator/property/routes'
     | '/dashboard/sharp_accounting/chart-of-account'
     | '/dashboard/sharp_accounting/ledger'
@@ -1216,6 +1227,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
     | '/dashboard/sharp_accounting/reports/trial-balance'
+    | '/dashboard/sharp_accounting/taxations/tax_codes'
     | '/orchestrator/property/routes'
     | '/dashboard/sharp_accounting/chart-of-account'
     | '/dashboard/sharp_accounting/ledger'
@@ -1319,6 +1331,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/ledger'
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance'
+    | '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
     | '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/'
     | '/_appuser/dashboard/sharp_accounting/_layout/ledger/'
@@ -1939,6 +1952,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
+    '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes': {
+      id: '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes'
+      path: '/taxations/tax_codes'
+      fullPath: '/dashboard/sharp_accounting/taxations/tax_codes'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
+    }
     '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance': {
       id: '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance'
       path: '/reports/trial-balance'
@@ -2376,6 +2396,7 @@ interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
   AppuserDashboardSharp_accountingLayoutReportsLedgerRoute: typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute: typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
   AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute: typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
+  AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
   AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
   AppuserDashboardSharp_accountingLayoutLedgerIndexRoute: typeof AppuserDashboardSharp_accountingLayoutLedgerIndexRoute
   AppuserDashboardSharp_accountingLayoutOverviewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
@@ -2394,6 +2415,8 @@ const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboard
       AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute,
     AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute:
       AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute,
+    AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute:
+      AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute,
     AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute:
       AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute,
     AppuserDashboardSharp_accountingLayoutLedgerIndexRoute:
