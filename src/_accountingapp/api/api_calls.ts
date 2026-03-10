@@ -15,8 +15,11 @@ import type { TransactionsParams } from "./queries/transactions";
  * @returns {Promise<any>}
  * @exports
  */
-export const GetAllAccountingBooksOfOrg = async () => {
-  const res = await api.get(AccountingAppAPIEndpoints.Books.get_ac_allBooks);
+
+export const GetAllAccountingBooksOfOrg = async (legalEntityID: string) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Books.get_ac_Books(legalEntityID),
+  );
   return res.data;
 };
 

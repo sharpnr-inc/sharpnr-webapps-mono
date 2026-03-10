@@ -30,6 +30,10 @@ export const accountingSidebar = [
         icon: BadgeDollarSignIcon,
         children: [
           {
+            label: "Tax Registration",
+            to: "/dashboard/sharp_accounting/taxations",
+          },
+          {
             label: "Tax Codes",
             to: "/dashboard/sharp_accounting/taxations/tax_codes",
           },

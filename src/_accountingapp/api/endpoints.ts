@@ -3,7 +3,8 @@
 // All the the points are go through the middleware in the which add the cookies in the requests
 export const AccountingAppAPIEndpoints = {
   Books: {
-    get_ac_allBooks: "/accounting/books",
+    get_ac_Books: (legalEntityID: string) =>
+      `/accounting/${legalEntityID}/books`,
   },
 
   AccountingGroups: {
@@ -12,17 +13,18 @@ export const AccountingAppAPIEndpoints = {
 
   Accounts: {
     GetAccounts: (groupId: string) => `/accounting/account/${groupId}`,
-    CreateAccount:(bookId:string)=> `/accounting/books/${bookId}/create-account`
+    CreateAccount: (bookId: string) =>
+      `/accounting/books/${bookId}/create-account`,
   },
 
-  AccountMapping:{
-    GetAccountMappings:"/accounting/mappings",
-    CreateAccountMapping:"/accounting/mappings"
+  AccountMapping: {
+    GetAccountMappings: "/accounting/mappings",
+    CreateAccountMapping: "/accounting/mappings",
   },
 
-  Transactions:{
-    GetTransactions:"/accounting/transactions",
-    GetTransactionDetails:(transactionId:string)=> `/accounting/transactions/entry/${transactionId}`
-  }
+  Transactions: {
+    GetTransactions: "/accounting/transactions",
+    GetTransactionDetails: (transactionId: string) =>
+      `/accounting/transactions/entry/${transactionId}`,
+  },
 };
-
