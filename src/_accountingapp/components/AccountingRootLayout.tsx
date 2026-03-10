@@ -1,4 +1,4 @@
-import { Outlet, Link } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +18,7 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 
-import { Building2, Check, ChevronsUpDown } from "lucide-react";
+import { Building2, Check, ChevronDown, ChevronsUpDown } from "lucide-react";
 import { useAccountingStore } from "../store/accounting.store";
 import {
   DropdownMenu,
@@ -27,20 +27,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { accountingSidebar } from "./AccountingNavs";
-import { useMatchRoute } from "@tanstack/react-router";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 /* ================================
    Layout
 ================================ */
 const AccountingRootLayout = () => {
-  const matchRoute = useMatchRoute();
-
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <LegalEntitySwitcher />
         </SidebarHeader>
+
         <SidebarContent>
           {accountingSidebar.map((section) => (
             <SidebarGroup key={section.group}>
@@ -48,39 +52,68 @@ const AccountingRootLayout = () => {
 
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {section.items.map((item) => (
-                    <SidebarMenuItem key={item.label}>
-                      {/* 🔽 WITH CHILDREN (shadcn dropdown) */}
-                      {item.children ? (
-                        <>
-                          <SidebarMenuButton>
-                            <item.icon />
-                            <span>{item.label}</span>
-                          </SidebarMenuButton>
+                  {section.items.map((item) =>
+                    item.children ? (
+                      // ✅ PARENT WITH CHILDREN — Collapsible, not a link
+                      <Collapsible
+                        key={item.label}
+                        // Auto-open if any child is active
+                        defaultOpen={item.children.some((c) =>
+                          pathname.startsWith(c.to),
+                        )}
+                        className="group/collapsible"
+                      >
+                        <SidebarMenuItem>
+                          <CollapsibleTrigger asChild>
+                            <SidebarMenuButton
+                              // ✅ Highlight parent if a child route is active
+                              isActive={item.children.some((c) =>
+                                pathname.startsWith(c.to),
+                              )}
+                              tooltip={item.label}
+                            >
+                              <item.icon />
+                              <span>{item.label}</span>
+                              {/* Rotates when open */}
+                              <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                            </SidebarMenuButton>
+                          </CollapsibleTrigger>
 
-                          <SidebarMenuSub>
-                            {item.children.map((child) => (
-                              <SidebarMenuSubItem key={child.label}>
-                                <SidebarMenuSubButton asChild>
-                                  <Link to={child.to}>
-                                    <span>{child.label}</span>
-                                  </Link>
-                                </SidebarMenuSubButton>
-                              </SidebarMenuSubItem>
-                            ))}
-                          </SidebarMenuSub>
-                        </>
-                      ) : (
-                        /* 🔹 NORMAL LINK */
-                        <SidebarMenuButton asChild>
+                          <CollapsibleContent>
+                            <SidebarMenuSub>
+                              {item.children.map((child) => (
+                                <SidebarMenuSubItem key={child.label}>
+                                  <SidebarMenuSubButton
+                                    asChild
+                                    // ✅ Highlight the exact active child
+                                    isActive={pathname.startsWith(child.to)}
+                                  >
+                                    <Link to={child.to}>
+                                      <span>{child.label}</span>
+                                    </Link>
+                                  </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                              ))}
+                            </SidebarMenuSub>
+                          </CollapsibleContent>
+                        </SidebarMenuItem>
+                      </Collapsible>
+                    ) : (
+                      // ✅ NORMAL LINK — highlight when active
+                      <SidebarMenuItem key={item.label}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.to!)}
+                          tooltip={item.label}
+                        >
                           <Link to={item.to}>
                             <item.icon />
                             <span>{item.label}</span>
                           </Link>
                         </SidebarMenuButton>
-                      )}
-                    </SidebarMenuItem>
-                  ))}
+                      </SidebarMenuItem>
+                    ),
+                  )}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -88,13 +121,11 @@ const AccountingRootLayout = () => {
         </SidebarContent>
       </Sidebar>
 
-      {/* ========= Main ========= */}
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
           <span className="font-medium">Accounting</span>
         </header>
-
         <main className="flex-1 p-4">
           <Outlet />
         </main>
