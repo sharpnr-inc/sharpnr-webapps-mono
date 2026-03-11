@@ -7,6 +7,12 @@ export const AccountingAppAPIEndpoints = {
       `/accounting/${legalEntityID}/books`,
   },
 
+  ledger: {
+    getAll: (legalEntityID: string) => `accounting/${legalEntityID}/je/entries`,
+    entryDetails: (legalEntityID: string, entryID: string) =>
+      `/accounting/${legalEntityID}/je/entry/${entryID}`,
+  },
+
   AccountingGroups: {
     GetGroupsOfBooks: (bookID: string) => `/accounting/books/${bookID}/groups`,
   },

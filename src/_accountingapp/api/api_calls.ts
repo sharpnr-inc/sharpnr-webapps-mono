@@ -91,3 +91,20 @@ export const CreateAccountMapping = async (req: any) => {
   );
   return res.data;
 };
+
+export const GetLegder = async (legalEntityID: string) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.ledger.getAll(legalEntityID),
+  );
+  return res.data;
+};
+
+export const GetLegderEntryDetails = async (
+  legalEntityID: string,
+  entryID: string,
+) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.ledger.entryDetails(legalEntityID, entryID),
+  );
+  return res.data;
+};
