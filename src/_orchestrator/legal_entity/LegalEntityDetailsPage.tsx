@@ -3,10 +3,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Verified } from "lucide-react";
 import DetailsOverview from "./components/DetailsOverview";
 import DetailDocuments from "./components/DetailDocuments";
+import { TaxRegistration } from "./components/TaxRegistration";
+import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details";
 
 interface LegalEntityDetailsPageProps {}
 
-const LegalEntityDetailsPage: React.FC<LegalEntityDetailsPageProps> = () => {
+const LegalEntityDetailsPage: React.FC<LegalEntityDetailsPageProps> = ({}) => {
+  const { leID } = Route.useParams();
+
   return (
     <div className="p-2 space-y-2">
       <div className="space-y-1">
@@ -33,8 +37,7 @@ const LegalEntityDetailsPage: React.FC<LegalEntityDetailsPageProps> = () => {
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="documents">Doc&Certificates</TabsTrigger>
-            <TabsTrigger value="dm">Domain&Module</TabsTrigger>
-            <TabsTrigger value="tax_codes">Tax Codes & Setting</TabsTrigger>
+            <TabsTrigger value="tax_registration">Tax Registration</TabsTrigger>
             <TabsTrigger value="settings">General Settings</TabsTrigger>
             <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
@@ -47,8 +50,8 @@ const LegalEntityDetailsPage: React.FC<LegalEntityDetailsPageProps> = () => {
             <DetailDocuments />
           </TabsContent>
 
-          <TabsContent value="users" className="border p-2">
-            
+          <TabsContent value="tax_registration" className=" p-2">
+            <TaxRegistration />
           </TabsContent>
 
           <TabsContent value="settings"></TabsContent>
