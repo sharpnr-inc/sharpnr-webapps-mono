@@ -9,14 +9,24 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useFormsModal } from "@/context/FormModalContext";
-import { CodesDetails } from "./CodeDetails";
+import { AddTaxCategoryForm } from "./AddTaxCategoryForm";
+import { useLegalEntityAllTaxCategory } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
 
 export function Codes() {
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const { showModal, closeModal } = useFormsModal();
+  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
+  const { data: taxCategory } = useLegalEntityAllTaxCategory(
+    selectedLegalEntity?.id,
+  );
 
   const handleAddTaxCategory = () => {
-    showModal("Add Tax Code/Category", "something", <CodesDetails />);
+    showModal(
+      "Add Tax Code/Category",
+      "something",
+      <AddTaxCategoryForm closeModal={closeModal} />,
+    );
   };
 
   const categories = [

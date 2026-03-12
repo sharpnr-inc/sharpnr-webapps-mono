@@ -9,6 +9,8 @@ const legalEntityEntityPoints = {
     `/orchestrator/console/legal-entity/tax-registration/${legalEntityID}`,
   AddTaxCategoryORTaxCode: (legalEntityID: string) =>
     `/orchestrator/console/legal-entity/tax-category/${legalEntityID}/add `,
+  GetAllTaxCategory: (legalEntityID: string) =>
+    `orchestrator/console/legal-entity/tax-category/${legalEntityID}`,
 };
 
 export async function CreateLegalEntity(payload: any) {
@@ -72,10 +74,10 @@ export interface AddTaxCategoryPayload {
   receivable_account_id: string;
   income_account_id: string;
 
-  rule: AddTaxCategoryRule;
+  rule: AddTaxCategoryRulePayload;
 }
 
-export interface AddTaxCategoryRule {
+export interface AddTaxCategoryRulePayload {
   legal_entity_tax_registration_id: string;
 
   tax_type: string;
@@ -110,6 +112,15 @@ export async function AddTaxCategoryOrCodeInLegalEntity({
     payload,
   );
 
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function GetAllTaxCategoryOfLegalEntity(legalEntityID: string) {
+  const res = await api.get(
+    legalEntityEntityPoints.GetAllTaxCategory(legalEntityID),
+  );
   return res.data;
 }
 
