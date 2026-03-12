@@ -8,8 +8,6 @@ interface TaxCodesRootProps {
 
 export function TaxCodeRoot({ children }: TaxCodesRootProps) {
   return (
-    <TaxCodesContext.Provider value={{}}>
-      <div className="p-2 mt-4 ">{children}</div>
-    </TaxCodesContext.Provider>
+    <TaxCodesContext.Provider value={{}}>{children}</TaxCodesContext.Provider>
   );
 }

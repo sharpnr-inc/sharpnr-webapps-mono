@@ -8,7 +8,7 @@ import TaxCode from "@/_accountingapp/components/Taxation/TaxCode/TaxCode";
 export function TaxCodesPage() {
   return (
     <TaxCode>
-      <div className="flex gap-5">
+      <div className="flex">
         <div className=" p-2">
           <TaxCode.Codes />
         </div>

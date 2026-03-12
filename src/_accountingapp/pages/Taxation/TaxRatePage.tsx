@@ -48,7 +48,7 @@ export function TaxRatePage() {
   ];
 
   return (
-    <div className="p-6 font-sans">
+    <div className="p-2 font-sans">
       <header className="mb-12 border-b-4 border-black pb-6 flex justify-between items-end">
         <div>
           <h1 className="text-4xl font-black uppercase tracking-tighter italic">

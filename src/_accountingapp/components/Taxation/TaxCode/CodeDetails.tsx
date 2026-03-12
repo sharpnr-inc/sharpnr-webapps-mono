@@ -60,7 +60,7 @@ export function CodesDetails() {
   }
 
   return (
-    <div className="w-full space-y-6 p-6">
+    <div className="w-full space-y-4 p-2">
       {/* HEADER */}
 
       <div className="flex w-full items-center justify-between">
@@ -139,7 +139,7 @@ export function CodesDetails() {
               <Label>Tax Registration</Label>
 
               <Select>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Registration" />
                 </SelectTrigger>
 
@@ -186,7 +186,7 @@ export function CodesDetails() {
 
                 <TableCell>
                   <Select defaultValue="coa3">
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
 
@@ -220,7 +220,7 @@ export function CodesDetails() {
 
                 <TableCell>
                   <Select defaultValue="coa4">
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
 

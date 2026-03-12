@@ -1,4 +1,5 @@
 import {
+  AddTaxCategoryOrCodeInLegalEntity,
   AddTaxRegistration,
   CreateLegalEntity,
 } from "./legalEntity.api.service";
@@ -15,5 +16,12 @@ export function useAddTaxRegistrationMutation() {
   return useMutation({
     mutationFn: AddTaxRegistration,
     mutationKey: ["LEGAL_ENTITY", "TAX_REGISTRATION", "ADD"],
+  });
+}
+
+export function useADDTaxCategoryOrCode() {
+  return useMutation({
+    mutationFn: AddTaxCategoryOrCodeInLegalEntity,
+    mutationKey: ["LEGAL_ENTITY", "TAX_CATEGORY", "ADD"],
   });
 }

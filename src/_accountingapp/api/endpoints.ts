@@ -1,5 +1,5 @@
 // These are all endpoints related to the accounting applications
-//  right now these are divided in the sections of Books, Accounting Groups, and Accounts in the Accounting Groups
+// right now these are divided in the sections of Books, Accounting Groups, and Accounts in the Accounting Groups
 // All the the points are go through the middleware in the which add the cookies in the requests
 export const AccountingAppAPIEndpoints = {
   Books: {

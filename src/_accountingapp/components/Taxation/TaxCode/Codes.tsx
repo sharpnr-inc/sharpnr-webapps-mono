@@ -7,11 +7,18 @@ import {
 import { Plus, Search, Inbox } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useFormsModal } from "@/context/FormModalContext";
+import { CodesDetails } from "./CodeDetails";
 
 export function Codes() {
   const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const { showModal, closeModal } = useFormsModal();
 
-  // Mock Data
+  const handleAddTaxCategory = () => {
+    showModal("Add Tax Code/Category", "something", <CodesDetails />);
+  };
+
   const categories = [
     {
       id: "1",
@@ -31,31 +38,28 @@ export function Codes() {
       desc: "Bar Sales (High Tax)",
       status: "unmapped",
     },
-    {
-      id: "4",
-      code: "SERVICE_CHG",
-      desc: "Standard Service Fee",
-      status: "mapped",
-    },
   ];
 
   const isEmpty = categories.length === 0;
 
   return (
     <div>
-      <aside className="w-80 border-r border-black flex flex-col">
+      <aside className=" border-r h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-black flex items-center justify-between bg-black text-white">
+        <div className="p-3 border-b flex items-center justify-between">
           <span className="text-[10px] font-black uppercase tracking-[0.2em]">
             Tax Categories
           </span>
 
-          <button
-            onClick={() => setIsAddingCategory(true)}
-            className="p-1 hover:bg-zinc-800 border border-transparent active:border-white transition-all"
+          <Button
+            onClick={() => {
+              (setIsAddingCategory(true), handleAddTaxCategory());
+            }}
+            variant={"secondary"}
+            className=" border border-transparent transition-all"
           >
             <Plus size={16} />
-          </button>
+          </Button>
         </div>
 
         {/* Search */}
@@ -70,41 +74,45 @@ export function Codes() {
           </div>
         </div>
 
-        {/* Content */}
-        <nav className="flex-1 overflow-y-auto p-3 space-y-2">
-          {isEmpty ? (
-            <div className="flex flex-col items-center justify-center text-center h-full py-10 space-y-3">
-              <Inbox className="h-8 w-8 opacity-40" />
+        <ScrollArea className="max-h-[70vh]">
+          <nav className="flex flex-col overflow-y-auto p-3 gap-2">
+            {isEmpty ? (
+              <div className="flex flex-col items-center justify-center text-center h-full py-10 space-y-3">
+                <Inbox className="h-8 w-8 opacity-40" />
 
-              <div className="space-y-1">
-                <p className="text-sm font-medium">No Tax Codes</p>
-                <p className="text-xs text-muted-foreground">
-                  Create your first tax category to get started.
-                </p>
+                <div className="space-y-1">
+                  <p className="text-sm font-medium">No Tax Codes</p>
+                  <p className="text-xs text-muted-foreground">
+                    Create your first tax category to get started.
+                  </p>
+                </div>
+
+                <Button
+                  size="sm"
+                  onClick={() => setIsAddingCategory(true)}
+                  className="gap-2"
+                >
+                  <Plus size={14} />
+                  Add Category
+                </Button>
               </div>
-
-              <Button
-                size="sm"
-                onClick={() => setIsAddingCategory(true)}
-                className="gap-2"
-              >
-                <Plus size={14} />
-                Add Category
-              </Button>
-            </div>
-          ) : (
-            categories.map((cat) => (
-              <Card key={cat.id} className="text-sm p-3">
-                <CardHeader className="p-0">
-                  <CardTitle className="text-sm">{cat.code}</CardTitle>
-                  <CardDescription className="text-xs">
-                    {cat.desc}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))
-          )}
-        </nav>
+            ) : (
+              categories.map((cat) => (
+                <Card
+                  key={cat.id}
+                  className="text-sm p-3 transition-transform duration-200 hover:scale-105 hover:cursor-pointer"
+                >
+                  <CardHeader className="p-0">
+                    <CardTitle className="text-sm">{cat.code}</CardTitle>
+                    <CardDescription className="text-xs">
+                      {cat.desc}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              ))
+            )}
+          </nav>
+        </ScrollArea>
       </aside>
     </div>
   );
