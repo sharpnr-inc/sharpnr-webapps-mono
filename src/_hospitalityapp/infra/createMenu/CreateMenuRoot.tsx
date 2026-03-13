@@ -63,7 +63,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
   return (
     <CreateMenuContext.Provider
       value={{
-        Menus,
+        Menus: Menus?.data,
         isMenuLoading,
         isMenuLoaded,
         nextStep,
@@ -72,7 +72,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
         step,
         ownersID,
         ownersType,
-        propertyID
+        propertyID,
       }}
     >
       <Carousel setApi={setApi} className="" opts={{ watchDrag: false }}>

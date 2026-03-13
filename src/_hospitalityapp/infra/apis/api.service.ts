@@ -4,6 +4,8 @@ import type { APIResponse } from "@/utilities/api_response";
 
 /* ---------------------------------- <***> --------------------------------- */
 
+
+
 export interface MenuResponse {
   id: string;
   menu_name: string;
@@ -72,7 +74,7 @@ export async function GetMenu(
   ownersID: string,
 ): Promise<APIResponse<MenuResponse[]>> {
   const res = await api.get(MenuModuleEndpoints.GetMenu(ownersID));
-  return res.data?.data;
+  return res.data;
 }
 
 /* ---------------------------------- <***> --------------------------------- */

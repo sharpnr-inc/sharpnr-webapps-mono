@@ -8,21 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { useAppForm } from "@/components/forms";
 import { createMenuAction } from "../stores/actions";
 import EmptyMenu from "../components/EmptyMenu";
-import {
-  useAddCategoryInMenuMutation,
-  useAddPreferredKitchenToMenuGroupMutation,
-  useCreateMenuMutation,
-} from "../apis/api.Mutations";
+import { useAddPreferredKitchenToMenuGroupMutation } from "../apis/api.Mutations";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,6 +22,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
+import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
 
 const CreateCategory = () => {
   const { Menus, nextStep, ownersID, ownersType, propertyID } =
@@ -42,67 +33,13 @@ const CreateCategory = () => {
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
   const queryClient = useQueryClient();
+  const [selectedMenuID, setSelectedMenuID] = useState<string>("");
 
   const { data: propertyData } = usePropertyDetails(propertyID!);
   const kitchens = propertyData?.data?.infra ?? [];
 
   const { mutateAsync, isPending } =
     useAddPreferredKitchenToMenuGroupMutation();
-
-  const createCategory = useAddCategoryInMenuMutation();
-  const addMenu = useCreateMenuMutation();
-
-  const form = useAppForm({
-    defaultValues: {
-      menu_id: "",
-      category_name: "",
-      category_description: "",
-    },
-    onSubmit: async ({ value }) => {
-      await createCategory.mutateAsync(
-        {
-          OwnersID: ownersID,
-          request_payload: value,
-        },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({
-              queryKey: ["Menu", ownersID],
-            });
-            setOpen(false);
-          },
-        },
-      );
-    },
-  });
-
-  const menuForm = useAppForm({
-    defaultValues: {
-      owner_id: ownersID,
-      preferred_kitchen: "",
-      menu_name: "",
-      menu_description: "",
-      organization_id: "",
-      owner_module_type: ownersType,
-    },
-    onSubmit: async ({ value }) => {
-      await addMenu.mutateAsync(
-        {
-          ownersID: ownersID,
-          request_payload: value,
-        },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({
-              queryKey: ["Menu", ownersID],
-            });
-
-            setOpenMenuForm(false);
-          },
-        },
-      );
-    },
-  });
 
   const handleAddPreferredKitchenToMenuGroup = async (
     menuID: string,
@@ -148,9 +85,9 @@ const CreateCategory = () => {
                   className="rounded-xl border bg-muted/30 shadow-sm"
                 >
                   {/* Menu Header */}
-                  <CardHeader className="pb-3">
+                  <CardHeader className="">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="space-y-1 max-w-[75%]">
+                      <div className="space-y-1">
                         <CardTitle className="text-base">
                           {m.menu_name}
                         </CardTitle>
@@ -163,11 +100,19 @@ const CreateCategory = () => {
                   </CardHeader>
 
                   {/* Preferred Kitchen */}
-                  <CardContent className="space-y-4 border-t pt-6">
+                  <CardContent className="p-4 border">
                     <div className="space-y-2">
-                      <h3 className="text-sm font-semibold text-muted-foreground">
+                      <h3 className="text-sm font-semibold">
                         Preferred Kitchen
                       </h3>
+
+                      <Alert variant={"suggestion"}>
+                        <AlertTitle>About Preferred Kitchen</AlertTitle>
+                        <AlertDescription>
+                          In Order to Order to Process and Send to kichen you
+                          have specify kitchen, when you add the
+                        </AlertDescription>
+                      </Alert>
 
                       {preferredKitchen ? (
                         <div className="rounded-xl border bg-muted/30 p-3 text-sm flex items-center justify-between">
@@ -257,7 +202,7 @@ const CreateCategory = () => {
                     <Button
                       className="w-full"
                       onClick={() => {
-                        form.setFieldValue("menu_id", m.id);
+                        setSelectedMenuID(m.id);
                         setOpen(true);
                       }}
                     >
@@ -280,101 +225,21 @@ const CreateCategory = () => {
       </Card>
 
       {/* Category Dialog */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Category</DialogTitle>
-          </DialogHeader>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-          >
-            <form.AppField name="category_name">
-              {(f) => <f.TextField label="Category Name" />}
-            </form.AppField>
-
-            <form.AppField name="category_description">
-              {(f) => <f.TextAreaField label="Category Description" />}
-            </form.AppField>
-
-            <DialogFooter>
-              <form.AppForm>
-                <form.SubmitButton>Add Category</form.SubmitButton>
-              </form.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+      <AddMenuCategoryForm
+        open={open}
+        setOpen={setOpen}
+        ownersID={ownersID}
+        menuID={selectedMenuID}
+      />
 
       {/* Menu Dialog */}
-      <Dialog open={openMenuForm} onOpenChange={setOpenMenuForm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Menu</DialogTitle>
-          </DialogHeader>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              menuForm.handleSubmit();
-            }}
-          >
-            <menuForm.AppField name="preferred_kitchen">
-              {(f) => (
-                <Select
-                  value={f.state.value}
-                  onValueChange={(value) => f.handleChange(value)}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select preferred kitchen" />
-                  </SelectTrigger>
-
-                  <SelectContent>
-                    {kitchens?.map((kitchen) => (
-                      <SelectItem key={kitchen.id} value={kitchen.id}>
-                        <div className="flex w-full items-center justify-between">
-                          {/* Kitchen Name */}
-                          <span className="font-medium">{kitchen.name}</span>
-
-                          {/* Status */}
-                          <span
-                            className={`text-xs px-2 py-0.5 rounded-md ${
-                              kitchen.status
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-700"
-                            }`}
-                          >
-                            {kitchen.status ? "Active" : "Inactive"}
-                          </span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            </menuForm.AppField>
-
-            <menuForm.AppField name="menu_name">
-              {(f) => <f.TextField label="Menu Name" />}
-            </menuForm.AppField>
-
-            <menuForm.AppField name="menu_description">
-              {(f) => <f.TextAreaField label="A Short Description" />}
-            </menuForm.AppField>
-
-            <DialogFooter>
-              <menuForm.AppForm>
-                <menuForm.SubmitButton>Create Menu</menuForm.SubmitButton>
-              </menuForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+      <AddNewMenuGroupForm
+        open={openMenuForm}
+        setOpen={setOpenMenuForm}
+        ownersID={ownersID}
+        ownersType={ownersType}
+        kitchens={kitchens}
+      />
     </div>
   );
 };
