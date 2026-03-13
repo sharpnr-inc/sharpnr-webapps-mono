@@ -61,6 +61,7 @@ export async function FetchRestaurentContext(): Promise<
 
 export interface RestaurantGeneralInfoInterface {
   restaurant_id: string;
+  resturant_legal_entity_id: string;
   name: string;
   opening_time: string;
   closing_time: string;

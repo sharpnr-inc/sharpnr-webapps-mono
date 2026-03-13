@@ -1,6 +1,16 @@
-import { useState, useMemo } from "react";
-import { Info, Building2, CheckCircle2 } from "lucide-react";
+import { useMemo, useState, useEffect } from "react";
+import { Info, Building2 } from "lucide-react";
 import { useOrganizationLegalEntities } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/queries";
+
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 type LegalEntity = {
   id: string;
@@ -11,89 +21,103 @@ type LegalEntity = {
   state: string;
 };
 
-export function RestaurantLegalEntity() {
-  const { data } = useOrganizationLegalEntities();
+const NIL_UUID = "00000000-0000-0000-0000-000000000000";
 
-  // API entities
+export function RestaurantLegalEntity() {
+  const { restaurantID } = Route.useParams();
+
+  const { data } = useOrganizationLegalEntities();
+  const { data: restuarntDetails, isLoading } = useRestaurantGeneralInfo(
+    restaurantID!,
+  );
+
   const legalEntities: LegalEntity[] = useMemo(() => {
     return data?.data ?? [];
   }, [data]);
 
-  // default select first entity when available
+  const restaurantLegalEntityId =
+    restuarntDetails?.data?.resturant_legal_entity_id;
+
+  const restaurantHasLegalEntity =
+    restaurantLegalEntityId && restaurantLegalEntityId !== NIL_UUID;
+
   const [selectedId, setSelectedId] = useState<string>("");
 
-  const selectedEntity =
-    legalEntities.find((e) => e.id === selectedId) ?? legalEntities[0];
+  /* Auto select if restaurant already has entity */
+  useEffect(() => {
+    if (restaurantHasLegalEntity) {
+      setSelectedId(restaurantLegalEntityId);
+    }
+  }, [restaurantLegalEntityId, restaurantHasLegalEntity]);
+
+  /* No Legal Entity in Organization */
+  if (!isLoading && legalEntities.length === 0) {
+    return (
+      <div className="rounded-xl border p-6 text-center space-y-3">
+        <Building2 className="h-8 w-8  text-muted-foreground" />
+
+        <h3 className="text-sm font-semibold">No Legal Entity Found</h3>
+
+        <p className="text-sm text-muted-foreground">
+          Your organization does not have any Legal Entity. Please create one
+          before assigning it to a restaurant.
+        </p>
+
+        <button className="mt-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm">
+          Add Legal Entity
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
-      {/* INFO NOTE */}
+      {/* INFO */}
       <div className="rounded-2xl border bg-blue-50/50 p-4">
         <div className="flex items-start gap-3">
-          <div className="mt-0.5 rounded-lg bg-blue-100 p-2">
+          <div className="rounded-lg bg-blue-100 p-2">
             <Info className="h-4 w-4 text-blue-600" />
           </div>
 
-          <div className="space-y-1">
+          <div>
             <h3 className="text-sm font-semibold text-blue-900">
-              What is a Legal Entity?
+              Restaurant Legal Entity
             </h3>
 
-            <p className="text-sm text-blue-800 leading-relaxed">
-              A <span className="font-medium">Legal Entity</span> is the
-              officially registered business that owns this restaurant.
+            <p className="text-sm text-blue-800">
+              Select the legal entity that owns this restaurant.
             </p>
           </div>
         </div>
       </div>
 
-      {/* NOTE */}
-      <div className="rounded-xl border bg-muted/50 p-3 text-sm text-muted-foreground">
-        <span className="font-medium text-foreground">Note:</span> You can
-        assign only <span className="font-medium">one legal entity</span>.
-      </div>
+      {/* SELECT */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Legal Entity</label>
 
-      {/* LEGAL ENTITY CARDS */}
-      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {legalEntities.map((entity) => {
-          const selected = entity.id === (selectedId || selectedEntity?.id);
+        <Select
+          value={selectedId}
+          onValueChange={(val) => setSelectedId(val)}
+          // disabled={restaurantHasLegalEntity}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select Legal Entity" />
+          </SelectTrigger>
 
-          return (
-            <button
-              key={entity.id}
-              type="button"
-              onClick={() => setSelectedId(entity.id)}
-              className={`relative text-left rounded-xl border p-4 transition-all
-                ${
-                  selected
-                    ? "border-primary bg-primary/5"
-                    : "hover:border-primary/40 hover:bg-muted/40"
-                }`}
-            >
-              {selected && (
-                <CheckCircle2 className="absolute right-3 top-3 h-5 w-5 text-primary" />
-              )}
+          <SelectContent>
+            {legalEntities.map((entity) => (
+              <SelectItem key={entity.id} value={entity.id}>
+                {entity.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
 
-              <div className="flex items-start gap-3">
-                <div className="rounded-lg bg-primary/10 p-2">
-                  <Building2 className="h-4 w-4 text-primary" />
-                </div>
-
-                <div className="space-y-1">
-                  <h4 className="text-sm font-semibold">{entity.name}</h4>
-
-                  <p className="text-xs text-muted-foreground">
-                    GST: {entity.gst ?? "Not Available"}
-                  </p>
-
-                  <p className="text-xs text-muted-foreground">
-                    {[entity.city, entity.state].filter(Boolean).join(", ")}
-                  </p>
-                </div>
-              </div>
-            </button>
-          );
-        })}
+        {restaurantHasLegalEntity && (
+          <p className="text-xs text-muted-foreground">
+            This restaurant already has a legal entity assigned.
+          </p>
+        )}
       </div>
     </div>
   );
