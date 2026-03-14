@@ -1,4 +1,4 @@
-import HotelDashboardIndexPage from "@/_orchestrator/hospitality_dashboards/hotel/HotelDashboardIndexPage";
+import HotelDashboardIndexPage from "@/_orchestrator/properties/hospitality_dashboards/hotel/HotelDashboardIndexPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

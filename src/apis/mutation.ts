@@ -1,13 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
-import { InitializeSignup, LoginUser, VerifyOtp } from "./api_service";
+import {
+  InitializeSignup,
+  LoginUser,
+  VerifyOtp,
+  type OrgSignupPayload,
+} from "./api_service";
+import type { APIResponse } from "@/utilities/api_response";
 
 export function useInitiateSignUpMutation() {
-  return useMutation({
+  return useMutation<APIResponse<any>, Error, OrgSignupPayload>({
     mutationKey: ["Signup"],
     mutationFn: InitializeSignup,
   });
 }
-
 export function useVerifyOtpMutation() {
   return useMutation({
     mutationKey: ["Verify-otp"],
@@ -15,10 +20,9 @@ export function useVerifyOtpMutation() {
   });
 }
 
-export function useUserAuth(){
+export function useUserAuth() {
   return useMutation({
-    mutationKey:["Authentication"],
-    mutationFn:LoginUser
-  }
-  )
+    mutationKey: ["Authentication"],
+    mutationFn: LoginUser,
+  });
 }

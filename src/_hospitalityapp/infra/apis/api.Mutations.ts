@@ -3,7 +3,12 @@ import {
   AddAddon,
   AddCategoryInMenu,
   AddMenuItemInSubCategory,
+  AddPreferredKitchenToMenuCategory,
+  AddPreferredKitchenToMenuGroup,
+  AddPreferredKitchenToMenuItem,
+  AddPreferredKitchenToMenuSubCategory,
   AddSubCategoryInCategory,
+  AddTacCategoryOfMenuGroup,
   AddVariantGroup,
   AddVariantsInVariantGroup,
   CreateMenu,
@@ -11,8 +16,8 @@ import {
 
 export function useCreateMenuMutation() {
   return useMutation({
-    mutationFn:CreateMenu,
-    mutationKey:["Create Menu"]
+    mutationFn: CreateMenu,
+    mutationKey: ["Create Menu"],
   });
 }
 
@@ -55,5 +60,38 @@ export function useAddAddOnsOfMenuItem() {
   return useMutation({
     mutationKey: ["ADD", "ADDONS"],
     mutationFn: AddAddon,
+  });
+}
+
+export function useAddPreferredKitchenToMenuGroupMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_GROUP"],
+    mutationFn: AddPreferredKitchenToMenuGroup,
+  });
+}
+
+export function useAddPreferredKitchenToMenuCategoryMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_CATEGORY"],
+    mutationFn: AddPreferredKitchenToMenuCategory,
+  });
+}
+export function useAddPreferredKitchenToMenuSubCategoryMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_SUB_CATEGORY"],
+    mutationFn: AddPreferredKitchenToMenuSubCategory,
+  });
+}
+export function useAddPreferredKitchenToMenuItemMutation() {
+  return useMutation({
+    mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_ITEM"],
+    mutationFn: AddPreferredKitchenToMenuItem,
+  });
+}
+
+export function useAddTaxCategoryOfMenuGroup() {
+  return useMutation({
+    mutationKey: ["ADD_TAX_CATEGORIES", "MENU_GROUP"],
+    mutationFn: AddTacCategoryOfMenuGroup,
   });
 }

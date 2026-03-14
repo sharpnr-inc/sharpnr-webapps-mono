@@ -33,9 +33,10 @@ type RestaurantSidebarItem = {
 const restaurantSidebarMenu: RestaurantSidebarItem[] = [
   {
     label: "Overview",
-    to: "/dashboard/sharp_hospitality/restaurant",
+    to: "/dashboard/sharp_hospitality/restaurant/overview",
     icon: LayoutDashboard,
-    match: (pathname) => pathname === "/dashboard/sharp_hospitality/restaurant",
+    match: (pathname) =>
+      pathname === "/dashboard/sharp_hospitality/restaurant/overview",
   },
   {
     label: "Dine In",

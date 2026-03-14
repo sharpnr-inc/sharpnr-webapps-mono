@@ -29,7 +29,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     <ToastContext.Provider value={{ success, error, warning, info }}>
       {children}
       {/* This must be mounted once at root */}
-      <Toaster richColors position="top-left" />
+      <Toaster richColors position="top-center" />
     </ToastContext.Provider>
   );
 };

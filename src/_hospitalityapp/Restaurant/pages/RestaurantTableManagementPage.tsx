@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/restaurant/route";
 import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -7,6 +6,8 @@ import { useSheet } from "@/context/DrawerContext";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";
+import { useSelectedRestaurantID } from "../store/selectors";
+import { useQueryClient } from "@tanstack/react-query";
 // import { useQueryClient } from "@tanstack/react-query";
 
 export interface RestaurantTableLayout {
@@ -24,13 +25,9 @@ export interface RestaurantFloorLayout {
 }
 
 const RestaurantTableManagementPage: React.FC = () => {
-  const { properties } = Route.useLoaderData();
-  // const queryClient = useQueryClient();
-  const selectedProperty = properties?.[0];
-  const restaurantID = selectedProperty?.Restaurents;
-
+  const q = useQueryClient();
+  const restaurantID = useSelectedRestaurantID();
   const { data, isLoading } = useRestaurantLayout(restaurantID);
-
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedTable, setSelectedTable] =
     useState<RestaurantTableLayout | null>(null);
@@ -49,36 +46,39 @@ const RestaurantTableManagementPage: React.FC = () => {
   const { openSheet } = useSheet();
 
   const handleTableSession = (t: RestaurantTableLayout) => {
+    if (!restaurantID) return;
+
     if (t.Status === "AVAILABLE") {
       setSelectedTable(t);
       setOpenDialog(true);
     } else if (t.Status === "OCCUPIED") {
-      openSheet(
-        <DiningSessionTerminal restaurantID={restaurantID} table={t} />,
-        "3/4",
-      );
+      openSheet(<DiningSessionTerminal table={t} />, "3/4");
     }
   };
 
   const startSession = useStartDineInSession();
 
   const handleStartSession = async () => {
-    if (!selectedTable) return;
+    if (!selectedTable || !restaurantID) return;
+
     setLoading(true);
-    startSession.mutateAsync(
+
+    await startSession.mutateAsync(
       {
         tableID: selectedTable.TableID,
-        restaurantID: restaurantID,
+        restaurantID,
       },
       {
         onSuccess: () => {
           setLoading(false);
-          // queryClient.invalidateQueries()
+          setOpenDialog(false);
+          q.invalidateQueries({
+            queryKey: ["Restaurant", "Restaurant Layout", restaurantID],
+          });
         },
       },
     );
   };
-
   return (
     <div className="space-y-4">
       {/* Header */}

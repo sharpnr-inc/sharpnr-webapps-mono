@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { GetAllAccountingBooksOfOrg } from "../api_calls";
 
-export function useOrgAccountingBooks() {
+export function useLEAccountingBook(legalEntityID: string) {
   return useQuery({
     queryKey: ["Accounting", "Books"],
-    queryFn: GetAllAccountingBooksOfOrg,
+    queryFn: () => GetAllAccountingBooksOfOrg(legalEntityID),
+    enabled: !!legalEntityID,
   });
 }
-
-
-
-// this is the queries for the Accounting books

@@ -11,5 +11,3 @@ function RouteComponent() {
     </>
   );
 }
-
-// Should we create the

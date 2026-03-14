@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Outlet, Link } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -15,211 +14,106 @@ import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
+  useSidebar,
+  SidebarHeader,
 } from "@/components/ui/sidebar";
+
+import { Building2, Check, ChevronDown, ChevronsUpDown } from "lucide-react";
+import { useAccountingStore } from "../store/accounting.store";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { accountingSidebar } from "./AccountingNavs";
 import {
-  Wallet,
-  BarChart3,
-  Settings,
-  Building2,
-  ChevronsUpDown,
-  Check,
-  DollarSignIcon,
-  BadgeDollarSignIcon,
-} from "lucide-react";
-
-/* ================================
-   Sidebar Config (shadcn compatible)
-================================ */
-const accountingSidebar = [
-  {
-    group: "Overview",
-    items: [
-      {
-        label: "Dashboard",
-        icon: BarChart3,
-        to: "/dashboard/sharp_accounting/overview",
-      },
-    ],
-  },
-  {
-    group: "Master Data",
-    items: [
-      {
-        label: "Chart of Accounts",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/chart-of-account",
-      },
-      {
-        label: "Tax",
-        icon: BadgeDollarSignIcon,
-        children: [
-          {
-            label: "Tax Codes",
-            to: "/dashboard/sharp_accounting/tax-codes",
-          },
-          {
-            label: "Tax Rates",
-            to: "/dashboard/sharp_accounting/tax-rates",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    group: "Operations",
-    items: [
-      {
-        label: "Transactions",
-        icon: DollarSignIcon,
-        to: "/dashboard/sharp_accounting/transactions",
-      },
-      {
-        label: "Expenses",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/expenses",
-      },
-      {
-        label: "Ledger",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/ledger",
-      },
-    ],
-  },
-  {
-    group: "Reports",
-    items: [
-      {
-        label: "Reports",
-        icon: BarChart3,
-        children: [
-          {
-            label: "Trial Balance",
-            to: "/dashboard/sharp_accounting/reports/trial-balance",
-          },
-          {
-            label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/pnl",
-          },
-          {
-            label: "Balance Sheet",
-            to: "/dashboard/sharp_accounting/reports/balance-sheet",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    group: "Controls",
-    items: [
-      {
-        label: "Settings",
-        icon: Settings,
-        to: "/dashboard/sharp_accounting/settings",
-      },
-    ],
-  },
-];
-
-/* ================================
-   Dummy Legal Entities
-================================ */
-const LEGAL_ENTITIES = [
-  "Sharp Hospitality Pvt Ltd",
-  "Sharp Foods LLP",
-];
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 /* ================================
    Layout
 ================================ */
 const AccountingRootLayout = () => {
-  const [selectedEntity, setSelectedEntity] = useState(LEGAL_ENTITIES[0]);
-
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
+        <SidebarHeader>
+          <LegalEntitySwitcher />
+        </SidebarHeader>
+
         <SidebarContent>
-          {/* ========= Legal Entity Switcher ========= */}
-          <div className="p-1 m-1">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton size="lg">
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex size-8 items-center justify-center rounded-lg">
-                    <Building2 className="size-4" />
-                  </div>
-                  <div className="flex flex-col leading-none">
-                    <span className="font-medium truncate">
-                      {selectedEntity}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      Legal Entity
-                    </span>
-                  </div>
-                  <ChevronsUpDown className="ml-auto size-4 opacity-60" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent align="start" className="min-w-[240px]">
-                {LEGAL_ENTITIES.map((entity) => (
-                  <DropdownMenuItem
-                    key={entity}
-                    onSelect={() => setSelectedEntity(entity)}
-                  >
-                    {entity}
-                    {entity === selectedEntity && (
-                      <Check className="ml-auto size-4" />
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          {/* ========= Sidebar ========= */}
           {accountingSidebar.map((section) => (
             <SidebarGroup key={section.group}>
               <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
 
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {section.items.map((item) => (
-                    <SidebarMenuItem key={item.label}>
-                      {/* 🔽 WITH CHILDREN (shadcn dropdown) */}
-                      {item.children ? (
-                        <>
-                          <SidebarMenuButton>
-                            <item.icon />
-                            <span>{item.label}</span>
-                          </SidebarMenuButton>
+                  {section.items.map((item) =>
+                    item.children ? (
+                      // ✅ PARENT WITH CHILDREN — Collapsible, not a link
+                      <Collapsible
+                        key={item.label}
+                        // Auto-open if any child is active
+                        defaultOpen={item.children.some((c) =>
+                          pathname.startsWith(c.to),
+                        )}
+                        className="group/collapsible"
+                      >
+                        <SidebarMenuItem>
+                          <CollapsibleTrigger asChild>
+                            <SidebarMenuButton
+                              // ✅ Highlight parent if a child route is active
+                              isActive={item.children.some((c) =>
+                                pathname.startsWith(c.to),
+                              )}
+                              tooltip={item.label}
+                            >
+                              <item.icon />
+                              <span>{item.label}</span>
+                              {/* Rotates when open */}
+                              <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                            </SidebarMenuButton>
+                          </CollapsibleTrigger>
 
-                          <SidebarMenuSub>
-                            {item.children.map((child) => (
-                              <SidebarMenuSubItem key={child.label}>
-                                <SidebarMenuSubButton asChild>
-                                  <Link to={child.to}>
-                                    <span>{child.label}</span>
-                                  </Link>
-                                </SidebarMenuSubButton>
-                              </SidebarMenuSubItem>
-                            ))}
-                          </SidebarMenuSub>
-                        </>
-                      ) : (
-                        /* 🔹 NORMAL LINK */
-                        <SidebarMenuButton asChild>
+                          <CollapsibleContent>
+                            <SidebarMenuSub>
+                              {item.children.map((child) => (
+                                <SidebarMenuSubItem key={child.label}>
+                                  <SidebarMenuSubButton
+                                    asChild
+                                    // ✅ Highlight the exact active child
+                                    isActive={pathname.startsWith(child.to)}
+                                  >
+                                    <Link to={child.to}>
+                                      <span>{child.label}</span>
+                                    </Link>
+                                  </SidebarMenuSubButton>
+                                </SidebarMenuSubItem>
+                              ))}
+                            </SidebarMenuSub>
+                          </CollapsibleContent>
+                        </SidebarMenuItem>
+                      </Collapsible>
+                    ) : (
+                      // ✅ NORMAL LINK — highlight when active
+                      <SidebarMenuItem key={item.label}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={pathname.startsWith(item.to!)}
+                          tooltip={item.label}
+                        >
                           <Link to={item.to}>
                             <item.icon />
                             <span>{item.label}</span>
                           </Link>
                         </SidebarMenuButton>
-                      )}
-                    </SidebarMenuItem>
-                  ))}
+                      </SidebarMenuItem>
+                    ),
+                  )}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
@@ -227,13 +121,11 @@ const AccountingRootLayout = () => {
         </SidebarContent>
       </Sidebar>
 
-      {/* ========= Main ========= */}
       <SidebarInset>
         <header className="flex h-14 items-center gap-2 px-4">
           <SidebarTrigger />
           <span className="font-medium">Accounting</span>
         </header>
-
         <main className="flex-1 p-4">
           <Outlet />
         </main>
@@ -243,3 +135,68 @@ const AccountingRootLayout = () => {
 };
 
 export default AccountingRootLayout;
+
+export function LegalEntitySwitcher() {
+  const { state } = useSidebar(); // expanded | collapsed
+
+  const legalEntities = useAccountingStore((s) => s.legalEntities);
+  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
+  const setSelectedLegalEntity = useAccountingStore(
+    (s) => s.setSelectedLegalEntity,
+  );
+
+  const isCollapsed = state === "collapsed";
+
+  return (
+    <SidebarMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <SidebarMenuButton
+            size="lg"
+            tooltip={isCollapsed ? selectedLegalEntity?.name : undefined}
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          >
+            {/* ICON */}
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <Building2 className="size-4" />
+            </div>
+
+            {/* TEXT (hidden when collapsed) */}
+            {!isCollapsed && (
+              <>
+                <div className="flex flex-col gap-0.5 leading-none overflow-hidden">
+                  <span className="font-medium truncate">
+                    {selectedLegalEntity?.name ?? "Select Legal Entity"}
+                  </span>
+
+                  <span className="text-xs text-muted-foreground truncate">
+                    {selectedLegalEntity
+                      ? `${selectedLegalEntity.city}, ${selectedLegalEntity.state}`
+                      : "Accounting Workspace"}
+                  </span>
+                </div>
+
+                <ChevronsUpDown className="ml-auto size-4 opacity-50" />
+              </>
+            )}
+          </SidebarMenuButton>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="start" className="min-w-56">
+          {legalEntities.map((entity: any) => (
+            <DropdownMenuItem
+              key={entity.id}
+              onSelect={() => setSelectedLegalEntity(entity)}
+            >
+              {entity.name}
+
+              {entity.id === selectedLegalEntity?.id && (
+                <Check className="ml-auto size-4" />
+              )}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </SidebarMenuItem>
+  );
+}

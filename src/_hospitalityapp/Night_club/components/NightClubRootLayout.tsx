@@ -1,11 +1,9 @@
 import { Outlet } from "@tanstack/react-router";
 
-interface NightClubRootLayoutProps {
-    
-}
+interface NightClubRootLayoutProps {}
 
 const NightClubRootLayout: React.FC<NightClubRootLayoutProps> = () => {
-    return (<Outlet/>);
-}
+  return <Outlet />;
+};
 
 export default NightClubRootLayout;

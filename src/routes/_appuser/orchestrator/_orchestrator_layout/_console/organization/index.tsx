@@ -1,4 +1,4 @@
-import OrganizationIndexPage from '@/_orchestrator/OrchestDashboard/organization/OrganizationIndexPage'
+import OrganizationIndexPage from '@/_orchestrator/organization/OrganizationIndexPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(

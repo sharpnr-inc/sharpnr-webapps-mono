@@ -2,6 +2,7 @@ export interface MenuOutput {
   id: string;
   menu_name: string;
   menu_description: string | null;
+  preferred_kitchen: string | null;
   categories: CategoryOutput[];
 }
 
@@ -10,6 +11,7 @@ export interface CategoryOutput {
   menu_id: string;
   category_name: string;
   category_description: string;
+  preferred_kitchen: string | null;
   sub_categories: SubCategoryOutput[];
 }
 
@@ -18,6 +20,7 @@ export interface SubCategoryOutput {
   menu_category_id: string;
   sub_cat_name: string;
   sub_cat_description: string;
+  preferred_kitchen: string | null;
   menu_items: MenuItemOutput[];
 }
 
@@ -29,9 +32,10 @@ export interface MenuItemOutput {
   description: string;
   unit: string;
   base_price: number;
-  dietary_type:string;
+  dietary_type: string;
   variant_groups: VariantGroupOutput[];
   add_ons: AddOnOutput[];
+  served_by: string;
 }
 
 export interface VariantGroupOutput {
