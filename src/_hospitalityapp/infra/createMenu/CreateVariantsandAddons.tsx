@@ -2,34 +2,33 @@ import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, PlusIcon } from "lucide-react";
-
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
-import { useAppForm } from "@/components/forms";
+import { useAddPreferredKitchenToMenuItemMutation } from "../apis/api.Mutations";
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  useAddAddOnsOfMenuItem,
-  useAddVariantGroupMutation,
-  useAddVariantsInVariantGroup,
-} from "../apis/api.Mutations";
-import { useQueryClient } from "@tanstack/react-query";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import { AddAddOnFormInMenuItem } from "./forms/AddAddon";
+import { AddVariantForm } from "./forms/AddVariant";
+import { AddVariantGroupForm } from "./forms/AddVariantGroup";
 
 const CreateVariantsAndAddons = () => {
-  const queryClient = useQueryClient();
-  const { Menus, prevStep, ownersID } = useCreateMenuCtx();
+  const { Menus, prevStep, ownersID, propertyID } = useCreateMenuCtx();
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
   const [open, setOpen] = useState(false);
   const [openVariantForm, setOpenVariantForm] = useState(false);
   const [openAddOnForm, setOpenAddOnForm] = useState(false);
-  const addVariants = useAddVariantsInVariantGroup();
+  const [variantGroupID, setVariantGroupID] = useState<string | null>(null);
+  const { data: propertyData } = usePropertyDetails(propertyID!);
+  const kitchens = propertyData?.data?.infra ?? [];
 
-  // Find Active Item from Menus tree
+  const { mutateAsync, isPending } = useAddPreferredKitchenToMenuItemMutation();
+
   const activeItem = useMemo(() => {
     return Menus?.flatMap((m) => m.categories)
       .flatMap((c) => c.sub_categories)
@@ -37,7 +36,6 @@ const CreateVariantsAndAddons = () => {
       .find((item) => item.id === activeItemID);
   }, [Menus, activeItemID]);
 
-  // Build breadcrumb path
   const path = useMemo(() => {
     if (!Menus || !activeItemID) return null;
 
@@ -58,91 +56,6 @@ const CreateVariantsAndAddons = () => {
     return null;
   }, [Menus, activeItemID]);
 
-  const addVariantGroup = useAddVariantGroupMutation();
-
-  const addVariantGroupForm = useAppForm({
-    defaultValues: {
-      menu_item_id: activeItemID,
-      variant_group_name: "",
-    },
-
-    onSubmit: ({ value }) => {
-      addVariantGroup.mutateAsync(
-        {
-          ownersID: ownersID,
-          request_payload: value,
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ["Menu", ownersID],
-            });
-            addVariantGroupForm.reset();
-            setOpen(false);
-          },
-        },
-      );
-    },
-  });
-
-  const addAddOns = useAddAddOnsOfMenuItem();
-
-  const addAddonsForm = useAppForm({
-    defaultValues: {
-      menu_item_id: activeItemID,
-      name: "",
-      price: "",
-    },
-    onSubmit: ({ value }) => {
-      const payload = {
-        ...value,
-        price: Number(value.price), // ✅ converts "25" → 25
-      };
-
-      addAddOns.mutateAsync(
-        { ownersID: ownersID, payload },
-        {
-          onSuccess: () => {
-            console.log("Done");
-          },
-        },
-      );
-    },
-  });
-
-  const addVariantsForm = useAppForm({
-    defaultValues: {
-      variant_group_id: "",
-      menu_item_id: activeItemID,
-      name: "",
-      price: "",
-    },
-
-    onSubmit: ({ value }) => {
-      const payload = {
-        ...value,
-        price: Number(value.price), // explicit conversion
-      };
-
-      console.log(payload);
-
-      addVariants.mutateAsync(
-        {
-          ownersID: ownersID,
-          request_payload: payload,
-        },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({
-              queryKey: ["Menu", ownersID],
-            });
-            setOpenVariantForm(false);
-          },
-        },
-      );
-    },
-  });
-
   if (!activeItem) {
     return (
       <Card>
@@ -153,268 +66,201 @@ const CreateVariantsAndAddons = () => {
     );
   }
 
+  const handleAddPreferredKitchentoMenuItem = async (
+    activeItemID: string,
+    kitchenID: string,
+  ) => {
+    await mutateAsync({
+      ownersID: ownersID,
+      payload: {
+        menu_item_id: activeItemID,
+        kitchen_id: kitchenID,
+      },
+    });
+  };
+
   return (
-    <Card className="h-full">
-      <CardHeader className="flex flex-row justify-between items-start">
-        <Button variant="ghost" onClick={() => prevStep()}>
-          <MoveLeft />
+    <Card className="">
+      {/* HEADER */}
+      <CardHeader className="space-y-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => prevStep()}
+          className="w-fit"
+        >
+          <MoveLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
 
-        <div className="flex-1">
-          {/* Trail */}
-          {path && (
-            <div className="text-xs text-muted-foreground mb-1">
-              <span className="font-medium">{path.categoryName}</span>
-              {"  ›  "}
-              <span className="font-medium">{path.subCategoryName}</span>
-              {"  ›  "}
-              <span className="text-foreground">{path.itemName}</span>
-            </div>
-          )}
+        {path && (
+          <div className="text-xs text-muted-foreground">
+            <span className="font-medium">{path.categoryName}</span>
+            {"  ›  "}
+            <span className="font-medium">{path.subCategoryName}</span>
+            {"  ›  "}
+            <span className="text-foreground">{path.itemName}</span>
+          </div>
+        )}
 
-          <CardTitle>{activeItem.name}</CardTitle>
-        </div>
+        <CardTitle className="text-xl">{activeItem.name}</CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-4 overflow-auto max-h-[75vh]">
-        {/* Item Details */}
+      <CardContent>
         <div>
-          <div className="   text-sm text-muted-foreground">Description</div>
-          <div className="text-sm font-semibold ">{activeItem.description}</div>
+          <div>Preferred Kitchen for this Menu Item</div>
+          <div>Kitchen</div>
+          <Select
+            value={activeItem.served_by ?? ""}
+            onValueChange={(kitchenID) =>
+              handleAddPreferredKitchentoMenuItem(activeItem.id, kitchenID)
+            }
+            disabled={isPending}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a Kitchen" />
+            </SelectTrigger>
 
-          <div className="mt-2 font-semibold">
+            <SelectContent>
+              {kitchens.map((kitchen: any) => (
+                <SelectItem key={kitchen.id} value={kitchen.id}>
+                  <div className="flex items-center justify-between w-full">
+                    <span>{kitchen.name}</span>
+
+                    {!kitchen.status && (
+                      <span className="text-xs text-red-500 ml-2">
+                        (Inactive)
+                      </span>
+                    )}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </CardContent>
+
+      <CardContent className="space-y-6 overflow-auto max-h-[75vh]">
+        {/* ITEM INFO */}
+        <div className="rounded-xl border bg-muted/30 p-4 space-y-2">
+          <div className="text-sm text-muted-foreground">Description</div>
+          <div className="text-sm font-medium">
+            {activeItem.description || "No description provided"}
+          </div>
+
+          <div className="text-sm font-semibold pt-1">
             Base Price: ₹ {activeItem.base_price}
           </div>
         </div>
 
-        {/* Variants */}
-        <div className="border p-4 rounded-2xl space-y-4">
-          {/* Add Variant Group Button */}
-          <div className="flex justify-end">
-            <Button
-              size="sm"
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              + Add Variant Group
+        {/* VARIANT GROUPS */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold">Variant Groups</h3>
+
+            <Button size="sm" onClick={() => setOpen(true)}>
+              <PlusIcon className="h-4 w-4 mr-1" />
+              Add Group
             </Button>
           </div>
 
-          {(() => {
-            if (!activeItem) {
-              return null;
-            }
+          {!activeItem.variant_groups?.length && (
+            <div className="text-sm text-muted-foreground border rounded-xl p-4 text-center">
+              No variant groups available
+            </div>
+          )}
 
-            if (
-              !activeItem.variant_groups ||
-              activeItem.variant_groups.length === 0
-            ) {
-              return (
+          {activeItem.variant_groups?.map((vg) => (
+            <div key={vg.id} className="border rounded-xl p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="font-semibold">{vg.variant_group_name}</div>
+
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setVariantGroupID(vg.id);
+                    setOpenVariantForm(true);
+                  }}
+                >
+                  + Add Variant
+                </Button>
+              </div>
+
+              {!vg.variants?.length && (
                 <div className="text-sm text-muted-foreground">
-                  No variant groups available
+                  No variants available
                 </div>
-              );
-            }
+              )}
 
-            return activeItem.variant_groups.map((vg) => {
-              return (
-                <div key={vg.id} className="border rounded-xl p-4 space-y-3">
-                  {/* Header */}
-                  <div className="flex items-center justify-between">
-                    <div className="font-semibold">{vg.variant_group_name}</div>
+              <div className="space-y-2">
+                {vg.variants?.map((variant) => (
+                  <div
+                    key={variant.id}
+                    className="flex justify-between items-center border rounded-lg px-3 py-2"
+                  >
+                    <span className="text-sm">{variant.name}</span>
 
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => {
-                        addVariantsForm.setFieldValue(
-                          "variant_group_id",
-                          vg.id,
-                        );
-                        setOpenVariantForm(true);
-                      }}
-                    >
-                      + Add Variant
-                    </Button>
+                    <span className="text-sm font-medium">
+                      + ₹ {variant.price}
+                    </span>
                   </div>
-
-                  {/* Variants */}
-                  {(() => {
-                    if (!vg.variants || vg.variants.length === 0) {
-                      return (
-                        <div className="text-sm text-muted-foreground">
-                          No variants available
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <div className="pl-2 space-y-2">
-                        {vg.variants.map((variant) => {
-                          return (
-                            <div
-                              key={variant.id}
-                              className="flex justify-between items-center border rounded-lg p-2"
-                            >
-                              <div>{variant.name}</div>
-
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => {
-                                  // handleEditVariant(variant.id)
-                                }}
-                              >
-                                Edit
-                              </Button>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    );
-                  })()}
-                </div>
-              );
-            });
-          })()}
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
 
-        {/* AddOns */}
-        <div>
-          <div className="space-y-2">
-            {activeItem.add_ons?.length ? (
-              activeItem.add_ons.map((a) => (
-                <div
-                  key={a.id}
-                  className="border rounded p-2 flex justify-between"
-                >
-                  <div className="font-medium text-sm">{a.name}</div>
-                  <div className="text-sm">+ ₹ {a.price}</div>
-                </div>
-              ))
-            ) : (
-              <div className="text-xs text-muted-foreground">No AddOns</div>
-            )}
+        {/* ADDONS */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold">AddOns</h3>
+
+            <Button size="sm" onClick={() => setOpenAddOnForm(true)}>
+              <PlusIcon className="h-4 w-4 mr-1" />
+              Add AddOn
+            </Button>
           </div>
-          <Button onClick={() => setOpenAddOnForm(true)}>Add On</Button>
+
+          {!activeItem.add_ons?.length && (
+            <div className="text-sm text-muted-foreground border rounded-xl p-4 text-center">
+              No AddOns available
+            </div>
+          )}
+
+          {activeItem.add_ons?.map((a) => (
+            <div
+              key={a.id}
+              className="border rounded-lg px-3 py-2 flex justify-between"
+            >
+              <span className="text-sm font-medium">{a.name}</span>
+              <span className="text-sm">+ ₹ {a.price}</span>
+            </div>
+          ))}
         </div>
       </CardContent>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              Create Variant group in the {activeItem.name}
-            </DialogTitle>
-          </DialogHeader>
+      <AddVariantGroupForm
+        open={open}
+        setOpen={setOpen}
+        ownersID={ownersID}
+        menuItemID={activeItem.id}
+      />
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addVariantGroupForm.handleSubmit();
-            }}
-          >
-            <addVariantGroupForm.AppField
-              name="variant_group_name"
-              children={(f) => {
-                return <f.TextField label="Variants Group Name" />;
-              }}
-            />
+      <AddVariantForm
+        open={openVariantForm}
+        setOpen={setOpenVariantForm}
+        ownersID={ownersID}
+        menuItemID={activeItem.id}
+        variantGroupID={variantGroupID ?? ""}
+      />
 
-            <DialogFooter>
-              <addVariantGroupForm.AppForm>
-                <addVariantGroupForm.SubmitButton>
-                  <PlusIcon />
-                  Add Variant group
-                </addVariantGroupForm.SubmitButton>
-              </addVariantGroupForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={openVariantForm} onOpenChange={setOpenVariantForm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              Create Variant group in the {activeItem.name}
-            </DialogTitle>
-          </DialogHeader>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addVariantsForm.handleSubmit();
-            }}
-          >
-            <addVariantsForm.AppField
-              name="name"
-              children={(f) => {
-                return <f.TextField label="Variants Name" />;
-              }}
-            />
-
-            <addVariantsForm.AppField
-              name="price"
-              children={(f) => {
-                return <f.TextField label="Variants Price" />;
-              }}
-            />
-
-            <DialogFooter>
-              <addVariantGroupForm.AppForm>
-                <addVariantGroupForm.SubmitButton>
-                  <PlusIcon />
-                  Add Variant group
-                </addVariantGroupForm.SubmitButton>
-              </addVariantGroupForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={openAddOnForm} onOpenChange={setOpenAddOnForm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Add On in {activeItem.name}</DialogTitle>
-          </DialogHeader>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addAddonsForm.handleSubmit();
-            }}
-          >
-            <addAddonsForm.AppField
-              name="name"
-              children={(f) => {
-                return <f.TextField label="Variants Name" />;
-              }}
-            />
-
-            <addAddonsForm.AppField
-              name="price"
-              children={(f) => {
-                return <f.TextField label="Variants Price" />;
-              }}
-            />
-
-            <DialogFooter>
-              <addAddonsForm.AppForm>
-                <addAddonsForm.SubmitButton>
-                  <PlusIcon />
-                  Add AddOn
-                </addAddonsForm.SubmitButton>
-              </addAddonsForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+      <AddAddOnFormInMenuItem
+        open={openAddOnForm}
+        setOpen={setOpenAddOnForm}
+        ownersID={ownersID}
+        menuItemID={activeItem.id}
+      />
     </Card>
   );
 };

@@ -2,16 +2,17 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import MenuSection from "./Menu/MenuSection";
 import OrderCart from "./OrderCart/OrderCart";
 import OrderTable from "./OrderTable/OrderTable";
+import { useSelectedRestaurantID } from "../store/selectors";
 
 interface DiningSessionTerminalProps {
   table: any;
-  restaurantID: string;
 }
 
 const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
   table,
-  restaurantID,
 }) => {
+  const restaurantID = useSelectedRestaurantID();
+
   return (
     <div className=" flex flex-col">
       {/* Main Content */}
@@ -21,31 +22,38 @@ const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
           {/* Menu Section */}
           <div className="flex-1 rounded-xl shadow-sm border overflow-hidden flex flex-col">
             <div className="flex-1 overflow-y-auto p-4">
-              <MenuSection OwnerID={restaurantID[0]}>
-                <MenuSection.CategorySection />
-                <MenuSection.SubCategorySection />
-                <ScrollArea className="h-[65vh]">
-                  <MenuSection.ItemSection />
-                </ScrollArea>
-              </MenuSection>
+              {restaurantID ? (
+                <MenuSection OwnerID={restaurantID}>
+                  <MenuSection.CategorySection />
+                  <MenuSection.SubCategorySection />
+
+                  <ScrollArea className="h-[65vh]">
+                    <MenuSection.ItemSection />
+                  </ScrollArea>
+                </MenuSection>
+              ) : null}
             </div>
           </div>
 
           {/* Cart / KOT Section */}
-          <OrderCart
-            className=""
-            restaurantID={restaurantID}
-            tableID={table.TableID}
-            DiningSessionID={table.CurrentDineSessionID}
-          />
+          {restaurantID && (
+            <OrderCart
+              className=""
+              restaurantID={restaurantID}
+              tableID={table.TableID}
+              DiningSessionID={table.CurrentDineSessionID}
+            />
+          )}
         </div>
 
         {/* RIGHT SIDE (Tables Panel) */}
         <div className="w-2/6 rounded-xl shadow-sm border flex flex-col overflow-hidden">
-          <OrderTable
-            diningSessionID={table.CurrentDineSessionID}
-            restaurantID={restaurantID}
-          />
+          {restaurantID && (
+            <OrderTable
+              diningSessionID={table.CurrentDineSessionID}
+              restaurantID={restaurantID}
+            />
+          )}
         </div>
       </div>
     </div>

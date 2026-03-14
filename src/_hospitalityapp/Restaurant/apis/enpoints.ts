@@ -1,7 +1,23 @@
 export const RestaurantEndpoints = {
-  Layout: (restaurantID: string) =>
+  Layout: (restaurantID?: string | null) =>
     `/sharp-hospitality/restaurant/${restaurantID}/layout`,
-  Context: `/orchestrator/hospitality/restaurant`,
+
+  ActivateOrDeactivaeRestaurant: (restaurantID: string, resSwitch: boolean) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/configs/activate-deactivate/${resSwitch}`,
+
+  AddPreferredKitchen: (restaurantID: string, kitchenID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/configs/add-preferred-kitchen/${kitchenID}`,
+
+  AddLayout: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/configs/add-layout`,
+
+  Context: `/orchestrator/hospitality/all-restaurants`,
+
+  GeneralInfo: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/general-details`,
+
+  UpdateGeneralInfo: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/update-general-details`,
 
   /* --------------------------------- DineIN --------------------------------- */
 

@@ -1,0 +1,287 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { usePropertyDetails } from "./api/queries";
+import {
+  WrenchIcon,
+  AlertCircle,
+  ArrowLeft,
+  MapPin,
+  AlertCircleIcon,
+  ArrowRight,
+  PlusCircleIcon,
+} from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useNavigate } from "@tanstack/react-router";
+import { Badge as SB } from "@/components/ui/badge";
+import { useFormsModal } from "@/context/FormModalContext";
+import AddModulesInProperty from "./forms/AddModulesInProperty";
+import { AddInfraInProperty } from "./forms/AddInfrasInProperty";
+import type { PropertyModule } from "./api/service";
+
+
+interface PropertyDetailsPageProps {
+  propertyId: string;
+}
+
+export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
+  const { data } = usePropertyDetails(propertyId);
+  const property = data?.data;
+
+  const nav = useNavigate();
+
+  const handleModuleNav = (module: PropertyModule) => {
+    if (module.is_configured && module.module_type == "HOTEL") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
+        params: {
+          hotelId: module.id,
+          propertyId: propertyId,
+        },
+      });
+    } else if (module.module_type == "RESTAURANT") {
+      nav({
+        to: "/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID",
+        params: {
+          propertyId: propertyId,
+          restaurantID: module.id,
+        },
+      });
+    }
+  };
+
+  const handleInfraNav = (Id: string) => {
+    nav({
+      to: "/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID",
+      params: {
+        InfraID: Id,
+        propertyId,
+      },
+    });
+  };
+
+  const handlePropertySettingPage = () => {
+    nav({
+      to: "/orchestrator/property/$propertyId/property_settings",
+      params: {
+        propertyId: propertyId,
+      },
+    });
+  };
+
+  const { showModal, closeModal } = useFormsModal();
+  
+  const handleAddModules = (domain: string | undefined) => {
+    if (domain) {
+      showModal(
+        "Add Modules",
+        "Choose Modules",
+        <AddModulesInProperty
+          domain={domain}
+          propertyID={propertyId}
+          closeModal={closeModal}
+        />,
+      );
+    }
+  };
+
+  const handleAddInfra = () => {
+    showModal(
+      "Add Infra",
+      "Choose Infra",
+      <AddInfraInProperty propertyID={propertyId} closeModal={closeModal} />,
+    );
+  };
+
+  return (
+    <div className="space-y-2">
+      <div>
+        <Button
+          variant={"link"}
+          onClick={() =>
+            nav({
+              to: "/orchestrator/property",
+            })
+          }
+        >
+          <ArrowLeft />
+          Property page
+        </Button>
+      </div>
+      <div className="rounded-xl border bg-background p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          {/* LEFT SIDE */}
+          <div className="space-y-2">
+            {/* Property Name */}
+            <h2 className="text-xl font-semibold leading-tight">
+              {property?.name}
+            </h2>
+
+            {/* Domain */}
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Domain:</span>
+              <SB variant="secondary" className="text-xs">
+                Hospitality
+              </SB>
+            </div>
+
+            {/* Address */}
+            <div className="flex items-start gap-2 text-sm text-muted-foreground">
+              <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+              <span>
+                {[
+                  property?.address_line,
+                  property?.city,
+                  property?.state,
+                  property?.country,
+                ]
+                  .filter(Boolean)
+                  .join(", ")}
+              </span>
+            </div>
+          </div>
+
+          {/* RIGHT SIDE */}
+          <Button
+            onClick={handlePropertySettingPage}
+            size="sm"
+            className="shrink-0"
+          >
+            <WrenchIcon className="mr-2 h-4 w-4" />
+            Settings
+          </Button>
+        </div>
+      </div>
+
+      <Card className="relative">
+        <CardHeader>
+          <CardTitle>Modules</CardTitle>
+        </CardHeader>
+        <Button
+          className="absolute top-3.5 right-3.5"
+          onClick={() => handleAddModules(property?.domain)}
+        >
+          <PlusCircleIcon />
+          Add Modules
+        </Button>
+        <CardContent className="grid gap-3.5 sm:grid-cols-3">
+          {property?.__modules__data__?.map((module) => (
+            <Card
+              key={module.id}
+              className="h-fit relative hover:border-2 hover:border-accent-foreground transform transition-transform duration-300 ease-out hover:scale-[1.01] hover:-translate-y-0.3 hover:shadow-xl"
+            >
+              <CardHeader>
+                <CardTitle>{module.name}</CardTitle>
+                <CardDescription>
+                  {module.status ? (
+                    <SB variant={"secondary"}>Active</SB>
+                  ) : (
+                    <SB variant={"destructive"}>Not Active</SB>
+                  )}
+                </CardDescription>
+              </CardHeader>
+              {module.module_type && (
+                <SB className="absolute top-3.5 right-3.5">
+                  {module.module_type}
+                </SB>
+              )}
+              {!module.is_configured && (
+                <CardContent>
+                  {
+                    <Alert variant={"warning"}>
+                      <AlertTitle className="flex items-center gap-2">
+                        <AlertCircleIcon className="h-4 w-4" />
+                        Module Not Configured
+                      </AlertTitle>
+
+                      <AlertDescription>
+                        Click the modules below to configure this module.
+                      </AlertDescription>
+                    </Alert>
+                  }
+                </CardContent>
+              )}
+
+              <CardFooter>
+                <Button
+                  className="w-full"
+                  onClick={() => handleModuleNav(module)}
+                >
+                  Go to Module <ArrowRight />
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </CardContent>
+      </Card>
+
+      <Card className="relative">
+        <CardHeader className="space-y-2">
+          <CardTitle>Infrastructure</CardTitle>
+
+          <CardDescription className="space-y-2">
+            <p>
+              Property infrastructure defines how modules are ordered and how
+              operations are processed within the property.
+            </p>
+
+            <Button variant="link" className="h-auto p-0">
+              <AlertCircle />
+              Learn more about property infrastructure
+            </Button>
+          </CardDescription>
+        </CardHeader>
+
+        {/* EMPTY STATE */}
+        {property?.infra?.length === 0 || property?.infra === undefined ? (
+          <CardContent>
+            <Alert variant="warning">
+              <AlertTitle className="flex items-center gap-2">
+                <AlertCircleIcon className="h-4 w-4" />
+                No Infrastructure Added
+              </AlertTitle>
+
+              <AlertDescription>
+                Click the "Add Infra" button to add infrastructure to this
+                property.
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+        ) : (
+          /* LIST STATE */
+          <CardContent className="grid gap-5 sm:grid-cols-2">
+            {property?.infra?.map((inf) => (
+              <Card key={inf.id}>
+                <CardHeader>
+                  {inf.name}
+                  <CardDescription>
+                    This is the default Description of the Property infra
+                  </CardDescription>
+                </CardHeader>
+
+                <CardFooter>
+                  <Button onClick={() => handleInfraNav(inf.id)}>
+                    View Details
+                    <ArrowRight />
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </CardContent>
+        )}
+
+        {/* FLOATING ACTION BUTTON */}
+        <Button className="absolute top-5 right-5" onClick={handleAddInfra}>
+          <PlusCircleIcon className="mr-2 h-4 w-4" />
+          Add Infra
+        </Button>
+      </Card>
+    </div>
+  );
+}

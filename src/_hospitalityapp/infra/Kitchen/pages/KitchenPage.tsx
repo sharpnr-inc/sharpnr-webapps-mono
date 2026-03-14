@@ -14,6 +14,7 @@ import { useKitchenKOTsSSE } from "../api/api.sse";
 import { UpdateKOTStatus } from "../api/api.service";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { useParams } from "@tanstack/react-router";
 
 type OrderStatus = "ordered" | "in_progress" | "cooked";
 
@@ -94,10 +95,11 @@ function parseKOT(kot: any): KitchenOrder {
   };
 }
 
-const KITCHEN_ID = "0b501f34-1e3c-4ac8-adfd-7136e6832799";
-
 export default function KitchenPage() {
-  const { data, isLoading, isError } = useKitchenKOTsSSE(KITCHEN_ID);
+  const { service_point } = useParams({
+    from: "/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service",
+  });
+  const { data, isLoading, isError } = useKitchenKOTsSSE(service_point);
 
   const [orders, setOrders] = useState<KitchenOrder[]>([]);
 
@@ -172,7 +174,7 @@ export default function KitchenPage() {
 
     try {
       await UpdateKOTStatus(
-        KITCHEN_ID,
+        service_point,
         draggableId,
         mapUIToAPIStatus(newStatus),
       );

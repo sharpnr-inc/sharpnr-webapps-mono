@@ -11,7 +11,7 @@ export function useKitchenKOTsSSE(kitchenID: string) {
     if (!kitchenID) return;
 
     // Initialize SSE with withCredentials: true to send cookies/session
-    const url = `${BASE_URL}/sharp-hospitality/kitchen/${kitchenID}/get-orders`;
+    const url = `${BASE_URL}/sharp-hospitality/kitchen/${kitchenID}/kot/orders`;
     const eventSource = new EventSource(url, { withCredentials: true });
 
     eventSource.onopen = () => {
