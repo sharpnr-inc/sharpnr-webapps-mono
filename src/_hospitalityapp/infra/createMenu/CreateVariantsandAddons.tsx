@@ -2,24 +2,11 @@ import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Lightbulb, MoveLeft, PlusIcon } from "lucide-react";
-
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
-import { useAppForm } from "@/components/forms";
 import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  useAddAddOnsOfMenuItem,
   useAddPreferredKitchenToMenuItemMutation,
-  useAddVariantGroupMutation,
-  useAddVariantsInVariantGroup,
 } from "../apis/api.Mutations";
-import { useQueryClient } from "@tanstack/react-query";
 import {
   Select,
   SelectContent,
@@ -29,20 +16,20 @@ import {
 } from "@/components/ui/select";
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AddAddOnFormInMenuItem } from "./forms/AddAddon";
+import { AddVariantForm } from "./forms/AddVariant";
+import { AddVariantGroupForm } from "./forms/AddVariantGroup";
 
 const CreateVariantsAndAddons = () => {
-  const queryClient = useQueryClient();
   const { Menus, prevStep, ownersID, propertyID } = useCreateMenuCtx();
   const activeItemID = useCreateMenuStore((s) => s.activeItemID);
-
   const [open, setOpen] = useState(false);
   const [openVariantForm, setOpenVariantForm] = useState(false);
   const [openAddOnForm, setOpenAddOnForm] = useState(false);
-
+  const [variantGroupID, setVariantGroupID] = useState<string | null>(null);
   const { data: propertyData } = usePropertyDetails(propertyID!);
   const kitchens = propertyData?.data?.infra ?? [];
 
-  const addVariants = useAddVariantsInVariantGroup();
   const { mutateAsync, isPending } = useAddPreferredKitchenToMenuItemMutation();
 
   const activeItem = useMemo(() => {
@@ -71,72 +58,6 @@ const CreateVariantsAndAddons = () => {
     }
     return null;
   }, [Menus, activeItemID]);
-
-  const addVariantGroup = useAddVariantGroupMutation();
-
-  const addVariantGroupForm = useAppForm({
-    defaultValues: {
-      menu_item_id: activeItemID,
-      variant_group_name: "",
-    },
-    onSubmit: ({ value }) => {
-      addVariantGroup.mutateAsync(
-        { ownersID, request_payload: value },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["Menu", ownersID] });
-            addVariantGroupForm.reset();
-            setOpen(false);
-          },
-        },
-      );
-    },
-  });
-
-  const addAddOns = useAddAddOnsOfMenuItem();
-
-  const addAddonsForm = useAppForm({
-    defaultValues: {
-      menu_item_id: activeItemID,
-      name: "",
-      price: "",
-    },
-    onSubmit: ({ value }) => {
-      const payload = { ...value, price: Number(value.price) };
-
-      addAddOns.mutateAsync(
-        { ownersID, payload },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["Menu", ownersID] });
-            setOpenAddOnForm(false);
-          },
-        },
-      );
-    },
-  });
-
-  const addVariantsForm = useAppForm({
-    defaultValues: {
-      variant_group_id: "",
-      menu_item_id: activeItemID,
-      name: "",
-      price: "",
-    },
-    onSubmit: ({ value }) => {
-      const payload = { ...value, price: Number(value.price) };
-
-      addVariants.mutateAsync(
-        { ownersID, request_payload: payload },
-        {
-          onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["Menu", ownersID] });
-            setOpenVariantForm(false);
-          },
-        },
-      );
-    },
-  });
 
   if (!activeItem) {
     return (
@@ -303,7 +224,7 @@ const CreateVariantsAndAddons = () => {
                   size="sm"
                   variant="outline"
                   onClick={() => {
-                    addVariantsForm.setFieldValue("variant_group_id", vg.id);
+                    setVariantGroupID(vg.id);
                     setOpenVariantForm(true);
                   }}
                 >
@@ -364,108 +285,27 @@ const CreateVariantsAndAddons = () => {
         </div>
       </CardContent>
 
-      {/* ADD VARIANT GROUP */}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Variant Group</DialogTitle>
-          </DialogHeader>
+      <AddVariantGroupForm
+        open={open}
+        setOpen={setOpen}
+        ownersID={ownersID}
+        menuItemID={activeItem.id}
+      />
 
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addVariantGroupForm.handleSubmit();
-            }}
-          >
-            <addVariantGroupForm.AppField
-              name="variant_group_name"
-              children={(f) => <f.TextField label="Variant Group Name" />}
-            />
+      <AddVariantForm
+        open={openVariantForm}
+        setOpen={setOpenVariantForm}
+        ownersID={ownersID}
+        menuItemID={activeItem.id}
+        variantGroupID={variantGroupID ?? ""}
+      />
 
-            <DialogFooter>
-              <addVariantGroupForm.AppForm>
-                <addVariantGroupForm.SubmitButton>
-                  <PlusIcon className="mr-2 h-4 w-4" />
-                  Add Group
-                </addVariantGroupForm.SubmitButton>
-              </addVariantGroupForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {/* ADD VARIANT */}
-      <Dialog open={openVariantForm} onOpenChange={setOpenVariantForm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create Variant</DialogTitle>
-          </DialogHeader>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addVariantsForm.handleSubmit();
-            }}
-          >
-            <addVariantsForm.AppField
-              name="name"
-              children={(f) => <f.TextField label="Variant Name" />}
-            />
-
-            <addVariantsForm.AppField
-              name="price"
-              children={(f) => <f.TextField label="Variant Price" />}
-            />
-
-            <DialogFooter>
-              <addVariantsForm.AppForm>
-                <addVariantsForm.SubmitButton>
-                  <PlusIcon className="mr-2 h-4 w-4" />
-                  Add Variant
-                </addVariantsForm.SubmitButton>
-              </addVariantsForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-
-      {/* ADD ADDON */}
-      <Dialog open={openAddOnForm} onOpenChange={setOpenAddOnForm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create AddOn</DialogTitle>
-          </DialogHeader>
-
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              addAddonsForm.handleSubmit();
-            }}
-          >
-            <addAddonsForm.AppField
-              name="name"
-              children={(f) => <f.TextField label="AddOn Name" />}
-            />
-
-            <addAddonsForm.AppField
-              name="price"
-              children={(f) => <f.TextField label="AddOn Price" />}
-            />
-
-            <DialogFooter>
-              <addAddonsForm.AppForm>
-                <addAddonsForm.SubmitButton>
-                  <PlusIcon className="mr-2 h-4 w-4" />
-                  Add AddOn
-                </addAddonsForm.SubmitButton>
-              </addAddonsForm.AppForm>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
+      <AddAddOnFormInMenuItem
+        open={openAddOnForm}
+        setOpen={setOpenAddOnForm}
+        ownersID={ownersID}
+        menuItemID={activeItem.id}
+      />
     </Card>
   );
 };
