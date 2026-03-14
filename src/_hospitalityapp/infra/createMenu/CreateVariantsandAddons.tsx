@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Lightbulb, MoveLeft, PlusIcon } from "lucide-react";
+import { MoveLeft, PlusIcon } from "lucide-react";
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
 import { useAddPreferredKitchenToMenuItemMutation } from "../apis/api.Mutations";
@@ -13,7 +13,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AddAddOnFormInMenuItem } from "./forms/AddAddon";
 import { AddVariantForm } from "./forms/AddVariant";
 import { AddVariantGroupForm } from "./forms/AddVariantGroup";
