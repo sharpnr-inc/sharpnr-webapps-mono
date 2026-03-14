@@ -1,10 +1,9 @@
 import api from "@/middlewares/axios";
 import { MenuModuleEndpoints } from "./api.endpoints";
 import type { APIResponse } from "@/utilities/api_response";
+import type { AddTaxCategoryPayload } from "@/_orchestrator/legal_entity/api/legalEntity.api.service";
 
 /* ---------------------------------- <***> --------------------------------- */
-
-
 
 export interface MenuResponse {
   id: string;
@@ -244,3 +243,24 @@ export async function AddPreferredKitchenToMenuItem({
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+interface AddTaxCategoryOfMenuGroup {
+  ownerID: string;
+  payload: {
+    menuGroupId: string;
+    taxCategoryId: string;
+    legalEntityId: string;
+  };
+}
+
+export async function AddTacCategoryOfMenuGroup({
+  ownerID,
+  payload,
+}: AddTaxCategoryOfMenuGroup) {
+  const res = await api.post(
+    MenuModuleEndpoints.AddTaxCategoryForMenuGroup(ownerID),
+    payload,
+  );
+
+  return res.data;
+}

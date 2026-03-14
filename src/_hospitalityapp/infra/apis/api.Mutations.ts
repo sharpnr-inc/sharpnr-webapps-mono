@@ -8,6 +8,7 @@ import {
   AddPreferredKitchenToMenuItem,
   AddPreferredKitchenToMenuSubCategory,
   AddSubCategoryInCategory,
+  AddTacCategoryOfMenuGroup,
   AddVariantGroup,
   AddVariantsInVariantGroup,
   CreateMenu,
@@ -85,5 +86,12 @@ export function useAddPreferredKitchenToMenuItemMutation() {
   return useMutation({
     mutationKey: ["ADD", "PREFERRED", "KITCHEN", "MENU_ITEM"],
     mutationFn: AddPreferredKitchenToMenuItem,
+  });
+}
+
+export function useAddTaxCategoryOfMenuGroup() {
+  return useMutation({
+    mutationKey: ["ADD_TAX_CATEGORIES", "MENU_GROUP"],
+    mutationFn: AddTacCategoryOfMenuGroup,
   });
 }

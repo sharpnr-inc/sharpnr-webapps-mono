@@ -29,4 +29,9 @@ export const MenuModuleEndpoints = {
 
   AddPreferredKitchenToMenuItem: (ownersID: string) =>
     `/sharp-hospitality/${ownersID}/menu/configs/register/menu-item-kitchen`,
+
+  // Menu Tax Category
+
+  AddTaxCategoryForMenuGroup: (ownersID: string) =>
+    `/sharp-hospitality/${ownersID}/menu/tax-category-register/menu-group`,
 };

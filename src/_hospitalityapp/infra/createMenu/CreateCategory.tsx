@@ -9,7 +9,10 @@ import {
 } from "@/components/ui/card";
 import { createMenuAction } from "../stores/actions";
 import EmptyMenu from "../components/EmptyMenu";
-import { useAddPreferredKitchenToMenuGroupMutation } from "../apis/api.Mutations";
+import {
+  useAddPreferredKitchenToMenuGroupMutation,
+  useAddTaxCategoryOfMenuGroup,
+} from "../apis/api.Mutations";
 import { Button } from "@/components/ui/button";
 import {
   PlusIcon,
@@ -63,6 +66,7 @@ const CreateCategory = () => {
 
   const { mutateAsync, isPending } =
     useAddPreferredKitchenToMenuGroupMutation();
+  const AddTaxCategoryOfMenuCategory = useAddTaxCategoryOfMenuGroup();
 
   const handleAddPreferredKitchenToMenuGroup = async (
     menuID: string,
@@ -81,8 +85,24 @@ const CreateCategory = () => {
     });
   };
 
+  const handleAddTaxCategoryofMenuGroup = async (
+    menuID: string,
+    taxCategoryID: string,
+  ) => {
+    if (owners_legal_entity_ID) {
+      await AddTaxCategoryOfMenuCategory.mutateAsync({
+        ownerID: ownersID,
+        payload: {
+          legalEntityId: owners_legal_entity_ID,
+          menuGroupId: menuID,
+          taxCategoryId: taxCategoryID,
+        },
+      });
+    }
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {/* ── Page Header ─────────────────────────────────────── */}
       <Card className="rounded-2xl shadow-sm">
         <CardHeader className="pb-4">
@@ -225,9 +245,21 @@ const CreateCategory = () => {
 
                 <Select
                   value={selectedTaxID}
-                  onValueChange={(value) =>
-                    setMenuTaxMap((prev) => ({ ...prev, [m.id]: value }))
-                  }
+                  onValueChange={async (taxCategoryID) => {
+                    // update UI immediately
+                    setMenuTaxMap((prev) => ({
+                      ...prev,
+                      [m.id]: taxCategoryID,
+                    }));
+
+                    // call API
+                    await handleAddTaxCategoryofMenuGroup(m.id, taxCategoryID);
+
+                    // refresh menu data
+                    await queryClient.invalidateQueries({
+                      queryKey: ["Menu", ownersID],
+                    });
+                  }}
                 >
                   <SelectTrigger className="w-full h-9 text-sm">
                     <SelectValue placeholder="Select a tax category…">
@@ -263,10 +295,12 @@ const CreateCategory = () => {
                                 {tax.code}
                               </span>
                             </div>
+
                             <div className="text-xs text-muted-foreground">
                               {rule?.rate ?? 0}% total · {rule?.tax_type} ·{" "}
                               {components}
                             </div>
+
                             <div className="text-xs text-muted-foreground">
                               ₹{rule?.min_value} – ₹{rule?.max_value}
                             </div>
@@ -282,7 +316,7 @@ const CreateCategory = () => {
               <div className="p-5 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="rounded-md bg-sky-50 p-1.5">
+                    <div className="rounded-md  p-1.5">
                       <LayoutGrid className="h-3.5 w-3.5 text-sky-500" />
                     </div>
                     <h3 className="text-sm font-semibold">Categories</h3>
