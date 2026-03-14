@@ -8,10 +8,17 @@ import { RestaurantLegalEntity } from "./components_forms/RestaurantLegalEntity"
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "@tanstack/react-router";
+import { useRestaurantGeneralInfo } from "../../apis/queries";
 
 const RestaurantSettingsTabs = () => {
   const { restaurantID, propertyId } = Route.useParams();
   const { data: properyDetails } = usePropertyDetails(propertyId);
+  const { data: restaurantDetails, isLoading } = useRestaurantGeneralInfo(
+    restaurantID!,
+  );
+
+  console.log();
+
   const navigate = useNavigate();
   const handleNav = () => {
     navigate({
@@ -90,7 +97,13 @@ const RestaurantSettingsTabs = () => {
               }
 
               return (
-                <MenuSettings moduleID={restaurantID} propertyID={propertyId} />
+                <MenuSettings
+                  moduleID={restaurantID}
+                  propertyID={propertyId}
+                  owners_legal_entityID={
+                    restaurantDetails?.data?.resturant_legal_entity_id
+                  }
+                />
               );
             })()}
           </TabsContent>

@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -12,7 +11,16 @@ import { createMenuAction } from "../stores/actions";
 import EmptyMenu from "../components/EmptyMenu";
 import { useAddPreferredKitchenToMenuGroupMutation } from "../apis/api.Mutations";
 import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
+import {
+  PlusIcon,
+  ChefHat,
+  Tag,
+  CheckCircle2,
+  AlertCircle,
+  ChevronRight,
+  LayoutGrid,
+  Utensils,
+} from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Select,
@@ -22,21 +30,36 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
 import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
+import { useLegalEntityAllTaxCategory } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { NIL } from "uuid";
 
 const CreateCategory = () => {
-  const { Menus, nextStep, ownersID, ownersType, propertyID } =
-    useCreateMenuCtx();
+  const {
+    Menus,
+    nextStep,
+    ownersID,
+    ownersType,
+    propertyID,
+    owners_legal_entity_ID,
+  } = useCreateMenuCtx();
+
+  const queryClient = useQueryClient();
 
   const [open, setOpen] = useState(false);
   const [openMenuForm, setOpenMenuForm] = useState(false);
-  const queryClient = useQueryClient();
   const [selectedMenuID, setSelectedMenuID] = useState<string>("");
+  const [menuTaxMap, setMenuTaxMap] = useState<Record<string, string>>({});
 
   const { data: propertyData } = usePropertyDetails(propertyID!);
   const kitchens = propertyData?.data?.infra ?? [];
+
+  const { data: taxCategories } = useLegalEntityAllTaxCategory(
+    owners_legal_entity_ID && owners_legal_entity_ID !== NIL
+      ? owners_legal_entity_ID
+      : NIL,
+  );
 
   const { mutateAsync, isPending } =
     useAddPreferredKitchenToMenuGroupMutation();
@@ -46,7 +69,7 @@ const CreateCategory = () => {
     kitchenID: string,
   ) => {
     await mutateAsync({
-      ownersID: ownersID,
+      ownersID,
       payload: {
         menu_group_id: menuID,
         kitchen_id: kitchenID,
@@ -59,172 +82,276 @@ const CreateCategory = () => {
   };
 
   return (
-    <div>
+    <div className="space-y-4">
+      {/* ── Page Header ─────────────────────────────────────── */}
       <Card className="rounded-2xl shadow-sm">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-lg">Menu</CardTitle>
-          <CardDescription className="text-sm">
-            Manage your menus, categories and structure.
-          </CardDescription>
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <CardTitle className="text-base font-semibold">Menus</CardTitle>
+              <CardDescription className="text-sm">
+                Manage your menus, categories and structure.
+              </CardDescription>
+            </div>
+
+            <Button
+              size="sm"
+              onClick={() => setOpenMenuForm(true)}
+              className="gap-1.5"
+            >
+              <PlusIcon className="h-4 w-4" />
+              Add Menu
+            </Button>
+          </div>
         </CardHeader>
 
-        {!Menus || Menus.length === 0 ? (
-          <div className="px-6 pb-6">
+        {(!Menus || Menus.length === 0) && (
+          <CardContent className="pb-6">
             <EmptyMenu onCreateClick={() => setOpenMenuForm(true)} />
-          </div>
-        ) : (
-          <CardContent className="space-y-8">
-            {Menus.map((m) => {
-              const preferredKitchen = kitchens.find(
-                (k: any) => k.id === m.preferred_kitchen,
-              );
+          </CardContent>
+        )}
+      </Card>
 
-              return (
-                <Card
-                  key={m.id}
-                  className="rounded-xl border bg-muted/30 shadow-sm"
-                >
-                  {/* Menu Header */}
-                  <CardHeader className="">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="space-y-1">
-                        <CardTitle className="text-base">
-                          {m.menu_name}
-                        </CardTitle>
+      {/* ── Menu Cards ──────────────────────────────────────── */}
+      {Menus?.map((m) => {
+        const preferredKitchen = kitchens.find(
+          (k: any) => k.id === m.preferred_kitchen,
+        );
 
-                        <CardDescription className="text-sm line-clamp-2">
-                          {m?.menu_description || "No description provided"}
-                        </CardDescription>
-                      </div>
+        const selectedTaxID = menuTaxMap[m.id] ?? "";
+        const selectedTax = taxCategories?.data?.find(
+          (t: any) => t.id === selectedTaxID,
+        );
+        const selectedRule = selectedTax?.rules?.[0];
+        const categoryCount = m.categories?.length ?? 0;
+
+        return (
+          <Card
+            key={m.id}
+            className="rounded-2xl border shadow-sm overflow-hidden"
+          >
+            {/* ── Menu Header Band ── */}
+            <div className="bg-muted/50 border-b px-5 py-4 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="shrink-0 rounded-lg bg-primary/10 p-2">
+                  <Utensils className="h-4 w-4 text-primary" />
+                </div>
+                <div className="min-w-0">
+                  <h2 className="text-sm font-semibold text-foreground truncate">
+                    {m.menu_name}
+                  </h2>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {m?.menu_description || "No description provided"}
+                  </p>
+                </div>
+              </div>
+
+              <span className="shrink-0 text-xs font-medium bg-primary/10 text-primary px-2.5 py-1 rounded-full whitespace-nowrap">
+                {categoryCount}{" "}
+                {categoryCount === 1 ? "category" : "categories"}
+              </span>
+            </div>
+
+            <div className="divide-y">
+              {/* ── Preferred Kitchen ── */}
+              <div className="p-5 space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="rounded-md bg-orange-50 p-1.5">
+                    <ChefHat className="h-3.5 w-3.5 text-orange-500" />
+                  </div>
+                  <h3 className="text-sm font-semibold">Preferred Kitchen</h3>
+                </div>
+
+                {preferredKitchen ? (
+                  <div className="flex items-center justify-between rounded-xl border bg-emerald-50/50 border-emerald-100 px-3.5 py-2.5">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                      <span className="text-sm font-medium">
+                        {preferredKitchen.name}
+                      </span>
                     </div>
-                  </CardHeader>
+                    {!preferredKitchen.status && (
+                      <span className="inline-flex items-center gap-1 text-xs text-red-500 bg-red-50 border border-red-100 px-2 py-0.5 rounded-full">
+                        <AlertCircle className="h-3 w-3" />
+                        Inactive
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 rounded-xl border border-dashed border-amber-200 bg-amber-50/50 px-3.5 py-2.5">
+                    <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />
+                    <span className="text-xs text-amber-700">
+                      No kitchen selected — orders will use the default kitchen.
+                    </span>
+                  </div>
+                )}
 
-                  {/* Preferred Kitchen */}
-                  <CardContent className="p-4 border">
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-semibold">
-                        Preferred Kitchen
-                      </h3>
+                <Select
+                  value={m.preferred_kitchen ?? ""}
+                  onValueChange={(kitchenID) =>
+                    handleAddPreferredKitchenToMenuGroup(m.id, kitchenID)
+                  }
+                  disabled={isPending}
+                >
+                  <SelectTrigger className="w-full h-9 text-sm">
+                    <SelectValue placeholder="Change kitchen…" />
+                  </SelectTrigger>
 
-                      <Alert variant={"suggestion"}>
-                        <AlertTitle>About Preferred Kitchen</AlertTitle>
-                        <AlertDescription>
-                          In Order to Order to Process and Send to kichen you
-                          have specify kitchen, when you add the
-                        </AlertDescription>
-                      </Alert>
-
-                      {preferredKitchen ? (
-                        <div className="rounded-xl border bg-muted/30 p-3 text-sm flex items-center justify-between">
-                          <span>{preferredKitchen.name}</span>
-
-                          {!preferredKitchen.status && (
-                            <span className="text-xs text-red-500">
-                              (Inactive)
+                  <SelectContent>
+                    {kitchens.map((kitchen: any) => (
+                      <SelectItem key={kitchen.id} value={kitchen.id}>
+                        <div className="flex items-center justify-between w-full gap-3">
+                          <span>{kitchen.name}</span>
+                          {!kitchen.status && (
+                            <span className="text-xs text-red-400">
+                              Inactive
                             </span>
                           )}
                         </div>
-                      ) : (
-                        <div className="rounded-xl border border-dashed bg-muted/20 p-3 text-sm text-muted-foreground">
-                          No preferred kitchen selected.
-                          <div className="mt-1 text-xs">
-                            If none is selected, orders route to the
-                            restaurant’s default kitchen.
-                          </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* ── Tax Category ── */}
+              <div className="p-5 space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="rounded-md bg-violet-50 p-1.5">
+                    <Tag className="h-3.5 w-3.5 text-violet-500" />
+                  </div>
+                  <h3 className="text-sm font-semibold">Tax Category</h3>
+                </div>
+
+                <Select
+                  value={selectedTaxID}
+                  onValueChange={(value) =>
+                    setMenuTaxMap((prev) => ({ ...prev, [m.id]: value }))
+                  }
+                >
+                  <SelectTrigger className="w-full h-9 text-sm">
+                    <SelectValue placeholder="Select a tax category…">
+                      {selectedTax && (
+                        <div className="flex items-center justify-between w-full gap-2">
+                          <span className="font-medium">
+                            {selectedTax.category_name}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {selectedRule?.rate}% GST
+                          </span>
                         </div>
                       )}
+                    </SelectValue>
+                  </SelectTrigger>
 
-                      <Select
-                        value={m.preferred_kitchen ?? ""}
-                        onValueChange={(kitchenID) =>
-                          handleAddPreferredKitchenToMenuGroup(m.id, kitchenID)
-                        }
-                        disabled={isPending}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a Kitchen" />
-                        </SelectTrigger>
+                  <SelectContent>
+                    {taxCategories?.data?.map((tax: any) => {
+                      const rule = tax.rules?.[0];
+                      const components =
+                        rule?.components
+                          ?.map((c: any) => `${c.component_code} ${c.rate}%`)
+                          .join(" + ") ?? "No components";
 
-                        <SelectContent>
-                          {kitchens.map((kitchen: any) => (
-                            <SelectItem key={kitchen.id} value={kitchen.id}>
-                              <div className="flex items-center justify-between w-full">
-                                <span>{kitchen.name}</span>
+                      return (
+                        <SelectItem key={tax.id} value={tax.id}>
+                          <div className="flex flex-col gap-0.5 py-1">
+                            <div className="flex items-center justify-between gap-4">
+                              <span className="font-medium text-sm">
+                                {tax.category_name}
+                              </span>
+                              <span className="text-xs font-mono text-muted-foreground">
+                                {tax.code}
+                              </span>
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              {rule?.rate ?? 0}% total · {rule?.tax_type} ·{" "}
+                              {components}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              ₹{rule?.min_value} – ₹{rule?.max_value}
+                            </div>
+                          </div>
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
 
-                                {!kitchen.status && (
-                                  <span className="text-xs text-red-500 ml-2">
-                                    (Inactive)
-                                  </span>
-                                )}
-                              </div>
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+              {/* ── Categories ── */}
+              <div className="p-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-md bg-sky-50 p-1.5">
+                      <LayoutGrid className="h-3.5 w-3.5 text-sky-500" />
                     </div>
-                  </CardContent>
+                    <h3 className="text-sm font-semibold">Categories</h3>
+                  </div>
 
-                  {/* Categories */}
-                  <CardContent>
-                    {!m.categories || m.categories.length === 0 ? (
-                      <div className="text-xs text-muted-foreground py-2">
-                        No categories added yet.
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {m.categories.map((c) => (
-                          <Card
-                            key={c.id}
-                            onClick={() => {
-                              createMenuAction.setActiveCategory(c.id);
-                              createMenuAction.setModulesMenu(m);
-                              nextStep();
-                            }}
-                            className="cursor-pointer rounded-lg transition-all hover:shadow-md hover:-translate-y-1"
-                          >
-                            <CardHeader className="p-4">
-                              <CardTitle className="text-sm truncate">
-                                {c.category_name}
-                              </CardTitle>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="h-7 gap-1 text-xs"
+                    onClick={() => {
+                      setSelectedMenuID(m.id);
+                      setOpen(true);
+                    }}
+                  >
+                    <PlusIcon className="h-3.5 w-3.5" />
+                    Add Category
+                  </Button>
+                </div>
 
-                              <CardDescription className="text-xs line-clamp-2">
-                                {c.category_description || "No description"}
-                              </CardDescription>
-                            </CardHeader>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-
-                  {/* Footer */}
-                  <CardFooter className="pt-4 flex flex-col gap-4">
-                    <Button
-                      className="w-full"
+                {!m.categories || m.categories.length === 0 ? (
+                  <div className="rounded-xl border border-dashed bg-muted/20 py-8 flex flex-col items-center text-center gap-2">
+                    <LayoutGrid className="h-5 w-5 text-muted-foreground/40" />
+                    <p className="text-xs text-muted-foreground">
+                      No categories yet.
+                    </p>
+                    <button
+                      className="text-xs text-primary font-medium hover:underline underline-offset-2"
                       onClick={() => {
                         setSelectedMenuID(m.id);
                         setOpen(true);
                       }}
                     >
-                      <PlusIcon className="mr-2 h-4 w-4" />
-                      Add Category in {m.menu_name}
-                    </Button>
-                  </CardFooter>
-                </Card>
-              );
-            })}
-          </CardContent>
-        )}
+                      Add the first category
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
+                    {m.categories.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => {
+                          createMenuAction.setActiveCategory(c.id);
+                          createMenuAction.setModulesMenu(m);
+                          nextStep();
+                        }}
+                        className="group text-left rounded-xl border bg-card p-3.5 space-y-1 hover:border-primary/40 hover:bg-primary/5 hover:shadow-sm transition-all"
+                      >
+                        <div className="flex items-start justify-between gap-1">
+                          <p className="text-xs font-semibold leading-snug truncate flex-1">
+                            {c.category_name}
+                          </p>
+                          <ChevronRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5" />
+                        </div>
+                        {c.category_description && (
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            {c.category_description}
+                          </p>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </Card>
+        );
+      })}
 
-        <CardFooter>
-          <Button className="w-full" onClick={() => setOpenMenuForm(true)}>
-            <PlusIcon className="mr-2 h-4 w-4" />
-            Add New Menu
-          </Button>
-        </CardFooter>
-      </Card>
-
-      {/* Category Dialog */}
+      {/* ── Dialogs ── */}
       <AddMenuCategoryForm
         open={open}
         setOpen={setOpen}
@@ -232,7 +359,6 @@ const CreateCategory = () => {
         menuID={selectedMenuID}
       />
 
-      {/* Menu Dialog */}
       <AddNewMenuGroupForm
         open={openMenuForm}
         setOpen={setOpenMenuForm}

@@ -13,6 +13,7 @@ interface CreateMenuRootProps {
   ownersID: string;
   ownersType: string;
   propertyID: string | undefined;
+  owners_legal_entity_ID: string | null | undefined;
 }
 
 const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
@@ -20,6 +21,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
   ownersID,
   ownersType,
   propertyID,
+  owners_legal_entity_ID,
 }) => {
   const [step, setStep] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
@@ -73,6 +75,7 @@ const CreateMenuRoot: React.FC<CreateMenuRootProps> = ({
         ownersID,
         ownersType,
         propertyID,
+        owners_legal_entity_ID: owners_legal_entity_ID,
       }}
     >
       <Carousel setApi={setApi} className="" opts={{ watchDrag: false }}>
