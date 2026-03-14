@@ -1,30 +1,29 @@
-import { CardContent } from "@/components/ui/card";
 import CreateMenu from "../createMenu/CreatMenu";
 
 interface MenuSettingsProps {
   moduleID: string;
   propertyID?: string;
+  owners_legal_entityID: string | null | undefined;
 }
 
 const MenuSettings: React.FC<MenuSettingsProps> = ({
   moduleID,
   propertyID,
+  owners_legal_entityID,
 }) => {
-  console.log(propertyID);
   return (
     <div className="space-y-2 w-full">
-      <CardContent>
-        <CreateMenu
-          ownersID={moduleID}
-          propertyID={propertyID}
-          ownersType="RESTAURANT"
-        >
-          <CreateMenu.CreateCategory />
-          <CreateMenu.CreateSubCategory />
-          <CreateMenu.CreateItem />
-          <CreateMenu.CreateVariantsAndAddons />
-        </CreateMenu>
-      </CardContent>
+      <CreateMenu
+        owners_legal_entity_ID={owners_legal_entityID}
+        ownersID={moduleID}
+        propertyID={propertyID}
+        ownersType="RESTAURANT"
+      >
+        <CreateMenu.CreateCategory />
+        <CreateMenu.CreateSubCategory />
+        <CreateMenu.CreateItem />
+        <CreateMenu.CreateVariantsAndAddons />
+      </CreateMenu>
     </div>
   );
 };

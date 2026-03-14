@@ -1,13 +1,18 @@
-import { createFileRoute } from '@tanstack/react-router'
-import RestaurantOverviewPage from '@/_hospitalityapp/Restaurant/pages/RestaurantOverviewPage';
+import { createFileRoute } from "@tanstack/react-router";
+import RestaurantSelector from "@/_hospitalityapp/Restaurant/components/RestaurantSelector";
+import { FetchRestaurentContext } from "@/_hospitalityapp/Restaurant/apis/restaurant.api";
 
 export const Route = createFileRoute(
-  '/_appuser/dashboard/sharp_hospitality/restaurant/',
+  "/_appuser/dashboard/sharp_hospitality/restaurant/",
 )({
-  component: RestaurantOverviewPage,
-  staticData:{
-    breadcrumb:"Overview"
-  }
-})
-
-
+  loader: async ({ context }) => {
+    const data = await context.queryClient.ensureQueryData({
+      queryKey: ["PropertyContext", "Restaurant"],
+      queryFn: FetchRestaurentContext,
+    });
+    return {
+      restaurants: data?.data, // 👈 FIXED
+    };
+  },
+  component: RestaurantSelector,
+});

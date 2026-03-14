@@ -17,3 +17,8 @@ export async function UpdateKOTStatus(
 
   return res.data;
 }
+
+export async function GetAllOrgKitchen() {
+  const res = await api.get(KitchenEndpoints.GetAllKitchen);
+  return res.data;
+}

@@ -15,8 +15,11 @@ import type { TransactionsParams } from "./queries/transactions";
  * @returns {Promise<any>}
  * @exports
  */
-export const GetAllAccountingBooksOfOrg = async () => {
-  const res = await api.get(AccountingAppAPIEndpoints.Books.get_ac_allBooks);
+
+export const GetAllAccountingBooksOfOrg = async (legalEntityID: string) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Books.get_ac_Books(legalEntityID),
+  );
   return res.data;
 };
 
@@ -88,3 +91,23 @@ export const CreateAccountMapping = async (req: any) => {
   );
   return res.data;
 };
+
+export const GetLegder = async (legalEntityID: string) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.ledger.getAll(legalEntityID),
+  );
+  return res.data;
+};
+
+export const GetLegderEntryDetails = async (
+  legalEntityID: string,
+  entryID: string,
+) => {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.ledger.entryDetails(legalEntityID, entryID),
+  );
+  return res.data;
+};
+
+/* ---------------------------------- <***> --------------------------------- */
+

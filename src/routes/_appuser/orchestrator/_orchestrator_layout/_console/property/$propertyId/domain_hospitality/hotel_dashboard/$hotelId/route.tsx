@@ -1,4 +1,4 @@
-import HotelOrchestDashboardLayout from "@/_orchestrator/hospitality_dashboards/components/HotelOrchestDashboardLayout";
+import HotelOrchestDashboardLayout from "@/_orchestrator/properties/hospitality_dashboards/components/HotelOrchestDashboardLayout";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

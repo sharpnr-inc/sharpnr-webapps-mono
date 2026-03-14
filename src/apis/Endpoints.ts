@@ -10,6 +10,7 @@ export const AuthApiEndpoints = {
 
   Auth: {
     login: "identity/web/login",
+    logout: "identity/web/logout",
     ForgetPassword: "",
     fetchRenderer: "",
     fetchIdentity: "",

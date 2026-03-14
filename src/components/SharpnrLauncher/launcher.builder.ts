@@ -29,11 +29,11 @@ export function buildLauncherSections(payload: LauncherPayload): NavSection[] {
 
     /* ---------- INFRAS ---------- */
 
-    const infras = config.Infras.map(
-      (i) => registry.infras[i as keyof typeof registry.infras],
+    const infras = config.Infras?.map(
+      (i) => registry?.infras[i as keyof typeof registry.infras],
     ).filter(Boolean);
 
-    if (infras.length) {
+    if (infras?.length) {
       dynamicSections.push({
         id: `${domainName.toLowerCase()}_infra`,
         title: "Infra",

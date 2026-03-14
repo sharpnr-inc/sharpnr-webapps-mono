@@ -22,6 +22,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { registerSW } from "virtual:pwa-register";
 import { queryClient, router } from "./router_config.tsx";
+import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
 
 registerSW({
   onNeedRefresh() {
@@ -36,25 +37,27 @@ registerSW({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <FormsModalProvider>
-          <SpinnerProvider>
-            <ToastProvider>
-              <LoaderProvider>
-                <SheetProvider>
-                  <DialogModalProvider>
-                    <ModalProvider>
-                      <Suspense fallback={<SuspenseFallback />}>
-                        <RouterProvider router={router} />
-                      </Suspense>
-                    </ModalProvider>
-                  </DialogModalProvider>
-                </SheetProvider>
-              </LoaderProvider>
-            </ToastProvider>
-          </SpinnerProvider>
-        </FormsModalProvider>
-      </ThemeProvider>
+      <AppVersionIdentifier>
+        <ThemeProvider>
+          <FormsModalProvider>
+            <SpinnerProvider>
+              <ToastProvider>
+                <LoaderProvider>
+                  <SheetProvider>
+                    <DialogModalProvider>
+                      <ModalProvider>
+                        <Suspense fallback={<SuspenseFallback />}>
+                          <RouterProvider router={router} />
+                        </Suspense>
+                      </ModalProvider>
+                    </DialogModalProvider>
+                  </SheetProvider>
+                </LoaderProvider>
+              </ToastProvider>
+            </SpinnerProvider>
+          </FormsModalProvider>
+        </ThemeProvider>
+      </AppVersionIdentifier>
       <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
       {/* 🔹 Show Devtools only in development */}

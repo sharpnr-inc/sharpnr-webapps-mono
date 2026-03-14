@@ -1,13 +1,102 @@
 import api from "@/middlewares/axios";
 import { RestaurantEndpoints } from "./enpoints";
+import type { APIResponse } from "@/utilities/api_response";
 
-export async function FetchRestaurantLayout(restaurantID: string) {
-  const res = await api.get(RestaurantEndpoints.Layout(restaurantID));
+/* ---------------------------------- <***> --------------------------------- */
+export async function FetchRestaurantLayout(restaurantID?: string | null) {
+  if (restaurantID !== null) {
+    const res = await api.get(RestaurantEndpoints.Layout(restaurantID));
+    return res.data;
+  }
+}
+/* ---------------------------------- <***> --------------------------------- */
+
+interface AddRestaurantLayoutPayload {
+  restaurantID: string;
+  payload: any;
+}
+
+export async function AddRestaurantFloorsAdnTables(
+  payload: AddRestaurantLayoutPayload,
+) {
+  const res = await api.post(
+    RestaurantEndpoints.AddLayout(payload.restaurantID),
+    payload.payload,
+  );
+
   return res.data;
 }
 
-export async function FetchRestaurentContext() {
-  const res = await api.get(RestaurantEndpoints.Context);
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface RestaurantProperty {
+  ID: string;
+  Name: string;
+  AddressLine: string;
+  City: string;
+  State: string;
+  Country: string;
+}
+
+export interface RestaurantContext {
+  ID: string;
+  Name: string;
+  OrgID: string;
+  IsActive: boolean;
+  IsConfigured: boolean;
+  Property: RestaurantProperty;
+}
+
+export async function FetchRestaurentContext(): Promise<
+  APIResponse<RestaurantContext[]>
+> {
+  const res = await api.get<APIResponse<RestaurantContext[]>>(
+    RestaurantEndpoints.Context,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface RestaurantGeneralInfoInterface {
+  restaurant_id: string;
+  resturant_legal_entity_id: string;
+  name: string;
+  opening_time: string;
+  closing_time: string;
+  is_pure_veg: boolean;
+  is_active: boolean;
+  is_configured: boolean;
+  current_configured_status: string;
+  last_updated: string;
+}
+
+export async function GetRestaurantGeneralInfo(
+  restaurantID: string,
+): Promise<APIResponse<RestaurantGeneralInfoInterface>> {
+  const res = await api.get<APIResponse<RestaurantGeneralInfoInterface>>(
+    RestaurantEndpoints.GeneralInfo(restaurantID),
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface UpdateRestaurantGeneralInfoPayload {
+  restaurantID: string;
+  payload: any;
+}
+
+export async function UpdateRestaurantGeneralInfo({
+  restaurantID,
+  payload,
+}: UpdateRestaurantGeneralInfoPayload) {
+  const res = await api.post(
+    RestaurantEndpoints.UpdateGeneralInfo(restaurantID),
+    payload,
+  );
   return res.data;
 }
 

@@ -14,6 +14,7 @@ import { useForm } from "@tanstack/react-form";
 import { useInitiateSignUpMutation } from "@/apis/mutation";
 import type { OrgSignupPayload } from "@/apis/api_service";
 import { useNavigate } from "@tanstack/react-router";
+import { useToastService } from "@/context/ToastContext";
 
 interface OrgSignupFormData {
   email: string;
@@ -75,6 +76,7 @@ export function InitialSignupForm({
 }: InitialSignupFormProps) {
   const navigate = useNavigate();
   const startRegistration = useInitiateSignUpMutation();
+  const { error, success } = useToastService();
 
   const form = useForm({
     defaultValues: defaultOrgForm,
@@ -82,10 +84,25 @@ export function InitialSignupForm({
       const payload = mapFormToPayload(value);
 
       try {
-        await startRegistration.mutateAsync(payload);
-        setShowOtp(true);
-        setUserEmail(payload.email);
-      } catch (error) {}
+        await startRegistration.mutateAsync(payload, {
+          onSuccess: (res) => {
+            if (res.message) {
+              success(res.message);
+            }
+
+            setShowOtp(true);
+            setUserEmail(payload.email);
+          },
+          onError: (err: any) => {
+            const message =
+              err?.response?.data?.error?.message ||
+              err?.message ||
+              "Something went wrong";
+
+            error(message);
+          },
+        });
+      } catch {}
     },
   });
 
