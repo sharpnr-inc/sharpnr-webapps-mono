@@ -1,14 +1,20 @@
 import { createContext, useContext } from "react";
 
-interface SaleTerminalMenuContext {
-  restaurantID: string; // This is the ID of MenuOwner or Restaurant
+interface SaleTerminalMenuSectionContextValue {
+  restaurantID: string;
 }
 
 export const SaleTerminalMenuSectionContext =
-  createContext<SaleTerminalMenuContext | null>(null);
+  createContext<SaleTerminalMenuSectionContextValue>({
+    restaurantID: "",
+  });
 
-export const useSaleTerminalMenuCtx = () => {
+export function useSaleTerminalMenuContext() {
   const ctx = useContext(SaleTerminalMenuSectionContext);
-  if (!ctx) throw new Error("Must inside the <MenuSection>");
+  if (!ctx.restaurantID) {
+    throw new Error(
+      "useSaleTerminalMenuContext must be used inside <SaleTerminalMenu />",
+    );
+  }
   return ctx;
-};
+}

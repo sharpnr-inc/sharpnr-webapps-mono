@@ -13,8 +13,8 @@ export function RestaurantSaleTerminalMenuRoot({
   restaurantID,
 }: RestaurantSaleTerminalMenuRootProps) {
   const { data } = useModulesMenu(restaurantID);
-
   const setMenu = useSalePosTerminalMenuStore((s) => s.setMenu);
+  const clearMenu = useSalePosTerminalMenuStore((s) => s.clearMenu);
 
   useEffect(() => {
     if (data?.data) {
@@ -22,12 +22,13 @@ export function RestaurantSaleTerminalMenuRoot({
     }
   }, [data, setMenu]);
 
+  // Clear store when restaurant changes to avoid stale data
+  useEffect(() => {
+    return () => clearMenu();
+  }, [restaurantID, clearMenu]);
+
   return (
-    <SaleTerminalMenuSectionContext.Provider
-      value={{
-        restaurantID,
-      }}
-    >
+    <SaleTerminalMenuSectionContext.Provider value={{ restaurantID }}>
       {children}
     </SaleTerminalMenuSectionContext.Provider>
   );
