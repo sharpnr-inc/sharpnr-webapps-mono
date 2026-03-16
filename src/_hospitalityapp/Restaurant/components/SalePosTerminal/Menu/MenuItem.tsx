@@ -34,13 +34,20 @@ interface MenuItemCardProps {
 }
 
 function MenuItemCard({ item, onSelect }: MenuItemCardProps) {
+  const setSelectedItem = useSalePosTerminalMenuStore((s) => s.setSelectedItem);
+  const openVariantSeet = useSalePosTerminalMenuStore(
+    (s) => s.openVariantSheet,
+  );
   const hasVariants = item.variant_groups.length > 0;
   const hasAddOns = item.add_ons.length > 0;
 
   return (
     <button
       type="button"
-      onClick={() => onSelect?.(item)}
+      onClick={() => {
+        setSelectedItem(item);
+        openVariantSeet();
+      }}
       className={cn(
         "group relative flex flex-col gap-1.5 rounded-xl border bg-card p-3.5 text-left",
         "shadow-sm transition-all duration-150",

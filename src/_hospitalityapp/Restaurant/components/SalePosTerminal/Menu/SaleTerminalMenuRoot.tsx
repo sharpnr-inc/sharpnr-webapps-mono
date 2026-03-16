@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
 import { SaleTerminalMenuSectionContext } from "./SaleTerminalMenuContext";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
+import { VariantAndAddOnSelector } from "./VariantandAddOnSelector";
 
 interface RestaurantSaleTerminalMenuRootProps {
   restaurantID: string;
@@ -30,6 +31,7 @@ export function RestaurantSaleTerminalMenuRoot({
   return (
     <SaleTerminalMenuSectionContext.Provider value={{ restaurantID }}>
       {children}
+      <VariantAndAddOnSelector />
     </SaleTerminalMenuSectionContext.Provider>
   );
 }

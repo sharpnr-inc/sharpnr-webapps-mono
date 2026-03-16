@@ -22,6 +22,7 @@ interface SalePosTerminalMenuStoreState {
   filteredCategories: MenuCategoryResponse[];
   filteredSubCategories: MenuSubCategoryResponse[];
   filteredItems: MenuItemResponse[];
+  selectedItem: MenuItemResponse | null;
 
   // Actions
   setMenu: (menus: MenuResponse[]) => void;
@@ -29,6 +30,13 @@ interface SalePosTerminalMenuStoreState {
   selectMenu: (menuId: string | "all") => void;
   selectCategory: (categoryId: string | null) => void;
   selectSubCategory: (subCategoryId: string | null) => void;
+  setSelectedItem: (setItem: MenuItemResponse) => void;
+
+  // UI Related
+
+  variantSheet: boolean;
+  openVariantSheet: () => void;
+  closeVariantSheet: () => void;
 }
 
 /**
@@ -73,6 +81,8 @@ export const useSalePosTerminalMenuStore =
     selectedMenuId: "all",
     selectedCategoryId: null,
     selectedSubCategoryId: null,
+    selectedItem: null,
+    variantSheet: false,
 
     filteredCategories: [],
     filteredSubCategories: [],
@@ -114,7 +124,6 @@ export const useSalePosTerminalMenuStore =
 
     selectMenu: (menuId) =>
       set((state) => {
-        // Switching menu resets category and subcategory
         const derived = deriveFiltered(
           state.menus,
           state.categories,
@@ -122,6 +131,7 @@ export const useSalePosTerminalMenuStore =
           null,
           null,
         );
+
         return {
           selectedMenuId: menuId,
           selectedCategoryId: null,
@@ -132,7 +142,6 @@ export const useSalePosTerminalMenuStore =
 
     selectCategory: (categoryId) =>
       set((state) => {
-        // Switching category resets subcategory
         const derived = deriveFiltered(
           state.menus,
           state.categories,
@@ -140,6 +149,7 @@ export const useSalePosTerminalMenuStore =
           categoryId,
           null,
         );
+
         return {
           selectedCategoryId: categoryId,
           selectedSubCategoryId: null,
@@ -156,9 +166,19 @@ export const useSalePosTerminalMenuStore =
           state.selectedCategoryId,
           subCategoryId,
         );
+
         return {
           selectedSubCategoryId: subCategoryId,
           ...derived,
         };
       }),
+
+    setSelectedItem: (item: MenuItemResponse | null) =>
+      set(() => ({
+        selectedItem: item,
+      })),
+
+    openVariantSheet: () => set({ variantSheet: true }),
+
+    closeVariantSheet: () => set({ variantSheet: false }),
   }));
