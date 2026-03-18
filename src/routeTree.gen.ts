@@ -61,9 +61,11 @@ import { Route as AppuserDashboardSharp_hrEmployeesEmployeeIdRouteImport } from 
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/route'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/route'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/index'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/organization/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/org-users/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/index'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/index'
 import { Route as AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/privileges/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDocumentsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/documents/index'
 import { Route as AppuserDashboardSharp_hrEmployeesDirectHireIndexRouteImport } from './routes/_appuser/dashboard/sharp_hr/employees/direct-hire/index'
@@ -422,6 +424,13 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute =
     getParentRoute: () =>
       AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
   } as any)
+const AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRouteImport.update({
+    id: '/payments/',
+    path: '/payments/',
+    getParentRoute: () =>
+      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+  } as any)
 const AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport.update(
     {
@@ -447,6 +456,13 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute =
         AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute,
     } as any,
   )
+const AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRouteImport.update({
+    id: '/audit-log/',
+    path: '/audit-log/',
+    getParentRoute: () =>
+      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+  } as any)
 const AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute =
   AppuserDashboardSharp_hrEmployeesPrivilegesIndexRouteImport.update({
     id: '/privileges/',
@@ -886,9 +902,11 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/employees/direct-hire': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
+  '/orchestrator/audit-log': typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
   '/orchestrator/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
   '/orchestrator/org-users': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
   '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
+  '/orchestrator/payments': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
@@ -977,9 +995,11 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/employees/direct-hire': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/dashboard/sharp_hr/employees/documents': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/dashboard/sharp_hr/employees/privileges': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
+  '/orchestrator/audit-log': typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
   '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
   '/orchestrator/org-users': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
   '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
+  '/orchestrator/payments': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
@@ -1084,9 +1104,11 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hr/employees/direct-hire/': typeof AppuserDashboardSharp_hrEmployeesDirectHireIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/documents/': typeof AppuserDashboardSharp_hrEmployeesDocumentsIndexRoute
   '/_appuser/dashboard/sharp_hr/employees/privileges/': typeof AppuserDashboardSharp_hrEmployeesPrivilegesIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/': typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/payments/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
@@ -1188,9 +1210,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/employees/direct-hire'
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
+    | '/orchestrator/audit-log'
     | '/orchestrator/legal_entity/'
     | '/orchestrator/org-users'
     | '/orchestrator/organization'
+    | '/orchestrator/payments'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
@@ -1279,9 +1303,11 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/employees/direct-hire'
     | '/dashboard/sharp_hr/employees/documents'
     | '/dashboard/sharp_hr/employees/privileges'
+    | '/orchestrator/audit-log'
     | '/orchestrator/legal_entity'
     | '/orchestrator/org-users'
     | '/orchestrator/organization'
+    | '/orchestrator/payments'
     | '/orchestrator/property'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
@@ -1385,9 +1411,11 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hr/employees/direct-hire/'
     | '/_appuser/dashboard/sharp_hr/employees/documents/'
     | '/_appuser/dashboard/sharp_hr/employees/privileges/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/payments/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
     | '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
@@ -1784,6 +1812,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/payments/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/payments/'
+      path: '/payments'
+      fullPath: '/orchestrator/payments'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+    }
     '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
       path: '/organization'
@@ -1804,6 +1839,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/orchestrator/legal_entity/'
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport
       parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute
+    }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/'
+      path: '/audit-log'
+      fullPath: '/orchestrator/audit-log'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
     }
     '/_appuser/dashboard/sharp_hr/employees/privileges/': {
       id: '/_appuser/dashboard/sharp_hr/employees/privileges/'
@@ -2601,8 +2643,10 @@ interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
   AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
+  AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
+  AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
   AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
@@ -2620,10 +2664,14 @@ const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren: AppuserOr
       AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute,
+    AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute,
+    AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute,
     AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute:
