@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMemo } from "react";
 import { useDiningSessionOrders } from "../../apis/queries";
 import { cn } from "@/lib/utils";
-import { Clock } from "lucide-react";
+import { Clock, CreditCard, X } from "lucide-react";
 
 interface OrderTableProps {
   restaurantID: string;
   diningSessionID: string;
 }
 
-// ---- types ----
 interface ParsedAddon {
   id: string;
   name: string;
@@ -44,7 +44,6 @@ interface ParsedOrder {
   orderTotal: number;
 }
 
-// ---- status style helper ----
 function statusStyle(status: string) {
   switch (status.toUpperCase()) {
     case "READY":
@@ -65,7 +64,6 @@ function formatTime(iso: string) {
   });
 }
 
-// ---- component ----
 const OrderTable: React.FC<OrderTableProps> = ({
   diningSessionID,
   restaurantID,
@@ -77,7 +75,6 @@ const OrderTable: React.FC<OrderTableProps> = ({
 
   const orders = useMemo<ParsedOrder[]>(() => {
     if (!data?.data?.orders) return [];
-
     return data.data.orders.map((order: any) => {
       const items: ParsedItem[] = (order.items ?? []).map((item: any) => ({
         id: item.id,
@@ -89,9 +86,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
         variants: item.variants ?? [],
         addons: (item.addons ?? []).filter(Boolean),
       }));
-
       const orderTotal = items.reduce((sum, i) => sum + i.total, 0);
-
       return {
         id: order.id,
         orderNumber: order.order_number,
@@ -103,7 +98,39 @@ const OrderTable: React.FC<OrderTableProps> = ({
     });
   }, [data]);
 
-  // ---- fallbacks ----
+  const grandTotal = orders.reduce((sum, o) => sum + o.orderTotal, 0);
+
+  const ActionBar = ({ disabled = false }: { disabled?: boolean }) => (
+    <div className="border-t bg-background px-4 py-3 space-y-2 shrink-0">
+      <div className="flex items-center justify-between text-sm font-semibold">
+        <span className="text-muted-foreground font-normal">Grand Total</span>
+        <span>₹{grandTotal}</span>
+      </div>
+      <div className="flex gap-2">
+        <Button
+          variant="outline"
+          className="flex-1 h-9 text-sm text-destructive border-destructive/40 hover:bg-destructive/10 hover:text-destructive"
+          onClick={() => {
+            // TODO: handle close session
+          }}
+        >
+          <X size={14} className="mr-1.5" />
+          Close Session
+        </Button>
+        <Button
+          disabled={disabled}
+          className="flex-1 h-9 text-sm bg-green-600 hover:bg-green-700 text-white"
+          onClick={() => {
+            // TODO: handle payment
+          }}
+        >
+          <CreditCard size={14} className="mr-1.5" />
+          Pay ₹{grandTotal}
+        </Button>
+      </div>
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
@@ -123,130 +150,144 @@ const OrderTable: React.FC<OrderTableProps> = ({
 
   if (orders.length === 0) {
     return (
-      <div className="flex h-full items-center justify-center text-sm text-muted-foreground border rounded-xl">
-        No Orders Found
+      <div className="flex h-full flex-col">
+        <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
+          No Orders Found
+        </div>
+        <ActionBar disabled />
       </div>
     );
   }
 
-  // ---- main UI ----
   return (
-    <div className="flex flex-col h-full overflow-y-auto space-y-4 p-1">
-      {orders.map((order) => (
-        <div
-          key={order.id}
-          className="border rounded-xl overflow-hidden shadow-sm"
-        >
-          {/* ── Order Header ── */}
-          <div className="flex items-center justify-between px-4 py-2.5 bg-muted/40 border-b">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-sm">
-                Order #{order.orderNumber}
-              </span>
-              <Badge
-                variant="outline"
-                className={cn(
-                  "text-[10px] px-2 py-0.5",
-                  statusStyle(order.status),
-                )}
-              >
-                {order.status}
-              </Badge>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
-                <Clock size={11} />
-                {formatTime(order.createdAt)}
-              </span>
-              <Button size="sm" variant="outline" className="h-7 text-xs">
-                Edit Order
-              </Button>
-            </div>
-          </div>
-
-          {/* ── Items List ── */}
-          <div className="divide-y">
-            {order.items.map((item, idx) => (
-              <div key={item.id} className="px-4 py-3 space-y-1.5">
-                {/* Item name + total */}
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-muted-foreground w-4 text-right">
-                      {idx + 1}.
-                    </span>
-                    <span className="font-medium text-sm">{item.name}</span>
-                  </div>
-                  <span className="font-semibold text-sm">₹{item.total}</span>
-                </div>
-
-                {/* Qty + unit price */}
-                <div className="flex items-center gap-4 pl-6 text-xs text-muted-foreground">
-                  <span>
-                    Qty:{" "}
-                    <strong className="text-foreground">{item.quantity}</strong>
+    <div className="flex flex-col">
+      {/* ✅ Fixed height directly on ScrollArea — shadcn is happy */}
+      <ScrollArea className="h-[80vh]">
+        <div className="flex flex-col space-y-4 p-3">
+          {orders.map((order) => (
+            <div
+              key={order.id}
+              className="border rounded-xl overflow-hidden shadow-sm"
+            >
+              {/* Order Header */}
+              <div className="flex items-center justify-between px-4 py-2.5 bg-muted/40 border-b">
+                <div className="flex items-center gap-2">
+                  <span className="font-bold text-sm">
+                    Order #{order.orderNumber}
                   </span>
-                  <span>×</span>
-                  <span>₹{item.unitPrice}</span>
+                  <Badge
+                    variant="outline"
+                    className={cn(
+                      "text-[10px] px-2 py-0.5",
+                      statusStyle(order.status),
+                    )}
+                  >
+                    {order.status}
+                  </Badge>
                 </div>
-
-                {/* Variants */}
-                {item.variants.length > 0 && (
-                  <div className="pl-6 flex items-center gap-1.5 flex-wrap">
-                    {item.variants.map((v) => (
-                      <Badge
-                        key={v.id}
-                        variant="secondary"
-                        className="text-[10px] px-2 py-0"
-                      >
-                        {v.name} · ₹{v.price}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-
-                {/* Addons */}
-                {item.addons.length > 0 && (
-                  <div className="pl-6 flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[10px] text-muted-foreground">
-                      Add-ons:
-                    </span>
-                    {item.addons.map((a) => (
-                      <Badge
-                        key={a.id}
-                        variant="outline"
-                        className="text-[10px] px-2 py-0"
-                      >
-                        {a.name} ×{a.quantity} · ₹{a.price}
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-
-                {/* Notes */}
-                {item.notes && (
-                  <div className="pl-6 text-[11px] text-orange-600 italic">
-                    "{item.notes}"
-                  </div>
-                )}
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                    <Clock size={11} />
+                    {formatTime(order.createdAt)}
+                  </span>
+                  <Button size="sm" variant="outline" className="h-7 text-xs">
+                    Edit Order
+                  </Button>
+                </div>
               </div>
-            ))}
-          </div>
 
-          {/* ── Order Footer ── */}
-          {/* <div className="flex items-center justify-between px-4 py-2.5 bg-muted/20 border-t">
-            <span className="text-xs text-muted-foreground">
-              {order.items.length} item{order.items.length !== 1 ? "s" : ""}
-            </span>
-            <div className="flex items-center gap-1.5 font-bold text-sm">
-              <span className="text-muted-foreground font-normal text-xs">
-                Order Total
-              </span>
-              ₹{order.orderTotal}
+              {/* Items List */}
+              <div className="divide-y">
+                {order.items.map((item, idx) => (
+                  <div key={item.id} className="px-4 py-3 space-y-1.5">
+                    {/* Item name + total */}
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] text-muted-foreground w-4 text-right">
+                          {idx + 1}.
+                        </span>
+                        <span className="font-medium text-sm">{item.name}</span>
+                      </div>
+                      <span className="font-semibold text-sm">
+                        ₹{item.total}
+                      </span>
+                    </div>
+
+                    {/* Qty + unit price */}
+                    <div className="flex items-center gap-4 pl-6 text-xs text-muted-foreground">
+                      <span>
+                        Qty:{" "}
+                        <strong className="text-foreground">
+                          {item.quantity}
+                        </strong>
+                      </span>
+                      <span>×</span>
+                      <span>₹{item.unitPrice}</span>
+                    </div>
+
+                    {/* Variants */}
+                    {item.variants.length > 0 && (
+                      <div className="pl-6 flex items-center gap-1.5 flex-wrap">
+                        {item.variants.map((v) => (
+                          <Badge
+                            key={v.id}
+                            variant="secondary"
+                            className="text-[10px] px-2 py-0"
+                          >
+                            {v.name} · ₹{v.price}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Addons */}
+                    {item.addons.length > 0 && (
+                      <div className="pl-6 flex items-center gap-1.5 flex-wrap">
+                        <span className="text-[10px] text-muted-foreground">
+                          Add-ons:
+                        </span>
+                        {item.addons.map((a) => (
+                          <Badge
+                            key={a.id}
+                            variant="outline"
+                            className="text-[10px] px-2 py-0"
+                          >
+                            {a.name} ×{a.quantity} · ₹{a.price}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Notes */}
+                    {item.notes && (
+                      <div className="pl-6 text-[11px] text-orange-600 italic">
+                        "{item.notes}"
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Order Footer */}
+              <div className="flex items-center justify-between px-4 py-2.5 bg-muted/20 border-t">
+                <span className="text-xs text-muted-foreground">
+                  {order.items.length} item
+                  {order.items.length !== 1 ? "s" : ""}
+                </span>
+                <div className="flex items-center gap-1.5 font-bold text-sm">
+                  <span className="text-muted-foreground font-normal text-xs">
+                    Order Total
+                  </span>
+                  ₹{order.orderTotal}
+                </div>
+              </div>
             </div>
-          </div> */}
+          ))}
         </div>
-      ))}
+      </ScrollArea>
+
+      {/* ── Pinned Bottom Action Bar ── */}
+      <ActionBar />
     </div>
   );
 };
