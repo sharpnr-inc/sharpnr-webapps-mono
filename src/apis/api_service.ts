@@ -1,5 +1,5 @@
 import api from "@/middlewares/axios";
-import { AuthApiEndpoints } from "./Endpoints";
+import { AuthApiEndpoints, OrgCoreEndpoints } from "./Endpoints";
 import type { APIResponse } from "@/utilities/api_response";
 
 //--------------------------------------------------------------------------------//
@@ -36,5 +36,15 @@ export async function VerifySignupCookie() {
 
 export async function LoginUser(payload: any) {
   const res = await api.post(AuthApiEndpoints.Auth.login, payload);
+  return res.data;
+}
+
+export async function GetOrgCustomer(searchQuery: string) {
+  const res = await api.get(OrgCoreEndpoints.Customer.Search(searchQuery));
+  return res.data;
+}
+
+export async function AddCustomerInOrg() {
+  const res = await api.post(OrgCoreEndpoints.Customer.CreateCustomer());
   return res.data;
 }

@@ -49,3 +49,5 @@ export function useAddKitchenIdInRestaurant() {
     queryKey: ["ADD", "KITCHEN", "RESTAURANT", "PREFERRED"],
   });
 }
+
+/* ---------------------------------- <***> --------------------------------- */

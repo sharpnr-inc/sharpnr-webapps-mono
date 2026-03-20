@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useDiningSessionOrders } from "../../apis/queries";
 import { cn } from "@/lib/utils";
 import { Clock, CreditCard, X } from "lucide-react";
+import { DiningSessionPayment } from "../DiningSessionPayment";
 
 interface OrderTableProps {
   restaurantID: string;
@@ -73,6 +74,8 @@ const OrderTable: React.FC<OrderTableProps> = ({
     diningSessionID,
   );
 
+  const [paymentModal, setPaymentModal] = useState(false);
+
   const orders = useMemo<ParsedOrder[]>(() => {
     if (!data?.data?.orders) return [];
     return data.data.orders.map((order: any) => {
@@ -110,9 +113,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
         <Button
           variant="outline"
           className="flex-1 h-9 text-sm text-destructive border-destructive/40 hover:bg-destructive/10 hover:text-destructive"
-          onClick={() => {
-            // TODO: handle close session
-          }}
+          onClick={() => {}}
         >
           <X size={14} className="mr-1.5" />
           Close Session
@@ -121,13 +122,18 @@ const OrderTable: React.FC<OrderTableProps> = ({
           disabled={disabled}
           className="flex-1 h-9 text-sm bg-green-600 hover:bg-green-700 text-white"
           onClick={() => {
-            // TODO: handle payment
+            setPaymentModal(true); // ✅ open dialog
           }}
         >
           <CreditCard size={14} className="mr-1.5" />
           Pay ₹{grandTotal}
         </Button>
       </div>
+
+      <DiningSessionPayment
+        openModal={paymentModal}
+        setPaymentModal={setPaymentModal}
+      />
     </div>
   );
 

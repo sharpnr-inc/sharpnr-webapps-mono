@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DocumentationRouteRouteImport } from './routes/documentation/route'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PaymentsIndexRouteImport } from './routes/payments/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
 import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/orchestrator/route'
 import { Route as AppuserIamRouteRouteImport } from './routes/_appuser/iam/route'
@@ -136,6 +137,11 @@ const AppuserRouteRoute = AppuserRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaymentsIndexRoute = PaymentsIndexRouteImport.update({
+  id: '/payments/',
+  path: '/payments/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
@@ -830,6 +836,7 @@ export interface FileRoutesByFullPath {
   '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
+  '/payments': typeof PaymentsIndexRoute
   '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
   '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
@@ -933,6 +940,7 @@ export interface FileRoutesByTo {
   '/iam': typeof AppuserIamRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
+  '/payments': typeof PaymentsIndexRoute
   '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/dashboard': typeof AppuserDashboardIndexRoute
   '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
@@ -1028,6 +1036,7 @@ export interface FileRoutesById {
   '/_appuser/iam': typeof AppuserIamRouteRouteWithChildren
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
+  '/payments/': typeof PaymentsIndexRoute
   '/_appuser/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hr': typeof AppuserDashboardSharp_hrRouteRouteWithChildren
   '/_appuser/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
@@ -1138,6 +1147,7 @@ export interface FileRouteTypes {
     | '/iam'
     | '/orchestrator'
     | '/org-signup'
+    | '/payments'
     | '/dashboard/sharp_hospitality'
     | '/dashboard/sharp_hr'
     | '/dashboard/sharp_marketing'
@@ -1241,6 +1251,7 @@ export interface FileRouteTypes {
     | '/iam'
     | '/orchestrator'
     | '/org-signup'
+    | '/payments'
     | '/dashboard/sharp_hospitality'
     | '/dashboard'
     | '/sharp-org-employee/set-password'
@@ -1335,6 +1346,7 @@ export interface FileRouteTypes {
     | '/_appuser/iam'
     | '/_appuser/orchestrator'
     | '/org-signup/'
+    | '/payments/'
     | '/_appuser/dashboard/sharp_hospitality'
     | '/_appuser/dashboard/sharp_hr'
     | '/_appuser/dashboard/sharp_marketing'
@@ -1442,6 +1454,7 @@ export interface RootRouteChildren {
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
   DocumentationRouteRoute: typeof DocumentationRouteRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
+  PaymentsIndexRoute: typeof PaymentsIndexRoute
   SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
   SharpOrgEmployeeVerificationIndexRoute: typeof SharpOrgEmployeeVerificationIndexRoute
 }
@@ -1467,6 +1480,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/payments/': {
+      id: '/payments/'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof PaymentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/org-signup/': {
@@ -2744,6 +2764,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
   DocumentationRouteRoute: DocumentationRouteRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
+  PaymentsIndexRoute: PaymentsIndexRoute,
   SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
   SharpOrgEmployeeVerificationIndexRoute:
     SharpOrgEmployeeVerificationIndexRoute,

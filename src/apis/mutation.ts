@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import {
+  AddCustomerInOrg,
   InitializeSignup,
   LoginUser,
   VerifyOtp,
@@ -13,6 +14,9 @@ export function useInitiateSignUpMutation() {
     mutationFn: InitializeSignup,
   });
 }
+
+/* ---------------------------------- <***> --------------------------------- */
+
 export function useVerifyOtpMutation() {
   return useMutation({
     mutationKey: ["Verify-otp"],
@@ -20,9 +24,22 @@ export function useVerifyOtpMutation() {
   });
 }
 
+/* ---------------------------------- <***> --------------------------------- */
+
 export function useUserAuth() {
   return useMutation({
     mutationKey: ["Authentication"],
     mutationFn: LoginUser,
   });
 }
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export function useAddCustomer() {
+  return useMutation({
+    mutationFn: AddCustomerInOrg,
+    mutationKey: ["ADD", "CUSTOMER"],
+  });
+}
+
+/* ---------------------------------- <***> --------------------------------- */

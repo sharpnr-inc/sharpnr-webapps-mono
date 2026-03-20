@@ -38,3 +38,10 @@ export function useAddRestaurantLayout() {
     mutationKey: ["AddRestaurantLayout"],
   });
 }
+
+export function useCloseDiningSessionMutation() {
+  return useMutation({
+    mutationKey: [""],
+  });
+}
+
