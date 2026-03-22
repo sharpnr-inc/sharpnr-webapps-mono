@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 
 import { Badge } from "@/components/ui/badge";
-import { Plus } from "lucide-react";
+import { Leaf, MoveLeft, MoveRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { CreatePaymentAccountForm } from "../components/CreatePaymentAccountForm";
 import { usePaymentAccounts } from "../api/api.queries";
@@ -87,7 +87,9 @@ export function PaymentsHomePage() {
             </CardContent>
 
             <CardFooter className="text-xs text-muted-foreground">
-              Ready for transactions
+              <Button variant={"secondary"}>
+                See Details <MoveRight />
+              </Button>
             </CardFooter>
           </Card>
         ))}
