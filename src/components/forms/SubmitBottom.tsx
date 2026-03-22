@@ -11,12 +11,16 @@ const SubmitButton = ({ children }: SubmitButtonProps) => {
 
   // Fix: correct order - isSubmitting first, canSubmit second
   const [isSubmitting, canSubmit] = useStore(form.store, (state) => [
-    state.isSubmitting,  // This should be first
-    state.canSubmit,     // This should be second
+    state.isSubmitting, // This should be first
+    state.canSubmit, // This should be second
   ]);
 
   return (
-    <Button type="submit" className="w-full" disabled={isSubmitting || !canSubmit}>
+    <Button
+      type="submit"
+      className="w-fit"
+      disabled={isSubmitting || !canSubmit}
+    >
       {children}
     </Button>
   );
