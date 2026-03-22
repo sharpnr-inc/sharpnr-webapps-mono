@@ -1,5 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { CreatePaymentAccount } from "./api.service";
+import {
+  AddGatawayConfigInPaymentAccount,
+  CreatePaymentAccount,
+} from "./api.service";
 
 export function useCreatePaymentAccountMutation() {
   return useMutation({
@@ -8,3 +11,9 @@ export function useCreatePaymentAccountMutation() {
   });
 }
 
+export function useAddGatewayConfigMutation() {
+  return useMutation({
+    mutationKey: ["ADD_GATEWAY_CONFIG", "PAYMENT_ACCOUNT"],
+    mutationFn: AddGatawayConfigInPaymentAccount,
+  });
+}

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 
 import { Badge } from "@/components/ui/badge";
-import { Leaf, MoveLeft, MoveRight, Plus } from "lucide-react";
+import { MoveRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { CreatePaymentAccountForm } from "../components/CreatePaymentAccountForm";
 import { usePaymentAccounts } from "../api/api.queries";
