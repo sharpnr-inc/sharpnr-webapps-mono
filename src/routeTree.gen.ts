@@ -100,6 +100,7 @@ import { Route as AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
 import { Route as AppuserDashboardSharp_accountingLayoutReportsProfitLossRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsLedgerRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/ledger'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet'
+import { Route as AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/index'
@@ -676,6 +677,15 @@ const AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute =
     path: '/reports/balance-sheet',
     getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
   } as any)
+const AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute =
+  AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport.update(
+    {
+      id: '/$accountId/',
+      path: '/$accountId/',
+      getParentRoute: () =>
+        AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute,
+    } as any,
+  )
 const AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute =
   AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRouteImport.update(
     {
@@ -936,6 +946,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
+  '/orchestrator/payments/$accountId': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
   '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/orchestrator/property/$propertyId/property_settings': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
   '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
@@ -1030,6 +1041,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
   '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
   '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
+  '/orchestrator/payments/$accountId': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
   '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/orchestrator/property/$propertyId/property_settings': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
   '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
@@ -1141,6 +1153,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
+  '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
@@ -1249,6 +1262,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/reservations'
     | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
     | '/dashboard/sharp_hospitality/restaurant/table-management'
+    | '/orchestrator/payments/$accountId'
     | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/orchestrator/property/$propertyId/property_settings'
     | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
@@ -1343,6 +1357,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hospitality/restaurant/reservations'
     | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
     | '/dashboard/sharp_hospitality/restaurant/table-management'
+    | '/orchestrator/payments/$accountId'
     | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/orchestrator/property/$propertyId/property_settings'
     | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
@@ -1453,6 +1468,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/'
+    | '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
@@ -2110,6 +2126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport
       parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
     }
+    '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/': {
+      id: '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/'
+      path: '/$accountId'
+      fullPath: '/orchestrator/payments/$accountId'
+      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport
+      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute
+    }
     '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/': {
       id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/'
       path: '/table-management'
@@ -2650,12 +2673,15 @@ const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChi
 
 interface AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren {
   AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
+  AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
 }
 
 const AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren =
   {
     AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute:
       AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute,
+    AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute:
+      AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute,
   }
 
 const AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteWithChildren =

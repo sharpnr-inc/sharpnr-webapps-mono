@@ -13,11 +13,13 @@ import { Leaf, MoveLeft, MoveRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { CreatePaymentAccountForm } from "../components/CreatePaymentAccountForm";
 import { usePaymentAccounts } from "../api/api.queries";
+import { useNavigate } from "@tanstack/react-router";
 
 export function PaymentsHomePage() {
   const [creatAccountOpen, setCreateAccountOpen] = useState(false);
 
   const { data, isLoading, isError } = usePaymentAccounts();
+  const navigate = useNavigate();
 
   const accounts = data?.data ?? [];
 
@@ -87,7 +89,17 @@ export function PaymentsHomePage() {
             </CardContent>
 
             <CardFooter className="text-xs text-muted-foreground">
-              <Button variant={"secondary"}>
+              <Button
+                variant={"secondary"}
+                onClick={() =>
+                  navigate({
+                    to: "/orchestrator/payments/$accountId",
+                    params: {
+                      accountId: account.Id,
+                    },
+                  })
+                }
+              >
                 See Details <MoveRight />
               </Button>
             </CardFooter>
