@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import {
   AddOrdersInDiningSession,
   AddRestaurantFloorsAdnTables,
+  CloseDiningSession,
   StartDiningSession,
   UpdateRestaurantGeneralInfo,
 } from "./restaurant.api";
@@ -42,6 +43,6 @@ export function useAddRestaurantLayout() {
 export function useCloseDiningSessionMutation() {
   return useMutation({
     mutationKey: [""],
+    mutationFn: CloseDiningSession,
   });
 }
-

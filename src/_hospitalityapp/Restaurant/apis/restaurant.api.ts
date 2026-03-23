@@ -144,3 +144,21 @@ export async function AddOrdersInDiningSession(
 
   return res.data;
 }
+
+interface CloseDiningSessionReq {
+  restuarantID: string;
+  diningSessionID: string;
+  payload: any;
+}
+export async function CloseDiningSession({
+  diningSessionID,
+  payload,
+  restuarantID,
+}: CloseDiningSessionReq) {
+  const res = await api.post(
+    RestaurantEndpoints.CloseDiningSession(restuarantID, diningSessionID),
+    payload,
+  );
+
+  return res.data;
+}

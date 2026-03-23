@@ -131,6 +131,9 @@ const OrderTable: React.FC<OrderTableProps> = ({
       </div>
 
       <DiningSessionPayment
+        diningSessionID={diningSessionID}
+        restaurantID={restaurantID}
+        amount={grandTotal}
         openModal={paymentModal}
         setPaymentModal={setPaymentModal}
       />
