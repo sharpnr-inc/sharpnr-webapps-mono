@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/command";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronsUpDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 import type { Dispatch, SetStateAction } from "react";
 import { useOrgsCustomer } from "@/apis/Queries";
 import { PAYMENT_METHODS } from "../utils/payment_method";
@@ -47,8 +46,6 @@ interface Customer {
   phone: string;
   email: string;
 }
-
-type PaymentMethod = "CASH" | "upi" | "card" | "";
 
 /* ─────────────────────────────────────────
    MAIN COMPONENT
@@ -107,7 +104,7 @@ export function DiningSessionPayment({
           restuarantID: restaurantID,
         },
         {
-          onSuccess(data, variables, onMutateResult, context) {},
+          onSuccess() {},
         },
       );
     },
