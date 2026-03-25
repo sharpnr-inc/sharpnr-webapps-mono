@@ -111,3 +111,12 @@ export const GetLegderEntryDetails = async (
 
 /* ---------------------------------- <***> --------------------------------- */
 
+export async function GetPaymentOrder(legalEntityID: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Payments.payOrder(legalEntityID),
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */

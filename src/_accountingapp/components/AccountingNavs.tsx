@@ -88,6 +88,50 @@ export const accountingSidebar = [
       },
     ],
   },
+
+  {
+    group: "Payments&Invoice",
+    items: [
+      {
+        label: "Payments",
+        icon: BarChart3,
+        children: [
+          {
+            label: "Payment Orders",
+            to: "/dashboard/sharp_accounting/payments/payment_orders",
+          },
+          {
+            label: "Profit & Loss",
+            to: "/dashboard/sharp_accounting/reports/pnl",
+          },
+          {
+            label: "Balance Sheet",
+            to: "/dashboard/sharp_accounting/reports/balance-sheet",
+          },
+        ],
+      },
+
+      {
+        label: "Invoice",
+        icon: BarChart3,
+        children: [
+          {
+            label: "Trial Balance",
+            to: "/dashboard/sharp_accounting/reports/trial-balance",
+          },
+          {
+            label: "Profit & Loss",
+            to: "/dashboard/sharp_accounting/reports/pnl",
+          },
+          {
+            label: "Balance Sheet",
+            to: "/dashboard/sharp_accounting/reports/balance-sheet",
+          },
+        ],
+      },
+    ],
+  },
+
   {
     group: "Controls",
     items: [

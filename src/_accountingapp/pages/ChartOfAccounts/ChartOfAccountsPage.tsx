@@ -31,6 +31,7 @@ import {
 import { useLEAccountingBook } from "@/_accountingapp/api/queries/books";
 import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
+import { usePaymentOrders } from "@/_accountingapp/api/queries/payments";
 
 /* -------------------------------------------------------------------------- */
 /*                                    TYPES                                   */
@@ -62,6 +63,9 @@ export function ChartOfAccountingPage() {
   const { data } = useLEAccountingBook(selectedLegalEntity?.id);
 
   const groups: Group[] = data?.data?.groups ?? [];
+
+  const { data: PaymentOrder } = usePaymentOrders(selectedLegalEntity?.id);
+  console.log(PaymentOrder);
 
   return (
     <div className="flex flex-col gap-6 p-8 bg-background text-foreground">

@@ -11,8 +11,8 @@ export const PAYMENT_METHODS = [
       "border-border text-muted-foreground hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50/50",
   },
   {
-    value: "upi" as const,
-    label: "UPI",
+    value: "PHONEPE" as const,
+    label: "PhonePe",
     Icon: Smartphone,
     activeClass:
       "border-violet-500 bg-violet-500 text-white shadow-violet-200 shadow-md",

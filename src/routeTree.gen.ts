@@ -100,6 +100,7 @@ import { Route as AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
 import { Route as AppuserDashboardSharp_accountingLayoutReportsProfitLossRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsLedgerRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/ledger'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet'
+import { Route as AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/index'
 import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/index'
@@ -677,6 +678,14 @@ const AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute =
     path: '/reports/balance-sheet',
     getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
   } as any)
+const AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute =
+  AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRouteImport.update(
+    {
+      id: '/payments/payment_orders',
+      path: '/payments/payment_orders',
+      getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
+    } as any,
+  )
 const AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute =
   AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport.update(
     {
@@ -896,6 +905,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_hr/reports': typeof AppuserDashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof AppuserDashboardSharp_hrSettingsIndexRoute
   '/orchestrator/': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
+  '/dashboard/sharp_accounting/payments/payment_orders': typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
   '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
@@ -991,6 +1001,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_hr/recruitment': typeof AppuserDashboardSharp_hrRecruitmentIndexRoute
   '/dashboard/sharp_hr/reports': typeof AppuserDashboardSharp_hrReportsIndexRoute
   '/dashboard/sharp_hr/settings': typeof AppuserDashboardSharp_hrSettingsIndexRoute
+  '/dashboard/sharp_accounting/payments/payment_orders': typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
   '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
   '/dashboard/sharp_accounting/reports/ledger': typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
@@ -1103,6 +1114,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hr/reports/': typeof AppuserDashboardSharp_hrReportsIndexRoute
   '/_appuser/dashboard/sharp_hr/settings/': typeof AppuserDashboardSharp_hrSettingsIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
+  '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders': typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
   '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet': typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
   '/_appuser/dashboard/sharp_accounting/_layout/reports/ledger': typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
@@ -1212,6 +1224,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
     | '/orchestrator/'
+    | '/dashboard/sharp_accounting/payments/payment_orders'
     | '/dashboard/sharp_accounting/reports/balance-sheet'
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
@@ -1307,6 +1320,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_hr/recruitment'
     | '/dashboard/sharp_hr/reports'
     | '/dashboard/sharp_hr/settings'
+    | '/dashboard/sharp_accounting/payments/payment_orders'
     | '/dashboard/sharp_accounting/reports/balance-sheet'
     | '/dashboard/sharp_accounting/reports/ledger'
     | '/dashboard/sharp_accounting/reports/profit-loss'
@@ -1418,6 +1432,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hr/reports/'
     | '/_appuser/dashboard/sharp_hr/settings/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/'
+    | '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders'
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet'
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/ledger'
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
@@ -2126,6 +2141,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport
       parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
     }
+    '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders': {
+      id: '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders'
+      path: '/payments/payment_orders'
+      fullPath: '/dashboard/sharp_accounting/payments/payment_orders'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
+    }
     '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/'
       path: '/$accountId'
@@ -2538,6 +2560,7 @@ const AppuserDashboardSharp_marketingRouteRouteWithChildren =
   )
 
 interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
+  AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute: typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
   AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute: typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
   AppuserDashboardSharp_accountingLayoutReportsLedgerRoute: typeof AppuserDashboardSharp_accountingLayoutReportsLedgerRoute
   AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute: typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
@@ -2555,6 +2578,8 @@ interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
 
 const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboardSharp_accountingLayoutRouteRouteChildren =
   {
+    AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute:
+      AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute,
     AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute:
       AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute,
     AppuserDashboardSharp_accountingLayoutReportsLedgerRoute:

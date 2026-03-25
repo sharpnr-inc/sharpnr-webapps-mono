@@ -33,4 +33,9 @@ export const AccountingAppAPIEndpoints = {
     GetTransactionDetails: (transactionId: string) =>
       `/accounting/transactions/entry/${transactionId}`,
   },
+
+  Payments: {
+    payOrder: (legalEntityID: string) =>
+      `accounting/${legalEntityID}/payments`,
+  },
 };

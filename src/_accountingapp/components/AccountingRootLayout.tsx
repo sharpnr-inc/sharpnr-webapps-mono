@@ -1,4 +1,5 @@
 import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+
 import {
   Sidebar,
   SidebarContent,
@@ -18,15 +19,21 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+
 import { Building2, Check, ChevronDown, ChevronsUpDown } from "lucide-react";
+
 import { useAccountingStore } from "../store/accounting.store";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { accountingSidebar } from "./AccountingNavs";
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -36,8 +43,12 @@ import {
 /* ================================
    Layout
 ================================ */
+
 const AccountingRootLayout = () => {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const pathname = useRouterState({
+    select: (s) => s.location.pathname,
+  });
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -45,88 +56,90 @@ const AccountingRootLayout = () => {
           <LegalEntitySwitcher />
         </SidebarHeader>
 
-        <SidebarContent>
-          {accountingSidebar.map((section) => (
-            <SidebarGroup key={section.group}>
-              <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
+        {/* ✅ Fixed: ScrollArea lives inside SidebarContent, no asChild */}
+        <SidebarContent className="overflow-hidden">
+          <ScrollArea className="h-full w-full">
+            <div className="pb-4">
+              {accountingSidebar.map((section) => (
+                <SidebarGroup key={section.group}>
+                  <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
 
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {section.items.map((item) =>
-                    item.children ? (
-                      // ✅ PARENT WITH CHILDREN — Collapsible, not a link
-                      <Collapsible
-                        key={item.label}
-                        // Auto-open if any child is active
-                        defaultOpen={item.children.some((c) =>
-                          pathname.startsWith(c.to),
-                        )}
-                        className="group/collapsible"
-                      >
-                        <SidebarMenuItem>
-                          <CollapsibleTrigger asChild>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {section.items.map((item) =>
+                        item.children ? (
+                          <Collapsible
+                            key={item.label}
+                            defaultOpen={item.children.some((c) =>
+                              pathname.startsWith(c.to),
+                            )}
+                            className="group/collapsible"
+                          >
+                            <SidebarMenuItem>
+                              <CollapsibleTrigger asChild>
+                                <SidebarMenuButton
+                                  isActive={item.children.some((c) =>
+                                    pathname.startsWith(c.to),
+                                  )}
+                                  tooltip={item.label}
+                                >
+                                  <item.icon />
+                                  <span>{item.label}</span>
+                                  <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                                </SidebarMenuButton>
+                              </CollapsibleTrigger>
+
+                              <CollapsibleContent>
+                                <SidebarMenuSub>
+                                  {item.children.map((child) => (
+                                    <SidebarMenuSubItem key={child.label}>
+                                      <SidebarMenuSubButton
+                                        asChild
+                                        isActive={pathname.startsWith(child.to)}
+                                      >
+                                        <Link to={child.to}>
+                                          <span>{child.label}</span>
+                                        </Link>
+                                      </SidebarMenuSubButton>
+                                    </SidebarMenuSubItem>
+                                  ))}
+                                </SidebarMenuSub>
+                              </CollapsibleContent>
+                            </SidebarMenuItem>
+                          </Collapsible>
+                        ) : (
+                          <SidebarMenuItem key={item.label}>
                             <SidebarMenuButton
-                              // ✅ Highlight parent if a child route is active
-                              isActive={item.children.some((c) =>
-                                pathname.startsWith(c.to),
-                              )}
+                              asChild
+                              isActive={pathname.startsWith(item.to!)}
                               tooltip={item.label}
                             >
-                              <item.icon />
-                              <span>{item.label}</span>
-                              {/* Rotates when open */}
-                              <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
+                              <Link to={item.to}>
+                                <item.icon />
+                                <span>{item.label}</span>
+                              </Link>
                             </SidebarMenuButton>
-                          </CollapsibleTrigger>
+                          </SidebarMenuItem>
+                        ),
+                      )}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              ))}
+            </div>
 
-                          <CollapsibleContent>
-                            <SidebarMenuSub>
-                              {item.children.map((child) => (
-                                <SidebarMenuSubItem key={child.label}>
-                                  <SidebarMenuSubButton
-                                    asChild
-                                    // ✅ Highlight the exact active child
-                                    isActive={pathname.startsWith(child.to)}
-                                  >
-                                    <Link to={child.to}>
-                                      <span>{child.label}</span>
-                                    </Link>
-                                  </SidebarMenuSubButton>
-                                </SidebarMenuSubItem>
-                              ))}
-                            </SidebarMenuSub>
-                          </CollapsibleContent>
-                        </SidebarMenuItem>
-                      </Collapsible>
-                    ) : (
-                      // ✅ NORMAL LINK — highlight when active
-                      <SidebarMenuItem key={item.label}>
-                        <SidebarMenuButton
-                          asChild
-                          isActive={pathname.startsWith(item.to!)}
-                          tooltip={item.label}
-                        >
-                          <Link to={item.to}>
-                            <item.icon />
-                            <span>{item.label}</span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ),
-                  )}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
         </SidebarContent>
       </Sidebar>
 
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 px-4">
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger />
           <span className="font-medium">Accounting</span>
         </header>
-        <main className="flex-1 p-4">
+
+        <main className="flex-1 overflow-auto p-4">
           <Outlet />
         </main>
       </SidebarInset>
@@ -136,8 +149,12 @@ const AccountingRootLayout = () => {
 
 export default AccountingRootLayout;
 
+/* ================================
+   Legal Entity Switcher
+================================ */
+
 export function LegalEntitySwitcher() {
-  const { state } = useSidebar(); // expanded | collapsed
+  const { state } = useSidebar();
 
   const legalEntities = useAccountingStore((s) => s.legalEntities);
   const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
@@ -156,27 +173,24 @@ export function LegalEntitySwitcher() {
             tooltip={isCollapsed ? selectedLegalEntity?.name : undefined}
             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
-            {/* ICON */}
-            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+            <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
               <Building2 className="size-4" />
             </div>
 
-            {/* TEXT (hidden when collapsed) */}
             {!isCollapsed && (
               <>
-                <div className="flex flex-col gap-0.5 leading-none overflow-hidden">
-                  <span className="font-medium truncate">
+                <div className="flex min-w-0 flex-col gap-0.5 leading-none">
+                  <span className="truncate font-medium">
                     {selectedLegalEntity?.name ?? "Select Legal Entity"}
                   </span>
-
-                  <span className="text-xs text-muted-foreground truncate">
+                  <span className="truncate text-xs text-muted-foreground">
                     {selectedLegalEntity
                       ? `${selectedLegalEntity.city}, ${selectedLegalEntity.state}`
                       : "Accounting Workspace"}
                   </span>
                 </div>
 
-                <ChevronsUpDown className="ml-auto size-4 opacity-50" />
+                <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
               </>
             )}
           </SidebarMenuButton>
@@ -189,7 +203,6 @@ export function LegalEntitySwitcher() {
               onSelect={() => setSelectedLegalEntity(entity)}
             >
               {entity.name}
-
               {entity.id === selectedLegalEntity?.id && (
                 <Check className="ml-auto size-4" />
               )}
