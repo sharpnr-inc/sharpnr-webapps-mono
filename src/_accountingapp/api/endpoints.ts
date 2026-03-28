@@ -13,14 +13,19 @@ export const AccountingAppAPIEndpoints = {
       `/accounting/${legalEntityID}/je/entry/${entryID}`,
   },
 
+  journalEntry: {
+    add: (legalEntityID: string) =>
+      `/accounting/${legalEntityID}/je/entry/create`,
+  },
+
   AccountingGroups: {
     GetGroupsOfBooks: (bookID: string) => `/accounting/books/${bookID}/groups`,
   },
 
   Accounts: {
     GetAccounts: (groupId: string) => `/accounting/account/${groupId}`,
-    CreateAccount: (bookId: string) =>
-      `/accounting/books/${bookId}/create-account`,
+    CreateAccount: (legalEntityID: string) =>
+      `/accounting/${legalEntityID}/accounts/create`,
   },
 
   AccountMapping: {
@@ -35,7 +40,6 @@ export const AccountingAppAPIEndpoints = {
   },
 
   Payments: {
-    payOrder: (legalEntityID: string) =>
-      `accounting/${legalEntityID}/payments`,
+    payOrder: (legalEntityID: string) => `accounting/${legalEntityID}/payments`,
   },
 };

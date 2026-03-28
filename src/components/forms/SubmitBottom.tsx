@@ -1,12 +1,14 @@
 import { useStore } from "@tanstack/react-form";
 import { useFormContext } from "./form-context";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 type SubmitButtonProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
-const SubmitButton = ({ children }: SubmitButtonProps) => {
+const SubmitButton = ({ children, className }: SubmitButtonProps) => {
   const form = useFormContext();
 
   // Fix: correct order - isSubmitting first, canSubmit second
@@ -18,7 +20,7 @@ const SubmitButton = ({ children }: SubmitButtonProps) => {
   return (
     <Button
       type="submit"
-      className="w-fit"
+      className={cn("w-fit", className)}
       disabled={isSubmitting || !canSubmit}
     >
       {children}

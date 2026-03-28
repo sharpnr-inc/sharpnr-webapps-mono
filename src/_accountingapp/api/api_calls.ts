@@ -1,6 +1,7 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
 import type { TransactionsParams } from "./queries/transactions";
+import type { JournalEntryExternalRequestDto } from "../components/forms/AddJournalEntryForm";
 
 /******************************************************
  * All API Call for Accounting Books of  Organization *
@@ -114,6 +115,42 @@ export const GetLegderEntryDetails = async (
 export async function GetPaymentOrder(legalEntityID: string) {
   const res = await api.get(
     AccountingAppAPIEndpoints.Payments.payOrder(legalEntityID),
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+interface CreateAccountRequest {
+  legalEntityID: string;
+  payload: any;
+}
+export async function CreateAccounts({
+  legalEntityID,
+  payload,
+}: CreateAccountRequest) {
+  const res = await api.post(
+    AccountingAppAPIEndpoints.Accounts.CreateAccount(legalEntityID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface CreateJournalEntryRequest {
+  legalEntityID: string;
+  payload: JournalEntryExternalRequestDto;
+}
+
+export async function CreateJournalEntry({
+  legalEntityID,
+  payload,
+}: CreateJournalEntryRequest) {
+  const res = await api.post(
+    AccountingAppAPIEndpoints.journalEntry.add(legalEntityID),
+    payload,
   );
 
   return res.data;

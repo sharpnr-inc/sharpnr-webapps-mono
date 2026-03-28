@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Search, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Search,
+  Download,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+} from "lucide-react";
 
 import {
   useLedger,
@@ -9,6 +15,10 @@ import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
 import { useQueryClient } from "@tanstack/react-query";
 import { GetLegderEntryDetails } from "@/_accountingapp/api/api_calls";
+import { Button } from "@/components/ui/button";
+import { useDialogModal } from "@/context/DialogModalContext";
+import { AddJournalEntryForm } from "@/_accountingapp/components/forms/AddJournalEntryForm";
+import { useFormsModal } from "@/context/FormModalContext";
 
 const LedgerPage = () => {
   const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
@@ -23,6 +33,11 @@ const LedgerPage = () => {
   const totalRows = data?.data?.total_rows ?? 0;
   const limit = data?.data?.limit ?? 10;
   const queryClient = useQueryClient();
+
+  const { showModal } = useFormsModal();
+  const handleAddEntry = () => {
+    showModal("Ledger Entry", "Add Ledger Entry here", <AddJournalEntryForm />);
+  };
 
   return (
     <div className="flex flex-col text-zinc-100 font-sans overflow-hidden">
@@ -50,6 +65,10 @@ const LedgerPage = () => {
           <button className="p-2 border border-zinc-800 rounded hover:bg-zinc-900">
             <Download className="w-4 h-4 text-zinc-400" />
           </button>
+          <Button onClick={() => handleAddEntry()}>
+            <Plus />
+            Add Journal Entry
+          </Button>
         </div>
       </div>
 
