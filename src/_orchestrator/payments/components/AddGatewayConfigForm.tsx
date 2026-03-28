@@ -43,9 +43,9 @@ const PROVIDER_META: Record<string, ProviderMeta> = {
   PHONEPE: {
     label: "PhonePe",
     fields: [
-      { key: "merchant_id", label: "Merchant ID" },
-      { key: "salt_key", label: "Salt Key", secret: true },
-      { key: "salt_index", label: "Salt Index" },
+      { key: "client_id", label: "Client ID" },
+      { key: "client_version", label: "Client Version", secret: true },
+      { key: "client_secret", label: "Client Secret" },
     ],
   },
 
