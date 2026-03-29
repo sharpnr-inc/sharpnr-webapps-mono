@@ -1,6 +1,7 @@
 import {
   BadgeDollarSignIcon,
   BarChart3,
+  BookOpen,
   DollarSignIcon,
   Settings,
   Wallet,
@@ -48,6 +49,11 @@ export const accountingSidebar = [
   {
     group: "Operations",
     items: [
+      {
+        label: "Journal",
+        icon: BookOpen,
+        to: "/dashboard/sharp_accounting/journal",
+      },
       {
         label: "Transactions",
         icon: DollarSignIcon,

@@ -90,6 +90,7 @@ import { Route as AppuserDashboardSharp_accountingLayoutTransactionsIndexRouteIm
 import { Route as AppuserDashboardSharp_accountingLayoutSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/settings/index'
 import { Route as AppuserDashboardSharp_accountingLayoutReportsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/index'
 import { Route as AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/overview/index'
+import { Route as AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/journal/index'
 import { Route as AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
 import { Route as AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration'
@@ -613,6 +614,12 @@ const AppuserDashboardSharp_accountingLayoutOverviewIndexRoute =
     path: '/overview/',
     getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
   } as any)
+const AppuserDashboardSharp_accountingLayoutJournalIndexRoute =
+  AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport.update({
+    id: '/journal/',
+    path: '/journal/',
+    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
+  } as any)
 const AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute =
   AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRouteImport.update({
     id: '/chart-of-account/',
@@ -917,6 +924,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/taxations/tax_registration': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
   '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
+  '/dashboard/sharp_accounting/journal': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
   '/dashboard/sharp_accounting/reports': typeof AppuserDashboardSharp_accountingLayoutReportsIndexRoute
   '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
@@ -1013,6 +1021,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/taxations/tax_registration': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
   '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
+  '/dashboard/sharp_accounting/journal': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
   '/dashboard/sharp_accounting/reports': typeof AppuserDashboardSharp_accountingLayoutReportsIndexRoute
   '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
@@ -1126,6 +1135,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
   '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
+  '/_appuser/dashboard/sharp_accounting/_layout/journal/': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/overview/': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/reports/': typeof AppuserDashboardSharp_accountingLayoutReportsIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/settings/': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
@@ -1236,6 +1246,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/taxations/tax_registration'
     | '/orchestrator/property/routes'
     | '/dashboard/sharp_accounting/chart-of-account'
+    | '/dashboard/sharp_accounting/journal'
     | '/dashboard/sharp_accounting/overview'
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_accounting/settings'
@@ -1332,6 +1343,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/taxations/tax_registration'
     | '/orchestrator/property/routes'
     | '/dashboard/sharp_accounting/chart-of-account'
+    | '/dashboard/sharp_accounting/journal'
     | '/dashboard/sharp_accounting/overview'
     | '/dashboard/sharp_accounting/reports'
     | '/dashboard/sharp_accounting/settings'
@@ -1444,6 +1456,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
     | '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/'
+    | '/_appuser/dashboard/sharp_accounting/_layout/journal/'
     | '/_appuser/dashboard/sharp_accounting/_layout/overview/'
     | '/_appuser/dashboard/sharp_accounting/_layout/reports/'
     | '/_appuser/dashboard/sharp_accounting/_layout/settings/'
@@ -2073,6 +2086,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
     }
+    '/_appuser/dashboard/sharp_accounting/_layout/journal/': {
+      id: '/_appuser/dashboard/sharp_accounting/_layout/journal/'
+      path: '/journal'
+      fullPath: '/dashboard/sharp_accounting/journal'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
+    }
     '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/': {
       id: '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/'
       path: '/chart-of-account'
@@ -2571,6 +2591,7 @@ interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
   AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute
   AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
   AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
+  AppuserDashboardSharp_accountingLayoutJournalIndexRoute: typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   AppuserDashboardSharp_accountingLayoutOverviewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
   AppuserDashboardSharp_accountingLayoutReportsIndexRoute: typeof AppuserDashboardSharp_accountingLayoutReportsIndexRoute
   AppuserDashboardSharp_accountingLayoutSettingsIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
@@ -2598,6 +2619,8 @@ const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboard
       AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute,
     AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute:
       AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute,
+    AppuserDashboardSharp_accountingLayoutJournalIndexRoute:
+      AppuserDashboardSharp_accountingLayoutJournalIndexRoute,
     AppuserDashboardSharp_accountingLayoutOverviewIndexRoute:
       AppuserDashboardSharp_accountingLayoutOverviewIndexRoute,
     AppuserDashboardSharp_accountingLayoutReportsIndexRoute:
