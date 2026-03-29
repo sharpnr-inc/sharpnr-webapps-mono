@@ -93,23 +93,6 @@ export const CreateAccountMapping = async (req: any) => {
   return res.data;
 };
 
-export const GetLegder = async (legalEntityID: string) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.ledger.getAll(legalEntityID),
-  );
-  return res.data;
-};
-
-export const GetLegderEntryDetails = async (
-  legalEntityID: string,
-  entryID: string,
-) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.ledger.entryDetails(legalEntityID, entryID),
-  );
-  return res.data;
-};
-
 /* ---------------------------------- <***> --------------------------------- */
 
 export async function GetPaymentOrder(legalEntityID: string) {
@@ -164,6 +147,16 @@ export async function GetAccountsLedger(
 ) {
   const res = await api.get(
     AccountingAppAPIEndpoints.Accounts.GetLedger(legalEntityID, accountID),
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function GetAllJournalEntries(legalEntityID: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.journalEntry.GetAll(legalEntityID),
   );
 
   return res.data;
