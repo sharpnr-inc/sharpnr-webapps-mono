@@ -88,6 +88,7 @@ import { Route as AppuserDashboardSharp_hospitalityBarInventoryIndexRouteImport 
 import { Route as AppuserDashboardSharp_hospitalityBarBar_posIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/bar_pos/index'
 import { Route as AppuserDashboardSharp_accountingLayoutSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/settings/index'
 import { Route as AppuserDashboardSharp_accountingLayoutSalesIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/sales/index'
+import { Route as AppuserDashboardSharp_accountingLayoutPurchasesIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/purchases/index'
 import { Route as AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/overview/index'
 import { Route as AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/journal/index'
 import { Route as AppuserDashboardSharp_accountingLayoutExpensesIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/expenses/index'
@@ -603,6 +604,12 @@ const AppuserDashboardSharp_accountingLayoutSalesIndexRoute =
     path: '/sales/',
     getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
   } as any)
+const AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute =
+  AppuserDashboardSharp_accountingLayoutPurchasesIndexRouteImport.update({
+    id: '/purchases/',
+    path: '/purchases/',
+    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
+  } as any)
 const AppuserDashboardSharp_accountingLayoutOverviewIndexRoute =
   AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport.update({
     id: '/overview/',
@@ -933,6 +940,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/sharp_accounting/expenses': typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
   '/dashboard/sharp_accounting/journal': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
+  '/dashboard/sharp_accounting/purchases': typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
   '/dashboard/sharp_accounting/sales': typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
   '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
   '/dashboard/sharp_hospitality/bar/bar_pos': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
@@ -1031,6 +1039,7 @@ export interface FileRoutesByTo {
   '/dashboard/sharp_accounting/expenses': typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
   '/dashboard/sharp_accounting/journal': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
+  '/dashboard/sharp_accounting/purchases': typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
   '/dashboard/sharp_accounting/sales': typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
   '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
   '/dashboard/sharp_hospitality/bar/bar_pos': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
@@ -1146,6 +1155,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_accounting/_layout/expenses/': typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/journal/': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/overview/': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
+  '/_appuser/dashboard/sharp_accounting/_layout/purchases/': typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/sales/': typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/settings/': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
   '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
@@ -1258,6 +1268,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/expenses'
     | '/dashboard/sharp_accounting/journal'
     | '/dashboard/sharp_accounting/overview'
+    | '/dashboard/sharp_accounting/purchases'
     | '/dashboard/sharp_accounting/sales'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_hospitality/bar/bar_pos'
@@ -1356,6 +1367,7 @@ export interface FileRouteTypes {
     | '/dashboard/sharp_accounting/expenses'
     | '/dashboard/sharp_accounting/journal'
     | '/dashboard/sharp_accounting/overview'
+    | '/dashboard/sharp_accounting/purchases'
     | '/dashboard/sharp_accounting/sales'
     | '/dashboard/sharp_accounting/settings'
     | '/dashboard/sharp_hospitality/bar/bar_pos'
@@ -1470,6 +1482,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_accounting/_layout/expenses/'
     | '/_appuser/dashboard/sharp_accounting/_layout/journal/'
     | '/_appuser/dashboard/sharp_accounting/_layout/overview/'
+    | '/_appuser/dashboard/sharp_accounting/_layout/purchases/'
     | '/_appuser/dashboard/sharp_accounting/_layout/sales/'
     | '/_appuser/dashboard/sharp_accounting/_layout/settings/'
     | '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/'
@@ -2085,6 +2098,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutSalesIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
     }
+    '/_appuser/dashboard/sharp_accounting/_layout/purchases/': {
+      id: '/_appuser/dashboard/sharp_accounting/_layout/purchases/'
+      path: '/purchases'
+      fullPath: '/dashboard/sharp_accounting/purchases'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
+    }
     '/_appuser/dashboard/sharp_accounting/_layout/overview/': {
       id: '/_appuser/dashboard/sharp_accounting/_layout/overview/'
       path: '/overview'
@@ -2613,6 +2633,7 @@ interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
   AppuserDashboardSharp_accountingLayoutExpensesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
   AppuserDashboardSharp_accountingLayoutJournalIndexRoute: typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
   AppuserDashboardSharp_accountingLayoutOverviewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
+  AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
   AppuserDashboardSharp_accountingLayoutSalesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
   AppuserDashboardSharp_accountingLayoutSettingsIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
   AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
@@ -2644,6 +2665,8 @@ const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboard
       AppuserDashboardSharp_accountingLayoutJournalIndexRoute,
     AppuserDashboardSharp_accountingLayoutOverviewIndexRoute:
       AppuserDashboardSharp_accountingLayoutOverviewIndexRoute,
+    AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute:
+      AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute,
     AppuserDashboardSharp_accountingLayoutSalesIndexRoute:
       AppuserDashboardSharp_accountingLayoutSalesIndexRoute,
     AppuserDashboardSharp_accountingLayoutSettingsIndexRoute:

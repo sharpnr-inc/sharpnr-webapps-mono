@@ -1,5 +1,6 @@
 import {
   BadgeDollarSignIcon,
+  BadgePercentIcon,
   BarChart3,
   BookOpen,
   Receipt,
@@ -76,6 +77,12 @@ export const accountingSidebar = [
             to: "/dashboard/sharp_accounting/expenses",
           },
         ],
+      },
+
+      {
+        label: "Purchases & Vendors",
+        icon: BadgePercentIcon,
+        to: "/dashboard/sharp_accounting/purchases",
       },
     ],
   },

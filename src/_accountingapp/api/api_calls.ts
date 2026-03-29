@@ -1,6 +1,5 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
-import type { TransactionsParams } from "./queries/transactions";
 import type { JournalEntryExternalRequestDto } from "../components/forms/AddJournalEntryForm";
 
 /******************************************************
@@ -45,29 +44,6 @@ export const GetAccountingGroups = async (bookId: string) => {
 export const GetAccountOfAccountingGroup = async (groupId: string) => {
   const res = await api.get(
     AccountingAppAPIEndpoints.Accounts.GetAccounts(groupId),
-  );
-  return res.data;
-};
-
-//-------------------------------------------------------------------------------------//
-
-/*******************************************
- * All the API for related to Transactions *
- *******************************************/
-
-export const GetTransactions = async (params: TransactionsParams) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.Transactions.GetTransactions,
-    {
-      params,
-    },
-  );
-  return res.data;
-};
-
-export const GetTransactionDetails = async (transactionId: string) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.Transactions.GetTransactionDetails(transactionId),
   );
   return res.data;
 };
@@ -159,5 +135,12 @@ export async function GetAllJournalEntries(legalEntityID: string) {
     AccountingAppAPIEndpoints.journalEntry.GetAll(legalEntityID),
   );
 
+  return res.data;
+}
+
+export async function GetProfitAndLoss(legalEntityID: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Reports.profitAndLoss(legalEntityID),
+  );
   return res.data;
 }
