@@ -58,11 +58,6 @@ export const accountingSidebar = [
         icon: Wallet,
         to: "/dashboard/sharp_accounting/expenses",
       },
-      {
-        label: "Ledger",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/ledger",
-      },
     ],
   },
   {
