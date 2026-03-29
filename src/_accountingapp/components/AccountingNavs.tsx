@@ -92,7 +92,7 @@ export const accountingSidebar = [
           },
           {
             label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/pnl",
+            to: "/dashboard/sharp_accounting/reports/profit-loss",
           },
           {
             label: "Balance Sheet",
@@ -113,33 +113,6 @@ export const accountingSidebar = [
           {
             label: "Payment Orders",
             to: "/dashboard/sharp_accounting/payments/payment_orders",
-          },
-          {
-            label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/pnl",
-          },
-          {
-            label: "Balance Sheet",
-            to: "/dashboard/sharp_accounting/reports/balance-sheet",
-          },
-        ],
-      },
-
-      {
-        label: "Invoice",
-        icon: BarChart3,
-        children: [
-          {
-            label: "Trial Balance",
-            to: "/dashboard/sharp_accounting/reports/trial-balance",
-          },
-          {
-            label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/pnl",
-          },
-          {
-            label: "Balance Sheet",
-            to: "/dashboard/sharp_accounting/reports/balance-sheet",
           },
         ],
       },
