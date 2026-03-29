@@ -26,6 +26,8 @@ export const AccountingAppAPIEndpoints = {
     GetAccounts: (groupId: string) => `/accounting/account/${groupId}`,
     CreateAccount: (legalEntityID: string) =>
       `/accounting/${legalEntityID}/accounts/create`,
+    GetLedger: (legalEntityID: string, accountID: string) =>
+      `/accounting/${legalEntityID}/accounts/${accountID}/ledger`,
   },
 
   AccountMapping: {

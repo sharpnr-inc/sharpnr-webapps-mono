@@ -157,3 +157,14 @@ export async function CreateJournalEntry({
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export async function GetAccountsLedger(
+  legalEntityID: string,
+  accountID: string,
+) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Accounts.GetLedger(legalEntityID, accountID),
+  );
+
+  return res.data;
+}

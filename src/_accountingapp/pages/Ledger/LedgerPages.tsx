@@ -19,9 +19,15 @@ import { Button } from "@/components/ui/button";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { AddJournalEntryForm } from "@/_accountingapp/components/forms/AddJournalEntryForm";
 import { useFormsModal } from "@/context/FormModalContext";
+import { useAccountLedger } from "@/_accountingapp/api/queries/accounts";
 
 const LedgerPage = () => {
   const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
+
+  const {} = useAccountLedger({
+    legalEntityID: selectedLegalEntity?.id!,
+    accountID: "5356109c-d48c-420e-bce9-ed21b76effbf",
+  });
 
   const [currentPage, setCurrentPage] = useState(1);
 

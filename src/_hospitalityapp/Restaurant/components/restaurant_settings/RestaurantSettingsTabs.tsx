@@ -13,9 +13,7 @@ import { useRestaurantGeneralInfo } from "../../apis/queries";
 const RestaurantSettingsTabs = () => {
   const { restaurantID, propertyId } = Route.useParams();
   const { data: properyDetails } = usePropertyDetails(propertyId);
-  const { data: restaurantDetails, isLoading } = useRestaurantGeneralInfo(
-    restaurantID!,
-  );
+  const { data: restaurantDetails } = useRestaurantGeneralInfo(restaurantID!);
 
   console.log();
 
