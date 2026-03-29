@@ -23,6 +23,7 @@ import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
 import { useDialogModal } from "@/context/DialogModalContext";
 import { CreateAccountForm } from "@/_accountingapp/components/forms/AddAccountForm";
+import { useNavigate } from "@tanstack/react-router";
 
 /* ─── types ─── */
 type Account = {
@@ -95,6 +96,8 @@ export function ChartOfAccountingPage() {
     ],
     [groups],
   );
+
+  const nav = useNavigate();
 
   const handleAddAccount = (accGroupID: string) => {
     if (!selectedLegalEntity) return;
@@ -440,7 +443,14 @@ export function ChartOfAccountingPage() {
                                     <DropdownMenuItem className="coa-mono text-xs cursor-pointer">
                                       Edit Account
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem className="coa-mono text-xs cursor-pointer">
+                                    <DropdownMenuItem onClick={()=> {
+                                      nav({
+                                        to: "/dashboard/sharp_accounting/chart-of-account/$accountID/ledger",
+                                        params:{
+                                          accountID:account.id
+                                        }
+                                      })
+                                    }} className="coa-mono text-xs cursor-pointer">
                                       View Ledger
                                     </DropdownMenuItem>
                                     <DropdownMenuSeparator />
