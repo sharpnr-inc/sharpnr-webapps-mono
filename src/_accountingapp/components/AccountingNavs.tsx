@@ -2,8 +2,9 @@ import {
   BadgeDollarSignIcon,
   BarChart3,
   BookOpen,
-  DollarSignIcon,
+  Receipt,
   Settings,
+  ShoppingBag,
   Wallet,
 } from "lucide-react";
 
@@ -55,14 +56,26 @@ export const accountingSidebar = [
         to: "/dashboard/sharp_accounting/journal",
       },
       {
-        label: "Transactions",
-        icon: DollarSignIcon,
-        to: "/dashboard/sharp_accounting/transactions",
+        label: "Sales",
+        icon: ShoppingBag,
+        children: [
+          { label: "Sales History", to: "/dashboard/sharp_accounting/sales" },
+          { label: "Record Sale", to: "/dashboard/sharp_accounting/sales/new" },
+        ],
       },
       {
         label: "Expenses",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/expenses",
+        icon: Receipt,
+        children: [
+          {
+            label: "Record Expense",
+            to: "/dashboard/sharp_accounting/expenses/new",
+          },
+          {
+            label: "Expense History",
+            to: "/dashboard/sharp_accounting/expenses",
+          },
+        ],
       },
     ],
   },
