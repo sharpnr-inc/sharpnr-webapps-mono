@@ -121,6 +121,11 @@ export const accountingSidebar = [
             label: "Payment Orders",
             to: "/dashboard/sharp_accounting/payments/payment_orders",
           },
+
+          {
+            label: "Payment Vouchers",
+            to: "/dashboard/sharp_accounting/",
+          },
         ],
       },
     ],

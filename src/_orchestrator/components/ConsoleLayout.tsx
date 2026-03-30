@@ -28,6 +28,7 @@ import {
   DollarSign,
   Users,
   BriefcaseBusiness,
+  LucideShoppingBasket,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
@@ -78,12 +79,12 @@ const orchestratorLinks: SidebarLink[] = [
     icon: DollarSign,
     tooltip: "Settings",
   },
-  // {
-  //   label: "Reports",
-  //   path: "",
-  //   icon: FileText,
-  //   tooltip: "Reports",
-  // },
+  {
+    label: "Inventories",
+    path: "/orchestrator/inventory-acc",
+    icon: LucideShoppingBasket,
+    tooltip: "Reports",
+  },
   {
     label: "User Directory",
     path: "/orchestrator/org-users",
