@@ -119,6 +119,7 @@ import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDD
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInvIDDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$invID/details'
 import { Route as AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
 import { Route as AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
+import { Route as AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/purchases/$supplierID/details'
 import { Route as AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
@@ -846,6 +847,14 @@ const AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute =
       getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
     } as any,
   )
+const AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute =
+  AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRouteImport.update(
+    {
+      id: '/purchases/$supplierID/details',
+      path: '/purchases/$supplierID/details',
+      getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
+    } as any,
+  )
 const AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute =
   AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRouteImport.update(
     {
@@ -1000,6 +1009,7 @@ export interface FileRoutesByFullPath {
   '/orchestrator/payments/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
+  '/dashboard/sharp_accounting/purchases/$supplierID/details': typeof AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
   '/orchestrator/inventory-acc/$invID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInvIDDetailsRoute
@@ -1101,6 +1111,7 @@ export interface FileRoutesByTo {
   '/orchestrator/payments': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
+  '/dashboard/sharp_accounting/purchases/$supplierID/details': typeof AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute
   '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
   '/orchestrator/inventory-acc/$invID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInvIDDetailsRoute
@@ -1220,6 +1231,7 @@ export interface FileRoutesById {
   '/_appuser/orchestrator/_orchestrator_layout/_console/payments/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/property/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
   '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
+  '/_appuser/dashboard/sharp_accounting/_layout/purchases/$supplierID/details': typeof AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute
   '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
   '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
   '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$invID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInvIDDetailsRoute
@@ -1336,6 +1348,7 @@ export interface FileRouteTypes {
     | '/orchestrator/payments/'
     | '/orchestrator/property'
     | '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger'
+    | '/dashboard/sharp_accounting/purchases/$supplierID/details'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
     | '/orchestrator/inventory-acc/$invID/details'
@@ -1437,6 +1450,7 @@ export interface FileRouteTypes {
     | '/orchestrator/payments'
     | '/orchestrator/property'
     | '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger'
+    | '/dashboard/sharp_accounting/purchases/$supplierID/details'
     | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
     | '/orchestrator/inventory-acc/$invID/details'
@@ -1555,6 +1569,7 @@ export interface FileRouteTypes {
     | '/_appuser/orchestrator/_orchestrator_layout/_console/payments/'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
     | '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger'
+    | '/_appuser/dashboard/sharp_accounting/_layout/purchases/$supplierID/details'
     | '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
     | '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$invID/details'
@@ -2361,6 +2376,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
     }
+    '/_appuser/dashboard/sharp_accounting/_layout/purchases/$supplierID/details': {
+      id: '/_appuser/dashboard/sharp_accounting/_layout/purchases/$supplierID/details'
+      path: '/purchases/$supplierID/details'
+      fullPath: '/dashboard/sharp_accounting/purchases/$supplierID/details'
+      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRouteImport
+      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
+    }
     '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger': {
       id: '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger'
       path: '/chart-of-account/$accountID/ledger'
@@ -2704,6 +2726,7 @@ interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
   AppuserDashboardSharp_accountingLayoutSalesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
   AppuserDashboardSharp_accountingLayoutSettingsIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
   AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
+  AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute
   AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute
   AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute
 }
@@ -2740,6 +2763,8 @@ const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboard
       AppuserDashboardSharp_accountingLayoutSettingsIndexRoute,
     AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute:
       AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute,
+    AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute:
+      AppuserDashboardSharp_accountingLayoutPurchasesSupplierIDDetailsRoute,
     AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute:
       AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute,
     AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute:
