@@ -29,6 +29,7 @@ import {
   Users,
   BriefcaseBusiness,
   LucideShoppingBasket,
+  ContainerIcon,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
@@ -83,6 +84,12 @@ const orchestratorLinks: SidebarLink[] = [
     label: "Inventories",
     path: "/orchestrator/inventory-acc",
     icon: LucideShoppingBasket,
+    tooltip: "Reports",
+  },
+  {
+    label: "Suppliers & Vendors",
+    path: "/orchestrator/suppliers&Vendors",
+    icon: ContainerIcon,
     tooltip: "Reports",
   },
   {
