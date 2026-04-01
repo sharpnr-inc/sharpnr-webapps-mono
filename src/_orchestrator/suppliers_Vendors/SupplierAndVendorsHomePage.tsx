@@ -230,7 +230,7 @@ export function SupplierAndVendorsHomePage() {
 
       <div className="pointer-events-none fixed inset-0 bg-dots opacity-35 z-0" />
 
-      <div className="cf-font relative z-10 flex flex-col min-h-screen p-6 md:p-10 gap-8">
+      <div className="cf-font relative z-10 flex flex-col p-6 md:p-10 gap-8">
         {/* ── hero ── */}
         <motion.div
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-5"
