@@ -12,6 +12,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Truck,
+  Import,
 } from "lucide-react";
 import { useFormsModal } from "@/context/FormModalContext";
 import { AddNewSupplierForm } from "@/_accountingapp/components/forms/AddNewSupplier";
@@ -126,7 +127,7 @@ function SupplierCard({
 
   const handleSupplierClick = (supplier: Supplier) => {
     nav({
-      to: "/dashboard/sharp_accounting/purchases/$supplierID/details",
+      to: "/dashboard/sharp_accounting/suppliers/$supplierID/details",
       params: { supplierID: supplier.id },
     });
   };
@@ -245,7 +246,7 @@ function SupplierCard({
 }
 
 /* ─── page ─── */
-export function PurchaseHomePage() {
+export function AccountingSupplierHomePage() {
   const { showModal } = useFormsModal();
   const [query, setQuery] = useState("");
 
@@ -345,14 +346,20 @@ export function PurchaseHomePage() {
               )}
             </div>
           </div>
+          <div className="flex gap-3.5">
+            <button
+              onClick={handleAddSupplier}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-[0_2px_14px_hsl(var(--primary)/0.3)] shrink-0"
+            >
+              <Plus className="size-3.5" />
+              New Supplier
+            </button>
 
-          <button
-            onClick={handleAddSupplier}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-[0_2px_14px_hsl(var(--primary)/0.3)] shrink-0"
-          >
-            <Plus className="size-3.5" />
-            New Supplier
-          </button>
+            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary/90 transition-colors shadow-[0_2px_14px_hsl(var(--primary)/0.3)] shrink-0 self-start sm:self-auto">
+              <Import className="size-3.5" />
+              Import from ORG
+            </button>
+          </div>
         </motion.div>
 
         {/* ── summary cards ── */}
@@ -489,7 +496,6 @@ export function PurchaseHomePage() {
               <motion.div
                 key="grid"
                 className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-               
               >
                 {filtered.map((supplier, i) => (
                   <SupplierCard

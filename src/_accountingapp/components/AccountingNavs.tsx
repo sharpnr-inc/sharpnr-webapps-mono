@@ -82,7 +82,16 @@ export const accountingSidebar = [
       {
         label: "Purchases & Vendors",
         icon: BadgePercentIcon,
-        to: "/dashboard/sharp_accounting/purchases",
+        children: [
+          {
+            label: "Suppliers & Vendors",
+            to: "/dashboard/sharp_accounting/suppliers",
+          },
+          {
+            label: "Purchases",
+            to: "/dashboard/sharp_accounting/purchases",
+          },
+        ],
       },
     ],
   },

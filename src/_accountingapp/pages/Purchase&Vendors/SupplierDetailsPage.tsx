@@ -14,7 +14,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { Route } from "@/routes/_appuser/dashboard/sharp_accounting/_layout/purchases/$supplierID/details";
+import { Route } from "@/routes/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details";
 
 /* ─── dummy types ─── */
 type SupplierDetail = {

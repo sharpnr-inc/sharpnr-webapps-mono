@@ -1,5 +1,4 @@
 import { Outlet, Link, useRouterState } from "@tanstack/react-router";
-
 import {
   Sidebar,
   SidebarContent,
@@ -49,6 +48,8 @@ const AccountingRootLayout = () => {
     select: (s) => s.location.pathname,
   });
 
+  console.log(pathname);
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -59,7 +60,7 @@ const AccountingRootLayout = () => {
         {/* ✅ Fixed: ScrollArea lives inside SidebarContent, no asChild */}
         <SidebarContent className="overflow-hidden">
           <ScrollArea className="h-full w-full">
-            <div className="pb-4">
+            <div className="pb-2">
               {accountingSidebar.map((section) => (
                 <SidebarGroup key={section.group}>
                   <SidebarGroupLabel>{section.group}</SidebarGroupLabel>
@@ -70,21 +71,26 @@ const AccountingRootLayout = () => {
                         item.children ? (
                           <Collapsible
                             key={item.label}
-                            defaultOpen={item.children.some((c) =>
-                              pathname.startsWith(c.to),
+                            defaultOpen={item.children.some(
+                              (c) =>
+                                pathname === c.to ||
+                                pathname.startsWith(`${c.to}/`),
                             )}
                             className="group/collapsible"
                           >
                             <SidebarMenuItem>
                               <CollapsibleTrigger asChild>
                                 <SidebarMenuButton
-                                  isActive={item.children.some((c) =>
-                                    pathname.startsWith(c.to),
+                                  isActive={item.children.some(
+                                    (c) =>
+                                      pathname === c.to ||
+                                      pathname.startsWith(`${c.to}/`),
                                   )}
                                   tooltip={item.label}
                                 >
                                   <item.icon />
                                   <span>{item.label}</span>
+
                                   <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
                                 </SidebarMenuButton>
                               </CollapsibleTrigger>
@@ -95,7 +101,7 @@ const AccountingRootLayout = () => {
                                     <SidebarMenuSubItem key={child.label}>
                                       <SidebarMenuSubButton
                                         asChild
-                                        isActive={pathname.startsWith(child.to)}
+                                        isActive={pathname === child.to}
                                       >
                                         <Link to={child.to}>
                                           <span>{child.label}</span>
@@ -111,7 +117,10 @@ const AccountingRootLayout = () => {
                           <SidebarMenuItem key={item.label}>
                             <SidebarMenuButton
                               asChild
-                              isActive={pathname.startsWith(item.to!)}
+                              isActive={
+                                pathname === item.to ||
+                                pathname.startsWith(`${item.to}/`)
+                              }
                               tooltip={item.label}
                             >
                               <Link to={item.to}>
@@ -136,10 +145,10 @@ const AccountingRootLayout = () => {
       <SidebarInset>
         <header className="flex h-14 shrink-0 items-center gap-2 px-4">
           <SidebarTrigger />
-          <span className="font-medium">Accounting</span>
+          <span className="">Accounting</span>
         </header>
 
-        <main className="flex-1 overflow-auto p-4">
+        <main className=" overflow-auto p-4">
           <Outlet />
         </main>
       </SidebarInset>
