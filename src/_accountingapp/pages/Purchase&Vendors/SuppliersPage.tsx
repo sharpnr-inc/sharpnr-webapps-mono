@@ -17,7 +17,8 @@ import {
 import { useFormsModal } from "@/context/FormModalContext";
 import { AddNewSupplierForm } from "@/_accountingapp/components/forms/AddNewSupplier";
 import { useNavigate } from "@tanstack/react-router";
-import { useOrgSuppliers } from "@/_orchestrator/suppliers_Vendors/api/query";
+import { useLegalEntitySuppliers } from "@/_accountingapp/api/queries/suppliers";
+import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
 
 /* ─── dummy supplier type (replace with real API type later) ─── */
 type Supplier = {
@@ -248,8 +249,10 @@ function SupplierCard({
 
 /* ─── page ─── */
 export function AccountingSupplierHomePage() {
-  const { data } = useOrgSuppliers();
+  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
+  const { data } = useLegalEntitySuppliers(selectedLegalEntity?.id);
   console.log(data);
+
   const { showModal } = useFormsModal();
   const [query, setQuery] = useState("");
 

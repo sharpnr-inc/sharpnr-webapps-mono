@@ -39,4 +39,7 @@ export const AccountingAppAPIEndpoints = {
     profitAndLoss: (legalEntityID: string) =>
       `accounting/${legalEntityID}/reports/profit-loss`,
   },
+
+  suppliers: (legalEntityID: string) =>
+    `/accounting/${legalEntityID}/legal-entity-suppliers`,
 };

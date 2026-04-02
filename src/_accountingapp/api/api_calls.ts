@@ -144,3 +144,8 @@ export async function GetProfitAndLoss(legalEntityID: string) {
   );
   return res.data;
 }
+
+export async function FetchLegalEntitySuppliers(legalEntityID: string) {
+  const res = await api.get(AccountingAppAPIEndpoints.suppliers(legalEntityID));
+  return res.data;
+}

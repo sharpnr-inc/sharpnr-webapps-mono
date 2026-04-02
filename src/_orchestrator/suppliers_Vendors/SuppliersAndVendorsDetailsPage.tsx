@@ -10,7 +10,7 @@ export function SuppliersAndVendorsDetailsPage() {
   const handleTestLink = () => {
     mutate({
       suppliers_id: suppliersID,
-      legal_entity_id: "76039a04-72e2-4693-b103-9b6fe4f3db8a",
+      legal_entity_id: "fe64042a-27d4-4602-bbf8-65a4c6bf6f83",
     });
   };
 
