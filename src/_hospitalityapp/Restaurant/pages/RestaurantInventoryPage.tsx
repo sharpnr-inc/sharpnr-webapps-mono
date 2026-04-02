@@ -17,18 +17,16 @@ import { Plus, Package } from "lucide-react";
 
 import { useSharedInventoryAccounts } from "../apis/queries";
 import { useSelectedRestaurantID } from "../store/selectors";
+import { useFormsModal } from "@/context/FormModalContext";
+import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
 
 interface RestaurantInventoryPageProps {}
 
 const RestaurantInventoryPage: React.FC<RestaurantInventoryPageProps> = () => {
   const restaurantID = useSelectedRestaurantID();
-
   const { data, isLoading } = useSharedInventoryAccounts(restaurantID!!);
-
   const warehouses = data?.data ?? [];
-
   const [selectedWarehouseID, setSelectedWarehouseID] = useState<string>("");
-
   const selectedWarehouse = warehouses.find(
     (w: any) => w.ID === selectedWarehouseID,
   );
@@ -41,6 +39,19 @@ const RestaurantInventoryPage: React.FC<RestaurantInventoryPageProps> = () => {
       setSelectedWarehouseID(warehouses[0].ID);
     }
   }, [warehouses]);
+
+  const { showModal } = useFormsModal();
+
+  const handleAddInventory = (selectedWarehouseID: string) => {
+    if (!selectedWarehouseID) {
+      return;
+    }
+    showModal(
+      "New Inventory",
+      "Add New Inventory ",
+      <AddRestaurantInventoryForm inventoryAccountID={selectedWarehouseID} />,
+    );
+  };
 
   return (
     <div className="space-y-6 mt-6">
@@ -79,9 +90,7 @@ const RestaurantInventoryPage: React.FC<RestaurantInventoryPageProps> = () => {
           <Button
             disabled={!selectedWarehouseID}
             className="bg-black text-white font-bold uppercase text-xs"
-            onClick={() =>
-              console.log("Add inventory in warehouse:", selectedWarehouseID)
-            }
+            onClick={() => handleAddInventory(selectedWarehouseID)}
           >
             <Plus className="mr-2 h-4 w-4" />
             Add Inventory

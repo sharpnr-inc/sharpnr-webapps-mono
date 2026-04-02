@@ -37,4 +37,6 @@ export const RestaurantEndpoints = {
 
   GetAllInventoryAccountOrWareHouse: (restaurantID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/inventory`,
+  AddInventory: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/inventory/add-inventory`,
 };

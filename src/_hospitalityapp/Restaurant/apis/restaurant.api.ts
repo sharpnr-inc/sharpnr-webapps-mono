@@ -169,3 +169,34 @@ export async function GetInventoryAccount(restaurantID: string) {
   );
   return res.data;
 }
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface NewInventoryRequestPayload {
+  inventory_account_id: string;
+  name: string;
+  description: string;
+  location: string;
+}
+
+interface NewInventoryRequest {
+  restaurantID: string;
+  payload: NewInventoryRequestPayload;
+}
+
+/**
+ * Adds a new inventory item to a specific restaurant.
+ */
+export async function AddInventoryInRestaurant({
+  payload,
+  restaurantID,
+}: NewInventoryRequest) {
+  const res = await api.post(
+    RestaurantEndpoints.AddInventory(restaurantID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
