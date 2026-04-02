@@ -16,6 +16,7 @@ import {
 import { useInventoryAccounts } from "./api/queries";
 import { useFormsModal } from "@/context/FormModalContext";
 import { AddNewInventoryAccountForm } from "./forms/AddNewInventoryAccount";
+import { useNavigate } from "@tanstack/react-router";
 
 /* ─── type matching API response ─── */
 type InventoryAccount = {
@@ -133,6 +134,7 @@ function AccountCard({
 }) {
   const cfg = typeConfig(account.Type);
   const Icon = cfg.icon;
+  const nav = useNavigate();
 
   return (
     <motion.div
@@ -204,7 +206,17 @@ function AccountCard({
             <button className="size-7 rounded-lg border border-border/50 flex items-center justify-center text-muted-foreground hover:bg-muted/40 transition-colors opacity-0 group-hover:opacity-100">
               <MoreHorizontal className="size-3.5" />
             </button>
-            <div className="size-7 rounded-lg border border-border/50 flex items-center justify-center text-muted-foreground/30 group-hover:text-primary/60 group-hover:border-primary/30 transition-colors">
+            <div
+              onClick={() =>
+                nav({
+                  to: "/orchestrator/inventory-acc/$inventoryAccountID/details",
+                  params: {
+                    inventoryAccountID: account.ID,
+                  },
+                })
+              }
+              className="size-7 rounded-lg border border-border/50 flex items-center justify-center text-muted-foreground/30 group-hover:text-primary/60 group-hover:border-primary/30 transition-colors"
+            >
               <ChevronRight className="size-3.5" />
             </div>
           </div>

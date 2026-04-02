@@ -3,6 +3,8 @@ import api from "@/middlewares/axios";
 export const SupplierOrchestratorEndpoints = {
   GetAllSupplier: () => `/orchestrator/suppliers/list`,
   CreateNewSupplier: () => `/orchestrator/suppliers/add-new`,
+  AddLegalEntity: (legalEntityID: string) =>
+    `/orchestrator/suppliers/${legalEntityID}/add-lel`,
 };
 
 export async function GetAllOrganizationSuppliers() {
@@ -33,3 +35,16 @@ export async function AddNewSupplier(payload: NewSupplierPayloadInterface) {
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+export interface LegalEntityLinkPayload {
+  suppliers_id: string;
+  legal_entity_id: string;
+}
+export async function AddLegalEntityLinkToSuppliers(
+  payload: LegalEntityLinkPayload,
+) {
+  const res = await api.post(
+    SupplierOrchestratorEndpoints.AddLegalEntity(payload.suppliers_id),
+    payload,
+  );
+  return res.data;
+}
