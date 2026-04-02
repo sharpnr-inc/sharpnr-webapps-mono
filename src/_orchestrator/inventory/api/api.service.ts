@@ -3,6 +3,8 @@ import api from "@/middlewares/axios";
 export const InventoryEndpoints = {
   GetAllAccounts: () => `/orchestrator/inventory-account`,
   CreateNewAccount: () => `/orchestrator/inventory-account/add`,
+  AccountDetails: (inventoryAccountID: string) =>
+    `/orchestrator/inventory-account/${inventoryAccountID}/inventory/details`,
 };
 
 export async function GetAllInventoryAccount() {
@@ -35,3 +37,10 @@ export async function CreateInventoryAccount(
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export async function FetchInventoryAccountDetails(inventoryAccountID: string) {
+  const res = await api.get(
+    InventoryEndpoints.AccountDetails(inventoryAccountID),
+  );
+  return res.data;
+}

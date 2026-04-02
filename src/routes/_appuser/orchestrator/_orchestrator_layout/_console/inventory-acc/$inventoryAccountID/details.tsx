@@ -1,16 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { InventoryAccountDetails } from "@/_orchestrator/inventory/InventoryAccountDetails";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details',
+  "/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details",
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$invID/details"!
-    </div>
-  )
-}
+  component: InventoryAccountDetails,
+});
