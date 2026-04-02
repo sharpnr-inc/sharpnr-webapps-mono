@@ -4,7 +4,6 @@ export function InventoryAccountDetails() {
   const { inventoryAccountID } = Route.useParams();
 
   const { data } = useInventoryAccontDetails(inventoryAccountID);
-  console.log(data);
   return (
     <div>
       <div>{inventoryAccountID}</div>

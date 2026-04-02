@@ -32,4 +32,9 @@ export const RestaurantEndpoints = {
 
   CloseDiningSession: (restaurantID: string, diningSessionID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/dining-session/${diningSessionID}/close-session`,
+
+  /* ------------------------------ Inventory API ----------------------------- */
+
+  GetAllInventoryAccountOrWareHouse: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/inventory`,
 };

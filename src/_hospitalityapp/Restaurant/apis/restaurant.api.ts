@@ -162,3 +162,10 @@ export async function CloseDiningSession({
 
   return res.data;
 }
+
+export async function GetInventoryAccount(restaurantID: string) {
+  const res = await api.get(
+    RestaurantEndpoints.GetAllInventoryAccountOrWareHouse(restaurantID),
+  );
+  return res.data;
+}
