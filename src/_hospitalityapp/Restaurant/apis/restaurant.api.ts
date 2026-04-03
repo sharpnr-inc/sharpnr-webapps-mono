@@ -163,15 +163,24 @@ export async function CloseDiningSession({
   return res.data;
 }
 
-export async function GetInventoryAccount(restaurantID: string) {
+/* ---------------------------------- <***> --------------------------------- */
+export async function GetInventories(restaurantID: string) {
   const res = await api.get(
-    RestaurantEndpoints.GetAllInventoryAccountOrWareHouse(restaurantID),
+    RestaurantEndpoints.GetAllInventories(restaurantID),
   );
   return res.data;
 }
 
 /* ---------------------------------- <***> --------------------------------- */
 
+export async function GetInventoriesAccounts(restaurantID: string) {
+  const res = await api.get(
+    RestaurantEndpoints.GetInventoryAccounts(restaurantID),
+  );
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
 export interface NewInventoryRequestPayload {
   inventory_account_id: string;
   name: string;

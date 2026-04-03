@@ -9,13 +9,10 @@ import {
 } from "@/components/ui/select";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
 import { Plus, Package } from "lucide-react";
-
-import { useSharedInventoryAccounts } from "../apis/queries";
+import { useRestaurantInventories } from "../apis/queries";
 import { useSelectedRestaurantID } from "../store/selectors";
 import { useFormsModal } from "@/context/FormModalContext";
 import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
@@ -24,7 +21,9 @@ interface RestaurantInventoryPageProps {}
 
 const RestaurantInventoryPage: React.FC<RestaurantInventoryPageProps> = () => {
   const restaurantID = useSelectedRestaurantID();
-  const { data, isLoading } = useSharedInventoryAccounts(restaurantID!!);
+  const { data, isLoading } = useRestaurantInventories(restaurantID!!);
+  
+
   const warehouses = data?.data ?? [];
   const [selectedWarehouseID, setSelectedWarehouseID] = useState<string>("");
   const selectedWarehouse = warehouses.find(
