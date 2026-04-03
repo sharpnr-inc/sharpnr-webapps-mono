@@ -1,5 +1,8 @@
 import api from "@/middlewares/axios";
-import { RestaurantEndpoints } from "./enpoints";
+import {
+  RestaurantEndpoints,
+  type GetInventoriesFilterParams,
+} from "./enpoints";
 import type { APIResponse } from "@/utilities/api_response";
 
 /* ---------------------------------- <***> --------------------------------- */
@@ -164,10 +167,17 @@ export async function CloseDiningSession({
 }
 
 /* ---------------------------------- <***> --------------------------------- */
-export async function GetInventories(restaurantID: string) {
+export async function GetInventories({
+  restaurantID,
+  inventoryAccountID,
+}: GetInventoriesFilterParams) {
   const res = await api.get(
-    RestaurantEndpoints.GetAllInventories(restaurantID),
+    RestaurantEndpoints.GetAllInventories({
+      restaurantID,
+      inventoryAccountID,
+    }),
   );
+
   return res.data;
 }
 

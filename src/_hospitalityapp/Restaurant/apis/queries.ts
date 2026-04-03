@@ -54,14 +54,22 @@ export function useAddKitchenIdInRestaurant() {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export function useRestaurantInventories(restaurantID: string) {
+export function useRestaurantInventories(
+  restaurantID: string,
+  inventoryAccountID?: string,
+) {
   return useQuery({
-    queryKey: ["SharedInventory Accounts", restaurantID],
-    queryFn: () => GetInventories(restaurantID),
+    queryKey: ["restaurant-inventories", restaurantID, inventoryAccountID],
+
+    queryFn: () =>
+      GetInventories({
+        restaurantID,
+        inventoryAccountID,
+      }),
+
     enabled: !!restaurantID,
   });
 }
-
 /* ---------------------------------- <***> --------------------------------- */
 
 export function useAllInventoriesAccounts(restaurantID: string) {

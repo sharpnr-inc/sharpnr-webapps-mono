@@ -35,10 +35,21 @@ export const RestaurantEndpoints = {
 
   /* ------------------------------ Inventory API ----------------------------- */
 
-  GetAllInventories: (restaurantID: string) =>
-    `/sharp-hospitality/restaurant/${restaurantID}/inventory`,
+  GetAllInventories: ({
+    restaurantID,
+    inventoryAccountID,
+  }: GetInventoriesFilterParams) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/inventory${
+      inventoryAccountID ? `?inventoryAccountID=${inventoryAccountID}` : ""
+    }`,
+
   GetInventoryAccounts: (restaurantID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/inventory/accounts`,
   AddInventory: (restaurantID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/inventory/add-inventory`,
 };
+
+export interface GetInventoriesFilterParams {
+  restaurantID: string;
+  inventoryAccountID?: string;
+}
