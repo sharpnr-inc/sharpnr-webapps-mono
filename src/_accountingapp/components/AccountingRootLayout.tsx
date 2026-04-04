@@ -48,8 +48,6 @@ const AccountingRootLayout = () => {
     select: (s) => s.location.pathname,
   });
 
-  console.log(pathname);
-
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
