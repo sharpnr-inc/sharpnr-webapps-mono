@@ -91,6 +91,10 @@ export const accountingSidebar = [
             label: "Purchases",
             to: "/dashboard/sharp_accounting/purchases",
           },
+          {
+            label: "Purchase History",
+            to: "/dashboard/sharp_accounting/purchases/history",
+          },
         ],
       },
     ],

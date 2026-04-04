@@ -1,59 +1,31 @@
-// Notes --> Inventory ID 
+import NewPurchase from "@/_accountingapp/components/Purchase/Purchase";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { useRouter } from "@tanstack/react-router";
+import { toast } from "sonner";
 
-import { useLegalEntitySuppliers } from "@/_accountingapp/api/queries/suppliers";
-import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
-import { useAppForm } from "@/components/forms";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { SelectItem } from "@radix-ui/react-select";
-
-export function NewPurchasePage() {
-  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
-  const { data } = useLegalEntitySuppliers(selectedLegalEntity?.id);
-  const supplierList = data?.data ?? [];
-
-  const form = useAppForm({
-    defaultValues: {
-      suppliersID: "",
-      AccountingBookID: "",
-      InvoiceNumber: "",
-      InvoiceDate: "",
-    },
-  });
+export function AddPurchaseInvoicePage() {
+  const router = useRouter();
 
   return (
-    <div>
-      <div className=" text-2xl">Purchases </div>
-      <div className="flex flex-row gap-2">
-        <div className="border">
-          {/* Supplier Sections */}
-          <div>
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Select Supplier" />
-              </SelectTrigger>
+    <TooltipProvider>
+      <NewPurchase
+        onBack={() => router.history.back()}
+        onPosted={() => toast.success("Invoice posted")}
+        onDraftSaved={() => toast.success("Draft saved")}
+      >
+        <NewPurchase.Header />
 
-              <SelectContent>
-                {supplierList.map((s: any) => {
-                  return (
-                    <SelectItem value={s.suppliers_id} key={s.suppliers_id}>
-                      {s.suppliers_name}
-                    </SelectItem>
-                  );
-                })}
-              </SelectContent>
-            </Select>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_300px]">
+          <div className="space-y-5">
+            <NewPurchase.Details />
+            <NewPurchase.Lines />
+            <NewPurchase.Narration />
+            <NewPurchase.JournalPreview />
           </div>
 
-          <div></div>
+          <NewPurchase.Summary />
         </div>
-
-        <div>{<div>{"Segment 1"}</div>}</div>
-      </div>
-    </div>
+      </NewPurchase>
+    </TooltipProvider>
   );
 }
