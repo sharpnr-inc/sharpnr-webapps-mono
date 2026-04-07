@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -23,32 +22,19 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Plus, Trash2, Package, Boxes, Info } from "lucide-react";
-
+import { Plus, Trash2, Package, Boxes } from "lucide-react";
 import {
-  usePurchaseInvoiceStore,
-  TAX_CATEGORIES,
-  INVENTORIES,
-  INVENTORY_ITEMS,
-} from "./store/purchase.store";
-import { useAddLine, useRemoveLine, useUpdateLine } from "./store/actions";
-import { selectDebitAccounts, selectInventoryItem } from "./store/selectors";
-
-function fmt(n: number) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 2,
-  }).format(n);
-}
-
-const DEBIT_ACCOUNTS = selectDebitAccounts();
+  useAddLine,
+  useLines,
+  useSetLineField,
+} from "./store/PurchaseForm.selectors";
 
 export function PurchaseLine() {
-  const lines = usePurchaseInvoiceStore((s) => s.lines);
+  const lines = useLines();
+  // const errors = useFormErrors();
+  const setLineField = useSetLineField();
   const addLine = useAddLine();
-  const removeLine = useRemoveLine();
-  const updateLine = useUpdateLine();
+  // const removeLine = useRemoveLine();
 
   return (
     <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
@@ -113,8 +99,8 @@ export function PurchaseLine() {
           </TableHeader>
 
           <TableBody>
-            {lines.map((line) => (
-              <Fragment key={line.id}>
+            {lines.map((line, i) => (
+              <Fragment>
                 {/* ── Main row ── */}
                 <TableRow className="group align-top border-b-0">
                   <TableCell className="py-2 pr-2">
@@ -123,13 +109,13 @@ export function PurchaseLine() {
                       placeholder="What was purchased…"
                       value={line.description}
                       onChange={(e) =>
-                        updateLine(line.id, "description", e.target.value)
+                        setLineField(i, "description", e.target.value)
                       }
                     />
                   </TableCell>
 
                   <TableCell className="py-2 pr-2">
-                    <Select
+                    {/* <Select
                       value={line.debitAccountId}
                       onValueChange={(v) =>
                         updateLine(line.id, "debitAccountId", v)
@@ -152,7 +138,7 @@ export function PurchaseLine() {
                           </SelectItem>
                         ))}
                       </SelectContent>
-                    </Select>
+                    </Select> */}
                   </TableCell>
 
                   <TableCell className="py-2 pr-2">
@@ -161,13 +147,9 @@ export function PurchaseLine() {
                       min={0.01}
                       step={0.01}
                       className="h-8 text-xs text-right"
-                      value={line.quantity}
+                      value={line.qty}
                       onChange={(e) =>
-                        updateLine(
-                          line.id,
-                          "quantity",
-                          parseFloat(e.target.value) || 0,
-                        )
+                        setLineField(i, "qty", parseFloat(e.target.value) || 0)
                       }
                     />
                   </TableCell>
@@ -178,11 +160,11 @@ export function PurchaseLine() {
                       min={0}
                       step={0.01}
                       className="h-8 text-xs text-right"
-                      value={line.unitPrice}
+                      value={line.unit_price}
                       onChange={(e) =>
-                        updateLine(
-                          line.id,
-                          "unitPrice",
+                        setLineField(
+                          i,
+                          "unit_price",
                           parseFloat(e.target.value) || 0,
                         )
                       }
@@ -191,25 +173,15 @@ export function PurchaseLine() {
 
                   <TableCell className="py-2 pr-2">
                     <Select
-                      value={line.taxCategoryId}
+                      value={line.tax_category_id}
                       onValueChange={(v) =>
-                        updateLine(line.id, "taxCategoryId", v)
+                        setLineField(i, "tax_category_id", v)
                       }
                     >
                       <SelectTrigger className="h-8 text-xs">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
-                        {TAX_CATEGORIES.map((t) => (
-                          <SelectItem
-                            key={t.id}
-                            value={t.id}
-                            className="text-xs"
-                          >
-                            {t.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
+                      <SelectContent></SelectContent>
                     </Select>
                   </TableCell>
 
@@ -217,38 +189,20 @@ export function PurchaseLine() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <div className="flex justify-center">
-                          <Switch
-                            checked={line.addToInventory}
-                            onCheckedChange={(v) =>
-                              updateLine(line.id, "addToInventory", v)
-                            }
-                            className="scale-75"
-                          />
+                          <Switch className="scale-75" />
                         </div>
                       </TooltipTrigger>
-                      <TooltipContent className="text-xs">
-                        {line.addToInventory
-                          ? "Will update inventory on Post"
-                          : "Enable to link inventory item"}
-                      </TooltipContent>
+                      <TooltipContent className="text-xs"></TooltipContent>
                     </Tooltip>
                   </TableCell>
 
-                  <TableCell className="py-2 text-right text-sm font-medium tabular-nums">
-                    <div className="pt-1">{fmt(line.totalAmount)}</div>
-                    {line.taxAmount > 0 && (
-                      <div className="text-[10px] text-muted-foreground">
-                        +{fmt(line.taxAmount)} tax
-                      </div>
-                    )}
-                  </TableCell>
+                  <TableCell className="py-2 text-right text-sm font-medium tabular-nums"></TableCell>
 
                   <TableCell className="py-2">
                     <Button
                       size="icon"
                       variant="ghost"
                       className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
-                      onClick={() => removeLine(line.id)}
                       disabled={lines.length === 1}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
@@ -257,110 +211,43 @@ export function PurchaseLine() {
                 </TableRow>
 
                 {/* ── Inventory sub-row ── */}
-                {line.addToInventory && (
-                  <TableRow className="bg-teal-50/60 dark:bg-teal-950/20 border-b border-teal-100 dark:border-teal-900">
-                    <TableCell colSpan={8} className="py-2 px-4">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <div className="flex items-center gap-1.5 text-[11px] font-medium text-teal-700 dark:text-teal-400 shrink-0">
-                          <Boxes className="h-3.5 w-3.5" />
-                          Inventory linkage
-                        </div>
 
-                        {/* Warehouse */}
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[11px] text-muted-foreground whitespace-nowrap">
-                            Warehouse
-                          </span>
-                          <Select
-                            value={line.inventoryId}
-                            onValueChange={(v) =>
-                              updateLine(line.id, "inventoryId", v)
-                            }
-                          >
-                            <SelectTrigger className="h-7 text-xs w-[160px] border-teal-200 bg-white dark:bg-background">
-                              <SelectValue placeholder="Select warehouse…" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {INVENTORIES.map((inv) => (
-                                <SelectItem
-                                  key={inv.id}
-                                  value={inv.id}
-                                  className="text-xs"
-                                >
-                                  {inv.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        {/* SKU */}
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-[11px] text-muted-foreground whitespace-nowrap">
-                            Item / SKU
-                          </span>
-                          <Select
-                            value={line.inventoryItemId}
-                            onValueChange={(v) =>
-                              updateLine(line.id, "inventoryItemId", v)
-                            }
-                          >
-                            <SelectTrigger className="h-7 text-xs w-[200px] border-teal-200 bg-white dark:bg-background">
-                              <SelectValue placeholder="Select item…" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {INVENTORY_ITEMS.map((item) => (
-                                <SelectItem
-                                  key={item.id}
-                                  value={item.id}
-                                  className="text-xs"
-                                >
-                                  <span className="font-mono text-[10px] text-muted-foreground mr-1">
-                                    {item.code}
-                                  </span>
-                                  {item.name}
-                                  <span className="text-muted-foreground ml-1">
-                                    · {item.unit}
-                                  </span>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        {/* Selling price hint */}
-                        {line.inventoryItemId &&
-                          (() => {
-                            const item = selectInventoryItem(
-                              line.inventoryItemId,
-                            );
-                            if (!item) return null;
-                            return item.sellingPrice ? (
-                              <span className="text-[11px] text-teal-600 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/40 px-2 py-0.5 rounded-full">
-                                Selling price on record:{" "}
-                                {fmt(item.sellingPrice)}
-                              </span>
-                            ) : (
-                              <span className="flex items-center gap-1 text-[11px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                <Info className="h-2.5 w-2.5" />
-                                No selling price set — set after posting
-                              </span>
-                            );
-                          })()}
-
-                        {/* Qty preview */}
-                        {line.inventoryItemId && line.inventoryId && (
-                          <span className="text-[11px] text-teal-600 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/40 px-2 py-0.5 rounded-full ml-auto">
-                            +{line.quantity}{" "}
-                            {selectInventoryItem(line.inventoryItemId)?.unit ??
-                              ""}{" "}
-                            on Post
-                          </span>
-                        )}
+                <TableRow className="bg-teal-50/60 dark:bg-teal-950/20 border-b border-teal-100 dark:border-teal-900">
+                  <TableCell colSpan={8} className="py-2 px-4">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="flex items-center gap-1.5 text-[11px] font-medium text-teal-700 dark:text-teal-400 shrink-0">
+                        <Boxes className="h-3.5 w-3.5" />
+                        Inventory linkage
                       </div>
-                    </TableCell>
-                  </TableRow>
-                )}
+
+                      {/* Warehouse */}
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[11px] text-muted-foreground whitespace-nowrap">
+                          Warehouse
+                        </span>
+                        <Select>
+                          <SelectTrigger className="h-7 text-xs w-[160px] border-teal-200 bg-white dark:bg-background">
+                            <SelectValue placeholder="Select warehouse…" />
+                          </SelectTrigger>
+                          <SelectContent></SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* SKU */}
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[11px] text-muted-foreground whitespace-nowrap">
+                          Item / SKU
+                        </span>
+                        <Select>
+                          <SelectTrigger className="h-7 text-xs w-[200px] border-teal-200 bg-white dark:bg-background">
+                            <SelectValue placeholder="Select item…" />
+                          </SelectTrigger>
+                          <SelectContent></SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </TableCell>
+                </TableRow>
               </Fragment>
             ))}
           </TableBody>

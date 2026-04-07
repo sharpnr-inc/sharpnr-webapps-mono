@@ -1,31 +1,6 @@
 import { BookOpen } from "lucide-react";
-import { usePurchaseInvoiceStore } from "./store/purchase.store";
-import {
-  useHasJournalPreview,
-  useJournalPreviewLines,
-  selectAccountByID,
-  selectPayableAccount,
-  selectSelectedSupplier,
-  selectGrandTotal,
-} from "./store/selectors";
-
-function fmt(n: number) {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 2,
-  }).format(n);
-}
 
 export function PurchaseJournalEntrySummary() {
-  const hasPreview = useHasJournalPreview();
-  const journalLines = useJournalPreviewLines();
-  const payableAccount = usePurchaseInvoiceStore(selectPayableAccount);
-  const selectedSupplier = usePurchaseInvoiceStore(selectSelectedSupplier);
-  const grandTotal = usePurchaseInvoiceStore(selectGrandTotal);
-
-  if (!hasPreview) return null;
-
   return (
     <div className="rounded-xl border border-blue-100 bg-blue-50/40 dark:bg-blue-950/20 p-5 shadow-sm space-y-4">
       <div className="flex items-center gap-2 pb-1 border-b border-blue-200/60">
@@ -50,7 +25,7 @@ export function PurchaseJournalEntrySummary() {
               </th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {journalLines.map((l) => {
               const acc = selectAccountByID(l.debitAccountId);
               return (
@@ -72,7 +47,7 @@ export function PurchaseJournalEntrySummary() {
               );
             })}
 
-            {/* Credit row — Accounts Payable */}
+          
             <tr>
               <td className="py-1.5 text-foreground">
                 <span className="font-mono text-[10px] text-muted-foreground mr-1.5">
@@ -90,7 +65,7 @@ export function PurchaseJournalEntrySummary() {
                 {fmt(grandTotal)}
               </td>
             </tr>
-          </tbody>
+          </tbody> */}
         </table>
       </div>
 

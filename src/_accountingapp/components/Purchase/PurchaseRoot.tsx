@@ -32,9 +32,7 @@ export function PurchaseRoot({
   return (
     <PurchaseContext.Provider value={{ onBack, onPosted, onDraftSaved }}>
       <form onSubmit={handleSubmit} noValidate>
-        <div className={cn("min-h-screen bg-muted/30 p-6", className)}>
-          {children}
-        </div>
+        <div className={cn("p-3", className)}>{children}</div>
       </form>
     </PurchaseContext.Provider>
   );
