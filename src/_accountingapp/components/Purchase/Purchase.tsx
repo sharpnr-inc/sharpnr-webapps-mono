@@ -46,6 +46,8 @@ import {
   useInventoryLines,
 } from "./store/selectors";
 import { usePurchaseContext } from "./PurchaseContext";
+import { Label } from "@/components/ui/label";
+import { useSetField } from "./store/PurchaseForm.selectors";
 
 type InvoiceStatus =
   | "DRAFT"
@@ -187,6 +189,8 @@ function PurchaseDetails() {
   const setDueDate = useSetDueDate();
   const setPayableAccountId = useSetPayableAccountId();
 
+  const setField = useSetField();
+
   return (
     <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-4">
       <div className="flex items-center gap-2 pb-1 border-b border-border">
@@ -230,6 +234,15 @@ function PurchaseDetails() {
               ID: {selectedSupplier.id}
             </p>
           )}
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Due Date</Label>
+          <Input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setField("due_date", e.target.value)}
+          />
         </div>
 
         {/* Supplier Invoice No. */}
