@@ -149,3 +149,10 @@ export async function FetchLegalEntitySuppliers(legalEntityID: string) {
   const res = await api.get(AccountingAppAPIEndpoints.suppliers(legalEntityID));
   return res.data;
 }
+
+export async function GetAllInventoriesOfLegalEntity(legalEntity: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Inventory.All(legalEntity),
+  );
+  return res.data;
+}

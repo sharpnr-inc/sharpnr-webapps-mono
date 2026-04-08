@@ -1,6 +1,10 @@
 import { PurchaseContext } from "./PurchaseContext";
 import { cn } from "@/lib/utils";
 import { useReset, useSubmit } from "./store/PurchaseForm.selectors";
+import { useLegalEntitySuppliers } from "@/_accountingapp/api/queries/suppliers";
+import { useAccountingStore } from "@/_accountingapp/store/accounting.store";
+import { useLEAccountingBook } from "@/_accountingapp/api/queries/books";
+import { useLegalEntityInventories } from "@/_accountingapp/api/queries/inventories";
 
 interface PurchaseRootProps {
   children: React.ReactNode;
@@ -29,8 +33,24 @@ export function PurchaseRoot({
       reset();
     });
   };
+  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
+  const { data } = useLegalEntitySuppliers(selectedLegalEntity?.id);
+  const { data: legalEntities } = useLEAccountingBook(selectedLegalEntity?.id);
+  const { data: inventory } = useLegalEntityInventories(
+    selectedLegalEntity?.id,
+  );
+
   return (
-    <PurchaseContext.Provider value={{ onBack, onPosted, onDraftSaved }}>
+    <PurchaseContext.Provider
+      value={{
+        onBack,
+        onPosted,
+        onDraftSaved,
+        suppliers: data?.data,
+        accountingBooks: legalEntities?.data,
+        inventories: inventory?.data,
+      }}
+    >
       <form onSubmit={handleSubmit} noValidate>
         <div className={cn("p-3", className)}>{children}</div>
       </form>

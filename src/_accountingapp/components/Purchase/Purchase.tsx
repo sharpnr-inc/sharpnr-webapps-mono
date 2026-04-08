@@ -18,6 +18,14 @@ import {
   useSetField,
 } from "./store/PurchaseForm.selectors";
 import { PurchaseHeader } from "./PurchaseHeader";
+import { usePurchaseContext } from "./PurchaseContext";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // ── Invoice Details card ──────────────────────────────────────────────────────
 
@@ -27,6 +35,7 @@ function PurchaseDetails() {
   const invoiceDate = useInvoiceDate();
   const ourReference = useReference();
   const dueDate = useDueDate();
+  const { suppliers } = usePurchaseContext();
 
   return (
     <div className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-4">
@@ -39,39 +48,26 @@ function PurchaseDetails() {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* Supplier */}
-        {/* <div className="sm:col-span-2 space-y-1.5">
+        <div className="sm:col-span-2 space-y-1.5">
           <label className="text-xs font-medium text-muted-foreground block">
             Supplier / Vendor <span className="text-destructive">*</span>
           </label>
-          <Select value={supplierId} onValueChange={setSupplierId}>
+          <Select>
             <SelectTrigger>
               <SelectValue placeholder="Select supplier…" />
             </SelectTrigger>
             <SelectContent>
-              {SUPPLIERS.map((s) => (
-                <SelectItem key={s.id} value={s.id}>
-                  <div className="flex flex-col">
-                    <span>{s.name}</span>
-                    {s.outstanding > 0 && (
-                      <span className="text-[11px] text-muted-foreground">
-                        Outstanding:{" "}
-                        {new Intl.NumberFormat("en-IN", {
-                          style: "currency",
-                          currency: "INR",
-                        }).format(s.outstanding)}
-                      </span>
-                    )}
+              {suppliers?.map((s: any) => (
+                <SelectItem key={s.suppliers_id} value={s.suppliers_id}>
+                  <div className="flex flex-col leading-tight">
+                    {/* Supplier Name */}
+                    <span className="font-medium">{s.suppliers_name}</span>
                   </div>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          {selectedSupplier && (
-            <p className="text-[11px] text-muted-foreground font-mono pl-0.5">
-              ID: {selectedSupplier.id}
-            </p>
-          )}
-        </div> */}
+        </div>
 
         {/* Supplier Invoice No. */}
         <div className="space-y-1.5">

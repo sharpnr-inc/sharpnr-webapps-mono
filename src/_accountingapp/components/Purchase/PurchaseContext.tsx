@@ -8,6 +8,9 @@ interface PurchaseContextValue {
   onBack?: () => void;
   onPosted?: () => void;
   onDraftSaved?: () => void;
+  suppliers?: any;
+  accountingBooks?: any;
+  inventories?: any;
 }
 
 export const PurchaseContext = createContext<PurchaseContextValue | null>(null);

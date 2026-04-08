@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -28,8 +29,12 @@ import {
   useLines,
   useSetLineField,
 } from "./store/PurchaseForm.selectors";
+import { usePurchaseContext } from "./PurchaseContext";
 
 export function PurchaseLine() {
+  const { accountingBooks, inventories } = usePurchaseContext();
+  console.log(inventories);
+
   const lines = useLines();
   // const errors = useFormErrors();
   const setLineField = useSetLineField();
@@ -115,30 +120,36 @@ export function PurchaseLine() {
                   </TableCell>
 
                   <TableCell className="py-2 pr-2">
-                    {/* <Select
-                      value={line.debitAccountId}
-                      onValueChange={(v) =>
-                        updateLine(line.id, "debitAccountId", v)
-                      }
-                    >
+                    <Select>
                       <SelectTrigger className="h-8 text-xs">
                         <SelectValue placeholder="Account…" />
                       </SelectTrigger>
+
                       <SelectContent>
-                        {DEBIT_ACCOUNTS.map((a) => (
-                          <SelectItem
-                            key={a.id}
-                            value={a.id}
-                            className="text-xs"
-                          >
-                            <span className="font-mono text-[10px] text-muted-foreground mr-1">
-                              {a.code}
-                            </span>
-                            {a.name}
-                          </SelectItem>
+                        {accountingBooks?.groups?.map((group: any) => (
+                          <div key={group.id}>
+                            {/* Group label */}
+                            <div className="px-2 py-1 text-[10px] font-semibold text-muted-foreground uppercase">
+                              {group.type}
+                            </div>
+
+                            {/* Accounts */}
+                            {group.accounts.map((account: any) => (
+                              <SelectItem
+                                key={account.id}
+                                value={account.id}
+                                className="text-xs"
+                              >
+                                <span className="font-mono text-[10px] text-muted-foreground mr-1">
+                                  {account.code}
+                                </span>
+                                {account.account_name}
+                              </SelectItem>
+                            ))}
+                          </div>
                         ))}
                       </SelectContent>
-                    </Select> */}
+                    </Select>
                   </TableCell>
 
                   <TableCell className="py-2 pr-2">
@@ -220,29 +231,32 @@ export function PurchaseLine() {
                         Inventory linkage
                       </div>
 
-                      {/* Warehouse */}
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-[11px] text-muted-foreground whitespace-nowrap">
-                          Warehouse
-                        </span>
-                        <Select>
-                          <SelectTrigger className="h-7 text-xs w-[160px] border-teal-200 bg-white dark:bg-background">
-                            <SelectValue placeholder="Select warehouse…" />
-                          </SelectTrigger>
-                          <SelectContent></SelectContent>
-                        </Select>
-                      </div>
-
                       {/* SKU */}
                       <div className="flex items-center gap-1.5">
                         <span className="text-[11px] text-muted-foreground whitespace-nowrap">
-                          Item / SKU
+                          Inventory
                         </span>
                         <Select>
                           <SelectTrigger className="h-7 text-xs w-[200px] border-teal-200 bg-white dark:bg-background">
                             <SelectValue placeholder="Select item…" />
                           </SelectTrigger>
-                          <SelectContent></SelectContent>
+
+                          <SelectContent>
+                            {inventories?.map((inv: any) => (
+                              <SelectItem
+                                key={inv.ID}
+                                value={inv.ID}
+                                className="text-xs"
+                              >
+                                <div className="flex flex-col">
+                                  <span>{inv.Name}</span>
+                                  <span className="text-[10px] text-muted-foreground">
+                                    {inv.Location}
+                                  </span>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
                         </Select>
                       </div>
                     </div>
