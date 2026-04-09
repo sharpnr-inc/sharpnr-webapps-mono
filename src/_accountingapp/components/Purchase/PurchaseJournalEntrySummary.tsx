@@ -25,47 +25,6 @@ export function PurchaseJournalEntrySummary() {
               </th>
             </tr>
           </thead>
-          {/* <tbody>
-            {journalLines.map((l) => {
-              const acc = selectAccountByID(l.debitAccountId);
-              return (
-                <tr key={l.id} className="border-b border-blue-100/60">
-                  <td className="py-1.5 text-foreground">
-                    <span className="font-mono text-[10px] text-muted-foreground mr-1.5">
-                      {acc?.code}
-                    </span>
-                    {acc?.name ?? "—"}
-                    <span className="text-muted-foreground ml-1.5 text-[10px]">
-                      ({l.description || "line item"})
-                    </span>
-                  </td>
-                  <td className="py-1.5 text-right tabular-nums text-blue-700 dark:text-blue-400 font-medium">
-                    {fmt(l.totalAmount)}
-                  </td>
-                  <td className="py-1.5 text-right text-muted-foreground">—</td>
-                </tr>
-              );
-            })}
-
-          
-            <tr>
-              <td className="py-1.5 text-foreground">
-                <span className="font-mono text-[10px] text-muted-foreground mr-1.5">
-                  {payableAccount?.code}
-                </span>
-                {payableAccount?.name ?? "Accounts Payable"}
-                {selectedSupplier && (
-                  <span className="text-muted-foreground ml-1.5 text-[10px]">
-                    ({selectedSupplier.name})
-                  </span>
-                )}
-              </td>
-              <td className="py-1.5 text-right text-muted-foreground">—</td>
-              <td className="py-1.5 text-right tabular-nums text-green-700 dark:text-green-400 font-medium">
-                {fmt(grandTotal)}
-              </td>
-            </tr>
-          </tbody> */}
         </table>
       </div>
 

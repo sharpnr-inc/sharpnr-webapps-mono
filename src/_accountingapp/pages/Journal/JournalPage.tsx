@@ -20,6 +20,7 @@ import { AddJournalEntryForm } from "@/_accountingapp/components/forms/AddJourna
 /* ─── types ─── */
 interface JournalLine {
   id: string;
+  account_name: string;
   account_id: string;
   debit: number;
   credit: number;
@@ -218,7 +219,7 @@ function EntryCard({
                         className={`w-0.5 h-3.5 rounded-full shrink-0 ${line.debit > 0 ? "bg-sky-400/60" : "bg-emerald-400/60"}`}
                       />
                       <span className="cf-mono text-[11px] text-muted-foreground">
-                        {shortId(line.account_id)}
+                        {shortId(line.account_id) + line.account_name}
                       </span>
                       {/* once you add account_name to response, replace above with: */}
                       {/* <span className="text-xs text-foreground">{line.account_name}</span> */}

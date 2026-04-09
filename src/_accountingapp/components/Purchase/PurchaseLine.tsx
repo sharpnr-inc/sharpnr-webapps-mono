@@ -27,19 +27,19 @@ import { Plus, Trash2, Package, Boxes } from "lucide-react";
 import {
   useAddLine,
   useLines,
+  useRemoveLine,
   useSetLineField,
 } from "./store/PurchaseForm.selectors";
 import { usePurchaseContext } from "./PurchaseContext";
 
 export function PurchaseLine() {
   const { accountingBooks, inventories } = usePurchaseContext();
-  console.log(inventories);
 
   const lines = useLines();
   // const errors = useFormErrors();
   const setLineField = useSetLineField();
   const addLine = useAddLine();
-  // const removeLine = useRemoveLine();
+  const removeLine = useRemoveLine();
 
   return (
     <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
@@ -215,6 +215,7 @@ export function PurchaseLine() {
                       variant="ghost"
                       className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
                       disabled={lines.length === 1}
+                      onClick={() => removeLine(i)}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </Button>

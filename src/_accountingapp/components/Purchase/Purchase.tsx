@@ -35,6 +35,7 @@ function PurchaseDetails() {
   const invoiceDate = useInvoiceDate();
   const ourReference = useReference();
   const dueDate = useDueDate();
+
   const { suppliers } = usePurchaseContext();
 
   return (
@@ -150,21 +151,6 @@ function PurchaseDetails() {
               </TooltipContent>
             </Tooltip>
           </label>
-          {/* <Select value={payableAccountId} onValueChange={setPayableAccountId}>
-            <SelectTrigger className="w-full sm:w-2/3">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {PAYABLE_ACCOUNTS.map((a) => (
-                <SelectItem key={a.id} value={a.id}>
-                  <span className="font-mono text-xs text-muted-foreground mr-2">
-                    {a.code}
-                  </span>
-                  {a.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
         </div>
       </div>
     </div>
