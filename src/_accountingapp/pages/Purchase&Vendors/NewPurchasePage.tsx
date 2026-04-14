@@ -29,3 +29,5 @@ export function AddPurchaseInvoicePage() {
     </TooltipProvider>
   );
 }
+
+// So we need to Fix the Purchase Page for the Application
