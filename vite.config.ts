@@ -9,7 +9,6 @@ import { VitePWA } from "vite-plugin-pwa";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
-    
     devtools({
       eventBusConfig: {
         // port to run the event bus on
@@ -24,8 +23,7 @@ export default defineConfig({
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
-      generatedRouteTree:'./src/routeTree.gen.ts'
-
+      generatedRouteTree: "./src/routeTree.gen.ts",
     }),
     react(),
     VitePWA({
@@ -63,9 +61,13 @@ export default defineConfig({
     },
   },
 
-  server:{
-    allowedHosts :[
-       ".trycloudflare.com", // 👈 allow all Cloudflare quick tunnels
-    ]
-  }
+  server: {
+    host: true,
+    port: 5173,
+    strictPort: true,
+    allowedHosts: [
+      ".trycloudflare.com", // 👈 allow all Cloudflare quick tunnels
+      "app.sharpnr.test",
+    ],
+  },
 });

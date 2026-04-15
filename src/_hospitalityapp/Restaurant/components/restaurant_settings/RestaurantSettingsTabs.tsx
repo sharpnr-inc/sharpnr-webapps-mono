@@ -15,8 +15,6 @@ const RestaurantSettingsTabs = () => {
   const { data: properyDetails } = usePropertyDetails(propertyId);
   const { data: restaurantDetails } = useRestaurantGeneralInfo(restaurantID!);
 
-  console.log();
-
   const navigate = useNavigate();
   const handleNav = () => {
     navigate({
