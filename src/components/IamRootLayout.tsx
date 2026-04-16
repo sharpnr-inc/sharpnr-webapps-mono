@@ -18,13 +18,13 @@ const IamRootLayout: React.FC = () => {
 
         {/* Main */}
         <div className="flex flex-1 flex-col">
-          <header className="flex h-14 items-center px-4 gap-2">
+          <header className="flex h-14 items-center px-4 gap-2 border-b">
             <SidebarTrigger />
             <ModeToggle />
             <span className="text-sm font-semibold">IAM</span>
           </header>
 
-          <main className="flex-1 p-6">
+          <main className="flex-1 p-3">
             <Outlet />
           </main>
         </div>

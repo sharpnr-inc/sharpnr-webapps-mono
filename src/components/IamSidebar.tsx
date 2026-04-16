@@ -8,12 +8,14 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
-  FileText,
   MessageSquare,
   User,
   ClipboardList,
   CheckSquare,
   Building2,
+  AppWindowMac,
+  Flag,
+  Scale,
 } from "lucide-react";
 
 export function IamSidebar() {
@@ -94,7 +96,7 @@ export function IamSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/legal")}>
               <Link to="/legal">
-                <FileText />
+                <Scale />
                 <span>Legal</span>
               </Link>
             </SidebarMenuButton>
@@ -103,7 +105,7 @@ export function IamSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/attendance")}>
               <Link to="/attendance">
-                <FileText />
+                <Flag />
                 <span>Attendance</span>
               </Link>
             </SidebarMenuButton>
@@ -112,7 +114,7 @@ export function IamSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/apps")}>
               <Link to="/apps">
-                <FileText />
+                <AppWindowMac />
                 <span>Apps</span>
               </Link>
             </SidebarMenuButton>
