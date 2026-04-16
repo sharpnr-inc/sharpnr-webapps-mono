@@ -16,7 +16,7 @@ import { useUserAuth } from "@/apis/mutation";
 import { useToastService } from "@/hooks/ToastContext";
 import { config } from "@/configs/env";
 
-export default function LoginPage(): React.JSX.Element {
+export function LoginPage(): React.JSX.Element {
   const navigate = useNavigate();
   const loginUser = useUserAuth();
   const { error, success } = useToastService();
