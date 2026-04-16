@@ -53,7 +53,7 @@ export function IamSidebar() {
           {/* Profile */}
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/profile")}>
-              <Link to="/iam/profile">
+              <Link to="/">
                 <User />
                 <span>Profile</span>
               </Link>
@@ -63,7 +63,7 @@ export function IamSidebar() {
           {/* Requests */}
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/requests")}>
-              <Link to="/iam/requests">
+              <Link to="/requests">
                 <ClipboardList />
                 <span>Requests</span>
               </Link>
@@ -73,7 +73,7 @@ export function IamSidebar() {
           {/* Tasks */}
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/tasks")}>
-              <Link to="/iam/tasks">
+              <Link to="/tasks">
                 <CheckSquare />
                 <span>Tasks</span>
               </Link>
@@ -83,7 +83,7 @@ export function IamSidebar() {
           {/* Messages */}
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/messages")}>
-              <Link to="/iam/messages">
+              <Link to="/messages">
                 <MessageSquare />
                 <span>Messages</span>
               </Link>
@@ -93,7 +93,7 @@ export function IamSidebar() {
           {/* Legal */}
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/legal")}>
-              <Link to="/iam/legal">
+              <Link to="/legal">
                 <FileText />
                 <span>Legal</span>
               </Link>
@@ -102,7 +102,7 @@ export function IamSidebar() {
 
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/attendance")}>
-              <Link to="/iam/attendance">
+              <Link to="/attendance">
                 <FileText />
                 <span>Attendance</span>
               </Link>
@@ -111,7 +111,7 @@ export function IamSidebar() {
 
           <SidebarMenuItem>
             <SidebarMenuButton asChild isActive={isActive("/iam/apps")}>
-              <Link to="/iam/attendance">
+              <Link to="/apps">
                 <FileText />
                 <span>Apps</span>
               </Link>

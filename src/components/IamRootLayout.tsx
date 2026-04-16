@@ -5,6 +5,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { IamSidebar } from "./IamSidebar";
+import { ModeToggle } from "./ui/mode-toggle";
 
 const IamRootLayout: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const IamRootLayout: React.FC = () => {
         <div className="flex flex-1 flex-col">
           <header className="flex h-14 items-center px-4 gap-2">
             <SidebarTrigger />
+            <ModeToggle />
             <span className="text-sm font-semibold">IAM</span>
           </header>
 
