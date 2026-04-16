@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { config } from "@/configs/env";
 
 const apps = [
   {
@@ -9,30 +10,35 @@ const apps = [
     description:
       "Unified business orchestration platform for managing workflows, approvals, and automation across your organization.",
     tag: "Core Platform",
+    link: config.orchestratorAppUrl,
   },
   {
     name: "Sharpnr Hospitality",
     description:
       "Manage hotels, restaurants, bookings, inventory, and guest experiences from one powerful dashboard.",
     tag: "Hospitality",
+    link: config.hospitalityAppUrl,
   },
   {
     name: "Sharpnr Accounting",
     description:
       "Smart accounting with journal entries, GST reporting, ledgers, financial statements, and automation-ready workflows.",
     tag: "Finance",
+    link: config.accountingAppUrl,
   },
   {
     name: "Sharpnr HR",
     description:
       "Employee lifecycle management including onboarding, attendance, payroll integrations, and performance tracking.",
     tag: "People Ops",
+    link: config.hrAppUrl,
   },
   {
     name: "Sharpnr Marketing",
     description:
       "Campaign orchestration, audience segmentation, engagement tracking, and automation for growth teams.",
     tag: "Growth",
+    link: config.marketingAppUrl,
   },
 ];
 
@@ -70,7 +76,12 @@ export function AppsPage() {
                 </div>
 
                 <div className="mt-6">
-                  <Button className="w-full flex items-center justify-center gap-2">
+                  <Button
+                    className="w-full flex items-center justify-center gap-2"
+                    onClick={() =>
+                      window.open(app.link, "_blank", "noopener,noreferrer")
+                    }
+                  >
                     Open App
                     <ArrowRight size={16} />
                   </Button>
