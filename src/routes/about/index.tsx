@@ -1,9 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { SharpHospitalityAboutPage } from "@/app/shared/AboutPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/about/')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/about/"!</div>
-}
+export const Route = createFileRoute("/about/")({
+  component: SharpHospitalityAboutPage,
+});
