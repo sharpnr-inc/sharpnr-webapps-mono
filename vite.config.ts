@@ -6,8 +6,10 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
+    host:true,
     port: 6966,
     strictPort: true,
+    allowedHosts:["hr.sharpnr.test"]
   },
   preview: {
     port: 6866,
