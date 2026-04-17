@@ -48,3 +48,8 @@ export async function AddCustomerInOrg() {
   const res = await api.post(OrgCoreEndpoints.Customer.CreateCustomer());
   return res.data;
 }
+
+export async function AuthenticateVerification() {
+  const res = await api.get(AuthApiEndpoints.Auth.VerfiyAuth);
+  return res.data;
+}

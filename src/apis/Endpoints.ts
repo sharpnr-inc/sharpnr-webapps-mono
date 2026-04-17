@@ -13,6 +13,7 @@ export const AuthApiEndpoints = {
     logout: "identity/web/logout",
     ForgetPassword: "",
     fetchIdentity: "",
+    VerfiyAuth: "identity/web/verify-auth",
   },
 };
 

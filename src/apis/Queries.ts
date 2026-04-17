@@ -1,5 +1,9 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { GetOrgCustomer, VerifySignupCookie } from "./api_service";
+import {
+  AuthenticateVerification,
+  GetOrgCustomer,
+  VerifySignupCookie,
+} from "./api_service";
 
 export function useVerifySignupCookies() {
   return useQuery({
@@ -24,3 +28,15 @@ export function useOrgsCustomer(searchQuery: string) {
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export function useAuthVerification() {
+  return useQuery({
+    queryKey: ["AUTH", "VERIFICATION"],
+    queryFn: AuthenticateVerification,
+  });
+}
+
+export const authVerificationQuery = {
+  queryKey: ["AUTH", "VERIFICATION"],
+  queryFn: AuthenticateVerification,
+};
