@@ -1,0 +1,261 @@
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { Building2 as OrgIcon } from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+import {
+  Users,
+  UserPlus,
+  CalendarDays,
+  ClipboardList,
+  BarChart3,
+  Settings,
+  Banknote,
+  Star,
+  BookOpen,
+  Building2,
+  FileText,
+  Bell,
+  ShieldCheck,
+} from "lucide-react";
+
+// ─── Types ───────────────────────────────────────────────────────────────────
+
+interface NavItem {
+  id: string;
+  label: string;
+  icon: React.ElementType;
+  to: string;
+}
+
+interface NavGroup {
+  label: string;
+  items: NavItem[];
+}
+
+// ─── Organization ─────────────────────────────────────────────────────────────
+
+const organization = {
+  name: "Sharpnr Organization",
+  plan: "Enterprise",
+  logo: OrgIcon, // lucide icon used as logo — shows when collapsed
+};
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+
+const navGroups: NavGroup[] = [
+  {
+    label: "Overview",
+    items: [
+      {
+        id: "hr_overview",
+        label: "Dashboard",
+        icon: BarChart3,
+        to: "/dashboard/sharp_hr",
+      },
+      {
+        id: "hr_announcements",
+        label: "Announcements",
+        icon: Bell,
+        to: "/announcements",
+      },
+    ],
+  },
+  {
+    label: "People",
+    items: [
+      {
+        id: "hr_employees",
+        label: "Employees",
+        icon: Users,
+        to: "/employees",
+      },
+      {
+        id: "hr_departments",
+        label: "Departments",
+        icon: Building2,
+        to: "/departments",
+      },
+      {
+        id: "hr_recruitment",
+        label: "Recruitment",
+        icon: UserPlus,
+        to: "/recruitment",
+      },
+      {
+        id: "hr_onboarding",
+        label: "Onboarding",
+        icon: BookOpen,
+        to: "/onboarding",
+      },
+    ],
+  },
+  {
+    label: "Operations",
+    items: [
+      {
+        id: "hr_leave",
+        label: "Leave Requests",
+        icon: ClipboardList,
+        to: "/leaves",
+      },
+      {
+        id: "hr_attendance",
+        label: "Attendance",
+        icon: CalendarDays,
+        to: "/attendance",
+      },
+      {
+        id: "hr_payroll",
+        label: "Payroll",
+        icon: Banknote,
+        to: "/payroll",
+      },
+    ],
+  },
+  {
+    label: "Growth",
+    items: [
+      {
+        id: "hr_performance",
+        label: "Performance",
+        icon: Star,
+        to: "/performance",
+      },
+      {
+        id: "hr_training",
+        label: "Training",
+        icon: ShieldCheck,
+        to: "/training",
+      },
+      {
+        id: "hr_documents",
+        label: "Documents",
+        icon: FileText,
+        to: "/documents",
+      },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      {
+        id: "hr_settings",
+        label: "Settings",
+        icon: Settings,
+        to: "/settings",
+      },
+    ],
+  },
+];
+
+// ─── Org Card ─────────────────────────────────────────────────────────────────
+// Uses SidebarMenuButton so the sidebar handles collapse automatically:
+// expanded → shows logo square + name + plan
+// collapsed (icon mode) → shows only the logo square
+
+const OrgCard: React.FC = () => {
+  const Logo = organization.logo;
+
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          size="lg"
+          className="cursor-default hover:bg-transparent active:bg-transparent"
+        >
+          {/* Logo square — the only thing visible when sidebar is collapsed */}
+          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-violet-600 text-white shrink-0">
+            <Logo className="size-4" />
+          </div>
+
+          {/* Name + plan — hidden when sidebar is collapsed */}
+          <div className="grid flex-1 text-left text-sm ">
+            <span className="truncate font-semibold">{organization.name}</span>
+            <span className="truncate text-xs text-muted-foreground">
+              {organization.plan}
+            </span>
+          </div>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
+};
+
+// ─── Root Layout ──────────────────────────────────────────────────────────────
+
+const SharpHRRootLayout: React.FC = () => {
+  const { location } = useRouterState();
+  const pathname = location.pathname;
+
+  const isActive = (to: string) =>
+    to === "/"
+      ? pathname === to
+      : pathname.startsWith(`${to}/`) || pathname === to;
+
+  return (
+    <SidebarProvider>
+      {/* ── Sidebar ── */}
+      <Sidebar collapsible="icon">
+        <SidebarHeader>
+          <OrgCard />
+        </SidebarHeader>
+
+        <SidebarContent>
+          {/* ── Nav Groups ── */}
+          {navGroups.map((group) => (
+            <SidebarGroup key={group.label}>
+              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <SidebarMenuItem key={item.id}>
+                        <SidebarMenuButton asChild isActive={isActive(item.to)}>
+                          <Link to={item.to}>
+                            <Icon />
+                            <span>{item.label}</span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    );
+                  })}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
+        </SidebarContent>
+
+        {/* SidebarRail gives the collapse drag handle on the edge */}
+        <SidebarRail />
+      </Sidebar>
+
+      {/* ── Main Content ── */}
+      <SidebarInset>
+        <header className="flex h-14 items-center gap-2 px-4">
+          <SidebarTrigger />
+          <div className="h-4 w-px bg-border mx-2" />
+        </header>
+
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+};
+
+export default SharpHRRootLayout;

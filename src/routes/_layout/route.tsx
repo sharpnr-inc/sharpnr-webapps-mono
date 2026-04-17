@@ -1,5 +1,9 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import SharpHRRootLayout from "@/app/components/SharpHRRootLayout";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout")({
-  component: Outlet,
+  component: SharpHRRootLayout,
+  staticData: {
+    breadcrumb: "Sharp HR",
+  },
 });

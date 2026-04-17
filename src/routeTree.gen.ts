@@ -12,6 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutEmployeesRouteRouteImport } from './routes/_layout/employees/route'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
+import { Route as LayoutReportsIndexRouteImport } from './routes/_layout/reports/index'
+import { Route as LayoutRecruitmentIndexRouteImport } from './routes/_layout/recruitment/index'
+import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll/index'
+import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/index'
+import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
+import { Route as LayoutLeavesRequestsRouteImport } from './routes/_layout/leaves/requests'
+import { Route as LayoutEmployeesEmployeeIdRouteImport } from './routes/_layout/employees/$employeeId'
+import { Route as LayoutEmployeesPrivilegesIndexRouteImport } from './routes/_layout/employees/privileges/index'
+import { Route as LayoutEmployeesDocumentsIndexRouteImport } from './routes/_layout/employees/documents/index'
+import { Route as LayoutEmployeesDirectHireIndexRouteImport } from './routes/_layout/employees/direct-hire/index'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
@@ -27,27 +39,169 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutEmployeesRouteRoute = LayoutEmployeesRouteRouteImport.update({
+  id: '/employees',
+  path: '/employees',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutReportsIndexRoute = LayoutReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutRecruitmentIndexRoute = LayoutRecruitmentIndexRouteImport.update({
+  id: '/recruitment/',
+  path: '/recruitment/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPayrollIndexRoute = LayoutPayrollIndexRouteImport.update({
+  id: '/payroll/',
+  path: '/payroll/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutLeavesIndexRoute = LayoutLeavesIndexRouteImport.update({
+  id: '/leaves/',
+  path: '/leaves/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutEmployeesIndexRoute = LayoutEmployeesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutEmployeesRouteRoute,
+} as any)
+const LayoutLeavesRequestsRoute = LayoutLeavesRequestsRouteImport.update({
+  id: '/leaves/requests',
+  path: '/leaves/requests',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutEmployeesEmployeeIdRoute =
+  LayoutEmployeesEmployeeIdRouteImport.update({
+    id: '/$employeeId',
+    path: '/$employeeId',
+    getParentRoute: () => LayoutEmployeesRouteRoute,
+  } as any)
+const LayoutEmployeesPrivilegesIndexRoute =
+  LayoutEmployeesPrivilegesIndexRouteImport.update({
+    id: '/privileges/',
+    path: '/privileges/',
+    getParentRoute: () => LayoutEmployeesRouteRoute,
+  } as any)
+const LayoutEmployeesDocumentsIndexRoute =
+  LayoutEmployeesDocumentsIndexRouteImport.update({
+    id: '/documents/',
+    path: '/documents/',
+    getParentRoute: () => LayoutEmployeesRouteRoute,
+  } as any)
+const LayoutEmployeesDirectHireIndexRoute =
+  LayoutEmployeesDirectHireIndexRouteImport.update({
+    id: '/direct-hire/',
+    path: '/direct-hire/',
+    getParentRoute: () => LayoutEmployeesRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
+  '/employees': typeof LayoutEmployeesRouteRouteWithChildren
   '/about/': typeof AboutIndexRoute
+  '/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
+  '/leaves/requests': typeof LayoutLeavesRequestsRoute
+  '/employees/': typeof LayoutEmployeesIndexRoute
+  '/leaves/': typeof LayoutLeavesIndexRoute
+  '/payroll/': typeof LayoutPayrollIndexRoute
+  '/recruitment/': typeof LayoutRecruitmentIndexRoute
+  '/reports/': typeof LayoutReportsIndexRoute
+  '/settings/': typeof LayoutSettingsIndexRoute
+  '/employees/direct-hire/': typeof LayoutEmployeesDirectHireIndexRoute
+  '/employees/documents/': typeof LayoutEmployeesDocumentsIndexRoute
+  '/employees/privileges/': typeof LayoutEmployeesPrivilegesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof LayoutIndexRoute
   '/about': typeof AboutIndexRoute
+  '/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
+  '/leaves/requests': typeof LayoutLeavesRequestsRoute
+  '/employees': typeof LayoutEmployeesIndexRoute
+  '/leaves': typeof LayoutLeavesIndexRoute
+  '/payroll': typeof LayoutPayrollIndexRoute
+  '/recruitment': typeof LayoutRecruitmentIndexRoute
+  '/reports': typeof LayoutReportsIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
+  '/employees/direct-hire': typeof LayoutEmployeesDirectHireIndexRoute
+  '/employees/documents': typeof LayoutEmployeesDocumentsIndexRoute
+  '/employees/privileges': typeof LayoutEmployeesPrivilegesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
+  '/_layout/employees': typeof LayoutEmployeesRouteRouteWithChildren
   '/_layout/': typeof LayoutIndexRoute
   '/about/': typeof AboutIndexRoute
+  '/_layout/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
+  '/_layout/leaves/requests': typeof LayoutLeavesRequestsRoute
+  '/_layout/employees/': typeof LayoutEmployeesIndexRoute
+  '/_layout/leaves/': typeof LayoutLeavesIndexRoute
+  '/_layout/payroll/': typeof LayoutPayrollIndexRoute
+  '/_layout/recruitment/': typeof LayoutRecruitmentIndexRoute
+  '/_layout/reports/': typeof LayoutReportsIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
+  '/_layout/employees/direct-hire/': typeof LayoutEmployeesDirectHireIndexRoute
+  '/_layout/employees/documents/': typeof LayoutEmployeesDocumentsIndexRoute
+  '/_layout/employees/privileges/': typeof LayoutEmployeesPrivilegesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about/'
+  fullPaths:
+    | '/'
+    | '/employees'
+    | '/about/'
+    | '/employees/$employeeId'
+    | '/leaves/requests'
+    | '/employees/'
+    | '/leaves/'
+    | '/payroll/'
+    | '/recruitment/'
+    | '/reports/'
+    | '/settings/'
+    | '/employees/direct-hire/'
+    | '/employees/documents/'
+    | '/employees/privileges/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/_layout' | '/_layout/' | '/about/'
+  to:
+    | '/'
+    | '/about'
+    | '/employees/$employeeId'
+    | '/leaves/requests'
+    | '/employees'
+    | '/leaves'
+    | '/payroll'
+    | '/recruitment'
+    | '/reports'
+    | '/settings'
+    | '/employees/direct-hire'
+    | '/employees/documents'
+    | '/employees/privileges'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_layout/employees'
+    | '/_layout/'
+    | '/about/'
+    | '/_layout/employees/$employeeId'
+    | '/_layout/leaves/requests'
+    | '/_layout/employees/'
+    | '/_layout/leaves/'
+    | '/_layout/payroll/'
+    | '/_layout/recruitment/'
+    | '/_layout/reports/'
+    | '/_layout/settings/'
+    | '/_layout/employees/direct-hire/'
+    | '/_layout/employees/documents/'
+    | '/_layout/employees/privileges/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,15 +232,132 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/employees': {
+      id: '/_layout/employees'
+      path: '/employees'
+      fullPath: '/employees'
+      preLoaderRoute: typeof LayoutEmployeesRouteRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/reports/': {
+      id: '/_layout/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof LayoutReportsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/recruitment/': {
+      id: '/_layout/recruitment/'
+      path: '/recruitment'
+      fullPath: '/recruitment/'
+      preLoaderRoute: typeof LayoutRecruitmentIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/payroll/': {
+      id: '/_layout/payroll/'
+      path: '/payroll'
+      fullPath: '/payroll/'
+      preLoaderRoute: typeof LayoutPayrollIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/leaves/': {
+      id: '/_layout/leaves/'
+      path: '/leaves'
+      fullPath: '/leaves/'
+      preLoaderRoute: typeof LayoutLeavesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/employees/': {
+      id: '/_layout/employees/'
+      path: '/'
+      fullPath: '/employees/'
+      preLoaderRoute: typeof LayoutEmployeesIndexRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
+    '/_layout/leaves/requests': {
+      id: '/_layout/leaves/requests'
+      path: '/leaves/requests'
+      fullPath: '/leaves/requests'
+      preLoaderRoute: typeof LayoutLeavesRequestsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/employees/$employeeId': {
+      id: '/_layout/employees/$employeeId'
+      path: '/$employeeId'
+      fullPath: '/employees/$employeeId'
+      preLoaderRoute: typeof LayoutEmployeesEmployeeIdRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
+    '/_layout/employees/privileges/': {
+      id: '/_layout/employees/privileges/'
+      path: '/privileges'
+      fullPath: '/employees/privileges/'
+      preLoaderRoute: typeof LayoutEmployeesPrivilegesIndexRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
+    '/_layout/employees/documents/': {
+      id: '/_layout/employees/documents/'
+      path: '/documents'
+      fullPath: '/employees/documents/'
+      preLoaderRoute: typeof LayoutEmployeesDocumentsIndexRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
+    '/_layout/employees/direct-hire/': {
+      id: '/_layout/employees/direct-hire/'
+      path: '/direct-hire'
+      fullPath: '/employees/direct-hire/'
+      preLoaderRoute: typeof LayoutEmployeesDirectHireIndexRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
   }
 }
 
+interface LayoutEmployeesRouteRouteChildren {
+  LayoutEmployeesEmployeeIdRoute: typeof LayoutEmployeesEmployeeIdRoute
+  LayoutEmployeesIndexRoute: typeof LayoutEmployeesIndexRoute
+  LayoutEmployeesDirectHireIndexRoute: typeof LayoutEmployeesDirectHireIndexRoute
+  LayoutEmployeesDocumentsIndexRoute: typeof LayoutEmployeesDocumentsIndexRoute
+  LayoutEmployeesPrivilegesIndexRoute: typeof LayoutEmployeesPrivilegesIndexRoute
+}
+
+const LayoutEmployeesRouteRouteChildren: LayoutEmployeesRouteRouteChildren = {
+  LayoutEmployeesEmployeeIdRoute: LayoutEmployeesEmployeeIdRoute,
+  LayoutEmployeesIndexRoute: LayoutEmployeesIndexRoute,
+  LayoutEmployeesDirectHireIndexRoute: LayoutEmployeesDirectHireIndexRoute,
+  LayoutEmployeesDocumentsIndexRoute: LayoutEmployeesDocumentsIndexRoute,
+  LayoutEmployeesPrivilegesIndexRoute: LayoutEmployeesPrivilegesIndexRoute,
+}
+
+const LayoutEmployeesRouteRouteWithChildren =
+  LayoutEmployeesRouteRoute._addFileChildren(LayoutEmployeesRouteRouteChildren)
+
 interface LayoutRouteRouteChildren {
+  LayoutEmployeesRouteRoute: typeof LayoutEmployeesRouteRouteWithChildren
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutLeavesRequestsRoute: typeof LayoutLeavesRequestsRoute
+  LayoutLeavesIndexRoute: typeof LayoutLeavesIndexRoute
+  LayoutPayrollIndexRoute: typeof LayoutPayrollIndexRoute
+  LayoutRecruitmentIndexRoute: typeof LayoutRecruitmentIndexRoute
+  LayoutReportsIndexRoute: typeof LayoutReportsIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutEmployeesRouteRoute: LayoutEmployeesRouteRouteWithChildren,
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutLeavesRequestsRoute: LayoutLeavesRequestsRoute,
+  LayoutLeavesIndexRoute: LayoutLeavesIndexRoute,
+  LayoutPayrollIndexRoute: LayoutPayrollIndexRoute,
+  LayoutRecruitmentIndexRoute: LayoutRecruitmentIndexRoute,
+  LayoutReportsIndexRoute: LayoutReportsIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
