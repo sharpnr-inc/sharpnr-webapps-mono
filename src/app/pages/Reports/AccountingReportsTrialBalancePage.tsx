@@ -330,7 +330,7 @@ export default function AccountingReportsTrialBalancePage() {
             <h1 className="font-display italic text-5xl md:text-6xl text-foreground leading-none">
               {DUMMY_ENTITY.name}
             </h1>
-            <div className="h-px w-28 bg-gradient-to-r from-primary/50 via-primary/20 to-transparent" />
+            <div className="h-px w-28 bg-linear-to-r from-primary/50 via-primary/20 to-transparent" />
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <span className="cf-mono text-xs text-muted-foreground">
                 Period:{" "}

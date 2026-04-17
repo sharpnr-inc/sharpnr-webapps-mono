@@ -258,7 +258,7 @@ export const CreateAccountForm = ({
                         className={`relative w-9 h-5 rounded-full border transition-colors shrink-0 ${checked ? "bg-primary border-primary" : "bg-muted border-border/60"}`}
                       >
                         <div
-                          className={`absolute top-0.5 size-4 rounded-full bg-white shadow-sm transition-all duration-200 ${checked ? "left-[18px]" : "left-0.5"}`}
+                          className={`absolute top-0.5 size-4 rounded-full bg-white shadow-sm transition-all duration-200 ${checked ? "left-4.5" : "left-0.5"}`}
                         />
                       </div>
 

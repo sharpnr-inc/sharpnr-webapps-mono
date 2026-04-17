@@ -146,13 +146,13 @@ function SupplierCard({
       className="group relative rounded-2xl border border-border/60 bg-background/70 backdrop-blur-sm p-5 cursor-pointer hover:border-primary/30 hover:shadow-[0_8px_28px_hsl(var(--primary)/0.1)] transition-all duration-200 overflow-hidden"
     >
       {/* hover gradient wash */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
 
       {/* top row */}
       <div className="flex items-start justify-between gap-3 mb-4">
         <div className="flex items-center gap-3">
           {/* avatar */}
-          <div className="size-10 rounded-xl bg-gradient-to-br from-primary/25 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+          <div className="size-10 rounded-xl bg-linear-to-br from-primary/25 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
             <span className="cf-mono text-xs font-bold text-primary">
               {supplier.name
                 .split(" ")
@@ -314,7 +314,7 @@ export function AccountingSupplierHomePage() {
             <h1 className="font-display italic text-5xl md:text-6xl text-foreground leading-none">
               Suppliers
             </h1>
-            <div className="h-px w-28 bg-gradient-to-r from-primary/50 via-primary/20 to-transparent" />
+            <div className="h-px w-28 bg-linear-to-r from-primary/50 via-primary/20 to-transparent" />
 
             {/* stat pills */}
             <div className="flex flex-wrap items-center gap-5 pt-1">

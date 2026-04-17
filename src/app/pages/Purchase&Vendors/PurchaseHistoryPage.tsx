@@ -412,7 +412,7 @@ export function PurchaseHistoryPage() {
           <div className="flex gap-2 flex-wrap">
             {/* Status */}
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="h-8 text-xs w-[130px]">
+              <SelectTrigger className="h-8 text-xs w-32.5">
                 <SlidersHorizontal className="h-3 w-3 mr-1.5 text-muted-foreground" />
                 <SelectValue />
               </SelectTrigger>
@@ -430,7 +430,7 @@ export function PurchaseHistoryPage() {
 
             {/* Payment Status */}
             <Select value={filterPayment} onValueChange={setFilterPayment}>
-              <SelectTrigger className="h-8 text-xs w-[120px]">
+              <SelectTrigger className="h-8 text-xs w-30">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -447,7 +447,7 @@ export function PurchaseHistoryPage() {
 
             {/* Supplier */}
             <Select value={filterSupplier} onValueChange={setFilterSupplier}>
-              <SelectTrigger className="h-8 text-xs w-[170px]">
+              <SelectTrigger className="h-8 text-xs w-42.5">
                 <SelectValue placeholder="All Suppliers" />
               </SelectTrigger>
               <SelectContent>
@@ -539,22 +539,22 @@ export function PurchaseHistoryPage() {
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50 hover:bg-muted/50">
-                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[140px]">
+                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-35">
                   Our Ref.
                 </TableHead>
-                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[140px]">
+                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-35">
                   Supplier Bill No.
                 </TableHead>
                 <TableHead className="text-[10px] font-bold uppercase tracking-wider">
                   Supplier
                 </TableHead>
-                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[100px]">
+                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-25">
                   Invoice Date
                 </TableHead>
-                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[100px]">
+                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-25">
                   Due Date
                 </TableHead>
-                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[110px]">
+                <TableHead className="text-[10px] font-bold uppercase tracking-wider w-27.5">
                   Status
                 </TableHead>
                 <TableHead className="text-[10px] font-bold uppercase tracking-wider w-22.5">

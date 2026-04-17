@@ -61,7 +61,7 @@ function EntityAvatar({ name }: { name: string }) {
     .toUpperCase();
 
   return (
-    <div className="size-10 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+    <div className="size-10 rounded-xl bg-linear-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
       <span className="text-xs font-bold text-primary tracking-wider">
         {initials}
       </span>

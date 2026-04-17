@@ -937,7 +937,7 @@ export function ExpensesHistoryPage() {
                         <p className="font-medium text-foreground">
                           {expense.vendor}
                         </p>
-                        <p className="max-w-[200px] truncate text-xs text-muted-foreground">
+                        <p className="max-w-50 truncate text-xs text-muted-foreground">
                           {expense.description}
                         </p>
                       </td>
