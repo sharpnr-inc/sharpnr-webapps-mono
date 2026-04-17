@@ -10,11 +10,36 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
-import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutSuppliersIndexRouteImport } from './routes/_layout/suppliers/index'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
+import { Route as LayoutSalesIndexRouteImport } from './routes/_layout/sales/index'
+import { Route as LayoutPurchasesIndexRouteImport } from './routes/_layout/purchases/index'
+import { Route as LayoutOverviewIndexRouteImport } from './routes/_layout/overview/index'
+import { Route as LayoutJournalIndexRouteImport } from './routes/_layout/journal/index'
+import { Route as LayoutExpensesIndexRouteImport } from './routes/_layout/expenses/index'
+import { Route as LayoutChartOfAccountIndexRouteImport } from './routes/_layout/chart-of-account/index'
+import { Route as LayoutTaxationsTax_registrationRouteImport } from './routes/_layout/taxations/tax_registration'
+import { Route as LayoutTaxationsTax_ratesRouteImport } from './routes/_layout/taxations/tax_rates'
+import { Route as LayoutTaxationsTax_codesRouteImport } from './routes/_layout/taxations/tax_codes'
+import { Route as LayoutReportsTrialBalanceRouteImport } from './routes/_layout/reports/trial-balance'
+import { Route as LayoutReportsProfitLossRouteImport } from './routes/_layout/reports/profit-loss'
+import { Route as LayoutReportsBalanceSheetRouteImport } from './routes/_layout/reports/balance-sheet'
+import { Route as LayoutPurchasesHistoryRouteImport } from './routes/_layout/purchases/history'
+import { Route as LayoutPaymentsPayment_ordersRouteImport } from './routes/_layout/payments/payment_orders'
+import { Route as LayoutSalesNewIndexRouteImport } from './routes/_layout/sales/new/index'
+import { Route as LayoutExpensesNewIndexRouteImport } from './routes/_layout/expenses/new/index'
+import { Route as LayoutSuppliersSupplierIDDetailsRouteImport } from './routes/_layout/suppliers/$supplierID/details'
+import { Route as LayoutChartOfAccountAccountIDLedgerRouteImport } from './routes/_layout/chart-of-account/$accountID/ledger'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutIndexRoute = AboutIndexRouteImport.update({
@@ -22,35 +47,268 @@ const AboutIndexRoute = AboutIndexRouteImport.update({
   path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LayoutIndexRoute = LayoutIndexRouteImport.update({
-  id: '/',
-  path: '/',
+const LayoutSuppliersIndexRoute = LayoutSuppliersIndexRouteImport.update({
+  id: '/suppliers/',
+  path: '/suppliers/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSalesIndexRoute = LayoutSalesIndexRouteImport.update({
+  id: '/sales/',
+  path: '/sales/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPurchasesIndexRoute = LayoutPurchasesIndexRouteImport.update({
+  id: '/purchases/',
+  path: '/purchases/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutOverviewIndexRoute = LayoutOverviewIndexRouteImport.update({
+  id: '/overview/',
+  path: '/overview/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutJournalIndexRoute = LayoutJournalIndexRouteImport.update({
+  id: '/journal/',
+  path: '/journal/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutExpensesIndexRoute = LayoutExpensesIndexRouteImport.update({
+  id: '/expenses/',
+  path: '/expenses/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutChartOfAccountIndexRoute =
+  LayoutChartOfAccountIndexRouteImport.update({
+    id: '/chart-of-account/',
+    path: '/chart-of-account/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutTaxationsTax_registrationRoute =
+  LayoutTaxationsTax_registrationRouteImport.update({
+    id: '/taxations/tax_registration',
+    path: '/taxations/tax_registration',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutTaxationsTax_ratesRoute =
+  LayoutTaxationsTax_ratesRouteImport.update({
+    id: '/taxations/tax_rates',
+    path: '/taxations/tax_rates',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutTaxationsTax_codesRoute =
+  LayoutTaxationsTax_codesRouteImport.update({
+    id: '/taxations/tax_codes',
+    path: '/taxations/tax_codes',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutReportsTrialBalanceRoute =
+  LayoutReportsTrialBalanceRouteImport.update({
+    id: '/reports/trial-balance',
+    path: '/reports/trial-balance',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutReportsProfitLossRoute = LayoutReportsProfitLossRouteImport.update({
+  id: '/reports/profit-loss',
+  path: '/reports/profit-loss',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutReportsBalanceSheetRoute =
+  LayoutReportsBalanceSheetRouteImport.update({
+    id: '/reports/balance-sheet',
+    path: '/reports/balance-sheet',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutPurchasesHistoryRoute = LayoutPurchasesHistoryRouteImport.update({
+  id: '/purchases/history',
+  path: '/purchases/history',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPaymentsPayment_ordersRoute =
+  LayoutPaymentsPayment_ordersRouteImport.update({
+    id: '/payments/payment_orders',
+    path: '/payments/payment_orders',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutSalesNewIndexRoute = LayoutSalesNewIndexRouteImport.update({
+  id: '/sales/new/',
+  path: '/sales/new/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutExpensesNewIndexRoute = LayoutExpensesNewIndexRouteImport.update({
+  id: '/expenses/new/',
+  path: '/expenses/new/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSuppliersSupplierIDDetailsRoute =
+  LayoutSuppliersSupplierIDDetailsRouteImport.update({
+    id: '/suppliers/$supplierID/details',
+    path: '/suppliers/$supplierID/details',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutChartOfAccountAccountIDLedgerRoute =
+  LayoutChartOfAccountAccountIDLedgerRouteImport.update({
+    id: '/chart-of-account/$accountID/ledger',
+    path: '/chart-of-account/$accountID/ledger',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof LayoutIndexRoute
+  '/': typeof IndexRoute
   '/about/': typeof AboutIndexRoute
+  '/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
+  '/purchases/history': typeof LayoutPurchasesHistoryRoute
+  '/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
+  '/reports/profit-loss': typeof LayoutReportsProfitLossRoute
+  '/reports/trial-balance': typeof LayoutReportsTrialBalanceRoute
+  '/taxations/tax_codes': typeof LayoutTaxationsTax_codesRoute
+  '/taxations/tax_rates': typeof LayoutTaxationsTax_ratesRoute
+  '/taxations/tax_registration': typeof LayoutTaxationsTax_registrationRoute
+  '/chart-of-account/': typeof LayoutChartOfAccountIndexRoute
+  '/expenses/': typeof LayoutExpensesIndexRoute
+  '/journal/': typeof LayoutJournalIndexRoute
+  '/overview/': typeof LayoutOverviewIndexRoute
+  '/purchases/': typeof LayoutPurchasesIndexRoute
+  '/sales/': typeof LayoutSalesIndexRoute
+  '/settings/': typeof LayoutSettingsIndexRoute
+  '/suppliers/': typeof LayoutSuppliersIndexRoute
+  '/chart-of-account/$accountID/ledger': typeof LayoutChartOfAccountAccountIDLedgerRoute
+  '/suppliers/$supplierID/details': typeof LayoutSuppliersSupplierIDDetailsRoute
+  '/expenses/new/': typeof LayoutExpensesNewIndexRoute
+  '/sales/new/': typeof LayoutSalesNewIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof LayoutIndexRoute
+  '/': typeof IndexRoute
   '/about': typeof AboutIndexRoute
+  '/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
+  '/purchases/history': typeof LayoutPurchasesHistoryRoute
+  '/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
+  '/reports/profit-loss': typeof LayoutReportsProfitLossRoute
+  '/reports/trial-balance': typeof LayoutReportsTrialBalanceRoute
+  '/taxations/tax_codes': typeof LayoutTaxationsTax_codesRoute
+  '/taxations/tax_rates': typeof LayoutTaxationsTax_ratesRoute
+  '/taxations/tax_registration': typeof LayoutTaxationsTax_registrationRoute
+  '/chart-of-account': typeof LayoutChartOfAccountIndexRoute
+  '/expenses': typeof LayoutExpensesIndexRoute
+  '/journal': typeof LayoutJournalIndexRoute
+  '/overview': typeof LayoutOverviewIndexRoute
+  '/purchases': typeof LayoutPurchasesIndexRoute
+  '/sales': typeof LayoutSalesIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
+  '/suppliers': typeof LayoutSuppliersIndexRoute
+  '/chart-of-account/$accountID/ledger': typeof LayoutChartOfAccountAccountIDLedgerRoute
+  '/suppliers/$supplierID/details': typeof LayoutSuppliersSupplierIDDetailsRoute
+  '/expenses/new': typeof LayoutExpensesNewIndexRoute
+  '/sales/new': typeof LayoutSalesNewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteRouteWithChildren
-  '/_layout/': typeof LayoutIndexRoute
   '/about/': typeof AboutIndexRoute
+  '/_layout/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
+  '/_layout/purchases/history': typeof LayoutPurchasesHistoryRoute
+  '/_layout/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
+  '/_layout/reports/profit-loss': typeof LayoutReportsProfitLossRoute
+  '/_layout/reports/trial-balance': typeof LayoutReportsTrialBalanceRoute
+  '/_layout/taxations/tax_codes': typeof LayoutTaxationsTax_codesRoute
+  '/_layout/taxations/tax_rates': typeof LayoutTaxationsTax_ratesRoute
+  '/_layout/taxations/tax_registration': typeof LayoutTaxationsTax_registrationRoute
+  '/_layout/chart-of-account/': typeof LayoutChartOfAccountIndexRoute
+  '/_layout/expenses/': typeof LayoutExpensesIndexRoute
+  '/_layout/journal/': typeof LayoutJournalIndexRoute
+  '/_layout/overview/': typeof LayoutOverviewIndexRoute
+  '/_layout/purchases/': typeof LayoutPurchasesIndexRoute
+  '/_layout/sales/': typeof LayoutSalesIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
+  '/_layout/suppliers/': typeof LayoutSuppliersIndexRoute
+  '/_layout/chart-of-account/$accountID/ledger': typeof LayoutChartOfAccountAccountIDLedgerRoute
+  '/_layout/suppliers/$supplierID/details': typeof LayoutSuppliersSupplierIDDetailsRoute
+  '/_layout/expenses/new/': typeof LayoutExpensesNewIndexRoute
+  '/_layout/sales/new/': typeof LayoutSalesNewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about/'
+  fullPaths:
+    | '/'
+    | '/about/'
+    | '/payments/payment_orders'
+    | '/purchases/history'
+    | '/reports/balance-sheet'
+    | '/reports/profit-loss'
+    | '/reports/trial-balance'
+    | '/taxations/tax_codes'
+    | '/taxations/tax_rates'
+    | '/taxations/tax_registration'
+    | '/chart-of-account/'
+    | '/expenses/'
+    | '/journal/'
+    | '/overview/'
+    | '/purchases/'
+    | '/sales/'
+    | '/settings/'
+    | '/suppliers/'
+    | '/chart-of-account/$accountID/ledger'
+    | '/suppliers/$supplierID/details'
+    | '/expenses/new/'
+    | '/sales/new/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/_layout' | '/_layout/' | '/about/'
+  to:
+    | '/'
+    | '/about'
+    | '/payments/payment_orders'
+    | '/purchases/history'
+    | '/reports/balance-sheet'
+    | '/reports/profit-loss'
+    | '/reports/trial-balance'
+    | '/taxations/tax_codes'
+    | '/taxations/tax_rates'
+    | '/taxations/tax_registration'
+    | '/chart-of-account'
+    | '/expenses'
+    | '/journal'
+    | '/overview'
+    | '/purchases'
+    | '/sales'
+    | '/settings'
+    | '/suppliers'
+    | '/chart-of-account/$accountID/ledger'
+    | '/suppliers/$supplierID/details'
+    | '/expenses/new'
+    | '/sales/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/_layout'
+    | '/about/'
+    | '/_layout/payments/payment_orders'
+    | '/_layout/purchases/history'
+    | '/_layout/reports/balance-sheet'
+    | '/_layout/reports/profit-loss'
+    | '/_layout/reports/trial-balance'
+    | '/_layout/taxations/tax_codes'
+    | '/_layout/taxations/tax_rates'
+    | '/_layout/taxations/tax_registration'
+    | '/_layout/chart-of-account/'
+    | '/_layout/expenses/'
+    | '/_layout/journal/'
+    | '/_layout/overview/'
+    | '/_layout/purchases/'
+    | '/_layout/sales/'
+    | '/_layout/settings/'
+    | '/_layout/suppliers/'
+    | '/_layout/chart-of-account/$accountID/ledger'
+    | '/_layout/suppliers/$supplierID/details'
+    | '/_layout/expenses/new/'
+    | '/_layout/sales/new/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
   AboutIndexRoute: typeof AboutIndexRoute
 }
@@ -64,6 +322,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about/': {
       id: '/about/'
       path: '/about'
@@ -71,22 +336,194 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_layout/': {
-      id: '/_layout/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof LayoutIndexRouteImport
+    '/_layout/suppliers/': {
+      id: '/_layout/suppliers/'
+      path: '/suppliers'
+      fullPath: '/suppliers/'
+      preLoaderRoute: typeof LayoutSuppliersIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/sales/': {
+      id: '/_layout/sales/'
+      path: '/sales'
+      fullPath: '/sales/'
+      preLoaderRoute: typeof LayoutSalesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/purchases/': {
+      id: '/_layout/purchases/'
+      path: '/purchases'
+      fullPath: '/purchases/'
+      preLoaderRoute: typeof LayoutPurchasesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/overview/': {
+      id: '/_layout/overview/'
+      path: '/overview'
+      fullPath: '/overview/'
+      preLoaderRoute: typeof LayoutOverviewIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/journal/': {
+      id: '/_layout/journal/'
+      path: '/journal'
+      fullPath: '/journal/'
+      preLoaderRoute: typeof LayoutJournalIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/expenses/': {
+      id: '/_layout/expenses/'
+      path: '/expenses'
+      fullPath: '/expenses/'
+      preLoaderRoute: typeof LayoutExpensesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/chart-of-account/': {
+      id: '/_layout/chart-of-account/'
+      path: '/chart-of-account'
+      fullPath: '/chart-of-account/'
+      preLoaderRoute: typeof LayoutChartOfAccountIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/taxations/tax_registration': {
+      id: '/_layout/taxations/tax_registration'
+      path: '/taxations/tax_registration'
+      fullPath: '/taxations/tax_registration'
+      preLoaderRoute: typeof LayoutTaxationsTax_registrationRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/taxations/tax_rates': {
+      id: '/_layout/taxations/tax_rates'
+      path: '/taxations/tax_rates'
+      fullPath: '/taxations/tax_rates'
+      preLoaderRoute: typeof LayoutTaxationsTax_ratesRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/taxations/tax_codes': {
+      id: '/_layout/taxations/tax_codes'
+      path: '/taxations/tax_codes'
+      fullPath: '/taxations/tax_codes'
+      preLoaderRoute: typeof LayoutTaxationsTax_codesRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/reports/trial-balance': {
+      id: '/_layout/reports/trial-balance'
+      path: '/reports/trial-balance'
+      fullPath: '/reports/trial-balance'
+      preLoaderRoute: typeof LayoutReportsTrialBalanceRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/reports/profit-loss': {
+      id: '/_layout/reports/profit-loss'
+      path: '/reports/profit-loss'
+      fullPath: '/reports/profit-loss'
+      preLoaderRoute: typeof LayoutReportsProfitLossRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/reports/balance-sheet': {
+      id: '/_layout/reports/balance-sheet'
+      path: '/reports/balance-sheet'
+      fullPath: '/reports/balance-sheet'
+      preLoaderRoute: typeof LayoutReportsBalanceSheetRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/purchases/history': {
+      id: '/_layout/purchases/history'
+      path: '/purchases/history'
+      fullPath: '/purchases/history'
+      preLoaderRoute: typeof LayoutPurchasesHistoryRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/payments/payment_orders': {
+      id: '/_layout/payments/payment_orders'
+      path: '/payments/payment_orders'
+      fullPath: '/payments/payment_orders'
+      preLoaderRoute: typeof LayoutPaymentsPayment_ordersRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/sales/new/': {
+      id: '/_layout/sales/new/'
+      path: '/sales/new'
+      fullPath: '/sales/new/'
+      preLoaderRoute: typeof LayoutSalesNewIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/expenses/new/': {
+      id: '/_layout/expenses/new/'
+      path: '/expenses/new'
+      fullPath: '/expenses/new/'
+      preLoaderRoute: typeof LayoutExpensesNewIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/suppliers/$supplierID/details': {
+      id: '/_layout/suppliers/$supplierID/details'
+      path: '/suppliers/$supplierID/details'
+      fullPath: '/suppliers/$supplierID/details'
+      preLoaderRoute: typeof LayoutSuppliersSupplierIDDetailsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/chart-of-account/$accountID/ledger': {
+      id: '/_layout/chart-of-account/$accountID/ledger'
+      path: '/chart-of-account/$accountID/ledger'
+      fullPath: '/chart-of-account/$accountID/ledger'
+      preLoaderRoute: typeof LayoutChartOfAccountAccountIDLedgerRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
   }
 }
 
 interface LayoutRouteRouteChildren {
-  LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutPaymentsPayment_ordersRoute: typeof LayoutPaymentsPayment_ordersRoute
+  LayoutPurchasesHistoryRoute: typeof LayoutPurchasesHistoryRoute
+  LayoutReportsBalanceSheetRoute: typeof LayoutReportsBalanceSheetRoute
+  LayoutReportsProfitLossRoute: typeof LayoutReportsProfitLossRoute
+  LayoutReportsTrialBalanceRoute: typeof LayoutReportsTrialBalanceRoute
+  LayoutTaxationsTax_codesRoute: typeof LayoutTaxationsTax_codesRoute
+  LayoutTaxationsTax_ratesRoute: typeof LayoutTaxationsTax_ratesRoute
+  LayoutTaxationsTax_registrationRoute: typeof LayoutTaxationsTax_registrationRoute
+  LayoutChartOfAccountIndexRoute: typeof LayoutChartOfAccountIndexRoute
+  LayoutExpensesIndexRoute: typeof LayoutExpensesIndexRoute
+  LayoutJournalIndexRoute: typeof LayoutJournalIndexRoute
+  LayoutOverviewIndexRoute: typeof LayoutOverviewIndexRoute
+  LayoutPurchasesIndexRoute: typeof LayoutPurchasesIndexRoute
+  LayoutSalesIndexRoute: typeof LayoutSalesIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
+  LayoutSuppliersIndexRoute: typeof LayoutSuppliersIndexRoute
+  LayoutChartOfAccountAccountIDLedgerRoute: typeof LayoutChartOfAccountAccountIDLedgerRoute
+  LayoutSuppliersSupplierIDDetailsRoute: typeof LayoutSuppliersSupplierIDDetailsRoute
+  LayoutExpensesNewIndexRoute: typeof LayoutExpensesNewIndexRoute
+  LayoutSalesNewIndexRoute: typeof LayoutSalesNewIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
-  LayoutIndexRoute: LayoutIndexRoute,
+  LayoutPaymentsPayment_ordersRoute: LayoutPaymentsPayment_ordersRoute,
+  LayoutPurchasesHistoryRoute: LayoutPurchasesHistoryRoute,
+  LayoutReportsBalanceSheetRoute: LayoutReportsBalanceSheetRoute,
+  LayoutReportsProfitLossRoute: LayoutReportsProfitLossRoute,
+  LayoutReportsTrialBalanceRoute: LayoutReportsTrialBalanceRoute,
+  LayoutTaxationsTax_codesRoute: LayoutTaxationsTax_codesRoute,
+  LayoutTaxationsTax_ratesRoute: LayoutTaxationsTax_ratesRoute,
+  LayoutTaxationsTax_registrationRoute: LayoutTaxationsTax_registrationRoute,
+  LayoutChartOfAccountIndexRoute: LayoutChartOfAccountIndexRoute,
+  LayoutExpensesIndexRoute: LayoutExpensesIndexRoute,
+  LayoutJournalIndexRoute: LayoutJournalIndexRoute,
+  LayoutOverviewIndexRoute: LayoutOverviewIndexRoute,
+  LayoutPurchasesIndexRoute: LayoutPurchasesIndexRoute,
+  LayoutSalesIndexRoute: LayoutSalesIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
+  LayoutSuppliersIndexRoute: LayoutSuppliersIndexRoute,
+  LayoutChartOfAccountAccountIDLedgerRoute:
+    LayoutChartOfAccountAccountIDLedgerRoute,
+  LayoutSuppliersSupplierIDDetailsRoute: LayoutSuppliersSupplierIDDetailsRoute,
+  LayoutExpensesNewIndexRoute: LayoutExpensesNewIndexRoute,
+  LayoutSalesNewIndexRoute: LayoutSalesNewIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
@@ -94,6 +531,7 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
   AboutIndexRoute: AboutIndexRoute,
 }
