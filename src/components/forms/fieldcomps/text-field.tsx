@@ -8,12 +8,14 @@ type TextfieldProps = {
   label: string;
   type?: React.HTMLInputTypeAttribute;
   uppercase?: boolean;
+  placeholder?: string;
 };
 
 const TextField = ({
   label,
   type = "text",
   uppercase = false,
+  placeholder,
 }: TextfieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
@@ -32,6 +34,7 @@ const TextField = ({
       <Input
         id={field.name}
         type={type}
+        placeholder={placeholder}
         value={field.state.value}
         onChange={(e) => handleChange(e.target.value)}
         className={`w-full ${uppercase ? "uppercase" : ""}`}

@@ -6,9 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 
 type TextAreaFieldProps = {
   label: string;
+  placeholder?: string;
 };
 
-const TextAreaField = ({ label }: TextAreaFieldProps) => {
+const TextAreaField = ({ label, placeholder }: TextAreaFieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
   return (
@@ -16,6 +17,7 @@ const TextAreaField = ({ label }: TextAreaFieldProps) => {
       <Label htmlFor={field.name}>{label}</Label>
       <Textarea
         className=""
+        placeholder={placeholder}
         id={field.name}
         value={field.state.value}
         onChange={(e) => field.handleChange(e.target.value)}

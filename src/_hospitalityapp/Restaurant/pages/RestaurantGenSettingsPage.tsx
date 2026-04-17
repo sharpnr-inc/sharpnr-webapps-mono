@@ -18,6 +18,7 @@ const RestaurantGenSettingsPage: React.FC<
   RestaurantGenSettingsPageProps
 > = () => {
   const slectedRestaurant = useSelectedRestaurant();
+  console.log(slectedRestaurant);
 
   return (
     <div className="w-full mt-4 space-y-2">
@@ -61,6 +62,7 @@ const RestaurantGenSettingsPage: React.FC<
         <TabsContent value="menu">
           {slectedRestaurant?.ID && slectedRestaurant?.Property?.ID && (
             <MenuSettings
+              owners_legal_entityID={""}
               moduleID={slectedRestaurant.ID}
               propertyID={slectedRestaurant.Property.ID}
             />

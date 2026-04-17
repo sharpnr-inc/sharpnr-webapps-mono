@@ -1,5 +1,8 @@
 import api from "@/middlewares/axios";
-import { RestaurantEndpoints } from "./enpoints";
+import {
+  RestaurantEndpoints,
+  type GetInventoriesFilterParams,
+} from "./enpoints";
 import type { APIResponse } from "@/utilities/api_response";
 
 /* ---------------------------------- <***> --------------------------------- */
@@ -144,3 +147,75 @@ export async function AddOrdersInDiningSession(
 
   return res.data;
 }
+
+interface CloseDiningSessionReq {
+  restuarantID: string;
+  diningSessionID: string;
+  payload: any;
+}
+export async function CloseDiningSession({
+  diningSessionID,
+  payload,
+  restuarantID,
+}: CloseDiningSessionReq) {
+  const res = await api.post(
+    RestaurantEndpoints.CloseDiningSession(restuarantID, diningSessionID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+export async function GetInventories({
+  restaurantID,
+  inventoryAccountID,
+}: GetInventoriesFilterParams) {
+  const res = await api.get(
+    RestaurantEndpoints.GetAllInventories({
+      restaurantID,
+      inventoryAccountID,
+    }),
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function GetInventoriesAccounts(restaurantID: string) {
+  const res = await api.get(
+    RestaurantEndpoints.GetInventoryAccounts(restaurantID),
+  );
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+export interface NewInventoryRequestPayload {
+  inventory_account_id: string;
+  name: string;
+  description: string;
+  location: string;
+}
+
+interface NewInventoryRequest {
+  restaurantID: string;
+  payload: NewInventoryRequestPayload;
+}
+
+/**
+ * Adds a new inventory item to a specific restaurant.
+ */
+export async function AddInventoryInRestaurant({
+  payload,
+  restaurantID,
+}: NewInventoryRequest) {
+  const res = await api.post(
+    RestaurantEndpoints.AddInventory(restaurantID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */

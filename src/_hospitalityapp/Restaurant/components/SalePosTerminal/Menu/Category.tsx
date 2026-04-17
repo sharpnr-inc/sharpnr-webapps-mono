@@ -1,25 +1,57 @@
+import { cn } from "@/lib/utils";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 
-export function Category() {
-  const items = useSalePosTerminalMenuStore((s) => s.items);
+/**
+ * Horizontal scrollable pill-tabs for menu categories.
+ * Selecting a category resets the subcategory filter and re-derives items.
+ * Clicking the active category again deselects it (shows all for current menu).
+ */
+export function CategoryTabs() {
+  const filteredCategories = useSalePosTerminalMenuStore(
+    (s) => s.filteredCategories,
+  );
+  const selectedCategoryId = useSalePosTerminalMenuStore(
+    (s) => s.selectedCategoryId,
+  );
+  const selectCategory = useSalePosTerminalMenuStore((s) => s.selectCategory);
 
-  if (!items.length) return <div>No menu items found</div>;
+  if (!filteredCategories.length) return null;
+
+  const handleSelect = (id: string) => {
+    // Toggle: click active tab → deselect (show all)
+    selectCategory(selectedCategoryId === id ? null : id);
+  };
 
   return (
-    <div className="grid grid-cols-3 gap-3">
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="rounded-lg border p-3 hover:bg-muted transition"
+    <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+      {/* "All" pill */}
+      <button
+        onClick={() => selectCategory(null)}
+        className={cn(
+          "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150",
+          "border",
+          selectedCategoryId === null
+            ? "bg-foreground text-background border-foreground"
+            : "bg-background text-muted-foreground border-border hover:border-foreground/40 hover:text-foreground",
+        )}
+      >
+        All
+      </button>
+
+      {filteredCategories.map((cat) => (
+        <button
+          key={cat.id}
+          onClick={() => handleSelect(cat.id)}
+          className={cn(
+            "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150 whitespace-nowrap",
+            "border",
+            selectedCategoryId === cat.id
+              ? "bg-foreground text-background border-foreground"
+              : "bg-background text-muted-foreground border-border hover:border-foreground/40 hover:text-foreground",
+          )}
         >
-          <div className="font-medium">{item.name}</div>
-
-          <div className="text-sm text-muted-foreground">
-            {item.description}
-          </div>
-
-          <div className="mt-2 font-semibold">₹{item.base_price}</div>
-        </div>
+          {cat.category_name}
+        </button>
       ))}
     </div>
   );

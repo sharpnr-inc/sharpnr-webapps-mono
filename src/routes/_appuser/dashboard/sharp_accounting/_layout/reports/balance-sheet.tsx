@@ -1,15 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { BalanceSheetPage } from "@/_accountingapp/pages/Reports/BalanceSheetPage";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet',
+  "/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet",
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello "/dashboard/(dashboard)/sharp_accounting/reports/balance-sheet"!
-    </div>
-  )
-}
+  component: BalanceSheetPage,
+});

@@ -3,6 +3,8 @@ import {
   FetchRestaurantLayout,
   FetchRestaurentContext,
   GetDiningSessionOrders,
+  GetInventories,
+  GetInventoriesAccounts,
   GetRestaurantGeneralInfo,
   type RestaurantGeneralInfoInterface,
 } from "./restaurant.api";
@@ -47,5 +49,33 @@ export function useRestaurantGeneralInfo(restaurantID: string) {
 export function useAddKitchenIdInRestaurant() {
   return useQuery({
     queryKey: ["ADD", "KITCHEN", "RESTAURANT", "PREFERRED"],
+  });
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export function useRestaurantInventories(
+  restaurantID: string,
+  inventoryAccountID?: string,
+) {
+  return useQuery({
+    queryKey: ["restaurant-inventories", restaurantID, inventoryAccountID],
+
+    queryFn: () =>
+      GetInventories({
+        restaurantID,
+        inventoryAccountID,
+      }),
+
+    enabled: !!restaurantID,
+  });
+}
+/* ---------------------------------- <***> --------------------------------- */
+
+export function useAllInventoriesAccounts(restaurantID: string) {
+  return useQuery({
+    queryKey: ["Shared inventories account"],
+    queryFn: () => GetInventoriesAccounts(restaurantID),
+    enabled: !!restaurantID,
   });
 }
