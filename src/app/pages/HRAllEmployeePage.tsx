@@ -20,7 +20,7 @@ export default function HRAllEmployeePage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 mt-6 p-2">
+    <div className="flex flex-col gap-6 p-4">
       {/* ───────── Page Header ───────── */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
