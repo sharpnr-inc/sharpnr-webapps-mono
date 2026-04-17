@@ -9,16 +9,19 @@ import SuspenseFallback from "./components/ui/SuspenseFallback";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
 import { Toaster } from "sonner";
+import { TooltipProvider } from "./components/ui/tooltip";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <SheetProvider>
-        <Suspense fallback={<SuspenseFallback />}>
-          <RouterProvider router={router} />
-          <Toaster />
-        </Suspense>
-      </SheetProvider>
-    </QueryClientProvider>
+    <TooltipProvider>
+      <QueryClientProvider client={queryClient}>
+        <SheetProvider>
+          <Suspense fallback={<SuspenseFallback />}>
+            <RouterProvider router={router} />
+            <Toaster />
+          </Suspense>
+        </SheetProvider>
+      </QueryClientProvider>
+    </TooltipProvider>
   </StrictMode>,
 );

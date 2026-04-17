@@ -9,50 +9,160 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
+import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutSocial_media_managementRouteImport } from './routes/_layout/social_media_management'
+import { Route as LayoutReportsRouteImport } from './routes/_layout/reports'
+import { Route as LayoutLeadsRouteImport } from './routes/_layout/leads'
+import { Route as LayoutCampaignsRouteImport } from './routes/_layout/campaigns'
 
-const IndexRoute = IndexRouteImport.update({
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSocial_media_managementRoute =
+  LayoutSocial_media_managementRouteImport.update({
+    id: '/social_media_management',
+    path: '/social_media_management',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutReportsRoute = LayoutReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutLeadsRoute = LayoutLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutCampaignsRoute = LayoutCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof LayoutIndexRoute
+  '/campaigns': typeof LayoutCampaignsRoute
+  '/leads': typeof LayoutLeadsRoute
+  '/reports': typeof LayoutReportsRoute
+  '/social_media_management': typeof LayoutSocial_media_managementRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/campaigns': typeof LayoutCampaignsRoute
+  '/leads': typeof LayoutLeadsRoute
+  '/reports': typeof LayoutReportsRoute
+  '/social_media_management': typeof LayoutSocial_media_managementRoute
+  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteRouteWithChildren
+  '/_layout/campaigns': typeof LayoutCampaignsRoute
+  '/_layout/leads': typeof LayoutLeadsRoute
+  '/_layout/reports': typeof LayoutReportsRoute
+  '/_layout/social_media_management': typeof LayoutSocial_media_managementRoute
+  '/_layout/': typeof LayoutIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/campaigns'
+    | '/leads'
+    | '/reports'
+    | '/social_media_management'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/campaigns' | '/leads' | '/reports' | '/social_media_management' | '/'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_layout/campaigns'
+    | '/_layout/leads'
+    | '/_layout/reports'
+    | '/_layout/social_media_management'
+    | '/_layout/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/social_media_management': {
+      id: '/_layout/social_media_management'
+      path: '/social_media_management'
+      fullPath: '/social_media_management'
+      preLoaderRoute: typeof LayoutSocial_media_managementRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/reports': {
+      id: '/_layout/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof LayoutReportsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/leads': {
+      id: '/_layout/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LayoutLeadsRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/campaigns': {
+      id: '/_layout/campaigns'
+      path: '/campaigns'
+      fullPath: '/campaigns'
+      preLoaderRoute: typeof LayoutCampaignsRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
   }
 }
 
+interface LayoutRouteRouteChildren {
+  LayoutCampaignsRoute: typeof LayoutCampaignsRoute
+  LayoutLeadsRoute: typeof LayoutLeadsRoute
+  LayoutReportsRoute: typeof LayoutReportsRoute
+  LayoutSocial_media_managementRoute: typeof LayoutSocial_media_managementRoute
+  LayoutIndexRoute: typeof LayoutIndexRoute
+}
+
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutCampaignsRoute: LayoutCampaignsRoute,
+  LayoutLeadsRoute: LayoutLeadsRoute,
+  LayoutReportsRoute: LayoutReportsRoute,
+  LayoutSocial_media_managementRoute: LayoutSocial_media_managementRoute,
+  LayoutIndexRoute: LayoutIndexRoute,
+}
+
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
