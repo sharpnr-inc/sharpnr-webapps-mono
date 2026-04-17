@@ -23,7 +23,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronsUpDown } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
-import { useOrgsCustomer } from "@/apis/Queries";
+// import { useOrgsCustomer } from "@/apis/Queries";
 import { PAYMENT_METHODS } from "../utils/payment_method";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Avatar } from "./AvatarPaymentCard";
@@ -34,7 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SelectContent } from "@radix-ui/react-select";
-import { usePaymentAccounts } from "@/_orchestrator/payments/api/api.queries";
+// import { usePaymentAccounts } from "@/_orchestrator/payments/api/api.queries";
 import { useCloseDiningSessionMutation } from "../apis/mutations";
 
 /* ─────────────────────────────────────────
@@ -71,8 +71,10 @@ export function DiningSessionPayment({
   const [query, setQuery] = React.useState("");
   const debounced = useDebounce(query, 400);
 
-  const { data, isFetching } = useOrgsCustomer(debounced);
-  const { data: paymentAccounts } = usePaymentAccounts();
+  // const { data, isFetching } = useOrgsCustomer(debounced);
+  // const { data: paymentAccounts } = usePaymentAccounts();
+
+  const data: any = [];
 
   const customers: Customer[] =
     data?.data?.map((c: any) => ({
@@ -90,7 +92,7 @@ export function DiningSessionPayment({
   const form = useAppForm({
     defaultValues: {
       payment_method: "CASH",
-      payment_account_id: paymentAccounts?.data[0]?.Id,
+      // payment_account_id: paymentAccounts?.data[0]?.Id,
       customer_name: "",
       customer_phone: "",
       customer_email: "",
@@ -172,7 +174,7 @@ export function DiningSessionPayment({
                           onValueChange={setQuery}
                         />
                         <CommandList>
-                          <ScrollArea className="max-h-62.5">
+                          {/* <ScrollArea className="max-h-62.5">
                             {debounced.length < 4 && !isFetching && (
                               <div className="p-4 text-xs text-muted-foreground text-center">
                                 Type at least 4 characters...
@@ -236,7 +238,7 @@ export function DiningSessionPayment({
                                 </Button>
                               </div>
                             )}
-                          </ScrollArea>
+                          </ScrollArea> */}
                         </CommandList>
                       </Command>
                     </PopoverContent>

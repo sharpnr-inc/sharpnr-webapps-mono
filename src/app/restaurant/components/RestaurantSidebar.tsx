@@ -33,10 +33,10 @@ type RestaurantSidebarItem = {
 const restaurantSidebarMenu: RestaurantSidebarItem[] = [
   {
     label: "Overview",
-    to: "/dashboard/sharp_hospitality/restaurant/overview",
+    to: "/restaurant/overview",
     icon: LayoutDashboard,
     match: (pathname) =>
-      pathname === "/dashboard/sharp_hospitality/restaurant/overview",
+      pathname === "/restaurant/overview",
   },
   {
     label: "Dine In",
@@ -50,39 +50,39 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
     icon: Calendar,
     match: (pathname) =>
       pathname.startsWith(
-        "/dashboard/sharp_hospitality/restaurant/reservations",
+        "/restaurant/reservations",
       ),
   },
   {
     label: "Inventory",
-    to: "/dashboard/sharp_hospitality/restaurant/inventory",
+    to: "/restaurant/inventory",
     icon: Boxes,
     match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/inventory"),
+      pathname.startsWith("/restaurant/inventory"),
   },
   {
     label: "Pickup",
-    to: "/dashboard/sharp_hospitality/restaurant/sales-terminal",
+    to: "/restaurant/sales-terminal",
     icon: ShoppingCart,
     match: (pathname) =>
       pathname.startsWith(
-        "/dashboard/sharp_hospitality/restaurant/sales-terminal",
+        "/restaurant/sales-terminal",
       ),
   },
   {
     label: "Orders",
-    to: "/dashboard/sharp_hospitality/restaurant/orders",
+    to: "/restaurant/orders",
     icon: LucideListOrdered,
     match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/restaurant/orders"),
+      pathname.startsWith("/restaurant/orders"),
   },
   // {
   //   label: "General Settings",
-  //   to: "/dashboard/sharp_hospitality/restaurant/general-settings",
+  //   to: "/restaurant/general-settings",
   //   icon: Settings,
   //   match: (pathname) =>
   //     pathname.startsWith(
-  //       "/dashboard/sharp_hospitality/restaurant/general-settings",
+  //       "/restaurant/general-settings",
   //     ),
   // },
 ];

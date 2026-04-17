@@ -1,4 +1,4 @@
-import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
+import { useModulesMenu } from "@/app/infra/apis/api.Queries";
 import { MenuSectionContext } from "./Context";
 import VariantSelector from "./VariantSelector";
 import { useEffect } from "react";

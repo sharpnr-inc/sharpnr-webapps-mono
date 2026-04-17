@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
+import { useModulesMenu } from "@/app/infra/apis/api.Queries";
 import { SaleTerminalMenuSectionContext } from "./SaleTerminalMenuContext";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 import { VariantAndAddOnSelector } from "./VariantandAddOnSelector";

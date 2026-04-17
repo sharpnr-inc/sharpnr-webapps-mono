@@ -36,7 +36,7 @@ function TableCard({
       <button
         onClick={onClick}
         className={cn(
-          "min-w-[90px] h-[72px] rounded-lg border border-dashed border-border/50",
+          "min-w-22.5 h-18 rounded-lg border border-dashed border-border/50",
           "flex flex-col items-center justify-center gap-1",
           "text-muted-foreground/40 hover:border-border hover:text-muted-foreground",
           "transition-all duration-150",
@@ -52,7 +52,7 @@ function TableCard({
     <button
       onClick={onClick}
       className={cn(
-        "min-w-[100px] h-[72px] rounded-lg border p-2.5",
+        "min-w-25 h-18 rounded-lg border p-2.5",
         "flex flex-col justify-between text-left",
         "transition-all duration-150 active:scale-[0.97]",
         isActive
