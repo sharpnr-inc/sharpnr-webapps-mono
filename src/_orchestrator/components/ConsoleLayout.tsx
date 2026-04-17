@@ -25,6 +25,11 @@ import {
   Home,
   ChevronsUpDown,
   Origami,
+  DollarSign,
+  Users,
+  BriefcaseBusiness,
+  LucideShoppingBasket,
+  ContainerIcon,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
@@ -65,34 +70,40 @@ const orchestratorLinks: SidebarLink[] = [
   {
     label: "Legal Entity",
     path: "/orchestrator/legal_entity",
-    icon: FileText,
+    icon: BriefcaseBusiness,
     tooltip: "Legal Entity",
     exact: false,
   },
-  // {
-  //   label: "Settings",
-  //   path: "",
-  //   icon: Settings,
-  //   tooltip: "Settings",
-  // },
-  // {
-  //   label: "Reports",
-  //   path: "",
-  //   icon: FileText,
-  //   tooltip: "Reports",
-  // },
-  // {
-  //   label: "User Directory",
-  //   path: "/orchestrator/org-users",
-  //   icon: Users,
-  //   tooltip: "User Directory",
-  // },
-  // {
-  //   label: "Audit Logs",
-  //   path: "/orchestrator/audit-logs",
-  //   icon: FileText,
-  //   tooltip: "Audit Logs",
-  // },
+  {
+    label: "Payments",
+    path: "/orchestrator/payments",
+    icon: DollarSign,
+    tooltip: "Settings",
+  },
+  {
+    label: "Inventories",
+    path: "/orchestrator/inventory-acc",
+    icon: LucideShoppingBasket,
+    tooltip: "Reports",
+  },
+  {
+    label: "Suppliers & Vendors",
+    path: "/orchestrator/suppliers&Vendors",
+    icon: ContainerIcon,
+    tooltip: "Reports",
+  },
+  {
+    label: "User Directory",
+    path: "/orchestrator/org-users",
+    icon: Users,
+    tooltip: "User Directory",
+  },
+  {
+    label: "Audit Logs",
+    path: "/orchestrator/audit-log",
+    icon: FileText,
+    tooltip: "Audit Logs",
+  },
 ];
 
 /* =========================

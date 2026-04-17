@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useModulesMenu } from "@/_hospitalityapp/infra/apis/api.Queries";
 import { SaleTerminalMenuSectionContext } from "./SaleTerminalMenuContext";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
+import { VariantAndAddOnSelector } from "./VariantandAddOnSelector";
 
 interface RestaurantSaleTerminalMenuRootProps {
   restaurantID: string;
@@ -13,8 +14,8 @@ export function RestaurantSaleTerminalMenuRoot({
   restaurantID,
 }: RestaurantSaleTerminalMenuRootProps) {
   const { data } = useModulesMenu(restaurantID);
-
   const setMenu = useSalePosTerminalMenuStore((s) => s.setMenu);
+  const clearMenu = useSalePosTerminalMenuStore((s) => s.clearMenu);
 
   useEffect(() => {
     if (data?.data) {
@@ -22,13 +23,15 @@ export function RestaurantSaleTerminalMenuRoot({
     }
   }, [data, setMenu]);
 
+  // Clear store when restaurant changes to avoid stale data
+  useEffect(() => {
+    return () => clearMenu();
+  }, [restaurantID, clearMenu]);
+
   return (
-    <SaleTerminalMenuSectionContext.Provider
-      value={{
-        restaurantID,
-      }}
-    >
+    <SaleTerminalMenuSectionContext.Provider value={{ restaurantID }}>
       {children}
+      <VariantAndAddOnSelector />
     </SaleTerminalMenuSectionContext.Provider>
   );
 }

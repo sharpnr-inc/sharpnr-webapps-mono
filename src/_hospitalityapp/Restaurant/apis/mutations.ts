@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import {
+  AddInventoryInRestaurant,
   AddOrdersInDiningSession,
   AddRestaurantFloorsAdnTables,
+  CloseDiningSession,
   StartDiningSession,
   UpdateRestaurantGeneralInfo,
 } from "./restaurant.api";
@@ -36,5 +38,19 @@ export function useAddRestaurantLayout() {
   return useMutation({
     mutationFn: AddRestaurantFloorsAdnTables,
     mutationKey: ["AddRestaurantLayout"],
+  });
+}
+
+export function useCloseDiningSessionMutation() {
+  return useMutation({
+    mutationKey: [""],
+    mutationFn: CloseDiningSession,
+  });
+}
+
+export function useAddInventoryMutation() {
+  return useMutation({
+    mutationKey: ["Add New Inventory"],
+    mutationFn: AddInventoryInRestaurant,
   });
 }

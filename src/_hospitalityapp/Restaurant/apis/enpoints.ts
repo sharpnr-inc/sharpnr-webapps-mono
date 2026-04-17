@@ -29,4 +29,27 @@ export const RestaurantEndpoints = {
 
   AddOrderInDiningSession: (restaurantID: string, diningSessionID: string) =>
     `/sharp-hospitality/restaurant/${restaurantID}/dining-session/${diningSessionID}/add-order`,
+
+  CloseDiningSession: (restaurantID: string, diningSessionID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/dining-session/${diningSessionID}/close-session`,
+
+  /* ------------------------------ Inventory API ----------------------------- */
+
+  GetAllInventories: ({
+    restaurantID,
+    inventoryAccountID,
+  }: GetInventoriesFilterParams) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/inventory${
+      inventoryAccountID ? `?inventoryAccountID=${inventoryAccountID}` : ""
+    }`,
+
+  GetInventoryAccounts: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/inventory/accounts`,
+  AddInventory: (restaurantID: string) =>
+    `/sharp-hospitality/restaurant/${restaurantID}/inventory/add-inventory`,
 };
+
+export interface GetInventoriesFilterParams {
+  restaurantID: string;
+  inventoryAccountID?: string;
+}
