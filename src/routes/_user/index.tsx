@@ -1,9 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { ModuleSelectorPage } from "@/app/shared/ModuleSelectorPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_user/')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/_user/"!</div>
-}
+export const Route = createFileRoute("/_user/")({
+  component: ModuleSelectorPage,
+});
