@@ -16,7 +16,7 @@ interface DialogModalContextType {
 }
 
 const FormModalContext = createContext<DialogModalContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
@@ -28,7 +28,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
   const openModal = (
     content: ReactNode,
     title = "Dialog",
-    description = ""
+    description = "",
   ) => {
     setModalContent(content);
     setModalTitle(title);
@@ -47,7 +47,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
     <FormModalContext.Provider value={{ openModal, closeModal }}>
       {children}
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen} >
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className=" rounded-2xl">
           <DialogHeader className="hidden">
             {modalTitle ? (
@@ -75,9 +75,7 @@ export const DialogModalProvider = ({ children }: { children: ReactNode }) => {
 export const useDialogModal = (): DialogModalContextType => {
   const context = useContext(FormModalContext);
   if (!context) {
-    throw new Error(
-      "useDialogModal must be used within a DialogModalProvider"
-    );
+    throw new Error("useDialogModal must be used within a DialogModalProvider");
   }
   return context;
 };

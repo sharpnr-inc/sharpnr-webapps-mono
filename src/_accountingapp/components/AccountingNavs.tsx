@@ -1,8 +1,11 @@
 import {
   BadgeDollarSignIcon,
+  BadgePercentIcon,
   BarChart3,
-  DollarSignIcon,
+  BookOpen,
+  Receipt,
   Settings,
+  ShoppingBag,
   Wallet,
 } from "lucide-react";
 
@@ -49,19 +52,50 @@ export const accountingSidebar = [
     group: "Operations",
     items: [
       {
-        label: "Transactions",
-        icon: DollarSignIcon,
-        to: "/dashboard/sharp_accounting/transactions",
+        label: "Journal",
+        icon: BookOpen,
+        to: "/dashboard/sharp_accounting/journal",
+      },
+      {
+        label: "Sales",
+        icon: ShoppingBag,
+        children: [
+          { label: "Sales History", to: "/dashboard/sharp_accounting/sales" },
+          { label: "Record Sale", to: "/dashboard/sharp_accounting/sales/new" },
+        ],
       },
       {
         label: "Expenses",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/expenses",
+        icon: Receipt,
+        children: [
+          {
+            label: "Record Expense",
+            to: "/dashboard/sharp_accounting/expenses/new",
+          },
+          {
+            label: "Expense History",
+            to: "/dashboard/sharp_accounting/expenses",
+          },
+        ],
       },
+
       {
-        label: "Ledger",
-        icon: Wallet,
-        to: "/dashboard/sharp_accounting/ledger",
+        label: "Purchases & Vendors",
+        icon: BadgePercentIcon,
+        children: [
+          {
+            label: "Suppliers & Vendors",
+            to: "/dashboard/sharp_accounting/suppliers",
+          },
+          {
+            label: "Purchases",
+            to: "/dashboard/sharp_accounting/purchases",
+          },
+          {
+            label: "Purchase History",
+            to: "/dashboard/sharp_accounting/purchases/history",
+          },
+        ],
       },
     ],
   },
@@ -78,7 +112,7 @@ export const accountingSidebar = [
           },
           {
             label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/pnl",
+            to: "/dashboard/sharp_accounting/reports/profit-loss",
           },
           {
             label: "Balance Sheet",
@@ -88,6 +122,28 @@ export const accountingSidebar = [
       },
     ],
   },
+
+  {
+    group: "Payments&Invoice",
+    items: [
+      {
+        label: "Payments",
+        icon: BarChart3,
+        children: [
+          {
+            label: "Payment Orders",
+            to: "/dashboard/sharp_accounting/payments/payment_orders",
+          },
+
+          {
+            label: "Payment Vouchers",
+            to: "/dashboard/sharp_accounting/",
+          },
+        ],
+      },
+    ],
+  },
+
   {
     group: "Controls",
     items: [

@@ -39,10 +39,16 @@ export interface MenuItemResponse {
   description: string;
   unit: string;
   base_price: number;
+  tax_category: TaxComponentBreakdown[];
   dietary_type: DietaryType;
   variant_groups: VariantGroupResponse[];
   add_ons: AddOnResponse[];
   served_by: string;
+}
+
+export interface TaxComponentBreakdown {
+  tax_component_name: string;
+  tax_rate: number;
 }
 
 export interface VariantGroupResponse {

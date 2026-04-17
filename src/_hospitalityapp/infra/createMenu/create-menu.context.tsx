@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
-import type { MenuOutput } from "./types";
+
 
 interface CreateMenuContextType {
-  Menus: MenuOutput[] | undefined;
+  Menus: any[] | undefined;
   isMenuLoading: boolean;
   isMenuLoaded: boolean;
   step: number;

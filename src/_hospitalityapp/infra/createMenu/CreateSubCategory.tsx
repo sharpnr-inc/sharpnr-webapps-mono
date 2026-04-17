@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import type { MenuSubCategoryResponse } from "../apis/api.service";
 
 const CreateSubCategory = () => {
   const queryClient = useQueryClient();
@@ -194,7 +195,7 @@ const CreateSubCategory = () => {
               </h3>
 
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {subCategories.map((sc) => (
+                {subCategories.map((sc: MenuSubCategoryResponse) => (
                   <Card
                     key={sc.id}
                     onClick={() => {

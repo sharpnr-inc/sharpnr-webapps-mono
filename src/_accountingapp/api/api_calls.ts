@@ -1,6 +1,6 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
-import type { TransactionsParams } from "./queries/transactions";
+import type { JournalEntryExternalRequestDto } from "../components/forms/AddJournalEntryForm";
 
 /******************************************************
  * All API Call for Accounting Books of  Organization *
@@ -50,29 +50,6 @@ export const GetAccountOfAccountingGroup = async (groupId: string) => {
 
 //-------------------------------------------------------------------------------------//
 
-/*******************************************
- * All the API for related to Transactions *
- *******************************************/
-
-export const GetTransactions = async (params: TransactionsParams) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.Transactions.GetTransactions,
-    {
-      params,
-    },
-  );
-  return res.data;
-};
-
-export const GetTransactionDetails = async (transactionId: string) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.Transactions.GetTransactionDetails(transactionId),
-  );
-  return res.data;
-};
-
-//-------------------------------------------------------------------------------------//
-
 /********************************************
  * All the APIs Related to Account Mappings *
  ********************************************/
@@ -92,22 +69,90 @@ export const CreateAccountMapping = async (req: any) => {
   return res.data;
 };
 
-export const GetLegder = async (legalEntityID: string) => {
-  const res = await api.get(
-    AccountingAppAPIEndpoints.ledger.getAll(legalEntityID),
-  );
-  return res.data;
-};
+/* ---------------------------------- <***> --------------------------------- */
 
-export const GetLegderEntryDetails = async (
-  legalEntityID: string,
-  entryID: string,
-) => {
+export async function GetPaymentOrder(legalEntityID: string) {
   const res = await api.get(
-    AccountingAppAPIEndpoints.ledger.entryDetails(legalEntityID, entryID),
+    AccountingAppAPIEndpoints.Payments.payOrder(legalEntityID),
   );
+
   return res.data;
-};
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+interface CreateAccountRequest {
+  legalEntityID: string;
+  payload: any;
+}
+export async function CreateAccounts({
+  legalEntityID,
+  payload,
+}: CreateAccountRequest) {
+  const res = await api.post(
+    AccountingAppAPIEndpoints.Accounts.CreateAccount(legalEntityID),
+    payload,
+  );
+
+  return res.data;
+}
 
 /* ---------------------------------- <***> --------------------------------- */
 
+interface CreateJournalEntryRequest {
+  legalEntityID: string;
+  payload: JournalEntryExternalRequestDto;
+}
+
+export async function CreateJournalEntry({
+  legalEntityID,
+  payload,
+}: CreateJournalEntryRequest) {
+  const res = await api.post(
+    AccountingAppAPIEndpoints.journalEntry.add(legalEntityID),
+    payload,
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function GetAccountsLedger(
+  legalEntityID: string,
+  accountID: string,
+) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Accounts.GetLedger(legalEntityID, accountID),
+  );
+
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function GetAllJournalEntries(legalEntityID: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.journalEntry.GetAll(legalEntityID),
+  );
+
+  return res.data;
+}
+
+export async function GetProfitAndLoss(legalEntityID: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Reports.profitAndLoss(legalEntityID),
+  );
+  return res.data;
+}
+
+export async function FetchLegalEntitySuppliers(legalEntityID: string) {
+  const res = await api.get(AccountingAppAPIEndpoints.suppliers(legalEntityID));
+  return res.data;
+}
+
+export async function GetAllInventoriesOfLegalEntity(legalEntity: string) {
+  const res = await api.get(
+    AccountingAppAPIEndpoints.Inventory.All(legalEntity),
+  );
+  return res.data;
+}

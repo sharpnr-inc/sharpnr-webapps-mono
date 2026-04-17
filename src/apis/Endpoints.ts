@@ -12,8 +12,14 @@ export const AuthApiEndpoints = {
     login: "identity/web/login",
     logout: "identity/web/logout",
     ForgetPassword: "",
-    fetchRenderer: "",
     fetchIdentity: "",
-    getRenderer: "",
+  },
+};
+
+export const OrgCoreEndpoints = {
+  Customer: {
+    CreateCustomer: () => `orchestrator/org/customers/add`,
+    Search: (searchQuery: string) =>
+      `orchestrator/org/customers/search?searchQuery=${searchQuery}`,
   },
 };
