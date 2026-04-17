@@ -46,7 +46,7 @@ const restaurantSidebarMenu: RestaurantSidebarItem[] = [
   },
   {
     label: "Reservations",
-    to: "/dashboard/sharp_hospitality/restaurant/reservations",
+    to: "/restaurant/reservations",
     icon: Calendar,
     match: (pathname) =>
       pathname.startsWith(
