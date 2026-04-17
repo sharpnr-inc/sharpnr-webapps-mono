@@ -279,7 +279,7 @@ export function InitialSignupForm({
             <Button
               variant="link"
               className="p-0 h-auto font-semibold"
-              onClick={() => navigate({ to: "/login" })}
+              onClick={() => navigate({ to: "/" })}
               type="button"
             >
               Sign in

@@ -83,7 +83,7 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
         <SheetContent
           side="right"
           className={`w-full max-w-none overflow-y-scroll ${getWidthClass(sheet.size)} 
-            [&::-webkit-scrollbar]:w-[6px]
+            [&::-webkit-scrollbar]:w-1.5
             [&::-webkit-scrollbar-track]:bg-transparent
             [&::-webkit-scrollbar-thumb]:bg-slate-300
             [&::-webkit-scrollbar-thumb]:rounded-full
