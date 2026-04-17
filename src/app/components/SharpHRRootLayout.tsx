@@ -71,6 +71,12 @@ const navGroups: NavGroup[] = [
         icon: Bell,
         to: "/announcements",
       },
+      {
+        id: "hr_policies",
+        label: "Compliance & Policies",
+        icon: ShieldCheck,
+        to: "/announcements",
+      },
     ],
   },
   {
