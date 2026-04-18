@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 import "./index.css";
 import { ThemeProvider } from "./hooks/theme-provider";
+import "@/middlewares/interceptor.ts";
+import "@/middlewares/unauthorized.ts";
 
 // Create router
 const router = createRouter({ routeTree });
