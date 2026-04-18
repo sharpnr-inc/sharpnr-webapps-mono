@@ -11,7 +11,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as DocumentationRouteRouteImport } from './routes/documentation/route'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
@@ -109,11 +108,6 @@ const AppuserDashboardSharp_hospitalityRestaurantRouteImport = createFileRoute(
   '/_appuser/dashboard/sharp_hospitality/restaurant',
 )()
 
-const DocumentationRouteRoute = DocumentationRouteRouteImport.update({
-  id: '/documentation',
-  path: '/documentation',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppuserRouteRoute = AppuserRouteRouteImport.update({
   id: '/_appuser',
   getParentRoute: () => rootRouteImport,
@@ -751,7 +745,6 @@ const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hosp
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/documentation': typeof DocumentationRouteRoute
   '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
@@ -840,7 +833,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/documentation': typeof DocumentationRouteRoute
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
   '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
@@ -920,7 +912,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_appuser': typeof AppuserRouteRouteWithChildren
-  '/documentation': typeof DocumentationRouteRoute
   '/_appuser/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
@@ -1015,7 +1006,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/documentation'
     | '/dashboard'
     | '/orchestrator'
     | '/org-signup'
@@ -1104,7 +1094,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/documentation'
     | '/orchestrator'
     | '/org-signup'
     | '/dashboard/sharp_hospitality'
@@ -1183,7 +1172,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_appuser'
-    | '/documentation'
     | '/_appuser/dashboard'
     | '/_appuser/orchestrator'
     | '/org-signup/'
@@ -1278,19 +1266,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
-  DocumentationRouteRoute: typeof DocumentationRouteRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/documentation': {
-      id: '/documentation'
-      path: '/documentation'
-      fullPath: '/documentation'
-      preLoaderRoute: typeof DocumentationRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_appuser': {
       id: '/_appuser'
       path: ''
@@ -2420,7 +2400,6 @@ const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
-  DocumentationRouteRoute: DocumentationRouteRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
 }
 export const routeTree = rootRouteImport

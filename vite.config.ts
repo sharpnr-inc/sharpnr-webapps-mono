@@ -63,11 +63,11 @@ export default defineConfig({
 
   server: {
     host: true,
-    port: 5173,
+    port: 6969,
     strictPort: true,
     allowedHosts: [
       ".trycloudflare.com", // 👈 allow all Cloudflare quick tunnels
-      "app.sharpnr.test",
+      "orchestrator.sharpnr.test",
     ],
   },
 });
