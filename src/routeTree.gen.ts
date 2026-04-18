@@ -14,22 +14,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DocumentationRouteRouteImport } from './routes/documentation/route'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PaymentsIndexRouteImport } from './routes/payments/index'
 import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
 import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/orchestrator/route'
 import { Route as AppuserDashboardRouteRouteImport } from './routes/_appuser/dashboard/route'
-import { Route as SharpOrgEmployeeVerificationIndexRouteImport } from './routes/sharp-org-employee/verification/index'
-import { Route as SharpOrgEmployeeSetPasswordIndexRouteImport } from './routes/sharp-org-employee/set-password/index'
 import { Route as AppuserDashboardIndexRouteImport } from './routes/_appuser/dashboard/index'
 import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
-import { Route as AppuserDashboardSharp_marketingRouteRouteImport } from './routes/_appuser/dashboard/sharp_marketing/route'
 import { Route as AppuserDashboardSharp_hospitalityRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/route'
-import { Route as AppuserDashboardSharp_marketingIndexRouteImport } from './routes/_appuser/dashboard/sharp_marketing/index'
 import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
-import { Route as AppuserDashboardSharp_marketingSocial_media_managementRouteImport } from './routes/_appuser/dashboard/sharp_marketing/social_media_management'
-import { Route as AppuserDashboardSharp_marketingReportsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/reports'
-import { Route as AppuserDashboardSharp_marketingLeadsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/leads'
-import { Route as AppuserDashboardSharp_marketingCampaignsRouteImport } from './routes/_appuser/dashboard/sharp_marketing/campaigns'
 import { Route as AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/route'
 import { Route as AppuserDashboardSharp_hospitalityNcRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/nc/route'
 import { Route as AppuserDashboardSharp_hospitalityInfraRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/route'
@@ -132,11 +123,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PaymentsIndexRoute = PaymentsIndexRouteImport.update({
-  id: '/payments/',
-  path: '/payments/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
   id: '/org-signup/',
   path: '/org-signup/',
@@ -159,18 +145,6 @@ const AppuserDashboardSharp_accountingRoute =
     path: '/sharp_accounting',
     getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
-const SharpOrgEmployeeVerificationIndexRoute =
-  SharpOrgEmployeeVerificationIndexRouteImport.update({
-    id: '/sharp-org-employee/verification/',
-    path: '/sharp-org-employee/verification/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const SharpOrgEmployeeSetPasswordIndexRoute =
-  SharpOrgEmployeeSetPasswordIndexRouteImport.update({
-    id: '/sharp-org-employee/set-password/',
-    path: '/sharp-org-employee/set-password/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const AppuserDashboardIndexRoute = AppuserDashboardIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -180,12 +154,6 @@ const AppuserOrchestratorOrchestrator_layoutRouteRoute =
   AppuserOrchestratorOrchestrator_layoutRouteRouteImport.update({
     id: '/_orchestrator_layout',
     getParentRoute: () => AppuserOrchestratorRouteRoute,
-  } as any)
-const AppuserDashboardSharp_marketingRouteRoute =
-  AppuserDashboardSharp_marketingRouteRouteImport.update({
-    id: '/sharp_marketing',
-    path: '/sharp_marketing',
-    getParentRoute: () => AppuserDashboardRouteRoute,
   } as any)
 const AppuserDashboardSharp_hospitalityRouteRoute =
   AppuserDashboardSharp_hospitalityRouteRouteImport.update({
@@ -199,41 +167,11 @@ const AppuserDashboardSharp_hospitalityRestaurantRoute =
     path: '/restaurant',
     getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
   } as any)
-const AppuserDashboardSharp_marketingIndexRoute =
-  AppuserDashboardSharp_marketingIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
-  } as any)
 const AppuserDashboardSharp_accountingIndexRoute =
   AppuserDashboardSharp_accountingIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppuserDashboardSharp_accountingRoute,
-  } as any)
-const AppuserDashboardSharp_marketingSocial_media_managementRoute =
-  AppuserDashboardSharp_marketingSocial_media_managementRouteImport.update({
-    id: '/social_media_management',
-    path: '/social_media_management',
-    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
-  } as any)
-const AppuserDashboardSharp_marketingReportsRoute =
-  AppuserDashboardSharp_marketingReportsRouteImport.update({
-    id: '/reports',
-    path: '/reports',
-    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
-  } as any)
-const AppuserDashboardSharp_marketingLeadsRoute =
-  AppuserDashboardSharp_marketingLeadsRouteImport.update({
-    id: '/leads',
-    path: '/leads',
-    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
-  } as any)
-const AppuserDashboardSharp_marketingCampaignsRoute =
-  AppuserDashboardSharp_marketingCampaignsRouteImport.update({
-    id: '/campaigns',
-    path: '/campaigns',
-    getParentRoute: () => AppuserDashboardSharp_marketingRouteRoute,
   } as any)
 const AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute =
   AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport.update({
@@ -817,23 +755,14 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
   '/org-signup': typeof OrgSignupIndexRoute
-  '/payments': typeof PaymentsIndexRoute
   '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/dashboard/': typeof AppuserDashboardIndexRoute
-  '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
-  '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
   '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
   '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
   '/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
-  '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
-  '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
-  '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
-  '/dashboard/sharp_marketing/social_media_management': typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
   '/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
-  '/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
   '/orchestrator/inventory-acc': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren
   '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
@@ -914,18 +843,10 @@ export interface FileRoutesByTo {
   '/documentation': typeof DocumentationRouteRoute
   '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
   '/org-signup': typeof OrgSignupIndexRoute
-  '/payments': typeof PaymentsIndexRoute
   '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
   '/dashboard': typeof AppuserDashboardIndexRoute
-  '/sharp-org-employee/set-password': typeof SharpOrgEmployeeSetPasswordIndexRoute
-  '/sharp-org-employee/verification': typeof SharpOrgEmployeeVerificationIndexRoute
   '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
   '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
-  '/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
-  '/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
-  '/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
-  '/dashboard/sharp_marketing/social_media_management': typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
-  '/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingIndexRoute
   '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
   '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
   '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
@@ -1003,13 +924,9 @@ export interface FileRoutesById {
   '/_appuser/dashboard': typeof AppuserDashboardRouteRouteWithChildren
   '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
   '/org-signup/': typeof OrgSignupIndexRoute
-  '/payments/': typeof PaymentsIndexRoute
   '/_appuser/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_marketing': typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
   '/_appuser/dashboard/': typeof AppuserDashboardIndexRoute
-  '/sharp-org-employee/set-password/': typeof SharpOrgEmployeeSetPasswordIndexRoute
-  '/sharp-org-employee/verification/': typeof SharpOrgEmployeeVerificationIndexRoute
   '/_appuser/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteWithChildren
   '/_appuser/dashboard/sharp_accounting/_layout': typeof AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
@@ -1017,12 +934,7 @@ export interface FileRoutesById {
   '/_appuser/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_marketing/campaigns': typeof AppuserDashboardSharp_marketingCampaignsRoute
-  '/_appuser/dashboard/sharp_marketing/leads': typeof AppuserDashboardSharp_marketingLeadsRoute
-  '/_appuser/dashboard/sharp_marketing/reports': typeof AppuserDashboardSharp_marketingReportsRoute
-  '/_appuser/dashboard/sharp_marketing/social_media_management': typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
   '/_appuser/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
-  '/_appuser/dashboard/sharp_marketing/': typeof AppuserDashboardSharp_marketingIndexRoute
   '/_appuser/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteWithChildren
   '/_appuser/dashboard/sharp_hospitality/restaurant/_layout': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
   '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren
@@ -1107,23 +1019,14 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/orchestrator'
     | '/org-signup'
-    | '/payments'
     | '/dashboard/sharp_hospitality'
-    | '/dashboard/sharp_marketing'
     | '/dashboard/'
-    | '/sharp-org-employee/set-password'
-    | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
     | '/dashboard/sharp_hospitality/infra'
     | '/dashboard/sharp_hospitality/nc'
-    | '/dashboard/sharp_marketing/campaigns'
-    | '/dashboard/sharp_marketing/leads'
-    | '/dashboard/sharp_marketing/reports'
-    | '/dashboard/sharp_marketing/social_media_management'
     | '/dashboard/sharp_accounting/'
-    | '/dashboard/sharp_marketing/'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/orchestrator/inventory-acc'
     | '/orchestrator/legal_entity'
@@ -1204,18 +1107,10 @@ export interface FileRouteTypes {
     | '/documentation'
     | '/orchestrator'
     | '/org-signup'
-    | '/payments'
     | '/dashboard/sharp_hospitality'
     | '/dashboard'
-    | '/sharp-org-employee/set-password'
-    | '/sharp-org-employee/verification'
     | '/dashboard/sharp_accounting'
     | '/dashboard/sharp_hospitality/infra'
-    | '/dashboard/sharp_marketing/campaigns'
-    | '/dashboard/sharp_marketing/leads'
-    | '/dashboard/sharp_marketing/reports'
-    | '/dashboard/sharp_marketing/social_media_management'
-    | '/dashboard/sharp_marketing'
     | '/dashboard/sharp_hospitality/restaurant'
     | '/dashboard/sharp_hospitality/bar'
     | '/dashboard/sharp_hospitality/hotel'
@@ -1292,13 +1187,9 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard'
     | '/_appuser/orchestrator'
     | '/org-signup/'
-    | '/payments/'
     | '/_appuser/dashboard/sharp_hospitality'
-    | '/_appuser/dashboard/sharp_marketing'
     | '/_appuser/orchestrator/_orchestrator_layout'
     | '/_appuser/dashboard/'
-    | '/sharp-org-employee/set-password/'
-    | '/sharp-org-employee/verification/'
     | '/_appuser/dashboard/sharp_accounting'
     | '/_appuser/dashboard/sharp_accounting/_layout'
     | '/_appuser/dashboard/sharp_hospitality/bar'
@@ -1306,12 +1197,7 @@ export interface FileRouteTypes {
     | '/_appuser/dashboard/sharp_hospitality/infra'
     | '/_appuser/dashboard/sharp_hospitality/nc'
     | '/_appuser/orchestrator/_orchestrator_layout/_console'
-    | '/_appuser/dashboard/sharp_marketing/campaigns'
-    | '/_appuser/dashboard/sharp_marketing/leads'
-    | '/_appuser/dashboard/sharp_marketing/reports'
-    | '/_appuser/dashboard/sharp_marketing/social_media_management'
     | '/_appuser/dashboard/sharp_accounting/'
-    | '/_appuser/dashboard/sharp_marketing/'
     | '/_appuser/dashboard/sharp_hospitality/restaurant'
     | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout'
     | '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc'
@@ -1394,9 +1280,6 @@ export interface RootRouteChildren {
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
   DocumentationRouteRoute: typeof DocumentationRouteRoute
   OrgSignupIndexRoute: typeof OrgSignupIndexRoute
-  PaymentsIndexRoute: typeof PaymentsIndexRoute
-  SharpOrgEmployeeSetPasswordIndexRoute: typeof SharpOrgEmployeeSetPasswordIndexRoute
-  SharpOrgEmployeeVerificationIndexRoute: typeof SharpOrgEmployeeVerificationIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1420,13 +1303,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/payments/': {
-      id: '/payments/'
-      path: '/payments'
-      fullPath: '/payments'
-      preLoaderRoute: typeof PaymentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/org-signup/': {
@@ -1457,20 +1333,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_accountingRouteImport
       parentRoute: typeof AppuserDashboardRouteRoute
     }
-    '/sharp-org-employee/verification/': {
-      id: '/sharp-org-employee/verification/'
-      path: '/sharp-org-employee/verification'
-      fullPath: '/sharp-org-employee/verification'
-      preLoaderRoute: typeof SharpOrgEmployeeVerificationIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sharp-org-employee/set-password/': {
-      id: '/sharp-org-employee/set-password/'
-      path: '/sharp-org-employee/set-password'
-      fullPath: '/sharp-org-employee/set-password'
-      preLoaderRoute: typeof SharpOrgEmployeeSetPasswordIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_appuser/dashboard/': {
       id: '/_appuser/dashboard/'
       path: '/'
@@ -1484,13 +1346,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/orchestrator'
       preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRouteImport
       parentRoute: typeof AppuserOrchestratorRouteRoute
-    }
-    '/_appuser/dashboard/sharp_marketing': {
-      id: '/_appuser/dashboard/sharp_marketing'
-      path: '/sharp_marketing'
-      fullPath: '/dashboard/sharp_marketing'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
     }
     '/_appuser/dashboard/sharp_hospitality': {
       id: '/_appuser/dashboard/sharp_hospitality'
@@ -1506,47 +1361,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteImport
       parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
     }
-    '/_appuser/dashboard/sharp_marketing/': {
-      id: '/_appuser/dashboard/sharp_marketing/'
-      path: '/'
-      fullPath: '/dashboard/sharp_marketing/'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
-    }
     '/_appuser/dashboard/sharp_accounting/': {
       id: '/_appuser/dashboard/sharp_accounting/'
       path: '/'
       fullPath: '/dashboard/sharp_accounting/'
       preLoaderRoute: typeof AppuserDashboardSharp_accountingIndexRouteImport
       parentRoute: typeof AppuserDashboardSharp_accountingRoute
-    }
-    '/_appuser/dashboard/sharp_marketing/social_media_management': {
-      id: '/_appuser/dashboard/sharp_marketing/social_media_management'
-      path: '/social_media_management'
-      fullPath: '/dashboard/sharp_marketing/social_media_management'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRouteImport
-      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
-    }
-    '/_appuser/dashboard/sharp_marketing/reports': {
-      id: '/_appuser/dashboard/sharp_marketing/reports'
-      path: '/reports'
-      fullPath: '/dashboard/sharp_marketing/reports'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingReportsRouteImport
-      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
-    }
-    '/_appuser/dashboard/sharp_marketing/leads': {
-      id: '/_appuser/dashboard/sharp_marketing/leads'
-      path: '/leads'
-      fullPath: '/dashboard/sharp_marketing/leads'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingLeadsRouteImport
-      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
-    }
-    '/_appuser/dashboard/sharp_marketing/campaigns': {
-      id: '/_appuser/dashboard/sharp_marketing/campaigns'
-      path: '/campaigns'
-      fullPath: '/dashboard/sharp_marketing/campaigns'
-      preLoaderRoute: typeof AppuserDashboardSharp_marketingCampaignsRouteImport
-      parentRoute: typeof AppuserDashboardSharp_marketingRouteRoute
     }
     '/_appuser/orchestrator/_orchestrator_layout/_console': {
       id: '/_appuser/orchestrator/_orchestrator_layout/_console'
@@ -2297,33 +2117,6 @@ const AppuserDashboardSharp_hospitalityRouteRouteWithChildren =
     AppuserDashboardSharp_hospitalityRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_marketingRouteRouteChildren {
-  AppuserDashboardSharp_marketingCampaignsRoute: typeof AppuserDashboardSharp_marketingCampaignsRoute
-  AppuserDashboardSharp_marketingLeadsRoute: typeof AppuserDashboardSharp_marketingLeadsRoute
-  AppuserDashboardSharp_marketingReportsRoute: typeof AppuserDashboardSharp_marketingReportsRoute
-  AppuserDashboardSharp_marketingSocial_media_managementRoute: typeof AppuserDashboardSharp_marketingSocial_media_managementRoute
-  AppuserDashboardSharp_marketingIndexRoute: typeof AppuserDashboardSharp_marketingIndexRoute
-}
-
-const AppuserDashboardSharp_marketingRouteRouteChildren: AppuserDashboardSharp_marketingRouteRouteChildren =
-  {
-    AppuserDashboardSharp_marketingCampaignsRoute:
-      AppuserDashboardSharp_marketingCampaignsRoute,
-    AppuserDashboardSharp_marketingLeadsRoute:
-      AppuserDashboardSharp_marketingLeadsRoute,
-    AppuserDashboardSharp_marketingReportsRoute:
-      AppuserDashboardSharp_marketingReportsRoute,
-    AppuserDashboardSharp_marketingSocial_media_managementRoute:
-      AppuserDashboardSharp_marketingSocial_media_managementRoute,
-    AppuserDashboardSharp_marketingIndexRoute:
-      AppuserDashboardSharp_marketingIndexRoute,
-  }
-
-const AppuserDashboardSharp_marketingRouteRouteWithChildren =
-  AppuserDashboardSharp_marketingRouteRoute._addFileChildren(
-    AppuserDashboardSharp_marketingRouteRouteChildren,
-  )
-
 interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
   AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute: typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
   AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute
@@ -2416,7 +2209,6 @@ const AppuserDashboardSharp_accountingRouteWithChildren =
 
 interface AppuserDashboardRouteRouteChildren {
   AppuserDashboardSharp_hospitalityRouteRoute: typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  AppuserDashboardSharp_marketingRouteRoute: typeof AppuserDashboardSharp_marketingRouteRouteWithChildren
   AppuserDashboardIndexRoute: typeof AppuserDashboardIndexRoute
   AppuserDashboardSharp_accountingRoute: typeof AppuserDashboardSharp_accountingRouteWithChildren
 }
@@ -2424,8 +2216,6 @@ interface AppuserDashboardRouteRouteChildren {
 const AppuserDashboardRouteRouteChildren: AppuserDashboardRouteRouteChildren = {
   AppuserDashboardSharp_hospitalityRouteRoute:
     AppuserDashboardSharp_hospitalityRouteRouteWithChildren,
-  AppuserDashboardSharp_marketingRouteRoute:
-    AppuserDashboardSharp_marketingRouteRouteWithChildren,
   AppuserDashboardIndexRoute: AppuserDashboardIndexRoute,
   AppuserDashboardSharp_accountingRoute:
     AppuserDashboardSharp_accountingRouteWithChildren,
@@ -2632,10 +2422,6 @@ const rootRouteChildren: RootRouteChildren = {
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
   DocumentationRouteRoute: DocumentationRouteRoute,
   OrgSignupIndexRoute: OrgSignupIndexRoute,
-  PaymentsIndexRoute: PaymentsIndexRoute,
-  SharpOrgEmployeeSetPasswordIndexRoute: SharpOrgEmployeeSetPasswordIndexRoute,
-  SharpOrgEmployeeVerificationIndexRoute:
-    SharpOrgEmployeeVerificationIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
