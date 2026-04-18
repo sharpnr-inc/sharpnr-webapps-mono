@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext} from 'react';
-import type { ReactNode } from 'react';
-import AnthropicLoader from '@/components/shared_pages/anthropic_loader';
+import AnthropicLoader from "@/components/anthropic_loader";
+import React, { createContext, useState, useContext } from "react";
+import type { ReactNode } from "react";
 
 interface LoaderContextType {
   isLoading: boolean;
@@ -13,7 +13,7 @@ const LoaderContext = createContext<LoaderContextType | undefined>(undefined);
 export const useLoader = () => {
   const context = useContext(LoaderContext);
   if (!context) {
-    throw new Error('useLoader must be used within a LoaderProvider');
+    throw new Error("useLoader must be used within a LoaderProvider");
   }
   return context;
 };

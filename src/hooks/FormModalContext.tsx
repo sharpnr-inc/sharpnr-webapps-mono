@@ -93,7 +93,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
             "
           >
             {/* ── Decorative top gradient bar ── */}
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/60 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-violet-500/60 to-transparent" />
 
             {/* ── Close button ── */}
             <DialogPrimitive.Close
@@ -135,7 +135,7 @@ export const FormsModalProvider: React.FC<{ children: ReactNode }> = ({
               </div>
 
               {/* Bottom fade-out hint */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-background to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-linear-to-t from-background to-transparent" />
             </div>
           </DialogPrimitive.Content>
         </DialogPrimitive.Portal>
