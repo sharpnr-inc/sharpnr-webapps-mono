@@ -3,11 +3,19 @@ import api from "./axios";
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
-     
+    const status = error.response?.status;
+    const url = error.config?.url;
+
+    const isAuthCheck = url?.includes("verify-authentication");
+
+    if ((status === 401 || status === 403) && !isAuthCheck) {
       console.warn("Auth / CSRF failed");
-      window.location.href = "/";
+
+      if (window.location.pathname !== "/") {
+        window.location.href = "/";
+      }
     }
+
     return Promise.reject(error);
-  }
+  },
 );

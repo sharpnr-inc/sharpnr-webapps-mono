@@ -11,8 +11,6 @@ export const Route = createFileRoute("/")({
         queryFn: AuthenticateVerification,
       });
 
-      console.log("auth data:", data);
-
       if (data?.data.authenticated) {
         window.location.replace(config.iamAppUrl);
       }

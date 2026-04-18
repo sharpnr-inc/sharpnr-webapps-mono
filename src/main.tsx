@@ -5,6 +5,8 @@ import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "./hooks/ToastContext";
 import { queryClient, router } from "./router_config";
+import "@/middlewares/interceptor.ts";
+import "@/middlewares/unauthorized.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -15,7 +15,7 @@ export default function NotFound() {
           opacity: [0.3, 0.5, 0.3],
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[120px]"
+        className="absolute h-125 w-125 rounded-full bg-blue-600/10 blur-[120px]"
       />
 
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
