@@ -8,105 +8,35 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as OrgSignupIndexRouteImport } from './routes/org-signup/index'
-import { Route as AppuserOrchestratorRouteRouteImport } from './routes/_appuser/orchestrator/route'
-import { Route as AppuserDashboardRouteRouteImport } from './routes/_appuser/dashboard/route'
-import { Route as AppuserDashboardIndexRouteImport } from './routes/_appuser/dashboard/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/route'
-import { Route as AppuserDashboardSharp_hospitalityRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/route'
-import { Route as AppuserDashboardSharp_accountingIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/route'
-import { Route as AppuserDashboardSharp_hospitalityNcRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/nc/route'
-import { Route as AppuserDashboardSharp_hospitalityInfraRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/route'
-import { Route as AppuserDashboardSharp_hospitalityHotelRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/route'
-import { Route as AppuserDashboardSharp_hospitalityBarRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/route'
-import { Route as AppuserDashboardSharp_accountingLayoutRouteRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/index'
-import { Route as AppuserDashboardSharp_hospitalityNcIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/nc/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/index'
-import { Route as AppuserDashboardSharp_hospitalityBarIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/route'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/organization/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/org-users/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/index'
-import { Route as AppuserDashboardSharp_hospitalityNcOverviewIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/nc/overview/index'
-import { Route as AppuserDashboardSharp_hospitalityInfraKitchenIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/kitchen/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/room-request/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelReservationsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/reservations/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/inventory/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/housekeeping/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/hotel-settings/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelGuestsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/guests/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelCheckoutIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/checkout/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelBookingIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/booking/index'
-import { Route as AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/add-order-in-booking/index'
-import { Route as AppuserDashboardSharp_hospitalityBarTable_managementIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/table_management/index'
-import { Route as AppuserDashboardSharp_hospitalityBarSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/settings/index'
-import { Route as AppuserDashboardSharp_hospitalityBarInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/inventory/index'
-import { Route as AppuserDashboardSharp_hospitalityBarBar_posIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/bar/bar_pos/index'
-import { Route as AppuserDashboardSharp_accountingLayoutSuppliersIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/suppliers/index'
-import { Route as AppuserDashboardSharp_accountingLayoutSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/settings/index'
-import { Route as AppuserDashboardSharp_accountingLayoutSalesIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/sales/index'
-import { Route as AppuserDashboardSharp_accountingLayoutPurchasesIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/purchases/index'
-import { Route as AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/overview/index'
-import { Route as AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/journal/index'
-import { Route as AppuserDashboardSharp_accountingLayoutExpensesIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/expenses/index'
-import { Route as AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
-import { Route as AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration'
-import { Route as AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_rates'
-import { Route as AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes'
-import { Route as AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance'
-import { Route as AppuserDashboardSharp_accountingLayoutReportsProfitLossRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
-import { Route as AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet'
-import { Route as AppuserDashboardSharp_accountingLayoutPurchasesHistoryRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/purchases/history'
-import { Route as AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/overview/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/index'
-import { Route as AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/index'
-import { Route as AppuserDashboardSharp_accountingLayoutSalesNewIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/sales/new/index'
-import { Route as AppuserDashboardSharp_accountingLayoutExpensesNewIndexRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/expenses/new/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/$suppliersID/details'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details'
-import { Route as AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
-import { Route as AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport } from './routes/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-import { Route as AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details'
-import { Route as AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRouteImport } from './routes/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
-import { Route as AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
-
-const AppuserDashboardSharp_accountingRouteImport = createFileRoute(
-  '/_appuser/dashboard/sharp_accounting',
-)()
-const AppuserDashboardSharp_hospitalityRestaurantRouteImport = createFileRoute(
-  '/_appuser/dashboard/sharp_hospitality/restaurant',
-)()
+import { Route as AppuserConsoleRouteRouteImport } from './routes/_appuser/_console/route'
+import { Route as AppuserConsoleHomeRouteImport } from './routes/_appuser/_console/home'
+import { Route as AppuserConsolePaymentsRouteRouteImport } from './routes/_appuser/_console/payments/route'
+import { Route as AppuserConsoleLegal_entityRouteRouteImport } from './routes/_appuser/_console/legal_entity/route'
+import { Route as AppuserConsoleInventoryAccRouteRouteImport } from './routes/_appuser/_console/inventory-acc/route'
+import { Route as AppuserConsoleSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/_console/suppliers&Vendors/index'
+import { Route as AppuserConsolePropertyIndexRouteImport } from './routes/_appuser/_console/property/index'
+import { Route as AppuserConsolePaymentsIndexRouteImport } from './routes/_appuser/_console/payments/index'
+import { Route as AppuserConsoleOrganizationIndexRouteImport } from './routes/_appuser/_console/organization/index'
+import { Route as AppuserConsoleOrgUsersIndexRouteImport } from './routes/_appuser/_console/org-users/index'
+import { Route as AppuserConsoleLegal_entityIndexRouteImport } from './routes/_appuser/_console/legal_entity/index'
+import { Route as AppuserConsoleInventoryAccIndexRouteImport } from './routes/_appuser/_console/inventory-acc/index'
+import { Route as AppuserConsoleAuditLogIndexRouteImport } from './routes/_appuser/_console/audit-log/index'
+import { Route as AppuserConsolePropertyRoutesRouteImport } from './routes/_appuser/_console/property/routes'
+import { Route as AppuserConsolePaymentsAccountIdIndexRouteImport } from './routes/_appuser/_console/payments/$accountId/index'
+import { Route as AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/_console/suppliers&Vendors/$suppliersID/details'
+import { Route as AppuserConsolePropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/_console/property/$propertyId/property-configuration'
+import { Route as AppuserConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/_console/property/$propertyId/details'
+import { Route as AppuserConsoleLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/_console/legal_entity/$leID/details'
+import { Route as AppuserConsoleInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/_console/inventory-acc/$inventoryAccountID/details'
+import { Route as AppuserConsolePropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/property_settings/index'
+import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
+import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
+import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index'
+import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
+import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
 
 const AppuserRouteRoute = AppuserRouteRouteImport.update({
   id: '/_appuser',
@@ -117,1156 +47,343 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OrgSignupIndexRoute = OrgSignupIndexRouteImport.update({
-  id: '/org-signup/',
-  path: '/org-signup/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppuserOrchestratorRouteRoute =
-  AppuserOrchestratorRouteRouteImport.update({
-    id: '/orchestrator',
-    path: '/orchestrator',
-    getParentRoute: () => AppuserRouteRoute,
-  } as any)
-const AppuserDashboardRouteRoute = AppuserDashboardRouteRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AppuserConsoleRouteRoute = AppuserConsoleRouteRouteImport.update({
+  id: '/_console',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserDashboardSharp_accountingRoute =
-  AppuserDashboardSharp_accountingRouteImport.update({
-    id: '/sharp_accounting',
-    path: '/sharp_accounting',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardIndexRoute = AppuserDashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppuserDashboardRouteRoute,
+const AppuserConsoleHomeRoute = AppuserConsoleHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => AppuserConsoleRouteRoute,
 } as any)
-const AppuserOrchestratorOrchestrator_layoutRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutRouteRouteImport.update({
-    id: '/_orchestrator_layout',
-    getParentRoute: () => AppuserOrchestratorRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityRouteRoute =
-  AppuserDashboardSharp_hospitalityRouteRouteImport.update({
-    id: '/sharp_hospitality',
-    path: '/sharp_hospitality',
-    getParentRoute: () => AppuserDashboardRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityRestaurantRoute =
-  AppuserDashboardSharp_hospitalityRestaurantRouteImport.update({
-    id: '/restaurant',
-    path: '/restaurant',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingIndexRoute =
-  AppuserDashboardSharp_accountingIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserDashboardSharp_accountingRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport.update({
-    id: '/_console',
-    getParentRoute: () => AppuserOrchestratorOrchestrator_layoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityNcRouteRoute =
-  AppuserDashboardSharp_hospitalityNcRouteRouteImport.update({
-    id: '/nc',
-    path: '/nc',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityInfraRouteRoute =
-  AppuserDashboardSharp_hospitalityInfraRouteRouteImport.update({
-    id: '/infra',
-    path: '/infra',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityHotelRouteRoute =
-  AppuserDashboardSharp_hospitalityHotelRouteRouteImport.update({
-    id: '/hotel',
-    path: '/hotel',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityBarRouteRoute =
-  AppuserDashboardSharp_hospitalityBarRouteRouteImport.update({
-    id: '/bar',
-    path: '/bar',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutRouteRoute =
-  AppuserDashboardSharp_accountingLayoutRouteRouteImport.update({
-    id: '/_layout',
-    getParentRoute: () => AppuserDashboardSharp_accountingRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityRestaurantIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRestaurantRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityNcIndexRoute =
-  AppuserDashboardSharp_hospitalityNcIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityNcRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityHotelIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityBarIndexRoute =
-  AppuserDashboardSharp_hospitalityBarIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityBarRouteRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteImport.update({
+const AppuserConsolePaymentsRouteRoute =
+  AppuserConsolePaymentsRouteRouteImport.update({
     id: '/payments',
     path: '/payments',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport.update(
-    {
-      id: '/legal_entity',
-      path: '/legal_entity',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteImport.update(
-    {
-      id: '/inventory-acc',
-      path: '/inventory-acc',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteImport.update({
-    id: '/_layout',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityRestaurantRoute,
+const AppuserConsoleLegal_entityRouteRoute =
+  AppuserConsoleLegal_entityRouteRouteImport.update({
+    id: '/legal_entity',
+    path: '/legal_entity',
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRouteImport.update(
-    {
-      id: '/suppliers&Vendors/',
-      path: '/suppliers&Vendors/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport.update({
+const AppuserConsoleInventoryAccRouteRoute =
+  AppuserConsoleInventoryAccRouteRouteImport.update({
+    id: '/inventory-acc',
+    path: '/inventory-acc',
+    getParentRoute: () => AppuserConsoleRouteRoute,
+  } as any)
+const AppuserConsoleSuppliersChar38VendorsIndexRoute =
+  AppuserConsoleSuppliersChar38VendorsIndexRouteImport.update({
+    id: '/suppliers&Vendors/',
+    path: '/suppliers&Vendors/',
+    getParentRoute: () => AppuserConsoleRouteRoute,
+  } as any)
+const AppuserConsolePropertyIndexRoute =
+  AppuserConsolePropertyIndexRouteImport.update({
     id: '/property/',
     path: '/property/',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRouteImport.update({
+const AppuserConsolePaymentsIndexRoute =
+  AppuserConsolePaymentsIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute,
+    getParentRoute: () => AppuserConsolePaymentsRouteRoute,
   } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport.update(
-    {
-      id: '/organization/',
-      path: '/organization/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport.update({
+const AppuserConsoleOrganizationIndexRoute =
+  AppuserConsoleOrganizationIndexRouteImport.update({
+    id: '/organization/',
+    path: '/organization/',
+    getParentRoute: () => AppuserConsoleRouteRoute,
+  } as any)
+const AppuserConsoleOrgUsersIndexRoute =
+  AppuserConsoleOrgUsersIndexRouteImport.update({
     id: '/org-users/',
     path: '/org-users/',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport.update(
-    {
-      id: '/',
-      path: '/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRouteImport.update(
-    {
-      id: '/',
-      path: '/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRouteImport.update({
+const AppuserConsoleLegal_entityIndexRoute =
+  AppuserConsoleLegal_entityIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserConsoleLegal_entityRouteRoute,
+  } as any)
+const AppuserConsoleInventoryAccIndexRoute =
+  AppuserConsoleInventoryAccIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserConsoleInventoryAccRouteRoute,
+  } as any)
+const AppuserConsoleAuditLogIndexRoute =
+  AppuserConsoleAuditLogIndexRouteImport.update({
     id: '/audit-log/',
     path: '/audit-log/',
-    getParentRoute: () =>
-      AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityNcOverviewIndexRoute =
-  AppuserDashboardSharp_hospitalityNcOverviewIndexRouteImport.update({
-    id: '/overview/',
-    path: '/overview/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityNcRouteRoute,
+const AppuserConsolePropertyRoutesRoute =
+  AppuserConsolePropertyRoutesRouteImport.update({
+    id: '/property/routes',
+    path: '/property/routes',
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute =
-  AppuserDashboardSharp_hospitalityInfraKitchenIndexRouteImport.update({
-    id: '/kitchen/',
-    path: '/kitchen/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityInfraRouteRoute,
+const AppuserConsolePaymentsAccountIdIndexRoute =
+  AppuserConsolePaymentsAccountIdIndexRouteImport.update({
+    id: '/$accountId/',
+    path: '/$accountId/',
+    getParentRoute: () => AppuserConsolePaymentsRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRouteImport.update({
-    id: '/room-request/',
-    path: '/room-request/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
+const AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute =
+  AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport.update({
+    id: '/suppliers&Vendors/$suppliersID/details',
+    path: '/suppliers&Vendors/$suppliersID/details',
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelReservationsIndexRouteImport.update({
-    id: '/reservations/',
-    path: '/reservations/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
+const AppuserConsolePropertyPropertyIdPropertyConfigurationRoute =
+  AppuserConsolePropertyPropertyIdPropertyConfigurationRouteImport.update({
+    id: '/property/$propertyId/property-configuration',
+    path: '/property/$propertyId/property-configuration',
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelInventoryIndexRouteImport.update({
-    id: '/inventory/',
-    path: '/inventory/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
+const AppuserConsolePropertyPropertyIdDetailsRoute =
+  AppuserConsolePropertyPropertyIdDetailsRouteImport.update({
+    id: '/property/$propertyId/details',
+    path: '/property/$propertyId/details',
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRouteImport.update({
-    id: '/housekeeping/',
-    path: '/housekeeping/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
+const AppuserConsoleLegal_entityLeIDDetailsRoute =
+  AppuserConsoleLegal_entityLeIDDetailsRouteImport.update({
+    id: '/$leID/details',
+    path: '/$leID/details',
+    getParentRoute: () => AppuserConsoleLegal_entityRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRouteImport.update({
-    id: '/hotel-settings/',
-    path: '/hotel-settings/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
+const AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute =
+  AppuserConsoleInventoryAccInventoryAccountIDDetailsRouteImport.update({
+    id: '/$inventoryAccountID/details',
+    path: '/$inventoryAccountID/details',
+    getParentRoute: () => AppuserConsoleInventoryAccRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelGuestsIndexRouteImport.update({
-    id: '/guests/',
-    path: '/guests/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
+const AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute =
+  AppuserConsolePropertyPropertyIdProperty_settingsIndexRouteImport.update({
+    id: '/property/$propertyId/property_settings/',
+    path: '/property/$propertyId/property_settings/',
+    getParentRoute: () => AppuserConsoleRouteRoute,
   } as any)
-const AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelCheckoutIndexRouteImport.update({
-    id: '/checkout/',
-    path: '/checkout/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityHotelBookingIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelBookingIndexRouteImport.update({
-    id: '/booking/',
-    path: '/booking/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute =
-  AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRouteImport.update(
-    {
-      id: '/add-order-in-booking/',
-      path: '/add-order-in-booking/',
-      getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute =
-  AppuserDashboardSharp_hospitalityBarTable_managementIndexRouteImport.update({
-    id: '/table_management/',
-    path: '/table_management/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityBarRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityBarSettingsIndexRoute =
-  AppuserDashboardSharp_hospitalityBarSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityBarRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityBarInventoryIndexRoute =
-  AppuserDashboardSharp_hospitalityBarInventoryIndexRouteImport.update({
-    id: '/inventory/',
-    path: '/inventory/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityBarRouteRoute,
-  } as any)
-const AppuserDashboardSharp_hospitalityBarBar_posIndexRoute =
-  AppuserDashboardSharp_hospitalityBarBar_posIndexRouteImport.update({
-    id: '/bar_pos/',
-    path: '/bar_pos/',
-    getParentRoute: () => AppuserDashboardSharp_hospitalityBarRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute =
-  AppuserDashboardSharp_accountingLayoutSuppliersIndexRouteImport.update({
-    id: '/suppliers/',
-    path: '/suppliers/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutSettingsIndexRoute =
-  AppuserDashboardSharp_accountingLayoutSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutSalesIndexRoute =
-  AppuserDashboardSharp_accountingLayoutSalesIndexRouteImport.update({
-    id: '/sales/',
-    path: '/sales/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute =
-  AppuserDashboardSharp_accountingLayoutPurchasesIndexRouteImport.update({
-    id: '/purchases/',
-    path: '/purchases/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutOverviewIndexRoute =
-  AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport.update({
-    id: '/overview/',
-    path: '/overview/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutJournalIndexRoute =
-  AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport.update({
-    id: '/journal/',
-    path: '/journal/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutExpensesIndexRoute =
-  AppuserDashboardSharp_accountingLayoutExpensesIndexRouteImport.update({
-    id: '/expenses/',
-    path: '/expenses/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute =
-  AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRouteImport.update({
-    id: '/chart-of-account/',
-    path: '/chart-of-account/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRouteImport.update(
-    {
-      id: '/property/routes',
-      path: '/property/routes',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute =
-  AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRouteImport.update(
-    {
-      id: '/taxations/tax_registration',
-      path: '/taxations/tax_registration',
-      getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute =
-  AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRouteImport.update({
-    id: '/taxations/tax_rates',
-    path: '/taxations/tax_rates',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute =
-  AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRouteImport.update({
-    id: '/taxations/tax_codes',
-    path: '/taxations/tax_codes',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute =
-  AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRouteImport.update({
-    id: '/reports/trial-balance',
-    path: '/reports/trial-balance',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute =
-  AppuserDashboardSharp_accountingLayoutReportsProfitLossRouteImport.update({
-    id: '/reports/profit-loss',
-    path: '/reports/profit-loss',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute =
-  AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport.update({
-    id: '/reports/balance-sheet',
-    path: '/reports/balance-sheet',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute =
-  AppuserDashboardSharp_accountingLayoutPurchasesHistoryRouteImport.update({
-    id: '/purchases/history',
-    path: '/purchases/history',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute =
-  AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRouteImport.update(
-    {
-      id: '/payments/payment_orders',
-      path: '/payments/payment_orders',
-      getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport.update(
-    {
-      id: '/$accountId/',
-      path: '/$accountId/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRouteImport.update(
-    {
-      id: '/table-management/',
-      path: '/table-management/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRouteImport.update(
-    {
-      id: '/sales-terminal/',
-      path: '/sales-terminal/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRouteImport.update(
-    {
-      id: '/reservations/',
-      path: '/reservations/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRouteImport.update(
-    {
-      id: '/overview/',
-      path: '/overview/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRouteImport.update(
-    {
-      id: '/orders/',
-      path: '/orders/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRouteImport.update(
-    {
-      id: '/inventory/',
-      path: '/inventory/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRouteImport.update(
-    {
-      id: '/general-settings/',
-      path: '/general-settings/',
-      getParentRoute: () =>
-        AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute =
-  AppuserDashboardSharp_accountingLayoutSalesNewIndexRouteImport.update({
-    id: '/sales/new/',
-    path: '/sales/new/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute =
-  AppuserDashboardSharp_accountingLayoutExpensesNewIndexRouteImport.update({
-    id: '/expenses/new/',
-    path: '/expenses/new/',
-    getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-  } as any)
-const AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport.update(
-    {
-      id: '/suppliers&Vendors/$suppliersID/details',
-      path: '/suppliers&Vendors/$suppliersID/details',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport.update(
-    {
-      id: '/property/$propertyId/property-configuration',
-      path: '/property/$propertyId/property-configuration',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport.update(
-    {
-      id: '/property/$propertyId/details',
-      path: '/property/$propertyId/details',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRouteImport.update(
-    {
-      id: '/$leID/details',
-      path: '/$leID/details',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute =
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRouteImport.update(
-    {
-      id: '/$inventoryAccountID/details',
-      path: '/$inventoryAccountID/details',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute =
-  AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport.update(
-    {
-      id: '/kitchen/$service_point/service',
-      path: '/kitchen/$service_point/service',
-      getParentRoute: () => AppuserDashboardSharp_hospitalityInfraRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute =
-  AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport.update(
-    {
-      id: '/booking/create-booking/$roomId',
-      path: '/booking/create-booking/$roomId',
-      getParentRoute: () => AppuserDashboardSharp_hospitalityHotelRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute =
-  AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRouteImport.update(
-    {
-      id: '/suppliers/$supplierID/details',
-      path: '/suppliers/$supplierID/details',
-      getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-    } as any,
-  )
-const AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute =
-  AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRouteImport.update(
-    {
-      id: '/chart-of-account/$accountID/ledger',
-      path: '/chart-of-account/$accountID/ledger',
-      getParentRoute: () => AppuserDashboardSharp_accountingLayoutRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport.update(
-    {
-      id: '/property/$propertyId/property_settings/',
-      path: '/property/$propertyId/property_settings/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
-    } as any,
-  )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport.update(
+const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/restaurant_dashboard',
       path: '/property/$propertyId/domain_hospitality/restaurant_dashboard',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+      getParentRoute: () => AppuserConsoleRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
+const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
       path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+      getParentRoute: () => AppuserConsoleRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport.update(
+const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport.update(
     {
       id: '/$restaurantID/',
       path: '/$restaurantID/',
       getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute,
+        AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport.update(
+const AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/infra_d/$InfraID/',
       path: '/property/$propertyId/domain_hospitality/infra_d/$InfraID/',
-      getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute,
+      getParentRoute: () => AppuserConsoleRouteRoute,
     } as any,
   )
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport.update(
+const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport.update(
     {
       id: '/',
       path: '/',
       getParentRoute: () =>
-        AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
+        AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
     } as any,
   )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/dashboard': typeof AppuserDashboardRouteRouteWithChildren
-  '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-  '/org-signup': typeof OrgSignupIndexRoute
-  '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  '/dashboard/': typeof AppuserDashboardIndexRoute
-  '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren
-  '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
-  '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
-  '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
-  '/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
-  '/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
-  '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
-  '/orchestrator/inventory-acc': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren
-  '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  '/orchestrator/payments': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteWithChildren
-  '/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
-  '/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/nc/': typeof AppuserDashboardSharp_hospitalityNcIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
-  '/orchestrator/': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  '/dashboard/sharp_accounting/payments/payment_orders': typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
-  '/dashboard/sharp_accounting/purchases/history': typeof AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute
-  '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
-  '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
-  '/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
-  '/dashboard/sharp_accounting/taxations/tax_codes': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
-  '/dashboard/sharp_accounting/taxations/tax_rates': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute
-  '/dashboard/sharp_accounting/taxations/tax_registration': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
-  '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
-  '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
-  '/dashboard/sharp_accounting/expenses': typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
-  '/dashboard/sharp_accounting/journal': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
-  '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
-  '/dashboard/sharp_accounting/purchases': typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
-  '/dashboard/sharp_accounting/sales': typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
-  '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
-  '/dashboard/sharp_accounting/suppliers': typeof AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute
-  '/dashboard/sharp_hospitality/bar/bar_pos': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
-  '/dashboard/sharp_hospitality/bar/inventory': typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
-  '/dashboard/sharp_hospitality/bar/settings': typeof AppuserDashboardSharp_hospitalityBarSettingsIndexRoute
-  '/dashboard/sharp_hospitality/bar/table_management': typeof AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute
-  '/dashboard/sharp_hospitality/hotel/add-order-in-booking': typeof AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute
-  '/dashboard/sharp_hospitality/hotel/booking': typeof AppuserDashboardSharp_hospitalityHotelBookingIndexRoute
-  '/dashboard/sharp_hospitality/hotel/checkout': typeof AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute
-  '/dashboard/sharp_hospitality/hotel/guests': typeof AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/hotel-settings': typeof AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/housekeeping': typeof AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute
-  '/dashboard/sharp_hospitality/hotel/inventory': typeof AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute
-  '/dashboard/sharp_hospitality/hotel/reservations': typeof AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/room-request': typeof AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute
-  '/dashboard/sharp_hospitality/infra/kitchen': typeof AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute
-  '/dashboard/sharp_hospitality/nc/overview': typeof AppuserDashboardSharp_hospitalityNcOverviewIndexRoute
-  '/orchestrator/audit-log': typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
-  '/orchestrator/inventory-acc/': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute
-  '/orchestrator/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
-  '/orchestrator/org-users': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
-  '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
-  '/orchestrator/payments/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
-  '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
-  '/orchestrator/suppliers&Vendors': typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute
-  '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
-  '/dashboard/sharp_accounting/suppliers/$supplierID/details': typeof AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute
-  '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
-  '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
-  '/orchestrator/inventory-acc/$inventoryAccountID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute
-  '/orchestrator/legal_entity/$leID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
-  '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
-  '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/orchestrator/suppliers&Vendors/$suppliersID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/dashboard/sharp_accounting/expenses/new': typeof AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute
-  '/dashboard/sharp_accounting/sales/new': typeof AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/overview': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
-  '/orchestrator/payments/$accountId': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/orchestrator/property/$propertyId/property_settings': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/inventory-acc': typeof AppuserConsoleInventoryAccRouteRouteWithChildren
+  '/legal_entity': typeof AppuserConsoleLegal_entityRouteRouteWithChildren
+  '/payments': typeof AppuserConsolePaymentsRouteRouteWithChildren
+  '/home': typeof AppuserConsoleHomeRoute
+  '/property/routes': typeof AppuserConsolePropertyRoutesRoute
+  '/audit-log': typeof AppuserConsoleAuditLogIndexRoute
+  '/inventory-acc/': typeof AppuserConsoleInventoryAccIndexRoute
+  '/legal_entity/': typeof AppuserConsoleLegal_entityIndexRoute
+  '/org-users': typeof AppuserConsoleOrgUsersIndexRoute
+  '/organization': typeof AppuserConsoleOrganizationIndexRoute
+  '/payments/': typeof AppuserConsolePaymentsIndexRoute
+  '/property': typeof AppuserConsolePropertyIndexRoute
+  '/suppliers&Vendors': typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
+  '/inventory-acc/$inventoryAccountID/details': typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
+  '/legal_entity/$leID/details': typeof AppuserConsoleLegal_entityLeIDDetailsRoute
+  '/property/$propertyId/details': typeof AppuserConsolePropertyPropertyIdDetailsRoute
+  '/property/$propertyId/property-configuration': typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
+  '/suppliers&Vendors/$suppliersID/details': typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/payments/$accountId': typeof AppuserConsolePaymentsAccountIdIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/property/$propertyId/property_settings': typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
+  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/orchestrator': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  '/org-signup': typeof OrgSignupIndexRoute
-  '/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  '/dashboard': typeof AppuserDashboardIndexRoute
-  '/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingIndexRoute
-  '/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
-  '/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
-  '/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
-  '/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcIndexRoute
-  '/dashboard/sharp_accounting/payments/payment_orders': typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
-  '/dashboard/sharp_accounting/purchases/history': typeof AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute
-  '/dashboard/sharp_accounting/reports/balance-sheet': typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
-  '/dashboard/sharp_accounting/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
-  '/dashboard/sharp_accounting/reports/trial-balance': typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
-  '/dashboard/sharp_accounting/taxations/tax_codes': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
-  '/dashboard/sharp_accounting/taxations/tax_rates': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute
-  '/dashboard/sharp_accounting/taxations/tax_registration': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
-  '/orchestrator/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
-  '/dashboard/sharp_accounting/chart-of-account': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
-  '/dashboard/sharp_accounting/expenses': typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
-  '/dashboard/sharp_accounting/journal': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
-  '/dashboard/sharp_accounting/overview': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
-  '/dashboard/sharp_accounting/purchases': typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
-  '/dashboard/sharp_accounting/sales': typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
-  '/dashboard/sharp_accounting/settings': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
-  '/dashboard/sharp_accounting/suppliers': typeof AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute
-  '/dashboard/sharp_hospitality/bar/bar_pos': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
-  '/dashboard/sharp_hospitality/bar/inventory': typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
-  '/dashboard/sharp_hospitality/bar/settings': typeof AppuserDashboardSharp_hospitalityBarSettingsIndexRoute
-  '/dashboard/sharp_hospitality/bar/table_management': typeof AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute
-  '/dashboard/sharp_hospitality/hotel/add-order-in-booking': typeof AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute
-  '/dashboard/sharp_hospitality/hotel/booking': typeof AppuserDashboardSharp_hospitalityHotelBookingIndexRoute
-  '/dashboard/sharp_hospitality/hotel/checkout': typeof AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute
-  '/dashboard/sharp_hospitality/hotel/guests': typeof AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/hotel-settings': typeof AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/housekeeping': typeof AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute
-  '/dashboard/sharp_hospitality/hotel/inventory': typeof AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute
-  '/dashboard/sharp_hospitality/hotel/reservations': typeof AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute
-  '/dashboard/sharp_hospitality/hotel/room-request': typeof AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute
-  '/dashboard/sharp_hospitality/infra/kitchen': typeof AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute
-  '/dashboard/sharp_hospitality/nc/overview': typeof AppuserDashboardSharp_hospitalityNcOverviewIndexRoute
-  '/orchestrator/audit-log': typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
-  '/orchestrator/inventory-acc': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute
-  '/orchestrator/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
-  '/orchestrator/org-users': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
-  '/orchestrator/organization': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
-  '/orchestrator/payments': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
-  '/orchestrator/property': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
-  '/orchestrator/suppliers&Vendors': typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute
-  '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
-  '/dashboard/sharp_accounting/suppliers/$supplierID/details': typeof AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute
-  '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
-  '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
-  '/orchestrator/inventory-acc/$inventoryAccountID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute
-  '/orchestrator/legal_entity/$leID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
-  '/orchestrator/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
-  '/orchestrator/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/orchestrator/suppliers&Vendors/$suppliersID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/dashboard/sharp_accounting/expenses/new': typeof AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute
-  '/dashboard/sharp_accounting/sales/new': typeof AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/general-settings': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/inventory': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/orders': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/overview': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/reservations': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/sales-terminal': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
-  '/dashboard/sharp_hospitality/restaurant/table-management': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
-  '/orchestrator/payments/$accountId': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/orchestrator/property/$propertyId/property_settings': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/home': typeof AppuserConsoleHomeRoute
+  '/property/routes': typeof AppuserConsolePropertyRoutesRoute
+  '/audit-log': typeof AppuserConsoleAuditLogIndexRoute
+  '/inventory-acc': typeof AppuserConsoleInventoryAccIndexRoute
+  '/legal_entity': typeof AppuserConsoleLegal_entityIndexRoute
+  '/org-users': typeof AppuserConsoleOrgUsersIndexRoute
+  '/organization': typeof AppuserConsoleOrganizationIndexRoute
+  '/payments': typeof AppuserConsolePaymentsIndexRoute
+  '/property': typeof AppuserConsolePropertyIndexRoute
+  '/suppliers&Vendors': typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
+  '/inventory-acc/$inventoryAccountID/details': typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
+  '/legal_entity/$leID/details': typeof AppuserConsoleLegal_entityLeIDDetailsRoute
+  '/property/$propertyId/details': typeof AppuserConsolePropertyPropertyIdDetailsRoute
+  '/property/$propertyId/property-configuration': typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
+  '/suppliers&Vendors/$suppliersID/details': typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/payments/$accountId': typeof AppuserConsolePaymentsAccountIdIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/property/$propertyId/property_settings': typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
+  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_appuser': typeof AppuserRouteRouteWithChildren
-  '/_appuser/dashboard': typeof AppuserDashboardRouteRouteWithChildren
-  '/_appuser/orchestrator': typeof AppuserOrchestratorRouteRouteWithChildren
-  '/org-signup/': typeof OrgSignupIndexRoute
-  '/_appuser/dashboard/sharp_hospitality': typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout': typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
-  '/_appuser/dashboard/': typeof AppuserDashboardIndexRoute
-  '/_appuser/dashboard/sharp_accounting': typeof AppuserDashboardSharp_accountingRouteWithChildren
-  '/_appuser/dashboard/sharp_accounting/_layout': typeof AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_hospitality/bar': typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_hospitality/hotel': typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_hospitality/infra': typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_hospitality/nc': typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/_console': typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_accounting/': typeof AppuserDashboardSharp_accountingIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant': typeof AppuserDashboardSharp_hospitalityRestaurantRouteWithChildren
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/_console/payments': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteWithChildren
-  '/_appuser/dashboard/sharp_hospitality/bar/': typeof AppuserDashboardSharp_hospitalityBarIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/': typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/nc/': typeof AppuserDashboardSharp_hospitalityNcIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/': typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/': typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders': typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/purchases/history': typeof AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet': typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss': typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance': typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_rates': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration': typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/expenses/': typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/journal/': typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/overview/': typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/purchases/': typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/sales/': typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/settings/': typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/suppliers/': typeof AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/': typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/bar/inventory/': typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/bar/settings/': typeof AppuserDashboardSharp_hospitalityBarSettingsIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/bar/table_management/': typeof AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/add-order-in-booking/': typeof AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/booking/': typeof AppuserDashboardSharp_hospitalityHotelBookingIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/checkout/': typeof AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/guests/': typeof AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/hotel-settings/': typeof AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/housekeeping/': typeof AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/inventory/': typeof AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/reservations/': typeof AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/room-request/': typeof AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/infra/kitchen/': typeof AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/nc/overview/': typeof AppuserDashboardSharp_hospitalityNcOverviewIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/': typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/payments/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/': typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger': typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details': typeof AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute
-  '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
-  '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/$suppliersID/details': typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/expenses/new/': typeof AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute
-  '/_appuser/dashboard/sharp_accounting/_layout/sales/new/': typeof AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/overview/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
-  '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/': typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/': typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/_appuser/_console': typeof AppuserConsoleRouteRouteWithChildren
+  '/_appuser/_console/inventory-acc': typeof AppuserConsoleInventoryAccRouteRouteWithChildren
+  '/_appuser/_console/legal_entity': typeof AppuserConsoleLegal_entityRouteRouteWithChildren
+  '/_appuser/_console/payments': typeof AppuserConsolePaymentsRouteRouteWithChildren
+  '/_appuser/_console/home': typeof AppuserConsoleHomeRoute
+  '/_appuser/_console/property/routes': typeof AppuserConsolePropertyRoutesRoute
+  '/_appuser/_console/audit-log/': typeof AppuserConsoleAuditLogIndexRoute
+  '/_appuser/_console/inventory-acc/': typeof AppuserConsoleInventoryAccIndexRoute
+  '/_appuser/_console/legal_entity/': typeof AppuserConsoleLegal_entityIndexRoute
+  '/_appuser/_console/org-users/': typeof AppuserConsoleOrgUsersIndexRoute
+  '/_appuser/_console/organization/': typeof AppuserConsoleOrganizationIndexRoute
+  '/_appuser/_console/payments/': typeof AppuserConsolePaymentsIndexRoute
+  '/_appuser/_console/property/': typeof AppuserConsolePropertyIndexRoute
+  '/_appuser/_console/suppliers&Vendors/': typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
+  '/_appuser/_console/inventory-acc/$inventoryAccountID/details': typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
+  '/_appuser/_console/legal_entity/$leID/details': typeof AppuserConsoleLegal_entityLeIDDetailsRoute
+  '/_appuser/_console/property/$propertyId/details': typeof AppuserConsolePropertyPropertyIdDetailsRoute
+  '/_appuser/_console/property/$propertyId/property-configuration': typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
+  '/_appuser/_console/suppliers&Vendors/$suppliersID/details': typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/_appuser/_console/payments/$accountId/': typeof AppuserConsolePaymentsAccountIdIndexRoute
+  '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/_appuser/_console/property/$propertyId/property_settings/': typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
+  '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/dashboard'
-    | '/orchestrator'
-    | '/org-signup'
-    | '/dashboard/sharp_hospitality'
-    | '/dashboard/'
-    | '/dashboard/sharp_accounting'
-    | '/dashboard/sharp_hospitality/bar'
-    | '/dashboard/sharp_hospitality/hotel'
-    | '/dashboard/sharp_hospitality/infra'
-    | '/dashboard/sharp_hospitality/nc'
-    | '/dashboard/sharp_accounting/'
-    | '/dashboard/sharp_hospitality/restaurant'
-    | '/orchestrator/inventory-acc'
-    | '/orchestrator/legal_entity'
-    | '/orchestrator/payments'
-    | '/dashboard/sharp_hospitality/bar/'
-    | '/dashboard/sharp_hospitality/hotel/'
-    | '/dashboard/sharp_hospitality/nc/'
-    | '/dashboard/sharp_hospitality/restaurant/'
-    | '/orchestrator/'
-    | '/dashboard/sharp_accounting/payments/payment_orders'
-    | '/dashboard/sharp_accounting/purchases/history'
-    | '/dashboard/sharp_accounting/reports/balance-sheet'
-    | '/dashboard/sharp_accounting/reports/profit-loss'
-    | '/dashboard/sharp_accounting/reports/trial-balance'
-    | '/dashboard/sharp_accounting/taxations/tax_codes'
-    | '/dashboard/sharp_accounting/taxations/tax_rates'
-    | '/dashboard/sharp_accounting/taxations/tax_registration'
-    | '/orchestrator/property/routes'
-    | '/dashboard/sharp_accounting/chart-of-account'
-    | '/dashboard/sharp_accounting/expenses'
-    | '/dashboard/sharp_accounting/journal'
-    | '/dashboard/sharp_accounting/overview'
-    | '/dashboard/sharp_accounting/purchases'
-    | '/dashboard/sharp_accounting/sales'
-    | '/dashboard/sharp_accounting/settings'
-    | '/dashboard/sharp_accounting/suppliers'
-    | '/dashboard/sharp_hospitality/bar/bar_pos'
-    | '/dashboard/sharp_hospitality/bar/inventory'
-    | '/dashboard/sharp_hospitality/bar/settings'
-    | '/dashboard/sharp_hospitality/bar/table_management'
-    | '/dashboard/sharp_hospitality/hotel/add-order-in-booking'
-    | '/dashboard/sharp_hospitality/hotel/booking'
-    | '/dashboard/sharp_hospitality/hotel/checkout'
-    | '/dashboard/sharp_hospitality/hotel/guests'
-    | '/dashboard/sharp_hospitality/hotel/hotel-settings'
-    | '/dashboard/sharp_hospitality/hotel/housekeeping'
-    | '/dashboard/sharp_hospitality/hotel/inventory'
-    | '/dashboard/sharp_hospitality/hotel/reservations'
-    | '/dashboard/sharp_hospitality/hotel/room-request'
-    | '/dashboard/sharp_hospitality/infra/kitchen'
-    | '/dashboard/sharp_hospitality/nc/overview'
-    | '/orchestrator/audit-log'
-    | '/orchestrator/inventory-acc/'
-    | '/orchestrator/legal_entity/'
-    | '/orchestrator/org-users'
-    | '/orchestrator/organization'
-    | '/orchestrator/payments/'
-    | '/orchestrator/property'
-    | '/orchestrator/suppliers&Vendors'
-    | '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger'
-    | '/dashboard/sharp_accounting/suppliers/$supplierID/details'
-    | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-    | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
-    | '/orchestrator/inventory-acc/$inventoryAccountID/details'
-    | '/orchestrator/legal_entity/$leID/details'
-    | '/orchestrator/property/$propertyId/details'
-    | '/orchestrator/property/$propertyId/property-configuration'
-    | '/orchestrator/suppliers&Vendors/$suppliersID/details'
-    | '/dashboard/sharp_accounting/expenses/new'
-    | '/dashboard/sharp_accounting/sales/new'
-    | '/dashboard/sharp_hospitality/restaurant/general-settings'
-    | '/dashboard/sharp_hospitality/restaurant/inventory'
-    | '/dashboard/sharp_hospitality/restaurant/orders'
-    | '/dashboard/sharp_hospitality/restaurant/overview'
-    | '/dashboard/sharp_hospitality/restaurant/reservations'
-    | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
-    | '/dashboard/sharp_hospitality/restaurant/table-management'
-    | '/orchestrator/payments/$accountId'
-    | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard'
-    | '/orchestrator/property/$propertyId/property_settings'
-    | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-    | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
-    | '/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-    | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
+    | '/inventory-acc'
+    | '/legal_entity'
+    | '/payments'
+    | '/home'
+    | '/property/routes'
+    | '/audit-log'
+    | '/inventory-acc/'
+    | '/legal_entity/'
+    | '/org-users'
+    | '/organization'
+    | '/payments/'
+    | '/property'
+    | '/suppliers&Vendors'
+    | '/inventory-acc/$inventoryAccountID/details'
+    | '/legal_entity/$leID/details'
+    | '/property/$propertyId/details'
+    | '/property/$propertyId/property-configuration'
+    | '/suppliers&Vendors/$suppliersID/details'
+    | '/payments/$accountId'
+    | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/property/$propertyId/property_settings'
+    | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    | '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
+    | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/orchestrator'
-    | '/org-signup'
-    | '/dashboard/sharp_hospitality'
-    | '/dashboard'
-    | '/dashboard/sharp_accounting'
-    | '/dashboard/sharp_hospitality/infra'
-    | '/dashboard/sharp_hospitality/restaurant'
-    | '/dashboard/sharp_hospitality/bar'
-    | '/dashboard/sharp_hospitality/hotel'
-    | '/dashboard/sharp_hospitality/nc'
-    | '/dashboard/sharp_accounting/payments/payment_orders'
-    | '/dashboard/sharp_accounting/purchases/history'
-    | '/dashboard/sharp_accounting/reports/balance-sheet'
-    | '/dashboard/sharp_accounting/reports/profit-loss'
-    | '/dashboard/sharp_accounting/reports/trial-balance'
-    | '/dashboard/sharp_accounting/taxations/tax_codes'
-    | '/dashboard/sharp_accounting/taxations/tax_rates'
-    | '/dashboard/sharp_accounting/taxations/tax_registration'
-    | '/orchestrator/property/routes'
-    | '/dashboard/sharp_accounting/chart-of-account'
-    | '/dashboard/sharp_accounting/expenses'
-    | '/dashboard/sharp_accounting/journal'
-    | '/dashboard/sharp_accounting/overview'
-    | '/dashboard/sharp_accounting/purchases'
-    | '/dashboard/sharp_accounting/sales'
-    | '/dashboard/sharp_accounting/settings'
-    | '/dashboard/sharp_accounting/suppliers'
-    | '/dashboard/sharp_hospitality/bar/bar_pos'
-    | '/dashboard/sharp_hospitality/bar/inventory'
-    | '/dashboard/sharp_hospitality/bar/settings'
-    | '/dashboard/sharp_hospitality/bar/table_management'
-    | '/dashboard/sharp_hospitality/hotel/add-order-in-booking'
-    | '/dashboard/sharp_hospitality/hotel/booking'
-    | '/dashboard/sharp_hospitality/hotel/checkout'
-    | '/dashboard/sharp_hospitality/hotel/guests'
-    | '/dashboard/sharp_hospitality/hotel/hotel-settings'
-    | '/dashboard/sharp_hospitality/hotel/housekeeping'
-    | '/dashboard/sharp_hospitality/hotel/inventory'
-    | '/dashboard/sharp_hospitality/hotel/reservations'
-    | '/dashboard/sharp_hospitality/hotel/room-request'
-    | '/dashboard/sharp_hospitality/infra/kitchen'
-    | '/dashboard/sharp_hospitality/nc/overview'
-    | '/orchestrator/audit-log'
-    | '/orchestrator/inventory-acc'
-    | '/orchestrator/legal_entity'
-    | '/orchestrator/org-users'
-    | '/orchestrator/organization'
-    | '/orchestrator/payments'
-    | '/orchestrator/property'
-    | '/orchestrator/suppliers&Vendors'
-    | '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger'
-    | '/dashboard/sharp_accounting/suppliers/$supplierID/details'
-    | '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-    | '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
-    | '/orchestrator/inventory-acc/$inventoryAccountID/details'
-    | '/orchestrator/legal_entity/$leID/details'
-    | '/orchestrator/property/$propertyId/details'
-    | '/orchestrator/property/$propertyId/property-configuration'
-    | '/orchestrator/suppliers&Vendors/$suppliersID/details'
-    | '/dashboard/sharp_accounting/expenses/new'
-    | '/dashboard/sharp_accounting/sales/new'
-    | '/dashboard/sharp_hospitality/restaurant/general-settings'
-    | '/dashboard/sharp_hospitality/restaurant/inventory'
-    | '/dashboard/sharp_hospitality/restaurant/orders'
-    | '/dashboard/sharp_hospitality/restaurant/overview'
-    | '/dashboard/sharp_hospitality/restaurant/reservations'
-    | '/dashboard/sharp_hospitality/restaurant/sales-terminal'
-    | '/dashboard/sharp_hospitality/restaurant/table-management'
-    | '/orchestrator/payments/$accountId'
-    | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard'
-    | '/orchestrator/property/$propertyId/property_settings'
-    | '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-    | '/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-    | '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
+    | '/home'
+    | '/property/routes'
+    | '/audit-log'
+    | '/inventory-acc'
+    | '/legal_entity'
+    | '/org-users'
+    | '/organization'
+    | '/payments'
+    | '/property'
+    | '/suppliers&Vendors'
+    | '/inventory-acc/$inventoryAccountID/details'
+    | '/legal_entity/$leID/details'
+    | '/property/$propertyId/details'
+    | '/property/$propertyId/property-configuration'
+    | '/suppliers&Vendors/$suppliersID/details'
+    | '/payments/$accountId'
+    | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/property/$propertyId/property_settings'
+    | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
+    | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
   id:
     | '__root__'
     | '/'
     | '/_appuser'
-    | '/_appuser/dashboard'
-    | '/_appuser/orchestrator'
-    | '/org-signup/'
-    | '/_appuser/dashboard/sharp_hospitality'
-    | '/_appuser/orchestrator/_orchestrator_layout'
-    | '/_appuser/dashboard/'
-    | '/_appuser/dashboard/sharp_accounting'
-    | '/_appuser/dashboard/sharp_accounting/_layout'
-    | '/_appuser/dashboard/sharp_hospitality/bar'
-    | '/_appuser/dashboard/sharp_hospitality/hotel'
-    | '/_appuser/dashboard/sharp_hospitality/infra'
-    | '/_appuser/dashboard/sharp_hospitality/nc'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console'
-    | '/_appuser/dashboard/sharp_accounting/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/payments'
-    | '/_appuser/dashboard/sharp_hospitality/bar/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/'
-    | '/_appuser/dashboard/sharp_hospitality/nc/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders'
-    | '/_appuser/dashboard/sharp_accounting/_layout/purchases/history'
-    | '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet'
-    | '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
-    | '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance'
-    | '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes'
-    | '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_rates'
-    | '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
-    | '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/expenses/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/journal/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/overview/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/purchases/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/sales/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/settings/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/suppliers/'
-    | '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/'
-    | '/_appuser/dashboard/sharp_hospitality/bar/inventory/'
-    | '/_appuser/dashboard/sharp_hospitality/bar/settings/'
-    | '/_appuser/dashboard/sharp_hospitality/bar/table_management/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/add-order-in-booking/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/booking/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/checkout/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/guests/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/hotel-settings/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/housekeeping/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/inventory/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/reservations/'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/room-request/'
-    | '/_appuser/dashboard/sharp_hospitality/infra/kitchen/'
-    | '/_appuser/dashboard/sharp_hospitality/nc/overview/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/payments/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger'
-    | '/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details'
-    | '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-    | '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/$suppliersID/details'
-    | '/_appuser/dashboard/sharp_accounting/_layout/expenses/new/'
-    | '/_appuser/dashboard/sharp_accounting/_layout/sales/new/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/overview/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/'
-    | '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
-    | '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+    | '/_appuser/_console'
+    | '/_appuser/_console/inventory-acc'
+    | '/_appuser/_console/legal_entity'
+    | '/_appuser/_console/payments'
+    | '/_appuser/_console/home'
+    | '/_appuser/_console/property/routes'
+    | '/_appuser/_console/audit-log/'
+    | '/_appuser/_console/inventory-acc/'
+    | '/_appuser/_console/legal_entity/'
+    | '/_appuser/_console/org-users/'
+    | '/_appuser/_console/organization/'
+    | '/_appuser/_console/payments/'
+    | '/_appuser/_console/property/'
+    | '/_appuser/_console/suppliers&Vendors/'
+    | '/_appuser/_console/inventory-acc/$inventoryAccountID/details'
+    | '/_appuser/_console/legal_entity/$leID/details'
+    | '/_appuser/_console/property/$propertyId/details'
+    | '/_appuser/_console/property/$propertyId/property-configuration'
+    | '/_appuser/_console/suppliers&Vendors/$suppliersID/details'
+    | '/_appuser/_console/payments/$accountId/'
+    | '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/_appuser/_console/property/$propertyId/property_settings/'
+    | '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    | '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    | '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
-  OrgSignupIndexRoute: typeof OrgSignupIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1285,1112 +402,332 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/org-signup/': {
-      id: '/org-signup/'
-      path: '/org-signup'
-      fullPath: '/org-signup'
-      preLoaderRoute: typeof OrgSignupIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_appuser/orchestrator': {
-      id: '/_appuser/orchestrator'
-      path: '/orchestrator'
-      fullPath: '/orchestrator'
-      preLoaderRoute: typeof AppuserOrchestratorRouteRouteImport
+    '/_appuser/_console': {
+      id: '/_appuser/_console'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppuserConsoleRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/dashboard': {
-      id: '/_appuser/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AppuserDashboardRouteRouteImport
-      parentRoute: typeof AppuserRouteRoute
+    '/_appuser/_console/home': {
+      id: '/_appuser/_console/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof AppuserConsoleHomeRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/dashboard/sharp_accounting': {
-      id: '/_appuser/dashboard/sharp_accounting'
-      path: '/sharp_accounting'
-      fullPath: '/dashboard/sharp_accounting'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/': {
-      id: '/_appuser/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof AppuserDashboardIndexRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout': {
-      id: '/_appuser/orchestrator/_orchestrator_layout'
-      path: ''
-      fullPath: '/orchestrator'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality': {
-      id: '/_appuser/dashboard/sharp_hospitality'
-      path: '/sharp_hospitality'
-      fullPath: '/dashboard/sharp_hospitality'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRouteRouteImport
-      parentRoute: typeof AppuserDashboardRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant'
-      path: '/restaurant'
-      fullPath: '/dashboard/sharp_hospitality/restaurant'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/': {
-      id: '/_appuser/dashboard/sharp_accounting/'
-      path: '/'
-      fullPath: '/dashboard/sharp_accounting/'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console'
-      path: ''
-      fullPath: '/orchestrator'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/nc': {
-      id: '/_appuser/dashboard/sharp_hospitality/nc'
-      path: '/nc'
-      fullPath: '/dashboard/sharp_hospitality/nc'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityNcRouteRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/infra': {
-      id: '/_appuser/dashboard/sharp_hospitality/infra'
-      path: '/infra'
-      fullPath: '/dashboard/sharp_hospitality/infra'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityInfraRouteRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel'
-      path: '/hotel'
-      fullPath: '/dashboard/sharp_hospitality/hotel'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/bar': {
-      id: '/_appuser/dashboard/sharp_hospitality/bar'
-      path: '/bar'
-      fullPath: '/dashboard/sharp_hospitality/bar'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout'
-      path: '/sharp_accounting'
-      fullPath: '/dashboard/sharp_accounting'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/'
-      path: '/'
-      fullPath: '/orchestrator/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/'
-      path: '/'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/nc/': {
-      id: '/_appuser/dashboard/sharp_hospitality/nc/'
-      path: '/'
-      fullPath: '/dashboard/sharp_hospitality/nc/'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityNcIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityNcRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/'
-      path: '/'
-      fullPath: '/dashboard/sharp_hospitality/hotel/'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/bar/': {
-      id: '/_appuser/dashboard/sharp_hospitality/bar/'
-      path: '/'
-      fullPath: '/dashboard/sharp_hospitality/bar/'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/payments': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/payments'
+    '/_appuser/_console/payments': {
+      id: '/_appuser/_console/payments'
       path: '/payments'
-      fullPath: '/orchestrator/payments'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/payments'
+      preLoaderRoute: typeof AppuserConsolePaymentsRouteRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity'
+    '/_appuser/_console/legal_entity': {
+      id: '/_appuser/_console/legal_entity'
       path: '/legal_entity'
-      fullPath: '/orchestrator/legal_entity'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/legal_entity'
+      preLoaderRoute: typeof AppuserConsoleLegal_entityRouteRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc'
+    '/_appuser/_console/inventory-acc': {
+      id: '/_appuser/_console/inventory-acc'
       path: '/inventory-acc'
-      fullPath: '/orchestrator/inventory-acc'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/inventory-acc'
+      preLoaderRoute: typeof AppuserConsoleInventoryAccRouteRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout'
-      path: '/restaurant'
-      fullPath: '/dashboard/sharp_hospitality/restaurant'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/'
+    '/_appuser/_console/suppliers&Vendors/': {
+      id: '/_appuser/_console/suppliers&Vendors/'
       path: '/suppliers&Vendors'
-      fullPath: '/orchestrator/suppliers&Vendors'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/suppliers&Vendors'
+      preLoaderRoute: typeof AppuserConsoleSuppliersChar38VendorsIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/'
+    '/_appuser/_console/property/': {
+      id: '/_appuser/_console/property/'
       path: '/property'
-      fullPath: '/orchestrator/property'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property'
+      preLoaderRoute: typeof AppuserConsolePropertyIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/payments/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/payments/'
+    '/_appuser/_console/payments/': {
+      id: '/_appuser/_console/payments/'
       path: '/'
-      fullPath: '/orchestrator/payments/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute
+      fullPath: '/payments/'
+      preLoaderRoute: typeof AppuserConsolePaymentsIndexRouteImport
+      parentRoute: typeof AppuserConsolePaymentsRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/organization/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/organization/'
+    '/_appuser/_console/organization/': {
+      id: '/_appuser/_console/organization/'
       path: '/organization'
-      fullPath: '/orchestrator/organization'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/organization'
+      preLoaderRoute: typeof AppuserConsoleOrganizationIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/org-users/'
+    '/_appuser/_console/org-users/': {
+      id: '/_appuser/_console/org-users/'
       path: '/org-users'
-      fullPath: '/orchestrator/org-users'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/org-users'
+      preLoaderRoute: typeof AppuserConsoleOrgUsersIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/'
+    '/_appuser/_console/legal_entity/': {
+      id: '/_appuser/_console/legal_entity/'
       path: '/'
-      fullPath: '/orchestrator/legal_entity/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute
+      fullPath: '/legal_entity/'
+      preLoaderRoute: typeof AppuserConsoleLegal_entityIndexRouteImport
+      parentRoute: typeof AppuserConsoleLegal_entityRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/'
+    '/_appuser/_console/inventory-acc/': {
+      id: '/_appuser/_console/inventory-acc/'
       path: '/'
-      fullPath: '/orchestrator/inventory-acc/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute
+      fullPath: '/inventory-acc/'
+      preLoaderRoute: typeof AppuserConsoleInventoryAccIndexRouteImport
+      parentRoute: typeof AppuserConsoleInventoryAccRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/'
+    '/_appuser/_console/audit-log/': {
+      id: '/_appuser/_console/audit-log/'
       path: '/audit-log'
-      fullPath: '/orchestrator/audit-log'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/audit-log'
+      preLoaderRoute: typeof AppuserConsoleAuditLogIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/dashboard/sharp_hospitality/nc/overview/': {
-      id: '/_appuser/dashboard/sharp_hospitality/nc/overview/'
-      path: '/overview'
-      fullPath: '/dashboard/sharp_hospitality/nc/overview'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityNcOverviewIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityNcRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/infra/kitchen/': {
-      id: '/_appuser/dashboard/sharp_hospitality/infra/kitchen/'
-      path: '/kitchen'
-      fullPath: '/dashboard/sharp_hospitality/infra/kitchen'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityInfraRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/room-request/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/room-request/'
-      path: '/room-request'
-      fullPath: '/dashboard/sharp_hospitality/hotel/room-request'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/reservations/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/reservations/'
-      path: '/reservations'
-      fullPath: '/dashboard/sharp_hospitality/hotel/reservations'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelReservationsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/inventory/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/inventory/'
-      path: '/inventory'
-      fullPath: '/dashboard/sharp_hospitality/hotel/inventory'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelInventoryIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/housekeeping/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/housekeeping/'
-      path: '/housekeeping'
-      fullPath: '/dashboard/sharp_hospitality/hotel/housekeeping'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/hotel-settings/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/hotel-settings/'
-      path: '/hotel-settings'
-      fullPath: '/dashboard/sharp_hospitality/hotel/hotel-settings'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/guests/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/guests/'
-      path: '/guests'
-      fullPath: '/dashboard/sharp_hospitality/hotel/guests'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelGuestsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/checkout/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/checkout/'
-      path: '/checkout'
-      fullPath: '/dashboard/sharp_hospitality/hotel/checkout'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelCheckoutIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/booking/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/booking/'
-      path: '/booking'
-      fullPath: '/dashboard/sharp_hospitality/hotel/booking'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelBookingIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/add-order-in-booking/': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/add-order-in-booking/'
-      path: '/add-order-in-booking'
-      fullPath: '/dashboard/sharp_hospitality/hotel/add-order-in-booking'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/bar/table_management/': {
-      id: '/_appuser/dashboard/sharp_hospitality/bar/table_management/'
-      path: '/table_management'
-      fullPath: '/dashboard/sharp_hospitality/bar/table_management'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarTable_managementIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/bar/settings/': {
-      id: '/_appuser/dashboard/sharp_hospitality/bar/settings/'
-      path: '/settings'
-      fullPath: '/dashboard/sharp_hospitality/bar/settings'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarSettingsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/bar/inventory/': {
-      id: '/_appuser/dashboard/sharp_hospitality/bar/inventory/'
-      path: '/inventory'
-      fullPath: '/dashboard/sharp_hospitality/bar/inventory'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/': {
-      id: '/_appuser/dashboard/sharp_hospitality/bar/bar_pos/'
-      path: '/bar_pos'
-      fullPath: '/dashboard/sharp_hospitality/bar/bar_pos'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/suppliers/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/suppliers/'
-      path: '/suppliers'
-      fullPath: '/dashboard/sharp_accounting/suppliers'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutSuppliersIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/settings/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/settings/'
-      path: '/settings'
-      fullPath: '/dashboard/sharp_accounting/settings'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/sales/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/sales/'
-      path: '/sales'
-      fullPath: '/dashboard/sharp_accounting/sales'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutSalesIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/purchases/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/purchases/'
-      path: '/purchases'
-      fullPath: '/dashboard/sharp_accounting/purchases'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/overview/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/overview/'
-      path: '/overview'
-      fullPath: '/dashboard/sharp_accounting/overview'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/journal/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/journal/'
-      path: '/journal'
-      fullPath: '/dashboard/sharp_accounting/journal'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutJournalIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/expenses/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/expenses/'
-      path: '/expenses'
-      fullPath: '/dashboard/sharp_accounting/expenses'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/'
-      path: '/chart-of-account'
-      fullPath: '/dashboard/sharp_accounting/chart-of-account'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/routes'
+    '/_appuser/_console/property/routes': {
+      id: '/_appuser/_console/property/routes'
       path: '/property/routes'
-      fullPath: '/orchestrator/property/routes'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/routes'
+      preLoaderRoute: typeof AppuserConsolePropertyRoutesRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_registration'
-      path: '/taxations/tax_registration'
-      fullPath: '/dashboard/sharp_accounting/taxations/tax_registration'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_rates': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_rates'
-      path: '/taxations/tax_rates'
-      fullPath: '/dashboard/sharp_accounting/taxations/tax_rates'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/taxations/tax_codes'
-      path: '/taxations/tax_codes'
-      fullPath: '/dashboard/sharp_accounting/taxations/tax_codes'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/reports/trial-balance'
-      path: '/reports/trial-balance'
-      fullPath: '/dashboard/sharp_accounting/reports/trial-balance'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/reports/profit-loss'
-      path: '/reports/profit-loss'
-      fullPath: '/dashboard/sharp_accounting/reports/profit-loss'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/reports/balance-sheet'
-      path: '/reports/balance-sheet'
-      fullPath: '/dashboard/sharp_accounting/reports/balance-sheet'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/purchases/history': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/purchases/history'
-      path: '/purchases/history'
-      fullPath: '/dashboard/sharp_accounting/purchases/history'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesHistoryRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/payments/payment_orders'
-      path: '/payments/payment_orders'
-      fullPath: '/dashboard/sharp_accounting/payments/payment_orders'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/'
+    '/_appuser/_console/payments/$accountId/': {
+      id: '/_appuser/_console/payments/$accountId/'
       path: '/$accountId'
-      fullPath: '/orchestrator/payments/$accountId'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute
+      fullPath: '/payments/$accountId'
+      preLoaderRoute: typeof AppuserConsolePaymentsAccountIdIndexRouteImport
+      parentRoute: typeof AppuserConsolePaymentsRouteRoute
     }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/table-management/'
-      path: '/table-management'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/table-management'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/sales-terminal/'
-      path: '/sales-terminal'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/sales-terminal'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/reservations/'
-      path: '/reservations'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/reservations'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/overview/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/overview/'
-      path: '/overview'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/overview'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/orders/'
-      path: '/orders'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/orders'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/inventory/'
-      path: '/inventory'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/inventory'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/': {
-      id: '/_appuser/dashboard/sharp_hospitality/restaurant/_layout/general-settings/'
-      path: '/general-settings'
-      fullPath: '/dashboard/sharp_hospitality/restaurant/general-settings'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/sales/new/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/sales/new/'
-      path: '/sales/new'
-      fullPath: '/dashboard/sharp_accounting/sales/new'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutSalesNewIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/expenses/new/': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/expenses/new/'
-      path: '/expenses/new'
-      fullPath: '/dashboard/sharp_accounting/expenses/new'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutExpensesNewIndexRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/$suppliersID/details': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/$suppliersID/details'
+    '/_appuser/_console/suppliers&Vendors/$suppliersID/details': {
+      id: '/_appuser/_console/suppliers&Vendors/$suppliersID/details'
       path: '/suppliers&Vendors/$suppliersID/details'
-      fullPath: '/orchestrator/suppliers&Vendors/$suppliersID/details'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/suppliers&Vendors/$suppliersID/details'
+      preLoaderRoute: typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration'
+    '/_appuser/_console/property/$propertyId/property-configuration': {
+      id: '/_appuser/_console/property/$propertyId/property-configuration'
       path: '/property/$propertyId/property-configuration'
-      fullPath: '/orchestrator/property/$propertyId/property-configuration'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/$propertyId/property-configuration'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/details'
+    '/_appuser/_console/property/$propertyId/details': {
+      id: '/_appuser/_console/property/$propertyId/details'
       path: '/property/$propertyId/details'
-      fullPath: '/orchestrator/property/$propertyId/details'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/$propertyId/details'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDetailsRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/legal_entity/$leID/details'
+    '/_appuser/_console/legal_entity/$leID/details': {
+      id: '/_appuser/_console/legal_entity/$leID/details'
       path: '/$leID/details'
-      fullPath: '/orchestrator/legal_entity/$leID/details'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute
+      fullPath: '/legal_entity/$leID/details'
+      preLoaderRoute: typeof AppuserConsoleLegal_entityLeIDDetailsRouteImport
+      parentRoute: typeof AppuserConsoleLegal_entityRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/inventory-acc/$inventoryAccountID/details'
+    '/_appuser/_console/inventory-acc/$inventoryAccountID/details': {
+      id: '/_appuser/_console/inventory-acc/$inventoryAccountID/details'
       path: '/$inventoryAccountID/details'
-      fullPath: '/orchestrator/inventory-acc/$inventoryAccountID/details'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute
+      fullPath: '/inventory-acc/$inventoryAccountID/details'
+      preLoaderRoute: typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRouteImport
+      parentRoute: typeof AppuserConsoleInventoryAccRouteRoute
     }
-    '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service': {
-      id: '/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
-      path: '/kitchen/$service_point/service'
-      fullPath: '/dashboard/sharp_hospitality/infra/kitchen/$service_point/service'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityInfraRouteRoute
-    }
-    '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId': {
-      id: '/_appuser/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-      path: '/booking/create-booking/$roomId'
-      fullPath: '/dashboard/sharp_hospitality/hotel/booking/create-booking/$roomId'
-      preLoaderRoute: typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRouteImport
-      parentRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details'
-      path: '/suppliers/$supplierID/details'
-      fullPath: '/dashboard/sharp_accounting/suppliers/$supplierID/details'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger': {
-      id: '/_appuser/dashboard/sharp_accounting/_layout/chart-of-account/$accountID/ledger'
-      path: '/chart-of-account/$accountID/ledger'
-      fullPath: '/dashboard/sharp_accounting/chart-of-account/$accountID/ledger'
-      preLoaderRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRouteImport
-      parentRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRoute
-    }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property_settings/'
+    '/_appuser/_console/property/$propertyId/property_settings/': {
+      id: '/_appuser/_console/property/$propertyId/property_settings/'
       path: '/property/$propertyId/property_settings'
-      fullPath: '/orchestrator/property/$propertyId/property_settings'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/$propertyId/property_settings'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': {
+      id: '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
       path: '/property/$propertyId/domain_hospitality/restaurant_dashboard'
-      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/$propertyId/domain_hospitality/restaurant_dashboard'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
+      id: '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+    '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
+      id: '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
       path: '/$restaurantID'
-      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute
+      fullPath: '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport
+      parentRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/': {
+      id: '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
       path: '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute
+      fullPath: '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport
+      parentRoute: typeof AppuserConsoleRouteRoute
     }
-    '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': {
-      id: '/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': {
+      id: '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
       path: '/'
-      fullPath: '/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
-      preLoaderRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
-      parentRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
+      fullPath: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
+      parentRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
     }
   }
 }
 
-interface AppuserDashboardSharp_hospitalityBarRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityBarIndexRoute: typeof AppuserDashboardSharp_hospitalityBarIndexRoute
-  AppuserDashboardSharp_hospitalityBarBar_posIndexRoute: typeof AppuserDashboardSharp_hospitalityBarBar_posIndexRoute
-  AppuserDashboardSharp_hospitalityBarInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityBarInventoryIndexRoute
-  AppuserDashboardSharp_hospitalityBarSettingsIndexRoute: typeof AppuserDashboardSharp_hospitalityBarSettingsIndexRoute
-  AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute: typeof AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute
+interface AppuserConsoleInventoryAccRouteRouteChildren {
+  AppuserConsoleInventoryAccIndexRoute: typeof AppuserConsoleInventoryAccIndexRoute
+  AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute: typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
 }
 
-const AppuserDashboardSharp_hospitalityBarRouteRouteChildren: AppuserDashboardSharp_hospitalityBarRouteRouteChildren =
+const AppuserConsoleInventoryAccRouteRouteChildren: AppuserConsoleInventoryAccRouteRouteChildren =
   {
-    AppuserDashboardSharp_hospitalityBarIndexRoute:
-      AppuserDashboardSharp_hospitalityBarIndexRoute,
-    AppuserDashboardSharp_hospitalityBarBar_posIndexRoute:
-      AppuserDashboardSharp_hospitalityBarBar_posIndexRoute,
-    AppuserDashboardSharp_hospitalityBarInventoryIndexRoute:
-      AppuserDashboardSharp_hospitalityBarInventoryIndexRoute,
-    AppuserDashboardSharp_hospitalityBarSettingsIndexRoute:
-      AppuserDashboardSharp_hospitalityBarSettingsIndexRoute,
-    AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute:
-      AppuserDashboardSharp_hospitalityBarTable_managementIndexRoute,
+    AppuserConsoleInventoryAccIndexRoute: AppuserConsoleInventoryAccIndexRoute,
+    AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute:
+      AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute,
   }
 
-const AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren =
-  AppuserDashboardSharp_hospitalityBarRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityBarRouteRouteChildren,
+const AppuserConsoleInventoryAccRouteRouteWithChildren =
+  AppuserConsoleInventoryAccRouteRoute._addFileChildren(
+    AppuserConsoleInventoryAccRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hospitalityHotelRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityHotelIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelIndexRoute
-  AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute
-  AppuserDashboardSharp_hospitalityHotelBookingIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelBookingIndexRoute
-  AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute
-  AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute
-  AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute
-  AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute
-  AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute
-  AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute
-  AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute: typeof AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute
-  AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute: typeof AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute
+interface AppuserConsoleLegal_entityRouteRouteChildren {
+  AppuserConsoleLegal_entityIndexRoute: typeof AppuserConsoleLegal_entityIndexRoute
+  AppuserConsoleLegal_entityLeIDDetailsRoute: typeof AppuserConsoleLegal_entityLeIDDetailsRoute
 }
 
-const AppuserDashboardSharp_hospitalityHotelRouteRouteChildren: AppuserDashboardSharp_hospitalityHotelRouteRouteChildren =
+const AppuserConsoleLegal_entityRouteRouteChildren: AppuserConsoleLegal_entityRouteRouteChildren =
   {
-    AppuserDashboardSharp_hospitalityHotelIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelAddOrderInBookingIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelBookingIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelBookingIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelCheckoutIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelGuestsIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelHotelSettingsIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelHousekeepingIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelInventoryIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelReservationsIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute:
-      AppuserDashboardSharp_hospitalityHotelRoomRequestIndexRoute,
-    AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute:
-      AppuserDashboardSharp_hospitalityHotelBookingCreateBookingRoomIdRoute,
+    AppuserConsoleLegal_entityIndexRoute: AppuserConsoleLegal_entityIndexRoute,
+    AppuserConsoleLegal_entityLeIDDetailsRoute:
+      AppuserConsoleLegal_entityLeIDDetailsRoute,
   }
 
-const AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren =
-  AppuserDashboardSharp_hospitalityHotelRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityHotelRouteRouteChildren,
+const AppuserConsoleLegal_entityRouteRouteWithChildren =
+  AppuserConsoleLegal_entityRouteRoute._addFileChildren(
+    AppuserConsoleLegal_entityRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hospitalityInfraRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute
-  AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute: typeof AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute
+interface AppuserConsolePaymentsRouteRouteChildren {
+  AppuserConsolePaymentsIndexRoute: typeof AppuserConsolePaymentsIndexRoute
+  AppuserConsolePaymentsAccountIdIndexRoute: typeof AppuserConsolePaymentsAccountIdIndexRoute
 }
 
-const AppuserDashboardSharp_hospitalityInfraRouteRouteChildren: AppuserDashboardSharp_hospitalityInfraRouteRouteChildren =
+const AppuserConsolePaymentsRouteRouteChildren: AppuserConsolePaymentsRouteRouteChildren =
   {
-    AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute:
-      AppuserDashboardSharp_hospitalityInfraKitchenIndexRoute,
-    AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute:
-      AppuserDashboardSharp_hospitalityInfraKitchenService_pointServiceRoute,
+    AppuserConsolePaymentsIndexRoute: AppuserConsolePaymentsIndexRoute,
+    AppuserConsolePaymentsAccountIdIndexRoute:
+      AppuserConsolePaymentsAccountIdIndexRoute,
   }
 
-const AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren =
-  AppuserDashboardSharp_hospitalityInfraRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityInfraRouteRouteChildren,
+const AppuserConsolePaymentsRouteRouteWithChildren =
+  AppuserConsolePaymentsRouteRoute._addFileChildren(
+    AppuserConsolePaymentsRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hospitalityNcRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityNcIndexRoute: typeof AppuserDashboardSharp_hospitalityNcIndexRoute
-  AppuserDashboardSharp_hospitalityNcOverviewIndexRoute: typeof AppuserDashboardSharp_hospitalityNcOverviewIndexRoute
+interface AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
+  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 
-const AppuserDashboardSharp_hospitalityNcRouteRouteChildren: AppuserDashboardSharp_hospitalityNcRouteRouteChildren =
+const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren: AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren =
   {
-    AppuserDashboardSharp_hospitalityNcIndexRoute:
-      AppuserDashboardSharp_hospitalityNcIndexRoute,
-    AppuserDashboardSharp_hospitalityNcOverviewIndexRoute:
-      AppuserDashboardSharp_hospitalityNcOverviewIndexRoute,
+    AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute:
+      AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute,
   }
 
-const AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren =
-  AppuserDashboardSharp_hospitalityNcRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityNcRouteRouteChildren,
+const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute._addFileChildren(
+    AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute
-  AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute
-  AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute
-  AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute
-  AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute
-  AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute
-  AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute
+interface AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
+  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
 }
 
-const AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteChildren: AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteChildren =
+const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren: AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren =
   {
-    AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutGeneralSettingsIndexRoute,
-    AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutInventoryIndexRoute,
-    AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutOrdersIndexRoute,
-    AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutOverviewIndexRoute,
-    AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutReservationsIndexRoute,
-    AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutSalesTerminalIndexRoute,
-    AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutTableManagementIndexRoute,
+    AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute:
+      AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute,
   }
 
-const AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren =
-  AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteChildren,
+const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
+  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
+    AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
   )
 
-interface AppuserDashboardSharp_hospitalityRestaurantRouteChildren {
-  AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute: typeof AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren
-  AppuserDashboardSharp_hospitalityRestaurantIndexRoute: typeof AppuserDashboardSharp_hospitalityRestaurantIndexRoute
+interface AppuserConsoleRouteRouteChildren {
+  AppuserConsoleInventoryAccRouteRoute: typeof AppuserConsoleInventoryAccRouteRouteWithChildren
+  AppuserConsoleLegal_entityRouteRoute: typeof AppuserConsoleLegal_entityRouteRouteWithChildren
+  AppuserConsolePaymentsRouteRoute: typeof AppuserConsolePaymentsRouteRouteWithChildren
+  AppuserConsoleHomeRoute: typeof AppuserConsoleHomeRoute
+  AppuserConsolePropertyRoutesRoute: typeof AppuserConsolePropertyRoutesRoute
+  AppuserConsoleAuditLogIndexRoute: typeof AppuserConsoleAuditLogIndexRoute
+  AppuserConsoleOrgUsersIndexRoute: typeof AppuserConsoleOrgUsersIndexRoute
+  AppuserConsoleOrganizationIndexRoute: typeof AppuserConsoleOrganizationIndexRoute
+  AppuserConsolePropertyIndexRoute: typeof AppuserConsolePropertyIndexRoute
+  AppuserConsoleSuppliersChar38VendorsIndexRoute: typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
+  AppuserConsolePropertyPropertyIdDetailsRoute: typeof AppuserConsolePropertyPropertyIdDetailsRoute
+  AppuserConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
+  AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
+  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
+  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
 }
 
-const AppuserDashboardSharp_hospitalityRestaurantRouteChildren: AppuserDashboardSharp_hospitalityRestaurantRouteChildren =
-  {
-    AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRoute:
-      AppuserDashboardSharp_hospitalityRestaurantLayoutRouteRouteWithChildren,
-    AppuserDashboardSharp_hospitalityRestaurantIndexRoute:
-      AppuserDashboardSharp_hospitalityRestaurantIndexRoute,
-  }
-
-const AppuserDashboardSharp_hospitalityRestaurantRouteWithChildren =
-  AppuserDashboardSharp_hospitalityRestaurantRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityRestaurantRouteChildren,
-  )
-
-interface AppuserDashboardSharp_hospitalityRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityBarRouteRoute: typeof AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren
-  AppuserDashboardSharp_hospitalityHotelRouteRoute: typeof AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren
-  AppuserDashboardSharp_hospitalityInfraRouteRoute: typeof AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren
-  AppuserDashboardSharp_hospitalityNcRouteRoute: typeof AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren
-  AppuserDashboardSharp_hospitalityRestaurantRoute: typeof AppuserDashboardSharp_hospitalityRestaurantRouteWithChildren
+const AppuserConsoleRouteRouteChildren: AppuserConsoleRouteRouteChildren = {
+  AppuserConsoleInventoryAccRouteRoute:
+    AppuserConsoleInventoryAccRouteRouteWithChildren,
+  AppuserConsoleLegal_entityRouteRoute:
+    AppuserConsoleLegal_entityRouteRouteWithChildren,
+  AppuserConsolePaymentsRouteRoute:
+    AppuserConsolePaymentsRouteRouteWithChildren,
+  AppuserConsoleHomeRoute: AppuserConsoleHomeRoute,
+  AppuserConsolePropertyRoutesRoute: AppuserConsolePropertyRoutesRoute,
+  AppuserConsoleAuditLogIndexRoute: AppuserConsoleAuditLogIndexRoute,
+  AppuserConsoleOrgUsersIndexRoute: AppuserConsoleOrgUsersIndexRoute,
+  AppuserConsoleOrganizationIndexRoute: AppuserConsoleOrganizationIndexRoute,
+  AppuserConsolePropertyIndexRoute: AppuserConsolePropertyIndexRoute,
+  AppuserConsoleSuppliersChar38VendorsIndexRoute:
+    AppuserConsoleSuppliersChar38VendorsIndexRoute,
+  AppuserConsolePropertyPropertyIdDetailsRoute:
+    AppuserConsolePropertyPropertyIdDetailsRoute,
+  AppuserConsolePropertyPropertyIdPropertyConfigurationRoute:
+    AppuserConsolePropertyPropertyIdPropertyConfigurationRoute,
+  AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute:
+    AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute,
+  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
+    AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
+  AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute:
+    AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute,
+  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
+    AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
+  AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
+    AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
 }
 
-const AppuserDashboardSharp_hospitalityRouteRouteChildren: AppuserDashboardSharp_hospitalityRouteRouteChildren =
-  {
-    AppuserDashboardSharp_hospitalityBarRouteRoute:
-      AppuserDashboardSharp_hospitalityBarRouteRouteWithChildren,
-    AppuserDashboardSharp_hospitalityHotelRouteRoute:
-      AppuserDashboardSharp_hospitalityHotelRouteRouteWithChildren,
-    AppuserDashboardSharp_hospitalityInfraRouteRoute:
-      AppuserDashboardSharp_hospitalityInfraRouteRouteWithChildren,
-    AppuserDashboardSharp_hospitalityNcRouteRoute:
-      AppuserDashboardSharp_hospitalityNcRouteRouteWithChildren,
-    AppuserDashboardSharp_hospitalityRestaurantRoute:
-      AppuserDashboardSharp_hospitalityRestaurantRouteWithChildren,
-  }
-
-const AppuserDashboardSharp_hospitalityRouteRouteWithChildren =
-  AppuserDashboardSharp_hospitalityRouteRoute._addFileChildren(
-    AppuserDashboardSharp_hospitalityRouteRouteChildren,
-  )
-
-interface AppuserDashboardSharp_accountingLayoutRouteRouteChildren {
-  AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute: typeof AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute
-  AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute
-  AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute: typeof AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute
-  AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute: typeof AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute
-  AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute: typeof AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute
-  AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute
-  AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute
-  AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute: typeof AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute
-  AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute
-  AppuserDashboardSharp_accountingLayoutExpensesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutExpensesIndexRoute
-  AppuserDashboardSharp_accountingLayoutJournalIndexRoute: typeof AppuserDashboardSharp_accountingLayoutJournalIndexRoute
-  AppuserDashboardSharp_accountingLayoutOverviewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutOverviewIndexRoute
-  AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute
-  AppuserDashboardSharp_accountingLayoutSalesIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSalesIndexRoute
-  AppuserDashboardSharp_accountingLayoutSettingsIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSettingsIndexRoute
-  AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute
-  AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute: typeof AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute
-  AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute: typeof AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute
-  AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute
-  AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute: typeof AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute
-}
-
-const AppuserDashboardSharp_accountingLayoutRouteRouteChildren: AppuserDashboardSharp_accountingLayoutRouteRouteChildren =
-  {
-    AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute:
-      AppuserDashboardSharp_accountingLayoutPaymentsPayment_ordersRoute,
-    AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute:
-      AppuserDashboardSharp_accountingLayoutPurchasesHistoryRoute,
-    AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute:
-      AppuserDashboardSharp_accountingLayoutReportsBalanceSheetRoute,
-    AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute:
-      AppuserDashboardSharp_accountingLayoutReportsProfitLossRoute,
-    AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute:
-      AppuserDashboardSharp_accountingLayoutReportsTrialBalanceRoute,
-    AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute:
-      AppuserDashboardSharp_accountingLayoutTaxationsTax_codesRoute,
-    AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute:
-      AppuserDashboardSharp_accountingLayoutTaxationsTax_ratesRoute,
-    AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute:
-      AppuserDashboardSharp_accountingLayoutTaxationsTax_registrationRoute,
-    AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute:
-      AppuserDashboardSharp_accountingLayoutChartOfAccountIndexRoute,
-    AppuserDashboardSharp_accountingLayoutExpensesIndexRoute:
-      AppuserDashboardSharp_accountingLayoutExpensesIndexRoute,
-    AppuserDashboardSharp_accountingLayoutJournalIndexRoute:
-      AppuserDashboardSharp_accountingLayoutJournalIndexRoute,
-    AppuserDashboardSharp_accountingLayoutOverviewIndexRoute:
-      AppuserDashboardSharp_accountingLayoutOverviewIndexRoute,
-    AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute:
-      AppuserDashboardSharp_accountingLayoutPurchasesIndexRoute,
-    AppuserDashboardSharp_accountingLayoutSalesIndexRoute:
-      AppuserDashboardSharp_accountingLayoutSalesIndexRoute,
-    AppuserDashboardSharp_accountingLayoutSettingsIndexRoute:
-      AppuserDashboardSharp_accountingLayoutSettingsIndexRoute,
-    AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute:
-      AppuserDashboardSharp_accountingLayoutSuppliersIndexRoute,
-    AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute:
-      AppuserDashboardSharp_accountingLayoutChartOfAccountAccountIDLedgerRoute,
-    AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute:
-      AppuserDashboardSharp_accountingLayoutSuppliersSupplierIDDetailsRoute,
-    AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute:
-      AppuserDashboardSharp_accountingLayoutExpensesNewIndexRoute,
-    AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute:
-      AppuserDashboardSharp_accountingLayoutSalesNewIndexRoute,
-  }
-
-const AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren =
-  AppuserDashboardSharp_accountingLayoutRouteRoute._addFileChildren(
-    AppuserDashboardSharp_accountingLayoutRouteRouteChildren,
-  )
-
-interface AppuserDashboardSharp_accountingRouteChildren {
-  AppuserDashboardSharp_accountingLayoutRouteRoute: typeof AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren
-  AppuserDashboardSharp_accountingIndexRoute: typeof AppuserDashboardSharp_accountingIndexRoute
-}
-
-const AppuserDashboardSharp_accountingRouteChildren: AppuserDashboardSharp_accountingRouteChildren =
-  {
-    AppuserDashboardSharp_accountingLayoutRouteRoute:
-      AppuserDashboardSharp_accountingLayoutRouteRouteWithChildren,
-    AppuserDashboardSharp_accountingIndexRoute:
-      AppuserDashboardSharp_accountingIndexRoute,
-  }
-
-const AppuserDashboardSharp_accountingRouteWithChildren =
-  AppuserDashboardSharp_accountingRoute._addFileChildren(
-    AppuserDashboardSharp_accountingRouteChildren,
-  )
-
-interface AppuserDashboardRouteRouteChildren {
-  AppuserDashboardSharp_hospitalityRouteRoute: typeof AppuserDashboardSharp_hospitalityRouteRouteWithChildren
-  AppuserDashboardIndexRoute: typeof AppuserDashboardIndexRoute
-  AppuserDashboardSharp_accountingRoute: typeof AppuserDashboardSharp_accountingRouteWithChildren
-}
-
-const AppuserDashboardRouteRouteChildren: AppuserDashboardRouteRouteChildren = {
-  AppuserDashboardSharp_hospitalityRouteRoute:
-    AppuserDashboardSharp_hospitalityRouteRouteWithChildren,
-  AppuserDashboardIndexRoute: AppuserDashboardIndexRoute,
-  AppuserDashboardSharp_accountingRoute:
-    AppuserDashboardSharp_accountingRouteWithChildren,
-}
-
-const AppuserDashboardRouteRouteWithChildren =
-  AppuserDashboardRouteRoute._addFileChildren(
-    AppuserDashboardRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccInventoryAccountIDDetailsRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityLeIDDetailsRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePaymentsIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePaymentsAccountIdIndexRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren
-  AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren
-  AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteWithChildren
-  AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute
-  AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-}
-
-const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleInventoryAccRouteRouteWithChildren,
-    AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleLegal_entityRouteRouteWithChildren,
-    AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePaymentsRouteRouteWithChildren,
-    AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyRoutesRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleAuditLogIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleOrgUsersIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleOrganizationIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDetailsRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdPropertyConfigurationRoute,
-    AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdProperty_settingsIndexRoute,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
-    AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
-      AppuserOrchestratorOrchestrator_layoutConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorOrchestrator_layoutRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren
-}
-
-const AppuserOrchestratorOrchestrator_layoutRouteRouteChildren: AppuserOrchestratorOrchestrator_layoutRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutConsoleRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutConsoleRouteRouteWithChildren,
-  }
-
-const AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren =
-  AppuserOrchestratorOrchestrator_layoutRouteRoute._addFileChildren(
-    AppuserOrchestratorOrchestrator_layoutRouteRouteChildren,
-  )
-
-interface AppuserOrchestratorRouteRouteChildren {
-  AppuserOrchestratorOrchestrator_layoutRouteRoute: typeof AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren
-}
-
-const AppuserOrchestratorRouteRouteChildren: AppuserOrchestratorRouteRouteChildren =
-  {
-    AppuserOrchestratorOrchestrator_layoutRouteRoute:
-      AppuserOrchestratorOrchestrator_layoutRouteRouteWithChildren,
-  }
-
-const AppuserOrchestratorRouteRouteWithChildren =
-  AppuserOrchestratorRouteRoute._addFileChildren(
-    AppuserOrchestratorRouteRouteChildren,
-  )
+const AppuserConsoleRouteRouteWithChildren =
+  AppuserConsoleRouteRoute._addFileChildren(AppuserConsoleRouteRouteChildren)
 
 interface AppuserRouteRouteChildren {
-  AppuserDashboardRouteRoute: typeof AppuserDashboardRouteRouteWithChildren
-  AppuserOrchestratorRouteRoute: typeof AppuserOrchestratorRouteRouteWithChildren
+  AppuserConsoleRouteRoute: typeof AppuserConsoleRouteRouteWithChildren
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
-  AppuserDashboardRouteRoute: AppuserDashboardRouteRouteWithChildren,
-  AppuserOrchestratorRouteRoute: AppuserOrchestratorRouteRouteWithChildren,
+  AppuserConsoleRouteRoute: AppuserConsoleRouteRouteWithChildren,
 }
 
 const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
@@ -2400,7 +737,6 @@ const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
-  OrgSignupIndexRoute: OrgSignupIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

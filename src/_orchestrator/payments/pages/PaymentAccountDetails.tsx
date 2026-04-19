@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/payments/$accountId/index";
+import { Route } from "@/routes/_appuser/_console/payments/$accountId/index";
 import { AddGatewayConfigForm } from "../components/AddGatewayConfigForm";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";

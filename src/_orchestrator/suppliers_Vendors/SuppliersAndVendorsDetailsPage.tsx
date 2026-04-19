@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/suppliers&Vendors/$suppliersID/details";
+import { Route } from "@/routes/_appuser/_console/suppliers&Vendors/$suppliersID/details";
 import { useLegalEntityLinkToSuppliersMutation } from "./api/mutations";
 
 export function SuppliersAndVendorsDetailsPage() {

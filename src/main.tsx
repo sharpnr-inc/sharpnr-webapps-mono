@@ -2,7 +2,6 @@ import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { ModalProvider } from "./context/ModalContext.tsx";
-import { ToastProvider } from "./context/ToastContext.tsx";
 import { LoaderProvider } from "./context/LoaderContext.tsx";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
@@ -15,7 +14,6 @@ import { RouterProvider } from "@tanstack/react-router";
 import { SheetProvider } from "./context/DrawerContext.tsx";
 import { DialogModalProvider } from "./context/DialogModalContext.tsx";
 import { ThemeProvider } from "./context/theme-provider.tsx";
-import { SpinnerProvider } from "./context/SpinnerContext.tsx";
 import { FormsModalProvider } from "./context/FormModalContext.tsx";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -23,6 +21,7 @@ import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { registerSW } from "virtual:pwa-register";
 import { queryClient, router } from "./router_config.tsx";
 import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
+import { Toaster } from "sonner";
 
 registerSW({
   onNeedRefresh() {
@@ -40,21 +39,18 @@ createRoot(document.getElementById("root")!).render(
       <AppVersionIdentifier>
         <ThemeProvider>
           <FormsModalProvider>
-            <SpinnerProvider>
-              <ToastProvider>
-                <LoaderProvider>
-                  <SheetProvider>
-                    <DialogModalProvider>
-                      <ModalProvider>
-                        <Suspense fallback={<SuspenseFallback />}>
-                          <RouterProvider router={router} />
-                        </Suspense>
-                      </ModalProvider>
-                    </DialogModalProvider>
-                  </SheetProvider>
-                </LoaderProvider>
-              </ToastProvider>
-            </SpinnerProvider>
+            <LoaderProvider>
+              <SheetProvider>
+                <DialogModalProvider>
+                  <ModalProvider>
+                    <Suspense fallback={<SuspenseFallback />}>
+                      <RouterProvider router={router} />
+                      <Toaster />
+                    </Suspense>
+                  </ModalProvider>
+                </DialogModalProvider>
+              </SheetProvider>
+            </LoaderProvider>
           </FormsModalProvider>
         </ThemeProvider>
       </AppVersionIdentifier>

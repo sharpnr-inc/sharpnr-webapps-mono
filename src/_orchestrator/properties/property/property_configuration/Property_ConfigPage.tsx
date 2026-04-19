@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -17,7 +16,7 @@ import {
 
 import { useSearch } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration";
+import { Route } from "@/routes/_appuser/_console/property/$propertyId/property-configuration";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ModulesSelectionSection } from "./ModulesSelection";
@@ -42,7 +41,6 @@ const HOSPITALITY_SLIDES = [
     icon: "🏨",
   },
 ];
-
 
 // ** INFO :-->This component is basically a guide what user is doing
 // ** Selection happens in the ModulesSelection.tsx component

@@ -1,6 +1,6 @@
 import MenuSettings from "@/_hospitalityapp/infra/components/MenuSettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantGeneralSettingsComp from "./components_forms/RestaurantGeneralSettings";
 import { RestaurantLayoutSettings } from "./components_forms/RestaurantLayoutSettings";
 import { AlertTriangle, Plus, Settings2 } from "lucide-react";

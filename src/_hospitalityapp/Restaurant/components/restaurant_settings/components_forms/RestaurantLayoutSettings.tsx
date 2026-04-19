@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { useRestaurantLayout } from "@/_hospitalityapp/Restaurant/apis/queries";
-import { Route } from "@/routes/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantConfiguration from "./RestaurantFloorForm";
 import { useFormsModal } from "@/context/FormModalContext";
 
