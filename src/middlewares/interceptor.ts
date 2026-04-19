@@ -1,4 +1,4 @@
-import { getCookie } from "@/utilities/cookie";
+import { getCookie } from "@/lib/utils";
 import api from "./axios";
 
 api.interceptors.request.use(

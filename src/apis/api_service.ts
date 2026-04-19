@@ -1,6 +1,6 @@
 import api from "@/middlewares/axios";
 import { AuthApiEndpoints, OrgCoreEndpoints } from "./Endpoints";
-import type { APIResponse } from "@/utilities/api_response";
+import type { APIResponse } from "@/lib/api_response";
 
 //--------------------------------------------------------------------------------//
 

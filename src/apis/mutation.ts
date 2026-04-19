@@ -6,7 +6,7 @@ import {
   VerifyOtp,
   type OrgSignupPayload,
 } from "./api_service";
-import type { APIResponse } from "@/utilities/api_response";
+import type { APIResponse } from "@/lib/api_response";
 
 export function useInitiateSignUpMutation() {
   return useMutation<APIResponse<any>, Error, OrgSignupPayload>({
