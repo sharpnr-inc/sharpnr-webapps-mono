@@ -3,9 +3,7 @@ import OrganizationSetupGuard from "@/_orchestrator/console/OrgSetupGuard";
 
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute(
-  "/_appuser",
-)({
+export const Route = createFileRoute("/_appuser")({
   // beforeLoad: async ({ context }) => {
   //   const status = await context.queryClient.fetchQuery(
   //     organizationStatusQuery,
@@ -16,9 +14,6 @@ export const Route = createFileRoute(
   //   };
   // },
   component: RouteComponent,
-  staticData: {
-    breadcrumb: "Console",
-  },
 });
 
 function RouteComponent() {

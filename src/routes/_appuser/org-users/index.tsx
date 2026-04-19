@@ -1,15 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { UserDirectoryPage } from "@/app/UserDirectoryPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute(
-  '/_appuser/org-users/',
-)({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello "/_appuser/orchestrator/_orchestrator_layout/_console/org-users/"!
-    </div>
-  )
-}
+export const Route = createFileRoute("/_appuser/org-users/")({
+  component: UserDirectoryPage,
+});

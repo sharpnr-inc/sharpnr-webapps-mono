@@ -13,23 +13,3 @@ export interface NavSection {
   items: NavItem[];
   isSubSection?: boolean;
 }
-
-/* ===== BACKEND STRUCTURE ===== */
-
-export interface DomainConfig {
-  Modules: string[];
-  Infras: string[];
-}
-
-/**
- * Example:
- * [
- *   { Hospitality: {...} },
- *   { Medical: {...} }
- * ]
- */
-export type DomainEntry = Record<string, DomainConfig>;
-
-export interface LauncherPayload {
-  Domains: DomainEntry[];
-}
