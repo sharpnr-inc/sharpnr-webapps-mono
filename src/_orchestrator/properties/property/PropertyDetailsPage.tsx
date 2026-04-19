@@ -38,7 +38,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   const handleModuleNav = (module: PropertyModule) => {
     if (module.is_configured && module.module_type == "HOTEL") {
       nav({
-        to: "/orchestrator/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
+        to: "/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId",
         params: {
           hotelId: module.id,
           propertyId: propertyId,
@@ -46,7 +46,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
       });
     } else if (module.module_type == "RESTAURANT") {
       nav({
-        to: "/orchestrator/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID",
+        to: "/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID",
         params: {
           propertyId: propertyId,
           restaurantID: module.id,
@@ -57,7 +57,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
   const handleInfraNav = (Id: string) => {
     nav({
-      to: "/orchestrator/property/$propertyId/domain_hospitality/infra_d/$InfraID",
+      to: "/property/$propertyId/domain_hospitality/infra_d/$InfraID",
       params: {
         InfraID: Id,
         propertyId,
@@ -67,7 +67,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
   const handlePropertySettingPage = () => {
     nav({
-      to: "/orchestrator/property/$propertyId/property_settings",
+      to: "/property/$propertyId/property_settings",
       params: {
         propertyId: propertyId,
       },
@@ -105,7 +105,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
           variant={"link"}
           onClick={() =>
             nav({
-              to: "/orchestrator/property",
+              to: "/property",
             })
           }
         >

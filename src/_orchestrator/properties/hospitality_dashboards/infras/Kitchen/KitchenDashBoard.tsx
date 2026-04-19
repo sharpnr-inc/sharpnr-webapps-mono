@@ -136,7 +136,7 @@ export function KitchenDashBoard() {
         className="flex items-center gap-2 w-fit"
         onClick={() =>
           navigate({
-            to: "/orchestrator/property/$propertyId/details",
+            to: "/property/$propertyId/details",
             params: { propertyId },
           })
         }

@@ -49,7 +49,7 @@ export function PropertyConfigurationPage() {
   const [isVisible, setIsVisible] = useState(false);
   const { propertyId } = Route.useParams();
   const searchParams = useSearch({
-    from: "/_appuser/orchestrator/_orchestrator_layout/_console/property/$propertyId/property-configuration",
+    from: "/_appuser/property/$propertyId/property-configuration",
   });
 
   useEffect(() => {

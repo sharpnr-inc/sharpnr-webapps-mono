@@ -60,7 +60,7 @@ export function ModulesSelectionSection({
         {
           onSuccess: () => {
             navigate({
-              to: "/orchestrator/property/$propertyId/details",
+              to: "/property/$propertyId/details",
               params: {
                 propertyId: value.property_id,
               },

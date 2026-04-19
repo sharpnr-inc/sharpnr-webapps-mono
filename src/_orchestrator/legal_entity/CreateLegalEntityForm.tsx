@@ -75,7 +75,7 @@ const CreateLegalEntityForm: React.FC<CreateLegalEntityFormProps> = ({
               queryKey: ["Org", "status"],
             });
             navigate({
-              to: "/orchestrator/property",
+              to: "/legal_entity",
             });
           }
         },

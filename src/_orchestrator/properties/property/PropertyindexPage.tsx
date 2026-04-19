@@ -64,7 +64,7 @@ export function PropertyIndexPage() {
   const handlePropertyNavigation = (p: Property) => {
     if (!p.is_configured && p.domain != null) {
       navigate({
-        to: "/orchestrator/property/$propertyId/property-configuration",
+        to: "/property/$propertyId/property-configuration",
         search: {
           p_domain: p.domain,
           p_name: p.name,
@@ -75,7 +75,7 @@ export function PropertyIndexPage() {
       });
     } else {
       navigate({
-        to: "/orchestrator/property/$propertyId/details",
+        to: "/property/$propertyId/details",
         params: {
           propertyId: p.id,
         },

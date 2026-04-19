@@ -86,7 +86,7 @@ export function LegalEntityIndexPage() {
                   variant="outline"
                   onClick={() =>
                     navigate({
-                      to: "/orchestrator/legal_entity/$leID/details",
+                      to: "/legal_entity/$leID/details",
                       params: {
                         leID: entity.id,
                       },

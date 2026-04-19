@@ -93,7 +93,7 @@ export function PaymentsHomePage() {
                 variant={"secondary"}
                 onClick={() =>
                   navigate({
-                    to: "/orchestrator/payments/$accountId",
+                    to: "/payments/$accountId",
                     params: {
                       accountId: account.Id,
                     },
