@@ -7,7 +7,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-import { Route } from "@/routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 
 import { useOrganizationLegalEntities } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
 import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/queries";

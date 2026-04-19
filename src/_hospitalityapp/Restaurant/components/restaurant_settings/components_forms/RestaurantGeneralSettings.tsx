@@ -16,7 +16,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 
-import { Route } from "@/routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/queries";
 import { useAppForm } from "@/components/forms";
 import { useUpdateRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/mutations";

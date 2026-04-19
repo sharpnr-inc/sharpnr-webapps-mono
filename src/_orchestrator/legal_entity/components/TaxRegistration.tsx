@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { Route } from "@/routes/_appuser/_console/legal_entity/$leID/details";
+import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 import { PlusCircle } from "lucide-react";
 
 import { AddTaxRegistrationForm } from "../forms/AddTaxRegistrationForm";

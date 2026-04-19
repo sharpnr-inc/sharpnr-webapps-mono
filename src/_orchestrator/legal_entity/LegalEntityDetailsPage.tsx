@@ -4,7 +4,7 @@ import { Verified } from "lucide-react";
 import DetailsOverview from "./components/DetailsOverview";
 import DetailDocuments from "./components/DetailDocuments";
 import { TaxRegistration } from "./components/TaxRegistration";
-import { Route } from "@/routes/_appuser/_console/legal_entity/$leID/details";
+import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 
 interface LegalEntityDetailsPageProps {}
 

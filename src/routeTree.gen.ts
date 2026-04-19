@@ -11,32 +11,31 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppuserConsoleRouteRouteImport } from './routes/_appuser/_console/route'
-import { Route as AppuserConsoleHomeRouteImport } from './routes/_appuser/_console/home'
-import { Route as AppuserConsolePaymentsRouteRouteImport } from './routes/_appuser/_console/payments/route'
-import { Route as AppuserConsoleLegal_entityRouteRouteImport } from './routes/_appuser/_console/legal_entity/route'
-import { Route as AppuserConsoleInventoryAccRouteRouteImport } from './routes/_appuser/_console/inventory-acc/route'
-import { Route as AppuserConsoleSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/_console/suppliers&Vendors/index'
-import { Route as AppuserConsolePropertyIndexRouteImport } from './routes/_appuser/_console/property/index'
-import { Route as AppuserConsolePaymentsIndexRouteImport } from './routes/_appuser/_console/payments/index'
-import { Route as AppuserConsoleOrganizationIndexRouteImport } from './routes/_appuser/_console/organization/index'
-import { Route as AppuserConsoleOrgUsersIndexRouteImport } from './routes/_appuser/_console/org-users/index'
-import { Route as AppuserConsoleLegal_entityIndexRouteImport } from './routes/_appuser/_console/legal_entity/index'
-import { Route as AppuserConsoleInventoryAccIndexRouteImport } from './routes/_appuser/_console/inventory-acc/index'
-import { Route as AppuserConsoleAuditLogIndexRouteImport } from './routes/_appuser/_console/audit-log/index'
-import { Route as AppuserConsolePropertyRoutesRouteImport } from './routes/_appuser/_console/property/routes'
-import { Route as AppuserConsolePaymentsAccountIdIndexRouteImport } from './routes/_appuser/_console/payments/$accountId/index'
-import { Route as AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/_console/suppliers&Vendors/$suppliersID/details'
-import { Route as AppuserConsolePropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/_console/property/$propertyId/property-configuration'
-import { Route as AppuserConsolePropertyPropertyIdDetailsRouteImport } from './routes/_appuser/_console/property/$propertyId/details'
-import { Route as AppuserConsoleLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/_console/legal_entity/$leID/details'
-import { Route as AppuserConsoleInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/_console/inventory-acc/$inventoryAccountID/details'
-import { Route as AppuserConsolePropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/property_settings/index'
-import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
-import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
-import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index'
-import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
-import { Route as AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
+import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
+import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/payments/route'
+import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
+import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
+import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
+import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/property/index'
+import { Route as AppuserPaymentsIndexRouteImport } from './routes/_appuser/payments/index'
+import { Route as AppuserOrganizationIndexRouteImport } from './routes/_appuser/organization/index'
+import { Route as AppuserOrgUsersIndexRouteImport } from './routes/_appuser/org-users/index'
+import { Route as AppuserLegal_entityIndexRouteImport } from './routes/_appuser/legal_entity/index'
+import { Route as AppuserInventoryAccIndexRouteImport } from './routes/_appuser/inventory-acc/index'
+import { Route as AppuserAuditLogIndexRouteImport } from './routes/_appuser/audit-log/index'
+import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
+import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
+import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
+import { Route as AppuserPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/property/$propertyId/property-configuration'
+import { Route as AppuserPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/property/$propertyId/details'
+import { Route as AppuserLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/legal_entity/$leID/details'
+import { Route as AppuserInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/inventory-acc/$inventoryAccountID/details'
+import { Route as AppuserPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/property/$propertyId/property_settings/index'
+import { Route as AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
+import { Route as AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
+import { Route as AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index'
+import { Route as AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
+import { Route as AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
 
 const AppuserRouteRoute = AppuserRouteRouteImport.update({
   id: '/_appuser',
@@ -47,254 +46,243 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppuserConsoleRouteRoute = AppuserConsoleRouteRouteImport.update({
-  id: '/_console',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserConsoleHomeRoute = AppuserConsoleHomeRouteImport.update({
+const AppuserHomeRoute = AppuserHomeRouteImport.update({
   id: '/home',
   path: '/home',
-  getParentRoute: () => AppuserConsoleRouteRoute,
+  getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserConsolePaymentsRouteRoute =
-  AppuserConsolePaymentsRouteRouteImport.update({
-    id: '/payments',
-    path: '/payments',
-    getParentRoute: () => AppuserConsoleRouteRoute,
-  } as any)
-const AppuserConsoleLegal_entityRouteRoute =
-  AppuserConsoleLegal_entityRouteRouteImport.update({
+const AppuserPaymentsRouteRoute = AppuserPaymentsRouteRouteImport.update({
+  id: '/payments',
+  path: '/payments',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserLegal_entityRouteRoute =
+  AppuserLegal_entityRouteRouteImport.update({
     id: '/legal_entity',
     path: '/legal_entity',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsoleInventoryAccRouteRoute =
-  AppuserConsoleInventoryAccRouteRouteImport.update({
+const AppuserInventoryAccRouteRoute =
+  AppuserInventoryAccRouteRouteImport.update({
     id: '/inventory-acc',
     path: '/inventory-acc',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsoleSuppliersChar38VendorsIndexRoute =
-  AppuserConsoleSuppliersChar38VendorsIndexRouteImport.update({
+const AppuserSuppliersChar38VendorsIndexRoute =
+  AppuserSuppliersChar38VendorsIndexRouteImport.update({
     id: '/suppliers&Vendors/',
     path: '/suppliers&Vendors/',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsolePropertyIndexRoute =
-  AppuserConsolePropertyIndexRouteImport.update({
-    id: '/property/',
-    path: '/property/',
-    getParentRoute: () => AppuserConsoleRouteRoute,
-  } as any)
-const AppuserConsolePaymentsIndexRoute =
-  AppuserConsolePaymentsIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => AppuserConsolePaymentsRouteRoute,
-  } as any)
-const AppuserConsoleOrganizationIndexRoute =
-  AppuserConsoleOrganizationIndexRouteImport.update({
+const AppuserPropertyIndexRoute = AppuserPropertyIndexRouteImport.update({
+  id: '/property/',
+  path: '/property/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserPaymentsIndexRoute = AppuserPaymentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserPaymentsRouteRoute,
+} as any)
+const AppuserOrganizationIndexRoute =
+  AppuserOrganizationIndexRouteImport.update({
     id: '/organization/',
     path: '/organization/',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsoleOrgUsersIndexRoute =
-  AppuserConsoleOrgUsersIndexRouteImport.update({
-    id: '/org-users/',
-    path: '/org-users/',
-    getParentRoute: () => AppuserConsoleRouteRoute,
-  } as any)
-const AppuserConsoleLegal_entityIndexRoute =
-  AppuserConsoleLegal_entityIndexRouteImport.update({
+const AppuserOrgUsersIndexRoute = AppuserOrgUsersIndexRouteImport.update({
+  id: '/org-users/',
+  path: '/org-users/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserLegal_entityIndexRoute =
+  AppuserLegal_entityIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AppuserConsoleLegal_entityRouteRoute,
+    getParentRoute: () => AppuserLegal_entityRouteRoute,
   } as any)
-const AppuserConsoleInventoryAccIndexRoute =
-  AppuserConsoleInventoryAccIndexRouteImport.update({
+const AppuserInventoryAccIndexRoute =
+  AppuserInventoryAccIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AppuserConsoleInventoryAccRouteRoute,
+    getParentRoute: () => AppuserInventoryAccRouteRoute,
   } as any)
-const AppuserConsoleAuditLogIndexRoute =
-  AppuserConsoleAuditLogIndexRouteImport.update({
-    id: '/audit-log/',
-    path: '/audit-log/',
-    getParentRoute: () => AppuserConsoleRouteRoute,
-  } as any)
-const AppuserConsolePropertyRoutesRoute =
-  AppuserConsolePropertyRoutesRouteImport.update({
-    id: '/property/routes',
-    path: '/property/routes',
-    getParentRoute: () => AppuserConsoleRouteRoute,
-  } as any)
-const AppuserConsolePaymentsAccountIdIndexRoute =
-  AppuserConsolePaymentsAccountIdIndexRouteImport.update({
+const AppuserAuditLogIndexRoute = AppuserAuditLogIndexRouteImport.update({
+  id: '/audit-log/',
+  path: '/audit-log/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserPropertyRoutesRoute = AppuserPropertyRoutesRouteImport.update({
+  id: '/property/routes',
+  path: '/property/routes',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserPaymentsAccountIdIndexRoute =
+  AppuserPaymentsAccountIdIndexRouteImport.update({
     id: '/$accountId/',
     path: '/$accountId/',
-    getParentRoute: () => AppuserConsolePaymentsRouteRoute,
+    getParentRoute: () => AppuserPaymentsRouteRoute,
   } as any)
-const AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute =
-  AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport.update({
+const AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute =
+  AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport.update({
     id: '/suppliers&Vendors/$suppliersID/details',
     path: '/suppliers&Vendors/$suppliersID/details',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsolePropertyPropertyIdPropertyConfigurationRoute =
-  AppuserConsolePropertyPropertyIdPropertyConfigurationRouteImport.update({
+const AppuserPropertyPropertyIdPropertyConfigurationRoute =
+  AppuserPropertyPropertyIdPropertyConfigurationRouteImport.update({
     id: '/property/$propertyId/property-configuration',
     path: '/property/$propertyId/property-configuration',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsolePropertyPropertyIdDetailsRoute =
-  AppuserConsolePropertyPropertyIdDetailsRouteImport.update({
+const AppuserPropertyPropertyIdDetailsRoute =
+  AppuserPropertyPropertyIdDetailsRouteImport.update({
     id: '/property/$propertyId/details',
     path: '/property/$propertyId/details',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsoleLegal_entityLeIDDetailsRoute =
-  AppuserConsoleLegal_entityLeIDDetailsRouteImport.update({
+const AppuserLegal_entityLeIDDetailsRoute =
+  AppuserLegal_entityLeIDDetailsRouteImport.update({
     id: '/$leID/details',
     path: '/$leID/details',
-    getParentRoute: () => AppuserConsoleLegal_entityRouteRoute,
+    getParentRoute: () => AppuserLegal_entityRouteRoute,
   } as any)
-const AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute =
-  AppuserConsoleInventoryAccInventoryAccountIDDetailsRouteImport.update({
+const AppuserInventoryAccInventoryAccountIDDetailsRoute =
+  AppuserInventoryAccInventoryAccountIDDetailsRouteImport.update({
     id: '/$inventoryAccountID/details',
     path: '/$inventoryAccountID/details',
-    getParentRoute: () => AppuserConsoleInventoryAccRouteRoute,
+    getParentRoute: () => AppuserInventoryAccRouteRoute,
   } as any)
-const AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute =
-  AppuserConsolePropertyPropertyIdProperty_settingsIndexRouteImport.update({
+const AppuserPropertyPropertyIdProperty_settingsIndexRoute =
+  AppuserPropertyPropertyIdProperty_settingsIndexRouteImport.update({
     id: '/property/$propertyId/property_settings/',
     path: '/property/$propertyId/property_settings/',
-    getParentRoute: () => AppuserConsoleRouteRoute,
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport.update(
+const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute =
+  AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/restaurant_dashboard',
       path: '/property/$propertyId/domain_hospitality/restaurant_dashboard',
-      getParentRoute: () => AppuserConsoleRouteRoute,
+      getParentRoute: () => AppuserRouteRoute,
     } as any,
   )
-const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
+const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
+  AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
       path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
-      getParentRoute: () => AppuserConsoleRouteRoute,
+      getParentRoute: () => AppuserRouteRoute,
     } as any,
   )
-const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport.update(
+const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute =
+  AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport.update(
     {
       id: '/$restaurantID/',
       path: '/$restaurantID/',
       getParentRoute: () =>
-        AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute,
+        AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute,
     } as any,
   )
-const AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport.update(
+const AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute =
+  AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/infra_d/$InfraID/',
       path: '/property/$propertyId/domain_hospitality/infra_d/$InfraID/',
-      getParentRoute: () => AppuserConsoleRouteRoute,
+      getParentRoute: () => AppuserRouteRoute,
     } as any,
   )
-const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport.update(
+const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute =
+  AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport.update(
     {
       id: '/',
       path: '/',
       getParentRoute: () =>
-        AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
+        AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
     } as any,
   )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/inventory-acc': typeof AppuserConsoleInventoryAccRouteRouteWithChildren
-  '/legal_entity': typeof AppuserConsoleLegal_entityRouteRouteWithChildren
-  '/payments': typeof AppuserConsolePaymentsRouteRouteWithChildren
-  '/home': typeof AppuserConsoleHomeRoute
-  '/property/routes': typeof AppuserConsolePropertyRoutesRoute
-  '/audit-log': typeof AppuserConsoleAuditLogIndexRoute
-  '/inventory-acc/': typeof AppuserConsoleInventoryAccIndexRoute
-  '/legal_entity/': typeof AppuserConsoleLegal_entityIndexRoute
-  '/org-users': typeof AppuserConsoleOrgUsersIndexRoute
-  '/organization': typeof AppuserConsoleOrganizationIndexRoute
-  '/payments/': typeof AppuserConsolePaymentsIndexRoute
-  '/property': typeof AppuserConsolePropertyIndexRoute
-  '/suppliers&Vendors': typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
-  '/inventory-acc/$inventoryAccountID/details': typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
-  '/legal_entity/$leID/details': typeof AppuserConsoleLegal_entityLeIDDetailsRoute
-  '/property/$propertyId/details': typeof AppuserConsolePropertyPropertyIdDetailsRoute
-  '/property/$propertyId/property-configuration': typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/suppliers&Vendors/$suppliersID/details': typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/payments/$accountId': typeof AppuserConsolePaymentsAccountIdIndexRoute
-  '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/property/$propertyId/property_settings': typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
-  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
+  '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
+  '/payments': typeof AppuserPaymentsRouteRouteWithChildren
+  '/home': typeof AppuserHomeRoute
+  '/property/routes': typeof AppuserPropertyRoutesRoute
+  '/audit-log': typeof AppuserAuditLogIndexRoute
+  '/inventory-acc/': typeof AppuserInventoryAccIndexRoute
+  '/legal_entity/': typeof AppuserLegal_entityIndexRoute
+  '/org-users': typeof AppuserOrgUsersIndexRoute
+  '/organization': typeof AppuserOrganizationIndexRoute
+  '/payments/': typeof AppuserPaymentsIndexRoute
+  '/property': typeof AppuserPropertyIndexRoute
+  '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
+  '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
+  '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
+  '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/property/$propertyId/property_settings': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/home': typeof AppuserConsoleHomeRoute
-  '/property/routes': typeof AppuserConsolePropertyRoutesRoute
-  '/audit-log': typeof AppuserConsoleAuditLogIndexRoute
-  '/inventory-acc': typeof AppuserConsoleInventoryAccIndexRoute
-  '/legal_entity': typeof AppuserConsoleLegal_entityIndexRoute
-  '/org-users': typeof AppuserConsoleOrgUsersIndexRoute
-  '/organization': typeof AppuserConsoleOrganizationIndexRoute
-  '/payments': typeof AppuserConsolePaymentsIndexRoute
-  '/property': typeof AppuserConsolePropertyIndexRoute
-  '/suppliers&Vendors': typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
-  '/inventory-acc/$inventoryAccountID/details': typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
-  '/legal_entity/$leID/details': typeof AppuserConsoleLegal_entityLeIDDetailsRoute
-  '/property/$propertyId/details': typeof AppuserConsolePropertyPropertyIdDetailsRoute
-  '/property/$propertyId/property-configuration': typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/suppliers&Vendors/$suppliersID/details': typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/payments/$accountId': typeof AppuserConsolePaymentsAccountIdIndexRoute
-  '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/property/$propertyId/property_settings': typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
-  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/home': typeof AppuserHomeRoute
+  '/property/routes': typeof AppuserPropertyRoutesRoute
+  '/audit-log': typeof AppuserAuditLogIndexRoute
+  '/inventory-acc': typeof AppuserInventoryAccIndexRoute
+  '/legal_entity': typeof AppuserLegal_entityIndexRoute
+  '/org-users': typeof AppuserOrgUsersIndexRoute
+  '/organization': typeof AppuserOrganizationIndexRoute
+  '/payments': typeof AppuserPaymentsIndexRoute
+  '/property': typeof AppuserPropertyIndexRoute
+  '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
+  '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
+  '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
+  '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/property/$propertyId/property_settings': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_appuser': typeof AppuserRouteRouteWithChildren
-  '/_appuser/_console': typeof AppuserConsoleRouteRouteWithChildren
-  '/_appuser/_console/inventory-acc': typeof AppuserConsoleInventoryAccRouteRouteWithChildren
-  '/_appuser/_console/legal_entity': typeof AppuserConsoleLegal_entityRouteRouteWithChildren
-  '/_appuser/_console/payments': typeof AppuserConsolePaymentsRouteRouteWithChildren
-  '/_appuser/_console/home': typeof AppuserConsoleHomeRoute
-  '/_appuser/_console/property/routes': typeof AppuserConsolePropertyRoutesRoute
-  '/_appuser/_console/audit-log/': typeof AppuserConsoleAuditLogIndexRoute
-  '/_appuser/_console/inventory-acc/': typeof AppuserConsoleInventoryAccIndexRoute
-  '/_appuser/_console/legal_entity/': typeof AppuserConsoleLegal_entityIndexRoute
-  '/_appuser/_console/org-users/': typeof AppuserConsoleOrgUsersIndexRoute
-  '/_appuser/_console/organization/': typeof AppuserConsoleOrganizationIndexRoute
-  '/_appuser/_console/payments/': typeof AppuserConsolePaymentsIndexRoute
-  '/_appuser/_console/property/': typeof AppuserConsolePropertyIndexRoute
-  '/_appuser/_console/suppliers&Vendors/': typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
-  '/_appuser/_console/inventory-acc/$inventoryAccountID/details': typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
-  '/_appuser/_console/legal_entity/$leID/details': typeof AppuserConsoleLegal_entityLeIDDetailsRoute
-  '/_appuser/_console/property/$propertyId/details': typeof AppuserConsolePropertyPropertyIdDetailsRoute
-  '/_appuser/_console/property/$propertyId/property-configuration': typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
-  '/_appuser/_console/suppliers&Vendors/$suppliersID/details': typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/_appuser/_console/payments/$accountId/': typeof AppuserConsolePaymentsAccountIdIndexRoute
-  '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/_appuser/_console/property/$propertyId/property_settings/': typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
-  '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
+  '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
+  '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
+  '/_appuser/home': typeof AppuserHomeRoute
+  '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
+  '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
+  '/_appuser/inventory-acc/': typeof AppuserInventoryAccIndexRoute
+  '/_appuser/legal_entity/': typeof AppuserLegal_entityIndexRoute
+  '/_appuser/org-users/': typeof AppuserOrgUsersIndexRoute
+  '/_appuser/organization/': typeof AppuserOrganizationIndexRoute
+  '/_appuser/payments/': typeof AppuserPaymentsIndexRoute
+  '/_appuser/property/': typeof AppuserPropertyIndexRoute
+  '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
+  '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
+  '/_appuser/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
+  '/_appuser/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  '/_appuser/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
+  '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/_appuser/property/$propertyId/property_settings/': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -353,32 +341,31 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_appuser'
-    | '/_appuser/_console'
-    | '/_appuser/_console/inventory-acc'
-    | '/_appuser/_console/legal_entity'
-    | '/_appuser/_console/payments'
-    | '/_appuser/_console/home'
-    | '/_appuser/_console/property/routes'
-    | '/_appuser/_console/audit-log/'
-    | '/_appuser/_console/inventory-acc/'
-    | '/_appuser/_console/legal_entity/'
-    | '/_appuser/_console/org-users/'
-    | '/_appuser/_console/organization/'
-    | '/_appuser/_console/payments/'
-    | '/_appuser/_console/property/'
-    | '/_appuser/_console/suppliers&Vendors/'
-    | '/_appuser/_console/inventory-acc/$inventoryAccountID/details'
-    | '/_appuser/_console/legal_entity/$leID/details'
-    | '/_appuser/_console/property/$propertyId/details'
-    | '/_appuser/_console/property/$propertyId/property-configuration'
-    | '/_appuser/_console/suppliers&Vendors/$suppliersID/details'
-    | '/_appuser/_console/payments/$accountId/'
-    | '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
-    | '/_appuser/_console/property/$propertyId/property_settings/'
-    | '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-    | '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
-    | '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
-    | '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+    | '/_appuser/inventory-acc'
+    | '/_appuser/legal_entity'
+    | '/_appuser/payments'
+    | '/_appuser/home'
+    | '/_appuser/property/routes'
+    | '/_appuser/audit-log/'
+    | '/_appuser/inventory-acc/'
+    | '/_appuser/legal_entity/'
+    | '/_appuser/org-users/'
+    | '/_appuser/organization/'
+    | '/_appuser/payments/'
+    | '/_appuser/property/'
+    | '/_appuser/suppliers&Vendors/'
+    | '/_appuser/inventory-acc/$inventoryAccountID/details'
+    | '/_appuser/legal_entity/$leID/details'
+    | '/_appuser/property/$propertyId/details'
+    | '/_appuser/property/$propertyId/property-configuration'
+    | '/_appuser/suppliers&Vendors/$suppliersID/details'
+    | '/_appuser/payments/$accountId/'
+    | '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/_appuser/property/$propertyId/property_settings/'
+    | '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    | '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    | '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -402,332 +389,305 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_appuser/_console': {
-      id: '/_appuser/_console'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AppuserConsoleRouteRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/_console/home': {
-      id: '/_appuser/_console/home'
+    '/_appuser/home': {
+      id: '/_appuser/home'
       path: '/home'
       fullPath: '/home'
-      preLoaderRoute: typeof AppuserConsoleHomeRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserHomeRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/payments': {
-      id: '/_appuser/_console/payments'
+    '/_appuser/payments': {
+      id: '/_appuser/payments'
       path: '/payments'
       fullPath: '/payments'
-      preLoaderRoute: typeof AppuserConsolePaymentsRouteRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPaymentsRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/legal_entity': {
-      id: '/_appuser/_console/legal_entity'
+    '/_appuser/legal_entity': {
+      id: '/_appuser/legal_entity'
       path: '/legal_entity'
       fullPath: '/legal_entity'
-      preLoaderRoute: typeof AppuserConsoleLegal_entityRouteRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserLegal_entityRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/inventory-acc': {
-      id: '/_appuser/_console/inventory-acc'
+    '/_appuser/inventory-acc': {
+      id: '/_appuser/inventory-acc'
       path: '/inventory-acc'
       fullPath: '/inventory-acc'
-      preLoaderRoute: typeof AppuserConsoleInventoryAccRouteRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserInventoryAccRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/suppliers&Vendors/': {
-      id: '/_appuser/_console/suppliers&Vendors/'
+    '/_appuser/suppliers&Vendors/': {
+      id: '/_appuser/suppliers&Vendors/'
       path: '/suppliers&Vendors'
       fullPath: '/suppliers&Vendors'
-      preLoaderRoute: typeof AppuserConsoleSuppliersChar38VendorsIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserSuppliersChar38VendorsIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/': {
-      id: '/_appuser/_console/property/'
+    '/_appuser/property/': {
+      id: '/_appuser/property/'
       path: '/property'
       fullPath: '/property'
-      preLoaderRoute: typeof AppuserConsolePropertyIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/payments/': {
-      id: '/_appuser/_console/payments/'
+    '/_appuser/payments/': {
+      id: '/_appuser/payments/'
       path: '/'
       fullPath: '/payments/'
-      preLoaderRoute: typeof AppuserConsolePaymentsIndexRouteImport
-      parentRoute: typeof AppuserConsolePaymentsRouteRoute
+      preLoaderRoute: typeof AppuserPaymentsIndexRouteImport
+      parentRoute: typeof AppuserPaymentsRouteRoute
     }
-    '/_appuser/_console/organization/': {
-      id: '/_appuser/_console/organization/'
+    '/_appuser/organization/': {
+      id: '/_appuser/organization/'
       path: '/organization'
       fullPath: '/organization'
-      preLoaderRoute: typeof AppuserConsoleOrganizationIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserOrganizationIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/org-users/': {
-      id: '/_appuser/_console/org-users/'
+    '/_appuser/org-users/': {
+      id: '/_appuser/org-users/'
       path: '/org-users'
       fullPath: '/org-users'
-      preLoaderRoute: typeof AppuserConsoleOrgUsersIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserOrgUsersIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/legal_entity/': {
-      id: '/_appuser/_console/legal_entity/'
+    '/_appuser/legal_entity/': {
+      id: '/_appuser/legal_entity/'
       path: '/'
       fullPath: '/legal_entity/'
-      preLoaderRoute: typeof AppuserConsoleLegal_entityIndexRouteImport
-      parentRoute: typeof AppuserConsoleLegal_entityRouteRoute
+      preLoaderRoute: typeof AppuserLegal_entityIndexRouteImport
+      parentRoute: typeof AppuserLegal_entityRouteRoute
     }
-    '/_appuser/_console/inventory-acc/': {
-      id: '/_appuser/_console/inventory-acc/'
+    '/_appuser/inventory-acc/': {
+      id: '/_appuser/inventory-acc/'
       path: '/'
       fullPath: '/inventory-acc/'
-      preLoaderRoute: typeof AppuserConsoleInventoryAccIndexRouteImport
-      parentRoute: typeof AppuserConsoleInventoryAccRouteRoute
+      preLoaderRoute: typeof AppuserInventoryAccIndexRouteImport
+      parentRoute: typeof AppuserInventoryAccRouteRoute
     }
-    '/_appuser/_console/audit-log/': {
-      id: '/_appuser/_console/audit-log/'
+    '/_appuser/audit-log/': {
+      id: '/_appuser/audit-log/'
       path: '/audit-log'
       fullPath: '/audit-log'
-      preLoaderRoute: typeof AppuserConsoleAuditLogIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserAuditLogIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/routes': {
-      id: '/_appuser/_console/property/routes'
+    '/_appuser/property/routes': {
+      id: '/_appuser/property/routes'
       path: '/property/routes'
       fullPath: '/property/routes'
-      preLoaderRoute: typeof AppuserConsolePropertyRoutesRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyRoutesRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/payments/$accountId/': {
-      id: '/_appuser/_console/payments/$accountId/'
+    '/_appuser/payments/$accountId/': {
+      id: '/_appuser/payments/$accountId/'
       path: '/$accountId'
       fullPath: '/payments/$accountId'
-      preLoaderRoute: typeof AppuserConsolePaymentsAccountIdIndexRouteImport
-      parentRoute: typeof AppuserConsolePaymentsRouteRoute
+      preLoaderRoute: typeof AppuserPaymentsAccountIdIndexRouteImport
+      parentRoute: typeof AppuserPaymentsRouteRoute
     }
-    '/_appuser/_console/suppliers&Vendors/$suppliersID/details': {
-      id: '/_appuser/_console/suppliers&Vendors/$suppliersID/details'
+    '/_appuser/suppliers&Vendors/$suppliersID/details': {
+      id: '/_appuser/suppliers&Vendors/$suppliersID/details'
       path: '/suppliers&Vendors/$suppliersID/details'
       fullPath: '/suppliers&Vendors/$suppliersID/details'
-      preLoaderRoute: typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/property-configuration': {
-      id: '/_appuser/_console/property/$propertyId/property-configuration'
+    '/_appuser/property/$propertyId/property-configuration': {
+      id: '/_appuser/property/$propertyId/property-configuration'
       path: '/property/$propertyId/property-configuration'
       fullPath: '/property/$propertyId/property-configuration'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/details': {
-      id: '/_appuser/_console/property/$propertyId/details'
+    '/_appuser/property/$propertyId/details': {
+      id: '/_appuser/property/$propertyId/details'
       path: '/property/$propertyId/details'
       fullPath: '/property/$propertyId/details'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDetailsRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdDetailsRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/legal_entity/$leID/details': {
-      id: '/_appuser/_console/legal_entity/$leID/details'
+    '/_appuser/legal_entity/$leID/details': {
+      id: '/_appuser/legal_entity/$leID/details'
       path: '/$leID/details'
       fullPath: '/legal_entity/$leID/details'
-      preLoaderRoute: typeof AppuserConsoleLegal_entityLeIDDetailsRouteImport
-      parentRoute: typeof AppuserConsoleLegal_entityRouteRoute
+      preLoaderRoute: typeof AppuserLegal_entityLeIDDetailsRouteImport
+      parentRoute: typeof AppuserLegal_entityRouteRoute
     }
-    '/_appuser/_console/inventory-acc/$inventoryAccountID/details': {
-      id: '/_appuser/_console/inventory-acc/$inventoryAccountID/details'
+    '/_appuser/inventory-acc/$inventoryAccountID/details': {
+      id: '/_appuser/inventory-acc/$inventoryAccountID/details'
       path: '/$inventoryAccountID/details'
       fullPath: '/inventory-acc/$inventoryAccountID/details'
-      preLoaderRoute: typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRouteImport
-      parentRoute: typeof AppuserConsoleInventoryAccRouteRoute
+      preLoaderRoute: typeof AppuserInventoryAccInventoryAccountIDDetailsRouteImport
+      parentRoute: typeof AppuserInventoryAccRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/property_settings/': {
-      id: '/_appuser/_console/property/$propertyId/property_settings/'
+    '/_appuser/property/$propertyId/property_settings/': {
+      id: '/_appuser/property/$propertyId/property_settings/'
       path: '/property/$propertyId/property_settings'
       fullPath: '/property/$propertyId/property_settings'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard': {
-      id: '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard': {
+      id: '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard'
       path: '/property/$propertyId/domain_hospitality/restaurant_dashboard'
       fullPath: '/property/$propertyId/domain_hospitality/restaurant_dashboard'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
-      id: '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
+      id: '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       fullPath: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
-      id: '/_appuser/_console/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+    '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
+      id: '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
       path: '/$restaurantID'
       fullPath: '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport
-      parentRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport
+      parentRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/': {
-      id: '/_appuser/_console/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/': {
+      id: '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
       path: '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
       fullPath: '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport
-      parentRoute: typeof AppuserConsoleRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': {
-      id: '/_appuser/_console/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': {
+      id: '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
       path: '/'
       fullPath: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
-      preLoaderRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
-      parentRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
+      preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
+      parentRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
     }
   }
 }
 
-interface AppuserConsoleInventoryAccRouteRouteChildren {
-  AppuserConsoleInventoryAccIndexRoute: typeof AppuserConsoleInventoryAccIndexRoute
-  AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute: typeof AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute
+interface AppuserInventoryAccRouteRouteChildren {
+  AppuserInventoryAccIndexRoute: typeof AppuserInventoryAccIndexRoute
+  AppuserInventoryAccInventoryAccountIDDetailsRoute: typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
 }
 
-const AppuserConsoleInventoryAccRouteRouteChildren: AppuserConsoleInventoryAccRouteRouteChildren =
+const AppuserInventoryAccRouteRouteChildren: AppuserInventoryAccRouteRouteChildren =
   {
-    AppuserConsoleInventoryAccIndexRoute: AppuserConsoleInventoryAccIndexRoute,
-    AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute:
-      AppuserConsoleInventoryAccInventoryAccountIDDetailsRoute,
+    AppuserInventoryAccIndexRoute: AppuserInventoryAccIndexRoute,
+    AppuserInventoryAccInventoryAccountIDDetailsRoute:
+      AppuserInventoryAccInventoryAccountIDDetailsRoute,
   }
 
-const AppuserConsoleInventoryAccRouteRouteWithChildren =
-  AppuserConsoleInventoryAccRouteRoute._addFileChildren(
-    AppuserConsoleInventoryAccRouteRouteChildren,
+const AppuserInventoryAccRouteRouteWithChildren =
+  AppuserInventoryAccRouteRoute._addFileChildren(
+    AppuserInventoryAccRouteRouteChildren,
   )
 
-interface AppuserConsoleLegal_entityRouteRouteChildren {
-  AppuserConsoleLegal_entityIndexRoute: typeof AppuserConsoleLegal_entityIndexRoute
-  AppuserConsoleLegal_entityLeIDDetailsRoute: typeof AppuserConsoleLegal_entityLeIDDetailsRoute
+interface AppuserLegal_entityRouteRouteChildren {
+  AppuserLegal_entityIndexRoute: typeof AppuserLegal_entityIndexRoute
+  AppuserLegal_entityLeIDDetailsRoute: typeof AppuserLegal_entityLeIDDetailsRoute
 }
 
-const AppuserConsoleLegal_entityRouteRouteChildren: AppuserConsoleLegal_entityRouteRouteChildren =
+const AppuserLegal_entityRouteRouteChildren: AppuserLegal_entityRouteRouteChildren =
   {
-    AppuserConsoleLegal_entityIndexRoute: AppuserConsoleLegal_entityIndexRoute,
-    AppuserConsoleLegal_entityLeIDDetailsRoute:
-      AppuserConsoleLegal_entityLeIDDetailsRoute,
+    AppuserLegal_entityIndexRoute: AppuserLegal_entityIndexRoute,
+    AppuserLegal_entityLeIDDetailsRoute: AppuserLegal_entityLeIDDetailsRoute,
   }
 
-const AppuserConsoleLegal_entityRouteRouteWithChildren =
-  AppuserConsoleLegal_entityRouteRoute._addFileChildren(
-    AppuserConsoleLegal_entityRouteRouteChildren,
+const AppuserLegal_entityRouteRouteWithChildren =
+  AppuserLegal_entityRouteRoute._addFileChildren(
+    AppuserLegal_entityRouteRouteChildren,
   )
 
-interface AppuserConsolePaymentsRouteRouteChildren {
-  AppuserConsolePaymentsIndexRoute: typeof AppuserConsolePaymentsIndexRoute
-  AppuserConsolePaymentsAccountIdIndexRoute: typeof AppuserConsolePaymentsAccountIdIndexRoute
+interface AppuserPaymentsRouteRouteChildren {
+  AppuserPaymentsIndexRoute: typeof AppuserPaymentsIndexRoute
+  AppuserPaymentsAccountIdIndexRoute: typeof AppuserPaymentsAccountIdIndexRoute
 }
 
-const AppuserConsolePaymentsRouteRouteChildren: AppuserConsolePaymentsRouteRouteChildren =
+const AppuserPaymentsRouteRouteChildren: AppuserPaymentsRouteRouteChildren = {
+  AppuserPaymentsIndexRoute: AppuserPaymentsIndexRoute,
+  AppuserPaymentsAccountIdIndexRoute: AppuserPaymentsAccountIdIndexRoute,
+}
+
+const AppuserPaymentsRouteRouteWithChildren =
+  AppuserPaymentsRouteRoute._addFileChildren(AppuserPaymentsRouteRouteChildren)
+
+interface AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
+  AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+}
+
+const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren: AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren =
   {
-    AppuserConsolePaymentsIndexRoute: AppuserConsolePaymentsIndexRoute,
-    AppuserConsolePaymentsAccountIdIndexRoute:
-      AppuserConsolePaymentsAccountIdIndexRoute,
+    AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute:
+      AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute,
   }
 
-const AppuserConsolePaymentsRouteRouteWithChildren =
-  AppuserConsolePaymentsRouteRoute._addFileChildren(
-    AppuserConsolePaymentsRouteRouteChildren,
+const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren =
+  AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute._addFileChildren(
+    AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren,
   )
 
-interface AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
-  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+interface AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
+  AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
 }
 
-const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren: AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren =
+const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren: AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren =
   {
-    AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute:
-      AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute,
+    AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute:
+      AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute,
   }
 
-const AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute._addFileChildren(
-    AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren,
+const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
+  AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
+    AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
   )
-
-interface AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
-  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-}
-
-const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren: AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren =
-  {
-    AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute:
-      AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute,
-  }
-
-const AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
-  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
-    AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
-  )
-
-interface AppuserConsoleRouteRouteChildren {
-  AppuserConsoleInventoryAccRouteRoute: typeof AppuserConsoleInventoryAccRouteRouteWithChildren
-  AppuserConsoleLegal_entityRouteRoute: typeof AppuserConsoleLegal_entityRouteRouteWithChildren
-  AppuserConsolePaymentsRouteRoute: typeof AppuserConsolePaymentsRouteRouteWithChildren
-  AppuserConsoleHomeRoute: typeof AppuserConsoleHomeRoute
-  AppuserConsolePropertyRoutesRoute: typeof AppuserConsolePropertyRoutesRoute
-  AppuserConsoleAuditLogIndexRoute: typeof AppuserConsoleAuditLogIndexRoute
-  AppuserConsoleOrgUsersIndexRoute: typeof AppuserConsoleOrgUsersIndexRoute
-  AppuserConsoleOrganizationIndexRoute: typeof AppuserConsoleOrganizationIndexRoute
-  AppuserConsolePropertyIndexRoute: typeof AppuserConsolePropertyIndexRoute
-  AppuserConsoleSuppliersChar38VendorsIndexRoute: typeof AppuserConsoleSuppliersChar38VendorsIndexRoute
-  AppuserConsolePropertyPropertyIdDetailsRoute: typeof AppuserConsolePropertyPropertyIdDetailsRoute
-  AppuserConsolePropertyPropertyIdPropertyConfigurationRoute: typeof AppuserConsolePropertyPropertyIdPropertyConfigurationRoute
-  AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute
-  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute
-  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-}
-
-const AppuserConsoleRouteRouteChildren: AppuserConsoleRouteRouteChildren = {
-  AppuserConsoleInventoryAccRouteRoute:
-    AppuserConsoleInventoryAccRouteRouteWithChildren,
-  AppuserConsoleLegal_entityRouteRoute:
-    AppuserConsoleLegal_entityRouteRouteWithChildren,
-  AppuserConsolePaymentsRouteRoute:
-    AppuserConsolePaymentsRouteRouteWithChildren,
-  AppuserConsoleHomeRoute: AppuserConsoleHomeRoute,
-  AppuserConsolePropertyRoutesRoute: AppuserConsolePropertyRoutesRoute,
-  AppuserConsoleAuditLogIndexRoute: AppuserConsoleAuditLogIndexRoute,
-  AppuserConsoleOrgUsersIndexRoute: AppuserConsoleOrgUsersIndexRoute,
-  AppuserConsoleOrganizationIndexRoute: AppuserConsoleOrganizationIndexRoute,
-  AppuserConsolePropertyIndexRoute: AppuserConsolePropertyIndexRoute,
-  AppuserConsoleSuppliersChar38VendorsIndexRoute:
-    AppuserConsoleSuppliersChar38VendorsIndexRoute,
-  AppuserConsolePropertyPropertyIdDetailsRoute:
-    AppuserConsolePropertyPropertyIdDetailsRoute,
-  AppuserConsolePropertyPropertyIdPropertyConfigurationRoute:
-    AppuserConsolePropertyPropertyIdPropertyConfigurationRoute,
-  AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute:
-    AppuserConsoleSuppliersChar38VendorsSuppliersIDDetailsRoute,
-  AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
-    AppuserConsolePropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
-  AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute:
-    AppuserConsolePropertyPropertyIdProperty_settingsIndexRoute,
-  AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
-    AppuserConsolePropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
-  AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
-    AppuserConsolePropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
-}
-
-const AppuserConsoleRouteRouteWithChildren =
-  AppuserConsoleRouteRoute._addFileChildren(AppuserConsoleRouteRouteChildren)
 
 interface AppuserRouteRouteChildren {
-  AppuserConsoleRouteRoute: typeof AppuserConsoleRouteRouteWithChildren
+  AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
+  AppuserLegal_entityRouteRoute: typeof AppuserLegal_entityRouteRouteWithChildren
+  AppuserPaymentsRouteRoute: typeof AppuserPaymentsRouteRouteWithChildren
+  AppuserHomeRoute: typeof AppuserHomeRoute
+  AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
+  AppuserAuditLogIndexRoute: typeof AppuserAuditLogIndexRoute
+  AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
+  AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
+  AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
+  AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
+  AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
+  AppuserPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  AppuserPropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
-  AppuserConsoleRouteRoute: AppuserConsoleRouteRouteWithChildren,
+  AppuserInventoryAccRouteRoute: AppuserInventoryAccRouteRouteWithChildren,
+  AppuserLegal_entityRouteRoute: AppuserLegal_entityRouteRouteWithChildren,
+  AppuserPaymentsRouteRoute: AppuserPaymentsRouteRouteWithChildren,
+  AppuserHomeRoute: AppuserHomeRoute,
+  AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
+  AppuserAuditLogIndexRoute: AppuserAuditLogIndexRoute,
+  AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
+  AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
+  AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
+  AppuserSuppliersChar38VendorsIndexRoute:
+    AppuserSuppliersChar38VendorsIndexRoute,
+  AppuserPropertyPropertyIdDetailsRoute: AppuserPropertyPropertyIdDetailsRoute,
+  AppuserPropertyPropertyIdPropertyConfigurationRoute:
+    AppuserPropertyPropertyIdPropertyConfigurationRoute,
+  AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute:
+    AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute,
+  AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
+    AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
+  AppuserPropertyPropertyIdProperty_settingsIndexRoute:
+    AppuserPropertyPropertyIdProperty_settingsIndexRoute,
+  AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
+    AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
+  AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
+    AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
 }
 
 const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(

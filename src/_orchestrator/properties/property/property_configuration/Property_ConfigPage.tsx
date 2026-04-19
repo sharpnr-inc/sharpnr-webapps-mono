@@ -16,7 +16,7 @@ import {
 
 import { useSearch } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Route } from "@/routes/_appuser/_console/property/$propertyId/property-configuration";
+import { Route } from "@/routes/_appuser/property/$propertyId/property-configuration";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ModulesSelectionSection } from "./ModulesSelection";
