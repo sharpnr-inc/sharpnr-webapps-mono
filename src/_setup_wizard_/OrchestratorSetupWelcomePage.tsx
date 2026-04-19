@@ -133,7 +133,7 @@ export function OrchestratorSetupWizardWelcomePage() {
                 whileTap="tap"
               >
                 <Button size={"lg"} asChild className="text-lg px-10 py-4">
-                  <Link to="/orchestrator">
+                  <Link to="/home">
                     Continue to Setup
                     <ArrowRight className="ml-2 h-6 w-6" />
                   </Link>
