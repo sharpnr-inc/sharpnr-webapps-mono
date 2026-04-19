@@ -34,7 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SelectContent } from "@radix-ui/react-select";
-import { usePaymentAccounts } from "@/_orchestrator/payments/api/api.queries";
+import { usePaymentAccounts } from "@/app/payments/api/api.queries";
 import { useCloseDiningSessionMutation } from "../apis/mutations";
 
 /* ─────────────────────────────────────────

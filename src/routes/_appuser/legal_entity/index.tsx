@@ -1,8 +1,6 @@
-import { LegalEntityIndexPage } from "@/_orchestrator/legal_entity/LegalEntityIndexPage"
-import { createFileRoute } from '@tanstack/react-router'
+import { LegalEntityIndexPage } from "@/app/legal_entity/LegalEntityIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute(
-  '/_appuser/legal_entity/',
-)({
+export const Route = createFileRoute("/_appuser/legal_entity/")({
   component: LegalEntityIndexPage,
-})
+});

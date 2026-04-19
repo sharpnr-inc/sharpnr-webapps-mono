@@ -1,5 +1,7 @@
-import { ConsoleLayout } from "@/_orchestrator/components/ConsoleLayout";
-import OrganizationSetupGuard from "@/_orchestrator/console/OrgSetupGuard";
+import { ConsoleLayout } from "@/components/ConsoleLayout";
+
+// This is the Component for the Setup Guard
+// import OrganizationSetupGuard from "@/_orchestrator/console/OrgSetupGuard";
 
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -13,13 +15,5 @@ export const Route = createFileRoute("/_appuser")({
   //     status,
   //   };
   // },
-  component: RouteComponent,
+  component: ConsoleLayout,
 });
-
-function RouteComponent() {
-  return (
-    <OrganizationSetupGuard>
-      <ConsoleLayout />
-    </OrganizationSetupGuard>
-  );
-}

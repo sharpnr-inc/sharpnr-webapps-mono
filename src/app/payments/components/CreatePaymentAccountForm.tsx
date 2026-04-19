@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useOrganizationLegalEntities } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { useOrganizationLegalEntities } from "@/app/legal_entity/api/legalEntity.api.queries";
 import { useAppForm } from "@/components/forms";
 import { useCreatePaymentAccountMutation } from "../api/api.mutation";
 

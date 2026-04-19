@@ -1,4 +1,4 @@
-import { InventoryAccountDetails } from "@/_orchestrator/inventory/InventoryAccountDetails";
+import { InventoryAccountDetails } from "@/app/inventory/InventoryAccountDetails";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

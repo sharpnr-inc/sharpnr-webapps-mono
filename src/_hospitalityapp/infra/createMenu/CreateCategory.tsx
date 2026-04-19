@@ -35,7 +35,7 @@ import {
 import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
 import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
 import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
-import { useLegalEntityAllTaxCategory } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { useLegalEntityAllTaxCategory } from "@/app/legal_entity/api/legalEntity.api.queries";
 import { NIL } from "uuid";
 
 const CreateCategory = () => {
