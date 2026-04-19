@@ -1,31 +1,18 @@
-// this is the page show all the property of the organization
-// This more data
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@/components/ui/empty";
-
-import { Skeleton } from "@/components/ui/skeleton";
-// import { useOrganizationProperties } from "../api/queries/general";
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { Building, LucideBuilding, PlusIcon } from "lucide-react";
+import {
+  AlertTriangle,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Layers,
+  MapPin,
+  Plus,
+  Settings,
+  Tag,
+} from "lucide-react";
 import { useFormsModal } from "@/hooks/FormModalContext";
-import { Badge } from "@/components/ui/badge";
-import { Alert } from "@/components/ui/alert";
 import { useState } from "react";
 import AddPropertyForm from "./forms/AddPropertyForm";
 import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
@@ -33,23 +20,37 @@ import { useAddPropertyDomainMutation } from "./api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useProperties } from "./api/queries";
 import type { Property } from "./api/service";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 
-// This page list all the Properties of the organization
+/* ── easing ──────────────────────────────────────────── */
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+/* ── variants ────────────────────────────────────────── */
+const containerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
+};
+
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
+};
+
+/* ─────────────────────────────────────────────────────── */
+
 export function PropertyIndexPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // *this query hook the fetch all property that organization have
-  // *this return the array of the property
   const { data: properties, isLoading } = useProperties();
-
-  // const { data: domainTypes, isLoading: isDomainLoading } = useDomainType();
-
   const adddomain = useAddPropertyDomainMutation();
   const qc = useQueryClient();
-
-  const propertyArray = properties?.data?.properties ?? [];
-
-  //*hook for opening the modal
+  const propertyArray: Property[] = properties?.data?.properties ?? [];
   const { showModal, closeModal } = useFormsModal();
+  const navigate = useNavigate();
 
   const handleAddProperty = () => {
     showModal(
@@ -59,222 +60,344 @@ export function PropertyIndexPage() {
     );
   };
 
-  const navigate = useNavigate();
-
   const handlePropertyNavigation = (p: Property) => {
     if (!p.is_configured && p.domain != null) {
       navigate({
         to: "/property/$propertyId/property-configuration",
-        search: {
-          p_domain: p.domain,
-          p_name: p.name,
-        },
-        params: {
-          propertyId: p.id,
-        },
+        search: { p_domain: p.domain, p_name: p.name },
+        params: { propertyId: p.id },
       });
     } else {
       navigate({
         to: "/property/$propertyId/details",
-        params: {
-          propertyId: p.id,
-        },
+        params: { propertyId: p.id },
       });
     }
   };
 
   return (
-    <div className="p-2 space-y-2">
-      {/* Header start */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold">Properties</h1>
-          <p className="text-sm text-muted-foreground">
-            {"Manage all the properties here"}
-          </p>
+    <div className=" bg-background">
+      {/* ── Page wrapper ─────────────────────────── */}
+      <div className="mx-auto px-4 py-6 sm:px-6 lg:px-8">
+        {/* ── Header ───────────────────────────────── */}
+        <motion.div
+          variants={headerVariants}
+          initial="hidden"
+          animate="visible"
+          className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div className="space-y-1">
+            {/* Eyebrow label */}
+            <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-primary/70">
+              <Layers className="h-3 w-3" />
+              Organization
+            </p>
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">
+              Properties
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              {isLoading
+                ? "Loading your properties…"
+                : `${propertyArray.length} propert${propertyArray.length === 1 ? "y" : "ies"} in your organization`}
+            </p>
+          </div>
+
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <Button onClick={handleAddProperty} className="gap-2 shadow-sm">
+              <Plus className="h-4 w-4" />
+              Add Property
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        {/* ── Content ──────────────────────────────── */}
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <motion.div
+              key="skeleton"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
+            >
+              {Array.from({ length: 6 }).map((_, i) => (
+                <PropertyCardSkeleton key={i} index={i} />
+              ))}
+            </motion.div>
+          ) : propertyArray.length === 0 ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease: EASE }}
+            >
+              <EmptyPropertySection onAdd={handleAddProperty} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="grid"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
+            >
+              {propertyArray.map((p: Property) => (
+                <PropertyCard
+                  key={p.id}
+                  property={p}
+                  isDialogOpen={isDialogOpen}
+                  setIsDialogOpen={setIsDialogOpen}
+                  onNavigate={handlePropertyNavigation}
+                  onDomainConfirm={async (domainId) => {
+                    try {
+                      await adddomain.mutateAsync({
+                        domain: domainId,
+                        propertyID: p.id,
+                      });
+                      await qc.invalidateQueries({
+                        queryKey: ["ORGANIZATION", "PROPERTIES", "ALL"],
+                      });
+                    } catch (err) {
+                      console.error("Failed to add domain:", err);
+                    }
+                  }}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────── *
+ *  Property Card
+ * ─────────────────────────────────────────────────────── */
+interface PropertyCardProps {
+  property: Property;
+  isDialogOpen: boolean;
+  setIsDialogOpen: (v: boolean) => void;
+  onNavigate: (p: Property) => void;
+  onDomainConfirm: (domainId: string) => Promise<void>;
+}
+
+function PropertyCard({
+  property: p,
+  isDialogOpen,
+  setIsDialogOpen,
+  onNavigate,
+  onDomainConfirm,
+}: PropertyCardProps) {
+  const configured = p.is_configured;
+  const hasDomain = p.domain && p.domain !== "";
+
+  return (
+    <motion.div
+      variants={itemVariants}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md"
+    >
+      {/* Status stripe */}
+      <div
+        className={[
+          "absolute left-0 top-0 h-full w-1 rounded-l-2xl transition-colors",
+          configured ? "bg-emerald-500" : "bg-amber-400",
+        ].join(" ")}
+      />
+
+      {/* Card body */}
+      <div className="flex flex-1 flex-col gap-4 p-5 pl-6">
+        {/* Top row: title + domain badge */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 space-y-0.5">
+            <h2 className="truncate text-base font-semibold text-foreground">
+              {p.name}
+            </h2>
+            <p className="flex items-center gap-1 font-mono text-[11px] text-muted-foreground">
+              <Tag className="h-3 w-3 shrink-0" />
+              {p.code}
+            </p>
+          </div>
+
+          {hasDomain ? (
+            <span className="inline-flex shrink-0 items-center rounded-full border border-primary/20 bg-primary/8 px-2.5 py-0.5 text-[11px] font-medium text-primary">
+              {p.domain}
+            </span>
+          ) : (
+            <span className="inline-flex shrink-0 items-center rounded-full border border-dashed border-muted-foreground/30 bg-muted/40 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+              No domain
+            </span>
+          )}
         </div>
 
-        <Button onClick={() => handleAddProperty()}>
-          <PlusIcon /> <Building />
-          Add Property
-        </Button>
-      </div>
-      {/* Header ends */}
-      <section>
-        {isLoading ? (
-          <PropertyCardSkeleton />
-        ) : propertyArray.length == 0 ? (
-          <EmptyPropertySection />
-        ) : (
-          <div className="grid sm: grid-cols-1 md:grid-cols-3 gap-2">
-            {propertyArray.map((p: any) => (
-              <Card
-                key={p.id}
-                className="flex flex-col justify-between hover:shadow-lg transition-shadow"
-              >
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle className="text-xl">{p.name}</CardTitle>
-                      <CardDescription className="font-mono text-sm">
-                        CODE: {p.code}
-                      </CardDescription>
-                    </div>
-                    <div className="flex flex-col gap-2 items-end">
-                      {p.domain ? (
-                        <Badge variant="default" className="">
-                          {p.domain}
-                        </Badge>
-                      ) : (
-                        <>
-                          <Button onClick={() => setIsDialogOpen(true)}>
-                            Select Domain
-                          </Button>
-                          <PropertyDomainSelection
-                            onConfirm={async (domainId) => {
-                              try {
-                                await adddomain.mutateAsync({
-                                  domain: domainId,
-                                  propertyID: p.id,
-                                });
-
-                                await qc.invalidateQueries({
-                                  queryKey: [
-                                    "ORGANIZATION",
-                                    "PROPERTIES",
-                                    "ALL",
-                                  ],
-                                });
-                              } catch (error) {
-                                console.error("Failed to add domain:", error);
-                              }
-                            }}
-                            property={p}
-                            onOpenChange={setIsDialogOpen}
-                            open={isDialogOpen}
-                          />
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  <div className="text-sm text-muted-foreground">
-                    <p>
-                      {p.city}, {p.state},
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={`h-2 w-2 rounded-full ${p.is_configured ? "bg-green-500" : "bg-red-500"}`}
-                    />
-                    <span className="text-xs font-semibold uppercase tracking-wider">
-                      {p.is_configured ? "Active" : "Pending Setup"}
-                    </span>
-                  </div>
-                </CardContent>
-
-                <CardFooter className="pt-0">
-                  {!p.is_configured ? (
-                    <Alert
-                      variant="destructive"
-                      className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full bg-destructive/5"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs">
-                          {p.domain === ""
-                            ? "Domain Configuration Pending"
-                            : "Setup is incomplete for this property."}
-                        </span>
-                      </div>
-
-                      {/* Logic: Show 'Configure' only if domain exists */}
-                      {p.domain !== "" ? (
-                        <Button
-                          onClick={() => handlePropertyNavigation(p)}
-                          size="sm"
-                          className="w-full sm:w-auto"
-                        >
-                          Configure Now
-                        </Button>
-                      ) : (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          disabled
-                          className="w-full sm:w-auto opacity-50 animate-pulse"
-                        >
-                          Domain Not Provided
-                        </Button>
-                      )}
-                    </Alert>
-                  ) : (
-                    <Button
-                      onClick={() => handlePropertyNavigation(p)}
-                      variant="secondary"
-                      className="w-full"
-                    >
-                      View Dashboard
-                    </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
+        {/* Location */}
+        {(p.city || p.state) && (
+          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
+            {[p.city, p.state].filter(Boolean).join(", ")}
+          </p>
         )}
-      </section>
-    </div>
-  );
-}
 
-function EmptyPropertySection() {
-  return (
-    <div>
-      <Empty>
-        <EmptyHeader>
-          <EmptyMedia variant={"icon"}>
-            <LucideBuilding />
-          </EmptyMedia>
-          <EmptyTitle>{"No property"}</EmptyTitle>
-          <EmptyDescription>
-            You haven&apos;t created any projects yet. Get started by creating
-            your first project.
-          </EmptyDescription>
-        </EmptyHeader>
-        <EmptyContent className="flex-row justify-center gap-2">
-          <Button>Create Property</Button>
-        </EmptyContent>
-      </Empty>
-    </div>
-  );
-}
+        {/* Status pill */}
+        <div className="flex items-center gap-2">
+          {configured ? (
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-600">
+              <CheckCircle2 className="h-3 w-3" />
+              Active
+            </span>
+          ) : (
+            <span className="flex items-center gap-1.5 rounded-full bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-600">
+              <Clock className="h-3 w-3" />
+              Pending Setup
+            </span>
+          )}
+        </div>
 
-function PropertyCardSkeleton() {
-  return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-2">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <Card key={i} className="flex flex-col justify-between">
-          <CardHeader>
-            <Skeleton className="h-5 w-3/4" />
-            <Skeleton className="h-3 w-1/2" />
-          </CardHeader>
-
-          <CardContent className="space-y-3">
-            <Skeleton className="h-3 w-2/3" />
-            <Skeleton className="h-3 w-1/3" />
-            <div className="flex items-center gap-2">
-              <Skeleton className="h-2 w-2 rounded-full" />
-              <Skeleton className="h-3 w-20" />
+        {/* ── Footer action area ───────── */}
+        <div className="mt-auto pt-1">
+          {configured ? (
+            <motion.button
+              whileHover={{ x: 2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onNavigate(p)}
+              className="flex w-full items-center justify-between rounded-xl border bg-muted/40 px-3.5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            >
+              <span className="flex items-center gap-2">
+                <Building2 className="h-4 w-4 text-primary" />
+                View Dashboard
+              </span>
+              <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+            </motion.button>
+          ) : hasDomain ? (
+            /* Domain exists but not yet configured */
+            <div className="space-y-2 rounded-xl border border-amber-200 bg-amber-50/60 p-3 dark:border-amber-900/30 dark:bg-amber-950/20">
+              <p className="flex items-center gap-1.5 text-[11px] text-amber-700 dark:text-amber-400">
+                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                Setup is incomplete for this property.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => onNavigate(p)}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-500 px-3 py-2 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-amber-600"
+              >
+                <Settings className="h-3.5 w-3.5" />
+                Configure Now
+              </motion.button>
             </div>
-          </CardContent>
+          ) : (
+            /* No domain yet */
+            <div className="space-y-2 rounded-xl border border-dashed border-muted-foreground/25 bg-muted/30 p-3">
+              <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                Domain configuration pending.
+              </p>
+              <div className="flex gap-2">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setIsDialogOpen(true)}
+                  className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border bg-background px-3 py-2 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  Select Domain
+                </motion.button>
+              </div>
+              <PropertyDomainSelection
+                onConfirm={onDomainConfirm}
+                property={p}
+                onOpenChange={setIsDialogOpen}
+                open={isDialogOpen}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
-          <CardFooter>
-            <Skeleton className="h-9 w-full" />
-          </CardFooter>
-        </Card>
-      ))}
+/* ─────────────────────────────────────────────────────── *
+ *  Empty state
+ * ─────────────────────────────────────────────────────── */
+function EmptyPropertySection({ onAdd }: { onAdd: () => void }) {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-24 text-center">
+      {/* Animated icon */}
+      <div className="relative mb-6 flex h-20 w-20 items-center justify-center">
+        <motion.span
+          animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0, 0.15] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 rounded-full bg-primary/20"
+        />
+        <motion.span
+          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0, 0.1] }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.3,
+          }}
+          className="absolute inset-2 rounded-full bg-primary/15"
+        />
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
+          <Building2 className="h-8 w-8 text-primary" />
+        </div>
+      </div>
+
+      <h3 className="mb-1 text-lg font-semibold text-foreground">
+        No properties yet
+      </h3>
+      <p className="mb-6 max-w-xs text-sm text-muted-foreground">
+        Get started by adding your first property to the organization.
+      </p>
+
+      <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+        <Button onClick={onAdd} className="gap-2 shadow-sm">
+          <Plus className="h-4 w-4" />
+          Add Your First Property
+        </Button>
+      </motion.div>
     </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────── *
+ *  Skeleton
+ * ─────────────────────────────────────────────────────── */
+function PropertyCardSkeleton({ index }: { index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: index * 0.05, duration: 0.3 }}
+      className="relative overflow-hidden rounded-2xl border bg-card p-5 pl-6 shadow-sm"
+    >
+      {/* stripe */}
+      <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl bg-muted" />
+
+      <div className="space-y-4">
+        <div className="flex items-start justify-between">
+          <div className="space-y-2">
+            <ShimmerBar className="h-4 w-32" />
+            <ShimmerBar className="h-3 w-20" />
+          </div>
+          <ShimmerBar className="h-5 w-16 rounded-full" />
+        </div>
+        <ShimmerBar className="h-3 w-28" />
+        <ShimmerBar className="h-5 w-24 rounded-full" />
+        <ShimmerBar className="h-10 w-full rounded-xl" />
+      </div>
+    </motion.div>
+  );
+}
+
+function ShimmerBar({ className }: { className?: string }) {
+  return (
+    <div
+      className={["animate-pulse rounded-md bg-muted", className].join(" ")}
+    />
   );
 }

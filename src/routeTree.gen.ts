@@ -17,6 +17,7 @@ import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
 import { Route as AppuserStorageIndexRouteImport } from './routes/_appuser/storage/index'
+import { Route as AppuserSetupWizIndexRouteImport } from './routes/_appuser/setup-wiz/index'
 import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/property/index'
 import { Route as AppuserPaymentsIndexRouteImport } from './routes/_appuser/payments/index'
 import { Route as AppuserOrganizationIndexRouteImport } from './routes/_appuser/organization/index'
@@ -80,6 +81,11 @@ const AppuserSuppliersChar38VendorsIndexRoute =
 const AppuserStorageIndexRoute = AppuserStorageIndexRouteImport.update({
   id: '/storage/',
   path: '/storage/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserSetupWizIndexRoute = AppuserSetupWizIndexRouteImport.update({
+  id: '/setup-wiz/',
+  path: '/setup-wiz/',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserPropertyIndexRoute = AppuserPropertyIndexRouteImport.update({
@@ -236,6 +242,7 @@ export interface FileRoutesByFullPath {
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments/': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
+  '/setup-wiz': typeof AppuserSetupWizIndexRoute
   '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -264,6 +271,7 @@ export interface FileRoutesByTo {
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
+  '/setup-wiz': typeof AppuserSetupWizIndexRoute
   '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -296,6 +304,7 @@ export interface FileRoutesById {
   '/_appuser/organization/': typeof AppuserOrganizationIndexRoute
   '/_appuser/payments/': typeof AppuserPaymentsIndexRoute
   '/_appuser/property/': typeof AppuserPropertyIndexRoute
+  '/_appuser/setup-wiz/': typeof AppuserSetupWizIndexRoute
   '/_appuser/storage/': typeof AppuserStorageIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -329,6 +338,7 @@ export interface FileRouteTypes {
     | '/organization'
     | '/payments/'
     | '/property'
+    | '/setup-wiz'
     | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
@@ -357,6 +367,7 @@ export interface FileRouteTypes {
     | '/organization'
     | '/payments'
     | '/property'
+    | '/setup-wiz'
     | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
@@ -388,6 +399,7 @@ export interface FileRouteTypes {
     | '/_appuser/organization/'
     | '/_appuser/payments/'
     | '/_appuser/property/'
+    | '/_appuser/setup-wiz/'
     | '/_appuser/storage/'
     | '/_appuser/suppliers&Vendors/'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
@@ -465,6 +477,13 @@ declare module '@tanstack/react-router' {
       path: '/storage'
       fullPath: '/storage'
       preLoaderRoute: typeof AppuserStorageIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/setup-wiz/': {
+      id: '/_appuser/setup-wiz/'
+      path: '/setup-wiz'
+      fullPath: '/setup-wiz'
+      preLoaderRoute: typeof AppuserSetupWizIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/property/': {
@@ -712,6 +731,7 @@ interface AppuserRouteRouteChildren {
   AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
+  AppuserSetupWizIndexRoute: typeof AppuserSetupWizIndexRoute
   AppuserStorageIndexRoute: typeof AppuserStorageIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
@@ -735,6 +755,7 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
+  AppuserSetupWizIndexRoute: AppuserSetupWizIndexRoute,
   AppuserStorageIndexRoute: AppuserStorageIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,
