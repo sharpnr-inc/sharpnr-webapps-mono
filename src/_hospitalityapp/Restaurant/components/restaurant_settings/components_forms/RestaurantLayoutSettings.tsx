@@ -11,7 +11,7 @@ import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { useRestaurantLayout } from "@/_hospitalityapp/Restaurant/apis/queries";
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantConfiguration from "./RestaurantFloorForm";
-import { useFormsModal } from "@/context/FormModalContext";
+import { useFormsModal } from "@/hooks/FormModalContext";
 
 type Table = {
   id: string;

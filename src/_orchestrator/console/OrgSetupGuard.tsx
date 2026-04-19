@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, Scale } from "lucide-react";
 import { useOrganizationStatus } from "../api/general";
-import { useFormsModal } from "@/context/FormModalContext";
+import { useFormsModal } from "@/hooks/FormModalContext";
 import AddPropertyForm from "../properties/property/forms/AddPropertyForm";
 import CreateLegalEntityForm from "../legal_entity/CreateLegalEntityForm";
 

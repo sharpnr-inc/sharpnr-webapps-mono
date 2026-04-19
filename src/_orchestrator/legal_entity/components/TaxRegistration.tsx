@@ -10,7 +10,7 @@ import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 import { PlusCircle } from "lucide-react";
 
 import { AddTaxRegistrationForm } from "../forms/AddTaxRegistrationForm";
-import { useFormsModal } from "@/context/FormModalContext";
+import { useFormsModal } from "@/hooks/FormModalContext";
 import { useLegalEntityAllTaxRegistration } from "../api/legalEntity.api.queries";
 
 interface TaxRegistrationRow {

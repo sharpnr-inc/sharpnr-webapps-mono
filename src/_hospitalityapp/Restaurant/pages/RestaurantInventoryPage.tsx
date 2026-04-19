@@ -5,7 +5,7 @@ import {
   useRestaurantInventories,
 } from "../apis/queries";
 import { useSelectedRestaurantID } from "../store/selectors";
-import { useFormsModal } from "@/context/FormModalContext";
+import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

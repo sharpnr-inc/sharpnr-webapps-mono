@@ -3,7 +3,7 @@ interface AnthropicLoaderProps {
   isDark?: boolean;
 }
 
-export default function AnthropicLoader({ isDark = true }: AnthropicLoaderProps) {
+export default function SharpnrLoader({ isDark = true }: AnthropicLoaderProps) {
   return (
     <div
       style={{

@@ -14,7 +14,7 @@ import {
   Box,
 } from "lucide-react";
 import { useInventoryAccounts } from "./api/queries";
-import { useFormsModal } from "@/context/FormModalContext";
+import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddNewInventoryAccountForm } from "./forms/AddNewInventoryAccount";
 import { useNavigate } from "@tanstack/react-router";
 

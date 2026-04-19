@@ -20,11 +20,10 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useNavigate } from "@tanstack/react-router";
 import { Badge as SB } from "@/components/ui/badge";
-import { useFormsModal } from "@/context/FormModalContext";
+import { useFormsModal } from "@/hooks/FormModalContext";
 import AddModulesInProperty from "./forms/AddModulesInProperty";
 import { AddInfraInProperty } from "./forms/AddInfrasInProperty";
 import type { PropertyModule } from "./api/service";
-
 
 interface PropertyDetailsPageProps {
   propertyId: string;
@@ -76,7 +75,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   };
 
   const { showModal, closeModal } = useFormsModal();
-  
+
   const handleAddModules = (domain: string | undefined) => {
     if (domain) {
       showModal(

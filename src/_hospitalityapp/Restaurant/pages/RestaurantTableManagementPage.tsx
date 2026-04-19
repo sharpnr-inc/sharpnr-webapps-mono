@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSheet } from "@/context/DrawerContext";
+import { useSheet } from "@/hooks/DrawerContext";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";
