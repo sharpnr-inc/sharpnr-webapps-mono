@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as UserIndexRouteImport } from './routes/_user/index'
+import { Route as UserInfraRouteRouteImport } from './routes/_user/infra/route'
 import { Route as UserRestaurantIndexRouteImport } from './routes/_user/restaurant/index'
 import { Route as UserRestaurantLayoutRouteRouteImport } from './routes/_user/restaurant/_layout/route'
+import { Route as UserInfraKitchenIndexRouteImport } from './routes/_user/infra/kitchen/index'
 import { Route as UserRestaurantLayoutTableManagementIndexRouteImport } from './routes/_user/restaurant/_layout/table-management/index'
 import { Route as UserRestaurantLayoutSalesTerminalIndexRouteImport } from './routes/_user/restaurant/_layout/sales-terminal/index'
 import { Route as UserRestaurantLayoutReservationsIndexRouteImport } from './routes/_user/restaurant/_layout/reservations/index'
@@ -21,6 +23,7 @@ import { Route as UserRestaurantLayoutOverviewIndexRouteImport } from './routes/
 import { Route as UserRestaurantLayoutOrdersIndexRouteImport } from './routes/_user/restaurant/_layout/orders/index'
 import { Route as UserRestaurantLayoutInventoryIndexRouteImport } from './routes/_user/restaurant/_layout/inventory/index'
 import { Route as UserRestaurantLayoutGeneralSettingsIndexRouteImport } from './routes/_user/restaurant/_layout/general-settings/index'
+import { Route as UserInfraKitchenService_pointServiceRouteImport } from './routes/_user/infra/kitchen/$service_point/service'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
@@ -36,6 +39,11 @@ const UserIndexRoute = UserIndexRouteImport.update({
   path: '/',
   getParentRoute: () => UserRouteRoute,
 } as any)
+const UserInfraRouteRoute = UserInfraRouteRouteImport.update({
+  id: '/infra',
+  path: '/infra',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const UserRestaurantIndexRoute = UserRestaurantIndexRouteImport.update({
   id: '/restaurant/',
   path: '/restaurant/',
@@ -47,6 +55,11 @@ const UserRestaurantLayoutRouteRoute =
     path: '/restaurant',
     getParentRoute: () => UserRouteRoute,
   } as any)
+const UserInfraKitchenIndexRoute = UserInfraKitchenIndexRouteImport.update({
+  id: '/kitchen/',
+  path: '/kitchen/',
+  getParentRoute: () => UserInfraRouteRoute,
+} as any)
 const UserRestaurantLayoutTableManagementIndexRoute =
   UserRestaurantLayoutTableManagementIndexRouteImport.update({
     id: '/table-management/',
@@ -89,12 +102,21 @@ const UserRestaurantLayoutGeneralSettingsIndexRoute =
     path: '/general-settings/',
     getParentRoute: () => UserRestaurantLayoutRouteRoute,
   } as any)
+const UserInfraKitchenService_pointServiceRoute =
+  UserInfraKitchenService_pointServiceRouteImport.update({
+    id: '/kitchen/$service_point/service',
+    path: '/kitchen/$service_point/service',
+    getParentRoute: () => UserInfraRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof UserIndexRoute
+  '/infra': typeof UserInfraRouteRouteWithChildren
   '/about/': typeof AboutIndexRoute
   '/restaurant': typeof UserRestaurantLayoutRouteRouteWithChildren
   '/restaurant/': typeof UserRestaurantIndexRoute
+  '/infra/kitchen/': typeof UserInfraKitchenIndexRoute
+  '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
   '/restaurant/general-settings/': typeof UserRestaurantLayoutGeneralSettingsIndexRoute
   '/restaurant/inventory/': typeof UserRestaurantLayoutInventoryIndexRoute
   '/restaurant/orders/': typeof UserRestaurantLayoutOrdersIndexRoute
@@ -104,9 +126,12 @@ export interface FileRoutesByFullPath {
   '/restaurant/table-management/': typeof UserRestaurantLayoutTableManagementIndexRoute
 }
 export interface FileRoutesByTo {
+  '/infra': typeof UserInfraRouteRouteWithChildren
   '/': typeof UserIndexRoute
   '/about': typeof AboutIndexRoute
   '/restaurant': typeof UserRestaurantIndexRoute
+  '/infra/kitchen': typeof UserInfraKitchenIndexRoute
+  '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
   '/restaurant/general-settings': typeof UserRestaurantLayoutGeneralSettingsIndexRoute
   '/restaurant/inventory': typeof UserRestaurantLayoutInventoryIndexRoute
   '/restaurant/orders': typeof UserRestaurantLayoutOrdersIndexRoute
@@ -118,10 +143,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
+  '/_user/infra': typeof UserInfraRouteRouteWithChildren
   '/_user/': typeof UserIndexRoute
   '/about/': typeof AboutIndexRoute
   '/_user/restaurant/_layout': typeof UserRestaurantLayoutRouteRouteWithChildren
   '/_user/restaurant/': typeof UserRestaurantIndexRoute
+  '/_user/infra/kitchen/': typeof UserInfraKitchenIndexRoute
+  '/_user/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
   '/_user/restaurant/_layout/general-settings/': typeof UserRestaurantLayoutGeneralSettingsIndexRoute
   '/_user/restaurant/_layout/inventory/': typeof UserRestaurantLayoutInventoryIndexRoute
   '/_user/restaurant/_layout/orders/': typeof UserRestaurantLayoutOrdersIndexRoute
@@ -134,9 +162,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/infra'
     | '/about/'
     | '/restaurant'
     | '/restaurant/'
+    | '/infra/kitchen/'
+    | '/infra/kitchen/$service_point/service'
     | '/restaurant/general-settings/'
     | '/restaurant/inventory/'
     | '/restaurant/orders/'
@@ -146,9 +177,12 @@ export interface FileRouteTypes {
     | '/restaurant/table-management/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/infra'
     | '/'
     | '/about'
     | '/restaurant'
+    | '/infra/kitchen'
+    | '/infra/kitchen/$service_point/service'
     | '/restaurant/general-settings'
     | '/restaurant/inventory'
     | '/restaurant/orders'
@@ -159,10 +193,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_user'
+    | '/_user/infra'
     | '/_user/'
     | '/about/'
     | '/_user/restaurant/_layout'
     | '/_user/restaurant/'
+    | '/_user/infra/kitchen/'
+    | '/_user/infra/kitchen/$service_point/service'
     | '/_user/restaurant/_layout/general-settings/'
     | '/_user/restaurant/_layout/inventory/'
     | '/_user/restaurant/_layout/orders/'
@@ -200,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
+    '/_user/infra': {
+      id: '/_user/infra'
+      path: '/infra'
+      fullPath: '/infra'
+      preLoaderRoute: typeof UserInfraRouteRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
     '/_user/restaurant/': {
       id: '/_user/restaurant/'
       path: '/restaurant'
@@ -213,6 +257,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/restaurant'
       preLoaderRoute: typeof UserRestaurantLayoutRouteRouteImport
       parentRoute: typeof UserRouteRoute
+    }
+    '/_user/infra/kitchen/': {
+      id: '/_user/infra/kitchen/'
+      path: '/kitchen'
+      fullPath: '/infra/kitchen/'
+      preLoaderRoute: typeof UserInfraKitchenIndexRouteImport
+      parentRoute: typeof UserInfraRouteRoute
     }
     '/_user/restaurant/_layout/table-management/': {
       id: '/_user/restaurant/_layout/table-management/'
@@ -263,8 +314,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserRestaurantLayoutGeneralSettingsIndexRouteImport
       parentRoute: typeof UserRestaurantLayoutRouteRoute
     }
+    '/_user/infra/kitchen/$service_point/service': {
+      id: '/_user/infra/kitchen/$service_point/service'
+      path: '/kitchen/$service_point/service'
+      fullPath: '/infra/kitchen/$service_point/service'
+      preLoaderRoute: typeof UserInfraKitchenService_pointServiceRouteImport
+      parentRoute: typeof UserInfraRouteRoute
+    }
   }
 }
+
+interface UserInfraRouteRouteChildren {
+  UserInfraKitchenIndexRoute: typeof UserInfraKitchenIndexRoute
+  UserInfraKitchenService_pointServiceRoute: typeof UserInfraKitchenService_pointServiceRoute
+}
+
+const UserInfraRouteRouteChildren: UserInfraRouteRouteChildren = {
+  UserInfraKitchenIndexRoute: UserInfraKitchenIndexRoute,
+  UserInfraKitchenService_pointServiceRoute:
+    UserInfraKitchenService_pointServiceRoute,
+}
+
+const UserInfraRouteRouteWithChildren = UserInfraRouteRoute._addFileChildren(
+  UserInfraRouteRouteChildren,
+)
 
 interface UserRestaurantLayoutRouteRouteChildren {
   UserRestaurantLayoutGeneralSettingsIndexRoute: typeof UserRestaurantLayoutGeneralSettingsIndexRoute
@@ -299,12 +372,14 @@ const UserRestaurantLayoutRouteRouteWithChildren =
   )
 
 interface UserRouteRouteChildren {
+  UserInfraRouteRoute: typeof UserInfraRouteRouteWithChildren
   UserIndexRoute: typeof UserIndexRoute
   UserRestaurantLayoutRouteRoute: typeof UserRestaurantLayoutRouteRouteWithChildren
   UserRestaurantIndexRoute: typeof UserRestaurantIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
+  UserInfraRouteRoute: UserInfraRouteRouteWithChildren,
   UserIndexRoute: UserIndexRoute,
   UserRestaurantLayoutRouteRoute: UserRestaurantLayoutRouteRouteWithChildren,
   UserRestaurantIndexRoute: UserRestaurantIndexRoute,
