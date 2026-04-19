@@ -16,12 +16,15 @@ import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/paym
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
+import { Route as AppuserStorageIndexRouteImport } from './routes/_appuser/storage/index'
 import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/property/index'
 import { Route as AppuserPaymentsIndexRouteImport } from './routes/_appuser/payments/index'
 import { Route as AppuserOrganizationIndexRouteImport } from './routes/_appuser/organization/index'
 import { Route as AppuserOrgUsersIndexRouteImport } from './routes/_appuser/org-users/index'
 import { Route as AppuserLegal_entityIndexRouteImport } from './routes/_appuser/legal_entity/index'
 import { Route as AppuserInventoryAccIndexRouteImport } from './routes/_appuser/inventory-acc/index'
+import { Route as AppuserDocs_officeIndexRouteImport } from './routes/_appuser/docs_office/index'
+import { Route as AppuserCablesIndexRouteImport } from './routes/_appuser/cables/index'
 import { Route as AppuserAuditLogIndexRouteImport } from './routes/_appuser/audit-log/index'
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
@@ -74,6 +77,11 @@ const AppuserSuppliersChar38VendorsIndexRoute =
     path: '/suppliers&Vendors/',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserStorageIndexRoute = AppuserStorageIndexRouteImport.update({
+  id: '/storage/',
+  path: '/storage/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserPropertyIndexRoute = AppuserPropertyIndexRouteImport.update({
   id: '/property/',
   path: '/property/',
@@ -107,6 +115,16 @@ const AppuserInventoryAccIndexRoute =
     path: '/',
     getParentRoute: () => AppuserInventoryAccRouteRoute,
   } as any)
+const AppuserDocs_officeIndexRoute = AppuserDocs_officeIndexRouteImport.update({
+  id: '/docs_office/',
+  path: '/docs_office/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserCablesIndexRoute = AppuserCablesIndexRouteImport.update({
+  id: '/cables/',
+  path: '/cables/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserAuditLogIndexRoute = AppuserAuditLogIndexRouteImport.update({
   id: '/audit-log/',
   path: '/audit-log/',
@@ -210,12 +228,15 @@ export interface FileRoutesByFullPath {
   '/home': typeof AppuserHomeRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
+  '/cables': typeof AppuserCablesIndexRoute
+  '/docs_office': typeof AppuserDocs_officeIndexRoute
   '/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/legal_entity/': typeof AppuserLegal_entityIndexRoute
   '/org-users': typeof AppuserOrgUsersIndexRoute
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments/': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
+  '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -235,12 +256,15 @@ export interface FileRoutesByTo {
   '/home': typeof AppuserHomeRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
+  '/cables': typeof AppuserCablesIndexRoute
+  '/docs_office': typeof AppuserDocs_officeIndexRoute
   '/inventory-acc': typeof AppuserInventoryAccIndexRoute
   '/legal_entity': typeof AppuserLegal_entityIndexRoute
   '/org-users': typeof AppuserOrgUsersIndexRoute
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
+  '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -264,12 +288,15 @@ export interface FileRoutesById {
   '/_appuser/home': typeof AppuserHomeRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
   '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
+  '/_appuser/cables/': typeof AppuserCablesIndexRoute
+  '/_appuser/docs_office/': typeof AppuserDocs_officeIndexRoute
   '/_appuser/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/_appuser/legal_entity/': typeof AppuserLegal_entityIndexRoute
   '/_appuser/org-users/': typeof AppuserOrgUsersIndexRoute
   '/_appuser/organization/': typeof AppuserOrganizationIndexRoute
   '/_appuser/payments/': typeof AppuserPaymentsIndexRoute
   '/_appuser/property/': typeof AppuserPropertyIndexRoute
+  '/_appuser/storage/': typeof AppuserStorageIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -294,12 +321,15 @@ export interface FileRouteTypes {
     | '/home'
     | '/property/routes'
     | '/audit-log'
+    | '/cables'
+    | '/docs_office'
     | '/inventory-acc/'
     | '/legal_entity/'
     | '/org-users'
     | '/organization'
     | '/payments/'
     | '/property'
+    | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -319,12 +349,15 @@ export interface FileRouteTypes {
     | '/home'
     | '/property/routes'
     | '/audit-log'
+    | '/cables'
+    | '/docs_office'
     | '/inventory-acc'
     | '/legal_entity'
     | '/org-users'
     | '/organization'
     | '/payments'
     | '/property'
+    | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -347,12 +380,15 @@ export interface FileRouteTypes {
     | '/_appuser/home'
     | '/_appuser/property/routes'
     | '/_appuser/audit-log/'
+    | '/_appuser/cables/'
+    | '/_appuser/docs_office/'
     | '/_appuser/inventory-acc/'
     | '/_appuser/legal_entity/'
     | '/_appuser/org-users/'
     | '/_appuser/organization/'
     | '/_appuser/payments/'
     | '/_appuser/property/'
+    | '/_appuser/storage/'
     | '/_appuser/suppliers&Vendors/'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
     | '/_appuser/legal_entity/$leID/details'
@@ -424,6 +460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserSuppliersChar38VendorsIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/storage/': {
+      id: '/_appuser/storage/'
+      path: '/storage'
+      fullPath: '/storage'
+      preLoaderRoute: typeof AppuserStorageIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/property/': {
       id: '/_appuser/property/'
       path: '/property'
@@ -465,6 +508,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/inventory-acc/'
       preLoaderRoute: typeof AppuserInventoryAccIndexRouteImport
       parentRoute: typeof AppuserInventoryAccRouteRoute
+    }
+    '/_appuser/docs_office/': {
+      id: '/_appuser/docs_office/'
+      path: '/docs_office'
+      fullPath: '/docs_office'
+      preLoaderRoute: typeof AppuserDocs_officeIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/cables/': {
+      id: '/_appuser/cables/'
+      path: '/cables'
+      fullPath: '/cables'
+      preLoaderRoute: typeof AppuserCablesIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/audit-log/': {
       id: '/_appuser/audit-log/'
@@ -650,9 +707,12 @@ interface AppuserRouteRouteChildren {
   AppuserHomeRoute: typeof AppuserHomeRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
   AppuserAuditLogIndexRoute: typeof AppuserAuditLogIndexRoute
+  AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
+  AppuserDocs_officeIndexRoute: typeof AppuserDocs_officeIndexRoute
   AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
+  AppuserStorageIndexRoute: typeof AppuserStorageIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
   AppuserPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
@@ -670,9 +730,12 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserHomeRoute: AppuserHomeRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
   AppuserAuditLogIndexRoute: AppuserAuditLogIndexRoute,
+  AppuserCablesIndexRoute: AppuserCablesIndexRoute,
+  AppuserDocs_officeIndexRoute: AppuserDocs_officeIndexRoute,
   AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
+  AppuserStorageIndexRoute: AppuserStorageIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,
   AppuserPropertyPropertyIdDetailsRoute: AppuserPropertyPropertyIdDetailsRoute,

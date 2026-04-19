@@ -19,11 +19,11 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
   Building2,
-  Boxes,
   FileText,
   Home,
   ChevronsUpDown,
@@ -34,6 +34,13 @@ import {
   LucideShoppingBasket,
   ContainerIcon,
   Bell,
+  Cable,
+  BoxesIcon,
+  Building2Icon,
+  Globe2Icon,
+  Verified,
+  Globe,
+  Zap,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
@@ -68,7 +75,7 @@ const orchestratorLinks: SidebarLink[] = [
   {
     label: "Properties",
     path: "/property",
-    icon: Boxes,
+    icon: Building2Icon,
     tooltip: "Properties",
     exact: false,
   },
@@ -106,8 +113,38 @@ const orchestratorLinks: SidebarLink[] = [
   {
     label: "Audit Logs",
     path: "/audit-log",
-    icon: FileText,
+    icon: Verified,
     tooltip: "Audit Logs",
+  },
+  {
+    label: "Storage",
+    path: "/storage",
+    icon: BoxesIcon,
+    tooltip: "Storage",
+  },
+  {
+    label: "Cables",
+    path: "/cables",
+    icon: Cable,
+    tooltip: "Cables",
+  },
+  {
+    label: "Docs & Office",
+    path: "/docs_office",
+    icon: FileText,
+    tooltip: "Docs & Office",
+  },
+  {
+    label: "Descovro Integration",
+    path: "/",
+    icon: Globe2Icon,
+    tooltip: "Descovro Integration",
+  },
+  {
+    label: "Sharp Marketplace",
+    path: "/",
+    icon: Globe,
+    tooltip: "Descovro Integration",
   },
 ];
 
@@ -317,6 +354,17 @@ export function ConsoleLayout({}: OrchestratorLayoutProps) {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
+        <SidebarFooter className="border-t p-3">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-6 items-center justify-center rounded-md shrink-0">
+              <Zap className="size-3" />
+            </div>
+            <p className="text-xs text-muted-foreground truncate group-data-[collapsible=icon]:hidden">
+              Powered by{" "}
+              <span className="font-semibold text-foreground">Sharpnr</span>
+            </p>
+          </div>
+        </SidebarFooter>
       </Sidebar>
 
       {/* ===== Main Content ===== */}

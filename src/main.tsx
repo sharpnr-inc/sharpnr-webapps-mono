@@ -18,6 +18,7 @@ import { registerSW } from "virtual:pwa-register";
 import { queryClient, router } from "./router_config.tsx";
 import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
 import { Toaster } from "sonner";
+import { TooltipProvider } from "./components/ui/tooltip.tsx";
 
 registerSW({
   onNeedRefresh() {
@@ -32,20 +33,22 @@ registerSW({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AppVersionIdentifier>
-        <ThemeProvider>
-          <FormsModalProvider>
-            <SheetProvider>
-              <DialogModalProvider>
-                <Suspense fallback={<SuspenseFallback />}>
-                  <RouterProvider router={router} />
-                  <Toaster />
-                </Suspense>
-              </DialogModalProvider>
-            </SheetProvider>
-          </FormsModalProvider>
-        </ThemeProvider>
-      </AppVersionIdentifier>
+      <TooltipProvider>
+        <AppVersionIdentifier>
+          <ThemeProvider>
+            <FormsModalProvider>
+              <SheetProvider>
+                <DialogModalProvider>
+                  <Suspense fallback={<SuspenseFallback />}>
+                    <RouterProvider router={router} />
+                    <Toaster />
+                  </Suspense>
+                </DialogModalProvider>
+              </SheetProvider>
+            </FormsModalProvider>
+          </ThemeProvider>
+        </AppVersionIdentifier>
+      </TooltipProvider>
       <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
       {/* 🔹 Show Devtools only in development */}
