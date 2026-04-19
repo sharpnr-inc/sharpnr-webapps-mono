@@ -18,7 +18,7 @@ const RestaurantSettingsTabs = () => {
   const navigate = useNavigate();
   const handleNav = () => {
     navigate({
-      to: "/orchestrator/property/$propertyId/details",
+      to: "/property/$propertyId/details",
       params: {
         propertyId,
       },
@@ -66,7 +66,7 @@ const RestaurantSettingsTabs = () => {
           <TabsContent value="Menu" className="space-y-4">
             {(() => {
               const hasKitchen = properyDetails?.data?.infra?.some(
-                (infra) => infra.infra_type === "KITCHEN",
+                (infra: any) => infra.infra_type === "KITCHEN",
               );
 
               if (!hasKitchen) {

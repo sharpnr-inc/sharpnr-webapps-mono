@@ -6,13 +6,10 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
-
 import { useOrganizationLegalEntities } from "@/app/legal_entity/api/legalEntity.api.queries";
 import { useRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/queries";
 import { useUpdateRestaurantGeneralInfo } from "@/_hospitalityapp/Restaurant/apis/mutations";
-
 import { useQueryClient } from "@tanstack/react-query";
 
 import {
