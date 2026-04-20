@@ -17,10 +17,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
+import { useStateStore } from "@/components/forms/store/state_store";
 import { Button } from "@/components/ui/button";
 import { useStates } from "../apiservice/queries";
-import { useCityStore } from "@/store/utilities/city/store";
+import { useCityStore } from "@/components/forms/store/city_store";
 import type { State } from "../apiservice/csc";
 
 export interface StateInterface {}
