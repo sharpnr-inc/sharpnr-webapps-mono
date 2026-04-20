@@ -40,6 +40,13 @@ const apps = [
     tag: "Growth",
     link: config.marketingAppUrl,
   },
+  {
+    name: "Sharpnr Cables",
+    description:
+      "Connect, collaborate, and stay in sync with your organization through real-time conversations, channels, and team spaces designed for seamless communication.",
+    tag: "Communication",
+    link: config.cablesAppUrl,
+  },
 ];
 
 export function AppsPage() {

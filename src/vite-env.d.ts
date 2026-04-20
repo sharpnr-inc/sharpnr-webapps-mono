@@ -15,6 +15,7 @@ interface ImportMetaEnv {
   readonly VITE_API_IAM_APP: string;
   readonly VITE_API_MARKETING_APP: string;
   readonly VITE_API_HR_APP: string;
+  readonly VITE_API_CABLES_APP: string;
 }
 
 interface ImportMeta {

@@ -15,6 +15,7 @@ const requiredVars = [
   "VITE_API_IAM_APP",
   "VITE_API_MARKETING_APP",
   "VITE_API_HR_APP",
+  "VITE_API_CABLES_APP",
 ] as const;
 
 type RequiredVar = (typeof requiredVars)[number];
@@ -42,4 +43,5 @@ export const config = {
   iamAppUrl: import.meta.env.VITE_API_IAM_APP, // Identity & Access Management
   marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP, // Marketing module
   hrAppUrl: import.meta.env.VITE_API_HR_APP, // Human Resources module
+  cablesAppUrl: import.meta.env.VITE_API_CABLES_APP, // Cables Module
 } as const;
