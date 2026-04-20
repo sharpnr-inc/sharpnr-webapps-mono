@@ -9,6 +9,11 @@ import {
 import { RestaurantSidebar } from "./RestaurantSidebar";
 import { Building2 } from "lucide-react";
 import { useSelectedRestaurant } from "../store/selectors";
+import { ModeToggle } from "@/components/header/ThemeToggle";
+import SharpnrLauncher from "@/components/header/SharpnrLauncher";
+import { UserCard } from "@/components/header/UserCard";
+import { NotificationBell } from "@/components/header/NotificationButton";
+import { Separator } from "@/components/ui/separator";
 
 export function RestaurantRootLayout() {
   const selectedRestaurant = useSelectedRestaurant();
@@ -47,13 +52,20 @@ export function RestaurantRootLayout() {
         </Sidebar>
 
         <SidebarInset>
-          <header className="flex h-12 items-center gap-2 px-4">
-            <SidebarTrigger />
-            <div className="h-4 w-px bg-border mx-2" />
-            {/* <RouteBreadcrumbs /> */}
+          <header className="flex h-12 items-center justify-between border-b px-4">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="h-6" />
+            </div>
+            <div className="flex items-center gap-3 px-4">
+              <SharpnrLauncher />
+              <NotificationBell onClick={() => console.log("HI")} />
+              <UserCard />
+              <ModeToggle />
+            </div>
           </header>
 
-          <main className="p-6">
+          <main className="p-4">
             <Outlet />
           </main>
         </SidebarInset>

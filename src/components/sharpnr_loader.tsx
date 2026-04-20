@@ -1,9 +1,8 @@
-
 interface AnthropicLoaderProps {
   isDark?: boolean;
 }
 
-export default function AnthropicLoader({ isDark = true }: AnthropicLoaderProps) {
+export default function SharpnrLoader({ isDark = true }: AnthropicLoaderProps) {
   return (
     <div
       style={{
@@ -52,9 +51,7 @@ export default function AnthropicLoader({ isDark = true }: AnthropicLoaderProps)
             right: "-8px",
             bottom: "-8px",
             border: "2px solid transparent",
-            borderTopColor: isDark
-              ? "rgba(255,255,255,0.6)"
-              : "#1a4d8f",
+            borderTopColor: isDark ? "rgba(255,255,255,0.6)" : "#1a4d8f",
             borderRightColor: isDark
               ? "rgba(255,255,255,0.3)"
               : "rgba(26,77,143,0.5)",
@@ -72,9 +69,7 @@ export default function AnthropicLoader({ isDark = true }: AnthropicLoaderProps)
             right: "-6px",
             bottom: "-6px",
             border: "1.5px solid transparent",
-            borderBottomColor: isDark
-              ? "rgba(255,255,255,0.5)"
-              : "#2563a8",
+            borderBottomColor: isDark ? "rgba(255,255,255,0.5)" : "#2563a8",
             borderLeftColor: isDark
               ? "rgba(255,255,255,0.2)"
               : "rgba(37,99,168,0.4)",

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
-import AnthropicLoader from "@/components/anthropic_loader";
+import AnthropicLoader from "@/components/sharpnr_loader";
 
 interface LoaderContextType {
   isLoading: boolean;

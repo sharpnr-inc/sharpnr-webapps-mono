@@ -6,6 +6,7 @@ import { Route } from "@/routes/_user/restaurant/index";
 import { useSetRestaurant } from "../store/selectors";
 import { useEffect } from "react";
 import type { RestaurantContext } from "../apis/restaurant.api";
+import { toast } from "sonner";
 
 export default function RestaurantSelector() {
   const navigate = useNavigate();
@@ -74,6 +75,10 @@ export default function RestaurantSelector() {
 
                     navigate({
                       to: "/restaurant/overview",
+                    });
+
+                    toast.success(`Entered ${restaurant.Name}`, {
+                      description: `${restaurant.Property?.City}, ${restaurant.Property?.State}`,
                     });
                   }}
                   className={`border-border/60 transition-shadow ${

@@ -11,20 +11,23 @@ import "@/middlewares/unauthorized.ts";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { FormsModalProvider } from "./hooks/FormModalContext";
+import { ThemeProvider } from "./hooks/theme-provider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TooltipProvider>
-      <QueryClientProvider client={queryClient}>
-        <FormsModalProvider>
-          <SheetProvider>
-            <Suspense fallback={<SuspenseFallback />}>
-              <RouterProvider router={router} />
-              <Toaster />
-            </Suspense>
-          </SheetProvider>
-        </FormsModalProvider>
-      </QueryClientProvider>
-    </TooltipProvider>
+    <ThemeProvider storageKey="hospitality-ui-theme">
+      <TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+          <FormsModalProvider>
+            <SheetProvider>
+              <Suspense fallback={<SuspenseFallback />}>
+                <RouterProvider router={router} />
+                <Toaster />
+              </Suspense>
+            </SheetProvider>
+          </FormsModalProvider>
+        </QueryClientProvider>
+      </TooltipProvider>
+    </ThemeProvider>
   </StrictMode>,
 );
