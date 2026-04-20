@@ -10,18 +10,21 @@ import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
+import { ThemeProvider } from "./hooks/theme-provider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <SheetProvider>
-          <Suspense fallback={<SuspenseFallback />}>
-            <RouterProvider router={router} />
-            <Toaster />
-          </Suspense>
-        </SheetProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider storageKey="hr-app-ui-theme">
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <SheetProvider>
+            <Suspense fallback={<SuspenseFallback />}>
+              <RouterProvider router={router} />
+              <Toaster />
+            </Suspense>
+          </SheetProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   </StrictMode>,
 );

@@ -30,6 +30,11 @@ import {
   Bell,
   ShieldCheck,
 } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import SharpnrLauncher from "@/components/header/SharpnrLauncher";
+import { NotificationBell } from "@/components/header/NotificationButton";
+import { UserCard } from "@/components/header/UserCard";
+import { ModeToggle } from "@/components/header/ThemeToggle";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -251,11 +256,18 @@ const SharpHRRootLayout: React.FC = () => {
 
       {/* ── Main Content ── */}
       <SidebarInset>
-        <header className="flex h-14 items-center gap-2 border-b px-4">
-          <SidebarTrigger />
-          <div className="h-4 w-px bg-border mx-2" />
+        <header className="flex h-12 items-center justify-between border-b px-4">
+          <div className="flex items-center gap-4">
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="h-6" />
+          </div>
+          <div className="flex items-center gap-3 px-4">
+            <SharpnrLauncher />
+            <NotificationBell onClick={() => console.log("HI")} />
+            <UserCard />
+            <ModeToggle />
+          </div>
         </header>
-
         <main className="flex-1">
           <Outlet />
         </main>
