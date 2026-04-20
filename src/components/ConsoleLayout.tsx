@@ -3,8 +3,6 @@ import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -49,7 +47,7 @@ import { ModeToggle } from "@/components/ui/ThemeToggle";
 import { useSheet } from "@/hooks/DrawerContext";
 import { cn } from "@/lib/utils";
 import type { Variants, Transition } from "framer-motion";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { UserCard } from "./header/UserCard";
 
 /* =========================
    Sidebar Configuration
@@ -415,36 +413,17 @@ export function ConsoleLayout({}: OrchestratorLayoutProps) {
             </HeaderItem>
 
             {/* Theme Toggle */}
+
             <HeaderItem index={5}>
+              <UserCard />
+            </HeaderItem>
+            <HeaderItem index={6}>
               <motion.div
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.92 }}
               >
                 <ModeToggle />
               </motion.div>
-            </HeaderItem>
-            <HeaderItem index={6}>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <motion.div
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.92 }}
-                  >
-                    <Avatar className="h-9 w-9 cursor-pointer">
-                      <AvatarImage src="/avatars/user.png" alt="User avatar" />
-                      <AvatarFallback>SN</AvatarFallback>
-                    </Avatar>
-                  </motion.div>
-                </DropdownMenuTrigger>
-
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuItem className="text-red-500">
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </HeaderItem>
           </div>
         </motion.header>

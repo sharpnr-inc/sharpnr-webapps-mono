@@ -1,39 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import {
-  AddCustomerInOrg,
-  InitializeSignup,
-  LoginUser,
-  VerifyOtp,
-  type OrgSignupPayload,
-} from "./api_service";
-import type { APIResponse } from "@/lib/api_response";
-
-export function useInitiateSignUpMutation() {
-  return useMutation<APIResponse<any>, Error, OrgSignupPayload>({
-    mutationKey: ["Signup"],
-    mutationFn: InitializeSignup,
-  });
-}
-
-/* ---------------------------------- <***> --------------------------------- */
-
-export function useVerifyOtpMutation() {
-  return useMutation({
-    mutationKey: ["Verify-otp"],
-    mutationFn: VerifyOtp,
-  });
-}
-
-/* ---------------------------------- <***> --------------------------------- */
-
-export function useUserAuth() {
-  return useMutation({
-    mutationKey: ["Authentication"],
-    mutationFn: LoginUser,
-  });
-}
-
-/* ---------------------------------- <***> --------------------------------- */
+import { AddCustomerInOrg, logout } from "./api_service";
+import { appUserActions } from "@/store/AppUserStore";
+import { config } from "@/configs/env";
 
 export function useAddCustomer() {
   return useMutation({
@@ -43,3 +11,13 @@ export function useAddCustomer() {
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export function useLogout() {
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      appUserActions.clearUser();
+      window.location.href = config.iamAppUrl;
+    },
+  });
+}

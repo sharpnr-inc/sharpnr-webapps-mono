@@ -17,7 +17,7 @@ import { useCountries } from "../apiservice/queries";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
+import { useStateStore } from "@/components/forms/store/state_store";
 import React from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { Country } from "../apiservice/csc";
@@ -39,9 +39,9 @@ const CountrySelect = () => {
   const filteredCountries = React.useMemo(() => {
     if (!countries) return [];
     if (!searchValue) return countries;
-    
+
     return countries.filter((country: Country) =>
-      country.name.toLowerCase().includes(searchValue.toLowerCase())
+      country.name.toLowerCase().includes(searchValue.toLowerCase()),
     );
   }, [countries, searchValue]);
 
@@ -61,8 +61,8 @@ const CountrySelect = () => {
         </PopoverTrigger>
         <PopoverContent>
           <Command shouldFilter={false}>
-            <CommandInput 
-              placeholder="Search Country ..." 
+            <CommandInput
+              placeholder="Search Country ..."
               id={field.name}
               value={searchValue}
               onValueChange={setSearchValue}
