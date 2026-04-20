@@ -19,9 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-
 import { Building2, Check, ChevronDown, ChevronsUpDown } from "lucide-react";
-
 import { useAccountingStore } from "../store/accounting.store";
 
 import {
@@ -39,6 +37,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
+import SharpnrLauncher from "@/components/header/SharpnrLauncher";
+import { NotificationBell } from "@/components/header/NotificationButton";
+import { UserCard } from "@/components/header/UserCard";
+import { ModeToggle } from "@/components/header/ThemeToggle";
 
 /* ================================
    Layout
@@ -143,9 +146,17 @@ const AccountingRootLayout = () => {
         </Sidebar>
 
         <SidebarInset>
-          <header className="flex h-14 shrink-0 items-center gap-2 px-4">
-            <SidebarTrigger />
-            <span className="">Accounting</span>
+          <header className="flex h-12 items-center justify-between border-b px-4">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="h-6" />
+            </div>
+            <div className="flex items-center gap-3 px-4">
+              <SharpnrLauncher />
+              <NotificationBell onClick={() => console.log("HI")} />
+              <UserCard />
+              <ModeToggle />
+            </div>
           </header>
 
           <main className=" overflow-auto p-4">

@@ -17,10 +17,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
+import { useStateStore } from "@/components/forms/store/state_store";
 import { Button } from "@/components/ui/button";
 import { useStates } from "../apiservice/queries";
-import { useCityStore } from "@/store/utilities/city/store";
+import { useCityStore } from "@/components/forms/store/store";
 import type { State } from "../apiservice/csc";
 
 export interface StateInterface {}
@@ -37,7 +37,7 @@ const StateSelect = () => {
   const formError = field.state.meta.errors?.[0];
 
   const selectedState = states?.find(
-    (s:State) => s.name === field.state.value
+    (s: State) => s.name === field.state.value,
   );
 
   const countryMissingError = !countryCode
@@ -48,7 +48,7 @@ const StateSelect = () => {
     <div className="space-y-2">
       <Label htmlFor={field.name}>State</Label>
 
-      <Popover open={open} onOpenChange={setOpen} >
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             className="w-full justify-between"
@@ -63,18 +63,18 @@ const StateSelect = () => {
         {countryCode && (
           <PopoverContent className="p-0">
             <Command>
-              <CommandInput placeholder="Search State..."  id={field.name}/>
+              <CommandInput placeholder="Search State..." id={field.name} />
               <CommandList className="max-h-64 overflow-y-auto">
                 <CommandEmpty>No State Found</CommandEmpty>
 
                 <CommandGroup>
-                  {states?.map((state:State) => (
+                  {states?.map((state: State) => (
                     <CommandItem
                       key={state.iso2}
                       value={state.name}
                       onSelect={() => {
                         field.handleChange(state.name);
-                        setStateCode(state.iso2)
+                        setStateCode(state.iso2);
                         setOpen(false);
                       }}
                     >
@@ -83,7 +83,7 @@ const StateSelect = () => {
                           "mr-2 h-4 w-4",
                           field.state.value === state.name
                             ? "opacity-100"
-                            : "opacity-0"
+                            : "opacity-0",
                         )}
                       />
                       {state.name}

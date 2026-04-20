@@ -17,10 +17,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
+import { useStateStore } from "@/components/forms/store/state_store";
 import { Button } from "@/components/ui/button";
 import { useCities } from "../apiservice/queries";
-import { useCityStore } from "@/store/utilities/city/store";
+import { useCityStore } from "@/components/forms/store/store";
 import type { City } from "../apiservice/csc";
 
 export interface StateInterface {}
@@ -30,20 +30,18 @@ const CitySelect = () => {
   const field = useFieldContext<string>();
 
   const countryCode = useStateStore((s) => s.countryCode);
-  const stateCode = useCityStore((s)=> s.stateCode)
-  
+  const stateCode = useCityStore((s) => s.stateCode);
 
   const { data: cities, isLoading } = useCities(countryCode, stateCode);
 
   const formError = field.state.meta.errors?.[0];
 
-  const selectedState = cities?.find(
-    (c:City) => c.name === field.state.value
-  );
+  const selectedState = cities?.find((c: City) => c.name === field.state.value);
 
-  const countryMissingError = !countryCode || !stateCode
-    ? "Please select a state and a country first"
-    : undefined;
+  const countryMissingError =
+    !countryCode || !stateCode
+      ? "Please select a state and a country first"
+      : undefined;
 
   return (
     <div className="space-y-2">
@@ -63,12 +61,12 @@ const CitySelect = () => {
         {countryCode && (
           <PopoverContent className="p-0">
             <Command>
-              <CommandInput placeholder="Search City..." id={field.name}/>
+              <CommandInput placeholder="Search City..." id={field.name} />
               <CommandList className="max-h-64 overflow-y-auto">
                 <CommandEmpty>No State Found</CommandEmpty>
 
                 <CommandGroup>
-                  {cities?.map((city:City) => (
+                  {cities?.map((city: City) => (
                     <CommandItem
                       key={city.id}
                       value={city.name}
@@ -82,7 +80,7 @@ const CitySelect = () => {
                           "mr-2 h-4 w-4",
                           field.state.value === city.name
                             ? "opacity-100"
-                            : "opacity-0"
+                            : "opacity-0",
                         )}
                       />
                       {city.name}
