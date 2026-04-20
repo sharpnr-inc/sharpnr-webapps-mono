@@ -44,4 +44,5 @@ export const UserRoutes = {
    * fetch(UserRoutes.authenticateUser())
    */
   authenticateUser: (): string => `/identity/web/verify-auth`,
+  logout: () => `/identity/web/logout`,
 };

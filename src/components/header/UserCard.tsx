@@ -7,24 +7,46 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useUserCardStore } from "./user_card_store";
 import { ChefHat, Wine, LogOut, ExternalLink, ShieldCheck } from "lucide-react";
 import { config } from "@/configs/env";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutation";
 
 export function UserCard() {
   const { isOpen, setIsOpen } = useUserCardStore();
+  const isLoading = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending } = useLogout();
+  const { user } = useAppUserStore();
+
+  console.log(user);
+
+  // Derive initials only when user data is available and valid
+  const firstName = user?.firstName ?? "";
+  const lastName = user?.lastName ?? "";
+  const fullName =
+    firstName || lastName ? `${firstName} ${lastName}`.trim() : null;
+  const initials = (firstName[0] ?? "") + (lastName[0] ?? "") || null;
+
+  // Show a skeleton trigger while the user is being fetched
+  if (isLoading) {
+    return <Skeleton className="h-9 w-9 rounded-full" />;
+  }
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <button className="rounded-full outline-none ring-offset-background transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:opacity-85 active:scale-95">
+        <button className="rounded outline-none ring-offset-background transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:opacity-85 active:scale-95">
           <Avatar className="h-9 w-9 border-2 border-border shadow-sm">
-            <AvatarImage
-              src="https://github.com/shadcn.png"
-              alt="User avatar"
-            />
+            {user?.email ? (
+              <AvatarImage
+                src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.email)}`}
+                alt={fullName ?? "User avatar"}
+              />
+            ) : null}
             <AvatarFallback className="text-sm font-semibold">
-              CN
+              {initials ?? "U"}
             </AvatarFallback>
           </Avatar>
         </button>
@@ -35,36 +57,45 @@ export function UserCard() {
         align="end"
         sideOffset={8}
       >
-        {/* Header — profile section */}
+        {/* ── Header ── */}
         <div className="relative bg-linear-to-br from-muted/60 to-muted px-5 pt-5 pb-4">
           <div className="flex items-center gap-3.5">
             <Avatar className="h-14 w-14 border-2 border-background shadow-md ring-2 ring-primary/20">
-              <AvatarImage
-                src="https://github.com/shadcn.png"
-                alt="User avatar"
-              />
-              <AvatarFallback className="text-lg font-bold">CN</AvatarFallback>
+              {user?.email ? (
+                <AvatarImage
+                  src={`https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.email)}`}
+                  alt={fullName ?? "User avatar"}
+                />
+              ) : null}
+              <AvatarFallback className="text-lg font-bold">
+                {initials ?? "U"}
+              </AvatarFallback>
             </Avatar>
+
             <div className="flex flex-col min-w-0">
               <span className="font-semibold text-sm text-foreground truncate">
-                Cameron Newton
+                {fullName ?? "—"}
               </span>
+
               <span className="text-xs text-muted-foreground truncate">
-                cameron@example.com
+                {user?.email ?? "—"}
               </span>
-              <Badge
-                variant="secondary"
-                className="mt-1.5 w-fit text-[10px] px-1.5 py-0 h-4 font-medium"
-              >
-                Admin
-              </Badge>
+
+              {user?.role ? (
+                <Badge
+                  variant="secondary"
+                  className="mt-1.5 w-fit text-[10px] px-1.5 py-0 h-4 font-medium"
+                >
+                  {user.role}
+                </Badge>
+              ) : null}
             </div>
           </div>
         </div>
 
         <Separator />
 
-        {/* Navigation items */}
+        {/* ── Quick Access ── */}
         <div className="p-2">
           <p className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
             Quick Access
@@ -75,9 +106,6 @@ export function UserCard() {
               <ChefHat className="h-3.5 w-3.5" />
             </div>
             <span className="flex-1 text-left">Kitchen</span>
-            <kbd className="hidden sm:inline-flex h-5 items-center gap-0.5 rounded border border-border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
-              ⌘K
-            </kbd>
           </button>
 
           <button className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-foreground hover:bg-accent transition-colors group">
@@ -85,15 +113,12 @@ export function UserCard() {
               <Wine className="h-3.5 w-3.5" />
             </div>
             <span className="flex-1 text-left">Bar</span>
-            <kbd className="hidden sm:inline-flex h-5 items-center gap-0.5 rounded border border-border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
-              ⌘B
-            </kbd>
           </button>
         </div>
 
         <Separator />
 
-        {/* SharpIAM + Logout */}
+        {/* ── Actions ── */}
         <div className="p-2 space-y-1">
           <Button
             onClick={() => (window.location.href = config.iamAppUrl)}
@@ -106,12 +131,15 @@ export function UserCard() {
             <ExternalLink className="h-3 w-3 ml-auto opacity-60" />
           </Button>
 
-          <button className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors">
+          <button
+            onClick={() => logoutUser()}
+            disabled={isPending}
+            className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-destructive hover:bg-destructive/10 transition-colors disabled:opacity-60"
+          >
             <LogOut className="h-4 w-4" />
-            <span className="flex-1 text-left">Log out</span>
-            <kbd className="hidden sm:inline-flex h-5 items-center gap-0.5 rounded border border-border bg-muted px-1.5 text-[10px] font-medium text-muted-foreground">
-              ⇧⌘Q
-            </kbd>
+            <span className="flex-1 text-left">
+              {isPending ? "Logging out..." : "Log out"}
+            </span>
           </button>
         </div>
       </PopoverContent>

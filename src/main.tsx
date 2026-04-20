@@ -15,9 +15,9 @@ import { ThemeProvider } from "./hooks/theme-provider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider storageKey="hospitality-ui-theme">
-      <TooltipProvider>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider storageKey="hospitality-ui-theme">
+        <TooltipProvider>
           <FormsModalProvider>
             <SheetProvider>
               <Suspense fallback={<SuspenseFallback />}>
@@ -26,8 +26,8 @@ createRoot(document.getElementById("root")!).render(
               </Suspense>
             </SheetProvider>
           </FormsModalProvider>
-        </QueryClientProvider>
-      </TooltipProvider>
-    </ThemeProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );
