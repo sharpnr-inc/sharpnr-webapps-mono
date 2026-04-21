@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { useAppUserProfile } from "@/api/queries";
+import { useFormsModal } from "@/hooks/useFormModal";
+import { EditProfileForm } from "../forms/EditProfileForm";
 
 interface AppUserProfilePageProps {}
 
@@ -24,6 +26,15 @@ const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
   if (isError) {
     return <div>Error loading profile</div>;
   }
+
+  const { showModal } = useFormsModal();
+  const handleEditProfile = () => {
+    showModal(
+      "Edit Profile",
+      "Edit profile",
+      <EditProfileForm user_firstname="Kashif" user_lastname="Nawaz" />,
+    );
+  };
 
   return (
     <div className="p-2 space-y-6">
@@ -50,7 +61,7 @@ const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
           </div>
 
           <div className="ml-auto">
-            <Button>Edit Profile</Button>
+            <Button onClick={() => handleEditProfile()}>Edit Profile</Button>
           </div>
         </CardContent>
       </Card>

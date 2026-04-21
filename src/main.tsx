@@ -10,7 +10,7 @@ import { queryClient, router } from "./router_config";
 import { SheetProvider } from "./hooks/useSheets";
 import { Toaster } from "sonner";
 import { DialogModalProvider } from "./hooks/useDialog";
-import { FormsModalProvider } from "./hooks/useFormDialog";
+import { FormsModalProvider } from "./hooks/useFormModal";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
