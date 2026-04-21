@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useSelectedRestaurantID } from "../store/selectors";
 import SaleTerminalMenu from "../components/SalePosTerminal/Menu/SaleTerminalMenu";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { ChefHat, Receipt, Clock, Users } from "lucide-react";
 import { SalePosTerminalOrderSummary } from "../components/SalePosTerminal/OrderSummary/PosOrderSummary";
+import { Route } from "@/routes/_user/restaurant/$restaurantID/sales-terminal/index";
 
 // ─── Dummy data ───────────────────────────────────────────────────────────────
 
@@ -91,8 +91,8 @@ function TableCard({
 }
 
 const RestaurantSaleTerminalPage: React.FC = () => {
-  const restaurantID = useSelectedRestaurantID();
   const [activeTable, setActiveTable] = useState<string | null>("t2");
+  const { restaurantID } = Route.useParams();
 
   return (
     <div className="mt-3 h-[85vh] flex flex-col gap-3">

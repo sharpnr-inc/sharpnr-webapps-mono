@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import type { LinkProps } from "@tanstack/react-router";
 import {
   SidebarContent,
   SidebarGroup,
@@ -14,15 +15,17 @@ import {
   LucideListOrdered,
   Table2Icon,
   Calendar,
+  Settings,
 } from "lucide-react";
-import type { ToPathOption } from "@tanstack/react-router";
+import { Route } from "@/routes/_user/restaurant/$restaurantID/route";
 
 /* ===============================
    Types
 ================================ */
 type RestaurantSidebarItem = {
   label: string;
-  to: ToPathOption;
+  to: LinkProps["to"];
+  params: LinkProps["params"];
   icon: React.ComponentType<any>;
   match: (pathname: string) => boolean;
 };
@@ -30,61 +33,58 @@ type RestaurantSidebarItem = {
 /* ===============================
    Menu Configuration
 ================================ */
-const restaurantSidebarMenu: RestaurantSidebarItem[] = [
+const getRestaurantSidebarMenu = (
+  restaurantID: string,
+): RestaurantSidebarItem[] => [
   {
     label: "Overview",
-    to: "/restaurant/overview",
+    to: "/restaurant/$restaurantID/overview",
+    params: { restaurantID },
     icon: LayoutDashboard,
-    match: (pathname) =>
-      pathname === "/restaurant/overview",
+    match: (pathname) => pathname.includes("/overview"),
   },
   {
     label: "Dine In",
-    to: "/restaurant/table-management",
+    to: "/restaurant/$restaurantID/table-management",
+    params: { restaurantID },
     icon: Table2Icon,
-    match: (pathname) => pathname.startsWith("/restaurant/table-management"),
+    match: (pathname) => pathname.includes("/table-management"),
   },
   {
     label: "Reservations",
-    to: "/restaurant/reservations",
+    to: "/restaurant/$restaurantID/reservations",
+    params: { restaurantID },
     icon: Calendar,
-    match: (pathname) =>
-      pathname.startsWith(
-        "/restaurant/reservations",
-      ),
+    match: (pathname) => pathname.includes("/reservations"),
   },
   {
     label: "Inventory",
-    to: "/restaurant/inventory",
+    to: "/restaurant/$restaurantID/inventory",
+    params: { restaurantID },
     icon: Boxes,
-    match: (pathname) =>
-      pathname.startsWith("/restaurant/inventory"),
+    match: (pathname) => pathname.includes("/inventory"),
   },
   {
     label: "Pickup",
-    to: "/restaurant/sales-terminal",
+    to: "/restaurant/$restaurantID/sales-terminal",
+    params: { restaurantID },
     icon: ShoppingCart,
-    match: (pathname) =>
-      pathname.startsWith(
-        "/restaurant/sales-terminal",
-      ),
+    match: (pathname) => pathname.includes("/sales-terminal"),
   },
   {
     label: "Orders",
-    to: "/restaurant/orders",
+    to: "/restaurant/$restaurantID/orders",
+    params: { restaurantID },
     icon: LucideListOrdered,
-    match: (pathname) =>
-      pathname.startsWith("/restaurant/orders"),
+    match: (pathname) => pathname.includes("/orders"),
   },
-  // {
-  //   label: "General Settings",
-  //   to: "/restaurant/general-settings",
-  //   icon: Settings,
-  //   match: (pathname) =>
-  //     pathname.startsWith(
-  //       "/restaurant/general-settings",
-  //     ),
-  // },
+  {
+    label: "General Settings",
+    to: "/restaurant/$restaurantID/general-settings",
+    params: { restaurantID },
+    icon: Settings,
+    match: (pathname) => pathname.includes("/general-settings"),
+  },
 ];
 
 /* ===============================
@@ -95,20 +95,23 @@ export function RestaurantSidebar() {
     select: (state) => state.location.pathname,
   });
 
+  const { restaurantID } = Route.useParams();
+  const menu = getRestaurantSidebarMenu(restaurantID);
+
   return (
     <SidebarContent>
       <SidebarGroup>
         <SidebarGroupLabel>Restaurant Management</SidebarGroupLabel>
 
         <SidebarMenu>
-          {restaurantSidebarMenu.map((item) => {
+          {menu.map((item) => {
             const Icon = item.icon;
             const isActive = item.match(pathname);
 
             return (
               <SidebarMenuItem key={item.label}>
                 <SidebarMenuButton asChild isActive={isActive}>
-                  <Link to={item.to}>
+                  <Link to={item.to} params={item.params}>
                     <Icon />
                     <span>{item.label}</span>
                   </Link>

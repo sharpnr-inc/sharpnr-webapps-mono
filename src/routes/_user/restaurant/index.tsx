@@ -5,7 +5,7 @@ import { FetchRestaurentContext } from "@/app/restaurant/apis/restaurant.api";
 export const Route = createFileRoute("/_user/restaurant/")({
   loader: async ({ context }) => {
     const data = await context.queryClient.ensureQueryData({
-      queryKey: ["PropertyContext", "Restaurant"],
+      queryKey: ["PropertyContext", "Restaurant", "RestaurantList"],
       queryFn: FetchRestaurentContext,
     });
     return {

@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, ArrowRight, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Route } from "@/routes/_user/restaurant/index";
-import { useSetRestaurant } from "../store/selectors";
 import { useEffect } from "react";
 import type { RestaurantContext } from "../apis/restaurant.api";
 import { toast } from "sonner";
@@ -11,7 +10,6 @@ import { toast } from "sonner";
 export default function RestaurantSelector() {
   const navigate = useNavigate();
   const { restaurants } = Route.useLoaderData();
-  const setRestaurant = useSetRestaurant();
 
   // ⭐ Auto-select if only one restaurant exists
   useEffect(() => {
@@ -19,14 +17,15 @@ export default function RestaurantSelector() {
       const restaurant = restaurants[0];
 
       if (restaurant.IsActive && restaurant.IsConfigured) {
-        setRestaurant(restaurant);
-
         navigate({
-          to: "/restaurant/overview",
+          to: "/restaurant/$restaurantID/overview",
+          params: {
+            restaurantID: restaurant.ID,
+          },
         });
       }
     }
-  }, [restaurants, setRestaurant, navigate]);
+  }, [restaurants, navigate]);
 
   // Prevent flash if redirecting
   if (restaurants?.length === 1) return null;
@@ -70,11 +69,11 @@ export default function RestaurantSelector() {
                 <Card
                   onClick={() => {
                     if (isDisabled) return;
-
-                    setRestaurant(restaurant);
-
                     navigate({
-                      to: "/restaurant/overview",
+                      to: "/restaurant/$restaurantID/overview",
+                      params: {
+                        restaurantID: restaurant.ID,
+                      },
                     });
 
                     toast.success(`Entered ${restaurant.Name}`, {

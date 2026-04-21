@@ -2,7 +2,7 @@ import RestaurantSaleTerminalPage from "@/app/restaurant/pages/RestaurantSaleTer
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  "/_user/restaurant/_layout/sales-terminal/",
+  "/_user/restaurant/$restaurantID/sales-terminal/",
 )({
   component: RestaurantSaleTerminalPage,
 });

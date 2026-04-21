@@ -14,15 +14,19 @@ import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as UserIndexRouteImport } from './routes/_user/index'
 import { Route as UserInfraRouteRouteImport } from './routes/_user/infra/route'
 import { Route as UserRestaurantIndexRouteImport } from './routes/_user/restaurant/index'
-import { Route as UserRestaurantLayoutRouteRouteImport } from './routes/_user/restaurant/_layout/route'
+import { Route as UserHotelIndexRouteImport } from './routes/_user/hotel/index'
+import { Route as UserBarIndexRouteImport } from './routes/_user/bar/index'
+import { Route as UserRestaurantRestaurantIDRouteRouteImport } from './routes/_user/restaurant/$restaurantID/route'
+import { Route as UserHotelHotelIDRouteRouteImport } from './routes/_user/hotel/$hotelID/route'
+import { Route as UserBarBarIDRouteRouteImport } from './routes/_user/bar/$barID/route'
 import { Route as UserInfraKitchenIndexRouteImport } from './routes/_user/infra/kitchen/index'
-import { Route as UserRestaurantLayoutTableManagementIndexRouteImport } from './routes/_user/restaurant/_layout/table-management/index'
-import { Route as UserRestaurantLayoutSalesTerminalIndexRouteImport } from './routes/_user/restaurant/_layout/sales-terminal/index'
-import { Route as UserRestaurantLayoutReservationsIndexRouteImport } from './routes/_user/restaurant/_layout/reservations/index'
-import { Route as UserRestaurantLayoutOverviewIndexRouteImport } from './routes/_user/restaurant/_layout/overview/index'
-import { Route as UserRestaurantLayoutOrdersIndexRouteImport } from './routes/_user/restaurant/_layout/orders/index'
-import { Route as UserRestaurantLayoutInventoryIndexRouteImport } from './routes/_user/restaurant/_layout/inventory/index'
-import { Route as UserRestaurantLayoutGeneralSettingsIndexRouteImport } from './routes/_user/restaurant/_layout/general-settings/index'
+import { Route as UserRestaurantRestaurantIDTableManagementIndexRouteImport } from './routes/_user/restaurant/$restaurantID/table-management/index'
+import { Route as UserRestaurantRestaurantIDSalesTerminalIndexRouteImport } from './routes/_user/restaurant/$restaurantID/sales-terminal/index'
+import { Route as UserRestaurantRestaurantIDReservationsIndexRouteImport } from './routes/_user/restaurant/$restaurantID/reservations/index'
+import { Route as UserRestaurantRestaurantIDOverviewIndexRouteImport } from './routes/_user/restaurant/$restaurantID/overview/index'
+import { Route as UserRestaurantRestaurantIDOrdersIndexRouteImport } from './routes/_user/restaurant/$restaurantID/orders/index'
+import { Route as UserRestaurantRestaurantIDInventoryIndexRouteImport } from './routes/_user/restaurant/$restaurantID/inventory/index'
+import { Route as UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport } from './routes/_user/restaurant/$restaurantID/general-settings/index'
 import { Route as UserInfraKitchenService_pointServiceRouteImport } from './routes/_user/infra/kitchen/$service_point/service'
 
 const UserRouteRoute = UserRouteRouteImport.update({
@@ -49,58 +53,78 @@ const UserRestaurantIndexRoute = UserRestaurantIndexRouteImport.update({
   path: '/restaurant/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserRestaurantLayoutRouteRoute =
-  UserRestaurantLayoutRouteRouteImport.update({
-    id: '/restaurant/_layout',
-    path: '/restaurant',
+const UserHotelIndexRoute = UserHotelIndexRouteImport.update({
+  id: '/hotel/',
+  path: '/hotel/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserBarIndexRoute = UserBarIndexRouteImport.update({
+  id: '/bar/',
+  path: '/bar/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserRestaurantRestaurantIDRouteRoute =
+  UserRestaurantRestaurantIDRouteRouteImport.update({
+    id: '/restaurant/$restaurantID',
+    path: '/restaurant/$restaurantID',
     getParentRoute: () => UserRouteRoute,
   } as any)
+const UserHotelHotelIDRouteRoute = UserHotelHotelIDRouteRouteImport.update({
+  id: '/hotel/$hotelID',
+  path: '/hotel/$hotelID',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserBarBarIDRouteRoute = UserBarBarIDRouteRouteImport.update({
+  id: '/bar/$barID',
+  path: '/bar/$barID',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const UserInfraKitchenIndexRoute = UserInfraKitchenIndexRouteImport.update({
   id: '/kitchen/',
   path: '/kitchen/',
   getParentRoute: () => UserInfraRouteRoute,
 } as any)
-const UserRestaurantLayoutTableManagementIndexRoute =
-  UserRestaurantLayoutTableManagementIndexRouteImport.update({
+const UserRestaurantRestaurantIDTableManagementIndexRoute =
+  UserRestaurantRestaurantIDTableManagementIndexRouteImport.update({
     id: '/table-management/',
     path: '/table-management/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantLayoutSalesTerminalIndexRoute =
-  UserRestaurantLayoutSalesTerminalIndexRouteImport.update({
+const UserRestaurantRestaurantIDSalesTerminalIndexRoute =
+  UserRestaurantRestaurantIDSalesTerminalIndexRouteImport.update({
     id: '/sales-terminal/',
     path: '/sales-terminal/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantLayoutReservationsIndexRoute =
-  UserRestaurantLayoutReservationsIndexRouteImport.update({
+const UserRestaurantRestaurantIDReservationsIndexRoute =
+  UserRestaurantRestaurantIDReservationsIndexRouteImport.update({
     id: '/reservations/',
     path: '/reservations/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantLayoutOverviewIndexRoute =
-  UserRestaurantLayoutOverviewIndexRouteImport.update({
+const UserRestaurantRestaurantIDOverviewIndexRoute =
+  UserRestaurantRestaurantIDOverviewIndexRouteImport.update({
     id: '/overview/',
     path: '/overview/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantLayoutOrdersIndexRoute =
-  UserRestaurantLayoutOrdersIndexRouteImport.update({
+const UserRestaurantRestaurantIDOrdersIndexRoute =
+  UserRestaurantRestaurantIDOrdersIndexRouteImport.update({
     id: '/orders/',
     path: '/orders/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantLayoutInventoryIndexRoute =
-  UserRestaurantLayoutInventoryIndexRouteImport.update({
+const UserRestaurantRestaurantIDInventoryIndexRoute =
+  UserRestaurantRestaurantIDInventoryIndexRouteImport.update({
     id: '/inventory/',
     path: '/inventory/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantLayoutGeneralSettingsIndexRoute =
-  UserRestaurantLayoutGeneralSettingsIndexRouteImport.update({
+const UserRestaurantRestaurantIDGeneralSettingsIndexRoute =
+  UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport.update({
     id: '/general-settings/',
     path: '/general-settings/',
-    getParentRoute: () => UserRestaurantLayoutRouteRoute,
+    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
 const UserInfraKitchenService_pointServiceRoute =
   UserInfraKitchenService_pointServiceRouteImport.update({
@@ -113,32 +137,41 @@ export interface FileRoutesByFullPath {
   '/': typeof UserIndexRoute
   '/infra': typeof UserInfraRouteRouteWithChildren
   '/about/': typeof AboutIndexRoute
-  '/restaurant': typeof UserRestaurantLayoutRouteRouteWithChildren
+  '/bar/$barID': typeof UserBarBarIDRouteRoute
+  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRoute
+  '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
+  '/bar/': typeof UserBarIndexRoute
+  '/hotel/': typeof UserHotelIndexRoute
   '/restaurant/': typeof UserRestaurantIndexRoute
   '/infra/kitchen/': typeof UserInfraKitchenIndexRoute
   '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
-  '/restaurant/general-settings/': typeof UserRestaurantLayoutGeneralSettingsIndexRoute
-  '/restaurant/inventory/': typeof UserRestaurantLayoutInventoryIndexRoute
-  '/restaurant/orders/': typeof UserRestaurantLayoutOrdersIndexRoute
-  '/restaurant/overview/': typeof UserRestaurantLayoutOverviewIndexRoute
-  '/restaurant/reservations/': typeof UserRestaurantLayoutReservationsIndexRoute
-  '/restaurant/sales-terminal/': typeof UserRestaurantLayoutSalesTerminalIndexRoute
-  '/restaurant/table-management/': typeof UserRestaurantLayoutTableManagementIndexRoute
+  '/restaurant/$restaurantID/general-settings/': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  '/restaurant/$restaurantID/inventory/': typeof UserRestaurantRestaurantIDInventoryIndexRoute
+  '/restaurant/$restaurantID/orders/': typeof UserRestaurantRestaurantIDOrdersIndexRoute
+  '/restaurant/$restaurantID/overview/': typeof UserRestaurantRestaurantIDOverviewIndexRoute
+  '/restaurant/$restaurantID/reservations/': typeof UserRestaurantRestaurantIDReservationsIndexRoute
+  '/restaurant/$restaurantID/sales-terminal/': typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
+  '/restaurant/$restaurantID/table-management/': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRoutesByTo {
   '/infra': typeof UserInfraRouteRouteWithChildren
   '/': typeof UserIndexRoute
   '/about': typeof AboutIndexRoute
+  '/bar/$barID': typeof UserBarBarIDRouteRoute
+  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRoute
+  '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
+  '/bar': typeof UserBarIndexRoute
+  '/hotel': typeof UserHotelIndexRoute
   '/restaurant': typeof UserRestaurantIndexRoute
   '/infra/kitchen': typeof UserInfraKitchenIndexRoute
   '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
-  '/restaurant/general-settings': typeof UserRestaurantLayoutGeneralSettingsIndexRoute
-  '/restaurant/inventory': typeof UserRestaurantLayoutInventoryIndexRoute
-  '/restaurant/orders': typeof UserRestaurantLayoutOrdersIndexRoute
-  '/restaurant/overview': typeof UserRestaurantLayoutOverviewIndexRoute
-  '/restaurant/reservations': typeof UserRestaurantLayoutReservationsIndexRoute
-  '/restaurant/sales-terminal': typeof UserRestaurantLayoutSalesTerminalIndexRoute
-  '/restaurant/table-management': typeof UserRestaurantLayoutTableManagementIndexRoute
+  '/restaurant/$restaurantID/general-settings': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  '/restaurant/$restaurantID/inventory': typeof UserRestaurantRestaurantIDInventoryIndexRoute
+  '/restaurant/$restaurantID/orders': typeof UserRestaurantRestaurantIDOrdersIndexRoute
+  '/restaurant/$restaurantID/overview': typeof UserRestaurantRestaurantIDOverviewIndexRoute
+  '/restaurant/$restaurantID/reservations': typeof UserRestaurantRestaurantIDReservationsIndexRoute
+  '/restaurant/$restaurantID/sales-terminal': typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
+  '/restaurant/$restaurantID/table-management': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -146,17 +179,21 @@ export interface FileRoutesById {
   '/_user/infra': typeof UserInfraRouteRouteWithChildren
   '/_user/': typeof UserIndexRoute
   '/about/': typeof AboutIndexRoute
-  '/_user/restaurant/_layout': typeof UserRestaurantLayoutRouteRouteWithChildren
+  '/_user/bar/$barID': typeof UserBarBarIDRouteRoute
+  '/_user/hotel/$hotelID': typeof UserHotelHotelIDRouteRoute
+  '/_user/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
+  '/_user/bar/': typeof UserBarIndexRoute
+  '/_user/hotel/': typeof UserHotelIndexRoute
   '/_user/restaurant/': typeof UserRestaurantIndexRoute
   '/_user/infra/kitchen/': typeof UserInfraKitchenIndexRoute
   '/_user/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
-  '/_user/restaurant/_layout/general-settings/': typeof UserRestaurantLayoutGeneralSettingsIndexRoute
-  '/_user/restaurant/_layout/inventory/': typeof UserRestaurantLayoutInventoryIndexRoute
-  '/_user/restaurant/_layout/orders/': typeof UserRestaurantLayoutOrdersIndexRoute
-  '/_user/restaurant/_layout/overview/': typeof UserRestaurantLayoutOverviewIndexRoute
-  '/_user/restaurant/_layout/reservations/': typeof UserRestaurantLayoutReservationsIndexRoute
-  '/_user/restaurant/_layout/sales-terminal/': typeof UserRestaurantLayoutSalesTerminalIndexRoute
-  '/_user/restaurant/_layout/table-management/': typeof UserRestaurantLayoutTableManagementIndexRoute
+  '/_user/restaurant/$restaurantID/general-settings/': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  '/_user/restaurant/$restaurantID/inventory/': typeof UserRestaurantRestaurantIDInventoryIndexRoute
+  '/_user/restaurant/$restaurantID/orders/': typeof UserRestaurantRestaurantIDOrdersIndexRoute
+  '/_user/restaurant/$restaurantID/overview/': typeof UserRestaurantRestaurantIDOverviewIndexRoute
+  '/_user/restaurant/$restaurantID/reservations/': typeof UserRestaurantRestaurantIDReservationsIndexRoute
+  '/_user/restaurant/$restaurantID/sales-terminal/': typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
+  '/_user/restaurant/$restaurantID/table-management/': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -164,49 +201,62 @@ export interface FileRouteTypes {
     | '/'
     | '/infra'
     | '/about/'
-    | '/restaurant'
+    | '/bar/$barID'
+    | '/hotel/$hotelID'
+    | '/restaurant/$restaurantID'
+    | '/bar/'
+    | '/hotel/'
     | '/restaurant/'
     | '/infra/kitchen/'
     | '/infra/kitchen/$service_point/service'
-    | '/restaurant/general-settings/'
-    | '/restaurant/inventory/'
-    | '/restaurant/orders/'
-    | '/restaurant/overview/'
-    | '/restaurant/reservations/'
-    | '/restaurant/sales-terminal/'
-    | '/restaurant/table-management/'
+    | '/restaurant/$restaurantID/general-settings/'
+    | '/restaurant/$restaurantID/inventory/'
+    | '/restaurant/$restaurantID/orders/'
+    | '/restaurant/$restaurantID/overview/'
+    | '/restaurant/$restaurantID/reservations/'
+    | '/restaurant/$restaurantID/sales-terminal/'
+    | '/restaurant/$restaurantID/table-management/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/infra'
     | '/'
     | '/about'
+    | '/bar/$barID'
+    | '/hotel/$hotelID'
+    | '/restaurant/$restaurantID'
+    | '/bar'
+    | '/hotel'
     | '/restaurant'
     | '/infra/kitchen'
     | '/infra/kitchen/$service_point/service'
-    | '/restaurant/general-settings'
-    | '/restaurant/inventory'
-    | '/restaurant/orders'
-    | '/restaurant/overview'
-    | '/restaurant/reservations'
-    | '/restaurant/sales-terminal'
-    | '/restaurant/table-management'
+    | '/restaurant/$restaurantID/general-settings'
+    | '/restaurant/$restaurantID/inventory'
+    | '/restaurant/$restaurantID/orders'
+    | '/restaurant/$restaurantID/overview'
+    | '/restaurant/$restaurantID/reservations'
+    | '/restaurant/$restaurantID/sales-terminal'
+    | '/restaurant/$restaurantID/table-management'
   id:
     | '__root__'
     | '/_user'
     | '/_user/infra'
     | '/_user/'
     | '/about/'
-    | '/_user/restaurant/_layout'
+    | '/_user/bar/$barID'
+    | '/_user/hotel/$hotelID'
+    | '/_user/restaurant/$restaurantID'
+    | '/_user/bar/'
+    | '/_user/hotel/'
     | '/_user/restaurant/'
     | '/_user/infra/kitchen/'
     | '/_user/infra/kitchen/$service_point/service'
-    | '/_user/restaurant/_layout/general-settings/'
-    | '/_user/restaurant/_layout/inventory/'
-    | '/_user/restaurant/_layout/orders/'
-    | '/_user/restaurant/_layout/overview/'
-    | '/_user/restaurant/_layout/reservations/'
-    | '/_user/restaurant/_layout/sales-terminal/'
-    | '/_user/restaurant/_layout/table-management/'
+    | '/_user/restaurant/$restaurantID/general-settings/'
+    | '/_user/restaurant/$restaurantID/inventory/'
+    | '/_user/restaurant/$restaurantID/orders/'
+    | '/_user/restaurant/$restaurantID/overview/'
+    | '/_user/restaurant/$restaurantID/reservations/'
+    | '/_user/restaurant/$restaurantID/sales-terminal/'
+    | '/_user/restaurant/$restaurantID/table-management/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -251,11 +301,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserRestaurantIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/restaurant/_layout': {
-      id: '/_user/restaurant/_layout'
-      path: '/restaurant'
-      fullPath: '/restaurant'
-      preLoaderRoute: typeof UserRestaurantLayoutRouteRouteImport
+    '/_user/hotel/': {
+      id: '/_user/hotel/'
+      path: '/hotel'
+      fullPath: '/hotel/'
+      preLoaderRoute: typeof UserHotelIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/bar/': {
+      id: '/_user/bar/'
+      path: '/bar'
+      fullPath: '/bar/'
+      preLoaderRoute: typeof UserBarIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/restaurant/$restaurantID': {
+      id: '/_user/restaurant/$restaurantID'
+      path: '/restaurant/$restaurantID'
+      fullPath: '/restaurant/$restaurantID'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDRouteRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/hotel/$hotelID': {
+      id: '/_user/hotel/$hotelID'
+      path: '/hotel/$hotelID'
+      fullPath: '/hotel/$hotelID'
+      preLoaderRoute: typeof UserHotelHotelIDRouteRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/bar/$barID': {
+      id: '/_user/bar/$barID'
+      path: '/bar/$barID'
+      fullPath: '/bar/$barID'
+      preLoaderRoute: typeof UserBarBarIDRouteRouteImport
       parentRoute: typeof UserRouteRoute
     }
     '/_user/infra/kitchen/': {
@@ -265,54 +343,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserInfraKitchenIndexRouteImport
       parentRoute: typeof UserInfraRouteRoute
     }
-    '/_user/restaurant/_layout/table-management/': {
-      id: '/_user/restaurant/_layout/table-management/'
+    '/_user/restaurant/$restaurantID/table-management/': {
+      id: '/_user/restaurant/$restaurantID/table-management/'
       path: '/table-management'
-      fullPath: '/restaurant/table-management/'
-      preLoaderRoute: typeof UserRestaurantLayoutTableManagementIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/table-management/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDTableManagementIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/_layout/sales-terminal/': {
-      id: '/_user/restaurant/_layout/sales-terminal/'
+    '/_user/restaurant/$restaurantID/sales-terminal/': {
+      id: '/_user/restaurant/$restaurantID/sales-terminal/'
       path: '/sales-terminal'
-      fullPath: '/restaurant/sales-terminal/'
-      preLoaderRoute: typeof UserRestaurantLayoutSalesTerminalIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/sales-terminal/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDSalesTerminalIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/_layout/reservations/': {
-      id: '/_user/restaurant/_layout/reservations/'
+    '/_user/restaurant/$restaurantID/reservations/': {
+      id: '/_user/restaurant/$restaurantID/reservations/'
       path: '/reservations'
-      fullPath: '/restaurant/reservations/'
-      preLoaderRoute: typeof UserRestaurantLayoutReservationsIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/reservations/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDReservationsIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/_layout/overview/': {
-      id: '/_user/restaurant/_layout/overview/'
+    '/_user/restaurant/$restaurantID/overview/': {
+      id: '/_user/restaurant/$restaurantID/overview/'
       path: '/overview'
-      fullPath: '/restaurant/overview/'
-      preLoaderRoute: typeof UserRestaurantLayoutOverviewIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/overview/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDOverviewIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/_layout/orders/': {
-      id: '/_user/restaurant/_layout/orders/'
+    '/_user/restaurant/$restaurantID/orders/': {
+      id: '/_user/restaurant/$restaurantID/orders/'
       path: '/orders'
-      fullPath: '/restaurant/orders/'
-      preLoaderRoute: typeof UserRestaurantLayoutOrdersIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/orders/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDOrdersIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/_layout/inventory/': {
-      id: '/_user/restaurant/_layout/inventory/'
+    '/_user/restaurant/$restaurantID/inventory/': {
+      id: '/_user/restaurant/$restaurantID/inventory/'
       path: '/inventory'
-      fullPath: '/restaurant/inventory/'
-      preLoaderRoute: typeof UserRestaurantLayoutInventoryIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/inventory/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDInventoryIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/_layout/general-settings/': {
-      id: '/_user/restaurant/_layout/general-settings/'
+    '/_user/restaurant/$restaurantID/general-settings/': {
+      id: '/_user/restaurant/$restaurantID/general-settings/'
       path: '/general-settings'
-      fullPath: '/restaurant/general-settings/'
-      preLoaderRoute: typeof UserRestaurantLayoutGeneralSettingsIndexRouteImport
-      parentRoute: typeof UserRestaurantLayoutRouteRoute
+      fullPath: '/restaurant/$restaurantID/general-settings/'
+      preLoaderRoute: typeof UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport
+      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
     '/_user/infra/kitchen/$service_point/service': {
       id: '/_user/infra/kitchen/$service_point/service'
@@ -339,49 +417,59 @@ const UserInfraRouteRouteWithChildren = UserInfraRouteRoute._addFileChildren(
   UserInfraRouteRouteChildren,
 )
 
-interface UserRestaurantLayoutRouteRouteChildren {
-  UserRestaurantLayoutGeneralSettingsIndexRoute: typeof UserRestaurantLayoutGeneralSettingsIndexRoute
-  UserRestaurantLayoutInventoryIndexRoute: typeof UserRestaurantLayoutInventoryIndexRoute
-  UserRestaurantLayoutOrdersIndexRoute: typeof UserRestaurantLayoutOrdersIndexRoute
-  UserRestaurantLayoutOverviewIndexRoute: typeof UserRestaurantLayoutOverviewIndexRoute
-  UserRestaurantLayoutReservationsIndexRoute: typeof UserRestaurantLayoutReservationsIndexRoute
-  UserRestaurantLayoutSalesTerminalIndexRoute: typeof UserRestaurantLayoutSalesTerminalIndexRoute
-  UserRestaurantLayoutTableManagementIndexRoute: typeof UserRestaurantLayoutTableManagementIndexRoute
+interface UserRestaurantRestaurantIDRouteRouteChildren {
+  UserRestaurantRestaurantIDGeneralSettingsIndexRoute: typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  UserRestaurantRestaurantIDInventoryIndexRoute: typeof UserRestaurantRestaurantIDInventoryIndexRoute
+  UserRestaurantRestaurantIDOrdersIndexRoute: typeof UserRestaurantRestaurantIDOrdersIndexRoute
+  UserRestaurantRestaurantIDOverviewIndexRoute: typeof UserRestaurantRestaurantIDOverviewIndexRoute
+  UserRestaurantRestaurantIDReservationsIndexRoute: typeof UserRestaurantRestaurantIDReservationsIndexRoute
+  UserRestaurantRestaurantIDSalesTerminalIndexRoute: typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
+  UserRestaurantRestaurantIDTableManagementIndexRoute: typeof UserRestaurantRestaurantIDTableManagementIndexRoute
 }
 
-const UserRestaurantLayoutRouteRouteChildren: UserRestaurantLayoutRouteRouteChildren =
+const UserRestaurantRestaurantIDRouteRouteChildren: UserRestaurantRestaurantIDRouteRouteChildren =
   {
-    UserRestaurantLayoutGeneralSettingsIndexRoute:
-      UserRestaurantLayoutGeneralSettingsIndexRoute,
-    UserRestaurantLayoutInventoryIndexRoute:
-      UserRestaurantLayoutInventoryIndexRoute,
-    UserRestaurantLayoutOrdersIndexRoute: UserRestaurantLayoutOrdersIndexRoute,
-    UserRestaurantLayoutOverviewIndexRoute:
-      UserRestaurantLayoutOverviewIndexRoute,
-    UserRestaurantLayoutReservationsIndexRoute:
-      UserRestaurantLayoutReservationsIndexRoute,
-    UserRestaurantLayoutSalesTerminalIndexRoute:
-      UserRestaurantLayoutSalesTerminalIndexRoute,
-    UserRestaurantLayoutTableManagementIndexRoute:
-      UserRestaurantLayoutTableManagementIndexRoute,
+    UserRestaurantRestaurantIDGeneralSettingsIndexRoute:
+      UserRestaurantRestaurantIDGeneralSettingsIndexRoute,
+    UserRestaurantRestaurantIDInventoryIndexRoute:
+      UserRestaurantRestaurantIDInventoryIndexRoute,
+    UserRestaurantRestaurantIDOrdersIndexRoute:
+      UserRestaurantRestaurantIDOrdersIndexRoute,
+    UserRestaurantRestaurantIDOverviewIndexRoute:
+      UserRestaurantRestaurantIDOverviewIndexRoute,
+    UserRestaurantRestaurantIDReservationsIndexRoute:
+      UserRestaurantRestaurantIDReservationsIndexRoute,
+    UserRestaurantRestaurantIDSalesTerminalIndexRoute:
+      UserRestaurantRestaurantIDSalesTerminalIndexRoute,
+    UserRestaurantRestaurantIDTableManagementIndexRoute:
+      UserRestaurantRestaurantIDTableManagementIndexRoute,
   }
 
-const UserRestaurantLayoutRouteRouteWithChildren =
-  UserRestaurantLayoutRouteRoute._addFileChildren(
-    UserRestaurantLayoutRouteRouteChildren,
+const UserRestaurantRestaurantIDRouteRouteWithChildren =
+  UserRestaurantRestaurantIDRouteRoute._addFileChildren(
+    UserRestaurantRestaurantIDRouteRouteChildren,
   )
 
 interface UserRouteRouteChildren {
   UserInfraRouteRoute: typeof UserInfraRouteRouteWithChildren
   UserIndexRoute: typeof UserIndexRoute
-  UserRestaurantLayoutRouteRoute: typeof UserRestaurantLayoutRouteRouteWithChildren
+  UserBarBarIDRouteRoute: typeof UserBarBarIDRouteRoute
+  UserHotelHotelIDRouteRoute: typeof UserHotelHotelIDRouteRoute
+  UserRestaurantRestaurantIDRouteRoute: typeof UserRestaurantRestaurantIDRouteRouteWithChildren
+  UserBarIndexRoute: typeof UserBarIndexRoute
+  UserHotelIndexRoute: typeof UserHotelIndexRoute
   UserRestaurantIndexRoute: typeof UserRestaurantIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserInfraRouteRoute: UserInfraRouteRouteWithChildren,
   UserIndexRoute: UserIndexRoute,
-  UserRestaurantLayoutRouteRoute: UserRestaurantLayoutRouteRouteWithChildren,
+  UserBarBarIDRouteRoute: UserBarBarIDRouteRoute,
+  UserHotelHotelIDRouteRoute: UserHotelHotelIDRouteRoute,
+  UserRestaurantRestaurantIDRouteRoute:
+    UserRestaurantRestaurantIDRouteRouteWithChildren,
+  UserBarIndexRoute: UserBarIndexRoute,
+  UserHotelIndexRoute: UserHotelIndexRoute,
   UserRestaurantIndexRoute: UserRestaurantIndexRoute,
 }
 

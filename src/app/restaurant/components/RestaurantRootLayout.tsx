@@ -4,26 +4,33 @@ import {
   Sidebar,
   SidebarInset,
   SidebarTrigger,
-  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { RestaurantSidebar } from "./RestaurantSidebar";
 import { Building2 } from "lucide-react";
-import { useSelectedRestaurant } from "../store/selectors";
 import { ModeToggle } from "@/components/header/ThemeToggle";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { UserCard } from "@/components/header/UserCard";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { Separator } from "@/components/ui/separator";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function RestaurantRootLayout() {
-  const selectedRestaurant = useSelectedRestaurant();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const restaurants = queryClient.getQueryData([
+    "PropertyContext",
+    "Restaurant",
+    "RestaurantList",
+  ]);
+
+  console.log(restaurants);
 
   return (
     <SidebarProvider defaultOpen={false}>
       <div className="flex w-full">
         <Sidebar collapsible="icon">
-          <div className="p-2">
+          {/* <div className="p-2">
             <SidebarMenuButton
               size="lg"
               onClick={() =>
@@ -46,7 +53,7 @@ export function RestaurantRootLayout() {
                 </span>
               </div>
             </SidebarMenuButton>
-          </div>
+          </div> */}
 
           <RestaurantSidebar />
         </Sidebar>
