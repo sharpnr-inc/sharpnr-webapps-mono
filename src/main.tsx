@@ -4,7 +4,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import { queryClient, router } from "./router_config";
-import { SheetProvider } from "./hooks/DrawerContext";
+import { SheetProvider } from "./hooks/useSheet";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";

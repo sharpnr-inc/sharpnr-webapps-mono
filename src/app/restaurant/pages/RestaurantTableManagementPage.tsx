@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSheet } from "@/hooks/DrawerContext";
+import { useSheet } from "@/hooks/useSheet";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";
@@ -42,8 +42,9 @@ const RestaurantTableManagementPage: React.FC = () => {
     UNDER_CLEANING: "bg-cyan-300 text-cyan-950 border-cyan-500",
   };
 
+  /* ----------------------------------- *** ---------------------------------- */
+  
   const { openSheet } = useSheet();
-
   const handleTableSession = (t: RestaurantTableLayout) => {
     if (!restaurantID) return;
 
@@ -53,10 +54,12 @@ const RestaurantTableManagementPage: React.FC = () => {
     } else if (t.Status === "OCCUPIED") {
       openSheet(
         <DiningSessionTerminal restaurantID={restaurantID} table={t} />,
-        "full",
+        "3/4",
       );
     }
   };
+
+  /* ----------------------------------- *** ---------------------------------- */
 
   const startSession = useStartDineInSession();
 
