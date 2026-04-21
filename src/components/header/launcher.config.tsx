@@ -6,6 +6,7 @@ import {
   Music2,
   ChefHat,
   Warehouse,
+  Book,
 } from "lucide-react";
 
 /* =========================================================
@@ -14,49 +15,24 @@ import {
 
 export const DEFAULT_SECTIONS: NavSection[] = [
   {
-    id: "hospitality_apps",
-    title: "Hospitality",
-    items: [
-      {
-        id: "hotel",
-        label: "Hotel",
-        icon: Hotel,
-        to: "/hotel",
-      },
-      {
-        id: "restaurant",
-        label: "Restaurant",
-        icon: UtensilsCrossed,
-        to: "/restaurant",
-      },
-      {
-        id: "bar",
-        label: "Bar",
-        icon: Beer,
-        to: "/bar",
-      },
-      {
-        id: "nightclub",
-        label: "NightClub",
-        icon: Music2,
-        to: "/nc",
-      },
-    ],
-  },
-
-  {
-    id: "infra",
+    id: "Apps",
     title: "Infra",
     items: [
       {
         id: "kitchen",
-        label: "Kitchen",
+        label: "Hospitality",
         icon: ChefHat,
         to: "/infra/kitchen",
       },
       {
         id: "loading_dock",
-        label: "Loading Dock",
+        label: "Accounting",
+        icon: Book,
+        to: "/infra/loading_dock",
+      },
+      {
+        id: "loading_dock",
+        label: "HR",
         icon: Warehouse,
         to: "/infra/loading_dock",
       },
