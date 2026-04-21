@@ -4,7 +4,6 @@ import {
   useAllInventoriesAccounts,
   useRestaurantInventories,
 } from "../apis/queries";
-import { useSelectedRestaurantID } from "../store/selectors";
 import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
 import { Badge } from "@/components/ui/badge";
@@ -45,6 +44,7 @@ import {
   Share2,
   ChevronDown,
 } from "lucide-react";
+import { Route } from "@/routes/_user/restaurant/$restaurantID/inventory/index";
 
 // ── Animation Variants ──────────────────────────────────────────────────────
 
@@ -96,11 +96,11 @@ interface Warehouse {
 
 // ── Component ───────────────────────────────────────────────────────────────
 const RestaurantInventoryPage: React.FC = () => {
-  const restaurantID = useSelectedRestaurantID();
   const [selectedWarehouseFilter, setSelectedWarehouseFilter] =
     useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const { restaurantID } = Route.useParams();
 
   // Filter is passed directly to the hook — it handles the API call
   const {

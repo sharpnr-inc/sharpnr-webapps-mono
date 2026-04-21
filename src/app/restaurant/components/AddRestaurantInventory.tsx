@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Package, FileText, MapPin, Warehouse, Share2 } from "lucide-react";
 import type { NewInventoryRequestPayload } from "../apis/restaurant.api";
 import { useAddInventoryMutation } from "../apis/mutations";
-import { useSelectedRestaurantID } from "../store/selectors";
 import { useAllInventoriesAccounts } from "../apis/queries";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Route } from "@/routes/_user/restaurant/$restaurantID/inventory/index";
 
 // ── Text fields only (account_id handled separately as a Select) ────────────
 const fields = [
@@ -43,7 +43,7 @@ const fields = [
 
 export function AddRestaurantInventoryForm() {
   const { mutateAsync } = useAddInventoryMutation();
-  const restaurantID = useSelectedRestaurantID();
+  const { restaurantID } = Route.useParams();
   const { data: warehouseOrAccounts, isLoading: isWarehouseLoading } =
     useAllInventoriesAccounts(restaurantID!);
 

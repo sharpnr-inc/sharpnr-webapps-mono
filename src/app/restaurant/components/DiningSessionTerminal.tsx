@@ -2,18 +2,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import MenuSection from "./Menu/MenuSection";
 import OrderCart from "./OrderCart/OrderCart";
 import OrderTable from "./OrderTable/OrderTable";
-import { Route } from "@/routes/_user/restaurant/$restaurantID/table-management/index";
 
 interface DiningSessionTerminalProps {
   table: any;
+  restaurantID: string;
 }
 
 const DiningSessionTerminal: React.FC<DiningSessionTerminalProps> = ({
   table,
+  restaurantID,
 }) => {
-  const { restaurantID } = Route.useParams();
-  console.log(restaurantID);
-
   return (
     // ✅ Give the root a real height so children can inherit it
     <div className="flex flex-col h-[95vh]">

@@ -51,7 +51,10 @@ const RestaurantTableManagementPage: React.FC = () => {
       setSelectedTable(t);
       setOpenDialog(true);
     } else if (t.Status === "OCCUPIED") {
-      openSheet(<DiningSessionTerminal table={t} />, "full");
+      openSheet(
+        <DiningSessionTerminal restaurantID={restaurantID} table={t} />,
+        "full",
+      );
     }
   };
 
