@@ -7,12 +7,23 @@ import { ThemeProvider } from "./components/ui/theme-provider";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
 import { queryClient, router } from "./router_config";
+import { SheetProvider } from "./hooks/useSheets";
+import { Toaster } from "sonner";
+import { DialogModalProvider } from "./hooks/useDialog";
+import { FormsModalProvider } from "./hooks/useFormDialog";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider storageKey="iam-ui-theme">
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <SheetProvider>
+          <FormsModalProvider>
+            <DialogModalProvider>
+              <RouterProvider router={router} />
+            </DialogModalProvider>
+          </FormsModalProvider>
+          <Toaster />
+        </SheetProvider>
       </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>,

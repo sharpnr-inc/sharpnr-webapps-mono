@@ -1,5 +1,7 @@
 // src/context/SheetContext.tsx
 import { createContext, useContext, useState, type ReactNode } from "react";
+
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import {
   Sheet,
   SheetContent,
@@ -7,7 +9,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 

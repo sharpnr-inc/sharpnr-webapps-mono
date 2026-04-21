@@ -10,8 +10,14 @@ import { Separator } from "./ui/separator";
 import SharpnrLauncher from "./header/SharpnrLauncher";
 import { NotificationBell } from "./header/NotificationButton";
 import { UserCard } from "./header/UserCard";
+import { useSheet } from "@/hooks/useSheets";
 
 const IamRootLayout: React.FC = () => {
+  const { openSheet } = useSheet();
+
+  const handleOpenNotification = () => {
+    openSheet(<>HI</>, "1/4");
+  };
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
@@ -29,7 +35,7 @@ const IamRootLayout: React.FC = () => {
             </div>
             <div className="flex items-center gap-3 px-4">
               <SharpnrLauncher />
-              <NotificationBell onClick={() => console.log("HI")} />
+              <NotificationBell onClick={() => handleOpenNotification()} />
               <UserCard />
               <ModeToggle />
             </div>

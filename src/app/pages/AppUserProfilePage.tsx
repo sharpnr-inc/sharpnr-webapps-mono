@@ -26,7 +26,7 @@ const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 space-y-6">
       {/* Header */}
       <Card>
         <CardContent className="flex items-center gap-6 p-6">
