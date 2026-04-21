@@ -1,4 +1,4 @@
-import SharpHRWelcomePage from "@/app/components/SharpHRWelcomePage";
+import SharpHRWelcomePage from "@/app/pages/SharpHRWelcomePage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/")({

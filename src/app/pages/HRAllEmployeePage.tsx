@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EmployeesTable } from "../components/employee/EmployeeTable";
+import { EmployeesTable } from "../../components/EmployeeTable";
 import { PlusIcon } from "lucide-react";
 import { useRouter } from "@tanstack/react-router";
 

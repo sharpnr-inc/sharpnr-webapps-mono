@@ -35,6 +35,7 @@ import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";
+import { useSheet } from "@/hooks/useSheet";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -68,19 +69,19 @@ const navGroups: NavGroup[] = [
         id: "hr_overview",
         label: "Dashboard",
         icon: BarChart3,
-        to: "/dashboard/sharp_hr",
+        to: "/dashboard",
       },
       {
         id: "hr_announcements",
         label: "Announcements",
         icon: Bell,
-        to: "/announcements",
+        to: "/annoucements",
       },
       {
         id: "hr_policies",
         label: "Compliance & Policies",
         icon: ShieldCheck,
-        to: "/announcements",
+        to: "/annoucemens",
       },
     ],
   },
@@ -216,6 +217,12 @@ const SharpHRRootLayout: React.FC = () => {
       ? pathname === to
       : pathname.startsWith(`${to}/`) || pathname === to;
 
+  const { openSheet } = useSheet();
+
+  const handleOpenNotification = () => {
+    openSheet(<>HI</>, "3/4");
+  };
+
   return (
     <SidebarProvider>
       {/* ── Sidebar ── */}
@@ -263,7 +270,7 @@ const SharpHRRootLayout: React.FC = () => {
           </div>
           <div className="flex items-center gap-3 px-4">
             <SharpnrLauncher />
-            <NotificationBell onClick={() => console.log("HI")} />
+            <NotificationBell onClick={() => handleOpenNotification()} />
             <UserCard />
             <ModeToggle />
           </div>
