@@ -119,7 +119,7 @@ const navGroups: NavGroup[] = [
     items: [
       {
         id: "hr_leave",
-        label: "Leave Requests",
+        label: "Leave",
         icon: ClipboardList,
         to: "/leaves",
       },

@@ -46,3 +46,10 @@ export const UserRoutes = {
   authenticateUser: (): string => `/identity/web/verify-auth`,
   logout: () => `/identity/web/logout`,
 };
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export const HrRoutes = {
+  FetchAllEmployees: () => `/sharp-hr/employees`,
+  RecruitEmployee: () => ``,
+};

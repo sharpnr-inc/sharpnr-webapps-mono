@@ -9,9 +9,13 @@ import {
 import { EmployeesTable } from "../../components/EmployeeTable";
 import { PlusIcon } from "lucide-react";
 import { useRouter } from "@tanstack/react-router";
+import { useOrgEmployees } from "@/api/queries";
 
 export default function HRAllEmployeePage() {
   const router = useRouter();
+
+  const { data } = useOrgEmployees();
+  console.log(data);
 
   const handleCreateEmployee = () => {
     router.navigate({
@@ -77,7 +81,7 @@ export default function HRAllEmployeePage() {
         </CardHeader>
 
         <CardContent>
-          <EmployeesTable />
+          <EmployeesTable employeeList={data?.data} />
         </CardContent>
       </Card>
     </div>

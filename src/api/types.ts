@@ -28,3 +28,12 @@ export interface UserDataResponseDto {
   id: string; // uuid.UUID → string in TypeScript
   role: string;
 }
+
+export interface OrgEmployeeList {
+  id: string;
+  employeeName: string;
+  employeeRole: string;
+  employeeID: string;
+  status: string;
+}
+

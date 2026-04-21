@@ -21,6 +21,7 @@ import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll
 import { Route as LayoutOnboardingIndexRouteImport } from './routes/_layout/onboarding/index'
 import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/index'
 import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
+import { Route as LayoutDepartmentsIndexRouteImport } from './routes/_layout/departments/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
 import { Route as LayoutAttendanceIndexRouteImport } from './routes/_layout/attendance/index'
 import { Route as LayoutAnnoucementsIndexRouteImport } from './routes/_layout/annoucements/index'
@@ -89,6 +90,11 @@ const LayoutEmployeesIndexRoute = LayoutEmployeesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutEmployeesRouteRoute,
 } as any)
+const LayoutDepartmentsIndexRoute = LayoutDepartmentsIndexRouteImport.update({
+  id: '/departments/',
+  path: '/departments/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/annoucements/': typeof LayoutAnnoucementsIndexRoute
   '/attendance/': typeof LayoutAttendanceIndexRoute
   '/dashboard/': typeof LayoutDashboardIndexRoute
+  '/departments/': typeof LayoutDepartmentsIndexRoute
   '/employees/': typeof LayoutEmployeesIndexRoute
   '/leaves/': typeof LayoutLeavesIndexRoute
   '/onboarding/': typeof LayoutOnboardingIndexRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/annoucements': typeof LayoutAnnoucementsIndexRoute
   '/attendance': typeof LayoutAttendanceIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
+  '/departments': typeof LayoutDepartmentsIndexRoute
   '/employees': typeof LayoutEmployeesIndexRoute
   '/leaves': typeof LayoutLeavesIndexRoute
   '/onboarding': typeof LayoutOnboardingIndexRoute
@@ -186,6 +194,7 @@ export interface FileRoutesById {
   '/_layout/annoucements/': typeof LayoutAnnoucementsIndexRoute
   '/_layout/attendance/': typeof LayoutAttendanceIndexRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
+  '/_layout/departments/': typeof LayoutDepartmentsIndexRoute
   '/_layout/employees/': typeof LayoutEmployeesIndexRoute
   '/_layout/leaves/': typeof LayoutLeavesIndexRoute
   '/_layout/onboarding/': typeof LayoutOnboardingIndexRoute
@@ -209,6 +218,7 @@ export interface FileRouteTypes {
     | '/annoucements/'
     | '/attendance/'
     | '/dashboard/'
+    | '/departments/'
     | '/employees/'
     | '/leaves/'
     | '/onboarding/'
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/annoucements'
     | '/attendance'
     | '/dashboard'
+    | '/departments'
     | '/employees'
     | '/leaves'
     | '/onboarding'
@@ -251,6 +262,7 @@ export interface FileRouteTypes {
     | '/_layout/annoucements/'
     | '/_layout/attendance/'
     | '/_layout/dashboard/'
+    | '/_layout/departments/'
     | '/_layout/employees/'
     | '/_layout/leaves/'
     | '/_layout/onboarding/'
@@ -355,6 +367,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutEmployeesIndexRouteImport
       parentRoute: typeof LayoutEmployeesRouteRoute
     }
+    '/_layout/departments/': {
+      id: '/_layout/departments/'
+      path: '/departments'
+      fullPath: '/departments/'
+      preLoaderRoute: typeof LayoutDepartmentsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
     '/_layout/dashboard/': {
       id: '/_layout/dashboard/'
       path: '/dashboard'
@@ -440,6 +459,7 @@ interface LayoutRouteRouteChildren {
   LayoutAnnoucementsIndexRoute: typeof LayoutAnnoucementsIndexRoute
   LayoutAttendanceIndexRoute: typeof LayoutAttendanceIndexRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
+  LayoutDepartmentsIndexRoute: typeof LayoutDepartmentsIndexRoute
   LayoutLeavesIndexRoute: typeof LayoutLeavesIndexRoute
   LayoutOnboardingIndexRoute: typeof LayoutOnboardingIndexRoute
   LayoutPayrollIndexRoute: typeof LayoutPayrollIndexRoute
@@ -456,6 +476,7 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutAnnoucementsIndexRoute: LayoutAnnoucementsIndexRoute,
   LayoutAttendanceIndexRoute: LayoutAttendanceIndexRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
+  LayoutDepartmentsIndexRoute: LayoutDepartmentsIndexRoute,
   LayoutLeavesIndexRoute: LayoutLeavesIndexRoute,
   LayoutOnboardingIndexRoute: LayoutOnboardingIndexRoute,
   LayoutPayrollIndexRoute: LayoutPayrollIndexRoute,

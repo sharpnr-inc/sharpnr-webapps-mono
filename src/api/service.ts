@@ -1,7 +1,11 @@
 import api from "@/middlewares/axios";
-import { UserRoutes } from "./endpoints";
+import { HrRoutes, UserRoutes } from "./endpoints";
 import type { APIResponse } from "@/lib/api_response";
-import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
+import type {
+  OrgEmployeeList,
+  UserAuthenticatedResponse,
+  UserDataResponseDto,
+} from "./types";
 
 /**
  * Verifies whether the current user session is authenticated.
@@ -35,7 +39,22 @@ export async function GetAuthenticatedUser() {
   return res.data;
 }
 
+/* ---------------------------------- <***> --------------------------------- */
+
 export async function logout() {
   const res = await api.get<APIResponse<any>>(UserRoutes.logout());
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                          HR Employeee Api service                          */
+/* -------------------------------------------------------------------------- */
+
+export async function GetOrganizationEmployee() {
+  const res = await api.get<APIResponse<OrgEmployeeList[]>>(
+    HrRoutes.FetchAllEmployees(),
+  );
   return res.data;
 }
