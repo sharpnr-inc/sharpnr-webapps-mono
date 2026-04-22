@@ -1,4 +1,4 @@
-import { KitchenDashBoard } from "@/_orchestrator/properties/hospitality_dashboards/infras/Kitchen/KitchenDashBoard";
+import { KitchenDashBoard } from "@/propertyDomain/hospitality/infra/Kitchen/components/KitchenDashBoard";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

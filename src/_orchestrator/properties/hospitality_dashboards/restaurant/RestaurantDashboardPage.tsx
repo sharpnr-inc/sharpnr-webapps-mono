@@ -1,4 +1,4 @@
-import RestaurantSettingsTabs from "@/_hospitalityapp/Restaurant/components/restaurant_settings/RestaurantSettingsTabs";
+import RestaurantSettingsTabs from "@/propertyDomain/hospitality/restaurant/components/RestaurantSettingsTabs";
 
 interface RestaurantDashboardPageProps {}
 

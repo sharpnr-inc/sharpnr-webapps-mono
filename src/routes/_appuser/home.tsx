@@ -1,4 +1,4 @@
-import { OrchestratorConsoleIndex } from "@/_orchestrator/console/OrchestratorConsole";
+import { OrchestratorConsoleIndex } from "@/app/home/OrchestratorConsole";
 import {
   GetAuthenticatedUser,
   verifyUserAuthentication,
