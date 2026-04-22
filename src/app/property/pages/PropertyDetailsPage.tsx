@@ -1,4 +1,4 @@
-import { usePropertyDetails } from "./api/queries";
+import { usePropertyDetails } from "../api/queries";
 import {
   AlertCircle,
   ArrowLeft,
@@ -19,9 +19,9 @@ import {
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useFormsModal } from "@/hooks/FormModalContext";
-import AddModulesInProperty from "./forms/AddModulesInProperty";
-import { AddInfraInProperty } from "./forms/AddInfrasInProperty";
-import type { PropertyModule } from "./api/service";
+import AddModulesInProperty from "../components/AddModulesInProperty";
+import { AddInfraInProperty } from "../components/AddInfrasInProperty";
+import type { PropertyModule } from "../api/service";
 import { motion, type Variants } from "framer-motion";
 
 /* ── easing ─────────────────────────────────────────── */

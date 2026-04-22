@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Building2, Scale } from "lucide-react";
 import { useOrganizationStatus } from "../api/general";
 import { useFormsModal } from "@/hooks/FormModalContext";
-import AddPropertyForm from "../properties/property/forms/AddPropertyForm";
+import AddPropertyForm from "../../app/property/components/AddPropertyForm";
 import CreateLegalEntityForm from "../../app/legal_entity/CreateLegalEntityForm";
 
 export default function OrganizationSetupGuard({

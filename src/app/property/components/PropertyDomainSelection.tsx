@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import type { Property } from "../PropertyindexPage";
+import type { Property } from "../api/service";
 import { cn } from "@/lib/utils";
 import { useDomainType } from "../api/queries";
 

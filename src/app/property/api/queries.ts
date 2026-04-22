@@ -8,7 +8,7 @@ import {
   type PropertyDetailsData,
   type PropertyDomain,
 } from "./service";
-import type { APIResponse } from "@/utilities/api_response";
+import type { APIResponse } from "@/lib/api_response";
 
 export function useProperties() {
   return useQuery<APIResponse<PropertiesOfOrganizationData>>({

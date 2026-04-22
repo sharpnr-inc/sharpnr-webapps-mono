@@ -14,12 +14,12 @@ import {
 } from "lucide-react";
 import { useFormsModal } from "@/hooks/FormModalContext";
 import { useState } from "react";
-import AddPropertyForm from "./forms/AddPropertyForm";
-import PropertyDomainSelection from "./property_configuration/PropertyDomainSelection";
-import { useAddPropertyDomainMutation } from "./api/mutation";
+import AddPropertyForm from "../components/AddPropertyForm";
+import PropertyDomainSelection from "../components/PropertyDomainSelection";
+import { useAddPropertyDomainMutation } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
-import { useProperties } from "./api/queries";
-import type { Property } from "./api/service";
+import { useProperties } from "../api/queries";
+import type { Property } from "../api/service";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 
 /* ── easing ──────────────────────────────────────────── */

@@ -1,4 +1,4 @@
-import PropertySettingPage from '@/_orchestrator/properties/property/PropertySettingPage'
+import PropertySettingPage from '@/app/property/pages/PropertySettingPage'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute(
