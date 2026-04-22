@@ -72,3 +72,7 @@ export const UserRoutes = {
   authenticateUser: (): string => `/identity/web/verify-auth`,
   logout: () => `/identity/web/logout`,
 };
+
+export const OrchestratorConsole = {
+  status: "/orchestrator/console/org-status",
+};

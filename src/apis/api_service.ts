@@ -1,5 +1,5 @@
 import api from "@/middlewares/axios";
-import { AuthApiEndpoints, OrgCoreEndpoints, UserRoutes } from "./Endpoints";
+import { AuthApiEndpoints, OrchestratorConsole, OrgCoreEndpoints, UserRoutes } from "./Endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
 
@@ -52,5 +52,10 @@ export async function GetAuthenticatedUser() {
 
 export async function logout() {
   const res = await api.get<APIResponse<any>>(UserRoutes.logout());
+  return res.data;
+}
+
+export async function GetOrganizationStatus() {
+  const res = await api.get(OrchestratorConsole.status);
   return res.data;
 }
