@@ -32,7 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import { usePropertyDetails } from "@/app/property/api/queries";
 import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
 import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
 import { useLegalEntityAllTaxCategory } from "@/app/legal_entity/api/legalEntity.api.queries";

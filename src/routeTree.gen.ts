@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as MarketingIndexRouteImport } from './routes/_marketing/index'
 import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
 import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/payments/route'
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
@@ -45,8 +45,8 @@ const AppuserRouteRoute = AppuserRouteRouteImport.update({
   id: '/_appuser',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const MarketingIndexRoute = MarketingIndexRouteImport.update({
+  id: '/_marketing/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -227,11 +227,11 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRout
   )
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/payments': typeof AppuserPaymentsRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
+  '/': typeof MarketingIndexRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
@@ -259,8 +259,8 @@ export interface FileRoutesByFullPath {
   '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/home': typeof AppuserHomeRoute
+  '/': typeof MarketingIndexRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
@@ -288,12 +288,12 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
   '/_appuser/home': typeof AppuserHomeRoute
+  '/_marketing/': typeof MarketingIndexRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
   '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
   '/_appuser/cables/': typeof AppuserCablesIndexRoute
@@ -323,11 +323,11 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/inventory-acc'
     | '/legal_entity'
     | '/payments'
     | '/home'
+    | '/'
     | '/property/routes'
     | '/audit-log'
     | '/cables'
@@ -355,8 +355,8 @@ export interface FileRouteTypes {
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/home'
+    | '/'
     | '/property/routes'
     | '/audit-log'
     | '/cables'
@@ -383,12 +383,12 @@ export interface FileRouteTypes {
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
   id:
     | '__root__'
-    | '/'
     | '/_appuser'
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
     | '/_appuser/payments'
     | '/_appuser/home'
+    | '/_marketing/'
     | '/_appuser/property/routes'
     | '/_appuser/audit-log/'
     | '/_appuser/cables/'
@@ -417,8 +417,8 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
+  MarketingIndexRoute: typeof MarketingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -430,11 +430,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_marketing/': {
+      id: '/_marketing/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof MarketingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_appuser/home': {
@@ -779,8 +779,8 @@ const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
+  MarketingIndexRoute: MarketingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

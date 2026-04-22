@@ -32,7 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import { usePropertyDetails } from "@/app/property/api/queries";
 import type { MenuSubCategoryResponse } from "../../infra/apis/api.service";
 
 const CreateSubCategory = () => {

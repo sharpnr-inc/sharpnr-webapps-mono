@@ -25,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePropertyDetails } from "@/_orchestrator/properties/property/api/queries";
+import { usePropertyDetails } from "@/app/property/api/queries";
 import { AddAddOnFormInMenuItem } from "./forms/AddAddon";
 import { AddVariantForm } from "./forms/AddVariant";
 import { AddVariantGroupForm } from "./forms/AddVariantGroup";
