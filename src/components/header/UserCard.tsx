@@ -5,11 +5,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUserCardStore } from "./user_card_store";
-import { ChefHat, Wine, LogOut, ExternalLink, ShieldCheck } from "lucide-react";
+import { LogOut, ExternalLink, ShieldCheck } from "lucide-react";
 import { config } from "@/configs/env";
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
 import { useLogout } from "@/apis/mutation";
@@ -92,31 +91,6 @@ export function UserCard() {
             </div>
           </div>
         </div>
-
-        <Separator />
-
-        {/* ── Quick Access ── */}
-        <div className="p-2">
-          <p className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
-            Quick Access
-          </p>
-
-          <button className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-foreground hover:bg-accent transition-colors group">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-orange-100 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 group-hover:bg-orange-200 dark:group-hover:bg-orange-900/40 transition-colors">
-              <ChefHat className="h-3.5 w-3.5" />
-            </div>
-            <span className="flex-1 text-left">Kitchen</span>
-          </button>
-
-          <button className="w-full flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-foreground hover:bg-accent transition-colors group">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 group-hover:bg-purple-200 dark:group-hover:bg-purple-900/40 transition-colors">
-              <Wine className="h-3.5 w-3.5" />
-            </div>
-            <span className="flex-1 text-left">Bar</span>
-          </button>
-        </div>
-
-        <Separator />
 
         {/* ── Actions ── */}
         <div className="p-2 space-y-1">

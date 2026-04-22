@@ -6,7 +6,6 @@ import {
   ConfigureHotel,
   SetDomainOfProperty,
 } from "./service";
-import {} from "@/_orchestrator/api/api.service";
 
 export function useCreatePropertyMutation() {
   return useMutation({

@@ -1,3 +1,12 @@
+/*
+* PropertyIndexPage.tsx
+* About: This component is Property index page it show the All the properties available to the organization
+* Features
+- Displays All Property in cards
+- Also user can add new property in the organization
+
+*/
+
 import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import {
