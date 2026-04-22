@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { useOrgSuppliers } from "./api/query";
-import { useFormsModal } from "@/hooks/FormModalContext";
+import { useFormsModal } from "@/hooks/useFormModal";
 import { AddNewSupplierForm } from "./forms/AddNewSuppliersForms";
 import { useNavigate } from "@tanstack/react-router";
 

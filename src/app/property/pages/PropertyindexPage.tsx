@@ -12,7 +12,7 @@ import {
   Settings,
   Tag,
 } from "lucide-react";
-import { useFormsModal } from "@/hooks/FormModalContext";
+import { useFormsModal } from "@/hooks/useFormModal";
 import { useState } from "react";
 import AddPropertyForm from "../components/AddPropertyForm";
 import PropertyDomainSelection from "../components/PropertyDomainSelection";

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNavigate } from "@tanstack/react-router";
-import { useFormsModal } from "@/hooks/FormModalContext";
+import { useFormsModal } from "@/hooks/useFormModal";
 import CreateLegalEntityForm from "./CreateLegalEntityForm";
 import { useOrganizationLegalEntities } from "./api/legalEntity.api.queries";
 

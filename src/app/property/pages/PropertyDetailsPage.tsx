@@ -18,7 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useFormsModal } from "@/hooks/FormModalContext";
+import { useFormsModal } from "@/hooks/useFormModal";
 import AddModulesInProperty from "../components/AddModulesInProperty";
 import { AddInfraInProperty } from "../components/AddInfrasInProperty";
 import type { PropertyModule } from "../api/service";
