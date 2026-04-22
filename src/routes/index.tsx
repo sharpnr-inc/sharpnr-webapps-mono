@@ -1,6 +1,6 @@
-import LandingPage from "@/app/pages/LandingPage";
+import { Website } from "@/app/Website";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: LandingPage,
+  component: Website,
 });
