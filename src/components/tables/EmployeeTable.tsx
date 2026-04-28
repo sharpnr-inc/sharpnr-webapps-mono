@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
-import { useNavigate, type HistoryState } from "@tanstack/react-router";
+import {
+  useLocation,
+  useNavigate,
+  type HistoryState,
+} from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 
 // typed cubic-bezier so TS is happy with the Easing type
@@ -110,6 +114,7 @@ export function EmployeesTable({ employeeList }: EmployeeTableProps) {
   const navigate = useNavigate();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const location = useLocation();
 
   const columns = useMemo<ColumnDef<OrgEmployeeList>[]>(
     () => [
@@ -191,6 +196,7 @@ export function EmployeesTable({ employeeList }: EmployeeTableProps) {
                       state: {
                         openedFrom: "employee_table",
                       } as HistoryState & { openedFrom: string },
+                      _fromLocation: location,
                     })
                   }
                 >
