@@ -1,4 +1,4 @@
-import HRAllEmployeePage from "@/app/pages/EmployeePage";
+import HRAllEmployeePage from "@/app/pages/Employee/EmployeePage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/employees/")({

@@ -15,7 +15,6 @@ import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutEmployeesRouteRouteImport } from './routes/_layout/employees/route'
 import { Route as LayoutTrainingIndexRouteImport } from './routes/_layout/training/index'
 import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
-import { Route as LayoutReportsIndexRouteImport } from './routes/_layout/reports/index'
 import { Route as LayoutRecruitmentIndexRouteImport } from './routes/_layout/recruitment/index'
 import { Route as LayoutPerformanceIndexRouteImport } from './routes/_layout/performance/index'
 import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll/index'
@@ -59,11 +58,6 @@ const LayoutTrainingIndexRoute = LayoutTrainingIndexRouteImport.update({
 const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
   id: '/settings/',
   path: '/settings/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutReportsIndexRoute = LayoutReportsIndexRouteImport.update({
-  id: '/reports/',
-  path: '/reports/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutRecruitmentIndexRoute = LayoutRecruitmentIndexRouteImport.update({
@@ -163,7 +157,6 @@ export interface FileRoutesByFullPath {
   '/payroll/': typeof LayoutPayrollIndexRoute
   '/performance/': typeof LayoutPerformanceIndexRoute
   '/recruitment/': typeof LayoutRecruitmentIndexRoute
-  '/reports/': typeof LayoutReportsIndexRoute
   '/settings/': typeof LayoutSettingsIndexRoute
   '/training/': typeof LayoutTrainingIndexRoute
   '/employees/documents/': typeof LayoutEmployeesDocumentsIndexRoute
@@ -185,7 +178,6 @@ export interface FileRoutesByTo {
   '/payroll': typeof LayoutPayrollIndexRoute
   '/performance': typeof LayoutPerformanceIndexRoute
   '/recruitment': typeof LayoutRecruitmentIndexRoute
-  '/reports': typeof LayoutReportsIndexRoute
   '/settings': typeof LayoutSettingsIndexRoute
   '/training': typeof LayoutTrainingIndexRoute
   '/employees/documents': typeof LayoutEmployeesDocumentsIndexRoute
@@ -210,7 +202,6 @@ export interface FileRoutesById {
   '/_layout/payroll/': typeof LayoutPayrollIndexRoute
   '/_layout/performance/': typeof LayoutPerformanceIndexRoute
   '/_layout/recruitment/': typeof LayoutRecruitmentIndexRoute
-  '/_layout/reports/': typeof LayoutReportsIndexRoute
   '/_layout/settings/': typeof LayoutSettingsIndexRoute
   '/_layout/training/': typeof LayoutTrainingIndexRoute
   '/_layout/employees/documents/': typeof LayoutEmployeesDocumentsIndexRoute
@@ -235,7 +226,6 @@ export interface FileRouteTypes {
     | '/payroll/'
     | '/performance/'
     | '/recruitment/'
-    | '/reports/'
     | '/settings/'
     | '/training/'
     | '/employees/documents/'
@@ -257,7 +247,6 @@ export interface FileRouteTypes {
     | '/payroll'
     | '/performance'
     | '/recruitment'
-    | '/reports'
     | '/settings'
     | '/training'
     | '/employees/documents'
@@ -281,7 +270,6 @@ export interface FileRouteTypes {
     | '/_layout/payroll/'
     | '/_layout/performance/'
     | '/_layout/recruitment/'
-    | '/_layout/reports/'
     | '/_layout/settings/'
     | '/_layout/training/'
     | '/_layout/employees/documents/'
@@ -335,13 +323,6 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings/'
       preLoaderRoute: typeof LayoutSettingsIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/reports/': {
-      id: '/_layout/reports/'
-      path: '/reports'
-      fullPath: '/reports/'
-      preLoaderRoute: typeof LayoutReportsIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/recruitment/': {
@@ -483,7 +464,6 @@ interface LayoutRouteRouteChildren {
   LayoutPayrollIndexRoute: typeof LayoutPayrollIndexRoute
   LayoutPerformanceIndexRoute: typeof LayoutPerformanceIndexRoute
   LayoutRecruitmentIndexRoute: typeof LayoutRecruitmentIndexRoute
-  LayoutReportsIndexRoute: typeof LayoutReportsIndexRoute
   LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
   LayoutTrainingIndexRoute: typeof LayoutTrainingIndexRoute
 }
@@ -502,7 +482,6 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutPayrollIndexRoute: LayoutPayrollIndexRoute,
   LayoutPerformanceIndexRoute: LayoutPerformanceIndexRoute,
   LayoutRecruitmentIndexRoute: LayoutRecruitmentIndexRoute,
-  LayoutReportsIndexRoute: LayoutReportsIndexRoute,
   LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
   LayoutTrainingIndexRoute: LayoutTrainingIndexRoute,
 }

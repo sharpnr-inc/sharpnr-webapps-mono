@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EmployeesTable } from "../../components/tables/EmployeeTable";
+import { EmployeesTable } from "@/components/tables/EmployeeTable";
 import { useOrgEmployees } from "@/api/queries";
 
 export default function HRAllEmployeePage() {
