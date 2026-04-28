@@ -3,8 +3,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Route } from "@/routes/_layout/employees/$employeeId";
 import { ArrowLeft } from "lucide-react";
 
-export function HREmployeeDetailsPage() {
+import EmployeeDetailsOverviewTab from "./components/EmployeeDetailsOverviewTab";
+import EmployeeDetailsAttendanceTab from "./components/EmployeeDetailsAttendanceTab";
+import EmployeeDetailsLeavesTab from "./components/EmployeeDetailsLeavesTab";
+import EmployeeDetailsPayrollTab from "./components/EmployeeDetailsPayrollTab";
+import EmployeeDetailsDocsTab from "./components/EmployeeDetailsDocsTab";
+
+export function EmployeeDetailsPage() {
   const { employeeId } = Route.useParams();
+
   return (
     <div className="space-y-4 p-3">
       {/* Header */}
@@ -19,8 +26,10 @@ export function HREmployeeDetailsPage() {
 
         <div>
           <h1 className="text-xl font-semibold">Employee Details</h1>
+
           <p className="text-sm text-muted-foreground">
-            Employee ID: <span className="font-mono">{employeeId}</span>
+            Employee ID:
+            <span className="ml-2 font-mono">{employeeId}</span>
           </p>
         </div>
       </div>
@@ -36,68 +45,25 @@ export function HREmployeeDetailsPage() {
         </TabsList>
 
         <TabsContent value="overview">
-          <OverviewTab employeeId={employeeId} />
+          <EmployeeDetailsOverviewTab employeeId={employeeId} />
         </TabsContent>
 
         <TabsContent value="attendance">
-          <AttendanceTab employeeId={employeeId} />
+          <EmployeeDetailsAttendanceTab employeeId={employeeId} />
         </TabsContent>
 
         <TabsContent value="leaves">
-          <LeavesTab employeeId={employeeId} />
+          <EmployeeDetailsLeavesTab employeeId={employeeId} />
         </TabsContent>
 
         <TabsContent value="payroll">
-          <PayrollTab employeeId={employeeId} />
+          <EmployeeDetailsPayrollTab employeeId={employeeId} />
         </TabsContent>
 
         <TabsContent value="documents">
-          <DocumentsTab employeeId={employeeId} />
+          <EmployeeDetailsDocsTab employeeId={employeeId} />
         </TabsContent>
       </Tabs>
-    </div>
-  );
-}
-
-
-function OverviewTab({ employeeId }: { employeeId: string }) {
-  return (
-    <div className="rounded-md border p-4">
-      <p className="text-sm">
-        Overview content for <span className="font-mono">{employeeId}</span>
-      </p>
-    </div>
-  );
-}
-
-function AttendanceTab({ employeeId }: { employeeId: string }) {
-  return (
-    <div className="rounded-md border p-4">
-      Attendance logs for {employeeId}
-    </div>
-  );
-}
-
-function LeavesTab({ employeeId }: { employeeId: string }) {
-  return (
-    <div className="rounded-md border p-4">
-      Leave history for {employeeId}
-    </div>
-  );
-}
-
-function PayrollTab({ employeeId }: { employeeId: string }) {
-  return (
-    <div className="rounded-md border p-4">
-      Payroll details for {employeeId}
-    </div>
-  );
-}
-
-function DocumentsTab({ employeeId }: { employeeId: string }) {
-  return (
-    <div className="rounded-md border p-4">
-      Documents for {employeeId}
     </div>
   );
 }
