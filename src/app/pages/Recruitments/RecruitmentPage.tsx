@@ -270,8 +270,11 @@ export function RecruitmentAddEmployeePage() {
                         className="overflow-hidden"
                       >
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-1">
-                          <F label="Username" id="username">
-                            <Input id="username" placeholder="aarav.sharma" />
+                          <F label="email" id="email">
+                            <Input
+                              id="email"
+                              placeholder="aarav.sharma@gmail.com"
+                            />
                           </F>
                           <F label="Password" id="password">
                             <Input
