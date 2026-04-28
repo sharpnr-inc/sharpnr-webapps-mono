@@ -1,5 +1,6 @@
 import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { Building2 as OrgIcon } from "lucide-react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +16,13 @@ import {
   SidebarTrigger,
   SidebarRail,
 } from "@/components/ui/sidebar";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import {
   Users,
   UserPlus,
@@ -29,6 +37,7 @@ import {
   Bell,
   ShieldCheck,
 } from "lucide-react";
+
 import { Separator } from "@/components/ui/separator";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
@@ -36,13 +45,14 @@ import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";
 import { useSheet } from "@/hooks/useSheet";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+/* ───────────────── Types ───────────────── */
 
 interface NavItem {
   id: string;
   label: string;
   icon: React.ElementType;
   to: string;
+  tooltip?: string;
 }
 
 interface NavGroup {
@@ -50,15 +60,15 @@ interface NavGroup {
   items: NavItem[];
 }
 
-// ─── Organization ─────────────────────────────────────────────────────────────
+/* ───────────────── Organization ───────────────── */
 
 const organization = {
   name: "Sharpnr Organization",
   plan: "Enterprise",
-  logo: OrgIcon, // lucide icon used as logo — shows when collapsed
+  logo: OrgIcon,
 };
 
-// ─── Navigation ───────────────────────────────────────────────────────────────
+/* ───────────────── Navigation ───────────────── */
 
 const navGroups: NavGroup[] = [
   {
@@ -84,15 +94,11 @@ const navGroups: NavGroup[] = [
       },
     ],
   },
+
   {
     label: "People",
     items: [
-      {
-        id: "hr_employees",
-        label: "Employees",
-        icon: Users,
-        to: "/employees",
-      },
+      { id: "hr_employees", label: "Employees", icon: Users, to: "/employees" },
       {
         id: "hr_departments",
         label: "Departments",
@@ -113,29 +119,21 @@ const navGroups: NavGroup[] = [
       },
     ],
   },
+
   {
     label: "Operations",
     items: [
-      {
-        id: "hr_leave",
-        label: "Leave",
-        icon: ClipboardList,
-        to: "/leaves",
-      },
+      { id: "hr_leave", label: "Leave", icon: ClipboardList, to: "/leaves" },
       {
         id: "hr_attendance",
         label: "Attendance",
         icon: CalendarDays,
         to: "/attendance",
       },
-      {
-        id: "hr_payroll",
-        label: "Payroll",
-        icon: Banknote,
-        to: "/payroll",
-      },
+      { id: "hr_payroll", label: "Payroll", icon: Banknote, to: "/payroll" },
     ],
   },
+
   {
     label: "Growth",
     items: [
@@ -144,6 +142,7 @@ const navGroups: NavGroup[] = [
         label: "Performance",
         icon: Star,
         to: "/performance",
+        tooltip: "Employee Performance",
       },
       {
         id: "hr_training",
@@ -151,34 +150,18 @@ const navGroups: NavGroup[] = [
         icon: ShieldCheck,
         to: "/training",
       },
-
-      // forgot what was it for try to remember
-
-      // {
-      //   id: "hr_documents",
-      //   label: "Documents",
-      //   icon: FileText,
-      //   to: "/documents",
-      // },
     ],
   },
+
   {
     label: "System",
     items: [
-      {
-        id: "hr_settings",
-        label: "Settings",
-        icon: Settings,
-        to: "/settings",
-      },
+      { id: "hr_settings", label: "Settings", icon: Settings, to: "/settings" },
     ],
   },
 ];
 
-// ─── Org Card ─────────────────────────────────────────────────────────────────
-// Uses SidebarMenuButton so the sidebar handles collapse automatically:
-// expanded → shows logo square + name + plan
-// collapsed (icon mode) → shows only the logo square
+/* ───────────────── Org Card ───────────────── */
 
 const OrgCard: React.FC = () => {
   const Logo = organization.logo;
@@ -190,13 +173,11 @@ const OrgCard: React.FC = () => {
           size="lg"
           className="cursor-default hover:bg-transparent active:bg-transparent"
         >
-          {/* Logo square — the only thing visible when sidebar is collapsed */}
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-violet-600 text-white shrink-0">
             <Logo className="size-4" />
           </div>
 
-          {/* Name + plan — hidden when sidebar is collapsed */}
-          <div className="grid flex-1 text-left text-sm ">
+          <div className="grid flex-1 text-left text-sm">
             <span className="truncate font-semibold">{organization.name}</span>
             <span className="truncate text-xs text-muted-foreground">
               {organization.plan}
@@ -208,7 +189,7 @@ const OrgCard: React.FC = () => {
   );
 };
 
-// ─── Root Layout ──────────────────────────────────────────────────────────────
+/* ───────────────── Root Layout ───────────────── */
 
 const SharpHRRootLayout: React.FC = () => {
   const { location } = useRouterState();
@@ -227,29 +208,40 @@ const SharpHRRootLayout: React.FC = () => {
 
   return (
     <SidebarProvider>
-      {/* ── Sidebar ── */}
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <OrgCard />
         </SidebarHeader>
 
         <SidebarContent>
-          {/* ── Nav Groups ── */}
           {navGroups.map((group) => (
             <SidebarGroup key={group.label}>
               <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+
               <SidebarGroupContent>
                 <SidebarMenu>
                   {group.items.map((item) => {
                     const Icon = item.icon;
+
                     return (
                       <SidebarMenuItem key={item.id}>
-                        <SidebarMenuButton asChild isActive={isActive(item.to)}>
-                          <Link to={item.to}>
-                            <Icon />
-                            <span>{item.label}</span>
-                          </Link>
-                        </SidebarMenuButton>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <SidebarMenuButton
+                              asChild
+                              isActive={isActive(item.to)}
+                            >
+                              <Link to={item.to}>
+                                <Icon />
+                                <span>{item.label}</span>
+                              </Link>
+                            </SidebarMenuButton>
+                          </TooltipTrigger>
+
+                          <TooltipContent side="right">
+                            {item.tooltip ?? item.label}
+                          </TooltipContent>
+                        </Tooltip>
                       </SidebarMenuItem>
                     );
                   })}
@@ -259,17 +251,16 @@ const SharpHRRootLayout: React.FC = () => {
           ))}
         </SidebarContent>
 
-        {/* SidebarRail gives the collapse drag handle on the edge */}
         <SidebarRail />
       </Sidebar>
 
-      {/* ── Main Content ── */}
       <SidebarInset>
         <header className="flex h-12 items-center justify-between border-b px-4">
           <div className="flex items-center gap-4">
             <SidebarTrigger />
             <Separator orientation="vertical" className="h-6" />
           </div>
+
           <div className="flex items-center gap-3 px-4">
             <SharpnrLauncher />
             <NotificationBell onClick={() => handleOpenNotification()} />
@@ -277,6 +268,7 @@ const SharpHRRootLayout: React.FC = () => {
             <ModeToggle />
           </div>
         </header>
+
         <main className="flex-1">
           <Outlet />
         </main>

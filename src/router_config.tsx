@@ -1,8 +1,8 @@
 import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import AnthropicLoader from "./components/sharpnrLoader";
-import NotFound from "./components/404Page";
+import AnthropicLoader from "./components/ui/sharpnrLoader";
+import NotFound from "./components/ui/404Page";
 // import {
 //   hotelDetailMask,
 //   propertyDetailsMask,

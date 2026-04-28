@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/table";
 import type { OrgEmployeeList } from "@/api/types";
 
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import RoleBadge from "../ui/RoleBadge";
+
 interface EmployeeTableProps {
   employeeList: OrgEmployeeList[] | undefined;
 }
@@ -41,13 +44,17 @@ export function EmployeesTable({ employeeList }: EmployeeTableProps) {
         <TableBody>
           {employeeList.map((emp) => (
             <TableRow key={emp.id}>
-              <TableCell className="font-mono">
-                {emp.employeeID}
-              </TableCell>
+              <TableCell className="font-mono">{emp.employeeID}</TableCell>
 
               <TableCell>{emp.employeeName}</TableCell>
 
-              <TableCell>{emp.employeeRole}</TableCell>
+              <TableCell>
+                <RoleBadge
+                  role="SUPER_ADMIN" // required — raw string from backend
+                  glow={true} // optional — glowing ring effect (default: true)
+                  showDot={false} // optional — pulsing status dot (default: true)
+                />
+              </TableCell>
 
               <TableCell>
                 <span
@@ -62,18 +69,25 @@ export function EmployeesTable({ employeeList }: EmployeeTableProps) {
               </TableCell>
 
               <TableCell className="text-right">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() =>
-                    navigate({
-                      to: "/employees/$employeeId",
-                      params: { employeeId: emp.id },
-                    })
-                  }
-                >
-                  View
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() =>
+                        navigate({
+                          to: "/employees/$employeeId",
+                          params: { employeeId: emp.id },
+                        })
+                      }
+                    >
+                      View
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="top" align="end">
+                    View details of {emp.employeeName}
+                  </TooltipContent>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}
