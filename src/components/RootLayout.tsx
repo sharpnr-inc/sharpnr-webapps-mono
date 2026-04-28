@@ -26,7 +26,6 @@ import {
   Star,
   BookOpen,
   Building2,
-  FileText,
   Bell,
   ShieldCheck,
 } from "lucide-react";
@@ -81,7 +80,7 @@ const navGroups: NavGroup[] = [
         id: "hr_policies",
         label: "Compliance & Policies",
         icon: ShieldCheck,
-        to: "/annoucemens",
+        to: "/compliance_policies",
       },
     ],
   },
@@ -152,12 +151,15 @@ const navGroups: NavGroup[] = [
         icon: ShieldCheck,
         to: "/training",
       },
-      {
-        id: "hr_documents",
-        label: "Documents",
-        icon: FileText,
-        to: "/documents",
-      },
+
+      // forgot what was it for try to remember
+
+      // {
+      //   id: "hr_documents",
+      //   label: "Documents",
+      //   icon: FileText,
+      //   to: "/documents",
+      // },
     ],
   },
   {

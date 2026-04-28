@@ -13,6 +13,7 @@ import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
 import { Route as LayoutEmployeesRouteRouteImport } from './routes/_layout/employees/route'
+import { Route as LayoutTrainingIndexRouteImport } from './routes/_layout/training/index'
 import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
 import { Route as LayoutReportsIndexRouteImport } from './routes/_layout/reports/index'
 import { Route as LayoutRecruitmentIndexRouteImport } from './routes/_layout/recruitment/index'
@@ -23,13 +24,13 @@ import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/i
 import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
 import { Route as LayoutDepartmentsIndexRouteImport } from './routes/_layout/departments/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
+import { Route as LayoutCompliance_policiesIndexRouteImport } from './routes/_layout/compliance_policies/index'
 import { Route as LayoutAttendanceIndexRouteImport } from './routes/_layout/attendance/index'
 import { Route as LayoutAnnoucementsIndexRouteImport } from './routes/_layout/annoucements/index'
 import { Route as LayoutLeavesRequestsRouteImport } from './routes/_layout/leaves/requests'
 import { Route as LayoutEmployeesEmployeeIdRouteImport } from './routes/_layout/employees/$employeeId'
 import { Route as LayoutEmployeesPrivilegesIndexRouteImport } from './routes/_layout/employees/privileges/index'
 import { Route as LayoutEmployeesDocumentsIndexRouteImport } from './routes/_layout/employees/documents/index'
-import { Route as LayoutEmployeesDirectHireIndexRouteImport } from './routes/_layout/employees/direct-hire/index'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
@@ -48,6 +49,11 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
 const LayoutEmployeesRouteRoute = LayoutEmployeesRouteRouteImport.update({
   id: '/employees',
   path: '/employees',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutTrainingIndexRoute = LayoutTrainingIndexRouteImport.update({
+  id: '/training/',
+  path: '/training/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
@@ -100,6 +106,12 @@ const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutCompliance_policiesIndexRoute =
+  LayoutCompliance_policiesIndexRouteImport.update({
+    id: '/compliance_policies/',
+    path: '/compliance_policies/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 const LayoutAttendanceIndexRoute = LayoutAttendanceIndexRouteImport.update({
   id: '/attendance/',
   path: '/attendance/',
@@ -133,12 +145,6 @@ const LayoutEmployeesDocumentsIndexRoute =
     path: '/documents/',
     getParentRoute: () => LayoutEmployeesRouteRoute,
   } as any)
-const LayoutEmployeesDirectHireIndexRoute =
-  LayoutEmployeesDirectHireIndexRouteImport.update({
-    id: '/direct-hire/',
-    path: '/direct-hire/',
-    getParentRoute: () => LayoutEmployeesRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LayoutIndexRoute
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/leaves/requests': typeof LayoutLeavesRequestsRoute
   '/annoucements/': typeof LayoutAnnoucementsIndexRoute
   '/attendance/': typeof LayoutAttendanceIndexRoute
+  '/compliance_policies/': typeof LayoutCompliance_policiesIndexRoute
   '/dashboard/': typeof LayoutDashboardIndexRoute
   '/departments/': typeof LayoutDepartmentsIndexRoute
   '/employees/': typeof LayoutEmployeesIndexRoute
@@ -158,7 +165,7 @@ export interface FileRoutesByFullPath {
   '/recruitment/': typeof LayoutRecruitmentIndexRoute
   '/reports/': typeof LayoutReportsIndexRoute
   '/settings/': typeof LayoutSettingsIndexRoute
-  '/employees/direct-hire/': typeof LayoutEmployeesDirectHireIndexRoute
+  '/training/': typeof LayoutTrainingIndexRoute
   '/employees/documents/': typeof LayoutEmployeesDocumentsIndexRoute
   '/employees/privileges/': typeof LayoutEmployeesPrivilegesIndexRoute
 }
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/leaves/requests': typeof LayoutLeavesRequestsRoute
   '/annoucements': typeof LayoutAnnoucementsIndexRoute
   '/attendance': typeof LayoutAttendanceIndexRoute
+  '/compliance_policies': typeof LayoutCompliance_policiesIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
   '/departments': typeof LayoutDepartmentsIndexRoute
   '/employees': typeof LayoutEmployeesIndexRoute
@@ -179,7 +187,7 @@ export interface FileRoutesByTo {
   '/recruitment': typeof LayoutRecruitmentIndexRoute
   '/reports': typeof LayoutReportsIndexRoute
   '/settings': typeof LayoutSettingsIndexRoute
-  '/employees/direct-hire': typeof LayoutEmployeesDirectHireIndexRoute
+  '/training': typeof LayoutTrainingIndexRoute
   '/employees/documents': typeof LayoutEmployeesDocumentsIndexRoute
   '/employees/privileges': typeof LayoutEmployeesPrivilegesIndexRoute
 }
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/_layout/leaves/requests': typeof LayoutLeavesRequestsRoute
   '/_layout/annoucements/': typeof LayoutAnnoucementsIndexRoute
   '/_layout/attendance/': typeof LayoutAttendanceIndexRoute
+  '/_layout/compliance_policies/': typeof LayoutCompliance_policiesIndexRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
   '/_layout/departments/': typeof LayoutDepartmentsIndexRoute
   '/_layout/employees/': typeof LayoutEmployeesIndexRoute
@@ -203,7 +212,7 @@ export interface FileRoutesById {
   '/_layout/recruitment/': typeof LayoutRecruitmentIndexRoute
   '/_layout/reports/': typeof LayoutReportsIndexRoute
   '/_layout/settings/': typeof LayoutSettingsIndexRoute
-  '/_layout/employees/direct-hire/': typeof LayoutEmployeesDirectHireIndexRoute
+  '/_layout/training/': typeof LayoutTrainingIndexRoute
   '/_layout/employees/documents/': typeof LayoutEmployeesDocumentsIndexRoute
   '/_layout/employees/privileges/': typeof LayoutEmployeesPrivilegesIndexRoute
 }
@@ -217,6 +226,7 @@ export interface FileRouteTypes {
     | '/leaves/requests'
     | '/annoucements/'
     | '/attendance/'
+    | '/compliance_policies/'
     | '/dashboard/'
     | '/departments/'
     | '/employees/'
@@ -227,7 +237,7 @@ export interface FileRouteTypes {
     | '/recruitment/'
     | '/reports/'
     | '/settings/'
-    | '/employees/direct-hire/'
+    | '/training/'
     | '/employees/documents/'
     | '/employees/privileges/'
   fileRoutesByTo: FileRoutesByTo
@@ -238,6 +248,7 @@ export interface FileRouteTypes {
     | '/leaves/requests'
     | '/annoucements'
     | '/attendance'
+    | '/compliance_policies'
     | '/dashboard'
     | '/departments'
     | '/employees'
@@ -248,7 +259,7 @@ export interface FileRouteTypes {
     | '/recruitment'
     | '/reports'
     | '/settings'
-    | '/employees/direct-hire'
+    | '/training'
     | '/employees/documents'
     | '/employees/privileges'
   id:
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/_layout/leaves/requests'
     | '/_layout/annoucements/'
     | '/_layout/attendance/'
+    | '/_layout/compliance_policies/'
     | '/_layout/dashboard/'
     | '/_layout/departments/'
     | '/_layout/employees/'
@@ -271,7 +283,7 @@ export interface FileRouteTypes {
     | '/_layout/recruitment/'
     | '/_layout/reports/'
     | '/_layout/settings/'
-    | '/_layout/employees/direct-hire/'
+    | '/_layout/training/'
     | '/_layout/employees/documents/'
     | '/_layout/employees/privileges/'
   fileRoutesById: FileRoutesById
@@ -309,6 +321,13 @@ declare module '@tanstack/react-router' {
       path: '/employees'
       fullPath: '/employees'
       preLoaderRoute: typeof LayoutEmployeesRouteRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/training/': {
+      id: '/_layout/training/'
+      path: '/training'
+      fullPath: '/training/'
+      preLoaderRoute: typeof LayoutTrainingIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/settings/': {
@@ -381,6 +400,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutDashboardIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/compliance_policies/': {
+      id: '/_layout/compliance_policies/'
+      path: '/compliance_policies'
+      fullPath: '/compliance_policies/'
+      preLoaderRoute: typeof LayoutCompliance_policiesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
     '/_layout/attendance/': {
       id: '/_layout/attendance/'
       path: '/attendance'
@@ -423,20 +449,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutEmployeesDocumentsIndexRouteImport
       parentRoute: typeof LayoutEmployeesRouteRoute
     }
-    '/_layout/employees/direct-hire/': {
-      id: '/_layout/employees/direct-hire/'
-      path: '/direct-hire'
-      fullPath: '/employees/direct-hire/'
-      preLoaderRoute: typeof LayoutEmployeesDirectHireIndexRouteImport
-      parentRoute: typeof LayoutEmployeesRouteRoute
-    }
   }
 }
 
 interface LayoutEmployeesRouteRouteChildren {
   LayoutEmployeesEmployeeIdRoute: typeof LayoutEmployeesEmployeeIdRoute
   LayoutEmployeesIndexRoute: typeof LayoutEmployeesIndexRoute
-  LayoutEmployeesDirectHireIndexRoute: typeof LayoutEmployeesDirectHireIndexRoute
   LayoutEmployeesDocumentsIndexRoute: typeof LayoutEmployeesDocumentsIndexRoute
   LayoutEmployeesPrivilegesIndexRoute: typeof LayoutEmployeesPrivilegesIndexRoute
 }
@@ -444,7 +462,6 @@ interface LayoutEmployeesRouteRouteChildren {
 const LayoutEmployeesRouteRouteChildren: LayoutEmployeesRouteRouteChildren = {
   LayoutEmployeesEmployeeIdRoute: LayoutEmployeesEmployeeIdRoute,
   LayoutEmployeesIndexRoute: LayoutEmployeesIndexRoute,
-  LayoutEmployeesDirectHireIndexRoute: LayoutEmployeesDirectHireIndexRoute,
   LayoutEmployeesDocumentsIndexRoute: LayoutEmployeesDocumentsIndexRoute,
   LayoutEmployeesPrivilegesIndexRoute: LayoutEmployeesPrivilegesIndexRoute,
 }
@@ -458,6 +475,7 @@ interface LayoutRouteRouteChildren {
   LayoutLeavesRequestsRoute: typeof LayoutLeavesRequestsRoute
   LayoutAnnoucementsIndexRoute: typeof LayoutAnnoucementsIndexRoute
   LayoutAttendanceIndexRoute: typeof LayoutAttendanceIndexRoute
+  LayoutCompliance_policiesIndexRoute: typeof LayoutCompliance_policiesIndexRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
   LayoutDepartmentsIndexRoute: typeof LayoutDepartmentsIndexRoute
   LayoutLeavesIndexRoute: typeof LayoutLeavesIndexRoute
@@ -467,6 +485,7 @@ interface LayoutRouteRouteChildren {
   LayoutRecruitmentIndexRoute: typeof LayoutRecruitmentIndexRoute
   LayoutReportsIndexRoute: typeof LayoutReportsIndexRoute
   LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
+  LayoutTrainingIndexRoute: typeof LayoutTrainingIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
@@ -475,6 +494,7 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutLeavesRequestsRoute: LayoutLeavesRequestsRoute,
   LayoutAnnoucementsIndexRoute: LayoutAnnoucementsIndexRoute,
   LayoutAttendanceIndexRoute: LayoutAttendanceIndexRoute,
+  LayoutCompliance_policiesIndexRoute: LayoutCompliance_policiesIndexRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
   LayoutDepartmentsIndexRoute: LayoutDepartmentsIndexRoute,
   LayoutLeavesIndexRoute: LayoutLeavesIndexRoute,
@@ -484,6 +504,7 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutRecruitmentIndexRoute: LayoutRecruitmentIndexRoute,
   LayoutReportsIndexRoute: LayoutReportsIndexRoute,
   LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
+  LayoutTrainingIndexRoute: LayoutTrainingIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(

@@ -10,10 +10,10 @@ import {
   FieldLegend,
   FieldSet,
 } from "@/components/ui/field";
-import { Input } from "../../components/ui/input";
-import { Switch } from "../../components/ui/switch";
-import { Button } from "../../components/ui/button";
-import { Textarea } from "../../components/ui/textarea";
+import { Input } from "../../../components/ui/input";
+import { Switch } from "../../../components/ui/switch";
+import { Button } from "../../../components/ui/button";
+import { Textarea } from "../../../components/ui/textarea";
 
 export default function HRRecruitmentAddEmployeePage() {
   const [preview, setPreview] = useState<string | null>(null);
@@ -81,7 +81,9 @@ export default function HRRecruitmentAddEmployeePage() {
               onCheckedChange={setHasOnlineAccess}
             />
             <FieldLabel htmlFor="accessSwitch" className="cursor-pointer">
-              {hasOnlineAccess ? "Online Access Enabled" : "Record-Keeping Only"}
+              {hasOnlineAccess
+                ? "Online Access Enabled"
+                : "Record-Keeping Only"}
             </FieldLabel>
           </div>
         </div>
@@ -97,7 +99,11 @@ export default function HRRecruitmentAddEmployeePage() {
 
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input id="email" type="email" placeholder="e.g. aarav@example.com" />
+              <Input
+                id="email"
+                type="email"
+                placeholder="e.g. aarav@example.com"
+              />
             </Field>
 
             <Field>
@@ -131,7 +137,8 @@ export default function HRRecruitmentAddEmployeePage() {
           <div>
             <FieldLegend>Online Access Credentials</FieldLegend>
             <FieldDescription>
-              These credentials will be used by the employee to log into the system.
+              These credentials will be used by the employee to log into the
+              system.
             </FieldDescription>
 
             <FieldGroup className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -230,11 +237,19 @@ export default function HRRecruitmentAddEmployeePage() {
             </Field>
             <Field>
               <FieldLabel htmlFor="emergencyPhone">Phone Number</FieldLabel>
-              <Input id="emergencyPhone" type="tel" placeholder="+91 9876543210" />
+              <Input
+                id="emergencyPhone"
+                type="tel"
+                placeholder="+91 9876543210"
+              />
             </Field>
             <Field>
               <FieldLabel htmlFor="emergencyEmail">Email</FieldLabel>
-              <Input id="emergencyEmail" type="email" placeholder="priya@example.com" />
+              <Input
+                id="emergencyEmail"
+                type="email"
+                placeholder="priya@example.com"
+              />
             </Field>
           </FieldGroup>
         </div>
@@ -244,11 +259,18 @@ export default function HRRecruitmentAddEmployeePage() {
           <FieldLegend>Education Details</FieldLegend>
           <FieldGroup className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <Field>
-              <FieldLabel htmlFor="qualification">Highest Qualification</FieldLabel>
-              <Input id="qualification" placeholder="e.g. B.Tech in Computer Science" />
+              <FieldLabel htmlFor="qualification">
+                Highest Qualification
+              </FieldLabel>
+              <Input
+                id="qualification"
+                placeholder="e.g. B.Tech in Computer Science"
+              />
             </Field>
             <Field>
-              <FieldLabel htmlFor="university">University / Institute</FieldLabel>
+              <FieldLabel htmlFor="university">
+                University / Institute
+              </FieldLabel>
               <Input id="university" placeholder="e.g. IIT Delhi" />
             </Field>
             <Field>

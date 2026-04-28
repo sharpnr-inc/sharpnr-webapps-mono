@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,22 +5,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EmployeesTable } from "../../components/EmployeeTable";
-import { PlusIcon } from "lucide-react";
-import { useRouter } from "@tanstack/react-router";
+import { EmployeesTable } from "../../components/tables/EmployeeTable";
 import { useOrgEmployees } from "@/api/queries";
 
 export default function HRAllEmployeePage() {
-  const router = useRouter();
-
   const { data } = useOrgEmployees();
   console.log(data);
-
-  const handleCreateEmployee = () => {
-    router.navigate({
-      to: "/employees/direct-hire",
-    });
-  };
 
   return (
     <div className="flex flex-col gap-6 p-4">
@@ -33,11 +22,6 @@ export default function HRAllEmployeePage() {
             Manage all employees in your organization
           </p>
         </div>
-
-        <Button onClick={handleCreateEmployee}>
-          <PlusIcon className="mr-2 h-4 w-4" />
-          Add Employee
-        </Button>
       </div>
 
       {/* ───────── Stats Cards ───────── */}
