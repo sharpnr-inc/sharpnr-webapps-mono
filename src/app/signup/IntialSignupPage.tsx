@@ -8,7 +8,7 @@ export function InitialSignupPage() {
   const [userEmail, setUserEmail] = useState("");
 
   return (
-   <div className="grid min-h-svh lg:grid-cols-2">
+    <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex flex-1 items-center justify-center">
           <AnimatePresence mode="wait">
@@ -21,48 +21,31 @@ export function InitialSignupPage() {
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="w-full max-w-4xl"
               >
-                <InitialSignupForm 
+                <InitialSignupForm
                   setShowOtp={setShowOtp}
                   setUserEmail={setUserEmail}
                 />
               </motion.div>
             )}
-            
+
             {showOtp && (
               <motion.div
                 key="otp-form"
                 initial={{ opacity: 0, x: 20, scale: 0.95 }}
                 animate={{ opacity: 1, x: 0, scale: 1 }}
                 exit={{ opacity: 0, x: 20, scale: 0.95 }}
-                transition={{ 
-                  duration: 0.4, 
+                transition={{
+                  duration: 0.4,
                   ease: [0.4, 0, 0.2, 1],
-                  scale: { duration: 0.3 }
+                  scale: { duration: 0.3 },
                 }}
                 className="w-full max-w-xs"
               >
-                <VerifyOtpForm 
-                  setShowOtp={setShowOtp}
-                  email={userEmail}
-                />
+                <VerifyOtpForm setShowOtp={setShowOtp} email={userEmail} />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-      </div>
-      
-      <div className="bg-muted relative hidden lg:block overflow-hidden">
-        <motion.video
-          src="./stest.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
       </div>
     </div>
   );
