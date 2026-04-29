@@ -4,7 +4,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { IamSidebar } from "./IamSidebar";
+import { AppSidebar } from "./AppSidebar";
 import { ModeToggle } from "./ui/mode-toggle";
 import { Separator } from "./ui/separator";
 import SharpnrLauncher from "./header/SharpnrLauncher";
@@ -12,7 +12,7 @@ import { NotificationBell } from "./header/NotificationButton";
 import { UserCard } from "./header/UserCard";
 import { useSheet } from "@/hooks/useSheets";
 
-const IamRootLayout: React.FC = () => {
+const RootLayout: React.FC = () => {
   const { openSheet } = useSheet();
 
   const handleOpenNotification = () => {
@@ -23,7 +23,7 @@ const IamRootLayout: React.FC = () => {
       <div className="flex min-h-screen w-full">
         {/* Sidebar */}
         <Sidebar collapsible="icon">
-          <IamSidebar />
+          <AppSidebar />
         </Sidebar>
 
         {/* Main */}
@@ -50,4 +50,4 @@ const IamRootLayout: React.FC = () => {
   );
 };
 
-export default IamRootLayout;
+export default RootLayout;

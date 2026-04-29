@@ -2,7 +2,7 @@ import {
   GetAuthenticatedUser,
   verifyUserAuthentication,
 } from "@/api/api.service";
-import IamRootLayout from "@/components/IamRootLayout";
+import RootLayout from "@/components/RootLayout";
 import { config } from "@/configs/env";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
@@ -43,5 +43,5 @@ export const Route = createFileRoute("/_user")({
 
     return { user };
   },
-  component: IamRootLayout,
+  component: RootLayout,
 });

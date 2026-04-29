@@ -18,7 +18,7 @@ import {
   Scale,
 } from "lucide-react";
 
-export function IamSidebar() {
+export function AppSidebar() {
   const { location } = useRouterState();
   const pathname = location.pathname;
 
