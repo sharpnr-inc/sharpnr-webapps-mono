@@ -1,11 +1,15 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  Sidebar,
   SidebarContent,
   SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
-  useSidebar,
+  SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import {
   MessageSquare,
@@ -17,110 +21,120 @@ import {
   Flag,
   Scale,
 } from "lucide-react";
+import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
+
+const workspaceLinks = [
+  {
+    to: "/requests",
+    label: "Requests",
+    icon: ClipboardList,
+    match: "/iam/requests",
+  },
+  { to: "/tasks", label: "Tasks", icon: CheckSquare, match: "/iam/tasks" },
+  {
+    to: "/messages",
+    label: "Messages",
+    icon: MessageSquare,
+    match: "/iam/messages",
+  },
+  { to: "/legal", label: "Legal", icon: Scale, match: "/iam/legal" },
+];
+
+const personalLinks = [
+  { to: "/", label: "Profile", icon: User, match: "/iam/profile" },
+  {
+    to: "/attendance",
+    label: "Attendance",
+    icon: Flag,
+    match: "/iam/attendance",
+  },
+  { to: "/apps", label: "Apps", icon: AppWindowMac, match: "/iam/apps" },
+];
 
 export function AppSidebar() {
   const { location } = useRouterState();
-  const pathname = location.pathname;
 
-  const { state } = useSidebar();
-  const collapsed = state === "collapsed";
-  const isActive = (path: string) => pathname.startsWith(path);
+  const isActive = (to: string, match: string) =>
+    location.pathname === "/"
+      ? to === "/"
+      : location.pathname.startsWith(match);
 
   return (
-    <SidebarContent>
-      <div className="p-2">
-        <div
-          className={`
-        flex items-center gap-3 rounded-lg
-        
-        ${collapsed ? "justify-center p-2" : "p-2"}
-      `}
-        >
-          <div className="h-9 w-9 rounded-md bg-primary/10 flex items-center justify-center shrink-0">
-            <Building2 className="h-5 w-5 text-primary" />
-          </div>
-
-          {!collapsed && (
-            <div className="flex flex-col overflow-hidden">
-              <span className="text-sm font-semibold truncate">
-                Acme Corporation
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <SidebarGroup>
+    <Sidebar collapsible="icon">
+      {/* Brand header */}
+      <SidebarHeader>
         <SidebarMenu>
-          {/* Profile */}
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/profile")}>
-              <Link to="/">
-                <User />
-                <span>Profile</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Requests */}
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/requests")}>
-              <Link to="/requests">
-                <ClipboardList />
-                <span>Requests</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Tasks */}
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/tasks")}>
-              <Link to="/tasks">
-                <CheckSquare />
-                <span>Tasks</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Messages */}
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/messages")}>
-              <Link to="/messages">
-                <MessageSquare />
-                <span>Messages</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          {/* Legal */}
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/legal")}>
-              <Link to="/legal">
-                <Scale />
-                <span>Legal</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/attendance")}>
-              <Link to="/attendance">
-                <Flag />
-                <span>Attendance</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/iam/apps")}>
-              <Link to="/apps">
-                <AppWindowMac />
-                <span>Apps</span>
-              </Link>
+            <SidebarMenuButton
+              size="lg"
+              className="cursor-default hover:bg-transparent active:bg-transparent"
+              tooltip="Acme Corporation"
+            >
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                <Building2 className="h-4 w-4" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-sm font-semibold">Acme</span>
+                <span className="text-xs text-muted-foreground">
+                  Corporation
+                </span>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-      </SidebarGroup>
-    </SidebarContent>
+      </SidebarHeader>
+
+      <SidebarContent>
+        {/* Workspace group */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {workspaceLinks.map(({ to, label, icon: Icon, match }) => (
+                <SidebarMenuItem key={to}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActive(to, match)}
+                    tooltip={label}
+                  >
+                    <Link to={to}>
+                      <Icon />
+                      <span>{label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarSeparator />
+
+        {/* Personal group */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Personal</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {personalLinks.map(({ to, label, icon: Icon, match }) => (
+                <SidebarMenuItem key={to}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={isActive(to, match)}
+                    tooltip={label}
+                  >
+                    <Link to={to}>
+                      <Icon />
+                      <span>{label}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SharpnrSidebarFooter />
+    </Sidebar>
   );
 }

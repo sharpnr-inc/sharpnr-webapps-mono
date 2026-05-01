@@ -11,20 +11,23 @@ import { SheetProvider } from "./hooks/useSheets";
 import { Toaster } from "sonner";
 import { DialogModalProvider } from "./hooks/useDialog";
 import { FormsModalProvider } from "./hooks/useFormModal";
+import { TooltipProvider } from "./components/ui/tooltip";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider storageKey="iam-ui-theme">
-      <QueryClientProvider client={queryClient}>
-        <SheetProvider>
-          <FormsModalProvider>
-            <DialogModalProvider>
-              <RouterProvider router={router} />
-            </DialogModalProvider>
-          </FormsModalProvider>
-          <Toaster />
-        </SheetProvider>
-      </QueryClientProvider>
+      <TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+          <SheetProvider>
+            <FormsModalProvider>
+              <DialogModalProvider>
+                <RouterProvider router={router} />
+              </DialogModalProvider>
+            </FormsModalProvider>
+            <Toaster />
+          </SheetProvider>
+        </QueryClientProvider>
+      </TooltipProvider>
     </ThemeProvider>
   </StrictMode>,
 );
