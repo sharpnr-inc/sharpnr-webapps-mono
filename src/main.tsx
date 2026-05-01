@@ -9,7 +9,7 @@ import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
 import { RouterProvider } from "@tanstack/react-router";
 import { SheetProvider } from "./hooks/useSheet.tsx";
 import { DialogModalProvider } from "./hooks/useDialog.tsx";
-import { ThemeProvider } from "./hooks/theme-provider.tsx";
+import { ThemeProvider } from "./components/ui/theme-provider.tsx";
 import { FormsModalProvider } from "./hooks/useFormModal.tsx";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

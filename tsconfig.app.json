@@ -7,7 +7,6 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -28,9 +27,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "src",
-    "login/LoginPage.tsx",
-    "src/_hospitalityapp/infra/Menu/pages/.tsx"
-  ]
+  "include": ["src"]
 }
