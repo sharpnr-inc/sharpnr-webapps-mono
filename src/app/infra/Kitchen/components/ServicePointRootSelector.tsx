@@ -3,14 +3,14 @@ import { motion } from "framer-motion";
 import { Utensils, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "@tanstack/react-router";
-import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/infra/kitchen/index";
+import { Route } from "@/routes/_user/infra/kitchen/index";
 
 const ServicePointRootSelector: React.FC = () => {
   const nav = useNavigate();
   const { infras } = Route.useLoaderData();
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-muted/30">
+    <div className="min-h-screen w-full flex items-center justify-center bg-muted/30">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-6xl w-full">
         {infras?.map((infra: any, index: number) => (
           <motion.div
@@ -24,7 +24,7 @@ const ServicePointRootSelector: React.FC = () => {
             <Card
               onClick={() =>
                 nav({
-                  to: "/dashboard/sharp_hospitality/infra/kitchen/$service_point/service",
+                  to: "/infra/kitchen/$service_point/service",
                   params: {
                     service_point: infra.ID, // 👈 REAL ID
                   },

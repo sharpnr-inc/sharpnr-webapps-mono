@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import {
   SidebarProvider,
   Sidebar,
@@ -6,16 +6,15 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { RestaurantSidebar } from "./RestaurantSidebar";
-import { Building2 } from "lucide-react";
 import { ModeToggle } from "@/components/header/ThemeToggle";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { UserCard } from "@/components/header/UserCard";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { Separator } from "@/components/ui/separator";
 import { useQueryClient } from "@tanstack/react-query";
+import { SharpnrSidebarFooter } from "@/components/ui/SharpnrSidebarFooter";
 
 export function RestaurantRootLayout() {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   const restaurants = queryClient.getQueryData([
@@ -56,6 +55,7 @@ export function RestaurantRootLayout() {
           </div> */}
 
           <RestaurantSidebar />
+          <SharpnrSidebarFooter />
         </Sidebar>
 
         <SidebarInset>

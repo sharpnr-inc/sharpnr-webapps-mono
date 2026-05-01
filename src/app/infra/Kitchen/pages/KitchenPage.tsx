@@ -97,7 +97,7 @@ function parseKOT(kot: any): KitchenOrder {
 
 export default function KitchenPage() {
   const { service_point } = useParams({
-    from: "/_appuser/dashboard/sharp_hospitality/infra/kitchen/$service_point/service",
+    from: "/_user/infra/kitchen/$service_point/service",
   });
   const { data, isLoading, isError } = useKitchenKOTsSSE(service_point);
 
@@ -258,7 +258,7 @@ export default function KitchenPage() {
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                       className={cn(
-                        "space-y-3 overflow-y-auto flex-1 min-h-[80px] rounded-lg transition-colors",
+                        "space-y-3 overflow-y-auto flex-1 min-h-20 rounded-lg transition-colors",
                         snapshot.isDraggingOver && "bg-muted/40",
                       )}
                     >
