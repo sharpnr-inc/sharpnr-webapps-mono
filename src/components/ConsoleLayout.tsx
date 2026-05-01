@@ -2,10 +2,6 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -17,14 +13,13 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
-  SidebarFooter,
+  SidebarHeader,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
-  Building2,
   FileText,
   Home,
-  ChevronsUpDown,
   Origami,
   DollarSign,
   Users,
@@ -39,6 +34,7 @@ import {
   Verified,
   Globe,
   Zap,
+  GalleryVerticalEnd,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
@@ -48,6 +44,7 @@ import { useSheet } from "@/hooks/useSheet";
 import { cn } from "@/lib/utils";
 import type { Variants, Transition } from "framer-motion";
 import { UserCard } from "./header/UserCard";
+import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
 
 /* =========================
    Sidebar Configuration
@@ -114,18 +111,8 @@ const orchestratorLinks: SidebarLink[] = [
     icon: Verified,
     tooltip: "Audit Logs",
   },
-  {
-    label: "Storage",
-    path: "/storage",
-    icon: BoxesIcon,
-    tooltip: "Storage",
-  },
-  {
-    label: "Cables",
-    path: "/cables",
-    icon: Cable,
-    tooltip: "Cables",
-  },
+  { label: "Storage", path: "/storage", icon: BoxesIcon, tooltip: "Storage" },
+  { label: "Cables", path: "/cables", icon: Cable, tooltip: "Cables" },
   {
     label: "Docs & Office",
     path: "/docs_office",
@@ -142,7 +129,7 @@ const orchestratorLinks: SidebarLink[] = [
     label: "Sharp Marketplace",
     path: "/",
     icon: Globe,
-    tooltip: "Descovro Integration",
+    tooltip: "Sharp Marketplace",
   },
 ];
 
@@ -150,38 +137,32 @@ const orchestratorLinks: SidebarLink[] = [
    Animation Variants
 ========================= */
 
-// ✅ Fix: assert the cubic-bezier tuple type
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-// ✅ Fix: annotate explicitly as Variants — no function, use `custom` via motion prop
 const headerVariants: Variants = {
   hidden: { opacity: 0, y: -8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.4,
-      ease: EASE, // ✅ typed tuple, not number[]
-    } satisfies Transition,
+    transition: { duration: 0.4, ease: EASE } satisfies Transition,
   },
 };
 
-// ✅ Fix: cast the whole object as Variants so TS accepts the resolver function
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: -6 },
-  // Framer Motion passes `custom` as the first arg to resolver functions
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
       delay: i * 0.06,
       duration: 0.35,
-      ease: EASE, // ✅ typed tuple
+      ease: EASE,
     } satisfies Transition,
   }),
 };
+
 /* =========================
-   Animated Header Items
+   Sub-Components
 ========================= */
 
 function HeaderItem({
@@ -206,14 +187,9 @@ function HeaderItem({
   );
 }
 
-/* =========================
-   Notification Bell
-========================= */
-
 function NotificationBell({ onClick }: { onClick: () => void }) {
   const [pulse, setPulse] = React.useState(false);
 
-  // Subtle ping every 8s to draw attention
   React.useEffect(() => {
     const id = setInterval(() => {
       setPulse(true);
@@ -228,10 +204,7 @@ function NotificationBell({ onClick }: { onClick: () => void }) {
         variant="ghost"
         size="icon"
         className={cn(
-          "relative h-9 w-9 rounded-xl",
-          "border border-transparent",
-          "hover:border-border/60 hover:bg-accent/70",
-          "transition-colors duration-200",
+          "relative h-9 w-9 rounded-xl border border-transparent hover:border-border/60 hover:bg-accent/70 transition-colors duration-200",
         )}
         onClick={onClick}
         aria-label="Open notifications"
@@ -242,8 +215,6 @@ function NotificationBell({ onClick }: { onClick: () => void }) {
         >
           <Bell className="h-[17px] w-[17px]" />
         </motion.div>
-
-        {/* Badge dot */}
         <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
           <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
@@ -252,10 +223,6 @@ function NotificationBell({ onClick }: { onClick: () => void }) {
     </motion.div>
   );
 }
-
-/* =========================
-   Divider
-========================= */
 
 function HeaderDivider() {
   return (
@@ -269,17 +236,15 @@ function HeaderDivider() {
 }
 
 /* =========================
-   Layout Component
+   Internal Layout Shell
 ========================= */
 
-type OrchestratorLayoutProps = {
-  children?: React.ReactNode;
-};
-
-export function ConsoleLayout({}: OrchestratorLayoutProps) {
+function OrchestratorShell() {
   const { location } = useRouterState();
   const { openSheet } = useSheet();
   const pathname = location.pathname;
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
   const isActive = (path: string, exact = false) => {
     if (exact) return pathname === path;
@@ -291,33 +256,44 @@ export function ConsoleLayout({}: OrchestratorLayoutProps) {
   };
 
   return (
-    <SidebarProvider>
+    <>
       <Sidebar collapsible="icon">
-        <SidebarContent>
-          {/* ===== Organization Card ===== */}
-          <div className="p-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size="lg"
-                  className="cursor-not-allowed data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
-                  <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                    <Building2 className="size-4" />
-                  </div>
-                  <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-medium truncate">
-                      Sharp Hospitality
-                    </span>
-                    <span className="text-xs">Organization</span>
-                  </div>
-                  <ChevronsUpDown className="ml-auto size-4 opacity-40" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-            </DropdownMenu>
-          </div>
+        <SidebarHeader className="p-2">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <motion.div
+                layout
+                initial={false}
+                className="flex items-center gap-3 rounded-lg  p-2"
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+              >
+                <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-md">
+                  <GalleryVerticalEnd className="size-4" />
+                </div>
+                <AnimatePresence mode="wait">
+                  {!isCollapsed && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ duration: 0.15 }}
+                      className="flex flex-1 flex-col overflow-hidden text-left"
+                    >
+                      <span className="truncate text-sm font-bold text-zinc-900 dark:text-zinc-50">
+                        Sharpnr Engine
+                      </span>
+                      <span className="truncate text-[10px] uppercase tracking-wider text-zinc-500">
+                        Orchestration v1.0
+                      </span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarHeader>
 
-          {/* ===== Orchestrator Menu ===== */}
+        <SidebarContent>
           <SidebarGroup>
             <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -352,38 +328,21 @@ export function ConsoleLayout({}: OrchestratorLayoutProps) {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter className="border-t p-3">
-          <div className="flex items-center gap-2 overflow-hidden">
-            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-6 items-center justify-center rounded-md shrink-0">
-              <Zap className="size-3" />
-            </div>
-            <p className="text-xs text-muted-foreground truncate group-data-[collapsible=icon]:hidden">
-              Powered by{" "}
-              <span className="font-semibold text-foreground">Sharpnr</span>
-            </p>
-          </div>
-        </SidebarFooter>
+
+        <SharpnrSidebarFooter />
       </Sidebar>
 
-      {/* ===== Main Content ===== */}
       <SidebarInset>
-        {/* ─── Animated Header ─── */}
         <motion.header
           variants={headerVariants}
           initial="hidden"
           animate="visible"
           className={cn(
-            "sticky top-0 z-20",
-            "flex h-14 items-center gap-1.5 px-3",
-            /* Glassmorphism surface */
-            "bg-background/80 backdrop-blur-md",
-            /* Hairline bottom border */
-            "border-b border-border/50",
-            /* Smooth shadow */
+            "sticky top-0 z-20 flex h-14 items-center gap-1.5 px-3",
+            "bg-background/80 backdrop-blur-md border-b border-border/50",
             "shadow-[0_1px_8px_-2px_hsl(var(--foreground)/0.06)]",
           )}
         >
-          {/* Sidebar Toggle */}
           <HeaderItem index={0} className="flex items-center">
             <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}>
               <SidebarTrigger className="rounded-lg hover:bg-accent/70 transition-colors" />
@@ -392,28 +351,20 @@ export function ConsoleLayout({}: OrchestratorLayoutProps) {
 
           <HeaderDivider />
 
-          {/* Breadcrumbs — grows to fill available space */}
           <HeaderItem index={1} className="flex-1 min-w-0">
             <RouteBreadcrumbs />
           </HeaderItem>
 
-          {/* Right-side actions */}
           <div className="flex items-center gap-3 px-6 py-1 rounded-2xl">
             <HeaderItem index={2}>
               <SharpnrLauncher />
             </HeaderItem>
-
             <HeaderItem index={3}>
               <HeaderDivider />
             </HeaderItem>
-
-            {/* Notification Bell */}
             <HeaderItem index={4}>
               <NotificationBell onClick={handleOpenNotification} />
             </HeaderItem>
-
-            {/* Theme Toggle */}
-
             <HeaderItem index={5}>
               <UserCard />
             </HeaderItem>
@@ -428,20 +379,31 @@ export function ConsoleLayout({}: OrchestratorLayoutProps) {
           </div>
         </motion.header>
 
-        {/* ─── Page Content ─── */}
         <AnimatePresence mode="wait">
           <motion.main
             key={pathname}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.25, ease: EASE }}
             className="p-2.5"
           >
             <Outlet />
           </motion.main>
         </AnimatePresence>
       </SidebarInset>
+    </>
+  );
+}
+
+/* =========================
+   Main Export
+========================= */
+
+export function ConsoleLayout() {
+  return (
+    <SidebarProvider>
+      <OrchestratorShell />
     </SidebarProvider>
   );
 }
