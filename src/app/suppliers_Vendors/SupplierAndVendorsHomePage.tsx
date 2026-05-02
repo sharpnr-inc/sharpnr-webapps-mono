@@ -262,7 +262,7 @@ export function SupplierAndVendorsHomePage() {
                   index={i}
                   onClick={() => {
                     nav({
-                      to: "/orchestrator/suppliers&Vendors/$suppliersID/details",
+                      to: "/suppliers&Vendors/$suppliersID/details",
                       params: {
                         suppliersID: supplier.ID,
                       },

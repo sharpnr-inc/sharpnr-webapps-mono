@@ -33,7 +33,6 @@ import {
   Globe2Icon,
   Verified,
   Globe,
-  Zap,
   GalleryVerticalEnd,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
