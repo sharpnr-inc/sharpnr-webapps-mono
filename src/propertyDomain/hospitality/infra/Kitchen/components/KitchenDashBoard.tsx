@@ -9,20 +9,17 @@ import { ChefHat, Settings2, ArrowLeft, Printer, Activity } from "lucide-react";
 
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
 import {
-  useKitchenConfiguration,
-  useKitchenDetails,
-} from "../../../../../_orchestrator/properties/hospitality_dashboards/infras/api/quries";
-import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
 } from "@/components/ui/dialog";
 import { useAppForm } from "@/components/forms";
-import { useUpdateKitchenGenralDetailsMutation } from "../../../../../_orchestrator/properties/hospitality_dashboards/infras/api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
 import api from "@/middlewares/axios";
 import { KitchenEndpoints } from "@/propertyDomain/hospitality/infra/Kitchen/api/api.endpoints";
+import { useUpdateKitchenGenralDetailsMutation } from "../api/api.mutation";
+import { useKitchenConfiguration, useKitchenDetails } from "../api/api.queries";
 
 export function KitchenDashBoard() {
   const navigate = useNavigate();

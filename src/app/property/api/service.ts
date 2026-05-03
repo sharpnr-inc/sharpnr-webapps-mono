@@ -1,6 +1,6 @@
 import api from "@/middlewares/axios";
-import type { PropertyPayload } from "../forms/AddPropertyForm";
-import type { APIResponse } from "@/utilities/api_response";
+import type { PropertyPayload } from "../components/AddPropertyForm";
+import type { APIResponse } from "@/lib/api_response";
 
 const PropertyEndpoints = {
   AddProperty: "/orchestrator/console/property/create",

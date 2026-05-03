@@ -209,7 +209,7 @@ function AccountCard({
             <div
               onClick={() =>
                 nav({
-                  to: "/orchestrator/inventory-acc/$inventoryAccountID/details",
+                  to: "/inventory-acc/$inventoryAccountID/details",
                   params: {
                     inventoryAccountID: account.ID,
                   },

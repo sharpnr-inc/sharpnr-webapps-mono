@@ -118,11 +118,7 @@ export function TaxRegistration() {
               <tr key={row.id} className="border-t hover:bg-muted/40">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-3">
-                    {flexRender(
-                      cell.column.columnDef.cell ??
-                        cell.column.columnDef?.accessorKey,
-                      cell.getContext(),
-                    )}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
               </tr>

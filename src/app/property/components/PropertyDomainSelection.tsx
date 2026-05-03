@@ -54,7 +54,7 @@ const PropertyDomainSelection: React.FC<PropertyDomainSelectionProps> = ({
             ? Array.from({ length: 3 }).map((_, i) => (
                 <Card key={i} className=" animate-pulse" />
               ))
-            : domainTypes?.data?.domains.map((d: any) => {
+            : domainTypes?.data?.map((d: any) => {
                 const disabled = !d.IsAvailable;
 
                 return (

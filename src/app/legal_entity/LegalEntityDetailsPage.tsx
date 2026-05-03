@@ -9,7 +9,7 @@ import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 interface LegalEntityDetailsPageProps {}
 
 const LegalEntityDetailsPage: React.FC<LegalEntityDetailsPageProps> = ({}) => {
-  const { leID } = Route.useParams();
+  const {} = Route.useParams();
 
   return (
     <div className="p-2 space-y-2">

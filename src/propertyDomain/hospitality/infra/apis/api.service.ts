@@ -1,7 +1,6 @@
 import api from "@/middlewares/axios";
 import { MenuModuleEndpoints } from "./api.endpoints";
-import type { APIResponse } from "@/utilities/api_response";
-import type { AddTaxCategoryPayload } from "@/app/legal_entity/api/legalEntity.api.service";
+import type { APIResponse } from "@/lib/api_response";
 
 /* ---------------------------------- <***> --------------------------------- */
 

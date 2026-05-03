@@ -1,7 +1,6 @@
 import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import SharpnrLoader from "./components/ui/sharpnr_loader";
 import NotFound from "./components/ui/404Page";
 import GlobalLoader from "./components/ui/GlobalLoader";
 // import {
