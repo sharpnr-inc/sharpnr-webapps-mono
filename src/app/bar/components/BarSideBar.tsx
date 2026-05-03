@@ -7,12 +7,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Link, useRouterState } from "@tanstack/react-router";
-import {
-  LayoutDashboard,
-  ShoppingCart,
-  Boxes,
-  Table,
-} from "lucide-react";
+import { LayoutDashboard, ShoppingCart, Boxes, Table } from "lucide-react";
 import type { ToPathOption } from "@tanstack/react-router";
 
 /* ===============================
@@ -31,37 +26,34 @@ type BarSidebarItem = {
 const barSidebarMenu: BarSidebarItem[] = [
   {
     label: "Overview",
-    to: "/dashboard/sharp_hospitality/bar",
+    to: "/bar",
     icon: LayoutDashboard,
-    match: (pathname) => pathname === "/dashboard/sharp_hospitality/bar",
+    match: (pathname) => pathname === "/bar",
   },
   {
     label: "Table Management",
-    to: "/dashboard/sharp_hospitality/bar/table_management",
+    to: "/table_management",
     icon: Table,
-    match: (pathname) => pathname === "/dashboard/sharp_hospitality/bar/table_management",
+    match: (pathname) => pathname === "/bar/table_management",
   },
   {
     label: "Sale Counter",
-    to: "/dashboard/sharp_hospitality/bar/bar_pos",
+    to: "/bar/bar_pos/",
     icon: ShoppingCart,
-    match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/bar/bar_pos"),
+    match: (pathname) => pathname.startsWith("/bar/bar_pos"),
   },
   {
     label: "Inventory",
-    to: "/dashboard/sharp_hospitality/bar/inventory",
+    to: "/bar/inventory",
     icon: Boxes,
-    match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/bar/inventory"),
+    match: (pathname) => pathname.startsWith("/bar/inventory"),
   },
 
   {
     label: "General Setting",
-    to: "/dashboard/sharp_hospitality/bar/settings",
+    to: "/bar/settings",
     icon: Boxes,
-    match: (pathname) =>
-      pathname.startsWith("/dashboard/sharp_hospitality/bar/settings"),
+    match: (pathname) => pathname.startsWith("/bar/settings"),
   },
 ];
 

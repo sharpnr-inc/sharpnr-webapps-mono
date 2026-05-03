@@ -15,6 +15,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
+import { Separator } from "@/components/ui/separator";
+import SharpnrLauncher from "@/components/header/SharpnrLauncher";
+import { NotificationBell } from "@/components/header/NotificationButton";
+import { UserCard } from "@/components/header/UserCard";
+import { ModeToggle } from "@/components/header/ThemeToggle";
 
 /* ===============================
    Dummy Property Data
@@ -83,12 +88,21 @@ export function BarRootLayout() {
         <SidebarInset className="m-2">
           <div className="flex h-full flex-col">
             {/* Top bar */}
-            <header className="flex h-12 items-center px-3">
-              <SidebarTrigger />
+            <header className="flex h-12 items-center justify-between border-b px-4">
+              <div className="flex items-center gap-4">
+                <SidebarTrigger />
+                <Separator orientation="vertical" className="h-6" />
+              </div>
+              <div className="flex items-center gap-3 px-4">
+                <SharpnrLauncher />
+                <NotificationBell onClick={() => console.log("HI")} />
+                <UserCard />
+                <ModeToggle />
+              </div>
             </header>
 
             {/* Page content */}
-            <main className="flex-1 overflow-auto p-3">
+            <main className="p-2">
               <Outlet />
             </main>
           </div>
