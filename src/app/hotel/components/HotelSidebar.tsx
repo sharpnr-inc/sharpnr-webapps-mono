@@ -32,12 +32,12 @@ type SidebarItem = {
 export const hotelSidebarMenu: SidebarItem[] = [
   {
     label: "Overview",
-    to: "/dashboard/sharp_hospitality/hotel",
+    to: "/hotel",
     icon: LayoutDashboard,
   },
   {
     label: "Booking",
-    to: "/dashboard/sharp_hospitality/hotel/booking",
+    to: "/hotel//booking",
     icon: CalendarCheck2,
   },
   {
