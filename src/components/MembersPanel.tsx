@@ -11,12 +11,12 @@ const STATUS_COLOR: Record<UserStatus, string> = {
   offline: "bg-zinc-600",
 };
 
-const STATUS_LABEL: Record<UserStatus, string> = {
-  online: "Online",
-  away: "Away",
-  busy: "Do not disturb",
-  offline: "Offline",
-};
+// const STATUS_LABEL: Record<UserStatus, string> = {
+//   online: "Online",
+//   away: "Away",
+//   busy: "Do not disturb",
+//   offline: "Offline",
+// };
 
 function MemberItem({ user }: { user: User }) {
   return (
