@@ -1,13 +1,5 @@
 import type { NavSection } from "./launcher.types";
-import {
-  Hotel,
-  UtensilsCrossed,
-  Beer,
-  Music2,
-  ChefHat,
-  Warehouse,
-  Book,
-} from "lucide-react";
+import { ChefHat, Warehouse, Book } from "lucide-react";
 
 /* =========================================================
    DEFAULT LAUNCHER SECTIONS
