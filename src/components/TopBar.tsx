@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import type { Channel } from "../types";
 import { useChat } from "@/hooks/useChatStore";
 
+// Icon for the Channel Type and this the 
 function ChannelTypeIcon({
   type,
   isPrivate,
