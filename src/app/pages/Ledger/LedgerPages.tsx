@@ -11,8 +11,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import { useAccountingStore } from "@/app/store/accounting.store";
-import { AddJournalEntryForm } from "@/app/components/forms/AddJournalEntryForm";
-import { useFormsModal } from "@/hooks/FormModalContext";
 import { useAccountLedger } from "@/app/api/queries/accounts";
 import { Route } from "@/routes/_layout/chart-of-account/$accountID/ledger";
 
@@ -81,7 +79,6 @@ const LedgerPage = () => {
   const navigate = useNavigate();
   const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
   const { accountID } = Route.useParams();
-  const { showModal } = useFormsModal();
 
   const [query, setQuery] = useState("");
 

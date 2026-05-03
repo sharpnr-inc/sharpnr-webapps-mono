@@ -1,6 +1,5 @@
 import { TaxRatePage } from "@/app/pages/Taxation/TaxRatePage";
-import { useAccountingStore } from "@/app/store/accounting.store";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/taxations/tax_rates")({
   // beforeLoad: () => {

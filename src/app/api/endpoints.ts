@@ -47,3 +47,5 @@ export const AccountingAppAPIEndpoints = {
     All: (legalEntityID: string) => `/accounting/${legalEntityID}/inventories`,
   },
 };
+
+export const LegalEntityAPIEndpoints = {};

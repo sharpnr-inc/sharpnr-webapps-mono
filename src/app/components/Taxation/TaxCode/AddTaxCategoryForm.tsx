@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAppForm } from "@/components/forms";
-import type { AddTaxCategoryPayload } from "@/_orchestrator/legal_entity/api/legalEntity.api.service";
+import type { AddTaxCategoryPayload } from "@/app/api/legalEntity.api.service";
 import { useAccountingStore } from "@/app/store/accounting.store";
 import { useLEAccountingBook } from "../../../api/queries/books";
 import {
@@ -18,12 +18,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useLegalEntityAllTaxRegistration } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { useLegalEntityAllTaxRegistration } from "@/app/api/legalEntity.api.queries";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Trash2 } from "lucide-react";
-import { useADDTaxCategoryOrCode } from "@/_orchestrator/legal_entity/api/legalEntity.api.mutation";
+import { useADDTaxCategoryOrCode } from "@/app/api/legalEntity.api.mutation";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface AddTaxCategoryProps {

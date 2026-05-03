@@ -16,7 +16,7 @@ export const accountingSidebar = [
       {
         label: "Dashboard",
         icon: BarChart3,
-        to: "/dashboard/sharp_accounting/overview",
+        to: "/overview",
       },
     ],
   },
@@ -54,14 +54,14 @@ export const accountingSidebar = [
       {
         label: "Journal",
         icon: BookOpen,
-        to: "/dashboard/sharp_accounting/journal",
+        to: "/journal",
       },
       {
         label: "Sales",
         icon: ShoppingBag,
         children: [
-          { label: "Sales History", to: "/dashboard/sharp_accounting/sales" },
-          { label: "Record Sale", to: "/dashboard/sharp_accounting/sales/new" },
+          { label: "Sales History", to: "/sales" },
+          { label: "Record Sale", to: "/sales/new" },
         ],
       },
       {
@@ -70,11 +70,11 @@ export const accountingSidebar = [
         children: [
           {
             label: "Record Expense",
-            to: "/dashboard/sharp_accounting/expenses/new",
+            to: "/expenses/new",
           },
           {
             label: "Expense History",
-            to: "/dashboard/sharp_accounting/expenses",
+            to: "/expenses",
           },
         ],
       },
@@ -85,15 +85,15 @@ export const accountingSidebar = [
         children: [
           {
             label: "Suppliers & Vendors",
-            to: "/dashboard/sharp_accounting/suppliers",
+            to: "/suppliers",
           },
           {
             label: "Purchases",
-            to: "/dashboard/sharp_accounting/purchases",
+            to: "/purchases",
           },
           {
             label: "Purchase History",
-            to: "/dashboard/sharp_accounting/purchases/history",
+            to: "/purchases/history",
           },
         ],
       },
@@ -108,15 +108,15 @@ export const accountingSidebar = [
         children: [
           {
             label: "Trial Balance",
-            to: "/dashboard/sharp_accounting/reports/trial-balance",
+            to: "/reports/trial-balance",
           },
           {
             label: "Profit & Loss",
-            to: "/dashboard/sharp_accounting/reports/profit-loss",
+            to: "/reports/profit-loss",
           },
           {
             label: "Balance Sheet",
-            to: "/dashboard/sharp_accounting/reports/balance-sheet",
+            to: "/reports/balance-sheet",
           },
         ],
       },
@@ -132,12 +132,12 @@ export const accountingSidebar = [
         children: [
           {
             label: "Payment Orders",
-            to: "/dashboard/sharp_accounting/payments/payment_orders",
+            to: "/payments/payment_orders",
           },
 
           {
             label: "Payment Vouchers",
-            to: "/dashboard/sharp_accounting/",
+            to: "/",
           },
         ],
       },
@@ -150,7 +150,7 @@ export const accountingSidebar = [
       {
         label: "Settings",
         icon: Settings,
-        to: "/dashboard/sharp_accounting/settings",
+        to: "/settings",
       },
     ],
   },

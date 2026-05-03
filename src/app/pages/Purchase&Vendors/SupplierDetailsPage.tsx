@@ -14,7 +14,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { Route } from "@/routes/_appuser/dashboard/sharp_accounting/_layout/suppliers/$supplierID/details";
+import { Route } from "@/routes/_layout/suppliers/$supplierID/details";
 
 /* ─── dummy types ─── */
 type SupplierDetail = {
@@ -264,7 +264,7 @@ export function SupplierDetailsPage() {
         >
           <button
             onClick={() =>
-              navigate({ to: "/dashboard/sharp_accounting/purchases" })
+              navigate({ to: "/purchases" })
             }
             className="hover:text-foreground transition-colors flex items-center gap-1"
           >
@@ -283,7 +283,7 @@ export function SupplierDetailsPage() {
         >
           <div className="flex items-center gap-5">
             {/* avatar */}
-            <div className="size-16 rounded-2xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+            <div className="size-16 rounded-2xl bg-linear-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
               <span className="cf-mono text-lg font-bold text-primary">
                 {supplier.name
                   .split(" ")
@@ -309,7 +309,7 @@ export function SupplierDetailsPage() {
               <h1 className="font-display italic text-4xl md:text-5xl text-foreground leading-tight">
                 {supplier.name}
               </h1>
-              <div className="h-px w-24 bg-gradient-to-r from-primary/50 via-primary/20 to-transparent" />
+              <div className="h-px w-24 bg-linear-to-r from-primary/50 via-primary/20 to-transparent" />
             </div>
           </div>
 

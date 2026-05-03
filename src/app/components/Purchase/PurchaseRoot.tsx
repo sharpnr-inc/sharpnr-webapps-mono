@@ -28,7 +28,7 @@ export function PurchaseRoot({
     e.preventDefault();
     e.stopPropagation();
 
-    await submit(async (values) => {
+    await submit(async () => {
       onPosted?.();
       reset();
     });

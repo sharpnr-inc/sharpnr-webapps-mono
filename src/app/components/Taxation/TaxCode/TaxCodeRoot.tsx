@@ -3,7 +3,7 @@
 import type React from "react";
 import { TaxCodesContext } from "./TaxCodeContex";
 import { useAccountingStore } from "@/app/store/accounting.store";
-import { useLegalEntityAllTaxCategory } from "@/_orchestrator/legal_entity/api/legalEntity.api.queries";
+import { useLegalEntityAllTaxCategory } from "@/app/api/legalEntity.api.queries";
 import { useTaxCodeStore } from "./store/tax_code.store";
 import { useEffect } from "react";
 
