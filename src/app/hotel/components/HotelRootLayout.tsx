@@ -98,7 +98,7 @@ export function HotelRootLayout() {
               <ModeToggle />
             </div>
           </header>
-          <main className=" p-6">
+          <main className="p-4">
             <Outlet />
           </main>
         </SidebarInset>

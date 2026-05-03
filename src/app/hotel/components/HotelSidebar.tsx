@@ -1,8 +1,4 @@
-import {
-  Link,
-  useRouterState,
-  type ToPathOption,
-} from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   SidebarContent,
   SidebarGroup,
@@ -21,73 +17,46 @@ import {
   Boxes,
   CheckSquare2Icon,
   ServerCogIcon,
+  Settings,
 } from "lucide-react";
+import { Route } from "@/routes/_user/hotel/$hotelID/route";
 
 type SidebarItem = {
   label: string;
-  to: ToPathOption;
+  to: string;
   icon: React.ComponentType<any>;
 };
 
-export const hotelSidebarMenu: SidebarItem[] = [
-  {
-    label: "Overview",
-    to: "/hotel",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Booking",
-    to: "/hotel//booking",
-    icon: CalendarCheck2,
-  },
-  {
-    label: "Room Requests",
-    to: "/dashboard/sharp_hospitality/hotel/room-request",
-    icon: DoorClosed,
-  },
-  {
-    label: "Reservations",
-    to: "/dashboard/sharp_hospitality/hotel/reservations",
-    icon: CalendarDays,
-  },
-  {
-    label: "Guests",
-    to: "/dashboard/sharp_hospitality/hotel/guests",
-    icon: Users,
-  },
-  {
-    label: "Housekeeping",
-    to: "/dashboard/sharp_hospitality/hotel/housekeeping",
-    icon: BedDouble,
-  },
-  {
-    label: "Inventory",
-    to: "/dashboard/sharp_hospitality/hotel/inventory",
-    icon: Boxes,
-  },
+// ✅ Now a function — receives hotelID at render time
+function getHotelSidebarMenu(hotelID: string): SidebarItem[] {
+  const base = `/hotel/${hotelID}`;
 
-  // ---- Settings / Operations ----
-  {
-    label: "Order for Booking",
-    to: "/dashboard/sharp_hospitality/hotel/add-order-in-booking",
-    icon: ServerCogIcon,
-  },
-  {
-    label: "Checkouts",
-    to: "/dashboard/sharp_hospitality/hotel/checkout",
-    icon: CheckSquare2Icon,
-  },
-  // {
-  //   label: "General Settings",
-  //   to: "/dashboard/sharp_hospitality/hotel/hotel-settings",
-  //   icon: Settings,
-  // },
-];
+  return [
+    { label: "Overview", to: `${base}/overview`, icon: LayoutDashboard },
+    { label: "Booking", to: `${base}/booking`, icon: CalendarCheck2 },
+    { label: "Room Requests", to: `${base}/room_requests`, icon: DoorClosed },
+    { label: "Reservations", to: `${base}/reservations`, icon: CalendarDays },
+    { label: "Guests", to: `${base}/guests`, icon: Users },
+    { label: "Housekeeping", to: `${base}/housekeeping`, icon: BedDouble },
+    { label: "Inventory", to: `${base}/inventory`, icon: Boxes },
+    {
+      label: "Order for Booking",
+      to: `${base}/add-order-in-booking`,
+      icon: ServerCogIcon,
+    },
+    { label: "Checkouts", to: `${base}/checkout`, icon: CheckSquare2Icon },
+    { label: "General Settings", to: `${base}/settings`, icon: Settings },
+  ];
+}
 
 export function HotelSidebar() {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   });
+
+  const { hotelID } = Route.useParams(); // ✅ hotelID is available here
+
+  const menuItems = getHotelSidebarMenu(hotelID); // ✅ build menu with real hotelID
 
   return (
     <SidebarContent>
@@ -95,12 +64,15 @@ export function HotelSidebar() {
         <SidebarGroupLabel>Hotel Management</SidebarGroupLabel>
 
         <SidebarMenu>
-          {hotelSidebarMenu.map((item) => {
+          {menuItems.map((item) => {
             const Icon = item.icon;
 
             return (
               <SidebarMenuItem key={item.label}>
-                <SidebarMenuButton asChild isActive={pathname === item.to}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname.startsWith(item.to)} // ✅ startsWith handles nested routes
+                >
                   <Link to={item.to}>
                     <Icon />
                     <span>{item.label}</span>

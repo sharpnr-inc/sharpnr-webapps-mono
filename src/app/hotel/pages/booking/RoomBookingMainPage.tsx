@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_user/hotel/$hotelID/route";
+import { Route } from "@/routes/_user/hotel/$hotelID/booking/index";
 import { useHotelLayout } from "../../apis/queries";
 import { IndianRupee } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -64,7 +64,7 @@ function normalizeStatus(status: string): RoomStatus {
    Page Component
 ================================ */
 export default function RoomBookingPage() {
-  const { hotelID } = Route.useLoaderData();
+  const { hotelID } = Route.useParams();
   const { data: hotelLayout } = useHotelLayout(hotelID);
 
   const layout = hotelLayout?.data?.Layout ?? [];
@@ -78,7 +78,7 @@ export default function RoomBookingPage() {
   }
 
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-2 p-2">
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-3 pb-3 border-b ">
         <span className="text-xs font-medium text-muted-foreground">
