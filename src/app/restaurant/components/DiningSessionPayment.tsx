@@ -31,12 +31,12 @@ import { useCloseDiningSessionMutation } from "../apis/mutations";
 /* ─────────────────────────────────────────
    TYPES
 ───────────────────────────────────────── */
-interface Customer {
-  id: string;
-  name: string;
-  phone: string;
-  email: string;
-}
+// interface Customer {
+//   id: string;
+//   name: string;
+//   phone: string;
+//   email: string;
+// }
 
 /* ─────────────────────────────────────────
    MAIN COMPONENT

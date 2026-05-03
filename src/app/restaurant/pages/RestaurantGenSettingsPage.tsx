@@ -8,18 +8,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import MenuSettings from "@/app/infra/components/MenuSettings";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSelectedRestaurant } from "../store/selectors";
 
 interface RestaurantGenSettingsPageProps {}
 
 const RestaurantGenSettingsPage: React.FC<
   RestaurantGenSettingsPageProps
 > = () => {
-  const slectedRestaurant = useSelectedRestaurant();
-  console.log(slectedRestaurant);
-
   return (
     <div className="w-full mt-4 space-y-2">
       <Card>
@@ -60,13 +55,13 @@ const RestaurantGenSettingsPage: React.FC<
         </TabsContent>
 
         <TabsContent value="menu">
-          {slectedRestaurant?.ID && slectedRestaurant?.Property?.ID && (
+          {/* {slectedRestaurant?.ID && slectedRestaurant?.Property?.ID && (
             <MenuSettings
               owners_legal_entityID={""}
               moduleID={slectedRestaurant.ID}
               propertyID={slectedRestaurant.Property.ID}
             />
-          )}
+          )} */}
         </TabsContent>
 
         <TabsContent value="app_settings">

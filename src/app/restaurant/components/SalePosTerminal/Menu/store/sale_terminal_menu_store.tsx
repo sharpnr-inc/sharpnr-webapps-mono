@@ -3,7 +3,7 @@ import type {
   MenuItemResponse,
   MenuResponse,
   MenuSubCategoryResponse,
-} from "@/_hospitalityapp/infra/apis/api.service";
+} from "@/app/infra/apis/api.service";
 import { create } from "zustand";
 
 interface SalePosTerminalMenuStoreState {

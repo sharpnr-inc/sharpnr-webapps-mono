@@ -1,10 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
+
 import type {
   DietaryType,
   MenuItemResponse,
-} from "@/_hospitalityapp/infra/apis/api.service";
-import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
+} from "@/app/infra/apis/api.service";
 
 // ─── Dietary indicator dot ────────────────────────────────────────────────────
 
@@ -33,7 +34,7 @@ interface MenuItemCardProps {
   onSelect?: (item: MenuItemResponse) => void;
 }
 
-function MenuItemCard({ item, onSelect }: MenuItemCardProps) {
+function MenuItemCard({ item }: MenuItemCardProps) {
   const setSelectedItem = useSalePosTerminalMenuStore((s) => s.setSelectedItem);
   const openVariantSeet = useSalePosTerminalMenuStore(
     (s) => s.openVariantSheet,
