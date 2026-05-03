@@ -16,10 +16,11 @@ import {
 import { useForm } from "@tanstack/react-form";
 import { useVerifyOtpMutation } from "@/apis/mutation";
 import type { OtpPayload } from "@/apis/api_service";
-
-import { Loader2, ArrowLeft } from "lucide-react";
-import { useState } from "react";
+import { Loader2, ArrowLeft, Mail, RotateCcw } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { config } from "@/configs/env";
+import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
 
 interface VerifyOtpFormProps extends React.ComponentProps<"div"> {
   setShowOtp?: (show: boolean) => void;
@@ -36,13 +37,11 @@ export function VerifyOtpForm({
   const [isResending, setIsResending] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
-
-  const defaultOtpVal: OtpPayload = {
-    otp: "",
-  };
+  const iconRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const form = useForm({
-    defaultValues: defaultOtpVal,
+    defaultValues: { otp: "" } as OtpPayload,
     onSubmit: async ({ value }) => {
       try {
         await verifyOtp.mutateAsync(value, {
@@ -52,33 +51,71 @@ export function VerifyOtpForm({
         });
       } catch (error) {
         console.error("OTP verification failed:", error);
+        // Shake animation on error
+        if (iconRef.current) {
+          gsap.fromTo(
+            ".otp-slots",
+            { x: -6 },
+            {
+              x: 6,
+              duration: 0.08,
+              ease: "power1.inOut",
+              repeat: 5,
+              yoyo: true,
+              onComplete: () => gsap.set(".otp-slots", { x: 0 }),
+            },
+          );
+        }
         form.reset();
       }
     },
   });
 
+  // GSAP: entrance for mail icon
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".otp-icon-ring",
+        { scale: 0, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          delay: 0.1,
+        },
+      );
+      gsap.fromTo(
+        ".otp-pulse",
+        { scale: 1, opacity: 0.6 },
+        {
+          scale: 1.6,
+          opacity: 0,
+          duration: 1.8,
+          ease: "power2.out",
+          repeat: -1,
+          delay: 0.6,
+        },
+      );
+    }, iconRef);
+    return () => ctx.revert();
+  }, []);
+
   const handleResendOtp = async () => {
     setIsResending(true);
     setResendDisabled(true);
-
     try {
-      // Call your resend OTP API here
-      // await resendOtpMutation.mutateAsync({ email });
-
-      // Start 60 second countdown
       setCountdown(60);
-      const timer = setInterval(() => {
+      timerRef.current = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
-            clearInterval(timer);
+            if (timerRef.current) clearInterval(timerRef.current);
             setResendDisabled(false);
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
-
-      console.log("OTP resent successfully");
     } catch (error) {
       console.error("Failed to resend OTP:", error);
       setResendDisabled(false);
@@ -87,11 +124,14 @@ export function VerifyOtpForm({
     }
   };
 
-  const handleBackToSignup = () => {
-    if (setShowOtp) {
-      setShowOtp(false);
-    }
-  };
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const circumference = 2 * Math.PI * 18;
+  const strokeDashoffset = circumference - (countdown / 60) * circumference;
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -105,123 +145,235 @@ export function VerifyOtpForm({
         <FieldGroup>
           {/* Back button */}
           {setShowOtp && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={handleBackToSignup}
-              className="self-start -ml-2"
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to signup
-            </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowOtp(false)}
+                className="-ml-2 text-muted-foreground hover:text-foreground"
+              >
+                <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
+                Back
+              </Button>
+            </motion.div>
           )}
 
-          <div className="flex flex-col items-center gap-1 text-center">
-            <h1 className="text-2xl font-bold">Enter verification code</h1>
-            <p className="text-muted-foreground text-sm text-balance">
-              We sent a 6-digit code to{" "}
-              {email ? (
-                <span className="font-medium text-foreground">{email}</span>
-              ) : (
-                "your email"
-              )}
-            </p>
-          </div>
+          {/* Icon */}
+          <motion.div
+            ref={iconRef}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="flex flex-col items-center gap-5"
+          >
+            {/* Mail icon with pulse ring */}
+            <div className="relative flex items-center justify-center">
+              <div className="otp-pulse absolute h-16 w-16 rounded-full border border-foreground/10" />
+              <div className="otp-icon-ring flex h-14 w-14 items-center justify-center rounded-full border border-border bg-muted shadow-sm">
+                <Mail className="h-6 w-6 text-foreground/70" />
+              </div>
+            </div>
 
-          <form.Field
-            name="otp"
-            validators={{
-              onChange: ({ value }) => {
-                if (!value) return "Please enter the verification code";
-                if (value.length !== 6) return "Code must be 6 digits";
-                if (!/^\d+$/.test(value))
-                  return "Code must contain only numbers";
-                return undefined;
-              },
-            }}
-            children={(field) => (
-              <Field>
-                <FieldLabel htmlFor="otp" className="sr-only">
-                  Verification code
-                </FieldLabel>
-                <InputOTP
-                  maxLength={6}
-                  id="otp"
-                  value={field.state.value}
-                  onChange={(value) => field.handleChange(value)}
-                  onBlur={field.handleBlur}
-                  required
-                >
-                  <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border">
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border">
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:rounded-md *:data-[slot=input-otp-slot]:border">
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-                <FieldDescription className="text-center">
-                  Enter the 6-digit code sent to your email
-                </FieldDescription>
-                {field.state.meta.isTouched &&
-                  field.state.meta.errors.length > 0 && (
-                    <FieldError className="text-center">
-                      {field.state.meta.errors[0]}
-                    </FieldError>
-                  )}
-              </Field>
-            )}
-          />
-
-          <form.Subscribe
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-            children={([canSubmit, isSubmitting]) => (
-              <Button
-                type="submit"
-                disabled={!canSubmit || isSubmitting}
-                className="w-full"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Verifying...
-                  </>
+            {/* Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.25,
+                duration: 0.4,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="flex flex-col items-center gap-1.5 text-center"
+            >
+              <h1 className="text-2xl font-bold tracking-tight">
+                Check your inbox
+              </h1>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                We sent a 6-digit code to{" "}
+                {email ? (
+                  <span className="font-medium text-foreground">{email}</span>
                 ) : (
-                  "Verify & Continue"
+                  "your email"
+                )}
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* OTP input */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.35,
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <form.Field
+              name="otp"
+              validators={{
+                onChange: ({ value }) => {
+                  if (!value) return "Please enter the verification code";
+                  if (value.length !== 6) return "Code must be 6 digits";
+                  if (!/^\d+$/.test(value)) return "Numbers only";
+                  return undefined;
+                },
+              }}
+              children={(field) => (
+                <Field>
+                  <FieldLabel htmlFor="otp" className="sr-only">
+                    Verification code
+                  </FieldLabel>
+                  <div className="otp-slots flex justify-center">
+                    <InputOTP
+                      maxLength={6}
+                      id="otp"
+                      value={field.state.value}
+                      onChange={(value) => field.handleChange(value)}
+                      onBlur={field.handleBlur}
+                      required
+                    >
+                      <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150 *:data-[slot=input-otp-slot]:focus:border-foreground/40 *:data-[slot=input-otp-slot]:focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]">
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                      </InputOTPGroup>
+                      <InputOTPSeparator className="text-muted-foreground/30 text-xs">
+                        ·
+                      </InputOTPSeparator>
+                      <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150">
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                      </InputOTPGroup>
+                      <InputOTPSeparator className="text-muted-foreground/30 text-xs">
+                        ·
+                      </InputOTPSeparator>
+                      <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150">
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+
+                  <AnimatePresence>
+                    {field.state.meta.isTouched &&
+                      field.state.meta.errors.length > 0 && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.2 }}
+                          className="text-center"
+                        >
+                          <FieldError>{field.state.meta.errors[0]}</FieldError>
+                        </motion.div>
+                      )}
+                  </AnimatePresence>
+                </Field>
+              )}
+            />
+          </motion.div>
+
+          {/* Verify button */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.45,
+              duration: 0.4,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <form.Subscribe
+              selector={(state) => [state.canSubmit, state.isSubmitting]}
+              children={([canSubmit, isSubmitting]) => (
+                <Button
+                  type="submit"
+                  disabled={!canSubmit || isSubmitting}
+                  className="w-full h-10 font-medium"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Verifying…
+                    </>
+                  ) : (
+                    "Verify &amp; Continue"
+                  )}
+                </Button>
+              )}
+            />
+          </motion.div>
+
+          {/* Resend row */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.55 }}
+          >
+            <FieldDescription className="flex items-center justify-center gap-1.5 text-center text-sm">
+              <span className="text-muted-foreground">Didn&apos;t get it?</span>
+              <Button
+                type="button"
+                variant="link"
+                className="p-0 h-auto text-sm font-semibold gap-1.5"
+                onClick={handleResendOtp}
+                disabled={resendDisabled || isResending}
+              >
+                {isResending ? (
+                  <>
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                    Resending…
+                  </>
+                ) : resendDisabled ? (
+                  /* Countdown with SVG ring */
+                  <span className="flex items-center gap-1.5 text-muted-foreground font-normal">
+                    <span className="relative inline-flex h-5 w-5 items-center justify-center">
+                      <svg
+                        className="absolute -rotate-90"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 40 40"
+                      >
+                        <circle
+                          cx="20"
+                          cy="20"
+                          r="18"
+                          fill="none"
+                          stroke="hsl(var(--muted-foreground)/0.2)"
+                          strokeWidth="3"
+                        />
+                        <circle
+                          cx="20"
+                          cy="20"
+                          r="18"
+                          fill="none"
+                          stroke="hsl(var(--muted-foreground)/0.5)"
+                          strokeWidth="3"
+                          strokeDasharray={circumference}
+                          strokeDashoffset={strokeDashoffset}
+                          strokeLinecap="round"
+                          style={{ transition: "stroke-dashoffset 1s linear" }}
+                        />
+                      </svg>
+                      <span className="text-[8px] font-mono text-muted-foreground">
+                        {countdown}
+                      </span>
+                    </span>
+                    Resend in {countdown}s
+                  </span>
+                ) : (
+                  <>
+                    <RotateCcw className="h-3 w-3" />
+                    Resend code
+                  </>
                 )}
               </Button>
-            )}
-          />
-
-          <FieldDescription className="text-center">
-            Didn&apos;t receive the code?{" "}
-            <Button
-              type="button"
-              variant="link"
-              className="p-0 h-auto font-semibold"
-              onClick={handleResendOtp}
-              disabled={resendDisabled || isResending}
-            >
-              {isResending ? (
-                <>
-                  <Loader2 className="mr-1 h-3 w-3 animate-spin" />
-                  Resending...
-                </>
-              ) : resendDisabled ? (
-                `Resend in ${countdown}s`
-              ) : (
-                "Resend code"
-              )}
-            </Button>
-          </FieldDescription>
+            </FieldDescription>
+          </motion.div>
         </FieldGroup>
       </form>
     </div>
