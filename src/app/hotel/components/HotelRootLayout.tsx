@@ -15,6 +15,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
+import { Separator } from "@/components/ui/separator";
+import SharpnrLauncher from "@/components/header/SharpnrLauncher";
+import { NotificationBell } from "@/components/header/NotificationButton";
+import { UserCard } from "@/components/header/UserCard";
+import { ModeToggle } from "@/components/header/ThemeToggle";
 
 /* ===============================
    Dummy Property Data
@@ -81,12 +86,18 @@ export function HotelRootLayout() {
 
         {/* Main content */}
         <SidebarInset>
-          <header className="flex h-12 items-center gap-2 px-4 ">
-            <SidebarTrigger />
-            <div className="h-4 w-px bg-border mx-2" />{" "}
-            {/* Custom vertical line */}
+          <header className="flex h-12 items-center justify-between border-b px-4">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="h-6" />
+            </div>
+            <div className="flex items-center gap-3 px-4">
+              <SharpnrLauncher />
+              <NotificationBell onClick={() => console.log("HI")} />
+              <UserCard />
+              <ModeToggle />
+            </div>
           </header>
-
           <main className=" p-6">
             <Outlet />
           </main>
