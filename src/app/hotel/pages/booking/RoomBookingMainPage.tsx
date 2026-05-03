@@ -1,6 +1,6 @@
-import { Route } from "@/routes/_appuser/dashboard/sharp_hospitality/hotel/route";
+import { Route } from "@/routes/_user/hotel/$hotelID/route";
 import { useHotelLayout } from "../../apis/queries";
-import {  IndianRupee } from "lucide-react";
+import { IndianRupee } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /* ================================
@@ -25,7 +25,8 @@ interface StatusConfig {
 const statusConfig: { [K in RoomStatus]: StatusConfig } = {
   available: {
     label: "Available",
-    cardClass: "border-emerald-200 bg-green-200 hover:bg-emerald-100 hover:border-emerald-300",
+    cardClass:
+      "border-emerald-200 bg-green-200 hover:bg-emerald-100 hover:border-emerald-300",
     dotColor: "bg-emerald-500",
   },
   occupied: {
@@ -35,7 +36,8 @@ const statusConfig: { [K in RoomStatus]: StatusConfig } = {
   },
   reserved: {
     label: "Reserved",
-    cardClass: "border-amber-200 bg-amber-50 hover:bg-amber-100 hover:border-amber-300",
+    cardClass:
+      "border-amber-200 bg-amber-50 hover:bg-amber-100 hover:border-amber-300",
     dotColor: "bg-amber-500",
   },
   cleaning: {
@@ -45,7 +47,8 @@ const statusConfig: { [K in RoomStatus]: StatusConfig } = {
   },
   out_of_service: {
     label: "Out of Service",
-    cardClass: "border-zinc-200 bg-zinc-50 hover:bg-zinc-100 hover:border-zinc-300",
+    cardClass:
+      "border-zinc-200 bg-zinc-50 hover:bg-zinc-100 hover:border-zinc-300",
     dotColor: "bg-zinc-400",
   },
 };
@@ -78,7 +81,9 @@ export default function RoomBookingPage() {
     <div className="space-y-6 p-4">
       {/* Legend */}
       <div className="flex flex-wrap items-center gap-3 pb-3 border-b ">
-        <span className="text-xs font-medium text-muted-foreground">Status:</span>
+        <span className="text-xs font-medium text-muted-foreground">
+          Status:
+        </span>
         {Object.entries(statusConfig).map(([status, config]) => (
           <div key={status} className="flex items-center gap-1.5">
             <div className={cn("h-2 w-2 rounded-full", config.dotColor)} />
@@ -111,19 +116,21 @@ export default function RoomBookingPage() {
                     key={room.RoomID}
                     className={cn(
                       "relative border rounded-md p-2 transition-all duration-150 hover:shadow-sm hover:-translate-y-0.5 text-left",
-                      config.cardClass
+                      config.cardClass,
                     )}
                   >
                     {/* Status Dot */}
                     <div
                       className={cn(
                         "absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full",
-                        config.dotColor
+                        config.dotColor,
                       )}
                     />
 
                     {/* Room Code */}
-                    <div className="text-xs font-bold mb-1 pr-3">{room.RoomName}</div>
+                    <div className="text-xs font-bold mb-1 pr-3">
+                      {room.RoomName}
+                    </div>
 
                     {/* Room Name */}
                     <div className="text-[10px] leading-tight mb-1.5 line-clamp-1 opacity-80">

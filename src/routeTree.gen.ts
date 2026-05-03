@@ -20,6 +20,7 @@ import { Route as UserRestaurantRestaurantIDRouteRouteImport } from './routes/_u
 import { Route as UserHotelHotelIDRouteRouteImport } from './routes/_user/hotel/$hotelID/route'
 import { Route as UserBarBarIDRouteRouteImport } from './routes/_user/bar/$barID/route'
 import { Route as UserInfraKitchenIndexRouteImport } from './routes/_user/infra/kitchen/index'
+import { Route as UserHotelHotelIDOverviewRouteImport } from './routes/_user/hotel/$hotelID/overview'
 import { Route as UserRestaurantRestaurantIDTableManagementIndexRouteImport } from './routes/_user/restaurant/$restaurantID/table-management/index'
 import { Route as UserRestaurantRestaurantIDSalesTerminalIndexRouteImport } from './routes/_user/restaurant/$restaurantID/sales-terminal/index'
 import { Route as UserRestaurantRestaurantIDReservationsIndexRouteImport } from './routes/_user/restaurant/$restaurantID/reservations/index'
@@ -27,6 +28,12 @@ import { Route as UserRestaurantRestaurantIDOverviewIndexRouteImport } from './r
 import { Route as UserRestaurantRestaurantIDOrdersIndexRouteImport } from './routes/_user/restaurant/$restaurantID/orders/index'
 import { Route as UserRestaurantRestaurantIDInventoryIndexRouteImport } from './routes/_user/restaurant/$restaurantID/inventory/index'
 import { Route as UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport } from './routes/_user/restaurant/$restaurantID/general-settings/index'
+import { Route as UserHotelHotelIDRoom_requestsIndexRouteImport } from './routes/_user/hotel/$hotelID/room_requests/index'
+import { Route as UserHotelHotelIDReservationsIndexRouteImport } from './routes/_user/hotel/$hotelID/reservations/index'
+import { Route as UserHotelHotelIDInventoryIndexRouteImport } from './routes/_user/hotel/$hotelID/inventory/index'
+import { Route as UserHotelHotelIDHousekeepingIndexRouteImport } from './routes/_user/hotel/$hotelID/housekeeping/index'
+import { Route as UserHotelHotelIDGuestsIndexRouteImport } from './routes/_user/hotel/$hotelID/guests/index'
+import { Route as UserHotelHotelIDBookingIndexRouteImport } from './routes/_user/hotel/$hotelID/booking/index'
 import { Route as UserInfraKitchenService_pointServiceRouteImport } from './routes/_user/infra/kitchen/$service_point/service'
 
 const UserRouteRoute = UserRouteRouteImport.update({
@@ -84,6 +91,12 @@ const UserInfraKitchenIndexRoute = UserInfraKitchenIndexRouteImport.update({
   path: '/kitchen/',
   getParentRoute: () => UserInfraRouteRoute,
 } as any)
+const UserHotelHotelIDOverviewRoute =
+  UserHotelHotelIDOverviewRouteImport.update({
+    id: '/overview',
+    path: '/overview',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
 const UserRestaurantRestaurantIDTableManagementIndexRoute =
   UserRestaurantRestaurantIDTableManagementIndexRouteImport.update({
     id: '/table-management/',
@@ -126,6 +139,42 @@ const UserRestaurantRestaurantIDGeneralSettingsIndexRoute =
     path: '/general-settings/',
     getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
   } as any)
+const UserHotelHotelIDRoom_requestsIndexRoute =
+  UserHotelHotelIDRoom_requestsIndexRouteImport.update({
+    id: '/room_requests/',
+    path: '/room_requests/',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
+const UserHotelHotelIDReservationsIndexRoute =
+  UserHotelHotelIDReservationsIndexRouteImport.update({
+    id: '/reservations/',
+    path: '/reservations/',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
+const UserHotelHotelIDInventoryIndexRoute =
+  UserHotelHotelIDInventoryIndexRouteImport.update({
+    id: '/inventory/',
+    path: '/inventory/',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
+const UserHotelHotelIDHousekeepingIndexRoute =
+  UserHotelHotelIDHousekeepingIndexRouteImport.update({
+    id: '/housekeeping/',
+    path: '/housekeeping/',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
+const UserHotelHotelIDGuestsIndexRoute =
+  UserHotelHotelIDGuestsIndexRouteImport.update({
+    id: '/guests/',
+    path: '/guests/',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
+const UserHotelHotelIDBookingIndexRoute =
+  UserHotelHotelIDBookingIndexRouteImport.update({
+    id: '/booking/',
+    path: '/booking/',
+    getParentRoute: () => UserHotelHotelIDRouteRoute,
+  } as any)
 const UserInfraKitchenService_pointServiceRoute =
   UserInfraKitchenService_pointServiceRouteImport.update({
     id: '/kitchen/$service_point/service',
@@ -138,13 +187,20 @@ export interface FileRoutesByFullPath {
   '/infra': typeof UserInfraRouteRouteWithChildren
   '/about/': typeof AboutIndexRoute
   '/bar/$barID': typeof UserBarBarIDRouteRoute
-  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRoute
+  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
   '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
   '/bar/': typeof UserBarIndexRoute
   '/hotel/': typeof UserHotelIndexRoute
   '/restaurant/': typeof UserRestaurantIndexRoute
+  '/hotel/$hotelID/overview': typeof UserHotelHotelIDOverviewRoute
   '/infra/kitchen/': typeof UserInfraKitchenIndexRoute
   '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
+  '/hotel/$hotelID/booking/': typeof UserHotelHotelIDBookingIndexRoute
+  '/hotel/$hotelID/guests/': typeof UserHotelHotelIDGuestsIndexRoute
+  '/hotel/$hotelID/housekeeping/': typeof UserHotelHotelIDHousekeepingIndexRoute
+  '/hotel/$hotelID/inventory/': typeof UserHotelHotelIDInventoryIndexRoute
+  '/hotel/$hotelID/reservations/': typeof UserHotelHotelIDReservationsIndexRoute
+  '/hotel/$hotelID/room_requests/': typeof UserHotelHotelIDRoom_requestsIndexRoute
   '/restaurant/$restaurantID/general-settings/': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
   '/restaurant/$restaurantID/inventory/': typeof UserRestaurantRestaurantIDInventoryIndexRoute
   '/restaurant/$restaurantID/orders/': typeof UserRestaurantRestaurantIDOrdersIndexRoute
@@ -158,13 +214,20 @@ export interface FileRoutesByTo {
   '/': typeof UserIndexRoute
   '/about': typeof AboutIndexRoute
   '/bar/$barID': typeof UserBarBarIDRouteRoute
-  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRoute
+  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
   '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
   '/bar': typeof UserBarIndexRoute
   '/hotel': typeof UserHotelIndexRoute
   '/restaurant': typeof UserRestaurantIndexRoute
+  '/hotel/$hotelID/overview': typeof UserHotelHotelIDOverviewRoute
   '/infra/kitchen': typeof UserInfraKitchenIndexRoute
   '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
+  '/hotel/$hotelID/booking': typeof UserHotelHotelIDBookingIndexRoute
+  '/hotel/$hotelID/guests': typeof UserHotelHotelIDGuestsIndexRoute
+  '/hotel/$hotelID/housekeeping': typeof UserHotelHotelIDHousekeepingIndexRoute
+  '/hotel/$hotelID/inventory': typeof UserHotelHotelIDInventoryIndexRoute
+  '/hotel/$hotelID/reservations': typeof UserHotelHotelIDReservationsIndexRoute
+  '/hotel/$hotelID/room_requests': typeof UserHotelHotelIDRoom_requestsIndexRoute
   '/restaurant/$restaurantID/general-settings': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
   '/restaurant/$restaurantID/inventory': typeof UserRestaurantRestaurantIDInventoryIndexRoute
   '/restaurant/$restaurantID/orders': typeof UserRestaurantRestaurantIDOrdersIndexRoute
@@ -180,13 +243,20 @@ export interface FileRoutesById {
   '/_user/': typeof UserIndexRoute
   '/about/': typeof AboutIndexRoute
   '/_user/bar/$barID': typeof UserBarBarIDRouteRoute
-  '/_user/hotel/$hotelID': typeof UserHotelHotelIDRouteRoute
+  '/_user/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
   '/_user/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
   '/_user/bar/': typeof UserBarIndexRoute
   '/_user/hotel/': typeof UserHotelIndexRoute
   '/_user/restaurant/': typeof UserRestaurantIndexRoute
+  '/_user/hotel/$hotelID/overview': typeof UserHotelHotelIDOverviewRoute
   '/_user/infra/kitchen/': typeof UserInfraKitchenIndexRoute
   '/_user/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
+  '/_user/hotel/$hotelID/booking/': typeof UserHotelHotelIDBookingIndexRoute
+  '/_user/hotel/$hotelID/guests/': typeof UserHotelHotelIDGuestsIndexRoute
+  '/_user/hotel/$hotelID/housekeeping/': typeof UserHotelHotelIDHousekeepingIndexRoute
+  '/_user/hotel/$hotelID/inventory/': typeof UserHotelHotelIDInventoryIndexRoute
+  '/_user/hotel/$hotelID/reservations/': typeof UserHotelHotelIDReservationsIndexRoute
+  '/_user/hotel/$hotelID/room_requests/': typeof UserHotelHotelIDRoom_requestsIndexRoute
   '/_user/restaurant/$restaurantID/general-settings/': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
   '/_user/restaurant/$restaurantID/inventory/': typeof UserRestaurantRestaurantIDInventoryIndexRoute
   '/_user/restaurant/$restaurantID/orders/': typeof UserRestaurantRestaurantIDOrdersIndexRoute
@@ -207,8 +277,15 @@ export interface FileRouteTypes {
     | '/bar/'
     | '/hotel/'
     | '/restaurant/'
+    | '/hotel/$hotelID/overview'
     | '/infra/kitchen/'
     | '/infra/kitchen/$service_point/service'
+    | '/hotel/$hotelID/booking/'
+    | '/hotel/$hotelID/guests/'
+    | '/hotel/$hotelID/housekeeping/'
+    | '/hotel/$hotelID/inventory/'
+    | '/hotel/$hotelID/reservations/'
+    | '/hotel/$hotelID/room_requests/'
     | '/restaurant/$restaurantID/general-settings/'
     | '/restaurant/$restaurantID/inventory/'
     | '/restaurant/$restaurantID/orders/'
@@ -227,8 +304,15 @@ export interface FileRouteTypes {
     | '/bar'
     | '/hotel'
     | '/restaurant'
+    | '/hotel/$hotelID/overview'
     | '/infra/kitchen'
     | '/infra/kitchen/$service_point/service'
+    | '/hotel/$hotelID/booking'
+    | '/hotel/$hotelID/guests'
+    | '/hotel/$hotelID/housekeeping'
+    | '/hotel/$hotelID/inventory'
+    | '/hotel/$hotelID/reservations'
+    | '/hotel/$hotelID/room_requests'
     | '/restaurant/$restaurantID/general-settings'
     | '/restaurant/$restaurantID/inventory'
     | '/restaurant/$restaurantID/orders'
@@ -248,8 +332,15 @@ export interface FileRouteTypes {
     | '/_user/bar/'
     | '/_user/hotel/'
     | '/_user/restaurant/'
+    | '/_user/hotel/$hotelID/overview'
     | '/_user/infra/kitchen/'
     | '/_user/infra/kitchen/$service_point/service'
+    | '/_user/hotel/$hotelID/booking/'
+    | '/_user/hotel/$hotelID/guests/'
+    | '/_user/hotel/$hotelID/housekeeping/'
+    | '/_user/hotel/$hotelID/inventory/'
+    | '/_user/hotel/$hotelID/reservations/'
+    | '/_user/hotel/$hotelID/room_requests/'
     | '/_user/restaurant/$restaurantID/general-settings/'
     | '/_user/restaurant/$restaurantID/inventory/'
     | '/_user/restaurant/$restaurantID/orders/'
@@ -343,6 +434,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserInfraKitchenIndexRouteImport
       parentRoute: typeof UserInfraRouteRoute
     }
+    '/_user/hotel/$hotelID/overview': {
+      id: '/_user/hotel/$hotelID/overview'
+      path: '/overview'
+      fullPath: '/hotel/$hotelID/overview'
+      preLoaderRoute: typeof UserHotelHotelIDOverviewRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
     '/_user/restaurant/$restaurantID/table-management/': {
       id: '/_user/restaurant/$restaurantID/table-management/'
       path: '/table-management'
@@ -392,6 +490,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport
       parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
     }
+    '/_user/hotel/$hotelID/room_requests/': {
+      id: '/_user/hotel/$hotelID/room_requests/'
+      path: '/room_requests'
+      fullPath: '/hotel/$hotelID/room_requests/'
+      preLoaderRoute: typeof UserHotelHotelIDRoom_requestsIndexRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
+    '/_user/hotel/$hotelID/reservations/': {
+      id: '/_user/hotel/$hotelID/reservations/'
+      path: '/reservations'
+      fullPath: '/hotel/$hotelID/reservations/'
+      preLoaderRoute: typeof UserHotelHotelIDReservationsIndexRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
+    '/_user/hotel/$hotelID/inventory/': {
+      id: '/_user/hotel/$hotelID/inventory/'
+      path: '/inventory'
+      fullPath: '/hotel/$hotelID/inventory/'
+      preLoaderRoute: typeof UserHotelHotelIDInventoryIndexRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
+    '/_user/hotel/$hotelID/housekeeping/': {
+      id: '/_user/hotel/$hotelID/housekeeping/'
+      path: '/housekeeping'
+      fullPath: '/hotel/$hotelID/housekeeping/'
+      preLoaderRoute: typeof UserHotelHotelIDHousekeepingIndexRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
+    '/_user/hotel/$hotelID/guests/': {
+      id: '/_user/hotel/$hotelID/guests/'
+      path: '/guests'
+      fullPath: '/hotel/$hotelID/guests/'
+      preLoaderRoute: typeof UserHotelHotelIDGuestsIndexRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
+    '/_user/hotel/$hotelID/booking/': {
+      id: '/_user/hotel/$hotelID/booking/'
+      path: '/booking'
+      fullPath: '/hotel/$hotelID/booking/'
+      preLoaderRoute: typeof UserHotelHotelIDBookingIndexRouteImport
+      parentRoute: typeof UserHotelHotelIDRouteRoute
+    }
     '/_user/infra/kitchen/$service_point/service': {
       id: '/_user/infra/kitchen/$service_point/service'
       path: '/kitchen/$service_point/service'
@@ -416,6 +556,34 @@ const UserInfraRouteRouteChildren: UserInfraRouteRouteChildren = {
 const UserInfraRouteRouteWithChildren = UserInfraRouteRoute._addFileChildren(
   UserInfraRouteRouteChildren,
 )
+
+interface UserHotelHotelIDRouteRouteChildren {
+  UserHotelHotelIDOverviewRoute: typeof UserHotelHotelIDOverviewRoute
+  UserHotelHotelIDBookingIndexRoute: typeof UserHotelHotelIDBookingIndexRoute
+  UserHotelHotelIDGuestsIndexRoute: typeof UserHotelHotelIDGuestsIndexRoute
+  UserHotelHotelIDHousekeepingIndexRoute: typeof UserHotelHotelIDHousekeepingIndexRoute
+  UserHotelHotelIDInventoryIndexRoute: typeof UserHotelHotelIDInventoryIndexRoute
+  UserHotelHotelIDReservationsIndexRoute: typeof UserHotelHotelIDReservationsIndexRoute
+  UserHotelHotelIDRoom_requestsIndexRoute: typeof UserHotelHotelIDRoom_requestsIndexRoute
+}
+
+const UserHotelHotelIDRouteRouteChildren: UserHotelHotelIDRouteRouteChildren = {
+  UserHotelHotelIDOverviewRoute: UserHotelHotelIDOverviewRoute,
+  UserHotelHotelIDBookingIndexRoute: UserHotelHotelIDBookingIndexRoute,
+  UserHotelHotelIDGuestsIndexRoute: UserHotelHotelIDGuestsIndexRoute,
+  UserHotelHotelIDHousekeepingIndexRoute:
+    UserHotelHotelIDHousekeepingIndexRoute,
+  UserHotelHotelIDInventoryIndexRoute: UserHotelHotelIDInventoryIndexRoute,
+  UserHotelHotelIDReservationsIndexRoute:
+    UserHotelHotelIDReservationsIndexRoute,
+  UserHotelHotelIDRoom_requestsIndexRoute:
+    UserHotelHotelIDRoom_requestsIndexRoute,
+}
+
+const UserHotelHotelIDRouteRouteWithChildren =
+  UserHotelHotelIDRouteRoute._addFileChildren(
+    UserHotelHotelIDRouteRouteChildren,
+  )
 
 interface UserRestaurantRestaurantIDRouteRouteChildren {
   UserRestaurantRestaurantIDGeneralSettingsIndexRoute: typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
@@ -454,7 +622,7 @@ interface UserRouteRouteChildren {
   UserInfraRouteRoute: typeof UserInfraRouteRouteWithChildren
   UserIndexRoute: typeof UserIndexRoute
   UserBarBarIDRouteRoute: typeof UserBarBarIDRouteRoute
-  UserHotelHotelIDRouteRoute: typeof UserHotelHotelIDRouteRoute
+  UserHotelHotelIDRouteRoute: typeof UserHotelHotelIDRouteRouteWithChildren
   UserRestaurantRestaurantIDRouteRoute: typeof UserRestaurantRestaurantIDRouteRouteWithChildren
   UserBarIndexRoute: typeof UserBarIndexRoute
   UserHotelIndexRoute: typeof UserHotelIndexRoute
@@ -465,7 +633,7 @@ const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserInfraRouteRoute: UserInfraRouteRouteWithChildren,
   UserIndexRoute: UserIndexRoute,
   UserBarBarIDRouteRoute: UserBarBarIDRouteRoute,
-  UserHotelHotelIDRouteRoute: UserHotelHotelIDRouteRoute,
+  UserHotelHotelIDRouteRoute: UserHotelHotelIDRouteRouteWithChildren,
   UserRestaurantRestaurantIDRouteRoute:
     UserRestaurantRestaurantIDRouteRouteWithChildren,
   UserBarIndexRoute: UserBarIndexRoute,

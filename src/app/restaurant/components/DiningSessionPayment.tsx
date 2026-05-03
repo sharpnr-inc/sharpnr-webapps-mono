@@ -12,21 +12,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Command, CommandInput, CommandList } from "@/components/ui/command";
 import { ChevronsUpDown } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 // import { useOrgsCustomer } from "@/apis/Queries";
 import { PAYMENT_METHODS } from "../utils/payment_method";
-import { useDebounce } from "@/hooks/useDebounce";
-import { Avatar } from "./AvatarPaymentCard";
+// import { useDebounce } from "@/hooks/useDebounce";
 import {
   Select,
   SelectItem,
@@ -69,23 +60,20 @@ export function DiningSessionPayment({
 }: Props) {
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
-  const debounced = useDebounce(query, 400);
 
   // const { data, isFetching } = useOrgsCustomer(debounced);
   // const { data: paymentAccounts } = usePaymentAccounts();
 
-  const data: any = [];
+  // const data: any = [];
 
-  const customers: Customer[] =
-    data?.data?.map((c: any) => ({
-      id: c.ID,
-      name: c.Name,
-      phone: c.Phone,
-      email: c.Email,
-      gst: c.GSTIN,
-    })) ?? [];
-
-  const isEmpty = debounced.length >= 4 && customers.length === 0;
+  // const customers: Customer[] =
+  //   data?.data?.map((c: any) => ({
+  //     id: c.ID,
+  //     name: c.Name,
+  //     phone: c.Phone,
+  //     email: c.Email,
+  //     gst: c.GSTIN,
+  //   })) ?? [];
 
   const { mutateAsync } = useCloseDiningSessionMutation();
 
@@ -150,7 +138,7 @@ export function DiningSessionPayment({
               </label>
               <form.AppField
                 name="customer_id"
-                children={(field) => (
+                children={() => (
                   <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                       <Button

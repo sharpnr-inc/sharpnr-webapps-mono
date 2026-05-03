@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
-import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 /* ===============================
    Dummy Property Data
@@ -30,9 +29,7 @@ const defaultProperty = properties[0];
 
 export function BarRootLayout() {
   const [selectedProperty, setSelectedProperty] =
-    React.useState<(typeof properties)[number]>(
-      defaultProperty
-    );
+    React.useState<(typeof properties)[number]>(defaultProperty);
 
   return (
     <SidebarProvider defaultOpen>
@@ -52,9 +49,7 @@ export function BarRootLayout() {
                   </div>
 
                   <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-medium">
-                      {selectedProperty}
-                    </span>
+                    <span className="font-medium">{selectedProperty}</span>
                     <span className="text-xs text-muted-foreground">
                       Property
                     </span>
@@ -64,16 +59,11 @@ export function BarRootLayout() {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                align="start"
-                className="min-w-[240px]"
-              >
+              <DropdownMenuContent align="start" className="min-w-60">
                 {properties.map((property) => (
                   <DropdownMenuItem
                     key={property}
-                    onSelect={() =>
-                      setSelectedProperty(property)
-                    }
+                    onSelect={() => setSelectedProperty(property)}
                   >
                     {property}
                     {property === selectedProperty && (
@@ -95,7 +85,6 @@ export function BarRootLayout() {
             {/* Top bar */}
             <header className="flex h-12 items-center px-3">
               <SidebarTrigger />
-              <RouteBreadcrumbs />
             </header>
 
             {/* Page content */}

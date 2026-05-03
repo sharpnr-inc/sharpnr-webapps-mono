@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
-import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 
 /* ===============================
    Dummy Property Data
@@ -60,7 +59,7 @@ export function HotelRootLayout() {
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent align="start" className="min-w-[240px]">
+              <DropdownMenuContent align="start" className="min-w-60">
                 {properties.map((property) => (
                   <DropdownMenuItem
                     key={property}
@@ -84,9 +83,8 @@ export function HotelRootLayout() {
         <SidebarInset>
           <header className="flex h-12 items-center gap-2 px-4 ">
             <SidebarTrigger />
-            <div className="h-4 w-[1px] bg-border mx-2" />{" "}
+            <div className="h-4 w-px bg-border mx-2" />{" "}
             {/* Custom vertical line */}
-            <RouteBreadcrumbs />
           </header>
 
           <main className=" p-6">
