@@ -1,11 +1,13 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, ArrowRight, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button"; // Added Button import
+import { Building2, ArrowRight, MapPin, Plus } from "lucide-react"; // Added Plus icon
 import { motion } from "framer-motion";
 import { Route } from "@/routes/_user/restaurant/index";
 import { useEffect } from "react";
 import type { RestaurantContext } from "../apis/restaurant.api";
 import { toast } from "sonner";
+import { config } from "@/configs/env";
 
 export default function RestaurantSelector() {
   const navigate = useNavigate();
@@ -29,6 +31,34 @@ export default function RestaurantSelector() {
 
   // Prevent flash if redirecting
   if (restaurants?.length === 1) return null;
+
+  // ⭐ Empty state condition
+  if (!restaurants || restaurants.length === 0) {
+    return (
+      <div className="min-h-screen w-full bg-muted/30 flex items-center justify-center p-6 text-center">
+        <div className="max-w-md flex flex-col items-center">
+          <div className="bg-muted border border-border p-4 rounded-full mb-4">
+            <Building2 className="size-8 opacity-40" />
+          </div>
+          <h2 className="text-2xl font-bold mb-2">No Restaurants Found</h2>
+          <p className="text-muted-foreground mb-6">
+            You haven't added any restaurants yet. Create your first one to get
+            started.
+          </p>
+          <Button
+            variant="outline"
+            onClick={() => {
+              // Adjust this path to your actual creation route
+              window.location.href = config.orchestratorAppUrl;
+            }}
+          >
+            <Plus className="size-4 mr-2" />
+            Create Restaurant
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full bg-muted/30 flex items-center justify-center p-6">
@@ -87,7 +117,7 @@ export default function RestaurantSelector() {
                   }`}
                 >
                   <CardHeader className="flex flex-row items-center gap-3 pb-2">
-                    <div className="bg-primary/10 text-primary p-2 rounded-xl">
+                    <div className="bg-muted border border-border p-2 rounded-xl">
                       <Building2 className="size-5" />
                     </div>
 
@@ -117,7 +147,7 @@ export default function RestaurantSelector() {
                     </div>
 
                     {isDisabled && (
-                      <p className="text-xs text-destructive pt-1">
+                      <p className="text-xs font-medium pt-1">
                         {disabledMessage}
                       </p>
                     )}
