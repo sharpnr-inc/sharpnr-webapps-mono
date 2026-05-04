@@ -317,7 +317,7 @@ export function DeepConnectivitySection() {
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const [eventsPerSec, setEventsPerSec] = useState(34);
   const [latency, setLatency] = useState(11);
-  const [isReady, setIsReady] = useState(false);
+  const [, setIsReady] = useState(false);
 
   /* GSAP entrance animation */
   useEffect(() => {

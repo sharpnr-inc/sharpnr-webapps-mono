@@ -81,50 +81,6 @@ export function Website() {
         </div>
       </section>
 
-      {/* Pillars Section */}
-      <section className="py-24 bg-slate-950/50 border-y border-slate-900">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-1px bg-slate-900 border border-slate-900">
-            <div className="p-12 bg-slate-950">
-              <div className="font-mono text-[10px] text-blue-500 mb-6 uppercase tracking-widest">
-                01 / Architecture
-              </div>
-              <h3 className="text-2xl font-serif text-slate-50 mb-4">
-                Unified Data Layer
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                All apps share a common data backbone. No duplicate entries, no
-                sync errors, just pure synchronization.
-              </p>
-            </div>
-            <div className="p-12 bg-slate-950">
-              <div className="font-mono text-[10px] text-purple-500 mb-6 uppercase tracking-widest">
-                02 / Security
-              </div>
-              <h3 className="text-2xl font-serif text-slate-50 mb-4">
-                Single Identity
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                SharpIAM governs access across the entire platform. One login,
-                one permission model, zero friction.
-              </p>
-            </div>
-            <div className="p-12 bg-slate-950">
-              <div className="font-mono text-[10px] text-emerald-500 mb-6 uppercase tracking-widest">
-                03 / Control
-              </div>
-              <h3 className="text-2xl font-serif text-slate-50 mb-4">
-                Operator-First
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Built for teams who want control. Orchestrator HQ gives you a
-                single command plane for everything.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Products Grid */}
       <ProductsSection />
 
