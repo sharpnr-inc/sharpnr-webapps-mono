@@ -55,4 +55,5 @@ export const config = {
   siloAppUrl: import.meta.env.VITE_API_SILO_APP,
   folioAppUrl: import.meta.env.VITE_API_FOLIO_APP,
   marketplaceAppUrl: import.meta.env.VITE_API_MARKETPLACE_APP,
+  cortexAppUrl: import.meta.env.VITE_API_CORTEX_APP,
 } as const;

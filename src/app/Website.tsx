@@ -18,6 +18,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BlurText from "@/components/ui/BlurTextCom";
+import { config } from "@/configs/env";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,6 +31,7 @@ const products = [
     color: "text-blue-400",
     description:
       "The people operations backbone. Payroll, recruitment, and lifecycle management in one place.",
+    link: config.hrAppUrl,
   },
   {
     id: "marketing",
@@ -39,6 +41,7 @@ const products = [
     color: "text-pink-400",
     description:
       "Growth engine for modern teams. Multi-channel campaigns and CRM that actually works.",
+    link: config.marketingAppUrl,
   },
   {
     id: "accounting",
@@ -48,6 +51,7 @@ const products = [
     color: "text-emerald-400",
     description:
       "Financial operating system. Bookkeeping, invoicing, and real-time reporting.",
+    link: config.accountingAppUrl,
   },
   {
     id: "orchestrator",
@@ -57,6 +61,7 @@ const products = [
     color: "text-violet-400",
     description:
       "The mission control room. Monitor, configure, and govern your entire fleet of apps.",
+    link: config.orchestratorAppUrl,
   },
   {
     id: "cable",
@@ -66,6 +71,7 @@ const products = [
     color: "text-orange-400",
     description:
       "Real-time communication layer. Deeply wired into your HR and project data.",
+    link: config.cablesAppUrl,
   },
   {
     id: "folio",
@@ -75,6 +81,7 @@ const products = [
     color: "text-cyan-400",
     description:
       "Collaborative document editor with live data embeds from across the platform.",
+    link: config.folioAppUrl,
   },
   {
     id: "silo",
@@ -84,6 +91,7 @@ const products = [
     color: "text-slate-400",
     description:
       "Secure, centralized file storage layer for the entire ecosystem.",
+    link: config.siloAppUrl,
   },
   {
     id: "marketplace",
@@ -93,6 +101,7 @@ const products = [
     color: "text-yellow-400",
     description:
       "The ecosystem extension layer. Discover and install third-party integrations.",
+    link: config.marketplaceAppUrl,
   },
   {
     id: "iam",
@@ -102,6 +111,7 @@ const products = [
     color: "text-red-400",
     description:
       "Identity and access management backbone. Single sign-on for every product.",
+    link: config.iamAppUrl,
   },
 ];
 
@@ -295,7 +305,11 @@ export function Website() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
-              <div key={product.id} className="product-card">
+              <div
+                key={product.id}
+                className="product-card"
+                onClick={() => (window.location.href = product.link)}
+              >
                 <ProductCard product={product} />
               </div>
             ))}
