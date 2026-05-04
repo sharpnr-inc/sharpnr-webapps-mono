@@ -31,7 +31,7 @@ const products = [
     color: "text-blue-400",
     description:
       "The people operations backbone. Payroll, recruitment, and lifecycle management in one place.",
-    link: config.hrAppUrl,
+    link: config.hrAppUrl + "/about",
   },
   {
     id: "marketing",
@@ -51,7 +51,7 @@ const products = [
     color: "text-emerald-400",
     description:
       "Financial operating system. Bookkeeping, invoicing, and real-time reporting.",
-    link: config.accountingAppUrl,
+    link: config.accountingAppUrl + "/about",
   },
   {
     id: "orchestrator",
@@ -111,7 +111,7 @@ const products = [
     color: "text-red-400",
     description:
       "Identity and access management backbone. Single sign-on for every product.",
-    link: config.iamAppUrl,
+    link: config.iamAppUrl + "/about",
   },
 ];
 
