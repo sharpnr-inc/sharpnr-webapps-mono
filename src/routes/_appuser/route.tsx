@@ -5,6 +5,7 @@ import {
 import { ConsoleLayout } from "@/components/ConsoleLayout";
 import GlobalLoader from "@/components/ui/GlobalLoader";
 import { config } from "@/configs/env";
+import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
@@ -13,6 +14,9 @@ export const Route = createFileRoute("/_appuser")({
     <GlobalLoader message="Hold on! We are authenticating user" />
   ),
   beforeLoad: async ({ context }) => {
+    // This method verify the user is authenticated or not
+    // before we need to verify the organization is configured or Not
+    // If not then it must be route to the setup wizard
     const authUser = await context.queryClient.ensureQueryData({
       queryKey: ["auth-user"],
       queryFn: verifyUserAuthentication,
@@ -29,7 +33,7 @@ export const Route = createFileRoute("/_appuser")({
   /* ------------------- In Loader We Fetch the User Details ------------------ */
   loader: async ({ context }) => {
     // Debugger for testing loaders
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const userDetails = await context.queryClient.ensureQueryData({
       queryKey: ["user-details"],
@@ -52,6 +56,20 @@ export const Route = createFileRoute("/_appuser")({
       lastName: user.lastName,
       role: user.role,
     });
+
+    // This is the Method for fetching the Setup Progress
+    const setup_progress = await context.queryClient.ensureQueryData({
+      queryKey: ["setup-progress"],
+      queryFn: GetOrganizationSetUpProgress,
+    });
+
+    console.log(setup_progress.data?.current_step);
+
+    if (setup_progress.data?.overall_status !== "COMPLETE") {
+      throw redirect({
+        to: "/setup_wizard",
+      });
+    }
 
     return { user };
   },

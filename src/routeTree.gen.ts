@@ -9,7 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as Setup_wizardRouteRouteImport } from './routes/setup_wizard/route'
 import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
+import { Route as Setup_wizardIndexRouteImport } from './routes/setup_wizard/index'
 import { Route as MarketingIndexRouteImport } from './routes/_marketing/index'
 import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
 import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/payments/route'
@@ -17,7 +19,6 @@ import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
 import { Route as AppuserStorageIndexRouteImport } from './routes/_appuser/storage/index'
-import { Route as AppuserSetupWizIndexRouteImport } from './routes/_appuser/setup-wiz/index'
 import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/property/index'
 import { Route as AppuserPaymentsIndexRouteImport } from './routes/_appuser/payments/index'
 import { Route as AppuserOrganizationIndexRouteImport } from './routes/_appuser/organization/index'
@@ -41,9 +42,19 @@ import { Route as AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboar
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
 
+const Setup_wizardRouteRoute = Setup_wizardRouteRouteImport.update({
+  id: '/setup_wizard',
+  path: '/setup_wizard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppuserRouteRoute = AppuserRouteRouteImport.update({
   id: '/_appuser',
   getParentRoute: () => rootRouteImport,
+} as any)
+const Setup_wizardIndexRoute = Setup_wizardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => Setup_wizardRouteRoute,
 } as any)
 const MarketingIndexRoute = MarketingIndexRouteImport.update({
   id: '/_marketing/',
@@ -81,11 +92,6 @@ const AppuserSuppliersChar38VendorsIndexRoute =
 const AppuserStorageIndexRoute = AppuserStorageIndexRouteImport.update({
   id: '/storage/',
   path: '/storage/',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserSetupWizIndexRoute = AppuserSetupWizIndexRouteImport.update({
-  id: '/setup-wiz/',
-  path: '/setup-wiz/',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserPropertyIndexRoute = AppuserPropertyIndexRouteImport.update({
@@ -227,11 +233,13 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRout
   )
 
 export interface FileRoutesByFullPath {
+  '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/payments': typeof AppuserPaymentsRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
   '/': typeof MarketingIndexRoute
+  '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
@@ -242,7 +250,6 @@ export interface FileRoutesByFullPath {
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments/': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
-  '/setup-wiz': typeof AppuserSetupWizIndexRoute
   '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -261,6 +268,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/home': typeof AppuserHomeRoute
   '/': typeof MarketingIndexRoute
+  '/setup_wizard': typeof Setup_wizardIndexRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
@@ -271,7 +279,6 @@ export interface FileRoutesByTo {
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
-  '/setup-wiz': typeof AppuserSetupWizIndexRoute
   '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -289,11 +296,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_appuser': typeof AppuserRouteRouteWithChildren
+  '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
   '/_appuser/home': typeof AppuserHomeRoute
   '/_marketing/': typeof MarketingIndexRoute
+  '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
   '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
   '/_appuser/cables/': typeof AppuserCablesIndexRoute
@@ -304,7 +313,6 @@ export interface FileRoutesById {
   '/_appuser/organization/': typeof AppuserOrganizationIndexRoute
   '/_appuser/payments/': typeof AppuserPaymentsIndexRoute
   '/_appuser/property/': typeof AppuserPropertyIndexRoute
-  '/_appuser/setup-wiz/': typeof AppuserSetupWizIndexRoute
   '/_appuser/storage/': typeof AppuserStorageIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -323,11 +331,13 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/setup_wizard'
     | '/inventory-acc'
     | '/legal_entity'
     | '/payments'
     | '/home'
     | '/'
+    | '/setup_wizard/'
     | '/property/routes'
     | '/audit-log'
     | '/cables'
@@ -338,7 +348,6 @@ export interface FileRouteTypes {
     | '/organization'
     | '/payments/'
     | '/property'
-    | '/setup-wiz'
     | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
@@ -357,6 +366,7 @@ export interface FileRouteTypes {
   to:
     | '/home'
     | '/'
+    | '/setup_wizard'
     | '/property/routes'
     | '/audit-log'
     | '/cables'
@@ -367,7 +377,6 @@ export interface FileRouteTypes {
     | '/organization'
     | '/payments'
     | '/property'
-    | '/setup-wiz'
     | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
@@ -384,11 +393,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_appuser'
+    | '/setup_wizard'
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
     | '/_appuser/payments'
     | '/_appuser/home'
     | '/_marketing/'
+    | '/setup_wizard/'
     | '/_appuser/property/routes'
     | '/_appuser/audit-log/'
     | '/_appuser/cables/'
@@ -399,7 +410,6 @@ export interface FileRouteTypes {
     | '/_appuser/organization/'
     | '/_appuser/payments/'
     | '/_appuser/property/'
-    | '/_appuser/setup-wiz/'
     | '/_appuser/storage/'
     | '/_appuser/suppliers&Vendors/'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
@@ -418,17 +428,32 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AppuserRouteRoute: typeof AppuserRouteRouteWithChildren
+  Setup_wizardRouteRoute: typeof Setup_wizardRouteRouteWithChildren
   MarketingIndexRoute: typeof MarketingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/setup_wizard': {
+      id: '/setup_wizard'
+      path: '/setup_wizard'
+      fullPath: '/setup_wizard'
+      preLoaderRoute: typeof Setup_wizardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_appuser': {
       id: '/_appuser'
       path: ''
       fullPath: ''
       preLoaderRoute: typeof AppuserRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/setup_wizard/': {
+      id: '/setup_wizard/'
+      path: '/'
+      fullPath: '/setup_wizard/'
+      preLoaderRoute: typeof Setup_wizardIndexRouteImport
+      parentRoute: typeof Setup_wizardRouteRoute
     }
     '/_marketing/': {
       id: '/_marketing/'
@@ -477,13 +502,6 @@ declare module '@tanstack/react-router' {
       path: '/storage'
       fullPath: '/storage'
       preLoaderRoute: typeof AppuserStorageIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/setup-wiz/': {
-      id: '/_appuser/setup-wiz/'
-      path: '/setup-wiz'
-      fullPath: '/setup-wiz'
-      preLoaderRoute: typeof AppuserSetupWizIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/property/': {
@@ -731,7 +749,6 @@ interface AppuserRouteRouteChildren {
   AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
-  AppuserSetupWizIndexRoute: typeof AppuserSetupWizIndexRoute
   AppuserStorageIndexRoute: typeof AppuserStorageIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
@@ -755,7 +772,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
-  AppuserSetupWizIndexRoute: AppuserSetupWizIndexRoute,
   AppuserStorageIndexRoute: AppuserStorageIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,
@@ -778,8 +794,20 @@ const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
   AppuserRouteRouteChildren,
 )
 
+interface Setup_wizardRouteRouteChildren {
+  Setup_wizardIndexRoute: typeof Setup_wizardIndexRoute
+}
+
+const Setup_wizardRouteRouteChildren: Setup_wizardRouteRouteChildren = {
+  Setup_wizardIndexRoute: Setup_wizardIndexRoute,
+}
+
+const Setup_wizardRouteRouteWithChildren =
+  Setup_wizardRouteRoute._addFileChildren(Setup_wizardRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   AppuserRouteRoute: AppuserRouteRouteWithChildren,
+  Setup_wizardRouteRoute: Setup_wizardRouteRouteWithChildren,
   MarketingIndexRoute: MarketingIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,0 +1,16 @@
+export type SetupProgressResponseDTO = {
+  overall_status: string;
+  current_step?: string;
+  progress_pct: number;
+  is_completed: boolean;
+  steps: SetupStepProgressResponseDTO[];
+};
+
+export type SetupStepProgressResponseDTO = {
+  id: string; // uuid.UUID → string
+  step: string;
+  status: string;
+  version: number;
+  started_at: string; // time.Time → ISO string
+  completed_at?: string; // *time.Time → optional ISO string
+};
