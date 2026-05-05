@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 const requiredVars = [
   // Core API
   "VITE_API_URL",
@@ -15,6 +17,12 @@ const requiredVars = [
   "VITE_API_IAM_APP",
   "VITE_API_MARKETING_APP",
   "VITE_API_HR_APP",
+
+  // New Services
+  "VITE_API_CABLES_APP",
+  "VITE_API_SILO_APP",
+  "VITE_API_FOLIO_APP",
+  "VITE_API_MARKETPLACE_APP",
 ] as const;
 
 type RequiredVar = (typeof requiredVars)[number];
@@ -27,19 +35,25 @@ requiredVars.forEach((key: RequiredVar) => {
 
 export const config = {
   // Core API
-  apiBaseUrl: import.meta.env.VITE_API_URL, // Main backend API
-  csrfToken: import.meta.env.VITE_API_CSRF, // CSRF protection token
+  apiBaseUrl: import.meta.env.VITE_API_URL,
+  csrfToken: import.meta.env.VITE_API_CSRF,
 
   // Third-party Services
-  cityStateBaseUrl: import.meta.env.VITE_API_CITY_STATE_BASE_URL, // Country/State/City API base URL
-  cityStateApiKey: import.meta.env.VITE_API_CITY_STATE_API_KEY, // Country/State/City API key
+  cityStateBaseUrl: import.meta.env.VITE_API_CITY_STATE_BASE_URL,
+  cityStateApiKey: import.meta.env.VITE_API_CITY_STATE_API_KEY,
 
-  // Internal Apps (Micro-frontends / Services)
-  accountingAppUrl: import.meta.env.VITE_API_ACCOUNTING_APP, // Accounting module
-  authAppUrl: import.meta.env.VITE_API_AUTH_APP, // Authentication service
-  orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP, // Orchestrator / workflow engine
-  hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP, // Hospitality module
-  iamAppUrl: import.meta.env.VITE_API_IAM_APP, // Identity & Access Management
-  marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP, // Marketing module
-  hrAppUrl: import.meta.env.VITE_API_HR_APP, // Human Resources module
+  accountingAppUrl: import.meta.env.VITE_API_ACCOUNTING_APP,
+  authAppUrl: import.meta.env.VITE_API_AUTH_APP,
+  orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP,
+  hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP,
+  iamAppUrl: import.meta.env.VITE_API_IAM_APP,
+  marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP,
+  hrAppUrl: import.meta.env.VITE_API_HR_APP,
+
+  // New Services
+  cablesAppUrl: import.meta.env.VITE_API_CABLES_APP,
+  siloAppUrl: import.meta.env.VITE_API_SILO_APP,
+  folioAppUrl: import.meta.env.VITE_API_FOLIO_APP,
+  marketplaceAppUrl: import.meta.env.VITE_API_MARKETPLACE_APP,
+  cortexAppUrl: import.meta.env.VITE_API_CORTEX_APP,
 } as const;
