@@ -1,23 +1,10 @@
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  animate,
-  type Variants,
-} from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useJoyride } from "react-joyride";
+import { steps as joysteps } from "@/lib/tour_steps";
+import { Button } from "@/components/ui/button";
 
 // ─── tiny sub-components ────────────────────────────────────────────────────
-
-function AnimatedCounter({ target }: { target: number }) {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) => Math.round(v).toLocaleString());
-  useEffect(() => {
-    const controls = animate(count, target, { duration: 2, ease: "easeOut" });
-    return controls.stop;
-  }, [count, target]);
-  return <motion.span>{rounded}</motion.span>;
-}
 
 function SharpDivider() {
   return (
@@ -97,47 +84,6 @@ function GeometricAccent() {
         }}
       />
     </svg>
-  );
-}
-
-// ─── Main stat pill ──────────────────────────────────────────────────────────
-function StatPill({ value, label }: { value: number; label: string }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "4px",
-        padding: "1rem 1.5rem",
-        border: "1px solid rgba(0,245,200,0.15)",
-        borderRadius: "2px",
-        background: "rgba(0,245,200,0.03)",
-      }}
-    >
-      <span
-        style={{
-          fontSize: "1.5rem",
-          fontWeight: 700,
-          color: "#00f5c8",
-          fontVariantNumeric: "tabular-nums",
-          letterSpacing: "-0.02em",
-        }}
-      >
-        <AnimatedCounter target={value} />+
-      </span>
-      <span
-        style={{
-          fontSize: "0.7rem",
-          fontWeight: 500,
-          color: "rgba(255,255,255,0.35)",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-        }}
-      >
-        {label}
-      </span>
-    </div>
   );
 }
 
@@ -368,25 +314,6 @@ export function WelcomePage({ onContinue }: WelcomePageProps) {
           </p>
         </motion.div>
 
-        {/* Stats row */}
-        <motion.div
-          variants={item}
-          style={{
-            display: "flex",
-            gap: "1px",
-            marginBottom: "3rem",
-            marginTop: "2rem",
-          }}
-        >
-          {[
-            { value: 12000, label: "Users" },
-            { value: 340, label: "Integrations" },
-            { value: 99, label: "Uptime %" },
-          ].map((s) => (
-            <StatPill key={s.label} value={s.value} label={s.label} />
-          ))}
-        </motion.div>
-
         {/* CTA */}
         <motion.div variants={item}>
           <motion.button
@@ -472,11 +399,21 @@ export function WelcomePage({ onContinue }: WelcomePageProps) {
 // ─── SetupWizardPage (wires WelcomePage → wizard) ───────────────────────────
 
 export function SetupWizardPage() {
+  const { controls, on, Tour } = useJoyride({
+    continuous: true,
+    steps: joysteps,
+  });
   const [step, setStep] = useState<"welcome" | "wizard">("welcome");
 
   if (step === "welcome") {
     return <WelcomePage onContinue={() => setStep("wizard")} />;
   }
+
+  useEffect(() => {
+    return on("tour:end", () => {
+      console.log("Tour finished!");
+    });
+  }, [on]);
 
   // Replace the div below with your actual SetupWizard component
   return (
@@ -519,6 +456,11 @@ export function SetupWizardPage() {
         <p style={{ color: "rgba(255,255,255,0.4)", margin: 0 }}>
           Your wizard content goes here.
         </p>
+        <div>
+          <Button onClick={() => controls.start()}>Start Tour</Button>
+          {Tour}
+          {/* your app content */}
+        </div>
       </motion.div>
     </div>
   );

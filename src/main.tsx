@@ -19,6 +19,8 @@ import { queryClient, router } from "./router_config.tsx";
 import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "./components/ui/tooltip.tsx";
+import { Joyride } from "react-joyride";
+import { steps } from "./lib/tour_steps.ts";
 
 registerSW({
   onNeedRefresh() {
@@ -40,6 +42,7 @@ createRoot(document.getElementById("root")!).render(
               <SheetProvider>
                 <DialogModalProvider>
                   <Suspense fallback={<SuspenseFallback />}>
+                    <Joyride continuous run={true} steps={steps} />
                     <RouterProvider router={router} />
                     <Toaster />
                   </Suspense>
