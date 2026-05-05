@@ -1,7 +1,11 @@
 import api from "@/middlewares/axios";
 import { AppUserEndpoints, UserRoutes } from "./appuser.endpoints";
 import type { APIResponse } from "@/lib/api_response";
-import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
+import type {
+  UserAuthenticatedResponse,
+  UserDataResponseDto,
+  SetupProgressResponseDTO,
+} from "./types";
 
 export async function GetAppUserProfile() {
   const res = await api.get(AppUserEndpoints.getAppUserProfile);
@@ -43,4 +47,15 @@ export async function GetAuthenticatedUser() {
 export async function logout() {
   const res = await api.get<APIResponse<any>>(UserRoutes.logout());
   return res.data;
+}
+
+export const SetupWizardAPIEndpoints = {
+  GetOrganizationSetUpProgress: "/orchestrator/setup-wiz/progress",
+};
+
+export async function GetOrganizationSetUpProgress() {
+  const response = await api.get<APIResponse<SetupProgressResponseDTO>>(
+    SetupWizardAPIEndpoints.GetOrganizationSetUpProgress,
+  );
+  return response.data;
 }

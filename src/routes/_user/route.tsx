@@ -1,5 +1,6 @@
 import {
   GetAuthenticatedUser,
+  GetOrganizationSetUpProgress,
   verifyUserAuthentication,
 } from "@/api/api.service";
 import RootLayout from "@/components/RootLayout";
@@ -9,6 +10,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_user")({
   beforeLoad: async ({ context }) => {
+    // 1. Verify auth
     const authUser = await context.queryClient.ensureQueryData({
       queryKey: ["auth-user"],
       queryFn: verifyUserAuthentication,
@@ -21,6 +23,7 @@ export const Route = createFileRoute("/_user")({
       });
     }
 
+    // 2. Fetch user
     const userDetails = await context.queryClient.ensureQueryData({
       queryKey: ["user-details"],
       queryFn: GetAuthenticatedUser,
@@ -28,11 +31,14 @@ export const Route = createFileRoute("/_user")({
     });
 
     const user = userDetails.data;
+
     if (!user) {
       throw redirect({
         href: config.authAppUrl,
       });
     }
+
+    // 3. Store user globally
     appUserActions.setUser({
       id: user.id,
       email: user.email,
@@ -41,7 +47,21 @@ export const Route = createFileRoute("/_user")({
       role: user.role,
     });
 
-    return { user };
+    // 4. Fetch setup progress
+    const setupProgress = await context.queryClient.ensureQueryData({
+      queryKey: ["setup-progress"],
+      queryFn: GetOrganizationSetUpProgress,
+    });
+
+    const showSetupOverlay =
+      setupProgress.data?.overall_status !== "COMPLETE" &&
+      user.role === "SUPER_ADMIN";
+
+    return {
+      user,
+      showSetupOverlay,
+    };
   },
+
   component: RootLayout,
 });
