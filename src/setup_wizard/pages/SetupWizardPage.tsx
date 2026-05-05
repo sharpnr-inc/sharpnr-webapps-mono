@@ -1,8 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useJoyride } from "react-joyride";
-import { steps as joysteps } from "@/lib/tour_steps";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 // ─── tiny sub-components ────────────────────────────────────────────────────
 
@@ -399,21 +396,11 @@ export function WelcomePage({ onContinue }: WelcomePageProps) {
 // ─── SetupWizardPage (wires WelcomePage → wizard) ───────────────────────────
 
 export function SetupWizardPage() {
-  const { controls, on, Tour } = useJoyride({
-    continuous: true,
-    steps: joysteps,
-  });
   const [step, setStep] = useState<"welcome" | "wizard">("welcome");
 
   if (step === "welcome") {
     return <WelcomePage onContinue={() => setStep("wizard")} />;
   }
-
-  useEffect(() => {
-    return on("tour:end", () => {
-      console.log("Tour finished!");
-    });
-  }, [on]);
 
   // Replace the div below with your actual SetupWizard component
   return (
@@ -456,11 +443,6 @@ export function SetupWizardPage() {
         <p style={{ color: "rgba(255,255,255,0.4)", margin: 0 }}>
           Your wizard content goes here.
         </p>
-        <div>
-          <Button onClick={() => controls.start()}>Start Tour</Button>
-          {Tour}
-          {/* your app content */}
-        </div>
       </motion.div>
     </div>
   );

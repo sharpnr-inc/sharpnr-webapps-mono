@@ -28,6 +28,8 @@ import { Route as AppuserInventoryAccIndexRouteImport } from './routes/_appuser/
 import { Route as AppuserDocs_officeIndexRouteImport } from './routes/_appuser/docs_office/index'
 import { Route as AppuserCablesIndexRouteImport } from './routes/_appuser/cables/index'
 import { Route as AppuserAuditLogIndexRouteImport } from './routes/_appuser/audit-log/index'
+import { Route as Setup_wizardStepIDUserinfoRouteImport } from './routes/setup_wizard/$stepID/userinfo'
+import { Route as Setup_wizardStepIDBase_setupRouteImport } from './routes/setup_wizard/$stepID/base_setup'
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
@@ -142,6 +144,18 @@ const AppuserAuditLogIndexRoute = AppuserAuditLogIndexRouteImport.update({
   path: '/audit-log/',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const Setup_wizardStepIDUserinfoRoute =
+  Setup_wizardStepIDUserinfoRouteImport.update({
+    id: '/$stepID/userinfo',
+    path: '/$stepID/userinfo',
+    getParentRoute: () => Setup_wizardRouteRoute,
+  } as any)
+const Setup_wizardStepIDBase_setupRoute =
+  Setup_wizardStepIDBase_setupRouteImport.update({
+    id: '/$stepID/base_setup',
+    path: '/$stepID/base_setup',
+    getParentRoute: () => Setup_wizardRouteRoute,
+  } as any)
 const AppuserPropertyRoutesRoute = AppuserPropertyRoutesRouteImport.update({
   id: '/property/routes',
   path: '/property/routes',
@@ -241,6 +255,8 @@ export interface FileRoutesByFullPath {
   '/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
+  '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
+  '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
   '/docs_office': typeof AppuserDocs_officeIndexRoute
@@ -270,6 +286,8 @@ export interface FileRoutesByTo {
   '/': typeof MarketingIndexRoute
   '/setup_wizard': typeof Setup_wizardIndexRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
+  '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
+  '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
   '/docs_office': typeof AppuserDocs_officeIndexRoute
@@ -304,6 +322,8 @@ export interface FileRoutesById {
   '/_marketing/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
+  '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
+  '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
   '/_appuser/cables/': typeof AppuserCablesIndexRoute
   '/_appuser/docs_office/': typeof AppuserDocs_officeIndexRoute
@@ -339,6 +359,8 @@ export interface FileRouteTypes {
     | '/'
     | '/setup_wizard/'
     | '/property/routes'
+    | '/setup_wizard/$stepID/base_setup'
+    | '/setup_wizard/$stepID/userinfo'
     | '/audit-log'
     | '/cables'
     | '/docs_office'
@@ -368,6 +390,8 @@ export interface FileRouteTypes {
     | '/'
     | '/setup_wizard'
     | '/property/routes'
+    | '/setup_wizard/$stepID/base_setup'
+    | '/setup_wizard/$stepID/userinfo'
     | '/audit-log'
     | '/cables'
     | '/docs_office'
@@ -401,6 +425,8 @@ export interface FileRouteTypes {
     | '/_marketing/'
     | '/setup_wizard/'
     | '/_appuser/property/routes'
+    | '/setup_wizard/$stepID/base_setup'
+    | '/setup_wizard/$stepID/userinfo'
     | '/_appuser/audit-log/'
     | '/_appuser/cables/'
     | '/_appuser/docs_office/'
@@ -566,6 +592,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/audit-log'
       preLoaderRoute: typeof AppuserAuditLogIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
+    }
+    '/setup_wizard/$stepID/userinfo': {
+      id: '/setup_wizard/$stepID/userinfo'
+      path: '/$stepID/userinfo'
+      fullPath: '/setup_wizard/$stepID/userinfo'
+      preLoaderRoute: typeof Setup_wizardStepIDUserinfoRouteImport
+      parentRoute: typeof Setup_wizardRouteRoute
+    }
+    '/setup_wizard/$stepID/base_setup': {
+      id: '/setup_wizard/$stepID/base_setup'
+      path: '/$stepID/base_setup'
+      fullPath: '/setup_wizard/$stepID/base_setup'
+      preLoaderRoute: typeof Setup_wizardStepIDBase_setupRouteImport
+      parentRoute: typeof Setup_wizardRouteRoute
     }
     '/_appuser/property/routes': {
       id: '/_appuser/property/routes'
@@ -796,10 +836,14 @@ const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(
 
 interface Setup_wizardRouteRouteChildren {
   Setup_wizardIndexRoute: typeof Setup_wizardIndexRoute
+  Setup_wizardStepIDBase_setupRoute: typeof Setup_wizardStepIDBase_setupRoute
+  Setup_wizardStepIDUserinfoRoute: typeof Setup_wizardStepIDUserinfoRoute
 }
 
 const Setup_wizardRouteRouteChildren: Setup_wizardRouteRouteChildren = {
   Setup_wizardIndexRoute: Setup_wizardIndexRoute,
+  Setup_wizardStepIDBase_setupRoute: Setup_wizardStepIDBase_setupRoute,
+  Setup_wizardStepIDUserinfoRoute: Setup_wizardStepIDUserinfoRoute,
 }
 
 const Setup_wizardRouteRouteWithChildren =

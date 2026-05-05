@@ -19,8 +19,6 @@ export function UserCard() {
   const { mutate: logoutUser, isPending } = useLogout();
   const { user } = useAppUserStore();
 
-  console.log(user);
-
   // Derive initials only when user data is available and valid
   const firstName = user?.firstName ?? "";
   const lastName = user?.lastName ?? "";
