@@ -1,6 +1,6 @@
-import { SetupWizardPage } from "@/setup_wizard/pages/SetupWizardPage";
+import { SetupWizardWelcomePage } from "@/setup_wizard/pages/SetupWizardWelcomePage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/setup_wizard/")({
-  component: SetupWizardPage,
+  component: SetupWizardWelcomePage,
 });

@@ -33,6 +33,8 @@ export const Route = createFileRoute("/setup_wizard")({
       queryFn: GetOrganizationSetUpProgress,
     });
 
+    // const nextStepSlug = resolveSetupWizardStep(setupProgress?.data);
+
     // If the organization is already configured, redirect to home
     // (Adjust the property name 'isConfigured' to match your API response)
     if (setupProgress.data?.is_completed) {
