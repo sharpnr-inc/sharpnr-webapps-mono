@@ -528,7 +528,15 @@ function FormView({
       </div>
 
       {/* The actual form */}
-      <div style={{ padding: "0 3rem 3rem 2.5rem", flex: 1 }}>
+      <div
+        style={{
+          padding: "0 3rem 3rem 2.5rem",
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center", // ← this
+        }}
+      >
         {selection === "legal_entity" ? (
           <SetupLegalEntityForm />
         ) : (
