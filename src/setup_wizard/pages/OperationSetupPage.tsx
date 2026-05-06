@@ -13,8 +13,8 @@ import {
 } from "lucide-react";
 import { InfoPanel } from "../components/InfoPanel";
 import { Background } from "../components/SetUpWizBackgroud";
-import AddPropertyForm from "@/app/property/components/AddPropertyForm";
-import CreateLegalEntityForm from "@/app/legal_entity/CreateLegalEntityForm";
+import { SetupPropertyForm } from "../components/SetUpPropertyForm";
+import { SetupLegalEntityForm } from "../components/SetUpLegalEntityForm";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Selection = "legal_entity" | "property" | null;
@@ -530,9 +530,9 @@ function FormView({
       {/* The actual form */}
       <div style={{ padding: "0 3rem 3rem 2.5rem", flex: 1 }}>
         {selection === "legal_entity" ? (
-          <CreateLegalEntityForm closeModal={() => console.log("")} />
+          <SetupLegalEntityForm />
         ) : (
-          <AddPropertyForm closeModal={() => console.log("")} />
+          <SetupPropertyForm />
         )}
       </div>
     </motion.div>

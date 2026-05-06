@@ -14,3 +14,34 @@ export type SetupStepProgressResponseDTO = {
   started_at: string; // time.Time → ISO string
   completed_at?: string; // *time.Time → optional ISO string
 };
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface AddPropertySetupRequestDTO {
+  stepId: string;
+  orgId: string;
+
+  name: string;
+  code: string;
+  addressLine: string;
+  city: string;
+  state: string;
+  country: string;
+  pincode: string;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface SetupLegalEntityRequestDTO {
+  stepId: string;
+  orgId: string;
+  legalName: string;
+  type: string; // e.g., 'LLC', 'Private Limited', etc.
+  addressLine: string;
+  city: string;
+  state: string;
+  country: string;
+  pincode: string;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
