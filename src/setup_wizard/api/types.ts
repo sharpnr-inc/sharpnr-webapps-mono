@@ -56,6 +56,10 @@ export interface SetupLegalEntityRequestDTO {
 
 /* ---------------------------------- <***> --------------------------------- */
 
+export interface SuperAdminDetailspayload {
+  payload: SetupSuperAdminDetailsReqDTO;
+}
+
 export interface SetupSuperAdminDetailsReqDTO {
   step_id: string; // uuid.UUID
   first_name: string;

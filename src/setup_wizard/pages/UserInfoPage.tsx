@@ -6,6 +6,8 @@ import { fadeUp, InfoPanel } from "../components/InfoPanel";
 import { useAppForm } from "@/components/forms";
 import type { SetupSuperAdminDetailsReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/userinfo";
+import { useSetupWizSuperAdminUpdateMutation } from "../api/mutation";
+import { useNavigate } from "@tanstack/react-router";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FieldProps {
@@ -164,7 +166,8 @@ function Field({
 // ─── Form Panel ───────────────────────────────────────────────────────────────
 function FormPanel() {
   const { stepID } = Route.useParams();
-
+  const { mutateAsync } = useSetupWizSuperAdminUpdateMutation();
+  const nav = useNavigate();
   const defaultSuperAdmin: SetupSuperAdminDetailsReqDTO = {
     first_name: "",
     last_name: "",
@@ -175,8 +178,22 @@ function FormPanel() {
 
   const form = useAppForm({
     defaultValues: defaultSuperAdmin,
-    onSubmit: ({ value }) => {
-      console.log(value);
+    onSubmit: async ({ value }) => {
+      mutateAsync(
+        {
+          payload: value,
+        },
+        {
+          onSuccess() {
+            
+            nav({
+              to: "/setup_wizard",
+            });
+
+
+          },
+        },
+      );
     },
   });
 

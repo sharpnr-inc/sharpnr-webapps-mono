@@ -1,8 +1,8 @@
 import type { APIResponse } from "@/lib/api_response";
 import api from "@/middlewares/axios";
 import type {
-  AddPropertySetupRequestDTO,
   SetupProgressResponseDTO,
+  SuperAdminDetailspayload,
 } from "./types";
 
 /* ---------------------------------- <***> --------------------------------- */
@@ -29,10 +29,10 @@ export async function GetOrganizationSetUpProgress() {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export async function UpdateSuperAdmin({}: AddPropertySetupRequestDTO) {
+export async function UpdateSuperAdmin({ payload }: SuperAdminDetailspayload) {
   const response = await api.post<APIResponse<any>>(
     SetupWizardAPIEndpoints.UpdateSuperAdminDetails,
-    null,
+    payload,
   );
   return response.data;
 }

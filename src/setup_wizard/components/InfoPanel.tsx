@@ -72,7 +72,7 @@ export function InfoPanel({ step_number, step_name }: InfoPanelProps) {
             color: "rgba(99,214,255,0.8)",
           }}
         >
-          Step 01 of 03
+          {`Step ${step_number} of 03`}
         </span>
       </motion.div>
 
