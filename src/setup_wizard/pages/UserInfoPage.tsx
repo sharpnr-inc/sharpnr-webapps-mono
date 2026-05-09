@@ -7,19 +7,20 @@ import { useAppForm } from "@/components/forms";
 import type { SetupSuperAdminDetailsReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/userinfo";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface FieldProps {
   label: string;
   type?: string;
   placeholder: string;
   icon: React.ReactNode;
   value: string;
-  onChange: () => void;
+  onChange: (v: string) => void; // fixed: was () => void
+  onBlur?: () => void; // fixed: was missing entirely
   hint?: string;
   suffix?: React.ReactNode;
 }
 
-// ─── Field Component ─────────────────────────────────────────────────────────
+// ─── Field Component ──────────────────────────────────────────────────────────
 function Field({
   label,
   type = "text",
@@ -27,6 +28,7 @@ function Field({
   icon,
   value,
   onChange,
+  onBlur,
   hint,
   suffix,
 }: FieldProps) {
@@ -85,9 +87,12 @@ function Field({
         type={type}
         placeholder={focused ? placeholder : ""}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)} // fixed: unwrap the event
         onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
+        onBlur={() => {
+          setFocused(false);
+          onBlur?.(); // fixed: call field's onBlur
+        }}
         style={{
           width: "100%",
           padding: "1rem 2.6rem 0.6rem 2.5rem",
@@ -107,7 +112,7 @@ function Field({
         }}
       />
 
-      {/* Suffix (e.g. show/hide password) */}
+      {/* Suffix */}
       {suffix && (
         <div
           style={{
@@ -156,10 +161,10 @@ function Field({
   );
 }
 
-// ─── Right Form Panel ─────────────────────────────────────────────────────────
-
+// ─── Form Panel ───────────────────────────────────────────────────────────────
 function FormPanel() {
   const { stepID } = Route.useParams();
+
   const defaultSuperAdmin: SetupSuperAdminDetailsReqDTO = {
     first_name: "",
     last_name: "",
@@ -167,8 +172,12 @@ function FormPanel() {
     step_id: stepID,
     employee_id: "",
   };
+
   const form = useAppForm({
     defaultValues: defaultSuperAdmin,
+    onSubmit: ({ value }) => {
+      console.log(value);
+    },
   });
 
   return (
@@ -238,56 +247,60 @@ function FormPanel() {
         >
           <form.Field
             name="first_name"
-            children={(f) => {
-              return (
-                <Field
-                  label="First Name"
-                  placeholder="Jane"
-                  icon={<User size={14} />}
-                  value={f.state.value}
-                />
-              );
-            }}
+            children={(f) => (
+              <Field
+                label="First Name"
+                placeholder="Jane"
+                icon={<User size={14} />}
+                value={f.state.value}
+                onChange={f.handleChange} // fixed
+                onBlur={f.handleBlur} // fixed
+              />
+            )}
           />
+
           <form.Field
             name="last_name"
-            children={(f) => {
-              return (
-                <Field
-                  label="Last Name"
-                  placeholder="Jane Doe"
-                  icon={<User size={14} />}
-                  value={f.state.value}
-                />
-              );
-            }}
+            children={(f) => (
+              <Field
+                label="Last Name"
+                placeholder="Doe"
+                icon={<User size={14} />}
+                value={f.state.value}
+                onChange={f.handleChange} // fixed
+                onBlur={f.handleBlur} // fixed
+              />
+            )}
           />
+
           <form.Field
             name="secondary_email"
-            children={(f) => {
-              return (
-                <Field
-                  label="Secondary Email Address"
-                  type="email"
-                  placeholder="YOURORG123"
-                  icon={<User size={14} />}
-                  value={f.state.value}
-                />
-              );
-            }}
+            children={(f) => (
+              <Field
+                label="Secondary Email Address"
+                type="email"
+                placeholder="jane.personal@gmail.com"
+                icon={<Mail size={14} />}
+                value={f.state.value}
+                onChange={f.handleChange} // fixed
+                onBlur={f.handleBlur} // fixed
+              />
+            )}
           />
+
           <form.Field
             name="employee_id"
-            children={(f) => {
-              return (
-                <Field
-                  label="employee id"
-                  placeholder="jane@YOURORG123"
-                  icon={<Mail size={14} />}
-                  value={f.state.value}
-                />
-              );
-            }}
+            children={(f) => (
+              <Field
+                label="Employee ID"
+                placeholder="YOURORG123"
+                icon={<Mail size={14} />}
+                value={f.state.value ?? ""} // ← coerce undefined to empty string
+                onChange={f.handleChange} // fixed
+                onBlur={f.handleBlur} // fixed
+                hint="Your organisation-assigned employee identifier"
+              />
+            )}
           />
         </motion.div>
 
@@ -298,7 +311,7 @@ function FormPanel() {
           </form.AppForm>
         </motion.div>
 
-        {/* Step footnote */}
+        {/* Footnote */}
         <motion.p
           custom={5}
           variants={fadeUp}
@@ -342,7 +355,6 @@ export function UserinfoSetUpPage() {
           gridTemplateColumns: "1fr 1fr",
         }}
       >
-        {/* Right — Form */}
         <FormPanel />
         <InfoPanel step_name="Super Admin Profile" step_number="01" />
       </div>
