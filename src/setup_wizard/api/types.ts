@@ -1,18 +1,29 @@
+export type SetupWizOverallSetupStatus =
+  | "NOT_STARTED"
+  | "IN_PROGRESS"
+  | "COMPLETED";
+
+export type SetupWizStepType =
+  | "SUPER_ADMIN_PROFILE"
+  | "ORGANIZATION_DETAILS_UPDATES"
+  | "OPERATIONS_SETUP";
+
+export type StepWizStepProgressStatus = "IN_PROGRESS" | "COMPLETED";
+
 export type SetupProgressResponseDTO = {
-  overall_status: string;
-  current_step?: string;
-  progress_pct: number;
+  overall_status: SetupWizOverallSetupStatus;
+  current_step?: SetupWizStepType;
   is_completed: boolean;
   steps: SetupStepProgressResponseDTO[];
 };
 
 export type SetupStepProgressResponseDTO = {
-  id: string; // uuid.UUID → string
-  step: string;
-  status: string;
+  id: string;
+  step: SetupWizStepType;
+  status: StepWizStepProgressStatus;
   version: number;
-  started_at: string; // time.Time → ISO string
-  completed_at?: string; // *time.Time → optional ISO string
+  started_at: string;
+  completed_at?: string;
 };
 
 /* ---------------------------------- <***> --------------------------------- */
@@ -20,7 +31,6 @@ export type SetupStepProgressResponseDTO = {
 export interface AddPropertySetupRequestDTO {
   stepId: string;
   orgId: string;
-
   name: string;
   code: string;
   addressLine: string;
@@ -45,3 +55,11 @@ export interface SetupLegalEntityRequestDTO {
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export interface SetupSuperAdminDetailsReqDTO {
+  step_id: string; // uuid.UUID
+  first_name: string;
+  last_name: string;
+  secondary_email: string;
+  employee_id?: string;
+}

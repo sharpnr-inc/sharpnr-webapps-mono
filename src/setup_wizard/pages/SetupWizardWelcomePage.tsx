@@ -1,6 +1,5 @@
-"use client";
-
 import { useEffect, useState, useRef } from "react";
+import { Route } from "@/routes/setup_wizard/route";
 import {
   motion,
   AnimatePresence,
@@ -10,6 +9,8 @@ import {
   type Variants,
 } from "framer-motion";
 import { MoveRight } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { resolveSetupWizardRedirect } from "../resolver/step_resolver";
 
 // ─── Floating Orbs Background ───────────────────────────────────────────────
 function BackgroundOrbs() {
@@ -248,7 +249,11 @@ function SplashScreen() {
 }
 
 // ─── Main Content ────────────────────────────────────────────────────────────
-function MainContent() {
+interface MainContentProps {
+  onContinue: () => void;
+  disabled: boolean;
+}
+function MainContent({ onContinue, disabled }: MainContentProps) {
   const [hovered, setHovered] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -399,6 +404,8 @@ function MainContent() {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
+        onClick={onContinue}
+        disabled={disabled}
         style={{
           position: "relative",
           display: "flex",
@@ -468,11 +475,27 @@ function MainContent() {
 // ─── Root Component ──────────────────────────────────────────────────────────
 export function SetupWizardWelcomePage() {
   const [phase, setPhase] = useState<"splash" | "main">("splash");
+  const navigate = useNavigate();
+  const { setupProgress } = Route.useLoaderData();
+
+  const resolved = resolveSetupWizardRedirect(setupProgress);
+  
+  console.log(resolved);
+
+  const target =
+    resolved.type === "NOT_STARTED" || resolved.type === "IN_PROGRESS"
+      ? resolved.target
+      : null;
 
   useEffect(() => {
     const t = setTimeout(() => setPhase("main"), 2200);
     return () => clearTimeout(t);
   }, []);
+
+  function handleContinue() {
+    if (!target) return;
+    navigate({ to: target.to, params: target.params });
+  }
 
   return (
     <div
@@ -494,7 +517,11 @@ export function SetupWizardWelcomePage() {
         {phase === "splash" ? (
           <SplashScreen key="splash" />
         ) : (
-          <MainContent key="main" />
+          <MainContent
+            key="main"
+            onContinue={handleContinue}
+            disabled={!target}
+          />
         )}
       </AnimatePresence>
     </div>

@@ -5,6 +5,7 @@ import {
 import GlobalLoader from "@/components/ui/GlobalLoader";
 import { config } from "@/configs/env";
 import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
+import { resolveSetupWizardRedirect } from "@/setup_wizard/resolver/step_resolver";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
@@ -39,7 +40,32 @@ export const Route = createFileRoute("/setup_wizard")({
       });
     }
 
-    // we use the resolver here to resolve the step and decide where to throw the user
+    const resolved = resolveSetupWizardRedirect(setupProgress.data);
+
+    switch (resolved.type) {
+      case "COMPLETED":
+        throw redirect({ to: "/home" });
+
+      case "NOT_STARTED":
+        return;
+
+      case "IN_PROGRESS": {
+        const resolvedPathname = resolved.target.to.replace(
+          "$stepID",
+          resolved.target.params.stepID,
+        );
+        if (!location.pathname.startsWith(resolvedPathname)) {
+          throw redirect({
+            to: resolved.target.to,
+            params: resolved.target.params,
+          });
+        }
+        return;
+      }
+
+      case "UNRESOLVABLE":
+        return;
+    }
   },
 
   loader: async ({ context }) => {
@@ -68,7 +94,13 @@ export const Route = createFileRoute("/setup_wizard")({
       role: user.role,
     });
 
-    return { user };
+    // Fetch fresh setup progress for the loader data
+    const setupProgress = await context.queryClient.ensureQueryData({
+      queryKey: ["setup-progress"],
+      queryFn: GetOrganizationSetUpProgress,
+    });
+
+    return { user, setupProgress: setupProgress.data };
   },
   component: Outlet,
 });
