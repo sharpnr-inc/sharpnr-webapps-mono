@@ -300,7 +300,6 @@ function FormPanel() {
             } else {
               toast.error(message);
             }
-
             nav({
               to: "/setup_wizard",
             });

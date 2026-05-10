@@ -15,6 +15,7 @@ import { Route } from "@/routes/setup_wizard/$stepID/base_setup";
 import { useSetupWizOperationAddPropertyMutation } from "../api/mutation";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 // ─── Shared fade-up variant ───────────────────────────────────────────────────
 const fadeUp = {
@@ -316,6 +317,7 @@ export function SetupPropertyForm() {
   const { stepID } = Route.useParams();
   const { mutateAsync } = useSetupWizOperationAddPropertyMutation();
   const nav = useNavigate();
+  const q = useQueryClient();
 
   const defaultProperty: SetupOrgPropertyReqDTO = {
     step_id: stepID,
@@ -343,6 +345,10 @@ export function SetupPropertyForm() {
             if (success) {
               toast.success(message);
             }
+
+            q.invalidateQueries({
+              queryKey: ["setup-progress", "SETUP_WIZARD"],
+            });
 
             nav({
               to: "/setup_wizard",

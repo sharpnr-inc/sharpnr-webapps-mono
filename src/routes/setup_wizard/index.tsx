@@ -10,7 +10,7 @@ export const Route = createFileRoute("/setup_wizard/")({
       queryKey: ["setup-progress", "SETUP_WIZARD"],
       queryFn: GetOrganizationSetUpProgress,
     });
-    console.log("Before Load Hit");
+
     const resolved = resolveSetupWizardRedirect(setupProgress.data);
 
     switch (resolved.type) {
