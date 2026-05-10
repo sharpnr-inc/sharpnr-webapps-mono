@@ -21,6 +21,7 @@ import { useState, useEffect, useRef } from "react";
 import { config } from "@/configs/env";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
+import { toast } from "sonner";
 
 interface VerifyOtpFormProps extends React.ComponentProps<"div"> {
   setShowOtp?: (show: boolean) => void;
@@ -33,7 +34,7 @@ export function VerifyOtpForm({
   email,
   ...props
 }: VerifyOtpFormProps) {
-  const verifyOtp = useVerifyOtpMutation();
+  const { mutateAsync } = useVerifyOtpMutation();
   const [isResending, setIsResending] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -44,9 +45,16 @@ export function VerifyOtpForm({
     defaultValues: { otp: "" } as OtpPayload,
     onSubmit: async ({ value }) => {
       try {
-        await verifyOtp.mutateAsync(value, {
-          onSuccess: () => {
-            window.location.replace(config.orchestratorAppUrl);
+        await mutateAsync(value, {
+          onSuccess: ({ success, message, error }) => {
+            if (success) {
+              toast.success(message);
+            } else {
+              toast.error(error?.message);
+            }
+            window.location.replace(
+              config.orchestratorAppUrl + "/setup_wizard",
+            );
           },
         });
       } catch (error) {

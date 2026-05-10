@@ -23,7 +23,10 @@ export interface OtpPayload {
   otp: string;
 }
 export async function VerifyOtp(otp: OtpPayload) {
-  const res = await api.post(AuthApiEndpoints.Signup.verifyOtp, otp);
+  const res = await api.post<APIResponse<any>>(
+    AuthApiEndpoints.Signup.verifyOtp,
+    otp,
+  );
   return res.data;
 }
 
