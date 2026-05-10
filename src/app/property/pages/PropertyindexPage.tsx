@@ -28,8 +28,8 @@ import PropertyDomainSelection from "../components/PropertyDomainSelection";
 import { useAddPropertyDomainMutation } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useProperties } from "../api/queries";
-import type { Property } from "../api/service";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
+import type { Property } from "../api/types";
 
 /* ── easing ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];

@@ -6,7 +6,43 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // utils/cookies.ts
+
+/**
+ * Safely read a cookie value by name.
+ *
+ * Handles:
+ * - whitespace
+ * - encoded values
+ * - values containing "="
+ */
 export function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-  return match ? decodeURIComponent(match[2]) : null;
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const cookies = document.cookie.split(";");
+
+  for (const cookie of cookies) {
+    const trimmed = cookie.trim();
+
+    // Split only on first "="
+    const separatorIndex = trimmed.indexOf("=");
+
+    if (separatorIndex === -1) {
+      continue;
+    }
+
+    const key = trimmed.slice(0, separatorIndex);
+    const value = trimmed.slice(separatorIndex + 1);
+
+    if (key === name) {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return value;
+      }
+    }
+  }
+
+  return null;
 }

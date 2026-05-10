@@ -92,6 +92,7 @@ export const Route = createFileRoute("/setup_wizard")({
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      org_data: user.org_data,
     });
 
     // Fetch fresh setup progress for the loader data

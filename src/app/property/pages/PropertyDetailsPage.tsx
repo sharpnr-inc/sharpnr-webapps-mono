@@ -21,8 +21,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { useFormsModal } from "@/hooks/useFormModal";
 import AddModulesInProperty from "../components/AddModulesInProperty";
 import { AddInfraInProperty } from "../components/AddInfrasInProperty";
-import type { PropertyModule } from "../api/service";
 import { motion, type Variants } from "framer-motion";
+import type { PropertyModule } from "../api/types";
 
 /* ── easing ─────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
