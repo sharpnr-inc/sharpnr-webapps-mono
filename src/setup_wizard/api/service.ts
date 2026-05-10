@@ -2,7 +2,9 @@ import type { APIResponse } from "@/lib/api_response";
 import api from "@/middlewares/axios";
 import type {
   SetupProgressResponseDTO,
+  SetupWizAddPropertyPayload,
   SuperAdminDetailspayload,
+  UpdateOrganizationNamePayload,
 } from "./types";
 
 /* ---------------------------------- <***> --------------------------------- */
@@ -14,8 +16,8 @@ import type {
 export const SetupWizardAPIEndpoints = {
   GetOrganizationSetUpProgress: "/orchestrator/setup-wiz/progress",
   UpdateSuperAdminDetails: "/orchestrator/setup-wiz/v1/sasetup",
+  UpdateOrganizationName: "/orchestrator/setup-wiz/v1/org_details",
   AddPropertySetup: "/orchestrator/setup-wiz/v1/property_setup",
-  AddLegalEntitySetup: "/orchestrator/setup-wiz/v1/legal-entity_setup",
 };
 
 /* ---------------------------------- <***> --------------------------------- */
@@ -48,11 +50,26 @@ export async function AddPropertySetup() {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export async function AddLegalEntity() {
+export async function UpdateOrgName({
+  payload,
+}: UpdateOrganizationNamePayload) {
   const response = await api.post<APIResponse<null>>(
-    SetupWizardAPIEndpoints.AddLegalEntitySetup,
-    null,
+    SetupWizardAPIEndpoints.UpdateOrganizationName,
+    payload,
   );
-
   return response.data;
 }
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function SetupWizAddProperty({
+  payload,
+}: SetupWizAddPropertyPayload) {
+  const response = await api.post<APIResponse<null>>(
+    SetupWizardAPIEndpoints.AddPropertySetup,
+    payload,
+  );
+  return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */

@@ -30,7 +30,7 @@ export const Route = createFileRoute("/setup_wizard")({
     // 2. Check Organization Setup Progress
     // We do this here so we can redirect BEFORE the loader delay
     const setupProgress = await context.queryClient.ensureQueryData({
-      queryKey: ["setup-progress"],
+      queryKey: ["setup-progress", "SETUP_WIZARD"],
       queryFn: GetOrganizationSetUpProgress,
     });
 
@@ -96,7 +96,7 @@ export const Route = createFileRoute("/setup_wizard")({
 
     // Fetch fresh setup progress for the loader data
     const setupProgress = await context.queryClient.ensureQueryData({
-      queryKey: ["setup-progress"],
+      queryKey: ["setup-progress", "SETUP_WIZARD"],
       queryFn: GetOrganizationSetUpProgress,
     });
 

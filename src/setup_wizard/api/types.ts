@@ -67,3 +67,35 @@ export interface SetupSuperAdminDetailsReqDTO {
   secondary_email: string;
   employee_id?: string;
 }
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface UpdateOrganizationNamePayload {
+  payload: SetupWizUpdateOrgNameRequestDto;
+}
+
+export interface SetupWizUpdateOrgNameRequestDto {
+  step_id: string;
+  org_name: string;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface SetupWizAddPropertyPayload {
+  payload: SetupOrgPropertyReqDTO;
+}
+
+export interface SetupOrgPropertyReqDTO {
+  step_id: string;
+  name?: string;
+  address_line?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  pincode?: string;
+
+  // Optional geolocation fields
+  longitude?: number;
+  latitude?: number;
+  accuracy_m?: number;
+}

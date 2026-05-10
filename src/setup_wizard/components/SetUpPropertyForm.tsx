@@ -1,37 +1,15 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Building2,
-  Hash,
   MapPin,
-  Map,
-  Globe,
   Mail,
-  MoveRight,
   CheckCircle2,
   AlertCircle,
-  Loader2,
 } from "lucide-react";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-interface FieldState {
-  value: string;
-  error: string;
-  touched: boolean;
-}
-
-type FormFields =
-  | "name"
-  | "code"
-  | "addressLine"
-  | "city"
-  | "state"
-  | "country"
-  | "pincode";
-
-type FormState = Record<FormFields, FieldState>;
+import { useAppForm } from "@/components/forms";
+import type { SetupOrgPropertyReqDTO } from "../api/types";
+import { Route } from "@/routes/setup_wizard/$stepID/base_setup";
 
 // ─── Shared fade-up variant ───────────────────────────────────────────────────
 const fadeUp = {
@@ -48,17 +26,19 @@ const fadeUp = {
 };
 
 // ─── Field Component ──────────────────────────────────────────────────────────
+// onChange receives a plain string — callers must NOT pass the event object.
+// error / touched come from TanStack field meta (f.state.meta).
 function Field({
   label,
   placeholder,
   icon,
   value,
-  error,
-  touched,
+  error, // f.state.meta.errors[0] ?? ""
+  touched, // f.state.meta.isTouched
   type = "text",
   hint,
-  onChange,
-  onBlur,
+  onChange, // (v: string) => void  — pass f.handleChange directly
+  onBlur, // () => void           — pass f.handleBlur directly
   transform,
 }: {
   label: string;
@@ -74,7 +54,7 @@ function Field({
   transform?: (v: string) => string;
 }) {
   const [focused, setFocused] = useState(false);
-  const hasError = touched && error;
+  const hasError = touched && !!error;
   const isValid = touched && !error && value.length > 0;
   const active = focused || value.length > 0;
 
@@ -157,6 +137,7 @@ function Field({
         value={value}
         placeholder={focused ? placeholder : ""}
         onChange={(e) => {
+          // Unwrap event → apply optional transform → pass plain string to TanStack
           const v = transform ? transform(e.target.value) : e.target.value;
           onChange(v);
         }}
@@ -263,303 +244,6 @@ function Field({
   );
 }
 
-// ─── Validation ───────────────────────────────────────────────────────────────
-const VALIDATORS: Record<FormFields, (v: string) => string> = {
-  name: (v) => (v.trim().length < 2 ? "Property name is too short" : ""),
-  code: (v) =>
-    v.trim().length < 2
-      ? "Code must be at least 2 characters"
-      : !/^[A-Z0-9-]+$/.test(v)
-        ? "Only uppercase letters, numbers and hyphens"
-        : "",
-  addressLine: (v) => (v.trim().length < 5 ? "Enter a valid address" : ""),
-  city: (v) => (v.trim().length < 2 ? "City is required" : ""),
-  state: (v) => (v.trim().length < 2 ? "State is required" : ""),
-  country: (v) => (v.trim().length < 2 ? "Country is required" : ""),
-  pincode: (v) =>
-    v.trim().length === 0
-      ? "Pincode is required"
-      : !/^\d{4,10}$/.test(v)
-        ? "Enter a valid pincode"
-        : "",
-};
-
-// ─── Initial state ────────────────────────────────────────────────────────────
-const INITIAL: FormState = {
-  name: { value: "", error: "", touched: false },
-  code: { value: "", error: "", touched: false },
-  addressLine: { value: "", error: "", touched: false },
-  city: { value: "", error: "", touched: false },
-  state: { value: "", error: "", touched: false },
-  country: { value: "", error: "", touched: false },
-  pincode: { value: "", error: "", touched: false },
-};
-
-// ─── Form ─────────────────────────────────────────────────────────────────────
-export function SetupPropertyForm() {
-  const [fields, setFields] = useState<FormState>(INITIAL);
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-
-  function update(key: FormFields, value: string) {
-    setFields((prev) => ({
-      ...prev,
-      [key]: {
-        value,
-        touched: prev[key].touched,
-        error: prev[key].touched ? VALIDATORS[key](value) : "",
-      },
-    }));
-  }
-
-  function touch(key: FormFields) {
-    setFields((prev) => ({
-      ...prev,
-      [key]: {
-        ...prev[key],
-        touched: true,
-        error: VALIDATORS[key](prev[key].value),
-      },
-    }));
-  }
-
-  function handleSubmit() {
-    // Touch all fields to trigger validation
-    const next = { ...fields };
-    (Object.keys(next) as FormFields[]).forEach((k) => {
-      next[k] = {
-        ...next[k],
-        touched: true,
-        error: VALIDATORS[k](next[k].value),
-      };
-    });
-    setFields(next);
-
-    const hasErrors = (Object.keys(next) as FormFields[]).some(
-      (k) => next[k].error,
-    );
-    if (hasErrors) return;
-
-    setStatus("loading");
-    // Simulate async submission
-    setTimeout(() => setStatus("success"), 1400);
-  }
-
-  const isSuccess = status === "success";
-
-  return (
-    <motion.div initial="hidden" animate="show" style={{}}>
-      {/* Form header */}
-      <motion.div
-        custom={0}
-        variants={fadeUp}
-        style={{ marginBottom: "1.75rem" }}
-      >
-        <p
-          style={{
-            margin: "0 0 0.3rem",
-            fontFamily: "'IBM Plex Mono', monospace",
-            fontSize: "0.58rem",
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(167,139,250,0.65)",
-          }}
-        >
-          New Property
-        </p>
-        <h2
-          style={{
-            margin: 0,
-            fontFamily: "'IBM Plex Mono', monospace",
-            fontSize: "clamp(1rem, 2vw, 1.3rem)",
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.88)",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          Where does your operation run?
-        </h2>
-        <p
-          style={{
-            margin: "0.45rem 0 0",
-            fontFamily: "'IBM Plex Mono', monospace",
-            fontSize: "0.67rem",
-            color: "rgba(255,255,255,0.25)",
-            lineHeight: 1.65,
-          }}
-        >
-          A property is any physical venue your business operates from — a
-          hotel, resort, office, or facility.
-        </p>
-      </motion.div>
-
-      {/* Section — Identity */}
-      <motion.div custom={1} variants={fadeUp} style={{ marginBottom: "1rem" }}>
-        <SectionLabel label="Identity" index={1} />
-      </motion.div>
-
-      <motion.div
-        custom={2}
-        variants={fadeUp}
-        style={{ display: "flex", gap: "0.85rem", marginBottom: "0.85rem" }}
-      >
-        {/* Name — wider */}
-        <div style={{ flex: 2 }}>
-          <Field
-            label="Property Name"
-            placeholder="Grand Hyatt Mumbai"
-            icon={<Building2 size={13} />}
-            value={fields.name.value}
-            error={fields.name.error}
-            touched={fields.name.touched}
-            onChange={(v) => update("name", v)}
-            onBlur={() => touch("name")}
-          />
-        </div>
-
-        {/* Code — narrower */}
-        <div style={{ flex: 1 }}>
-          <Field
-            label="Code"
-            placeholder="GHM-01"
-            icon={<Hash size={13} />}
-            value={fields.code.value}
-            error={fields.code.error}
-            touched={fields.code.touched}
-            hint="Unique short identifier"
-            onChange={(v) => update("code", v.toUpperCase())}
-            onBlur={() => touch("code")}
-            transform={(v) => v.toUpperCase()}
-          />
-        </div>
-      </motion.div>
-
-      {/* Section — Location */}
-      <motion.div
-        custom={3}
-        variants={fadeUp}
-        style={{ margin: "1.25rem 0 1rem" }}
-      >
-        <SectionLabel label="Location" index={2} />
-      </motion.div>
-
-      <motion.div
-        custom={4}
-        variants={fadeUp}
-        style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
-      >
-        <Field
-          label="Address Line"
-          placeholder="123 Marine Drive, Floor 4"
-          icon={<MapPin size={13} />}
-          value={fields.addressLine.value}
-          error={fields.addressLine.error}
-          touched={fields.addressLine.touched}
-          onChange={(v) => update("addressLine", v)}
-          onBlur={() => touch("addressLine")}
-        />
-
-        <div style={{ display: "flex", gap: "0.85rem" }}>
-          <div style={{ flex: 1 }}>
-            <Field
-              label="City"
-              placeholder="Mumbai"
-              icon={<Map size={13} />}
-              value={fields.city.value}
-              error={fields.city.error}
-              touched={fields.city.touched}
-              onChange={(v) => update("city", v)}
-              onBlur={() => touch("city")}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <Field
-              label="State"
-              placeholder="Maharashtra"
-              icon={<Map size={13} />}
-              value={fields.state.value}
-              error={fields.state.error}
-              touched={fields.state.touched}
-              onChange={(v) => update("state", v)}
-              onBlur={() => touch("state")}
-            />
-          </div>
-        </div>
-
-        <div style={{ display: "flex", gap: "0.85rem" }}>
-          <div style={{ flex: 1 }}>
-            <Field
-              label="Country"
-              placeholder="India"
-              icon={<Globe size={13} />}
-              value={fields.country.value}
-              error={fields.country.error}
-              touched={fields.country.touched}
-              onChange={(v) => update("country", v)}
-              onBlur={() => touch("country")}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <Field
-              label="Pincode"
-              placeholder="400001"
-              icon={<Mail size={13} />}
-              type="text"
-              value={fields.pincode.value}
-              error={fields.pincode.error}
-              touched={fields.pincode.touched}
-              onChange={(v) => update("pincode", v.replace(/\D/g, ""))}
-              onBlur={() => touch("pincode")}
-              transform={(v) => v.replace(/\D/g, "")}
-            />
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Submit */}
-      <motion.div custom={5} variants={fadeUp} style={{ marginTop: "2rem" }}>
-        <SubmitButton status={status} onClick={handleSubmit} />
-      </motion.div>
-
-      {/* Success message */}
-      <AnimatePresence>
-        {isSuccess && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            style={{
-              marginTop: "1rem",
-              padding: "0.75rem 1rem",
-              borderRadius: "8px",
-              background: "rgba(74,222,128,0.06)",
-              border: "1px solid rgba(74,222,128,0.2)",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.6rem",
-            }}
-          >
-            <CheckCircle2
-              size={13}
-              style={{ color: "rgba(74,222,128,0.8)", flexShrink: 0 }}
-            />
-            <span
-              style={{
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: "0.65rem",
-                color: "rgba(74,222,128,0.7)",
-                letterSpacing: "0.04em",
-              }}
-            >
-              Property created — moving to the next step.
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
-}
-
 // ─── Section label ────────────────────────────────────────────────────────────
 function SectionLabel({ label, index }: { label: string; index: number }) {
   return (
@@ -597,109 +281,196 @@ function SectionLabel({ label, index }: { label: string; index: number }) {
   );
 }
 
-// ─── Submit Button ────────────────────────────────────────────────────────────
-function SubmitButton({
-  status,
-  onClick,
-}: {
-  status: "idle" | "loading" | "success";
-  onClick: () => void;
-}) {
-  const [hovered, setHovered] = useState(false);
-  const isLoading = status === "loading";
-  const isSuccess = status === "success";
+// ─── Form ─────────────────────────────────────────────────────────────────────
+export function SetupPropertyForm() {
+  const { stepID } = Route.useParams();
+
+  const defaultProperty: SetupOrgPropertyReqDTO = {
+    step_id: stepID,
+    accuracy_m: 0.0,
+    address_line: "",
+    city: "",
+    country: "",
+    latitude: 0.0,
+    longitude: 0.0,
+    name: "",
+    pincode: "",
+    state: "",
+  };
+
+  const form = useAppForm({
+    defaultValues: defaultProperty,
+    onSubmit: ({ value }) => {
+      console.log(value);
+    },
+  });
 
   return (
-    <motion.button
-      onClick={onClick}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      whileTap={{ scale: 0.98 }}
-      disabled={isLoading || isSuccess}
-      style={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "0.55rem",
-        padding: "0.9rem 2rem",
-        borderRadius: "8px",
-        border: `1px solid ${
-          isSuccess
-            ? "rgba(74,222,128,0.4)"
-            : hovered
-              ? "rgba(167,139,250,0.45)"
-              : "rgba(255,255,255,0.09)"
-        }`,
-        background: isSuccess
-          ? "rgba(74,222,128,0.07)"
-          : hovered
-            ? "rgba(167,139,250,0.08)"
-            : "rgba(255,255,255,0.03)",
-        color: isSuccess
-          ? "rgba(74,222,128,0.85)"
-          : hovered
-            ? "rgba(167,139,250,0.9)"
-            : "rgba(255,255,255,0.6)",
-        fontFamily: "'IBM Plex Mono', monospace",
-        fontSize: "0.72rem",
-        letterSpacing: "0.16em",
-        textTransform: "uppercase",
-        cursor: isLoading || isSuccess ? "default" : "pointer",
-        outline: "none",
-        transition: "all 0.25s ease",
-        boxShadow:
-          hovered && !isSuccess ? "0 0 20px rgba(167,139,250,0.07)" : "none",
-      }}
-    >
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.span
-            key="loading"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+    <motion.div initial="hidden" animate="show">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+      >
+        {/* Header */}
+        <motion.div
+          custom={0}
+          variants={fadeUp}
+          style={{ marginBottom: "1.75rem" }}
+        >
+          <p
+            style={{
+              margin: "0 0 0.3rem",
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: "0.58rem",
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: "rgba(167,139,250,0.65)",
+            }}
           >
-            <motion.span
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              style={{ display: "flex" }}
-            >
-              <Loader2 size={13} />
-            </motion.span>
-            Creating Property…
-          </motion.span>
-        ) : isSuccess ? (
-          <motion.span
-            key="success"
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+            New Property
+          </p>
+          <h2
+            style={{
+              margin: 0,
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: "clamp(1rem, 2vw, 1.3rem)",
+              fontWeight: 600,
+              color: "rgba(255,255,255,0.88)",
+              letterSpacing: "-0.02em",
+            }}
           >
-            <CheckCircle2 size={13} />
-            Property Created
-          </motion.span>
-        ) : (
-          <motion.span
-            key="idle"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+            Where does your operation run?
+          </h2>
+          <p
+            style={{
+              margin: "0.45rem 0 0",
+              fontFamily: "'IBM Plex Mono', monospace",
+              fontSize: "0.67rem",
+              color: "rgba(255,255,255,0.25)",
+              lineHeight: 1.65,
+            }}
           >
-            Create Property
-            <motion.span
-              animate={{ x: hovered ? 4 : 0 }}
-              transition={{ duration: 0.2 }}
-              style={{ display: "flex" }}
-            >
-              <MoveRight size={13} />
-            </motion.span>
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </motion.button>
+            A property is any physical venue your business operates from — a
+            hotel, resort, office, or facility.
+          </p>
+        </motion.div>
+
+        {/* Section — Identity */}
+        <motion.div
+          custom={1}
+          variants={fadeUp}
+          style={{ marginBottom: "1rem" }}
+        >
+          <SectionLabel label="Identity" index={1} />
+        </motion.div>
+
+        <motion.div
+          custom={2}
+          variants={fadeUp}
+          style={{ marginBottom: "0.85rem" }}
+        >
+          <form.Field
+            name="name"
+            children={(f) => (
+              <Field
+                label="Property Name"
+                placeholder="Grand Hyatt Mumbai"
+                icon={<Building2 size={13} />}
+                value={f.state.value ?? ""}
+                error={f.state.meta.errors[0] ?? ""}
+                touched={f.state.meta.isTouched}
+                onChange={f.handleChange}
+                onBlur={f.handleBlur}
+              />
+            )}
+          />
+        </motion.div>
+
+        {/* Section — Location */}
+        <motion.div
+          custom={3}
+          variants={fadeUp}
+          style={{ margin: "1.25rem 0 1rem" }}
+        >
+          <SectionLabel label="Location" index={2} />
+        </motion.div>
+
+        <motion.div
+          custom={4}
+          variants={fadeUp}
+          style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
+        >
+          {/* Address line */}
+          <form.Field
+            name="address_line"
+            children={(f) => (
+              <Field
+                label="Address Line"
+                placeholder="123 Marine Drive, Floor 4"
+                icon={<MapPin size={13} />}
+                value={f.state.value ?? ""}
+                error={f.state.meta.errors[0] ?? ""}
+                touched={f.state.meta.isTouched}
+                onChange={f.handleChange}
+                onBlur={f.handleBlur}
+              />
+            )}
+          />
+
+          <form.AppField
+            name="country"
+            children={(f) => {
+              return <f.CountrySelect />;
+            }}
+          />
+
+          <form.AppField
+            name="state"
+            children={(f) => {
+              return <f.StateSelect />;
+            }}
+          />
+
+          <form.AppField
+            name="city"
+            children={(f) => {
+              return <f.CitySelect />;
+            }}
+          />
+
+          {/* Country / Pincode */}
+
+          <form.Field
+            name="pincode"
+            children={(f) => (
+              <div style={{ flex: 1 }}>
+                <Field
+                  label="Pincode"
+                  placeholder="400001"
+                  icon={<Mail size={13} />}
+                  type="text"
+                  value={f.state.value ?? ""}
+                  error={f.state.meta.errors[0] ?? ""}
+                  touched={f.state.meta.isTouched}
+                  onChange={f.handleChange}
+                  onBlur={f.handleBlur}
+                  transform={(v) => v.replace(/\D/g, "")}
+                />
+              </div>
+            )}
+          />
+        </motion.div>
+
+        {/* Submit */}
+        <motion.div custom={5} variants={fadeUp} style={{ marginTop: "2rem" }}>
+          <form.AppForm>
+            <form.SubmitButton>Continue & Save Property</form.SubmitButton>
+          </form.AppForm>
+        </motion.div>
+      </form>
+    </motion.div>
   );
 }

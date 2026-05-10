@@ -5,11 +5,12 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/setup_wizard/")({
   beforeLoad: async ({ context }) => {
-    const setupProgress = await context.queryClient.ensureQueryData({
-      queryKey: ["setup-progress"],
+    console.log("Before Load Hit");
+    const setupProgress = await context.queryClient.fetchQuery({
+      queryKey: ["setup-progress", "SETUP_WIZARD"],
       queryFn: GetOrganizationSetUpProgress,
     });
-
+    console.log("Before Load Hit");
     const resolved = resolveSetupWizardRedirect(setupProgress.data);
 
     switch (resolved.type) {

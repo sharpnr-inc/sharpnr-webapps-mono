@@ -8,6 +8,7 @@ import type { SetupSuperAdminDetailsReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/userinfo";
 import { useSetupWizSuperAdminUpdateMutation } from "../api/mutation";
 import { useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FieldProps {
@@ -168,6 +169,7 @@ function FormPanel() {
   const { stepID } = Route.useParams();
   const { mutateAsync } = useSetupWizSuperAdminUpdateMutation();
   const nav = useNavigate();
+  const q = useQueryClient();
   const defaultSuperAdmin: SetupSuperAdminDetailsReqDTO = {
     first_name: "",
     last_name: "",
@@ -185,12 +187,12 @@ function FormPanel() {
         },
         {
           onSuccess() {
-            
+            q.invalidateQueries({
+              queryKey: ["setup-progress", "SETUP_WIZARD"],
+            });
             nav({
               to: "/setup_wizard",
             });
-
-
           },
         },
       );

@@ -1,10 +1,7 @@
-"use client";
-
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Building2,
-  Landmark,
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
@@ -21,24 +18,24 @@ type Selection = "legal_entity" | "property" | null;
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const CARDS = [
-  {
-    id: "legal_entity" as const,
-    icon: Landmark,
-    accent: "#63d6ff",
-    accentRgb: "99,214,255",
-    tag: "Sharp-HR · Sharp-Accounting",
-    title: "Legal Entity",
-    subtitle: "Your registered company",
-    description:
-      "A Legal Entity represents your legally registered organisation. Required to unlock payroll, accounting, and compliance modules across the platform.",
-    perks: [
-      "Activate Sharp-HR for workforce management",
-      "Unlock Sharp-Accounting for financials",
-      "Basis for all compliance & tax reporting",
-      "Supports multi-entity structures",
-    ],
-    required: "Required for HR & Accounting",
-  },
+  // {
+  //   id: "legal_entity" as const,
+  //   icon: Landmark,
+  //   accent: "#63d6ff",
+  //   accentRgb: "99,214,255",
+  //   tag: "Sharp-HR · Sharp-Accounting",
+  //   title: "Legal Entity",
+  //   subtitle: "Your registered company",
+  //   description:
+  //     "A Legal Entity represents your legally registered organisation. Required to unlock payroll, accounting, and compliance modules across the platform.",
+  //   perks: [
+  //     "Activate Sharp-HR for workforce management",
+  //     "Unlock Sharp-Accounting for financials",
+  //     "Basis for all compliance & tax reporting",
+  //     "Supports multi-entity structures",
+  //   ],
+  //   required: "Required for HR & Accounting",
+  // },
   {
     id: "property" as const,
     icon: Building2,
@@ -582,7 +579,7 @@ export function OperationSetUpPage() {
                 ? "Property"
                 : "Setup Operations"
           }
-          step_number="02"
+          step_number="03"
         />
 
         {/* Right — Cards or Form */}
