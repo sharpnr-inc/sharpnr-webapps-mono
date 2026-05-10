@@ -41,7 +41,7 @@ export const Route = createFileRoute("/setup_wizard")({
     }
 
     const resolved = resolveSetupWizardRedirect(setupProgress.data);
-
+    console.log(resolved.type);
     switch (resolved.type) {
       case "COMPLETED":
         throw redirect({ to: "/home" });

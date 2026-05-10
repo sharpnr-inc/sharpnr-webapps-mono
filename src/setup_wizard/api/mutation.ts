@@ -1,5 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { UpdateOrgName, UpdateSuperAdmin } from "./service";
+import {
+  SetupWizAddProperty,
+  UpdateOrgName,
+  UpdateSuperAdmin,
+} from "./service";
 
 export function useSetupWizSuperAdminUpdateMutation() {
   return useMutation({
@@ -15,4 +19,9 @@ export function useSetupWizUpdateOrgNameMutation() {
   });
 }
 
-export function useSetupWizOperationAddPropertyMutation() {}
+export function useSetupWizOperationAddPropertyMutation() {
+  return useMutation({
+    mutationKey: ["SETUP_WIZARD", "CREATE_PROPERTY"],
+    mutationFn: SetupWizAddProperty,
+  });
+}

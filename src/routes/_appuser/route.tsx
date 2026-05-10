@@ -63,9 +63,7 @@ export const Route = createFileRoute("/_appuser")({
       queryFn: GetOrganizationSetUpProgress,
     });
 
-    console.log(setup_progress.data?.current_step);
-
-    if (setup_progress.data?.overall_status !== "COMPLETE") {
+    if (!setup_progress.data?.is_completed) {
       throw redirect({
         to: "/setup_wizard",
       });

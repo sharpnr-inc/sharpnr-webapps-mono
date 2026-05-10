@@ -88,6 +88,7 @@ export interface SetupWizAddPropertyPayload {
 export interface SetupOrgPropertyReqDTO {
   step_id: string;
   name?: string;
+  property_code: string;
   address_line?: string;
   city?: string;
   state?: string;

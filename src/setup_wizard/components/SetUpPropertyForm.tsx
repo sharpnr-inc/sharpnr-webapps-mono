@@ -6,10 +6,15 @@ import {
   Mail,
   CheckCircle2,
   AlertCircle,
+  Hash,
+  MoveDown,
 } from "lucide-react";
 import { useAppForm } from "@/components/forms";
 import type { SetupOrgPropertyReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/base_setup";
+import { useSetupWizOperationAddPropertyMutation } from "../api/mutation";
+import { useNavigate } from "@tanstack/react-router";
+import { toast } from "sonner";
 
 // ─── Shared fade-up variant ───────────────────────────────────────────────────
 const fadeUp = {
@@ -26,19 +31,17 @@ const fadeUp = {
 };
 
 // ─── Field Component ──────────────────────────────────────────────────────────
-// onChange receives a plain string — callers must NOT pass the event object.
-// error / touched come from TanStack field meta (f.state.meta).
 function Field({
   label,
   placeholder,
   icon,
   value,
-  error, // f.state.meta.errors[0] ?? ""
-  touched, // f.state.meta.isTouched
+  error,
+  touched,
   type = "text",
   hint,
-  onChange, // (v: string) => void  — pass f.handleChange directly
-  onBlur, // () => void           — pass f.handleBlur directly
+  onChange,
+  onBlur,
   transform,
 }: {
   label: string;
@@ -90,7 +93,6 @@ function Field({
 
   return (
     <div style={{ position: "relative", width: "100%" }}>
-      {/* Floating label */}
       <motion.label
         animate={{
           y: active ? -21 : 0,
@@ -114,7 +116,6 @@ function Field({
         {label}
       </motion.label>
 
-      {/* Left icon */}
       <div
         style={{
           position: "absolute",
@@ -131,13 +132,11 @@ function Field({
         {icon}
       </div>
 
-      {/* Input */}
       <input
         type={type}
         value={value}
         placeholder={focused ? placeholder : ""}
         onChange={(e) => {
-          // Unwrap event → apply optional transform → pass plain string to TanStack
           const v = transform ? transform(e.target.value) : e.target.value;
           onChange(v);
         }}
@@ -159,14 +158,11 @@ function Field({
           transition: "border-color 0.2s, background 0.2s, box-shadow 0.2s",
           boxSizing: "border-box",
           boxShadow: focused
-            ? `0 0 0 3px ${
-                hasError ? "rgba(248,113,113,0.06)" : "rgba(167,139,250,0.06)"
-              }`
+            ? `0 0 0 3px ${hasError ? "rgba(248,113,113,0.06)" : "rgba(167,139,250,0.06)"}`
             : "none",
         }}
       />
 
-      {/* Right status icon */}
       <AnimatePresence>
         {(isValid || hasError) && (
           <motion.div
@@ -198,7 +194,6 @@ function Field({
         )}
       </AnimatePresence>
 
-      {/* Bottom accent line */}
       <motion.div
         animate={{ scaleX: focused ? 1 : 0, opacity: focused ? 1 : 0 }}
         transition={{ duration: 0.22 }}
@@ -217,7 +212,6 @@ function Field({
         }}
       />
 
-      {/* Hint / Error */}
       <AnimatePresence>
         {(hasError || hint) && (
           <motion.p
@@ -281,9 +275,47 @@ function SectionLabel({ label, index }: { label: string; index: number }) {
   );
 }
 
+// ─── Cascade hint — shows between dependent select fields ─────────────────────
+function CascadeConnector() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        padding: "0 0.5rem",
+      }}
+    >
+      <div
+        style={{
+          width: "1px",
+          height: "16px",
+          background:
+            "linear-gradient(to bottom, rgba(167,139,250,0.2), rgba(167,139,250,0.05))",
+          marginLeft: "1.1rem",
+        }}
+      />
+      <MoveDown size={9} style={{ color: "rgba(167,139,250,0.25)" }} />
+      <span
+        style={{
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: "0.52rem",
+          color: "rgba(255,255,255,0.15)",
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+        }}
+      >
+        unlocks next
+      </span>
+    </div>
+  );
+}
+
 // ─── Form ─────────────────────────────────────────────────────────────────────
 export function SetupPropertyForm() {
   const { stepID } = Route.useParams();
+  const { mutateAsync } = useSetupWizOperationAddPropertyMutation();
+  const nav = useNavigate();
 
   const defaultProperty: SetupOrgPropertyReqDTO = {
     step_id: stepID,
@@ -296,12 +328,28 @@ export function SetupPropertyForm() {
     name: "",
     pincode: "",
     state: "",
+    property_code: "",
   };
 
   const form = useAppForm({
     defaultValues: defaultProperty,
-    onSubmit: ({ value }) => {
-      console.log(value);
+    onSubmit: async ({ value }) => {
+      mutateAsync(
+        {
+          payload: value,
+        },
+        {
+          onSuccess({ success, message }) {
+            if (success) {
+              toast.success(message);
+            }
+
+            nav({
+              to: "/setup_wizard",
+            });
+          },
+        },
+      );
     },
   });
 
@@ -358,7 +406,7 @@ export function SetupPropertyForm() {
           </p>
         </motion.div>
 
-        {/* Section — Identity */}
+        {/* ── Section 01 — Identity ─────────────────────────────────────────── */}
         <motion.div
           custom={1}
           variants={fadeUp}
@@ -367,29 +415,52 @@ export function SetupPropertyForm() {
           <SectionLabel label="Identity" index={1} />
         </motion.div>
 
+        {/* Name (flex 2) + Code (flex 1) — side by side */}
         <motion.div
           custom={2}
           variants={fadeUp}
-          style={{ marginBottom: "0.85rem" }}
+          style={{ display: "flex", gap: "0.85rem", marginBottom: "0.85rem" }}
         >
-          <form.Field
-            name="name"
-            children={(f) => (
-              <Field
-                label="Property Name"
-                placeholder="Grand Hyatt Mumbai"
-                icon={<Building2 size={13} />}
-                value={f.state.value ?? ""}
-                error={f.state.meta.errors[0] ?? ""}
-                touched={f.state.meta.isTouched}
-                onChange={f.handleChange}
-                onBlur={f.handleBlur}
-              />
-            )}
-          />
+          <div style={{ flex: 2 }}>
+            <form.Field
+              name="name"
+              children={(f) => (
+                <Field
+                  label="Property Name"
+                  placeholder="Grand Hyatt Mumbai"
+                  icon={<Building2 size={13} />}
+                  value={f.state.value ?? ""}
+                  error={f.state.meta.errors[0] ?? ""}
+                  touched={f.state.meta.isTouched}
+                  onChange={f.handleChange}
+                  onBlur={f.handleBlur}
+                />
+              )}
+            />
+          </div>
+
+          <div style={{ flex: 1 }}>
+            <form.Field
+              name="property_code"
+              children={(f) => (
+                <Field
+                  label="Code"
+                  placeholder="GHP01"
+                  hint="Short unique ID"
+                  icon={<Hash size={13} />}
+                  value={f.state.value ?? ""}
+                  error={f.state.meta.errors[0] ?? ""}
+                  touched={f.state.meta.isTouched}
+                  onChange={f.handleChange}
+                  onBlur={f.handleBlur}
+                  transform={(v) => v.toUpperCase()}
+                />
+              )}
+            />
+          </div>
         </motion.div>
 
-        {/* Section — Location */}
+        {/* ── Section 02 — Location ─────────────────────────────────────────── */}
         <motion.div
           custom={3}
           variants={fadeUp}
@@ -403,7 +474,7 @@ export function SetupPropertyForm() {
           variants={fadeUp}
           style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}
         >
-          {/* Address line */}
+          {/* Full-width address */}
           <form.Field
             name="address_line"
             children={(f) => (
@@ -420,46 +491,67 @@ export function SetupPropertyForm() {
             )}
           />
 
-          <form.AppField
-            name="country"
-            children={(f) => {
-              return <f.CountrySelect />;
+          {/* ── Cascading selects — visually grouped ──────────────────────── */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 0,
+              padding: "0.85rem",
+              borderRadius: "10px",
+              border: "1px solid rgba(167,139,250,0.08)",
+              background: "rgba(167,139,250,0.02)",
+              position: "relative",
             }}
-          />
+          >
+            {/* Group label */}
+            <div
+              style={{
+                position: "absolute",
+                top: "-9px",
+                left: "12px",
+                padding: "0 6px",
+                background: "#060809",
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: "0.5rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "rgba(167,139,250,0.4)",
+              }}
+            >
+              Country → State → City
+            </div>
 
-          <form.AppField
-            name="state"
-            children={(f) => {
-              return <f.StateSelect />;
-            }}
-          />
+            <form.AppField
+              name="country"
+              children={(f) => <f.CountrySelect />}
+            />
 
-          <form.AppField
-            name="city"
-            children={(f) => {
-              return <f.CitySelect />;
-            }}
-          />
+            <CascadeConnector />
 
-          {/* Country / Pincode */}
+            <form.AppField name="state" children={(f) => <f.StateSelect />} />
 
+            <CascadeConnector />
+
+            <form.AppField name="city" children={(f) => <f.CitySelect />} />
+          </div>
+
+          {/* Pincode — standalone, full width */}
           <form.Field
             name="pincode"
             children={(f) => (
-              <div style={{ flex: 1 }}>
-                <Field
-                  label="Pincode"
-                  placeholder="400001"
-                  icon={<Mail size={13} />}
-                  type="text"
-                  value={f.state.value ?? ""}
-                  error={f.state.meta.errors[0] ?? ""}
-                  touched={f.state.meta.isTouched}
-                  onChange={f.handleChange}
-                  onBlur={f.handleBlur}
-                  transform={(v) => v.replace(/\D/g, "")}
-                />
-              </div>
+              <Field
+                label="Pincode"
+                placeholder="400001"
+                icon={<Mail size={13} />}
+                type="text"
+                value={f.state.value ?? ""}
+                error={f.state.meta.errors[0] ?? ""}
+                touched={f.state.meta.isTouched}
+                onChange={f.handleChange}
+                onBlur={f.handleBlur}
+                transform={(v) => v.replace(/\D/g, "")}
+              />
             )}
           />
         </motion.div>
