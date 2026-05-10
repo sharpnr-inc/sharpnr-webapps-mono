@@ -45,6 +45,7 @@ export const Route = createFileRoute("/_user")({
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      org_data: user.org_data,
     });
 
     // 4. Fetch setup progress
@@ -54,8 +55,7 @@ export const Route = createFileRoute("/_user")({
     });
 
     const showSetupOverlay =
-      setupProgress.data?.overall_status !== "COMPLETE" &&
-      user.role === "SUPER_ADMIN";
+      !setupProgress.data?.is_completed && user.role === "SUPER_ADMIN";
 
     return {
       user,

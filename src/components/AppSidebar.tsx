@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {
   MessageSquare,
@@ -22,6 +23,8 @@ import {
   Scale,
 } from "lucide-react";
 import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
+import { useAppUserStore } from "@/store/AppUserStore";
+import { motion, AnimatePresence } from "framer-motion";
 
 const workspaceLinks = [
   {
@@ -53,6 +56,9 @@ const personalLinks = [
 
 export function AppSidebar() {
   const { location } = useRouterState();
+  const { user } = useAppUserStore();
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
   const isActive = (to: string, match: string) =>
     location.pathname === "/"
@@ -68,17 +74,51 @@ export function AppSidebar() {
             <SidebarMenuButton
               size="lg"
               className="cursor-default hover:bg-transparent active:bg-transparent"
-              tooltip="Acme Corporation"
+              tooltip={user?.org_data.org_name}
             >
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                <Building2 className="h-4 w-4" />
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-sm font-semibold">Acme</span>
-                <span className="text-xs text-muted-foreground">
-                  Corporation
-                </span>
-              </div>
+              {/* Icon badge — always visible */}
+              <motion.div
+                className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground overflow-hidden"
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+              >
+                {/* Subtle top-left sheen */}
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/15 to-transparent" />
+                <Building2 className="h-4 w-4 relative z-10" />
+              </motion.div>
+
+              {/* Text block — animates out on collapse */}
+              <AnimatePresence initial={false}>
+                {!isCollapsed && (
+                  <motion.div
+                    key="org-text"
+                    className="flex min-w-0 flex-col leading-tight"
+                    initial={{ opacity: 0, x: -6, width: 0 }}
+                    animate={{ opacity: 1, x: 0, width: "auto" }}
+                    exit={{ opacity: 0, x: -6, width: 0 }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <motion.span
+                      className="truncate text-sm  tracking-tight font-bold"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12, delay: 0.04 }}
+                    >
+                      {user?.org_data.org_name}
+                    </motion.span>
+                    <motion.span
+                      className="truncate text-xs text-muted-foreground font-mono"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12, delay: 0.06 }}
+                    >
+                      {user?.org_data.sharp_id}
+                    </motion.span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
