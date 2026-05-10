@@ -1,6 +1,11 @@
 import api from "@/middlewares/axios";
 import type { PropertyPayload } from "../components/AddPropertyForm";
 import type { APIResponse } from "@/lib/api_response";
+import type {
+  PropertiesOfOrganizationData,
+  PropertyDetailsData,
+  PropertyDomainResponse,
+} from "./types";
 
 const PropertyEndpoints = {
   AddProperty: "/orchestrator/console/property/create",
@@ -22,18 +27,10 @@ const PropertyEndpoints = {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export interface PropertyDomain {
-  id: string;
-  name: string;
-  description: string;
-  isAvailable: boolean;
-}
-
-export async function GetAllDomain(): Promise<APIResponse<PropertyDomain[]>> {
-  const res = await api.get<APIResponse<PropertyDomain[]>>(
+export async function GetAllDomain() {
+  const res = await api.get<APIResponse<PropertyDomainResponse>>(
     PropertyEndpoints.utils.allDomain,
   );
-
   return res.data;
 }
 /* ---------------------------------- <***> --------------------------------- */
@@ -45,27 +42,10 @@ export async function AddProperty(payload: PropertyPayload) {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export interface PropertiesOfOrganizationData {
-  properties: Property[];
-}
-
-export interface Property {
-  id: string;
-  name: string;
-  city: string;
-  state: string;
-  domain: string;
-  is_configured: boolean;
-  code: string;
-}
-
-export async function ListAllProperties(): Promise<
-  APIResponse<PropertiesOfOrganizationData>
-> {
+export async function ListAllProperties() {
   const res = await api.get<APIResponse<PropertiesOfOrganizationData>>(
     PropertyEndpoints.allProperty,
   );
-
   return res.data;
 }
 
@@ -78,36 +58,7 @@ export async function GetHospitalityDomainMods(domain: string) {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export interface PropertyModule {
-  id: string;
-  name: string;
-  status: boolean;
-  module_type: string;
-  is_configured: boolean;
-}
-
-export interface PropertyInfra {
-  id: string;
-  name: string;
-  status: boolean;
-  infra_type: string;
-}
-
-export interface PropertyDetailsData {
-  name: string;
-  code: string;
-  city: string;
-  address_line: string;
-  state: string;
-  country: string;
-  domain: string;
-  __modules__data__: PropertyModule[];
-  infra: PropertyInfra[];
-}
-
-export async function GetPropertyDetails(
-  propertyID: string | undefined,
-): Promise<APIResponse<PropertyDetailsData>> {
+export async function GetPropertyDetails(propertyID: string | undefined) {
   const res = await api.get<APIResponse<PropertyDetailsData>>(
     PropertyEndpoints.PropertyDetails(propertyID),
   );

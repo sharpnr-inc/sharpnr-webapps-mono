@@ -55,6 +55,7 @@ export const Route = createFileRoute("/_appuser")({
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      org_data: user.org_data,
     });
 
     // This is the Method for fetching the Setup Progress

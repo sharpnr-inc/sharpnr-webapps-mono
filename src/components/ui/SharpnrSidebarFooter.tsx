@@ -57,14 +57,16 @@ export function SharpnrSidebarFooter() {
   const isCollapsed = state === "collapsed";
 
   return (
-    <SidebarFooter className="">
+    <SidebarFooter>
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{ background: NAVY }}
-        className={`relative overflow-hidden rounded-xl ${isCollapsed ? "p-2" : "p-3"}`}
+        className={`relative overflow-hidden rounded-xl ${
+          isCollapsed ? "p-2" : "p-3"
+        }`}
       >
-        {/* ── Deep navy base + subtle inner border ── */}
+        {/* ── Inner border ── */}
         <div
           className="absolute inset-0 rounded-xl pointer-events-none"
           style={{
@@ -72,7 +74,7 @@ export function SharpnrSidebarFooter() {
           }}
         />
 
-        {/* ── Aurora sweep: navy → brighter navy blob ── */}
+        {/* ── Aurora sweep — always active ── */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           animate={{
@@ -85,7 +87,7 @@ export function SharpnrSidebarFooter() {
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* ── White dot constellation grid ── */}
+        {/* ── Dot constellation ── */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -96,12 +98,12 @@ export function SharpnrSidebarFooter() {
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* ── Floating white particles (expanded only) ── */}
+        {/* ── Floating particles (expanded only) ── */}
         <AnimatePresence>
           {!isCollapsed && PARTICLES.map((p, i) => <Particle key={i} {...p} />)}
         </AnimatePresence>
 
-        {/* ── Top shimmer line (white) ── */}
+        {/* ── Top shimmer ── */}
         <motion.div
           className="absolute top-0 left-0 right-0 h-px pointer-events-none"
           style={{
@@ -111,53 +113,75 @@ export function SharpnrSidebarFooter() {
           transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* ── Content row ── */}
-        <div
-          className={`relative flex items-center gap-3 ${isCollapsed ? "justify-center" : ""}`}
-        >
-          {/* Logo + spinning white conic ring */}
-          <motion.div
-            layout
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.92 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="relative shrink-0 w-8 h-8"
-          >
-            {/* Conic ring — white sweep */}
-            {/* <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-              className="absolute -inset-0.5 rounded-[10px]"
-              style={{
-                background: `conic-gradient(
-                  from 0deg,
-                  rgba(240,242,247,0) 0%,
-                  rgba(240,242,247,0.9) 40%,
-                  rgba(240,242,247,0) 60%
-                )`,
-              }}
-            /> */}
-            {/* Logo image inside ring */}
-            <div
-              className="absolute inset-[1.5px] rounded-[8px] overflow-hidden z-10"
-              style={{ background: NAVY_MID }}
+        {/* ══════════════════════════════════════
+            COLLAPSED STATE  — glowing icon pill
+            ══════════════════════════════════════ */}
+        <AnimatePresence mode="wait">
+          {isCollapsed ? (
+            <motion.div
+              key="collapsed"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative flex items-center justify-center"
+              title="Powered by Sharpnr"
             >
-              <img
-                src={logo}
-                alt="Sharpnr"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-
-          {/* Text — expanded only */}
-          <AnimatePresence mode="wait">
-            {!isCollapsed && (
+              {/* Logo */}
               <motion.div
-                key="footer-text"
-                initial={{ opacity: 0, x: -10, filter: "blur(6px)" }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.92 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="relative w-10 h-10 shrink-0"
+              >
+                <div
+                  className="absolute inset-[1.5px] rounded-[8px] overflow-hidden z-10"
+                  style={{ background: NAVY_MID }}
+                >
+                  <img
+                    src={logo}
+                    alt="Sharpnr"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
+          ) : (
+            /* ══════════════════════════════════════
+               EXPANDED STATE  — full branding row
+               ══════════════════════════════════════ */
+            <motion.div
+              key="expanded"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="relative flex items-center gap-3"
+            >
+              {/* Logo (no conic ring in expanded — cleaner) */}
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.92 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                className="relative shrink-0 w-8 h-8"
+              >
+                <div
+                  className="absolute inset-[1.5px] rounded-[8px] overflow-hidden z-10"
+                  style={{ background: NAVY_MID }}
+                >
+                  <img
+                    src={logo}
+                    alt="Sharpnr"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </motion.div>
+
+              {/* Text */}
+              <motion.div
+                initial={{ opacity: 0, x: -8, filter: "blur(6px)" }}
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, x: -10, filter: "blur(6px)" }}
+                exit={{ opacity: 0, x: -8, filter: "blur(6px)" }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="flex flex-col min-w-0"
               >
@@ -177,11 +201,11 @@ export function SharpnrSidebarFooter() {
                   Sharpnr
                 </motion.span>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* ── Bottom shimmer line (expanded only) ── */}
+        {/* ── Bottom shimmer (expanded only) ── */}
         <AnimatePresence>
           {!isCollapsed && (
             <motion.div

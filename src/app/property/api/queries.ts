@@ -4,11 +4,13 @@ import {
   GetHospitalityDomainMods,
   GetPropertyDetails,
   ListAllProperties,
-  type PropertiesOfOrganizationData,
-  type PropertyDetailsData,
-  type PropertyDomain,
 } from "./service";
 import type { APIResponse } from "@/lib/api_response";
+import type {
+  PropertiesOfOrganizationData,
+  PropertyDetailsData,
+  PropertyDomainResponse,
+} from "./types";
 
 export function useProperties() {
   return useQuery<APIResponse<PropertiesOfOrganizationData>>({
@@ -30,7 +32,7 @@ export function usePropertyDetails(propertyID: string | undefined) {
 }
 
 export function useDomainType() {
-  return useQuery<APIResponse<PropertyDomain[]>>({
+  return useQuery<APIResponse<PropertyDomainResponse>>({
     queryKey: ["Property", "Domain Types"],
     queryFn: GetAllDomain,
   });

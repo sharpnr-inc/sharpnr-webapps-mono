@@ -33,7 +33,7 @@ import {
   Globe2Icon,
   Verified,
   Globe,
-  GalleryVerticalEnd,
+  Building2,
 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
@@ -44,6 +44,7 @@ import { cn } from "@/lib/utils";
 import type { Variants, Transition } from "framer-motion";
 import { UserCard } from "./header/UserCard";
 import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
+import { useAppUserStore } from "@/store/AppUserStore";
 
 /* =========================
    Sidebar Configuration
@@ -244,6 +245,7 @@ function OrchestratorShell() {
   const pathname = location.pathname;
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
+  const { user } = useAppUserStore();
 
   const isActive = (path: string, exact = false) => {
     if (exact) return pathname === path;
@@ -257,37 +259,58 @@ function OrchestratorShell() {
   return (
     <>
       <Sidebar collapsible="icon">
-        <SidebarHeader className="p-2">
+        <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
-              <motion.div
-                layout
-                initial={false}
-                className="flex items-center gap-3 rounded-lg  p-2"
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+              <SidebarMenuButton
+                size="lg"
+                className="cursor-default hover:bg-transparent active:bg-transparent"
+                tooltip={user?.org_data.org_name}
               >
-                <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-md">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
-                <AnimatePresence mode="wait">
+                {/* Icon badge — always visible */}
+                <motion.div
+                  className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground overflow-hidden"
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                >
+                  {/* Subtle top-left sheen */}
+                  <div className="pointer-events-none absolute inset-0" />
+                  <Building2 className="h-4 w-4 relative z-10" />
+                </motion.div>
+
+                {/* Text block — animates out on collapse */}
+                <AnimatePresence initial={false}>
                   {!isCollapsed && (
                     <motion.div
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -10 }}
-                      transition={{ duration: 0.15 }}
-                      className="flex flex-1 flex-col overflow-hidden text-left"
+                      key="org-text"
+                      className="flex min-w-0 flex-col leading-tight"
+                      initial={{ opacity: 0, x: -6, width: 0 }}
+                      animate={{ opacity: 1, x: 0, width: "auto" }}
+                      exit={{ opacity: 0, x: -6, width: 0 }}
+                      transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
                     >
-                      <span className="truncate text-sm font-bold text-zinc-900 dark:text-zinc-50">
-                        Sharpnr Engine
-                      </span>
-                      <span className="truncate text-[10px] uppercase tracking-wider text-zinc-500">
-                        Orchestration v1.0
-                      </span>
+                      <motion.span
+                        className="truncate text-sm  tracking-tight font-bold"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.12, delay: 0.04 }}
+                      >
+                        {user?.org_data.org_name}
+                      </motion.span>
+                      <motion.span
+                        className="truncate text-xs font-mono"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.12, delay: 0.06 }}
+                      >
+                        {user?.org_data.sharp_id}
+                      </motion.span>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarHeader>

@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
-import type { Property } from "../api/service";
+import type { Property } from "../api/types";
 import { cn } from "@/lib/utils";
 import { useDomainType } from "../api/queries";
 
@@ -54,7 +54,7 @@ const PropertyDomainSelection: React.FC<PropertyDomainSelectionProps> = ({
             ? Array.from({ length: 3 }).map((_, i) => (
                 <Card key={i} className=" animate-pulse" />
               ))
-            : domainTypes?.data?.map((d: any) => {
+            : domainTypes?.data?.domains.map((d: any) => {
                 const disabled = !d.IsAvailable;
 
                 return (

@@ -21,10 +21,16 @@ export interface UserAuthenticatedResponse {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export interface UserDataResponseDto {
+export type UserDataResponseDto = {
   email: string;
   firstName: string;
   lastName: string;
-  id: string; // uuid.UUID → string in TypeScript
+  id: string; // UUID
   role: string;
-}
+  org_data: OrgData;
+};
+
+export type OrgData = {
+  org_name: string;
+  sharp_id: string;
+};
