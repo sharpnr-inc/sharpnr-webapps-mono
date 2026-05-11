@@ -14,11 +14,15 @@ import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as Setup_wizardIndexRouteImport } from './routes/setup_wizard/index'
 import { Route as MarketingIndexRouteImport } from './routes/_marketing/index'
 import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
+import { Route as AppuserStorageRouteRouteImport } from './routes/_appuser/storage/route'
+import { Route as AppuserSharp_marketplaceRouteRouteImport } from './routes/_appuser/sharp_marketplace/route'
 import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/payments/route'
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
+import { Route as AppuserDescovro_integrationsRouteRouteImport } from './routes/_appuser/descovro_integrations/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
 import { Route as AppuserStorageIndexRouteImport } from './routes/_appuser/storage/index'
+import { Route as AppuserSharp_marketplaceIndexRouteImport } from './routes/_appuser/sharp_marketplace/index'
 import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/property/index'
 import { Route as AppuserPaymentsIndexRouteImport } from './routes/_appuser/payments/index'
 import { Route as AppuserOrganizationIndexRouteImport } from './routes/_appuser/organization/index'
@@ -26,12 +30,14 @@ import { Route as AppuserOrgUsersIndexRouteImport } from './routes/_appuser/org-
 import { Route as AppuserLegal_entityIndexRouteImport } from './routes/_appuser/legal_entity/index'
 import { Route as AppuserInventoryAccIndexRouteImport } from './routes/_appuser/inventory-acc/index'
 import { Route as AppuserDocs_officeIndexRouteImport } from './routes/_appuser/docs_office/index'
+import { Route as AppuserDescovro_integrationsIndexRouteImport } from './routes/_appuser/descovro_integrations/index'
 import { Route as AppuserCablesIndexRouteImport } from './routes/_appuser/cables/index'
 import { Route as AppuserAuditLogIndexRouteImport } from './routes/_appuser/audit-log/index'
 import { Route as Setup_wizardStepIDUserinfoRouteImport } from './routes/setup_wizard/$stepID/userinfo'
 import { Route as Setup_wizardStepIDOrg_updateRouteImport } from './routes/setup_wizard/$stepID/org_update'
 import { Route as Setup_wizardStepIDBase_setupRouteImport } from './routes/setup_wizard/$stepID/base_setup'
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
+import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
 import { Route as AppuserPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/property/$propertyId/property-configuration'
@@ -69,6 +75,17 @@ const AppuserHomeRoute = AppuserHomeRouteImport.update({
   path: '/home',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserStorageRouteRoute = AppuserStorageRouteRouteImport.update({
+  id: '/storage',
+  path: '/storage',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserSharp_marketplaceRouteRoute =
+  AppuserSharp_marketplaceRouteRouteImport.update({
+    id: '/sharp_marketplace',
+    path: '/sharp_marketplace',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserPaymentsRouteRoute = AppuserPaymentsRouteRouteImport.update({
   id: '/payments',
   path: '/payments',
@@ -86,6 +103,12 @@ const AppuserInventoryAccRouteRoute =
     path: '/inventory-acc',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserDescovro_integrationsRouteRoute =
+  AppuserDescovro_integrationsRouteRouteImport.update({
+    id: '/descovro_integrations',
+    path: '/descovro_integrations',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserSuppliersChar38VendorsIndexRoute =
   AppuserSuppliersChar38VendorsIndexRouteImport.update({
     id: '/suppliers&Vendors/',
@@ -93,10 +116,16 @@ const AppuserSuppliersChar38VendorsIndexRoute =
     getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserStorageIndexRoute = AppuserStorageIndexRouteImport.update({
-  id: '/storage/',
-  path: '/storage/',
-  getParentRoute: () => AppuserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserStorageRouteRoute,
 } as any)
+const AppuserSharp_marketplaceIndexRoute =
+  AppuserSharp_marketplaceIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserSharp_marketplaceRouteRoute,
+  } as any)
 const AppuserPropertyIndexRoute = AppuserPropertyIndexRouteImport.update({
   id: '/property/',
   path: '/property/',
@@ -135,6 +164,12 @@ const AppuserDocs_officeIndexRoute = AppuserDocs_officeIndexRouteImport.update({
   path: '/docs_office/',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserDescovro_integrationsIndexRoute =
+  AppuserDescovro_integrationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserDescovro_integrationsRouteRoute,
+  } as any)
 const AppuserCablesIndexRoute = AppuserCablesIndexRouteImport.update({
   id: '/cables/',
   path: '/cables/',
@@ -166,6 +201,11 @@ const Setup_wizardStepIDBase_setupRoute =
 const AppuserPropertyRoutesRoute = AppuserPropertyRoutesRouteImport.update({
   id: '/property/routes',
   path: '/property/routes',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserCablesRoutesRoute = AppuserCablesRoutesRouteImport.update({
+  id: '/cables/routes',
+  path: '/cables/routes',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserPaymentsAccountIdIndexRoute =
@@ -255,18 +295,23 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRout
 
 export interface FileRoutesByFullPath {
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
+  '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/payments': typeof AppuserPaymentsRouteRouteWithChildren
+  '/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
+  '/storage': typeof AppuserStorageRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
   '/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
+  '/cables/routes': typeof AppuserCablesRoutesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
+  '/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
   '/docs_office': typeof AppuserDocs_officeIndexRoute
   '/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/legal_entity/': typeof AppuserLegal_entityIndexRoute
@@ -274,7 +319,8 @@ export interface FileRoutesByFullPath {
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments/': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
-  '/storage': typeof AppuserStorageIndexRoute
+  '/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
+  '/storage/': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -293,12 +339,14 @@ export interface FileRoutesByTo {
   '/home': typeof AppuserHomeRoute
   '/': typeof MarketingIndexRoute
   '/setup_wizard': typeof Setup_wizardIndexRoute
+  '/cables/routes': typeof AppuserCablesRoutesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
+  '/descovro_integrations': typeof AppuserDescovro_integrationsIndexRoute
   '/docs_office': typeof AppuserDocs_officeIndexRoute
   '/inventory-acc': typeof AppuserInventoryAccIndexRoute
   '/legal_entity': typeof AppuserLegal_entityIndexRoute
@@ -306,6 +354,7 @@ export interface FileRoutesByTo {
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
+  '/sharp_marketplace': typeof AppuserSharp_marketplaceIndexRoute
   '/storage': typeof AppuserStorageIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -324,18 +373,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
+  '/_appuser/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
+  '/_appuser/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
+  '/_appuser/storage': typeof AppuserStorageRouteRouteWithChildren
   '/_appuser/home': typeof AppuserHomeRoute
   '/_marketing/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
+  '/_appuser/cables/routes': typeof AppuserCablesRoutesRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
   '/_appuser/cables/': typeof AppuserCablesIndexRoute
+  '/_appuser/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
   '/_appuser/docs_office/': typeof AppuserDocs_officeIndexRoute
   '/_appuser/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/_appuser/legal_entity/': typeof AppuserLegal_entityIndexRoute
@@ -343,6 +397,7 @@ export interface FileRoutesById {
   '/_appuser/organization/': typeof AppuserOrganizationIndexRoute
   '/_appuser/payments/': typeof AppuserPaymentsIndexRoute
   '/_appuser/property/': typeof AppuserPropertyIndexRoute
+  '/_appuser/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
   '/_appuser/storage/': typeof AppuserStorageIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -362,18 +417,23 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/setup_wizard'
+    | '/descovro_integrations'
     | '/inventory-acc'
     | '/legal_entity'
     | '/payments'
+    | '/sharp_marketplace'
+    | '/storage'
     | '/home'
     | '/'
     | '/setup_wizard/'
+    | '/cables/routes'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
     | '/setup_wizard/$stepID/userinfo'
     | '/audit-log'
     | '/cables'
+    | '/descovro_integrations/'
     | '/docs_office'
     | '/inventory-acc/'
     | '/legal_entity/'
@@ -381,7 +441,8 @@ export interface FileRouteTypes {
     | '/organization'
     | '/payments/'
     | '/property'
-    | '/storage'
+    | '/sharp_marketplace/'
+    | '/storage/'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -400,12 +461,14 @@ export interface FileRouteTypes {
     | '/home'
     | '/'
     | '/setup_wizard'
+    | '/cables/routes'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
     | '/setup_wizard/$stepID/userinfo'
     | '/audit-log'
     | '/cables'
+    | '/descovro_integrations'
     | '/docs_office'
     | '/inventory-acc'
     | '/legal_entity'
@@ -413,6 +476,7 @@ export interface FileRouteTypes {
     | '/organization'
     | '/payments'
     | '/property'
+    | '/sharp_marketplace'
     | '/storage'
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
@@ -430,18 +494,23 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_appuser'
     | '/setup_wizard'
+    | '/_appuser/descovro_integrations'
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
     | '/_appuser/payments'
+    | '/_appuser/sharp_marketplace'
+    | '/_appuser/storage'
     | '/_appuser/home'
     | '/_marketing/'
     | '/setup_wizard/'
+    | '/_appuser/cables/routes'
     | '/_appuser/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
     | '/setup_wizard/$stepID/userinfo'
     | '/_appuser/audit-log/'
     | '/_appuser/cables/'
+    | '/_appuser/descovro_integrations/'
     | '/_appuser/docs_office/'
     | '/_appuser/inventory-acc/'
     | '/_appuser/legal_entity/'
@@ -449,6 +518,7 @@ export interface FileRouteTypes {
     | '/_appuser/organization/'
     | '/_appuser/payments/'
     | '/_appuser/property/'
+    | '/_appuser/sharp_marketplace/'
     | '/_appuser/storage/'
     | '/_appuser/suppliers&Vendors/'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
@@ -508,6 +578,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserHomeRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/storage': {
+      id: '/_appuser/storage'
+      path: '/storage'
+      fullPath: '/storage'
+      preLoaderRoute: typeof AppuserStorageRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/sharp_marketplace': {
+      id: '/_appuser/sharp_marketplace'
+      path: '/sharp_marketplace'
+      fullPath: '/sharp_marketplace'
+      preLoaderRoute: typeof AppuserSharp_marketplaceRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/payments': {
       id: '/_appuser/payments'
       path: '/payments'
@@ -529,6 +613,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserInventoryAccRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/descovro_integrations': {
+      id: '/_appuser/descovro_integrations'
+      path: '/descovro_integrations'
+      fullPath: '/descovro_integrations'
+      preLoaderRoute: typeof AppuserDescovro_integrationsRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/suppliers&Vendors/': {
       id: '/_appuser/suppliers&Vendors/'
       path: '/suppliers&Vendors'
@@ -538,10 +629,17 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/storage/': {
       id: '/_appuser/storage/'
-      path: '/storage'
-      fullPath: '/storage'
+      path: '/'
+      fullPath: '/storage/'
       preLoaderRoute: typeof AppuserStorageIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
+      parentRoute: typeof AppuserStorageRouteRoute
+    }
+    '/_appuser/sharp_marketplace/': {
+      id: '/_appuser/sharp_marketplace/'
+      path: '/'
+      fullPath: '/sharp_marketplace/'
+      preLoaderRoute: typeof AppuserSharp_marketplaceIndexRouteImport
+      parentRoute: typeof AppuserSharp_marketplaceRouteRoute
     }
     '/_appuser/property/': {
       id: '/_appuser/property/'
@@ -592,6 +690,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDocs_officeIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/descovro_integrations/': {
+      id: '/_appuser/descovro_integrations/'
+      path: '/'
+      fullPath: '/descovro_integrations/'
+      preLoaderRoute: typeof AppuserDescovro_integrationsIndexRouteImport
+      parentRoute: typeof AppuserDescovro_integrationsRouteRoute
+    }
     '/_appuser/cables/': {
       id: '/_appuser/cables/'
       path: '/cables'
@@ -632,6 +737,13 @@ declare module '@tanstack/react-router' {
       path: '/property/routes'
       fullPath: '/property/routes'
       preLoaderRoute: typeof AppuserPropertyRoutesRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/cables/routes': {
+      id: '/_appuser/cables/routes'
+      path: '/cables/routes'
+      fullPath: '/cables/routes'
+      preLoaderRoute: typeof AppuserCablesRoutesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/payments/$accountId/': {
@@ -721,6 +833,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AppuserDescovro_integrationsRouteRouteChildren {
+  AppuserDescovro_integrationsIndexRoute: typeof AppuserDescovro_integrationsIndexRoute
+}
+
+const AppuserDescovro_integrationsRouteRouteChildren: AppuserDescovro_integrationsRouteRouteChildren =
+  {
+    AppuserDescovro_integrationsIndexRoute:
+      AppuserDescovro_integrationsIndexRoute,
+  }
+
+const AppuserDescovro_integrationsRouteRouteWithChildren =
+  AppuserDescovro_integrationsRouteRoute._addFileChildren(
+    AppuserDescovro_integrationsRouteRouteChildren,
+  )
+
 interface AppuserInventoryAccRouteRouteChildren {
   AppuserInventoryAccIndexRoute: typeof AppuserInventoryAccIndexRoute
   AppuserInventoryAccInventoryAccountIDDetailsRoute: typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -767,6 +894,31 @@ const AppuserPaymentsRouteRouteChildren: AppuserPaymentsRouteRouteChildren = {
 const AppuserPaymentsRouteRouteWithChildren =
   AppuserPaymentsRouteRoute._addFileChildren(AppuserPaymentsRouteRouteChildren)
 
+interface AppuserSharp_marketplaceRouteRouteChildren {
+  AppuserSharp_marketplaceIndexRoute: typeof AppuserSharp_marketplaceIndexRoute
+}
+
+const AppuserSharp_marketplaceRouteRouteChildren: AppuserSharp_marketplaceRouteRouteChildren =
+  {
+    AppuserSharp_marketplaceIndexRoute: AppuserSharp_marketplaceIndexRoute,
+  }
+
+const AppuserSharp_marketplaceRouteRouteWithChildren =
+  AppuserSharp_marketplaceRouteRoute._addFileChildren(
+    AppuserSharp_marketplaceRouteRouteChildren,
+  )
+
+interface AppuserStorageRouteRouteChildren {
+  AppuserStorageIndexRoute: typeof AppuserStorageIndexRoute
+}
+
+const AppuserStorageRouteRouteChildren: AppuserStorageRouteRouteChildren = {
+  AppuserStorageIndexRoute: AppuserStorageIndexRoute,
+}
+
+const AppuserStorageRouteRouteWithChildren =
+  AppuserStorageRouteRoute._addFileChildren(AppuserStorageRouteRouteChildren)
+
 interface AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
   AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
@@ -798,10 +950,14 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRout
   )
 
 interface AppuserRouteRouteChildren {
+  AppuserDescovro_integrationsRouteRoute: typeof AppuserDescovro_integrationsRouteRouteWithChildren
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
   AppuserLegal_entityRouteRoute: typeof AppuserLegal_entityRouteRouteWithChildren
   AppuserPaymentsRouteRoute: typeof AppuserPaymentsRouteRouteWithChildren
+  AppuserSharp_marketplaceRouteRoute: typeof AppuserSharp_marketplaceRouteRouteWithChildren
+  AppuserStorageRouteRoute: typeof AppuserStorageRouteRouteWithChildren
   AppuserHomeRoute: typeof AppuserHomeRoute
+  AppuserCablesRoutesRoute: typeof AppuserCablesRoutesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
   AppuserAuditLogIndexRoute: typeof AppuserAuditLogIndexRoute
   AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
@@ -809,7 +965,6 @@ interface AppuserRouteRouteChildren {
   AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
-  AppuserStorageIndexRoute: typeof AppuserStorageIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
   AppuserPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
@@ -821,10 +976,16 @@ interface AppuserRouteRouteChildren {
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
+  AppuserDescovro_integrationsRouteRoute:
+    AppuserDescovro_integrationsRouteRouteWithChildren,
   AppuserInventoryAccRouteRoute: AppuserInventoryAccRouteRouteWithChildren,
   AppuserLegal_entityRouteRoute: AppuserLegal_entityRouteRouteWithChildren,
   AppuserPaymentsRouteRoute: AppuserPaymentsRouteRouteWithChildren,
+  AppuserSharp_marketplaceRouteRoute:
+    AppuserSharp_marketplaceRouteRouteWithChildren,
+  AppuserStorageRouteRoute: AppuserStorageRouteRouteWithChildren,
   AppuserHomeRoute: AppuserHomeRoute,
+  AppuserCablesRoutesRoute: AppuserCablesRoutesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
   AppuserAuditLogIndexRoute: AppuserAuditLogIndexRoute,
   AppuserCablesIndexRoute: AppuserCablesIndexRoute,
@@ -832,7 +993,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
-  AppuserStorageIndexRoute: AppuserStorageIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,
   AppuserPropertyPropertyIdDetailsRoute: AppuserPropertyPropertyIdDetailsRoute,

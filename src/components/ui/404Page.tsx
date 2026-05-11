@@ -34,14 +34,17 @@ export default function NotFound() {
           transition={{ delay: 0.2 }}
           className="-mt-20 space-y-4"
         >
-          <h2 className="text-4xl font-bold tracking-tight">You've drifted off course.</h2>
+          <h2 className="text-4xl font-bold tracking-tight">
+            You've drifted off course.
+          </h2>
           <p className="mx-auto max-w-md text-zinc-400">
-            The module or page you are looking for doesn't exist or has been moved to another station.
+            The module or page you are looking for doesn't exist or has been
+            moved to another station.
           </p>
         </motion.div>
 
         {/* Action Buttons */}
-        <motion.div 
+        <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -56,8 +59,11 @@ export default function NotFound() {
             Go Back
           </Button>
 
-          <Button asChild className="h-12 bg-blue-600 px-8 font-semibold hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)]">
-            <Link to="/">
+          <Button
+            asChild
+            className="h-12 bg-blue-600 px-8 font-semibold hover:bg-blue-500 shadow-[0_0_20px_rgba(37,99,235,0.3)]"
+          >
+            <Link to="/home">
               <Home className="mr-2 h-4 w-4" />
               Return to Dashboard
             </Link>
@@ -66,12 +72,12 @@ export default function NotFound() {
       </div>
 
       {/* Decorative Grid - Gives it the Orchestrator/Infra feel */}
-      <div 
-        className="absolute inset-0 z-0 opacity-20" 
-        style={{ 
+      <div
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)`,
-          backgroundSize: '40px 40px' 
-        }} 
+          backgroundSize: "40px 40px",
+        }}
       />
     </div>
   );

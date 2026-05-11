@@ -17,24 +17,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
-import {
-  FileText,
-  Home,
-  Origami,
-  DollarSign,
-  Users,
-  BriefcaseBusiness,
-  LucideShoppingBasket,
-  ContainerIcon,
-  Bell,
-  Cable,
-  BoxesIcon,
-  Building2Icon,
-  Globe2Icon,
-  Verified,
-  Globe,
-  Building2,
-} from "lucide-react";
+import { Bell, Building2 } from "lucide-react";
 import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
 import { Button } from "@/components/ui/button";
@@ -45,93 +28,7 @@ import type { Variants, Transition } from "framer-motion";
 import { UserCard } from "./header/UserCard";
 import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
 import { useAppUserStore } from "@/store/AppUserStore";
-
-/* =========================
-   Sidebar Configuration
-========================= */
-
-type SidebarLink = {
-  label: string;
-  path?: string;
-  icon: React.ElementType;
-  tooltip?: string;
-  exact?: boolean;
-};
-
-const orchestratorLinks: SidebarLink[] = [
-  { label: "Home", path: "/home", icon: Origami, tooltip: "Home", exact: true },
-  {
-    label: "Organization",
-    path: "/organization",
-    icon: Home,
-    tooltip: "Organization",
-    exact: true,
-  },
-  {
-    label: "Properties",
-    path: "/property",
-    icon: Building2Icon,
-    tooltip: "Properties",
-    exact: false,
-  },
-  {
-    label: "Legal Entity",
-    path: "/legal_entity",
-    icon: BriefcaseBusiness,
-    tooltip: "Legal Entity",
-    exact: false,
-  },
-  {
-    label: "Payments",
-    path: "/payments",
-    icon: DollarSign,
-    tooltip: "Payments",
-  },
-  {
-    label: "Inventories",
-    path: "/inventory-acc",
-    icon: LucideShoppingBasket,
-    tooltip: "Inventories",
-  },
-  {
-    label: "Suppliers & Vendors",
-    path: "/suppliers&Vendors",
-    icon: ContainerIcon,
-    tooltip: "Suppliers & Vendors",
-  },
-  {
-    label: "User Directory",
-    path: "/org-users",
-    icon: Users,
-    tooltip: "User Directory",
-  },
-  {
-    label: "Audit Logs",
-    path: "/audit-log",
-    icon: Verified,
-    tooltip: "Audit Logs",
-  },
-  { label: "Storage", path: "/storage", icon: BoxesIcon, tooltip: "Storage" },
-  { label: "Cables", path: "/cables", icon: Cable, tooltip: "Cables" },
-  {
-    label: "Docs & Office",
-    path: "/docs_office",
-    icon: FileText,
-    tooltip: "Docs & Office",
-  },
-  {
-    label: "Descovro Integration",
-    path: "/",
-    icon: Globe2Icon,
-    tooltip: "Descovro Integration",
-  },
-  {
-    label: "Sharp Marketplace",
-    path: "/",
-    icon: Globe,
-    tooltip: "Sharp Marketplace",
-  },
-];
+import { orchestratorLinks } from "./AppSidebar";
 
 /* =========================
    Animation Variants
