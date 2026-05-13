@@ -23,7 +23,7 @@ export function MenuGroupSelector() {
 
   return (
     <Select value={selectedMenuId} onValueChange={selectMenu}>
-      <SelectTrigger className="w-[200px] h-9 text-sm font-medium border-border/60 bg-background shadow-none focus:ring-1 focus:ring-ring">
+      <SelectTrigger className="w-50 h-9 text-sm font-medium border-border/60 bg-background shadow-none focus:ring-1 focus:ring-ring">
         <SelectValue placeholder="Select menu…" />
       </SelectTrigger>
 

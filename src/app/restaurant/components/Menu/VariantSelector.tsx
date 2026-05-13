@@ -205,7 +205,7 @@ const VariantSelector = () => {
               placeholder="Any special requests?"
               value={instructions}
               onChange={(e) => setInstructions(e.target.value)}
-              className="min-h-[80px] bg-transparent border-border focus-visible:ring-foreground"
+              className="min-h-20 bg-transparent border-border focus-visible:ring-foreground"
             />
           </div>
         </div>
