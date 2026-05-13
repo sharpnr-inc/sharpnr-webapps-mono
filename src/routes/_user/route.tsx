@@ -3,6 +3,10 @@ import { config } from "@/configs/env";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
+/*
+This is the Root layout of the _user folder here we Verify the user before entring the application
+*/
+
 export const Route = createFileRoute("/_user")({
   beforeLoad: async ({ context }) => {
     const authUser = await context.queryClient.ensureQueryData({
@@ -39,5 +43,7 @@ export const Route = createFileRoute("/_user")({
 
     return { user };
   },
+
+  // here all pages are displayed
   component: Outlet,
 });
