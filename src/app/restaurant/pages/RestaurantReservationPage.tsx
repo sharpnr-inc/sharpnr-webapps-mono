@@ -36,7 +36,7 @@ const RestaurantReservationPage: React.FC<
             Under Development
           </h1>
           <p className="text-sm border-t border-white/30 pt-4 opacity-80">
-            The Reservation engine is currently being integrated with the
+            The Reservation engine is currently being integrated with the this is the testing
             <strong> Kitchen</strong> and <strong>Bar</strong> modules.
           </p>
         </div>

@@ -18,7 +18,7 @@ export default function RestaurantSelector() {
     if (restaurants?.length === 1) {
       const restaurant = restaurants[0];
 
-      if (restaurant.IsActive && restaurant.IsConfigured) {
+      if (!restaurant.IsActive && restaurant.IsConfigured) {
         navigate({
           to: "/restaurant/$restaurantID/overview",
           params: {
