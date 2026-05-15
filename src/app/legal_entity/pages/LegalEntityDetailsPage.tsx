@@ -1,9 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Verified } from "lucide-react";
-import DetailsOverview from "./components/DetailsOverview";
-import DetailDocuments from "./components/DetailDocuments";
-import { TaxRegistration } from "./components/TaxRegistration";
 import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 
 interface LegalEntityDetailsPageProps {}
@@ -42,17 +39,11 @@ const LegalEntityDetailsPage: React.FC<LegalEntityDetailsPageProps> = ({}) => {
             <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="overview" className="border p-2">
-            <DetailsOverview />
-          </TabsContent>
+          <TabsContent value="overview" className="border p-2"></TabsContent>
 
-          <TabsContent value="documents" className="border p-2">
-            <DetailDocuments />
-          </TabsContent>
+          <TabsContent value="documents" className="border p-2"></TabsContent>
 
-          <TabsContent value="tax_registration" className=" p-2">
-            <TaxRegistration />
-          </TabsContent>
+          <TabsContent value="tax_registration" className=" p-2"></TabsContent>
 
           <TabsContent value="settings"></TabsContent>
           <TabsContent value="settings"></TabsContent>

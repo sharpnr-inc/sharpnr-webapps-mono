@@ -8,20 +8,20 @@ import type {
 } from "./types";
 
 const PropertyEndpoints = {
-  AddProperty: "/orchestrator/console/property/create",
-  allProperty: "/orchestrator/console/property",
+  AddProperty: "/orchestrator/property/create",
+  allProperty: "/orchestrator/property",
   PropertyDetails: (propID: string | undefined) =>
-    `/orchestrator/console/property/${propID}`,
+    `/orchestrator/property/${propID}`,
   AddDomain: (propertyID: string) =>
-    `/orchestrator/console/property/${propertyID}/add-domain`,
+    `/orchestrator/property/${propertyID}/add-domain`,
   AddModules: (propertyID: string) =>
-    `/orchestrator/console/property/${propertyID}/add-modules`,
+    `/orchestrator/property/${propertyID}/add-modules`,
   AddInfra: (propertyID: string) =>
-    `/orchestrator/console/property/${propertyID}/add-infra`,
+    `/orchestrator/property/${propertyID}/add-infra`,
   ConfigureHotel: (propertyID: string) =>
-    `/orchestrator/console/property/${propertyID}/configure-hotel`,
+    `/orchestrator/property/${propertyID}/configure-hotel`,
   utils: {
-    allDomain: "/orchestrator/console/property/utils/domains",
+    allDomain: "/orchestrator/property/utils/domains",
   },
 };
 

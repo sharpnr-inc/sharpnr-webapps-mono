@@ -74,5 +74,5 @@ export const UserRoutes = {
 };
 
 export const OrchestratorConsole = {
-  status: "/orchestrator/console/org-status",
+  status: "/orchestrator/org-status",
 };
