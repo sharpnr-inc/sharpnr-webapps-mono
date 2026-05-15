@@ -7,12 +7,18 @@ import type {
   LegalEntityUtilResponse,
 } from "./types";
 
+/* -------------------------------------------------------------------------- */
+/*                         Legal Entity General CRUD                         */
+/* -------------------------------------------------------------------------- */
+
 export async function ListAllLegalEntityOfOrganization() {
   const response = await api.get<APIResponse<LegalEntityListResponse>>(
     LegalEntityEndpoints.listallLegalEntity(),
   );
   return response.data;
 }
+
+/* ---------------------------------- <***> --------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                         Legal Entity Utils Services                        */

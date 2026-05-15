@@ -1,6 +1,22 @@
 export const LegalEntityEndpoints = {
   listallLegalEntity: () => `/orchestrator/legal-entity`,
-  LegalEntityDetails: () => ``,
+  legalEntityDetails: (legalEntityID: string) => ``,
+  createLegalEntity: () => ``,
+
+  addBankAccountsInLegalEntity: () => ``,
+  updateLegalEntityBankAccountDetails: () => ``,
+
+  addAddressesInLegalEntity: () => ``,
+  updateAddressOfLegalEntity: () => ``,
+
+  addContactsInLegalEntity: () => ``,
+  updateContactofLegalEntity: () => ``,
+
+  addIdentifiersInLegalEntity: () => ``,
+
+  addLicenceInLegalEntity: () => ``,
+
+  addTaxRegistrations: () => ``,
 
   utils: {
     getLegalEntityTypes: () => `/orchestrator/legal-entity/utils/entity_types`,
