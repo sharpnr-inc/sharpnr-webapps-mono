@@ -1,6 +1,4 @@
 import { useAppForm } from "@/components/forms";
-import type { AddTaxRegistrationPayload } from "../api/legalEntity.api.service";
-import { useAddTaxRegistrationMutation } from "../api/legalEntity.api.mutation";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface AddTaxRegistrationFormProps {

@@ -4,9 +4,6 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 export const Route = createFileRoute("/_appuser/legal_entity")({
   pendingMs: 0,
   pendingComponent: LegalEntityIndexSkeleton,
-  loader: async () => {
-    await new Promise((resolve) => setTimeout(resolve, 10000));
-  },
   component: Outlet,
 });
 
