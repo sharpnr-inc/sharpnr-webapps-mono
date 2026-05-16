@@ -5,6 +5,8 @@
  * Dummy data — will be replaced with real API calls.
  */
 
+import { Button } from "@/components/ui/button";
+import { useFormsModal } from "@/hooks/useFormModal";
 import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
@@ -18,6 +20,7 @@ import {
   Landmark,
   GitBranch,
 } from "lucide-react";
+import { CreateLegalEntityForm } from "../components/CreateLegalEntityForm";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -454,6 +457,16 @@ export function LegalEntityIndexPage() {
     (e) => e.relationshipRole === "HOLDING",
   ).length;
 
+  const { showModal, closeModal } = useFormsModal();
+
+  const handleCreateLegalEntity = () => {
+    showModal(
+      "Add Legal Entity",
+      "",
+      <CreateLegalEntityForm closeModal={closeModal} />,
+    );
+  };
+
   return (
     <div className=" bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -482,10 +495,10 @@ export function LegalEntityIndexPage() {
             </p>
           </div>
 
-          <button className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors flex-shrink-0">
+          <Button onClick={() => handleCreateLegalEntity()}>
             <Plus className="h-4 w-4" />
             Add legal entity
-          </button>
+          </Button>
         </motion.div>
 
         {/* ── Search + filters ── */}

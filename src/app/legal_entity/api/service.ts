@@ -2,6 +2,7 @@ import api from "@/middlewares/axios";
 import { LegalEntityEndpoints } from "./endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type {
+  CreateLegalEntityPayload,
   LegalEntityIdentifierTypeResponse,
   LegalEntityListResponse,
   LegalEntityUtilResponse,
@@ -16,6 +17,19 @@ export async function ListAllLegalEntityOfOrganization() {
     LegalEntityEndpoints.listallLegalEntity(),
   );
   return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export async function createNewLegalEntity({
+  payload,
+}: CreateLegalEntityPayload) {
+  const response = await api.post<APIResponse<null>>(
+    LegalEntityEndpoints.createLegalEntity(),
+    payload,
+  );
+
+  response.data;
 }
 
 /* ---------------------------------- <***> --------------------------------- */
