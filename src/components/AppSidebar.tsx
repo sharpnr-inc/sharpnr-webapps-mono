@@ -22,7 +22,7 @@ import {
   Flag,
   Scale,
 } from "lucide-react";
-import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
+import { SharpnrSidebarFooter } from "@sharpnr/ui";
 import { useAppUserStore } from "@/store/AppUserStore";
 import { motion, AnimatePresence } from "framer-motion";
 

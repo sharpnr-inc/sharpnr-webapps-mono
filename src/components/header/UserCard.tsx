@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@sharpnr/ui";
 import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
 import { Badge } from "@sharpnr/ui";
 import { Skeleton } from "@sharpnr/ui";

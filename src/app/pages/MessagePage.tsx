@@ -2,7 +2,7 @@ import { Card } from "@sharpnr/ui";
 import { ScrollArea } from "@sharpnr/ui";
 import { Input } from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@sharpnr/ui";
 
 const channels = [
   { id: 1, name: "General", lastMessage: "Meeting at 5 PM" },

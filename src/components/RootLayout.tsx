@@ -1,7 +1,7 @@
 import { Outlet, useRouteContext } from "@tanstack/react-router";
 import { Sidebar, SidebarProvider, SidebarTrigger } from "@sharpnr/ui";
 import { AppSidebar } from "./AppSidebar";
-import { ModeToggle } from "./ui/mode-toggle";
+import { ModeToggle } from "@sharpnr/ui";
 import { Separator } from "@sharpnr/ui";
 import SharpnrLauncher from "./header/SharpnrLauncher";
 import { NotificationBell } from "./header/NotificationButton";
