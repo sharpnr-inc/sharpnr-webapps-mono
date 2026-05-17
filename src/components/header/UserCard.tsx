@@ -1,11 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Skeleton } from "@sharpnr/ui";
 import { useUserCardStore } from "./user_card_store";
 import { LogOut } from "lucide-react";
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";

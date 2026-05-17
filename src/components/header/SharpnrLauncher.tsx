@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@sharpnr/ui";
 import { DEFAULT_SECTIONS } from "./launcher.config";
 import type { NavItem } from "./launcher.types";
 import logo from "@/assets/AppIcon.png";

@@ -5,10 +5,10 @@ import {
   CardTitle,
   CardContent,
   CardDescription,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+} from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 
 interface AdminRequestPageProps {}
 
@@ -19,8 +19,8 @@ const AdminRequestPage: React.FC<AdminRequestPageProps> = () => {
       <div>
         <h1 className="text-2xl font-semibold">Team Requests</h1>
         <p className="text-sm text-muted-foreground">
-          Review and manage team requests such as leave, access permissions,
-          and other approvals.
+          Review and manage team requests such as leave, access permissions, and
+          other approvals.
         </p>
       </div>
 
@@ -58,9 +58,7 @@ const AdminRequestPage: React.FC<AdminRequestPageProps> = () => {
       <Card>
         <CardHeader>
           <CardTitle>Incoming Requests</CardTitle>
-          <CardDescription>
-            Requests submitted by team members
-          </CardDescription>
+          <CardDescription>Requests submitted by team members</CardDescription>
         </CardHeader>
 
         <CardContent>

@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+} from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@sharpnr/ui";
 import { useAppUserProfile } from "@/api/queries";
 import { useFormsModal } from "@/hooks/useFormModal";
 import { EditProfileForm } from "../forms/EditProfileForm";

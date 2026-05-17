@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useSidebar } from "@/components/ui/sidebar";
-import { SidebarFooter } from "@/components/ui/sidebar";
+import { useSidebar } from "@sharpnr/ui";
+import { SidebarFooter } from "@sharpnr/ui";
 import logo from "@/assets/AppIcon.png";
 
 const NAVY = "#0B0D2E";

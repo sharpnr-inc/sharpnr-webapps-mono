@@ -11,8 +11,7 @@ import { SheetProvider } from "./hooks/useSheets";
 import { Toaster } from "sonner";
 import { DialogModalProvider } from "./hooks/useDialog";
 import { FormsModalProvider } from "./hooks/useFormModal";
-import { TooltipProvider } from "./components/ui/tooltip";
-
+import { TooltipProvider } from "@sharpnr/ui";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

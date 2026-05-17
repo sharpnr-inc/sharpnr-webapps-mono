@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
   useSidebar,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import {
   MessageSquare,
   User,

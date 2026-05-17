@@ -1,7 +1,7 @@
-import { Card } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Card } from "@sharpnr/ui";
+import { ScrollArea } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const channels = [
