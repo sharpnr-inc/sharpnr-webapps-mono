@@ -7,12 +7,12 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { useAppUserProfile } from "@/api/queries";
 import { useFormsModal } from "@/hooks/useFormModal";
 import { EditProfileForm } from "../forms/EditProfileForm";
+import { Button } from "@sharpnr/ui";
 
 interface AppUserProfilePageProps {}
 

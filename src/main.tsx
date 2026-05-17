@@ -13,6 +13,7 @@ import { DialogModalProvider } from "./hooks/useDialog";
 import { FormsModalProvider } from "./hooks/useFormModal";
 import { TooltipProvider } from "./components/ui/tooltip";
 
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider storageKey="iam-ui-theme">

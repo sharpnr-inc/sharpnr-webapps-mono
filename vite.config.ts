@@ -23,6 +23,10 @@ export default defineConfig({
   },
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
+    dedupe: ["react", "react-dom"], // ← forces single react instance
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom"], // ← pre-bundle as ESM
   },
   preview: {
     port: 6867,
