@@ -213,10 +213,10 @@ export function InitialSignupForm({
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col gap-1"
       >
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">
+        <h1 className="text-2xl font-bold tracking-tight ">
           Create your account
         </h1>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted">
           Get started — it only takes a minute.
         </p>
       </motion.div>
@@ -236,7 +236,7 @@ export function InitialSignupForm({
               <Field>
                 <FieldLabel
                   htmlFor={field.name}
-                  className="text-xs font-medium text-foreground/70"
+                  className="text-xs font-medium"
                 >
                   Email address
                 </FieldLabel>
@@ -422,7 +422,7 @@ export function InitialSignupForm({
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2  hover:text-foreground transition-colors"
                     >
                       {showConfirm ? (
                         <EyeOff className="h-4 w-4" />
@@ -488,10 +488,10 @@ export function InitialSignupForm({
           animate="visible"
         >
           <FieldDescription className="text-center text-sm">
-            Already have an account?{" "}
+            Already have an account?
             <Button
-              variant="link"
-              className="p-0 h-auto font-semibold"
+              variant={"ghost"}
+              className=" h-auto font-semibold"
               onClick={() => navigate({ to: "/" })}
               type="button"
             >

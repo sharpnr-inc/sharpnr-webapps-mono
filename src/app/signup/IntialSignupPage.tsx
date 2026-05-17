@@ -232,15 +232,12 @@ function AnimatedPanel() {
   ];
 
   return (
-    <div
-      ref={containerRef}
-      className="relative h-full w-full overflow-hidden bg-muted"
-    >
+    <div ref={containerRef} className="relative h-full w-full overflow-hidden">
       {/* Canvas layer */}
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
       {/* Vignette overlay */}
-      <div className="absolute inset-0 bg-linear-to-br from-background/40 via-transparent to-background/20" />
+      <div className="absolute" />
 
       {/* Center headline */}
       <div className="panel-headline absolute inset-0 flex flex-col items-center justify-center gap-4 px-10 text-center opacity-0">
@@ -362,56 +359,11 @@ export function InitialSignupPage() {
           className="relative flex items-center gap-2"
         >
           <div className="flex h-7 w-7 items-center justify-center rounded-md bg-foreground">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path
-                d="M2 7L6 11L12 3"
-                stroke="hsl(var(--background))"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <img src="https://cdn.sharpnr.com/shicon.svg" />
           </div>
-          <span className="text-sm font-semibold tracking-tight text-foreground/80">
+          <span className="text-2xl font-semibold font-serif tracking-tight">
             Sharpnr
           </span>
-        </motion.div>
-
-        {/* Step indicator */}
-        <motion.div
-          className="relative flex items-center gap-2 self-start"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {["Account", "Verify"].map((step, i) => (
-            <div key={step} className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5">
-                <motion.div
-                  animate={{
-                    backgroundColor:
-                      (i === 0 && !showOtp) || (i === 1 && showOtp)
-                        ? "hsl(var(--foreground))"
-                        : i < (showOtp ? 1 : 0)
-                          ? "hsl(var(--foreground)/0.4)"
-                          : "hsl(var(--muted-foreground)/0.2)",
-                  }}
-                  transition={{ duration: 0.4 }}
-                  className="h-1.5 w-1.5 rounded-full"
-                />
-                <span
-                  className={`text-xs transition-colors duration-300 ${
-                    (i === 0 && !showOtp) || (i === 1 && showOtp)
-                      ? "text-foreground font-medium"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {step}
-                </span>
-              </div>
-              {i < 1 && <div className="h-px w-6 bg-border/60" />}
-            </div>
-          ))}
         </motion.div>
 
         {/* Form area */}
