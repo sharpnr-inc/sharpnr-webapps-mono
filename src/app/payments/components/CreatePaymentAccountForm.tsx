@@ -15,7 +15,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { useOrganizationLegalEntities } from "@/app/legal_entity/api/legalEntity.api.queries";
 import { useAppForm } from "@/components/forms";
 import { useCreatePaymentAccountMutation } from "../api/api.mutation";

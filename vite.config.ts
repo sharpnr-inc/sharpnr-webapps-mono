@@ -55,7 +55,14 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    dedupe: ["react", "react-dom"], // ← forces single react instance
+    dedupe: [
+      "react",
+      "react-dom",
+      "lucide-react",
+      "gsap",
+      "@gsap/react",
+      "framer-motion",
+    ],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },

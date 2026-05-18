@@ -294,6 +294,7 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRout
   )
 
 export interface FileRoutesByFullPath {
+  '/': typeof MarketingIndexRoute
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
@@ -302,42 +303,41 @@ export interface FileRoutesByFullPath {
   '/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
   '/storage': typeof AppuserStorageRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
-  '/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/cables/routes': typeof AppuserCablesRoutesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
-  '/audit-log': typeof AppuserAuditLogIndexRoute
-  '/cables': typeof AppuserCablesIndexRoute
+  '/audit-log/': typeof AppuserAuditLogIndexRoute
+  '/cables/': typeof AppuserCablesIndexRoute
   '/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
-  '/docs_office': typeof AppuserDocs_officeIndexRoute
+  '/docs_office/': typeof AppuserDocs_officeIndexRoute
   '/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/legal_entity/': typeof AppuserLegal_entityIndexRoute
-  '/org-users': typeof AppuserOrgUsersIndexRoute
-  '/organization': typeof AppuserOrganizationIndexRoute
+  '/org-users/': typeof AppuserOrgUsersIndexRoute
+  '/organization/': typeof AppuserOrganizationIndexRoute
   '/payments/': typeof AppuserPaymentsIndexRoute
-  '/property': typeof AppuserPropertyIndexRoute
+  '/property/': typeof AppuserPropertyIndexRoute
   '/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
   '/storage/': typeof AppuserStorageIndexRoute
-  '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
-  '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
+  '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
-  '/property/$propertyId/property_settings': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/property/$propertyId/property_settings/': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
-  '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
-  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesByTo {
-  '/home': typeof AppuserHomeRoute
   '/': typeof MarketingIndexRoute
+  '/home': typeof AppuserHomeRoute
   '/setup_wizard': typeof Setup_wizardIndexRoute
   '/cables/routes': typeof AppuserCablesRoutesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
@@ -416,6 +416,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/setup_wizard'
     | '/descovro_integrations'
     | '/inventory-acc'
@@ -424,42 +425,41 @@ export interface FileRouteTypes {
     | '/sharp_marketplace'
     | '/storage'
     | '/home'
-    | '/'
     | '/setup_wizard/'
     | '/cables/routes'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
     | '/setup_wizard/$stepID/userinfo'
-    | '/audit-log'
-    | '/cables'
+    | '/audit-log/'
+    | '/cables/'
     | '/descovro_integrations/'
-    | '/docs_office'
+    | '/docs_office/'
     | '/inventory-acc/'
     | '/legal_entity/'
-    | '/org-users'
-    | '/organization'
+    | '/org-users/'
+    | '/organization/'
     | '/payments/'
-    | '/property'
+    | '/property/'
     | '/sharp_marketplace/'
     | '/storage/'
-    | '/suppliers&Vendors'
+    | '/suppliers&Vendors/'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
     | '/property/$propertyId/details'
     | '/property/$propertyId/property-configuration'
     | '/suppliers&Vendors/$suppliersID/details'
-    | '/payments/$accountId'
+    | '/payments/$accountId/'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
-    | '/property/$propertyId/property_settings'
+    | '/property/$propertyId/property_settings/'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
-    | '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-    | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
+    | '/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/home'
     | '/'
+    | '/home'
     | '/setup_wizard'
     | '/cables/routes'
     | '/property/routes'
@@ -553,7 +553,7 @@ declare module '@tanstack/react-router' {
     '/_appuser': {
       id: '/_appuser'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AppuserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -623,7 +623,7 @@ declare module '@tanstack/react-router' {
     '/_appuser/suppliers&Vendors/': {
       id: '/_appuser/suppliers&Vendors/'
       path: '/suppliers&Vendors'
-      fullPath: '/suppliers&Vendors'
+      fullPath: '/suppliers&Vendors/'
       preLoaderRoute: typeof AppuserSuppliersChar38VendorsIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
@@ -644,7 +644,7 @@ declare module '@tanstack/react-router' {
     '/_appuser/property/': {
       id: '/_appuser/property/'
       path: '/property'
-      fullPath: '/property'
+      fullPath: '/property/'
       preLoaderRoute: typeof AppuserPropertyIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
@@ -658,14 +658,14 @@ declare module '@tanstack/react-router' {
     '/_appuser/organization/': {
       id: '/_appuser/organization/'
       path: '/organization'
-      fullPath: '/organization'
+      fullPath: '/organization/'
       preLoaderRoute: typeof AppuserOrganizationIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/org-users/': {
       id: '/_appuser/org-users/'
       path: '/org-users'
-      fullPath: '/org-users'
+      fullPath: '/org-users/'
       preLoaderRoute: typeof AppuserOrgUsersIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
@@ -686,7 +686,7 @@ declare module '@tanstack/react-router' {
     '/_appuser/docs_office/': {
       id: '/_appuser/docs_office/'
       path: '/docs_office'
-      fullPath: '/docs_office'
+      fullPath: '/docs_office/'
       preLoaderRoute: typeof AppuserDocs_officeIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
@@ -700,14 +700,14 @@ declare module '@tanstack/react-router' {
     '/_appuser/cables/': {
       id: '/_appuser/cables/'
       path: '/cables'
-      fullPath: '/cables'
+      fullPath: '/cables/'
       preLoaderRoute: typeof AppuserCablesIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/audit-log/': {
       id: '/_appuser/audit-log/'
       path: '/audit-log'
-      fullPath: '/audit-log'
+      fullPath: '/audit-log/'
       preLoaderRoute: typeof AppuserAuditLogIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
@@ -749,7 +749,7 @@ declare module '@tanstack/react-router' {
     '/_appuser/payments/$accountId/': {
       id: '/_appuser/payments/$accountId/'
       path: '/$accountId'
-      fullPath: '/payments/$accountId'
+      fullPath: '/payments/$accountId/'
       preLoaderRoute: typeof AppuserPaymentsAccountIdIndexRouteImport
       parentRoute: typeof AppuserPaymentsRouteRoute
     }
@@ -791,7 +791,7 @@ declare module '@tanstack/react-router' {
     '/_appuser/property/$propertyId/property_settings/': {
       id: '/_appuser/property/$propertyId/property_settings/'
       path: '/property/$propertyId/property_settings'
-      fullPath: '/property/$propertyId/property_settings'
+      fullPath: '/property/$propertyId/property_settings/'
       preLoaderRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
@@ -812,14 +812,14 @@ declare module '@tanstack/react-router' {
     '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
       id: '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
       path: '/$restaurantID'
-      fullPath: '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
+      fullPath: '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
       preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport
       parentRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute
     }
     '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/': {
       id: '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
       path: '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
-      fullPath: '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
+      fullPath: '/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
       preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
