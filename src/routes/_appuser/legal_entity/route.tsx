@@ -18,14 +18,14 @@ function LegalEntityIndexSkeleton() {
 
       {/* Page Header */}
       <div className="space-y-2">
-        <Skeleton className="h-8 w-[260px]" />
-        <Skeleton className="h-4 w-[420px]" />
+        <Skeleton className="h-8 w-65" />
+        <Skeleton className="h-4 w-105" />
       </div>
 
       {/* Action Buttons */}
       <div className="flex gap-3">
-        <Skeleton className="h-10 w-[140px] rounded-lg" />
-        <Skeleton className="h-10 w-[140px] rounded-lg" />
+        <Skeleton className="h-10 w-35 rounded-lg" />
+        <Skeleton className="h-10 w-35 rounded-lg" />
       </div>
 
       {/* Table Header */}

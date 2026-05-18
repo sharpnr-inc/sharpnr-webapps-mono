@@ -109,7 +109,7 @@ function NotificationBell({ onClick }: { onClick: () => void }) {
           animate={pulse ? { rotate: [0, -18, 18, -12, 12, 0] } : {}}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
-          <Bell className="h-[17px] w-[17px]" />
+          <Bell className="h-4.25 w-4.25" />
         </motion.div>
         <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
@@ -137,119 +137,134 @@ function HeaderDivider() {
 
 function OrchestratorShell() {
   const { location } = useRouterState();
-  const { openSheet } = useSheet();
+  const { state } = useSidebar();
   const pathname = location.pathname;
-  const { state, toggleSidebar } = useSidebar();
-  const isCollapsed = state === "collapsed";
   const { user } = useAppUserStore();
+
+  const isCollapsed = state === "collapsed";
 
   const isActive = (path: string, exact = false) => {
     if (exact) return pathname === path;
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
+  return (
+    <Sidebar collapsible="icon">
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              size="lg"
+              className="cursor-default hover:bg-transparent active:bg-transparent"
+              tooltip={user?.org_data.org_name}
+            >
+              {/* Icon badge — always visible */}
+              <motion.div
+                className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground overflow-hidden"
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+              >
+                {/* Subtle top-left sheen */}
+                <div className="pointer-events-none absolute inset-0" />
+                <Building2 className="h-4 w-4 relative z-10" />
+              </motion.div>
+
+              {/* Text block — animates out on collapse */}
+              <AnimatePresence initial={false}>
+                {!isCollapsed && (
+                  <motion.div
+                    key="org-text"
+                    className="flex min-w-0 flex-col leading-tight"
+                    initial={{ opacity: 0, x: -6, width: 0 }}
+                    animate={{ opacity: 1, x: 0, width: "auto" }}
+                    exit={{ opacity: 0, x: -6, width: 0 }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <motion.span
+                      className="truncate text-sm  tracking-tight font-bold"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12, delay: 0.04 }}
+                    >
+                      {user?.org_data.org_name}
+                    </motion.span>
+                    <motion.span
+                      className="truncate text-xs font-mono"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12, delay: 0.06 }}
+                    >
+                      {user?.org_data.sharp_id}
+                    </motion.span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {orchestratorLinks.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <SidebarMenuItem key={item.label}>
+                    <SidebarMenuButton
+                      tooltip={item.tooltip}
+                      asChild={!!item.path}
+                      isActive={
+                        item.path ? isActive(item.path, item.exact) : false
+                      }
+                    >
+                      {item.path ? (
+                        <Link to={item.path}>
+                          <Icon />
+                          <span>{item.label}</span>
+                        </Link>
+                      ) : (
+                        <>
+                          <Icon />
+                          <span>{item.label}</span>
+                        </>
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SharpnrSidebarFooter />
+    </Sidebar>
+  );
+}
+
+/* =========================
+   Main Export
+========================= */
+
+export function ConsoleLayout() {
+  const { toggleSidebar } = useSidebar();
+  const { openSheet } = useSheet();
+
+  const { location } = useRouterState();
+
+  const pathname = location.pathname;
+
   const handleOpenNotification = () => {
     openSheet(<div>This is Notification</div>, "2/4");
   };
-
   return (
-    <>
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                size="lg"
-                className="cursor-default hover:bg-transparent active:bg-transparent"
-                tooltip={user?.org_data.org_name}
-              >
-                {/* Icon badge — always visible */}
-                <motion.div
-                  className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground overflow-hidden"
-                  whileHover={{ scale: 1.08 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 22 }}
-                >
-                  {/* Subtle top-left sheen */}
-                  <div className="pointer-events-none absolute inset-0" />
-                  <Building2 className="h-4 w-4 relative z-10" />
-                </motion.div>
-
-                {/* Text block — animates out on collapse */}
-                <AnimatePresence initial={false}>
-                  {!isCollapsed && (
-                    <motion.div
-                      key="org-text"
-                      className="flex min-w-0 flex-col leading-tight"
-                      initial={{ opacity: 0, x: -6, width: 0 }}
-                      animate={{ opacity: 1, x: 0, width: "auto" }}
-                      exit={{ opacity: 0, x: -6, width: 0 }}
-                      transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-                    >
-                      <motion.span
-                        className="truncate text-sm  tracking-tight font-bold"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.12, delay: 0.04 }}
-                      >
-                        {user?.org_data.org_name}
-                      </motion.span>
-                      <motion.span
-                        className="truncate text-xs font-mono"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.12, delay: 0.06 }}
-                      >
-                        {user?.org_data.sharp_id}
-                      </motion.span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {orchestratorLinks.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <SidebarMenuItem key={item.label}>
-                      <SidebarMenuButton
-                        tooltip={item.tooltip}
-                        asChild={!!item.path}
-                        isActive={
-                          item.path ? isActive(item.path, item.exact) : false
-                        }
-                      >
-                        {item.path ? (
-                          <Link to={item.path}>
-                            <Icon />
-                            <span>{item.label}</span>
-                          </Link>
-                        ) : (
-                          <>
-                            <Icon />
-                            <span>{item.label}</span>
-                          </>
-                        )}
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  );
-                })}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-
-        <SharpnrSidebarFooter />
-      </Sidebar>
-
+    <SidebarProvider defaultOpen={true}>
+      <OrchestratorShell />
       <SidebarInset>
         <motion.header
           variants={headerVariants}
@@ -309,19 +324,6 @@ function OrchestratorShell() {
           </motion.main>
         </AnimatePresence>
       </SidebarInset>
-    </>
-  );
-}
-
-/* =========================
-   Main Export
-========================= */
-
-export function ConsoleLayout() {
-  return (
-    <SidebarProvider defaultOpen={true}>
-      {" "}
-      <OrchestratorShell />
     </SidebarProvider>
   );
 }
