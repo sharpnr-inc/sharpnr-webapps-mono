@@ -2,7 +2,7 @@ import {
   GetAuthenticatedUser,
   verifyUserAuthentication,
 } from "@/apis/api_service";
-import GlobalLoader from "@/components/ui/GlobalLoader";
+import { GlobalLoader } from "@sharpnr/ui";
 import { config } from "@/configs/env";
 import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
 import { resolveSetupWizardRedirect } from "@/setup_wizard/resolver/step_resolver";

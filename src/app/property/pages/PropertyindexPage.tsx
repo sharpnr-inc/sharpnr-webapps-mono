@@ -8,7 +8,7 @@
 */
 
 import { useNavigate } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   AlertTriangle,
   Building2,
@@ -21,7 +21,7 @@ import {
   Settings,
   Tag,
 } from "lucide-react";
-import { useFormsModal } from "@/hooks/useFormModal";
+import { useFormsModal } from "@sharpnr/ui";
 import { useState } from "react";
 import AddPropertyForm from "../components/AddPropertyForm";
 import PropertyDomainSelection from "../components/PropertyDomainSelection";

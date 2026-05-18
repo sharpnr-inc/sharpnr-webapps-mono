@@ -1,17 +1,17 @@
 import { useMemo } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { useRestaurantLayout } from "@/propertyDomain/hospitality/restaurant/apis/queries";
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantConfiguration from "./RestaurantFloorForm";
-import { useFormsModal } from "@/hooks/useFormModal";
+import { useFormsModal } from "@sharpnr/ui";
 
 type Table = {
   id: string;

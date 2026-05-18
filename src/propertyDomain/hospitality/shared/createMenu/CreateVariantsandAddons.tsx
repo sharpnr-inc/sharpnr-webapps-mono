@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { Card, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { Separator } from "@/components/ui/separator";
 import {
   MoveLeft,

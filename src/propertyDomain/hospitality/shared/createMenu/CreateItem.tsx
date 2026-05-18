@@ -5,10 +5,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { MoveLeft, PlusIcon } from "lucide-react";
 import {
   Tooltip,
@@ -23,7 +23,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@sharpnr/ui";
 import { useState } from "react";
 import { useAppForm } from "@/components/forms";
 import {

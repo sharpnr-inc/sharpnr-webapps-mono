@@ -4,7 +4,7 @@ import {
 } from "@/apis/api_service";
 import { ConsoleLayout } from "@/components/ConsoleLayout";
 
-import GlobalLoader from "@/components/ui/GlobalLoader";
+import { GlobalLoader } from "@sharpnr/ui";
 import { config } from "@/configs/env";
 import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
 import { appUserActions } from "@/store/AppUserStore";

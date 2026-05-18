@@ -15,18 +15,17 @@ import {
   SidebarTrigger,
   SidebarHeader,
   useSidebar,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { Bell, Building2 } from "lucide-react";
-import { RouteBreadcrumbs } from "@/components/custom/router-breadcrumbs";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
-import { Button } from "@/components/ui/button";
-import { ModeToggle } from "@/components/ui/ThemeToggle";
-import { useSheet } from "@/hooks/useSheet";
+import { Button } from "@sharpnr/ui";
+import { ModeToggle } from "@sharpnr/ui";
+import { useSheet } from "@sharpnr/ui";
 import { cn } from "@/lib/utils";
 import type { Variants, Transition } from "framer-motion";
 import { UserCard } from "./header/UserCard";
-import { SharpnrSidebarFooter } from "./ui/SharpnrSidebarFooter";
+import { SharpnrSidebarFooter } from "@sharpnr/ui";
 import { useAppUserStore } from "@/store/AppUserStore";
 import { orchestratorLinks } from "./AppSidebar";
 
@@ -140,7 +139,7 @@ function OrchestratorShell() {
   const { location } = useRouterState();
   const { openSheet } = useSheet();
   const pathname = location.pathname;
-  const { state } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
   const { user } = useAppUserStore();
 
@@ -264,15 +263,14 @@ function OrchestratorShell() {
         >
           <HeaderItem index={0} className="flex items-center">
             <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}>
-              <SidebarTrigger className="rounded-lg hover:bg-accent/70 transition-colors" />
+              <SidebarTrigger
+                onClick={() => toggleSidebar()}
+                className="rounded-lg hover:bg-accent/70 transition-colors"
+              />
             </motion.div>
           </HeaderItem>
 
           <HeaderDivider />
-
-          <HeaderItem index={1} className="flex-1 min-w-0">
-            <RouteBreadcrumbs />
-          </HeaderItem>
 
           <div className="flex items-center gap-3 px-6 py-1 rounded-2xl">
             <HeaderItem index={2}>
@@ -321,7 +319,8 @@ function OrchestratorShell() {
 
 export function ConsoleLayout() {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={true}>
+      {" "}
       <OrchestratorShell />
     </SidebarProvider>
   );

@@ -1,9 +1,7 @@
 import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import NotFound from "./components/ui/404Page";
-import GlobalLoader from "./components/ui/GlobalLoader";
-import { GlobalErrorPage } from "./components/ui/GlobalErr";
+import { GlobalErrorPage, GlobalLoader, NotFound } from "@sharpnr/ui";
 // import {
 //   hotelDetailMask,
 //   propertyDetailsMask,

@@ -2,16 +2,14 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { useFieldContext } from "../form-context";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@sharpnr/ui";
+import { useFieldContext } from "../form-context";
 import React from "react";
 import {
   AlertCircle,
@@ -20,7 +18,7 @@ import {
   Map,
   Loader2,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/ui";
 import { useStateStore } from "@/components/forms/store/state_store";
 import { useCityStore } from "@/components/forms/store/store";
 import { useStates } from "../apiservice/queries";

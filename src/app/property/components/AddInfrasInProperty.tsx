@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { Input } from "@/components/ui/input";
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAddInfraInProperty } from "../api/mutation";

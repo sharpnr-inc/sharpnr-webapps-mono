@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { AlertTriangle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
+} from "@sharpnr/ui";
 
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import { useRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/queries";

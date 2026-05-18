@@ -1,7 +1,14 @@
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+} from "@sharpnr/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { motion } from "framer-motion";
 import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 import {
@@ -1071,69 +1078,71 @@ const LegalEntityDetailsPage: React.FC = () => {
         <Separator />
 
         {/* ── Tabs ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2, delay: 0.1 }}
-        >
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="w-full justify-start overflow-x-auto h-auto p-1 gap-0.5">
-              <TabsTrigger
-                value="overview"
-                className="text-xs flex items-center gap-1.5"
-              >
-                <Building2 className="h-3.5 w-3.5" />
-                Overview
-              </TabsTrigger>
-              <TabsTrigger
-                value="documents"
-                className="text-xs flex items-center gap-1.5"
-              >
-                <FileText className="h-3.5 w-3.5" />
-                Docs & Licenses
-              </TabsTrigger>
-              <TabsTrigger
-                value="tax_registration"
-                className="text-xs flex items-center gap-1.5"
-              >
-                <Receipt className="h-3.5 w-3.5" />
-                Tax
-              </TabsTrigger>
-              <TabsTrigger
-                value="settings"
-                className="text-xs flex items-center gap-1.5"
-              >
-                <MapPin className="h-3.5 w-3.5" />
-                Addresses & People
-              </TabsTrigger>
-              <TabsTrigger
-                value="reports"
-                className="text-xs flex items-center gap-1.5"
-              >
-                <FileText className="h-3.5 w-3.5" />
-                Reports
-              </TabsTrigger>
-            </TabsList>
 
-            <div className="mt-4">
-              <TabsContent value="overview">
-                <OverviewTab />
-              </TabsContent>
-              <TabsContent value="documents">
-                <DocumentsTab />
-              </TabsContent>
-              <TabsContent value="tax_registration">
-                <TaxRegistrationTab />
-              </TabsContent>
-              <TabsContent value="settings">
-                <GeneralSettingsTab />
-              </TabsContent>
-              <TabsContent value="reports">
-                <ReportsTab />
-              </TabsContent>
-            </div>
-          </Tabs>
-        </motion.div>
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList variant={"line"}>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview">
+            <Card>
+              <CardHeader>
+                <CardTitle>Overview</CardTitle>
+                <CardDescription>
+                  View your key metrics and recent project activity. Track
+                  progress across all your active projects.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">
+                You have 12 active projects and 3 pending tasks.
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="analytics">
+            <Card>
+              <CardHeader>
+                <CardTitle>Analytics</CardTitle>
+                <CardDescription>
+                  Track performance and user engagement metrics. Monitor trends
+                  and identify growth opportunities.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">
+                Page views are up 25% compared to last month.
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="reports">
+            <Card>
+              <CardHeader>
+                <CardTitle>Reports</CardTitle>
+                <CardDescription>
+                  Generate and download your detailed reports. Export data in
+                  multiple formats for analysis.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">
+                You have 5 reports ready and available to export.
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="settings">
+            <Card>
+              <CardHeader>
+                <CardTitle>Settings</CardTitle>
+                <CardDescription>
+                  Manage your account preferences and options. Customize your
+                  experience to fit your needs.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground">
+                Configure notifications, security, and themes.
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

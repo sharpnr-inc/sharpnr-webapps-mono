@@ -4,7 +4,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@sharpnr/ui";
 import { PlusIcon } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAppForm } from "@/components/forms";

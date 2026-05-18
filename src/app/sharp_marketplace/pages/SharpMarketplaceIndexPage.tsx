@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Card, CardContent } from "@sharpnr/ui";
 import {
   Construction,
   Store,

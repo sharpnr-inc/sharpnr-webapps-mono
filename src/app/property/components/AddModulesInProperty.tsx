@@ -2,8 +2,8 @@ import { CheckCircle2 } from "lucide-react";
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { useForm } from "@tanstack/react-form";
 import { useAddModulesInProperty } from "../api/mutation";
 

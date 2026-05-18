@@ -18,7 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useFormsModal } from "@/hooks/useFormModal";
+import { useFormsModal } from "@sharpnr/ui";
 import AddModulesInProperty from "../components/AddModulesInProperty";
 import { AddInfraInProperty } from "../components/AddInfrasInProperty";
 import { motion, type Variants } from "framer-motion";

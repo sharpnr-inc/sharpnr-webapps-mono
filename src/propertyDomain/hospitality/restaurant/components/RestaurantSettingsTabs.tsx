@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { RestaurantLegalEntity } from "./RestaurantLegalEntity";
 import { usePropertyDetails } from "@/app/property/api/queries";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { useRestaurantGeneralInfo } from "../apis/queries";
 import { AnimatePresence, motion, type Variants } from "framer-motion";

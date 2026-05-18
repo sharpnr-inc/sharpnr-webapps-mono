@@ -1,8 +1,4 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
 import {
   Command,
@@ -11,7 +7,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@sharpnr/ui";
 import { useCountries } from "../apiservice/queries";
 import { useStateStore } from "@/components/forms/store/state_store";
 import { cn } from "@/lib/utils";

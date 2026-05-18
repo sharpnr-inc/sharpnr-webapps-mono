@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription } from "@sharpnr/ui";
 import {
   Users,
   Smartphone,

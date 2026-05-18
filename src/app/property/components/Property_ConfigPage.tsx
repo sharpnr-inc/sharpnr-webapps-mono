@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import {
   Carousel,
   CarouselContent,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/carousel";
 
 import { useSearch } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { Route } from "@/routes/_appuser/property/$propertyId/property-configuration";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";

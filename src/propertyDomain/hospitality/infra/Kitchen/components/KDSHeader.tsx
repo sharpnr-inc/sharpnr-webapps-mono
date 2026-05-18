@@ -1,11 +1,4 @@
-import { 
-  Power, 
-  Pause, 
-  Play, 
-  Printer, 
-  Settings2, 
-  History, 
-} from "lucide-react";
+import { Power, Pause, Play, Printer, Settings2, History } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +7,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { useState } from "react";
 
 export default function KDSHeader() {
@@ -27,16 +20,23 @@ export default function KDSHeader() {
         {/* Main KDS Controls Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="h-10 w-10 rounded-xl shadow-sm">
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-10 w-10 rounded-xl shadow-sm"
+            >
               <Settings2 size={18} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-56 rounded-2xl p-2 shadow-xl">
+          <DropdownMenuContent
+            align="start"
+            className="w-56 rounded-2xl p-2 shadow-xl"
+          >
             <DropdownMenuLabel className="text-[10px] uppercase tracking-widest opacity-50">
               Terminal Controls
             </DropdownMenuLabel>
-            
-            <DropdownMenuItem 
+
+            <DropdownMenuItem
               onClick={() => setIsPaused(!isPaused)}
               className="flex items-center gap-2 py-2.5 rounded-lg cursor-pointer"
             >
@@ -73,19 +73,28 @@ export default function KDSHeader() {
         </DropdownMenu>
 
         <div className="flex flex-col">
-          <h1 className="text-xl font-bold tracking-tight leading-none">KDS Terminal</h1>
-          <span className="text-sm font-mono font-medium uppercase mt-1">Station: Main Kitchen</span>
+          <h1 className="text-xl font-bold tracking-tight leading-none">
+            KDS Terminal
+          </h1>
+          <span className="text-sm font-mono font-medium uppercase mt-1">
+            Station: Main Kitchen
+          </span>
         </div>
-        
       </div>
 
       <div className="flex items-center gap-3">
         {isPaused && (
-          <Badge variant="outline" className="border-yellow-500 text-yellow-600 gap-1 animate-pulse px-3">
+          <Badge
+            variant="outline"
+            className="border-yellow-500 text-yellow-600 gap-1 animate-pulse px-3"
+          >
             <Pause size={10} fill="currentColor" /> PAUSED
           </Badge>
         )}
-        <Badge variant="default" className=" gap-1.5 py-1 px-3 rounded-full border">
+        <Badge
+          variant="default"
+          className=" gap-1.5 py-1 px-3 rounded-full border"
+        >
           <div className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
           Live Feed
         </Badge>

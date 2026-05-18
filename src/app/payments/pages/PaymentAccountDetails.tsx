@@ -1,7 +1,7 @@
 import { Route } from "@/routes/_appuser/payments/$accountId/index";
 import { AddGatewayConfigForm } from "../components/AddGatewayConfigForm";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { Plus, Copy, Check } from "lucide-react";
 import { usePaymentAccountConfig } from "../api/api.queries";
 

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   Card,
   CardContent,
@@ -6,9 +6,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@sharpnr/ui";
 import { MoveRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { CreatePaymentAccountForm } from "../components/CreatePaymentAccountForm";

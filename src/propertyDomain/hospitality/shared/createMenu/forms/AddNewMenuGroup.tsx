@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
+} from "@sharpnr/ui";
 import { useCreateMenuMutation } from "../../../infra/apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import {

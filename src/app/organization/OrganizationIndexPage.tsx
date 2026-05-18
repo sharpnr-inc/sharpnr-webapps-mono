@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

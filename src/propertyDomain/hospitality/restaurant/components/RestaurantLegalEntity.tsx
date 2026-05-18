@@ -7,7 +7,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
-import { useOrganizationLegalEntities } from "@/app/legal_entity/api/legalEntity.api.queries";
 import { useRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/queries";
 import { useUpdateRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/mutations";
 import { useQueryClient } from "@tanstack/react-query";
@@ -29,14 +28,13 @@ type LegalEntity = {
   state: string;
 };
 
-const NIL_UUID = "00000000-0000-0000-0000-000000000000";
 
 export function RestaurantLegalEntity() {
   const { restaurantID } = Route.useParams();
 
   const queryClient = useQueryClient();
 
-  const { data } = useOrganizationLegalEntities();
+
 
   const { data: restaurantDetails, isLoading } = useRestaurantGeneralInfo(
     restaurantID!,
@@ -44,10 +42,7 @@ export function RestaurantLegalEntity() {
 
   const { mutateAsync } = useUpdateRestaurantGeneralInfo();
 
-  const legalEntities: LegalEntity[] = useMemo(() => {
-    return data?.data ?? [];
-  }, [data]);
-
+ 
   const restaurantLegalEntityId =
     restaurantDetails?.data?.resturant_legal_entity_id;
 
@@ -90,30 +85,7 @@ export function RestaurantLegalEntity() {
   };
 
   /* ── Empty state ────────────────────────────────────────── */
-  if (!isLoading && legalEntities.length === 0) {
-    return (
-      <div className="rounded-2xl border border-dashed border-muted-foreground/25 bg-muted/20 p-8 flex flex-col items-center text-center gap-4">
-        <div className="rounded-full bg-muted p-4 ring-8 ring-muted/30">
-          <Building2 className="h-6 w-6 text-muted-foreground" />
-        </div>
 
-        <div className="space-y-1">
-          <h3 className="text-sm font-semibold text-foreground">
-            No Legal Entity Found
-          </h3>
-          <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-            Your organization doesn't have a legal entity yet. Create one first
-            to assign it to this restaurant.
-          </p>
-        </div>
-
-        <button className="inline-flex items-center gap-2 mt-1 px-5 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-sm hover:opacity-90 transition-opacity">
-          <Building2 className="h-4 w-4" />
-          Add Legal Entity
-        </button>
-      </div>
-    );
-  }
 
   /* ── Main UI ────────────────────────────────────────────── */
   return (

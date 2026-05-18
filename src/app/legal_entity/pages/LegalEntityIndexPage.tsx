@@ -5,8 +5,8 @@
  * Dummy data — will be replaced with real API calls.
  */
 
-import { Button } from "@/components/ui/button";
-import { useFormsModal } from "@/hooks/useFormModal";
+import { Button } from "@sharpnr/ui";
+import { useFormsModal } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {

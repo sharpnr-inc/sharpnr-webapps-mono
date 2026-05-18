@@ -5,9 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { cn } from "@/lib/utils";
 import { AlertCircle, Building2, CheckCircle2, LayoutGrid } from "lucide-react";
 import { motion } from "framer-motion";

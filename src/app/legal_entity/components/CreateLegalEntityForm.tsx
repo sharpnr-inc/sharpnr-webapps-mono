@@ -12,7 +12,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { useUtilsLegalEntityAddressTypes } from "../api/queries";
 import { FY_MONTHS } from "../utils/fy_months";
 
@@ -21,10 +21,14 @@ interface CreateLegalEntityFormProps {
 }
 
 export function CreateLegalEntityForm({}: CreateLegalEntityFormProps) {
+  // Mutation hook to Creeate Legal Entity
   const {} = useCreateLegalEntityMutation();
+
+  // Fetches the Address Type from the backend
   const { data: addressType, isLoading: isAddressTypeLoading } =
     useUtilsLegalEntityAddressTypes();
 
+  // Default Values for the form
   const defaultLegalEntity: NewLegalEntityRequestDto = {
     display_name: "",
     fiscal_year_month: 4,

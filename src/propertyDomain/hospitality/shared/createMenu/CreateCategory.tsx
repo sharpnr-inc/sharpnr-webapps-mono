@@ -6,14 +6,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { createMenuAction } from "../stores/actions";
 import EmptyMenu from "../../infra/components/EmptyMenu";
 import {
   useAddPreferredKitchenToMenuGroupMutation,
   useAddTaxCategoryOfMenuGroup,
 } from "../../infra/apis/api.Mutations";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   PlusIcon,
   ChefHat,
@@ -31,12 +31,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { usePropertyDetails } from "@/app/property/api/queries";
 import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
 import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
 import { useLegalEntityAllTaxCategory } from "@/app/legal_entity/api/legalEntity.api.queries";
-import { NIL } from "uuid";
 
 const CreateCategory = () => {
   const {
@@ -59,9 +58,9 @@ const CreateCategory = () => {
   const kitchens = propertyData?.data?.infra ?? [];
 
   const { data: taxCategories } = useLegalEntityAllTaxCategory(
-    owners_legal_entity_ID && owners_legal_entity_ID !== NIL
+    owners_legal_entity_ID && owners_legal_entity_ID !== ""
       ? owners_legal_entity_ID
-      : NIL,
+      : "",
   );
 
   const { mutateAsync, isPending } =

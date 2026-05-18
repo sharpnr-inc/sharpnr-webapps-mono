@@ -1,12 +1,12 @@
 import { useAppForm } from "@/components/forms";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { getFloorNameShort } from "@/utilities/floor_naming";
 import { PlusCircle, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";

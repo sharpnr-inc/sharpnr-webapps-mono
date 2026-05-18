@@ -5,9 +5,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/components/ui/dialog";
+} from "@sharpnr/ui";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 
 import {
   Select,

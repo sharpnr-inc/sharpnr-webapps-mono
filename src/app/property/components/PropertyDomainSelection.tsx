@@ -6,17 +6,17 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
+} from "@sharpnr/ui";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Alert, AlertDescription, AlertTitle } from "@sharpnr/ui";
 import { AlertCircle } from "lucide-react";
 import type { Property } from "../api/types";
 import { cn } from "@/lib/utils";

@@ -9,10 +9,10 @@ Features:
 */
 
 import { Route } from "@/routes/_appuser/property/$propertyId/property_settings/index";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 

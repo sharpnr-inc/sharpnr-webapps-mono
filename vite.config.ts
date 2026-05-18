@@ -55,9 +55,9 @@ export default defineConfig({
     }),
   ],
   resolve: {
+    dedupe: ["react", "react-dom"], // ← forces single react instance
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@hospitalityapp": path.resolve(__dirname, "src/_hospitalityapp"),
     },
   },
 
@@ -65,9 +65,6 @@ export default defineConfig({
     host: true,
     port: 6969,
     strictPort: true,
-    allowedHosts: [
-      ".trycloudflare.com", // 👈 allow all Cloudflare quick tunnels
-      "orchestrator.sharpnr.test",
-    ],
+    allowedHosts: ["orchestrator.sharpnr.test"],
   },
 });

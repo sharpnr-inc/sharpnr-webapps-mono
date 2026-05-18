@@ -2,16 +2,14 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { useFieldContext } from "../form-context";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@sharpnr/ui";
+import { useFieldContext } from "../form-context";
 import React from "react";
 import {
   AlertCircle,
