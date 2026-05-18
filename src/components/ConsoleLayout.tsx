@@ -16,12 +16,12 @@ import {
   SidebarHeader,
   useSidebar,
 } from "@sharpnr/ui";
+
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { Bell, Building2 } from "lucide-react";
+
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
-import { Button } from "@sharpnr/ui";
-import { ModeToggle } from "@sharpnr/ui";
-import { useSheet } from "@sharpnr/ui";
+import { Button, ModeToggle, useSheet } from "@sharpnr/ui";
 import { cn } from "@/lib/utils";
 import type { Variants, Transition } from "framer-motion";
 import { UserCard } from "./header/UserCard";
@@ -58,7 +58,7 @@ const itemVariants: Variants = {
 };
 
 /* =========================
-   Sub-Components
+   Small Components
 ========================= */
 
 function HeaderItem({
@@ -83,43 +83,6 @@ function HeaderItem({
   );
 }
 
-function NotificationBell({ onClick }: { onClick: () => void }) {
-  const [pulse, setPulse] = React.useState(false);
-
-  React.useEffect(() => {
-    const id = setInterval(() => {
-      setPulse(true);
-      setTimeout(() => setPulse(false), 1000);
-    }, 8000);
-    return () => clearInterval(id);
-  }, []);
-
-  return (
-    <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.93 }}>
-      <Button
-        variant="ghost"
-        size="icon"
-        className={cn(
-          "relative h-9 w-9 rounded-xl border border-transparent hover:border-border/60 hover:bg-accent/70 transition-colors duration-200",
-        )}
-        onClick={onClick}
-        aria-label="Open notifications"
-      >
-        <motion.div
-          animate={pulse ? { rotate: [0, -18, 18, -12, 12, 0] } : {}}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-        >
-          <Bell className="h-4.25 w-4.25" />
-        </motion.div>
-        <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
-        </span>
-      </Button>
-    </motion.div>
-  );
-}
-
 function HeaderDivider() {
   return (
     <motion.div
@@ -131,20 +94,69 @@ function HeaderDivider() {
   );
 }
 
+function NotificationBell({ onClick }: { onClick: () => void }) {
+  const [pulse, setPulse] = React.useState(false);
+
+  React.useEffect(() => {
+    const id = setInterval(() => {
+      setPulse(true);
+
+      const timeout = setTimeout(() => {
+        setPulse(false);
+      }, 1000);
+
+      return () => clearTimeout(timeout);
+    }, 8000);
+
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.93 }}>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn(
+          "relative h-9 w-9 rounded-xl border border-transparent",
+          "hover:border-border/60 hover:bg-accent/70",
+        )}
+        onClick={onClick}
+      >
+        <motion.div
+          animate={pulse ? { rotate: [0, -18, 18, -12, 12, 0] } : {}}
+          transition={{
+            duration: 0.6,
+            ease: "easeInOut",
+          }}
+        >
+          <Bell className="h-4 w-4" />
+        </motion.div>
+
+        <span className="absolute right-1.5 top-1.5 flex h-2 w-2">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-60" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+        </span>
+      </Button>
+    </motion.div>
+  );
+}
+
 /* =========================
-   Internal Layout Shell
+   Sidebar Shell
 ========================= */
 
 function OrchestratorShell() {
   const { location } = useRouterState();
-  const { state } = useSidebar();
   const pathname = location.pathname;
+
+  const { state } = useSidebar();
   const { user } = useAppUserStore();
 
   const isCollapsed = state === "collapsed";
 
   const isActive = (path: string, exact = false) => {
     if (exact) return pathname === path;
+
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
@@ -155,49 +167,31 @@ function OrchestratorShell() {
           <SidebarMenuItem>
             <SidebarMenuButton
               size="lg"
-              className="cursor-default hover:bg-transparent active:bg-transparent"
               tooltip={user?.org_data.org_name}
+              className="cursor-default hover:bg-transparent"
             >
-              {/* Icon badge — always visible */}
               <motion.div
-                className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground overflow-hidden"
-                whileHover={{ scale: 1.08 }}
-                transition={{ type: "spring", stiffness: 400, damping: 22 }}
+                className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground"
+                whileHover={{ scale: 1.05 }}
               >
-                {/* Subtle top-left sheen */}
-                <div className="pointer-events-none absolute inset-0" />
-                <Building2 className="h-4 w-4 relative z-10" />
+                <Building2 className="h-4 w-4" />
               </motion.div>
 
-              {/* Text block — animates out on collapse */}
-              <AnimatePresence initial={false}>
+              <AnimatePresence>
                 {!isCollapsed && (
                   <motion.div
-                    key="org-text"
-                    className="flex min-w-0 flex-col leading-tight"
-                    initial={{ opacity: 0, x: -6, width: 0 }}
-                    animate={{ opacity: 1, x: 0, width: "auto" }}
-                    exit={{ opacity: 0, x: -6, width: 0 }}
-                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                    initial={{ opacity: 0, x: -5 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -5 }}
+                    className="flex flex-col min-w-0"
                   >
-                    <motion.span
-                      className="truncate text-sm  tracking-tight font-bold"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.12, delay: 0.04 }}
-                    >
+                    <span className="truncate text-sm font-bold">
                       {user?.org_data.org_name}
-                    </motion.span>
-                    <motion.span
-                      className="truncate text-xs font-mono"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.12, delay: 0.06 }}
-                    >
+                    </span>
+
+                    <span className="truncate text-xs font-mono">
                       {user?.org_data.sharp_id}
-                    </motion.span>
+                    </span>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -209,18 +203,20 @@ function OrchestratorShell() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
+
           <SidebarGroupContent>
             <SidebarMenu>
               {orchestratorLinks.map((item) => {
                 const Icon = item.icon;
+
                 return (
                   <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton
                       tooltip={item.tooltip}
-                      asChild={!!item.path}
                       isActive={
                         item.path ? isActive(item.path, item.exact) : false
                       }
+                      asChild={!!item.path}
                     >
                       {item.path ? (
                         <Link to={item.path}>
@@ -248,65 +244,63 @@ function OrchestratorShell() {
 }
 
 /* =========================
-   Main Export
+   Layout Content
 ========================= */
 
-export function ConsoleLayout() {
-  const { toggleSidebar } = useSidebar();
+function ConsoleLayoutContent() {
   const { openSheet } = useSheet();
 
   const { location } = useRouterState();
-
   const pathname = location.pathname;
 
   const handleOpenNotification = () => {
     openSheet(<div>This is Notification</div>, "2/4");
   };
+
   return (
-    <SidebarProvider defaultOpen={true}>
+    <>
       <OrchestratorShell />
+
       <SidebarInset>
         <motion.header
           variants={headerVariants}
           initial="hidden"
           animate="visible"
           className={cn(
-            "sticky top-0 z-20 flex h-14 items-center gap-1.5 px-3",
-            "bg-background/80 backdrop-blur-md border-b border-border/50",
-            "shadow-[0_1px_8px_-2px_hsl(var(--foreground)/0.06)]",
+            "sticky top-0 z-20",
+            "flex h-14 items-center gap-1.5 px-3",
+            "bg-background/80 backdrop-blur-md",
+            "border-b border-border/50",
           )}
         >
           <HeaderItem index={0} className="flex items-center">
             <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.92 }}>
-              <SidebarTrigger
-                onClick={() => toggleSidebar()}
-                className="rounded-lg hover:bg-accent/70 transition-colors"
-              />
+              {/* no manual toggle needed */}
+              <SidebarTrigger />
             </motion.div>
           </HeaderItem>
 
           <HeaderDivider />
 
           <div className="flex items-center gap-3 px-6 py-1 rounded-2xl">
-            <HeaderItem index={2}>
+            <HeaderItem index={1}>
               <SharpnrLauncher />
             </HeaderItem>
-            <HeaderItem index={3}>
+
+            <HeaderItem index={2}>
               <HeaderDivider />
             </HeaderItem>
-            <HeaderItem index={4}>
+
+            <HeaderItem index={3}>
               <NotificationBell onClick={handleOpenNotification} />
             </HeaderItem>
-            <HeaderItem index={5}>
+
+            <HeaderItem index={4}>
               <UserCard />
             </HeaderItem>
-            <HeaderItem index={6}>
-              <motion.div
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.92 }}
-              >
-                <ModeToggle />
-              </motion.div>
+
+            <HeaderItem index={5}>
+              <ModeToggle />
             </HeaderItem>
           </div>
         </motion.header>
@@ -314,16 +308,40 @@ export function ConsoleLayout() {
         <AnimatePresence mode="wait">
           <motion.main
             key={pathname}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.25, ease: EASE }}
+            initial={{
+              opacity: 0,
+              y: 6,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              y: -4,
+            }}
+            transition={{
+              duration: 0.25,
+              ease: EASE,
+            }}
             className="p-2.5"
           >
             <Outlet />
           </motion.main>
         </AnimatePresence>
       </SidebarInset>
+    </>
+  );
+}
+
+/* =========================
+   Export
+========================= */
+
+export function ConsoleLayout() {
+  return (
+    <SidebarProvider defaultOpen>
+      <ConsoleLayoutContent />
     </SidebarProvider>
   );
 }
