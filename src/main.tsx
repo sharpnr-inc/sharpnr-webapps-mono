@@ -9,7 +9,6 @@ import { RouterProvider } from "@tanstack/react-router";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
-import { registerSW } from "virtual:pwa-register";
 import { queryClient, router } from "./router_config.tsx";
 import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
 import { Toaster } from "sonner";
@@ -21,17 +20,6 @@ import {
   ThemeProvider,
   TooltipProvider,
 } from "@sharpnr/ui";
-
-
-registerSW({
-  onNeedRefresh() {
-    console.log("New update available!");
-    // updateSW(true); // auto-refresh
-  },
-  onOfflineReady() {
-    console.log("App ready for offline use!");
-  },
-});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

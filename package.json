@@ -32,7 +32,7 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@radix-ui/react-visually-hidden": "^1.2.4",
-    "@sharpnr/ui": "^1.0.17",
+    "@sharpnr/ui": "^1.0.19",
     "@tabler/icons-react": "^3.34.1",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/react-devtools": "^0.8.0",
@@ -94,7 +94,6 @@
     "tw-animate-css": "^1.3.7",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2",
-    "vite-plugin-pwa": "^1.2.0"
+    "vite": "^7.1.2"
   }
 }
