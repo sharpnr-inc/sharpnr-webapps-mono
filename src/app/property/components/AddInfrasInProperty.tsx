@@ -6,8 +6,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  Input,
 } from "@sharpnr/ui";
-import { Input } from "@/components/ui/input";
+
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAddInfraInProperty } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";

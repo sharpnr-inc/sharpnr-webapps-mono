@@ -12,7 +12,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "@sharpnr/ui";
 
 import { useSearch } from "@tanstack/react-router";
 import { Button } from "@sharpnr/ui";
