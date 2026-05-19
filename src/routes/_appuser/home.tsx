@@ -1,4 +1,4 @@
-import { OrchestratorConsoleIndex } from "@/app/home/OrchestratorConsole";
+import { OrchestratorConsoleIndex } from "@/app/home/pages/OrchestratorConsole";
 
 import { createFileRoute } from "@tanstack/react-router";
 
