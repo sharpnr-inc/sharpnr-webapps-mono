@@ -18,6 +18,7 @@ import {
 
 import { useUtilsLegalEntityEntityTypes } from "../api/queries";
 import { FY_MONTHS } from "../utils/fy_months";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CreateLegalEntityFormProps {
   closeModal: () => void;
@@ -36,6 +37,8 @@ export function CreateLegalEntityForm({
     isLoading: isLegalEntityTypePending,
     isLoadingError: legalEntityLoadingErr,
   } = useUtilsLegalEntityEntityTypes();
+
+  const q = useQueryClient();
 
   const defaultLegalEntity: NewLegalEntityRequestDto = {
     display_name: "",
@@ -69,7 +72,9 @@ export function CreateLegalEntityForm({
         await mutateAsync({
           payload,
         });
-
+        q.invalidateQueries({
+          queryKey: ["LIST_ALL_LEGAL_ENTITIES"],
+        });
         closeModal();
       } catch (error) {
         console.error("Failed creating legal entity", error);

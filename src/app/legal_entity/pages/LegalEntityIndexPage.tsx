@@ -8,13 +8,14 @@ import { EmptyLegalEntity } from "../components/EmptyLegalEntity";
 import { useAllLegalEntities } from "../api/queries";
 import { LegalEntityTypeLabel } from "../utils/entity_type";
 import { Skeleton } from "@sharpnr/ui";
+import { useNavigate } from "@tanstack/react-router";
 
 export function LegalEntityIndexPage() {
   const { showModal, closeModal } = useFormsModal();
   const { user } = useAppUserStore();
   const { data, isLoading, isError } = useAllLegalEntities();
-
   const legalEntities = data?.data ?? [];
+  const nav = useNavigate();
 
   const handleCreateLegalEntity = () => {
     showModal(
@@ -27,6 +28,7 @@ export function LegalEntityIndexPage() {
   return (
     <div className="flex flex-col lg:flex-row lg:gap-3">
       {/* ── Main Content ─────────────────────────────────────── */}
+
       <main className="flex-1 lg:w-9/12 px-4 sm:px-6">
         {/* Top bar */}
         <div className="flex items-start justify-between gap-4 mb-6">
@@ -87,7 +89,20 @@ export function LegalEntityIndexPage() {
             {legalEntities.map((entity) => (
               <div
                 key={entity.id}
-                className="rounded-xl border p-4 flex items-center justify-between gap-4"
+                onClick={() => {
+                  nav({
+                    to: "/legal_entity/$leID/details",
+                    from: "/legal_entity",
+                    search: {
+                      lename: entity.legal_name,
+                      le__type: entity.display_name,
+                    },
+                    params: {
+                      leID: entity.id,
+                    },
+                  });
+                }}
+                className="rounded-xl border p-4 flex items-center justify-between gap-4 cursor-pointer"
               >
                 <div>
                   <p className="text-sm font-medium">{entity.display_name}</p>
