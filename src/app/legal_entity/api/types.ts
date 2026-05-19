@@ -1,5 +1,15 @@
 import { z } from "zod";
-export interface LegalEntityListResponse {}
+import type { LegalEntityType } from "../utils/entity_type";
+
+
+export interface LegalEntityResponseDto {
+  id: string;
+  display_name: string;
+  legal_name: string;
+  status: boolean;
+  entity_type: LegalEntityType;
+  inc_date: string;
+}
 
 /* ---------------------------------- <***> --------------------------------- */
 
@@ -8,8 +18,7 @@ export interface LegalEntityUtilResponse {
   label: string;
 }
 
-export interface LegalEntityIdentifierTypeResponse
-  extends LegalEntityUtilResponse {
+export interface LegalEntityIdentifierTypeResponse extends LegalEntityUtilResponse {
   description: string;
 }
 

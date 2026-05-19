@@ -10,8 +10,19 @@ import {
   getLegalEntityLicenseTypes,
   getLegalEntityContactTypes,
   getLegalEntityIdentifierTypes,
+  listAllLegalEntityOfOrganization,
 } from "./service";
 
+export function useAllLegalEntities() {
+  return useQuery({
+    queryKey: ["LIST_ALL_LEGAL_ENTITIES"],
+    queryFn: listAllLegalEntityOfOrganization,
+  });
+}
+
+/* -------------------------------------------------------------------------- */
+/*                          Legal Enitity Utils Hooks                         */
+/* -------------------------------------------------------------------------- */
 export function useUtilsLegalEntityEntityTypes() {
   return useQuery({
     queryKey: ["legalEntityUtils", "entityTypes"],

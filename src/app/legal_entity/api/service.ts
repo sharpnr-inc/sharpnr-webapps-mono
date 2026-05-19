@@ -4,7 +4,7 @@ import type { APIResponse } from "@/lib/api_response";
 import type {
   CreateLegalEntityPayload,
   LegalEntityIdentifierTypeResponse,
-  LegalEntityListResponse,
+  LegalEntityResponseDto,
   LegalEntityUtilResponse,
 } from "./types";
 
@@ -12,8 +12,8 @@ import type {
 /*                         Legal Entity General CRUD                         */
 /* -------------------------------------------------------------------------- */
 
-export async function ListAllLegalEntityOfOrganization() {
-  const response = await api.get<APIResponse<LegalEntityListResponse>>(
+export async function listAllLegalEntityOfOrganization() {
+  const response = await api.get<APIResponse<LegalEntityResponseDto[]>>(
     LegalEntityEndpoints.listallLegalEntity(),
   );
   return response.data;
