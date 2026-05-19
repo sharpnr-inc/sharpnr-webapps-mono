@@ -2,7 +2,6 @@ import { ScrollArea, Skeleton } from "@sharpnr/ui";
 import { Bell, Clock, Newspaper } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-// ─── Section wrapper ───────────────────────────────────────────────────────────
 function Section({
   icon: Icon,
   title,
@@ -23,11 +22,9 @@ function Section({
   );
 }
 
-// ─── Content ───────────────────────────────────────────────────────────────────
 function Content() {
   return (
-    <div className="space-y-6 p-4 lg:p-0">
-      {/* Reminders */}
+    <div className="space-y-6 px-4 py-4">
       <Section icon={Bell} title="Reminders">
         <div className="space-y-4">
           {[{ w: "w-full" }, { w: "w-2/3" }, { w: "w-5/6" }].map(({ w }, i) => (
@@ -45,7 +42,6 @@ function Content() {
         </div>
       </Section>
 
-      {/* Recent Activity */}
       <Section icon={Clock} title="Recent Activity">
         <div className="space-y-4">
           {[...Array(4)].map((_, i) => (
@@ -63,7 +59,6 @@ function Content() {
         </div>
       </Section>
 
-      {/* Industry News */}
       <Section icon={Newspaper} title="Industry News">
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
@@ -83,13 +78,13 @@ function Content() {
   );
 }
 
-// ─── Panel ─────────────────────────────────────────────────────────────────────
 export function LegalEntityDetailsSidePanel() {
   const isMobile = useIsMobile();
 
+  // ── Mobile: inline below main content ────────────────────
   if (isMobile) {
     return (
-      <div className="border-t mt-2">
+      <div className="border-t">
         <div className="px-4 py-3 text-sm font-medium text-muted-foreground">
           Activity & Updates
         </div>
@@ -98,12 +93,11 @@ export function LegalEntityDetailsSidePanel() {
     );
   }
 
+  // ── Desktop: own independent scroll column ────────────────
   return (
-    <aside className="hidden lg:block w-3/12 shrink-0">
-      <ScrollArea className="h-[calc(100vh-6rem)]">
-        <div className="py-4 pr-4">
-          <Content />
-        </div>
+    <aside className="hidden lg:flex lg:flex-col w-3/12 shrink-0 border-l overflow-hidden">
+      <ScrollArea className="flex-1">
+        <Content />
       </ScrollArea>
     </aside>
   );
