@@ -4,7 +4,9 @@ import {
   createLegalEntitySchema,
   type NewLegalEntityRequestDto,
 } from "../api/types";
+
 import {
+  Label,
   Select,
   SelectContent,
   SelectGroup,
@@ -13,130 +15,147 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@sharpnr/ui";
-import { useUtilsLegalEntityAddressTypes } from "../api/queries";
+
+import { useUtilsLegalEntityEntityTypes } from "../api/queries";
 import { FY_MONTHS } from "../utils/fy_months";
 
 interface CreateLegalEntityFormProps {
   closeModal: () => void;
 }
 
-export function CreateLegalEntityForm({}: CreateLegalEntityFormProps) {
-  // Mutation hook to Creeate Legal Entity
-  const {} = useCreateLegalEntityMutation();
+export function CreateLegalEntityForm({
+  closeModal,
+}: CreateLegalEntityFormProps) {
+  // Mutation
+  const { mutateAsync, isPending: creatingLegalEntityPending } =
+    useCreateLegalEntityMutation();
 
-  // Fetches the Address Type from the backend
-  const { data: addressType, isLoading: isAddressTypeLoading } =
-    useUtilsLegalEntityAddressTypes();
+  // Query
+  const {
+    data: legalEntityTypes,
+    isLoading: isLegalEntityTypePending,
+    isLoadingError: legalEntityLoadingErr,
+  } = useUtilsLegalEntityEntityTypes();
 
-  // Default Values for the form
   const defaultLegalEntity: NewLegalEntityRequestDto = {
     display_name: "",
     fiscal_year_month: 4,
     incorporation_date: "",
     legal_name: "",
     type: "",
-    addresses: [
-      {
-        address_line_1: "",
-        address_line_2: "",
-        city: "",
-        state: "",
-        country: "",
-        gst_state_code: "",
-        is_primary: false,
-        landmark: "",
-        pincode: "",
-        address_type: "",
-      },
-    ],
+    addresses: [],
   };
 
   const form = useAppForm({
     defaultValues: defaultLegalEntity,
+
     formId: "CREATE_LEGAL_ENTITY_MUTATION",
+
     validators: {
       onChange: createLegalEntitySchema,
       onSubmit: createLegalEntitySchema,
       onBlur: createLegalEntitySchema,
     },
 
-    onSubmit: ({ value }) => {
-      // mutateAsync({
-      //   payload: value,
-      // });
-      console.log(value);
+    onSubmit: async ({ value }) => {
+      const payload = { ...value };
+
+      // remove field entirely
+      if ((payload.addresses?.length ?? 0) === 0) {
+        delete payload.addresses;
+      }
+
+      try {
+        await mutateAsync({
+          payload,
+        });
+
+        closeModal();
+      } catch (error) {
+        console.error("Failed creating legal entity", error);
+      }
     },
   });
 
   return (
-    <div>
+    <div className="w-full">
       <form
+        className="space-y-6"
         onSubmit={(e) => {
-          e.stopPropagation();
           e.preventDefault();
+          e.stopPropagation();
           form.handleSubmit();
         }}
       >
-        <div className="flex flex-row justify-between">
-          <form.AppField
-            name="legal_name"
-            children={(f) => {
-              return <f.TextField label="Legal entity's Legal Name" />;
-            }}
-          />
-
-          <form.AppField
-            name="display_name"
-            children={(f) => {
-              return <f.TextField label="Legal entity's display Name" />;
-            }}
-          />
-
-          <form.Field name="type">
+        {/* Basic Info */}
+        <div className="grid gap-4 md:grid-cols-2">
+          <form.AppField name="legal_name">
             {(f) => (
-              <Select
-                value={f.state.value}
-                onValueChange={(value) => {
-                  f.handleChange(value);
-                }}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select Address Type" />
-                </SelectTrigger>
-
-                <SelectContent>
-                  {isAddressTypeLoading ? (
-                    <SelectItem value="loading" disabled>
-                      Loading...
-                    </SelectItem>
-                  ) : (
-                    <SelectGroup>
-                      <SelectLabel>Address Type</SelectLabel>
-
-                      {addressType?.map((adt) => (
-                        <SelectItem key={adt.id} value={adt.id}>
-                          {adt.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  )}
-                </SelectContent>
-              </Select>
+              <f.TextField
+                label="Legal Name"
+                placeholder="ABC Private Limited"
+              />
             )}
-          </form.Field>
+          </form.AppField>
+
+          <form.AppField name="display_name">
+            {(f) => <f.TextField label="Display Name" placeholder="ABC" />}
+          </form.AppField>
         </div>
 
-        <div className="flex flex-row justify-between">
-          <form.AppField
-            name="fiscal_year_month"
-            children={(f) => {
-              return (
+        {/* Entity Details */}
+        <div className="grid gap-4 md:grid-cols-2">
+          <form.Field name="type">
+            {(f) => (
+              <div className="space-y-2">
+                <Label>Legal Entity Type</Label>
+
+                <Select value={f.state.value} onValueChange={f.handleChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select entity type" />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    {isLegalEntityTypePending ? (
+                      <SelectItem value="loading" disabled>
+                        Loading...
+                      </SelectItem>
+                    ) : legalEntityLoadingErr ? (
+                      <SelectItem value="error" disabled>
+                        Failed to load entity types
+                      </SelectItem>
+                    ) : !legalEntityTypes?.length ? (
+                      <SelectItem value="empty" disabled>
+                        No entity types found
+                      </SelectItem>
+                    ) : (
+                      <SelectGroup>
+                        <SelectLabel>Entity Types</SelectLabel>
+
+                        {legalEntityTypes.map((type) => (
+                          <SelectItem key={type.id} value={type.id}>
+                            {type.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+          </form.Field>
+
+          <form.AppField name="fiscal_year_month">
+            {(f) => (
+              <div className="space-y-2">
+                <Label>Fiscal Year Starting Month</Label>
+
                 <Select
                   value={String(f.state.value)}
-                  onValueChange={(value) => f.handleChange(Number(value))}
+                  onValueChange={(v) => f.handleChange(Number(v))}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select Month" />
+                    <SelectValue placeholder="Select month" />
                   </SelectTrigger>
 
                   <SelectContent>
@@ -147,14 +166,27 @@ export function CreateLegalEntityForm({}: CreateLegalEntityFormProps) {
                     ))}
                   </SelectContent>
                 </Select>
-              );
-            }}
-          />
+              </div>
+            )}
+          </form.AppField>
         </div>
 
-        <form.AppForm>
-          <form.SubmitButton>Create Legal Entity</form.SubmitButton>
-        </form.AppForm>
+        {/* Date */}
+        <div className="grid gap-4 md:grid-cols-2">
+          <form.AppField name="incorporation_date">
+            {(f) => <f.TextField label="Incorporation Date" type="date" />}
+          </form.AppField>
+        </div>
+
+        <div className="flex justify-end pt-4">
+          <form.AppForm>
+            <form.SubmitButton className="min-w-40">
+              {creatingLegalEntityPending
+                ? "Creating..."
+                : "Create Legal Entity"}
+            </form.SubmitButton>
+          </form.AppForm>
+        </div>
       </form>
     </div>
   );

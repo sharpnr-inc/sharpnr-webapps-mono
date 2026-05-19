@@ -4,13 +4,28 @@ export function formatDateTimePretty(input: string | Date): string {
   if (isNaN(date.getTime())) return "";
 
   const days = [
-    "Sunday", "Monday", "Tuesday", "Wednesday",
-    "Thursday", "Friday", "Saturday"
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
 
   const months = [
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
 
   const dayName = days[date.getDay()];
@@ -25,4 +40,12 @@ export function formatDateTimePretty(input: string | Date): string {
   hours = hours % 12 || 12;
 
   return `${dayName}, ${day}-${month}-${year} , ${String(hours).padStart(2, "0")}:${minutes}${ampm}`;
+}
+
+export function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 }
