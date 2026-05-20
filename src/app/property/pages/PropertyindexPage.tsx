@@ -8,7 +8,7 @@
 */
 
 import { useNavigate } from "@tanstack/react-router";
-import { Button } from "@sharpnr/ui";
+import { Button, ScrollArea } from "@sharpnr/ui";
 import {
   AlertTriangle,
   Building2,
@@ -30,6 +30,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useProperties } from "../api/queries";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import type { Property } from "../api/types";
+import { PropoertyIndexSidePanel } from "../components/PropertyIndexSidePanel";
 
 /* ── easing ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -85,98 +86,114 @@ export function PropertyIndexPage() {
   };
 
   return (
-    <div className="">
-      {/* ── Page wrapper ─────────────────────────── */}
-      <div className="mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        {/* ── Header ───────────────────────────────── */}
-        <motion.div
-          variants={headerVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
-        >
-          <div className="space-y-1">
-            {/* Eyebrow label */}
-            <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-primary/70">
-              <Layers className="h-3 w-3" />
-              Organization
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">
-              Properties
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              {isLoading
-                ? "Loading your properties…"
-                : `${propertyArray.length} propert${propertyArray.length === 1 ? "y" : "ies"} in your organization`}
-            </p>
-          </div>
+    // ── Outer: locked height, two independent scroll columns ──
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden">
+      {/* ── Main: own scroll column ────────────────────────── */}
+      <ScrollArea className="flex-1 lg:w-9/12">
+        <main className="px-4 py-6 sm:px-6 lg:px-8">
+          {/* Header */}
+          <motion.div
+            variants={headerVariants}
+            initial="hidden"
+            animate="visible"
+            className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+          >
+            <div className="space-y-1">
+              <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                <Layers className="h-3 w-3" />
+                Organization
+              </p>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+                Properties
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                {isLoading
+                  ? "Loading your properties…"
+                  : `${propertyArray.length} propert${propertyArray.length === 1 ? "y" : "ies"} in your organization`}
+              </p>
+            </div>
 
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <Button onClick={handleAddProperty} className="gap-2 shadow-sm">
-              <Plus className="h-4 w-4" />
-              Add Property
-            </Button>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Button
+                onClick={handleAddProperty}
+                className="gap-2 shadow-sm w-full sm:w-auto"
+              >
+                <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">Add Property</span>
+                <span className="sm:hidden">Add New</span>
+              </Button>
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        {/* ── Content ──────────────────────────────── */}
-        <AnimatePresence mode="wait">
-          {isLoading ? (
-            <motion.div
-              key="skeleton"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
-            >
-              {Array.from({ length: 6 }).map((_, i) => (
-                <PropertyCardSkeleton key={i} index={i} />
-              ))}
-            </motion.div>
-          ) : propertyArray.length === 0 ? (
-            <motion.div
-              key="empty"
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease: EASE }}
-            >
-              <EmptyPropertySection onAdd={handleAddProperty} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="grid"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
-            >
-              {propertyArray.map((p: Property) => (
-                <PropertyCard
-                  key={p.id}
-                  property={p}
-                  isDialogOpen={isDialogOpen}
-                  setIsDialogOpen={setIsDialogOpen}
-                  onNavigate={handlePropertyNavigation}
-                  onDomainConfirm={async (domainId) => {
-                    try {
-                      await adddomain.mutateAsync({
-                        domain: domainId,
-                        propertyID: p.id,
-                      });
-                      await qc.invalidateQueries({
-                        queryKey: ["ORGANIZATION", "PROPERTIES", "ALL"],
-                      });
-                    } catch (err) {
-                      console.error("Failed to add domain:", err);
-                    }
-                  }}
-                />
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          {/* Content */}
+          <AnimatePresence mode="wait">
+            {/* Loading */}
+            {isLoading && (
+              <motion.div
+                key="skeleton"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              >
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <PropertyCardSkeleton key={i} index={i} />
+                ))}
+              </motion.div>
+            )}
+
+            {/* Empty */}
+            {!isLoading && propertyArray.length === 0 && (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: EASE }}
+              >
+                <EmptyPropertySection onAdd={handleAddProperty} />
+              </motion.div>
+            )}
+
+            {/* Grid */}
+            {!isLoading && propertyArray.length > 0 && (
+              <motion.div
+                key="grid"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              >
+                {propertyArray.map((p: Property) => (
+                  <PropertyCard
+                    key={p.id}
+                    property={p}
+                    isDialogOpen={isDialogOpen}
+                    setIsDialogOpen={setIsDialogOpen}
+                    onNavigate={handlePropertyNavigation}
+                    onDomainConfirm={async (domainId) => {
+                      try {
+                        await adddomain.mutateAsync({
+                          domain: domainId,
+                          propertyID: p.id,
+                        });
+                        await qc.invalidateQueries({
+                          queryKey: ["ORGANIZATION", "PROPERTIES", "ALL"],
+                        });
+                      } catch (err) {
+                        console.error("Failed to add domain:", err);
+                      }
+                    }}
+                  />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </main>
+      </ScrollArea>
+
+      {/* ── Side panel: own scroll column ──────────────────── */}
+      <PropoertyIndexSidePanel />
     </div>
   );
 }
