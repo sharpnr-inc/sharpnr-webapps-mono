@@ -27,8 +27,6 @@ export function LegalEntityIndexPage() {
 
   return (
     <div className="flex flex-col lg:flex-row lg:gap-3">
-      {/* ── Main Content ─────────────────────────────────────── */}
-
       <main className="flex-1 lg:w-9/12 px-4 sm:px-6">
         {/* Top bar */}
         <div className="flex items-start justify-between gap-4 mb-6">

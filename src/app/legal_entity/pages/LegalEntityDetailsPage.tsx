@@ -3,8 +3,21 @@ import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
 import { LegalEntityDetailsSidePanel } from "../components/LegalEntityDetailsSidePanel";
 import { MoveLeft } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { ScrollArea, Skeleton } from "@sharpnr/ui";
-import { Building2, FileText, Users, Landmark } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  ScrollArea,
+  Skeleton,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@sharpnr/ui";
+import { Building2 } from "lucide-react";
+import { LegalEntityAccountsBooksSection } from "../components/LegalEntityAccountsBooksSection";
 
 function Section({
   icon: Icon,
@@ -42,7 +55,7 @@ const LegalEntityDetailsPage: React.FC = () => {
 
   return (
     // ── Outer: locked height, no overflow ────────────────────
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-6rem)] overflow-hidden">
       {/* ── Main: own scroll column ──────────────────────────── */}
       <ScrollArea className="flex-1 lg:w-9/12">
         <main className="px-4 sm:px-6 py-4">
@@ -75,49 +88,73 @@ const LegalEntityDetailsPage: React.FC = () => {
               </div>
             </Section>
 
-            <Section icon={FileText} title="Tax & Registration">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                <Field label="PAN Number" />
-                <Field label="GST Number" />
-                <Field label="CIN / Registration No." />
-                <Field label="TAN Number" />
-                <Field label="Tax Jurisdiction" />
-                <Field label="Filing Frequency" />
-              </div>
-            </Section>
-
-            <Section icon={Landmark} title="Registered Address">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                <Field label="Address Line 1" />
-                <Field label="Address Line 2" />
-                <Field label="City" />
-                <Field label="State" />
-                <Field label="PIN Code" />
-                <Field label="Country" />
-              </div>
-            </Section>
-
-            <Section icon={Users} title="Authorized Persons">
-              <div className="space-y-3">
-                {[...Array(2)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-4 rounded-lg border p-3"
-                  >
-                    <Skeleton className="w-9 h-9 rounded-full shrink-0" />
-                    <div className="flex flex-col gap-1.5 flex-1">
-                      <Skeleton className="h-3.5 w-1/3" />
-                      <Skeleton className="h-3 w-1/4" />
-                    </div>
-                    <Skeleton className="h-5 w-16 rounded-full shrink-0" />
-                  </div>
-                ))}
-                <p className="text-xs text-muted-foreground text-center pt-1">
-                  Directors, partners, and authorized signatories will appear
-                  here.
-                </p>
-              </div>
-            </Section>
+            <Tabs defaultValue="overview" className="w-full">
+              <TabsList variant={"line"}>
+                <TabsTrigger value="contacts">Contacts</TabsTrigger>
+                <TabsTrigger value="analytics">Documents</TabsTrigger>
+                <TabsTrigger value="reports">Tax Registrations</TabsTrigger>
+                <TabsTrigger value="settings">Reports</TabsTrigger>
+              </TabsList>
+              <TabsContent value="overview">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Overview</CardTitle>
+                    <CardDescription>
+                      View your key metrics and recent project activity. Track
+                      progress across all your active projects.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    You have 12 active projects and 3 pending tasks.
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="analytics">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Analytics</CardTitle>
+                    <CardDescription>
+                      Track performance and user engagement metrics. Monitor
+                      trends and identify growth opportunities.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    Page views are up 25% compared to last month.
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="reports">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Reports</CardTitle>
+                    <CardDescription>
+                      Generate and download your detailed reports. Export data
+                      in multiple formats for analysis.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    You have 5 reports ready and available to export.
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="settings">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Settings</CardTitle>
+                    <CardDescription>
+                      Manage your account preferences and options. Customize
+                      your experience to fit your needs.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-sm text-muted-foreground">
+                    Configure notifications, security, and themes.
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+            {/* Accounting Books sections start  */}
+            <LegalEntityAccountsBooksSection />
+            {/* Accounting Books sections ends  */}
           </div>
         </main>
       </ScrollArea>
