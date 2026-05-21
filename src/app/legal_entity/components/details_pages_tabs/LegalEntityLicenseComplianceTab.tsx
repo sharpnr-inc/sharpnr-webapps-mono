@@ -1,4 +1,4 @@
-import type { LegalEntityComplianceResponseDto } from "../api/types";
+import type { LegalEntityComplianceResponseDto } from "../../api/types";
 import {
   Badge,
   Button,
@@ -17,10 +17,12 @@ import {
 } from "lucide-react";
 
 interface LegalEntityLicenseComplianceTabProps {
+  legalEntityID: string;
   data: LegalEntityComplianceResponseDto[] | undefined;
 }
 
 export function LegalEntityLicenseComplianceTab({
+  legalEntityID,
   data,
 }: LegalEntityLicenseComplianceTabProps) {
   if (!data || data.length === 0) {

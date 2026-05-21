@@ -1,9 +1,10 @@
 import { Skeleton } from "@sharpnr/ui";
 import { Landmark, ShieldCheck, ShieldX } from "lucide-react";
-import type { LegalEntityBankAccountsResponseDto } from "../api/types";
-import { getLegalEntityBankAccountTypeLabel } from "../utils/entity_type";
+import type { LegalEntityBankAccountsResponseDto } from "../../api/types";
+import { getLegalEntityBankAccountTypeLabel } from "../../utils/entity_type";
 
 interface LegalEntityBankAccountsTabProps {
+  legalEntityID: string;
   data: LegalEntityBankAccountsResponseDto[] | undefined;
 }
 
@@ -152,6 +153,7 @@ function BankCard({
 
 // ─── Tab ──────────────────────────────────────────────────────────────────────
 export function LegalEntityBankAccountsTab({
+  legalEntityID,
   data,
 }: LegalEntityBankAccountsTabProps) {
   // undefined → loading

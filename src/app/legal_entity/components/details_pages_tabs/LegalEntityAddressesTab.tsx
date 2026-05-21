@@ -1,4 +1,4 @@
-import type { LegalEntityAddressResponseDto } from "../api/types";
+import type { LegalEntityAddressResponseDto } from "../../api/types";
 import {
   Card,
   CardContent,
@@ -10,10 +10,12 @@ import {
 import { MapPin, Building2 } from "lucide-react";
 
 interface LegalEntityAddressesTabProps {
+  legalEntityID: string;
   data: LegalEntityAddressResponseDto[] | undefined;
 }
 
 export function LegalEntityAddressesTab({
+  legalEntityID,
   data,
 }: LegalEntityAddressesTabProps) {
   if (!data || data.length === 0) {

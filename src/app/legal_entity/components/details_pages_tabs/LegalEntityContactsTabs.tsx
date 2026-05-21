@@ -1,9 +1,10 @@
-import { Skeleton } from "@sharpnr/ui";
-import { Mail, Phone, User } from "lucide-react";
-import type { LegalEntityContactResponseDto } from "../api/types";
-import { LegalEntityContactTypeLabel } from "../utils/entity_type";
+import { Button, Skeleton } from "@sharpnr/ui";
+import { Mail, Phone, Plus, User } from "lucide-react";
+import type { LegalEntityContactResponseDto } from "../../api/types";
+import { LegalEntityContactTypeLabel } from "../../utils/entity_type";
 
 interface LegalEntityContactsAndPeopleTabProps {
+  legalEntityID: string;
   data: LegalEntityContactResponseDto[] | undefined;
 }
 
@@ -113,7 +114,7 @@ function ContactCard({ contact }: { contact: LegalEntityContactResponseDto }) {
 // ─── Empty state ───────────────────────────────────────────────────────────────
 function EmptyContacts() {
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-center">
+    <div className="flex flex-col items-center justify-center py-16 text-center space-y-2 border-2 border-dotted rounded-xl">
       <div className="w-12 h-12 rounded-2xl border-2 border-dashed flex items-center justify-center mb-4">
         <User className="w-5 h-5 text-muted-foreground" />
       </div>
@@ -122,12 +123,17 @@ function EmptyContacts() {
         Directors, authorized signatories, and key personnel linked to this
         legal entity will appear here.
       </p>
+      <Button size={"sm"}>
+        <Plus />
+        Add Contacts
+      </Button>
     </div>
   );
 }
 
 // ─── Tab ──────────────────────────────────────────────────────────────────────
 export function LegalEntityContactsAndPeopleTab({
+  legalEntityID,
   data,
 }: LegalEntityContactsAndPeopleTabProps) {
   // Loading

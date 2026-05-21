@@ -1,10 +1,10 @@
 import { Button } from "@sharpnr/ui";
 import { useFormsModal } from "@sharpnr/ui";
 import { MoveRight, PlusCircle } from "lucide-react";
-import { CreateLegalEntityForm } from "../components/CreateLegalEntityForm";
+import { CreateLegalEntityForm } from "../components/forms/CreateLegalEntityForm";
 import { useAppUserStore } from "@/store/AppUserStore";
-import { AboutLegalEntityHelper } from "../components/AboutLegalEntityHepler";
-import { EmptyLegalEntity } from "../components/EmptyLegalEntity";
+import { AboutLegalEntityHelper } from "../components/info_side_panels/AboutLegalEntityHepler";
+import { EmptyLegalEntity } from "../components/skeltons_and_empty/EmptyLegalEntity";
 import { useAllLegalEntities } from "../api/queries";
 import { LegalEntityTypeLabel } from "../utils/entity_type";
 import { Skeleton } from "@sharpnr/ui";

@@ -1,9 +1,9 @@
-import { useCreateLegalEntityMutation } from "../api/mutation";
+import { useCreateLegalEntityMutation } from "../../api/mutation";
 import { useAppForm } from "@/components/forms";
 import {
   createLegalEntitySchema,
   type NewLegalEntityRequestDto,
-} from "../api/types";
+} from "../../api/types";
 
 import {
   Label,
@@ -16,8 +16,8 @@ import {
   SelectValue,
 } from "@sharpnr/ui";
 
-import { useUtilsLegalEntityEntityTypes } from "../api/queries";
-import { FY_MONTHS } from "../utils/fy_months";
+import { useUtilsLegalEntityEntityTypes } from "../../api/queries";
+import { FY_MONTHS } from "../../utils/fy_months";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface CreateLegalEntityFormProps {

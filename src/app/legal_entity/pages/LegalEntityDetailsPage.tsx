@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "@/routes/_appuser/legal_entity/$leID/details";
-import { LegalEntityDetailsSidePanel } from "../components/LegalEntityDetailsSidePanel";
+import { LegalEntityDetailsSidePanel } from "../components/info_side_panels/LegalEntityDetailsSidePanel";
 import { MoveLeft } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -12,16 +12,16 @@ import {
   TabsTrigger,
 } from "@sharpnr/ui";
 import { Building2 } from "lucide-react";
-import { LegalEntityAccountsBooksSection } from "../components/LegalEntityAccountsBooksSection";
+import { LegalEntityAccountsBooksSection } from "../components/accounting_sections/LegalEntityAccountsBooksSection";
 import { useLegalEntityDetails } from "../api/queries";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
 import { getLegalEntityTypeLabel } from "../utils/entity_type";
-import { LegalEntityContactsAndPeopleTab } from "../components/LegalEntityContactsTabs";
-import { LegalEntityBankAccountsTab } from "../components/LegalEntityBankAccountsTab";
-import { LegalEntityTaxRegistrationsTab } from "../components/LegalEntityTaxRegistrationsTab";
-import { LegalEntityLicenseComplianceTab } from "../components/LegalEntityLicenseComplianceTab";
-import { LegalEntityTaxCategoriesTab } from "../components/LegalEntityTaxCategoriesTab";
-import { LegalEntityAddressesTab } from "../components/LegalEntityAddressesTab";
+import { LegalEntityContactsAndPeopleTab } from "../components/details_pages_tabs/LegalEntityContactsTabs";
+import { LegalEntityBankAccountsTab } from "../components/details_pages_tabs/LegalEntityBankAccountsTab";
+import { LegalEntityTaxRegistrationsTab } from "../components/details_pages_tabs/LegalEntityTaxRegistrationsTab";
+import { LegalEntityLicenseComplianceTab } from "../components/details_pages_tabs/LegalEntityLicenseComplianceTab";
+import { LegalEntityTaxCategoriesTab } from "../components/details_pages_tabs/LegalEntityTaxCategoriesTab";
+import { LegalEntityAddressesTab } from "../components/details_pages_tabs/LegalEntityAddressesTab";
 
 function Section({
   icon: Icon,
@@ -129,36 +129,42 @@ const LegalEntityDetailsPage: React.FC = () => {
 
               <TabsContent value="contacts">
                 <LegalEntityContactsAndPeopleTab
+                  legalEntityID={leID}
                   data={legalEntityDetails?.data?.contacts_and_people}
                 />
               </TabsContent>
 
               <TabsContent value="bank_accounts">
                 <LegalEntityBankAccountsTab
+                  legalEntityID={leID}
                   data={legalEntityDetails?.data?.bank_accounts}
                 />
               </TabsContent>
 
               <TabsContent value="address">
                 <LegalEntityAddressesTab
+                  legalEntityID={leID}
                   data={legalEntityDetails?.data?.addresses}
                 />
               </TabsContent>
 
               <TabsContent value="license_compliance">
                 <LegalEntityLicenseComplianceTab
+                  legalEntityID={leID}
                   data={legalEntityDetails?.data?.licences_and_compliance}
                 />
               </TabsContent>
 
               <TabsContent value="tax_registrations">
                 <LegalEntityTaxRegistrationsTab
+                  legalEntityID={leID}
                   data={legalEntityDetails?.data?.tax_registrations}
                 />
               </TabsContent>
 
               <TabsContent value="tax_categories">
                 <LegalEntityTaxCategoriesTab
+                  legalEntityID={leID}
                   data={legalEntityDetails?.data?.tax_categories}
                 />
               </TabsContent>
