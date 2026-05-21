@@ -3,7 +3,7 @@ export const LegalEntityEndpoints = {
 
   legalEntityDetails: (legalEntityID: string) =>
     `/orchestrator/legal-entity/${legalEntityID}/details`,
-    
+
   createLegalEntity: () => `/orchestrator/legal-entity/create`,
 
   addBankAccountsInLegalEntity: () => ``,
@@ -33,5 +33,10 @@ export const LegalEntityEndpoints = {
       `/orchestrator/legal-entity/utils/contact_types`,
     getLegalEntityIdentifierTypes: () =>
       `/orchestrator/legal-entity/utils/identifier_types`,
+    getLegalEntityTaxComponentTypes: () =>
+      `/orchestrator/legal-entity/utils/tax-components_types`,
+    getLegalEntityBankAccountTypes: () =>
+      `/orchestrator/legal-entity/utils/bank-acc_types`,
+    getLegalEntityTaxTypes: () => `/orchestrator/legal-entity/utils/tax_types`,
   },
 };

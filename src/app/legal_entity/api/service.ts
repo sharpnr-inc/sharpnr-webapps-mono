@@ -3,8 +3,12 @@ import { LegalEntityEndpoints } from "./endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type {
   CreateLegalEntityPayload,
+  LegalEntityBankAccountTypeResponse,
+  LegalEntityDetails,
   LegalEntityIdentifierTypeResponse,
   LegalEntityResponseDto,
+  LegalEntityTaxComponentTypeResponse,
+  LegalEntityTaxTypeResponse,
   LegalEntityUtilResponse,
 } from "./types";
 
@@ -15,6 +19,20 @@ import type {
 export async function listAllLegalEntityOfOrganization() {
   const response = await api.get<APIResponse<LegalEntityResponseDto[]>>(
     LegalEntityEndpoints.listallLegalEntity(),
+  );
+  return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface LegalEntityDetailsRequestParams {
+  legalEntityID: string;
+}
+export async function legalEntityDetails({
+  legalEntityID,
+}: LegalEntityDetailsRequestParams) {
+  const response = await api.get<APIResponse<LegalEntityDetails>>(
+    LegalEntityEndpoints.legalEntityDetails(legalEntityID),
   );
   return response.data;
 }
@@ -77,5 +95,26 @@ export async function getLegalEntityIdentifierTypes() {
   const response = await api.get<
     APIResponse<LegalEntityIdentifierTypeResponse[]>
   >(LegalEntityEndpoints.utils.getLegalEntityIdentifierTypes());
+  return response.data.data;
+}
+
+export async function getLegalEntityTaxComponentTypes() {
+  const response = await api.get<
+    APIResponse<LegalEntityTaxComponentTypeResponse[]>
+  >(LegalEntityEndpoints.utils.getLegalEntityTaxComponentTypes());
+  return response.data.data;
+}
+
+export async function getLegalEntityBankAccountTypes() {
+  const response = await api.get<
+    APIResponse<LegalEntityBankAccountTypeResponse[]>
+  >(LegalEntityEndpoints.utils.getLegalEntityBankAccountTypes());
+  return response.data.data;
+}
+
+export async function getLegalEntityTaxTypes() {
+  const response = await api.get<APIResponse<LegalEntityTaxTypeResponse[]>>(
+    LegalEntityEndpoints.utils.getLegalEntityTaxTypes(),
+  );
   return response.data.data;
 }

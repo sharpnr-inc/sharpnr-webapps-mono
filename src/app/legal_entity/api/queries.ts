@@ -11,12 +11,23 @@ import {
   getLegalEntityContactTypes,
   getLegalEntityIdentifierTypes,
   listAllLegalEntityOfOrganization,
+  legalEntityDetails,
+  getLegalEntityTaxComponentTypes,
+  getLegalEntityBankAccountTypes,
+  getLegalEntityTaxTypes,
 } from "./service";
 
 export function useAllLegalEntities() {
   return useQuery({
     queryKey: ["LIST_ALL_LEGAL_ENTITIES"],
     queryFn: listAllLegalEntityOfOrganization,
+  });
+}
+
+export function useLegalEntityDetails(legalEntityID: string) {
+  return useQuery({
+    queryKey: ["LEGAL_ENTITY_DETAILS", legalEntityID],
+    queryFn: () => legalEntityDetails({ legalEntityID }),
   });
 }
 
@@ -67,6 +78,30 @@ export function useUtilsLegalEntityIdentifierTypes() {
   return useQuery({
     queryKey: ["legalEntityUtils", "identifierTypes"],
     queryFn: getLegalEntityIdentifierTypes,
+    staleTime: Infinity,
+  });
+}
+
+export function useUtilsLegalEntityTaxComponentTypes() {
+  return useQuery({
+    queryKey: ["legalEntityUtils", "taxComponentTypes"],
+    queryFn: getLegalEntityTaxComponentTypes,
+    staleTime: Infinity,
+  });
+}
+
+export function useUtilsLegalEntityBankAccountTypes() {
+  return useQuery({
+    queryKey: ["legalEntityUtils", "bankAccountTypes"],
+    queryFn: getLegalEntityBankAccountTypes,
+    staleTime: Infinity,
+  });
+}
+
+export function useUtilsLegalEntityTaxTypes() {
+  return useQuery({
+    queryKey: ["legalEntityUtils", "taxTypes"],
+    queryFn: getLegalEntityTaxTypes,
     staleTime: Infinity,
   });
 }

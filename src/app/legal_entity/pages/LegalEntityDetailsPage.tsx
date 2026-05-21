@@ -18,6 +18,9 @@ import {
 } from "@sharpnr/ui";
 import { Building2 } from "lucide-react";
 import { LegalEntityAccountsBooksSection } from "../components/LegalEntityAccountsBooksSection";
+import { useLegalEntityDetails } from "../api/queries";
+import { formatDateTimePretty } from "@/lib/formatDatePretty";
+import { getLegalEntityTypeLabel } from "../utils/entity_type";
 
 function Section({
   icon: Icon,
@@ -39,11 +42,16 @@ function Section({
   );
 }
 
-function Field({ label }: { label: string }) {
+function Field({ label, value }: { label: string; value?: string }) {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-xs text-muted-foreground">{label}</span>
-      <Skeleton className="h-4 w-2/3" />
+
+      {value ? (
+        <span className="text-sm font-medium">{value}</span>
+      ) : (
+        <Skeleton className="h-4 w-2/3" />
+      )}
     </div>
   );
 }
@@ -51,11 +59,12 @@ function Field({ label }: { label: string }) {
 const LegalEntityDetailsPage: React.FC = () => {
   const { leID } = Route.useParams();
   const { lename } = Route.useSearch();
+  const { data: legalEntityDetails } = useLegalEntityDetails(leID);
   const nav = useNavigate();
 
   return (
     // ── Outer: locked height, no overflow ────────────────────
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-6rem)] overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-6rem)]">
       {/* ── Main: own scroll column ──────────────────────────── */}
       <ScrollArea className="flex-1 lg:w-9/12">
         <main className="px-4 sm:px-6 py-4">
@@ -79,23 +88,38 @@ const LegalEntityDetailsPage: React.FC = () => {
           <div className="space-y-4">
             <Section icon={Building2} title="Basic Information">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                <Field label="Legal Name" />
-                <Field label="Display Name" />
-                <Field label="Entity Type" />
-                <Field label="Incorporation Date" />
+                <Field
+                  label="Legal Name"
+                  value={legalEntityDetails?.data?.basic_details.legal_name}
+                />
+                <Field
+                  label="Display Name"
+                  value={legalEntityDetails?.data?.basic_details.display_name}
+                />
+                <Field
+                  label="Entity Type"
+                  value={getLegalEntityTypeLabel(
+                    legalEntityDetails?.data?.basic_details.entity_type,
+                  )}
+                />
+                <Field
+                  label="Incorporation Date"
+                  value={formatDateTimePretty(
+                    legalEntityDetails?.data?.basic_details.inc_date,
+                  )}
+                />
                 <Field label="Status" />
-                <Field label="Country of Incorporation" />
               </div>
             </Section>
 
             <Tabs defaultValue="overview" className="w-full">
               <TabsList variant={"line"}>
-                <TabsTrigger value="contacts">Contacts</TabsTrigger>
-                <TabsTrigger value="analytics">Documents</TabsTrigger>
-                <TabsTrigger value="reports">Tax Registrations</TabsTrigger>
-                <TabsTrigger value="settings">Reports</TabsTrigger>
+                <TabsTrigger value="contacts">Contacts & People</TabsTrigger>
+                <TabsTrigger value="docs"> Docs & Licenses</TabsTrigger>
+                <TabsTrigger value="tax">Tax Registrations</TabsTrigger>
+                <TabsTrigger value="reports">Reports</TabsTrigger>
               </TabsList>
-              <TabsContent value="overview">
+              <TabsContent value="contacts">
                 <Card>
                   <CardHeader>
                     <CardTitle>Overview</CardTitle>
@@ -109,7 +133,7 @@ const LegalEntityDetailsPage: React.FC = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="analytics">
+              <TabsContent value="docs">
                 <Card>
                   <CardHeader>
                     <CardTitle>Analytics</CardTitle>
@@ -123,7 +147,7 @@ const LegalEntityDetailsPage: React.FC = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="reports">
+              <TabsContent value="tax">
                 <Card>
                   <CardHeader>
                     <CardTitle>Reports</CardTitle>
@@ -137,7 +161,7 @@ const LegalEntityDetailsPage: React.FC = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
-              <TabsContent value="settings">
+              <TabsContent value="reports">
                 <Card>
                   <CardHeader>
                     <CardTitle>Settings</CardTitle>

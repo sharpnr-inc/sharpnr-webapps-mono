@@ -1,4 +1,6 @@
-export function formatDateTimePretty(input: string | Date): string {
+export function formatDateTimePretty(input?: string | Date): string {
+  if (!input) return "";
+
   const date = input instanceof Date ? input : new Date(input);
 
   if (isNaN(date.getTime())) return "";
@@ -39,7 +41,7 @@ export function formatDateTimePretty(input: string | Date): string {
   const ampm = hours >= 12 ? "PM" : "AM";
   hours = hours % 12 || 12;
 
-  return `${dayName}, ${day}-${month}-${year} , ${String(hours).padStart(2, "0")}:${minutes}${ampm}`;
+  return `${dayName}, ${day}-${month}-${year}, ${String(hours).padStart(2, "0")}:${minutes}${ampm}`;
 }
 
 export function formatDate(date: string) {
