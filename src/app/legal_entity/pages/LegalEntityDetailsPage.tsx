@@ -4,11 +4,6 @@ import { LegalEntityDetailsSidePanel } from "../components/LegalEntityDetailsSid
 import { MoveLeft } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
   ScrollArea,
   Skeleton,
   Tabs,
@@ -21,6 +16,12 @@ import { LegalEntityAccountsBooksSection } from "../components/LegalEntityAccoun
 import { useLegalEntityDetails } from "../api/queries";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
 import { getLegalEntityTypeLabel } from "../utils/entity_type";
+import { LegalEntityContactsAndPeopleTab } from "../components/LegalEntityContactsTabs";
+import { LegalEntityBankAccountsTab } from "../components/LegalEntityBankAccountsTab";
+import { LegalEntityTaxRegistrationsTab } from "../components/LegalEntityTaxRegistrationsTab";
+import { LegalEntityLicenseComplianceTab } from "../components/LegalEntityLicenseComplianceTab";
+import { LegalEntityTaxCategoriesTab } from "../components/LegalEntityTaxCategoriesTab";
+import { LegalEntityAddressesTab } from "../components/LegalEntityAddressesTab";
 
 function Section({
   icon: Icon,
@@ -112,68 +113,54 @@ const LegalEntityDetailsPage: React.FC = () => {
               </div>
             </Section>
 
-            <Tabs defaultValue="overview" className="w-full">
+            <Tabs defaultValue="contacts" className="w-full">
               <TabsList variant={"line"}>
                 <TabsTrigger value="contacts">Contacts & People</TabsTrigger>
-                <TabsTrigger value="docs"> Docs & Licenses</TabsTrigger>
-                <TabsTrigger value="tax">Tax Registrations</TabsTrigger>
-                <TabsTrigger value="reports">Reports</TabsTrigger>
+                <TabsTrigger value="bank_accounts">Bank Accounts</TabsTrigger>
+                <TabsTrigger value="address">Addresses</TabsTrigger>
+                <TabsTrigger value="license_compliance">
+                  Licence & Compliance
+                </TabsTrigger>
+                <TabsTrigger value="tax_registration">
+                  Tax Regsitration
+                </TabsTrigger>
+                <TabsTrigger value="tax_categories">Tax Categories</TabsTrigger>
               </TabsList>
+
               <TabsContent value="contacts">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Overview</CardTitle>
-                    <CardDescription>
-                      View your key metrics and recent project activity. Track
-                      progress across all your active projects.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">
-                    You have 12 active projects and 3 pending tasks.
-                  </CardContent>
-                </Card>
+                <LegalEntityContactsAndPeopleTab
+                  data={legalEntityDetails?.data?.contacts_and_people}
+                />
               </TabsContent>
-              <TabsContent value="docs">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Analytics</CardTitle>
-                    <CardDescription>
-                      Track performance and user engagement metrics. Monitor
-                      trends and identify growth opportunities.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">
-                    Page views are up 25% compared to last month.
-                  </CardContent>
-                </Card>
+
+              <TabsContent value="bank_accounts">
+                <LegalEntityBankAccountsTab
+                  data={legalEntityDetails?.data?.bank_accounts}
+                />
               </TabsContent>
-              <TabsContent value="tax">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Reports</CardTitle>
-                    <CardDescription>
-                      Generate and download your detailed reports. Export data
-                      in multiple formats for analysis.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">
-                    You have 5 reports ready and available to export.
-                  </CardContent>
-                </Card>
+
+              <TabsContent value="address">
+                <LegalEntityAddressesTab
+                  data={legalEntityDetails?.data?.addresses}
+                />
               </TabsContent>
-              <TabsContent value="reports">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Settings</CardTitle>
-                    <CardDescription>
-                      Manage your account preferences and options. Customize
-                      your experience to fit your needs.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="text-sm text-muted-foreground">
-                    Configure notifications, security, and themes.
-                  </CardContent>
-                </Card>
+
+              <TabsContent value="license_compliance">
+                <LegalEntityLicenseComplianceTab
+                  data={legalEntityDetails?.data?.licences_and_compliance}
+                />
+              </TabsContent>
+
+              <TabsContent value="tax_registrations">
+                <LegalEntityTaxRegistrationsTab
+                  data={legalEntityDetails?.data?.tax_registrations}
+                />
+              </TabsContent>
+
+              <TabsContent value="tax_categories">
+                <LegalEntityTaxCategoriesTab
+                  data={legalEntityDetails?.data?.tax_categories}
+                />
               </TabsContent>
             </Tabs>
             {/* Accounting Books sections start  */}
