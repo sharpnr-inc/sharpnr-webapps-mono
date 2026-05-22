@@ -121,7 +121,7 @@ const LegalEntityDetailsPage: React.FC = () => {
                 <TabsTrigger value="license_compliance">
                   Licence & Compliance
                 </TabsTrigger>
-                <TabsTrigger value="tax_registration">
+                <TabsTrigger value="tax_registrations">
                   Tax Regsitration
                 </TabsTrigger>
                 <TabsTrigger value="tax_categories">Tax Categories</TabsTrigger>

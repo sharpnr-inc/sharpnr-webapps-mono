@@ -1,7 +1,8 @@
-import { Skeleton } from "@sharpnr/ui";
-import { Landmark, ShieldCheck, ShieldX } from "lucide-react";
+import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
+import { Landmark, Plus, ShieldCheck, ShieldX } from "lucide-react";
 import type { LegalEntityBankAccountsResponseDto } from "../../api/types";
 import { getLegalEntityBankAccountTypeLabel } from "../../utils/entity_type";
+import { AddBankAccountForm } from "../forms/AddBankAccountForm";
 
 interface LegalEntityBankAccountsTabProps {
   legalEntityID: string;
@@ -33,9 +34,25 @@ function BankCardSkeleton() {
 }
 
 // ─── Empty ─────────────────────────────────────────────────────────────────────
-function EmptyBankAccounts() {
+
+interface EmptyBankAccountProps {
+  legalEntityID: string;
+}
+function EmptyBankAccounts({ legalEntityID }: EmptyBankAccountProps) {
+  const { closeModal, showModal } = useFormsModal();
+
+  const handleAddBankAccount = () => {
+    showModal(
+      "",
+      "",
+      <AddBankAccountForm
+        CloseModal={closeModal}
+        legalEntityID={legalEntityID}
+      />,
+    );
+  };
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-center">
+    <div className="flex flex-col items-center justify-center py-16 text-center border-2 border-dotted rounded-xl">
       <div className="w-12 h-12 rounded-2xl border-2 border-dashed flex items-center justify-center mb-4">
         <Landmark className="w-5 h-5 text-muted-foreground" />
       </div>
@@ -44,6 +61,10 @@ function EmptyBankAccounts() {
         Bank accounts linked to this legal entity for payments, payroll, and tax
         transactions will appear here.
       </p>
+
+      <Button onClick={() => handleAddBankAccount()}>
+        <Plus /> Add Bank Account
+      </Button>
     </div>
   );
 }
@@ -169,7 +190,7 @@ export function LegalEntityBankAccountsTab({
 
   // [] → empty
   if (data.length === 0) {
-    return <EmptyBankAccounts />;
+    return <EmptyBankAccounts legalEntityID={legalEntityID} />;
   }
 
   // primary first, then by added date

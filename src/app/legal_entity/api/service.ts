@@ -11,6 +11,10 @@ import type {
   LegalEntityTaxTypeResponse,
   LegalEntityUtilResponse,
 } from "./types";
+import type {
+  AddBankAccountInLegalEntityRequestDto,
+  CreateLegalEntityContactsRequestDto,
+} from "../utils/schemas";
 
 /* -------------------------------------------------------------------------- */
 /*                         Legal Entity General CRUD                         */
@@ -51,6 +55,40 @@ export async function createNewLegalEntity({
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+interface addNewContactInLegalEntityPayload {
+  legalEntityID: string;
+  payload: CreateLegalEntityContactsRequestDto;
+}
+export async function addNewContactInLegalEntity({
+  payload,
+  legalEntityID,
+}: addNewContactInLegalEntityPayload) {
+  const response = await api.post(
+    LegalEntityEndpoints.addContactsInLegalEntity(legalEntityID),
+    payload,
+  );
+
+  return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface addNewBankAccountDetailsINLegalEntityPayload {
+  legalEntityID: string;
+  payload: AddBankAccountInLegalEntityRequestDto;
+}
+
+export async function addNewBankAccountDetailsINLegalEntity({
+  legalEntityID,
+  payload,
+}: addNewBankAccountDetailsINLegalEntityPayload) {
+  const response = await api.post(
+    LegalEntityEndpoints.addBankAccountsInLegalEntity(legalEntityID),
+    payload,
+  );
+  return response.data;
+}
 
 /* -------------------------------------------------------------------------- */
 /*                         Legal Entity Utils Services                        */

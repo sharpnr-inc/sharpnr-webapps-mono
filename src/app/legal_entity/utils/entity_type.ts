@@ -118,12 +118,16 @@ export const getLegalEntityIdentifierTypeLabel = (
 
 /* ---------------------------------- <***> --------------------------------- */
 
+export const LEGAL_ENTITY_CONTACT_TYPES = [
+  "DIRECTOR",
+  "AUTHORIZED_SIGNATORY",
+  "ACCOUNTS",
+  "COMPLIANCE",
+  "OPERATIONS",
+] as const;
+
 export type LegalEntityContactType =
-  | "DIRECTOR"
-  | "AUTHORIZED_SIGNATORY"
-  | "ACCOUNTS"
-  | "COMPLIANCE"
-  | "OPERATIONS";
+  (typeof LEGAL_ENTITY_CONTACT_TYPES)[number];
 
 export const LegalEntityContactTypeLabel: Record<
   LegalEntityContactType,
@@ -143,9 +147,9 @@ export const getLegalEntityContactTypeLabel = (
   type: string | null | undefined,
 ): string => {
   if (!type) return "";
+
   return LegalEntityContactTypeLabel[type as LegalEntityContactType] || type;
 };
-
 /* ---------------------------------- <***> --------------------------------- */
 
 export type LegalEntityLicenseType =
