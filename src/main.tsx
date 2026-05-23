@@ -20,6 +20,7 @@ import {
   ThemeProvider,
   TooltipProvider,
 } from "@sharpnr/ui";
+import { ModalProvider } from "./hooks/useModal.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -27,16 +28,18 @@ createRoot(document.getElementById("root")!).render(
       <TooltipProvider>
         <AppVersionIdentifier>
           <ThemeProvider>
-            <FormsModalProvider>
-              <SheetProvider>
-                <DialogModalProvider>
-                  <Suspense fallback={<GlobalLoader />}>
-                    <RouterProvider router={router} />
-                    <Toaster />
-                  </Suspense>
-                </DialogModalProvider>
-              </SheetProvider>
-            </FormsModalProvider>
+            <ModalProvider>
+              <FormsModalProvider>
+                <SheetProvider>
+                  <DialogModalProvider>
+                    <Suspense fallback={<GlobalLoader />}>
+                      <RouterProvider router={router} />
+                      <Toaster />
+                    </Suspense>
+                  </DialogModalProvider>
+                </SheetProvider>
+              </FormsModalProvider>
+            </ModalProvider>
           </ThemeProvider>
         </AppVersionIdentifier>
       </TooltipProvider>

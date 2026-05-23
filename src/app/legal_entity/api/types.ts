@@ -44,7 +44,7 @@ export interface CreateLegalEntityPayload {
 export const createLegalEntityAddressSchema = z.object({
   address_line_1: z.string().min(1, "Address line 1 is required"),
 
-  address_line_2: z.string().optional(),
+  address_line_2: z.string(),
 
   landmark: z.string().min(1, "Landmark required"),
 

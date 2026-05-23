@@ -2,6 +2,7 @@ import api from "@/middlewares/axios";
 import { LegalEntityEndpoints } from "./endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type {
+  CreateLegalEntityAddressRequest,
   CreateLegalEntityPayload,
   LegalEntityBankAccountTypeResponse,
   LegalEntityDetails,
@@ -22,7 +23,7 @@ import type {
 
 export async function listAllLegalEntityOfOrganization() {
   const response = await api.get<APIResponse<LegalEntityResponseDto[]>>(
-    LegalEntityEndpoints.listallLegalEntity(),
+    LegalEntityEndpoints.list(),
   );
   return response.data;
 }
@@ -36,7 +37,7 @@ export async function legalEntityDetails({
   legalEntityID,
 }: LegalEntityDetailsRequestParams) {
   const response = await api.get<APIResponse<LegalEntityDetails>>(
-    LegalEntityEndpoints.legalEntityDetails(legalEntityID),
+    LegalEntityEndpoints.details(legalEntityID),
   );
   return response.data;
 }
@@ -47,10 +48,9 @@ export async function createNewLegalEntity({
   payload,
 }: CreateLegalEntityPayload) {
   const response = await api.post<APIResponse<null>>(
-    LegalEntityEndpoints.createLegalEntity(),
+    LegalEntityEndpoints.create(),
     payload,
   );
-
   response.data;
 }
 
@@ -65,10 +65,9 @@ export async function addNewContactInLegalEntity({
   legalEntityID,
 }: addNewContactInLegalEntityPayload) {
   const response = await api.post(
-    LegalEntityEndpoints.addContactsInLegalEntity(legalEntityID),
+    LegalEntityEndpoints.contacts.create(legalEntityID),
     payload,
   );
-
   return response.data;
 }
 
@@ -78,13 +77,29 @@ interface addNewBankAccountDetailsINLegalEntityPayload {
   legalEntityID: string;
   payload: AddBankAccountInLegalEntityRequestDto;
 }
-
 export async function addNewBankAccountDetailsINLegalEntity({
   legalEntityID,
   payload,
 }: addNewBankAccountDetailsINLegalEntityPayload) {
-  const response = await api.post(
-    LegalEntityEndpoints.addBankAccountsInLegalEntity(legalEntityID),
+  const response = await api.post<APIResponse<null>>(
+    LegalEntityEndpoints.bankAccounts.create(legalEntityID),
+    payload,
+  );
+  return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface addNewAddressesInLegalEntityPayload {
+  legalEntityID: string;
+  payload: CreateLegalEntityAddressRequest;
+}
+export async function addNewAddressLegalEntity({
+  legalEntityID,
+  payload,
+}: addNewAddressesInLegalEntityPayload) {
+  const response = await api.post<APIResponse<null>>(
+    LegalEntityEndpoints.addresses.create(legalEntityID),
     payload,
   );
   return response.data;
@@ -96,35 +111,35 @@ export async function addNewBankAccountDetailsINLegalEntity({
 
 export async function getLegalEntityTypes() {
   const response = await api.get<APIResponse<LegalEntityUtilResponse[]>>(
-    LegalEntityEndpoints.utils.getLegalEntityTypes(),
+    LegalEntityEndpoints.utils.entityTypes(),
   );
   return response.data.data;
 }
 
 export async function getGSTRegistrationTypes() {
   const response = await api.get<APIResponse<LegalEntityUtilResponse[]>>(
-    LegalEntityEndpoints.utils.getGSTResgistrationTypes(),
+    LegalEntityEndpoints.utils.gstTypes(),
   );
   return response.data.data;
 }
 
 export async function getLegalEntityAddressTypes() {
   const response = await api.get<APIResponse<LegalEntityUtilResponse[]>>(
-    LegalEntityEndpoints.utils.getLegalEntityAddressTypes(),
+    LegalEntityEndpoints.utils.addressTypes(),
   );
   return response.data.data;
 }
 
 export async function getLegalEntityLicenseTypes() {
   const response = await api.get<APIResponse<LegalEntityUtilResponse[]>>(
-    LegalEntityEndpoints.utils.getLegalEntityLicenseTypes(),
+    LegalEntityEndpoints.utils.licenseTypes(),
   );
   return response.data.data;
 }
 
 export async function getLegalEntityContactTypes() {
   const response = await api.get<APIResponse<LegalEntityUtilResponse[]>>(
-    LegalEntityEndpoints.utils.getLegalEntityContactTypes(),
+    LegalEntityEndpoints.utils.contactTypes(),
   );
   return response.data.data;
 }
@@ -132,27 +147,27 @@ export async function getLegalEntityContactTypes() {
 export async function getLegalEntityIdentifierTypes() {
   const response = await api.get<
     APIResponse<LegalEntityIdentifierTypeResponse[]>
-  >(LegalEntityEndpoints.utils.getLegalEntityIdentifierTypes());
+  >(LegalEntityEndpoints.utils.identifierTypes());
   return response.data.data;
 }
 
 export async function getLegalEntityTaxComponentTypes() {
   const response = await api.get<
     APIResponse<LegalEntityTaxComponentTypeResponse[]>
-  >(LegalEntityEndpoints.utils.getLegalEntityTaxComponentTypes());
+  >(LegalEntityEndpoints.utils.taxComponentTypes());
   return response.data.data;
 }
 
 export async function getLegalEntityBankAccountTypes() {
   const response = await api.get<
     APIResponse<LegalEntityBankAccountTypeResponse[]>
-  >(LegalEntityEndpoints.utils.getLegalEntityBankAccountTypes());
+  >(LegalEntityEndpoints.utils.bankAccountTypes());
   return response.data.data;
 }
 
 export async function getLegalEntityTaxTypes() {
   const response = await api.get<APIResponse<LegalEntityTaxTypeResponse[]>>(
-    LegalEntityEndpoints.utils.getLegalEntityTaxTypes(),
+    LegalEntityEndpoints.utils.taxTypes(),
   );
   return response.data.data;
 }

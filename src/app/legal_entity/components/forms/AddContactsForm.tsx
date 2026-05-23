@@ -47,10 +47,17 @@ export function AddContactsForm({
     },
     onSubmit: async ({ value }) => {
       try {
-        mutateAsync({
-          legalEntityID: legalEntityID,
-          payload: value,
-        });
+        mutateAsync(
+          {
+            legalEntityID: legalEntityID,
+            payload: value,
+          },
+          {
+            onSuccess: () => {
+              closeModal();
+            },
+          },
+        );
       } catch {}
     },
   });

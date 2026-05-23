@@ -11,10 +11,10 @@ import {
   getLegalEntityContactTypes,
   getLegalEntityIdentifierTypes,
   listAllLegalEntityOfOrganization,
-  legalEntityDetails,
   getLegalEntityTaxComponentTypes,
   getLegalEntityBankAccountTypes,
   getLegalEntityTaxTypes,
+  legalEntityDetails,
 } from "./service";
 
 export function useAllLegalEntities() {

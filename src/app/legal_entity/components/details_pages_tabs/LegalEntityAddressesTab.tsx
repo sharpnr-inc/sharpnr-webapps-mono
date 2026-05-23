@@ -2,6 +2,8 @@ import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
 import { MapPin, Plus, Building2 } from "lucide-react";
 import type { LegalEntityAddressResponseDto } from "../../api/types";
 import { getLegalEntityAddressTypeLabel } from "../../utils/entity_type";
+import { AddAddressForm } from "../forms/AddAddressForm";
+import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityAddressesTabProps {
   legalEntityID: string;
@@ -34,14 +36,16 @@ function AddressCardSkeleton() {
 
 // ─── Empty ─────────────────────────────────────────────────────────────────────
 function EmptyAddresses({ legalEntityID }: { legalEntityID: string }) {
-  const { showModal, closeModal } = useFormsModal();
-
+  const { openModal, closeModal } = useModal();
   const handleAdd = () => {
-    // showModal(
-    //   "Add Address",
-    //   "Add a registered or operational address",
-    //   <AddAddressForm legalEntityID={legalEntityID} closeModal={closeModal} />,
-    // );
+    openModal({
+      title: "Add Address",
+      description: "Add a registered or operational address",
+      size: "xl",
+      content: (
+        <AddAddressForm legalEntityID={legalEntityID} CloseModal={closeModal} />
+      ),
+    });
   };
 
   return (
@@ -73,16 +77,16 @@ function AddressCard({
   const { showModal, closeModal } = useFormsModal();
 
   const handleEdit = () => {
-    // showModal(
-    //   "Edit Address",
-    //   "Update address details",
-    //   <AddAddressForm
-    //     legalEntityID={legalEntityID}
-    //     addressID={address.id}
-    //     defaultValues={address}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    showModal(
+      "Edit Address",
+      "Update address details",
+      <AddAddressForm
+        legalEntityID={legalEntityID}
+        // addressID={address.id}
+        // defaultValues={address}
+        CloseModal={closeModal}
+      />,
+    );
   };
 
   const lines = [
@@ -170,7 +174,7 @@ export function LegalEntityAddressesTab({
     showModal(
       "Add Address",
       "Add a registered or operational address",
-      <AddAddressForm legalEntityID={legalEntityID} closeModal={closeModal} />,
+      <AddAddressForm legalEntityID={legalEntityID} CloseModal={closeModal} />,
     );
   };
 

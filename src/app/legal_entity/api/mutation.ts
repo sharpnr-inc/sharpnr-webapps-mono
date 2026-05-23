@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import {
+  addNewAddressLegalEntity,
   addNewBankAccountDetailsINLegalEntity,
   addNewContactInLegalEntity,
   createNewLegalEntity,
@@ -23,5 +24,12 @@ export function useAddNewBankAccountMutaion() {
   return useMutation({
     mutationFn: addNewBankAccountDetailsINLegalEntity,
     mutationKey: ["ADD_NEW_BANK_ACCOUNT_IN_LEGAL_ENTITY"],
+  });
+}
+
+export function useAddAddressInLegalEntityMutation() {
+  return useMutation({
+    mutationFn: addNewAddressLegalEntity,
+    mutationKey: ["ADD_NEW_ADDRESS_IN_LEGAL_ENTITY"],
   });
 }

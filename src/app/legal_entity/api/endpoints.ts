@@ -1,46 +1,100 @@
+const BASE = `/orchestrator/legal-entity`;
+
 export const LegalEntityEndpoints = {
-  listallLegalEntity: () => `/orchestrator/legal-entity`,
+  /* ------------------------------------------------------------------ */
+  /*                        Root Legal Entity                            */
+  /* ------------------------------------------------------------------ */
+  list: () => BASE,
+  details: (legalEntityID: string) => `${BASE}/${legalEntityID}`,
+  create: () => BASE,
+  update: (legalEntityID: string) => `${BASE}/${legalEntityID}`,
+  delete: (legalEntityID: string) => `${BASE}/${legalEntityID}`,
 
-  legalEntityDetails: (legalEntityID: string) =>
-    `/orchestrator/legal-entity/${legalEntityID}/details`,
+  /* ------------------------------------------------------------------ */
+  /*                            Addresses                                */
+  /* ------------------------------------------------------------------ */
+  addresses: {
+    list:   (legalEntityID: string) => `${BASE}/${legalEntityID}/addresses`,
+    create: (legalEntityID: string) => `${BASE}/${legalEntityID}/addresses`,
+    get:    (legalEntityID: string, addressID: string) => `${BASE}/${legalEntityID}/addresses/${addressID}`,
+    update: (legalEntityID: string, addressID: string) => `${BASE}/${legalEntityID}/addresses/${addressID}`,
+    delete: (legalEntityID: string, addressID: string) => `${BASE}/${legalEntityID}/addresses/${addressID}`,
+  },
 
-  createLegalEntity: () => `/orchestrator/legal-entity/create`,
+  /* ------------------------------------------------------------------ */
+  /*                          Bank Accounts                              */
+  /* ------------------------------------------------------------------ */
+  bankAccounts: {
+    list:   (legalEntityID: string) => `${BASE}/${legalEntityID}/bank-accounts`,
+    create: (legalEntityID: string) => `${BASE}/${legalEntityID}/bank-accounts`,
+    get:    (legalEntityID: string, bankAccountID: string) => `${BASE}/${legalEntityID}/bank-accounts/${bankAccountID}`,
+    update: (legalEntityID: string, bankAccountID: string) => `${BASE}/${legalEntityID}/bank-accounts/${bankAccountID}`,
+    delete: (legalEntityID: string, bankAccountID: string) => `${BASE}/${legalEntityID}/bank-accounts/${bankAccountID}`,
+  },
 
-  addBankAccountsInLegalEntity: (legalEntityID: string) =>
-    `/orchestrator/legal-entity/${legalEntityID}/add-bankaccount`,
-  updateLegalEntityBankAccountDetails: () => ``,
+  /* ------------------------------------------------------------------ */
+  /*                            Contacts                                 */
+  /* ------------------------------------------------------------------ */
+  contacts: {
+    list:   (legalEntityID: string) => `${BASE}/${legalEntityID}/contacts`,
+    create: (legalEntityID: string) => `${BASE}/${legalEntityID}/contacts`,
+    get:    (legalEntityID: string, contactID: string) => `${BASE}/${legalEntityID}/contacts/${contactID}`,
+    update: (legalEntityID: string, contactID: string) => `${BASE}/${legalEntityID}/contacts/${contactID}`,
+    delete: (legalEntityID: string, contactID: string) => `${BASE}/${legalEntityID}/contacts/${contactID}`,
+  },
 
-  addAddressesInLegalEntity: (legalEntityID: string) =>
-    `/orchestrator/legal-entity/${legalEntityID}/add-address`,
-  updateAddressOfLegalEntity: () => ``,
+  /* ------------------------------------------------------------------ */
+  /*                           Identities                                */
+  /* ------------------------------------------------------------------ */
+  identities: {
+    list:   (legalEntityID: string) => `${BASE}/${legalEntityID}/identities`,
+    create: (legalEntityID: string) => `${BASE}/${legalEntityID}/identities`,
+    get:    (legalEntityID: string, identityID: string) => `${BASE}/${legalEntityID}/identities/${identityID}`,
+    update: (legalEntityID: string, identityID: string) => `${BASE}/${legalEntityID}/identities/${identityID}`,
+    delete: (legalEntityID: string, identityID: string) => `${BASE}/${legalEntityID}/identities/${identityID}`,
+  },
 
-  addContactsInLegalEntity: (legalEntityID: string) =>
-    `/orchestrator/legal-entity/${legalEntityID}/add-contact`,
-  updateContactofLegalEntity: () => ``,
+  /* ------------------------------------------------------------------ */
+  /*                            Licenses                                 */
+  /* ------------------------------------------------------------------ */
+  licenses: {
+    list:   (legalEntityID: string) => `${BASE}/${legalEntityID}/licenses`,
+    create: (legalEntityID: string) => `${BASE}/${legalEntityID}/licenses`,
+    get:    (legalEntityID: string, licenseID: string) => `${BASE}/${legalEntityID}/licenses/${licenseID}`,
+    update: (legalEntityID: string, licenseID: string) => `${BASE}/${legalEntityID}/licenses/${licenseID}`,
+    delete: (legalEntityID: string, licenseID: string) => `${BASE}/${legalEntityID}/licenses/${licenseID}`,
+  },
 
-  addIdentifiersInLegalEntity: (legalEntityID: string) =>
-    `/orchestrator/legal-entity/${legalEntityID}/add-identities`,
+  /* ------------------------------------------------------------------ */
+  /*                        Tax Registrations                            */
+  /* ------------------------------------------------------------------ */
+  taxRegistrations: {
+    list:   (legalEntityID: string) => `${BASE}/${legalEntityID}/tax-registrations`,
+    create: (legalEntityID: string) => `${BASE}/${legalEntityID}/tax-registrations`,
+    get:    (legalEntityID: string, taxRegID: string) => `${BASE}/${legalEntityID}/tax-registrations/${taxRegID}`,
+    update: (legalEntityID: string, taxRegID: string) => `${BASE}/${legalEntityID}/tax-registrations/${taxRegID}`,
+    delete: (legalEntityID: string, taxRegID: string) => `${BASE}/${legalEntityID}/tax-registrations/${taxRegID}`,
+  },
 
-  addLicenceInLegalEntity: (legalEntityID: string) => ``,
+  /* ------------------------------------------------------------------ */
+  /*                           Accounting                                */
+  /* ------------------------------------------------------------------ */
+  accounting: {
+    get: (legalEntityID: string) => `${BASE}/${legalEntityID}/accounting`,
+  },
 
-  addTaxRegistrations: (legalEntityID: string) => ``,
-
+  /* ------------------------------------------------------------------ */
+  /*                         Utility / Lookups                           */
+  /* ------------------------------------------------------------------ */
   utils: {
-    getLegalEntityTypes: () => `/orchestrator/legal-entity/utils/entity_types`,
-    getGSTResgistrationTypes: () =>
-      `/orchestrator/legal-entity/utils/gst_types`,
-    getLegalEntityAddressTypes: () =>
-      `/orchestrator/legal-entity/utils/address_types`,
-    getLegalEntityLicenseTypes: () =>
-      `/orchestrator/legal-entity/utils/license_types`,
-    getLegalEntityContactTypes: () =>
-      `/orchestrator/legal-entity/utils/contact_types`,
-    getLegalEntityIdentifierTypes: () =>
-      `/orchestrator/legal-entity/utils/identifier_types`,
-    getLegalEntityTaxComponentTypes: () =>
-      `/orchestrator/legal-entity/utils/tax-components_types`,
-    getLegalEntityBankAccountTypes: () =>
-      `/orchestrator/legal-entity/utils/bank-acc_types`,
-    getLegalEntityTaxTypes: () => `/orchestrator/legal-entity/utils/tax_types`,
+    entityTypes:       () => `${BASE}/utils/entity-types`,
+    gstTypes:          () => `${BASE}/utils/gst-types`,
+    addressTypes:      () => `${BASE}/utils/address-types`,
+    licenseTypes:      () => `${BASE}/utils/license-types`,
+    contactTypes:      () => `${BASE}/utils/contact-types`,
+    identifierTypes:   () => `${BASE}/utils/identifier-types`,
+    taxComponentTypes: () => `${BASE}/utils/tax-component-types`,
+    bankAccountTypes:  () => `${BASE}/utils/bank-account-types`,
+    taxTypes:          () => `${BASE}/utils/tax-types`,
   },
 };

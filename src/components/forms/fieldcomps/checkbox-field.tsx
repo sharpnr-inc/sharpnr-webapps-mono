@@ -63,7 +63,7 @@ const CheckboxField = ({
           )}
 
           {showStateText && (
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-destructive">
               {isChecked ? checkedLabel : uncheckedLabel}
             </p>
           )}
