@@ -42,6 +42,7 @@ import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_app
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
 import { Route as AppuserPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/property/$propertyId/property-configuration'
 import { Route as AppuserPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/property/$propertyId/details'
+import { Route as AppuserLegal_entityLeIDTax_categoryRouteImport } from './routes/_appuser/legal_entity/$leID/tax_category'
 import { Route as AppuserLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/legal_entity/$leID/details'
 import { Route as AppuserInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/inventory-acc/$inventoryAccountID/details'
 import { Route as AppuserPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/property/$propertyId/property_settings/index'
@@ -232,6 +233,12 @@ const AppuserPropertyPropertyIdDetailsRoute =
     path: '/property/$propertyId/details',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserLegal_entityLeIDTax_categoryRoute =
+  AppuserLegal_entityLeIDTax_categoryRouteImport.update({
+    id: '/$leID/tax_category',
+    path: '/$leID/tax_category',
+    getParentRoute: () => AppuserLegal_entityRouteRoute,
+  } as any)
 const AppuserLegal_entityLeIDDetailsRoute =
   AppuserLegal_entityLeIDDetailsRouteImport.update({
     id: '/$leID/details',
@@ -324,6 +331,7 @@ export interface FileRoutesByFullPath {
   '/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
+  '/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
@@ -359,6 +367,7 @@ export interface FileRoutesByTo {
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
+  '/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
@@ -402,6 +411,7 @@ export interface FileRoutesById {
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
+  '/_appuser/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/_appuser/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/_appuser/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
@@ -446,6 +456,7 @@ export interface FileRouteTypes {
     | '/suppliers&Vendors/'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
+    | '/legal_entity/$leID/tax_category'
     | '/property/$propertyId/details'
     | '/property/$propertyId/property-configuration'
     | '/suppliers&Vendors/$suppliersID/details'
@@ -481,6 +492,7 @@ export interface FileRouteTypes {
     | '/suppliers&Vendors'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
+    | '/legal_entity/$leID/tax_category'
     | '/property/$propertyId/details'
     | '/property/$propertyId/property-configuration'
     | '/suppliers&Vendors/$suppliersID/details'
@@ -523,6 +535,7 @@ export interface FileRouteTypes {
     | '/_appuser/suppliers&Vendors/'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
     | '/_appuser/legal_entity/$leID/details'
+    | '/_appuser/legal_entity/$leID/tax_category'
     | '/_appuser/property/$propertyId/details'
     | '/_appuser/property/$propertyId/property-configuration'
     | '/_appuser/suppliers&Vendors/$suppliersID/details'
@@ -774,6 +787,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserPropertyPropertyIdDetailsRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/legal_entity/$leID/tax_category': {
+      id: '/_appuser/legal_entity/$leID/tax_category'
+      path: '/$leID/tax_category'
+      fullPath: '/legal_entity/$leID/tax_category'
+      preLoaderRoute: typeof AppuserLegal_entityLeIDTax_categoryRouteImport
+      parentRoute: typeof AppuserLegal_entityRouteRoute
+    }
     '/_appuser/legal_entity/$leID/details': {
       id: '/_appuser/legal_entity/$leID/details'
       path: '/$leID/details'
@@ -868,12 +888,15 @@ const AppuserInventoryAccRouteRouteWithChildren =
 interface AppuserLegal_entityRouteRouteChildren {
   AppuserLegal_entityIndexRoute: typeof AppuserLegal_entityIndexRoute
   AppuserLegal_entityLeIDDetailsRoute: typeof AppuserLegal_entityLeIDDetailsRoute
+  AppuserLegal_entityLeIDTax_categoryRoute: typeof AppuserLegal_entityLeIDTax_categoryRoute
 }
 
 const AppuserLegal_entityRouteRouteChildren: AppuserLegal_entityRouteRouteChildren =
   {
     AppuserLegal_entityIndexRoute: AppuserLegal_entityIndexRoute,
     AppuserLegal_entityLeIDDetailsRoute: AppuserLegal_entityLeIDDetailsRoute,
+    AppuserLegal_entityLeIDTax_categoryRoute:
+      AppuserLegal_entityLeIDTax_categoryRoute,
   }
 
 const AppuserLegal_entityRouteRouteWithChildren =

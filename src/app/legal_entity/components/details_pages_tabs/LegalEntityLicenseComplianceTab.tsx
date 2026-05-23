@@ -1,4 +1,4 @@
-import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
+import { Button, Skeleton } from "@sharpnr/ui";
 import {
   ShieldCheck,
   ShieldX,
@@ -6,18 +6,20 @@ import {
   FileText,
   Calendar,
   Building2,
-  ExternalLink,
   Plus,
 } from "lucide-react";
 import type { LegalEntityComplianceResponseDto } from "../../api/types";
 import { getLegalEntityLicenseTypeLabel } from "../../utils/entity_type";
+import { useModal } from "@/hooks/useModal";
+import { AddLicenseAndComplianceForm } from "../forms/AddLicenseAndComplianceForm";
 
 interface LegalEntityLicenseComplianceTabProps {
   legalEntityID: string;
   data: LegalEntityComplianceResponseDto[] | undefined;
 }
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
 function getExpiryStatus(validTo: string | null, reminderDays: number) {
   if (!validTo) return "perpetual" as const;
   const now = new Date();
@@ -39,42 +41,25 @@ function ExpiryBadge({
 }) {
   const status = getExpiryStatus(validTo, reminderDays);
 
-  if (status === "perpetual") {
-    return (
-      <span className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border text-muted-foreground">
-        <ShieldCheck className="w-3 h-3" />
-        No Expiry
-      </span>
-    );
-  }
+  const CONFIG = {
+    perpetual: { icon: ShieldCheck, label: "No Expiry" },
+    expired: { icon: ShieldX, label: "Expired" },
+    expiring: { icon: ShieldAlert, label: "Expiring Soon" },
+    valid: { icon: ShieldCheck, label: "Valid" },
+  } as const;
 
-  if (status === "expired") {
-    return (
-      <span className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border text-muted-foreground">
-        <ShieldX className="w-3 h-3" />
-        Expired
-      </span>
-    );
-  }
-
-  if (status === "expiring") {
-    return (
-      <span className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border text-muted-foreground">
-        <ShieldAlert className="w-3 h-3" />
-        Expiring Soon
-      </span>
-    );
-  }
+  const { icon: Icon, label } = CONFIG[status];
 
   return (
     <span className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border text-muted-foreground">
-      <ShieldCheck className="w-3 h-3" />
-      Valid
+      <Icon className="w-3 h-3" />
+      {label}
     </span>
   );
 }
 
-// ─── Skeleton ──────────────────────────────────────────────────────────────────
+// ─── Skeleton ─────────────────────────────────────────────────────────────────
+
 function LicenseCardSkeleton() {
   return (
     <div className="rounded-xl border p-4 space-y-3">
@@ -101,19 +86,23 @@ function LicenseCardSkeleton() {
   );
 }
 
-// ─── Empty ─────────────────────────────────────────────────────────────────────
+// ─── Empty ────────────────────────────────────────────────────────────────────
+
 function EmptyCompliance({ legalEntityID }: { legalEntityID: string }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
 
   const handleAdd = () => {
-    // showModal(
-    //   "Add License / Compliance",
-    //   "Add a license or compliance record",
-    //   <AddComplianceForm
-    //     legalEntityID={legalEntityID}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    openModal({
+      title: "Add License / Compliance",
+      description: "Add a license or compliance record",
+      size: "lg",
+      content: (
+        <AddLicenseAndComplianceForm
+          legalEntityID={legalEntityID}
+          closeModal={closeModal}
+        />
+      ),
+    });
   };
 
   return (
@@ -134,7 +123,8 @@ function EmptyCompliance({ legalEntityID }: { legalEntityID: string }) {
   );
 }
 
-// ─── Card ──────────────────────────────────────────────────────────────────────
+// ─── Card ─────────────────────────────────────────────────────────────────────
+
 function LicenseCard({
   license,
   legalEntityID,
@@ -142,19 +132,20 @@ function LicenseCard({
   license: LegalEntityComplianceResponseDto;
   legalEntityID: string;
 }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
 
   const handleEdit = () => {
-    // showModal(
-    //   "Edit License",
-    //   "Update license or compliance record",
-    //   <AddComplianceForm
-    //     legalEntityID={legalEntityID}
-    //     licenseID={license.id}
-    //     defaultValues={license}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    openModal({
+      title: "Edit License",
+      description: "Update license or compliance record",
+      size: "lg",
+      content: (
+        <AddLicenseAndComplianceForm
+          legalEntityID={legalEntityID}
+          closeModal={closeModal}
+        />
+      ),
+    });
   };
 
   const formatDate = (date: string) =>
@@ -216,7 +207,7 @@ function LicenseCard({
           </div>
         )}
 
-        {/* Tags row */}
+        {/* Tags */}
         <div className="flex items-center gap-2 flex-wrap pt-1">
           {license.module && (
             <span className="text-xs px-1.5 py-0.5 rounded border text-muted-foreground">
@@ -233,26 +224,37 @@ function LicenseCard({
           </span>
         </div>
       </div>
+
+      {/* Edit action */}
+      <div className="flex justify-end border-t pt-2">
+        <Button size="sm" variant="ghost" onClick={handleEdit}>
+          Edit
+        </Button>
+      </div>
     </div>
   );
 }
 
 // ─── Tab ──────────────────────────────────────────────────────────────────────
+
 export function LegalEntityLicenseComplianceTab({
   legalEntityID,
   data,
 }: LegalEntityLicenseComplianceTabProps) {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
 
   const handleAdd = () => {
-    // showModal(
-    //   "Add License / Compliance",
-    //   "Add a license or compliance record",
-    //   <AddComplianceForm
-    //     legalEntityID={legalEntityID}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    openModal({
+      title: "Add License / Compliance",
+      description: "Add a license or compliance record",
+      size: "lg",
+      content: (
+        <AddLicenseAndComplianceForm
+          legalEntityID={legalEntityID}
+          closeModal={closeModal}
+        />
+      ),
+    });
   };
 
   // Loading

@@ -1,5 +1,5 @@
 import { Button, Skeleton } from "@sharpnr/ui";
-import { Plus, Tag, Percent, BookOpen } from "lucide-react";
+import { Plus, Tag, Percent, BookOpen, ArrowRight, Pencil } from "lucide-react";
 import type { LegalEntityTaxCategoryResponseDto } from "../../api/types";
 
 interface LegalEntityTaxCategoriesTabProps {
@@ -26,7 +26,6 @@ function TaxCategoryCardSkeleton() {
         <Skeleton className="h-3 w-2/3" />
       </div>
       <div className="flex items-center gap-2 pt-1">
-        <Skeleton className="h-5 w-16 rounded" />
         <Skeleton className="h-5 w-16 rounded" />
         <Skeleton className="h-5 w-16 rounded" />
       </div>
@@ -66,12 +65,11 @@ function TaxCategoryCard({
   legalEntityID: string;
 }) {
   return (
-    <div className="rounded-xl border bg-background p-4 space-y-3">
-
-      {/* Top row */}
+    <div className="group rounded-xl border bg-background p-4 flex flex-col gap-3 hover:shadow-sm transition-shadow">
+      {/* Top row: icon + name/code + status badge */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-8 h-8 rounded-lg border flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-lg border flex items-center justify-center shrink-0 bg-muted/40">
             <Tag className="w-3.5 h-3.5 text-muted-foreground" />
           </div>
           <div className="min-w-0">
@@ -82,14 +80,20 @@ function TaxCategoryCard({
           </div>
         </div>
 
-        <span className="text-xs px-2.5 py-1 rounded-full border shrink-0 text-muted-foreground">
+        <span
+          className={`text-xs px-2.5 py-0.5 rounded-full border shrink-0 font-medium ${
+            category.is_active
+              ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400"
+              : "border-border bg-muted/40 text-muted-foreground"
+          }`}
+        >
           {category.is_active ? "Active" : "Inactive"}
         </span>
       </div>
 
       {/* Description */}
       {category.description && (
-        <p className="text-xs text-muted-foreground leading-5">
+        <p className="text-xs text-muted-foreground leading-5 line-clamp-2">
           {category.description}
         </p>
       )}
@@ -116,7 +120,7 @@ function TaxCategoryCard({
         </div>
       )}
 
-      {/* Rules + mappings summary */}
+      {/* Rules + account mappings summary */}
       <div className="flex items-center gap-2 flex-wrap border-t pt-3">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Percent className="w-3 h-3 shrink-0" />
@@ -134,79 +138,106 @@ function TaxCategoryCard({
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="flex items-center justify-end pt-1">
+      {/* Footer actions */}
+      <div className="flex items-center justify-end gap-2 pt-1 border-t">
         <button
-          onClick={() => console.log("Edit Tax Category", category.id, legalEntityID)}
-          className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+          onClick={() =>
+            console.log("Edit Tax Category", category.id, legalEntityID)
+          }
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-muted/60"
         >
+          <Pencil className="w-3 h-3" />
           Edit
         </button>
+        <div className="w-px h-3.5 bg-border" />
+        <button
+          onClick={() =>
+            console.log("View Tax Category Details", category.id, legalEntityID)
+          }
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-muted/60"
+        >
+          Details
+          <ArrowRight className="w-3 h-3" />
+        </button>
       </div>
-
     </div>
   );
 }
 
-// ─── Tab ──────────────────────────────────────────────────────────────────────
-export function LegalEntityTaxCategoriesTab({
+// ─── Section ──────────────────────────────────────────────────────────────────
+export function LegalEntityTaxCategoriesSection({
   legalEntityID,
   data,
 }: LegalEntityTaxCategoriesTabProps) {
-
-  // Loading
-  if (!data) {
-    return (
-      <div className="grid gap-3 md:grid-cols-2 pt-4">
-        {[...Array(4)].map((_, i) => (
-          <TaxCategoryCardSkeleton key={i} />
-        ))}
-      </div>
-    );
-  }
-
-  // Empty
-  if (data.length === 0) {
-    return <EmptyTaxCategories legalEntityID={legalEntityID} />;
-  }
-
   // Active first, then alphabetical
-  const sorted = [...data].sort((a, b) => {
-    if (a.is_active !== b.is_active) return a.is_active ? -1 : 1;
-    return a.name.localeCompare(b.name);
-  });
+  const sorted = data
+    ? [...data].sort((a, b) => {
+        if (a.is_active !== b.is_active) return a.is_active ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      })
+    : [];
 
   return (
-    <div className="pt-4 space-y-4">
+    <div className="space-y-6">
+      {/* Page section heading */}
+      <div className="flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <h2 className="text-xl font-semibold tracking-tight">
+            Tax Categories
+          </h2>
+          <p className="text-sm text-muted-foreground leading-5 max-w-xl">
+            Tax categories classify your products and services for accurate tax
+            calculation. Each category can have its own rules, rates, and
+            account mappings applied at the time of billing.
+          </p>
+        </div>
 
-      {/* Toolbar */}
-      <div className="flex items-center justify-between">
-        <p className="text-xs text-muted-foreground">
-          {data.length} categor{data.length !== 1 ? "ies" : "y"}
-        </p>
-        <Button
-          size="sm"
-          variant="outline"
-          onClick={() => console.log("Add Tax Category", legalEntityID)}
-          className="gap-2"
-        >
-          <Plus className="w-4 h-4" />
-          <span className="hidden sm:inline">Add Category</span>
-          <span className="sm:hidden">Add</span>
-        </Button>
+        {/* Only show Add button when data is loaded */}
+        {data && data.length > 0 && (
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => console.log("Add Tax Category", legalEntityID)}
+            className="shrink-0 gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            <span className="hidden sm:inline">Add Category</span>
+            <span className="sm:hidden">Add</span>
+          </Button>
+        )}
       </div>
+
+      {/* Loading */}
+      {!data && (
+        <div className="grid gap-3 md:grid-cols-2">
+          {[...Array(4)].map((_, i) => (
+            <TaxCategoryCardSkeleton key={i} />
+          ))}
+        </div>
+      )}
+
+      {/* Empty */}
+      {data && data.length === 0 && (
+        <EmptyTaxCategories legalEntityID={legalEntityID} />
+      )}
 
       {/* Grid */}
-      <div className="grid gap-3 md:grid-cols-2">
-        {sorted.map((category) => (
-          <TaxCategoryCard
-            key={category.id}
-            category={category}
-            legalEntityID={legalEntityID}
-          />
-        ))}
-      </div>
-
+      {data && data.length > 0 && (
+        <>
+          <p className="text-xs text-muted-foreground -mt-2">
+            {data.length} categor{data.length !== 1 ? "ies" : "y"}
+          </p>
+          <div className="grid gap-3 md:grid-cols-2">
+            {sorted.map((category) => (
+              <TaxCategoryCard
+                key={category.id}
+                category={category}
+                legalEntityID={legalEntityID}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { MoveLeft } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   ScrollArea,
+  Separator,
   Skeleton,
   Tabs,
   TabsContent,
@@ -20,7 +21,7 @@ import { LegalEntityContactsAndPeopleTab } from "../components/details_pages_tab
 import { LegalEntityBankAccountsTab } from "../components/details_pages_tabs/LegalEntityBankAccountsTab";
 import { LegalEntityTaxRegistrationsTab } from "../components/details_pages_tabs/LegalEntityTaxRegistrationsTab";
 import { LegalEntityLicenseComplianceTab } from "../components/details_pages_tabs/LegalEntityLicenseComplianceTab";
-import { LegalEntityTaxCategoriesTab } from "../components/details_pages_tabs/LegalEntityTaxCategoriesTab";
+import { LegalEntityTaxCategoriesSection } from "../components/details_pages_tabs/LegalEntityTaxCategoriesSection";
 import { LegalEntityAddressesTab } from "../components/details_pages_tabs/LegalEntityAddressesTab";
 
 function Section({
@@ -124,7 +125,6 @@ const LegalEntityDetailsPage: React.FC = () => {
                 <TabsTrigger value="tax_registrations">
                   Tax Regsitration
                 </TabsTrigger>
-                <TabsTrigger value="tax_categories">Tax Categories</TabsTrigger>
               </TabsList>
 
               <TabsContent value="contacts">
@@ -161,14 +161,16 @@ const LegalEntityDetailsPage: React.FC = () => {
                   data={legalEntityDetails?.data?.tax_registrations}
                 />
               </TabsContent>
-
-              <TabsContent value="tax_categories">
-                <LegalEntityTaxCategoriesTab
-                  legalEntityID={leID}
-                  data={legalEntityDetails?.data?.tax_categories}
-                />
-              </TabsContent>
             </Tabs>
+
+            <Separator orientation="horizontal" />
+
+            <LegalEntityTaxCategoriesSection
+              legalEntityID={leID}
+              data={legalEntityDetails?.data?.tax_categories}
+            />
+
+            <Separator orientation="horizontal" />
             {/* Accounting Books sections start  */}
             <LegalEntityAccountsBooksSection />
             {/* Accounting Books sections ends  */}

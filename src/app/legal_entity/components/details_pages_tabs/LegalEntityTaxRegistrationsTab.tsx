@@ -1,6 +1,8 @@
-import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
+import { Button, Skeleton } from "@sharpnr/ui";
 import { Plus, Receipt, Globe, Calendar, MapPin } from "lucide-react";
 import type { LegalEntityTaxRegistrationResponseDto } from "../../api/types";
+import { AddTaxRegistrationForm } from "../forms/AddTaxRegistrationForm";
+import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityTaxRegistrationsTabProps {
   legalEntityID: string;
@@ -61,17 +63,20 @@ function TaxCardSkeleton() {
 
 // ─── Empty ─────────────────────────────────────────────────────────────────────
 function EmptyTaxRegistrations({ legalEntityID }: { legalEntityID: string }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
 
   const handleAdd = () => {
-    // showModal(
-    //   "Add Tax Registration",
-    //   "Add a GST or VAT registration record",
-    //   <AddTaxRegistrationForm
-    //     legalEntityID={legalEntityID}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    openModal({
+      title: "Add Tax Registration",
+      description: "Add Tax Registration",
+      size: "lg",
+      content: (
+        <AddTaxRegistrationForm
+          closeModal={closeModal}
+          legalEntityID={legalEntityID}
+        />
+      ),
+    });
   };
 
   return (
@@ -100,19 +105,20 @@ function TaxCard({
   registration: LegalEntityTaxRegistrationResponseDto;
   legalEntityID: string;
 }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
 
   const handleEdit = () => {
-    // showModal(
-    //   "Edit Tax Registration",
-    //   "Update tax registration details",
-    //   <AddTaxRegistrationForm
-    //     legalEntityID={legalEntityID}
-    //     registrationID={registration.id}
-    //     defaultValues={registration}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    openModal({
+      title: "Add Tax Registration",
+      description: "Add Tax Registration",
+      size: "lg",
+      content: (
+        <AddTaxRegistrationForm
+          closeModal={closeModal}
+          legalEntityID={legalEntityID}
+        />
+      ),
+    });
   };
 
   return (
@@ -195,17 +201,20 @@ export function LegalEntityTaxRegistrationsTab({
   legalEntityID,
   data,
 }: LegalEntityTaxRegistrationsTabProps) {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
 
   const handleAdd = () => {
-    // showModal(
-    //   "Add Tax Registration",
-    //   "Add a GST or VAT registration record",
-    //   <AddTaxRegistrationForm
-    //     legalEntityID={legalEntityID}
-    //     closeModal={closeModal}
-    //   />,
-    // );
+    openModal({
+      title: "Add Tax Registration",
+      description: "Add Tax Registration",
+      size: "lg",
+      content: (
+        <AddTaxRegistrationForm
+          closeModal={closeModal}
+          legalEntityID={legalEntityID}
+        />
+      ),
+    });
   };
 
   // Loading
