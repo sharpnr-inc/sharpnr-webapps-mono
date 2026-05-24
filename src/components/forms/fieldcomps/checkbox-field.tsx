@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@sharpnr/ui";
 import { cn } from "@/lib/utils";
 import { useFieldContext } from "../form-context";
 
@@ -53,35 +53,24 @@ const CheckboxField = ({
         />
 
         <div className="space-y-0.5 leading-tight">
-          <label
-            htmlFor={id}
-            className="cursor-pointer text-sm font-medium"
-          >
+          <label htmlFor={id} className="cursor-pointer text-sm font-medium">
             {label}
-            {required && (
-              <span className="ml-1 text-destructive">*</span>
-            )}
+            {required && <span className="ml-1 text-destructive">*</span>}
           </label>
 
           {description && (
-            <p className="text-sm text-muted-foreground">
-              {description}
-            </p>
+            <p className="text-sm text-muted-foreground">{description}</p>
           )}
 
           {showStateText && (
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-destructive">
               {isChecked ? checkedLabel : uncheckedLabel}
             </p>
           )}
         </div>
       </div>
 
-      {error && (
-        <p className="text-sm text-destructive">
-          {error.message}
-        </p>
-      )}
+      {error && <p className="text-sm text-destructive">{error.message}</p>}
     </div>
   );
 };

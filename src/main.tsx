@@ -1,63 +1,48 @@
 import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { ModalProvider } from "./context/ModalContext.tsx";
-import { ToastProvider } from "./context/ToastContext.tsx";
-import { LoaderProvider } from "./context/LoaderContext.tsx";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
-
-// 🔹 TanStack Query
 import { QueryClientProvider } from "@tanstack/react-query";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import SuspenseFallback from "./components/ui/SuspenseFallback.tsx";
 import { RouterProvider } from "@tanstack/react-router";
-import { SheetProvider } from "./context/DrawerContext.tsx";
-import { DialogModalProvider } from "./context/DialogModalContext.tsx";
-import { ThemeProvider } from "./context/theme-provider.tsx";
-import { SpinnerProvider } from "./context/SpinnerContext.tsx";
-import { FormsModalProvider } from "./context/FormModalContext.tsx";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
-import { registerSW } from "virtual:pwa-register";
 import { queryClient, router } from "./router_config.tsx";
 import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
-
-registerSW({
-  onNeedRefresh() {
-    console.log("New update available!");
-    // updateSW(true); // auto-refresh
-  },
-  onOfflineReady() {
-    console.log("App ready for offline use!");
-  },
-});
+import { Toaster } from "sonner";
+import {
+  DialogModalProvider,
+  FormsModalProvider,
+  GlobalLoader,
+  SheetProvider,
+  ThemeProvider,
+  TooltipProvider,
+} from "@sharpnr/ui";
+import { ModalProvider } from "./hooks/useModal.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AppVersionIdentifier>
-        <ThemeProvider>
-          <FormsModalProvider>
-            <SpinnerProvider>
-              <ToastProvider>
-                <LoaderProvider>
-                  <SheetProvider>
-                    <DialogModalProvider>
-                      <ModalProvider>
-                        <Suspense fallback={<SuspenseFallback />}>
-                          <RouterProvider router={router} />
-                        </Suspense>
-                      </ModalProvider>
-                    </DialogModalProvider>
-                  </SheetProvider>
-                </LoaderProvider>
-              </ToastProvider>
-            </SpinnerProvider>
-          </FormsModalProvider>
-        </ThemeProvider>
-      </AppVersionIdentifier>
+      <TooltipProvider>
+        <AppVersionIdentifier>
+          <ThemeProvider>
+            <ModalProvider>
+              <FormsModalProvider>
+                <SheetProvider>
+                  <DialogModalProvider>
+                    <Suspense fallback={<GlobalLoader />}>
+                      <RouterProvider router={router} />
+                      <Toaster />
+                    </Suspense>
+                  </DialogModalProvider>
+                </SheetProvider>
+              </FormsModalProvider>
+            </ModalProvider>
+          </ThemeProvider>
+        </AppVersionIdentifier>
+      </TooltipProvider>
       <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
       {/* 🔹 Show Devtools only in development */}

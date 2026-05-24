@@ -1,8 +1,8 @@
-import { Label } from "@/components/ui/label";
+import { Label } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@sharpnr/ui";
 import { AlertCircle } from "lucide-react";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "@sharpnr/ui";
 
 type TextAreaFieldProps = {
   label: string;

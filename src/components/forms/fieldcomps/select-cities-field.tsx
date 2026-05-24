@@ -2,92 +2,125 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { useFieldContext } from "../form-context";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@sharpnr/ui";
+import { useFieldContext } from "../form-context";
 import React from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Label } from "@/components/ui/label";
-import { AlertCircle, CheckIcon } from "lucide-react";
+import {
+  AlertCircle,
+  CheckIcon,
+  ChevronDown,
+  MapPin,
+  Loader2,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
-import { Button } from "@/components/ui/button";
+import { useStateStore } from "@/components/forms/store/state_store";
+import { useCityStore } from "@/components/forms/store/store";
 import { useCities } from "../apiservice/queries";
-import { useCityStore } from "@/store/utilities/city/store";
 import type { City } from "../apiservice/csc";
-
-export interface StateInterface {}
 
 const CitySelect = () => {
   const [open, setOpen] = React.useState(false);
   const field = useFieldContext<string>();
 
   const countryCode = useStateStore((s) => s.countryCode);
-  const stateCode = useCityStore((s)=> s.stateCode)
-  
+  const stateCode = useCityStore((s) => s.stateCode);
 
   const { data: cities, isLoading } = useCities(countryCode, stateCode);
 
   const formError = field.state.meta.errors?.[0];
+  const countryMissingError =
+    !countryCode || !stateCode
+      ? "Please select a state and a country first"
+      : undefined;
 
-  const selectedState = cities?.find(
-    (c:City) => c.name === field.state.value
-  );
+  const activeError = countryMissingError ?? formError;
+  const hasError = !!activeError;
 
-  const countryMissingError = !countryCode || !stateCode
-    ? "Please select a state and a country first"
-    : undefined;
+  const selectedCity = cities?.find((c: City) => c.name === field.state.value);
+  const isDisabled = !countryCode || !stateCode || isLoading;
+
+  const errorMessage =
+    typeof activeError === "object"
+      ? (activeError as { message: string })?.message
+      : String(activeError);
 
   return (
-    <div className="space-y-2">
-      <Label htmlFor={field.name}>City</Label>
+    <div className="relative w-full">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
-            className="w-full justify-between"
-            disabled={!countryCode || isLoading}
-            variant="outline"
+          <button
+            type="button"
             role="combobox"
+            disabled={isDisabled}
+            className={cn(
+              "flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              "focus:outline-none focus:ring-1 focus:ring-ring",
+              hasError && "border-destructive focus:ring-destructive",
+            )}
           >
-            {selectedState ? selectedState.name : "Select City"}
-          </Button>
+            <span className="flex items-center gap-2">
+              {isLoading ? (
+                <Loader2
+                  size={14}
+                  className="animate-spin text-muted-foreground"
+                />
+              ) : (
+                <MapPin size={14} className="text-muted-foreground" />
+              )}
+              <span className={cn(!selectedCity && "text-muted-foreground")}>
+                {selectedCity?.name ?? "Select city…"}
+              </span>
+            </span>
+            <ChevronDown
+              size={14}
+              className={cn(
+                "text-muted-foreground transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
         </PopoverTrigger>
 
-        {countryCode && (
-          <PopoverContent className="p-0">
+        {countryCode && stateCode && (
+          <PopoverContent
+            className="w-(--radix-popover-trigger-width) p-0"
+            sideOffset={4}
+          >
             <Command>
-              <CommandInput placeholder="Search City..." id={field.name}/>
-              <CommandList className="max-h-64 overflow-y-auto">
-                <CommandEmpty>No State Found</CommandEmpty>
-
+              <CommandInput id={field.name} placeholder="Search city…" />
+              <CommandList>
+                <CommandEmpty>No city found.</CommandEmpty>
                 <CommandGroup>
-                  {cities?.map((city:City) => (
-                    <CommandItem
-                      key={city.id}
-                      value={city.name}
-                      onSelect={() => {
-                        field.handleChange(city.name);
-                        setOpen(false);
-                      }}
-                    >
-                      <CheckIcon
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          field.state.value === city.name
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      />
-                      {city.name}
-                    </CommandItem>
-                  ))}
+                  {cities?.map((city: City) => {
+                    const isSelected = field.state.value === city.name;
+                    return (
+                      <CommandItem
+                        key={city.id}
+                        className="cursor-pointer m-1"
+                        value={city.name}
+                        onSelect={() => {
+                          field.handleChange(city.name);
+                          setOpen(false);
+                        }}
+                      >
+                        <CheckIcon
+                          size={14}
+                          className={cn(
+                            "mr-2",
+                            isSelected ? "opacity-100" : "opacity-0",
+                          )}
+                        />
+                        {city.name}
+                      </CommandItem>
+                    );
+                  })}
                 </CommandGroup>
               </CommandList>
             </Command>
@@ -95,14 +128,11 @@ const CitySelect = () => {
         )}
       </Popover>
 
-      {/* Priority: country missing > form validation */}
-      {(countryMissingError || formError) && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            {countryMissingError ?? formError?.message}
-          </AlertDescription>
-        </Alert>
+      {hasError && (
+        <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+          <AlertCircle size={11} className="shrink-0" />
+          {errorMessage}
+        </p>
       )}
     </div>
   );

@@ -1,5 +1,9 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { GetOrgCustomer, VerifySignupCookie } from "./api_service";
+import {
+  GetOrganizationStatus,
+  GetOrgCustomer,
+  VerifySignupCookie,
+} from "./api_service";
 
 export function useVerifySignupCookies() {
   return useQuery({
@@ -24,3 +28,15 @@ export function useOrgsCustomer(searchQuery: string) {
 }
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export const organizationStatusQuery = queryOptions({
+  queryKey: ["Org", "status"],
+  queryFn: GetOrganizationStatus,
+});
+
+export function useOrganizationStatus() {
+  return useQuery({
+    queryKey: ["Org", "status"],
+    queryFn: GetOrganizationStatus,
+  });
+}
