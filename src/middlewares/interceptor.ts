@@ -1,22 +1,45 @@
-import { getCookie } from "@/utilities/cookie";
 import api from "./axios";
+import { getCookie } from "@/lib/utils";
+
+const CSRF_HEADER_NAME = "X-CSRF-Token";
+
+const SAFE_HTTP_METHODS = ["GET", "HEAD", "OPTIONS"] as const;
 
 api.interceptors.request.use(
   (config) => {
-    const method = (config.method || "GET").toUpperCase();
+    const method = config.method?.toUpperCase() ?? "GET";
 
-    if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
-      const csrfToken = getCookie(import.meta.env.VITE_API_CSRF);
+    // Skip safe methods
+    if (
+      SAFE_HTTP_METHODS.includes(method as (typeof SAFE_HTTP_METHODS)[number])
+    ) {
+      return config;
+    }
 
-      console.log("CSRF:", csrfToken); // debug once
+    const csrfCookieName = import.meta.env.VITE_API_CSRF;
 
-      if (csrfToken) {
-        config.headers = config.headers ?? {};
-        config.headers["X-CSRF-Token"] = csrfToken;
-      }
+    if (!csrfCookieName) {
+      console.warn("Missing VITE_API_CSRF environment variable");
+      return config;
+    }
+
+    const csrfToken = getCookie(csrfCookieName);
+
+    if (!csrfToken) {
+      console.warn("CSRF token cookie not found");
+      return config;
+    }
+
+    config.headers = config.headers ?? {};
+
+    // Prevent accidental overwrite
+    if (!config.headers[CSRF_HEADER_NAME]) {
+      config.headers[CSRF_HEADER_NAME] = csrfToken;
     }
 
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => {
+    return Promise.reject(error);
+  },
 );

@@ -1,7 +1,7 @@
-import { Label } from "@/components/ui/label";
+import { Label } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
-import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@sharpnr/ui";
+import { Alert, AlertDescription } from "@sharpnr/ui";
 import { AlertCircle } from "lucide-react";
 
 type NumberFieldProps = {

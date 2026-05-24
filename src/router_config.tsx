@@ -1,8 +1,7 @@
 import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import AnthropicLoader from "./components/shared_pages/anthropic_loader";
-import NotFound from "./components/shared_pages/404Page";
+import { GlobalErrorPage, GlobalLoader, NotFound } from "@sharpnr/ui";
 // import {
 //   hotelDetailMask,
 //   propertyDetailsMask,
@@ -12,8 +11,9 @@ export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,
-  defaultPendingComponent: () => <AnthropicLoader />,
+  defaultPendingComponent: () => <GlobalLoader />,
   defaultNotFoundComponent: () => <NotFound />,
+  defaultErrorComponent: () => <GlobalErrorPage />,
   // routeMasks: [propertyDetailsMask, hotelDetailMask],
   defaultViewTransition: true,
   context: {

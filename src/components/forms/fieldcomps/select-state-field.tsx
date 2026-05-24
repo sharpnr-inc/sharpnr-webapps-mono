@@ -2,28 +2,21 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { useFieldContext } from "../form-context";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from "@sharpnr/ui";
+import { useFieldContext } from "../form-context";
 import React from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Label } from "@/components/ui/label";
-import { AlertCircle, CheckIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
-import { Button } from "@/components/ui/button";
+import { CheckIcon, ChevronDown, Map, Loader2 } from "lucide-react";
+import { cn } from "@sharpnr/ui";
+import { useStateStore } from "@/components/forms/store/state_store";
+import { useCityStore } from "@/components/forms/store/store";
 import { useStates } from "../apiservice/queries";
-import { useCityStore } from "@/store/utilities/city/store";
 import type { State } from "../apiservice/csc";
-
-export interface StateInterface {}
 
 const StateSelect = () => {
   const [open, setOpen] = React.useState(false);
@@ -35,56 +28,76 @@ const StateSelect = () => {
   const { data: states, isLoading } = useStates(countryCode);
 
   const formError = field.state.meta.errors?.[0];
+  const activeError = !countryCode
+    ? "Please select a country first"
+    : formError;
 
   const selectedState = states?.find(
-    (s:State) => s.name === field.state.value
+    (s: State) => s.name === field.state.value,
   );
-
-  const countryMissingError = !countryCode
-    ? "Please select a country first"
-    : undefined;
+  const isDisabled = !countryCode || isLoading;
 
   return (
-    <div className="space-y-2">
-      <Label htmlFor={field.name}>State</Label>
-
-      <Popover open={open} onOpenChange={setOpen} >
+    <div className="w-full space-y-1">
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
-            className="w-full justify-between"
-            disabled={!countryCode || isLoading}
-            variant="outline"
+          <button
+            type="button"
             role="combobox"
+            disabled={isDisabled}
+            className={cn(
+              "flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50",
+              activeError && "border-destructive",
+            )}
           >
-            {selectedState ? selectedState.name : "Select State"}
-          </Button>
+            <span className="flex items-center gap-2 text-muted-foreground">
+              {isLoading ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Map size={14} />
+              )}
+              <span className="text-foreground">
+                {selectedState?.name ?? "Select state…"}
+              </span>
+            </span>
+            <ChevronDown
+              size={14}
+              className={cn(
+                "text-muted-foreground transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
         </PopoverTrigger>
 
         {countryCode && (
-          <PopoverContent className="p-0">
+          <PopoverContent
+            className="w-(--radix-popover-trigger-width) p-0"
+            sideOffset={4}
+          >
             <Command>
-              <CommandInput placeholder="Search State..."  id={field.name}/>
-              <CommandList className="max-h-64 overflow-y-auto">
-                <CommandEmpty>No State Found</CommandEmpty>
-
+              <CommandInput id={field.name} placeholder="Search state…" />
+              <CommandList>
+                <CommandEmpty>No state found.</CommandEmpty>
                 <CommandGroup>
-                  {states?.map((state:State) => (
+                  {states?.map((state: State) => (
                     <CommandItem
                       key={state.iso2}
+                      className="cursor-pointer m-1"
                       value={state.name}
                       onSelect={() => {
                         field.handleChange(state.name);
-                        setStateCode(state.iso2)
+                        setStateCode(state.iso2);
                         setOpen(false);
                       }}
                     >
                       <CheckIcon
-                        className={cn(
-                          "mr-2 h-4 w-4",
+                        size={14}
+                        className={
                           field.state.value === state.name
                             ? "opacity-100"
                             : "opacity-0"
-                        )}
+                        }
                       />
                       {state.name}
                     </CommandItem>
@@ -96,14 +109,12 @@ const StateSelect = () => {
         )}
       </Popover>
 
-      {/* Priority: country missing > form validation */}
-      {(countryMissingError || formError) && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            {countryMissingError ?? formError?.message}
-          </AlertDescription>
-        </Alert>
+      {activeError && (
+        <p className="text-xs text-destructive">
+          {typeof activeError === "object"
+            ? (activeError as { message: string }).message
+            : String(activeError)}
+        </p>
       )}
     </div>
   );
