@@ -4,6 +4,7 @@ import { LegalEntityDetailsSidePanel } from "../components/info_side_panels/Lega
 import { MoveLeft } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
+  Badge,
   ScrollArea,
   Select,
   SelectContent,
@@ -50,13 +51,13 @@ function Section({
   );
 }
 
-function Field({ label, value }: { label: string; value?: string }) {
+function Field({ label, value }: { label: string; value?: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-xs text-muted-foreground">{label}</span>
 
       {value ? (
-        <span className="text-sm font-medium">{value}</span>
+        <div className="text-sm font-medium">{value}</div>
       ) : (
         <Skeleton className="h-4 w-2/3" />
       )}
@@ -129,7 +130,22 @@ const LegalEntityDetailsPage: React.FC = () => {
                     legalEntityDetails?.data?.basic_details.inc_date,
                   )}
                 />
-                <Field label="Status" />
+                <Field
+                  label="Status"
+                  value={
+                    <Badge
+                      variant={
+                        legalEntityDetails?.data?.basic_details.status
+                          ? "default"
+                          : "destructive"
+                      }
+                    >
+                      {legalEntityDetails?.data?.basic_details.status
+                        ? "Active"
+                        : "Inactive"}
+                    </Badge>
+                  }
+                />
               </div>
             </Section>
 
