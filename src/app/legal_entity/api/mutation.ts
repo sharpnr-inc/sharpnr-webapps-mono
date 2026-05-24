@@ -3,6 +3,9 @@ import {
   addNewAddressLegalEntity,
   addNewBankAccountDetailsINLegalEntity,
   addNewContactInLegalEntity,
+  addNewIdentifierInLegalEntity,
+  addNewLicenseOrComplianceInLegalEntity,
+  addNewTaxRegistrationInLegalEntity,
   createNewLegalEntity,
 } from "./service";
 
@@ -31,5 +34,26 @@ export function useAddAddressInLegalEntityMutation() {
   return useMutation({
     mutationFn: addNewAddressLegalEntity,
     mutationKey: ["ADD_NEW_ADDRESS_IN_LEGAL_ENTITY"],
+  });
+}
+
+export function useAddIdentifiersInLegalEntityMutation() {
+  return useMutation({
+    mutationFn: addNewIdentifierInLegalEntity,
+    mutationKey: ["ADD_NEW_IDENTIFIER_IN_LEGAL_ENTITY"],
+  });
+}
+
+export function useAddLicenseAndComplaianceInLegalEntityMutation() {
+  return useMutation({
+    mutationFn: addNewLicenseOrComplianceInLegalEntity,
+    mutationKey: ["ADD_NEW_LICENSE_OR_COMPLAIANCE_IN_LEGAL_ENTITY"],
+  });
+}
+
+export function useAddTaxRegistrationInLegalEntityMutation() {
+  return useMutation({
+    mutationFn: addNewTaxRegistrationInLegalEntity,
+    mutationKey: ["ADD_TAX_REGISTRATION_IN_LEGAL_ENTITY"],
   });
 }

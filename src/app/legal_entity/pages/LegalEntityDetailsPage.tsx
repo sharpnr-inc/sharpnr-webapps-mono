@@ -23,6 +23,7 @@ import { LegalEntityTaxRegistrationsTab } from "../components/details_pages_tabs
 import { LegalEntityLicenseComplianceTab } from "../components/details_pages_tabs/LegalEntityLicenseComplianceTab";
 import { LegalEntityTaxCategoriesSection } from "../components/details_pages_tabs/LegalEntityTaxCategoriesSection";
 import { LegalEntityAddressesTab } from "../components/details_pages_tabs/LegalEntityAddressesTab";
+import { LegalEntityIdentifiersTab } from "../components/details_pages_tabs/LegalEntityIdentifiersTab";
 
 function Section({
   icon: Icon,
@@ -119,6 +120,7 @@ const LegalEntityDetailsPage: React.FC = () => {
                 <TabsTrigger value="contacts">Contacts & People</TabsTrigger>
                 <TabsTrigger value="bank_accounts">Bank Accounts</TabsTrigger>
                 <TabsTrigger value="address">Addresses</TabsTrigger>
+                <TabsTrigger value="identifiers">Identifiers</TabsTrigger>
                 <TabsTrigger value="license_compliance">
                   Licence & Compliance
                 </TabsTrigger>
@@ -161,12 +163,20 @@ const LegalEntityDetailsPage: React.FC = () => {
                   data={legalEntityDetails?.data?.tax_registrations}
                 />
               </TabsContent>
+
+              <TabsContent value="identifiers">
+                <LegalEntityIdentifiersTab
+                  legalEntityID={leID}
+                  data={legalEntityDetails?.data?.identifiers}
+                />
+              </TabsContent>
             </Tabs>
 
             <Separator orientation="horizontal" />
 
             <LegalEntityTaxCategoriesSection
               legalEntityID={leID}
+              tax_registration_length={legalEntityDetails?.data?.tax_registrations.length}
               data={legalEntityDetails?.data?.tax_categories}
             />
 

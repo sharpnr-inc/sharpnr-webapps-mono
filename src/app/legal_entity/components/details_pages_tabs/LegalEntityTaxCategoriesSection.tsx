@@ -1,9 +1,18 @@
 import { Button, Skeleton } from "@sharpnr/ui";
-import { Plus, Tag, Percent, BookOpen, ArrowRight, Pencil } from "lucide-react";
+import {
+  Plus,
+  Tag,
+  Percent,
+  BookOpen,
+  ArrowRight,
+  Pencil,
+  AlertCircle,
+} from "lucide-react";
 import type { LegalEntityTaxCategoryResponseDto } from "../../api/types";
 
 interface LegalEntityTaxCategoriesTabProps {
   legalEntityID: string;
+  tax_registration_length: number | undefined;
   data: LegalEntityTaxCategoryResponseDto[] | undefined;
 }
 
@@ -34,24 +43,52 @@ function TaxCategoryCardSkeleton() {
 }
 
 // ─── Empty ─────────────────────────────────────────────────────────────────────
-function EmptyTaxCategories({ legalEntityID }: { legalEntityID: string }) {
+function EmptyTaxCategories({
+  legalEntityID,
+  tax_registration_length,
+}: {
+  legalEntityID: string;
+  tax_registration_length: number | undefined;
+}) {
+  const hasRegistration = !!tax_registration_length;
+
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center space-y-2 border-2 border-dotted rounded-xl">
       <div className="w-12 h-12 rounded-2xl border-2 border-dashed flex items-center justify-center mb-2">
-        <Tag className="w-5 h-5 text-muted-foreground" />
+        {hasRegistration ? (
+          <Tag className="w-5 h-5 text-muted-foreground" />
+        ) : (
+          <AlertCircle className="w-5 h-5 text-amber-500" />
+        )}
       </div>
-      <p className="text-sm font-medium">No tax categories added yet</p>
-      <p className="text-xs text-muted-foreground max-w-xs leading-5">
-        Tax categories like Room Rent, Food & Beverage, and Banquet define how
-        tax rules and rates are applied to your products and services.
-      </p>
-      <Button
-        size="sm"
-        onClick={() => console.log("Add Tax Category", legalEntityID)}
-      >
-        <Plus />
-        Add Tax Category
-      </Button>
+
+      {hasRegistration ? (
+        <>
+          <p className="text-sm font-medium">No tax categories added yet</p>
+          <p className="text-xs text-muted-foreground max-w-xs leading-5">
+            Tax categories like Room Rent, Food & Beverage, and Banquet define
+            how tax rules and rates are applied to your products and services.
+          </p>
+          <Button
+            size="sm"
+            onClick={() => console.log("Add Tax Category", legalEntityID)}
+          >
+            <Plus />
+            Add Tax Category
+          </Button>
+        </>
+      ) : (
+        <>
+          <p className="text-sm font-medium">No tax registrations found</p>
+          <p className="text-xs text-muted-foreground max-w-xs leading-5">
+            You have to add at least one{" "}
+            <span className="font-medium text-foreground">
+              Tax Registration
+            </span>{" "}
+            before adding Tax Categories.
+          </p>
+        </>
+      )}
     </div>
   );
 }
@@ -167,6 +204,7 @@ function TaxCategoryCard({
 // ─── Section ──────────────────────────────────────────────────────────────────
 export function LegalEntityTaxCategoriesSection({
   legalEntityID,
+  tax_registration_length,
   data,
 }: LegalEntityTaxCategoriesTabProps) {
   // Active first, then alphabetical
@@ -218,7 +256,10 @@ export function LegalEntityTaxCategoriesSection({
 
       {/* Empty */}
       {data && data.length === 0 && (
-        <EmptyTaxCategories legalEntityID={legalEntityID} />
+        <EmptyTaxCategories
+          legalEntityID={legalEntityID}
+          tax_registration_length={tax_registration_length}
+        />
       )}
 
       {/* Grid */}

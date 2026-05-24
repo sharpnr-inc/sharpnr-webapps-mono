@@ -51,3 +51,14 @@ export function formatDate(date: string) {
     year: "numeric",
   });
 }
+
+/**
+ * Converts a YYYY-MM-DD string to an ISO 8601 string at UTC midnight
+ * Example: "2026-05-23" -> "2026-05-23T00:00:00.000Z"
+ */
+export function convertToGoTimeUTC(dateStr: string): string {
+  if (!dateStr) return "";
+
+  // Appends midnight UTC template directly
+  return `${dateStr}T00:00:00.000Z`;
+}

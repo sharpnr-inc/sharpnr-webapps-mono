@@ -1,5 +1,4 @@
 import { Button } from "@sharpnr/ui";
-import { useFormsModal } from "@sharpnr/ui";
 import { MoveRight, PlusCircle } from "lucide-react";
 import { CreateLegalEntityForm } from "../components/forms/CreateLegalEntityForm";
 import { useAppUserStore } from "@/store/AppUserStore";
@@ -9,20 +8,23 @@ import { useAllLegalEntities } from "../api/queries";
 import { LegalEntityTypeLabel } from "../utils/entity_type";
 import { Skeleton } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
+import { useModal } from "@/hooks/useModal";
 
 export function LegalEntityIndexPage() {
-  const { showModal, closeModal } = useFormsModal();
+  const { openModal, closeModal } = useModal();
   const { user } = useAppUserStore();
   const { data, isLoading, isError } = useAllLegalEntities();
   const legalEntities = data?.data ?? [];
   const nav = useNavigate();
 
   const handleCreateLegalEntity = () => {
-    showModal(
-      "Add Legal Entity",
-      "Add Legal Entity",
-      <CreateLegalEntityForm closeModal={closeModal} />,
-    );
+    openModal({
+      title: "Create Legal Entity",
+      description:
+        "Set up a new legal entity by providing the required registration and compliance details.",
+      size: "lg",
+      content: <CreateLegalEntityForm closeModal={closeModal} />,
+    });
   };
 
   return (

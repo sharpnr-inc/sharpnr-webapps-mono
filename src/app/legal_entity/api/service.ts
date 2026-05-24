@@ -14,6 +14,9 @@ import type {
 } from "./types";
 import type {
   AddBankAccountInLegalEntityRequestDto,
+  AddIdentifiersInLegalEntityRequestDto,
+  AddNewLicenseAndComplianceRequestDto,
+  AddNewTaxRegistrationInLegalEntityRequestDto,
   CreateLegalEntityContactsRequestDto,
 } from "../utils/schemas";
 
@@ -102,6 +105,62 @@ export async function addNewAddressLegalEntity({
     LegalEntityEndpoints.addresses.create(legalEntityID),
     payload,
   );
+  return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface addNewIdentifierInLegalEntityPayload {
+  legalEntityID: string;
+  payload: AddIdentifiersInLegalEntityRequestDto;
+}
+
+export async function addNewIdentifierInLegalEntity({
+  legalEntityID,
+  payload,
+}: addNewIdentifierInLegalEntityPayload) {
+  const response = await api.post(
+    LegalEntityEndpoints.identities.create(legalEntityID),
+    payload,
+  );
+
+  return response.data;
+}
+/* ---------------------------------- <***> --------------------------------- */
+
+interface addNewLicenseOrComplianceInLegalEntityPayload {
+  legalEntityID: string;
+  payload: AddNewLicenseAndComplianceRequestDto;
+}
+
+export async function addNewLicenseOrComplianceInLegalEntity({
+  legalEntityID,
+  payload,
+}: addNewLicenseOrComplianceInLegalEntityPayload) {
+  const response = await api.post(
+    LegalEntityEndpoints.licenses.create(legalEntityID),
+    payload,
+  );
+
+  return response.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+interface addNewTaxRegistrationInLegalEntityPayload {
+  legalEntityID: string;
+  payload: AddNewTaxRegistrationInLegalEntityRequestDto;
+}
+
+export async function addNewTaxRegistrationInLegalEntity({
+  legalEntityID,
+  payload,
+}: addNewTaxRegistrationInLegalEntityPayload) {
+  const response = await api.post(
+    LegalEntityEndpoints.taxRegistrations.create(legalEntityID),
+    payload,
+  );
+
   return response.data;
 }
 
