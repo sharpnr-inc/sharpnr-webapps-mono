@@ -1,7 +1,8 @@
 import { useStore } from "@tanstack/react-form";
 import { useFormContext } from "./form-context";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+import { Button } from "@sharpnr/ui";
 
 type SubmitButtonProps = {
   children: React.ReactNode;
@@ -11,20 +12,25 @@ type SubmitButtonProps = {
 const SubmitButton = ({ children, className }: SubmitButtonProps) => {
   const form = useFormContext();
 
-  // Fix: correct order - isSubmitting first, canSubmit second
   const [isSubmitting, canSubmit] = useStore(form.store, (state) => [
-    state.isSubmitting, // This should be first
-    state.canSubmit, // This should be second
+    state.isSubmitting,
+    state.canSubmit,
   ]);
 
+  const disabled = isSubmitting || !canSubmit;
+
   return (
-    <Button
-      type="submit"
-      className={cn("w-fit", className)}
-      disabled={isSubmitting || !canSubmit}
-    >
-      {children}
+    <Button type="submit" disabled={disabled} className={cn(className)}>
+      {isSubmitting ? (
+        <>
+          <Loader2 className="animate-spin" size={14} />
+          Processing…
+        </>
+      ) : (
+        <>{children}</>
+      )}
     </Button>
   );
 };
+
 export default SubmitButton;

@@ -2,24 +2,19 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { useFieldContext } from "../form-context";
-import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Button } from "@/components/ui/button";
+} from "@sharpnr/ui";
+import { useFieldContext } from "../form-context";
 import { useCountries } from "../apiservice/queries";
-import { Label } from "@/components/ui/label";
-import { AlertCircle, CheckIcon } from "lucide-react";
+import { useStateStore } from "@/components/forms/store/state_store";
+import { CheckIcon, ChevronDown, Globe, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useStateStore } from "@/store/utilities/state/store";
 import React from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import type { Country } from "../apiservice/csc";
 
 const CountrySelect = () => {
@@ -28,51 +23,78 @@ const CountrySelect = () => {
   const field = useFieldContext<string>();
 
   const { data: countries, isLoading } = useCountries();
-
   const setCountryCode = useStateStore((s) => s.setCountryCode);
+
   const error = field.state.meta.errors?.[0];
   const selectedCountry = countries?.find(
     (c: Country) => c.name === field.state.value,
   );
 
-  // Filter countries based on search
   const filteredCountries = React.useMemo(() => {
     if (!countries) return [];
     if (!searchValue) return countries;
-    
-    return countries.filter((country: Country) =>
-      country.name.toLowerCase().includes(searchValue.toLowerCase())
+    return countries.filter((c: Country) =>
+      c.name.toLowerCase().includes(searchValue.toLowerCase()),
     );
   }, [countries, searchValue]);
 
   return (
-    <div className="space-y-2">
-      <Label htmlFor={field.name}>Country</Label>
+    <div className="w-full space-y-1">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
-            className="w-full justify-between"
-            disabled={isLoading}
-            variant={"outline"}
+          <button
+            type="button"
             role="combobox"
+            disabled={isLoading}
+            className={cn(
+              "flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50",
+              error && "border-destructive",
+            )}
           >
-            {selectedCountry ? selectedCountry.name : "Select Country"}
-          </Button>
+            <span className="flex items-center gap-2 text-muted-foreground">
+              {isLoading ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Globe size={14} />
+              )}
+              <span className="text-foreground">
+                {selectedCountry ? (
+                  <>
+                    {selectedCountry.emoji} {selectedCountry.name}
+                  </>
+                ) : (
+                  "Select country…"
+                )}
+              </span>
+            </span>
+            <ChevronDown
+              size={14}
+              className={cn(
+                "text-muted-foreground transition-transform duration-200",
+                open && "rotate-180",
+              )}
+            />
+          </button>
         </PopoverTrigger>
-        <PopoverContent>
+
+        <PopoverContent
+          className="w-(--radix-popover-trigger-width) p-0"
+          sideOffset={4}
+        >
           <Command shouldFilter={false}>
-            <CommandInput 
-              placeholder="Search Country ..." 
+            <CommandInput
               id={field.name}
+              placeholder="Search country…"
               value={searchValue}
               onValueChange={setSearchValue}
             />
-            <CommandList className="max-h-90">
+            <CommandList>
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {filteredCountries?.map((country: Country) => (
+                {filteredCountries.map((country: Country) => (
                   <CommandItem
                     key={country.iso2}
+                    className=" cursor-pointer m-1 hover:bg-amber-200"
                     value={country.name}
                     onSelect={() => {
                       field.handleChange(country.name);
@@ -82,17 +104,15 @@ const CountrySelect = () => {
                     }}
                   >
                     <CheckIcon
-                      className={cn(
-                        "mr-2 h-4 w-4",
+                      size={14}
+                      className={
                         field.state.value === country.name
                           ? "opacity-100"
-                          : "opacity-0",
-                      )}
+                          : "opacity-0"
+                      }
                     />
-                    <span className="flex items-center gap-5">
-                      <span className="text-lg">{country.emoji}</span>
-                      <span>{country.name}</span>
-                    </span>
+                    <span>{country.emoji}</span>
+                    <span>{country.name}</span>
                   </CommandItem>
                 ))}
               </CommandGroup>
@@ -100,13 +120,13 @@ const CountrySelect = () => {
           </Command>
         </PopoverContent>
       </Popover>
+
       {error && (
-        <Alert variant="destructive" className="mt-2">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            {typeof error === "object" ? error?.message : String(error)}
-          </AlertDescription>
-        </Alert>
+        <p className="text-xs text-destructive">
+          {typeof error === "object"
+            ? (error as { message: string }).message
+            : String(error)}
+        </p>
       )}
     </div>
   );

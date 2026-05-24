@@ -1,7 +1,7 @@
-import { Label } from "@/components/ui/label";
+import { Label } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
-import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@sharpnr/ui";
+import { Alert, AlertDescription } from "@sharpnr/ui";
 import { AlertCircle } from "lucide-react";
 
 type TextfieldProps = {
@@ -19,6 +19,7 @@ const TextField = ({
 }: TextfieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
+  const isTouched = field.state.meta.isTouched;
 
   const handleChange = (value: string) => {
     if (uppercase) {
@@ -40,10 +41,10 @@ const TextField = ({
         className={`w-full ${uppercase ? "uppercase" : ""}`}
       />
 
-      {error && (
+      {isTouched && error && (
         <Alert variant="destructive" className="mt-2">
           <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{error?.message}</AlertDescription>
+          <AlertDescription>{error.message}</AlertDescription>
         </Alert>
       )}
     </div>
