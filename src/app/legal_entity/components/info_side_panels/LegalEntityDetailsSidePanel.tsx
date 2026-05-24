@@ -7,8 +7,10 @@ import {
   FileCheck,
   Building2,
   Play,
+  ChevronDown,
 } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import React from "react";
 
 // ─── Section wrapper ───────────────────────────────────────────────────────────
 function Section({
@@ -189,6 +191,27 @@ function Content() {
   );
 }
 
+// ─── Collapsible mobile wrapper ────────────────────────────────────────────────
+function MobileSidePanel() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className="border-t w-full">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center justify-between w-full px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <span>Activity & Updates</span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && <Content />}
+    </div>
+  );
+}
+
 // ─── Panel ─────────────────────────────────────────────────────────────────────
 export function LegalEntityDetailsSidePanel() {
   const isMobile = useIsMobile();
@@ -196,21 +219,14 @@ export function LegalEntityDetailsSidePanel() {
   // isMobile is undefined on first render — render nothing until resolved
   if (isMobile === undefined) return null;
 
-  // ── Mobile: inline below main content ────────────────────
+  // ── Mobile: collapsible section below main content ────────────────
   if (isMobile) {
-    return (
-      <div className="border-t w-full">
-        <div className="px-4 py-3 text-sm font-medium text-muted-foreground">
-          Activity & Updates
-        </div>
-        <Content />
-      </div>
-    );
+    return <MobileSidePanel />;
   }
 
   // ── Desktop: own independent scroll column ────────────────
   return (
-    <aside className="hidden lg:flex lg:flex-col w-3/12 shrink-0 border-l h-[calc(100vh-6rem)]">
+    <aside className="hidden lg:flex lg:flex-col w-3/12 shrink-0 border-l lg:h-[calc(100vh-6rem)]">
       <ScrollArea className="h-full">
         <Content />
       </ScrollArea>

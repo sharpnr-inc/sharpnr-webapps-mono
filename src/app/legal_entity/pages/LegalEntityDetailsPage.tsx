@@ -84,10 +84,10 @@ const LegalEntityDetailsPage: React.FC = () => {
   const [activeTab, setActiveTab] = React.useState<TabValue>("contacts");
 
   return (
-    // ── Outer: locked height, no overflow ────────────────────
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-6rem)]">
-      {/* ── Main: own scroll column ──────────────────────────── */}
-      <ScrollArea className="flex-1 lg:w-9/12">
+    // ── Outer: full-height two-column on desktop, natural flow on mobile ──
+    <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-6rem)]">
+      {/* ── Main: scrollable on desktop, natural on mobile ───────────────── */}
+      <ScrollArea className="flex-1 lg:w-9/12 min-h-0">
         <main className="px-4 sm:px-6 py-4">
           {/* Header */}
           <div className="flex items-start justify-between gap-4 mb-6">
@@ -99,7 +99,7 @@ const LegalEntityDetailsPage: React.FC = () => {
                 <MoveLeft className="w-3 h-3 shrink-0" />
                 <span>Back to Legal Entities</span>
               </button>
-              <h1 className="font-semibold text-2xl sm:text-3xl">
+              <h1 className="font-semibold text-2xl sm:text-3xl wrap-break-word">
                 {lename ?? leID}
               </h1>
             </div>
@@ -220,14 +220,15 @@ const LegalEntityDetailsPage: React.FC = () => {
             />
 
             <Separator orientation="horizontal" />
-            {/* Accounting Books sections start  */}
+
+            {/* Accounting Books sections start */}
             <LegalEntityAccountsBooksSection />
-            {/* Accounting Books sections ends  */}
+            {/* Accounting Books sections ends */}
           </div>
         </main>
       </ScrollArea>
 
-      {/* ── Side panel: own scroll column ────────────────────── */}
+      {/* ── Side panel: own scroll column on desktop, inline on mobile ────── */}
       <LegalEntityDetailsSidePanel />
     </div>
   );
