@@ -5,6 +5,11 @@ import { MoveLeft } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   ScrollArea,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Separator,
   Skeleton,
   Tabs,
@@ -59,11 +64,24 @@ function Field({ label, value }: { label: string; value?: string }) {
   );
 }
 
+const TAB_OPTIONS = [
+  { value: "contacts", label: "Contacts & People" },
+  { value: "bank_accounts", label: "Bank Accounts" },
+  { value: "address", label: "Addresses" },
+  { value: "identifiers", label: "Identifiers" },
+  { value: "license_compliance", label: "Licence & Compliance" },
+  { value: "tax_registrations", label: "Tax Registration" },
+] as const;
+
 const LegalEntityDetailsPage: React.FC = () => {
   const { leID } = Route.useParams();
   const { lename } = Route.useSearch();
   const { data: legalEntityDetails } = useLegalEntityDetails(leID);
   const nav = useNavigate();
+
+  type TabValue = (typeof TAB_OPTIONS)[number]["value"];
+
+  const [activeTab, setActiveTab] = React.useState<TabValue>("contacts");
 
   return (
     // ── Outer: locked height, no overflow ────────────────────
@@ -115,18 +133,37 @@ const LegalEntityDetailsPage: React.FC = () => {
               </div>
             </Section>
 
-            <Tabs defaultValue="contacts" className="w-full">
-              <TabsList variant={"line"}>
-                <TabsTrigger value="contacts">Contacts & People</TabsTrigger>
-                <TabsTrigger value="bank_accounts">Bank Accounts</TabsTrigger>
-                <TabsTrigger value="address">Addresses</TabsTrigger>
-                <TabsTrigger value="identifiers">Identifiers</TabsTrigger>
-                <TabsTrigger value="license_compliance">
-                  Licence & Compliance
-                </TabsTrigger>
-                <TabsTrigger value="tax_registrations">
-                  Tax Regsitration
-                </TabsTrigger>
+            <Tabs
+              value={activeTab}
+              onValueChange={(v) => setActiveTab(v as TabValue)}
+              className="w-full"
+            >
+              {/* Mobile: select dropdown */}
+              <div className="sm:hidden mb-2">
+                <Select
+                  value={activeTab}
+                  onValueChange={(v) => setActiveTab(v as TabValue)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {TAB_OPTIONS.map((tab) => (
+                      <SelectItem key={tab.value} value={tab.value}>
+                        {tab.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Desktop: line tabs */}
+              <TabsList variant="line" className="hidden sm:flex">
+                {TAB_OPTIONS.map((tab) => (
+                  <TabsTrigger key={tab.value} value={tab.value}>
+                    {tab.label}
+                  </TabsTrigger>
+                ))}
               </TabsList>
 
               <TabsContent value="contacts">
@@ -176,7 +213,9 @@ const LegalEntityDetailsPage: React.FC = () => {
 
             <LegalEntityTaxCategoriesSection
               legalEntityID={leID}
-              tax_registration_length={legalEntityDetails?.data?.tax_registrations.length}
+              tax_registration_length={
+                legalEntityDetails?.data?.tax_registrations.length
+              }
               data={legalEntityDetails?.data?.tax_categories}
             />
 
