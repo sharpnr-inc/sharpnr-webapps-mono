@@ -14,6 +14,7 @@ import {
   useSidebar,
   SidebarHeader,
   SharpnrSidebarFooter,
+  useSheet,
 } from "@sharpnr/ui";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Building2, Check, ChevronsUpDown } from "lucide-react";
@@ -23,7 +24,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@sharpnr/ui";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
@@ -66,6 +67,7 @@ function AccountingNavItem({ item }: { item: AccountingNavItem }) {
 ================================ */
 
 const AccountingRootLayout = () => {
+  const { openSheet } = useSheet();
   return (
     <SidebarProvider>
       <TooltipProvider>
@@ -105,7 +107,7 @@ const AccountingRootLayout = () => {
             </div>
             <div className="flex items-center gap-3 px-4">
               <SharpnrLauncher />
-              <NotificationBell onClick={() => console.log("HI")} />
+              <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
               <UserCard />
               <ModeToggle />
             </div>

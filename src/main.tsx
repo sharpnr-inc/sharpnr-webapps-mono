@@ -6,30 +6,23 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient, router } from "./router_config";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
-import { SheetProvider } from "./hooks/DrawerContext";
-import { DialogModalProvider } from "./hooks/DialogModalContext";
-import { ModalProvider } from "./hooks/ModalContext";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
-import { FormsModalProvider } from "./hooks/FormModalContext";
-import { ThemeProvider } from "./hooks/theme-provider";
 import { TooltipProvider } from "./components/ui/tooltip";
+import { ThemeProvider, SheetProvider } from "@sharpnr/ui";
+import { ModalProvider } from "./hooks/useModal";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider storageKey="accounting-sharp-theme">
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <FormsModalProvider>
-            <SheetProvider>
-              <DialogModalProvider>
-                <ModalProvider>
-                  <Suspense fallback={<SuspenseFallback />}>
-                    <RouterProvider router={router} />
-                  </Suspense>
-                </ModalProvider>
-              </DialogModalProvider>
-            </SheetProvider>
-          </FormsModalProvider>
+          <SheetProvider>
+            <ModalProvider>
+              <Suspense fallback={<SuspenseFallback />}>
+                <RouterProvider router={router} />
+              </Suspense>
+            </ModalProvider>
+          </SheetProvider>
         </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>
