@@ -1,25 +1,4 @@
-/*
-this is the Root layout Sidebar links
-SidebarLinks.tsx
-*/
-
-import {
-  BoxesIcon,
-  BriefcaseBusiness,
-  Building2,
-  Building2Icon,
-  Cable,
-  ContainerIcon,
-  DollarSign,
-  Globe,
-  Globe2Icon,
-  Home,
-  LucideShoppingBasket,
-  Origami,
-  Users,
-  Verified,
-} from "lucide-react";
-
+import { Building2 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -34,90 +13,49 @@ import {
   SharpnrSidebarFooter,
 } from "@sharpnr/ui";
 import { useAppUserStore } from "@/store/AppUserStore";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { orchestratorGroups, type SidebarLink } from "./SidebarLinks";
 
-export type SidebarLink = {
-  label: string;
-  path?: string;
-  icon: React.ElementType;
-  tooltip?: string;
-  exact?: boolean;
-};
+function SidebarLinkItem({ item }: { item: SidebarLink }) {
+  const Icon = item.icon;
+  const { location } = useRouterState();
 
-export const orchestratorLinks: SidebarLink[] = [
-  { label: "Home", path: "/home", icon: Origami, tooltip: "Home", exact: true },
-  {
-    label: "Organization",
-    path: "/organization",
-    icon: Home,
-    tooltip: "Organization",
-    exact: true,
-  },
-  {
-    label: "Properties",
-    path: "/property",
-    icon: Building2Icon,
-    tooltip: "Properties",
-    exact: false,
-  },
-  {
-    label: "Legal Entity",
-    path: "/legal_entity",
-    icon: BriefcaseBusiness,
-    tooltip: "Legal Entity",
-    exact: false,
-  },
-  {
-    label: "Payments",
-    path: "/payments",
-    icon: DollarSign,
-    tooltip: "Payments",
-  },
-  {
-    label: "Inventories",
-    path: "/inventory-acc",
-    icon: LucideShoppingBasket,
-    tooltip: "Inventories",
-  },
-  {
-    label: "Suppliers & Vendors",
-    path: "/suppliers&Vendors",
-    icon: ContainerIcon,
-    tooltip: "Suppliers & Vendors",
-  },
-  {
-    label: "User Directory",
-    path: "/org-users",
-    icon: Users,
-    tooltip: "User Directory",
-  },
-  {
-    label: "Audit Logs",
-    path: "/audit-log",
-    icon: Verified,
-    tooltip: "Audit Logs",
-  },
-  { label: "Storage", path: "/storage", icon: BoxesIcon, tooltip: "Storage" },
-  { label: "Cables", path: "/cables", icon: Cable, tooltip: "Cables" },
-  {
-    label: "Descovro Integration",
-    path: "/descovro_integrations",
-    icon: Globe2Icon,
-    tooltip: "Descovro Integration",
-  },
-  {
-    label: "Sharp Marketplace",
-    path: "/sharp_marketplace",
-    icon: Globe,
-    tooltip: "Sharp Marketplace",
-  },
-];
+  const isActive = item.exact
+    ? location.pathname === item.path
+    : location.pathname.startsWith(item.path ?? "");
+
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        className="bg-transparent"
+        size="sm"
+        isActive={isActive}
+        asChild={!!item.path}
+      >
+        {item.path ? (
+          <Link to={item.path}>
+            <Icon />
+            <span>{item.label}</span>
+          </Link>
+        ) : (
+          <>
+            <Icon />
+            <span>{item.label}</span>
+          </>
+        )}
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+}
 
 export function OrchestratorShell() {
   const { state } = useSidebar();
   const { user } = useAppUserStore();
+  const nav = useNavigate();
+  const { location } = useRouterState();
 
   const isCollapsed = state === "collapsed";
+  const isHomeActive = location.pathname === "/home";
 
   return (
     <Sidebar collapsible="icon">
@@ -125,10 +63,12 @@ export function OrchestratorShell() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              isActive={false}
+              isActive={isHomeActive}
               size="lg"
-              variant={"outline"}
+              variant="outline"
               tooltip={user?.org_data.org_name}
+              className="cursor-pointer"
+              onClick={() => nav({ to: "/home" })}
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <Building2 className="h-4 w-4" />
@@ -139,7 +79,6 @@ export function OrchestratorShell() {
                   <span className="truncate text-sm font-bold">
                     {user?.org_data.org_name}
                   </span>
-
                   <span className="truncate text-xs font-mono">
                     {user?.org_data.sharp_id}
                   </span>
@@ -151,40 +90,19 @@ export function OrchestratorShell() {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Orchestrator</SidebarGroupLabel>
+        {orchestratorGroups.map((group: any) => (
+          <SidebarGroup key={group.groupLabel}>
+            <SidebarGroupLabel>{group.groupLabel}</SidebarGroupLabel>
 
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {orchestratorLinks.map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <SidebarMenuItem key={item.label}>
-                    <SidebarMenuButton
-                      className="bg-transparent"
-                      size={"sm"}
-                      // tooltip={item.tooltip}
-                      asChild={!!item.path}
-                    >
-                      {item.path ? (
-                        <Link to={item.path}>
-                          <Icon />
-                          <span>{item.label}</span>
-                        </Link>
-                      ) : (
-                        <>
-                          <Icon />
-                          <span>{item.label}</span>
-                        </>
-                      )}
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.links.map((item: any) => (
+                  <SidebarLinkItem key={item.label} item={item} />
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
 
       <SharpnrSidebarFooter />
