@@ -8,59 +8,72 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
-  SidebarMenuSubButton,
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
   useSidebar,
   SidebarHeader,
-} from "@/components/ui/sidebar";
-
+  SharpnrSidebarFooter,
+} from "@sharpnr/ui";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Building2, Check, ChevronDown, ChevronsUpDown } from "lucide-react";
+import { Building2, Check, ChevronsUpDown } from "lucide-react";
 import { useAccountingStore } from "../store/accounting.store";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import { accountingSidebar } from "./AccountingNavs";
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";
+import { accountingSidebar, type AccountingNavItem } from "./AccountingNavs";
+
+/* ================================
+   Nav Item
+================================ */
+
+function AccountingNavItem({ item }: { item: AccountingNavItem }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const Icon = item.icon;
+
+  const isActive = item.exact
+    ? pathname === item.to
+    : pathname.startsWith(item.to);
+
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        asChild
+        size="sm"
+        isActive={isActive}
+        tooltip={item.label}
+      >
+        <Link to={item.to}>
+          <Icon />
+          <span>{item.label}</span>
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+}
 
 /* ================================
    Layout
 ================================ */
 
 const AccountingRootLayout = () => {
-  const pathname = useRouterState({
-    select: (s) => s.location.pathname,
-  });
-
   return (
     <SidebarProvider>
       <TooltipProvider>
-        <Sidebar collapsible="icon">
+        <Sidebar collapsible="icon" variant="sidebar" side="left">
           <SidebarHeader>
             <LegalEntitySwitcher />
           </SidebarHeader>
 
-          {/* ✅ Fixed: ScrollArea lives inside SidebarContent, no asChild */}
           <SidebarContent className="overflow-hidden">
             <ScrollArea className="h-full w-full">
               <div className="pb-2">
@@ -70,79 +83,18 @@ const AccountingRootLayout = () => {
 
                     <SidebarGroupContent>
                       <SidebarMenu>
-                        {section.items.map((item) =>
-                          item.children ? (
-                            <Collapsible
-                              key={item.label}
-                              defaultOpen={item.children.some(
-                                (c) =>
-                                  pathname === c.to ||
-                                  pathname.startsWith(`${c.to}/`),
-                              )}
-                              className="group/collapsible"
-                            >
-                              <SidebarMenuItem>
-                                <CollapsibleTrigger asChild>
-                                  <SidebarMenuButton
-                                    isActive={item.children.some(
-                                      (c) =>
-                                        pathname === c.to ||
-                                        pathname.startsWith(`${c.to}/`),
-                                    )}
-                                    tooltip={item.label}
-                                  >
-                                    <item.icon />
-                                    <span>{item.label}</span>
-
-                                    <ChevronDown className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-180" />
-                                  </SidebarMenuButton>
-                                </CollapsibleTrigger>
-
-                                <CollapsibleContent>
-                                  <SidebarMenuSub>
-                                    {item.children.map((child) => (
-                                      <SidebarMenuSubItem key={child.label}>
-                                        <SidebarMenuSubButton
-                                          asChild
-                                          isActive={pathname === child.to}
-                                        >
-                                          <Link to={child.to}>
-                                            <span>{child.label}</span>
-                                          </Link>
-                                        </SidebarMenuSubButton>
-                                      </SidebarMenuSubItem>
-                                    ))}
-                                  </SidebarMenuSub>
-                                </CollapsibleContent>
-                              </SidebarMenuItem>
-                            </Collapsible>
-                          ) : (
-                            <SidebarMenuItem key={item.label}>
-                              <SidebarMenuButton
-                                asChild
-                                isActive={
-                                  pathname === item.to ||
-                                  pathname.startsWith(`${item.to}/`)
-                                }
-                                tooltip={item.label}
-                              >
-                                <Link to={item.to}>
-                                  <item.icon />
-                                  <span>{item.label}</span>
-                                </Link>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                          ),
-                        )}
+                        {section.items.map((item) => (
+                          <AccountingNavItem key={item.label} item={item} />
+                        ))}
                       </SidebarMenu>
                     </SidebarGroupContent>
                   </SidebarGroup>
                 ))}
               </div>
-
               <ScrollBar orientation="vertical" />
             </ScrollArea>
           </SidebarContent>
+          <SharpnrSidebarFooter />
         </Sidebar>
 
         <SidebarInset>
@@ -159,7 +111,7 @@ const AccountingRootLayout = () => {
             </div>
           </header>
 
-          <main className=" overflow-auto p-4">
+          <main className="overflow-auto p-4">
             <Outlet />
           </main>
         </SidebarInset>
@@ -176,7 +128,6 @@ export default AccountingRootLayout;
 
 export function LegalEntitySwitcher() {
   const { state } = useSidebar();
-
   const legalEntities = useAccountingStore((s) => s.legalEntities);
   const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
   const setSelectedLegalEntity = useAccountingStore(
@@ -210,7 +161,6 @@ export function LegalEntitySwitcher() {
                       : "Accounting Workspace"}
                   </span>
                 </div>
-
                 <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
               </>
             )}

@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DEFAULT_SECTIONS } from "./launcher.config";
 import type { NavItem } from "./launcher.types";
-import logo from "@/assets/AppIcon.png";
 
 /* =========================================================
    ANIMATION VARIANTS
@@ -172,7 +171,7 @@ export default function SharpnrLauncher() {
           )}
         >
           <img
-            src={logo}
+            src={"https://cdn.sharpnr.com/shicon.svg"}
             alt="Sharpnr"
             className={cn(
               "h-8 w-8 rounded-full transition-all duration-300",
