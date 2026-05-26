@@ -1,4 +1,4 @@
-import LedgerPage from "@/app/pages/Ledger/LedgerPages";
+import LedgerPage from "@/app/chart-of-accounts/LedgerPages";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

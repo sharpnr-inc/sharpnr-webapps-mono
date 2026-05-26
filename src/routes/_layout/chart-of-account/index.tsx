@@ -1,4 +1,4 @@
-import { ChartOfAccountingPage } from "@/app/pages/ChartOfAccounts/ChartOfAccountsPage";
+import { ChartOfAccountingPage } from "@/app/chart-of-accounts/ChartOfAccountsPage";
 import { useAccountingStore } from "@/app/store/accounting.store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 

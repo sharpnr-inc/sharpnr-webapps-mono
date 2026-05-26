@@ -1,4 +1,4 @@
-import { TaxCodesPage } from "@/app/pages/Taxation/TaxCodesPage";
+import { TaxCodesPage } from "@/app/tax-codes/TaxCodesPage";
 // import { useAccountingStore } from "@/app/store/accounting.store";
 import { createFileRoute } from "@tanstack/react-router";
 

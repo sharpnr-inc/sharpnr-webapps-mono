@@ -1,4 +1,4 @@
-import { AccountingOverviewPage } from "@/app/pages/Overview/AccountingOverviewPage";
+import { AccountingOverviewPage } from "@/app/dashboard/AccountingOverviewPage";
 import { useAccountingStore } from "@/app/store/accounting.store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
