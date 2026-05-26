@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as LayoutSuppliersIndexRouteImport } from './routes/_layout/suppliers/index'
 import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
 import { Route as LayoutSalesIndexRouteImport } from './routes/_layout/sales/index'
@@ -40,11 +39,6 @@ const LayoutRouteRoute = LayoutRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: '/about/',
-  path: '/about/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutSuppliersIndexRoute = LayoutSuppliersIndexRouteImport.update({
@@ -159,7 +153,6 @@ const LayoutChartOfAccountAccountIDLedgerRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about/': typeof AboutIndexRoute
   '/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
   '/purchases/history': typeof LayoutPurchasesHistoryRoute
   '/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
@@ -183,7 +176,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutIndexRoute
   '/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
   '/purchases/history': typeof LayoutPurchasesHistoryRoute
   '/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
@@ -209,7 +201,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteRouteWithChildren
-  '/about/': typeof AboutIndexRoute
   '/_layout/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
   '/_layout/purchases/history': typeof LayoutPurchasesHistoryRoute
   '/_layout/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
@@ -235,7 +226,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about/'
     | '/payments/payment_orders'
     | '/purchases/history'
     | '/reports/balance-sheet'
@@ -259,7 +249,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
     | '/payments/payment_orders'
     | '/purchases/history'
     | '/reports/balance-sheet'
@@ -284,7 +273,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_layout'
-    | '/about/'
     | '/_layout/payments/payment_orders'
     | '/_layout/purchases/history'
     | '/_layout/reports/balance-sheet'
@@ -310,7 +298,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
-  AboutIndexRoute: typeof AboutIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -327,13 +314,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about/': {
-      id: '/about/'
-      path: '/about'
-      fullPath: '/about/'
-      preLoaderRoute: typeof AboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layout/suppliers/': {
@@ -533,7 +513,6 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
-  AboutIndexRoute: AboutIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
