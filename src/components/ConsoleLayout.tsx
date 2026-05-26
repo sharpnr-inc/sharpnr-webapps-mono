@@ -55,9 +55,7 @@ function ConsoleLayoutContent() {
             "border-b border-border/50",
           )}
         >
-          <HeaderItem index={0} className="flex items-center">
-            <SidebarTrigger />
-          </HeaderItem>
+          <SidebarTrigger />
 
           <div className="flex items-center gap-3 px-6 py-1 rounded-2xl">
             <HeaderItem index={1}>

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,19 +10,77 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@sharpnr/ui";
-import { DEFAULT_SECTIONS } from "./launcher.config";
-import type { NavItem } from "./launcher.types";
+import { LAUNCHER_SECTIONS, type LauncherItem } from "./launcher.config";
+
+/* =========================================================
+   THEME — lifted from SharpnrSidebarFooter
+========================================================= */
+
+const NAVY = "#0B0D2E";
+const NAVY_BRIGHT = "#1E2260";
+const WHITE = "#F0F2F7";
+const WHITE_DIM = "rgba(240,242,247,0.55)";
+
+/* =========================================================
+   FLOATING PARTICLE — same as sidebar footer
+========================================================= */
+
+function Particle({
+  x,
+  y,
+  size,
+  duration,
+  delay,
+}: {
+  x: number;
+  y: number;
+  size: number;
+  duration: number;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      className="absolute rounded-full pointer-events-none"
+      style={{
+        width: size,
+        height: size,
+        left: `${x}%`,
+        top: `${y}%`,
+        background: WHITE,
+      }}
+      animate={{
+        y: [0, -14, 0],
+        x: [0, 3, -3, 0],
+        opacity: [0, 0.45, 0],
+        scale: [0.4, 1, 0.4],
+      }}
+      transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
+    />
+  );
+}
+
+const PARTICLES = [
+  { x: 8, y: 82, size: 2.5, duration: 3.4, delay: 0 },
+  { x: 28, y: 65, size: 1.8, duration: 2.9, delay: 0.6 },
+  { x: 55, y: 75, size: 3, duration: 3.7, delay: 1.2 },
+  { x: 78, y: 55, size: 2, duration: 2.6, delay: 0.2 },
+  { x: 48, y: 88, size: 2.5, duration: 3.1, delay: 1.9 },
+  { x: 92, y: 70, size: 1.8, duration: 3.0, delay: 0.9 },
+  { x: 18, y: 30, size: 2, duration: 3.3, delay: 1.5 },
+  { x: 68, y: 20, size: 1.5, duration: 2.7, delay: 0.4 },
+  { x: 38, y: 45, size: 2.2, duration: 3.6, delay: 2.1 },
+];
 
 /* =========================================================
    ANIMATION VARIANTS
 ========================================================= */
 
-export const panelVariants = {
+const panelVariants: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.96,
-    y: -8,
-    filter: "blur(4px)",
+    scale: 0.97,
+    y: -10,
+    filter: "blur(6px)",
     transformOrigin: "top right",
   },
   visible: {
@@ -30,102 +90,247 @@ export const panelVariants = {
     filter: "blur(0px)",
     transition: {
       type: "spring",
-      stiffness: 380,
-      damping: 28,
-      mass: 0.8,
-      staggerChildren: 0.04,
-      delayChildren: 0.05,
+      stiffness: 420,
+      damping: 30,
+      mass: 0.7,
+      staggerChildren: 0.035,
+      delayChildren: 0.04,
     },
   },
   exit: {
     opacity: 0,
-    scale: 0.97,
+    scale: 0.98,
     y: -6,
-    filter: "blur(3px)",
-    transition: { duration: 0.15, ease: "easeIn" },
+    filter: "blur(4px)",
+    transition: { duration: 0.13, ease: "easeIn" },
   },
-} satisfies Variants;
+};
 
-export const itemVariants = {
-  hidden: { opacity: 0, y: 10, scale: 0.92 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { type: "spring", stiffness: 400, damping: 26 },
-  },
-} satisfies Variants;
-
-export const sectionVariants = {
-  hidden: { opacity: 0, y: 6 },
+const sectionVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       type: "spring",
-      stiffness: 300,
-      damping: 24,
-      staggerChildren: 0.05,
+      stiffness: 340,
+      damping: 26,
+      staggerChildren: 0.04,
     },
   },
-} satisfies Variants;
+};
+
+const tileVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.88, y: 8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 440, damping: 24 },
+  },
+};
 
 /* =========================================================
-   APP TILE
+   SERVICE TILE (grid)
 ========================================================= */
 
-function AppTile({ item, onClick }: { item: NavItem; onClick: () => void }) {
+function ServiceTile({
+  item,
+  onClick,
+}: {
+  item: LauncherItem;
+  onClick: () => void;
+}) {
   return (
     <motion.button
-      variants={itemVariants}
+      variants={tileVariants}
       onClick={onClick}
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.96 }}
-      className="group flex flex-col items-center gap-2 focus-visible:outline-none"
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.95 }}
+      className="group relative flex flex-col items-start gap-2.5 rounded-xl p-2.5 text-left focus-visible:outline-none"
+      style={{ transition: "background 150ms" }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.background = "rgba(240,242,247,0.05)")
+      }
+      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
     >
       <div
-        className={cn(
-          "relative flex h-[56px] w-[56px] items-center justify-center",
-          "rounded-[14px] border border-border/60 bg-background",
-          "text-muted-foreground shadow-sm",
-          "transition-all duration-200",
-          "group-hover:border-border group-hover:bg-foreground group-hover:text-background group-hover:shadow-md",
-        )}
+        className="relative flex h-10 w-10 items-center justify-center rounded-[10px] transition-all duration-200"
+        style={{
+          background: "rgba(240,242,247,0.07)",
+          boxShadow: `inset 0 0 0 1px rgba(240,242,247,0.10)`,
+        }}
       >
-        <item.icon />
-        <div className="pointer-events-none absolute inset-0 rounded-[14px] bg-gradient-to-b from-white/10 to-transparent opacity-60" />
+        <span
+          className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full"
+          style={{ backgroundColor: item.accent }}
+        />
+        <item.icon
+          className="h-4.5 w-4.5 transition-colors duration-150"
+          style={{ color: WHITE_DIM }}
+          strokeWidth={1.5}
+        />
       </div>
-      <span
-        className={cn(
-          "max-w-[64px] truncate text-center text-[11px] font-medium leading-tight",
-          "text-muted-foreground/70 transition-colors duration-150",
-          "group-hover:text-foreground",
-        )}
+
+      <div className="flex flex-col gap-0.5">
+        <span
+          className="text-[11.5px] font-semibold leading-none"
+          style={{ color: WHITE }}
+        >
+          {item.label}
+        </span>
+        <span
+          className="text-[10px] leading-tight"
+          style={{ color: "rgba(240,242,247,0.30)" }}
+        >
+          {item.description}
+        </span>
+      </div>
+    </motion.button>
+  );
+}
+
+/* =========================================================
+   SERVICE ROW (single-item sections)
+========================================================= */
+
+function ServiceRow({
+  item,
+  onClick,
+}: {
+  item: LauncherItem;
+  onClick: () => void;
+}) {
+  return (
+    <motion.button
+      variants={tileVariants}
+      onClick={onClick}
+      whileHover={{ x: 2 }}
+      whileTap={{ scale: 0.98 }}
+      className="group flex w-full items-center gap-3 rounded-xl p-2.5 text-left focus-visible:outline-none"
+      style={{ transition: "background 150ms" }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.background = "rgba(240,242,247,0.05)")
+      }
+      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+    >
+      <div
+        className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] transition-all duration-200"
+        style={{
+          background: "rgba(240,242,247,0.07)",
+          boxShadow: `inset 0 0 0 1px rgba(240,242,247,0.10)`,
+        }}
       >
-        {item.label}
+        <span
+          className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full"
+          style={{ backgroundColor: item.accent }}
+        />
+        <item.icon
+          className="h-4.5 w-4.5"
+          style={{ color: WHITE_DIM }}
+          strokeWidth={1.5}
+        />
+      </div>
+
+      <div className="flex min-w-0 flex-col gap-0.5">
+        <span
+          className="text-[12px] font-semibold leading-none"
+          style={{ color: WHITE }}
+        >
+          {item.label}
+        </span>
+        <span
+          className="text-[10px] leading-tight"
+          style={{ color: "rgba(240,242,247,0.30)" }}
+        >
+          {item.description}
+        </span>
+      </div>
+
+      <span
+        className="ml-auto shrink-0 text-[9px] font-semibold uppercase tracking-widest opacity-0 transition-opacity duration-150 group-hover:opacity-100"
+        style={{ color: item.accent }}
+      >
+        Open
       </span>
     </motion.button>
   );
 }
 
 /* =========================================================
-   KEYBOARD HINT
+   TRIGGER
 ========================================================= */
 
-function KbdHint() {
+function Trigger({ open }: { open: boolean }) {
   const isMac =
     typeof navigator !== "undefined" &&
     navigator.platform.toUpperCase().includes("MAC");
-
   return (
-    <div className="mt-4 flex items-center justify-center gap-1.5">
-      <kbd className="inline-flex h-5 items-center rounded border border-border/50 bg-muted/50 px-1.5 font-mono text-[10px] text-muted-foreground/50">
-        {isMac ? "⌘" : "Ctrl"}
-      </kbd>
-      <kbd className="inline-flex h-5 items-center rounded border border-border/50 bg-muted/50 px-1.5 font-mono text-[10px] text-muted-foreground/50">
-        M
-      </kbd>
-      <span className="text-[10px] text-muted-foreground/30">to toggle</span>
+    <DropdownMenuTrigger asChild>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        aria-label={`Open Sharpnr launcher (${isMac ? "⌘" : "Ctrl"}+M)`}
+        className={cn(
+          "group relative flex h-8 w-8 items-center justify-center",
+          "rounded-full transition-all duration-200 focus-visible:outline-none",
+          "ring-1 ring-white/10 hover:ring-white/25",
+          open && "ring-white/25",
+        )}
+      >
+        <img
+          src="/AppIcon.png"
+          alt="Sharpnr"
+          className={cn(
+            "h-8 w-8 rounded-full transition-all duration-300",
+            open
+              ? "opacity-100 grayscale-0"
+              : "opacity-60 grayscale group-hover:opacity-90 group-hover:grayscale-0",
+          )}
+        />
+        <motion.span
+          animate={{ scale: [1, 1.3, 1] }}
+          transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+          className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-background"
+        />
+      </motion.button>
+    </DropdownMenuTrigger>
+  );
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+function Footer() {
+  const isMac =
+    typeof navigator !== "undefined" &&
+    navigator.platform.toUpperCase().includes("MAC");
+  return (
+    <div
+      className="relative mt-3 flex items-center justify-between pt-3"
+      style={{ borderTop: `1px solid rgba(240,242,247,0.08)` }}
+    >
+      <span
+        className="text-[10px] font-medium"
+        style={{ color: "rgba(240,242,247,0.22)" }}
+      >
+        Sharpnr Platform
+      </span>
+      <div className="flex items-center gap-1">
+        {[isMac ? "⌘" : "Ctrl", "M"].map((k) => (
+          <kbd
+            key={k}
+            className="inline-flex h-4.5 items-center rounded px-1.5 font-mono text-[9px]"
+            style={{
+              border: `1px solid rgba(240,242,247,0.10)`,
+              background: "rgba(240,242,247,0.05)",
+              color: "rgba(240,242,247,0.22)",
+            }}
+          >
+            {k}
+          </kbd>
+        ))}
+      </div>
     </div>
   );
 }
@@ -138,13 +343,12 @@ export default function SharpnrLauncher() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  // ── Ctrl/⌘ + M shortcut ───────────────────────────────
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const isMac = navigator.platform.toUpperCase().includes("MAC");
       if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === "m") {
         e.preventDefault();
-        setOpen((p) => !p);
+        setOpen((prev) => !prev);
       }
     };
     window.addEventListener("keydown", handler);
@@ -158,104 +362,192 @@ export default function SharpnrLauncher() {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
-      {/* ── Trigger ── */}
-      <DropdownMenuTrigger asChild>
-        <motion.button
-          whileTap={{ scale: 0.93 }}
-          aria-label="Open app launcher (Ctrl+M)"
-          className={cn(
-            "group relative flex h-8 w-8 items-center justify-center",
-            "rounded-full ring-1 ring-border/80 transition-all duration-200",
-            "hover:ring-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            open && "ring-border",
-          )}
-        >
-          <img
-            src="/AppIcon.png"
-            alt="Sharpnr"
-            className={cn(
-              "h-8 w-8 rounded-full transition-all duration-300",
-              open
-                ? "grayscale-0 opacity-100"
-                : "grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100",
-            )}
-          />
-          <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-emerald-500 ring-2 ring-background" />
-        </motion.button>
-      </DropdownMenuTrigger>
+      <Trigger open={open} />
 
-      {/* ── Panel — forceMount so AnimatePresence controls exit ── */}
       <DropdownMenuContent
         forceMount
         align="end"
-        sideOffset={8}
-        className="p-0 border-0 bg-transparent shadow-none"
+        sideOffset={10}
+        className="border-0 bg-transparent p-0 shadow-none w-full"
       >
         <AnimatePresence>
           {open && (
             <motion.div
-              key="launcher-panel"
+              key="launcher"
               variants={panelVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className={cn(
-                "w-[280px] origin-top-right",
-                "rounded-2xl border border-border/60 bg-background/90 backdrop-blur-xl",
-                "p-4 shadow-2xl shadow-black/10",
-              )}
+              className="relative w-86 origin-top-right overflow-hidden rounded-md p-4"
+              style={{
+                background: NAVY,
+                boxShadow: [
+                  "inset 0 0 0 1px rgba(240,242,247,0.10)",
+                  "inset 0 1px 0 rgba(240,242,247,0.18)",
+                  "0 24px 64px rgba(0,0,8,0.7)",
+                ].join(", "),
+              }}
             >
-              {/* Header */}
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground/50">
-                  Launcher
-                </p>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="flex h-5 w-5 items-center justify-center rounded-md text-muted-foreground/40 hover:bg-muted hover:text-foreground transition"
-                >
-                  <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none">
-                    <path
-                      d="M1 1l10 10M11 1L1 11"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
+              {/* ── Aurora sweep ── */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                animate={{
+                  background: [
+                    `radial-gradient(ellipse at 10% 90%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
+                    `radial-gradient(ellipse at 90% 10%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
+                    `radial-gradient(ellipse at 10% 90%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
+                  ],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
 
-              {/* Sections */}
-              <div className="overflow-clip p-1">
-                {DEFAULT_SECTIONS.map((section, sIdx) => (
-                  <motion.div
-                    key={section.id}
-                    variants={sectionVariants}
-                    className="mb-5 last:mb-0"
+              {/* ── Constellation grid ── */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: `radial-gradient(circle, ${WHITE} 1px, transparent 1px)`,
+                  backgroundSize: "14px 14px",
+                }}
+                animate={{ opacity: [0.03, 0.07, 0.03] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* ── Floating particles ── */}
+              {PARTICLES.map((p, i) => (
+                <Particle key={i} {...p} />
+              ))}
+
+              {/* ── Top shimmer ── */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${WHITE}, transparent)`,
+                }}
+                animate={{ opacity: [0.2, 0.55, 0.2] }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              {/* ── Bottom shimmer ── */}
+              <motion.div
+                className="absolute bottom-0 left-6 right-6 h-px pointer-events-none"
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${WHITE_DIM}, transparent)`,
+                }}
+                animate={{ opacity: [0.1, 0.35, 0.1] }}
+                transition={{
+                  duration: 3.4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1,
+                }}
+              />
+
+              {/* ── All content sits above layers ── */}
+              <div className="relative z-10">
+                {/* Header */}
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="text-[11px] font-bold uppercase tracking-[0.18em]"
+                      style={{ color: WHITE_DIM }}
+                    >
+                      Sharpnr
+                    </span>
+                    <span
+                      className="rounded-sm px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-widest"
+                      style={{
+                        background: "rgba(240,242,247,0.08)",
+                        color: "rgba(240,242,247,0.28)",
+                      }}
+                    >
+                      Launcher
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="flex h-5 w-5 items-center justify-center rounded-md transition-colors"
+                    style={{ color: "rgba(240,242,247,0.22)" }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLElement).style.background =
+                        "rgba(240,242,247,0.08)";
+                      (e.currentTarget as HTMLElement).style.color = WHITE;
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLElement).style.background =
+                        "transparent";
+                      (e.currentTarget as HTMLElement).style.color =
+                        "rgba(240,242,247,0.22)";
+                    }}
                   >
-                    <p className="mb-3 px-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground/40">
-                      {section.title}
-                    </p>
+                    <svg
+                      viewBox="0 0 10 10"
+                      className="h-2.5 w-2.5"
+                      fill="none"
+                    >
+                      <path
+                        d="M1 1l8 8M9 1L1 9"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
 
-                    <div className="grid grid-cols-3 gap-3">
-                      {section.items.map((item) => (
-                        <AppTile
-                          key={item.id}
-                          item={item}
-                          onClick={() => handleNavigate(item.to)}
+                {/* Sections */}
+                <div className="flex flex-col gap-4">
+                  {LAUNCHER_SECTIONS.map((section, sIdx) => (
+                    <motion.div key={section.id} variants={sectionVariants}>
+                      <p
+                        className="mb-2 px-0.5 text-[9.5px] font-bold uppercase tracking-[0.2em]"
+                        style={{ color: "rgba(240,242,247,0.22)" }}
+                      >
+                        {section.title}
+                      </p>
+
+                      {section.items.length === 1 ? (
+                        <ServiceRow
+                          item={section.items[0]}
+                          onClick={() => handleNavigate(section.items[0].to)}
                         />
-                      ))}
-                    </div>
+                      ) : (
+                        <div className="grid grid-cols-3 gap-0.5">
+                          {section.items.map((item) => (
+                            <ServiceTile
+                              key={item.id}
+                              item={item}
+                              onClick={() => handleNavigate(item.to)}
+                            />
+                          ))}
+                        </div>
+                      )}
 
-                    {sIdx < DEFAULT_SECTIONS.length - 1 && (
-                      <div className="mt-5 border-t border-border/30" />
-                    )}
-                  </motion.div>
-                ))}
+                      {sIdx < LAUNCHER_SECTIONS.length - 1 && (
+                        <div
+                          className="mt-4"
+                          style={{
+                            borderTop: `1px solid rgba(240,242,247,0.07)`,
+                          }}
+                        />
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+
+                <Footer />
               </div>
-
-              {/* Footer */}
-              <KbdHint />
             </motion.div>
           )}
         </AnimatePresence>

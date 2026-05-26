@@ -4,7 +4,6 @@ import "./index.css";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
 import { QueryClientProvider } from "@tanstack/react-query";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider } from "@tanstack/react-router";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";

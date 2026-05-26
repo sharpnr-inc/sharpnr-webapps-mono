@@ -9,6 +9,8 @@ import {
   Globe2Icon,
   Home,
   LucideShoppingBasket,
+  MarsStroke,
+  MirrorRound,
   Users,
   Verified,
 } from "lucide-react";
@@ -51,6 +53,13 @@ export const orchestratorGroups: SidebarGroup[] = [
       },
       {
         label: "Suppliers & Vendors",
+        path: "/suppliers&Vendors",
+        icon: ContainerIcon,
+        tooltip: "Suppliers & Vendors",
+      },
+
+      {
+        label: "Customers",
         path: "/suppliers&Vendors",
         icon: ContainerIcon,
         tooltip: "Suppliers & Vendors",
@@ -101,6 +110,33 @@ export const orchestratorGroups: SidebarGroup[] = [
         label: "Cables",
         path: "/cables",
         icon: Cable,
+        tooltip: "Cables",
+      },
+
+      {
+        label: "Cortex",
+        path: "/cables",
+        icon: MirrorRound,
+        tooltip: "Cables",
+      },
+
+      {
+        label: "Folio",
+        path: "/cables",
+        icon: Cable,
+        tooltip: "Cables",
+      },
+
+      {
+        label: "Sharp-Marketing",
+        path: "/cables",
+        icon: MarsStroke,
+        tooltip: "Cables",
+      },
+      {
+        label: "Sharp-Accounting",
+        path: "/cables",
+        icon: MarsStroke,
         tooltip: "Cables",
       },
       {
