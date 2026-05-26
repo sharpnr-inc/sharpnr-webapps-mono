@@ -1,5 +1,13 @@
 import { create } from "zustand";
-import type { AccountingStoreState } from "./types";
+import type { AllLegalEntityListResposne } from "@/temp/api";
+
+export interface AccountingStoreState {
+  legalEntities: AllLegalEntityListResposne[];
+  selectedLegalEntity: any | null;
+
+  setLegalEntities: (entities: any[]) => void;
+  setSelectedLegalEntity: (entity: any) => void;
+}
 
 export const useAccountingStore = create<AccountingStoreState>((set) => ({
   legalEntities: [],

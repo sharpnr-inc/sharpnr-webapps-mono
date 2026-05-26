@@ -1,6 +1,6 @@
 import { useCreateJournalEntryMutation } from "@/app/api/mutations/journalEntry";
 import { useLEAccountingBook } from "@/app/api/queries/books";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { useAppForm } from "@/components/forms";
 import {
   Select,

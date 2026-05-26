@@ -2,7 +2,7 @@ import { PurchaseContext } from "./PurchaseContext";
 import { cn } from "@/lib/utils";
 import { useReset, useSubmit } from "./store/PurchaseForm.selectors";
 import { useLegalEntitySuppliers } from "../../api/queries/suppliers";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { useLEAccountingBook } from "../../api/queries/books";
 import { useLegalEntityInventories } from "../../api/queries/inventories";
 

@@ -19,7 +19,7 @@ import {
   Circle,
 } from "lucide-react";
 import { useLEAccountingBook } from "@/app/api/queries/books";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
 import { useDialogModal } from "@/hooks/DialogModalContext";
 import { CreateAccountForm } from "@/app/shared/forms/AddAccountForm";

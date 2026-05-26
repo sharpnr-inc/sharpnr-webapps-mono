@@ -13,7 +13,7 @@ import {
   Filter,
 } from "lucide-react";
 import { useJournalEntries } from "@/app/api/queries/journal";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddJournalEntryForm } from "@/app/shared/forms/AddJournalEntryForm";
 

@@ -13,7 +13,7 @@ import {
 
 import { useNavigate } from "@tanstack/react-router";
 
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 
 /* ─── helpers ─── */
 

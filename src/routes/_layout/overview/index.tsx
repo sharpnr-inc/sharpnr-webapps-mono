@@ -1,5 +1,5 @@
 import { AccountingOverviewPage } from "@/app/dashboard/AccountingOverviewPage";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/overview/")({

@@ -18,7 +18,7 @@ import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddNewSupplierForm } from "@/app/shared/forms/AddNewSupplier";
 import { useNavigate } from "@tanstack/react-router";
 import { useLegalEntitySuppliers } from "@/app/api/queries/suppliers";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 
 /* ─── dummy supplier type (replace with real API type later) ─── */
 type Supplier = {

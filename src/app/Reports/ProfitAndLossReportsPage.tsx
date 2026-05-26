@@ -7,7 +7,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { useProfitAndLossReport } from "@/app/api/queries/reports";
 
 /* ─── types ─── */

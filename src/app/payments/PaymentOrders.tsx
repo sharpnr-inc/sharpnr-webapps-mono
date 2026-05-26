@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-table";
 
 import { usePaymentOrders } from "@/app/api/queries/payments";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 
 import {
   Table,

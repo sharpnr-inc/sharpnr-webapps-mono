@@ -1,5 +1,5 @@
 import { ChartOfAccountingPage } from "@/app/chart-of-accounts/ChartOfAccountsPage";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_layout/chart-of-account/")({

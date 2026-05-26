@@ -10,7 +10,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { useAccountLedger } from "@/app/api/queries/accounts";
 import { Route } from "@/routes/_layout/chart-of-account/$accountID/ledger";
 

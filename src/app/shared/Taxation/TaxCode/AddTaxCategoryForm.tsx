@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { useAppForm } from "@/components/forms";
 import type { AddTaxCategoryPayload } from "@/app/api/legalEntity.api.service";
-import { useAccountingStore } from "@/app/store/accounting.store";
+import { useAccountingStore } from "@/store/accounting.store";
 import { useLEAccountingBook } from "../../../api/queries/books";
 import {
   Select,

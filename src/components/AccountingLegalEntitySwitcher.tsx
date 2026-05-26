@@ -3,7 +3,7 @@ import { ArrowUpRight, Search, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 
-import { useAccountingStore } from "../app/store/accounting.store";
+import { useAccountingStore } from "../store/accounting.store";
 
 const entityTypeColors: Record<
   string,
