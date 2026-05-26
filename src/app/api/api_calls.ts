@@ -1,6 +1,6 @@
 import api from "@/middlewares/axios";
 import { AccountingAppAPIEndpoints } from "./endpoints";
-import type { JournalEntryExternalRequestDto } from "../components/forms/AddJournalEntryForm";
+import type { JournalEntryExternalRequestDto } from "../shared/forms/AddJournalEntryForm";
 
 /******************************************************
  * All API Call for Accounting Books of  Organization *

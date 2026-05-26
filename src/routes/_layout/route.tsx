@@ -1,5 +1,5 @@
 import { GetAuthenticatedUser, verifyUserAuthentication } from "@/api/service";
-import AccountingRootLayout from "@/app/components/AccountingRootLayout";
+import AccountingRootLayout from "@/components/AccountingRootLayout";
 import { config } from "@/configs/env";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";

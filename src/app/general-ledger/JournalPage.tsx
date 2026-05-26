@@ -15,7 +15,7 @@ import {
 import { useJournalEntries } from "@/app/api/queries/journal";
 import { useAccountingStore } from "@/app/store/accounting.store";
 import { useFormsModal } from "@/hooks/FormModalContext";
-import { AddJournalEntryForm } from "@/app/components/forms/AddJournalEntryForm";
+import { AddJournalEntryForm } from "@/app/shared/forms/AddJournalEntryForm";
 
 /* ─── types ─── */
 interface JournalLine {

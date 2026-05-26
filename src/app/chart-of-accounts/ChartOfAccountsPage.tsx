@@ -22,7 +22,7 @@ import { useLEAccountingBook } from "@/app/api/queries/books";
 import { useAccountingStore } from "@/app/store/accounting.store";
 import { formatDateTimePretty } from "@/lib/formatDatePretty";
 import { useDialogModal } from "@/hooks/DialogModalContext";
-import { CreateAccountForm } from "@/app/components/forms/AddAccountForm";
+import { CreateAccountForm } from "@/app/shared/forms/AddAccountForm";
 import { useNavigate } from "@tanstack/react-router";
 
 /* ─── types ─── */

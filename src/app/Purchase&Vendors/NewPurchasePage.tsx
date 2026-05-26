@@ -1,4 +1,4 @@
-import NewPurchase from "@/app/components/Purchase/Purchase";
+import NewPurchase from "@/app/shared/Purchase/Purchase";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";

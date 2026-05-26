@@ -3,7 +3,7 @@ import { ArrowUpRight, Search, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 
-import { useAccountingStore } from "../store/accounting.store";
+import { useAccountingStore } from "../app/store/accounting.store";
 
 const entityTypeColors: Record<
   string,
@@ -55,9 +55,7 @@ function EntityAvatar({ name }: { name: string }) {
 export function AccountingLegalEntityPage() {
   const navigate = useNavigate();
 
-  const legalEntities = useAccountingStore(
-    (s) => s.legalEntities,
-  );
+  const legalEntities = useAccountingStore((s) => s.legalEntities);
 
   const setSelectedLegalEntity = useAccountingStore(
     (s) => s.setSelectedLegalEntity,
@@ -163,18 +161,15 @@ export function AccountingLegalEntityPage() {
             <h1 className="font-display text-5xl md:text-6xl leading-[1.1] text-foreground">
               Your financial
               <br />
-              <span className="italic text-primary">
-                command centre.
-              </span>
+              <span className="italic text-primary">command centre.</span>
             </h1>
 
             <div className="mt-4 h-px w-32 glow-line" />
           </div>
 
           <p className="text-base text-muted-foreground leading-relaxed max-w-xl">
-            Choose a legal entity to manage its books,
-            trace every transaction, and generate
-            audit-ready reports.
+            Choose a legal entity to manage its books, trace every transaction,
+            and generate audit-ready reports.
           </p>
 
           <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
@@ -238,9 +233,7 @@ export function AccountingLegalEntityPage() {
                 className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
               >
                 {filtered.map((entity, index: number) => {
-                  const style = getEntityStyle(
-                    entity.entity_type,
-                  );
+                  const style = getEntityStyle(entity.entity_type);
 
                   return (
                     <motion.div
@@ -279,9 +272,7 @@ export function AccountingLegalEntityPage() {
                       >
                         <div className="flex items-start justify-between gap-3 mb-4">
                           <div className="flex items-center gap-3">
-                            <EntityAvatar
-                              name={entity.display_name}
-                            />
+                            <EntityAvatar name={entity.display_name} />
 
                             <div>
                               <p className="font-semibold text-sm text-foreground leading-tight">
@@ -322,15 +313,11 @@ export function AccountingLegalEntityPage() {
                                 className={`size-1.5 rounded-full ${style.dot}`}
                               />
 
-                              {entity.status
-                                ? "Active"
-                                : "Inactive"}
+                              {entity.status ? "Active" : "Inactive"}
                             </span>
 
                             <span className="text-[10px] text-muted-foreground">
-                              {new Date(
-                                entity.inc_date,
-                              ).toLocaleDateString()}
+                              {new Date(entity.inc_date).toLocaleDateString()}
                             </span>
                           </div>
                         </div>

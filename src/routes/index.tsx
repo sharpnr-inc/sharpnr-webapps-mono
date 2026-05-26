@@ -1,4 +1,4 @@
-import { AccountingLegalEntityPage } from "@/app/components/AccountingLegalEntitySwitcher";
+import { AccountingLegalEntityPage } from "@/components/AccountingLegalEntitySwitcher";
 import { useAccountingStore } from "@/app/store/accounting.store";
 import { GetLegalEntities } from "@/temp/api";
 

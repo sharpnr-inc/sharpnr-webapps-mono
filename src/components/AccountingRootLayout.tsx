@@ -17,7 +17,7 @@ import {
 } from "@sharpnr/ui";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Building2, Check, ChevronsUpDown } from "lucide-react";
-import { useAccountingStore } from "../store/accounting.store";
+import { useAccountingStore } from "../app/store/accounting.store";
 import {
   DropdownMenu,
   DropdownMenuContent,

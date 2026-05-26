@@ -15,7 +15,7 @@ import {
   Import,
 } from "lucide-react";
 import { useFormsModal } from "@/hooks/FormModalContext";
-import { AddNewSupplierForm } from "@/app/components/forms/AddNewSupplier";
+import { AddNewSupplierForm } from "@/app/shared/forms/AddNewSupplier";
 import { useNavigate } from "@tanstack/react-router";
 import { useLegalEntitySuppliers } from "@/app/api/queries/suppliers";
 import { useAccountingStore } from "@/app/store/accounting.store";

@@ -1,4 +1,4 @@
-import TaxCode from "@/app/components/Taxation/TaxCode/TaxCode";
+import TaxCode from "@/app/shared/Taxation/TaxCode/TaxCode";
 
 /**
  * TaxCodesPage
