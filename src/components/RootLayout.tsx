@@ -1,6 +1,5 @@
 import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { Building2 as OrgIcon } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -15,17 +14,15 @@ import {
   SidebarInset,
   SidebarTrigger,
   SidebarRail,
-} from "@/components/ui/sidebar";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
+  ScrollArea,
+  ScrollBar,
+  useSheet,
+  SharpnrSidebarFooter,
+} from "@sharpnr/ui";
 import {
   Users,
   UserPlus,
+  UserMinus,
   CalendarDays,
   ClipboardList,
   BarChart3,
@@ -36,14 +33,20 @@ import {
   Building2,
   Bell,
   ShieldCheck,
+  FileText,
+  Clock,
+  HeartPulse,
+  AlertTriangle,
+  TrendingUp,
+  FolderOpen,
+  Layers,
+  BadgeDollarSign,
 } from "lucide-react";
-
 import { Separator } from "@/components/ui/separator";
-import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";
-import { useSheet } from "@/hooks/useSheet";
+import SharpnrLauncher from "./SharpnrLauncher/SharpnrLauncher";
 
 /* ───────────────── Types ───────────────── */
 
@@ -52,7 +55,7 @@ interface NavItem {
   label: string;
   icon: React.ElementType;
   to: string;
-  tooltip?: string;
+  exact?: boolean;
 }
 
 interface NavGroup {
@@ -75,20 +78,21 @@ const navGroups: NavGroup[] = [
     label: "Overview",
     items: [
       {
-        id: "hr_overview",
+        id: "hr_dashboard",
         label: "Dashboard",
         icon: BarChart3,
         to: "/dashboard",
+        exact: true,
       },
       {
         id: "hr_announcements",
         label: "Announcements",
         icon: Bell,
-        to: "/annoucements",
+        to: "/announcements",
       },
       {
-        id: "hr_policies",
-        label: "Compliance & Policies",
+        id: "hr_compliance",
+        label: "Compliance & Policy",
         icon: ShieldCheck,
         to: "/compliance_policies",
       },
@@ -106,6 +110,24 @@ const navGroups: NavGroup[] = [
         to: "/departments",
       },
       {
+        id: "hr_positions",
+        label: "Positions & Roles",
+        icon: Layers,
+        to: "/positions",
+      },
+      {
+        id: "hr_documents",
+        label: "Employee Documents",
+        icon: FolderOpen,
+        to: "/documents",
+      },
+    ],
+  },
+
+  {
+    label: "Hiring",
+    items: [
+      {
         id: "hr_recruitment",
         label: "Recruitment",
         icon: UserPlus,
@@ -117,20 +139,56 @@ const navGroups: NavGroup[] = [
         icon: BookOpen,
         to: "/onboarding",
       },
+      {
+        id: "hr_offboarding",
+        label: "Offboarding",
+        icon: UserMinus,
+        to: "/offboarding",
+      },
     ],
   },
 
   {
-    label: "Operations",
+    label: "Time & Attendance",
     items: [
-      { id: "hr_leave", label: "Leave", icon: ClipboardList, to: "/leaves" },
       {
         id: "hr_attendance",
         label: "Attendance",
         icon: CalendarDays,
         to: "/attendance",
       },
+      { id: "hr_leave", label: "Leave", icon: ClipboardList, to: "/leaves" },
+      {
+        id: "hr_shifts",
+        label: "Shifts & Scheduling",
+        icon: Clock,
+        to: "/shifts",
+      },
+    ],
+  },
+
+  {
+    label: "Payroll & Benefits",
+    items: [
       { id: "hr_payroll", label: "Payroll", icon: Banknote, to: "/payroll" },
+      {
+        id: "hr_compensation",
+        label: "Compensation",
+        icon: BadgeDollarSign,
+        to: "/compensation",
+      },
+      {
+        id: "hr_benefits",
+        label: "Benefits",
+        icon: HeartPulse,
+        to: "/benefits",
+      },
+      {
+        id: "hr_expenses",
+        label: "Expense Claims",
+        icon: FileText,
+        to: "/expenses",
+      },
     ],
   },
 
@@ -142,13 +200,26 @@ const navGroups: NavGroup[] = [
         label: "Performance",
         icon: Star,
         to: "/performance",
-        tooltip: "Employee Performance",
+      },
+      { id: "hr_goals", label: "Goals & OKRs", icon: TrendingUp, to: "/goals" },
+      { id: "hr_training", label: "Training", icon: BookOpen, to: "/training" },
+    ],
+  },
+
+  {
+    label: "Employee Relations",
+    items: [
+      {
+        id: "hr_grievances",
+        label: "Grievances",
+        icon: AlertTriangle,
+        to: "/grievances",
       },
       {
-        id: "hr_training",
-        label: "Training",
+        id: "hr_disciplinary",
+        label: "Disciplinary",
         icon: ShieldCheck,
-        to: "/training",
+        to: "/disciplinary",
       },
     ],
   },
@@ -156,7 +227,13 @@ const navGroups: NavGroup[] = [
   {
     label: "System",
     items: [
-      { id: "hr_settings", label: "Settings", icon: Settings, to: "/settings" },
+      {
+        id: "hr_settings",
+        label: "Settings",
+        icon: Settings,
+        to: "/settings",
+        exact: true,
+      },
     ],
   },
 ];
@@ -189,17 +266,36 @@ const OrgCard: React.FC = () => {
   );
 };
 
+/* ───────────────── Nav Item ───────────────── */
+
+const NavMenuItem: React.FC<{ item: NavItem }> = ({ item }) => {
+  const { location } = useRouterState();
+  const Icon = item.icon;
+
+  const isActive = item.exact
+    ? location.pathname === item.to
+    : location.pathname.startsWith(item.to);
+
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        size="sm"
+        asChild
+        isActive={isActive}
+        tooltip={item.label}
+      >
+        <Link to={item.to}>
+          <Icon />
+          <span>{item.label}</span>
+        </Link>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+};
+
 /* ───────────────── Root Layout ───────────────── */
 
 const SharpHRRootLayout: React.FC = () => {
-  const { location } = useRouterState();
-  const pathname = location.pathname;
-
-  const isActive = (to: string) =>
-    to === "/"
-      ? pathname === to
-      : pathname.startsWith(`${to}/`) || pathname === to;
-
   const { openSheet } = useSheet();
 
   const handleOpenNotification = () => {
@@ -208,50 +304,34 @@ const SharpHRRootLayout: React.FC = () => {
 
   return (
     <SidebarProvider>
-      <Sidebar collapsible="icon">
+      <Sidebar collapsible="icon" variant="sidebar">
         <SidebarHeader>
           <OrgCard />
         </SidebarHeader>
 
-        <SidebarContent>
-          {navGroups.map((group) => (
-            <SidebarGroup key={group.label}>
-              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+        <SidebarContent className="overflow-hidden">
+          <ScrollArea className="h-full w-full">
+            <div className="pb-2">
+              {navGroups.map((group) => (
+                <SidebarGroup key={group.label}>
+                  <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
 
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {group.items.map((item) => {
-                    const Icon = item.icon;
-
-                    return (
-                      <SidebarMenuItem key={item.id}>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <SidebarMenuButton
-                              asChild
-                              isActive={isActive(item.to)}
-                            >
-                              <Link to={item.to}>
-                                <Icon />
-                                <span>{item.label}</span>
-                              </Link>
-                            </SidebarMenuButton>
-                          </TooltipTrigger>
-
-                          <TooltipContent side="right">
-                            {item.tooltip ?? item.label}
-                          </TooltipContent>
-                        </Tooltip>
-                      </SidebarMenuItem>
-                    );
-                  })}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {group.items.map((item) => (
+                        <NavMenuItem key={item.id} item={item} />
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              ))}
+            </div>
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
         </SidebarContent>
 
         <SidebarRail />
+        <SharpnrSidebarFooter />
       </Sidebar>
 
       <SidebarInset>
@@ -263,7 +343,7 @@ const SharpHRRootLayout: React.FC = () => {
 
           <div className="flex items-center gap-3 px-4">
             <SharpnrLauncher />
-            <NotificationBell onClick={() => handleOpenNotification()} />
+            <NotificationBell onClick={handleOpenNotification} />
             <UserCard />
             <ModeToggle />
           </div>
