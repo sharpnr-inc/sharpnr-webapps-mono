@@ -23,6 +23,7 @@ export default defineConfig({
     allowedHosts: ["sharpnr.test"],
   },
   resolve: {
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
