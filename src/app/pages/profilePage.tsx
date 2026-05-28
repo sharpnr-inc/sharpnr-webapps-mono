@@ -7,7 +7,7 @@ import {
   CardDescription,
 } from "@sharpnr/ui";
 import { Badge } from "@sharpnr/ui";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@sharpnr/ui";
 import { Separator } from "@sharpnr/ui";
 import { useAppUserProfile } from "@/api/queries";
 import { useFormsModal } from "@/hooks/useFormModal";

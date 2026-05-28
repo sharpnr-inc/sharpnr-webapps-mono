@@ -23,7 +23,7 @@ export default defineConfig({
   },
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
-    dedupe: ["react", "react-dom"], // ← forces single react instance
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
   },
   optimizeDeps: {
     include: ["react", "react-dom"], // ← pre-bundle as ESM

@@ -9,7 +9,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
   useSidebar,
 } from "@sharpnr/ui";
 import {
@@ -52,6 +51,7 @@ const personalLinks = [
     match: "/iam/attendance",
   },
   { to: "/apps", label: "Apps", icon: AppWindowMac, match: "/iam/apps" },
+  { to: "/apps", label: "Training", icon: AppWindowMac, match: "/iam/apps" },
 ];
 
 export function AppSidebar() {
@@ -72,7 +72,7 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              size="lg"
+              size={"sm"}
               className="cursor-default hover:bg-transparent active:bg-transparent"
               tooltip={user?.org_data.org_name}
             >
@@ -133,6 +133,7 @@ export function AppSidebar() {
               {workspaceLinks.map(({ to, label, icon: Icon, match }) => (
                 <SidebarMenuItem key={to}>
                   <SidebarMenuButton
+                    size={"sm"}
                     asChild
                     isActive={isActive(to, match)}
                     tooltip={label}
@@ -148,8 +149,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarSeparator />
-
         {/* Personal group */}
         <SidebarGroup>
           <SidebarGroupLabel>Personal</SidebarGroupLabel>
@@ -158,6 +157,7 @@ export function AppSidebar() {
               {personalLinks.map(({ to, label, icon: Icon, match }) => (
                 <SidebarMenuItem key={to}>
                   <SidebarMenuButton
+                    size={"sm"}
                     asChild
                     isActive={isActive(to, match)}
                     tooltip={label}
