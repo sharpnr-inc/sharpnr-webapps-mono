@@ -176,7 +176,7 @@ const RestaurantInventoryPage: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 mt-6 px-1">
+    <div className="space-y-4 mt-2 px-1">
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}

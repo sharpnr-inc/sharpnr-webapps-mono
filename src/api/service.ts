@@ -22,7 +22,6 @@ export async function verifyUserAuthentication() {
   const res = await api.get<APIResponse<UserAuthenticatedResponse>>(
     UserRoutes.authenticateUser(),
   );
-
   return res.data;
 }
 

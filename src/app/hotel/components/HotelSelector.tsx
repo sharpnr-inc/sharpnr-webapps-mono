@@ -1,3 +1,4 @@
 export function HotelSelector() {
-  return <div>HI</div>;
+  return <div>
+  <h1>Select the</h1></div>;
 }
