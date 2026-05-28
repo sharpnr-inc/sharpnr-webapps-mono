@@ -1,11 +1,11 @@
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "@sharpnr/ui";
 import {
   Megaphone,
   Target,
@@ -17,7 +17,9 @@ import {
 
 interface SharpMarketingWelcomePageProps {}
 
-const SharpMarketingWelcomePage: React.FC<SharpMarketingWelcomePageProps> = () => {
+const SharpMarketingWelcomePage: React.FC<
+  SharpMarketingWelcomePageProps
+> = () => {
   return (
     <div className="p-6 space-y-10">
       {/* ================= Hero ================= */}
@@ -105,29 +107,21 @@ const SharpMarketingWelcomePage: React.FC<SharpMarketingWelcomePageProps> = () =
 
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between border rounded-md p-3">
-            <span className="text-sm">
-              1. Define your audience and goals
-            </span>
+            <span className="text-sm">1. Define your audience and goals</span>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
           </div>
 
           <div className="flex items-center justify-between border rounded-md p-3">
-            <span className="text-sm">
-              2. Create your first campaign
-            </span>
+            <span className="text-sm">2. Create your first campaign</span>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
           </div>
 
           <div className="flex items-center justify-between border rounded-md p-3">
-            <span className="text-sm">
-              3. Track performance and optimize
-            </span>
+            <span className="text-sm">3. Track performance and optimize</span>
             <ArrowRight className="h-4 w-4 text-muted-foreground" />
           </div>
 
-          <Button className="mt-4 w-fit">
-            Create First Campaign
-          </Button>
+          <Button className="mt-4 w-fit">Create First Campaign</Button>
         </CardContent>
       </Card>
     </div>
