@@ -27,11 +27,11 @@ import {
 } from "@sharpnr/ui";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
-import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";
 import { accountingSidebar, type AccountingNavItem } from "./AccountingNavs";
+import SharpnrLauncher from "./SharpnrLauncher/SharpnrLauncher";
 
 /* ================================
    Nav Item
