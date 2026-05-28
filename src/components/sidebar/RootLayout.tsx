@@ -3,9 +3,9 @@ import { Sidebar, SidebarProvider, SidebarTrigger } from "@sharpnr/ui";
 import { AppSidebar } from "./AppSidebar";
 import { ModeToggle } from "@sharpnr/ui";
 import { Separator } from "@sharpnr/ui";
-import SharpnrLauncher from "./header/SharpnrLauncher";
-import { NotificationBell } from "./header/NotificationButton";
-import { UserCard } from "./header/UserCard";
+import SharpnrLauncher from "../header/SharpnrLauncher";
+import { NotificationBell } from "../header/NotificationButton";
+import { UserCard } from "../header/UserCard";
 import { useSheet } from "@/hooks/useSheets";
 import { config } from "@/configs/env";
 import { motion, AnimatePresence } from "framer-motion";
@@ -145,7 +145,7 @@ const RootLayout: React.FC = () => {
 
           {/* Main */}
           <div className="flex flex-1 flex-col">
-            <header className="flex h-12 items-center justify-between border-b px-4">
+            <header className="flex h-14 items-center justify-between border-b px-4">
               <div className="flex items-center gap-4">
                 <SidebarTrigger />
                 <Separator orientation="vertical" className="h-6" />
