@@ -3,14 +3,11 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
-import { ThemeProvider } from "@sharpnr/ui";
+import { SheetProvider, ThemeProvider } from "@sharpnr/ui";
 import "@/middlewares/interceptor.ts";
 import "@/middlewares/unauthorized.ts";
 import { queryClient, router } from "./router_config";
-import { SheetProvider } from "./hooks/useSheets";
 import { Toaster } from "sonner";
-import { DialogModalProvider } from "./hooks/useDialog";
-import { FormsModalProvider } from "./hooks/useFormModal";
 import { TooltipProvider } from "@sharpnr/ui";
 
 createRoot(document.getElementById("root")!).render(
@@ -19,11 +16,7 @@ createRoot(document.getElementById("root")!).render(
       <TooltipProvider>
         <QueryClientProvider client={queryClient}>
           <SheetProvider>
-            <FormsModalProvider>
-              <DialogModalProvider>
-                <RouterProvider router={router} />
-              </DialogModalProvider>
-            </FormsModalProvider>
+            <RouterProvider router={router} />
             <Toaster />
           </SheetProvider>
         </QueryClientProvider>
