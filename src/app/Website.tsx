@@ -1,8 +1,8 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
 import { HeroSection } from "./HeroSection";
 import { SharpnrIntroductionSection } from "./whatIsSharpnr";
 import { WhySharpnrSection } from "./WhyUsSection";

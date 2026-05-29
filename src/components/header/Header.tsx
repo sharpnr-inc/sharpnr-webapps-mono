@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronRight, ChevronDown } from "lucide-react";
 import Logo from "@/assets/AppIcon.jpg";
 import { config } from "@/configs/env";
-import { navigationSections } from "./navigation";
-import type { NavigationSection } from "./navigation";
+import { navigationSections } from "../navigation";
+import type { NavigationSection } from "../navigation";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
