@@ -9,6 +9,7 @@ import "@/middlewares/unauthorized.ts";
 import { queryClient, router } from "./router_config";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@sharpnr/ui";
+import { ModalProvider } from "./hooks/useModal";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -16,8 +17,10 @@ createRoot(document.getElementById("root")!).render(
       <TooltipProvider>
         <QueryClientProvider client={queryClient}>
           <SheetProvider>
-            <RouterProvider router={router} />
-            <Toaster />
+            <ModalProvider>
+              <RouterProvider router={router} />
+              <Toaster />
+            </ModalProvider>
           </SheetProvider>
         </QueryClientProvider>
       </TooltipProvider>

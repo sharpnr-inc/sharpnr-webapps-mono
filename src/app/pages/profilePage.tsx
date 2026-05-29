@@ -10,9 +10,9 @@ import { Badge } from "@sharpnr/ui";
 import { Avatar, AvatarFallback } from "@sharpnr/ui";
 import { Separator } from "@sharpnr/ui";
 import { useAppUserProfile } from "@/api/queries";
-import { useFormsModal } from "@/hooks/useFormModal";
 import { EditProfileForm } from "../forms/EditProfileForm";
 import { Button } from "@sharpnr/ui";
+import { useModal } from "@/hooks/useModal";
 
 interface AppUserProfilePageProps {}
 
@@ -27,13 +27,15 @@ const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
     return <div>Error loading profile</div>;
   }
 
-  const { showModal } = useFormsModal();
+  const { openModal } = useModal();
   const handleEditProfile = () => {
-    showModal(
-      "Edit Profile",
-      "Edit profile",
-      <EditProfileForm user_firstname="Kashif" user_lastname="Nawaz" />,
-    );
+    openModal({
+      title: "",
+      description: "",
+      content: (
+        <EditProfileForm user_firstname="Kashif" user_lastname="Nawaz" />
+      ),
+    });
   };
 
   return (
