@@ -3,21 +3,13 @@ import { Menu, X } from "lucide-react";
 import { config } from "@/configs/env";
 import { useNavigate } from "@tanstack/react-router";
 
-const NAV_ITEMS = [
-  { label: "Products",       to: "/products" },
-  { label: "Services",       to: "/services" },
-  { label: "Infrastructure", to: "/infrastructure" },
-  { label: "Pricing",        to: "/pricing" },
-] as const;
-
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-blend-screen bg-blue-900/10">
       <div className="container mx-auto px-6 flex items-center justify-between py-4">
-
         {/* Logo */}
         <a href="/" className="flex items-center gap-2.5">
           <img
@@ -32,18 +24,45 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => navigate({ to: item.to })}
-              className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
-                         hover:text-slate-50 hover:bg-white/[0.06]
-                         transition-colors duration-200
-                         bg-transparent border-none cursor-pointer"
-            >
-              {item.label}
-            </button>
-          ))}
+          <button
+            onClick={() => navigate({ to: "/products" })}
+            className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
+                       hover:text-slate-50 hover:bg-white/[0.06]
+                       transition-colors duration-200
+                       bg-transparent border-none cursor-pointer"
+          >
+            Products
+          </button>
+
+          <button
+            onClick={() => navigate({ to: "/services" })}
+            className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
+                       hover:text-slate-50 hover:bg-white/[0.06]
+                       transition-colors duration-200
+                       bg-transparent border-none cursor-pointer"
+          >
+            Services
+          </button>
+
+          <button
+            onClick={() => navigate({ to: "/infra" })}
+            className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
+                       hover:text-slate-50 hover:bg-white/[0.06]
+                       transition-colors duration-200
+                       bg-transparent border-none cursor-pointer"
+          >
+            Infrastructure
+          </button>
+
+          <button
+            onClick={() => navigate({ to: "/pricing" as any })}
+            className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
+                       hover:text-slate-50 hover:bg-white/[0.06]
+                       transition-colors duration-200
+                       bg-transparent border-none cursor-pointer"
+          >
+            Pricing
+          </button>
         </nav>
 
         {/* Desktop Actions */}
@@ -56,8 +75,11 @@ export default function Header() {
           >
             LOGIN
           </button>
+
           <button
-            onClick={() => { window.location.href = config.authAppUrl + "/signup"; }}
+            onClick={() => {
+              window.location.href = config.authAppUrl + "/signup";
+            }}
             className="text-sm font-semibold text-slate-900 bg-slate-50
                        hover:bg-slate-200 rounded-lg px-4 py-2
                        transition-colors duration-200 border-none cursor-pointer"
@@ -82,18 +104,58 @@ export default function Header() {
       {isOpen && (
         <div className="md:hidden border-t border-white/[0.08]">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => { setIsOpen(false); navigate({ to: item.to }); }}
-                className="text-left px-3 py-2.5 rounded-lg text-sm font-medium
-                           text-slate-300 hover:text-slate-50 hover:bg-white/[0.06]
-                           transition-colors duration-150
-                           bg-transparent border-none cursor-pointer"
-              >
-                {item.label}
-              </button>
-            ))}
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                navigate({ to: "/products" });
+              }}
+              className="text-left px-3 py-2.5 rounded-lg text-sm font-medium
+                         text-slate-300 hover:text-slate-50 hover:bg-white/[0.06]
+                         transition-colors duration-150
+                         bg-transparent border-none cursor-pointer"
+            >
+              Products
+            </button>
+
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                navigate({ to: "/services" });
+              }}
+              className="text-left px-3 py-2.5 rounded-lg text-sm font-medium
+                         text-slate-300 hover:text-slate-50 hover:bg-white/[0.06]
+                         transition-colors duration-150
+                         bg-transparent border-none cursor-pointer"
+            >
+              Services
+            </button>
+
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                navigate({ to: "/infra" });
+              }}
+              className="text-left px-3 py-2.5 rounded-lg text-sm font-medium
+                         text-slate-300 hover:text-slate-50 hover:bg-white/[0.06]
+                         transition-colors duration-150
+                         bg-transparent border-none cursor-pointer"
+            >
+              Infrastructure
+            </button>
+
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                navigate({ to: "/pricing" as any });
+              }}
+              className="text-left px-3 py-2.5 rounded-lg text-sm font-medium
+                         text-slate-300 hover:text-slate-50 hover:bg-white/[0.06]
+                         transition-colors duration-150
+                         bg-transparent border-none cursor-pointer"
+            >
+              Pricing
+            </button>
+
             <div className="mt-3 pt-3 border-t border-white/[0.08] flex gap-3">
               <button
                 onClick={() => window.location.replace(config.iamAppUrl)}
@@ -103,8 +165,11 @@ export default function Header() {
               >
                 LOGIN
               </button>
+
               <button
-                onClick={() => { window.location.href = config.authAppUrl + "/signup"; }}
+                onClick={() => {
+                  window.location.href = config.authAppUrl + "/signup";
+                }}
                 className="text-sm font-semibold text-slate-900 bg-slate-50
                            hover:bg-slate-200 rounded-lg px-4 py-2
                            transition-colors duration-150 border-none cursor-pointer"
