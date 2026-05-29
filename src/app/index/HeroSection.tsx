@@ -1,6 +1,11 @@
-import { useRef, useLayoutEffect } from "react";
+"use client";
+
+import { useRef, useLayoutEffect, useEffect } from "react";
 import gsap from "gsap";
+import { animate } from "animejs";
 import BlurText from "@/components/ui/BlurTextCom";
+import { AppBrickWall } from "./Appbrickwall";
+import { HulyGridBackground } from "./HulyGridBackground";
 
 export function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -9,117 +14,118 @@ export function HeroSection() {
   const paraRef = useRef<HTMLParagraphElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
 
+  useEffect(() => {
+    if (!dotRef.current) return;
+    const anim = animate(dotRef.current, {
+      scale: [1, 1.5],
+      opacity: [1, 0.4],
+      duration: 900,
+      direction: "alternate",
+      loop: true,
+      easing: "easeInOutSine",
+    });
+    return () => {
+      anim.pause();
+    };
+  }, []);
+
   useLayoutEffect(() => {
-    const badge = badgeRef.current;
-    const heading = headingRef.current;
-
     const ctx = gsap.context(() => {
-      // Set invisible before animating (prevents FOUC)
-      gsap.set([badge, heading, paraRef.current], { opacity: 0 });
+      const badge = badgeRef.current;
+      const heading = headingRef.current;
+      const para = paraRef.current;
 
-      // Entrance timeline
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-      tl.fromTo(
-        badge,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.6 },
-      )
+      gsap.set([badge, heading, para], { opacity: 0 });
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .fromTo(badge, { y: 16 }, { opacity: 1, y: 0, duration: 0.6 })
         .fromTo(
           heading,
-          { opacity: 0, y: 24 },
+          { y: 24 },
           { opacity: 1, y: 0, duration: 0.8 },
           "-=0.3",
         )
-        .fromTo(
-          paraRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          "-=0.4",
-        );
-
-      // Dot pulse loop
-      gsap.to(dotRef.current, {
-        scale: 1.5,
-        opacity: 0.4,
-        duration: 0.9,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
+        .fromTo(para, { y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.4");
     }, heroRef);
 
-    // Badge hover — spring bounce
-    const onBadgeEnter = () =>
-      gsap.to(badge, { scale: 1.05, duration: 0.2, ease: "power2.out" });
-    const onBadgeLeave = () =>
-      gsap.to(badge, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.4)" });
-
-    badge?.addEventListener("mouseenter", onBadgeEnter);
-    badge?.addEventListener("mouseleave", onBadgeLeave);
-
-    // Heading parallax on mouse move
+    const heading = headingRef.current;
     const onHeadingMove = (e: MouseEvent) => {
       if (!heading) return;
-      const rect = heading.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
-      gsap.to(heading, { x, y, duration: 0.4, ease: "power2.out" });
+      const r = heading.getBoundingClientRect();
+      gsap.to(heading, {
+        x: ((e.clientX - r.left) / r.width - 0.5) * 14,
+        y: ((e.clientY - r.top) / r.height - 0.5) * 8,
+        duration: 0.4,
+        ease: "power2.out",
+      });
     };
     const onHeadingLeave = () =>
       gsap.to(heading, {
         x: 0,
         y: 0,
         duration: 0.9,
-        ease: "elastic.out(1, 0.35)",
+        ease: "elastic.out(1,.35)",
       });
 
-    heading?.addEventListener("mousemove", onHeadingMove);
+    heading?.addEventListener("mousemove", onHeadingMove as any);
     heading?.addEventListener("mouseleave", onHeadingLeave);
 
     return () => {
-      ctx.revert(); // Kills all GSAP animations in context
-      badge?.removeEventListener("mouseenter", onBadgeEnter);
-      badge?.removeEventListener("mouseleave", onBadgeLeave);
-      heading?.removeEventListener("mousemove", onHeadingMove);
+      ctx.revert();
+      heading?.removeEventListener("mousemove", onHeadingMove as any);
       heading?.removeEventListener("mouseleave", onHeadingLeave);
     };
   }, []);
 
   return (
-    <section ref={heroRef} className="relative pt-32 pb-20 lg:pt-48 lg:pb-40 ">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl">
-          <div
-            ref={badgeRef}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-800 bg-slate-900/50 backdrop-blur-sm mb-8 cursor-default"
-          >
-            <span className="relative flex h-2 w-2">
-              <span
-                ref={dotRef}
-                className="inline-flex rounded-full h-2 w-2 bg-teal-500"
+    <section
+      ref={heroRef}
+      className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 min-h-screen overflow-hidden"
+    >
+      <HulyGridBackground />
+
+      <div className="container mx-auto px-6 relative z-10 pointer-events-none">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 xl:gap-20 items-center min-h-[80vh] pointer-events-auto">
+          <div>
+            <div
+              ref={badgeRef}
+              style={{ opacity: 0 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-800 bg-slate-900/50 backdrop-blur-sm mb-8 cursor-default transition-transform hover:scale-105 duration-200"
+            >
+              <span className="relative flex h-2 w-2">
+                <span
+                  ref={dotRef}
+                  className="inline-flex rounded-full h-2 w-2 bg-slate-300"
+                />
+              </span>
+              <span className="text-[10px] font-mono text-slate-300 uppercase tracking-[0.2em]">
+                sharpnr-engine V1.0 Live
+              </span>
+            </div>
+
+            <div
+              ref={headingRef}
+              style={{ opacity: 0 }}
+              className="cursor-default"
+            >
+              <BlurText
+                text="One Platform. Every Business."
+                className="text-5xl lg:text-6xl xl:text-7xl mb-8 leading-[1.1] text-slate-50"
+                animateBy="words"
               />
-            </span>
-            <span className="text-[10px] font-mono text-blue-400 uppercase tracking-[0.2em]">
-              sharpnr-engine V1.0 Live
-            </span>
+            </div>
+
+            <p
+              ref={paraRef}
+              style={{ opacity: 0 }}
+              className="text-xl text-slate-400 font-sans leading-relaxed max-w-lg"
+            >
+              Deeply integrated operations for organizations that refuse to
+              stitch together disconnected tools.
+            </p>
           </div>
 
-          <div ref={headingRef} className="cursor-default">
-            <BlurText
-              text="One Platform. Every Business."
-              className="text-6xl lg:text-8xl mb-8 leading-[1.1]"
-              animateBy="words"
-            />
-          </div>
-
-          <p
-            ref={paraRef}
-            className="text-xl lg:text-2xl text-slate-400 font-sans leading-relaxed mb-12 max-w-2xl"
-          >
-            Deeply integrated operations for organizations that refuse to stitch
-            together disconnected tools.
-          </p>
+          <AppBrickWall />
         </div>
       </div>
     </section>

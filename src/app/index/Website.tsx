@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { HeroSection } from "./HeroSection";
-import { SharpnrIntroductionSection } from "./whatIsSharpnr";
+import { SharpnrIntroductionSection } from "./sharpnrIntro";
 import { WhySharpnrSection } from "./WhyUsSection";
 
 gsap.registerPlugin(ScrollTrigger);
