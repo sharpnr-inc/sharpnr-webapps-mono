@@ -1,195 +1,138 @@
-export interface NavigationSubItem {
-  title: string;
-  href: string;
-}
-
-export interface NavigationItem {
-  title: string;
+export interface ProductNavigationItems {
+  name: string;
   description: string;
   href: string;
-  badge?: string; // e.g. "Launching Soon", "Beta"
-  subItems?: NavigationSubItem[];
+  features: string[];
 }
 
-export interface NavigationCTA {
-  label: string;
-  action: string;
-  href: string;
+export interface ProductNavigation {
+  items: ProductNavigationItems[];
 }
 
-export interface NavigationSection {
-  title: string;
-  items: NavigationItem[];
-  cta?: NavigationCTA;
-  layout?: "grid" | "sectors"; // sectors = two-panel mega menu
+export const ProductsNavigation: ProductNavigation = {
+  items: [
+    {
+      name: "Sharp Hospitality",
+      description:
+        "Hotels, restaurants, bars, and venues, manage them all in one place.",
+      href: "#",
+      features: [
+        "Reservations",
+        "Table management",
+        "Menu management",
+        "Staff scheduling",
+        "Customer loyalty",
+      ],
+    },
+    {
+      name: "Sharp-Accounting",
+      description: "Double-entry accounting and financial reporting.",
+      href: "#",
+      features: [
+        "General ledger",
+        "Accounts payable/receivable",
+        "Financial reporting",
+      ],
+    },
+  ],
+};
+
+/* --------------------------------- <***> --------------------------------- */
+
+export interface ServicesNavigationItems {
+  service: string;
+  description: string;
+  appName: string;
 }
 
-export const navigationSections: NavigationSection[] = [
-  // ─── Products ────────────────────────────────────────────────────────────────
-  {
-    title: "Products",
-    layout: "grid",
-    cta: {
-      label: "Purpose-built apps for every part of your business",
-      action: "Browse all products",
-      href: "#products",
+export interface ServicesNavigation {
+  items: ServicesNavigationItems[];
+}
+
+export const ServicesNavigation: ServicesNavigation = {
+  items: [
+    {
+      service: "Restaurant Management",
+      description:
+        "Manage reservations, table assignments, and staff scheduling with Sharp Hospitality. Our all-in-one solution streamlines operations for restaurants of all sizes. with multi floor and multi-venue support, Sharp Hospitality is the perfect choice for restaurants looking to optimize their operations and enhance the customer experience. create as many kitchens and distribute orders across them, all while keeping track of inventory and staff performance.",
+      appName: "Sharp Hospitality",
     },
-    items: [
-      {
-        title: "Sharp Hospitality",
-        description: "Hotels, restaurants, bars, and venues — end to end.",
-        href: "#",
-      },
-      {
-        title: "Accounting",
-        description: "Double-entry accounting and financial reporting.",
-        href: "#",
-      },
-      {
-        title: "Inventory",
-        description: "Stock tracking and warehouse management.",
-        href: "#",
-      },
-      {
-        title: "CRM",
-        description: "Customer lifecycle and relationship management.",
-        href: "#",
-      },
-      {
-        title: "Payroll",
-        description: "Employee salaries, payslips, and compliance.",
-        href: "#",
-      },
-      {
-        title: "Procurement",
-        description: "Purchase workflows and vendor management.",
-        href: "#",
-      },
-      {
-        title: "Projects",
-        description: "Task planning and project execution.",
-        href: "#",
-      },
-      {
-        title: "HRMS",
-        description: "Employee records, leaves, and attendance.",
-        href: "#",
-      },
-      {
-        title: "POS",
-        description: "Retail and hospitality point-of-sale.",
-        href: "#",
-      },
-      {
-        title: "Manufacturing",
-        description: "Production planning and BOM management.",
-        href: "#",
-      },
-    ],
-  },
 
-  // ─── Infrastructure ───────────────────────────────────────────────────────────
-  {
-    title: "Infrastructure",
-    layout: "grid",
-    cta: {
-      label: "Services that power your entire Sharpnr workspace",
-      action: "Learn more",
-      href: "#infrastructure",
+    {
+      service: "Hotel Management",
+      description:
+        "Manage reservations, table assignments, and staff scheduling with Sharp Hospitality. Our all-in-one solution streamlines operations for restaurants of all sizes. with multi floor and multi-venue support, Sharp Hospitality is the perfect choice for restaurants looking to optimize their operations and enhance the customer experience. create as many kitchens and distribute orders across them, all while keeping track of inventory and staff performance.",
+      appName: "Sharp Hospitality",
     },
-    items: [
-      {
-        title: "Silo",
-        description: "Enterprise cloud storage with granular access controls.",
-        href: "#",
-      },
-      {
-        title: "Cables",
-        description: "Built-in team messaging and connectivity.",
-        href: "#",
-      },
-      {
-        title: "Asset Management",
-        description: "Track and maintain all company-owned assets.",
-        href: "#",
-      },
-      {
-        title: "Webhooks",
-        description: "React to events across your platform in real-time.",
-        href: "#",
-      },
-    ],
-  },
 
-  // ─── Industries / Sectors ─────────────────────────────────────────────────────
-  // Each item is a sector. subItems are the specific business types within it.
-  // badge = "Launching Soon" means the sector product isn't live yet.
-  {
-    title: "Industries",
-    layout: "sectors",
-    cta: {
-      label: "Tailored solutions for every industry vertical",
-      action: "Explore all industries",
-      href: "#industries",
+    {
+      service: "Bar Management",
+      description:
+        "Manage reservations, table assignments, and staff scheduling with Sharp Hospitality. Our all-in-one solution streamlines operations for restaurants of all sizes. with multi floor and multi-venue support, Sharp Hospitality is the perfect choice for restaurants looking to optimize their operations and enhance the customer experience. create as many kitchens and distribute orders across them, all while keeping track of inventory and staff performance.",
+      appName: "Sharp Hospitality",
     },
-    items: [
-      // ── 1a. Hospitality ──────────────────────────────────────────────────────
-      // Powered by: Sharp Hospitality
-      {
-        title: "Hospitality",
-        description:
-          "Sharp Hospitality covers the full spectrum — from boutique hotels to large casino resorts.",
-        href: "#hospitality",
-        subItems: [
-          { title: "Hotels", href: "#" },
-          { title: "Restaurants", href: "#" },
-          { title: "Bars", href: "#" },
-          { title: "Venues", href: "#" },
-          { title: "Nightclubs", href: "#" },
-          { title: "Casinos", href: "#" },
-          { title: "Spas", href: "#" },
-          { title: "Resorts", href: "#" },
-          { title: "Cruise Lines", href: "#" },
-          { title: "Event Spaces", href: "#" },
-        ],
-      },
+    {
+      service: "Venue Management",
+      description:
+        "Manage reservations, table assignments, and staff scheduling with Sharp Hospitality. Our all-in-one solution streamlines operations for restaurants of all sizes. with multi floor and multi-venue support, Sharp Hospitality is the perfect choice for restaurants looking to optimize their operations and enhance the customer experience. create as many kitchens and distribute orders across them, all while keeping track of inventory and staff performance.",
+      appName: "Sharp Hospitality",
+    },
+    {
+      service: "Accounting",
+      description:
+        "Sharp-Accounting is a comprehensive accounting software designed to simplify financial management for businesses of all sizes. With features like double-entry accounting, accounts payable/receivable, and financial reporting, Sharp-Accounting provides a robust solution for managing your finances efficiently and accurately. Whether you're a small business owner or a large enterprise, Sharp-Accounting offers the tools you need to stay on top of your financials and make informed decisions.",
+      appName: "Sharp-Accounting",
+    },
 
-      // ── 1b. Retail ───────────────────────────────────────────────────────────
-      // Powered by: Sharp Retail — Launching Soon
-      {
-        title: "Retail",
-        description:
-          "Sharp Retail brings inventory, POS, and analytics to stores of every size.",
-        href: "#retail",
-        badge: "Launching Soon",
-        subItems: [
-          { title: "General Stores", href: "#" },
-          { title: "Medium-Scale Stores", href: "#" },
-        ],
-      },
+    {
+      service: "Financial Reporting",
+      description:
+        "Sharp-Accounting is a comprehensive accounting software designed to simplify financial management for businesses of all sizes. With features like double-entry accounting, accounts payable/receivable, and financial reporting, Sharp-Accounting provides a robust solution for managing your finances efficiently and accurately. Whether you're a small business owner or a large enterprise, Sharp-Accounting offers the tools you need to stay on top of your financials and make informed decisions.",
+      appName: "Sharp-Accounting",
+    },
+  ],
+};
 
-      // ── 1c. Medical ──────────────────────────────────────────────────────────
-      // Powered by: Sharp Medical — Launching Soon
-      {
-        title: "Medical",
-        description:
-          "Sharp Medical handles clinical workflows, patient records, and compliance.",
-        href: "#medical",
-        badge: "Launching Soon",
-        subItems: [
-          { title: "Hospitals", href: "#" },
-          { title: "Clinics", href: "#" },
-          { title: "Private Practices", href: "#" },
-          { title: "Dental Offices", href: "#" },
-          { title: "Veterinary Clinics", href: "#" },
-          { title: "Physical Therapy Centers", href: "#" },
-          { title: "Mental Health Facilities", href: "#" },
-          { title: "Home Healthcare Providers", href: "#" },
-          { title: "Rehabilitation Centers", href: "#" },
-          { title: "Diagnostic Labs", href: "#" },
-          { title: "Pharmaceutical Companies", href: "#" },
-        ],
-      },
-    ],
-  },
-];
+/* --------------------------------- <***> --------------------------------- */
+
+export interface IndustriesNavigationItems {
+  industry: string;
+  description: string;
+  appName: string;
+  supportedSubIndustries: string[];
+  supportedBusinesOps: string[];
+}
+
+export interface IndustriesNavigation {
+  items: IndustriesNavigationItems[];
+}
+
+export const IndustriesNavigation: IndustriesNavigation = {
+  items: [
+    {
+      industry: "Hospitality",
+      description:
+        "Sharp Hospitality covers the full spectrum — from boutique hotels to large casino resorts.",
+      appName: "Sharp Hospitality",
+      supportedSubIndustries: [
+        "Hotels",
+        "Restaurants",
+        "Bars",
+        "Venues",
+        "Nightclubs",
+        "Casinos",
+        "Spas",
+        "Resorts",
+        "Cruise Lines",
+        "Event Spaces",
+      ],
+      supportedBusinesOps: [
+        "Reservations",
+        "Table management",
+        "Menu management",
+        "Staff scheduling",
+        "Customer loyalty",
+      ],
+    },
+  ],
+};
