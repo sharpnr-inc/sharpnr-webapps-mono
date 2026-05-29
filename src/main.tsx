@@ -12,8 +12,6 @@ import { queryClient, router } from "./router_config.tsx";
 import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
 import { Toaster } from "sonner";
 import {
-  DialogModalProvider,
-  FormsModalProvider,
   GlobalLoader,
   SheetProvider,
   ThemeProvider,
@@ -28,16 +26,12 @@ createRoot(document.getElementById("root")!).render(
         <AppVersionIdentifier>
           <ThemeProvider>
             <ModalProvider>
-              <FormsModalProvider>
-                <SheetProvider>
-                  <DialogModalProvider>
-                    <Suspense fallback={<GlobalLoader />}>
-                      <RouterProvider router={router} />
-                      <Toaster />
-                    </Suspense>
-                  </DialogModalProvider>
-                </SheetProvider>
-              </FormsModalProvider>
+              <SheetProvider>
+                <Suspense fallback={<GlobalLoader />}>
+                  <RouterProvider router={router} />
+                  <Toaster />
+                </Suspense>
+              </SheetProvider>
             </ModalProvider>
           </ThemeProvider>
         </AppVersionIdentifier>
