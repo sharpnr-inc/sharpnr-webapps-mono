@@ -27,7 +27,7 @@ type Pulse = {
 };
 
 const PATTERN: { cx: number; cy: number; cw: number; ch: number }[] = [
-  { cx: 0, cy: 0, cw: 2, ch: 2 }, 
+  { cx: 0, cy: 0, cw: 2, ch: 2 },
   { cx: 2, cy: 0, cw: 1, ch: 1 },
   { cx: 3, cy: 0, cw: 1, ch: 1 },
   { cx: 2, cy: 1, cw: 2, ch: 1 },
@@ -124,7 +124,7 @@ export function AppGridBackground() {
       cy: number,
       size: number,
       alpha: number,
-      color: string
+      color: string,
     ) {
       const s = size / 24;
       ctx.save();
@@ -191,7 +191,13 @@ export function AppGridBackground() {
         const x = cell.baseX - (scroll.current % UNIT);
         const y = cell.baseY - scroll.current;
 
-        if (x > W + 200 || x + cell.w < -200 || y > H + 200 || y + cell.h < -200) continue;
+        if (
+          x > W + 200 ||
+          x + cell.w < -200 ||
+          y > H + 200 ||
+          y + cell.h < -200
+        )
+          continue;
 
         const cx = x + cell.w / 2;
         const cy = y + cell.h / 2;
@@ -199,7 +205,7 @@ export function AppGridBackground() {
         const dy = mouse.current.y - cy;
         const dist = Math.sqrt(dx * dx + dy * dy);
         const prox = Math.max(0, 1 - dist / HOVER_R);
-        const t = prox * prox * (3 - 2 * prox); 
+        const t = prox * prox * (3 - 2 * prox);
 
         const col = cell.app.color;
         const isBig = cell.w > UNIT;
@@ -213,7 +219,7 @@ export function AppGridBackground() {
           ctx.lineWidth = 1;
           rr(x, y, cell.w, cell.h, rad);
           ctx.stroke();
-          
+
           ctx.globalAlpha = t * 0.03;
           ctx.fillStyle = col;
           ctx.fill();
@@ -223,7 +229,14 @@ export function AppGridBackground() {
         // Icon
         const iconSz = isBig ? 24 : 18;
         const iconY = isBig && t > 0.3 ? cy - 10 : cy;
-        drawIcon(cell.app.icon, cx, iconY, iconSz, 0.08 + t * 0.7, t > 0.1 ? col : "#64748b");
+        drawIcon(
+          cell.app.icon,
+          cx,
+          iconY,
+          iconSz,
+          0.08 + t * 0.7,
+          t > 0.1 ? col : "#64748b",
+        );
 
         // Label
         if (t > 0.25) {
@@ -233,7 +246,7 @@ export function AppGridBackground() {
           ctx.font = `500 ${isBig ? "11px" : "9px"} Inter, sans-serif`;
           ctx.textAlign = "center";
           ctx.textBaseline = "top";
-          ctx.fillText(cell.app.short, cx, iconY + iconSz/2 + 8);
+          ctx.fillText(cell.app.short, cx, iconY + iconSz / 2 + 8);
           ctx.restore();
         }
       }
@@ -275,13 +288,8 @@ export function AppGridBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full pointer-events-auto"
       aria-hidden="true"
     />
   );
 }
-
-
-
-
-

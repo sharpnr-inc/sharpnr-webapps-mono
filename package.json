@@ -13,6 +13,9 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@sharpnr/ui": "^1.0.19",
     "@tailwindcss/vite": "^4.1.10",
+    "@tanstack/ai": "^0.23.0",
+    "@tanstack/ai-openrouter": "^0.10.0",
+    "@tanstack/ai-react": "^0.13.0",
     "@tanstack/react-query": "^5.99.2",
     "@tanstack/react-router": "^1.168.23",
     "animejs": "^4.4.1",
@@ -31,6 +34,7 @@
     "react-router-dom": "^7.7.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.10",
+    "zod": "^4.4.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
