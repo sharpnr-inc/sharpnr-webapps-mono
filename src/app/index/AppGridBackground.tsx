@@ -152,7 +152,7 @@ export function AppGridBackground() {
 
         // fill — barely visible at rest
         ctx.save();
-        ctx.globalAlpha = 0.04 + t * 0.22;
+        ctx.globalAlpha = 0.01 + t * 0.22;
         ctx.fillStyle = col;
         rr(x, y, cell.w, cell.h, rad);
         ctx.fill();
@@ -195,22 +195,6 @@ export function AppGridBackground() {
           ctx.restore();
         }
       }
-
-      // Radial vignette — keeps left copy readable, transparent bg elsewhere
-      const grad = ctx.createRadialGradient(
-        W * 0.32,
-        H * 0.5,
-        0,
-        W * 0.32,
-        H * 0.5,
-        W * 0.65,
-      );
-      grad.addColorStop(0, "rgba(6,9,20,0.80)");
-      grad.addColorStop(1, "rgba(6,9,20,0)");
-      ctx.save();
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
-      ctx.restore();
 
       rafRef.current = requestAnimationFrame(draw);
     }

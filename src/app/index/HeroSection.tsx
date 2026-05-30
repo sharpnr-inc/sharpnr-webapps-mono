@@ -4,7 +4,7 @@ import { AppGridBackground } from "./AppGridBackground";
 
 export function HeroSection() {
   return (
-    <section className="relative w-full min-h-screen bg-[#060914] overflow-hidden flex items-center">
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center">
       <AppGridBackground />
 
       <div className="relative z-10 px-14 py-20 max-w-xl pointer-events-none">
