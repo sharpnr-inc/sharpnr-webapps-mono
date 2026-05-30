@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { HeroSection } from "./HeroSection";
 import { SharpnrIntroductionSection } from "./sharpnrIntro";
-import { WhySharpnrSection } from "./WhyUsSection";
+import WobbleCardDemo from "@/components/wobble-card-demo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,56 +12,63 @@ export function Website() {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // ── 1. Lenis smooth scroll ───────────────────────────────────────
+    // ── 1. Lenis Smooth Scroll ───────────────────────────────────────
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo-out feel
+      duration: 1.4,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 2,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
     });
 
-    // Bridge Lenis into GSAP's RAF loop — this is the critical step
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0); // prevents jumpy catch-up after tab switch
-
-    // Keep ScrollTrigger positions in sync with Lenis scroll position
+    gsap.ticker.lagSmoothing(0);
     lenis.on("scroll", ScrollTrigger.update);
 
-    // ── 2. Scroll animations ─────────────────────────────────────────
+    // ── 2. Cinematic Animations ──────────────────────────────────────
     const ctx = gsap.context(() => {
-      // Every section tagged [data-animate="section"] fades + rises on enter
+      // Global Entrance Reveal
+      gsap.fromTo(
+        wrapperRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 2, ease: "power2.inOut" },
+      );
+
+      // Smooth Section Reveal Logic
       gsap.utils
         .toArray<HTMLElement>("[data-animate='section']")
         .forEach((el) => {
           gsap.fromTo(
             el,
-            { opacity: 0, y: 70 },
+            { opacity: 0, y: 100, scale: 0.98 },
             {
               opacity: 1,
               y: 0,
-              duration: 1.1,
-              ease: "power3.out",
+              scale: 1,
+              duration: 1.4,
+              ease: "power4.out",
               scrollTrigger: {
                 trigger: el,
-                start: "top 82%",
-                toggleActions: "play none none reverse", // reverses on scroll back up
+                start: "top 90%",
+                end: "top 20%",
+                toggleActions: "play none none reverse",
               },
             },
           );
         });
 
-      // Section titles slide in from the left
+      // Unified Title Animation
       gsap.utils.toArray<HTMLElement>(".section-title").forEach((title) => {
         gsap.fromTo(
           title,
-          { opacity: 0, x: -50 },
+          { opacity: 0, x: -30, filter: "blur(10px)" },
           {
             opacity: 1,
             x: 0,
-            duration: 0.9,
-            ease: "power3.out",
+            filter: "blur(0px)",
+            duration: 1.2,
+            ease: "expo.out",
             scrollTrigger: {
               trigger: title,
               start: "top 85%",
@@ -71,58 +78,78 @@ export function Website() {
         );
       });
 
-      // Product/feature cards stagger in
+      // Product Card Stagger
       gsap.utils.toArray<HTMLElement>(".product-card").forEach((card, i) => {
         gsap.fromTo(
           card,
-          { opacity: 0, y: 50 },
+          { opacity: 0, y: 60, rotationX: -15 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.75,
-            delay: i * 0.08, // manual stagger — more reliable with ScrollTrigger
+            rotationX: 0,
+            duration: 1,
+            delay: i * 0.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 85%",
+              start: "top 88%",
               toggleActions: "play none none reverse",
             },
           },
         );
       });
 
-      // Hero slowly fades + drifts up as you scroll away — parallax exit
+      // Hero Cinematic Parallax Exit
       gsap.to(".hero-content", {
-        y: -80,
+        y: -150,
+        scale: 0.9,
         opacity: 0,
+        filter: "blur(20px)",
         ease: "none",
         scrollTrigger: {
           trigger: wrapperRef.current,
           start: "top top",
-          end: "25% top",
-          scrub: 1.5, // silky scrub tied to scroll speed
+          end: "50% top",
+          scrub: true,
+        },
+      });
+
+      // Background Transition
+      gsap.to(".bg-overlay", {
+        backgroundColor: "#020617",
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top top",
+          end: "20% top",
+          scrub: true,
         },
       });
     }, wrapperRef);
 
-    // ── Cleanup ──────────────────────────────────────────────────────
     return () => {
       ctx.revert();
-      gsap.ticker.remove(raf); // must use same reference as add()
+      gsap.ticker.remove(raf);
       lenis.destroy();
     };
   }, []);
 
   return (
-    <div ref={wrapperRef}>
-      <HeroSection />
+    <div ref={wrapperRef} className="relative">
+      {/* Cinematic Gradient Overlay */}
+      <div className="bg-overlay fixed inset-0 pointer-events-none z-[-1]" />
 
-      <div data-animate="section">
-        <SharpnrIntroductionSection />
+      <div className="hero-content">
+        <HeroSection />
       </div>
 
-      <div data-animate="section">
-        <WhySharpnrSection />
+      <div className="space-y-32 pb-32">
+        <div data-animate="section">
+          <SharpnrIntroductionSection />
+        </div>
+
+        <div data-animate="section">
+          <WobbleCardDemo />
+        </div>
       </div>
     </div>
   );
