@@ -1,0 +1,87 @@
+// SVG path data (subset of lucide paths — used on canvas directly)
+export const APPS = [
+  {
+    name: "Sharp-Hospitality",
+    short: "Hospitality",
+    icon: "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10",
+    color: "#7c3aed",
+  },
+  {
+    name: "Sharp-Accounting",
+    short: "Accounting",
+    icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M16 13H8 M16 17H8 M10 9H8",
+    color: "#0891b2",
+  },
+  {
+    name: "Sharp-Healthcare",
+    short: "Healthcare",
+    icon: "M22 12h-4l-3 9L9 3l-3 9H2",
+    color: "#059669",
+  },
+  {
+    name: "Sharp-Silo",
+    short: "Silo",
+    icon: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z",
+    color: "#d97706",
+  },
+  {
+    name: "Sharp-Folio",
+    short: "Folio",
+    icon: "M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z M13 2v7h7",
+    color: "#4f46e5",
+  },
+  {
+    name: "Sharp-IAM",
+    short: "IAM",
+    icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+    color: "#be185d",
+  },
+  {
+    name: "Sharp-HRMS",
+    short: "HRMS",
+    icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75",
+    color: "#7e22ce",
+  },
+  {
+    name: "Cortex",
+    short: "Cortex",
+    icon: "M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z M12 2v20 M2 12h20",
+    color: "#0f766e",
+  },
+  {
+    name: "Sharp-Marketplace",
+    short: "Marketplace",
+    icon: "M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z M3 6h18 M16 10a4 4 0 0 1-8 0",
+    color: "#b45309",
+  },
+  {
+    name: "Sharp-Marketing",
+    short: "Marketing",
+    icon: "M18 8h1a4 4 0 0 1 0 8h-1 M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z M6 1v3 M10 1v3 M14 1v3",
+    color: "#dc2626",
+  },
+  {
+    name: "Orchestrator",
+    short: "Orchestrator",
+    icon: "M18 20V10 M12 20V4 M6 20v-6",
+    color: "#1d4ed8",
+  },
+  {
+    name: "Cables",
+    short: "Cables",
+    icon: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71 M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+    color: "#7e22ce",
+  },
+  {
+    name: "Sharp-Bar",
+    short: "Sharp-Bar",
+    icon: "M8 22H5a2 2 0 0 1-2-2v-5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v5a2 2 0 0 1-2 2h-3 M6 13V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9",
+    color: "#9f1239",
+  },
+  {
+    name: "Sharp-Kitchen",
+    short: "Kitchen",
+    icon: "M18 8h1a4 4 0 0 1 0 8h-1 M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z",
+    color: "#166534",
+  },
+] as const;
