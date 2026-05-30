@@ -21,6 +21,7 @@ export default defineConfig({
     allowedHosts: ["folio.sharpnr.test"],
   },
   resolve: {
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: { "@": path.resolve(__dirname, "./src") },
   },
 });
