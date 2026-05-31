@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import mdx from "@mdx-js/rollup";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,6 +12,9 @@ export default defineConfig({
       target: "react",
       autoCodeSplitting: true,
       generatedRouteTree: "./src/routeTree.gen.ts",
+    }),
+    mdx({
+      providerImportSource: "@mdx-js/react",
     }),
     react(),
     tailwindcss(),

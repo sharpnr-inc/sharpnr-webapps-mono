@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import { HeroSection } from "./HeroSection";
 import { SharpnrIntroductionSection } from "./sharpnrIntro";
 import WobbleCardDemo from "@/components/wobble-card-demo";
+import Footer from "@/components/footer/Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -134,23 +135,19 @@ export function Website() {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="relative">
-      {/* Cinematic Gradient Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-[-1]" />
-
+    <div ref={wrapperRef} className="bg-blue-950">
       <div className="hero-content">
         <HeroSection />
       </div>
-
       <div className="space-y-32 pb-32">
         <div data-animate="section">
           <SharpnrIntroductionSection />
         </div>
-
         <div data-animate="section">
           <WobbleCardDemo />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

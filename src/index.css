@@ -2,12 +2,12 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --font-serif: 'DM Serif Display', serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Inter', sans-serif;
+  --font-serif: "DM Serif Display", serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", sans-serif;
 
   --animate-cell-ripple: cell-ripple var(--duration, 200ms) ease-out none 1
-  var(--delay, 0ms);
+    var(--delay, 0ms);
 
   @keyframes cell-ripple {
     0% {
@@ -21,7 +21,6 @@
     }
   }
 }
-
 
 @custom-variant dark (&:is(.dark *));
 
@@ -134,9 +133,9 @@
 
 @layer base {
   :root {
-    --font-serif: 'DM Serif Display', serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    --font-sans: 'Inter', sans-serif;
+    --font-serif: "DM Serif Display", serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --font-sans: "Inter", sans-serif;
   }
   * {
     @apply border-border outline-ring/50;
@@ -144,10 +143,17 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
-  code, pre, .font-mono {
+  code,
+  pre,
+  .font-mono {
     @apply font-mono;
   }
 }

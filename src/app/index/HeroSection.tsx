@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
-import { AppGridBackground } from "./AppGridBackground";
 import { AIChatOverlay } from "@/components/AIChat";
 import { AIQuestionReel } from "./AIQuestionReel";
 
@@ -79,17 +78,17 @@ export function HeroSection() {
     <>
       <section
         ref={sectionRef}
-        className="relative w-full min-h-screen overflow-hidden flex items-center"
+        className="relative  min-h-screen flex items-center overflow-hidden"
       >
         {/* Background */}
-        <div className="absolute inset-0 z-0">
+        {/* <div className="absolute inset-0 z-0">
           <AppGridBackground />
-        </div>
+        </div> */}
 
         {/* Spotlight */}
         <div
           ref={spotlightRef}
-          className="pointer-events-none absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-screen z-0"
+          className="pointer-events-none absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-screen overflow-hidden z-0"
         />
 
         {/* Two-column layout */}
