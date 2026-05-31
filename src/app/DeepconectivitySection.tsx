@@ -387,7 +387,6 @@ export function DeepConnectivitySection() {
       bi: number,
       active: boolean,
     ) {
-      const {} = dimRef.current;
       const a = canvasNodesRef.current[ai];
       const b = canvasNodesRef.current[bi];
       if (!a || !b) return;

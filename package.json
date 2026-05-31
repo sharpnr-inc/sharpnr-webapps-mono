@@ -13,6 +13,9 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@sharpnr/ui": "^1.0.19",
     "@tailwindcss/vite": "^4.1.10",
+    "@tanstack/ai": "^0.23.0",
+    "@tanstack/ai-openrouter": "^0.10.0",
+    "@tanstack/ai-react": "^0.13.0",
     "@tanstack/react-query": "^5.99.2",
     "@tanstack/react-router": "^1.168.23",
     "animejs": "^4.4.1",
@@ -21,8 +24,9 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "gsap": "^3.14.2",
+    "lenis": "^1.3.23",
     "lucide-react": "^0.515.0",
-    "motion": "^12.23.12",
+    "motion": "^12.40.0",
     "ogl": "^1.0.11",
     "radix-ui": "^1.4.3",
     "react": "^19.1.0",
@@ -30,6 +34,7 @@
     "react-router-dom": "^7.7.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.10",
+    "zod": "^4.4.3",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
