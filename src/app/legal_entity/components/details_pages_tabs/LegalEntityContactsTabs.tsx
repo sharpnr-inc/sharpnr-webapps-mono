@@ -1,8 +1,9 @@
-import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
+import { Button, Skeleton } from "@sharpnr/ui";
 import { Mail, Phone, User, Plus, Pencil } from "lucide-react";
 import type { LegalEntityContactResponseDto } from "../../api/types";
 import { LegalEntityContactTypeLabel } from "../../utils/entity_type";
 import { AddContactsForm } from "../forms/AddContactsForm";
+import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityContactsAndPeopleTabProps {
   legalEntityID?: string;
@@ -35,7 +36,7 @@ function ContactCardSkeleton() {
 
 // ─── Empty ─────────────────────────────────────────────────────────────────────
 function EmptyContacts({ legalEntityID }: { legalEntityID: string }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
 
   const handleAddContact = () => {
     showModal(
@@ -71,7 +72,7 @@ function ContactCard({
   contact: LegalEntityContactResponseDto;
   legalEntityID?: string;
 }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
 
   const fullName = `${contact.first_name} ${contact.last_name}`;
   const initials =
@@ -165,7 +166,7 @@ export function LegalEntityContactsAndPeopleTab({
   legalEntityID,
   data,
 }: LegalEntityContactsAndPeopleTabProps) {
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
 
   const handleAddContact = () => {
     showModal(

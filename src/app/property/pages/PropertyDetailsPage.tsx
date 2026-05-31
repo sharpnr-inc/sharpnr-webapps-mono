@@ -18,11 +18,11 @@ import {
   Zap,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useFormsModal } from "@sharpnr/ui";
 import AddModulesInProperty from "../components/AddModulesInProperty";
 import { AddInfraInProperty } from "../components/AddInfrasInProperty";
 import { motion, type Variants } from "framer-motion";
 import type { PropertyModule } from "../api/types";
+import { useModal } from "@/hooks/useModal";
 
 /* ── easing ─────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -85,7 +85,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   const { data } = usePropertyDetails(propertyId);
   const property = data?.data;
   const nav = useNavigate();
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
 
   const handleModuleNav = (module: PropertyModule) => {
     if (module.is_configured && module.module_type === "HOTEL") {

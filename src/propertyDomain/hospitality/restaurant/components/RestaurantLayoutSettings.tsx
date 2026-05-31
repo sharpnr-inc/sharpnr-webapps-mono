@@ -11,7 +11,7 @@ import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { useRestaurantLayout } from "@/propertyDomain/hospitality/restaurant/apis/queries";
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantConfiguration from "./RestaurantFloorForm";
-import { useFormsModal } from "@sharpnr/ui";
+import { useModal } from "@/hooks/useModal";
 
 type Table = {
   id: string;
@@ -54,7 +54,7 @@ export function RestaurantLayoutSettings() {
     console.log("Delete floor:", floor);
   };
 
-  const { closeModal, showModal } = useFormsModal();
+  const { closeModal, showModal } = useModal();
 
   const handleAddFloor = () => {
     showModal(

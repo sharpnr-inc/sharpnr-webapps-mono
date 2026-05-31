@@ -14,7 +14,7 @@ import {
   Box,
 } from "lucide-react";
 import { useInventoryAccounts } from "./api/queries";
-import { useFormsModal } from "@sharpnr/ui";
+import { useModal } from "@sharpnr/ui";
 import { AddNewInventoryAccountForm } from "./forms/AddNewInventoryAccount";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -275,7 +275,7 @@ function QuickAction({
 /* ─── page ─── */
 export function InventoryHomePage() {
   const { data: inventoryRes, isLoading } = useInventoryAccounts();
-  const { showModal } = useFormsModal();
+  const { showModal } = useModal();
 
   const accounts: InventoryAccount[] = inventoryRes?.data ?? [];
 

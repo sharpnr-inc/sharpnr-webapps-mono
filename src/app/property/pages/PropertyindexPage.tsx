@@ -21,7 +21,6 @@ import {
   Settings,
   Tag,
 } from "lucide-react";
-import { useFormsModal } from "@sharpnr/ui";
 import { useState } from "react";
 import AddPropertyForm from "../components/AddPropertyForm";
 import PropertyDomainSelection from "../components/PropertyDomainSelection";
@@ -31,6 +30,7 @@ import { useProperties } from "../api/queries";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import type { Property } from "../api/types";
 import { PropoertyIndexSidePanel } from "../components/PropertyIndexSidePanel";
+import { useModal } from "@/hooks/useModal";
 
 /* ── easing ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
@@ -59,7 +59,7 @@ export function PropertyIndexPage() {
   const adddomain = useAddPropertyDomainMutation();
   const qc = useQueryClient();
   const propertyArray: Property[] = properties?.data?.properties ?? [];
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
   const navigate = useNavigate();
 
   const handleAddProperty = () => {
