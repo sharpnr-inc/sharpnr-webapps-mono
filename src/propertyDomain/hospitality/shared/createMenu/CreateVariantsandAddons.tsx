@@ -1,8 +1,17 @@
 import { useMemo, useState } from "react";
-import { Card, CardHeader } from "@sharpnr/ui";
+import {
+  Card,
+  CardHeader,
+  ScrollArea,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Separator,
+} from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
 import { Badge } from "@sharpnr/ui";
-import { Separator } from "@/components/ui/separator";
 import {
   MoveLeft,
   PlusIcon,
@@ -18,13 +27,6 @@ import {
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
 import { useAddPreferredKitchenToMenuItemMutation } from "../../infra/apis/api.Mutations";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { usePropertyDetails } from "@/app/property/api/queries";
 import { AddAddOnFormInMenuItem } from "./forms/AddAddon";
 import { AddVariantForm } from "./forms/AddVariant";
@@ -34,7 +36,6 @@ import type {
   MenuItemResponse,
   VariantGroupResponse,
 } from "../../infra/apis/api.service";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const CreateVariantsAndAddons = () => {
   const { Menus, prevStep, ownersID, propertyID } = useCreateMenuCtx();
