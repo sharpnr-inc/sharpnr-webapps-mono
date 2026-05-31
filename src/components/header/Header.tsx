@@ -55,7 +55,7 @@ export default function Header() {
           </button>
 
           <button
-            onClick={() => navigate({ to: "/pricing" as any })}
+            onClick={() => navigate({ to: "/products" })}
             className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
                        hover:text-slate-50 hover:bg-white/[0.06]
                        transition-colors duration-200
@@ -146,7 +146,7 @@ export default function Header() {
             <button
               onClick={() => {
                 setIsOpen(false);
-                navigate({ to: "/pricing" as any });
+                navigate({ to: "/products" });
               }}
               className="text-left px-3 py-2.5 rounded-lg text-sm font-medium
                          text-slate-300 hover:text-slate-50 hover:bg-white/[0.06]

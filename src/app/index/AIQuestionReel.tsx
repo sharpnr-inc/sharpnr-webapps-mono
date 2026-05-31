@@ -93,7 +93,7 @@ export function AIQuestionReel({ onOpen }: { onOpen: (ctx: string) => void }) {
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (tlRef.current) tlRef.current.kill();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   // Re-animate when displayIndex changes

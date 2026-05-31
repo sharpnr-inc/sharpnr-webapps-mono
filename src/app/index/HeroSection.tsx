@@ -1,5 +1,3 @@
-"use client";
-
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { AppGridBackground } from "./AppGridBackground";
@@ -95,7 +93,7 @@ export function HeroSection() {
         />
 
         {/* Two-column layout */}
-        <div className="relative z-10 w-full px-8 md:px-16 lg:px-20 py-20 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24">
+        <div className="relative z-10 w-full px-8 md:px-16 lg:px-20 py-20 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24 ">
           {/* ── Left col: Copy ─────────────────────────────────────────── */}
           <div className="flex-1 max-w-[560px]">
             <div
@@ -152,7 +150,7 @@ export function HeroSection() {
           {/* ── Right col: Question Reel ─────────────────────────────── */}
           <div
             ref={rightColRef}
-            className="w-full lg:w-auto flex justify-center lg:justify-end shrink-0 lg:max-w-[520px]"
+            className="w-full lg:w-auto flex justify-center lg:justify-end shrink-0 lg:max-w-[720px]"
           >
             <AIQuestionReel onOpen={openChat} />
           </div>

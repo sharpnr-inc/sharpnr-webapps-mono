@@ -136,7 +136,7 @@ export function Website() {
   return (
     <div ref={wrapperRef} className="relative">
       {/* Cinematic Gradient Overlay */}
-      <div className="bg-overlay fixed inset-0 pointer-events-none z-[-1]" />
+      <div className="fixed inset-0 pointer-events-none z-[-1]" />
 
       <div className="hero-content">
         <HeroSection />

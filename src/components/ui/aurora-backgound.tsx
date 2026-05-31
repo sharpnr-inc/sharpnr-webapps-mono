@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
+import { useEffect, useRef } from "react";
+import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -99,7 +99,14 @@ interface AuroraProps {
 }
 
 export default function Aurora(props: AuroraProps) {
-  const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 0.5 } = props;
+  const {
+    colorStops = ["#5227FF", "#7cff67", "#5227FF"],
+    amplitude = 1.0,
+    blend = 0.5,
+  } = props;
+
+  // Keep a live ref so the animation loop always reads the latest prop values
+  // without needing to be re-created on every render.
   const propsRef = useRef<AuroraProps>(props);
   propsRef.current = props;
 
@@ -112,48 +119,45 @@ export default function Aurora(props: AuroraProps) {
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true
+      antialias: true,
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.backgroundColor = 'transparent';
+    gl.canvas.style.backgroundColor = "transparent";
 
-    let program: Program | undefined;
+    // Fix 1: `program` is never reassigned — use `const`.
+    const program = new Program(gl, {
+      vertex: VERT,
+      fragment: FRAG,
+      uniforms: {
+        uTime: { value: 0 },
+        uAmplitude: { value: amplitude },
+        uColorStops: {
+          value: colorStops.map((hex) => {
+            const c = new Color(hex);
+            return [c.r, c.g, c.b];
+          }),
+        },
+        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
+        uBlend: { value: blend },
+      },
+    });
 
     function resize() {
       if (!ctn) return;
       const width = ctn.offsetWidth;
       const height = ctn.offsetHeight;
       renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
+      program.uniforms.uResolution.value = [width, height];
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
       delete geometry.attributes.uv;
     }
-
-    const colorStopsArray = colorStops.map(hex => {
-      const c = new Color(hex);
-      return [c.r, c.g, c.b];
-    });
-
-    program = new Program(gl, {
-      vertex: VERT,
-      fragment: FRAG,
-      uniforms: {
-        uTime: { value: 0 },
-        uAmplitude: { value: amplitude },
-        uColorStops: { value: colorStopsArray },
-        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: blend }
-      }
-    });
 
     const mesh = new Mesh(gl, { geometry, program });
     ctn.appendChild(gl.canvas);
@@ -161,18 +165,17 @@ export default function Aurora(props: AuroraProps) {
     let animateId = 0;
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
+      // Read all live values from the ref so the loop never goes stale.
       const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      if (program) {
-        program.uniforms.uTime.value = time * speed * 0.1;
-        program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
-        program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-        const stops = propsRef.current.colorStops ?? colorStops;
-        program.uniforms.uColorStops.value = stops.map((hex: string) => {
-          const c = new Color(hex);
-          return [c.r, c.g, c.b];
-        });
-        renderer.render({ scene: mesh });
-      }
+      program.uniforms.uTime.value = time * speed * 0.1;
+      program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
+      program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
+      const stops = propsRef.current.colorStops ?? colorStops;
+      program.uniforms.uColorStops.value = stops.map((hex: string) => {
+        const c = new Color(hex);
+        return [c.r, c.g, c.b];
+      });
+      renderer.render({ scene: mesh });
     };
     animateId = requestAnimationFrame(update);
 
@@ -180,13 +183,20 @@ export default function Aurora(props: AuroraProps) {
 
     return () => {
       cancelAnimationFrame(animateId);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);
       }
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [amplitude]);
+    // Fix 2: include `blend` and `colorStops` in the dependency array.
+    // The animation loop reads their latest values via `propsRef.current`, so
+    // adding them here only causes a renderer re-init when these props change —
+    // which is the correct behaviour (e.g. a new colorStops array means a fresh
+    // Program with the right initial uniforms).
+  }, [amplitude, blend, colorStops]);
 
-  return <div ref={ctnDom} className="w-full h-full bg-blend-hue bg-blue-900" />;
+  return (
+    <div ref={ctnDom} className="w-full h-full bg-blend-hue bg-blue-900" />
+  );
 }
