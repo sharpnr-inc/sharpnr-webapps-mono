@@ -1,0 +1,260 @@
+import { PageHeader } from "./PageHeader";
+import { Steps, Step } from "./Steps";
+import { Callout } from "./Callout";
+import { CodeBlock } from "./CodeBlock";
+import { CardGrid, Card } from "./CardGrid";
+import { PrereqList } from "./PrereqList";
+import { SectionDivider } from "./SectionDivider";
+
+<PageHeader
+  badge="Getting Started"
+  title="Get up and running"
+  subtitle="A step-by-step guide to installing SharpNR, connecting your first application, and inviting your team — in under 10 minutes."
+  readTime="~8 min read"
+/>
+
+## Prerequisites
+
+Make sure your environment meets the following requirements before starting.
+
+<PrereqList
+  items={[
+    { label: "Node.js", note: "v18+" },
+    { label: "PostgreSQL", note: "v14+" },
+    { label: "npm", note: "or pnpm" },
+    { label: "SharpNR account" },
+    { label: "Git", note: "optional" },
+  ]}
+/>
+
+<Callout type="tip">
+  Don't have a SharpNR account yet? Head to [app.sharpnr.com](https://app.sharpnr.com) and sign up — it's free to start.
+</Callout>
+
+<SectionDivider label="Installation" />
+
+## Install the CLI
+
+The SharpNR CLI is the fastest way to scaffold, sync, and manage your workspace from the terminal.
+
+<CodeBlock lang="bash">
+npm install -g @sharpnr/cli
+</CodeBlock>
+
+Confirm the install:
+
+<CodeBlock lang="bash">
+sharpnr --version
+</CodeBlock>
+
+You should see something like `sharpnr/1.4.2 linux-x64 node-v20.11.0`.
+
+<SectionDivider label="Setup" />
+
+## Step-by-step setup
+
+<Steps>
+
+<Step number={1} title="Authenticate your account">
+
+Log in from the terminal. This opens a browser tab to complete OAuth — no passwords stored locally.
+
+<CodeBlock lang="bash">
+sharpnr login
+</CodeBlock>
+
+On success you'll see:
+
+<CodeBlock lang="bash">
+✓  Authenticated as you@company.com
+✓  Workspace: Acme Inc  (slug: acme)
+</CodeBlock>
+
+<Callout type="info">
+  Your session token is stored in `~/.sharpnr/credentials.json`. It expires after 30 days of inactivity.
+</Callout>
+
+</Step>
+
+<Step number={2} title="Create your workspace">
+
+A workspace is your organization's home inside SharpNR — every product, user, and integration lives under it.
+
+<CodeBlock lang="bash">
+sharpnr workspace create
+</CodeBlock>
+
+You'll be prompted to enter:
+
+- **Display name** — shown across the platform (e.g. `Acme Inc`)
+- **Slug** — your unique identifier for API calls and CLI commands (e.g. `acme`)
+- **Region** — where your data is stored (`us-east-1`, `eu-west-1`, or `ap-south-1`)
+
+<Callout type="warning">
+  Your workspace **slug cannot be changed** after creation. Choose something short, lowercase, and recognizable — like your company name or abbreviation.
+</Callout>
+
+</Step>
+
+<Step number={3} title="Initialize your project">
+
+Inside your project directory, run:
+
+<CodeBlock lang="bash">
+sharpnr init
+</CodeBlock>
+
+This scaffolds a `sharpnr.config.ts` at your project root and detects your environment automatically:
+
+<CodeBlock lang="ts" filename="sharpnr.config.ts" variant="file">
+{`import { defineConfig } from "@sharpnr/sdk";
+
+export default defineConfig({
+  workspace: "acme",             // your workspace slug
+  products: ["iam", "hr", "accounting"],
+  region: "us-east-1",
+  environment: process.env.NODE_ENV ?? "development",
+});`}
+</CodeBlock>
+
+You can add or remove products from the `products` array at any time — the CLI will sync only what's listed.
+
+</Step>
+
+<Step number={4} title="Sync your environment">
+
+Pull your workspace secrets and configuration into a local `.env` file:
+
+<CodeBlock lang="bash">
+sharpnr sync
+</CodeBlock>
+
+This writes `.env.sharpnr` with all required API keys pre-filled and ready to use.
+
+<Callout type="danger">
+  Add `.env.sharpnr` to your `.gitignore` immediately. It contains workspace-scoped API keys that should never be committed.
+</Callout>
+
+Load it in your app by adding this to your entry file:
+
+<CodeBlock lang="ts" filename="src/index.ts" variant="file">
+{`import "@sharpnr/sdk/env"; // auto-loads .env.sharpnr`}
+</CodeBlock>
+
+</Step>
+
+<Step number={5} title="Connect SharpIAM (identity)">
+
+SharpIAM is the identity backbone shared by all other products. Enable it first before connecting anything else.
+
+<CodeBlock lang="bash">
+sharpnr iam init
+</CodeBlock>
+
+Then add the provider to your app:
+
+<CodeBlock lang="ts" filename="src/lib/auth.ts" variant="file">
+{`import { SharpIAM } from "@sharpnr/iam";
+
+export const auth = new SharpIAM({
+  workspace: process.env.SHARPNR_WORKSPACE_SLUG!,
+  secret: process.env.SHARPNR_IAM_SECRET!,
+});`}
+</CodeBlock>
+
+</Step>
+
+<Step number={6} title="Invite your team">
+
+Add team members and assign roles directly from the CLI or the dashboard.
+
+**Via CLI:**
+
+<CodeBlock lang="bash">
+sharpnr team invite --email colleague@company.com --role member
+</CodeBlock>
+
+**Available roles:**
+
+- `owner` — full access including billing and workspace deletion
+- `admin` — manage members, products, and integrations
+- `member` — standard access to assigned products
+- `viewer` — read-only access across all products
+
+<Callout type="tip">
+  You can also bulk-invite by passing a comma-separated list: `--email a@co.com,b@co.com`
+</Callout>
+
+</Step>
+
+<Step number={7} title="Run your first health check">
+
+Verify everything is connected and operational:
+
+<CodeBlock lang="bash">
+sharpnr status
+</CodeBlock>
+
+A healthy workspace returns:
+
+<CodeBlock lang="bash">
+✓  Workspace:    acme  [us-east-1]
+✓  SharpIAM:     connected  (3 users)
+✓  Sharp-HR:     connected
+✓  Accounting:   connected
+✓  API latency:  42ms
+●  All systems operational
+</CodeBlock>
+
+</Step>
+
+</Steps>
+
+<SectionDivider label="What's next" />
+
+## Explore the platform
+
+You're all set. Here's where to go from here:
+
+<CardGrid>
+  <Card
+    icon="🔐"
+    title="Configure SharpIAM"
+    description="Set up SSO, roles, permissions, and MFA policies for your organization."
+    href="/docs/configuration"
+  />
+  <Card
+    icon="👥"
+    title="User Management"
+    description="Manage members, departments, and fine-grained access controls."
+    href="/docs/user-management"
+  />
+  <Card
+    icon="🔌"
+    title="API Integration"
+    description="Connect external services and build on top of the SharpNR API."
+    href="/docs/api"
+  />
+  <Card
+    icon="📦"
+    title="Applications"
+    description="Install and configure the nine SharpNR applications for your team."
+    href="/docs/applications"
+  />
+  <Card
+    icon="🚀"
+    title="Deployment"
+    description="Push your workspace to staging or production with zero downtime."
+    href="/docs/deployment"
+  />
+  <Card
+    icon="🛠️"
+    title="Troubleshooting"
+    description="Common errors, known issues, and how to debug your setup."
+    href="/docs/troubleshooting"
+  />
+</CardGrid>
+
+<Callout type="tip">
+  Stuck? Join the [SharpNR Discord](https://discord.gg/sharpnr) or open a ticket from your workspace dashboard. Our team responds within a few hours.
+</Callout>

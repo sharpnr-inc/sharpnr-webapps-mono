@@ -136,17 +136,23 @@ export function Website() {
 
   return (
     <div ref={wrapperRef} className="bg-blue-950">
+
       <div className="hero-content">
         <HeroSection />
       </div>
+
       <div className="space-y-32 pb-32">
+      
         <div data-animate="section">
           <SharpnrIntroductionSection />
         </div>
+
         <div data-animate="section">
           <WobbleCardDemo />
         </div>
       </div>
+
+
       <Footer />
     </div>
   );

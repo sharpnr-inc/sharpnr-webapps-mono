@@ -15,6 +15,7 @@ import { Route as InfraRouteImport } from './routes/infra'
 import { Route as DocsRouteRouteImport } from './routes/docs/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsIndexRouteImport } from './routes/docs/index'
+import { Route as DocsGettingStartedRouteImport } from './routes/docs/getting-started'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -46,6 +47,11 @@ const DocsIndexRoute = DocsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DocsRouteRoute,
 } as any)
+const DocsGettingStartedRoute = DocsGettingStartedRouteImport.update({
+  id: '/getting-started',
+  path: '/getting-started',
+  getParentRoute: () => DocsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/infra': typeof InfraRoute
   '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/infra': typeof InfraRoute
   '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
   '/docs': typeof DocsIndexRoute
 }
 export interface FileRoutesById {
@@ -69,13 +77,27 @@ export interface FileRoutesById {
   '/infra': typeof InfraRoute
   '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
+  '/docs/getting-started': typeof DocsGettingStartedRoute
   '/docs/': typeof DocsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/docs' | '/infra' | '/products' | '/services' | '/docs/'
+  fullPaths:
+    | '/'
+    | '/docs'
+    | '/infra'
+    | '/products'
+    | '/services'
+    | '/docs/getting-started'
+    | '/docs/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/infra' | '/products' | '/services' | '/docs'
+  to:
+    | '/'
+    | '/infra'
+    | '/products'
+    | '/services'
+    | '/docs/getting-started'
+    | '/docs'
   id:
     | '__root__'
     | '/'
@@ -83,6 +105,7 @@ export interface FileRouteTypes {
     | '/infra'
     | '/products'
     | '/services'
+    | '/docs/getting-started'
     | '/docs/'
   fileRoutesById: FileRoutesById
 }
@@ -138,14 +161,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsIndexRouteImport
       parentRoute: typeof DocsRouteRoute
     }
+    '/docs/getting-started': {
+      id: '/docs/getting-started'
+      path: '/getting-started'
+      fullPath: '/docs/getting-started'
+      preLoaderRoute: typeof DocsGettingStartedRouteImport
+      parentRoute: typeof DocsRouteRoute
+    }
   }
 }
 
 interface DocsRouteRouteChildren {
+  DocsGettingStartedRoute: typeof DocsGettingStartedRoute
   DocsIndexRoute: typeof DocsIndexRoute
 }
 
 const DocsRouteRouteChildren: DocsRouteRouteChildren = {
+  DocsGettingStartedRoute: DocsGettingStartedRoute,
   DocsIndexRoute: DocsIndexRoute,
 }
 
