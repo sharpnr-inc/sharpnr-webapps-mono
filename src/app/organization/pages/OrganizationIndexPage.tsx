@@ -253,7 +253,7 @@ function entityForProperty(propertyId: string) {
 function OrgHeader() {
   return (
     <div className="flex items-start gap-4 p-5 pb-0">
-      <div className="h-14 w-14 flex-shrink-0 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 font-medium text-lg">
+      <div className="h-14 w-14 shrink-0 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 font-medium text-lg">
         SH
       </div>
       <div className="flex-1 min-w-0">
@@ -364,7 +364,7 @@ function OverviewTab() {
             {ACTIVITY.map((event) => (
               <div key={event.id} className="flex gap-3 px-4 py-3 items-start">
                 <span
-                  className={`mt-1.5 h-2 w-2 flex-shrink-0 rounded-full ${activityDotColor(event.type)}`}
+                  className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${activityDotColor(event.type)}`}
                 />
                 <div>
                   <p className="text-sm">{event.description}</p>
@@ -402,7 +402,7 @@ function PropertiesTab() {
                   key={prop.id}
                   className="flex items-center gap-4 px-4 py-3"
                 >
-                  <div className="h-9 w-9 flex-shrink-0 rounded-lg bg-amber-50 flex items-center justify-center text-sm font-medium text-amber-600">
+                  <div className="h-9 w-9 shrink-0 rounded-lg bg-amber-50 flex items-center justify-center text-sm font-medium text-amber-600">
                     {prop.name.charAt(0)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -443,7 +443,7 @@ function EntitiesTab() {
                 key={entity.id}
                 className="flex items-center gap-4 px-4 py-3"
               >
-                <div className="h-9 w-9 flex-shrink-0 rounded-lg bg-teal-50 flex items-center justify-center text-xs font-medium text-teal-700">
+                <div className="h-9 w-9 shrink-0 rounded-lg bg-teal-50 flex items-center justify-center text-xs font-medium text-teal-700">
                   {entity.name
                     .split(" ")
                     .slice(0, 2)
@@ -507,7 +507,7 @@ function MembersTab() {
           <div className="divide-y divide-border">
             {MEMBERS.map((m) => (
               <div key={m.id} className="flex items-center gap-3 px-4 py-3">
-                <div className="h-8 w-8 flex-shrink-0 rounded-full bg-muted flex items-center justify-center text-xs font-medium">
+                <div className="h-8 w-8 shrink-0 rounded-full bg-muted flex items-center justify-center text-xs font-medium">
                   {m.initials}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -646,7 +646,7 @@ const OrganizationIndexPage: React.FC = () => {
       <Separator />
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="w-full justify-start rounded-none border-b bg-transparent px-5 h-auto pb-0 gap-0">
+        <TabsList className="">
           {(
             [
               "overview",
@@ -656,21 +656,17 @@ const OrganizationIndexPage: React.FC = () => {
               "settings",
             ] as const
           ).map((tab) => (
-            <TabsTrigger
-              key={tab}
-              value={tab}
-              className="rounded-none border-b-2 border-transparent data-[state=active]:border-foreground data-[state=active]:bg-transparent pb-2 capitalize text-sm"
-            >
+            <TabsTrigger key={tab} value={tab} className="">
               {tab === "entities" ? "Legal entities" : tab}
             </TabsTrigger>
           ))}
         </TabsList>
 
-        <div className="p-5">
-          <TabsContent value="overview" className="mt-0">
+        <div className="">
+          <TabsContent value="overview">
             <OverviewTab />
           </TabsContent>
-          <TabsContent value="properties" className="mt-0">
+          <TabsContent value="properties">
             <PropertiesTab />
           </TabsContent>
           <TabsContent value="entities" className="mt-0">
