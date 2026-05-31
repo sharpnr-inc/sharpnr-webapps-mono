@@ -42,17 +42,15 @@ pipeline {
             }
         }
 
-        // stage('Test') {
-        //     steps {
-        //         echo '🧪 Running tests...'
-        //         sh 'npm test -- --watchAll=false --passWithNoTests'
-        //     }
-        // }
-
         stage('Build') {
             steps {
-                echo '🔨 Building React app...'
-                sh 'npm run build'
+                // Inject .env.production before building
+                withCredentials([file(credentialsId: 'sharpnr-website-env-production', variable: 'ENV_FILE')]) {
+                    echo '🔑 Injecting .env.production...'
+                    sh 'cp $ENV_FILE .env.production'
+                    echo '🔨 Building React app...'
+                    sh 'npm run build'
+                }
             }
         }
 
