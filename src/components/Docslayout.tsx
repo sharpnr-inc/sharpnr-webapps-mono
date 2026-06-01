@@ -1,5 +1,5 @@
 // src/docs/layout.tsx
-import { Link, Outlet } from "@tanstack/react-router";
+import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import {
@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import Footer from "@/components/footer/Footer";
+import { TableOfContents } from "./TableOfContents";
 
 const navSections = [
   {
@@ -49,6 +50,8 @@ const navSections = [
 export function DocsLayout() {
   const sidebarRef = useRef<HTMLElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const { location } = useRouterState();
+  const currentPath = location.pathname.replace(/\/$/, "");
 
   useEffect(() => {
     if (!sidebarRef.current) return;
@@ -86,10 +89,17 @@ export function DocsLayout() {
     }
   }, []);
 
+  const isActive = (href: string) => {
+    const normalised = href.replace(/\/$/, "");
+    if (normalised === "/docs") return currentPath === "/docs";
+    return (
+      currentPath === normalised || currentPath.startsWith(normalised + "/")
+    );
+  };
+
   return (
-    // Page grows with content — no overflow-hidden, no h-screen here
     <div className="min-h-screen flex bg-[#0a0a0f]">
-      {/* ── Sidebar: sticks to viewport via sticky, independent of page scroll ── */}
+      {/* ── Left sidebar ── */}
       <aside
         ref={sidebarRef}
         className="hidden lg:flex flex-col w-64 shrink-0 border-r border-white/[0.06] sticky top-0 h-screen overflow-y-auto relative"
@@ -104,7 +114,7 @@ export function DocsLayout() {
         />
 
         <div className="px-4 py-5 border-b border-white/[0.06] relative z-10">
-          <span className="text-[9px] font-bold text-white/25 tracking-[0.15em] uppercase font-mono">
+          <span className="text-[9px] font-bold text-white/30 tracking-[0.15em] uppercase font-mono">
             Documentation
           </span>
         </div>
@@ -112,47 +122,76 @@ export function DocsLayout() {
         <nav className="flex-1 px-3 py-5 flex flex-col gap-6 relative z-10">
           {navSections.map((section) => (
             <div key={section.title}>
-              <div className="section-label px-2 mb-2 text-[9px] font-bold text-white/20 tracking-[0.14em] uppercase font-mono">
+              <div className="section-label px-2 mb-2 text-[9px] font-bold text-white/25 tracking-[0.14em] uppercase font-mono">
                 {section.title}
               </div>
               <div className="flex flex-col gap-0.5">
-                {section.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className="nav-item group relative flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-white/45 hover:text-white hover:bg-white/[0.05] transition-all duration-150 no-underline text-[13px] font-medium"
-                    activeProps={{
-                      className:
-                        "nav-item group relative flex items-center gap-2.5 px-2.5 py-2 rounded-lg transition-all duration-150 no-underline text-[13px] font-medium bg-violet-500/10 text-violet-400 hover:bg-violet-500/[0.14] hover:text-violet-300",
-                    }}
-                  >
-                    <span className="absolute right-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-l-full bg-violet-500/0 group-[.active]:bg-violet-500/70 transition-all duration-200" />
-                    <item.icon className="w-3.5 h-3.5 shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-150" />
-                    <span className="flex-1 leading-none">{item.label}</span>
-                    <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-35 -translate-x-1.5 group-hover:translate-x-0 transition-all duration-200" />
-                  </Link>
-                ))}
+                {section.items.map((item) => {
+                  const active = isActive(item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className={[
+                        "nav-item group relative flex items-center gap-2.5 px-2.5 py-2 rounded-lg",
+                        "no-underline text-[13px] font-medium transition-all duration-150",
+                        active
+                          ? "bg-violet-500/10 text-violet-300"
+                          : "text-white/70 hover:text-white hover:bg-white/[0.05]",
+                      ].join(" ")}
+                    >
+                      {active && (
+                        <span className="absolute right-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-l-full bg-violet-400/70" />
+                      )}
+                      <item.icon
+                        className={[
+                          "w-3.5 h-3.5 shrink-0 transition-opacity duration-150",
+                          active
+                            ? "opacity-100 text-violet-400"
+                            : "opacity-50 group-hover:opacity-80",
+                        ].join(" ")}
+                      />
+                      <span className="flex-1 leading-none">{item.label}</span>
+                      <ChevronRight
+                        className={[
+                          "w-3 h-3 transition-all duration-200",
+                          active
+                            ? "opacity-40 text-violet-400"
+                            : "opacity-0 group-hover:opacity-30 -translate-x-1.5 group-hover:translate-x-0",
+                        ].join(" ")}
+                      />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           ))}
         </nav>
 
         <div className="px-4 py-4 border-t border-white/[0.06] relative z-10">
-          <span className="text-[9px] text-white/18 font-mono tracking-wide">
+          <span className="text-[9px] text-white/20 font-mono tracking-wide">
             SharpNR Docs v1.0
           </span>
         </div>
       </aside>
 
-      {/* ── Right column: stacks main content and footer vertically ── */}
+      {/* ── Right column: content + footer ── */}
       <div className="flex-1 min-w-0 flex flex-col">
-        <main className="flex-1">
-          <div className="max-w-4xl mx-auto px-6 lg:px-10 py-10">
-            <Outlet />
-          </div>
-        </main>
+        {/* ── Content row: main + TOC panel ── */}
+        <div className="flex flex-1">
+          {/* Main scrollable content */}
+          <main className="flex-1 min-w-0">
+            <div className="max-w-3xl mx-auto px-6 lg:px-10 py-10">
+              <Outlet />
+            </div>
+          </main>
 
-        {/* ── Footer: at the bottom of the right column, below the content ── */}
+          {/* ── Right TOC panel — sticky, same as left sidebar ── */}
+          <div className="hidden xl:block border-l border-white/[0.04]">
+            <TableOfContents />
+          </div>
+        </div>
+
         <Footer />
       </div>
     </div>

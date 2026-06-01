@@ -13,7 +13,7 @@ import { SectionDivider } from "./SectionDivider";
   readTime="~8 min read"
 />
 
-## Prerequisites
+## Prerequisites {#prerequisites}
 
 Make sure your environment meets the following requirements before starting.
 
@@ -28,30 +28,28 @@ Make sure your environment meets the following requirements before starting.
 />
 
 <Callout type="tip">
-  Don't have a SharpNR account yet? Head to [app.sharpnr.com](https://app.sharpnr.com) and sign up — it's free to start.
+
+Don't have a SharpNR account yet? Head to [app.sharpnr.com](https://app.sharpnr.com) and sign up — it's free to start.
+
 </Callout>
 
 <SectionDivider label="Installation" />
 
-## Install the CLI
+## Install the CLI {#install-cli}
 
 The SharpNR CLI is the fastest way to scaffold, sync, and manage your workspace from the terminal.
 
-<CodeBlock lang="bash">
-npm install -g @sharpnr/cli
-</CodeBlock>
+<CodeBlock lang="bash">{`npm install -g @sharpnr/cli`}</CodeBlock>
 
 Confirm the install:
 
-<CodeBlock lang="bash">
-sharpnr --version
-</CodeBlock>
+<CodeBlock lang="bash">{`sharpnr --version`}</CodeBlock>
 
 You should see something like `sharpnr/1.4.2 linux-x64 node-v20.11.0`.
 
 <SectionDivider label="Setup" />
 
-## Step-by-step setup
+## Step-by-step setup {#setup}
 
 <Steps>
 
@@ -59,19 +57,19 @@ You should see something like `sharpnr/1.4.2 linux-x64 node-v20.11.0`.
 
 Log in from the terminal. This opens a browser tab to complete OAuth — no passwords stored locally.
 
-<CodeBlock lang="bash">
-sharpnr login
-</CodeBlock>
+<CodeBlock lang="bash">{`sharpnr login`}</CodeBlock>
 
 On success you'll see:
 
 <CodeBlock lang="bash">
-✓  Authenticated as you@company.com
-✓  Workspace: Acme Inc  (slug: acme)
+  {`✓  Authenticated as you@company.com
+✓  Workspace: Acme Inc  (slug: acme)`}
 </CodeBlock>
 
 <Callout type="info">
-  Your session token is stored in `~/.sharpnr/credentials.json`. It expires after 30 days of inactivity.
+
+Your session token is stored in `~/.sharpnr/credentials.json`. It expires after 30 days of inactivity.
+
 </Callout>
 
 </Step>
@@ -80,9 +78,7 @@ On success you'll see:
 
 A workspace is your organization's home inside SharpNR — every product, user, and integration lives under it.
 
-<CodeBlock lang="bash">
-sharpnr workspace create
-</CodeBlock>
+<CodeBlock lang="bash">{`sharpnr workspace create`}</CodeBlock>
 
 You'll be prompted to enter:
 
@@ -91,7 +87,9 @@ You'll be prompted to enter:
 - **Region** — where your data is stored (`us-east-1`, `eu-west-1`, or `ap-south-1`)
 
 <Callout type="warning">
-  Your workspace **slug cannot be changed** after creation. Choose something short, lowercase, and recognizable — like your company name or abbreviation.
+
+Your workspace **slug cannot be changed** after creation. Choose something short, lowercase, and recognizable.
+
 </Callout>
 
 </Step>
@@ -100,24 +98,20 @@ You'll be prompted to enter:
 
 Inside your project directory, run:
 
-<CodeBlock lang="bash">
-sharpnr init
-</CodeBlock>
+<CodeBlock lang="bash">{`sharpnr init`}</CodeBlock>
 
-This scaffolds a `sharpnr.config.ts` at your project root and detects your environment automatically:
+This scaffolds a `sharpnr.config.ts` at your project root:
 
 <CodeBlock lang="ts" filename="sharpnr.config.ts" variant="file">
 {`import { defineConfig } from "@sharpnr/sdk";
 
 export default defineConfig({
-  workspace: "acme",             // your workspace slug
+  workspace: "acme",
   products: ["iam", "hr", "accounting"],
   region: "us-east-1",
   environment: process.env.NODE_ENV ?? "development",
 });`}
 </CodeBlock>
-
-You can add or remove products from the `products` array at any time — the CLI will sync only what's listed.
 
 </Step>
 
@@ -125,31 +119,23 @@ You can add or remove products from the `products` array at any time — the CLI
 
 Pull your workspace secrets and configuration into a local `.env` file:
 
-<CodeBlock lang="bash">
-sharpnr sync
-</CodeBlock>
+<CodeBlock lang="bash">{`sharpnr sync`}</CodeBlock>
 
 This writes `.env.sharpnr` with all required API keys pre-filled and ready to use.
 
 <Callout type="danger">
-  Add `.env.sharpnr` to your `.gitignore` immediately. It contains workspace-scoped API keys that should never be committed.
+
+Add `.env.sharpnr` to your `.gitignore` immediately. It contains workspace-scoped API keys that should never be committed.
+
 </Callout>
-
-Load it in your app by adding this to your entry file:
-
-<CodeBlock lang="ts" filename="src/index.ts" variant="file">
-{`import "@sharpnr/sdk/env"; // auto-loads .env.sharpnr`}
-</CodeBlock>
 
 </Step>
 
-<Step number={5} title="Connect SharpIAM (identity)">
+<Step number={5} title="Connect SharpIAM">
 
-SharpIAM is the identity backbone shared by all other products. Enable it first before connecting anything else.
+SharpIAM is the identity backbone shared by all other products. Enable it first.
 
-<CodeBlock lang="bash">
-sharpnr iam init
-</CodeBlock>
+<CodeBlock lang="bash">{`sharpnr iam init`}</CodeBlock>
 
 Then add the provider to your app:
 
@@ -168,42 +154,33 @@ export const auth = new SharpIAM({
 
 Add team members and assign roles directly from the CLI or the dashboard.
 
-**Via CLI:**
-
 <CodeBlock lang="bash">
-sharpnr team invite --email colleague@company.com --role member
+  {`sharpnr team invite --email colleague@company.com --role member`}
 </CodeBlock>
 
-**Available roles:**
-
-- `owner` — full access including billing and workspace deletion
-- `admin` — manage members, products, and integrations
-- `member` — standard access to assigned products
-- `viewer` — read-only access across all products
+Available roles: `owner`, `admin`, `member`, `viewer`
 
 <Callout type="tip">
-  You can also bulk-invite by passing a comma-separated list: `--email a@co.com,b@co.com`
+
+Bulk-invite by passing comma-separated emails: `--email a@co.com,b@co.com`
+
 </Callout>
 
 </Step>
 
-<Step number={7} title="Run your first health check">
+<Step number={7} title="Run a health check">
 
-Verify everything is connected and operational:
+Verify everything is connected:
 
-<CodeBlock lang="bash">
-sharpnr status
-</CodeBlock>
-
-A healthy workspace returns:
+<CodeBlock lang="bash">{`sharpnr status`}</CodeBlock>
 
 <CodeBlock lang="bash">
-✓  Workspace:    acme  [us-east-1]
+  {`✓  Workspace:    acme  [us-east-1]
 ✓  SharpIAM:     connected  (3 users)
 ✓  Sharp-HR:     connected
 ✓  Accounting:   connected
 ✓  API latency:  42ms
-●  All systems operational
+●  All systems operational`}
 </CodeBlock>
 
 </Step>
@@ -212,9 +189,7 @@ A healthy workspace returns:
 
 <SectionDivider label="What's next" />
 
-## Explore the platform
-
-You're all set. Here's where to go from here:
+## What's next {#whats-next}
 
 <CardGrid>
   <Card
@@ -255,6 +230,10 @@ You're all set. Here's where to go from here:
   />
 </CardGrid>
 
+## Need help? {#need-help}
+
 <Callout type="tip">
-  Stuck? Join the [SharpNR Discord](https://discord.gg/sharpnr) or open a ticket from your workspace dashboard. Our team responds within a few hours.
+
+Stuck? Join the [SharpNR Discord](https://discord.gg/sharpnr) or open a ticket from your workspace dashboard. Our team responds within a few hours.
+
 </Callout>

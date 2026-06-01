@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import mdx from "@mdx-js/rollup";
+import remarkCustomHeadingId from "remark-custom-heading-id";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,6 +16,7 @@ export default defineConfig({
     }),
     mdx({
       providerImportSource: "@mdx-js/react",
+      remarkPlugins: [remarkCustomHeadingId],
     }),
     react(),
     tailwindcss(),
