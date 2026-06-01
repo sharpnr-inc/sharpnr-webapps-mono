@@ -18,23 +18,13 @@ export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        {/* <Banner
-          changeLayout
-          variant="rainbow"
-          rainbowColors={[
-            "rgba(255,100,0, 0.5)",
-            "rgba(255,100,0, 0.5)",
-            "transparent",
-            "rgba(255,100,0, 0.5)",
-            "transparent",
-            "rgba(255,100,0, 0.5)",
-            "transparent",
-          ]}
-        >
-          <p className="font-bold">Sharpnr Docs V0.0.1</p>
-        </Banner> */}
-        ;<RootProvider>{children}</RootProvider>
+        <Banner changeLayout variant="rainbow">
+          🚧 Documentation is under active development. Some sections may be
+          incomplete.
+        </Banner>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   );
 }
+// this is app/layout.tsx
