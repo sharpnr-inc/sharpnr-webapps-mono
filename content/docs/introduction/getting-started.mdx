@@ -3,36 +3,214 @@ title: Getting Started
 description: Get up and running with Sharpnr Suite
 ---
 
+Sharpnr Suite is a collection of business applications designed to work together seamlessly. This guide will walk you through everything you need to get the suite running locally.
+
 ## Prerequisites
 
-Before you begin, make sure you have the following installed:
+Before you begin, make sure you have the following installed on your system:
 
-- Node.js v22+
-- Docker
-- PostgreSQL
+<Cards>
+  <Card title="Node.js v22+" href="https://nodejs.org">
+    Required for running all JavaScript-based services
+  </Card>
+  <Card title="Docker" href="https://docker.com">
+    Used for containerizing services and databases
+  </Card>
+  <Card title="PostgreSQL" href="https://postgresql.org">
+    Primary database for all Sharpnr apps
+  </Card>
+</Cards>
 
-## Quick Start
+You will also need the following tools:
+
+- **Git** — for cloning the repository
+- **Make** — for running the provided Makefile commands
+- **Nginx** — for serving apps via reverse proxy
+
+---
+
+## Installation
 
 <Steps>
   <Step>
-    ### Clone the repository ```bash git clone
-    https://github.com/sharpnr/sharpnr_suite.git cd sharpnr_suite ```
+    ### Clone the repo
+
+    ```bash
+    git clone https://github.com/sharpnr/sharpnr_suite.git
+    cd sharpnr_suite
+    ```
+
   </Step>
-  <Step>### Install dependencies ```bash npm install ```</Step>
   <Step>
-    ### Configure environment Copy the example env file and fill in your values:
-    ```bash cp .env.example .env ```
+    ### Install all dependencies
+
+    This installs dependencies for all apps in the suite at once:
+
+    ```bash
+    npm install
+    ```
+
   </Step>
-  <Step>### Start the suite ```bash make dev ```</Step>
+  <Step>
+    ### Copy the environment file
+
+    Each app has its own `.env.example`. Start with the root one:
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Then open `.env` and fill in your database credentials, secret keys, and app URLs.
+
+  </Step>
+  <Step>
+    ### Set up the database
+
+    Run migrations to set up the PostgreSQL schema:
+
+    ```bash
+    make db:migrate
+    ```
+
+  </Step>
+  <Step>
+    ### Start the suite
+
+    ```bash
+    make dev
+    ```
+
+    This starts all apps concurrently in development mode.
+
+  </Step>
 </Steps>
+
+---
+
+## Environment Variables
+
+Each app in the suite requires its own environment variables. Here's an overview of the most important ones:
+
+---
+
+## Project Structure
+
+After cloning, your project will look like this:
+
+```
+sharpnr_suite/
+├── sharp-auth/          # Authentication & Authorization
+├── sharp-accounting/    # Finance & Accounting
+├── sharp-iam/           # Identity & Access Management
+├── sharp-ui/            # Shared UI Component Library
+├── sharp-hr/            # Human Resources
+├── sharp-marketing/     # Marketing tools
+├── sharp-cortex/        # AI & Intelligence layer
+├── orchestrator/        # Central management app
+├── docs/                # This documentation site
+├── makefile             # Common dev commands
+└── ports.md             # Port assignments for each app
+```
+
+Each app is independently deployable but shares authentication through **Sharp Auth**.
+
+---
+
+## Running Individual Apps
+
+You don't have to run the entire suite at once. To start a specific app:
+
+```bash
+# Start only Sharp Auth
+make dev:auth
+
+# Start only Sharp Accounting
+make dev:accounting
+
+# Start only Orchestrator
+make dev:orchestrator
+```
+
+---
+
+## Nginx Setup
+
+All apps are served through Nginx using `.sharpnr.test` subdomains in development. Add the following to your `/etc/hosts`:
+
+```
+127.0.0.1 sharpnr.test
+127.0.0.1 auth.sharpnr.test
+127.0.0.1 accounting.sharpnr.test
+127.0.0.1 iam.sharpnr.test
+127.0.0.1 orchestrator.sharpnr.test
+127.0.0.1 docs.sharpnr.test
+```
+
+Then reload Nginx:
+
+```bash
+sudo nginx -s reload
+```
+
+---
+
+## Verifying the Setup
+
+<Steps>
+  <Step>
+    ### Check Sharp Auth
+
+    Open `http://auth.sharpnr.test` — you should see the login page.
+
+  </Step>
+  <Step>
+    ### Check Orchestrator
+
+    Open `http://orchestrator.sharpnr.test` — the app management dashboard should load.
+
+  </Step>
+  <Step>
+    ### Check the Docs
+
+    Open `http://docs.sharpnr.test` — you're already here!
+
+  </Step>
+</Steps>
+
+---
+
+## Common Issues
+
+<Callout type="warn">
+  If you see a **502 Bad Gateway** error in Nginx, the app on that port hasn't
+  started yet. Check `make dev` output for errors.
+</Callout>
+
+<Callout type="info">
+  If database migrations fail, make sure PostgreSQL is running and your
+  `DATABASE_URL` is correct in `.env`.
+</Callout>
+
+<Callout type="error">
+  Never commit your `.env` file. It contains secrets and is already listed in
+  `.gitignore`.
+</Callout>
+
+---
 
 ## Next Steps
 
 <Cards>
-  <Card title="Sharp Auth Setup" href="/sharp-auth/installation">
-    Set up authentication first — other apps depend on it
+  <Card title="Orchestrator" href="/orchestrator">
+    Start here — set up your organization and register your apps
+  </Card>
+  <Card title="Sharp Auth" href="/sharp-auth">
+    Configure authentication for your users
+  </Card>
+  <Card title="Sharp IAM" href="/sharp-iam">
+    Set up roles and permissions
   </Card>
   <Card title="Architecture" href="/introduction/architecture">
-    Understand how the apps fit together
+    Understand how all the pieces fit together
   </Card>
 </Cards>
