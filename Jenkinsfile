@@ -25,19 +25,7 @@ pipeline {
         }
 
         // ─────────────────────────────────────────
-        // 2. INJECT .env.production
-        // ─────────────────────────────────────────
-        stage('Inject Env') {
-            steps {
-                echo '🔐 Injecting .env.production...'
-                withCredentials([file(credentialsId: 'sharpnr-env-production', variable: 'ENV_FILE')]) {
-                    sh 'cp $ENV_FILE .env.production'
-                }
-            }
-        }
-
-        // ─────────────────────────────────────────
-        // 3. INSTALL DEPENDENCIES
+        // 2. INSTALL DEPENDENCIES
         // ─────────────────────────────────────────
         stage('Install') {
             steps {
@@ -89,9 +77,7 @@ pipeline {
             echo "❌ Build or deployment failed. Check the console output above."
         }
         always {
-            // Clean up the injected env file from workspace for security
-            sh 'rm -f .env.production'
-            echo '🧹 Cleaned up sensitive files from workspace.'
+            echo '🧹 Pipeline finished.'
         }
     }
 }
