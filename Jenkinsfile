@@ -1,14 +1,12 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'node-20'
-    }
-
     environment {
         APP_NAME   = 'sharpnr-docs'
         APP_PORT   = '6956'
         DEPLOY_DIR = '/media/sharpnrllpDrive/frontends/sharpnr-docs'
+        NODE_HOME  = '/home/sharpnrllp/.nvm/versions/node/v22.17.0/bin'
+        PATH       = "/home/sharpnrllp/.nvm/versions/node/v22.17.0/bin:${env.PATH}"
     }
 
     stages {
@@ -18,7 +16,7 @@ pipeline {
         // ─────────────────────────────────────────
         stage('Checkout') {
             steps {
-                echo '📦 Checking out source code...'
+                echo '📦 Syncing source code to deploy directory...'
                 sh """
                     mkdir -p ${DEPLOY_DIR}
                     rsync -a --delete \
@@ -51,22 +49,12 @@ pipeline {
         }
 
         // ─────────────────────────────────────────
-        // 4. START
+        // 4. RESTART
         // ─────────────────────────────────────────
-        stage('Start') {
+        stage('Restart') {
             steps {
-                echo '🚀 Starting app on port ${APP_PORT}...'
-                sh """
-                    # Kill any process already on port 6956
-                    fuser -k ${APP_PORT}/tcp || true
-
-                    # Start fresh in background, log to deploy dir
-                    cd ${DEPLOY_DIR}
-                    nohup npm start > ${DEPLOY_DIR}/app.log 2>&1 &
-                    echo \$! > ${DEPLOY_DIR}/app.pid
-
-                    echo "✅ App started with PID \$(cat ${DEPLOY_DIR}/app.pid)"
-                """
+                echo '🚀 Restarting app via systemd...'
+                sh 'sudo systemctl restart sharpnr-docs'
             }
         }
     }
@@ -82,7 +70,8 @@ pipeline {
             echo "❌ Build or deployment failed. Check the console output above."
         }
         always {
-            echo '🧹 Pipeline finished.'
+            echo '🧹 Cleaning up Jenkins workspace...'
+            cleanWs()
         }
     }
 }
