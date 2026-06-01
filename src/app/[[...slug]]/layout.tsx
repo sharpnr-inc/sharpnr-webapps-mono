@@ -12,6 +12,11 @@ export default function Layout({ children }: { children: ReactNode }) {
         collapsible: true,
         defaultOpenLevel: 1,
       }}
+      tabs={{
+        transform(option, node) {
+          return option;
+        },
+      }}
     >
       {children}
     </DocsLayout>

@@ -1,0 +1,7 @@
+{
+  "title": "Orchestrator",
+  "description": "Apps and Organization management and orchestation for Sharpnr Suite",
+  "root": true,
+  "icon": "Shield",
+  "pages": ["index", "installation", "configuration"]
+}

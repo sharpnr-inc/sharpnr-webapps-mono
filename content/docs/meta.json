@@ -1,4 +1,4 @@
 {
   "title": "Sharpnr Docs",
-  "pages": ["index", "---", "introduction"]
+  "pages": ["index", "introduction", "---", "orchestrator", "sharp-accounting"]
 }
