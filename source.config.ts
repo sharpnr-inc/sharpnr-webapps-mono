@@ -19,6 +19,15 @@ export const docs = defineDocs({
 
 export default defineConfig({
   mdxOptions: {
-    remarkPlugins: [remarkMdxMermaid],
+    remarkPlugins: [
+      [
+        remarkMdxMermaid,
+        {
+          mermaidOptions: {
+            theme: "neutral", // Enforces a colorless, grayscale theme that adapts cleanly to dark/light modes
+          },
+        },
+      ],
+    ],
   },
 });

@@ -14,38 +14,43 @@ Sharpnr offers a wide range of cloud based services and solutions designed to st
 
 Sharpnr's architecture is built on a robust and scalable cloud infrastructure, ensuring high availability and performance. The platform is designed to be flexible and adaptable, allowing businesses of all sizes to leverage its capabilities effectively. Sharpnr integrates various services and tools to provide a comprehensive solution for business operations management.
 
-// we need a mermaid diagram here to show the architecture overview
-// in meraid visualize the on Top we have Business Operations, Business operation is consired the a business that need a software to manage the operations when interacting with their customers like a restaurant needs a software to manage the orders and or you can table manangement and reservation managment, etc etc, restaurant is just a one of many examples of business operations, and then below the business operations we Business/organization itself, and below that we shapnr under lying services and tools that sharpnr offers like sharp-accounting, sharp-hrms, silo(for dta storage), in Business operation sharpnr also offers a set of tools for variaty of business sectors and industries like retail, healthcare, hospitality, for hospitality we sharp-hospitality which supports restaurant, hotels, Bar Night clubs etc,
-sharp-hospitality can talk to sharp-accounting to manage the financial aspect of the business, and it can also talk to sharp-hrms to manage the human resources aspect of the business, and it can also talk to silo for data storage and management, and it can also talk to other tools and services that sharpnr offers for other business sectors and industries, and all these tools and services are integrated together to provide a seamless experience for the business operations management. and operations app and services app works independently but they can also talk to each other to provide a more comprehensive solution for the business operations management.
+{/* we need a mermaid diagram here to show the architecture overview
+in meraid visualize the on Top we have Business Operations, Business operation is consired the a business that need a software to manage the operations when interacting with their customers like a restaurant needs a software to manage the orders and or you can table manangement and reservation managment, etc etc, restaurant is just a one of many examples of business operations, and then below the business operations we Business/organization itself, and below that we shapnr under lying services and tools that sharpnr offers like sharp-accounting, sharp-hrms, silo(for dta storage), in Business operation sharpnr also offers a set of tools for variaty of business sectors and industries like retail, healthcare, hospitality, for hospitality we sharp-hospitality which supports restaurant, hotels, Bar Night clubs etc,
+sharp-hospitality can talk to sharp-accounting to manage the financial aspect of the business, and it can also talk to sharp-hrms to manage the human resources aspect of the business, and it can also talk to silo for data storage and management, and it can also talk to other tools and services that sharpnr offers for other business sectors and industries, and all these tools and services are integrated together to provide a seamless experience for the business operations management. and operations app and services app works independently but they can also talk to each other to provide a more comprehensive solution for the business operations management. */}
 
 ```mermaid
 flowchart TD
-    subgraph OPS["Business Operations"]
-        HOSP["Sharp-Hospitality\nRestaurants · Hotels · Bars"]
-        RETAIL["Sharp-Retail\nInventory · POS"]
-        HEALTH["Sharp-Healthcare\nClinics · Hospitals"]
+    %% Use structural shapes instead of colors to differentiate layers %%
+
+    subgraph OPS["Business Operations (Industry Specific)"]
+        HOSP(["Sharp-Hospitality\n(Restaurants · Hotels · Bar · Kitchen)"])
+        RETAIL(["Sharp-Retail\n(Inventory · POS)"])
+        HEALTH(["Sharp-Healthcare\n(Clinics · Hospitals)"])
     end
 
-    subgraph ORG["Business / Organization"]
-        TEAMS["Teams"]
-        FIN["Finances"]
-        IAM["Identity & Access"]
+    subgraph ORG["Business / Organization Core"]
+        TEAMS{"Teams"}
+        FIN{"Finances"}
+        IAM{"Identity & Access"}
     end
 
     subgraph PLATFORM["Sharpnr Underlying Services"]
         ACCT["Sharp-Accounting"]
         HRMS["Sharp-HRMS"]
         SIAMM["Sharp-IAM"]
-        SILO["Sharp-Silo"]
-        ORCH["Orchestrator"]
+        SILO[("Sharp-Silo\n(Data Storage)")]
+        ORCH[["Orchestrator"]]
         CABLE["Sharp-Cable"]
     end
 
-    OPS -->|integrates with| ORG
-    ORG -->|powered by| PLATFORM
-    HOSP <-->|financial data| ACCT
-    HOSP <-->|staff data| HRMS
-    HOSP <-->|file storage| SILO
+    %% Flow of integration %%
+    OPS ===|Integrates with| ORG
+    ORG ===|Powered by| PLATFORM
+
+    %% Specific Service Interactions (Dotted lines for background talk) %%
+    HOSP -.->|Financial data| ACCT
+    HOSP -.->|Staff data| HRMS
+    HOSP -.->|File storage| SILO
 ```
 
 <ArchitectureDiagram />

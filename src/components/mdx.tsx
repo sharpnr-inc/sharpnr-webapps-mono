@@ -5,6 +5,7 @@ import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 import { Callout } from "fumadocs-ui/components/callout";
 import { Cards, Card } from "fumadocs-ui/components/card";
 import { Mermaid } from "@/components/mermaid";
+import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -17,6 +18,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Cards,
     Card,
     Mermaid,
+    ArchitectureDiagram,
     ...components,
   };
 }
