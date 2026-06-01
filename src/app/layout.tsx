@@ -18,7 +18,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <Banner
+        {/* <Banner
           changeLayout
           variant="rainbow"
           rainbowColors={[
@@ -32,7 +32,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           ]}
         >
           <p className="font-bold">Sharpnr Docs V0.0.1</p>
-        </Banner>
+        </Banner> */}
         ;<RootProvider>{children}</RootProvider>
       </body>
     </html>

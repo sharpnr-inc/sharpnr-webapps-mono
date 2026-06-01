@@ -7,6 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <DocsLayout
       tree={source.getPageTree()}
+      links={[]}
       {...baseOptions()}
       sidebar={{
         collapsible: true,
@@ -16,6 +17,9 @@ export default function Layout({ children }: { children: ReactNode }) {
         transform(option, node) {
           return option;
         },
+      }}
+      nav={{
+        transparentMode: "top",
       }}
     >
       {children}

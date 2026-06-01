@@ -1,12 +1,14 @@
 {
   "title": "Sharpnr Docs",
   "pages": [
+    "---Introduction---",
     "index",
     "overview",
     "sharpnr-platform",
     "architecture",
-    "introduction",
-    "---",
+    "---Getting Started---",
+    "signup-and-onboarding",
+    "---Sharpnr Services---",
     "orchestrator",
     "sharp-accounting"
   ]
