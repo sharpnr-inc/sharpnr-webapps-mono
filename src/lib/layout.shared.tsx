@@ -1,5 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import { appName, gitConfig } from "./shared";
+import pkg from "../../package.json";
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -12,10 +13,14 @@ export function baseOptions(): BaseLayoutProps {
             className="h-10 w-10"
           />
           <span className="font-bold">Sharpnr Docs</span>
-          <span className="rounded-md border px-2 py-0.5 text-xs">v0.0.1</span>
+          <span className="rounded-md border px-2 py-0.5 text-xs">
+            {" "}
+            v{pkg.version}
+          </span>
         </div>
       ),
     },
+
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };
 }
