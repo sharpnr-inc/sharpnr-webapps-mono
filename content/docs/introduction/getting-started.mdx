@@ -1,0 +1,38 @@
+---
+title: Getting Started
+description: Get up and running with Sharpnr Suite
+---
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- Node.js v22+
+- Docker
+- PostgreSQL
+
+## Quick Start
+
+<Steps>
+  <Step>
+    ### Clone the repository ```bash git clone
+    https://github.com/sharpnr/sharpnr_suite.git cd sharpnr_suite ```
+  </Step>
+  <Step>### Install dependencies ```bash npm install ```</Step>
+  <Step>
+    ### Configure environment Copy the example env file and fill in your values:
+    ```bash cp .env.example .env ```
+  </Step>
+  <Step>### Start the suite ```bash make dev ```</Step>
+</Steps>
+
+## Next Steps
+
+<Cards>
+  <Card title="Sharp Auth Setup" href="/sharp-auth/installation">
+    Set up authentication first — other apps depend on it
+  </Card>
+  <Card title="Architecture" href="/introduction/architecture">
+    Understand how the apps fit together
+  </Card>
+</Cards>

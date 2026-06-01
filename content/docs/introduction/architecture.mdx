@@ -1,0 +1,42 @@
+---
+title: Architecture
+description: How Sharpnr Suite is structured
+---
+
+## Overview
+
+Sharpnr Suite follows a microservices architecture where each app is independent but communicates through well-defined APIs.
+
+## Stack
+
+<Tabs items={["Frontend", "Backend", "Infrastructure"]}>
+  <Tab value="Frontend">
+    - **Next.js** — React framework - **Sharp UI** — internal component library
+    - **Tailwind CSS** — styling
+  </Tab>
+  <Tab value="Backend">
+    - **Node.js** — runtime - **PostgreSQL** — primary database - **Sharp Auth**
+    — handles all authentication
+  </Tab>
+  <Tab value="Infrastructure">
+    - **Nginx** — reverse proxy - **Docker** — containerization - **Jenkins** —
+    CI/CD
+  </Tab>
+</Tabs>
+
+## App Communication
+
+<Steps>
+  <Step>
+    ### Authentication Every request first goes through **Sharp Auth** to verify
+    identity
+  </Step>
+  <Step>
+    ### Authorization **Sharp IAM** checks if the user has permission for the
+    requested resource
+  </Step>
+  <Step>
+    ### App Logic The request is processed by the relevant app (Accounting,
+    Marketplace, etc.)
+  </Step>
+</Steps>
