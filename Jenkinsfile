@@ -6,10 +6,9 @@ pipeline {
     }
 
     environment {
-        APP_NAME        = 'sharpnr-docs'
-        APP_PORT        = '6956'
-        PM2_APP_NAME    = 'sharpnr-docs'
-        NODE_ENV        = 'production'
+        APP_NAME   = 'sharpnr-docs'
+        APP_PORT   = '6956'
+        DEPLOY_DIR = '/media/sharpnrllpDrive/frontends/sharpnr-docs'
     }
 
     stages {
@@ -20,7 +19,14 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo '📦 Checking out source code...'
-                checkout scm
+                sh """
+                    mkdir -p ${DEPLOY_DIR}
+                    rsync -a --delete \
+                        --exclude='.git' \
+                        --exclude='node_modules' \
+                        --exclude='.next' \
+                        ${WORKSPACE}/ ${DEPLOY_DIR}/
+                """
             }
         }
 
@@ -30,37 +36,36 @@ pipeline {
         stage('Install') {
             steps {
                 echo '📥 Installing dependencies...'
-                sh 'npm ci --include=dev'
+                sh "cd ${DEPLOY_DIR} && npm ci --include=dev"
             }
         }
 
         // ─────────────────────────────────────────
-        // 4. BUILD
+        // 3. BUILD
         // ─────────────────────────────────────────
         stage('Build') {
             steps {
                 echo '🏗️  Building Next.js app...'
-                sh 'npm run build'
+                sh "cd ${DEPLOY_DIR} && npm run build"
             }
         }
 
         // ─────────────────────────────────────────
-        // 5. START / RESTART WITH PM2
+        // 4. START
         // ─────────────────────────────────────────
         stage('Start') {
             steps {
-                echo '🚀 Starting app with PM2...'
+                echo '🚀 Starting app on port ${APP_PORT}...'
                 sh """
-                    # Install PM2 globally if not present
-                    which pm2 || npm install -g pm2
+                    # Kill any process already on port 6956
+                    fuser -k ${APP_PORT}/tcp || true
 
-                    # If already running, reload gracefully — otherwise start fresh
-                    pm2 describe ${PM2_APP_NAME} > /dev/null 2>&1 \
-                        && pm2 reload ${PM2_APP_NAME} --update-env \
-                        || pm2 start npm --name "${PM2_APP_NAME}" -- start -- -p ${APP_PORT}
+                    # Start fresh in background, log to deploy dir
+                    cd ${DEPLOY_DIR}
+                    nohup npm start > ${DEPLOY_DIR}/app.log 2>&1 &
+                    echo \$! > ${DEPLOY_DIR}/app.pid
 
-                    # Persist PM2 process list across reboots
-                    pm2 save
+                    echo "✅ App started with PID \$(cat ${DEPLOY_DIR}/app.pid)"
                 """
             }
         }
