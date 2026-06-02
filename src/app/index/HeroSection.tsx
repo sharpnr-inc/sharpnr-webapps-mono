@@ -59,7 +59,7 @@ export function HeroSection() {
     <>
       <section
         ref={sectionRef}
-        className="border-r-3 border-l-3 border-dashed border-white/10 flex justify-center w-full max-w-7xl mx-auto mt-14"
+        className="flex justify-center w-full max-w-7xl mx-auto mt-14"
       >
         {/* Two-column layout */}
         <div className="z-10 w-full px-8 md:px-16 lg:px-20 py-20 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24 ">

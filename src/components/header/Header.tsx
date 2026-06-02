@@ -8,7 +8,7 @@ export function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-blend-screen">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b bg-[#02000d]">
       <div className="container mx-auto px-6 flex items-center justify-between py-4">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2.5">
@@ -59,9 +59,9 @@ export function Header() {
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={() => window.location.replace(config.iamAppUrl)}
-            className="text-sm font-semibold tracking-widest text-slate-400
+            className="text-sm font-semibold  text-slate-400
                        hover:text-slate-50 transition-colors duration-200
-                       bg-transparent border-none cursor-pointer"
+                       bg-transparent cursor-pointer"
           >
             LOGIN
           </button>
@@ -74,7 +74,7 @@ export function Header() {
                        hover:bg-slate-200 rounded-lg px-4 py-2
                        transition-colors duration-200 border-none cursor-pointer"
           >
-            GET STARTED
+            Signup
           </button>
         </div>
 
