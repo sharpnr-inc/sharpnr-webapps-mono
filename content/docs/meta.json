@@ -13,6 +13,15 @@
     "---Sharpnr Services---",
     "orchestrator",
     "sharp-accounting",
-    "sharp-hrms"
+    "sharp-hrms",
+    "sharp-iam",
+    "sharp-marketing",
+    "cables",
+    "silo",
+    "folio",
+    "---Platform Services---",
+    "sharp-marketplace",
+    "---Business Operations Apps---",
+    "sharp-hospitality"
   ]
 }
