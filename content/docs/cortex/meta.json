@@ -1,0 +1,6 @@
+{
+  "title": "Cortex",
+  "description": "IT layer for sharpnr platform",
+  "icon": "Cpu",
+  "pages": ["index"]
+}
