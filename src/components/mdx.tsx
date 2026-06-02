@@ -6,6 +6,7 @@ import { Callout } from "fumadocs-ui/components/callout";
 import { Cards, Card } from "fumadocs-ui/components/card";
 import { Mermaid } from "@/components/mermaid";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
+import { SharpnrPlatformArchitecture } from "@/components/SharpnrPlatformAchitecture";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -19,6 +20,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Card,
     Mermaid,
     ArchitectureDiagram,
+    SharpnrPlatformArchitecture,
     ...components,
   };
 }
