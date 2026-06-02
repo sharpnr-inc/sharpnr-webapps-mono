@@ -1,7 +1,5 @@
 pipeline {
 agent any
-
-```
 environment {
     APP_NAME   = 'sharpnr-docs'
     APP_PORT   = '6956'
@@ -32,11 +30,13 @@ stages {
         steps {
             echo '📥 Installing dependencies...'
             sh '''
-                ${NODE_BIN}/node -v
-                ${NODE_BIN}/npm -v
+                export PATH=/var/lib/jenkins/.nvm/versions/node/v22.22.3/bin:$PATH
+
+                echo "Node: $(node -v)"
+                echo "NPM:  $(npm -v)"
 
                 cd ${DEPLOY_DIR}
-                ${NODE_BIN}/npm ci --include=dev
+                npm ci --include=dev
             '''
         }
     }
@@ -45,8 +45,10 @@ stages {
         steps {
             echo '🏗️ Building Next.js app...'
             sh '''
+                export PATH=/var/lib/jenkins/.nvm/versions/node/v22.22.3/bin:$PATH
+
                 cd ${DEPLOY_DIR}
-                ${NODE_BIN}/npm run build
+                npm run build
             '''
         }
     }
@@ -73,6 +75,5 @@ post {
         cleanWs()
     }
 }
-```
 
 }
