@@ -57,10 +57,30 @@ export async function generateMetadata(
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const description =
+    page.data.description ??
+    `Learn more about ${page.data.title} in the Sharpnr documentation.`;
+
   return {
     title: page.data.title,
-    description: page.data.description,
+    description,
+    keywords: [
+      ...page.data.title.split(" "),
+      "sharpnr",
+      "documentation",
+      "how to",
+      "guide",
+      "tutorial",
+    ],
     openGraph: {
+      title: `${page.data.title} | Sharpnr Docs`,
+      description,
+      images: getPageImage(page).url,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${page.data.title} | Sharpnr Docs`,
+      description,
       images: getPageImage(page).url,
     },
   };

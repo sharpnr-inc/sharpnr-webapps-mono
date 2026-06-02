@@ -1,0 +1,7 @@
+{
+  "title": "Silo",
+  "icon": "Database",
+  "description": "A Storage service",
+  "root": true,
+  "pages": ["index", "overview", "sharpnr-platform", "architecture"]
+}

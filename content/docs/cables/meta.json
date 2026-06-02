@@ -1,0 +1,7 @@
+{
+  "title": "Cables",
+  "icon": "Cable",
+  "description": "A Communication service",
+  "root": true,
+  "pages": ["index", "overview", "sharpnr-platform", "architecture"]
+}
