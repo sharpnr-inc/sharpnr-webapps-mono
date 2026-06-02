@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ProductsRouteImport } from './routes/products'
-import { Route as InfraRouteImport } from './routes/infra'
+import { Route as InfrastructureRouteImport } from './routes/infrastructure'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -24,9 +24,9 @@ const ProductsRoute = ProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InfraRoute = InfraRouteImport.update({
-  id: '/infra',
-  path: '/infra',
+const InfrastructureRoute = InfrastructureRouteImport.update({
+  id: '/infrastructure',
+  path: '/infrastructure',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,34 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/infra': typeof InfraRoute
+  '/infrastructure': typeof InfrastructureRoute
   '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/infra': typeof InfraRoute
+  '/infrastructure': typeof InfrastructureRoute
   '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/infra': typeof InfraRoute
+  '/infrastructure': typeof InfrastructureRoute
   '/products': typeof ProductsRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/infra' | '/products' | '/services'
+  fullPaths: '/' | '/infrastructure' | '/products' | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/infra' | '/products' | '/services'
-  id: '__root__' | '/' | '/infra' | '/products' | '/services'
+  to: '/' | '/infrastructure' | '/products' | '/services'
+  id: '__root__' | '/' | '/infrastructure' | '/products' | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  InfraRoute: typeof InfraRoute
+  InfrastructureRoute: typeof InfrastructureRoute
   ProductsRoute: typeof ProductsRoute
   ServicesRoute: typeof ServicesRoute
 }
@@ -85,11 +85,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/infra': {
-      id: '/infra'
-      path: '/infra'
-      fullPath: '/infra'
-      preLoaderRoute: typeof InfraRouteImport
+    '/infrastructure': {
+      id: '/infrastructure'
+      path: '/infrastructure'
+      fullPath: '/infrastructure'
+      preLoaderRoute: typeof InfrastructureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,7 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  InfraRoute: InfraRoute,
+  InfrastructureRoute: InfrastructureRoute,
   ProductsRoute: ProductsRoute,
   ServicesRoute: ServicesRoute,
 }
