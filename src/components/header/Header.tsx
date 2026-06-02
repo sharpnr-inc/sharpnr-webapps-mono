@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { config } from "@/configs/env";
 import { useNavigate } from "@tanstack/react-router";
 
-export default function Header() {
+export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -51,17 +51,7 @@ export default function Header() {
                        transition-colors duration-200
                        bg-transparent border-none cursor-pointer"
           >
-            Infrastructure
-          </button>
-
-          <button
-            onClick={() => navigate({ to: "/products" })}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400
-                       hover:text-slate-50 hover:bg-white/[0.06]
-                       transition-colors duration-200
-                       bg-transparent border-none cursor-pointer"
-          >
-            Pricing
+            Industries
           </button>
         </nav>
 

@@ -5,18 +5,19 @@
 import { HeroSection } from "./HeroSection";
 import WobbleCardDemo from "@/components/wobble-card-demo";
 import Footer from "@/components/footer/Footer";
+import { Header } from "@/components/header/Header";
 
 export function Website() {
   return (
-    <div className="bg-[#02000d]">
-      {/* This is Hero Section of the Website Here we have the the Banner and Intro */}
+    <div className="bg-[#02000d] flex flex-col items-center min-h-screen">
+      <Header />
       <HeroSection />
-
-      <div>
+      <div className="w-full">
         <WobbleCardDemo />
       </div>
-
-      <Footer />
+      <div className="mt-10 w-full">
+        <Footer />
+      </div>
     </div>
   );
 }

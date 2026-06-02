@@ -4,8 +4,6 @@ import { AIChatOverlay } from "@/components/AIChat";
 import { AIQuestionReel } from "./AIQuestionReel";
 
 export function HeroSection() {
-
-  
   const sectionRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -59,10 +57,13 @@ export function HeroSection() {
 
   return (
     <>
-      <section ref={sectionRef} className="flex items-center">
+      <section
+        ref={sectionRef}
+        className="border-r-3 border-l-3 border-dashed border-white/10 flex justify-center w-full max-w-7xl mx-auto mt-14"
+      >
         {/* Two-column layout */}
         <div className="z-10 w-full px-8 md:px-16 lg:px-20 py-20 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24 ">
-          {/* ── Left col: Copy ─────────────────────────────────────────── */}
+          {/* ── Left col: Copy start ─────────────────────────────────────────── */}
           <div className="flex-1 max-w-[560px]">
             <div
               ref={badgeRef}
@@ -79,24 +80,22 @@ export function HeroSection() {
 
             <h1
               ref={headlineRef}
-              className="text-5xl md:text-[76px] font-bold leading-[1.02] tracking-tight text-white mb-8"
+              className="text-5xl font-bold leading-[1.02] tracking-tight text-white mb-8"
             >
-              Unified Enterprise.
+              One Platform
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-emerald-400">
-                CRM. HRMS. Accounting.
+                Every Business
               </span>
             </h1>
 
-            <p
-              ref={subtextRef}
-              className="text-lg md:text-xl leading-relaxed text-slate-400 max-w-xl mb-12"
-            >
+            <p ref={subtextRef} className=" text-blue-50 mb-12">
               Replace fragmented tools with Sharpnr's unified OS for business.
               Deeply integrated CRM, HRMS, and Accounting software designed for
               organizations that demand precision.
             </p>
           </div>
+          {/* ── Left col: Copy ends ─────────────────────────────────────────── */}
 
           {/* ── Right col: Question Reel ─────────────────────────────── */}
           <div
@@ -105,6 +104,7 @@ export function HeroSection() {
           >
             <AIQuestionReel onOpen={openChat} />
           </div>
+          {/* ── Right col: Question Reel ─────────────────────────────── */}
         </div>
       </section>
 
