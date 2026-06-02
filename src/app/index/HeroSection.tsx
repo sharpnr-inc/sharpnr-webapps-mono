@@ -4,6 +4,8 @@ import { AIChatOverlay } from "@/components/AIChat";
 import { AIQuestionReel } from "./AIQuestionReel";
 
 export function HeroSection() {
+
+  
   const sectionRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -55,44 +57,11 @@ export function HeroSection() {
     return () => ctx.revert();
   }, []);
 
-  const handleButtonMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget;
-    const rect = btn.getBoundingClientRect();
-    gsap.to(btn, {
-      x: (e.clientX - rect.left - rect.width / 2) * 0.3,
-      y: (e.clientY - rect.top - rect.height / 2) * 0.3,
-      duration: 0.4,
-      ease: "power2.out",
-    });
-  };
-  const handleButtonMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, {
-      x: 0,
-      y: 0,
-      duration: 0.6,
-      ease: "elastic.out(1, 0.3)",
-    });
-  };
-
   return (
     <>
-      <section
-        ref={sectionRef}
-        className="relative  min-h-screen flex items-center overflow-hidden"
-      >
-        {/* Background */}
-        {/* <div className="absolute inset-0 z-0">
-          <AppGridBackground />
-        </div> */}
-
-        {/* Spotlight */}
-        <div
-          ref={spotlightRef}
-          className="pointer-events-none absolute top-0 left-0 w-[800px] h-[800px] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-screen overflow-hidden z-0"
-        />
-
+      <section ref={sectionRef} className="flex items-center">
         {/* Two-column layout */}
-        <div className="relative z-10 w-full px-8 md:px-16 lg:px-20 py-20 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24 ">
+        <div className="z-10 w-full px-8 md:px-16 lg:px-20 py-20 flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-24 ">
           {/* ── Left col: Copy ─────────────────────────────────────────── */}
           <div className="flex-1 max-w-[560px]">
             <div
@@ -100,7 +69,7 @@ export function HeroSection() {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 mb-8"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+                <span className="animate-ping  inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
               </span>
               <span className="text-[11px] font-semibold text-indigo-300 uppercase tracking-widest">
@@ -127,23 +96,6 @@ export function HeroSection() {
               Deeply integrated operations for organizations that demand
               precision.
             </p>
-
-            <div ref={ctaRef} className="flex flex-wrap gap-5">
-              <button
-                onMouseMove={handleButtonMouseMove}
-                onMouseLeave={handleButtonMouseLeave}
-                className="px-8 py-4 bg-indigo-600 text-white text-[15px] font-semibold rounded-xl transition-all hover:bg-indigo-500 hover:shadow-[0_0_30px_-5px_rgba(79,70,229,0.6)]"
-              >
-                Start your transformation
-              </button>
-              <button
-                onMouseMove={handleButtonMouseMove}
-                onMouseLeave={handleButtonMouseLeave}
-                className="px-8 py-4 bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 hover:border-white/20 text-slate-300 text-[15px] font-medium rounded-xl transition-all"
-              >
-                See how it works →
-              </button>
-            </div>
           </div>
 
           {/* ── Right col: Question Reel ─────────────────────────────── */}
@@ -152,13 +104,6 @@ export function HeroSection() {
             className="w-full lg:w-auto flex justify-center lg:justify-end shrink-0 lg:max-w-[720px]"
           >
             <AIQuestionReel onOpen={openChat} />
-          </div>
-        </div>
-
-        {/* Side decoration */}
-        <div className="absolute bottom-0 right-0 p-10 hidden xl:block pointer-events-none opacity-40">
-          <div className="text-[10px] font-mono text-slate-600 rotate-90 origin-right translate-y-[-100%] uppercase tracking-[0.5em]">
-            Connectivity • Automation • Scalability
           </div>
         </div>
       </section>
