@@ -81,10 +81,10 @@ export function HeroSection() {
               ref={headlineRef}
               className="text-5xl md:text-[76px] font-bold leading-[1.02] tracking-tight text-white mb-8"
             >
-              One Platform.
+              Unified Enterprise.
               <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-emerald-400">
-                Every Business.
+                CRM. HRMS. Accounting.
               </span>
             </h1>
 
@@ -92,9 +92,9 @@ export function HeroSection() {
               ref={subtextRef}
               className="text-lg md:text-xl leading-relaxed text-slate-400 max-w-xl mb-12"
             >
-              Replace your fragmented tech stack with a unified OS for business.
-              Deeply integrated operations for organizations that demand
-              precision.
+              Replace fragmented tools with Sharpnr's unified OS for business.
+              Deeply integrated CRM, HRMS, and Accounting software designed for
+              organizations that demand precision.
             </p>
           </div>
 
