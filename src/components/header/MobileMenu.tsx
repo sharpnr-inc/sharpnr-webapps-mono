@@ -84,7 +84,7 @@ export function MobileMenu({ setIsOpen }: MobileMenuProps) {
                 whileTap={{ x: 4 }}
               >
                 <span
-                  className="text-[2rem] font-serif tracking-tight leading-none
+                  className="text-[1.5rem] font-sora  leading-none tracking-wide
                              text-slate-500 group-hover:text-slate-50
                              transition-colors duration-200"
                 >

@@ -16,6 +16,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { TextPlugin } from "gsap/TextPlugin";
+import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(
   useGSAP,
@@ -32,5 +33,6 @@ gsap.registerPlugin(
   TextPlugin,
   ExpoScaleEase,
   SlowMo,
+  SplitText,
 );
 export { gsap };
