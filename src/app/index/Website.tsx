@@ -3,17 +3,11 @@
 // and use scroll animation effects or we can figure out something else.
 
 import { HeroSection } from "./HeroSection";
-import WobbleCardDemo from "@/components/wobble-card-demo";
-import { Header } from "@/components/header/Header";
 
 export function Website() {
   return (
     <div className="bg-[#02000d] flex flex-col items-center min-h-screen">
-      <Header />
       <HeroSection />
-      <div className="w-full scroll-mb-10">
-        <WobbleCardDemo />
-      </div>
     </div>
   );
 }
