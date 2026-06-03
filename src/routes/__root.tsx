@@ -1,21 +1,17 @@
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-import Aurora from "@/components/ui/aurora-backgound";
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
-
-const RootLayout = () => (
-  <main className="relative w-full bg-slate-950 text-slate-50 overflow-x-hidden">
-    <div className="fixed inset-0 z-0 pointer-events-none opacity-50">
-      <Aurora colorStops={["#0a0a0a", "#1e1b4b", "#0a0a0a"]} amplitude={1.2} />
-    </div>
-    <div className="relative z-10 w-full">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-  </main>
-);
+// src/routes/__root.tsx
+import {
+  createRootRoute,
+  Outlet,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
 
 export const Route = createRootRoute({
-  component: RootLayout,
+  component: () => (
+    <>
+      <HeadContent />
+      <Outlet />
+      <Scripts />
+    </>
+  ),
 });
