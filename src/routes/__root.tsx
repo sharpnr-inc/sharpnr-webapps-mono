@@ -1,4 +1,5 @@
 // src/routes/__root.tsx
+import Footer from "@/components/footer/Footer";
 import {
   createRootRoute,
   Outlet,
@@ -11,6 +12,7 @@ export const Route = createRootRoute({
     <>
       <HeadContent />
       <Outlet />
+      <Footer />
       <Scripts />
     </>
   ),

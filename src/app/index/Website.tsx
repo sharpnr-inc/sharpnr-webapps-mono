@@ -4,7 +4,6 @@
 
 import { HeroSection } from "./HeroSection";
 import WobbleCardDemo from "@/components/wobble-card-demo";
-import Footer from "@/components/footer/Footer";
 import { Header } from "@/components/header/Header";
 
 export function Website() {
@@ -12,11 +11,8 @@ export function Website() {
     <div className="bg-[#02000d] flex flex-col items-center min-h-screen">
       <Header />
       <HeroSection />
-      <div className="w-full">
+      <div className="w-full scroll-mb-10">
         <WobbleCardDemo />
-      </div>
-      <div className="mt-10 w-full">
-        <Footer />
       </div>
     </div>
   );

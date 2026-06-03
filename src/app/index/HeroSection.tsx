@@ -77,14 +77,10 @@ export function HeroSection() {
           {/* Badge */}
           <div
             ref={badgeRef}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
-                       border border-indigo-500/20 bg-indigo-500/[0.07] mb-7"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/[0.07] mb-7"
           >
             <span className="relative flex h-2 w-2">
-              <span
-                className="animate-ping absolute inline-flex h-full w-full
-                               rounded-full bg-indigo-400 opacity-75"
-              />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
             </span>
             <span
@@ -99,14 +95,11 @@ export function HeroSection() {
           <h1
             ref={headlineRef}
             className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem]
-                       font-bold leading-[1.0] tracking-tight text-white mb-6"
+                       font-bold leading-[1.0] font-inter tracking-tight text-white mb-6"
           >
             One Platform
             <br />
-            <span
-              className="bg-clip-text text-transparent
-                             bg-gradient-to-r from-indigo-400 via-violet-400 to-emerald-400"
-            >
+            <span className="bg-clip-text text-transparent font-inter bg-gradient-to-r from-indigo-400 via-violet-400 to-emerald-400">
               Every Business
             </span>
           </h1>
