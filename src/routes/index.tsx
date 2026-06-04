@@ -1,3 +1,4 @@
+import FeaturesSections from "@/app/index/FeaturesSections";
 import { HeroSection } from "@/app/index/HeroSection";
 import SharpnrIntro from "@/app/index/SharpnrIntro";
 import { createFileRoute } from "@tanstack/react-router";
@@ -38,6 +39,7 @@ function RootComponent() {
     <div>
       <HeroSection />
       <SharpnrIntro />
+      <FeaturesSections />
     </div>
   );
 }
