@@ -38,7 +38,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-900 pt-20 pb-10 px-6 relative overflow-hidden">
+    <footer className=" border-t border-slate-900 pt-20 pb-10 px-6 relative overflow-hidden">
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
           <div className="col-span-2 lg:col-span-1">
@@ -49,16 +49,26 @@ export default function Footer() {
               <span className="text-xl font-serif text-slate-50">Sharpnr</span>
             </a>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs font-sans">
-              One Platform. Every Business. The deeply integrated ecosystem for modern organizations.
+              One Platform. Every Business. The deeply integrated ecosystem for
+              modern organizations.
             </p>
             <div className="flex gap-4 mt-8">
-              <a href="#" className="text-slate-500 hover:text-slate-50 transition-colors">
+              <a
+                href="#"
+                className="text-slate-500 hover:text-slate-50 transition-colors"
+              >
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-slate-500 hover:text-slate-50 transition-colors">
+              <a
+                href="#"
+                className="text-slate-500 hover:text-slate-50 transition-colors"
+              >
                 <Github size={20} />
               </a>
-              <a href="#" className="text-slate-500 hover:text-slate-50 transition-colors">
+              <a
+                href="#"
+                className="text-slate-500 hover:text-slate-50 transition-colors"
+              >
                 <Linkedin size={20} />
               </a>
             </div>

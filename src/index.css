@@ -8,9 +8,11 @@
   --font-outfit: "Outfit", sans-serif;
   --color-primary: oklch(0.8971 0.0313 295);
   --color-text: oklch(0.9706 0.0094 295);
+  --color-background: oklch(0.1333 0.0253 275.29);
 }
 
 :root {
+  background-color: var(--color-background); /* background color */
   font-family: "Sora", sans-serif;
   color: var(--color-text); /* font color*/
 }

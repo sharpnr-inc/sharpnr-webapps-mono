@@ -6,7 +6,7 @@ import { HeroSection } from "./HeroSection";
 
 export function Website() {
   return (
-    <div className="bg-[#02000d] flex flex-col items-center min-h-screen">
+    <div className=" flex flex-col items-center min-h-screen">
       <HeroSection />
     </div>
   );
@@ -14,4 +14,3 @@ export function Website() {
 
 // website's main theme color is #03045e
 // website backgrond should on darker side like near black but not far from from the blue
-//
