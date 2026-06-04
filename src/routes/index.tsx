@@ -1,8 +1,6 @@
 import { HeroSection } from "@/app/index/HeroSection";
-import { SharpnrIntroSection } from "@/app/index/SharpnrIntroSection";
+import SharpnrIntro from "@/app/index/SharpnrIntro";
 import { createFileRoute } from "@tanstack/react-router";
-// import { useGSAP, gsap, ScrollTrigger } from "@/animations/gsap";
-// import { useRef } from "react";
 
 export const Route = createFileRoute("/")({
   component: RootComponent,
@@ -37,11 +35,12 @@ export const Route = createFileRoute("/")({
 
 function RootComponent() {
   return (
-    <>
+    <div>
       <HeroSection />
-      <SharpnrIntroSection />
-    </>
+      <SharpnrIntro />
+    </div>
   );
 }
 
 // routes/index.tsx
+// this is tanstack router

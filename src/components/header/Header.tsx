@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { config } from "@/configs/env";
 import { useNavigate } from "@tanstack/react-router";
 import { MobileMenu } from "./MobileMenu";
-import { motion, AnimatePresence } from "framer-motion";
+import { gsap, useGSAP } from "@/animations/gsap";
 
 const NAV_LINKS = [
   { label: "Products", to: "/products" },
@@ -13,19 +13,78 @@ const NAV_LINKS = [
 ];
 
 export function Header() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
-  const navRef = useRef<HTMLElement>(null);
-  const navigate = useNavigate();
 
+  const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const logoImgRef = useRef<HTMLImageElement>(null);
+  const getStartedBtnRef = useRef<HTMLButtonElement>(null);
+  const getStartedShineRef = useRef<HTMLSpanElement>(null);
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+  const menuIconRef = useRef<HTMLSpanElement>(null);
+  const scrolled = useRef(false);
+
+  // ── Header entrance ──────────────────────────────────────────────
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        headerRef.current,
+        { y: -64, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" },
+      );
+    },
+    { scope: headerRef },
+  );
+
+  // ── Scroll backdrop ──────────────────────────────────────────────
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const header = headerRef.current;
+    if (!header) return;
+    const onScroll = () => {
+      const should = window.scrollY > 12;
+      if (should === scrolled.current) return;
+      scrolled.current = should;
+      gsap.to(header, {
+        borderBottomColor: should ? "rgba(255,255,255,0.08)" : "transparent",
+        backgroundColor: should ? "rgba(10,10,20,0.72)" : "transparent",
+        backdropFilter: should ? "blur(20px)" : "blur(0px)",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // ── Logo hover ───────────────────────────────────────────────────
+  useGSAP(
+    () => {
+      const img = logoImgRef.current;
+      if (!img) return;
+      const enter = () =>
+        gsap.to(img, {
+          scale: 1.08,
+          rotate: 4,
+          duration: 0.35,
+          ease: "back.out(2)",
+        });
+      const leave = () =>
+        gsap.to(img, {
+          scale: 1,
+          rotate: 0,
+          duration: 0.35,
+          ease: "power2.out",
+        });
+      img.addEventListener("mouseenter", enter);
+      img.addEventListener("mouseleave", leave);
+    },
+    { scope: logoImgRef },
+  );
+
+  // ── Nav pill ─────────────────────────────────────────────────────
   function handleNavHover(
     idx: number,
     el: HTMLButtonElement | HTMLAnchorElement,
@@ -47,36 +106,91 @@ export function Header() {
     setActiveIndex(null);
   }
 
+  // ── Get Started hover ────────────────────────────────────────────
+  useGSAP(
+    () => {
+      const btn = getStartedBtnRef.current;
+      const shine = getStartedShineRef.current;
+      if (!btn || !shine) return;
+      const enter = () => {
+        gsap.to(btn, { scale: 1.03, duration: 0.3, ease: "back.out(2)" });
+        gsap.fromTo(
+          shine,
+          { x: "-110%", opacity: 0.6 },
+          { x: "110%", opacity: 0, duration: 0.45, ease: "power1.inOut" },
+        );
+      };
+      const leave = () =>
+        gsap.to(btn, { scale: 1, duration: 0.3, ease: "power2.out" });
+      const down = () => gsap.to(btn, { scale: 0.97, duration: 0.1 });
+      const up = () =>
+        gsap.to(btn, { scale: 1, duration: 0.2, ease: "power2.out" });
+      btn.addEventListener("mouseenter", enter);
+      btn.addEventListener("mouseleave", leave);
+      btn.addEventListener("mousedown", down);
+      btn.addEventListener("mouseup", up);
+    },
+    { scope: getStartedBtnRef },
+  );
+
+  // ── Mobile icon swap ─────────────────────────────────────────────
+  useGSAP(
+    () => {
+      const icon = menuIconRef.current;
+      if (!icon) return;
+      gsap.fromTo(
+        icon,
+        { opacity: 0, rotate: isOpen ? -90 : 90, scale: 0.8 },
+        { opacity: 1, rotate: 0, scale: 1, duration: 0.18, ease: "power2.out" },
+      );
+    },
+    { scope: menuIconRef, dependencies: [isOpen] },
+  );
+
+  function handleMenuToggle() {
+    const btn = menuBtnRef.current;
+    if (btn)
+      gsap.fromTo(
+        btn,
+        { scale: 0.88 },
+        { scale: 1, duration: 0.25, ease: "back.out(2)" },
+      );
+    setIsOpen((prev) => !prev);
+  }
+
   return (
-    <motion.header
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/[0.1] backdrop-blur-xl"
-          : "border-b border-transparent"
-      }`}
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 border-b border-transparent"
+      style={{ opacity: 0 }}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between h-[60px]">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-2.5 group shrink-0">
-          <motion.img
+      {/*
+        ── Single row, three zones ─────────────────────────────────
+        Logo | Nav (hides on mobile) | Actions + Hamburger
+        On mobile: Logo left, hamburger right — nothing in between
+      */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between h-14 sm:h-[60px]">
+        {/* ── Logo ──────────────────────────────────────────────── */}
+        <a href="/" className="flex items-center gap-2 shrink-0">
+          <img
+            ref={logoImgRef}
             src="https://cdn.sharpnr.com/shicon.svg"
             alt="Sharpnr"
-            className="w-7 h-7 rounded-md object-cover"
-            whileHover={{ scale: 1.08, rotate: 4 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            className="w-6 h-6 sm:w-7 sm:h-7 rounded-md object-cover cursor-pointer"
           />
-          <span className="font-semibold text-2xl font-serif tracking-tight text-slate-50 select-none">
+          <span className="font-semibold text-lg sm:text-2xl font-serif tracking-tight text-slate-50 select-none">
             Sharpnr
           </span>
         </a>
 
-        {/* Desktop Nav */}
+        {/*
+          ── Desktop Nav ───────────────────────────────────────────
+          Hidden below lg (1024px) — this is the sweet spot where
+          the links have enough room to breathe
+        */}
         <nav
           ref={navRef}
-          className="hidden md:flex items-center relative"
+          className="hidden lg:flex items-center relative"
           onMouseLeave={handleNavLeave}
         >
           {/* Sliding pill */}
@@ -88,20 +202,18 @@ export function Header() {
               opacity: pillStyle.opacity,
             }}
           />
-
           {NAV_LINKS.map((link, idx) => {
             const isActive = activeIndex === idx;
-            const commonClass = `relative px-3.5 py-1.5 text-[0.8125rem] font-medium tracking-wide
-              transition-colors duration-150 bg-transparent border-none cursor-pointer rounded-lg
+            const cls = `relative px-3.5 py-1.5 text-[0.8125rem] font-medium tracking-wide
+              bg-transparent border-none cursor-pointer rounded-lg transition-colors duration-150
               ${isActive ? "text-slate-50" : "text-slate-400 hover:text-slate-200"}`;
-
             return link.href ? (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className={commonClass}
+                className={cls}
                 onMouseEnter={(e) => handleNavHover(idx, e.currentTarget)}
               >
                 {link.label}
@@ -110,7 +222,7 @@ export function Header() {
               <button
                 key={link.label}
                 onClick={() => navigate({ to: link.to! })}
-                className={commonClass}
+                className={cls}
                 onMouseEnter={(e) => handleNavHover(idx, e.currentTarget)}
               >
                 {link.label}
@@ -119,67 +231,61 @@ export function Header() {
           })}
         </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* ── Right side actions ────────────────────────────────── */}
+        <div className="flex items-center gap-1">
+          {/* LOGIN — hidden on mobile, visible from lg */}
           <button
             onClick={() => window.location.replace(config.iamAppUrl)}
-            className="px-3.5 py-1.5 text-[0.8125rem] font-semibold tracking-widest
-                       text-slate-400 hover:text-slate-100 rounded-lg
+            className="hidden lg:block px-3.5 py-1.5 text-[0.8125rem] font-semibold
+                       tracking-widest text-slate-400 hover:text-slate-100 rounded-lg
                        hover:bg-white/[0.06] transition-all duration-150
                        bg-transparent border-none cursor-pointer"
           >
             LOGIN
           </button>
 
-          <motion.button
+          {/* Get Started — visible on md+ (tablet and up) */}
+          <button
+            ref={getStartedBtnRef}
             onClick={() => {
               window.location.href = config.authAppUrl + "/signup";
             }}
-            className="relative ml-1 px-4 py-1.5 text-[0.8125rem] font-semibold
+            className="hidden md:block relative ml-1 px-3 py-1.5 sm:px-4
+                       text-[0.75rem] sm:text-[0.8125rem] font-semibold
                        text-slate-900 bg-slate-50 rounded-lg
-                       border border-slate-50/80 cursor-pointer overflow-hidden"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 500, damping: 22 }}
+                       border border-slate-50/80 cursor-pointer overflow-hidden
+                       will-change-transform whitespace-nowrap"
+            style={{ isolation: "isolate" }}
           >
             <span className="relative z-10">Get Started</span>
-            {/* subtle shimmer on hover */}
-            <motion.span
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
-              whileHover={{ translateX: "200%" }}
-              transition={{ duration: 0.45, ease: "easeInOut" }}
+            <span
+              ref={getStartedShineRef}
+              className="pointer-events-none absolute inset-0 -skew-x-12
+                         bg-gradient-to-r from-transparent via-white/40 to-transparent
+                         -translate-x-full"
+              aria-hidden
             />
-          </motion.button>
-        </div>
+          </button>
 
-        {/* Mobile Toggle */}
-        <motion.button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-slate-300 hover:text-slate-50
-                     transition-colors duration-200 p-1.5
-                     bg-transparent border-none cursor-pointer rounded-md hover:bg-white/[0.07]"
-          aria-label="Toggle menu"
-          whileTap={{ scale: 0.9 }}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={isOpen ? "x" : "menu"}
-              initial={{ opacity: 0, rotate: isOpen ? -90 : 90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: isOpen ? 90 : -90 }}
-              transition={{ duration: 0.18 }}
-              className="block"
-            >
+          {/* Hamburger — visible below lg */}
+          <button
+            ref={menuBtnRef}
+            onClick={handleMenuToggle}
+            className="lg:hidden text-slate-300 hover:text-slate-50 ml-1
+                       transition-colors duration-200 p-1.5
+                       bg-transparent border-none cursor-pointer rounded-md
+                       hover:bg-white/[0.07]"
+            aria-label="Toggle menu"
+          >
+            <span ref={menuIconRef} className="block" style={{ opacity: 0 }}>
               {isOpen ? <X size={18} /> : <Menu size={18} />}
-            </motion.span>
-          </AnimatePresence>
-        </motion.button>
+            </span>
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && <MobileMenu setIsOpen={setIsOpen} />}
-      </AnimatePresence>
-    </motion.header>
+      {/* Mobile / tablet menu drawer */}
+      {isOpen && <MobileMenu setIsOpen={setIsOpen} />}
+    </header>
   );
 }
