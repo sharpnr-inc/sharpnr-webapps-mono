@@ -6,12 +6,16 @@
   --font-inter: "Inter", sans-serif;
   --font-sora: "Sora", sans-serif;
   --font-outfit: "Outfit", sans-serif;
+  --color-primary: oklch(0.8971 0.0313 295);
+  --color-text: oklch(0.9706 0.0094 295);
 }
 
 :root {
   font-family: "Sora", sans-serif;
+  color: var(--color-text); /* font color*/
 }
 
 body {
   font-family: "Sora", sans-serif;
+  color: var(--color-text); /* font color*/
 }

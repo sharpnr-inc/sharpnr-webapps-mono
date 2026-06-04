@@ -66,11 +66,7 @@ export function HeroSection() {
               One Platform
             </div>
 
-            <div
-              ref={headlineRef}
-              className="font-inter
-               bg-gradient-to-r from-indigo-400 via-violet-400 to-emerald-400"
-            >
+            <div ref={headlineRef} className="font-inter">
               Every Business
             </div>
           </h1>
