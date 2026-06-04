@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
-import { askAI } from "@/lib/ai";
+import { askAI } from "@/ai/ai";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Message {

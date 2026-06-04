@@ -8,7 +8,6 @@ import { useNavigate } from "@tanstack/react-router";
 
 export function HeroSection() {
   const navigate = useNavigate();
-
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtextRef = useRef<HTMLParagraphElement>(null);
@@ -17,47 +16,44 @@ export function HeroSection() {
   useGSAP(
     () => {
       if (!headlineRef.current) return;
-
-      // Wait for fonts so SplitText measures correctly
-      document.fonts.ready.then(() => {
-        if (!headlineRef.current) return;
-
-        const split = new SplitText(headlineRef.current, {
-          type: "lines,words,chars",
-        });
-
-        // ── Intro timeline only — no scroll triggers ──
-        const tl = gsap.timeline({
-          onComplete: () => split.revert(),
-        });
-
-        tl.from(split.chars, {
-          y: 100,
-          opacity: 0,
-          stagger: 0.02,
-          duration: 1,
-          ease: "power4.out",
-        })
-          .from(
-            subtextRef.current,
-            { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" },
-            "-=0.5",
-          )
-          .from(
-            ctaRef.current,
-            { y: 20, opacity: 0, duration: 0.6, ease: "power3.out" },
-            "-=0.4",
-          );
+      const split = SplitText.create(headlineRef.current, {
+        type: "lines,words,chars",
       });
+
+      // ── Intro timeline only — no scroll triggers ──
+      const tl = gsap.timeline({
+        onComplete: () => split.revert(),
+      });
+
+      tl.from(split.chars, {
+        y: 100,
+        opacity: 0,
+        stagger: 0.02,
+        duration: 1,
+        ease: "power4.out",
+      })
+        .from(
+          subtextRef.current,
+          { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.5",
+        )
+        .from(
+          ctaRef.current,
+          { y: 20, opacity: 0, duration: 0.6, ease: "power3.out" },
+          "-=0.4",
+        );
     },
+
     { scope: sectionRef },
   );
 
   return (
     // min-h-screen on <section> so the next section's ScrollTrigger
     // can correctly measure where this ends
+
     <section ref={sectionRef} className="relative w-full min-h-screen">
       {/* overflow-hidden isolated here, not on <section> */}
+
       <div className="absolute inset-0 overflow-hidden">
         <HeroSectionBackground src="bg_video.mp4" poster="/hero-poster.jpg" />
       </div>

@@ -19,14 +19,7 @@ export function HeroSectionBackground({
   }, []);
 
   return (
-    <div
-      className="absolute inset-0 w-full h-full overflow-hidden
-     md:mask-l-from-23% md:mask-l-to-80.6%
-    
-    mask-b-from-48% 
-     
-    md:mask-b-from-0% md:mask-b-to-85%"
-    >
+    <div className="absolute inset-0 w-full h-full overflow-hidden md:mask-l-from-23% md:mask-l-to-80.6% mask-b-from-48% md:mask-b-from-0% md:mask-b-to-85%">
       {/* ── Video / image layer ── */}
       <video
         ref={videoRef}
@@ -36,7 +29,7 @@ export function HeroSectionBackground({
         loop
         playsInline
         autoPlay
-        className="absolute inset-0 w-full h-full object-cover aspect-video"
+        className="absolute inset-0 w-full h-full object-cover"
       />
 
       {/* ── Dark base tint so copy is always readable ── */}
@@ -44,3 +37,4 @@ export function HeroSectionBackground({
     </div>
   );
 }
+// this is video of that is running in HeroSections its act as backgound
