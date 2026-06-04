@@ -1,8 +1,11 @@
-import { Website } from "@/app/index/Website";
+import { HeroSection } from "@/app/index/HeroSection";
+import { SharpnrIntroSection } from "@/app/index/SharpnrIntroSection";
 import { createFileRoute } from "@tanstack/react-router";
+// import { useGSAP, gsap, ScrollTrigger } from "@/animations/gsap";
+// import { useRef } from "react";
 
 export const Route = createFileRoute("/")({
-  component: Website,
+  component: RootComponent,
   head: () => ({
     meta: [
       { title: "Sharpnr | Enterprise CRM, HRMS & Accounting Software" },
@@ -31,3 +34,14 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
+
+function RootComponent() {
+  return (
+    <>
+      <HeroSection />
+      <SharpnrIntroSection />
+    </>
+  );
+}
+
+// routes/index.tsx
