@@ -3,11 +3,25 @@
 // and use scroll animation effects or we can figure out something else.
 
 import { HeroSection } from "./HeroSection";
+import { SharpnrIntroSection } from "./SharpnrIntroSection";
+import { useGSAP } from "@gsap/react";
+import { ScrollSmoother } from "@/animations/gsap";
 
 export function Website() {
+  useGSAP(() => {
+    let smoother = ScrollSmoother.create({
+      wrapper: "#scroll-wrapper",
+      content: "#srcoll-content",
+      smooth: 2,
+    });
+
+    return () => smoother.kill();
+  }, []);
+
   return (
-    <div className=" flex flex-col items-center min-h-screen">
+    <div>
       <HeroSection />
+      <SharpnrIntroSection />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap } from "@/animations/gsap";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
