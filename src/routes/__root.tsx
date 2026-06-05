@@ -26,7 +26,7 @@ function RootLayout() {
         wrapper: wrapperRef.current!,
         content: contentRef.current!,
         smooth: 2,
-        smoothTouch: 0.2,
+        smoothTouch: 0.1,
         effects: true,
       });
     },

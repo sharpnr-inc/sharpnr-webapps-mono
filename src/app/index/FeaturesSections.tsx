@@ -84,7 +84,6 @@ const FeaturesSections = () => {
   useGSAP(
     () => {
       if (!sectionRef.current || !trackRef.current) return;
-
       const track = trackRef.current;
       const cards = gsap.utils.toArray<HTMLElement>(".featurecard", track);
       const cardPx = (CARD_VW / 100) * window.innerWidth;
@@ -92,7 +91,7 @@ const FeaturesSections = () => {
         cards.length * (cardPx + GAP) - window.innerWidth + GAP;
 
       // Set all cards to their initial hidden state immediately
-      gsap.set(cards, { x: 80, opacity: 0, scale: 0.93 });
+      gsap.set(cards, { x: 80, opacity: 0.8, scale: 0.93 });
 
       // ── 1. Pin + horizontal drive ──
       gsap.to(track, {
