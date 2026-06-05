@@ -3,6 +3,7 @@ import { gsap, useGSAP, SplitText } from "@/animations/gsap";
 import { config } from "@/configs/env";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import HeroVisuals from "./HeroVisuals";
 
 export function HeroSection() {
   const navigate = useNavigate();
@@ -156,74 +157,84 @@ export function HeroSection() {
     { scope: sectionRef },
   );
 
+  // HeroSection.tsx  — replace the return block
+
   return (
-    <section ref={sectionRef} className="">
+    <section ref={sectionRef} className="relative">
       <div
         className="w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-20
-                      flex flex-col justify-center min-h-screen pb-20"
+                  grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20
+                  items-center min-h-screen py-28"
       >
-        <h1
-          ref={headlineRef}
-          className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold
+        {/* ── Left: Copy + CTA ── */}
+        <div className="flex flex-col">
+          <h1
+            ref={headlineRef}
+            className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold
                      leading-[1.0] tracking-tight mb-6 text-white"
-        >
-          <div>One Platform</div>
-          <div>Every Business</div>
-        </h1>
+          >
+            <div>One Platform</div>
+            <div>Every Business</div>
+          </h1>
 
-        <p
-          ref={subtextRef}
-          className="text-[0.9375rem] leading-relaxed text-slate-400 mb-9 max-w-[480px]"
-        >
-          Replace fragmented tools with Sharpnr&apos;s unified OS for business.
-          Deeply integrated CRM, HRMS, and Accounting software designed for
-          organizations that demand precision.
-        </p>
+          <p
+            ref={subtextRef}
+            className="text-[0.9375rem] leading-relaxed text-slate-400 mb-9 max-w-[480px]"
+          >
+            Replace fragmented tools with Sharpnr&apos;s unified OS for
+            business. Deeply integrated CRM, HRMS, and Accounting software
+            designed for organizations that demand precision.
+          </p>
 
-        <div ref={ctaRef} className="flex items-center gap-3 flex-wrap">
-          {/* ── Primary: Get Started Free ── */}
-          <button
-            ref={primaryBtnRef}
-            onClick={() => {
-              window.location.href = config.authAppUrl + "/signup";
-            }}
-            className="relative overflow-hidden flex items-center gap-2
+          <div ref={ctaRef} className="flex items-center gap-3 flex-wrap">
+            {/* ── Primary: Get Started Free ── */}
+            <button
+              ref={primaryBtnRef}
+              onClick={() => {
+                window.location.href = config.authAppUrl + "/signup";
+              }}
+              className="relative overflow-hidden flex items-center gap-2
                        px-5 py-2.5 rounded-lg text-sm font-semibold
                        text-slate-900 bg-white cursor-pointer
                        will-change-transform"
-            style={{ isolation: "isolate" }}
-          >
-            {/* Shine overlay — animated by GSAP */}
-            <span
-              ref={primaryShineRef}
-              className="pointer-events-none absolute inset-0 -skew-x-12
+              style={{ isolation: "isolate" }}
+            >
+              <span
+                ref={primaryShineRef}
+                className="pointer-events-none absolute inset-0 -skew-x-12
                          bg-gradient-to-r from-transparent via-white/40 to-transparent
                          -translate-x-full"
-              aria-hidden
-            />
-            Get Started Free
-            <span ref={primaryArrowRef} className="inline-flex items-center">
-              <ArrowRight size={14} strokeWidth={2.5} />
-            </span>
-          </button>
+                aria-hidden
+              />
+              Get Started Free
+              <span ref={primaryArrowRef} className="inline-flex items-center">
+                <ArrowRight size={14} strokeWidth={2.5} />
+              </span>
+            </button>
 
-          {/* ── Secondary: Explore Products ── */}
-          <button
-            ref={secondaryBtnRef}
-            onClick={() => navigate({ to: "/products" })}
-            className="relative flex items-center gap-2 px-5 py-2.5 rounded-lg
+            {/* ── Secondary: Explore Products ── */}
+            <button
+              ref={secondaryBtnRef}
+              onClick={() => navigate({ to: "/products" })}
+              className="relative flex items-center gap-2 px-5 py-2.5 rounded-lg
                        text-sm font-semibold cursor-pointer
                        border border-white/[0.12]
                        will-change-transform"
-            style={{
-              backgroundColor: "rgba(255,255,255,0)",
-              isolation: "isolate",
-            }}
-          >
-            <span ref={secondaryTextRef} className="text-slate-400">
-              Explore Products
-            </span>
-          </button>
+              style={{
+                backgroundColor: "rgba(255,255,255,0)",
+                isolation: "isolate",
+              }}
+            >
+              <span ref={secondaryTextRef} className="text-slate-400">
+                Explore Products
+              </span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Right: Visuals ── */}
+        <div className="hidden lg:flex items-center justify-center w-full">
+          <HeroVisuals />
         </div>
       </div>
     </section>
