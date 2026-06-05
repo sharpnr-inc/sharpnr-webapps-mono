@@ -2,8 +2,6 @@ import { useGSAP, gsap } from "@/animations/gsap";
 import { Draggable, InertiaPlugin } from "@/animations/gsap";
 import { useRef } from "react";
 
-gsap.registerPlugin(Draggable, InertiaPlugin);
-
 const PhysicsBox = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
