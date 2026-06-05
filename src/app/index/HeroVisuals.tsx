@@ -386,17 +386,6 @@ const HeroVisuals = () => {
 
   return (
     <>
-      <style>{`
-        @keyframes shimmer {
-          0%   { background-position: 200% center; }
-          100% { background-position: -200% center; }
-        }
-        @keyframes orbit {
-          from { transform: rotate(0deg) translateX(6px) rotate(0deg); }
-          to   { transform: rotate(360deg) translateX(6px) rotate(-360deg); }
-        }
-      `}</style>
-
       <div
         ref={containerRef}
         className="relative p-6 rounded-3xl overflow-hidden w-7xl"

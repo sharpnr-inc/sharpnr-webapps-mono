@@ -3,7 +3,6 @@ import { gsap, useGSAP, SplitText } from "@/animations/gsap";
 import { config } from "@/configs/env";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
-import HeroVisuals from "./HeroVisuals";
 
 export function HeroSection() {
   const navigate = useNavigate();
@@ -162,7 +161,7 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} className="relative">
       <div
-        className="w-full max-w-7xl mx-auto px-8 md:px-16 lg:px-20
+        className="w-full mx-auto px-8 md:px-16 lg:px-20
                   grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20
                   items-center min-h-screen py-28"
       >
@@ -233,10 +232,12 @@ export function HeroSection() {
         </div>
 
         {/* ── Right: Visuals ── */}
-        <div className="hidden lg:flex items-center justify-center w-full">
+        {/* <div className="hidden lg:flex items-center justify-center w-full">
           <HeroVisuals />
-        </div>
+        </div> */}
       </div>
     </section>
   );
 }
+
+// this is the cascadia code
