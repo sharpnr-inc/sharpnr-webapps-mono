@@ -11,64 +11,101 @@ export function HeroSection() {
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
+  // Logo animation ref
+  const logoWrapRef = useRef<HTMLDivElement>(null);
+  const logoImgRef = useRef<HTMLImageElement>(null);
+
   // Button refs
   const primaryBtnRef = useRef<HTMLButtonElement>(null);
   const primaryArrowRef = useRef<HTMLSpanElement>(null);
   const primaryShineRef = useRef<HTMLSpanElement>(null);
-
   const secondaryBtnRef = useRef<HTMLButtonElement>(null);
   const secondaryTextRef = useRef<HTMLSpanElement>(null);
 
   useGSAP(
     () => {
-      // ── Page intro timeline ──────────────────────────────────────
       if (!headlineRef.current) return;
 
       const split = SplitText.create(headlineRef.current, {
         type: "lines,words,chars",
       });
 
-      const tl = gsap.timeline({
-        onComplete: () => split.revert(),
-      });
+      // ── Master timeline ──────────────────────────────────────────
+      const master = gsap.timeline();
 
-      tl.from(split.chars, {
-        y: 100,
-        opacity: 0,
-        stagger: 0.02,
-        duration: 1,
-        ease: "power3.inOut",
-      })
-        .from(
-          subtextRef.current,
-          { y: 30, opacity: 0, duration: 0.8, ease: "power3.out" },
-          "-=0.5",
-        )
-        .from(
-          ctaRef.current,
-          { y: 20, opacity: 0, duration: 0.6, ease: "power3.out" },
-          "-=0.4",
-        );
+      // ── 1. Logo: zoom out from full-screen fill → right-side position ──
+      // Start: logo fills the whole viewport, centred, full opacity
+      // End:   logo sits right-anchored, huge, partially clipped
+      master.fromTo(
+        logoImgRef.current,
+        {
+          scale: 6,
+          x: "-8vw",
+          y: "5vh",
+          opacity: 0.18,
+          filter: "blur(0px)",
+        },
+        {
+          scale: 1,
+          x: "0vw",
+          y: "0vh",
+          opacity: 0.07,
+          filter: "blur(0px)",
+          duration: 1.6,
+          ease: "expo.out",
+        },
+        0,
+      );
 
-      // ── Primary button hover (Get Started Free) ──────────────────
+      // Subtle fade-in of the wrapper so the very first frame isn't jarring
+      master.fromTo(
+        logoWrapRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "none" },
+        0,
+      );
+
+      // ── 2. Headline chars fly in ─────────────────────────────────
+      master.from(
+        split.chars,
+        {
+          y: 80,
+          opacity: 0,
+          stagger: 0.018,
+          duration: 0.9,
+          ease: "power3.out",
+          onComplete: () => split.revert(),
+        },
+        0.5, // starts while logo is still zooming
+      );
+
+      // ── 3. Subtext ───────────────────────────────────────────────
+      master.from(
+        subtextRef.current,
+        { y: 24, opacity: 0, duration: 0.7, ease: "power3.out" },
+        "-=0.4",
+      );
+
+      // ── 4. CTA ───────────────────────────────────────────────────
+      master.from(
+        ctaRef.current,
+        { y: 16, opacity: 0, duration: 0.55, ease: "power3.out" },
+        "-=0.35",
+      );
+
+      // ── Primary button hover ─────────────────────────────────────
       const primary = primaryBtnRef.current;
       const arrow = primaryArrowRef.current;
       const shine = primaryShineRef.current;
 
       if (primary && arrow && shine) {
         const enterPrimary = () => {
-          gsap.to(primary, {
-            scale: 1.04,
-            duration: 0.35,
-            ease: "power2.out",
-          });
-          // Arrow slides right then snaps back into new position
+          gsap.to(primary, { scale: 1.04, duration: 0.35, ease: "power2.out" });
           gsap.fromTo(
             arrow,
             { x: 0 },
             { x: 5, duration: 0.35, ease: "power2.out" },
           );
-          // Shine sweep across the button
           gsap.fromTo(
             shine,
             { x: "-110%", opacity: 0.6 },
@@ -79,7 +116,6 @@ export function HeroSection() {
             duration: 0.35,
           });
         };
-
         const leavePrimary = () => {
           gsap.to(primary, {
             scale: 1,
@@ -89,7 +125,6 @@ export function HeroSection() {
           });
           gsap.to(arrow, { x: 0, duration: 0.3, ease: "power2.out" });
         };
-
         const clickPrimary = () => {
           gsap.fromTo(
             primary,
@@ -97,13 +132,12 @@ export function HeroSection() {
             { scale: 1.04, duration: 0.25, ease: "power2.out" },
           );
         };
-
         primary.addEventListener("mouseenter", enterPrimary);
         primary.addEventListener("mouseleave", leavePrimary);
         primary.addEventListener("mousedown", clickPrimary);
       }
 
-      // ── Secondary button hover (Explore Products) ─────────────────
+      // ── Secondary button hover ────────────────────────────────────
       const secondary = secondaryBtnRef.current;
       const secText = secondaryTextRef.current;
 
@@ -123,7 +157,6 @@ export function HeroSection() {
             ease: "power2.out",
           });
         };
-
         const leaveSecondary = () => {
           gsap.to(secondary, {
             scale: 1,
@@ -133,13 +166,12 @@ export function HeroSection() {
             ease: "power2.out",
           });
           gsap.to(secText, {
-            color: "#94a3b8", // slate-400
+            color: "#94a3b8",
             x: 0,
             duration: 0.3,
             ease: "power2.out",
           });
         };
-
         const clickSecondary = () => {
           gsap.fromTo(
             secondary,
@@ -147,7 +179,6 @@ export function HeroSection() {
             { scale: 1, duration: 0.25, ease: "power2.out" },
           );
         };
-
         secondary.addEventListener("mouseenter", enterSecondary);
         secondary.addEventListener("mouseleave", leaveSecondary);
         secondary.addEventListener("mousedown", clickSecondary);
@@ -156,16 +187,14 @@ export function HeroSection() {
     { scope: sectionRef },
   );
 
-  // HeroSection.tsx  — replace the return block
-
   return (
-    <section ref={sectionRef} className="relative">
+    <section ref={sectionRef} className="relative overflow-hidden">
       <div className="w-full mx-auto px-8 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-screen py-28">
         {/* ── Left: Copy + CTA ── */}
-        <div className="flex flex-col">
+        <div className="flex flex-col relative z-10">
           <h1
             ref={headlineRef}
-            className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold leading-[1.0] tracking-tight mb-6 "
+            className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold leading-[1.0] tracking-tight mb-6"
           >
             <div>One Platform</div>
             <div>Every Business</div>
@@ -181,7 +210,7 @@ export function HeroSection() {
           </p>
 
           <div ref={ctaRef} className="flex items-center gap-3 flex-wrap">
-            {/* ── Primary: Get Started Free ── */}
+            {/* Primary */}
             <button
               ref={primaryBtnRef}
               onClick={() => {
@@ -192,9 +221,7 @@ export function HeroSection() {
             >
               <span
                 ref={primaryShineRef}
-                className="pointer-events-none absolute inset-0 -skew-x-12
-                         bg-gradient-to-r from-transparent via-white/40 to-transparent
-                         -translate-x-full"
+                className="pointer-events-none absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
                 aria-hidden
               />
               Get Started Free
@@ -203,14 +230,11 @@ export function HeroSection() {
               </span>
             </button>
 
-            {/* ── Secondary: Explore Products ── */}
+            {/* Secondary */}
             <button
               ref={secondaryBtnRef}
               onClick={() => navigate({ to: "/products" })}
-              className="relative flex items-center gap-2 px-5 py-2.5 rounded-lg
-                       text-sm font-semibold cursor-pointer
-                       border border-white/[0.12]
-                       will-change-transform"
+              className="relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold cursor-pointer border border-white/[0.12] will-change-transform"
               style={{
                 backgroundColor: "rgba(255,255,255,0)",
                 isolation: "isolate",
@@ -223,13 +247,32 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* ── Right: Visuals ── */}
-        {/* <div className="hidden lg:flex items-center justify-center w-full">
-          <HeroVisuals />
-        </div> */}
+        {/* ── Right: Logo (zoom-out bg element) ── */}
+        {/*
+          The wrapper is positioned absolute, anchored to the right edge,
+          and intentionally overflows — the section's overflow-hidden clips it.
+          Width is large (90vw) so the logo is huge but mostly off-screen right.
+        */}
+        <div
+          ref={logoWrapRef}
+          className="absolute right-0 top-0 h-full flex items-center"
+          style={{
+            width: "72vw",
+            pointerEvents: "none",
+            // push it so only ~60% is visible
+            transform: "translateX(18%)",
+          }}
+        >
+          <img
+            ref={logoImgRef}
+            src="/sharpnr_w.svg"
+            alt=""
+            aria-hidden
+            className="w-full h-auto object-contain will-change-transform"
+            style={{ transformOrigin: "center center" }}
+          />
+        </div>
       </div>
     </section>
   );
 }
-
-// this is the cascadia code
