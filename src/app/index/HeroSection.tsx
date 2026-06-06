@@ -160,17 +160,12 @@ export function HeroSection() {
 
   return (
     <section ref={sectionRef} className="relative">
-      <div
-        className="w-full mx-auto px-8 md:px-16 lg:px-20
-                  grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20
-                  items-center min-h-screen py-28"
-      >
+      <div className="w-full mx-auto px-8 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-screen py-28">
         {/* ── Left: Copy + CTA ── */}
         <div className="flex flex-col">
           <h1
             ref={headlineRef}
-            className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold
-                     leading-[1.0] tracking-tight mb-6 text-white"
+            className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold leading-[1.0] tracking-tight mb-6 "
           >
             <div>One Platform</div>
             <div>Every Business</div>
@@ -178,7 +173,7 @@ export function HeroSection() {
 
           <p
             ref={subtextRef}
-            className="text-[0.9375rem] leading-relaxed text-slate-400 mb-9 max-w-[480px]"
+            className="text-[0.9375rem] leading-relaxed mb-9 max-w-[480px]"
           >
             Replace fragmented tools with Sharpnr&apos;s unified OS for
             business. Deeply integrated CRM, HRMS, and Accounting software
@@ -192,10 +187,7 @@ export function HeroSection() {
               onClick={() => {
                 window.location.href = config.authAppUrl + "/signup";
               }}
-              className="relative overflow-hidden flex items-center gap-2
-                       px-5 py-2.5 rounded-lg text-sm font-semibold
-                       text-slate-900 bg-white cursor-pointer
-                       will-change-transform"
+              className="relative overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-900 bg-white cursor-pointer will-change-transform"
               style={{ isolation: "isolate" }}
             >
               <span
