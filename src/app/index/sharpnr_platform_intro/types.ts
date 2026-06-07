@@ -2,11 +2,18 @@ import type { RefObject } from "react";
 
 export interface SharpnrPlatformIntroRefs {
   mainContainerRef: RefObject<HTMLDivElement | null>;
+  stickyContainerRef: RefObject<HTMLDivElement | null>;
   headingRef: RefObject<HTMLHeadingElement | null>;
+  headingWrapRef: RefObject<HTMLDivElement | null>;
+  subtitleRef: RefObject<HTMLParagraphElement | null>;
+  cardsRef: RefObject<HTMLDivElement | null>;
+  statsRef: RefObject<HTMLDivElement | null>;
+  imageRef: RefObject<HTMLDivElement | null>;
+  bottomCopyRef: RefObject<HTMLDivElement | null>;
 }
 
-// ── Shape every phase function must follow ───────────────────────────────────
 export interface PhaseConfig {
-  /** Timeline position label/offset — same as GSAP's third argument */
   at?: gsap.Position;
+  onStart?: () => void;
+  onComplete?: () => void;
 }

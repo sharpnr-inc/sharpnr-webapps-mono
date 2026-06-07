@@ -4,7 +4,7 @@
   --font-inter: "Inter", sans-serif;
   --color-primary: oklch(0.8971 0.0313 295);
   --color-text: oklch(0.9706 0.0094 295);
-  --color-background: oklch(0.1333 0.0253 275.29);
+  --color-background: oklch(0.1744 0.0701 276.31);
 }
 
 :root {
@@ -15,3 +15,9 @@
 body {
   color: var(--color-text); /* font color*/
 }
+
+/* 
+#0a0a2e this is the main color or Hex color of backgound 
+#03045E is the color that we use for the as logo and application(charts and graphs)
+make sure to convert it too oklch 
+ */

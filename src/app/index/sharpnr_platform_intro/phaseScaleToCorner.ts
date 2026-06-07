@@ -9,30 +9,32 @@ interface PhaseScaleToCornerConfig extends PhaseConfig {
 
 export function phaseScaleToCorner(
   tl: gsap.core.Timeline,
-  heading: HTMLHeadingElement,
+  headingWrap: HTMLElement | null,
   {
-    at = 0.5,
-    scale = 0.18,
-    offsetX = 24,
+    at = 0.45,
+    scale = 0.3,
+    offsetX = 48,
     offsetY = 24,
-    duration = 0.5,
+    duration = 0.3,
+    onComplete,
+    onStart,
   }: PhaseScaleToCornerConfig = {},
 ) {
+  if (!headingWrap) return;
+
   tl.to(
-    heading,
+    headingWrap,
     {
+      // scale from top-left so it visually anchors to the corner
       scale,
-      x: () =>
-        -(heading.offsetWidth / 2) +
-        (heading.offsetWidth * scale) / 2 +
-        offsetX,
-      y: () =>
-        -(window.innerHeight / 2) +
-        (heading.offsetHeight * scale) / 2 +
-        offsetY,
-      transformOrigin: "center center",
+      transformOrigin: "top left",
+      // translate to top-left of the viewport
+      x: () => -headingWrap.getBoundingClientRect().left + offsetX,
+      y: () => -headingWrap.getBoundingClientRect().top + offsetY,
       ease: "power3.inOut",
       duration,
+      onComplete,
+      onStart,
     },
     at,
   );
