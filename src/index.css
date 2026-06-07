@@ -1,40 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fonts */
-  --font-sans: "Inter", sans-serif;
-  --font-mono: "DM Mono", monospace;
-
-  /* Background scale (4 stops — base → overlay) */
-  --color-bg-base: oklch(0.11 0.022 275);
-  --color-bg-elevated: oklch(0.155 0.028 278);
-  --color-bg-surface: oklch(0.195 0.03 276);
-  --color-bg-overlay: oklch(0.24 0.032 274);
-
-  /* Accent palette */
-  --color-accent: oklch(0.72 0.175 290); /* violet — primary CTA */
-  --color-accent-cyan: oklch(0.78 0.14 195); /* links, info states */
-  --color-accent-amber: oklch(0.82 0.16 65); /* warnings, highlights */
-  --color-accent-rose: oklch(0.72 0.2 15); /* errors, danger */
-
-  /* Text scale */
-  --color-text: oklch(0.96 0.01 280); /* headings, strong */
-  --color-text-sub: oklch(0.68 0.022 278); /* body copy */
-  --color-text-muted: oklch(0.46 0.018 276); /* captions, labels */
-
-  /* Borders */
-  --color-border: oklch(0.38 0.03 275 / 0.7);
-  --color-border-subtle: oklch(0.3 0.028 275 / 0.5);
-  --color-border-accent: oklch(0.72 0.175 290 / 0.45);
-  --color-primary: oklch(0.72 0.175 290);
+  --font-inter: "Inter", sans-serif;
+  --color-primary: oklch(0.8971 0.0313 295);
+  --color-text: oklch(0.9706 0.0094 295);
+  --color-background: oklch(0.1333 0.0253 275.29);
 }
 
 :root {
-  background-color: var(--color-bg-base);
-  color: var(--color-text);
+  background-color: var(--color-background); /* background color */
+  color: var(--color-text); /* font color*/
 }
 
 body {
-  color: var(--color-text-sub);
-  font-family: var(--font-sans);
+  color: var(--color-text); /* font color*/
 }
