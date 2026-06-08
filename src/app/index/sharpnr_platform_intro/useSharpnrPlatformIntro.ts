@@ -17,43 +17,57 @@ export function useSharpnrPlatformIntro({
       const headingWrapper = headingWrapperRef.current;
       if (!heading || !headingWrapper) return;
 
-      const split = SplitText.create(heading, { type: "lines" });
-      const lines = split.lines.length > 0 ? split.lines : [heading];
+      const mm = gsap.matchMedia();
 
-      // Total timeline units:
-      // 0.0 → 0.5  : heading reveal
-      // 0.5 → 1.0  : heading shrinks to top-left
-      // 1.0 → 5.0  : 4 features × 1 unit each
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: mainContainerRef.current,
-          start: "top top",
-          end: "bottom bottom", // 600vh drives this
-          scrub: 2, // higher = smoother/lazier scrub
-          pin: true,
-          pinSpacing: false,
-          pinType: "transform",
-          invalidateOnRefresh: true,
-          markers: true,
+      mm.add(
+        {
+          isDesktop: "(min-width: 768px)",
+          isMobile: "(max-width: 767px)",
         },
-      });
+        (context) => {
+          const { isMobile } = context.conditions as { isMobile: boolean };
 
-      // Phase 1 — heading lines burst up from clip mask
-      phaseHeadingReveal(tl, lines, { at: 0, duration: 0.5 });
+          const split = SplitText.create(heading, { type: "lines" });
+          const lines = split.lines.length > 0 ? split.lines : [heading];
 
-      // Phase 2 — heading shrinks to top-left corner
-      phaseHeadingPin(tl, headingWrapper, heading, { at: 0.5, duration: 0.5 });
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: mainContainerRef.current,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: 2,
+              pin: true,
+              pinSpacing: false,
+              pinType: "transform",
+              invalidateOnRefresh: true,
+            },
+          });
 
-      // Phase 3 — features scroll one by one
-      phaseFeatures(tl, explainerItemRefs.current, cardItemRefs.current, {
-        at: 1,
-        duration: 0.4,
-      });
+          // Phase 1 — heading reveal
+          phaseHeadingReveal(tl, lines, { at: 0, duration: 0.5 });
 
-      ScrollTrigger.refresh();
+          // Phase 2 — heading shrinks and pins
+          phaseHeadingPin(tl, headingWrapper, heading, {
+            at: 0.5,
+            duration: 0.5,
+            paddingTop: isMobile ? "1rem" : "1.5rem",
+            paddingLeft: isMobile ? "0" : "2rem",
+            fontSize: isMobile ? "1.125rem" : "1.5rem",
+            textAlign: isMobile ? "center" : "left",
+            alignItems: "flex-start",
+            justifyContent: isMobile ? "center" : "flex-start",
+          });
+
+          // Phase 3 — features
+          phaseFeatures(tl, explainerItemRefs.current, cardItemRefs.current, {
+            at: 1,
+            duration: 0.4,
+          });
+        },
+      );
+
       return () => {
-        split.revert();
-        tl.kill();
+        mm.revert();
       };
     },
     { scope: mainContainerRef },
