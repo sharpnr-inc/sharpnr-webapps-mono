@@ -74,14 +74,6 @@ const SharpnrPlatformIntro = () => {
             >
               Sharpnr platform intro
             </h1>
-            <p
-              ref={subtitleRef}
-              className="mt-5 text-base max-w-sm"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              One operating system for your entire business. Built for
-              precision.
-            </p>
           </div>
 
           <div
@@ -132,7 +124,9 @@ const SharpnrPlatformIntro = () => {
             ))}
           </div>
 
+          {/* Bottom container */}
           <div className="flex items-end justify-between">
+            {/* Stats segment starts */}
             <div ref={statsRef} className="flex gap-10">
               {STATS.map((stat) => (
                 <div key={stat.label} data-stat className="flex flex-col">
@@ -152,6 +146,7 @@ const SharpnrPlatformIntro = () => {
                 </div>
               ))}
             </div>
+            {/* Stats segment ends */}
 
             <div ref={bottomCopyRef} className="text-right">
               <p
@@ -164,6 +159,7 @@ const SharpnrPlatformIntro = () => {
               </p>
             </div>
           </div>
+          {/* Bottom container */}
         </div>
       </div>
     </div>

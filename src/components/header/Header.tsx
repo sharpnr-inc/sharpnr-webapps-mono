@@ -174,9 +174,9 @@ export function Header() {
         <a href="/" className="flex items-center gap-2 shrink-0">
           <img
             ref={logoImgRef}
-            src="https://cdn.sharpnr.com/shicon.svg"
+            src="/sharpnr_w.svg"
             alt="Sharpnr"
-            className="w-6 h-6 sm:w-7 sm:h-7 rounded-md object-cover cursor-pointer"
+            className="w-30 h-30 sm:w-7 sm:h-7 rounded-md object-cover cursor-pointer"
           />
           <span className="font-semibold text-lg sm:text-2xl font-serif tracking-tight text-slate-50 select-none">
             Sharpnr
