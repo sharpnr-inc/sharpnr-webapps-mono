@@ -1,165 +1,82 @@
 import { useRef } from "react";
 import { useSharpnrPlatformIntro } from "./useSharpnrPlatformIntro";
-
-const CARDS = [
-  {
-    label: "CRM",
-    desc: "Track every deal, contact, and pipeline stage in one unified view.",
-  },
-  {
-    label: "HRMS",
-    desc: "Manage your people — from onboarding to payroll — without the chaos.",
-  },
-  {
-    label: "Accounting",
-    desc: "Real-time financials built for teams that move fast and need precision.",
-  },
-];
-
-const STATS = [
-  { label: "Businesses", value: 4200 },
-  { label: "Hours saved / mo", value: 18000 },
-  { label: "Integrations", value: 120 },
-  { label: "Uptime %", value: 99 },
-];
+import { FEATURES } from "./data";
 
 const SharpnrPlatformIntro = () => {
   const mainContainerRef = useRef<HTMLDivElement>(null);
-  const stickyContainerRef = useRef<HTMLDivElement>(null);
-  const headingWrapRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const bottomCopyRef = useRef<HTMLDivElement>(null);
+  const headingWrapperRef = useRef<HTMLDivElement>(null);
+  const explainerItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardItemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useSharpnrPlatformIntro({
     mainContainerRef,
-    stickyContainerRef,
-    headingWrapRef,
     headingRef,
-    subtitleRef,
-    cardsRef,
-    statsRef,
-    imageRef,
-    bottomCopyRef,
+    headingWrapperRef,
+    explainerItemRefs,
+    cardItemRefs,
   });
 
   return (
-    <div
-      ref={mainContainerRef}
-      style={{ height: "500vh", position: "relative" }}
-    >
-      <div
-        ref={stickyContainerRef}
-        className="h-screen w-full overflow-hidden"
-        style={{ display: "grid", gridTemplateRows: "1fr auto" }}
-      >
-        {/* ── top: heading + image ── */}
-        <div className="flex items-center justify-between px-12 pt-24 gap-12">
-          <div
-            ref={headingWrapRef}
-            className="will-change-transform"
-            style={{
-              transformOrigin: "top left",
-              flex: "0 0 auto",
-              maxWidth: "55%",
-            }}
+    // 600vh — 100vh heading intro + ~125vh per feature
+    <div ref={mainContainerRef} className="relative rounded-2xl h-[600vh]">
+      {/* Sticky canvas — everything animates inside here */}
+      <div className="sticky top-0 h-svh w-full overflow-hidden">
+        {/* Heading wrapper */}
+        <div
+          ref={headingWrapperRef}
+          className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+        >
+          <h1
+            ref={headingRef}
+            className="text-9xl font-semibold leading-[1.05] tracking-tight text-center text-white"
           >
-            <h1
-              ref={headingRef}
-              className="text-[clamp(2.5rem,6vw,6rem)] font-semibold leading-[1.05] tracking-tight"
-              style={{ overflow: "hidden", color: "var(--color-text)" }}
-            >
-              Sharpnr platform intro
-            </h1>
-          </div>
-
-          <div
-            ref={imageRef}
-            className="flex-1 rounded-2xl flex items-center justify-center"
-            style={{
-              height: "42vh",
-              clipPath: "inset(100% 0% 0% 0%)",
-              border: "1px solid var(--color-border)",
-              background: "var(--color-surface)",
-            }}
-          >
-            <span
-              className="text-xs font-mono tracking-widest uppercase border"
-              style={{ color: "var(--color-text-tertiary)" }}
-            >
-              Platform preview
-            </span>
-          </div>
+            Sharpnr platform intro
+          </h1>
         </div>
 
-        {/* ── bottom: cards + stats ── */}
-        <div className="px-12 pb-10 flex flex-col gap-8">
-          <div ref={cardsRef} className="flex gap-4">
-            {CARDS.map((card) => (
+        {/* Feature panels — all stacked, GSAP controls opacity/transform */}
+        <div className="absolute inset-0 flex items-center px-8 gap-6 pt-24">
+          {/* Left — explainers */}
+          <div className="relative w-1/3 h-full flex items-center">
+            {FEATURES.map((feature, i) => (
               <div
-                key={card.label}
-                data-card
-                className="flex-1 rounded-xl p-5"
-                style={{
-                  border: "1px solid var(--color-border)",
-                  background: "var(--color-surface)",
+                key={feature.id}
+                ref={(el) => {
+                  explainerItemRefs.current[i] = el;
                 }}
+                className="absolute opacity-0 translate-y-8 space-y-4"
               >
-                <span
-                  className="block text-[0.65rem] font-mono tracking-[0.2em] uppercase mb-2 bg-amber-300"
-                  style={{ color: "var(--color-text-tertiary)" }}
-                >
-                  {card.label}
+                <span className="text-xs font-mono tracking-widest text-white/40 uppercase">
+                  {feature.label}
                 </span>
-                <p
-                  className="text-sm leading-snug"
-                  style={{ color: "var(--color-text-secondary)" }}
-                >
-                  {card.desc}
+                <h2 className="text-4xl font-semibold leading-tight text-white">
+                  {feature.heading}
+                </h2>
+                <p className="text-base text-white/60 leading-relaxed max-w-xs">
+                  {feature.description}
                 </p>
               </div>
             ))}
           </div>
 
-          {/* Bottom container */}
-          <div className="flex items-end justify-between">
-            {/* Stats segment starts */}
-            <div ref={statsRef} className="flex gap-10">
-              {STATS.map((stat) => (
-                <div key={stat.label} data-stat className="flex flex-col">
-                  <span
-                    className="text-3xl font-bold tabular-nums"
-                    data-stat-value={stat.value}
-                    style={{ color: "var(--color-text)" }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span
-                    className="text-[0.65rem] font-mono tracking-wider uppercase mt-1"
-                    style={{ color: "var(--color-text-tertiary)" }}
-                  >
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-            {/* Stats segment ends */}
-
-            <div ref={bottomCopyRef} className="text-right">
-              <p
-                className="text-xs leading-relaxed font-mono"
-                style={{ color: "var(--color-text-tertiary)" }}
+          {/* Right — cards */}
+          <div className="relative w-2/3 h-[75%]">
+            {FEATURES.map((feature, i) => (
+              <div
+                key={feature.id}
+                ref={(el) => {
+                  cardItemRefs.current[i] = el;
+                }}
+                className={`absolute inset-0 rounded-2xl opacity-0 scale-95 ${feature.cardBg} border border-white/10 flex items-center justify-center`}
               >
-                Trusted by 4,200+ businesses worldwide.
-                <br />
-                Enterprise-grade. Startup-friendly.
-              </p>
-            </div>
+                {/* Placeholder — replace with real card content */}
+                <span className="text-white/20 text-sm font-mono tracking-widest uppercase">
+                  {feature.id}
+                </span>
+              </div>
+            ))}
           </div>
-          {/* Bottom container */}
         </div>
       </div>
     </div>

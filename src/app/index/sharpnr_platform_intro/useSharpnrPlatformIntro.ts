@@ -1,78 +1,56 @@
 import { useGSAP, gsap, SplitText, ScrollTrigger } from "@/animations/gsap";
 import type { SharpnrPlatformIntroRefs } from "./types";
 import { phaseHeadingReveal } from "./phaseHeadingReveal";
-import { phaseSubtitle } from "./phaseSubtitle";
-import { phaseImageReveal } from "./phaseImageReveal";
-import { phaseScaleToCorner } from "./phaseScaleToCorner";
-import { phaseCards } from "./phaseCards";
-import { phaseStats } from "./phaseStats";
-import { phaseBottomCopy } from "./phaseBottomCopy";
+import { phaseHeadingPin } from "./phaseHeadingPin";
+import { phaseFeatures } from "./phaseFeatureSection";
 
 export function useSharpnrPlatformIntro({
   mainContainerRef,
-  stickyContainerRef,
   headingRef,
-  headingWrapRef,
-  subtitleRef,
-  cardsRef,
-  statsRef,
-  imageRef,
-  bottomCopyRef,
+  headingWrapperRef,
+  explainerItemRefs,
+  cardItemRefs,
 }: SharpnrPlatformIntroRefs) {
   useGSAP(
     () => {
       const heading = headingRef.current;
-      if (!heading) return;
+      const headingWrapper = headingWrapperRef.current;
+      if (!heading || !headingWrapper) return;
 
       const split = SplitText.create(heading, { type: "lines" });
       const lines = split.lines.length > 0 ? split.lines : [heading];
 
-      // One timeline scrubbed across the full 500vh.
-      // Each phase `at` is a progress value 0–1 mapped to scroll distance.
+      // Total timeline units:
+      // 0.0 → 0.5  : heading reveal
+      // 0.5 → 1.0  : heading shrinks to top-left
+      // 1.0 → 5.0  : 4 features × 1 unit each
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: mainContainerRef.current,
           start: "top top",
-          end: "bottom bottom",
-          scrub: 1.5,
-          pin: stickyContainerRef.current,
-          pinSpacing: true,
+          end: "bottom bottom", // 600vh drives this
+          scrub: 2, // higher = smoother/lazier scrub
+          pin: true,
+          pinSpacing: false,
           pinType: "transform",
           invalidateOnRefresh: true,
-          markers: true, // Temporarily enabled for debugging
+          markers: true,
         },
       });
 
-      // ── Phase 1 (0.00): heading lines wipe up ──────────────────────────
-      phaseHeadingReveal(tl, lines, { at: 0, duration: 0.3 });
+      // Phase 1 — heading lines burst up from clip mask
+      phaseHeadingReveal(tl, lines, { at: 0, duration: 0.5 });
 
-      // ── Phase 2 (0.10): subtitle fades in ──────────────────────────────
-      phaseSubtitle(tl, subtitleRef.current, { at: 0.1, duration: 0.2 });
+      // Phase 2 — heading shrinks to top-left corner
+      phaseHeadingPin(tl, headingWrapper, heading, { at: 0.5, duration: 0.5 });
 
-      // ── Phase 3 (0.25): image wipes in from bottom ─────────────────────
-      phaseImageReveal(tl, imageRef.current, { at: 0.25, duration: 0.25 });
-
-      // ── Phase 4 (0.45): heading shrinks to top-left corner ─────────────
-      phaseScaleToCorner(tl, headingWrapRef.current, {
-        at: 0.45,
-        duration: 0.3,
+      // Phase 3 — features scroll one by one
+      phaseFeatures(tl, explainerItemRefs.current, cardItemRefs.current, {
+        at: 1,
+        duration: 0.4,
       });
-
-      // ── Phase 5 (0.60): cards stagger up ───────────────────────────────
-      phaseCards(tl, cardsRef.current, {
-        at: 0.6,
-        duration: 0.2,
-        stagger: 0.06,
-      });
-
-      // ── Phase 6 (0.75): stats count up ─────────────────────────────────
-      phaseStats(tl, statsRef.current, { at: 0.75, duration: 0.2 });
-
-      // ── Phase 7 (0.88): bottom copy ────────────────────────────────────
-      phaseBottomCopy(tl, bottomCopyRef.current, { at: 0.88, duration: 0.15 });
 
       ScrollTrigger.refresh();
-
       return () => {
         split.revert();
         tl.kill();

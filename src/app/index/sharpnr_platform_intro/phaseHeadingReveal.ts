@@ -1,6 +1,6 @@
 import type { PhaseConfig } from "./types";
 
-interface PhaseHeadingRevealConfig extends PhaseConfig {
+interface Config extends PhaseConfig {
   duration?: number;
   stagger?: number;
 }
@@ -8,13 +8,7 @@ interface PhaseHeadingRevealConfig extends PhaseConfig {
 export function phaseHeadingReveal(
   tl: gsap.core.Timeline,
   lines: Element[],
-  {
-    at = 0,
-    duration = 0.4,
-    stagger = 0.1,
-    onComplete,
-    onStart,
-  }: PhaseHeadingRevealConfig = {},
+  { at = 0, duration = 0.5, stagger = 0.12, onComplete, onStart }: Config = {},
 ) {
   tl.from(
     lines,
