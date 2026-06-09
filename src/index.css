@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @theme {
   --font-inter: "Inter", sans-serif;
   --color-primary: oklch(0.8971 0.0313 295);
@@ -34,3 +33,19 @@ body {
 #03045E is the color that we use for the as logo and application(charts and graphs)
 make sure to convert it too oklch 
  */
+
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #3b82f6;
+  border: 2px solid white;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.react-flow__attribution {
+  display: none;
+}
