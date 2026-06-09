@@ -1,5 +1,5 @@
-import FeaturesSections from "@/app/index/FeaturesSections";
-import { HeroSection } from "@/app/index/HeroSection";
+import FeaturesSections from "@/app/index/features/FeaturesSections";
+import { HeroSection } from "@/app/index/hero/HeroSection";
 import SharpnrPlatformIntro from "@/app/index/sharpnr_platform_intro";
 
 import { createFileRoute } from "@tanstack/react-router";
