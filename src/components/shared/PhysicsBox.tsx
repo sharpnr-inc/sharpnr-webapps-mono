@@ -97,7 +97,7 @@ const PhysicsBox = () => {
 
       // ── GSAP ticker — this IS the physics loop ──────────────────
       // gsap.ticker is GSAP's own RAF. delta is in ms.
-      const physicsLoop = (time: number, deltaTime: number, frame: number) => {
+      const physicsLoop = (_time: number, deltaTime: number, _frame: number) => {
         if (!state.active) return;
 
         const dt = Math.min(deltaTime / 1000, 0.05); // seconds, clamped

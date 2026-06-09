@@ -1,10 +1,23 @@
 @import "tailwindcss";
 
+
 @theme {
   --font-inter: "Inter", sans-serif;
   --color-primary: oklch(0.8971 0.0313 295);
   --color-text: oklch(0.9706 0.0094 295);
   --color-background: oklch(0.1744 0.0701 276.31);
+
+  /* Diagram Colors */
+  --color-bg-diagram: #0e0e0f;
+  --color-surface: #161618;
+  --color-surface-alt: #1c1c1f;
+  --color-border-diagram: #2a2a2e;
+  --color-border-dash: #3a3a3e;
+  --color-accent-diagram: #e8604c;
+  --color-accent-dim: #7a3028;
+  --color-text-muted: #888890;
+  --color-text-dim: #555560;
+  --color-infra: #141417;
 }
 
 :root {

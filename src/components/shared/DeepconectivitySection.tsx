@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { gsap } from "gsap";

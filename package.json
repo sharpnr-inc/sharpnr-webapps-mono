@@ -20,6 +20,7 @@
     "@tanstack/ai-react": "^0.13.0",
     "@tanstack/react-query": "^5.99.2",
     "@tanstack/react-router": "^1.168.23",
+    "@xyflow/react": "^12.11.0",
     "animejs": "^4.4.1",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",

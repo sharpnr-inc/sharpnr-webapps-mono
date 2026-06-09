@@ -1,4 +1,4 @@
-import { useGSAP, gsap, SplitText, ScrollTrigger } from "@/animations/gsap";
+import { useGSAP, gsap, SplitText } from "@/animations/gsap";
 import type { SharpnrPlatformIntroRefs } from "./types";
 import { phaseHeadingReveal } from "./phaseHeadingReveal";
 import { phaseHeadingPin } from "./phaseHeadingPin";

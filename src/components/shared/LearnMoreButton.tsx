@@ -6,7 +6,7 @@ interface LearnMoreButtonProps {
   websiteLink?: string;
 }
 export function LearnMoreButton({}: LearnMoreButtonProps) {
-  useGSAP((context, contextSafe) => {
+  useGSAP(() => {
     gsap.to(buttonContainer.current, {});
   });
 

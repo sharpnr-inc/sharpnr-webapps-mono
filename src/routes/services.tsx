@@ -1,9 +1,9 @@
 // /services
-import { ServicePage } from "@/app/services/ServicePage";
+import SharpnrFlowDiagram from "@/app/services/ServicePage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/services")({
-  component: ServicePage,
+  component: SharpnrFlowDiagram,
   head: () => ({
     meta: [
       { title: "Services | Enterprise Consulting & Support" },
