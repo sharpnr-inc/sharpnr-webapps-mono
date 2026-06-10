@@ -20,10 +20,7 @@ export default function ArchitecturePage() {
   const [selected, setSelected] = useState<Node>(initialNodes[0] as Node);
 
   return (
-    <div
-      className="flex h-screen w-full overflow-hidden"
-      style={{ background: "#020617" }}
-    >
+    <div className="flex h-screen w-full overflow-hidden">
       {/* Detail panel — left */}
       <DetailPanel node={selected} />
 

@@ -1,8 +1,5 @@
-import FeaturesSections from "@/app/index/features/FeaturesSections";
 import { HeroSection } from "@/app/index/hero/HeroSection";
-import SharpnrPlatformIntro from "@/app/index/sharpnr_platform_intro";
 import ArchitecturePage from "@/app/services/ArchitecturePage";
-
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -40,9 +37,7 @@ function RootComponent() {
   return (
     <div>
       <HeroSection />
-      <SharpnrPlatformIntro />
       <ArchitecturePage />
-      <FeaturesSections />
     </div>
   );
 }
