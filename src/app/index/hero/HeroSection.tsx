@@ -188,14 +188,11 @@ export function HeroSection() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
-      <div className="w-full mx-auto px-8 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center min-h-screen py-28">
+    <section ref={sectionRef} className="relative overflow-hidden mx-auto">
+      <div className="w-full mx-auto px-8 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-28">
         {/* ── Left: Copy + CTA ── */}
         <div className="flex flex-col relative z-10">
-          <h1
-            ref={headlineRef}
-            className="text-[3.2rem] md:text-[4rem] lg:text-[4.5rem] font-bold leading-[1.0] tracking-tight mb-6"
-          >
+          <h1 ref={headlineRef} className="text-4xl font-bold">
             <div>One Platform</div>
             <div>Every Business</div>
           </h1>

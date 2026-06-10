@@ -15,7 +15,7 @@ import { initialNodes, initialEdges } from "./arch-data";
 const nodeTypes = { arch: ArchNode };
 
 export default function ArchitecturePage() {
-  const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  const [nodes] = useNodesState(initialNodes);
   const [edges] = useEdgesState(initialEdges);
   const [selected, setSelected] = useState<Node>(initialNodes[0] as Node);
 

@@ -1,4 +1,4 @@
-import { Terminal, Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
   const productCategories = [
@@ -38,8 +38,8 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
           <div className="col-span-2 lg:col-span-1">
             <a href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-6 h-6 bg-slate-50 flex items-center justify-center rounded-sm rotate-45">
-                <Terminal size={14} className="text-slate-950 -rotate-45" />
+              <div className="w-6 h-6 flex items-center justify-center">
+                <img src="/layer1.png" />
               </div>
               <span className="text-xl font-serif text-slate-50">Sharpnr</span>
             </a>
@@ -91,10 +91,6 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2 font-mono text-[10px] text-slate-500 uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-            All Systems Operational
-          </div>
           <p className="font-mono text-[10px] text-slate-600 uppercase tracking-widest">
             © {new Date().getFullYear()} Sharpnr Protocol. All rights reserved.
           </p>
