@@ -1,5 +1,4 @@
 import { HeroSection } from "@/app/index/hero/HeroSection";
-import ArchitecturePage from "@/app/services/ArchitecturePage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -37,7 +36,6 @@ function RootComponent() {
   return (
     <div>
       <HeroSection />
-      <ArchitecturePage />
     </div>
   );
 }
