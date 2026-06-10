@@ -1,5 +1,5 @@
-import Footer from "@/components/footer/Footer";
-import { Header } from "@/components/header/Header";
+import Footer from "@/app/footer/Footer";
+import { Header } from "@/app/header/Header";
 import {
   createRootRoute,
   Outlet,
@@ -7,12 +7,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useRef } from "react";
-import {
-  gsap,
-  useGSAP,
-  ScrollSmoother,
-  ScrollTrigger,
-} from "@/animations/gsap";
+import { gsap, useGSAP, ScrollSmoother, ScrollTrigger } from "@/configs/gsap";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
