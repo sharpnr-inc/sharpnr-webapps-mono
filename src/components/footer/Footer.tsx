@@ -28,12 +28,7 @@ export default function Footer() {
     },
     {
       title: "Company",
-      links: [
-        { name: "Documentation", href: "#docs" },
-        { name: "API Reference", href: "#api" },
-        { name: "Pricing", href: "#pricing" },
-        { name: "Status", href: "#status" },
-      ],
+      links: [{ name: "Documentation", href: "https://docs.sharpnr.com" }],
     },
   ];
 
