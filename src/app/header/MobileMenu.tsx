@@ -17,25 +17,15 @@ export function MobileMenu({ setIsOpen }: MobileMenuProps) {
 
   return (
     <div className="lg:hidden fixed inset-x-0 top-[60px] bottom-0 z-40 bg-[#0a0a12] flex flex-col border-t border-white/[0.05] animate-in fade-in duration-150">
-      {/* Faint grid */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.022]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
-
-      <div className="relative flex flex-col flex-1 px-5 pt-4 pb-8 overflow-y-auto">
+      <div className="relative flex flex-col flex-1 px-5 pt-2 pb-8 overflow-y-auto">
         <nav className="flex flex-col flex-1">
           {LINKS.map((link) => {
             const row = (
               <span className="group flex items-center justify-between w-full py-[14px] border-b border-white/[0.05]">
-                <span className="text-[1.35rem] font-medium leading-none text-slate-600 group-hover:text-accent transition-colors duration-150">
+                <span className="text-[1.25rem] font-medium leading-none text-slate-500 group-hover:text-white transition-colors duration-150">
                   {link.label}
                 </span>
-                <span className="text-base transition-colors duration-150 text-slate-800 group-hover:text-accent">
+                <span className="text-sm transition-colors duration-150 text-slate-700 group-hover:text-indigo-400">
                   ↗
                 </span>
               </span>
@@ -68,24 +58,24 @@ export function MobileMenu({ setIsOpen }: MobileMenuProps) {
         </nav>
 
         {/* CTAs */}
-        <div className="mt-6 flex flex-col gap-2.5">
+        <div className="mt-8 flex flex-col gap-2.5">
           <button
             onClick={() => {
               window.location.href = config.authAppUrl + "/signup";
             }}
-            className="w-full py-3.5 rounded-xl text-sm font-semibold text-slate-900 bg-slate-100 hover:bg-white active:scale-[0.98] transition-all duration-150"
+            className="w-full py-3.5 rounded-full text-sm font-semibold text-slate-900 bg-white hover:bg-indigo-50 active:scale-[0.98] transition-all duration-150"
           >
-            Get Started
+            Start building for free
           </button>
           <button
             onClick={() => window.location.replace(config.iamAppUrl)}
-            className="w-full py-3.5 rounded-xl text-sm font-medium text-slate-500 hover:text-slate-100 hover:bg-white/[0.05] transition-all duration-150 border border-white/[0.07]"
+            className="w-full py-3.5 rounded-full text-sm font-medium text-slate-400 hover:text-slate-100 transition-colors duration-150"
           >
             Log in
           </button>
         </div>
 
-        <p className="mt-6 text-center text-[0.65rem] tracking-[0.12em] uppercase text-slate-800 select-none">
+        <p className="mt-8 text-center text-[0.65rem] tracking-[0.12em] uppercase text-slate-800 select-none">
           © {new Date().getFullYear()} Sharpnr · All rights reserved
         </p>
       </div>
