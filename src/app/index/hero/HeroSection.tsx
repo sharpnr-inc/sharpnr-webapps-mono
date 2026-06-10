@@ -188,25 +188,21 @@ export function HeroSection() {
   );
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden mx-auto">
-      <div className="w-full mx-auto px-8 md:px-16 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-28">
-        {/* ── Left: Copy + CTA ── */}
-        <div className="flex flex-col relative z-10">
-          <h1 ref={headlineRef} className="text-4xl font-bold">
+    <section ref={sectionRef} className="p-4 mx-auto">
+      <div className="h-[50rem] bg-primary rounded-2xl">
+        <div className="relative z-10 flex flex-col">
+          <h1 ref={headlineRef} className="text-4xl font-bold text-background">
             <div>One Platform</div>
             <div>Every Business</div>
           </h1>
 
-          <p
-            ref={subtextRef}
-            className="text-[0.9375rem] leading-relaxed mb-9 max-w-[480px]"
-          >
+          <p ref={subtextRef} className=" text-background">
             Replace fragmented tools with Sharpnr&apos;s unified OS for
             business. Deeply integrated CRM, HRMS, and Accounting software
             designed for organizations that demand precision.
           </p>
 
-          <div ref={ctaRef} className="flex items-center gap-3 flex-wrap">
+          <div ref={ctaRef} className="flex flex-wrap items-center gap-3">
             {/* Primary */}
             <button
               ref={primaryBtnRef}
@@ -214,11 +210,10 @@ export function HeroSection() {
                 window.location.href = config.authAppUrl + "/signup";
               }}
               className="relative overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-slate-900 bg-white cursor-pointer will-change-transform"
-              style={{ isolation: "isolate" }}
             >
               <span
                 ref={primaryShineRef}
-                className="pointer-events-none absolute inset-0 -skew-x-12 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full"
+                className="absolute inset-0 -translate-x-full -skew-x-12 pointer-events-none bg-gradient-to-r from-transparent via-white/40 to-transparent"
                 aria-hidden
               />
               Get Started Free
@@ -232,42 +227,12 @@ export function HeroSection() {
               ref={secondaryBtnRef}
               onClick={() => navigate({ to: "/products" })}
               className="relative flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold cursor-pointer border border-white/[0.12] will-change-transform"
-              style={{
-                backgroundColor: "rgba(255,255,255,0)",
-                isolation: "isolate",
-              }}
             >
               <span ref={secondaryTextRef} className="text-slate-400">
                 Explore Products
               </span>
             </button>
           </div>
-        </div>
-
-        {/* ── Right: Logo (zoom-out bg element) ── */}
-        {/*
-          The wrapper is positioned absolute, anchored to the right edge,
-          and intentionally overflows — the section's overflow-hidden clips it.
-          Width is large (90vw) so the logo is huge but mostly off-screen right.
-        */}
-        <div
-          ref={logoWrapRef}
-          className="absolute right-0 top-0 h-full flex items-center"
-          style={{
-            width: "72vw",
-            pointerEvents: "none",
-            // push it so only ~60% is visible
-            transform: "translateX(18%)",
-          }}
-        >
-          <img
-            ref={logoImgRef}
-            src="/sharpnr_w.svg"
-            alt=""
-            aria-hidden
-            className="w-full h-auto object-contain will-change-transform"
-            style={{ transformOrigin: "center center" }}
-          />
         </div>
       </div>
     </section>

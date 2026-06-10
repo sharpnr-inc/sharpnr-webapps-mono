@@ -84,7 +84,7 @@ function Node({
     return (
       <div
         data-node="center"
-        className="relative h-16 w-full rounded-2xl flex items-center justify-center overflow-hidden cursor-default select-none"
+        className="relative flex items-center justify-center w-full h-16 overflow-hidden cursor-default select-none rounded-2xl"
         style={{
           background: "linear-gradient(135deg, #1e1e2e 0%, #16162a 100%)",
           border: "1px solid rgba(139,92,246,0.5)",
@@ -120,7 +120,7 @@ function Node({
   return (
     <div
       data-node={side}
-      className="group relative h-14 w-full rounded-xl flex items-center gap-3 px-4 cursor-default select-none overflow-hidden"
+      className="relative flex items-center w-full gap-3 px-4 overflow-hidden cursor-default select-none group h-14 rounded-xl"
       style={{
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(255,255,255,0.07)",
@@ -130,7 +130,7 @@ function Node({
     >
       {/* Hover glow */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 transition-opacity duration-500 opacity-0 group-hover:opacity-100"
         style={{
           background: `radial-gradient(ellipse at ${side === "left" ? "0%" : "100%"} 50%, ${node.accentHex}18 0%, transparent 70%)`,
         }}
@@ -138,7 +138,7 @@ function Node({
 
       {/* Icon badge */}
       <div
-        className="relative z-10 flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-xs"
+        className="relative z-10 flex items-center justify-center flex-shrink-0 text-xs rounded-lg w-7 h-7"
         style={{
           background: `${node.accentHex}18`,
           border: `1px solid ${node.accentHex}30`,
@@ -157,7 +157,7 @@ function Node({
       </span>
 
       {/* Live indicator dot */}
-      <div className="relative z-10 ml-auto flex-shrink-0">
+      <div className="relative z-10 flex-shrink-0 ml-auto">
         <span
           className={`block w-1.5 h-1.5 rounded-full ${node.accent}`}
           style={{ boxShadow: `0 0 6px ${node.accentHex}` }}
@@ -388,7 +388,7 @@ const HeroVisuals = () => {
     <>
       <div
         ref={containerRef}
-        className="relative p-6 rounded-3xl overflow-hidden w-7xl"
+        className="relative p-6 overflow-hidden rounded-3xl w-7xl"
         style={{
           border: "1px solid rgba(255,255,255,0.06)",
           boxShadow:
@@ -414,7 +414,7 @@ const HeroVisuals = () => {
 
         {/* Node grid */}
         <div
-          className="grid grid-cols-3 gap-8 items-center relative"
+          className="relative grid items-center grid-cols-3 gap-8"
           style={{ zIndex: 2 }}
         >
           {/* Left column */}

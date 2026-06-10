@@ -25,7 +25,7 @@ function RootLayout() {
       ScrollSmoother.create({
         wrapper: wrapperRef.current!,
         content: contentRef.current!,
-        smooth: 2.1,
+        smooth: 1.8,
         smoothTouch: 0.1,
         effects: true,
       });
