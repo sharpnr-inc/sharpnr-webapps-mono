@@ -1,9 +1,7 @@
-// /services
-import ArchitecturePage from "@/app/services/ArchitecturePage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/services")({
-  component: ArchitecturePage,
+  component: RouteComponent,
   head: () => ({
     meta: [
       { title: "Services | Enterprise Consulting & Support" },
@@ -15,3 +13,7 @@ export const Route = createFileRoute("/services")({
     ],
   }),
 });
+
+function RouteComponent() {
+  return <div>{/* Compoennt to be Added here  */}</div>;
+}

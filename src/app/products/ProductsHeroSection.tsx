@@ -23,7 +23,7 @@ const products = [
   },
 ];
 
-export function ProductsPageHeroSection() {
+export function ProductsHeroSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const isAnimating = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);

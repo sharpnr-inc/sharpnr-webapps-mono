@@ -1,9 +1,8 @@
-// /products
-import { ProductsPage } from "@/app/products/Index";
+import { ProductsHeroSection } from "@/app/products/ProductsHeroSection";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/products")({
-  component: ProductsPage,
+  component: RouteComponent,
   head: () => ({
     meta: [
       { title: "Products | Sharpnr Enterprise Solutions" },
@@ -20,3 +19,11 @@ export const Route = createFileRoute("/products")({
     ],
   }),
 });
+
+function RouteComponent() {
+  return (
+    <div>
+      <ProductsHeroSection />
+    </div>
+  );
+}

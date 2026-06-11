@@ -40,5 +40,9 @@ function RootComponent() {
   );
 }
 
-// routes/index.tsx
-// this is tanstack router
+// Each component used here for example
+/*
+<HeroSection/>
+<FeatureSection/>
+<Architexture/>
+ */
