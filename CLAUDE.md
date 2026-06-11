@@ -1137,7 +1137,7 @@ We use **OKLCH** for all colors — never HEX or RGB.
 ## Guides and Suggestions for Creating website
 
 - use Visuals to Explain Sharpnr Platform Architecture and Platform
-- use Gsap for visulization and animations
+- use Gsap for visulization and animations use Flow animations Motion Graphics Style
 - Mobiles first approch
 
 ### Scroll & UX
@@ -1148,7 +1148,7 @@ We use **OKLCH** for all colors — never HEX or RGB.
 
 ### Design
 
-- Be creative — make it look awesome
+- Be creative — make it look awesome and amazing
 - Design references/screenshots will be provided separately during the session
 - The website should feel premium and polished — this is an enterprise SaaS platform
 
