@@ -36,6 +36,7 @@ interface IsometricAnimationRefs {
   pulsesRef: GRef;
   flowPulseRef: RefObject<SVGCircleElement | null>;
   beaconRingRef: RefObject<SVGCircleElement | null>;
+  orbitRef: RefObject<SVGEllipseElement | null>;
 }
 
 export function useIsometricAnimation(refs: IsometricAnimationRefs) {
@@ -51,6 +52,7 @@ export function useIsometricAnimation(refs: IsometricAnimationRefs) {
     pulsesRef,
     flowPulseRef,
     beaconRingRef,
+    orbitRef,
   } = refs;
 
   useGSAP(
@@ -88,7 +90,11 @@ export function useIsometricAnimation(refs: IsometricAnimationRefs) {
         opacity: 0,
         y: 56,
         duration: 1,
-      });
+      }).from(
+        orbitRef.current,
+        { opacity: 0, scale: 0.85, transformOrigin: "center center", duration: 1 },
+        "-=0.6",
+      );
 
       // ── Phase 2: Core Services floor builds up ─────────────────
       tl.from(
@@ -206,6 +212,16 @@ export function useIsometricAnimation(refs: IsometricAnimationRefs) {
           repeat: -1,
           ease: "none",
         });
+
+        // Orbit ring flows slowly around the network
+        if (orbitRef.current) {
+          gsap.to(orbitRef.current, {
+            strokeDashoffset: -140,
+            duration: 14,
+            repeat: -1,
+            ease: "none",
+          });
+        }
 
         // Orchestrator beacon pings
         if (beaconRingRef.current) {

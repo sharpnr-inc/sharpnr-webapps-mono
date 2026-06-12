@@ -1,5 +1,7 @@
 import { HeroSection } from "@/app/index/hero/HeroSection";
+import { TickerSection } from "@/app/index/ticker/TickerSection";
 import { ArchitectureSection } from "@/app/index/architecture/ArchitectureSection";
+import { FlowSection } from "@/app/index/flow/FlowSection";
 import { AppsSection } from "@/app/index/apps/AppsSection";
 import { FeaturesSection } from "@/app/index/features/FeaturesSection";
 import { MarketplaceSection } from "@/app/index/marketplace/MarketplaceSection";
@@ -41,7 +43,9 @@ function RootComponent() {
   return (
     <div>
       <HeroSection />
+      <TickerSection />
       <ArchitectureSection />
+      <FlowSection />
       <AppsSection />
       <FeaturesSection />
       <MarketplaceSection />

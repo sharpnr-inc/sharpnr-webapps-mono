@@ -5,6 +5,7 @@ import type { RefObject } from "react";
 interface HeroAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
   badgeRef: RefObject<HTMLDivElement | null>;
+  badgeTextRef: RefObject<HTMLSpanElement | null>;
   titleRef: RefObject<HTMLHeadingElement | null>;
   subtitleRef: RefObject<HTMLParagraphElement | null>;
   ctaRef: RefObject<HTMLDivElement | null>;
@@ -12,8 +13,15 @@ interface HeroAnimationRefs {
 }
 
 export function useHeroAnimation(refs: HeroAnimationRefs) {
-  const { sectionRef, badgeRef, titleRef, subtitleRef, ctaRef, trustRef } =
-    refs;
+  const {
+    sectionRef,
+    badgeRef,
+    badgeTextRef,
+    titleRef,
+    subtitleRef,
+    ctaRef,
+    trustRef,
+  } = refs;
 
   useGSAP(
     () => {
@@ -26,8 +34,22 @@ export function useHeroAnimation(refs: HeroAnimationRefs) {
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // ── Phase 1: Badge ─────────────────────────────────────────
+      // ── Phase 1: Badge fades in, label decodes ─────────────────
       tl.from(badgeRef.current, { opacity: 0, y: 14, duration: 0.5 });
+      if (badgeTextRef.current) {
+        tl.to(
+          badgeTextRef.current,
+          {
+            scrambleText: {
+              text: "Early Access · Alpha",
+              chars: "upperCase",
+              speed: 0.5,
+            },
+            duration: 1.1,
+          },
+          "-=0.2",
+        );
+      }
 
       // ── Phase 2: Headline words cascade ────────────────────────
       tl.from(

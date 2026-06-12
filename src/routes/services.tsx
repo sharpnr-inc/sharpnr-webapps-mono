@@ -1,5 +1,6 @@
 import { ServicesHeroSection } from "@/app/services/ServicesHeroSection";
 import { ServicesSolutionsSection } from "@/app/services/ServicesSolutionsSection";
+import { ServicesCoreSection } from "@/app/services/ServicesCoreSection";
 import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -39,6 +40,7 @@ function RouteComponent() {
     <div>
       <ServicesHeroSection />
       <ServicesSolutionsSection />
+      <ServicesCoreSection />
       <CTASection />
     </div>
   );

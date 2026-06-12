@@ -1,5 +1,6 @@
 import { ProductsHeroSection } from "@/app/products/ProductsHeroSection";
 import { ProductsGridSection } from "@/app/products/ProductsGridSection";
+import { ProductsConnectSection } from "@/app/products/ProductsConnectSection";
 import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -39,6 +40,7 @@ function RouteComponent() {
     <div>
       <ProductsHeroSection />
       <ProductsGridSection />
+      <ProductsConnectSection />
       <CTASection />
     </div>
   );

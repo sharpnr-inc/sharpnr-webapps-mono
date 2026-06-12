@@ -261,6 +261,7 @@ export function IsometricPlatform() {
   const pulsesRef = useRef<SVGGElement>(null);
   const flowPulseRef = useRef<SVGCircleElement>(null);
   const beaconRingRef = useRef<SVGCircleElement>(null);
+  const orbitRef = useRef<SVGEllipseElement>(null);
 
   const [hovered, setHovered] = useState<LayerKey | null>(null);
 
@@ -284,6 +285,7 @@ export function IsometricPlatform() {
     pulsesRef,
     flowPulseRef,
     beaconRingRef,
+    orbitRef,
   });
 
   const layerClass = (key: LayerKey) =>
@@ -292,7 +294,6 @@ export function IsometricPlatform() {
     }`;
 
   const beacon = iso(TOWER.cx, TOWER.cy, Z.control + 34);
-  const caption = hovered ? LAYER_INFO[hovered] : null;
 
   return (
     <div ref={containerRef} className="relative w-full">
@@ -325,6 +326,20 @@ export function IsometricPlatform() {
           fill="var(--color-primary)"
           opacity={0.09}
           filter="url(#iso-shadow)"
+        />
+
+        {/* Orbit ring — slow-flowing dashed ellipse around the network */}
+        <ellipse
+          ref={orbitRef}
+          cx={0}
+          cy={8}
+          rx={356}
+          ry={148}
+          fill="none"
+          stroke="var(--color-accent)"
+          strokeOpacity={0.28}
+          strokeWidth={1.2}
+          strokeDasharray="3 11"
         />
 
         {/* ── Foundation: Sharp-Marketplace (L4) ─────────────── */}
@@ -590,20 +605,40 @@ export function IsometricPlatform() {
         </g>
       </svg>
 
-      {/* Hover caption */}
-      <div className="mx-auto mt-2 max-w-xl rounded-lg border border-border bg-surface/80 px-4 py-3 text-center backdrop-blur-sm">
-        {caption ? (
-          <p className="text-sm leading-relaxed text-text-muted">
-            <span className="font-mono text-xs font-medium uppercase tracking-wider text-accent-strong">
-              {caption.name}
-            </span>
-            <span className="mt-0.5 block">{caption.blurb}</span>
-          </p>
-        ) : (
+      {/* Hover caption — fixed height, crossfading states so the
+          hero layout never shifts on hover */}
+      <div className="relative mx-auto mt-2 h-24 w-full max-w-xl overflow-hidden rounded-xl border border-border bg-surface/80 backdrop-blur-sm">
+        <span className="absolute left-3 top-3 size-1.5 rounded-full bg-accent-strong/40" />
+        <span className="absolute right-3 top-3 size-1.5 rounded-full bg-accent-strong/40" />
+
+        <div
+          className={`absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-6 text-center transition-opacity duration-300 ${
+            hovered ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <span className="font-mono text-[10px] font-medium uppercase tracking-[0.22em] text-accent-strong">
+            Platform Map
+          </span>
           <p className="font-mono text-xs uppercase tracking-wider text-text-faint">
             {DEFAULT_CAPTION}
           </p>
-        )}
+        </div>
+
+        {(Object.keys(LAYER_INFO) as LayerKey[]).map((key) => (
+          <div
+            key={key}
+            className={`absolute inset-0 flex flex-col items-center justify-center gap-1 px-6 text-center transition-opacity duration-300 ${
+              hovered === key ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-accent-strong">
+              {LAYER_INFO[key].name}
+            </span>
+            <p className="text-sm leading-snug text-text-muted">
+              {LAYER_INFO[key].blurb}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

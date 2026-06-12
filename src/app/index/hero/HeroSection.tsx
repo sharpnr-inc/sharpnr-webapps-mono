@@ -5,11 +5,13 @@ import { useDevice } from "@/hooks/useDevice";
 import { ScrollSmoother } from "@/configs/gsap";
 import { IsometricPlatform } from "./IsometricPlatform";
 import { MobilePlatform } from "./MobilePlatform";
+import { HeroAmbientCanvas } from "./HeroAmbientCanvas";
 import { useHeroAnimation } from "./animations/useHeroAnimation";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const badgeTextRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -20,6 +22,7 @@ export function HeroSection() {
   useHeroAnimation({
     sectionRef,
     badgeRef,
+    badgeTextRef,
     titleRef,
     subtitleRef,
     ctaRef,
@@ -45,6 +48,11 @@ export function HeroSection() {
       {/* Blueprint grid backdrop */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
 
+      {/* Atmosphere: accent glow behind the graphic + drifting motes */}
+      <div className="pointer-events-none absolute right-[-10%] top-[10%] h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-3xl" />
+      <div className="pointer-events-none absolute left-[-12%] top-[55%] h-[26rem] w-[26rem] rounded-full bg-primary/5 blur-3xl" />
+      <HeroAmbientCanvas />
+
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pb-16 md:px-8 lg:grid-cols-[5fr_7fr] lg:gap-8 lg:pb-24">
         {/* ── Copy column ─────────────────────────────────────── */}
         <div className="max-w-xl">
@@ -56,7 +64,10 @@ export function HeroSection() {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative inline-flex size-2 rounded-full bg-accent-strong" />
             </span>
-            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-text-muted">
+            <span
+              ref={badgeTextRef}
+              className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-text-muted"
+            >
               Early Access · Alpha
             </span>
           </div>

@@ -1,5 +1,6 @@
 import { AboutHeroSection } from "@/app/about/AboutHeroSection";
 import { AboutStorySection } from "@/app/about/AboutStorySection";
+import { AboutPrinciplesSection } from "@/app/about/AboutPrinciplesSection";
 import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -39,6 +40,7 @@ function RouteComponent() {
     <div>
       <AboutHeroSection />
       <AboutStorySection />
+      <AboutPrinciplesSection />
       <CTASection />
     </div>
   );
