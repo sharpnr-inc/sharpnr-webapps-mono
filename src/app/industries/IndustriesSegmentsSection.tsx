@@ -65,7 +65,8 @@ export function IndustriesSegmentsSection() {
           </h2>
           <p className="mt-5 text-base leading-relaxed text-ink-muted">
             From a single café to a group that spans hospitals and resorts —
-            the same architecture carries them all.
+            the same multi-tenant, multi-company, multi-branch architecture
+            carries them all, and keeps expanding into new sectors.
           </p>
         </div>
 

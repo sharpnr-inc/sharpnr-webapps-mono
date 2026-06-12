@@ -8,7 +8,7 @@ const solutions = [
     name: "Sharp-Hospitality",
     pain: "Hotels, restaurants, and resorts run on chaos.",
     pitch:
-      "Separate systems for the front desk, the kitchen, the bar, and the books — and none of them talk. Sharp-Hospitality brings order: one platform for every property, every kitchen, and every order, with accounting that records itself.",
+      "Separate systems for the front desk, the kitchen, the bar, and the books — and none of them talk. Sharp-Hospitality brings order: one platform for every property, every kitchen, and every order, with accounting that records itself. Route menu items to different kitchens, share menus across businesses, and run loyalty programs through Sharp-Marketing — all from highly configurable workflows that match how your operation actually runs.",
     features: [
       "Point of Sale, table management, and KDS",
       "Hotel room reservations, check-in, and room service",
@@ -25,7 +25,7 @@ const solutions = [
     name: "Lifco",
     pain: "Healthcare runs on paper trails and phone calls.",
     pitch:
-      "Hospitals, clinics, diagnostic centers, and pharmacies juggle disconnected records, schedules, and billing. Lifco unifies patient care and operations on one platform — connected to the same accounting and HR core as the rest of your organization.",
+      "Hospitals, clinics, diagnostic centers, and pharmacies juggle disconnected records, schedules, and billing. Lifco unifies patient care and operations on one platform — patient records, appointments, pharmacy inventory, and insurance billing, connected to the same accounting and HR core as the rest of your organization. And like every Sharp application, it keeps expanding.",
     features: [
       "Patient management and medical records",
       "Appointment scheduling",
@@ -43,12 +43,14 @@ const upcoming = [
   {
     icon: ShoppingBag,
     name: "Sharp-Retail",
-    blurb: "Stores, stock, and sales — retail operations on the Sharp core.",
+    blurb:
+      "Stores, stock, and sales — retail operations on the Sharp core, with the same automatic accounting and marketplace procurement.",
   },
   {
     icon: Factory,
     name: "Manufacturing",
-    blurb: "Production, procurement, and plant operations — on the roadmap.",
+    blurb:
+      "Production, procurement, and plant operations — on the roadmap as the ecosystem expands into new industries.",
   },
 ] as const;
 

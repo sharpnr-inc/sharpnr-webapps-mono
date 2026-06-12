@@ -14,7 +14,7 @@ export const MobileNetwork = forwardRef<HTMLDivElement>(
           <p className="font-display text-lg font-bold text-text-light">
             {HUB.name}
           </p>
-          <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-accent-glow">
+          <p className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
             {HUB.sub}
           </p>
         </div>
@@ -23,16 +23,16 @@ export const MobileNetwork = forwardRef<HTMLDivElement>(
         <div className="flex justify-center gap-10 py-1">
           {[0, 1, 2].map((i) => (
             <span key={i} className="flex flex-col items-center gap-1 py-1">
-              <span className="size-1 rounded-full bg-accent/70" />
-              <span className="size-1 rounded-full bg-accent/50" />
-              <span className="size-1 rounded-full bg-accent/30" />
+              <span className="size-1 bg-accent/70" />
+              <span className="size-1 bg-accent/50" />
+              <span className="size-1 bg-accent/30" />
             </span>
           ))}
         </div>
 
         {/* Orgs */}
         <div className="flex flex-col gap-3">
-          {ORGS.map((org) => (
+          {ORGS.slice(0, 3).map((org) => (
             <div
               key={org.name}
               className="rounded-xl border border-ink-border bg-ink-soft/70 p-4"
@@ -41,7 +41,7 @@ export const MobileNetwork = forwardRef<HTMLDivElement>(
                 <p className="font-display text-base font-semibold text-text-light">
                   {org.name}
                 </p>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-accent-glow">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-accent">
                   {org.industry}
                 </p>
               </div>
@@ -57,6 +57,18 @@ export const MobileNetwork = forwardRef<HTMLDivElement>(
               </div>
             </div>
           ))}
+
+          {/* The network keeps going */}
+          <div className="rounded-xl border border-dashed border-ink-border p-4 text-center">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-muted">
+              {ORGS.slice(3)
+                .map((org) => org.industry)
+                .join(" · ")}
+            </p>
+            <p className="mt-1.5 text-xs text-ink-muted">
+              Every organization on Sharpnr joins the same network.
+            </p>
+          </div>
         </div>
       </div>
     );

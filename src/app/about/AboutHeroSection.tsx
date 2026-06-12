@@ -9,7 +9,7 @@ export function AboutHeroSection() {
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden pt-32 md:pt-44">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.97_0_296/0.045)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.97_0_296/0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]" />
 
       <div
         ref={contentRef}

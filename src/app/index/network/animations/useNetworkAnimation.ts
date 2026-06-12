@@ -17,6 +17,14 @@ interface NetworkAnimationRefs {
   onHover: (value: HoveredNode) => void;
 }
 
+/* Quiet targets — structure over shine. */
+const LATTICE_OPACITY = 0.85;
+const HIGHLIGHT_OPACITY = 0.9;
+const WIRE_OPACITY = 0.07;
+const HUB_ARC_OPACITY = 0.42;
+const PEER_ARC_OPACITY = 0.2;
+const ROTATION_SPEED = 0.045;
+
 export function useNetworkAnimation(refs: NetworkAnimationRefs) {
   const {
     sectionRef,
@@ -94,8 +102,18 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         return; // No WebGL — the section degrades to its copy
       }
 
-      const { camera, nodes, lineMaterials, particles, motesMaterial } =
-        handle;
+      const {
+        camera,
+        tiltGroup,
+        globeGroup,
+        latticeMaterial,
+        highlight,
+        highlightMaterial,
+        wireMaterials,
+        markers,
+        arcs,
+        arcDots,
+      } = handle;
 
       const observer = new ResizeObserver(() => {
         handle.setSize();
@@ -103,16 +121,67 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
       });
       observer.observe(host);
 
+      /* Per-marker animation factors — combined into opacity each
+         frame so backside fading, hover, and entrance compose. */
+      const factors = markers.map(() => ({ entrance: 0, hover: 1 }));
+
+      const globeCenter = new THREE.Vector3();
+      const camDir = new THREE.Vector3();
+      const markerDir = new THREE.Vector3();
+      const markerQuat = new THREE.Quaternion();
+
+      /** 0 on the far side, 1 when facing the camera. */
+      const markerVisibility = (index: number) => {
+        globeGroup.getWorldQuaternion(markerQuat);
+        markerDir.copy(markers[index].direction).applyQuaternion(markerQuat);
+        tiltGroup.getWorldPosition(globeCenter);
+        camDir.copy(camera.position).sub(globeCenter).normalize();
+        const v = markerDir.dot(camDir);
+        return THREE.MathUtils.smoothstep(v, -0.02, 0.3);
+      };
+
+      const applyMarkerOpacity = () => {
+        markers.forEach((marker, i) => {
+          marker.material.opacity =
+            factors[i].entrance * factors[i].hover * markerVisibility(i);
+        });
+      };
+
+      const updateHighlights = (elapsed: number) => {
+        const { colorAttr, phases, speeds, count, color } = highlight;
+        for (let i = 0; i < count; i++) {
+          const pulse =
+            0.2 + 0.6 * (0.5 + 0.5 * Math.sin(elapsed * speeds[i] + phases[i]));
+          color.setScalar(pulse);
+          colorAttr.setXYZ(i, color.r, color.g, color.b);
+        }
+        colorAttr.needsUpdate = true;
+      };
+
+      const sampleArc = (arc: (typeof arcs)[number], t: number) => {
+        const f = t * (arc.pointCount - 1);
+        const i = Math.min(Math.floor(f), arc.pointCount - 2);
+        return new THREE.Vector3().lerpVectors(
+          arc.points[i],
+          arc.points[i + 1],
+          f - i,
+        );
+      };
+
       // ── Reduced motion: settle everything and render once ──────
       if (prefersReducedMotion) {
-        nodes.forEach((node) => {
-          node.group.position.copy(node.final);
-          node.material.opacity = 1;
-          node.group.quaternion.copy(camera.quaternion);
+        latticeMaterial.opacity = LATTICE_OPACITY;
+        highlightMaterial.opacity = HIGHLIGHT_OPACITY;
+        wireMaterials.forEach((m) => (m.opacity = WIRE_OPACITY));
+        arcs.forEach((arc) => {
+          arc.geometry.setDrawRange(0, arc.pointCount);
+          arc.material.opacity = arc.toHub
+            ? HUB_ARC_OPACITY
+            : PEER_ARC_OPACITY;
         });
-        lineMaterials.forEach((m) => (m.opacity = 0.5));
-        motesMaterial.opacity = 0.3;
-        handle.hubGlowMaterial.opacity = 0.5;
+        factors.forEach((f) => (f.entrance = 1));
+        updateHighlights(1.6);
+        applyMarkerOpacity();
         handle.render();
         return () => {
           observer.disconnect();
@@ -120,8 +189,9 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         };
       }
 
-      // ── Phase 2: Entrance — nodes fly in and settle ────────────
+      // ── Phase 2: Entrance — globe forms, markers pin, routes draw ──
       let flowOn = false;
+      const intro = { yaw: -0.75 };
       const entrance = gsap.timeline({
         defaults: { ease: "power3.out" },
         scrollTrigger: {
@@ -131,97 +201,105 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         },
       });
 
-      nodes.forEach((node, i) => {
-        const at = i * 0.14;
+      entrance
+        .to(latticeMaterial, { opacity: LATTICE_OPACITY, duration: 1.6 }, 0)
+        .to(intro, { yaw: 0, duration: 2.2, ease: "power2.out" }, 0)
+        .to(
+          wireMaterials,
+          { opacity: WIRE_OPACITY, duration: 1.2, stagger: 0.06 },
+          0.4,
+        )
+        .to(highlightMaterial, { opacity: HIGHLIGHT_OPACITY, duration: 1.0 }, 0.8);
+
+      // Markers pin onto the surface
+      markers.forEach((marker, i) => {
+        const at = 1.0 + i * 0.1;
         entrance
-          .to(
-            node.group.position,
+          .to(factors[i], { entrance: 1, duration: 0.5 }, at)
+          .fromTo(
+            marker.sprite.scale,
             {
-              x: node.final.x,
-              y: node.final.y,
-              z: node.final.z,
-              duration: 1.3,
+              x: marker.baseScale.x * 0.6,
+              y: marker.baseScale.y * 0.6,
+            },
+            {
+              x: marker.baseScale.x,
+              y: marker.baseScale.y,
+              duration: 0.6,
+              ease: "back.out(2.2)",
             },
             at,
-          )
-          .to(node.material, { opacity: 1, duration: 0.7 }, at + 0.15);
+          );
       });
-      entrance
-        .to(
-          handle.hubGlowMaterial,
-          { opacity: 0.55, duration: 0.9 },
-          ">-0.6",
-        )
-        .to(
-          lineMaterials,
-          { opacity: 0.5, duration: 0.8, stagger: 0.12 },
-          ">-0.4",
-        )
-        .to(motesMaterial, { opacity: 0.3, duration: 1.2 }, "<")
-        .add(() => {
-          flowOn = true;
-          // ── Phase 3: Ambient float on each node ────────────────
-          nodes.forEach((node, i) => {
-            gsap.to(node.group.position, {
-              y: `+=${0.16 + (i % 3) * 0.05}`,
-              duration: 3 + i * 0.6,
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-            });
-          });
-        });
 
-      // ── Phase 4: Live loop — orbit, billboards, particles ──────
+      // Routes draw from org to hub
+      arcs.forEach((arc, i) => {
+        const proxy = { p: 0 };
+        entrance
+          .to(arc.material, { opacity: arc.toHub ? HUB_ARC_OPACITY : PEER_ARC_OPACITY, duration: 0.3 }, 1.7 + i * 0.08)
+          .to(
+            proxy,
+            {
+              p: 1,
+              duration: 0.9,
+              ease: "power2.inOut",
+              onUpdate: () =>
+                arc.geometry.setDrawRange(
+                  0,
+                  Math.floor(proxy.p * arc.pointCount),
+                ),
+            },
+            1.7 + i * 0.08,
+          );
+      });
+
+      entrance.add(() => {
+        flowOn = true;
+      });
+
+      // ── Phase 3: Live loop — rotation, parallax, packets, pulses ──
       let elapsed = 0;
       let hovered: HoveredNode = null;
       const parallax = { x: 0, y: 0 };
+      const smoothParallax = { x: 0, y: 0 };
       const worldPos = new THREE.Vector3();
 
       const tick = (_time: number, deltaMS: number) => {
         const dt = deltaMS / 1000;
         elapsed += dt;
 
-        // Camera slowly orbits, nudged by the pointer
-        const angle = elapsed * 0.07 + parallax.x * 0.18;
-        const radius = 9;
-        camera.position.set(
-          Math.sin(angle) * radius,
-          2 + parallax.y * 0.7,
-          Math.cos(angle) * radius,
-        );
-        camera.lookAt(0, 0.35, 0);
+        // The globe turns; the pointer tilts the whole assembly gently
+        globeGroup.rotation.y += dt * ROTATION_SPEED;
+        smoothParallax.x += (parallax.x - smoothParallax.x) * Math.min(1, dt * 3);
+        smoothParallax.y += (parallax.y - smoothParallax.y) * Math.min(1, dt * 3);
+        tiltGroup.rotation.y = intro.yaw + smoothParallax.x * 0.1;
+        tiltGroup.rotation.x = -smoothParallax.y * 0.06;
 
-        // Cards always face the camera
-        nodes.forEach((node) => {
-          node.group.quaternion.copy(camera.quaternion);
-        });
+        updateHighlights(elapsed);
+        applyMarkerOpacity();
 
-        // Hub glow breathes
-        handle.hubGlowMaterial.opacity = flowOn
-          ? 0.45 + Math.sin(elapsed * 1.4) * 0.12
-          : handle.hubGlowMaterial.opacity;
-
-        // Packets ride the connections
+        // Packets ride the routes
         if (flowOn) {
-          particles.forEach((p) => {
-            p.t += dt * p.speed;
-            if (p.t > 1) p.t -= 1;
-            p.sprite.position.lerpVectors(p.a, p.b, p.t);
-            p.material.opacity =
-              0.85 * Math.sin(Math.PI * Math.min(1, Math.max(0, p.t)));
+          arcDots.forEach((dot) => {
+            dot.t += dt * dot.speed;
+            if (dot.t > 1) dot.t -= 1;
+            if (dot.t < 0) dot.t += 1;
+            dot.sprite.position.copy(sampleArc(dot.arc, dot.t));
+            dot.material.opacity =
+              (dot.arc.toHub ? 0.7 : 0.45) * Math.sin(Math.PI * dot.t);
           });
         }
 
-        // Tooltip tracks the hovered node
-        if (hovered !== null && tooltipRef.current) {
-          const node =
-            hovered === "hub"
-              ? nodes[nodes.length - 1]
-              : nodes.find((n) => n.orgIndex === hovered);
-          if (node) {
-            worldPos.copy(node.group.position);
-            worldPos.y += node.isHub ? 0.8 : 1.0;
+        // Tooltip tracks the hovered marker; drop it if it rotates away
+        if (hovered !== null) {
+          const index = markers.findIndex((m) =>
+            hovered === "hub" ? m.isHub : m.orgIndex === hovered,
+          );
+          if (index !== -1 && markerVisibility(index) < 0.35) {
+            setHovered(null);
+          } else if (index !== -1 && tooltipRef.current) {
+            markers[index].sprite.getWorldPosition(worldPos);
+            worldPos.y += markers[index].baseScale.y * 0.55;
             worldPos.project(camera);
             const w = host.clientWidth;
             const h = host.clientHeight;
@@ -229,7 +307,7 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
               x: (worldPos.x * 0.5 + 0.5) * w,
               y: (-worldPos.y * 0.5 + 0.5) * h,
               xPercent: -50,
-              yPercent: -112,
+              yPercent: -100,
             });
           }
         }
@@ -238,29 +316,28 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
       };
       gsap.ticker.add(tick);
 
-      // ── Phase 5: Hover — raycast, highlight, tooltip ───────────
+      // ── Phase 4: Hover — raycast, highlight, tooltip ───────────
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
-      const meshes = nodes.map((n) => n.mesh);
+      const sprites = markers.map((m) => m.sprite);
 
       const setHovered = (next: HoveredNode) => {
         if (next === hovered) return;
         hovered = next;
         onHover(next);
-        nodes.forEach((node) => {
+        markers.forEach((marker, i) => {
           const isTarget =
             next !== null &&
-            (next === "hub" ? node.isHub : node.orgIndex === next);
-          gsap.to(node.group.scale, {
-            x: isTarget ? 1.12 : 1,
-            y: isTarget ? 1.12 : 1,
-            z: isTarget ? 1.12 : 1,
-            duration: 0.35,
+            (next === "hub" ? marker.isHub : marker.orgIndex === next);
+          gsap.to(marker.sprite.scale, {
+            x: marker.baseScale.x * (isTarget ? 1.12 : 1),
+            y: marker.baseScale.y * (isTarget ? 1.12 : 1),
+            duration: 0.3,
             ease: "power2.out",
           });
-          gsap.to(node.material, {
-            opacity: next === null || isTarget ? 1 : 0.55,
-            duration: 0.35,
+          gsap.to(factors[i], {
+            hover: next === null || isTarget ? 1 : 0.5,
+            duration: 0.3,
           });
         });
         host.style.cursor = next === null ? "" : "pointer";
@@ -276,7 +353,11 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         parallax.y = pointer.y;
 
         raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObjects(meshes, false)[0];
+        const hits = raycaster.intersectObjects(sprites, false);
+        const hit = hits.find((h) => {
+          const index = sprites.indexOf(h.object as THREE.Sprite);
+          return index !== -1 && markerVisibility(index) > 0.4;
+        });
         if (!hit) {
           setHovered(null);
           return;

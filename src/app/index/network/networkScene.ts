@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-/* ── Org data shown on the 3D cards ─────────────────────────────── */
+/* ── Org data shown on markers and tooltips ─────────────────────── */
 
 export interface OrgNodeData {
   name: string;
@@ -11,7 +11,7 @@ export interface OrgNodeData {
 export const ORGS: OrgNodeData[] = [
   {
     name: "Org A",
-    industry: "Hotels & Hospitality",
+    industry: "Hotels & Resorts",
     apps: ["Sharp-Hospitality", "Cables", "Sharp-Accounting"],
   },
   {
@@ -21,8 +21,23 @@ export const ORGS: OrgNodeData[] = [
   },
   {
     name: "Org C",
-    industry: "Finance Corp",
+    industry: "Finance",
     apps: ["Sharp-Accounting", "Folio", "Cortex"],
+  },
+  {
+    name: "Org D",
+    industry: "Restaurants & Cafés",
+    apps: ["Sharp-Hospitality", "Sharp-Marketing", "SharpIAM"],
+  },
+  {
+    name: "Org E",
+    industry: "Retail",
+    apps: ["Sharp-Marketing", "Sharp-Accounting", "Silo"],
+  },
+  {
+    name: "Org F",
+    industry: "Mixed Group",
+    apps: ["Orchestrator", "Sharp-Accounting", "Sharp-HR"],
   },
 ];
 
@@ -49,143 +64,11 @@ function tokenColor(token: string): THREE.Color {
   return new THREE.Color(r / 255, g / 255, b / 255);
 }
 
-/* ── Canvas-drawn textures ──────────────────────────────────────── */
+/* ── Textures ───────────────────────────────────────────────────── */
 
-function roundedRect(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  w: number,
-  h: number,
-  r: number,
-) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-}
-
-function makeOrgCardTexture(org: OrgNodeData): THREE.CanvasTexture {
-  const scale = 2;
-  const W = 560;
-  const H = 330;
-  const canvas = document.createElement("canvas");
-  canvas.width = W * scale;
-  canvas.height = H * scale;
-  const ctx = canvas.getContext("2d")!;
-  ctx.scale(scale, scale);
-
-  const inkSoft = tokenCss("--color-ink-soft");
-  const accentGlow = tokenCss("--color-accent-glow");
-  const accent = tokenCss("--color-accent");
-  const light = tokenCss("--color-text-light");
-  const muted = tokenCss("--color-ink-muted");
-
-  // Card body — primary-family navy with slight transparency
-  ctx.globalAlpha = 0.88;
-  ctx.fillStyle = inkSoft;
-  roundedRect(ctx, 4, 4, W - 8, H - 8, 26);
-  ctx.fill();
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = 2.5;
-  ctx.strokeStyle = accent;
-  ctx.globalAlpha = 0.55;
-  roundedRect(ctx, 4, 4, W - 8, H - 8, 26);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-
-  // Industry eyebrow
-  ctx.font = "500 19px 'JetBrains Mono', monospace";
-  ctx.fillStyle = accentGlow;
-  ctx.fillText(org.industry.toUpperCase(), 36, 62);
-
-  // Org name
-  ctx.font = "650 42px 'Schibsted Grotesk', sans-serif";
-  ctx.fillStyle = light;
-  ctx.fillText(org.name, 36, 116);
-
-  // Divider
-  ctx.strokeStyle = accent;
-  ctx.globalAlpha = 0.25;
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(36, 146);
-  ctx.lineTo(W - 36, 146);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-
-  // Apps
-  ctx.font = "400 23px 'JetBrains Mono', monospace";
-  org.apps.forEach((app, i) => {
-    const y = 192 + i * 44;
-    ctx.fillStyle = accentGlow;
-    ctx.beginPath();
-    ctx.arc(46, y - 7, 4, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.fillStyle = muted;
-    ctx.fillText(app, 66, y);
-  });
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.anisotropy = 4;
-  return texture;
-}
-
-function makeHubCardTexture(): THREE.CanvasTexture {
-  const scale = 2;
-  const W = 620;
-  const H = 230;
-  const canvas = document.createElement("canvas");
-  canvas.width = W * scale;
-  canvas.height = H * scale;
-  const ctx = canvas.getContext("2d")!;
-  ctx.scale(scale, scale);
-
-  const ink = tokenCss("--color-ink");
-  const accentGlow = tokenCss("--color-accent-glow");
-  const accent = tokenCss("--color-accent");
-  const light = tokenCss("--color-text-light");
-
-  ctx.globalAlpha = 0.94;
-  ctx.fillStyle = ink;
-  roundedRect(ctx, 4, 4, W - 8, H - 8, 24);
-  ctx.fill();
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = 3.5;
-  ctx.strokeStyle = accentGlow;
-  roundedRect(ctx, 4, 4, W - 8, H - 8, 24);
-  ctx.stroke();
-
-  ctx.font = "700 52px 'Schibsted Grotesk', sans-serif";
-  ctx.fillStyle = light;
-  ctx.textAlign = "center";
-  ctx.fillText(HUB.name, W / 2, 104);
-
-  ctx.font = "500 22px 'JetBrains Mono', monospace";
-  ctx.fillStyle = accentGlow;
-  ctx.fillText(HUB.sub, W / 2, 156);
-
-  ctx.strokeStyle = accent;
-  ctx.globalAlpha = 0.4;
-  ctx.setLineDash([4, 8]);
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(60, 182);
-  ctx.lineTo(W - 60, 182);
-  ctx.stroke();
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.anisotropy = 4;
-  return texture;
-}
-
-function makeGlowTexture(): THREE.CanvasTexture {
-  const size = 256;
+/* Small crisp dot — hard edge, faint AA rim. No bloom. */
+function makeDotTexture(): THREE.CanvasTexture {
+  const size = 64;
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = size;
   const ctx = canvas.getContext("2d")!;
@@ -197,9 +80,10 @@ function makeGlowTexture(): THREE.CanvasTexture {
     size / 2,
     size / 2,
   );
-  gradient.addColorStop(0, tokenCss("--color-accent-glow"));
-  gradient.addColorStop(0.4, tokenCss("--color-accent"));
-  gradient.addColorStop(1, "transparent");
+  gradient.addColorStop(0, "rgba(255,255,255,1)");
+  gradient.addColorStop(0.55, "rgba(255,255,255,1)");
+  gradient.addColorStop(0.7, "rgba(255,255,255,0.25)");
+  gradient.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, size, size);
   const texture = new THREE.CanvasTexture(canvas);
@@ -207,55 +91,232 @@ function makeGlowTexture(): THREE.CanvasTexture {
   return texture;
 }
 
-/* ── Scene graph types ──────────────────────────────────────────── */
+/* Circular badge marker with a label underneath — Cloudflare-style. */
+function makeOrgMarkerTexture(org: OrgNodeData): THREE.CanvasTexture {
+  const scale = 2;
+  const W = 256;
+  const H = 320;
+  const canvas = document.createElement("canvas");
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(scale, scale);
 
-export interface NetworkNode {
-  group: THREE.Group;
-  mesh: THREE.Mesh;
-  material: THREE.MeshBasicMaterial;
-  final: THREE.Vector3;
-  flyFrom: THREE.Vector3;
-  isHub: boolean;
-  orgIndex: number | null;
+  const ink = tokenCss("--color-ink");
+  const accent = tokenCss("--color-accent");
+  const light = tokenCss("--color-text-light");
+  const muted = tokenCss("--color-ink-muted");
+
+  const cx = W / 2;
+  const cy = 92;
+  const r = 62;
+
+  // Badge — flat fill, crisp ring
+  ctx.fillStyle = ink;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = accent;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Org initial
+  ctx.font = "650 64px 'Schibsted Grotesk', sans-serif";
+  ctx.fillStyle = light;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(org.name.slice(-1), cx, cy + 4);
+
+  // Stem down to the surface point
+  ctx.strokeStyle = accent;
+  ctx.globalAlpha = 0.6;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + r);
+  ctx.lineTo(cx, 196);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // Industry label
+  ctx.font = "500 19px 'JetBrains Mono', monospace";
+  ctx.fillStyle = muted;
+  ctx.fillText(org.industry.toUpperCase(), cx, 226);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 4;
+  return texture;
 }
 
-export interface FlowParticle {
+function makeHubMarkerTexture(): THREE.CanvasTexture {
+  const scale = 2;
+  const W = 256;
+  const H = 320;
+  const canvas = document.createElement("canvas");
+  canvas.width = W * scale;
+  canvas.height = H * scale;
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(scale, scale);
+
+  const inkDeep = tokenCss("--color-ink-deep");
+  const accent = tokenCss("--color-accent");
+
+  const cx = W / 2;
+  const cy = 92;
+  const r = 68;
+
+  // The hub is the one filled element on the globe
+  ctx.fillStyle = accent;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Diamond glyph — exchange mark
+  ctx.fillStyle = inkDeep;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - 26);
+  ctx.lineTo(cx + 26, cy);
+  ctx.lineTo(cx, cy + 26);
+  ctx.lineTo(cx - 26, cy);
+  ctx.closePath();
+  ctx.fill();
+
+  // Stem
+  ctx.strokeStyle = accent;
+  ctx.globalAlpha = 0.7;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy + r);
+  ctx.lineTo(cx, 202);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // Label
+  ctx.font = "600 20px 'JetBrains Mono', monospace";
+  ctx.fillStyle = accent;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText("SHARP-MARKETPLACE", cx, 232);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 4;
+  return texture;
+}
+
+/* ── Scene graph types ──────────────────────────────────────────── */
+
+export interface NetworkMarker {
   sprite: THREE.Sprite;
   material: THREE.SpriteMaterial;
-  a: THREE.Vector3;
-  b: THREE.Vector3;
+  orgIndex: number | null; // null = hub
+  isHub: boolean;
+  baseScale: { x: number; y: number };
+  /** Unit direction from globe center — for backside checks. */
+  direction: THREE.Vector3;
+}
+
+export interface NetworkArc {
+  line: THREE.Line;
+  material: THREE.LineBasicMaterial;
+  geometry: THREE.BufferGeometry;
+  pointCount: number;
+  points: THREE.Vector3[];
+  toHub: boolean;
+}
+
+export interface ArcDot {
+  sprite: THREE.Sprite;
+  material: THREE.SpriteMaterial;
+  arc: NetworkArc;
   t: number;
   speed: number;
+}
+
+export interface HighlightDots {
+  colorAttr: THREE.BufferAttribute;
+  phases: Float32Array;
+  speeds: Float32Array;
+  count: number;
+  color: THREE.Color;
 }
 
 export interface NetworkSceneHandle {
   renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
-  nodes: NetworkNode[];
-  lineMaterials: THREE.LineBasicMaterial[];
-  particles: FlowParticle[];
-  motesMaterial: THREE.PointsMaterial;
-  hubGlowMaterial: THREE.SpriteMaterial;
+  /** Outer group — pointer parallax tilt. */
+  tiltGroup: THREE.Group;
+  /** Inner group — continuous rotation. */
+  globeGroup: THREE.Group;
+  latticeMaterial: THREE.PointsMaterial;
+  highlight: HighlightDots;
+  highlightMaterial: THREE.PointsMaterial;
+  wireMaterials: THREE.LineBasicMaterial[];
+  markers: NetworkMarker[];
+  arcs: NetworkArc[];
+  arcDots: ArcDot[];
   setSize: () => void;
   render: () => void;
   dispose: () => void;
 }
 
-/* ── World layout ───────────────────────────────────────────────── */
+/* ── Globe layout ───────────────────────────────────────────────── */
 
-const HUB_POS = new THREE.Vector3(0, 0.15, 0);
-const ORG_POSITIONS = [
-  new THREE.Vector3(4.4, 0.95, -1.5),
-  new THREE.Vector3(-4.5, -0.15, -1.3),
-  new THREE.Vector3(1.7, -0.85, 4.2),
+const RADIUS = 3.2;
+const GLOBE_CENTER_Y = -0.55;
+
+function latLon(latDeg: number, lonDeg: number, radius = RADIUS) {
+  const lat = (latDeg * Math.PI) / 180;
+  const lon = (lonDeg * Math.PI) / 180;
+  return new THREE.Vector3(
+    radius * Math.cos(lat) * Math.sin(lon),
+    radius * Math.sin(lat),
+    radius * Math.cos(lat) * Math.cos(lon),
+  );
+}
+
+/* Markers spread around the sphere — Org F starts on the far side and
+   rotates into view, so the globe reads as fully populated. */
+const HUB_LATLON: [number, number] = [36, -28];
+const ORG_LATLONS: Array<[number, number]> = [
+  [22, -78],
+  [50, 12],
+  [4, 38],
+  [-24, -38],
+  [-32, 92],
+  [14, 156],
 ];
-const FLY_DIRECTIONS = [
-  new THREE.Vector3(1, 0.6, -0.4),
-  new THREE.Vector3(-1, 0.5, -0.4),
-  new THREE.Vector3(0.2, -0.6, 1),
-  new THREE.Vector3(0, 1.2, 0), // hub drops in from above
+
+/** Peer routes in addition to the org ↔ hub routes. */
+const PEER_PAIRS: Array<[number, number]> = [
+  [0, 3],
+  [1, 2],
+  [4, 5],
 ];
+
+/* Great-circle arc lifted above the surface. */
+function arcPoints(a: THREE.Vector3, b: THREE.Vector3, count = 64) {
+  const points: THREE.Vector3[] = [];
+  const qa = a.clone().normalize();
+  const qb = b.clone().normalize();
+  const angle = qa.angleTo(qb);
+  const lift = 0.1 + angle * 0.16;
+  for (let i = 0; i <= count; i++) {
+    const t = i / count;
+    const dir = qa
+      .clone()
+      .multiplyScalar(Math.sin((1 - t) * angle))
+      .add(qb.clone().multiplyScalar(Math.sin(t * angle)))
+      .divideScalar(Math.sin(angle))
+      .normalize();
+    const r = RADIUS * (1 + lift * Math.sin(Math.PI * t));
+    points.push(dir.multiplyScalar(r));
+  }
+  return points;
+}
 
 /* ── Builder ────────────────────────────────────────────────────── */
 
@@ -267,146 +328,252 @@ export function createNetworkScene(host: HTMLElement): NetworkSceneHandle {
   host.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  camera.position.set(0, 2, 9);
-  camera.lookAt(0, 0.35, 0);
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  camera.position.set(0, 0.9, 10.5);
+  camera.lookAt(0, GLOBE_CENTER_Y * 0.5, 0);
 
   const accentColor = tokenColor("--color-accent");
-  const glowColor = tokenColor("--color-accent-glow");
-  const lightColor = tokenColor("--color-text-light");
-  const glowTexture = makeGlowTexture();
+  const mutedColor = tokenColor("--color-ink-muted");
+  const inkDeepColor = tokenColor("--color-ink-deep");
+  const dotTexture = makeDotTexture();
 
-  /* Nodes — three org cards + the marketplace hub */
-  const nodes: NetworkNode[] = [];
+  const tiltGroup = new THREE.Group();
+  tiltGroup.position.y = GLOBE_CENTER_Y;
+  scene.add(tiltGroup);
+  const globeGroup = new THREE.Group();
+  tiltGroup.add(globeGroup);
 
-  ORGS.forEach((org, i) => {
-    const material = new THREE.MeshBasicMaterial({
-      map: makeOrgCardTexture(org),
+  /* Occluder — a solid sphere in the section background color, so the
+     far side of the lattice fades out instead of shining through. */
+  const occluder = new THREE.Mesh(
+    new THREE.SphereGeometry(RADIUS - 0.07, 48, 48),
+    new THREE.MeshBasicMaterial({ color: inkDeepColor }),
+  );
+  globeGroup.add(occluder);
+
+  /* Dot lattice — structured rows, the body of the globe. */
+  const latticePositions: number[] = [];
+  const latticeColors: number[] = [];
+  for (let lat = -72; lat <= 72; lat += 4) {
+    const c = Math.cos((lat * Math.PI) / 180);
+    const count = Math.max(10, Math.floor(92 * c));
+    const offset = (lat / 4) * 2.4; // stagger rows so columns don't align
+    for (let i = 0; i < count; i++) {
+      const lon = (i / count) * 360 + offset;
+      const p = latLon(lat, lon);
+      latticePositions.push(p.x, p.y, p.z);
+      // Quiet variation — most dots recede, a few read as "active"
+      const brightness =
+        Math.random() < 0.06 ? 0.95 : 0.18 + Math.random() * 0.4;
+      latticeColors.push(brightness, brightness, brightness);
+    }
+  }
+  const latticeGeometry = new THREE.BufferGeometry();
+  latticeGeometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(latticePositions, 3),
+  );
+  latticeGeometry.setAttribute(
+    "color",
+    new THREE.Float32BufferAttribute(latticeColors, 3),
+  );
+  const latticeMaterial = new THREE.PointsMaterial({
+    map: dotTexture,
+    color: accentColor,
+    vertexColors: true,
+    size: 0.042,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+  });
+  globeGroup.add(new THREE.Points(latticeGeometry, latticeMaterial));
+
+  /* Pulsing highlight dots — a sparse set of "live" points. */
+  const highlightCount = 56;
+  const highlightPositions = new Float32Array(highlightCount * 3);
+  const highlightColors = new Float32Array(highlightCount * 3);
+  const phases = new Float32Array(highlightCount);
+  const speeds = new Float32Array(highlightCount);
+  for (let i = 0; i < highlightCount; i++) {
+    const lat = -65 + Math.random() * 130;
+    const lon = Math.random() * 360;
+    const p = latLon(lat, lon, RADIUS + 0.01);
+    highlightPositions.set([p.x, p.y, p.z], i * 3);
+    highlightColors.set([0.5, 0.5, 0.5], i * 3);
+    phases[i] = Math.random() * Math.PI * 2;
+    speeds[i] = 0.6 + Math.random() * 1.1;
+  }
+  const highlightGeometry = new THREE.BufferGeometry();
+  highlightGeometry.setAttribute(
+    "position",
+    new THREE.BufferAttribute(highlightPositions, 3),
+  );
+  const highlightColorAttr = new THREE.BufferAttribute(highlightColors, 3);
+  highlightGeometry.setAttribute("color", highlightColorAttr);
+  const highlightMaterial = new THREE.PointsMaterial({
+    map: dotTexture,
+    color: accentColor,
+    vertexColors: true,
+    size: 0.075,
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+  });
+  globeGroup.add(new THREE.Points(highlightGeometry, highlightMaterial));
+  const highlight: HighlightDots = {
+    colorAttr: highlightColorAttr,
+    phases,
+    speeds,
+    count: highlightCount,
+    color: new THREE.Color(),
+  };
+
+  /* Wireframe — faint meridians, parallels, and two outer orbits. */
+  const wireMaterials: THREE.LineBasicMaterial[] = [];
+  const addWireCircle = (
+    radius: number,
+    rotation: THREE.Euler,
+    parent: THREE.Object3D,
+  ) => {
+    const points: THREE.Vector3[] = [];
+    for (let s = 0; s <= 128; s++) {
+      const a = (s / 128) * Math.PI * 2;
+      points.push(
+        new THREE.Vector3(Math.cos(a) * radius, 0, Math.sin(a) * radius),
+      );
+    }
+    const material = new THREE.LineBasicMaterial({
+      color: mutedColor,
       transparent: true,
       opacity: 0,
-      side: THREE.DoubleSide,
+    });
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(geometry, material);
+    line.rotation.copy(rotation);
+    parent.add(line);
+    wireMaterials.push(material);
+    return line;
+  };
+  // Parallels
+  [-45, -15, 15, 45].forEach((lat) => {
+    const r = RADIUS * Math.cos((lat * Math.PI) / 180) + 0.02;
+    const line = addWireCircle(r, new THREE.Euler(0, 0, 0), globeGroup);
+    line.position.y = RADIUS * Math.sin((lat * Math.PI) / 180);
+  });
+  // Meridians
+  for (let m = 0; m < 4; m++) {
+    addWireCircle(
+      RADIUS + 0.02,
+      new THREE.Euler(Math.PI / 2, (m / 4) * Math.PI, 0),
+      globeGroup,
+    );
+  }
+  // Outer orbits — outside the rotating globe so they stay still
+  addWireCircle(RADIUS + 1.15, new THREE.Euler(0.42, 0, 0.12), tiltGroup);
+  addWireCircle(RADIUS + 1.7, new THREE.Euler(-0.3, 0, -0.2), tiltGroup);
+
+  /* Markers — six orgs + the marketplace hub, pinned to the surface. */
+  const markers: NetworkMarker[] = [];
+  const addMarker = (
+    texture: THREE.CanvasTexture,
+    direction: THREE.Vector3,
+    orgIndex: number | null,
+    scale: number,
+  ) => {
+    const material = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      opacity: 0,
       depthWrite: false,
     });
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2.7, 1.59), material);
-    mesh.userData.orgIndex = i;
-    const group = new THREE.Group();
-    group.add(mesh);
-    const final = ORG_POSITIONS[i].clone();
-    group.position.copy(final.clone().addScaledVector(FLY_DIRECTIONS[i], 11));
-    scene.add(group);
-    nodes.push({
-      group,
-      mesh,
+    const sprite = new THREE.Sprite(material);
+    const baseScale = { x: scale, y: scale * 1.25 };
+    sprite.scale.set(baseScale.x, baseScale.y, 1);
+    // Anchor the stem tip (≈62% down the texture) at the surface point
+    sprite.center.set(0.5, 0.38);
+    sprite.position.copy(direction.clone().multiplyScalar(RADIUS + 0.02));
+    sprite.userData.orgIndex = orgIndex;
+    globeGroup.add(sprite);
+    markers.push({
+      sprite,
       material,
-      final,
-      flyFrom: group.position.clone(),
-      isHub: false,
-      orgIndex: i,
+      orgIndex,
+      isHub: orgIndex === null,
+      baseScale,
+      direction: direction.clone().normalize(),
     });
-  });
+  };
 
-  /* Hub — brightest node with a glow halo */
-  const hubMaterial = new THREE.MeshBasicMaterial({
-    map: makeHubCardTexture(),
-    transparent: true,
-    opacity: 0,
-    side: THREE.DoubleSide,
-    depthWrite: false,
+  ORG_LATLONS.forEach((coordinates, i) => {
+    addMarker(
+      makeOrgMarkerTexture(ORGS[i]),
+      latLon(coordinates[0], coordinates[1]).normalize(),
+      i,
+      1.05,
+    );
   });
-  const hubMesh = new THREE.Mesh(new THREE.PlaneGeometry(3.1, 1.15), hubMaterial);
-  hubMesh.userData.orgIndex = null;
-  const hubGlowMaterial = new THREE.SpriteMaterial({
-    map: glowTexture,
-    color: accentColor,
-    transparent: true,
-    opacity: 0,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false,
-  });
-  const hubGlow = new THREE.Sprite(hubGlowMaterial);
-  hubGlow.scale.setScalar(5.2);
-  const hubGroup = new THREE.Group();
-  hubGroup.add(hubGlow);
-  hubGroup.add(hubMesh);
-  hubGroup.position.copy(
-    HUB_POS.clone().addScaledVector(FLY_DIRECTIONS[3], 11),
+  addMarker(
+    makeHubMarkerTexture(),
+    latLon(HUB_LATLON[0], HUB_LATLON[1]).normalize(),
+    null,
+    1.35,
   );
-  scene.add(hubGroup);
-  nodes.push({
-    group: hubGroup,
-    mesh: hubMesh,
-    material: hubMaterial,
-    final: HUB_POS.clone(),
-    flyFrom: hubGroup.position.clone(),
-    isHub: true,
-    orgIndex: null,
-  });
 
-  /* Connection lines — org ↔ hub, additive glow */
-  const lineMaterials: THREE.LineBasicMaterial[] = [];
-  ORG_POSITIONS.forEach((pos) => {
+  /* Arcs — every org to the hub, plus a few peer routes. */
+  const hubPoint = latLon(HUB_LATLON[0], HUB_LATLON[1]);
+  const arcs: NetworkArc[] = [];
+  const addArc = (a: THREE.Vector3, b: THREE.Vector3, toHub: boolean) => {
+    const points = arcPoints(a, b);
     const material = new THREE.LineBasicMaterial({
-      color: accentColor,
+      color: toHub ? accentColor : mutedColor,
       transparent: true,
       opacity: 0,
-      blending: THREE.AdditiveBlending,
     });
-    const geometry = new THREE.BufferGeometry().setFromPoints([HUB_POS, pos]);
-    scene.add(new THREE.Line(geometry, material));
-    lineMaterials.push(material);
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    geometry.setDrawRange(0, 0);
+    const line = new THREE.Line(geometry, material);
+    globeGroup.add(line);
+    arcs.push({
+      line,
+      material,
+      geometry,
+      pointCount: points.length,
+      points,
+      toHub,
+    });
+  };
+  ORG_LATLONS.forEach((coordinates) => {
+    addArc(latLon(coordinates[0], coordinates[1]), hubPoint, true);
+  });
+  PEER_PAIRS.forEach(([a, b]) => {
+    addArc(
+      latLon(ORG_LATLONS[a][0], ORG_LATLONS[a][1]),
+      latLon(ORG_LATLONS[b][0], ORG_LATLONS[b][1]),
+      false,
+    );
   });
 
-  /* Flow particles — packets travelling both directions */
-  const particles: FlowParticle[] = [];
-  ORG_POSITIONS.forEach((pos) => {
-    for (let k = 0; k < 4; k++) {
-      const outbound = k % 2 === 0;
-      const material = new THREE.SpriteMaterial({
-        map: glowTexture,
-        color: lightColor,
-        transparent: true,
-        opacity: 0,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
-      const sprite = new THREE.Sprite(material);
-      sprite.scale.setScalar(0.16);
-      scene.add(sprite);
-      particles.push({
-        sprite,
-        material,
-        a: outbound ? HUB_POS.clone() : pos.clone(),
-        b: outbound ? pos.clone() : HUB_POS.clone(),
-        t: k / 4 + Math.random() * 0.15,
-        speed: 0.16 + Math.random() * 0.08,
-      });
-    }
+  /* Packets — one crisp dot per route. */
+  const arcDots: ArcDot[] = [];
+  arcs.forEach((arc, i) => {
+    const material = new THREE.SpriteMaterial({
+      map: dotTexture,
+      color: arc.toHub ? accentColor : mutedColor,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+    });
+    const sprite = new THREE.Sprite(material);
+    sprite.scale.setScalar(arc.toHub ? 0.085 : 0.065);
+    globeGroup.add(sprite);
+    arcDots.push({
+      sprite,
+      material,
+      arc,
+      t: (i * 0.17) % 1,
+      speed: (0.1 + Math.random() * 0.05) * (arc.toHub ? 1 : -1),
+    });
   });
-
-  /* Background motes for depth */
-  const moteCount = 220;
-  const motePositions = new Float32Array(moteCount * 3);
-  for (let i = 0; i < moteCount; i++) {
-    const r = 9 + Math.random() * 9;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    motePositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-    motePositions[i * 3 + 1] = (r * Math.cos(phi)) * 0.5;
-    motePositions[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
-  }
-  const motesGeometry = new THREE.BufferGeometry();
-  motesGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(motePositions, 3),
-  );
-  const motesMaterial = new THREE.PointsMaterial({
-    color: glowColor,
-    size: 0.045,
-    transparent: true,
-    opacity: 0,
-    depthWrite: false,
-  });
-  scene.add(new THREE.Points(motesGeometry, motesMaterial));
 
   const setSize = () => {
     const w = host.clientWidth;
@@ -422,7 +589,11 @@ export function createNetworkScene(host: HTMLElement): NetworkSceneHandle {
 
   const dispose = () => {
     scene.traverse((obj) => {
-      if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
+      if (
+        obj instanceof THREE.Mesh ||
+        obj instanceof THREE.Points ||
+        obj instanceof THREE.Line
+      ) {
         obj.geometry?.dispose();
       }
       const material = (obj as THREE.Mesh).material as
@@ -434,7 +605,7 @@ export function createNetworkScene(host: HTMLElement): NetworkSceneHandle {
         material.dispose();
       }
     });
-    glowTexture.dispose();
+    dotTexture.dispose();
     renderer.dispose();
     renderer.domElement.remove();
   };
@@ -443,11 +614,15 @@ export function createNetworkScene(host: HTMLElement): NetworkSceneHandle {
     renderer,
     scene,
     camera,
-    nodes,
-    lineMaterials,
-    particles,
-    motesMaterial,
-    hubGlowMaterial,
+    tiltGroup,
+    globeGroup,
+    latticeMaterial,
+    highlight,
+    highlightMaterial,
+    wireMaterials,
+    markers,
+    arcs,
+    arcDots,
     setSize,
     render,
     dispose,

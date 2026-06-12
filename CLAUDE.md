@@ -1261,17 +1261,6 @@ The current palette is minimal — Claude is encouraged to **expand it** when ne
 }
 ```
 
-#### Color Rules
-
-- Always use token names — `var(--color-primary)` or `bg-[--color-primary]`
-- Never hardcode OKLCH values directly in components
-- Background is always `--color-background` — never pure white
-- Text on light backgrounds → `--color-text-dark`
-- Text on dark backgrounds → `--color-text-light`
-- Before adding a new color — check if an existing token already covers it
-
----
-
 ## Header
 
 ### Navigation Links

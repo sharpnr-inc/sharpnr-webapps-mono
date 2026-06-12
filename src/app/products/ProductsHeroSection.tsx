@@ -9,7 +9,7 @@ export function ProductsHeroSection() {
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden pt-32 md:pt-44">
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.97_0_296/0.045)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.97_0_296/0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]" />
 
       <div
         ref={contentRef}
@@ -22,9 +22,11 @@ export function ProductsHeroSection() {
           The complete Sharpnr suite.
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg">
-          Twelve connected applications across operations, control, core
-          services, and the B2B network. Each one powerful alone — better
-          together.
+          Twelve connected applications across four layers — industry
+          operations, organization control, core services, and the B2B
+          network. Adopt one, or run your entire organization on the
+          ecosystem. Each is powerful alone — and every one you add makes the
+          others more valuable.
         </p>
       </div>
     </section>

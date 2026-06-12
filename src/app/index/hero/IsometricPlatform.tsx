@@ -107,7 +107,7 @@ function Block({
       left: "var(--color-iso-left)",
       right: "var(--color-iso-right)",
       stroke: "var(--color-primary)",
-      text: "var(--color-primary)",
+      text: "var(--color-text-light)",
     },
     primary: {
       top: "var(--color-primary-hover)",
@@ -121,7 +121,7 @@ function Block({
       left: "var(--color-iso-left)",
       right: "var(--color-iso-right)",
       stroke: "var(--color-accent-strong)",
-      text: "var(--color-accent-strong)",
+      text: "var(--color-accent-glow)",
     },
   }[variant];
 

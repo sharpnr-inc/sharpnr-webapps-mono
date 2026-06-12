@@ -1,5 +1,10 @@
 import { useRef } from "react";
-import { Building2, HeartPulse, UtensilsCrossed } from "lucide-react";
+import {
+  Building2,
+  HeartPulse,
+  ShoppingBag,
+  UtensilsCrossed,
+} from "lucide-react";
 import { useIndustriesListAnimation } from "./animations/useIndustriesListAnimation";
 
 const industries = [
@@ -8,7 +13,7 @@ const industries = [
     name: "Hospitality",
     headline: "From lobby to kitchen, one system.",
     description:
-      "Hotels, restaurants, bars, night clubs, and resorts run their entire operation on Sharp-Hospitality — reservations, tables, kitchen displays, and room service — while every sale lands in the books automatically.",
+      "Hotels, restaurants, bars, night clubs, and resorts run their entire operation on Sharp-Hospitality — reservations, tables, kitchen displays, QR ordering, and room service — while every sale lands in the books automatically. Shared kitchens and menus work across multiple businesses, and multi-property groups manage every legal entity from one place.",
     segments: ["Hotels", "Restaurants", "Bars", "Night Clubs", "Resorts"],
     apps: ["Sharp-Hospitality", "Sharp-Accounting", "Sharp-HR", "Sharp-Marketing"],
     status: "Serving today",
@@ -18,17 +23,27 @@ const industries = [
     name: "Healthcare",
     headline: "Care for patients, not paperwork.",
     description:
-      "Hospitals, clinics, pharmacies, and nursing centers get patient management, appointment scheduling, and medical records with Lifco — connected to billing, payroll, and secure communications across the organization.",
+      "Hospitals, clinics, pharmacies, and nursing centers get patient management, appointment scheduling, and medical records with Lifco — connected to billing, insurance, pharmacy inventory, payroll, and secure communications across the organization. One platform from the front desk to the dispensary.",
     segments: ["Hospitals", "Clinics", "Pharmacies", "Nursing Centers"],
     apps: ["Lifco (coming soon)", "Sharp-Accounting", "Sharp-HR", "Cables"],
     status: "Coming soon",
+  },
+  {
+    icon: ShoppingBag,
+    name: "Retail",
+    headline: "Every store, every shelf, one system.",
+    description:
+      "Retail stores manage operations on the Sharp core today — accounting, staff, marketing, and procurement through Sharp-Marketplace — with Sharp-Retail on the roadmap to bring stores, stock, and sales onto one dedicated operations app.",
+    segments: ["Retail Stores", "Store Chains", "Mixed Retail"],
+    apps: ["Sharp-Accounting", "Sharp-Marketing", "Sharp-Marketplace", "Sharp-Retail (roadmap)"],
+    status: "Expanding",
   },
   {
     icon: Building2,
     name: "Mixed & Multi-Industry",
     headline: "Run a hotel and a hospital from one place.",
     description:
-      "Some organizations span industries — a group with a resort, a clinic, and a retail arm. Sharpnr supports multiple legal entities with independent books or consolidated reporting, all orchestrated from a single control layer.",
+      "Some organizations span industries — a group with a resort, a clinic, and a retail arm. Sharpnr supports multiple legal entities with independent books or consolidated reporting, all orchestrated from a single control layer. This is where the platform's architecture pays off: one organization, many industries, zero duct tape.",
     segments: ["Conglomerates", "Holding Groups", "Multi-Entity Organizations"],
     apps: ["Orchestrator", "Sharp-Accounting", "Full Core Services"],
     status: "Serving today",
@@ -104,7 +119,7 @@ export function IndustriesListSection() {
         ))}
 
         <p className="mt-4 text-center font-mono text-xs uppercase tracking-[0.2em] text-text-faint">
-          Retail · Manufacturing · and more — the ecosystem keeps expanding
+          Manufacturing · and more — the ecosystem keeps expanding
         </p>
       </div>
     </section>

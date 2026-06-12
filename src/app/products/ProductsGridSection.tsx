@@ -42,6 +42,8 @@ const cards: ProductCard[] = [
       "Start, stop, and restart services",
       "Service health and status monitoring",
       "Workflow and automation management",
+      "Resource usage and session monitoring",
+      "Audit logs and administrative activity",
     ],
     href: config.orchestratorAppUrl,
     span: "lg:col-span-2",
@@ -55,6 +57,8 @@ const cards: ProductCard[] = [
       "Patient management and medical records",
       "Appointment scheduling",
       "Pharmacy and inventory management",
+      "Billing and insurance integration",
+      "Multi-branch support",
     ],
     badge: "Coming Soon",
     span: "lg:col-span-2",
@@ -68,6 +72,8 @@ const cards: ProductCard[] = [
       "Double accrual accounting out of the box",
       "Automatic journal entries from business apps",
       "Multi-entity, multi-currency, consolidated statements",
+      "Bank reconciliation and cash flow management",
+      "Tax calculation, compliance, and audit trails",
       "P&L, balance sheet, cash flow, and custom reports",
     ],
     href: config.accountingAppUrl,
@@ -81,7 +87,9 @@ const cards: ProductCard[] = [
     features: [
       "Payroll, attendance, and leave management",
       "Recruitment, onboarding, and offboarding",
+      "Shift scheduling and roster management",
       "Performance reviews, goals, and OKRs",
+      "Training, assets, and compliance documents",
       "Multi-company and multi-branch support",
     ],
     href: config.hrAppUrl,
@@ -95,6 +103,8 @@ const cards: ProductCard[] = [
     features: [
       "CRM with pipeline and deal tracking",
       "Email, SMS, and WhatsApp campaigns",
+      "Lead capture, scoring, and segmentation",
+      "Customer journey automation",
       "Loyalty, rewards, and referral programs",
     ],
     href: config.marketingAppUrl,
@@ -109,6 +119,8 @@ const cards: ProductCard[] = [
     features: [
       "Encrypted chat, voice, and video calls",
       "Share invoices and tasks in conversations",
+      "Cross-organization collaboration",
+      "Guest links — customers need no account",
       "AI-powered summaries and smart search",
     ],
     href: config.cablesAppUrl,
@@ -122,6 +134,8 @@ const cards: ProductCard[] = [
     features: [
       "Object, structured, and file storage",
       "Data lake, warehouse, and lakehouse",
+      "API-first, analytics-ready access",
+      "Machine learning and AI data storage",
       "Encryption, access control, replication",
     ],
     href: config.siloAppUrl,
@@ -134,6 +148,8 @@ const cards: ProductCard[] = [
     lead: "Create, collaborate, and organize knowledge.",
     features: [
       "Docs, sheets, slides, and whiteboards",
+      "PDF viewing and annotation",
+      "Notes, markdown, and knowledge base",
       "Real-time collaboration and versioning",
       "Shareable workspaces and permissions",
     ],
@@ -148,6 +164,8 @@ const cards: ProductCard[] = [
     features: [
       "Role-based access control",
       "API keys and service accounts",
+      "Secret and credential management",
+      "Multi-organization administration",
       "Audit logs and security policies",
     ],
     href: config.cortexAppUrl,
@@ -161,6 +179,8 @@ const cards: ProductCard[] = [
     features: [
       "Dashboard with tasks and approvals",
       "Leaves, expenses, and payslips",
+      "Attendance, timesheets, and shifts",
+      "Manager approvals and team views",
       "Org directory and announcements",
     ],
     href: config.iamAppUrl,
@@ -241,7 +261,7 @@ export function ProductsGridSection() {
         >
           {/* ── Hero card: Sharp-Hospitality ─────────────────── */}
           <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface p-7 transition-[border-color,box-shadow] duration-300 will-change-transform hover:border-accent-strong/50 hover:shadow-xl sm:col-span-2 md:p-9 lg:col-span-4 lg:row-span-2">
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.225_0.146_265.82/0.035)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.225_0.146_265.82/0.035)_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_80%_70%_at_100%_0%,black,transparent)]" />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.97_0_296/0.04)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.97_0_296/0.04)_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_80%_70%_at_100%_0%,black,transparent)]" />
             <div className="pointer-events-none absolute -right-20 -top-20 size-56 rounded-full bg-accent/10 blur-3xl transition-opacity duration-500 group-hover:opacity-150" />
 
             <div className="relative flex items-start justify-between">
@@ -283,7 +303,7 @@ export function ProductsGridSection() {
                 href={config.authAppUrl + "/signup"}
                 className="group/btn inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-text-light shadow-sm transition-colors duration-200 hover:bg-primary-hover"
               >
-                Try It for Free
+                Get Started
                 <ArrowUpRight className="size-4 transition-transform duration-200 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
               </a>
               <LearnMoreButton href={config.hospitalityAppUrl} />

@@ -34,7 +34,7 @@ export function Header() {
         {/* Logo */}
         <Link to="/" aria-label="Sharpnr home" className="flex items-center">
           <img
-            src="/sharpnr-logo.svg"
+            src="/sharpnr-logo-white.svg"
             alt="Sharpnr"
             className="h-7 w-auto min-w-[120px]"
           />

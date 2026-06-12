@@ -46,7 +46,7 @@ export function HeroSection() {
       className="relative overflow-hidden pt-28 md:pt-36"
     >
       {/* Blueprint grid backdrop */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.225_0.146_265.82/0.04)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.97_0_296/0.045)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.97_0_296/0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
 
       {/* Atmosphere: accent glow behind the graphic + drifting motes */}
       <div className="pointer-events-none absolute right-[-10%] top-[10%] h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-3xl" />
