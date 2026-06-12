@@ -1,17 +1,45 @@
-// /services
-import { ServicePage } from "@/app/services/ServicePage";
+import { ServicesHeroSection } from "@/app/services/ServicesHeroSection";
+import { ServicesSolutionsSection } from "@/app/services/ServicesSolutionsSection";
+import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/services")({
-  component: ServicePage,
+  component: RouteComponent,
   head: () => ({
     meta: [
-      { title: "Services | Enterprise Consulting & Support" },
+      { title: "Sharpnr | Services — Industry Solutions" },
       {
         name: "description",
         content:
-          "Professional services to help you implement and optimize Sharpnr for your business. CRM implementation, HRMS migration, and custom enterprise consulting.",
+          "Industry-specific solutions on the Sharpnr platform — Sharp-Hospitality for hotels and restaurants, Lifco for healthcare, with retail and manufacturing on the way.",
       },
+      {
+        name: "keywords",
+        content:
+          "hospitality management software, hotel management, restaurant POS, healthcare management, hospital software, retail operations, industry solutions",
+      },
+      {
+        property: "og:title",
+        content: "Sharpnr | Services — Industry Solutions",
+      },
+      {
+        property: "og:description",
+        content:
+          "Every industry runs differently. Sharpnr ships operation apps that understand yours — connected to the same enterprise-grade core.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://sharpnr.com/services" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 });
+
+function RouteComponent() {
+  return (
+    <div>
+      <ServicesHeroSection />
+      <ServicesSolutionsSection />
+      <CTASection />
+    </div>
+  );
+}

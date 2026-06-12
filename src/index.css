@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+@theme {
+  /* ── Typography ─────────────────────────────────────── */
+  --font-display: "Schibsted Grotesk", sans-serif;
+  --font-sans: "Instrument Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* ── Core palette ───────────────────────────────────── */
+  --color-primary: oklch(0.225 0.146 265.82);
+  --color-background: oklch(0.9706 0 296);
+  --color-text-dark: oklch(0.2265 0.1472 265.78);
+  --color-text-light: oklch(0.9706 0 296);
+
+  /* ── Primary family ─────────────────────────────────── */
+  --color-primary-hover: oklch(0.3 0.146 265.82);
+  --color-primary-light: oklch(0.94 0.04 265.82);
+
+  /* ── Neutrals (hue-locked to primary) ───────────────── */
+  --color-text-muted: oklch(0.55 0.05 265.82);
+  --color-text-faint: oklch(0.68 0.035 265.82);
+  --color-border: oklch(0.88 0.02 265.82);
+  --color-surface: oklch(0.985 0.003 265.82);
+
+  /* ── Isometric graphic shading (hue-locked to primary) ── */
+  --color-iso-top: oklch(0.99 0.003 265.82);
+  --color-iso-left: oklch(0.93 0.025 265.82);
+  --color-iso-right: oklch(0.86 0.045 265.82);
+
+  /* ── Dark sections (ink) ────────────────────────────── */
+  --color-ink: oklch(0.17 0.05 265.82);
+  --color-ink-deep: oklch(0.13 0.04 265.82);
+  --color-ink-soft: oklch(0.23 0.06 265.82);
+  --color-ink-border: oklch(0.32 0.05 265.82);
+  --color-ink-muted: oklch(0.72 0.035 265.82);
+
+  /* ── Accent — sky-cyan for data flow, lines, glows ──── */
+  --color-accent: oklch(0.68 0.13 230);
+  --color-accent-strong: oklch(0.58 0.14 240);
+  --color-accent-light: oklch(0.93 0.04 230);
+  --color-accent-glow: oklch(0.8 0.12 220);
+}
+
+:root {
+  background-color: var(--color-background);
+  color: var(--color-text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-dark);
+  overflow-x: clip;
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
