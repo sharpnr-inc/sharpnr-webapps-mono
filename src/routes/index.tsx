@@ -1,10 +1,10 @@
 import { HeroSection } from "@/app/index/hero/HeroSection";
 import { TickerSection } from "@/app/index/ticker/TickerSection";
+import { NetworkSection } from "@/app/index/network/NetworkSection";
 import { ArchitectureSection } from "@/app/index/architecture/ArchitectureSection";
 import { FlowSection } from "@/app/index/flow/FlowSection";
 import { AppsSection } from "@/app/index/apps/AppsSection";
 import { FeaturesSection } from "@/app/index/features/FeaturesSection";
-import { MarketplaceSection } from "@/app/index/marketplace/MarketplaceSection";
 import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -44,11 +44,11 @@ function RootComponent() {
     <div>
       <HeroSection />
       <TickerSection />
+      <NetworkSection />
       <ArchitectureSection />
       <FlowSection />
       <AppsSection />
       <FeaturesSection />
-      <MarketplaceSection />
       <CTASection />
     </div>
   );

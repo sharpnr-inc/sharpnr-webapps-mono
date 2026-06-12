@@ -1355,13 +1355,10 @@ This website will be viewed by potential investors — it must convey trust, cre
 These websites are references for the overall feel, quality, and design direction.
 Do not copy — use as inspiration for layout, typography, spacing, and visual quality.
 
-| Website                              | What to Take From It                                          |
-| ------------------------------------ | ------------------------------------------------------------- |
-| [Cloudflare](https://cloudflare.com) | Clean enterprise layout, strong typography, trust signals     |
-| [Linear](https://linear.app)         | Minimal design, smooth animations, premium feel               |
-| [Vercel](https://vercel.com)         | Typography hierarchy, whitespace, clean minimal SaaS layout   |
-| [Stripe](https://stripe.com)         | Enterprise credibility, clean sections, investor-ready polish |
-| [Notion](https://notion.so)          | Feature explanation, visual architecture, clean cards         |
+| Website                              | What to Take From It                                      |
+| ------------------------------------ | --------------------------------------------------------- |
+| [Cloudflare](https://cloudflare.com) | Clean enterprise layout, strong typography, trust signals |
+| [Neon](https://neon.com/)            | Clean enterprise layout, strong typography, trust signals |
 
 ### What to Borrow
 
