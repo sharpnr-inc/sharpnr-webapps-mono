@@ -2,11 +2,11 @@
 
 Before writing any code, read the frontend design skill:
 
-```
-read /mnt/skills/public/frontend-design/SKILL.md
-```
-
 This is mandatory — do not skip this step.
+
+---
+
+- Do not run `npm run dev` or start any dev server — it is already running
 
 ---
 
@@ -220,6 +220,117 @@ flowchart LR
     style Msg3 fill:#1a0d2e,color:#ffffff
     style Storage3 fill:#1a0d2e,color:#ffffff
 ```
+
+## Visual Architecture — Landing Page Hero
+
+The hero section must feature an **isometric architecture visualization** of the Sharpnr Platform.
+This is the **signature graphic of the Sharpnr Platform** — it must be impressive, readable, and memorable.
+Investors and potential clients will judge the platform's complexity and credibility from this single visual.
+
+---
+
+### Reference Architecture
+
+Use the Mermaid diagram above as the **data model** — not as the visual itself.
+The Mermaid diagram explains the structure — the isometric graphic must be far more premium visually.
+
+---
+
+### Visual Style
+
+- **Isometric 3D-style** — clean, structured, professional
+- Think: Stripe's infrastructure diagrams, Linear's feature visuals, Cloudflare's network maps
+- Nodes/blocks represent: Organizations, Industries, Core Services, Sharp-Marketplace
+- Each layer of the 4-layer architecture is a distinct isometric "floor" or "platform"
+- Feel: clean off-white or very subtle dark section, sharp isometric lines, accent color highlights
+- Labels are clear and readable — this is a diagram not a decoration
+- **This graphic must be able to stand alone as the Sharpnr Platform explainer**
+
+---
+
+### Technical Approach
+
+- Build with **SVG + GSAP** for isometric graphics — clean, scalable, crisp
+- Canvas is allowed if SVG becomes too complex
+- Isometric projection using standard 2:1 ratio (26.565° angle)
+- GSAP for all entrance animations and ambient effects
+- Each layer/block animates in separately with stagger
+- Performance is **not** a priority — visual quality comes first
+
+---
+
+### 4-Layer Isometric Structure
+
+```
+Top Layer    →  Business Operation Layer  (Sharp-Hospitality, Lifco, Custom Apps)
+              ↓
+Mid Layer    →  Organization Control Layer  (Orchestrator — the command center)
+              ↓
+Base Layer   →  Sharpnr Core Services  (Cables, Silo, Accounting, HR, CRM, Folio, Cortex)
+              ↓
+Foundation   →  Sharp-Marketplace  (O2O — connecting multiple organizations)
+```
+
+---
+
+### Animation Phases
+
+```
+Phase 1: Foundation layer draws in — Sharp-Marketplace appears at the base
+Phase 2: Base layer builds up — Core Services blocks appear with stagger
+Phase 3: Mid layer rises — Orchestrator/Control layer animates in
+Phase 4: Top layer appears — Business Operation apps land on top
+Phase 5: Connection lines animate between layers — showing data flow
+Phase 6: Second organization builds in — connected via Sharp-Marketplace
+Phase 7: Ambient loop — subtle float, glowing connection lines, pulse on key nodes
+```
+
+---
+
+### Interaction
+
+- Hover on a layer/block → highlight it + show a small label or tooltip
+- Scroll into view → trigger the full entrance animation sequence
+- Subtle parallax on mouse move — layers shift slightly giving depth illusion
+
+---
+
+### Mobile Version
+
+- Simplified flat 2D version of the same diagram — no isometric
+- Subtle fade-in animations only — no hover interactions
+- Show: 3 layers only — Business Ops → Core Services → Marketplace
+- Use `useDevice.ts` hook to switch between desktop isometric and mobile flat versions
+
+---
+
+### Colors for the Graphic
+
+- Use `--color-primary` `oklch(0.2265 0.1472 265.78)` for key blocks and layer fills
+- For accent colors, connection lines, glows, and highlights — **choose what looks best**
+- The color choices must feel: **enterprise, premium, trustworthy, and investor-ready**
+- Must complement `--color-primary` and `--color-background` — never clash
+- Whatever accent colors are chosen — add them to `src/index.css` as CSS tokens before using them
+- No purple, no neon, no gradients that look like a crypto project
+
+---
+
+### Do Not
+
+- Do not make it look like a video game — keep it professional and clean
+- Do not overcrowd — pick 3-4 key apps per layer, not all 9
+- Do not use Lottie or external animation libraries — GSAP only
+- Do not use static images — everything must be code-generated and animated
+- Do not skip the mobile fallback — it must work on all screen sizes
+
+---
+
+### This Graphic Represents
+
+- The scale of the Sharpnr Platform
+- The modularity — each layer is independent but connected
+- The O2O vision — multiple organizations connected through Sharp-Marketplace
+- Why Sharpnr is not just another SaaS — it is a platform ecosystem
 
 ## Sharpnr Services Apps (Layer 3)
 
@@ -593,7 +704,6 @@ if some component remains remove it rewrite,
         ➜ header
             ➜ animations
             ➜ Header.tsx
-            ➜ MobileMenu.tsx
         ➜ index
             ➜ hero
                 ➜ animations
@@ -1091,19 +1201,74 @@ export function useCardHoverAnimation(cardRef: RefObject<HTMLDivElement>) {
 - Do not use string selectors — always `ref.current`
 - Do not forget `prefers-reduced-motion` check for entrance animations
 - Do not create animations without phases if the timeline has more than 3 steps
+- Do Not use SaaS Purple i want Design Realated to Blue
 
 ## Styling
 
-We use **Tailwind CSS v4** — utility classes only, no custom CSS files, no inline styles. Only if it need for gsap animation
+We use **Tailwind CSS v4** — utility classes only, no custom CSS files, no inline styles.
+Exception: inline styles are only allowed when required for GSAP animations.
+
+All design tokens are defined in [src/index.css](/src/index.css) — read it before styling anything.
+
+---
 
 ## Colors
 
 We use **OKLCH** for all colors — never HEX or RGB.
 
-### Color Rules
+### Current Tokens in index.css
 
-- Background is always **off-white** — never pure white `oklch(1 0 0)`
-- use can use the color from [index.css](/src/index.css) read it may be Improve it
+| Token                | Value                         | Usage                       |
+| -------------------- | ----------------------------- | --------------------------- |
+| `--color-primary`    | `oklch(0.225 0.146 265.82)`   | Buttons, links, key accents |
+| `--color-background` | `oklch(0.9706 0 296)`         | Page background (off-white) |
+| `--color-text-dark`  | `oklch(0.2265 0.1472 265.78)` | Headings, primary text      |
+| `--color-text-light` | `oklch(0.9706 0 296)`         | Text on dark backgrounds    |
+
+### Color Palette Guidelines
+
+The current palette is minimal — Claude is encouraged to **expand it** when needed.
+
+#### Rules for Adding New Colors
+
+- All new colors must be added to `src/index.css` under `@theme` — never hardcoded in components
+- Every new color must complement or derive from `--color-primary` `oklch(0.225 0.146 265.82)`
+- Keep the same hue angle (around `265`) for primary-family colors — only adjust lightness and chroma
+- Accent colors can use a different hue but must feel harmonious — test against the primary
+- No purple, no neon, no gradients that look like a crypto or gaming project
+- The palette must always feel: **enterprise, premium, clean, trustworthy**
+
+#### Suggested Tokens to Add When Needed
+
+```css
+@theme {
+  /* Already defined */
+  --color-primary: oklch(0.225 0.146 265.82);
+  --color-background: oklch(0.9706 0 296);
+  --color-text-dark: oklch(0.2265 0.1472 265.78);
+  --color-text-light: oklch(0.9706 0 296);
+
+  /* Add these when needed */
+  --color-primary-hover: oklch(0.3 0.146 265.82); /* button hover */
+  --color-primary-light: oklch(0.94 0.04 265.82); /* subtle bg, badges */
+  --color-text-muted: oklch(0.55 0.05 265.82); /* captions, labels */
+  --color-border: oklch(0.88 0.02 265.82); /* card borders */
+  --color-surface: oklch(0.97 0.005 265.82); /* card backgrounds */
+
+  /* Accent — Claude chooses, must complement primary */
+  --color-accent: ; /* connection lines, highlights, glows */
+  --color-accent-light: ; /* subtle accent backgrounds */
+}
+```
+
+#### Color Rules
+
+- Always use token names — `var(--color-primary)` or `bg-[--color-primary]`
+- Never hardcode OKLCH values directly in components
+- Background is always `--color-background` — never pure white
+- Text on light backgrounds → `--color-text-dark`
+- Text on dark backgrounds → `--color-text-light`
+- Before adding a new color — check if an existing token already covers it
 
 ---
 
@@ -1130,7 +1295,6 @@ We use **OKLCH** for all colors — never HEX or RGB.
 
 - Logo on the left — links in the center — buttons on the right
 - Login is a ghost button — Get Started is a primary button
-- On mobile: hamburger menu — all nav links in `MobileMenu.tsx`
 - Docs & Guides opens in a new tab — all other external links too
 - Active route should be highlighted in nav using TanStack Router's `<Link>` active state
 

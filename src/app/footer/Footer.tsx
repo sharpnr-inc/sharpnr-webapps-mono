@@ -1,105 +1,153 @@
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { useRef } from "react";
+import { Link } from "@tanstack/react-router";
+import { ArrowUpRight, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { config } from "@/configs/env";
+import { useFooterAnimation } from "./animations/useFooterAnimation";
+
+const socialLinks = [
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/sharpnr" },
+  { icon: Twitter, label: "X (Twitter)", href: "https://x.com/sharpnr" },
+  { icon: Instagram, label: "Instagram", href: "https://instagram.com/sharpnr" },
+  { icon: Youtube, label: "YouTube", href: "https://youtube.com/@sharpnr" },
+] as const;
+
+const exploreLinks = [
+  { label: "Products", to: "/products" },
+  { label: "Services", to: "/services" },
+  { label: "Industries", to: "/industries" },
+  { label: "About", to: "/about" },
+] as const;
 
 export default function Footer() {
-  const productCategories = [
-    {
-      title: "Core Platform",
-      links: [
-        { name: "SharpIAM", href: "#iam" },
-        { name: "Orchestrator", href: "#orchestrator" },
-        { name: "Marketplace", href: "#marketplace" },
-      ],
-    },
-    {
-      title: "Business Ops",
-      links: [
-        { name: "Sharp-HR", href: "#hr" },
-        { name: "Sharp-Accounting", href: "#accounting" },
-        { name: "Sharp-Marketing", href: "#marketing" },
-      ],
-    },
-    {
-      title: "Productivity",
-      links: [
-        { name: "Sharp-Folio", href: "#folio" },
-        { name: "Sharp-Cable", href: "#cable" },
-        { name: "Sharp-Silo", href: "#silo" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [{ name: "Documentation", href: "https://docs.sharpnr.com" }],
-    },
-  ];
+  const footerRef = useRef<HTMLElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useFooterAnimation({ footerRef, innerRef });
 
   return (
-    <footer className=" border-t border-slate-900 pt-20 pb-10 px-6 relative overflow-hidden">
-      <div className="container mx-auto relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
-          <div className="col-span-2 lg:col-span-1">
-            <a href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-6 h-6 flex items-center justify-center">
-                <img src="/layer1.png" />
-              </div>
-              <span className="text-xl font-serif text-slate-50">Sharpnr</span>
-            </a>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs font-sans">
-              One Platform. Every Business. The deeply integrated ecosystem for
-              modern organizations.
+    <footer ref={footerRef} className="relative overflow-hidden bg-ink">
+      {/* Grid texture */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.97_0_296/0.03)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.97_0_296/0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
+
+      <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-16 md:px-8 md:pt-20">
+        <div
+          ref={innerRef}
+          className="grid gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]"
+        >
+          {/* Brand */}
+          <div>
+            <img
+              src="/sharpnr-logo-white.svg"
+              alt="Sharpnr"
+              className="h-7 w-auto min-w-[120px]"
+            />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-muted">
+              The ever-evolving ecosystem for business operations — unified,
+              modular, and built for organizations of any size.
             </p>
-            <div className="flex gap-4 mt-8">
-              <a
-                href="#"
-                className="text-slate-500 hover:text-slate-50 transition-colors"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-slate-500 hover:text-slate-50 transition-colors"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-slate-500 hover:text-slate-50 transition-colors"
-              >
-                <Linkedin size={20} />
-              </a>
+            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-ink-border px-3 py-1.5">
+              <span className="size-1.5 rounded-full bg-accent-glow" />
+              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-ink-muted">
+                Early Access · Alpha
+              </span>
+            </span>
+            <div className="mt-7 flex gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="text-ink-muted transition-colors duration-200 hover:text-text-light"
+                >
+                  <social.icon className="size-5" strokeWidth={1.7} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {productCategories.map((cat) => (
-            <div key={cat.title}>
-              <h4 className="text-slate-500 font-mono text-[10px] uppercase tracking-[0.2em] mb-6">
-                {cat.title}
-              </h4>
-              <ul className="space-y-4">
-                {cat.links.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-slate-400 hover:text-slate-50 text-sm font-sans transition-colors block"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Explore */}
+          <div>
+            <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-ink-muted">
+              Explore
+            </h4>
+            <ul className="mt-6 flex flex-col gap-3.5">
+              {exploreLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-ink-muted">
+              Resources
+            </h4>
+            <ul className="mt-6 flex flex-col gap-3.5">
+              <li>
+                <a
+                  href="https://docs.sharpnr.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
+                >
+                  Docs &amp; Guides
+                  <ArrowUpRight className="size-3.5 opacity-60" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:support@sharpnr.com"
+                  className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
+                >
+                  Contact Us
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Get started */}
+          <div>
+            <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-ink-muted">
+              Platform
+            </h4>
+            <ul className="mt-6 flex flex-col gap-3.5">
+              <li>
+                <a
+                  href={config.authAppUrl}
+                  className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
+                >
+                  Login
+                </a>
+              </li>
+              <li>
+                <a
+                  href={config.authAppUrl + "/signup"}
+                  className="text-sm font-medium text-accent-glow transition-colors duration-200 hover:text-text-light"
+                >
+                  Get Started
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="font-mono text-[10px] text-slate-600 uppercase tracking-widest">
-            © {new Date().getFullYear()} Sharpnr Protocol. All rights reserved.
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-ink-border pt-8 md:flex-row">
+          <p className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
+            © {new Date().getFullYear()} Sharpnr. All rights reserved.
+          </p>
+          <p className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
+            One Platform · Every Industry
           </p>
         </div>
-      </div>
-
-      {/* Grid pattern background */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
       </div>
     </footer>
   );

@@ -36,9 +36,11 @@ function RootLayout() {
         wrapper  → clips overflow, takes the native scroll events
         content  → gets translateY'd by the smoother
       */}
+      {/* Fixed header must live outside the smoother — transforms on
+          #smooth-content would break position: fixed */}
+      <Header />
       <div id="smooth-wrapper" ref={wrapperRef}>
         <div id="smooth-content" ref={contentRef}>
-          <Header />
           <Outlet />
           <Footer />
         </div>

@@ -1,21 +1,35 @@
 import { ProductsHeroSection } from "@/app/products/ProductsHeroSection";
+import { ProductsGridSection } from "@/app/products/ProductsGridSection";
+import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/products")({
   component: RouteComponent,
   head: () => ({
     meta: [
-      { title: "Products | Sharpnr Enterprise Solutions" },
+      { title: "Sharpnr | Products — The Complete Suite" },
       {
         name: "description",
         content:
-          "Explore Sharpnr's suite of enterprise products: Sharp-Marketing (CRM), Sharp-HR (HRMS), and Sharp-Accounting. Integrated tools for every business need.",
+          "Explore every Sharpnr application — Sharp-Accounting, Sharp-HR, Sharp-Marketing, Cables, Silo, Folio, Cortex, SharpIAM, Orchestrator, Sharp-Hospitality, Lifco, and Sharp-Marketplace.",
       },
       {
         name: "keywords",
         content:
-          "CRM Products, HRMS Solutions, Accounting Software, Enterprise Tools, Business Suite",
+          "Sharpnr products, accounting software, HRMS, CRM, business messaging, data platform, productivity suite, IT administration, B2B marketplace",
       },
+      {
+        property: "og:title",
+        content: "Sharpnr | Products — The Complete Suite",
+      },
+      {
+        property: "og:description",
+        content:
+          "Twelve connected applications across operations, control, core services, and the B2B network. Each one powerful alone — better together.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://sharpnr.com/products" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
 });
@@ -24,6 +38,8 @@ function RouteComponent() {
   return (
     <div>
       <ProductsHeroSection />
+      <ProductsGridSection />
+      <CTASection />
     </div>
   );
 }
