@@ -44,11 +44,25 @@ function LoginForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
+      {/* Brand mark */}
+      <div className="mb-6 flex items-center gap-2.5">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-foreground/5">
+          <img
+            src="https://cdn.sharpnr.com/shicon.svg"
+            alt="Sharpnr"
+            className="h-5.5 w-5.5"
+          />
+        </div>
+        <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+          Sharpnr Account
+        </span>
+      </div>
+
       {/* Heading */}
       <div className="mb-8 flex flex-col gap-2">
         <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          Sign in to access your workspace and every SharpNR product.
+          Sign in to access your workspace and every Sharpnr product.
         </p>
       </div>
 
@@ -118,7 +132,7 @@ function LoginForm() {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   aria-label={showPassword ? "Hide password" : "Show password"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -179,7 +193,7 @@ function LoginForm() {
           className="h-11 w-full text-sm font-semibold"
           onClick={() => navigate({ to: "/signup" })}
         >
-          Create a SharpNR account
+          Create a Sharpnr account
         </Button>
       </div>
     </motion.div>

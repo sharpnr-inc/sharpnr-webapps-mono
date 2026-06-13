@@ -213,6 +213,18 @@ export function InitialSignupForm({
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col gap-1"
       >
+        <div className="mb-5 flex items-center gap-2.5">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-foreground/5">
+            <img
+              src="https://cdn.sharpnr.com/shicon.svg"
+              alt="Sharpnr"
+              className="h-5.5 w-5.5"
+            />
+          </div>
+          <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            Sharpnr Account
+          </span>
+        </div>
         <h1 className="text-3xl font-semibold tracking-tight">
           Create your account
         </h1>
@@ -353,7 +365,7 @@ export function InitialSignupForm({
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground/60 hover:text-foreground transition-colors"
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -422,7 +434,7 @@ export function InitialSignupForm({
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2  hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground/60 hover:text-foreground transition-colors"
                     >
                       {showConfirm ? (
                         <EyeOff className="h-4 w-4" />

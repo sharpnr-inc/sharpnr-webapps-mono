@@ -7,7 +7,7 @@ interface AuthLayoutProps {
 }
 
 const features = [
-  "One identity for every SharpNR product",
+  "One identity for every Sharpnr product",
   "Enterprise-grade security, on by default",
   "Single sign-on across your whole workspace",
 ];
@@ -26,7 +26,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           />
         </div>
         {/* Legibility veil over the aurora */}
-        <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-background via-background/45 to-background/10" />
+        <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-t from-background via-background/45 to-background/10" />
 
         {/* Logo */}
         <motion.a
@@ -38,7 +38,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         >
           <img
             src="https://cdn.sharpnr.com/shicon.svg"
-            alt="SharpNR"
+            alt="Sharpnr"
             className="h-8 w-8 rounded-md"
           />
           <span className="text-2xl font-semibold tracking-tight">Sharpnr</span>
@@ -52,7 +52,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
           className="relative z-10 max-w-md"
         >
           <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            SharpNR Account
+            Sharpnr Account
           </p>
           <h2 className="mt-4 text-3xl font-semibold leading-[1.15] tracking-tight xl:text-4xl">
             One login for your entire workspace.
@@ -85,7 +85,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
         <div className="relative z-10 flex items-center gap-2 p-6 lg:hidden">
           <img
             src="https://cdn.sharpnr.com/shicon.svg"
-            alt="SharpNR"
+            alt="Sharpnr"
             className="h-7 w-7 rounded-md"
           />
           <span className="text-xl font-semibold tracking-tight">Sharpnr</span>
