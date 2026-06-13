@@ -68,12 +68,15 @@ export function NetworkSection() {
           <div
             ref={hostRef}
             role="img"
-            aria-label={`Globe of the Sharpnr network — organizations in ${ORGS.map((o) => o.industry).join(", ")} — all routed through ${HUB.name}`}
-            className="relative mx-auto mt-8 h-[600px] w-full max-w-6xl"
+            aria-label={`Network of organizations — ${ORGS.map((o) => o.industry).join(", ")} — wired together through ${HUB.name}`}
+            className="relative mx-auto mt-8 h-[620px] w-full max-w-6xl"
           >
-            {/* Annotation — quiet, factual, Cloudflare-style */}
-            <div className="pointer-events-none absolute right-0 top-16 z-10 hidden w-64 border border-dashed border-accent/50 p-4 lg:block">
-              <p className="font-mono text-[11px] leading-relaxed text-accent">
+            {/* Annotation — quiet, factual, technical */}
+            <div className="pointer-events-none absolute left-0 top-10 z-10 hidden w-60 border border-dashed border-accent/40 p-4 lg:block">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-accent">
+                O2O Protocol
+              </p>
+              <p className="mt-2 font-mono text-[11px] leading-relaxed text-ink-muted">
                 Organization-to-organization only. Every member is a verified
                 business — trades settle straight into Sharp-Accounting, with
                 no commissions and no charges.

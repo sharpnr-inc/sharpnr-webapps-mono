@@ -17,13 +17,14 @@ interface NetworkAnimationRefs {
   onHover: (value: HoveredNode) => void;
 }
 
-/* Quiet targets — structure over shine. */
-const LATTICE_OPACITY = 0.85;
-const HIGHLIGHT_OPACITY = 0.9;
-const WIRE_OPACITY = 0.07;
-const HUB_ARC_OPACITY = 0.42;
-const PEER_ARC_OPACITY = 0.2;
-const ROTATION_SPEED = 0.045;
+/* Quiet targets — wireframe structure over shine. */
+const HUB_LINK_OPACITY = 0.4;
+const PEER_LINK_OPACITY = 0.18;
+const MEMBER_OPACITY = 0.9;
+const MOTES_OPACITY = 0.16;
+const RING_OPACITY = 0.09;
+const NET_ROTATION = 0.05;
+const ATMOSPHERE_ROTATION = -0.022;
 
 export function useNetworkAnimation(refs: NetworkAnimationRefs) {
   const {
@@ -105,14 +106,16 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
       const {
         camera,
         tiltGroup,
-        globeGroup,
-        latticeMaterial,
-        highlight,
-        highlightMaterial,
+        networkGroup,
+        atmosphereGroup,
+        nodes,
+        links,
+        packets,
         wireMaterials,
-        markers,
-        arcs,
-        arcDots,
+        ringMaterials,
+        memberMaterial,
+        members,
+        motesMaterial,
       } = handle;
 
       const observer = new ResizeObserver(() => {
@@ -121,67 +124,64 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
       });
       observer.observe(host);
 
-      /* Per-marker animation factors — combined into opacity each
-         frame so backside fading, hover, and entrance compose. */
-      const factors = markers.map(() => ({ entrance: 0, hover: 1 }));
+      /* Cards orbit inside networkGroup but must keep facing the camera.
+         local = parentWorld⁻¹ · cameraQuat keeps them billboarded. */
+      const parentQuat = new THREE.Quaternion();
+      const parentInv = new THREE.Quaternion();
+      const cardWorld = new THREE.Vector3();
 
-      const globeCenter = new THREE.Vector3();
-      const camDir = new THREE.Vector3();
-      const markerDir = new THREE.Vector3();
-      const markerQuat = new THREE.Quaternion();
-
-      /** 0 on the far side, 1 when facing the camera. */
-      const markerVisibility = (index: number) => {
-        globeGroup.getWorldQuaternion(markerQuat);
-        markerDir.copy(markers[index].direction).applyQuaternion(markerQuat);
-        tiltGroup.getWorldPosition(globeCenter);
-        camDir.copy(camera.position).sub(globeCenter).normalize();
-        const v = markerDir.dot(camDir);
-        return THREE.MathUtils.smoothstep(v, -0.02, 0.3);
-      };
-
-      const applyMarkerOpacity = () => {
-        markers.forEach((marker, i) => {
-          marker.material.opacity =
-            factors[i].entrance * factors[i].hover * markerVisibility(i);
+      const billboardAndFade = () => {
+        networkGroup.getWorldQuaternion(parentQuat);
+        parentInv.copy(parentQuat).invert();
+        nodes.forEach((node) => {
+          node.group.quaternion.copy(camera.quaternion).premultiply(parentInv);
+          // Depth fade — cards nearer the camera read brighter
+          node.group.getWorldPosition(cardWorld);
+          const dist = cardWorld.distanceTo(camera.position);
+          const depth = 1 - THREE.MathUtils.smoothstep(dist, 8, 14.5);
+          node.material.opacity =
+            node.entrance * node.hover * (0.45 + depth * 0.55);
         });
       };
 
-      const updateHighlights = (elapsed: number) => {
-        const { colorAttr, phases, speeds, count, color } = highlight;
+      const updateMembers = (elapsed: number) => {
+        const { colorAttr, phases, speeds, count, color } = members;
         for (let i = 0; i < count; i++) {
           const pulse =
-            0.2 + 0.6 * (0.5 + 0.5 * Math.sin(elapsed * speeds[i] + phases[i]));
+            0.18 + 0.55 * (0.5 + 0.5 * Math.sin(elapsed * speeds[i] + phases[i]));
           color.setScalar(pulse);
           colorAttr.setXYZ(i, color.r, color.g, color.b);
         }
         colorAttr.needsUpdate = true;
       };
 
-      const sampleArc = (arc: (typeof arcs)[number], t: number) => {
-        const f = t * (arc.pointCount - 1);
-        const i = Math.min(Math.floor(f), arc.pointCount - 2);
-        return new THREE.Vector3().lerpVectors(
-          arc.points[i],
-          arc.points[i + 1],
-          f - i,
-        );
+      const samplePacket = (packet: (typeof packets)[number]) => {
+        const { points, pointCount } = packet.link;
+        const f = packet.t * (pointCount - 1);
+        const i = Math.min(Math.floor(f), pointCount - 2);
+        return new THREE.Vector3().lerpVectors(points[i], points[i + 1], f - i);
       };
 
       // ── Reduced motion: settle everything and render once ──────
       if (prefersReducedMotion) {
-        latticeMaterial.opacity = LATTICE_OPACITY;
-        highlightMaterial.opacity = HIGHLIGHT_OPACITY;
-        wireMaterials.forEach((m) => (m.opacity = WIRE_OPACITY));
-        arcs.forEach((arc) => {
-          arc.geometry.setDrawRange(0, arc.pointCount);
-          arc.material.opacity = arc.toHub
-            ? HUB_ARC_OPACITY
-            : PEER_ARC_OPACITY;
+        wireMaterials.forEach(
+          (m) => (m.opacity = (m.userData.base as number) ?? 0.1),
+        );
+        ringMaterials.forEach((m) => (m.opacity = RING_OPACITY));
+        memberMaterial.opacity = MEMBER_OPACITY;
+        motesMaterial.opacity = MOTES_OPACITY;
+        links.forEach((link) => {
+          link.geometry.setDrawRange(0, link.pointCount);
+          link.material.opacity = link.toHub
+            ? HUB_LINK_OPACITY
+            : PEER_LINK_OPACITY;
         });
-        factors.forEach((f) => (f.entrance = 1));
-        updateHighlights(1.6);
-        applyMarkerOpacity();
+        nodes.forEach((node) => {
+          node.group.position.copy(node.final);
+          node.entrance = 1;
+        });
+        updateMembers(1.4);
+        billboardAndFade();
         handle.render();
         return () => {
           observer.disconnect();
@@ -189,9 +189,9 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         };
       }
 
-      // ── Phase 2: Entrance — globe forms, markers pin, routes draw ──
+      // ── Phase 2: Entrance — sphere forms, cards dock, web draws ──
       let flowOn = false;
-      const intro = { yaw: -0.75 };
+      const intro = { spin: -0.6 };
       const entrance = gsap.timeline({
         defaults: { ease: "power3.out" },
         scrollTrigger: {
@@ -201,55 +201,82 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         },
       });
 
+      // Wireframe sphere fades in and unwinds into place
+      atmosphereGroup.scale.set(0.7, 0.7, 0.7);
       entrance
-        .to(latticeMaterial, { opacity: LATTICE_OPACITY, duration: 1.6 }, 0)
-        .to(intro, { yaw: 0, duration: 2.2, ease: "power2.out" }, 0)
+        .to(atmosphereGroup.scale, { x: 1, y: 1, z: 1, duration: 1.8 }, 0)
+        .to(intro, { spin: 0, duration: 2.0, ease: "power2.out" }, 0)
         .to(
           wireMaterials,
-          { opacity: WIRE_OPACITY, duration: 1.2, stagger: 0.06 },
+          {
+            opacity: (i) => (wireMaterials[i].userData.base as number) ?? 0.1,
+            duration: 1.4,
+            stagger: 0.1,
+          },
+          0.2,
+        )
+        .to(
+          ringMaterials,
+          { opacity: RING_OPACITY, duration: 1.2, stagger: 0.12 },
           0.4,
         )
-        .to(highlightMaterial, { opacity: HIGHLIGHT_OPACITY, duration: 1.0 }, 0.8);
+        .to(memberMaterial, { opacity: MEMBER_OPACITY, duration: 1.0 }, 0.6)
+        .to(motesMaterial, { opacity: MOTES_OPACITY, duration: 1.4 }, 0.4);
 
-      // Markers pin onto the surface
-      markers.forEach((marker, i) => {
-        const at = 1.0 + i * 0.1;
+      // Hub docks first, then org containers fly in
+      const hub = nodes[nodes.length - 1];
+      entrance
+        .to(hub.group.position, {
+          x: hub.final.x,
+          y: hub.final.y,
+          z: hub.final.z,
+          duration: 1.1,
+        }, 0.7)
+        .to(hub, { entrance: 1, duration: 0.6 }, 0.85);
+
+      nodes.forEach((node, i) => {
+        if (node.isHub) return;
+        const at = 1.0 + i * 0.13;
         entrance
-          .to(factors[i], { entrance: 1, duration: 0.5 }, at)
-          .fromTo(
-            marker.sprite.scale,
+          .to(
+            node.group.position,
             {
-              x: marker.baseScale.x * 0.6,
-              y: marker.baseScale.y * 0.6,
-            },
-            {
-              x: marker.baseScale.x,
-              y: marker.baseScale.y,
-              duration: 0.6,
-              ease: "back.out(2.2)",
+              x: node.final.x,
+              y: node.final.y,
+              z: node.final.z,
+              duration: 1.2,
             },
             at,
-          );
+          )
+          .to(node, { entrance: 1, duration: 0.7 }, at + 0.1);
       });
 
-      // Routes draw from org to hub
-      arcs.forEach((arc, i) => {
+      // The web draws — hub links first, then peer routes
+      links.forEach((link, i) => {
         const proxy = { p: 0 };
+        const at = (link.toHub ? 1.5 : 2.2) + i * 0.06;
         entrance
-          .to(arc.material, { opacity: arc.toHub ? HUB_ARC_OPACITY : PEER_ARC_OPACITY, duration: 0.3 }, 1.7 + i * 0.08)
+          .to(
+            link.material,
+            {
+              opacity: link.toHub ? HUB_LINK_OPACITY : PEER_LINK_OPACITY,
+              duration: 0.3,
+            },
+            at,
+          )
           .to(
             proxy,
             {
               p: 1,
-              duration: 0.9,
+              duration: 0.85,
               ease: "power2.inOut",
               onUpdate: () =>
-                arc.geometry.setDrawRange(
+                link.geometry.setDrawRange(
                   0,
-                  Math.floor(proxy.p * arc.pointCount),
+                  Math.floor(proxy.p * link.pointCount),
                 ),
             },
-            1.7 + i * 0.08,
+            at,
           );
       });
 
@@ -257,49 +284,48 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         flowOn = true;
       });
 
-      // ── Phase 3: Live loop — rotation, parallax, packets, pulses ──
+      // ── Phase 3: Live loop ─────────────────────────────────────
       let elapsed = 0;
       let hovered: HoveredNode = null;
       const parallax = { x: 0, y: 0 };
-      const smoothParallax = { x: 0, y: 0 };
+      const smooth = { x: 0, y: 0 };
       const worldPos = new THREE.Vector3();
 
       const tick = (_time: number, deltaMS: number) => {
-        const dt = deltaMS / 1000;
+        const dt = Math.min(deltaMS / 1000, 0.05);
         elapsed += dt;
 
-        // The globe turns; the pointer tilts the whole assembly gently
-        globeGroup.rotation.y += dt * ROTATION_SPEED;
-        smoothParallax.x += (parallax.x - smoothParallax.x) * Math.min(1, dt * 3);
-        smoothParallax.y += (parallax.y - smoothParallax.y) * Math.min(1, dt * 3);
-        tiltGroup.rotation.y = intro.yaw + smoothParallax.x * 0.1;
-        tiltGroup.rotation.x = -smoothParallax.y * 0.06;
+        networkGroup.rotation.y += dt * NET_ROTATION;
+        atmosphereGroup.rotation.y += dt * ATMOSPHERE_ROTATION;
+        atmosphereGroup.rotation.x = 0.12;
 
-        updateHighlights(elapsed);
-        applyMarkerOpacity();
+        smooth.x += (parallax.x - smooth.x) * Math.min(1, dt * 3);
+        smooth.y += (parallax.y - smooth.y) * Math.min(1, dt * 3);
+        tiltGroup.rotation.y = intro.spin + smooth.x * 0.12;
+        tiltGroup.rotation.x = -smooth.y * 0.08;
 
-        // Packets ride the routes
+        updateMembers(elapsed);
+        billboardAndFade();
+
         if (flowOn) {
-          arcDots.forEach((dot) => {
-            dot.t += dt * dot.speed;
-            if (dot.t > 1) dot.t -= 1;
-            if (dot.t < 0) dot.t += 1;
-            dot.sprite.position.copy(sampleArc(dot.arc, dot.t));
-            dot.material.opacity =
-              (dot.arc.toHub ? 0.7 : 0.45) * Math.sin(Math.PI * dot.t);
+          packets.forEach((p) => {
+            p.t += dt * p.speed;
+            if (p.t > 1) p.t -= 1;
+            if (p.t < 0) p.t += 1;
+            p.sprite.position.copy(samplePacket(p));
+            p.material.opacity =
+              (p.link.toHub ? 0.7 : 0.45) * Math.sin(Math.PI * p.t);
           });
         }
 
-        // Tooltip tracks the hovered marker; drop it if it rotates away
-        if (hovered !== null) {
-          const index = markers.findIndex((m) =>
-            hovered === "hub" ? m.isHub : m.orgIndex === hovered,
-          );
-          if (index !== -1 && markerVisibility(index) < 0.35) {
-            setHovered(null);
-          } else if (index !== -1 && tooltipRef.current) {
-            markers[index].sprite.getWorldPosition(worldPos);
-            worldPos.y += markers[index].baseScale.y * 0.55;
+        if (hovered !== null && tooltipRef.current) {
+          const node =
+            hovered === "hub"
+              ? nodes[nodes.length - 1]
+              : nodes.find((n) => n.orgIndex === hovered);
+          if (node) {
+            node.group.getWorldPosition(worldPos);
+            worldPos.y += node.isHub ? 0.75 : 0.85;
             worldPos.project(camera);
             const w = host.clientWidth;
             const h = host.clientHeight;
@@ -307,7 +333,7 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
               x: (worldPos.x * 0.5 + 0.5) * w,
               y: (-worldPos.y * 0.5 + 0.5) * h,
               xPercent: -50,
-              yPercent: -100,
+              yPercent: -108,
             });
           }
         }
@@ -319,24 +345,39 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
       // ── Phase 4: Hover — raycast, highlight, tooltip ───────────
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
-      const sprites = markers.map((m) => m.sprite);
+      const meshes = nodes.map((n) => n.mesh);
 
       const setHovered = (next: HoveredNode) => {
         if (next === hovered) return;
         hovered = next;
         onHover(next);
-        markers.forEach((marker, i) => {
+        nodes.forEach((node) => {
           const isTarget =
             next !== null &&
-            (next === "hub" ? marker.isHub : marker.orgIndex === next);
-          gsap.to(marker.sprite.scale, {
-            x: marker.baseScale.x * (isTarget ? 1.12 : 1),
-            y: marker.baseScale.y * (isTarget ? 1.12 : 1),
+            (next === "hub" ? node.isHub : node.orgIndex === next);
+          gsap.to(node.group.scale, {
+            x: isTarget ? 1.08 : 1,
+            y: isTarget ? 1.08 : 1,
+            z: isTarget ? 1.08 : 1,
             duration: 0.3,
             ease: "power2.out",
           });
-          gsap.to(factors[i], {
-            hover: next === null || isTarget ? 1 : 0.5,
+          gsap.to(node, {
+            hover: next === null || isTarget ? 1 : 0.4,
+            duration: 0.3,
+          });
+        });
+        // Dim links not touching the hovered org
+        links.forEach((link) => {
+          gsap.to(link.material, {
+            opacity:
+              next === null
+                ? link.toHub
+                  ? HUB_LINK_OPACITY
+                  : PEER_LINK_OPACITY
+                : link.toHub
+                  ? HUB_LINK_OPACITY * 0.4
+                  : PEER_LINK_OPACITY * 0.3,
             duration: 0.3,
           });
         });
@@ -353,11 +394,7 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
         parallax.y = pointer.y;
 
         raycaster.setFromCamera(pointer, camera);
-        const hits = raycaster.intersectObjects(sprites, false);
-        const hit = hits.find((h) => {
-          const index = sprites.indexOf(h.object as THREE.Sprite);
-          return index !== -1 && markerVisibility(index) > 0.4;
-        });
+        const hit = raycaster.intersectObjects(meshes, false)[0];
         if (!hit) {
           setHovered(null);
           return;
