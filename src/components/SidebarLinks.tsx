@@ -60,7 +60,7 @@ export const orchestratorGroups: SidebarGroup[] = [
 
       {
         label: "Customers",
-        path: "/suppliers&Vendors",
+        path: "/customers",
         icon: ContainerIcon,
         tooltip: "Suppliers & Vendors",
       },
@@ -101,8 +101,8 @@ export const orchestratorGroups: SidebarGroup[] = [
     groupLabel: "Sharpnr Services",
     links: [
       {
-        label: "Storage",
-        path: "/storage",
+        label: "Silo",
+        path: "/silo",
         icon: BoxesIcon,
         tooltip: "Storage",
       },
@@ -115,27 +115,27 @@ export const orchestratorGroups: SidebarGroup[] = [
 
       {
         label: "Cortex",
-        path: "/cables",
+        path: "/cortex",
         icon: MirrorRound,
         tooltip: "Cables",
       },
 
       {
         label: "Folio",
-        path: "/cables",
+        path: "/folio",
         icon: Cable,
         tooltip: "Cables",
       },
 
       {
         label: "Sharp-Marketing",
-        path: "/cables",
+        path: "/sharp-crm",
         icon: MarsStroke,
         tooltip: "Cables",
       },
       {
         label: "Sharp-Accounting",
-        path: "/cables",
+        path: "/sharp-accounting",
         icon: MarsStroke,
         tooltip: "Cables",
       },
