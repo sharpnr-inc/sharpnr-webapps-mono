@@ -1,5 +1,6 @@
 import { IndustriesHeroSection } from "@/app/industries/IndustriesHeroSection";
 import { IndustriesListSection } from "@/app/industries/IndustriesListSection";
+import { IndustriesUseCasesSection } from "@/app/industries/IndustriesUseCasesSection";
 import { IndustriesSegmentsSection } from "@/app/industries/IndustriesSegmentsSection";
 import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
@@ -40,6 +41,7 @@ function RouteComponent() {
     <div>
       <IndustriesHeroSection />
       <IndustriesListSection />
+      <IndustriesUseCasesSection />
       <IndustriesSegmentsSection />
       <CTASection />
     </div>

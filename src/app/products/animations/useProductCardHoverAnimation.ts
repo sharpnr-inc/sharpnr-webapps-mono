@@ -7,7 +7,9 @@ interface ProductCardHoverAnimationRefs {
 }
 
 /**
- * Lift-on-hover for every card in the bento grid.
+ * Premium hover for every card in the bento grid:
+ *  - a soft accent orb ([data-spot]) tracks the cursor inside the card
+ *  - the card lifts on enter
  * Attaches to the grid's direct children so each card gets the same
  * treatment without per-card hooks.
  */
@@ -31,26 +33,59 @@ export function useProductCardHoverAnimation(
       const cleanups: (() => void)[] = [];
 
       cards.forEach((card) => {
-        const enterAnim = () =>
+        const orb = card.querySelector<HTMLElement>("[data-spot]");
+
+        // Smooth cursor-follow for the spotlight orb.
+        let xTo: gsap.QuickToFunc | null = null;
+        let yTo: gsap.QuickToFunc | null = null;
+        if (orb) {
+          gsap.set(orb, { xPercent: -50, yPercent: -50 });
+          xTo = gsap.quickTo(orb, "x", { duration: 0.45, ease: "power3.out" });
+          yTo = gsap.quickTo(orb, "y", { duration: 0.45, ease: "power3.out" });
+        }
+
+        const move = (e: MouseEvent) => {
+          if (!xTo || !yTo) return;
+          const rect = card.getBoundingClientRect();
+          xTo(e.clientX - rect.left);
+          yTo(e.clientY - rect.top);
+        };
+        const enter = (e: MouseEvent) => {
+          if (orb) {
+            // Seed the position so the orb appears under the cursor, not 0,0.
+            const rect = card.getBoundingClientRect();
+            gsap.set(orb, {
+              x: e.clientX - rect.left,
+              y: e.clientY - rect.top,
+            });
+            gsap.to(orb, { autoAlpha: 1, duration: 0.4, ease: "power2.out" });
+          }
           gsap.to(card, {
             y: -6,
             scale: 1.012,
             duration: 0.35,
             ease: "power2.out",
           });
-        const leaveAnim = () =>
+        };
+        const leave = () => {
+          if (orb) {
+            gsap.to(orb, { autoAlpha: 0, duration: 0.4, ease: "power2.inOut" });
+          }
           gsap.to(card, {
             y: 0,
             scale: 1,
             duration: 0.35,
             ease: "power2.inOut",
           });
+        };
 
-        card.addEventListener("mouseenter", enterAnim);
-        card.addEventListener("mouseleave", leaveAnim);
+        card.addEventListener("mousemove", move);
+        card.addEventListener("mouseenter", enter);
+        card.addEventListener("mouseleave", leave);
         cleanups.push(() => {
-          card.removeEventListener("mouseenter", enterAnim);
-          card.removeEventListener("mouseleave", leaveAnim);
+          card.removeEventListener("mousemove", move);
+          card.removeEventListener("mouseenter", enter);
+          card.removeEventListener("mouseleave", leave);
         });
       });
 
