@@ -383,24 +383,6 @@ function LoginForm() {
               Create Sharpnr Account
             </Button>
           </motion.div>
-
-          {/* Footer note */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.55 }}
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 9,
-              letterSpacing: 1,
-              color: "hsl(var(--muted-foreground))",
-              opacity: 0.35,
-              textAlign: "center",
-              marginTop: 36,
-            }}
-          >
-            Secured by SharpIAM · SOC2 Compliant
-          </motion.p>
         </motion.div>
       </div>
     </div>

@@ -1,3 +1,8 @@
+# Auth
+- https://s
+
+Website for authentication, and SignUp every sharpnr app have to login via this portals
+
 ## 📦 Dependencies
 
 Please ensure the following versions are installed before running the project:
@@ -6,12 +11,3 @@ Please ensure the following versions are installed before running the project:
 | ------- | -------- |
 | Node.js | v22.17.0 |
 | npm     | 10.9.2   |
-
-### Verify Installed Versions
-
-Run the following commands to check your current setup:
-
-```bash
-node -v
-npm -v
-```

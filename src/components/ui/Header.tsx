@@ -30,7 +30,7 @@ export default function Header() {
             alt="Sharpnr Logo"
             className="w-8 h-8 rounded-md object-cover"
           />
-          <span className="text-2xl font-serif tracking-tight text-slate-50">
+          <span className="text-2xl font-semibold tracking-tight text-slate-50">
             Sharpnr
           </span>
         </a>
