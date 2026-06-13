@@ -44,8 +44,12 @@ export const Route = createFileRoute("/_appuser")({
     const user = userDetails.data;
 
     if (!user) {
+      // location.href is path + search + hash (e.g. "/properties/42?tab=rooms").
+      // Prefix the origin to get the absolute URL the user should return to.
+      const returnTo = window.location.origin + location.href;
+
       throw redirect({
-        href: config.authAppUrl,
+        href: `${config.authAppUrl}/?redirect_uri=${encodeURIComponent(returnTo)}`,
       });
     }
 
@@ -75,3 +79,5 @@ export const Route = createFileRoute("/_appuser")({
 
   component: ConsoleLayout,
 });
+
+// this is orchestrator console index user must be authenticated
