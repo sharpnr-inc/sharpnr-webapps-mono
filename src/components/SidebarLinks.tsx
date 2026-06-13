@@ -76,6 +76,12 @@ export const orchestratorGroups: SidebarGroup[] = [
         tooltip: "Properties",
         exact: false,
       },
+    ],
+  },
+
+  {
+    groupLabel: "Payments",
+    links: [
       {
         label: "Payments",
         path: "/payments",

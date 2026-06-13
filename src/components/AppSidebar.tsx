@@ -11,6 +11,7 @@ import {
   SidebarHeader,
   useSidebar,
   SharpnrSidebarFooter,
+  ScrollArea,
 } from "@sharpnr/ui";
 import { useAppUserStore } from "@/store/AppUserStore";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
@@ -90,19 +91,21 @@ export function OrchestratorShell() {
       </SidebarHeader>
 
       <SidebarContent>
-        {orchestratorGroups.map((group: any) => (
-          <SidebarGroup key={group.groupLabel}>
-            <SidebarGroupLabel>{group.groupLabel}</SidebarGroupLabel>
+        <ScrollArea className="h-full w-full">
+          {orchestratorGroups.map((group: any) => (
+            <SidebarGroup key={group.groupLabel}>
+              <SidebarGroupLabel>{group.groupLabel}</SidebarGroupLabel>
 
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {group.links.map((item: any) => (
-                  <SidebarLinkItem key={item.label} item={item} />
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {group.links.map((item: any) => (
+                    <SidebarLinkItem key={item.label} item={item} />
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
+        </ScrollArea>
       </SidebarContent>
 
       <SharpnrSidebarFooter />
