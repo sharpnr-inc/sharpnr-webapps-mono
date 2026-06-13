@@ -85,12 +85,12 @@ function PasswordStrength({ password }: { password: string }) {
 
   const color =
     passed <= 1
-      ? "hsl(var(--destructive))"
+      ? "var(--destructive)"
       : passed === 2
-        ? "hsl(var(--muted-foreground))"
+        ? "var(--muted-foreground)"
         : passed === 3
-          ? "hsl(var(--foreground)/0.6)"
-          : "hsl(var(--foreground))";
+          ? "color-mix(in oklch, var(--foreground) 60%, transparent)"
+          : "var(--foreground)";
 
   if (!password) return null;
 
@@ -213,10 +213,10 @@ export function InitialSignupForm({
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col gap-1"
       >
-        <h1 className="text-2xl font-bold tracking-tight ">
+        <h1 className="text-3xl font-semibold tracking-tight">
           Create your account
         </h1>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-muted-foreground">
           Get started — it only takes a minute.
         </p>
       </motion.div>
@@ -248,7 +248,7 @@ export function InitialSignupForm({
                   type="email"
                   placeholder="name@company.com"
                   required
-                  className="h-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]"
+                  className="h-10"
                 />
                 {field.state.meta.isTouched &&
                   field.state.meta.errors.length > 0 && (
@@ -296,7 +296,7 @@ export function InitialSignupForm({
                     placeholder="9876543210"
                     maxLength={10}
                     required
-                    className="h-10 pl-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]"
+                    className="h-10 pl-10"
                   />
                 </div>
                 <FieldDescription className="text-[11px] text-muted-foreground/60">
@@ -348,7 +348,7 @@ export function InitialSignupForm({
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
                       required
-                      className="h-10 pr-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]"
+                      className="h-10 pr-10"
                     />
                     <button
                       type="button"
@@ -412,7 +412,7 @@ export function InitialSignupForm({
                       placeholder="••••••••"
                       required
                       className={cn(
-                        "h-10 pr-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]",
+                        "h-10 pr-10",
                         field.state.meta.isTouched &&
                           field.state.value &&
                           field.state.value === passwordValue &&

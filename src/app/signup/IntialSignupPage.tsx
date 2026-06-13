@@ -2,6 +2,7 @@ import { InitialSignupForm } from "./InitialSignupForm";
 import { VerifyOtpForm } from "./VerifyOtpFrom";
 import { useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { AuthLayout } from "@/components/ui/AuthLayout";
 
 const formVariants: Variants = {
   enter: (dir: number) => ({
@@ -33,84 +34,58 @@ export function InitialSignupPage() {
   const [userEmail, setUserEmail] = useState("");
 
   return (
-    <div className="grid min-h-svh lg:grid-cols-2">
-      {/* ── Left: Form panel ── */}
-      <div className="relative flex flex-col gap-4 overflow-hidden p-6 md:p-10">
-        {/* Subtle background texture */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--muted)/0.4),transparent_60%)]" />
-
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative flex items-center gap-2"
-        >
-          <div className="flex h-7 w-7 items-center justify-center rounded-md bg-foreground">
-            <img src="https://cdn.sharpnr.com/shicon.svg" />
-          </div>
-          <span className="text-2xl font-semibold font-serif tracking-tight">
-            Sharpnr
-          </span>
-        </motion.div>
-
-        {/* Form area */}
-        <div className="relative flex flex-1 items-center justify-center">
-          <AnimatePresence mode="wait" custom={showOtp ? 1 : -1}>
-            {!showOtp ? (
-              <motion.div
-                key="signup"
-                custom={-1}
-                variants={formVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="w-full max-w-lg"
-              >
-                <InitialSignupForm
-                  setShowOtp={setShowOtp}
-                  setUserEmail={setUserEmail}
-                />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="otp"
-                custom={1}
-                variants={formVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="w-full max-w-sm"
-              >
-                <VerifyOtpForm setShowOtp={setShowOtp} email={userEmail} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Footer */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="relative text-center text-[11px] text-muted-foreground/60"
-        >
-          By continuing, you agree to our{" "}
-          <a
-            href="#"
-            className="underline underline-offset-2 hover:text-foreground transition-colors"
+    <AuthLayout>
+      <AnimatePresence mode="wait" custom={showOtp ? 1 : -1}>
+        {!showOtp ? (
+          <motion.div
+            key="signup"
+            custom={-1}
+            variants={formVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
           >
-            Terms
-          </a>{" "}
-          &amp;{" "}
-          <a
-            href="#"
-            className="underline underline-offset-2 hover:text-foreground transition-colors"
+            <InitialSignupForm
+              setShowOtp={setShowOtp}
+              setUserEmail={setUserEmail}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="otp"
+            custom={1}
+            variants={formVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
           >
-            Privacy Policy
-          </a>
-        </motion.p>
-      </div>
-    </div>
+            <VerifyOtpForm setShowOtp={setShowOtp} email={userEmail} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Footer */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6 }}
+        className="mt-8 text-center text-[11px] leading-relaxed text-muted-foreground/70"
+      >
+        By continuing, you agree to our{" "}
+        <a
+          href="#"
+          className="underline underline-offset-2 transition-colors hover:text-foreground"
+        >
+          Terms
+        </a>{" "}
+        &amp;{" "}
+        <a
+          href="#"
+          className="underline underline-offset-2 transition-colors hover:text-foreground"
+        >
+          Privacy Policy
+        </a>
+      </motion.p>
+    </AuthLayout>
   );
 }
