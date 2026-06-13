@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useUserAuth } from "@/apis/mutation";
-import { config } from "@/configs/env";
+import { redirectAfterAuth } from "@/lib/auth-redirect";
 import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/ui/AuthLayout";
@@ -32,7 +32,7 @@ function LoginForm() {
 
         onSuccess: () => {
           toast.success("Logged in successfully");
-          window.location.replace(config.iamAppUrl);
+          redirectAfterAuth();
         },
       });
     },
