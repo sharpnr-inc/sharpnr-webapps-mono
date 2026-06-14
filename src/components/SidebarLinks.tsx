@@ -75,7 +75,15 @@ export const orchestratorGroups: SidebarGroup[] = [
   },
   {
     groupLabel: "Business Operations",
-    links: [],
+    links: [
+      {
+        label: "Properties",
+        path: "/property",
+        icon: Building2Icon,
+        tooltip: "Properties",
+        exact: false,
+      },
+    ],
   },
 
   {
