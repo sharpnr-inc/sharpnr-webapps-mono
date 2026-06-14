@@ -1,25 +1,22 @@
 import {
-  BarChart3,
   BoxesIcon,
   BriefcaseBusiness,
   Building2Icon,
-  CalendarCheck,
   Cable,
   ContainerIcon,
-  CreditCard,
-  DollarSign,
-  FileText,
   Globe,
   Globe2Icon,
   Home,
   LucideShoppingBasket,
   MarsStroke,
   MirrorRound,
-  Receipt,
-  TrendingUp,
   Users,
-  Verified,
 } from "lucide-react";
+import { GrOverview } from "react-icons/gr";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import { TbTransactionRupee } from "react-icons/tb";
+import { FcBusinesswoman } from "react-icons/fc";
+import { AiOutlineAudit } from "react-icons/ai";
 
 export type SidebarLink = {
   label: string;
@@ -57,7 +54,7 @@ export const orchestratorGroups: SidebarGroup[] = [
       {
         label: "Audit Logs",
         path: "/audit-log",
-        icon: Verified,
+        icon: AiOutlineAudit,
         tooltip: "Audit Logs",
       },
       {
@@ -68,10 +65,10 @@ export const orchestratorGroups: SidebarGroup[] = [
       },
 
       {
-        label: "Customers",
+        label: "Customers & Clients",
         path: "/customers",
-        icon: ContainerIcon,
-        tooltip: "Suppliers & Vendors",
+        icon: FcBusinesswoman,
+        tooltip: "Customers & Clients",
       },
     ],
   },
@@ -85,31 +82,31 @@ export const orchestratorGroups: SidebarGroup[] = [
         tooltip: "Properties",
         exact: false,
       },
-      {
-        label: "Reports",
-        icon: BarChart3,
-        tooltip: "Reports",
-        children: [
-          {
-            label: "Overview",
-            path: "/reports/overview",
-            icon: TrendingUp,
-            tooltip: "Reports Overview",
-          },
-          {
-            label: "Revenue",
-            path: "/reports/revenue",
-            icon: DollarSign,
-            tooltip: "Revenue",
-          },
-          {
-            label: "Occupancy",
-            path: "/reports/occupancy",
-            icon: CalendarCheck,
-            tooltip: "Occupancy",
-          },
-        ],
-      },
+      // {
+      //   label: "Reports",
+      //   icon: BarChart3,
+      //   tooltip: "Reports",
+      //   children: [
+      //     {
+      //       label: "Overview",
+      //       path: "/reports/overview",
+      //       icon: TrendingUp,
+      //       tooltip: "Reports Overview",
+      //     },
+      //     {
+      //       label: "Revenue",
+      //       path: "/reports/revenue",
+      //       icon: DollarSign,
+      //       tooltip: "Revenue",
+      //     },
+      //     {
+      //       label: "Occupancy",
+      //       path: "/reports/occupancy",
+      //       icon: CalendarCheck,
+      //       tooltip: "Occupancy",
+      //     },
+      //   ],
+      // },
     ],
   },
 
@@ -117,30 +114,25 @@ export const orchestratorGroups: SidebarGroup[] = [
     groupLabel: "Payments",
     links: [
       {
-        label: "Payments",
-        path: "/payments",
-        icon: DollarSign,
+        label: "Overview",
+        path: "/payments/overview",
+        icon: GrOverview,
         tooltip: "Payments",
-        children: [
-          {
-            label: "Transactions",
-            path: "/payments/transactions",
-            icon: CreditCard,
-            tooltip: "Transactions",
-          },
-          {
-            label: "Invoices",
-            path: "/payments/invoices",
-            icon: FileText,
-            tooltip: "Invoices",
-          },
-          {
-            label: "Payouts",
-            path: "/payments/payouts",
-            icon: Receipt,
-            tooltip: "Payouts",
-          },
-        ],
+        exact: false,
+      },
+      {
+        label: "Accounts",
+        path: "/payments",
+        icon: MdOutlineAccountBalanceWallet,
+        tooltip: "Payments",
+        exact: false,
+      },
+      {
+        label: "Transactions",
+        path: "/payments/transactions",
+        icon: TbTransactionRupee,
+        tooltip: "Payments",
+        exact: false,
       },
     ],
   },
