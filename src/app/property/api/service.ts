@@ -9,11 +9,12 @@ import type {
 
 const PropertyEndpoints = {
   AddProperty: "/orchestrator/property/create",
+
   allProperty: "/orchestrator/property",
+
   PropertyDetails: (propID: string | undefined) =>
     `/orchestrator/property/${propID}`,
-  AddDomain: (propertyID: string) =>
-    `/orchestrator/property/${propertyID}/add-domain`,
+
   AddModules: (propertyID: string) =>
     `/orchestrator/property/${propertyID}/add-modules`,
   AddInfra: (propertyID: string) =>
@@ -63,23 +64,6 @@ export async function GetPropertyDetails(propertyID: string | undefined) {
     PropertyEndpoints.PropertyDetails(propertyID),
   );
 
-  return res.data;
-}
-
-/* ---------------------------------- <***> --------------------------------- */
-
-type AddDomainPayload = {
-  propertyID: string;
-  domain: string;
-};
-
-export async function SetDomainOfProperty({
-  propertyID,
-  domain,
-}: AddDomainPayload) {
-  const res = await api.post(PropertyEndpoints.AddDomain(propertyID), {
-    domain, // 👈 MUST be an object
-  });
   return res.data;
 }
 

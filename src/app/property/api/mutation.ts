@@ -4,20 +4,12 @@ import {
   AddModulesInProperty,
   AddProperty,
   ConfigureHotel,
-  SetDomainOfProperty,
 } from "./service";
 
 export function useCreatePropertyMutation() {
   return useMutation({
     mutationFn: AddProperty,
     mutationKey: ["AddProperty"],
-  });
-}
-
-export function useAddPropertyDomainMutation() {
-  return useMutation({
-    mutationKey: ["Property", "Domain"],
-    mutationFn: SetDomainOfProperty,
   });
 }
 

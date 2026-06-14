@@ -10,21 +10,15 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Button, ScrollArea } from "@sharpnr/ui";
 import {
-  AlertTriangle,
+  ArrowUpRight,
   Building2,
-  CheckCircle2,
-  ChevronRight,
-  Clock,
+  Hash,
   Layers,
   MapPin,
+  MoveLeftIcon,
   Plus,
-  Settings,
-  Tag,
 } from "lucide-react";
-import { useState } from "react";
 import AddPropertyForm from "../components/AddPropertyForm";
-import PropertyDomainSelection from "../components/PropertyDomainSelection";
-import { useAddPropertyDomainMutation } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useProperties } from "../api/queries";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
@@ -34,12 +28,6 @@ import { useModal } from "@/hooks/useModal";
 
 /* ── easing ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
-
-/* ── variants ────────────────────────────────────────── */
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
-};
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -54,13 +42,11 @@ const headerVariants: Variants = {
 /* ─────────────────────────────────────────────────────── */
 
 export function PropertyIndexPage() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { data: properties, isLoading } = useProperties();
-  const adddomain = useAddPropertyDomainMutation();
-  const qc = useQueryClient();
   const propertyArray: Property[] = properties?.data?.properties ?? [];
-  const { showModal, closeModal } = useModal();
+  const qc = useQueryClient();
   const navigate = useNavigate();
+  const { showModal, closeModal } = useModal();
 
   const handleAddProperty = () => {
     showModal(
@@ -70,24 +56,9 @@ export function PropertyIndexPage() {
     );
   };
 
-  const handlePropertyNavigation = (p: Property) => {
-    if (!p.is_configured && p.domain != null) {
-      navigate({
-        to: "/property/$propertyId/property-configuration",
-        search: { p_domain: p.domain, p_name: p.name },
-        params: { propertyId: p.id },
-      });
-    } else {
-      navigate({
-        to: "/property/$propertyId/details",
-        params: { propertyId: p.id },
-      });
-    }
-  };
-
   return (
     // ── Outer: locked height, two independent scroll columns ──
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-5.5rem)]">
       {/* ── Main: own scroll column ────────────────────────── */}
       <ScrollArea className="flex-1 lg:w-9/12">
         <main className="px-4 py-6 sm:px-6 lg:px-8">
@@ -100,6 +71,17 @@ export function PropertyIndexPage() {
           >
             <div className="space-y-1">
               <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground">
+                <Button
+                  onClick={() =>
+                    navigate({
+                      to: "/home",
+                    })
+                  }
+                  variant={"secondary"}
+                  size={"icon-sm"}
+                >
+                  <MoveLeftIcon />
+                </Button>
                 <Layers className="h-3 w-3" />
                 Organization
               </p>
@@ -155,36 +137,15 @@ export function PropertyIndexPage() {
               </motion.div>
             )}
 
-            {/* Grid */}
             {!isLoading && propertyArray.length > 0 && (
               <motion.div
                 key="grid"
-                variants={containerVariants}
                 initial="hidden"
                 animate="visible"
                 className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               >
                 {propertyArray.map((p: Property) => (
-                  <PropertyCard
-                    key={p.id}
-                    property={p}
-                    isDialogOpen={isDialogOpen}
-                    setIsDialogOpen={setIsDialogOpen}
-                    onNavigate={handlePropertyNavigation}
-                    onDomainConfirm={async (domainId) => {
-                      try {
-                        await adddomain.mutateAsync({
-                          domain: domainId,
-                          propertyID: p.id,
-                        });
-                        await qc.invalidateQueries({
-                          queryKey: ["ORGANIZATION", "PROPERTIES", "ALL"],
-                        });
-                      } catch (err) {
-                        console.error("Failed to add domain:", err);
-                      }
-                    }}
-                  />
+                  <PropertyCard key={p.id} property={p} />
                 ))}
               </motion.div>
             )}
@@ -199,149 +160,67 @@ export function PropertyIndexPage() {
 }
 
 /* ─────────────────────────────────────────────────────── *
- *  Property Card
+ *  Property card
  * ─────────────────────────────────────────────────────── */
-interface PropertyCardProps {
-  property: Property;
-  isDialogOpen: boolean;
-  setIsDialogOpen: (v: boolean) => void;
-  onNavigate: (p: Property) => void;
-  onDomainConfirm: (domainId: string) => Promise<void>;
-}
+function PropertyCard({ property }: { property: Property }) {
+  const navigate = useNavigate();
 
-function PropertyCard({
-  property: p,
-  isDialogOpen,
-  setIsDialogOpen,
-  onNavigate,
-  onDomainConfirm,
-}: PropertyCardProps) {
-  const configured = p.is_configured;
-  const hasDomain = p.domain && p.domain !== "";
+  const location = [property.city, property.state, property.country]
+    .filter(Boolean)
+    .join(", ");
+
+  const goToDetails = () =>
+    navigate({
+      to: "/property/$propertyId/details",
+      params: { propertyId: property.id },
+    });
 
   return (
-    <motion.div
+    <motion.button
+      type="button"
       variants={itemVariants}
-      whileHover={{ y: -3, transition: { duration: 0.2 } }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-shadow hover:shadow-md"
+      onClick={goToDetails}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.98 }}
+      className="group relative flex flex-col overflow-hidden rounded-2xl border bg-card p-5 pl-6 text-left shadow-sm transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
-      {/* Status stripe */}
-      <div
-        className={[
-          "absolute left-0 top-0 h-full w-1 rounded-l-2xl transition-colors",
-          configured ? "bg-emerald-500" : "bg-amber-400",
-        ].join(" ")}
-      />
+      {/* accent stripe */}
+      <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl bg-primary/60 transition-colors group-hover:bg-primary" />
 
-      {/* Card body */}
-      <div className="flex flex-1 flex-col gap-4 p-5 pl-6">
-        {/* Top row: title + domain badge */}
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0 space-y-0.5">
-            <h2 className="truncate text-base font-semibold text-foreground">
-              {p.name}
-            </h2>
-            <p className="flex items-center gap-1 font-mono text-[11px] text-muted-foreground">
-              <Tag className="h-3 w-3 shrink-0" />
-              {p.code}
-            </p>
+      {/* header */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
+            <Building2 className="h-5 w-5 text-primary" />
           </div>
-
-          {hasDomain ? (
-            <span className="inline-flex shrink-0 items-center rounded-full border border-primary/20 bg-primary/8 px-2.5 py-0.5 text-[11px] font-medium text-primary">
-              {p.domain}
-            </span>
-          ) : (
-            <span className="inline-flex shrink-0 items-center rounded-full border border-dashed border-muted-foreground/30 bg-muted/40 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
-              No domain
-            </span>
-          )}
+          <div className="min-w-0">
+            <h3 className="truncate font-semibold text-foreground">
+              {property.name}
+            </h3>
+            {property.code && (
+              <p className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Hash className="h-3 w-3" />
+                {property.code}
+              </p>
+            )}
+          </div>
         </div>
+        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+      </div>
 
-        {/* Location */}
-        {(p.city || p.state) && (
-          <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <MapPin className="h-3.5 w-3.5 shrink-0" />
-            {[p.city, p.state].filter(Boolean).join(", ")}
+      {/* body */}
+      <div className="mt-4 space-y-1.5 text-sm text-muted-foreground">
+        {property.address_line && (
+          <p className="line-clamp-1">{property.address_line}</p>
+        )}
+        {location && (
+          <p className="flex items-center gap-1.5">
+            <MapPin className="h-3.5 w-3.5 shrink-0 text-primary/70" />
+            <span className="truncate">{location}</span>
           </p>
         )}
-
-        {/* Status pill */}
-        <div className="flex items-center gap-2">
-          {configured ? (
-            <span className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-600">
-              <CheckCircle2 className="h-3 w-3" />
-              Active
-            </span>
-          ) : (
-            <span className="flex items-center gap-1.5 rounded-full bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-600">
-              <Clock className="h-3 w-3" />
-              Pending Setup
-            </span>
-          )}
-        </div>
-
-        {/* ── Footer action area ───────── */}
-        <div className="mt-auto pt-1">
-          {configured ? (
-            <motion.button
-              whileHover={{ x: 2 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => onNavigate(p)}
-              className="flex w-full items-center justify-between rounded-xl border bg-muted/40 px-3.5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-            >
-              <span className="flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-primary" />
-                View Dashboard
-              </span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-            </motion.button>
-          ) : hasDomain ? (
-            /* Domain exists but not yet configured */
-            <div className="space-y-2 rounded-xl border border-amber-200 bg-amber-50/60 p-3 dark:border-amber-900/30 dark:bg-amber-950/20">
-              <p className="flex items-center gap-1.5 text-[11px] text-amber-700 dark:text-amber-400">
-                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
-                Setup is incomplete for this property.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => onNavigate(p)}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-amber-500 px-3 py-2 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-amber-600"
-              >
-                <Settings className="h-3.5 w-3.5" />
-                Configure Now
-              </motion.button>
-            </div>
-          ) : (
-            /* No domain yet */
-            <div className="space-y-2 rounded-xl border border-dashed border-muted-foreground/25 bg-muted/30 p-3">
-              <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
-                Domain configuration pending.
-              </p>
-              <div className="flex gap-2">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => setIsDialogOpen(true)}
-                  className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border bg-background px-3 py-2 text-xs font-medium text-foreground shadow-sm transition-colors hover:bg-muted"
-                >
-                  <Plus className="h-3.5 w-3.5" />
-                  Select Domain
-                </motion.button>
-              </div>
-              <PropertyDomainSelection
-                onConfirm={onDomainConfirm}
-                property={p}
-                onOpenChange={setIsDialogOpen}
-                open={isDialogOpen}
-              />
-            </div>
-          )}
-        </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 

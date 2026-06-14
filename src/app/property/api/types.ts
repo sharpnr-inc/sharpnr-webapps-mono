@@ -14,9 +14,9 @@ export interface Property {
   name: string;
   city: string;
   state: string;
-  domain: string;
-  is_configured: boolean;
   code: string;
+  address_line: string;
+  country: string;
 }
 
 export interface PropertiesOfOrganizationData {
