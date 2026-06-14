@@ -8,7 +8,7 @@
 */
 
 import { useNavigate } from "@tanstack/react-router";
-import { Button, ScrollArea } from "@sharpnr/ui";
+import { Button, ScrollArea, Skeleton } from "@sharpnr/ui";
 import {
   ArrowUpRight,
   Building2,
@@ -19,7 +19,6 @@ import {
   Plus,
 } from "lucide-react";
 import AddPropertyForm from "../components/AddPropertyForm";
-import { useQueryClient } from "@tanstack/react-query";
 import { useProperties } from "../api/queries";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import type { Property } from "../api/types";
@@ -29,8 +28,13 @@ import { useModal } from "@/hooks/useModal";
 /* ── easing ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
+const containerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.05 } },
+};
+
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
 };
 
@@ -44,7 +48,6 @@ const headerVariants: Variants = {
 export function PropertyIndexPage() {
   const { data: properties, isLoading } = useProperties();
   const propertyArray: Property[] = properties?.data?.properties ?? [];
-  const qc = useQueryClient();
   const navigate = useNavigate();
   const { showModal, closeModal } = useModal();
 
@@ -57,17 +60,17 @@ export function PropertyIndexPage() {
   };
 
   return (
-    // ── Outer: locked height, two independent scroll columns ──
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-5.5rem)]">
-      {/* ── Main: own scroll column ────────────────────────── */}
-      <ScrollArea className="flex-1 lg:w-9/12">
+    // ── Outer: dual independent scroll columns on desktop, natural flow on mobile/tablet ──
+    <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-5.5rem)]">
+      {/* ── Main: own scroll column on desktop ────────────────────────── */}
+      <ScrollArea className="flex-1 lg:w-9/12 lg:h-[calc(100vh-5.5rem)]">
         <main className="px-4 py-6 sm:px-6 lg:px-8">
           {/* Header */}
           <motion.div
             variants={headerVariants}
             initial="hidden"
             animate="visible"
-            className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+            className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between"
           >
             <div className="space-y-1">
               <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-muted-foreground">
@@ -85,7 +88,7 @@ export function PropertyIndexPage() {
                 <Layers className="h-3 w-3" />
                 Organization
               </p>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
                 Properties
               </h1>
               <p className="text-sm text-muted-foreground">
@@ -95,10 +98,10 @@ export function PropertyIndexPage() {
               </p>
             </div>
 
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button
                 onClick={handleAddProperty}
-                className="gap-2 shadow-sm w-full sm:w-auto"
+                className="w-full gap-2 shadow-sm sm:w-auto"
               >
                 <Plus className="h-4 w-4" />
                 <span className="hidden sm:inline">Add Property</span>
@@ -116,7 +119,7 @@ export function PropertyIndexPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
               >
                 {Array.from({ length: 6 }).map((_, i) => (
                   <PropertyCardSkeleton key={i} index={i} />
@@ -140,9 +143,10 @@ export function PropertyIndexPage() {
             {!isLoading && propertyArray.length > 0 && (
               <motion.div
                 key="grid"
+                variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"
               >
                 {propertyArray.map((p: Property) => (
                   <PropertyCard key={p.id} property={p} />
@@ -153,7 +157,7 @@ export function PropertyIndexPage() {
         </main>
       </ScrollArea>
 
-      {/* ── Side panel: own scroll column ──────────────────── */}
+      {/* ── Side panel: inline on mobile/tablet, own scroll column on desktop ── */}
       <PropoertyIndexSidePanel />
     </div>
   );
@@ -180,32 +184,29 @@ function PropertyCard({ property }: { property: Property }) {
       type="button"
       variants={itemVariants}
       onClick={goToDetails}
-      whileHover={{ y: -4 }}
-      whileTap={{ scale: 0.98 }}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border bg-card p-5 pl-6 text-left shadow-sm transition-colors hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.985 }}
+      className="group flex h-full flex-col rounded-xl border bg-card p-5 text-left shadow-sm transition-colors hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
-      {/* accent stripe */}
-      <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl bg-primary/60 transition-colors group-hover:bg-primary" />
-
       {/* header */}
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 ring-1 ring-primary/20">
-            <Building2 className="h-5 w-5 text-primary" />
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border bg-muted">
+            <Building2 className="h-5 w-5 text-muted-foreground" />
           </div>
           <div className="min-w-0">
-            <h3 className="truncate font-semibold text-foreground">
+            <h3 className="truncate font-semibold leading-tight text-foreground">
               {property.name}
             </h3>
             {property.code && (
-              <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Hash className="h-3 w-3" />
-                {property.code}
+              <p className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
+                <Hash className="h-3 w-3 shrink-0" />
+                <span className="truncate">{property.code}</span>
               </p>
             )}
           </div>
         </div>
-        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary" />
+        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </div>
 
       {/* body */}
@@ -215,7 +216,7 @@ function PropertyCard({ property }: { property: Property }) {
         )}
         {location && (
           <p className="flex items-center gap-1.5">
-            <MapPin className="h-3.5 w-3.5 shrink-0 text-primary/70" />
+            <MapPin className="h-3.5 w-3.5 shrink-0" />
             <span className="truncate">{location}</span>
           </p>
         )}
@@ -229,27 +230,9 @@ function PropertyCard({ property }: { property: Property }) {
  * ─────────────────────────────────────────────────────── */
 function EmptyPropertySection({ onAdd }: { onAdd: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-24 text-center">
-      {/* Animated icon */}
-      <div className="relative mb-6 flex h-20 w-20 items-center justify-center">
-        <motion.span
-          animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0, 0.15] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 rounded-full bg-primary/20"
-        />
-        <motion.span
-          animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0, 0.1] }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 0.3,
-          }}
-          className="absolute inset-2 rounded-full bg-primary/15"
-        />
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
-          <Building2 className="h-8 w-8 text-primary" />
-        </div>
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed px-6 py-16 text-center sm:py-24">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-xl border bg-muted">
+        <Building2 className="h-8 w-8 text-muted-foreground" />
       </div>
 
       <h3 className="mb-1 text-lg font-semibold text-foreground">
@@ -259,12 +242,10 @@ function EmptyPropertySection({ onAdd }: { onAdd: () => void }) {
         Get started by adding your first property to the organization.
       </p>
 
-      <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-        <Button onClick={onAdd} className="gap-2 shadow-sm">
-          <Plus className="h-4 w-4" />
-          Add Your First Property
-        </Button>
-      </motion.div>
+      <Button onClick={onAdd} className="gap-2 shadow-sm">
+        <Plus className="h-4 w-4" />
+        Add Your First Property
+      </Button>
     </div>
   );
 }
@@ -278,31 +259,19 @@ function PropertyCardSkeleton({ index }: { index: number }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: index * 0.05, duration: 0.3 }}
-      className="relative overflow-hidden rounded-2xl border bg-card p-5 pl-6 shadow-sm"
+      className="rounded-xl border bg-card p-5 shadow-sm"
     >
-      {/* stripe */}
-      <div className="absolute left-0 top-0 h-full w-1 rounded-l-2xl bg-muted" />
-
-      <div className="space-y-4">
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <ShimmerBar className="h-4 w-32" />
-            <ShimmerBar className="h-3 w-20" />
-          </div>
-          <ShimmerBar className="h-5 w-16 rounded-full" />
+      <div className="flex items-start gap-3">
+        <Skeleton className="h-10 w-10 shrink-0 rounded-lg" />
+        <div className="flex-1 space-y-2">
+          <Skeleton className="h-4 w-32" />
+          <Skeleton className="h-3 w-20" />
         </div>
-        <ShimmerBar className="h-3 w-28" />
-        <ShimmerBar className="h-5 w-24 rounded-full" />
-        <ShimmerBar className="h-10 w-full rounded-xl" />
+      </div>
+      <div className="mt-4 space-y-2">
+        <Skeleton className="h-3 w-full" />
+        <Skeleton className="h-3 w-2/3" />
       </div>
     </motion.div>
-  );
-}
-
-function ShimmerBar({ className }: { className?: string }) {
-  return (
-    <div
-      className={["animate-pulse rounded-md bg-muted", className].join(" ")}
-    />
   );
 }
