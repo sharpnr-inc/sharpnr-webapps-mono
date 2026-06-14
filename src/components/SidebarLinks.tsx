@@ -10,13 +10,13 @@ import {
   LucideShoppingBasket,
   MarsStroke,
   MirrorRound,
-  Users,
 } from "lucide-react";
 import { GrOverview } from "react-icons/gr";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { TbTransactionRupee } from "react-icons/tb";
 import { FcBusinesswoman } from "react-icons/fc";
 import { AiOutlineAudit } from "react-icons/ai";
+import { RiOrganizationChart } from "react-icons/ri";
 
 export type SidebarLink = {
   label: string;
@@ -46,9 +46,9 @@ export const orchestratorGroups: SidebarGroup[] = [
         exact: true,
       },
       {
-        label: "User Directory",
+        label: "Employee Directory",
         path: "/org-users",
-        icon: Users,
+        icon: RiOrganizationChart,
         tooltip: "User Directory",
       },
       {
