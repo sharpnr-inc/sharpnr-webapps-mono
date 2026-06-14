@@ -1,16 +1,22 @@
 import {
+  BarChart3,
   BoxesIcon,
   BriefcaseBusiness,
   Building2Icon,
+  CalendarCheck,
   Cable,
   ContainerIcon,
+  CreditCard,
   DollarSign,
+  FileText,
   Globe,
   Globe2Icon,
   Home,
   LucideShoppingBasket,
   MarsStroke,
   MirrorRound,
+  Receipt,
+  TrendingUp,
   Users,
   Verified,
 } from "lucide-react";
@@ -21,6 +27,9 @@ export type SidebarLink = {
   icon: React.ElementType;
   tooltip?: string;
   exact?: boolean;
+  /** Optional nested links. When present and non-empty, the item renders
+   *  as a collapsible group instead of a plain link. */
+  children?: SidebarLink[];
 };
 
 export type SidebarGroup = {
@@ -64,13 +73,6 @@ export const orchestratorGroups: SidebarGroup[] = [
         icon: ContainerIcon,
         tooltip: "Suppliers & Vendors",
       },
-      {
-        label: "Properties",
-        path: "/property",
-        icon: Building2Icon,
-        tooltip: "Properties",
-        exact: false,
-      },
     ],
   },
   {
@@ -83,6 +85,31 @@ export const orchestratorGroups: SidebarGroup[] = [
         tooltip: "Properties",
         exact: false,
       },
+      {
+        label: "Reports",
+        icon: BarChart3,
+        tooltip: "Reports",
+        children: [
+          {
+            label: "Overview",
+            path: "/reports/overview",
+            icon: TrendingUp,
+            tooltip: "Reports Overview",
+          },
+          {
+            label: "Revenue",
+            path: "/reports/revenue",
+            icon: DollarSign,
+            tooltip: "Revenue",
+          },
+          {
+            label: "Occupancy",
+            path: "/reports/occupancy",
+            icon: CalendarCheck,
+            tooltip: "Occupancy",
+          },
+        ],
+      },
     ],
   },
 
@@ -94,6 +121,26 @@ export const orchestratorGroups: SidebarGroup[] = [
         path: "/payments",
         icon: DollarSign,
         tooltip: "Payments",
+        children: [
+          {
+            label: "Transactions",
+            path: "/payments/transactions",
+            icon: CreditCard,
+            tooltip: "Transactions",
+          },
+          {
+            label: "Invoices",
+            path: "/payments/invoices",
+            icon: FileText,
+            tooltip: "Invoices",
+          },
+          {
+            label: "Payouts",
+            path: "/payments/payouts",
+            icon: Receipt,
+            tooltip: "Payouts",
+          },
+        ],
       },
     ],
   },

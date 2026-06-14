@@ -1,4 +1,5 @@
-import { Building2 } from "lucide-react";
+import { Building2, ChevronRight } from "lucide-react";
+import { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -8,43 +9,116 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
   SidebarHeader,
   useSidebar,
   SharpnrSidebarFooter,
   ScrollArea,
 } from "@sharpnr/ui";
+import { cn } from "@/lib/utils";
 import { useAppUserStore } from "@/store/AppUserStore";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { orchestratorGroups, type SidebarLink } from "./SidebarLinks";
+
+function isLinkActive(item: SidebarLink, pathname: string) {
+  if (!item.path) return false;
+  return item.exact ? pathname === item.path : pathname.startsWith(item.path);
+}
 
 function SidebarLinkItem({ item }: { item: SidebarLink }) {
   const Icon = item.icon;
   const { location } = useRouterState();
 
-  const isActive = item.exact
-    ? location.pathname === item.path
-    : location.pathname.startsWith(item.path ?? "");
+  // Treat an empty / missing children array as a plain link.
+  const children = item.children ?? [];
+  const hasChildren = children.length > 0;
 
+  const childActive = hasChildren
+    ? children.some((child) => isLinkActive(child, location.pathname))
+    : false;
+
+  const selfActive = isLinkActive(item, location.pathname);
+
+  // Keep the group expanded when one of its children is the active route.
+  const [open, setOpen] = useState(childActive);
+
+  /* ── Plain link (no nested children) ──────────────────── */
+  if (!hasChildren) {
+    return (
+      <SidebarMenuItem>
+        <SidebarMenuButton
+          className="bg-transparent"
+          size="sm"
+          isActive={selfActive}
+          tooltip={item.tooltip}
+          asChild={!!item.path}
+        >
+          {item.path ? (
+            <Link to={item.path}>
+              <Icon />
+              <span>{item.label}</span>
+            </Link>
+          ) : (
+            <>
+              <Icon />
+              <span>{item.label}</span>
+            </>
+          )}
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    );
+  }
+
+  /* ── Collapsible group with nested links ──────────────── */
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
         className="bg-transparent"
         size="sm"
-        isActive={isActive}
-        asChild={!!item.path}
+        isActive={selfActive || childActive}
+        tooltip={item.tooltip}
+        onClick={() => setOpen((prev) => !prev)}
       >
-        {item.path ? (
-          <Link to={item.path}>
-            <Icon />
-            <span>{item.label}</span>
-          </Link>
-        ) : (
-          <>
-            <Icon />
-            <span>{item.label}</span>
-          </>
-        )}
+        <Icon />
+        <span>{item.label}</span>
+        <ChevronRight
+          className={cn(
+            "ml-auto transition-transform duration-200",
+            open && "rotate-90",
+          )}
+        />
       </SidebarMenuButton>
+
+      {open && (
+        <SidebarMenuSub>
+          {children.map((child) => {
+            const ChildIcon = child.icon;
+            return (
+              <SidebarMenuSubItem key={child.label}>
+                <SidebarMenuSubButton
+                  size="sm"
+                  isActive={isLinkActive(child, location.pathname)}
+                  asChild={!!child.path}
+                >
+                  {child.path ? (
+                    <Link to={child.path}>
+                      <ChildIcon />
+                      <span>{child.label}</span>
+                    </Link>
+                  ) : (
+                    <>
+                      <ChildIcon />
+                      <span>{child.label}</span>
+                    </>
+                  )}
+                </SidebarMenuSubButton>
+              </SidebarMenuSubItem>
+            );
+          })}
+        </SidebarMenuSub>
+      )}
     </SidebarMenuItem>
   );
 }
