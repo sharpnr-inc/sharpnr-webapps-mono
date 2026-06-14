@@ -83,7 +83,7 @@ const AddModulesInProperty: React.FC<AddModulesInPropertyProps> = ({
                           module.IsAvailable && toggleModule(module.ID)
                         }
                         className={cn(
-                          "relative p-6 rounded-2xl border-2 min-h-[160px] cursor-pointer transition-all",
+                          "relative p-6 rounded-2xl border-2 min-h-40 cursor-pointer transition-all",
                           isSelected
                             ? "border-blue-600 bg-blue-600/30"
                             : "border-teal-200",

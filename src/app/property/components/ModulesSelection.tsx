@@ -167,7 +167,7 @@ export function ModulesSelectionSection({
                           );
                         }}
                         className={cn(
-                          "relative p-6 rounded-2xl border-2 transition-all min-h-[160px]",
+                          "relative p-6 rounded-2xl border-2 transition-all min-h-40",
                           selected
                             ? "border-blue-600"
                             : "border-slate-100 hover:border-slate-300",
@@ -251,7 +251,7 @@ export function ModulesSelectionSection({
                             });
                       }}
                       className={cn(
-                        "relative p-6 rounded-2xl border-2 transition-all min-h-[180px]",
+                        "relative p-6 rounded-2xl border-2 transition-all min-h-45",
                         selected
                           ? "border-emerald-600 "
                           : "border-slate-100 hover:border-slate-300",
@@ -308,7 +308,7 @@ export function ModulesSelectionSection({
                               −
                             </button>
 
-                            <span className="min-w-[20px] text-center font-semibold">
+                            <span className="min-w-5 text-center font-semibold">
                               {qty}
                             </span>
 
@@ -359,7 +359,7 @@ export function ModulesSelectionSection({
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 min-w-[280px]">
+            <div className="flex flex-col gap-4 min-w-70">
               <Button
                 type="submit"
                 size="lg"
