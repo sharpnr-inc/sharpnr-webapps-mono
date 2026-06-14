@@ -45,7 +45,6 @@ export interface PropertyDetailsData {
   address_line: string;
   state: string;
   country: string;
-  domain: string;
   __modules__data__: PropertyModule[];
   infra: PropertyInfra[];
 }

@@ -64,11 +64,6 @@ export const orchestratorGroups: SidebarGroup[] = [
         icon: ContainerIcon,
         tooltip: "Suppliers & Vendors",
       },
-    ],
-  },
-  {
-    groupLabel: "Business Operations",
-    links: [
       {
         label: "Properties",
         path: "/property",
@@ -77,6 +72,10 @@ export const orchestratorGroups: SidebarGroup[] = [
         exact: false,
       },
     ],
+  },
+  {
+    groupLabel: "Business Operations",
+    links: [],
   },
 
   {
