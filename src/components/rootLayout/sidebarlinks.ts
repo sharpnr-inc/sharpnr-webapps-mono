@@ -81,6 +81,23 @@ export const iamSidebar: IamNavGroup[] = [
       },
     ],
   },
+  {
+    group: "Team",
+    items: [
+      {
+        to: "/attendance",
+        label: "Attendance",
+        icon: Flag,
+        match: "/iam/attendance",
+      },
+      {
+        to: "/leave",
+        label: "Leave",
+        icon: CalendarDays,
+        match: "/iam/leave",
+      },
+    ],
+  },
 
   {
     group: "Payroll & Finance",

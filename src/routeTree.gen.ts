@@ -12,12 +12,17 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as AboutIndexRouteImport } from './routes/about/index'
 import { Route as UserIndexRouteImport } from './routes/_user/index'
-import { Route as UserTasksRouteImport } from './routes/_user/tasks'
-import { Route as UserRequestsRouteImport } from './routes/_user/requests'
-import { Route as UserMessagesRouteImport } from './routes/_user/messages'
-import { Route as UserLegalRouteImport } from './routes/_user/legal'
-import { Route as UserAttendanceRouteImport } from './routes/_user/attendance'
 import { Route as UserAppsRouteImport } from './routes/_user/apps'
+import { Route as UserTasksIndexRouteImport } from './routes/_user/tasks/index'
+import { Route as UserSettingsIndexRouteImport } from './routes/_user/settings/index'
+import { Route as UserProfileIndexRouteImport } from './routes/_user/profile/index'
+import { Route as UserMyrequestIndexRouteImport } from './routes/_user/myrequest/index'
+import { Route as UserMyAppsIndexRouteImport } from './routes/_user/my-apps/index'
+import { Route as UserLegalIndexRouteImport } from './routes/_user/legal/index'
+import { Route as UserIt_helpdeskIndexRouteImport } from './routes/_user/it_helpdesk/index'
+import { Route as UserHomeIndexRouteImport } from './routes/_user/home/index'
+import { Route as UserAttendanceIndexRouteImport } from './routes/_user/attendance/index'
+import { Route as UserAnnouncementsIndexRouteImport } from './routes/_user/announcements/index'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
@@ -33,101 +38,156 @@ const UserIndexRoute = UserIndexRouteImport.update({
   path: '/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserTasksRoute = UserTasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserRequestsRoute = UserRequestsRouteImport.update({
-  id: '/requests',
-  path: '/requests',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserMessagesRoute = UserMessagesRouteImport.update({
-  id: '/messages',
-  path: '/messages',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserLegalRoute = UserLegalRouteImport.update({
-  id: '/legal',
-  path: '/legal',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserAttendanceRoute = UserAttendanceRouteImport.update({
-  id: '/attendance',
-  path: '/attendance',
-  getParentRoute: () => UserRouteRoute,
-} as any)
 const UserAppsRoute = UserAppsRouteImport.update({
   id: '/apps',
   path: '/apps',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserTasksIndexRoute = UserTasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserSettingsIndexRoute = UserSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserMyrequestIndexRoute = UserMyrequestIndexRouteImport.update({
+  id: '/myrequest/',
+  path: '/myrequest/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserMyAppsIndexRoute = UserMyAppsIndexRouteImport.update({
+  id: '/my-apps/',
+  path: '/my-apps/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserLegalIndexRoute = UserLegalIndexRouteImport.update({
+  id: '/legal/',
+  path: '/legal/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserIt_helpdeskIndexRoute = UserIt_helpdeskIndexRouteImport.update({
+  id: '/it_helpdesk/',
+  path: '/it_helpdesk/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserHomeIndexRoute = UserHomeIndexRouteImport.update({
+  id: '/home/',
+  path: '/home/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserAttendanceIndexRoute = UserAttendanceIndexRouteImport.update({
+  id: '/attendance/',
+  path: '/attendance/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserAnnouncementsIndexRoute = UserAnnouncementsIndexRouteImport.update({
+  id: '/announcements/',
+  path: '/announcements/',
   getParentRoute: () => UserRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof UserIndexRoute
   '/apps': typeof UserAppsRoute
-  '/attendance': typeof UserAttendanceRoute
-  '/legal': typeof UserLegalRoute
-  '/messages': typeof UserMessagesRoute
-  '/requests': typeof UserRequestsRoute
-  '/tasks': typeof UserTasksRoute
   '/about/': typeof AboutIndexRoute
+  '/announcements/': typeof UserAnnouncementsIndexRoute
+  '/attendance/': typeof UserAttendanceIndexRoute
+  '/home/': typeof UserHomeIndexRoute
+  '/it_helpdesk/': typeof UserIt_helpdeskIndexRoute
+  '/legal/': typeof UserLegalIndexRoute
+  '/my-apps/': typeof UserMyAppsIndexRoute
+  '/myrequest/': typeof UserMyrequestIndexRoute
+  '/profile/': typeof UserProfileIndexRoute
+  '/settings/': typeof UserSettingsIndexRoute
+  '/tasks/': typeof UserTasksIndexRoute
 }
 export interface FileRoutesByTo {
   '/apps': typeof UserAppsRoute
-  '/attendance': typeof UserAttendanceRoute
-  '/legal': typeof UserLegalRoute
-  '/messages': typeof UserMessagesRoute
-  '/requests': typeof UserRequestsRoute
-  '/tasks': typeof UserTasksRoute
   '/': typeof UserIndexRoute
   '/about': typeof AboutIndexRoute
+  '/announcements': typeof UserAnnouncementsIndexRoute
+  '/attendance': typeof UserAttendanceIndexRoute
+  '/home': typeof UserHomeIndexRoute
+  '/it_helpdesk': typeof UserIt_helpdeskIndexRoute
+  '/legal': typeof UserLegalIndexRoute
+  '/my-apps': typeof UserMyAppsIndexRoute
+  '/myrequest': typeof UserMyrequestIndexRoute
+  '/profile': typeof UserProfileIndexRoute
+  '/settings': typeof UserSettingsIndexRoute
+  '/tasks': typeof UserTasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
   '/_user/apps': typeof UserAppsRoute
-  '/_user/attendance': typeof UserAttendanceRoute
-  '/_user/legal': typeof UserLegalRoute
-  '/_user/messages': typeof UserMessagesRoute
-  '/_user/requests': typeof UserRequestsRoute
-  '/_user/tasks': typeof UserTasksRoute
   '/_user/': typeof UserIndexRoute
   '/about/': typeof AboutIndexRoute
+  '/_user/announcements/': typeof UserAnnouncementsIndexRoute
+  '/_user/attendance/': typeof UserAttendanceIndexRoute
+  '/_user/home/': typeof UserHomeIndexRoute
+  '/_user/it_helpdesk/': typeof UserIt_helpdeskIndexRoute
+  '/_user/legal/': typeof UserLegalIndexRoute
+  '/_user/my-apps/': typeof UserMyAppsIndexRoute
+  '/_user/myrequest/': typeof UserMyrequestIndexRoute
+  '/_user/profile/': typeof UserProfileIndexRoute
+  '/_user/settings/': typeof UserSettingsIndexRoute
+  '/_user/tasks/': typeof UserTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/apps'
-    | '/attendance'
-    | '/legal'
-    | '/messages'
-    | '/requests'
-    | '/tasks'
     | '/about/'
+    | '/announcements/'
+    | '/attendance/'
+    | '/home/'
+    | '/it_helpdesk/'
+    | '/legal/'
+    | '/my-apps/'
+    | '/myrequest/'
+    | '/profile/'
+    | '/settings/'
+    | '/tasks/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/apps'
-    | '/attendance'
-    | '/legal'
-    | '/messages'
-    | '/requests'
-    | '/tasks'
     | '/'
     | '/about'
+    | '/announcements'
+    | '/attendance'
+    | '/home'
+    | '/it_helpdesk'
+    | '/legal'
+    | '/my-apps'
+    | '/myrequest'
+    | '/profile'
+    | '/settings'
+    | '/tasks'
   id:
     | '__root__'
     | '/_user'
     | '/_user/apps'
-    | '/_user/attendance'
-    | '/_user/legal'
-    | '/_user/messages'
-    | '/_user/requests'
-    | '/_user/tasks'
     | '/_user/'
     | '/about/'
+    | '/_user/announcements/'
+    | '/_user/attendance/'
+    | '/_user/home/'
+    | '/_user/it_helpdesk/'
+    | '/_user/legal/'
+    | '/_user/my-apps/'
+    | '/_user/myrequest/'
+    | '/_user/profile/'
+    | '/_user/settings/'
+    | '/_user/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,41 +218,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/tasks': {
-      id: '/_user/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof UserTasksRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/requests': {
-      id: '/_user/requests'
-      path: '/requests'
-      fullPath: '/requests'
-      preLoaderRoute: typeof UserRequestsRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/messages': {
-      id: '/_user/messages'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof UserMessagesRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/legal': {
-      id: '/_user/legal'
-      path: '/legal'
-      fullPath: '/legal'
-      preLoaderRoute: typeof UserLegalRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/attendance': {
-      id: '/_user/attendance'
-      path: '/attendance'
-      fullPath: '/attendance'
-      preLoaderRoute: typeof UserAttendanceRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
     '/_user/apps': {
       id: '/_user/apps'
       path: '/apps'
@@ -200,27 +225,107 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserAppsRouteImport
       parentRoute: typeof UserRouteRoute
     }
+    '/_user/tasks/': {
+      id: '/_user/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks/'
+      preLoaderRoute: typeof UserTasksIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/settings/': {
+      id: '/_user/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof UserSettingsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/profile/': {
+      id: '/_user/profile/'
+      path: '/profile'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof UserProfileIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/myrequest/': {
+      id: '/_user/myrequest/'
+      path: '/myrequest'
+      fullPath: '/myrequest/'
+      preLoaderRoute: typeof UserMyrequestIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/my-apps/': {
+      id: '/_user/my-apps/'
+      path: '/my-apps'
+      fullPath: '/my-apps/'
+      preLoaderRoute: typeof UserMyAppsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/legal/': {
+      id: '/_user/legal/'
+      path: '/legal'
+      fullPath: '/legal/'
+      preLoaderRoute: typeof UserLegalIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/it_helpdesk/': {
+      id: '/_user/it_helpdesk/'
+      path: '/it_helpdesk'
+      fullPath: '/it_helpdesk/'
+      preLoaderRoute: typeof UserIt_helpdeskIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/home/': {
+      id: '/_user/home/'
+      path: '/home'
+      fullPath: '/home/'
+      preLoaderRoute: typeof UserHomeIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/attendance/': {
+      id: '/_user/attendance/'
+      path: '/attendance'
+      fullPath: '/attendance/'
+      preLoaderRoute: typeof UserAttendanceIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/announcements/': {
+      id: '/_user/announcements/'
+      path: '/announcements'
+      fullPath: '/announcements/'
+      preLoaderRoute: typeof UserAnnouncementsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
   }
 }
 
 interface UserRouteRouteChildren {
   UserAppsRoute: typeof UserAppsRoute
-  UserAttendanceRoute: typeof UserAttendanceRoute
-  UserLegalRoute: typeof UserLegalRoute
-  UserMessagesRoute: typeof UserMessagesRoute
-  UserRequestsRoute: typeof UserRequestsRoute
-  UserTasksRoute: typeof UserTasksRoute
   UserIndexRoute: typeof UserIndexRoute
+  UserAnnouncementsIndexRoute: typeof UserAnnouncementsIndexRoute
+  UserAttendanceIndexRoute: typeof UserAttendanceIndexRoute
+  UserHomeIndexRoute: typeof UserHomeIndexRoute
+  UserIt_helpdeskIndexRoute: typeof UserIt_helpdeskIndexRoute
+  UserLegalIndexRoute: typeof UserLegalIndexRoute
+  UserMyAppsIndexRoute: typeof UserMyAppsIndexRoute
+  UserMyrequestIndexRoute: typeof UserMyrequestIndexRoute
+  UserProfileIndexRoute: typeof UserProfileIndexRoute
+  UserSettingsIndexRoute: typeof UserSettingsIndexRoute
+  UserTasksIndexRoute: typeof UserTasksIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserAppsRoute: UserAppsRoute,
-  UserAttendanceRoute: UserAttendanceRoute,
-  UserLegalRoute: UserLegalRoute,
-  UserMessagesRoute: UserMessagesRoute,
-  UserRequestsRoute: UserRequestsRoute,
-  UserTasksRoute: UserTasksRoute,
   UserIndexRoute: UserIndexRoute,
+  UserAnnouncementsIndexRoute: UserAnnouncementsIndexRoute,
+  UserAttendanceIndexRoute: UserAttendanceIndexRoute,
+  UserHomeIndexRoute: UserHomeIndexRoute,
+  UserIt_helpdeskIndexRoute: UserIt_helpdeskIndexRoute,
+  UserLegalIndexRoute: UserLegalIndexRoute,
+  UserMyAppsIndexRoute: UserMyAppsIndexRoute,
+  UserMyrequestIndexRoute: UserMyrequestIndexRoute,
+  UserProfileIndexRoute: UserProfileIndexRoute,
+  UserSettingsIndexRoute: UserSettingsIndexRoute,
+  UserTasksIndexRoute: UserTasksIndexRoute,
 }
 
 const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
