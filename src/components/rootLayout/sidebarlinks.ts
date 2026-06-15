@@ -38,7 +38,7 @@ export const iamSidebar: IamNavGroup[] = [
     group: "Workspace",
     items: [
       {
-        to: "/requests",
+        to: "/myrequest",
         label: "My Requests",
         icon: ClipboardList,
         match: "/iam/requests",
@@ -74,25 +74,8 @@ export const iamSidebar: IamNavGroup[] = [
         match: "/iam/attendance",
       },
       {
-        to: "/leave",
-        label: "Leave",
-        icon: CalendarDays,
-        match: "/iam/leave",
-      },
-    ],
-  },
-  {
-    group: "Team",
-    items: [
-      {
-        to: "/attendance",
-        label: "Attendance",
-        icon: Flag,
-        match: "/iam/attendance",
-      },
-      {
-        to: "/leave",
-        label: "Leave",
+        to: "/leaves",
+        label: "Leaves",
         icon: CalendarDays,
         match: "/iam/leave",
       },
@@ -109,7 +92,7 @@ export const iamSidebar: IamNavGroup[] = [
         match: "/iam/payslips",
       },
       {
-        to: "/expenses",
+        to: "/expenses_claims",
         label: "Expenses & Claims",
         icon: BadgeDollarSign,
         match: "/iam/expenses",
@@ -175,7 +158,7 @@ export const iamSidebar: IamNavGroup[] = [
     group: "Support",
     items: [
       {
-        to: "/helpdesk",
+        to: "/it_helpdesk",
         label: "IT Helpdesk",
         icon: LifeBuoy,
         match: "/iam/helpdesk",
@@ -194,7 +177,7 @@ export const iamSidebar: IamNavGroup[] = [
         exact: true,
       },
       {
-        to: "/apps",
+        to: "/my-apps",
         label: "My Apps",
         icon: AppWindowMac,
         match: "/iam/apps",
