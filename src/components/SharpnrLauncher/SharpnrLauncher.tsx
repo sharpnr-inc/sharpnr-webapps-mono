@@ -276,7 +276,7 @@ function Trigger({ open }: { open: boolean }) {
         )}
       >
         <img
-          src="/AppIcon.png"
+          src="https://cdn.sharpnr.com/shicon.svg"
           alt="Sharpnr"
           className={cn(
             "h-8 w-8 rounded-full transition-all duration-300",

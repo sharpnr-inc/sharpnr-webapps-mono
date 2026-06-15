@@ -1,1 +1,1 @@
-// Jenkinsfile for sharp-marketplace
+// Jenkinsfile for sharp-iam
