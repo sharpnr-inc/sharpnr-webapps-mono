@@ -16,6 +16,7 @@ import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAppForm } from "@/components/forms";
 import { useAddModulesInProperty } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
+import type { DomainModuleInfra } from "../api/types";
 /* ---------- Types ---------- */
 
 interface ModulesSelectionProps {
@@ -79,7 +80,7 @@ export function ModulesSelectionSection({
 
   useEffect(() => {
     form.setFieldValue("property_id", propertyID);
-  }, [propertyID]);
+  }, [propertyID, form]);
 
   /* =====================================================
      RENDER
@@ -146,7 +147,7 @@ export function ModulesSelectionSection({
                     Loading modules…
                   </div>
                 ) : (
-                  modules.map((module: any) => {
+                  modules.map((module: DomainModuleInfra) => {
                     const selected = field.state.value.includes(
                       module.ModuleName,
                     );
@@ -221,7 +222,7 @@ export function ModulesSelectionSection({
           <form.Field name="infrastructure" mode="array">
             {(field) => (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {infrastructure.map((infra: any) => {
+                {infrastructure.map((infra: DomainModuleInfra) => {
                   const index = field.state.value.findIndex(
                     (i) => i.infra_name === infra.ModuleName,
                   );
@@ -243,12 +244,14 @@ export function ModulesSelectionSection({
                       onClick={() => {
                         if (!infra.IsAvailable || limitReached) return;
 
-                        selected
-                          ? field.removeValue(index)
-                          : field.pushValue({
-                              infra_name: infra.ModuleName,
-                              qty: 1,
-                            });
+                        if (selected) {
+                          field.removeValue(index);
+                        } else {
+                          field.pushValue({
+                            infra_name: infra.ModuleName,
+                            qty: 1,
+                          });
+                        }
                       }}
                       className={cn(
                         "relative p-6 rounded-2xl border-2 transition-all min-h-45",

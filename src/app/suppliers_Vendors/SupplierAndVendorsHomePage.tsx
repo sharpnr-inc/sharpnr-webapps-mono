@@ -35,7 +35,7 @@ type Supplier = {
   pincode: string;
   country: string;
 
-  LegalEntityLinks: any[] | null;
+  LegalEntityLinks: unknown[] | null;
 };
 
 /* ─────────────────────────────────────────────
@@ -150,11 +150,14 @@ export function SupplierAndVendorsHomePage() {
   const { showModal } = useModal();
   const nav = useNavigate();
 
-  const suppliers: Supplier[] =
-    suppliersRes?.data?.map((s: Supplier) => ({
-      ...s,
-      LegalEntityLinks: s.LegalEntityLinks ?? [],
-    })) ?? [];
+  const suppliers: Supplier[] = useMemo(
+    () =>
+      suppliersRes?.data?.map((s: Supplier) => ({
+        ...s,
+        LegalEntityLinks: s.LegalEntityLinks ?? [],
+      })) ?? [],
+    [suppliersRes],
+  );
 
   const [query, setQuery] = useState("");
 

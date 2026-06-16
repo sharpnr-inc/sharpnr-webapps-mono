@@ -35,11 +35,11 @@ export function RestaurantLayoutSettings() {
     const layout = data?.data?.Layout;
     if (!layout) return [];
 
-    return layout.map((floor: any) => ({
+    return layout.map((floor) => ({
       id: floor.Floor_Number.toString(),
       name: floor.Floor_Name,
       tables:
-        floor.Tables?.map((t: any) => ({
+        floor.Tables?.map((t) => ({
           id: t.TableID,
           name: t.TableName,
         })) ?? [],

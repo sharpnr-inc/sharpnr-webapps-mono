@@ -77,7 +77,7 @@ export function KitchenDashBoard() {
     });
   }, [kitchenConfigData]);
 
-  const updateField = (key: string, value: any) => {
+  const updateField = (key: string, value: string | number | boolean) => {
     setSettings((prev) => ({
       ...prev,
       [key]: value,

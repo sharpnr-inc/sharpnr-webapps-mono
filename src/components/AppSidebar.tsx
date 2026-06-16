@@ -20,7 +20,11 @@ import {
 import { cn } from "@/lib/utils";
 import { useAppUserStore } from "@/store/AppUserStore";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { orchestratorGroups, type SidebarLink } from "./SidebarLinks";
+import {
+  orchestratorGroups,
+  type SidebarLink,
+  type SidebarGroup as SidebarGroupData,
+} from "./SidebarLinks";
 
 function isLinkActive(item: SidebarLink, pathname: string) {
   if (!item.path) return false;
@@ -166,13 +170,13 @@ export function OrchestratorShell() {
 
       <SidebarContent>
         <ScrollArea className="h-full w-full">
-          {orchestratorGroups.map((group: any) => (
+          {orchestratorGroups.map((group: SidebarGroupData) => (
             <SidebarGroup key={group.groupLabel}>
               <SidebarGroupLabel>{group.groupLabel}</SidebarGroupLabel>
 
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {group.links.map((item: any) => (
+                  {group.links.map((item: SidebarLink) => (
                     <SidebarLinkItem key={item.label} item={item} />
                   ))}
                 </SidebarMenu>

@@ -53,7 +53,7 @@ const CreateSubCategory = () => {
 
   // Resolve preferred kitchen
   const preferredKitchen = kitchens.find(
-    (k: any) => k.id === activeCat?.preferred_kitchen,
+    (k) => k.id === activeCat?.preferred_kitchen,
   );
 
   const subCategories = activeCat?.sub_categories ?? [];
@@ -159,7 +159,7 @@ const CreateSubCategory = () => {
               </SelectTrigger>
 
               <SelectContent>
-                {kitchens.map((kitchen: any) => (
+                {kitchens.map((kitchen) => (
                   <SelectItem key={kitchen.id} value={kitchen.id}>
                     <div className="flex items-center justify-between w-full">
                       <span>{kitchen.name}</span>

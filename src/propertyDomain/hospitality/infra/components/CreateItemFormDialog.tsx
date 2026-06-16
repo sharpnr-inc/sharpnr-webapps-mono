@@ -1,8 +1,4 @@
-interface CreateItemFormDialogProps {
-    
-}
-
-const CreateItemFormDialog: React.FC<CreateItemFormDialogProps> = () => {
+const CreateItemFormDialog: React.FC = () => {
     return (<div>This is</div>);
 }
 

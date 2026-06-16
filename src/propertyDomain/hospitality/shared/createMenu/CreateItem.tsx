@@ -65,7 +65,7 @@ const CreateItem = () => {
     .find((sc) => sc.id === activeSubCategoryID);
 
   const preferredKitchen = kitchens.find(
-    (k: any) => k.id === activeSubCategory?.preferred_kitchen,
+    (k) => k.id === activeSubCategory?.preferred_kitchen,
   );
 
   const items = activeSubCategory?.menu_items ?? [];
@@ -189,7 +189,7 @@ const CreateItem = () => {
               </SelectTrigger>
 
               <SelectContent>
-                {kitchens.map((kitchen: any) => (
+                {kitchens.map((kitchen) => (
                   <SelectItem key={kitchen.id} value={kitchen.id}>
                     <div className="flex items-center justify-between w-full">
                       <span>{kitchen.name}</span>
@@ -221,7 +221,7 @@ const CreateItem = () => {
           )}
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-            {items.map((item: any) => (
+            {items.map((item) => (
               <TooltipProvider key={item.id}>
                 <Tooltip>
                   <TooltipTrigger asChild>

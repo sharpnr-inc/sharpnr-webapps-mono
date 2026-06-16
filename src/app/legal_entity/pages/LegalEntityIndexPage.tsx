@@ -159,7 +159,7 @@ export function LegalEntityIndexPage() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "active" | "inactive">("all");
 
-  const legalEntities = data?.data ?? [];
+  const legalEntities = useMemo(() => data?.data ?? [], [data]);
 
   const filtered = useMemo(() => {
     return legalEntities.filter((e) => {
@@ -189,7 +189,7 @@ export function LegalEntityIndexPage() {
     });
   };
 
-  const handleNavigate = (entity: any) => {
+  const handleNavigate = (entity: LegalEntityResponseDto) => {
     nav({
       to: "/legal_entity/$leID/details",
       from: "/legal_entity",

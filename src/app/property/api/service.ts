@@ -96,7 +96,7 @@ export async function AddModulesInProperty({
 /* ---------------------------------- <***> --------------------------------- */
 
 interface AddInfraInPropPayload {
-  request_payload: any;
+  request_payload: Record<string, unknown>;
   propertyID: string;
 }
 export async function AddInfraInProperty(payload: AddInfraInPropPayload) {
@@ -111,7 +111,7 @@ export async function AddInfraInProperty(payload: AddInfraInPropPayload) {
 
 interface ConfigureHotelPayload {
   propertyID: string;
-  request_payload: any;
+  request_payload: Record<string, unknown>;
 }
 
 export async function ConfigureHotel(payload: ConfigureHotelPayload) {

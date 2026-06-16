@@ -6,6 +6,7 @@ import { Badge } from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
 import { useForm } from "@tanstack/react-form";
 import { useAddModulesInProperty } from "../api/mutation";
+import type { DomainModuleInfra } from "../api/types";
 
 interface AddModulesInPropertyProps {
   domain: string;
@@ -72,7 +73,7 @@ const AddModulesInProperty: React.FC<AddModulesInPropertyProps> = ({
                     Loading modules…
                   </div>
                 ) : (
-                  modules.map((module: any) => {
+                  modules.map((module: DomainModuleInfra) => {
                     const isSelected = selected.includes(module.ID);
 
                     return (

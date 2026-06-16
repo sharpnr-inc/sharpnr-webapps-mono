@@ -15,13 +15,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { PropertyInfra } from "@/app/property/api/types";
 
 interface AddNewMenuGroupFormProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   ownersID: string;
   ownersType: string;
-  kitchens: any[];
+  kitchens: PropertyInfra[];
 }
 
 export function AddNewMenuGroupForm({

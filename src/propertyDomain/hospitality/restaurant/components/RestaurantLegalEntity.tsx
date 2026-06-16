@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Info,
   Building2,
@@ -19,16 +19,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-type LegalEntity = {
-  id: string;
-  name: string;
-  gst: string | null;
-  addressLine: string;
-  city: string;
-  state: string;
-};
-
-
 export function RestaurantLegalEntity() {
   const { restaurantID } = Route.useParams();
 
@@ -36,9 +26,7 @@ export function RestaurantLegalEntity() {
 
 
 
-  const { data: restaurantDetails, isLoading } = useRestaurantGeneralInfo(
-    restaurantID!,
-  );
+  const { data: restaurantDetails } = useRestaurantGeneralInfo(restaurantID!);
 
   const { mutateAsync } = useUpdateRestaurantGeneralInfo();
 

@@ -209,6 +209,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 
 // ─── Hook ─────────────────────────────────────────────────────────────────────
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useModal(): ModalContextValue {
   const ctx = useContext(ModalContext);
   if (!ctx) throw new Error("useModal must be used within a <ModalProvider>");

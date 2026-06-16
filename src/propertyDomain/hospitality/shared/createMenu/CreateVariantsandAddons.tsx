@@ -28,6 +28,7 @@ import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
 import { useAddPreferredKitchenToMenuItemMutation } from "../../infra/apis/api.Mutations";
 import { usePropertyDetails } from "@/app/property/api/queries";
+import type { PropertyInfra } from "@/app/property/api/types";
 import { AddAddOnFormInMenuItem } from "./forms/AddAddon";
 import { AddVariantForm } from "./forms/AddVariant";
 import { AddVariantGroupForm } from "./forms/AddVariantGroup";
@@ -54,7 +55,7 @@ const CreateVariantsAndAddons = () => {
     return Menus?.flatMap((m) => m.categories)
       .flatMap((c) => c.sub_categories)
       .flatMap((sc) => sc.menu_items)
-      .find((item: any) => item.id === activeItemID);
+      .find((item) => item.id === activeItemID);
   }, [Menus, activeItemID]);
 
   const path = useMemo(() => {
@@ -106,14 +107,13 @@ const CreateVariantsAndAddons = () => {
   const hasTaxes = taxList.length > 0;
 
   const totalTax = taxList.reduce(
-    (sum: number, tax: any) =>
-      sum + (activeItem.base_price * tax.tax_rate) / 100,
+    (sum: number, tax) => sum + (activeItem.base_price * tax.tax_rate) / 100,
     0,
   );
   const totalPrice = activeItem.base_price + totalTax;
 
   const assignedKitchen = kitchens.find(
-    (k: any) => k.id === activeItem.served_by,
+    (k) => k.id === activeItem.served_by,
   );
 
   return (
@@ -185,7 +185,7 @@ const CreateVariantsAndAddons = () => {
               {hasTaxes ? (
                 <>
                   <Separator />
-                  {taxList.map((tax: any, index: number) => {
+                  {taxList.map((tax, index: number) => {
                     const taxAmount =
                       (activeItem.base_price * tax.tax_rate) / 100;
                     return (
@@ -265,7 +265,7 @@ const CreateVariantsAndAddons = () => {
               </SelectTrigger>
 
               <SelectContent>
-                {kitchens.map((kitchen: any) => (
+                {kitchens.map((kitchen: PropertyInfra) => (
                   <SelectItem key={kitchen.id} value={kitchen.id}>
                     <div className="flex items-center justify-between w-full gap-3">
                       <span>{kitchen.name}</span>

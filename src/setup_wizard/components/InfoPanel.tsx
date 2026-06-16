@@ -2,6 +2,7 @@ import { motion, type Variants } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 
 // ─── Shared animation variants ───────────────────────────────────────────────
+// eslint-disable-next-line react-refresh/only-export-components
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: (i: number) => ({

@@ -38,6 +38,13 @@ export interface PropertyInfra {
   infra_type: string;
 }
 
+export interface DomainModuleInfra {
+  ID: string;
+  ModuleName: string;
+  Description?: string;
+  IsAvailable: boolean;
+}
+
 export interface PropertyDetailsData {
   name: string;
   code: string;
