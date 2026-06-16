@@ -1,14 +1,28 @@
 import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import {
+  ArrowUpRight,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+} from "lucide-react";
 import { config } from "@/configs/env";
 import { useFooterAnimation } from "./animations/useFooterAnimation";
 
 const socialLinks = [
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/company/sharpnr" },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    href: "https://linkedin.com/company/sharpnrllp",
+  },
   { icon: Twitter, label: "X (Twitter)", href: "https://x.com/sharpnr" },
-  { icon: Instagram, label: "Instagram", href: "https://instagram.com/sharpnr" },
-  { icon: Youtube, label: "YouTube", href: "https://youtube.com/@sharpnr" },
+  {
+    icon: Instagram,
+    label: "Instagram",
+    href: "https://instagram.com/sharpnrapp",
+  },
+  { icon: Youtube, label: "YouTube", href: "https://youtube.com/@sharpnrinc" },
 ] as const;
 
 const exploreLinks = [
