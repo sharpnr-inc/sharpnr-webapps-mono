@@ -6,6 +6,7 @@ interface MyRouterContext {
   queryClient: QueryClient;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 const RootLayout = () => (
   <div className="min-h-svh w-full overflow-x-hidden bg-background text-foreground">
     <Outlet />

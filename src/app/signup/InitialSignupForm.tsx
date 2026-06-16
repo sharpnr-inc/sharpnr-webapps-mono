@@ -42,7 +42,8 @@ const defaultOrgForm: OrgSignupFormData = {
 };
 
 function mapFormToPayload(formData: OrgSignupFormData): OrgSignupPayload {
-  const { confirm_password, ...payload } = formData;
+  const payload = { ...formData };
+  delete (payload as { confirm_password?: string }).confirm_password;
   return payload;
 }
 
@@ -177,7 +178,9 @@ export function InitialSignupForm({
             setUserEmail(payload.email);
           },
         });
-      } catch {}
+      } catch {
+        // Error surfaced via the mutation's error state / toast handler.
+      }
     },
   });
 
