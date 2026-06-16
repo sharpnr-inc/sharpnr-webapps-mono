@@ -1,5 +1,5 @@
 {
-  "name": "sharpnr-orchestrator",
+  "name": "orchestrator",
   "private": true,
   "version": "0.0.1",
   "type": "module",
