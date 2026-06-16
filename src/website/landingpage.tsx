@@ -1,16 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Header } from "./header";
 import { Footer } from "./footer";
 
 export function LandingPage() {
-  const [mounted, setMounted] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const categories = [
     "All",
@@ -157,9 +152,16 @@ export function LandingPage() {
           text-align: center;
           position: relative;
           z-index: 1;
-          opacity: ${mounted ? 1 : 0};
-          transform: translateY(${mounted ? 0 : "24px"});
-          transition: opacity 0.8s ease, transform 0.8s ease;
+          opacity: 0;
+          transform: translateY(24px);
+          animation: snr-hero-fade-in 0.8s ease forwards;
+        }
+
+        @keyframes snr-hero-fade-in {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .snr-hero-eyebrow {
