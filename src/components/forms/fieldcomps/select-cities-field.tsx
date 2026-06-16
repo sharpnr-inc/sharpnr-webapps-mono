@@ -23,8 +23,6 @@ import { useCities } from "../apiservice/queries";
 import { useCityStore } from "@/components/forms/store/store";
 import type { City } from "../apiservice/csc";
 
-export interface StateInterface {}
-
 const CitySelect = () => {
   const [open, setOpen] = React.useState(false);
   const field = useFieldContext<string>();

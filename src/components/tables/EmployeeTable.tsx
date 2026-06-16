@@ -212,9 +212,11 @@ export function EmployeesTable({ employeeList }: EmployeeTableProps) {
         enableSorting: false,
       },
     ],
-    [navigate],
+    [navigate, location],
   );
 
+  // TanStack Table returns functions React Compiler can't memoize; expected.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: employeeList ?? [],
     columns,

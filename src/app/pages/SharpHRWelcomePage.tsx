@@ -15,9 +15,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 
-interface SharpHRWelcomePageProps {}
-
-const SharpHRWelcomePage: React.FC<SharpHRWelcomePageProps> = () => {
+const SharpHRWelcomePage: React.FC = () => {
   return (
     <div className="p-6 space-y-10">
       {/* ================= Hero ================= */}
