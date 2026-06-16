@@ -1,13 +1,13 @@
 import { Power, Pause, Play, Printer, Settings2, History } from "lucide-react";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@sharpnr/ui";
+} from "@sharpnr/ui";
 import { Badge } from "@sharpnr/ui";
 import { useState } from "react";
 

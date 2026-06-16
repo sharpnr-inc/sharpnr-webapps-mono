@@ -5,17 +5,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@sharpnr/ui";
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
 import { Button } from "@sharpnr/ui";
 import { MoveLeft, PlusIcon } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { createMenuAction } from "../stores/actions";
 import {
   Dialog,
@@ -35,13 +38,6 @@ import {
   useAddPreferredKitchenToMenuSubCategoryMutation,
 } from "../../infra/apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { usePropertyDetails } from "@/app/property/api/queries";
 
 const CreateItem = () => {

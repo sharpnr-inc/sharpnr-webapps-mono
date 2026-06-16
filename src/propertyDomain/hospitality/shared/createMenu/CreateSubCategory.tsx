@@ -5,6 +5,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@sharpnr/ui";
 import { useCreateMenuStore } from "../stores/create-menu_store";
 import { useCreateMenuCtx } from "./create-menu.context";
@@ -25,13 +30,6 @@ import {
   useAddSubCategoryInCategoryMutation,
 } from "../../infra/apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { usePropertyDetails } from "@/app/property/api/queries";
 import type { MenuSubCategoryResponse } from "../../infra/apis/api.service";
 

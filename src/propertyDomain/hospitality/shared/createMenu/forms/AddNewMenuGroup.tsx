@@ -5,16 +5,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@sharpnr/ui";
 import { useCreateMenuMutation } from "../../../infra/apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import type { PropertyInfra } from "@/app/property/api/types";
 
 interface AddNewMenuGroupFormProps {

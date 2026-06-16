@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CreateMenuContext from "./create-menu.context";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import type { CarouselApi } from "@/components/ui/carousel";
 import { useModulesMenu } from "../../infra/apis/api.Queries";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@sharpnr/ui";
 
 interface CreateMenuRootProps {
   children: React.ReactNode;
