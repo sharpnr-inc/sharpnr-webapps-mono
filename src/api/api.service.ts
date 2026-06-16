@@ -45,7 +45,7 @@ export async function GetAuthenticatedUser() {
 }
 
 export async function logout() {
-  const res = await api.get<APIResponse<any>>(UserRoutes.logout());
+  const res = await api.get<APIResponse<unknown>>(UserRoutes.logout());
   return res.data;
 }
 

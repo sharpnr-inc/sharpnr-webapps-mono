@@ -26,9 +26,7 @@ import {
   History,
 } from "lucide-react";
 
-interface AppUserAttendancePageProps {}
-
-const AppUserAttendancePage: React.FC<AppUserAttendancePageProps> = () => {
+const AppUserAttendancePage: React.FC = () => {
   // Sample Data for the Log
   const attendanceData = [
     {

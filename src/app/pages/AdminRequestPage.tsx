@@ -10,9 +10,7 @@ import { Badge } from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
 import { Separator } from "@sharpnr/ui";
 
-interface AdminRequestPageProps {}
-
-const AdminRequestPage: React.FC<AdminRequestPageProps> = () => {
+const AdminRequestPage: React.FC = () => {
   return (
     <div className="p-6 space-y-6">
       {/* Page Header */}

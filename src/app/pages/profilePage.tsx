@@ -14,10 +14,9 @@ import { EditProfileForm } from "../forms/EditProfileForm";
 import { Button } from "@sharpnr/ui";
 import { useModal } from "@/hooks/useModal";
 
-interface AppUserProfilePageProps {}
-
-const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
+const AppUserProfilePage: React.FC = () => {
   const { data: employeeProfileData, isLoading, isError } = useAppUserProfile();
+  const { openModal } = useModal();
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -27,7 +26,6 @@ const AppUserProfilePage: React.FC<AppUserProfilePageProps> = () => {
     return <div>Error loading profile</div>;
   }
 
-  const { openModal } = useModal();
   const handleEditProfile = () => {
     openModal({
       title: "",
