@@ -44,10 +44,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Inject .env.production before building
                 withCredentials([file(credentialsId: 'sharpnr-website-env-production', variable: 'ENV_FILE')]) {
                     echo '🔑 Injecting .env.production...'
-                    sh 'cp $ENV_FILE .env.production'
+                    sh 'cp -f $ENV_FILE ${WORKSPACE}/.env.production'  // ✅ Fixed
                     echo '🔨 Building React app...'
                     sh 'npm run build'
                 }
