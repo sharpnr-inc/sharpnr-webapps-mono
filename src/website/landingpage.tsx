@@ -191,7 +191,8 @@ export function LandingPage() {
   const [activeTab, setActiveTab] = useState("PostgreSQL");
 
   useEffect(() => {
-    setMounted(true);
+    const id = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(id);
   }, []);
 
   return (
