@@ -49,7 +49,7 @@ import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
 
 /* ───────────────── Types ───────────────── */
 
-export type MarketingNavItem = {
+type MarketingNavItem = {
   id: string;
   label: string;
   icon: React.ElementType;
@@ -57,14 +57,14 @@ export type MarketingNavItem = {
   exact?: boolean;
 };
 
-export type MarketingNavGroup = {
+type MarketingNavGroup = {
   group: string;
   items: MarketingNavItem[];
 };
 
 /* ───────────────── Nav Config ───────────────── */
 
-export const marketingSidebar: MarketingNavGroup[] = [
+const marketingSidebar: MarketingNavGroup[] = [
   {
     group: "Overview",
     items: [

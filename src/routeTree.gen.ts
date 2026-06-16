@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
-import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutSocial_media_managementRouteImport } from './routes/_layout/social_media_management'
 import { Route as LayoutReportsRouteImport } from './routes/_layout/reports'
 import { Route as LayoutLeadsRouteImport } from './routes/_layout/leads'
