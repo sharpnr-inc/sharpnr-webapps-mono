@@ -354,7 +354,7 @@ export function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {FEATURES.map((f, i) => (
+            {FEATURES.map((f) => (
               <div
                 key={f.title}
                 className={`card-hover relative rounded-2xl bg-white/3 border border-white/8 p-6 overflow-hidden group`}
