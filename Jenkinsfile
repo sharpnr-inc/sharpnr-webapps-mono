@@ -71,7 +71,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo '🚀 Deploying to /var/www/website...'
+                echo '🚀 Deploying to /var/www/marketplace...'
                 sh '''
                     rm -rf $WEB_BASE/$APP_DIR/dist
                     mkdir -p $WEB_BASE/$APP_DIR/dist
