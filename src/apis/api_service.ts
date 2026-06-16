@@ -11,7 +11,7 @@ export interface OrgSignupPayload {
 }
 
 export async function InitializeSignup(payload: OrgSignupPayload) {
-  const res = await api.post<APIResponse<any>>(
+  const res = await api.post<APIResponse<unknown>>(
     AuthApiEndpoints.Signup.initializeOnboarding,
     payload,
   );
@@ -23,7 +23,7 @@ export interface OtpPayload {
   otp: string;
 }
 export async function VerifyOtp(otp: OtpPayload) {
-  const res = await api.post<APIResponse<any>>(
+  const res = await api.post<APIResponse<unknown>>(
     AuthApiEndpoints.Signup.verifyOtp,
     otp,
   );
@@ -37,7 +37,12 @@ export async function VerifySignupCookie() {
 
 //--------------------------------------------------------------------------------//
 
-export async function LoginUser(payload: any) {
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export async function LoginUser(payload: LoginPayload) {
   const res = await api.post(AuthApiEndpoints.Auth.login, payload);
   return res.data;
 }

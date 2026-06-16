@@ -237,5 +237,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  // eslint-disable-next-line react-refresh/only-export-components
   useCarousel,
 }

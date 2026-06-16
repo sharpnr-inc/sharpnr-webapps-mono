@@ -245,7 +245,7 @@ export function VerifyOtpForm({
                       onBlur={field.handleBlur}
                       required
                     >
-                      <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150 *:data-[slot=input-otp-slot]:focus:border-foreground/40 *:data-[slot=input-otp-slot]:focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]">
+                      <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150 *:data-[slot=input-otp-slot]:focus:border-foreground/40">
                         <InputOTPSlot index={0} />
                         <InputOTPSlot index={1} />
                       </InputOTPGroup>
@@ -351,7 +351,7 @@ export function VerifyOtpForm({
                           cy="20"
                           r="18"
                           fill="none"
-                          stroke="hsl(var(--muted-foreground)/0.2)"
+                          stroke="color-mix(in oklch, var(--muted-foreground) 20%, transparent)"
                           strokeWidth="3"
                         />
                         <circle
@@ -359,7 +359,7 @@ export function VerifyOtpForm({
                           cy="20"
                           r="18"
                           fill="none"
-                          stroke="hsl(var(--muted-foreground)/0.5)"
+                          stroke="color-mix(in oklch, var(--muted-foreground) 50%, transparent)"
                           strokeWidth="3"
                           strokeDasharray={circumference}
                           strokeDashoffset={strokeDashoffset}

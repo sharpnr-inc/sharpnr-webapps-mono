@@ -42,7 +42,8 @@ const defaultOrgForm: OrgSignupFormData = {
 };
 
 function mapFormToPayload(formData: OrgSignupFormData): OrgSignupPayload {
-  const { confirm_password, ...payload } = formData;
+  const payload = { ...formData };
+  delete (payload as { confirm_password?: string }).confirm_password;
   return payload;
 }
 
@@ -85,12 +86,12 @@ function PasswordStrength({ password }: { password: string }) {
 
   const color =
     passed <= 1
-      ? "hsl(var(--destructive))"
+      ? "var(--destructive)"
       : passed === 2
-        ? "hsl(var(--muted-foreground))"
+        ? "var(--muted-foreground)"
         : passed === 3
-          ? "hsl(var(--foreground)/0.6)"
-          : "hsl(var(--foreground))";
+          ? "color-mix(in oklch, var(--foreground) 60%, transparent)"
+          : "var(--foreground)";
 
   if (!password) return null;
 
@@ -177,7 +178,9 @@ export function InitialSignupForm({
             setUserEmail(payload.email);
           },
         });
-      } catch {}
+      } catch {
+        // Error surfaced via the mutation's error state / toast handler.
+      }
     },
   });
 
@@ -213,10 +216,22 @@ export function InitialSignupForm({
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col gap-1"
       >
-        <h1 className="text-2xl font-bold tracking-tight ">
+        <div className="mb-5 flex items-center gap-2.5">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-foreground/5">
+            <img
+              src="https://cdn.sharpnr.com/shicon.svg"
+              alt="Sharpnr"
+              className="h-5.5 w-5.5"
+            />
+          </div>
+          <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            Sharpnr Account
+          </span>
+        </div>
+        <h1 className="text-3xl font-semibold tracking-tight">
           Create your account
         </h1>
-        <p className="text-sm text-muted">
+        <p className="text-sm text-muted-foreground">
           Get started — it only takes a minute.
         </p>
       </motion.div>
@@ -248,7 +263,7 @@ export function InitialSignupForm({
                   type="email"
                   placeholder="name@company.com"
                   required
-                  className="h-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]"
+                  className="h-10"
                 />
                 {field.state.meta.isTouched &&
                   field.state.meta.errors.length > 0 && (
@@ -296,7 +311,7 @@ export function InitialSignupForm({
                     placeholder="9876543210"
                     maxLength={10}
                     required
-                    className="h-10 pl-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]"
+                    className="h-10 pl-10"
                   />
                 </div>
                 <FieldDescription className="text-[11px] text-muted-foreground/60">
@@ -348,12 +363,12 @@ export function InitialSignupForm({
                       type={showPassword ? "text" : "password"}
                       placeholder="••••••••"
                       required
-                      className="h-10 pr-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]"
+                      className="h-10 pr-10"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground/60 hover:text-foreground transition-colors"
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -412,7 +427,7 @@ export function InitialSignupForm({
                       placeholder="••••••••"
                       required
                       className={cn(
-                        "h-10 pr-10 transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--foreground)/0.08)]",
+                        "h-10 pr-10",
                         field.state.meta.isTouched &&
                           field.state.value &&
                           field.state.value === passwordValue &&
@@ -422,7 +437,7 @@ export function InitialSignupForm({
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2  hover:text-foreground transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground/60 hover:text-foreground transition-colors"
                     >
                       {showConfirm ? (
                         <EyeOff className="h-4 w-4" />

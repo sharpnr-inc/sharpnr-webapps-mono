@@ -36,7 +36,7 @@ function GlitchNumber() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
         className="absolute inset-0 text-[clamp(96px,20vw,160px)] font-black tracking-[-0.06em] text-transparent"
-        style={{ WebkitTextStroke: "1px hsl(var(--border))" }}
+        style={{ WebkitTextStroke: "1px var(--border)" }}
       >
         404
       </motion.span>
@@ -68,8 +68,8 @@ export default function NotFound() {
         className="absolute inset-0"
         style={{
           backgroundImage: `
-            linear-gradient(hsl(var(--border)/0.15) 1px, transparent 1px),
-            linear-gradient(90deg, hsl(var(--border)/0.15) 1px, transparent 1px)
+            linear-gradient(color-mix(in oklch, var(--border) 15%, transparent) 1px, transparent 1px),
+            linear-gradient(90deg, color-mix(in oklch, var(--border) 15%, transparent) 1px, transparent 1px)
           `,
           backgroundSize: "44px 44px",
         }}
@@ -79,7 +79,7 @@ export default function NotFound() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, hsl(var(--background)) 100%)",
+            "radial-gradient(ellipse 80% 70% at 50% 50%, transparent 30%, var(--background) 100%)",
         }}
       />
 

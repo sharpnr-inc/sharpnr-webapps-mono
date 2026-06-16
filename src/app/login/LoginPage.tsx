@@ -7,10 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useUserAuth } from "@/apis/mutation";
-import { config } from "@/configs/env";
-import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import { redirectAfterAuth } from "@/lib/auth-redirect";
+import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import Header from "@/components/ui/Header";
+import { AuthLayout } from "@/components/ui/AuthLayout";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -26,378 +26,184 @@ function LoginForm() {
     onSubmit: ({ value }) => {
       loginUser.mutateAsync(value, {
         onError: () => {
-          toast.error("Invalid Email or Password ❌");
+          toast.error("Invalid email or password");
           form.reset();
         },
 
         onSuccess: () => {
-          toast.success("Logged In successfully");
-          window.location.replace(config.iamAppUrl);
+          toast.success("Logged in successfully");
+          redirectAfterAuth();
         },
       });
     },
   });
 
   return (
-    <div
-      className="bg-transparent bg-blend-screen "
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        padding: "48px 64px",
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Faint dot grid */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          backgroundImage:
-            "radial-gradient(circle, hsl(var(--border) / 0.6) 1px, transparent 1px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse at 60% 50%, transparent 20%, hsl(var(--background)) 80%)",
-        }}
-      />
-
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          width: "100%",
-          maxWidth: 380,
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: "easeOut" }}
-        >
-          {/* Header */}
-          <div style={{ marginBottom: 44 }}>
-            <p
-              style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 9.5,
-                letterSpacing: 2.5,
-                color: "hsl(var(--primary))",
-                margin: "0 0 14px",
-              }}
-            >
-              — SHARPNR ACCOUNT
-            </p>
-            <h1
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 42,
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.3px",
-                color: "hsl(var(--foreground))",
-                margin: "0 0 10px",
-              }}
-            >
-              Welcome back.
-            </h1>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 14,
-                lineHeight: 1.6,
-                color: "hsl(var(--muted-foreground))",
-                margin: 0,
-              }}
-            >
-              Sign in to access your workspace and all SharpNR products.
-            </p>
-          </div>
-
-          {/* Form */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-            style={{ display: "flex", flexDirection: "column", gap: 0 }}
-          >
-            {/* Email */}
-            <form.Field name="email">
-              {({ state, handleBlur, handleChange }) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  style={{ marginBottom: 20 }}
-                >
-                  <Label
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: 12.5,
-                      fontWeight: 600,
-                      color: "hsl(var(--foreground))",
-                      display: "block",
-                      marginBottom: 8,
-                      letterSpacing: 0.2,
-                    }}
-                  >
-                    Email Address
-                  </Label>
-                  <Input
-                    type="email"
-                    placeholder="you@example.com"
-                    value={state.value}
-                    onBlur={handleBlur}
-                    onChange={(e) => handleChange(e.target.value)}
-                    className={cn(
-                      state.meta.isTouched &&
-                        state.meta.errors.length > 0 &&
-                        "border-red-500! ring-red-500!",
-                    )}
-                    style={{
-                      height: 46,
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: 14,
-                      borderRadius: 10,
-                    }}
-                  />
-                </motion.div>
-              )}
-            </form.Field>
-
-            {/* Password */}
-            <form.Field name="password">
-              {({ state, handleBlur, handleChange }) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.16 }}
-                  style={{ marginBottom: 12 }}
-                >
-                  <Label
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: 12.5,
-                      fontWeight: 600,
-                      color: "hsl(var(--foreground))",
-                      display: "block",
-                      marginBottom: 8,
-                      letterSpacing: 0.2,
-                    }}
-                  >
-                    Password
-                  </Label>
-                  <div style={{ position: "relative" }}>
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••"
-                      value={state.value}
-                      onBlur={handleBlur}
-                      onChange={(e) => handleChange(e.target.value)}
-                      style={{
-                        height: 46,
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: 14,
-                        borderRadius: 10,
-                        paddingRight: 44,
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword((v) => !v)}
-                      style={{
-                        position: "absolute",
-                        right: 14,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer",
-                        padding: 0,
-                        color: "hsl(var(--muted-foreground))",
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </form.Field>
-
-            {/* Forgot password */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              style={{ marginBottom: 28 }}
-            >
-              <Button
-                variant="link"
-                style={{
-                  padding: 0,
-                  height: "auto",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: 12.5,
-                  fontWeight: 500,
-                  color: "hsl(var(--muted-foreground))",
-                }}
-              >
-                Forgot your password?
-              </Button>
-            </motion.div>
-
-            {/* Submit */}
-            <form.Subscribe
-              selector={(state) => ({
-                canSubmit: state.canSubmit,
-                isSubmitting: state.isSubmitting,
-                email: state.values.email,
-                password: state.values.password,
-              })}
-              children={({ canSubmit, isSubmitting, email, password }) => {
-                const isDisabled =
-                  !canSubmit ||
-                  isSubmitting ||
-                  !email?.trim() ||
-                  !password?.trim();
-                return (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25 }}
-                  >
-                    <Button
-                      type="submit"
-                      disabled={isDisabled}
-                      style={{
-                        width: "100%",
-                        height: 48,
-                        fontFamily: "'DM Sans', sans-serif",
-                        fontSize: 15,
-                        fontWeight: 600,
-                        borderRadius: 10,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 8,
-                        opacity: isDisabled ? 0.5 : 1,
-                        transition: "opacity 0.2s ease",
-                      }}
-                    >
-                      {isSubmitting ? (
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                          style={{
-                            width: 16,
-                            height: 16,
-                            border:
-                              "2px solid hsl(var(--primary-foreground) / 0.3)",
-                            borderTopColor: "hsl(var(--primary-foreground))",
-                            borderRadius: "50%",
-                          }}
-                        />
-                      ) : (
-                        <>
-                          Sign In <ArrowRight size={16} />
-                        </>
-                      )}
-                    </Button>
-                  </motion.div>
-                );
-              }}
-            />
-          </form>
-
-          {/* Divider */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.35 }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 14,
-              margin: "28px 0",
-            }}
-          >
-            <div
-              style={{ flex: 1, height: 1, background: "hsl(var(--border))" }}
-            />
-            <span
-              style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 9.5,
-                letterSpacing: 1.5,
-                color: "hsl(var(--muted-foreground))",
-                opacity: 0.5,
-              }}
-            >
-              OR
-            </span>
-            <div
-              style={{ flex: 1, height: 1, background: "hsl(var(--border))" }}
-            />
-          </motion.div>
-
-          {/* Sign up */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-                color: "hsl(var(--muted-foreground))",
-                textAlign: "center",
-                margin: "0 0 12px",
-              }}
-            >
-              Don't have an account?
-            </p>
-            <Button
-              type="button"
-              variant="outline"
-              className="font-mono font-semibold w-full py-6"
-              onClick={() => navigate({ to: "/signup" })}
-            >
-              Create Sharpnr Account
-            </Button>
-          </motion.div>
-        </motion.div>
+      {/* Brand mark */}
+      <div className="mb-6 flex items-center gap-2.5">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-foreground/5">
+          <img
+            src="https://cdn.sharpnr.com/shicon.svg"
+            alt="Sharpnr"
+            className="h-5.5 w-5.5"
+          />
+        </div>
+        <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+          Sharpnr Account
+        </span>
       </div>
-    </div>
+
+      {/* Heading */}
+      <div className="mb-8 flex flex-col gap-2">
+        <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Sign in to access your workspace and every Sharpnr product.
+        </p>
+      </div>
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}
+        className="flex flex-col gap-5"
+      >
+        {/* Email */}
+        <form.Field name="email">
+          {({ state, handleBlur, handleChange }) => (
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="email" className="text-xs font-medium text-foreground/80">
+                Email address
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={state.value}
+                onBlur={handleBlur}
+                onChange={(e) => handleChange(e.target.value)}
+                className={cn(
+                  "h-11 text-sm",
+                  state.meta.isTouched &&
+                    state.meta.errors.length > 0 &&
+                    "border-destructive! ring-destructive/30!",
+                )}
+              />
+            </div>
+          )}
+        </form.Field>
+
+        {/* Password */}
+        <form.Field name="password">
+          {({ state, handleBlur, handleChange }) => (
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <Label
+                  htmlFor="password"
+                  className="text-xs font-medium text-foreground/80"
+                >
+                  Password
+                </Label>
+                <Button
+                  type="button"
+                  variant="link"
+                  className="h-auto p-0 text-xs font-medium text-muted-foreground hover:text-foreground"
+                >
+                  Forgot password?
+                </Button>
+              </div>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={state.value}
+                  onBlur={handleBlur}
+                  onChange={(e) => handleChange(e.target.value)}
+                  className="h-11 pr-10 text-sm"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
+        </form.Field>
+
+        {/* Submit */}
+        <form.Subscribe
+          selector={(state) => ({
+            canSubmit: state.canSubmit,
+            isSubmitting: state.isSubmitting,
+            email: state.values.email,
+            password: state.values.password,
+          })}
+          children={({ canSubmit, isSubmitting, email, password }) => {
+            const isDisabled =
+              !canSubmit || isSubmitting || !email?.trim() || !password?.trim();
+            return (
+              <Button
+                type="submit"
+                disabled={isDisabled}
+                className="mt-1 h-11 w-full gap-2 text-sm font-semibold"
+              >
+                {isSubmitting ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    Sign in <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            );
+          }}
+        />
+      </form>
+
+      {/* Divider */}
+      <div className="my-7 flex items-center gap-4">
+        <div className="h-px flex-1 bg-border" />
+        <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+          or
+        </span>
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      {/* Sign up */}
+      <div className="flex flex-col gap-3 text-center">
+        <p className="text-sm text-muted-foreground">Don't have an account?</p>
+        <Button
+          type="button"
+          variant="outline"
+          className="h-11 w-full text-sm font-semibold"
+          onClick={() => navigate({ to: "/signup" })}
+        >
+          Create a Sharpnr account
+        </Button>
+      </div>
+    </motion.div>
   );
 }
 
-// ─── Root Export ──────────────────────────────────────────────────────────────
-
 export function LoginPage(): React.JSX.Element {
   return (
-    <div className="">
-      <Header />
-      <div className="h-screen">
-        <LoginForm />
-      </div>
-    </div>
+    <AuthLayout>
+      <LoginForm />
+    </AuthLayout>
   );
 }
