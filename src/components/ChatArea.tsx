@@ -28,7 +28,7 @@ function formatDay(date: Date) {
 
 function parseContent(content: string) {
   // Bold **text**
-  let parts = content.split(/(\*\*[^*]+\*\*|\n|@\w+\.\w+|https?:\/\/[^\s]+)/g);
+  const parts = content.split(/(\*\*[^*]+\*\*|\n|@\w+\.\w+|https?:\/\/[^\s]+)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (

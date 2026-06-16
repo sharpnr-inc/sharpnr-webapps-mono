@@ -20,4 +20,17 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // These files intentionally co-locate non-component exports with
+    // components: TanStack Router route files (`Route`), shadcn/ui
+    // components (variants), and context hooks (provider + hook).
+    files: [
+      'src/routes/**/*.{ts,tsx}',
+      'src/components/ui/**/*.{ts,tsx}',
+      'src/hooks/**/*.{ts,tsx}',
+    ],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ])

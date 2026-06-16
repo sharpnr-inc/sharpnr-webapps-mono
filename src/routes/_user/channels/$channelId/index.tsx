@@ -17,15 +17,16 @@ function ChannelPage() {
   const navigate = useNavigate();
 
   const channel = channels.find((c) => c.id === channelId);
+  const channelExists = Boolean(channel);
 
   useEffect(() => {
-    if (channel) setActiveChannel(channelId);
+    if (channelExists) setActiveChannel(channelId);
     else
       navigate({
         to: "/channels/$channelId",
         params: { channelId: "ch_general" },
       });
-  }, [channelId]);
+  }, [channelId, channelExists, setActiveChannel, navigate]);
 
   if (!channel) return null;
 

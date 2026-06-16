@@ -20,7 +20,7 @@ function DMPage() {
 
   useEffect(() => {
     setActiveDm(userId);
-  }, [userId]);
+  }, [userId, setActiveDm]);
 
   if (!dmUser)
     return (

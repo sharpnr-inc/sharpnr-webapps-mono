@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import {
   MessageSquare,
@@ -13,7 +12,6 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
@@ -166,8 +164,8 @@ export function LandingPage() {
           <div className="scanline" />
 
           {/* Glow spot */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-40 left-1/4 w-[300px] h-[300px] bg-cyan-400/4 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-125 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-40 left-1/4 w-75 h-75 bg-cyan-400/4 rounded-full blur-2xl pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-6 py-28 md:py-36">
             <motion.div
@@ -347,7 +345,7 @@ export function LandingPage() {
                         ].map(({ avatar, name, time, msg, color }) => (
                           <div key={name} className="flex items-start gap-3">
                             <div
-                              className={`w-7 h-7 rounded-full ${color} flex items-center justify-center text-[10px] font-mono font-bold text-white flex-shrink-0`}
+                              className={`w-7 h-7 rounded-full ${color} flex items-center justify-center text-[10px] font-mono font-bold text-white shrink-0`}
                             >
                               {avatar}
                             </div>
@@ -405,7 +403,7 @@ export function LandingPage() {
                       : ""
                   }`}
                 >
-                  <div className="w-9 h-9 rounded border border-zinc-800 bg-zinc-900 flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded border border-zinc-800 bg-zinc-900 flex items-center justify-center shrink-0">
                     <Icon size={15} className="text-cyan-400" />
                   </div>
                   <div>
@@ -498,7 +496,7 @@ export function LandingPage() {
               {/* Connecting cable line */}
               <div className="absolute top-8 left-1/6 right-1/6 h-px cable-line hidden md:block" />
 
-              {STEPS.map(({ num, title, desc }, i) => (
+              {STEPS.map(({ num, title, desc }) => (
                 <div
                   key={num}
                   className="flex flex-col items-center text-center px-8 py-6 relative"
