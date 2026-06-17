@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@sharpnr/ui";
-import { useOrganizationLegalEntities } from "@/app/legal_entity/api/legalEntity.api.queries";
+
 import { useAppForm } from "@/components/forms";
 import { useCreatePaymentAccountMutation } from "../api/api.mutation";
 
@@ -35,8 +35,6 @@ export const CreatePaymentAccountForm = ({
   openDialog,
   setDialog,
 }: CreatePaymentAccountFormProps) => {
-  const { data: legalEntities, isLoading } = useOrganizationLegalEntities();
-
   const { mutateAsync } = useCreatePaymentAccountMutation();
 
   const defaultAccount: CreatePaymentAccountRequest = {
@@ -87,27 +85,6 @@ export const CreatePaymentAccountForm = ({
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select legal entity" />
                     </SelectTrigger>
-
-                    <SelectContent>
-                      {isLoading && (
-                        <SelectItem value="loading" disabled>
-                          Loading legal entities...
-                        </SelectItem>
-                      )}
-
-                      {!isLoading &&
-                        legalEntities?.data?.map((entity: any) => (
-                          <SelectItem key={entity.id} value={entity.id}>
-                            {entity.name}
-                          </SelectItem>
-                        ))}
-
-                      {!isLoading && legalEntities?.data?.length === 0 && (
-                        <SelectItem value="empty" disabled>
-                          No legal entities found
-                        </SelectItem>
-                      )}
-                    </SelectContent>
                   </Select>
                 </div>
               );

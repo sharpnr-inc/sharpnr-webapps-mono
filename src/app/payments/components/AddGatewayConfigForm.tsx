@@ -1,24 +1,18 @@
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
-
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@sharpnr/ui";
-
-import { Button } from "@sharpnr/ui";
-
-import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-
+  SelectContent,
+  SelectItem,
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { useAppForm } from "@/components/forms";
 import { useAddGatewayConfigMutation } from "../api/api.mutation";
 

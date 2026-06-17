@@ -69,7 +69,7 @@ export function AddIdentifiersForm({
                 <Label htmlFor="identifier-type">Identifier Type</Label>
                 <Select
                   value={field.state.value}
-                  onValueChange={(val) => field.handleChange(val as any)}
+                  onValueChange={(val) => field.handleChange(val)}
                 >
                   <SelectTrigger id="identifier-type">
                     <SelectValue placeholder="Select Identifier Type" />

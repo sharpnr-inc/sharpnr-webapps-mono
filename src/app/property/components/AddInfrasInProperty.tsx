@@ -12,6 +12,7 @@ import {
 import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAddInfraInProperty } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
+import type { DomainModuleInfra } from "../api/types";
 
 type QtyMap = Record<string, number>;
 
@@ -40,7 +41,7 @@ export function AddInfraInProperty({
 
   const handleSubmit = async () => {
     const infra = infrastructures.find(
-      (infra: any) => infra.IsAvailable && (qty[infra.ID] ?? 0) > 0,
+      (infra: DomainModuleInfra) => infra.IsAvailable && (qty[infra.ID] ?? 0) > 0,
     );
 
     if (!infra) return;
@@ -83,7 +84,7 @@ export function AddInfraInProperty({
 
       {/* INFRA LIST */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {infrastructures.map((infra: any) => {
+        {infrastructures.map((infra: DomainModuleInfra) => {
           const disabled = !infra.IsAvailable;
 
           return (

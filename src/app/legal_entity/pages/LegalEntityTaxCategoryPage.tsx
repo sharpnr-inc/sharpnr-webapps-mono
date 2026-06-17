@@ -26,7 +26,7 @@ interface LegalEntityTaxRuleResponseDto {
   tax_registration_id: string;
   tax_type: LegalEntityTaxType;
   rate: number;
-  condition_json: Record<string, any> | null;
+  condition_json: Record<string, unknown> | null;
   min_value: number | null;
   max_value: number | null;
   priority: number;

@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Info,
   Building2,
@@ -10,39 +10,23 @@ import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality
 import { useRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/queries";
 import { useUpdateRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/mutations";
 import { useQueryClient } from "@tanstack/react-query";
-
 import {
   Select,
-  SelectTrigger,
-  SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select";
-
-type LegalEntity = {
-  id: string;
-  name: string;
-  gst: string | null;
-  addressLine: string;
-  city: string;
-  state: string;
-};
-
+  SelectTrigger,
+  SelectValue,
+} from "@sharpnr/ui";
 
 export function RestaurantLegalEntity() {
   const { restaurantID } = Route.useParams();
 
   const queryClient = useQueryClient();
 
-
-
-  const { data: restaurantDetails, isLoading } = useRestaurantGeneralInfo(
-    restaurantID!,
-  );
+  const { data: restaurantDetails } = useRestaurantGeneralInfo(restaurantID!);
 
   const { mutateAsync } = useUpdateRestaurantGeneralInfo();
 
- 
   const restaurantLegalEntityId =
     restaurantDetails?.data?.resturant_legal_entity_id;
 
@@ -85,7 +69,6 @@ export function RestaurantLegalEntity() {
   };
 
   /* ── Empty state ────────────────────────────────────────── */
-
 
   /* ── Main UI ────────────────────────────────────────────── */
   return (
@@ -183,7 +166,7 @@ export function RestaurantLegalEntity() {
             </SelectTrigger>
 
             <SelectContent>
-              {legalEntities.map((entity) => (
+              {legalEntities?.map((entity) => (
                 <SelectItem key={entity.id} value={entity.id}>
                   <div className="flex flex-col py-0.5">
                     <span className="font-medium">{entity.name}</span>

@@ -7,11 +7,12 @@ import {
   GetInventoriesAccounts,
   GetRestaurantGeneralInfo,
   type RestaurantGeneralInfoInterface,
+  type RestaurantLayoutResponse,
 } from "./restaurant.api";
 import type { APIResponse } from "@/lib/api_response";
 
 export function useRestaurantLayout(restaurantID?: string | null) {
-  return useQuery<APIResponse<any>>({
+  return useQuery<APIResponse<RestaurantLayoutResponse>>({
     queryKey: ["Restaurant", "Restaurant Layout", restaurantID],
     queryFn: () => FetchRestaurantLayout(restaurantID),
     enabled: !!restaurantID,

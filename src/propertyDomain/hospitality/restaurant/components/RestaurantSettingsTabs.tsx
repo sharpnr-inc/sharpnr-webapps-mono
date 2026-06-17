@@ -82,7 +82,7 @@ const RestaurantSettingsTabs = () => {
     navigate({ to: "/property/$propertyId/details", params: { propertyId } });
 
   const hasKitchen = propertyDetails?.data?.infra?.some(
-    (infra: any) => infra.infra_type === "KITCHEN",
+    (infra) => infra.infra_type === "KITCHEN",
   );
 
   return (

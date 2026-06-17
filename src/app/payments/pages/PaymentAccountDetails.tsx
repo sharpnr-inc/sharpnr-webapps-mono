@@ -63,6 +63,15 @@ function WebhookURLRow({ providerCode }: { providerCode: string }) {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
+interface PaymentAccountConfig {
+  id: string;
+  display_name: string;
+  provider_code: string;
+  is_test_mode: boolean;
+  is_active: boolean;
+  created_at: string;
+}
+
 export function PaymentAccountDetails() {
   const { accountId } = Route.useParams();
   const [configForm, setConfigForm] = useState(false);
@@ -109,7 +118,7 @@ export function PaymentAccountDetails() {
       {/* Config list */}
       {configs.length > 0 && (
         <div className="grid gap-4">
-          {configs.map((config: any) => (
+          {configs.map((config: PaymentAccountConfig) => (
             <div key={config.id} className="rounded-xl border p-4">
               {/* Top row — name + badges */}
               <div className="flex items-center justify-between">

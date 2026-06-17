@@ -1,4 +1,4 @@
-export async function getDeviceInfo(): Promise<any> {
+export async function getDeviceInfo() {
   const userAgent = navigator.userAgent;
 
   let os = "Unknown OS";

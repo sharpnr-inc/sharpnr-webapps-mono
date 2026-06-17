@@ -1,4 +1,4 @@
-import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
+import { Button, Skeleton } from "@sharpnr/ui";
 import { MapPin, Plus, Building2 } from "lucide-react";
 import type { LegalEntityAddressResponseDto } from "../../api/types";
 import { getLegalEntityAddressTypeLabel } from "../../utils/entity_type";
@@ -74,7 +74,7 @@ function AddressCard({
   address: LegalEntityAddressResponseDto;
   legalEntityID: string;
 }) {
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
 
   const handleEdit = () => {
     showModal(
@@ -168,7 +168,7 @@ export function LegalEntityAddressesTab({
   legalEntityID,
   data,
 }: LegalEntityAddressesTabProps) {
-  const { showModal, closeModal } = useFormsModal();
+  const { showModal, closeModal } = useModal();
 
   const handleAdd = () => {
     showModal(

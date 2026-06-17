@@ -1,10 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
-import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@sharpnr/ui";
+import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label, Switch } from "@sharpnr/ui";
 import { ChefHat, Settings2, ArrowLeft, Printer, Activity } from "lucide-react";
 
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
@@ -77,7 +73,7 @@ export function KitchenDashBoard() {
     });
   }, [kitchenConfigData]);
 
-  const updateField = (key: string, value: any) => {
+  const updateField = (key: string, value: string | number | boolean) => {
     setSettings((prev) => ({
       ...prev,
       [key]: value,

@@ -800,7 +800,7 @@ export function UserDirectoryPage() {
             <div className="relative">
               <select
                 value={roleFilter}
-                onChange={(e) => setRoleFilter(e.target.value as any)}
+                onChange={(e) => setRoleFilter(e.target.value as Role | "all")}
                 className="appearance-none bg-background border border-border text-xs font-mono text-foreground px-3 py-2 pr-6 outline-none focus:border-primary/60 transition-colors cursor-pointer"
               >
                 <option value="all">All Roles</option>
@@ -819,7 +819,7 @@ export function UserDirectoryPage() {
             <div className="relative">
               <select
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as any)}
+                onChange={(e) => setStatusFilter(e.target.value as Status | "all")}
                 className="appearance-none bg-background border border-border text-xs font-mono text-foreground px-3 py-2 pr-6 outline-none focus:border-primary/60 transition-colors cursor-pointer"
               >
                 <option value="all">All Status</option>

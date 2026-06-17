@@ -21,7 +21,7 @@ interface AppUserState {
 export const useAppUserStore = create<AppUserState>((set) => ({
   user: null,
   isLoading: true,
-
+  
   setUser: (user) => set({ user, isLoading: false }),
 
   setLoading: (isLoading) => set({ isLoading }),

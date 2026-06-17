@@ -37,6 +37,26 @@ import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
 import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
 import { useLegalEntityAllTaxCategory } from "@/app/legal_entity/api/legalEntity.api.queries";
 
+interface TaxRuleComponent {
+  component_code: string;
+  rate: number;
+}
+
+interface TaxRule {
+  rate: number;
+  tax_type: string;
+  min_value: number;
+  max_value: number;
+  components?: TaxRuleComponent[];
+}
+
+interface TaxCategoryItem {
+  id: string;
+  category_name: string;
+  code: string;
+  rules?: TaxRule[];
+}
+
 const CreateCategory = () => {
   const {
     Menus,
@@ -134,12 +154,12 @@ const CreateCategory = () => {
       {/* ── Menu Cards ──────────────────────────────────────── */}
       {Menus?.map((m) => {
         const preferredKitchen = kitchens.find(
-          (k: any) => k.id === m.preferred_kitchen,
+          (k) => k.id === m.preferred_kitchen,
         );
 
         const selectedTaxID = menuTaxMap[m.id] ?? "";
         const selectedTax = taxCategories?.data?.find(
-          (t: any) => t.id === selectedTaxID,
+          (t: TaxCategoryItem) => t.id === selectedTaxID,
         );
         const selectedRule = selectedTax?.rules?.[0];
         const categoryCount = m.categories?.length ?? 0;
@@ -217,7 +237,7 @@ const CreateCategory = () => {
                   </SelectTrigger>
 
                   <SelectContent>
-                    {kitchens.map((kitchen: any) => (
+                    {kitchens.map((kitchen) => (
                       <SelectItem key={kitchen.id} value={kitchen.id}>
                         <div className="flex items-center justify-between w-full gap-3">
                           <span>{kitchen.name}</span>
@@ -276,11 +296,11 @@ const CreateCategory = () => {
                   </SelectTrigger>
 
                   <SelectContent>
-                    {taxCategories?.data?.map((tax: any) => {
+                    {taxCategories?.data?.map((tax: TaxCategoryItem) => {
                       const rule = tax.rules?.[0];
                       const components =
                         rule?.components
-                          ?.map((c: any) => `${c.component_code} ${c.rate}%`)
+                          ?.map((c) => `${c.component_code} ${c.rate}%`)
                           .join(" + ") ?? "No components";
 
                       return (
@@ -353,7 +373,7 @@ const CreateCategory = () => {
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
-                    {m.categories.map((c: any) => (
+                    {m.categories.map((c) => (
                       <button
                         key={c.id}
                         onClick={() => {
