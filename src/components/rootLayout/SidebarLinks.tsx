@@ -12,7 +12,11 @@ import {
   MirrorRound,
 } from "lucide-react";
 import { GrOverview } from "react-icons/gr";
-import { MdOutlineAccountBalanceWallet } from "react-icons/md";
+import {
+  MdDevices,
+  MdOutlineAccountBalanceWallet,
+  MdOutlineAppShortcut,
+} from "react-icons/md";
 import { TbTransactionRupee } from "react-icons/tb";
 import { FcBusinesswoman } from "react-icons/fc";
 import { AiOutlineAudit } from "react-icons/ai";
@@ -196,6 +200,23 @@ export const orchestratorGroups: SidebarGroup[] = [
         path: "/inventory-acc",
         icon: LucideShoppingBasket,
         tooltip: "Inventories",
+      },
+    ],
+  },
+  {
+    groupLabel: "Apps & Devices",
+    links: [
+      {
+        label: "Mobile Apps",
+        path: "/descovro_integrations",
+        icon: MdOutlineAppShortcut,
+        tooltip: "Mobile Apps",
+      },
+      {
+        label: "Devices",
+        path: "/sharp_marketplace",
+        icon: MdDevices,
+        tooltip: "Devices",
       },
     ],
   },

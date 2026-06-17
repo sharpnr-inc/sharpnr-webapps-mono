@@ -7,7 +7,7 @@ import { config } from "@/configs/env";
 import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { ConsoleLayout } from "@/components/ConsoleLayout";
+import { ConsoleLayout } from "@/components/rootLayout/ConsoleLayout";
 
 export const Route = createFileRoute("/_appuser")({
   pendingComponent: () => (

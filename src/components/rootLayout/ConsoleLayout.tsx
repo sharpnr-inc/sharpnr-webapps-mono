@@ -6,7 +6,7 @@ import { Bell } from "lucide-react";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
 import { Button, ModeToggle } from "@sharpnr/ui";
 import { cn } from "@/lib/utils";
-import { UserCard } from "./header/UserCard";
+import { UserCard } from "../header/UserCard";
 import { OrchestratorShell } from "./AppSidebar";
 
 function HeaderItem({
