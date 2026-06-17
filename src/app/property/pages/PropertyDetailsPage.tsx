@@ -154,7 +154,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
   const handlePropertySettingPage = () =>
     nav({
-      to: "/property/$propertyId/property_settings",
+      to: "/property/$propertyId/settings",
       params: { propertyId },
     });
 

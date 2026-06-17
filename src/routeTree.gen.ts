@@ -47,13 +47,12 @@ import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cable
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserBusinessOpsPropertyIndexRouteImport } from './routes/_appuser/business-ops/property/index'
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
-import { Route as AppuserPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/property/$propertyId/property-configuration'
+import { Route as AppuserPropertyPropertyIdSettingsRouteImport } from './routes/_appuser/property/$propertyId/settings'
 import { Route as AppuserPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/property/$propertyId/details'
 import { Route as AppuserLegal_entityLeIDTax_categoryRouteImport } from './routes/_appuser/legal_entity/$leID/tax_category'
 import { Route as AppuserLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/legal_entity/$leID/details'
 import { Route as AppuserInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/inventory-acc/$inventoryAccountID/details'
 import { Route as AppuserBusinessOpsPropertyRoutesRouteImport } from './routes/_appuser/business-ops/property/routes'
-import { Route as AppuserPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/property/$propertyId/property_settings/index'
 import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property-configuration'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
@@ -274,10 +273,10 @@ const AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute =
     path: '/suppliers&Vendors/$suppliersID/details',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserPropertyPropertyIdPropertyConfigurationRoute =
-  AppuserPropertyPropertyIdPropertyConfigurationRouteImport.update({
-    id: '/property/$propertyId/property-configuration',
-    path: '/property/$propertyId/property-configuration',
+const AppuserPropertyPropertyIdSettingsRoute =
+  AppuserPropertyPropertyIdSettingsRouteImport.update({
+    id: '/property/$propertyId/settings',
+    path: '/property/$propertyId/settings',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserPropertyPropertyIdDetailsRoute =
@@ -308,12 +307,6 @@ const AppuserBusinessOpsPropertyRoutesRoute =
   AppuserBusinessOpsPropertyRoutesRouteImport.update({
     id: '/business-ops/property/routes',
     path: '/business-ops/property/routes',
-    getParentRoute: () => AppuserRouteRoute,
-  } as any)
-const AppuserPropertyPropertyIdProperty_settingsIndexRoute =
-  AppuserPropertyPropertyIdProperty_settingsIndexRouteImport.update({
-    id: '/property/$propertyId/property_settings/',
-    path: '/property/$propertyId/property_settings/',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute =
@@ -459,14 +452,13 @@ export interface FileRoutesByFullPath {
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
-  '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  '/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   '/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
-  '/property/$propertyId/property_settings/': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/business-ops/property/$propertyId/property_settings/': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
@@ -510,14 +502,13 @@ export interface FileRoutesByTo {
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
-  '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  '/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   '/business-ops/property': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
-  '/property/$propertyId/property_settings': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/business-ops/property/$propertyId/property_settings': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
@@ -569,14 +560,13 @@ export interface FileRoutesById {
   '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/_appuser/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/_appuser/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
-  '/_appuser/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  '/_appuser/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/_appuser/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   '/_appuser/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/_appuser/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
-  '/_appuser/property/$propertyId/property_settings/': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
   '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/_appuser/business-ops/property/$propertyId/property_settings/': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
@@ -630,14 +620,13 @@ export interface FileRouteTypes {
     | '/legal_entity/$leID/details'
     | '/legal_entity/$leID/tax_category'
     | '/property/$propertyId/details'
-    | '/property/$propertyId/property-configuration'
+    | '/property/$propertyId/settings'
     | '/suppliers&Vendors/$suppliersID/details'
     | '/business-ops/property/'
     | '/payments/$accountId/'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/business-ops/property/$propertyId/details'
     | '/business-ops/property/$propertyId/property-configuration'
-    | '/property/$propertyId/property_settings/'
     | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/business-ops/property/$propertyId/property_settings/'
@@ -681,14 +670,13 @@ export interface FileRouteTypes {
     | '/legal_entity/$leID/details'
     | '/legal_entity/$leID/tax_category'
     | '/property/$propertyId/details'
-    | '/property/$propertyId/property-configuration'
+    | '/property/$propertyId/settings'
     | '/suppliers&Vendors/$suppliersID/details'
     | '/business-ops/property'
     | '/payments/$accountId'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/business-ops/property/$propertyId/details'
     | '/business-ops/property/$propertyId/property-configuration'
-    | '/property/$propertyId/property_settings'
     | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/business-ops/property/$propertyId/property_settings'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
@@ -739,14 +727,13 @@ export interface FileRouteTypes {
     | '/_appuser/legal_entity/$leID/details'
     | '/_appuser/legal_entity/$leID/tax_category'
     | '/_appuser/property/$propertyId/details'
-    | '/_appuser/property/$propertyId/property-configuration'
+    | '/_appuser/property/$propertyId/settings'
     | '/_appuser/suppliers&Vendors/$suppliersID/details'
     | '/_appuser/business-ops/property/'
     | '/_appuser/payments/$accountId/'
     | '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/_appuser/business-ops/property/$propertyId/details'
     | '/_appuser/business-ops/property/$propertyId/property-configuration'
-    | '/_appuser/property/$propertyId/property_settings/'
     | '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/_appuser/business-ops/property/$propertyId/property_settings/'
@@ -1033,11 +1020,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/property/$propertyId/property-configuration': {
-      id: '/_appuser/property/$propertyId/property-configuration'
-      path: '/property/$propertyId/property-configuration'
-      fullPath: '/property/$propertyId/property-configuration'
-      preLoaderRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRouteImport
+    '/_appuser/property/$propertyId/settings': {
+      id: '/_appuser/property/$propertyId/settings'
+      path: '/property/$propertyId/settings'
+      fullPath: '/property/$propertyId/settings'
+      preLoaderRoute: typeof AppuserPropertyPropertyIdSettingsRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/property/$propertyId/details': {
@@ -1073,13 +1060,6 @@ declare module '@tanstack/react-router' {
       path: '/business-ops/property/routes'
       fullPath: '/business-ops/property/routes'
       preLoaderRoute: typeof AppuserBusinessOpsPropertyRoutesRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/property/$propertyId/property_settings/': {
-      id: '/_appuser/property/$propertyId/property_settings/'
-      path: '/property/$propertyId/property_settings'
-      fullPath: '/property/$propertyId/property_settings/'
-      preLoaderRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/business-ops/property/$propertyId/property-configuration': {
@@ -1362,13 +1342,12 @@ interface AppuserRouteRouteChildren {
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserBusinessOpsPropertyRoutesRoute: typeof AppuserBusinessOpsPropertyRoutesRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
-  AppuserPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
+  AppuserPropertyPropertyIdSettingsRoute: typeof AppuserPropertyPropertyIdSettingsRoute
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   AppuserBusinessOpsPropertyIndexRoute: typeof AppuserBusinessOpsPropertyIndexRoute
   AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   AppuserBusinessOpsPropertyPropertyIdDetailsRoute: typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
-  AppuserPropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
@@ -1404,8 +1383,8 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
     AppuserSuppliersChar38VendorsIndexRoute,
   AppuserBusinessOpsPropertyRoutesRoute: AppuserBusinessOpsPropertyRoutesRoute,
   AppuserPropertyPropertyIdDetailsRoute: AppuserPropertyPropertyIdDetailsRoute,
-  AppuserPropertyPropertyIdPropertyConfigurationRoute:
-    AppuserPropertyPropertyIdPropertyConfigurationRoute,
+  AppuserPropertyPropertyIdSettingsRoute:
+    AppuserPropertyPropertyIdSettingsRoute,
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute:
     AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute,
   AppuserBusinessOpsPropertyIndexRoute: AppuserBusinessOpsPropertyIndexRoute,
@@ -1415,8 +1394,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
     AppuserBusinessOpsPropertyPropertyIdDetailsRoute,
   AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute:
     AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute,
-  AppuserPropertyPropertyIdProperty_settingsIndexRoute:
-    AppuserPropertyPropertyIdProperty_settingsIndexRoute,
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
     AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
   AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:

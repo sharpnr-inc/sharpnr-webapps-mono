@@ -11,7 +11,7 @@ Features:
 NOTE: UI is wired to local state only — values are dummy placeholders for now.
 */
 
-import { Route } from "@/routes/_appuser/property/$propertyId/property_settings/index";
+import { Route } from "@/routes/_appuser/property/$propertyId/settings";
 import {
   Badge,
   Button,
@@ -272,183 +272,187 @@ const PropertySettingPage: React.FC = () => {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* ── Settings column ──────────────────────── */}
         <div className="space-y-4 lg:col-span-2">
-        {/* ── General ──────────────────────────────── */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-base">General</CardTitle>
-            <CardDescription>Basic information about this property.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Property Name" htmlFor="name">
-                <Input
-                  id="name"
-                  value={propertyName}
-                  onChange={(e) => setPropertyName(e.target.value)}
-                  placeholder="My Property"
-                />
-              </Field>
-              <Field label="Slug" htmlFor="slug" hint="Used in URLs.">
-                <Input
-                  id="slug"
-                  value={propertySlug}
-                  onChange={(e) => setPropertySlug(e.target.value)}
-                  placeholder="my-property"
-                />
-              </Field>
-            </div>
-
-            <Field label="Description" htmlFor="desc">
-              <Textarea
-                id="desc"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Short description of this property…"
-                rows={3}
-              />
-            </Field>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Contact Email" htmlFor="email">
-                <Input
-                  id="email"
-                  type="email"
-                  value={contactEmail}
-                  onChange={(e) => setContactEmail(e.target.value)}
-                  placeholder="contact@example.com"
-                />
-              </Field>
-              <Field label="Phone" htmlFor="phone">
-                <Input
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+1 555 000 0000"
-                />
-              </Field>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* ── Location ─────────────────────────────── */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-base">Location</CardTitle>
-            <CardDescription>Where this property operates.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Field label="Address" htmlFor="address">
-              <Input
-                id="address"
-                value={addressLine}
-                onChange={(e) => setAddressLine(e.target.value)}
-                placeholder="123 Main Street"
-              />
-            </Field>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="City" htmlFor="city">
-                <Input
-                  id="city"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  placeholder="City"
-                />
-              </Field>
-              <Field label="State / Province" htmlFor="state">
-                <Input
-                  id="state"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  placeholder="State"
-                />
-              </Field>
-              <Field label="Country" htmlFor="country">
-                <Input
-                  id="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  placeholder="Country"
-                />
-              </Field>
-              <Field label="Postal Code" htmlFor="postal">
-                <Input
-                  id="postal"
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.target.value)}
-                  placeholder="00000"
-                />
-              </Field>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* ── Visibility & Access ──────────────────── */}
-        <Card>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-base">Visibility & Access</CardTitle>
-            <CardDescription>
-              Control who can discover this property.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <ToggleRow
-              title="Public Property"
-              description="Allow others to discover this property."
-              checked={isPublic}
-              onChange={setIsPublic}
-            />
-            <div className="border-t" />
-            <ToggleRow
-              title="Allow Module Requests"
-              description="Let external users request module access."
-              checked={allowRequests}
-              onChange={setAllowRequests}
-            />
-          </CardContent>
-        </Card>
-
-        {/* ── Module Access Requests ───────────────── */}
-        <Card>
-          <CardHeader className="pb-4">
-            <div className="flex items-center justify-between gap-2">
-              <CardTitle className="text-base">Module Access Requests</CardTitle>
-              <Badge variant="secondary">0 pending</Badge>
-            </div>
-            <CardDescription>
-              Requests for module access appear here.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-center rounded-lg border border-dashed py-8 text-sm text-muted-foreground">
-              No pending requests
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* ── Danger Zone ──────────────────────────── */}
-        <Card className="border-destructive/40">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-base text-destructive">
-              Danger Zone
-            </CardTitle>
-            <CardDescription>Irreversible actions.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-3 rounded-lg border border-destructive/40 p-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="space-y-0.5">
-                <p className="text-sm font-medium text-foreground">
-                  Delete Property
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  This action cannot be undone.
-                </p>
+          {/* ── General ──────────────────────────────── */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base">General</CardTitle>
+              <CardDescription>
+                Basic information about this property.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Property Name" htmlFor="name">
+                  <Input
+                    id="name"
+                    value={propertyName}
+                    onChange={(e) => setPropertyName(e.target.value)}
+                    placeholder="My Property"
+                  />
+                </Field>
+                <Field label="Slug" htmlFor="slug" hint="Used in URLs.">
+                  <Input
+                    id="slug"
+                    value={propertySlug}
+                    onChange={(e) => setPropertySlug(e.target.value)}
+                    placeholder="my-property"
+                  />
+                </Field>
               </div>
-              <Button variant="destructive" className="w-full sm:w-auto">
-                Delete Property
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+
+              <Field label="Description" htmlFor="desc">
+                <Textarea
+                  id="desc"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Short description of this property…"
+                  rows={3}
+                />
+              </Field>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Contact Email" htmlFor="email">
+                  <Input
+                    id="email"
+                    type="email"
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    placeholder="contact@example.com"
+                  />
+                </Field>
+                <Field label="Phone" htmlFor="phone">
+                  <Input
+                    id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+1 555 000 0000"
+                  />
+                </Field>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* ── Location ─────────────────────────────── */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base">Location</CardTitle>
+              <CardDescription>Where this property operates.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Field label="Address" htmlFor="address">
+                <Input
+                  id="address"
+                  value={addressLine}
+                  onChange={(e) => setAddressLine(e.target.value)}
+                  placeholder="123 Main Street"
+                />
+              </Field>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="City" htmlFor="city">
+                  <Input
+                    id="city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="City"
+                  />
+                </Field>
+                <Field label="State / Province" htmlFor="state">
+                  <Input
+                    id="state"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                    placeholder="State"
+                  />
+                </Field>
+                <Field label="Country" htmlFor="country">
+                  <Input
+                    id="country"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                    placeholder="Country"
+                  />
+                </Field>
+                <Field label="Postal Code" htmlFor="postal">
+                  <Input
+                    id="postal"
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
+                    placeholder="00000"
+                  />
+                </Field>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* ── Visibility & Access ──────────────────── */}
+          <Card>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base">Visibility & Access</CardTitle>
+              <CardDescription>
+                Control who can discover this property.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ToggleRow
+                title="Public Property"
+                description="Allow others to discover this property."
+                checked={isPublic}
+                onChange={setIsPublic}
+              />
+              <div className="border-t" />
+              <ToggleRow
+                title="Allow Module Requests"
+                description="Let external users request module access."
+                checked={allowRequests}
+                onChange={setAllowRequests}
+              />
+            </CardContent>
+          </Card>
+
+          {/* ── Module Access Requests ───────────────── */}
+          <Card>
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between gap-2">
+                <CardTitle className="text-base">
+                  Module Access Requests
+                </CardTitle>
+                <Badge variant="secondary">0 pending</Badge>
+              </div>
+              <CardDescription>
+                Requests for module access appear here.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-center rounded-lg border border-dashed py-8 text-sm text-muted-foreground">
+                No pending requests
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* ── Danger Zone ──────────────────────────── */}
+          <Card className="border-destructive/40">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base text-destructive">
+                Danger Zone
+              </CardTitle>
+              <CardDescription>Irreversible actions.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-3 rounded-lg border border-destructive/40 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-0.5">
+                  <p className="text-sm font-medium text-foreground">
+                    Delete Property
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    This action cannot be undone.
+                  </p>
+                </div>
+                <Button variant="destructive" className="w-full sm:w-auto">
+                  Delete Property
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* ── Info side panel ──────────────────────── */}
