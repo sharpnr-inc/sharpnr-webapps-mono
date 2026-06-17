@@ -24,6 +24,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@sharpnr/ui";
+import { useModal } from "@/hooks/useModal";
+import BusinessModuleCatalog from "@/business_operation/shared/BusinessModuleCatalog";
+import InfraCatalog from "@/business_operation/shared/InfraCatalog";
 
 /* ── module tile ─────────────────────────────────────── */
 interface ModuleItem {
@@ -155,9 +158,24 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
       params: { propertyId },
     });
 
-  // TODO: wire up to the add-module / add-infra flows when available.
-  const handleAddBusinessModule = () => {};
-  const handleAddInfra = () => {};
+  const { openModal, closeModal } = useModal();
+
+  const handleAddBusinessModule = () => {
+    openModal({
+      content: <BusinessModuleCatalog closeModal={closeModal} />,
+      title: "Business Modules",
+      description: "Choose business operation modules",
+      size: "xl",
+    });
+  };
+  const handleAddInfra = () => {
+    openModal({
+      content: <InfraCatalog closeModal={closeModal} />,
+      title: "Infra",
+      description: "Choose Infra modules",
+      size: "xl",
+    });
+  };
 
   const shortLocation = [property?.city, property?.state, property?.country]
     .filter(Boolean)
@@ -169,7 +187,24 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
       id: "restaurant",
       icon: UtensilsCrossed,
       title: "Shyam Sunder Restaurant",
-      description: "Dine-in restaurant with menus, tables and order management.",
+      description:
+        "Dine-in restaurant with menus, tables and order management.",
+      status: "Active",
+    },
+    {
+      id: "restaurant",
+      icon: UtensilsCrossed,
+      title: "Shyam Sunder Restaurant",
+      description:
+        "Dine-in restaurant with menus, tables and order management.",
+      status: "Active",
+    },
+    {
+      id: "restaurant",
+      icon: UtensilsCrossed,
+      title: "Shyam Sunder Restaurant",
+      description:
+        "Dine-in restaurant with menus, tables and order management.",
       status: "Active",
     },
   ];
@@ -287,7 +322,6 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
             onAdd={handleAddInfra}
           />
         </CardContent>
-
       </Card>
     </div>
   );
