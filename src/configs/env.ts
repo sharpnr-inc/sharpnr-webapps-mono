@@ -13,7 +13,7 @@ const requiredVars = [
   "VITE_API_ORCHESTRATOR_APP",
   "VITE_API_HOSPITALITY_APP",
   "VITE_API_IAM_APP",
-  "VITE_API_MARKETING_APP",
+  "VITE_API_SHARPCRM",
   "VITE_API_HR_APP",
 ] as const;
 
@@ -40,6 +40,6 @@ export const config = {
   orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP, // Orchestrator / workflow engine
   hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP, // Hospitality module
   iamAppUrl: import.meta.env.VITE_API_IAM_APP, // Identity & Access Management
-  marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP, // Marketing module
+  marketingAppUrl: import.meta.env.VITE_API_SHARPCRM, // Marketing module
   hrAppUrl: import.meta.env.VITE_API_HR_APP, // Human Resources module
 } as const;
