@@ -54,7 +54,7 @@ export async function createNewLegalEntity({
     LegalEntityEndpoints.create(),
     payload,
   );
-  response.data;
+  return response.data;
 }
 
 /* ---------------------------------- <***> --------------------------------- */

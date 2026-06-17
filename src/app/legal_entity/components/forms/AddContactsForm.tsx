@@ -58,7 +58,9 @@ export function AddContactsForm({
             },
           },
         );
-      } catch {}
+      } catch {
+        // submission errors are surfaced via mutation state
+      }
     },
   });
 

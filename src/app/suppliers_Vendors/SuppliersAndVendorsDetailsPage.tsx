@@ -34,7 +34,7 @@ export function SuppliersAndVendorsDetailsPage() {
 
       {isError && (
         <div className="text-red-600">
-          ❌ Error linking Legal Entity: {(error as any)?.message}
+          ❌ Error linking Legal Entity: {(error as Error)?.message}
         </div>
       )}
 

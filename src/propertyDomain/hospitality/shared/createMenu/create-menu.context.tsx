@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
-
+import type { MenuResponse } from "../../infra/apis/api.service";
 
 interface CreateMenuContextType {
-  Menus: any[] | undefined;
+  Menus: MenuResponse[] | undefined;
   isMenuLoading: boolean;
   isMenuLoaded: boolean;
   step: number;
@@ -18,6 +18,7 @@ interface CreateMenuContextType {
 
 const CreateMenuContext = createContext<CreateMenuContextType | null>(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCreateMenuCtx = () => {
   const ctx = useContext(CreateMenuContext);
   if (!ctx) throw new Error("Must be used inside <CreateMenu>");

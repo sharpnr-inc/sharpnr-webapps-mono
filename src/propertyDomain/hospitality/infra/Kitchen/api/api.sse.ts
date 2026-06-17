@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export function useKitchenKOTsSSE(kitchenID: string) {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<{ data: unknown } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 

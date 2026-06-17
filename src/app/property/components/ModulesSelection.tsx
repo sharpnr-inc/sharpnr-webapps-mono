@@ -16,6 +16,7 @@ import { useHospitalityDomainModInfra } from "../api/queries";
 import { useAppForm } from "@/components/forms";
 import { useAddModulesInProperty } from "../api/mutation";
 import { useQueryClient } from "@tanstack/react-query";
+import type { DomainModuleInfra } from "../api/types";
 /* ---------- Types ---------- */
 
 interface ModulesSelectionProps {
@@ -79,7 +80,7 @@ export function ModulesSelectionSection({
 
   useEffect(() => {
     form.setFieldValue("property_id", propertyID);
-  }, [propertyID]);
+  }, [propertyID, form]);
 
   /* =====================================================
      RENDER
@@ -146,7 +147,7 @@ export function ModulesSelectionSection({
                     Loading modules…
                   </div>
                 ) : (
-                  modules.map((module: any) => {
+                  modules.map((module: DomainModuleInfra) => {
                     const selected = field.state.value.includes(
                       module.ModuleName,
                     );
@@ -167,7 +168,7 @@ export function ModulesSelectionSection({
                           );
                         }}
                         className={cn(
-                          "relative p-6 rounded-2xl border-2 transition-all min-h-[160px]",
+                          "relative p-6 rounded-2xl border-2 transition-all min-h-40",
                           selected
                             ? "border-blue-600"
                             : "border-slate-100 hover:border-slate-300",
@@ -221,7 +222,7 @@ export function ModulesSelectionSection({
           <form.Field name="infrastructure" mode="array">
             {(field) => (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {infrastructure.map((infra: any) => {
+                {infrastructure.map((infra: DomainModuleInfra) => {
                   const index = field.state.value.findIndex(
                     (i) => i.infra_name === infra.ModuleName,
                   );
@@ -243,15 +244,17 @@ export function ModulesSelectionSection({
                       onClick={() => {
                         if (!infra.IsAvailable || limitReached) return;
 
-                        selected
-                          ? field.removeValue(index)
-                          : field.pushValue({
-                              infra_name: infra.ModuleName,
-                              qty: 1,
-                            });
+                        if (selected) {
+                          field.removeValue(index);
+                        } else {
+                          field.pushValue({
+                            infra_name: infra.ModuleName,
+                            qty: 1,
+                          });
+                        }
                       }}
                       className={cn(
-                        "relative p-6 rounded-2xl border-2 transition-all min-h-[180px]",
+                        "relative p-6 rounded-2xl border-2 transition-all min-h-45",
                         selected
                           ? "border-emerald-600 "
                           : "border-slate-100 hover:border-slate-300",
@@ -308,7 +311,7 @@ export function ModulesSelectionSection({
                               −
                             </button>
 
-                            <span className="min-w-[20px] text-center font-semibold">
+                            <span className="min-w-5 text-center font-semibold">
                               {qty}
                             </span>
 
@@ -359,7 +362,7 @@ export function ModulesSelectionSection({
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 min-w-[280px]">
+            <div className="flex flex-col gap-4 min-w-70">
               <Button
                 type="submit"
                 size="lg"

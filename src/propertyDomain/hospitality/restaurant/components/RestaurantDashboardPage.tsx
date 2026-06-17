@@ -1,8 +1,6 @@
 import RestaurantSettingsTabs from "@/propertyDomain/hospitality/restaurant/components/RestaurantSettingsTabs";
 
-interface RestaurantDashboardPageProps {}
-
-const RestaurantDashboardPage: React.FC<RestaurantDashboardPageProps> = () => {
+const RestaurantDashboardPage: React.FC = () => {
   return (
     <div>
       <RestaurantSettingsTabs />

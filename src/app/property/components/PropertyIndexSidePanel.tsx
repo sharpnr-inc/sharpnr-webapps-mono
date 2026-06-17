@@ -1,7 +1,6 @@
 import { Alert, ScrollArea } from "@sharpnr/ui";
 import { Skeleton } from "@sharpnr/ui";
 import { Bell, Lightbulb, Layers, Play } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── Section wrapper ───────────────────────────────────────────────────────────
 function Section({
@@ -27,9 +26,9 @@ function Section({
 // ─── Content ───────────────────────────────────────────────────────────────────
 function Content() {
   return (
-    <div className="space-y-6 px-4 py-4">
+    <div className="grid gap-4 px-4 py-4 md:grid-cols-2 md:gap-5 lg:grid-cols-1">
       {/* Placeholder Video Card */}
-      <div className="rounded-xl border bg-background overflow-hidden">
+      <div className="rounded-xl border bg-background overflow-hidden md:col-span-2 lg:col-span-1">
         <div className="relative w-full aspect-video bg-muted flex items-center justify-center cursor-pointer">
           <div className="flex flex-col items-center gap-2 text-muted-foreground">
             <div className="w-12 h-12 rounded-full border-2 border-muted-foreground flex items-center justify-center">
@@ -48,7 +47,7 @@ function Content() {
       </div>
 
       {/* About */}
-      <div>
+      <div className="md:col-span-2 lg:col-span-1">
         <h2 className="text-base font-semibold">What is a Property?</h2>
         <p className="text-sm text-muted-foreground mt-2 leading-6">
           A property is the physical or virtual location where your business
@@ -122,7 +121,7 @@ function Content() {
         </div>
       </Section>
 
-      <Alert>
+      <Alert className="md:col-span-2 lg:col-span-1">
         <p className="text-sm leading-6">
           <strong>Good to know:</strong> A single legal entity can run multiple
           properties — a restaurant chain with five outlets, a clinic with
@@ -136,26 +135,22 @@ function Content() {
 
 // ─── Panel ─────────────────────────────────────────────────────────────────────
 export function PropoertyIndexSidePanel() {
-  const isMobile = useIsMobile();
-
-  // ── Mobile: inline below main content ────────────────────
-  if (isMobile) {
-    return (
-      <div className="border-t">
+  return (
+    <>
+      {/* ── Mobile + Tablet: inline below main content (< lg) ── */}
+      <div className="border-t lg:hidden">
         <div className="px-4 py-3 text-sm font-medium text-muted-foreground">
           About Properties
         </div>
         <Content />
       </div>
-    );
-  }
 
-  // ── Desktop: own independent scroll column ────────────────
-  return (
-    <aside className="hidden lg:flex lg:flex-col w-3/12 shrink-0">
-      <ScrollArea className="h-[calc(100vh-6rem)]">
-        <Content />
-      </ScrollArea>
-    </aside>
+      {/* ── Desktop: own independent scroll column (lg+) ── */}
+      <aside className="hidden w-3/12 shrink-0 border-l lg:flex lg:flex-col">
+        <ScrollArea className="h-[calc(100vh-5.5rem)]">
+          <Content />
+        </ScrollArea>
+      </aside>
+    </>
   );
 }

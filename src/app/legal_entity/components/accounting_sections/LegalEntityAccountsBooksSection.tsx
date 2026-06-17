@@ -100,43 +100,18 @@ export function LegalEntityAccountsBooksSection() {
       {/* Books overview */}
       <SubSection
         title="Book Balances"
-        action={<Skeleton className="h-5 w-20 rounded-full" />}
+        action={<Button size={"xs"}>View Details</Button>}
       >
         <div className="divide-y">
-          <BookRow label="Cash & Bank" trend="up" />
-          <BookRow label="Accounts Receivable" trend="up" />
-          <BookRow label="Accounts Payable" trend="down" />
+          <BookRow label="Total Assets" trend="up" />
+          <BookRow label="Total Expense" trend="up" />
+          <BookRow label="Total Equity" trend="down" />
           <BookRow label="Total Assets" trend="flat" />
           <BookRow label="Total Liabilities" trend="down" />
-          <BookRow label="Retained Earnings" trend="up" />
         </div>
         <p className="text-xs text-muted-foreground text-center mt-4">
           Balances reflect the last sync from Sharp Accounting.
         </p>
-      </SubSection>
-
-      {/* Linked books list */}
-      <SubSection title="Linked Books">
-        <div className="space-y-3">
-          {[...Array(2)].map((_, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 rounded-lg border p-3"
-            >
-              <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
-                <BookOpen className="w-4 h-4 text-muted-foreground" />
-              </div>
-              <div className="flex flex-col gap-1.5 flex-1">
-                <Skeleton className="h-3.5 w-2/5" />
-                <Skeleton className="h-3 w-1/4" />
-              </div>
-              <Skeleton className="h-5 w-14 rounded-full shrink-0" />
-            </div>
-          ))}
-          <p className="text-xs text-muted-foreground text-center pt-1">
-            Books linked to this legal entity across fiscal years.
-          </p>
-        </div>
       </SubSection>
 
       {/* Accounting settings */}

@@ -14,23 +14,29 @@ import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as Setup_wizardIndexRouteImport } from './routes/setup_wizard/index'
 import { Route as MarketingIndexRouteImport } from './routes/_marketing/index'
 import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
-import { Route as AppuserStorageRouteRouteImport } from './routes/_appuser/storage/route'
+import { Route as AppuserSiloRouteRouteImport } from './routes/_appuser/silo/route'
 import { Route as AppuserSharp_marketplaceRouteRouteImport } from './routes/_appuser/sharp_marketplace/route'
 import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/payments/route'
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserDescovro_integrationsRouteRouteImport } from './routes/_appuser/descovro_integrations/route'
+import { Route as AppuserCustomersRouteRouteImport } from './routes/_appuser/customers/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
-import { Route as AppuserStorageIndexRouteImport } from './routes/_appuser/storage/index'
+import { Route as AppuserSiloIndexRouteImport } from './routes/_appuser/silo/index'
 import { Route as AppuserSharp_marketplaceIndexRouteImport } from './routes/_appuser/sharp_marketplace/index'
+import { Route as AppuserSharpCrmIndexRouteImport } from './routes/_appuser/sharp-crm/index'
+import { Route as AppuserSharpAccountingIndexRouteImport } from './routes/_appuser/sharp-accounting/index'
 import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/property/index'
 import { Route as AppuserPaymentsIndexRouteImport } from './routes/_appuser/payments/index'
 import { Route as AppuserOrganizationIndexRouteImport } from './routes/_appuser/organization/index'
 import { Route as AppuserOrgUsersIndexRouteImport } from './routes/_appuser/org-users/index'
 import { Route as AppuserLegal_entityIndexRouteImport } from './routes/_appuser/legal_entity/index'
 import { Route as AppuserInventoryAccIndexRouteImport } from './routes/_appuser/inventory-acc/index'
+import { Route as AppuserFolioIndexRouteImport } from './routes/_appuser/folio/index'
 import { Route as AppuserDocs_officeIndexRouteImport } from './routes/_appuser/docs_office/index'
 import { Route as AppuserDescovro_integrationsIndexRouteImport } from './routes/_appuser/descovro_integrations/index'
+import { Route as AppuserCustomersIndexRouteImport } from './routes/_appuser/customers/index'
+import { Route as AppuserCortexIndexRouteImport } from './routes/_appuser/cortex/index'
 import { Route as AppuserCablesIndexRouteImport } from './routes/_appuser/cables/index'
 import { Route as AppuserAuditLogIndexRouteImport } from './routes/_appuser/audit-log/index'
 import { Route as Setup_wizardStepIDUserinfoRouteImport } from './routes/setup_wizard/$stepID/userinfo'
@@ -39,18 +45,28 @@ import { Route as Setup_wizardStepIDBase_setupRouteImport } from './routes/setup
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
 import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
+import { Route as AppuserBusinessOpsPropertyIndexRouteImport } from './routes/_appuser/business-ops/property/index'
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
 import { Route as AppuserPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/property/$propertyId/property-configuration'
 import { Route as AppuserPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/property/$propertyId/details'
 import { Route as AppuserLegal_entityLeIDTax_categoryRouteImport } from './routes/_appuser/legal_entity/$leID/tax_category'
 import { Route as AppuserLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/legal_entity/$leID/details'
 import { Route as AppuserInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/inventory-acc/$inventoryAccountID/details'
+import { Route as AppuserBusinessOpsPropertyRoutesRouteImport } from './routes/_appuser/business-ops/property/routes'
 import { Route as AppuserPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/property/$propertyId/property_settings/index'
+import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property-configuration'
+import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
+import { Route as AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property_settings/index'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
+import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
 import { Route as AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
+import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
+import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index'
+import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/index'
+import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/index'
 
 const Setup_wizardRouteRoute = Setup_wizardRouteRouteImport.update({
   id: '/setup_wizard',
@@ -76,9 +92,9 @@ const AppuserHomeRoute = AppuserHomeRouteImport.update({
   path: '/home',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
-const AppuserStorageRouteRoute = AppuserStorageRouteRouteImport.update({
-  id: '/storage',
-  path: '/storage',
+const AppuserSiloRouteRoute = AppuserSiloRouteRouteImport.update({
+  id: '/silo',
+  path: '/silo',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserSharp_marketplaceRouteRoute =
@@ -110,22 +126,38 @@ const AppuserDescovro_integrationsRouteRoute =
     path: '/descovro_integrations',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserCustomersRouteRoute = AppuserCustomersRouteRouteImport.update({
+  id: '/customers',
+  path: '/customers',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserSuppliersChar38VendorsIndexRoute =
   AppuserSuppliersChar38VendorsIndexRouteImport.update({
     id: '/suppliers&Vendors/',
     path: '/suppliers&Vendors/',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
-const AppuserStorageIndexRoute = AppuserStorageIndexRouteImport.update({
+const AppuserSiloIndexRoute = AppuserSiloIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AppuserStorageRouteRoute,
+  getParentRoute: () => AppuserSiloRouteRoute,
 } as any)
 const AppuserSharp_marketplaceIndexRoute =
   AppuserSharp_marketplaceIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppuserSharp_marketplaceRouteRoute,
+  } as any)
+const AppuserSharpCrmIndexRoute = AppuserSharpCrmIndexRouteImport.update({
+  id: '/sharp-crm/',
+  path: '/sharp-crm/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserSharpAccountingIndexRoute =
+  AppuserSharpAccountingIndexRouteImport.update({
+    id: '/sharp-accounting/',
+    path: '/sharp-accounting/',
+    getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserPropertyIndexRoute = AppuserPropertyIndexRouteImport.update({
   id: '/property/',
@@ -160,6 +192,11 @@ const AppuserInventoryAccIndexRoute =
     path: '/',
     getParentRoute: () => AppuserInventoryAccRouteRoute,
   } as any)
+const AppuserFolioIndexRoute = AppuserFolioIndexRouteImport.update({
+  id: '/folio/',
+  path: '/folio/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserDocs_officeIndexRoute = AppuserDocs_officeIndexRouteImport.update({
   id: '/docs_office/',
   path: '/docs_office/',
@@ -171,6 +208,16 @@ const AppuserDescovro_integrationsIndexRoute =
     path: '/',
     getParentRoute: () => AppuserDescovro_integrationsRouteRoute,
   } as any)
+const AppuserCustomersIndexRoute = AppuserCustomersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserCustomersRouteRoute,
+} as any)
+const AppuserCortexIndexRoute = AppuserCortexIndexRouteImport.update({
+  id: '/cortex/',
+  path: '/cortex/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserCablesIndexRoute = AppuserCablesIndexRouteImport.update({
   id: '/cables/',
   path: '/cables/',
@@ -215,6 +262,12 @@ const AppuserPaymentsAccountIdIndexRoute =
     path: '/$accountId/',
     getParentRoute: () => AppuserPaymentsRouteRoute,
   } as any)
+const AppuserBusinessOpsPropertyIndexRoute =
+  AppuserBusinessOpsPropertyIndexRouteImport.update({
+    id: '/business-ops/property/',
+    path: '/business-ops/property/',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute =
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport.update({
     id: '/suppliers&Vendors/$suppliersID/details',
@@ -251,10 +304,28 @@ const AppuserInventoryAccInventoryAccountIDDetailsRoute =
     path: '/$inventoryAccountID/details',
     getParentRoute: () => AppuserInventoryAccRouteRoute,
   } as any)
+const AppuserBusinessOpsPropertyRoutesRoute =
+  AppuserBusinessOpsPropertyRoutesRouteImport.update({
+    id: '/business-ops/property/routes',
+    path: '/business-ops/property/routes',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserPropertyPropertyIdProperty_settingsIndexRoute =
   AppuserPropertyPropertyIdProperty_settingsIndexRouteImport.update({
     id: '/property/$propertyId/property_settings/',
     path: '/property/$propertyId/property_settings/',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
+const AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute =
+  AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport.update({
+    id: '/business-ops/property/$propertyId/property-configuration',
+    path: '/business-ops/property/$propertyId/property-configuration',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
+const AppuserBusinessOpsPropertyPropertyIdDetailsRoute =
+  AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport.update({
+    id: '/business-ops/property/$propertyId/details',
+    path: '/business-ops/property/$propertyId/details',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute =
@@ -265,11 +336,25 @@ const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute 
       getParentRoute: () => AppuserRouteRoute,
     } as any,
   )
+const AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute =
+  AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRouteImport.update({
+    id: '/business-ops/property/$propertyId/property_settings/',
+    path: '/business-ops/property/$propertyId/property_settings/',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
   AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
     {
       id: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
       path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
+      getParentRoute: () => AppuserRouteRoute,
+    } as any,
+  )
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport.update(
+    {
+      id: '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard',
+      path: '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard',
       getParentRoute: () => AppuserRouteRoute,
     } as any,
   )
@@ -299,16 +384,51 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRout
         AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
     } as any,
   )
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
+    {
+      id: '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
+      path: '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId',
+      getParentRoute: () => AppuserRouteRoute,
+    } as any,
+  )
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport.update(
+    {
+      id: '/$restaurantID/',
+      path: '/$restaurantID/',
+      getParentRoute: () =>
+        AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute,
+    } as any,
+  )
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport.update(
+    {
+      id: '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/',
+      path: '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/',
+      getParentRoute: () => AppuserRouteRoute,
+    } as any,
+  )
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport.update(
+    {
+      id: '/',
+      path: '/',
+      getParentRoute: () =>
+        AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute,
+    } as any,
+  )
 
 export interface FileRoutesByFullPath {
   '/': typeof MarketingIndexRoute
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
+  '/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/payments': typeof AppuserPaymentsRouteRouteWithChildren
   '/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
-  '/storage': typeof AppuserStorageRouteRouteWithChildren
+  '/silo': typeof AppuserSiloRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/cables/routes': typeof AppuserCablesRoutesRoute
@@ -318,30 +438,45 @@ export interface FileRoutesByFullPath {
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/audit-log/': typeof AppuserAuditLogIndexRoute
   '/cables/': typeof AppuserCablesIndexRoute
+  '/cortex/': typeof AppuserCortexIndexRoute
+  '/customers/': typeof AppuserCustomersIndexRoute
   '/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
   '/docs_office/': typeof AppuserDocs_officeIndexRoute
+  '/folio/': typeof AppuserFolioIndexRoute
   '/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/legal_entity/': typeof AppuserLegal_entityIndexRoute
   '/org-users/': typeof AppuserOrgUsersIndexRoute
   '/organization/': typeof AppuserOrganizationIndexRoute
   '/payments/': typeof AppuserPaymentsIndexRoute
   '/property/': typeof AppuserPropertyIndexRoute
+  '/sharp-accounting/': typeof AppuserSharpAccountingIndexRoute
+  '/sharp-crm/': typeof AppuserSharpCrmIndexRoute
   '/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
-  '/storage/': typeof AppuserStorageIndexRoute
+  '/silo/': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
+  '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/property/$propertyId/property_settings/': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  '/business-ops/property/$propertyId/property_settings/': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
   '/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof MarketingIndexRoute
@@ -354,40 +489,55 @@ export interface FileRoutesByTo {
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/audit-log': typeof AppuserAuditLogIndexRoute
   '/cables': typeof AppuserCablesIndexRoute
+  '/cortex': typeof AppuserCortexIndexRoute
+  '/customers': typeof AppuserCustomersIndexRoute
   '/descovro_integrations': typeof AppuserDescovro_integrationsIndexRoute
   '/docs_office': typeof AppuserDocs_officeIndexRoute
+  '/folio': typeof AppuserFolioIndexRoute
   '/inventory-acc': typeof AppuserInventoryAccIndexRoute
   '/legal_entity': typeof AppuserLegal_entityIndexRoute
   '/org-users': typeof AppuserOrgUsersIndexRoute
   '/organization': typeof AppuserOrganizationIndexRoute
   '/payments': typeof AppuserPaymentsIndexRoute
   '/property': typeof AppuserPropertyIndexRoute
+  '/sharp-accounting': typeof AppuserSharpAccountingIndexRoute
+  '/sharp-crm': typeof AppuserSharpCrmIndexRoute
   '/sharp_marketplace': typeof AppuserSharp_marketplaceIndexRoute
-  '/storage': typeof AppuserStorageIndexRoute
+  '/silo': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/business-ops/property': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
+  '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/property/$propertyId/property_settings': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/business-ops/property/$propertyId/property_settings': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
   '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
   '/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
   '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
+  '/_appuser/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/_appuser/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
   '/_appuser/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
-  '/_appuser/storage': typeof AppuserStorageRouteRouteWithChildren
+  '/_appuser/silo': typeof AppuserSiloRouteRouteWithChildren
   '/_appuser/home': typeof AppuserHomeRoute
   '/_marketing/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
@@ -398,42 +548,58 @@ export interface FileRoutesById {
   '/setup_wizard/$stepID/userinfo': typeof Setup_wizardStepIDUserinfoRoute
   '/_appuser/audit-log/': typeof AppuserAuditLogIndexRoute
   '/_appuser/cables/': typeof AppuserCablesIndexRoute
+  '/_appuser/cortex/': typeof AppuserCortexIndexRoute
+  '/_appuser/customers/': typeof AppuserCustomersIndexRoute
   '/_appuser/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
   '/_appuser/docs_office/': typeof AppuserDocs_officeIndexRoute
+  '/_appuser/folio/': typeof AppuserFolioIndexRoute
   '/_appuser/inventory-acc/': typeof AppuserInventoryAccIndexRoute
   '/_appuser/legal_entity/': typeof AppuserLegal_entityIndexRoute
   '/_appuser/org-users/': typeof AppuserOrgUsersIndexRoute
   '/_appuser/organization/': typeof AppuserOrganizationIndexRoute
   '/_appuser/payments/': typeof AppuserPaymentsIndexRoute
   '/_appuser/property/': typeof AppuserPropertyIndexRoute
+  '/_appuser/sharp-accounting/': typeof AppuserSharpAccountingIndexRoute
+  '/_appuser/sharp-crm/': typeof AppuserSharpCrmIndexRoute
   '/_appuser/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
-  '/_appuser/storage/': typeof AppuserStorageIndexRoute
+  '/_appuser/silo/': typeof AppuserSiloIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/_appuser/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
   '/_appuser/legal_entity/$leID/tax_category': typeof AppuserLegal_entityLeIDTax_categoryRoute
   '/_appuser/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/_appuser/property/$propertyId/property-configuration': typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/_appuser/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
+  '/_appuser/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/property/$propertyId/property_settings/': typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  '/_appuser/business-ops/property/$propertyId/property_settings/': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
+  '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
   '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
   '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+  '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+  '/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/setup_wizard'
+    | '/customers'
     | '/descovro_integrations'
     | '/inventory-acc'
     | '/legal_entity'
     | '/payments'
     | '/sharp_marketplace'
-    | '/storage'
+    | '/silo'
     | '/home'
     | '/setup_wizard/'
     | '/cables/routes'
@@ -443,30 +609,45 @@ export interface FileRouteTypes {
     | '/setup_wizard/$stepID/userinfo'
     | '/audit-log/'
     | '/cables/'
+    | '/cortex/'
+    | '/customers/'
     | '/descovro_integrations/'
     | '/docs_office/'
+    | '/folio/'
     | '/inventory-acc/'
     | '/legal_entity/'
     | '/org-users/'
     | '/organization/'
     | '/payments/'
     | '/property/'
+    | '/sharp-accounting/'
+    | '/sharp-crm/'
     | '/sharp_marketplace/'
-    | '/storage/'
+    | '/silo/'
     | '/suppliers&Vendors/'
+    | '/business-ops/property/routes'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
     | '/legal_entity/$leID/tax_category'
     | '/property/$propertyId/details'
     | '/property/$propertyId/property-configuration'
     | '/suppliers&Vendors/$suppliersID/details'
+    | '/business-ops/property/'
     | '/payments/$accountId/'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/business-ops/property/$propertyId/details'
+    | '/business-ops/property/$propertyId/property-configuration'
     | '/property/$propertyId/property_settings/'
+    | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/business-ops/property/$propertyId/property_settings/'
+    | '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
     | '/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+    | '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    | '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -479,39 +660,54 @@ export interface FileRouteTypes {
     | '/setup_wizard/$stepID/userinfo'
     | '/audit-log'
     | '/cables'
+    | '/cortex'
+    | '/customers'
     | '/descovro_integrations'
     | '/docs_office'
+    | '/folio'
     | '/inventory-acc'
     | '/legal_entity'
     | '/org-users'
     | '/organization'
     | '/payments'
     | '/property'
+    | '/sharp-accounting'
+    | '/sharp-crm'
     | '/sharp_marketplace'
-    | '/storage'
+    | '/silo'
     | '/suppliers&Vendors'
+    | '/business-ops/property/routes'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
     | '/legal_entity/$leID/tax_category'
     | '/property/$propertyId/details'
     | '/property/$propertyId/property-configuration'
     | '/suppliers&Vendors/$suppliersID/details'
+    | '/business-ops/property'
     | '/payments/$accountId'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/business-ops/property/$propertyId/details'
+    | '/business-ops/property/$propertyId/property-configuration'
     | '/property/$propertyId/property_settings'
+    | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/business-ops/property/$propertyId/property_settings'
     | '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/property/$propertyId/domain_hospitality/infra_d/$InfraID'
     | '/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
+    | '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID'
+    | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID'
   id:
     | '__root__'
     | '/_appuser'
     | '/setup_wizard'
+    | '/_appuser/customers'
     | '/_appuser/descovro_integrations'
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
     | '/_appuser/payments'
     | '/_appuser/sharp_marketplace'
-    | '/_appuser/storage'
+    | '/_appuser/silo'
     | '/_appuser/home'
     | '/_marketing/'
     | '/setup_wizard/'
@@ -522,30 +718,45 @@ export interface FileRouteTypes {
     | '/setup_wizard/$stepID/userinfo'
     | '/_appuser/audit-log/'
     | '/_appuser/cables/'
+    | '/_appuser/cortex/'
+    | '/_appuser/customers/'
     | '/_appuser/descovro_integrations/'
     | '/_appuser/docs_office/'
+    | '/_appuser/folio/'
     | '/_appuser/inventory-acc/'
     | '/_appuser/legal_entity/'
     | '/_appuser/org-users/'
     | '/_appuser/organization/'
     | '/_appuser/payments/'
     | '/_appuser/property/'
+    | '/_appuser/sharp-accounting/'
+    | '/_appuser/sharp-crm/'
     | '/_appuser/sharp_marketplace/'
-    | '/_appuser/storage/'
+    | '/_appuser/silo/'
     | '/_appuser/suppliers&Vendors/'
+    | '/_appuser/business-ops/property/routes'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
     | '/_appuser/legal_entity/$leID/details'
     | '/_appuser/legal_entity/$leID/tax_category'
     | '/_appuser/property/$propertyId/details'
     | '/_appuser/property/$propertyId/property-configuration'
     | '/_appuser/suppliers&Vendors/$suppliersID/details'
+    | '/_appuser/business-ops/property/'
     | '/_appuser/payments/$accountId/'
     | '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard'
+    | '/_appuser/business-ops/property/$propertyId/details'
+    | '/_appuser/business-ops/property/$propertyId/property-configuration'
     | '/_appuser/property/$propertyId/property_settings/'
+    | '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+    | '/_appuser/business-ops/property/$propertyId/property_settings/'
+    | '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
     | '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
     | '/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
     | '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+    | '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+    | '/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+    | '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -591,11 +802,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserHomeRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/storage': {
-      id: '/_appuser/storage'
-      path: '/storage'
-      fullPath: '/storage'
-      preLoaderRoute: typeof AppuserStorageRouteRouteImport
+    '/_appuser/silo': {
+      id: '/_appuser/silo'
+      path: '/silo'
+      fullPath: '/silo'
+      preLoaderRoute: typeof AppuserSiloRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/sharp_marketplace': {
@@ -633,6 +844,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDescovro_integrationsRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/customers': {
+      id: '/_appuser/customers'
+      path: '/customers'
+      fullPath: '/customers'
+      preLoaderRoute: typeof AppuserCustomersRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/suppliers&Vendors/': {
       id: '/_appuser/suppliers&Vendors/'
       path: '/suppliers&Vendors'
@@ -640,12 +858,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserSuppliersChar38VendorsIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/storage/': {
-      id: '/_appuser/storage/'
+    '/_appuser/silo/': {
+      id: '/_appuser/silo/'
       path: '/'
-      fullPath: '/storage/'
-      preLoaderRoute: typeof AppuserStorageIndexRouteImport
-      parentRoute: typeof AppuserStorageRouteRoute
+      fullPath: '/silo/'
+      preLoaderRoute: typeof AppuserSiloIndexRouteImport
+      parentRoute: typeof AppuserSiloRouteRoute
     }
     '/_appuser/sharp_marketplace/': {
       id: '/_appuser/sharp_marketplace/'
@@ -653,6 +871,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/sharp_marketplace/'
       preLoaderRoute: typeof AppuserSharp_marketplaceIndexRouteImport
       parentRoute: typeof AppuserSharp_marketplaceRouteRoute
+    }
+    '/_appuser/sharp-crm/': {
+      id: '/_appuser/sharp-crm/'
+      path: '/sharp-crm'
+      fullPath: '/sharp-crm/'
+      preLoaderRoute: typeof AppuserSharpCrmIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/sharp-accounting/': {
+      id: '/_appuser/sharp-accounting/'
+      path: '/sharp-accounting'
+      fullPath: '/sharp-accounting/'
+      preLoaderRoute: typeof AppuserSharpAccountingIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/property/': {
       id: '/_appuser/property/'
@@ -696,6 +928,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserInventoryAccIndexRouteImport
       parentRoute: typeof AppuserInventoryAccRouteRoute
     }
+    '/_appuser/folio/': {
+      id: '/_appuser/folio/'
+      path: '/folio'
+      fullPath: '/folio/'
+      preLoaderRoute: typeof AppuserFolioIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/docs_office/': {
       id: '/_appuser/docs_office/'
       path: '/docs_office'
@@ -709,6 +948,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/descovro_integrations/'
       preLoaderRoute: typeof AppuserDescovro_integrationsIndexRouteImport
       parentRoute: typeof AppuserDescovro_integrationsRouteRoute
+    }
+    '/_appuser/customers/': {
+      id: '/_appuser/customers/'
+      path: '/'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof AppuserCustomersIndexRouteImport
+      parentRoute: typeof AppuserCustomersRouteRoute
+    }
+    '/_appuser/cortex/': {
+      id: '/_appuser/cortex/'
+      path: '/cortex'
+      fullPath: '/cortex/'
+      preLoaderRoute: typeof AppuserCortexIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/cables/': {
       id: '/_appuser/cables/'
@@ -766,6 +1019,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserPaymentsAccountIdIndexRouteImport
       parentRoute: typeof AppuserPaymentsRouteRoute
     }
+    '/_appuser/business-ops/property/': {
+      id: '/_appuser/business-ops/property/'
+      path: '/business-ops/property'
+      fullPath: '/business-ops/property/'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/suppliers&Vendors/$suppliersID/details': {
       id: '/_appuser/suppliers&Vendors/$suppliersID/details'
       path: '/suppliers&Vendors/$suppliersID/details'
@@ -808,11 +1068,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserInventoryAccInventoryAccountIDDetailsRouteImport
       parentRoute: typeof AppuserInventoryAccRouteRoute
     }
+    '/_appuser/business-ops/property/routes': {
+      id: '/_appuser/business-ops/property/routes'
+      path: '/business-ops/property/routes'
+      fullPath: '/business-ops/property/routes'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyRoutesRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/property/$propertyId/property_settings/': {
       id: '/_appuser/property/$propertyId/property_settings/'
       path: '/property/$propertyId/property_settings'
       fullPath: '/property/$propertyId/property_settings/'
       preLoaderRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/business-ops/property/$propertyId/property-configuration': {
+      id: '/_appuser/business-ops/property/$propertyId/property-configuration'
+      path: '/business-ops/property/$propertyId/property-configuration'
+      fullPath: '/business-ops/property/$propertyId/property-configuration'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/business-ops/property/$propertyId/details': {
+      id: '/_appuser/business-ops/property/$propertyId/details'
+      path: '/business-ops/property/$propertyId/details'
+      fullPath: '/business-ops/property/$propertyId/details'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard': {
@@ -822,11 +1103,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/business-ops/property/$propertyId/property_settings/': {
+      id: '/_appuser/business-ops/property/$propertyId/property_settings/'
+      path: '/business-ops/property/$propertyId/property_settings'
+      fullPath: '/business-ops/property/$propertyId/property_settings/'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
       id: '/_appuser/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       path: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       fullPath: '/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': {
+      id: '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
+      path: '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
+      fullPath: '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
@@ -850,8 +1145,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
       parentRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
     }
+    '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
+      id: '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      path: '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      fullPath: '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': {
+      id: '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+      path: '/$restaurantID'
+      fullPath: '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRouteImport
+      parentRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute
+    }
+    '/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/': {
+      id: '/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+      path: '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID'
+      fullPath: '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': {
+      id: '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+      path: '/'
+      fullPath: '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
+      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRouteImport
+      parentRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute
+    }
   }
 }
+
+interface AppuserCustomersRouteRouteChildren {
+  AppuserCustomersIndexRoute: typeof AppuserCustomersIndexRoute
+}
+
+const AppuserCustomersRouteRouteChildren: AppuserCustomersRouteRouteChildren = {
+  AppuserCustomersIndexRoute: AppuserCustomersIndexRoute,
+}
+
+const AppuserCustomersRouteRouteWithChildren =
+  AppuserCustomersRouteRoute._addFileChildren(
+    AppuserCustomersRouteRouteChildren,
+  )
 
 interface AppuserDescovro_integrationsRouteRouteChildren {
   AppuserDescovro_integrationsIndexRoute: typeof AppuserDescovro_integrationsIndexRoute
@@ -931,16 +1267,16 @@ const AppuserSharp_marketplaceRouteRouteWithChildren =
     AppuserSharp_marketplaceRouteRouteChildren,
   )
 
-interface AppuserStorageRouteRouteChildren {
-  AppuserStorageIndexRoute: typeof AppuserStorageIndexRoute
+interface AppuserSiloRouteRouteChildren {
+  AppuserSiloIndexRoute: typeof AppuserSiloIndexRoute
 }
 
-const AppuserStorageRouteRouteChildren: AppuserStorageRouteRouteChildren = {
-  AppuserStorageIndexRoute: AppuserStorageIndexRoute,
+const AppuserSiloRouteRouteChildren: AppuserSiloRouteRouteChildren = {
+  AppuserSiloIndexRoute: AppuserSiloIndexRoute,
 }
 
-const AppuserStorageRouteRouteWithChildren =
-  AppuserStorageRouteRoute._addFileChildren(AppuserStorageRouteRouteChildren)
+const AppuserSiloRouteRouteWithChildren =
+  AppuserSiloRouteRoute._addFileChildren(AppuserSiloRouteRouteChildren)
 
 interface AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
   AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
@@ -955,6 +1291,21 @@ const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteC
 const AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren =
   AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute._addFileChildren(
     AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren,
+  )
+
+interface AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
+}
+
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren: AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren =
+  {
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute:
+      AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute,
+  }
+
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute._addFileChildren(
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren,
   )
 
 interface AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
@@ -972,33 +1323,62 @@ const AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRout
     AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
   )
 
+interface AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
+}
+
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren: AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren =
+  {
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute:
+      AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute,
+  }
+
+const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
+  )
+
 interface AppuserRouteRouteChildren {
+  AppuserCustomersRouteRoute: typeof AppuserCustomersRouteRouteWithChildren
   AppuserDescovro_integrationsRouteRoute: typeof AppuserDescovro_integrationsRouteRouteWithChildren
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
   AppuserLegal_entityRouteRoute: typeof AppuserLegal_entityRouteRouteWithChildren
   AppuserPaymentsRouteRoute: typeof AppuserPaymentsRouteRouteWithChildren
   AppuserSharp_marketplaceRouteRoute: typeof AppuserSharp_marketplaceRouteRouteWithChildren
-  AppuserStorageRouteRoute: typeof AppuserStorageRouteRouteWithChildren
+  AppuserSiloRouteRoute: typeof AppuserSiloRouteRouteWithChildren
   AppuserHomeRoute: typeof AppuserHomeRoute
   AppuserCablesRoutesRoute: typeof AppuserCablesRoutesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
   AppuserAuditLogIndexRoute: typeof AppuserAuditLogIndexRoute
   AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
+  AppuserCortexIndexRoute: typeof AppuserCortexIndexRoute
   AppuserDocs_officeIndexRoute: typeof AppuserDocs_officeIndexRoute
+  AppuserFolioIndexRoute: typeof AppuserFolioIndexRoute
   AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
+  AppuserSharpAccountingIndexRoute: typeof AppuserSharpAccountingIndexRoute
+  AppuserSharpCrmIndexRoute: typeof AppuserSharpCrmIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
+  AppuserBusinessOpsPropertyRoutesRoute: typeof AppuserBusinessOpsPropertyRoutesRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
   AppuserPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserPropertyPropertyIdPropertyConfigurationRoute
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  AppuserBusinessOpsPropertyIndexRoute: typeof AppuserBusinessOpsPropertyIndexRoute
   AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
+  AppuserBusinessOpsPropertyPropertyIdDetailsRoute: typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
+  AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   AppuserPropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserPropertyPropertyIdProperty_settingsIndexRoute
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
+  AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
   AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
+  AppuserCustomersRouteRoute: AppuserCustomersRouteRouteWithChildren,
   AppuserDescovro_integrationsRouteRoute:
     AppuserDescovro_integrationsRouteRouteWithChildren,
   AppuserInventoryAccRouteRoute: AppuserInventoryAccRouteRouteWithChildren,
@@ -1006,31 +1386,49 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserPaymentsRouteRoute: AppuserPaymentsRouteRouteWithChildren,
   AppuserSharp_marketplaceRouteRoute:
     AppuserSharp_marketplaceRouteRouteWithChildren,
-  AppuserStorageRouteRoute: AppuserStorageRouteRouteWithChildren,
+  AppuserSiloRouteRoute: AppuserSiloRouteRouteWithChildren,
   AppuserHomeRoute: AppuserHomeRoute,
   AppuserCablesRoutesRoute: AppuserCablesRoutesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
   AppuserAuditLogIndexRoute: AppuserAuditLogIndexRoute,
   AppuserCablesIndexRoute: AppuserCablesIndexRoute,
+  AppuserCortexIndexRoute: AppuserCortexIndexRoute,
   AppuserDocs_officeIndexRoute: AppuserDocs_officeIndexRoute,
+  AppuserFolioIndexRoute: AppuserFolioIndexRoute,
   AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
+  AppuserSharpAccountingIndexRoute: AppuserSharpAccountingIndexRoute,
+  AppuserSharpCrmIndexRoute: AppuserSharpCrmIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,
+  AppuserBusinessOpsPropertyRoutesRoute: AppuserBusinessOpsPropertyRoutesRoute,
   AppuserPropertyPropertyIdDetailsRoute: AppuserPropertyPropertyIdDetailsRoute,
   AppuserPropertyPropertyIdPropertyConfigurationRoute:
     AppuserPropertyPropertyIdPropertyConfigurationRoute,
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute:
     AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute,
+  AppuserBusinessOpsPropertyIndexRoute: AppuserBusinessOpsPropertyIndexRoute,
   AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
     AppuserPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
+  AppuserBusinessOpsPropertyPropertyIdDetailsRoute:
+    AppuserBusinessOpsPropertyPropertyIdDetailsRoute,
+  AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute:
+    AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute,
   AppuserPropertyPropertyIdProperty_settingsIndexRoute:
     AppuserPropertyPropertyIdProperty_settingsIndexRoute,
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
   AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
     AppuserPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
+  AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute:
+    AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute,
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
   AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
     AppuserPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
+  AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
+    AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
 }
 
 const AppuserRouteRouteWithChildren = AppuserRouteRoute._addFileChildren(

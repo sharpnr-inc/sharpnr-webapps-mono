@@ -32,7 +32,7 @@ export async function GetOrganizationSetUpProgress() {
 /* ---------------------------------- <***> --------------------------------- */
 
 export async function UpdateSuperAdmin({ payload }: SuperAdminDetailspayload) {
-  const response = await api.post<APIResponse<any>>(
+  const response = await api.post<APIResponse<unknown>>(
     SetupWizardAPIEndpoints.UpdateSuperAdminDetails,
     payload,
   );

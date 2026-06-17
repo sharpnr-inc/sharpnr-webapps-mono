@@ -15,6 +15,14 @@ import { CreatePaymentAccountForm } from "../components/CreatePaymentAccountForm
 import { usePaymentAccounts } from "../api/api.queries";
 import { useNavigate } from "@tanstack/react-router";
 
+interface PaymentAccount {
+  Id: string;
+  LegalEntityID: string;
+  Name: string;
+  Currency: string;
+  IsActive: boolean;
+}
+
 export function PaymentsHomePage() {
   const [creatAccountOpen, setCreateAccountOpen] = useState(false);
 
@@ -61,7 +69,7 @@ export function PaymentsHomePage() {
 
       {/* Cards Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {accounts.map((account: any) => (
+        {accounts.map((account: PaymentAccount) => (
           <Card
             key={account.LegalEntityID}
             className="hover:shadow-md transition"

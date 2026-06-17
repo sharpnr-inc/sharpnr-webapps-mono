@@ -6,6 +6,22 @@ import {
 import type { APIResponse } from "@/lib/api_response";
 
 /* ---------------------------------- <***> --------------------------------- */
+
+export interface RestaurantTableLayout {
+  TableID: string;
+  TableName: string;
+}
+
+export interface RestaurantFloorLayout {
+  Floor_Number: number;
+  Floor_Name: string;
+  Tables: RestaurantTableLayout[] | null;
+}
+
+export interface RestaurantLayoutResponse {
+  Layout: RestaurantFloorLayout[];
+}
+
 export async function FetchRestaurantLayout(restaurantID?: string | null) {
   if (restaurantID !== null) {
     const res = await api.get(RestaurantEndpoints.Layout(restaurantID));
@@ -16,7 +32,7 @@ export async function FetchRestaurantLayout(restaurantID?: string | null) {
 
 interface AddRestaurantLayoutPayload {
   restaurantID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function AddRestaurantFloorsAdnTables(
@@ -89,7 +105,7 @@ export async function GetRestaurantGeneralInfo(
 
 interface UpdateRestaurantGeneralInfoPayload {
   restaurantID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function UpdateRestaurantGeneralInfo({
@@ -132,7 +148,7 @@ export async function GetDiningSessionOrders(
 interface AddOrderInDiningSessionPayload {
   restaurantID: string;
   diningSessionID: string;
-  req_payload: any;
+  req_payload: unknown;
 }
 export async function AddOrdersInDiningSession(
   payload: AddOrderInDiningSessionPayload,
@@ -151,7 +167,7 @@ export async function AddOrdersInDiningSession(
 interface CloseDiningSessionReq {
   restuarantID: string;
   diningSessionID: string;
-  payload: any;
+  payload: unknown;
 }
 export async function CloseDiningSession({
   diningSessionID,

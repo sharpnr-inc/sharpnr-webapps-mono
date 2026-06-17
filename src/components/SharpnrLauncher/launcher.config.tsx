@@ -1,91 +1,112 @@
-import React from "react";
-import type { NavSection } from "./launcher.types";
+import {
+  Users,
+  ReceiptText,
+  Brain,
+  ShoppingBag,
+  BookOpenText,
+  Cable,
+  Megaphone,
+  Layers,
+  Hotel,
+} from "lucide-react";
 
-/* =========================================================
-   SVG ICONS
-========================================================= */
+export type LauncherItem = {
+  id: string;
+  label: string;
+  description: string;
+  icon: React.ElementType;
+  to: string;
+  accent: string; // tailwind bg color for the icon glow/dot
+};
 
-const Icon = ({ children }: { children: React.ReactNode }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className="h-5 w-5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {children}
-  </svg>
-);
+export type LauncherSection = {
+  id: string;
+  title: string;
+  items: LauncherItem[];
+};
 
-export const HRLogo = () => (
-  <Icon>
-    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.5" />
-    <path
-      d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
-  </Icon>
-);
-
-export const AccLogo = () => (
-  <Icon>
-    <path
-      d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H7"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
-  </Icon>
-);
-
-export const MktLogo = () => (
-  <Icon>
-    <path
-      d="M11 5L6 9H2v6h4l5 4V5zM15 9a5 5 0 010 6M19 6a9 9 0 010 12"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
-  </Icon>
-);
-
-export const HospLogo = () => (
-  <Icon>
-    <path
-      d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
-    <polyline
-      points="9 22 9 12 15 12 15 22"
-      stroke="currentColor"
-      strokeWidth="1.5"
-    />
-  </Icon>
-);
-
-export const DEFAULT_SECTIONS: NavSection[] = [
+export const LAUNCHER_SECTIONS: LauncherSection[] = [
   {
-    id: "sharp_services",
-    title: "Sharp Services",
+    id: "business_operations",
+    title: "Business Operations",
     items: [
-      { id: "hr", label: "HR", icon: HRLogo, to: "/dashboard/sharp_hr" },
+      {
+        id: "hosp",
+        label: "Hospitality",
+        description: "Property & guest management",
+        icon: Hotel,
+        to: "#",
+        accent: "#f59e0b",
+      },
+    ],
+  },
+  {
+    id: "sharpnr_services",
+    title: "Sharpnr Services",
+    items: [
+      {
+        id: "hr",
+        label: "Sharp HR",
+        description: "People & payroll",
+        icon: Users,
+        to: "#",
+        accent: "#6366f1",
+      },
       {
         id: "acc",
         label: "Accounting",
-        icon: AccLogo,
-        to: "/dashboard/sharp_accounting",
+        description: "Finance & ledger",
+        icon: ReceiptText,
+        to: "#",
+        accent: "#10b981",
+      },
+      {
+        id: "cortex",
+        label: "Cortex",
+        description: "IT management",
+        icon: Brain,
+        to: "#",
+        accent: "#8b5cf6",
+      },
+      {
+        id: "marketplace",
+        label: "Marketplace",
+        description: "Buy, sell & trade",
+        icon: ShoppingBag,
+        to: "#",
+        accent: "#f43f5e",
+      },
+      {
+        id: "folio",
+        label: "Folio",
+        description: "Docs & knowledge base",
+        icon: BookOpenText,
+        to: "#",
+        accent: "#0ea5e9",
+      },
+      {
+        id: "cables",
+        label: "Cables",
+        description: "Integrations & pipelines",
+        icon: Cable,
+        to: "#",
+        accent: "#84cc16",
       },
       {
         id: "mkt",
         label: "Marketing",
-        icon: MktLogo,
-        to: "/dashboard/sharp_marketing",
+        description: "Campaigns & analytics",
+        icon: Megaphone,
+        to: "#",
+        accent: "#fb923c",
       },
       {
-        id: "hosp",
-        label: "Hospitality",
-        icon: HospLogo,
-        to: "/dashboard/sharp_hospitality",
+        id: "silo",
+        label: "Silo",
+        description: "Data warehouse & storage",
+        icon: Layers,
+        to: "#",
+        accent: "#22d3ee",
       },
     ],
   },

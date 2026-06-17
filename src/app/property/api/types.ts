@@ -14,9 +14,9 @@ export interface Property {
   name: string;
   city: string;
   state: string;
-  domain: string;
-  is_configured: boolean;
   code: string;
+  address_line: string;
+  country: string;
 }
 
 export interface PropertiesOfOrganizationData {
@@ -38,6 +38,13 @@ export interface PropertyInfra {
   infra_type: string;
 }
 
+export interface DomainModuleInfra {
+  ID: string;
+  ModuleName: string;
+  Description?: string;
+  IsAvailable: boolean;
+}
+
 export interface PropertyDetailsData {
   name: string;
   code: string;
@@ -45,7 +52,6 @@ export interface PropertyDetailsData {
   address_line: string;
   state: string;
   country: string;
-  domain: string;
   __modules__data__: PropertyModule[];
   infra: PropertyInfra[];
 }
