@@ -5,17 +5,20 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@sharpnr/ui";
 import { useCreateMenuCtx } from "./create-menu.context";
 import { useCreateMenuStore } from "../stores/create-menu_store";
 import { Button } from "@sharpnr/ui";
 import { MoveLeft, PlusIcon } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { createMenuAction } from "../stores/actions";
 import {
   Dialog,
@@ -35,13 +38,6 @@ import {
   useAddPreferredKitchenToMenuSubCategoryMutation,
 } from "../../infra/apis/api.Mutations";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { usePropertyDetails } from "@/app/property/api/queries";
 
 const CreateItem = () => {
@@ -65,7 +61,7 @@ const CreateItem = () => {
     .find((sc) => sc.id === activeSubCategoryID);
 
   const preferredKitchen = kitchens.find(
-    (k: any) => k.id === activeSubCategory?.preferred_kitchen,
+    (k) => k.id === activeSubCategory?.preferred_kitchen,
   );
 
   const items = activeSubCategory?.menu_items ?? [];
@@ -189,7 +185,7 @@ const CreateItem = () => {
               </SelectTrigger>
 
               <SelectContent>
-                {kitchens.map((kitchen: any) => (
+                {kitchens.map((kitchen) => (
                   <SelectItem key={kitchen.id} value={kitchen.id}>
                     <div className="flex items-center justify-between w-full">
                       <span>{kitchen.name}</span>
@@ -221,7 +217,7 @@ const CreateItem = () => {
           )}
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-            {items.map((item: any) => (
+            {items.map((item) => (
               <TooltipProvider key={item.id}>
                 <Tooltip>
                   <TooltipTrigger asChild>

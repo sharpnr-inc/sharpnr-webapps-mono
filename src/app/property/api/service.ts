@@ -9,11 +9,12 @@ import type {
 
 const PropertyEndpoints = {
   AddProperty: "/orchestrator/property/create",
+
   allProperty: "/orchestrator/property",
+
   PropertyDetails: (propID: string | undefined) =>
     `/orchestrator/property/${propID}`,
-  AddDomain: (propertyID: string) =>
-    `/orchestrator/property/${propertyID}/add-domain`,
+
   AddModules: (propertyID: string) =>
     `/orchestrator/property/${propertyID}/add-modules`,
   AddInfra: (propertyID: string) =>
@@ -68,23 +69,6 @@ export async function GetPropertyDetails(propertyID: string | undefined) {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-type AddDomainPayload = {
-  propertyID: string;
-  domain: string;
-};
-
-export async function SetDomainOfProperty({
-  propertyID,
-  domain,
-}: AddDomainPayload) {
-  const res = await api.post(PropertyEndpoints.AddDomain(propertyID), {
-    domain, // 👈 MUST be an object
-  });
-  return res.data;
-}
-
-/* ---------------------------------- <***> --------------------------------- */
-
 export interface PropertyInfraConfigurationPayload {
   infra_name: string;
   qty: number;
@@ -112,7 +96,7 @@ export async function AddModulesInProperty({
 /* ---------------------------------- <***> --------------------------------- */
 
 interface AddInfraInPropPayload {
-  request_payload: any;
+  request_payload: Record<string, unknown>;
   propertyID: string;
 }
 export async function AddInfraInProperty(payload: AddInfraInPropPayload) {
@@ -127,7 +111,7 @@ export async function AddInfraInProperty(payload: AddInfraInPropPayload) {
 
 interface ConfigureHotelPayload {
   propertyID: string;
-  request_payload: any;
+  request_payload: Record<string, unknown>;
 }
 
 export async function ConfigureHotel(payload: ConfigureHotelPayload) {

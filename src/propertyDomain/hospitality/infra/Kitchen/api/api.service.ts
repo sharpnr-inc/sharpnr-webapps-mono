@@ -36,7 +36,7 @@ export async function GetKitchenConfiguration(kitchenID: string) {
 }
 
 interface UpdateKitchenDetailsPayload {
-  payload: any;
+  payload: unknown;
   kitchenID: string;
 }
 export async function UpdateKitchenDetails(

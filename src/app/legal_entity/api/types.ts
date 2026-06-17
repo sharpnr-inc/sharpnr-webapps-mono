@@ -31,9 +31,9 @@ export interface LegalEntityIdentifierTypeResponse extends LegalEntityUtilRespon
   description: string;
 }
 
-export interface LegalEntityTaxTypeResponse extends LegalEntityIdentifierTypeResponse {}
-export interface LegalEntityTaxComponentTypeResponse extends LegalEntityIdentifierTypeResponse {}
-export interface LegalEntityBankAccountTypeResponse extends LegalEntityIdentifierTypeResponse {}
+export type LegalEntityTaxTypeResponse = LegalEntityIdentifierTypeResponse;
+export type LegalEntityTaxComponentTypeResponse = LegalEntityIdentifierTypeResponse;
+export type LegalEntityBankAccountTypeResponse = LegalEntityIdentifierTypeResponse;
 
 /* ---------------------------------- <***> --------------------------------- */
 
@@ -178,7 +178,7 @@ export interface LegalEntityTaxRuleResponseDto {
   tax_registration_id: string;
   tax_type: LegalEntityTaxType;
   rate: number;
-  condition_json: Record<string, any> | null; // Handles the dynamic json.RawMessage payload
+  condition_json: Record<string, unknown> | null; // Handles the dynamic json.RawMessage payload
   min_value: number | null;
   max_value: number | null;
   priority: number;

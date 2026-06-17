@@ -14,9 +14,9 @@ import {
   Box,
 } from "lucide-react";
 import { useInventoryAccounts } from "./api/queries";
-import { useFormsModal } from "@sharpnr/ui";
 import { AddNewInventoryAccountForm } from "./forms/AddNewInventoryAccount";
 import { useNavigate } from "@tanstack/react-router";
+import { useModal } from "@/hooks/useModal";
 
 /* ─── type matching API response ─── */
 type InventoryAccount = {
@@ -148,11 +148,11 @@ function AccountCard({
     >
       {/* gradient top wash */}
       <div
-        className={`absolute inset-x-0 top-0 h-16 bg-gradient-to-b ${cfg.section} to-transparent pointer-events-none`}
+        className={`absolute inset-x-0 top-0 h-16 bg-linear-to-b ${cfg.section} to-transparent pointer-events-none`}
       />
 
       {/* hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
 
       <div className="relative p-5 space-y-4">
         {/* top row */}
@@ -275,7 +275,7 @@ function QuickAction({
 /* ─── page ─── */
 export function InventoryHomePage() {
   const { data: inventoryRes, isLoading } = useInventoryAccounts();
-  const { showModal } = useFormsModal();
+  const { showModal } = useModal();
 
   const accounts: InventoryAccount[] = inventoryRes?.data ?? [];
 
@@ -326,7 +326,7 @@ export function InventoryHomePage() {
             <h1 className="font-display italic text-5xl md:text-6xl text-foreground leading-none">
               Inventory Dashboard
             </h1>
-            <div className="h-px w-28 bg-gradient-to-r from-primary/50 via-primary/20 to-transparent" />
+            <div className="h-px w-28 bg-linear-to-r from-primary/50 via-primary/20 to-transparent" />
             <p className="text-sm text-muted-foreground max-w-lg">
               Overview of your inventory accounts, warehouse activity, and stock
               performance.

@@ -28,3 +28,11 @@ dist-ssr
 ssl/*
 
 dev-dist/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+

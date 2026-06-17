@@ -1,8 +1,9 @@
-import { Button, Skeleton, useFormsModal } from "@sharpnr/ui";
+import { Button, Skeleton } from "@sharpnr/ui";
 import { Landmark, Plus, ShieldCheck, ShieldX } from "lucide-react";
 import type { LegalEntityBankAccountsResponseDto } from "../../api/types";
 import { getLegalEntityBankAccountTypeLabel } from "../../utils/entity_type";
 import { AddBankAccountForm } from "../forms/AddBankAccountForm";
+import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityBankAccountsTabProps {
   legalEntityID: string;
@@ -39,7 +40,7 @@ interface EmptyBankAccountProps {
   legalEntityID: string;
 }
 function EmptyBankAccounts({ legalEntityID }: EmptyBankAccountProps) {
-  const { closeModal, showModal } = useFormsModal();
+  const { closeModal, showModal } = useModal();
 
   const handleAddBankAccount = () => {
     showModal(

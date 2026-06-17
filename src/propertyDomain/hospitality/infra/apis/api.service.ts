@@ -39,6 +39,7 @@ export interface MenuItemResponse {
   unit: string;
   base_price: number;
   tax_category: TaxComponentBreakdown[];
+  tax_details?: TaxComponentBreakdown[];
   dietary_type: DietaryType;
   variant_groups: VariantGroupResponse[];
   add_ons: AddOnResponse[];
@@ -85,7 +86,7 @@ export async function GetMenu(
 
 interface AddMenuPayload {
   ownersID: string;
-  request_payload: any;
+  request_payload: unknown;
 }
 export async function CreateMenu(payLoad: AddMenuPayload) {
   const res = await api.post(
@@ -97,7 +98,7 @@ export async function CreateMenu(payLoad: AddMenuPayload) {
 
 interface AddCategoryInMenuPayload {
   OwnersID: string;
-  request_payload: any;
+  request_payload: unknown;
 }
 export async function AddCategoryInMenu(payLoad: AddCategoryInMenuPayload) {
   const res = await api.post(
@@ -109,7 +110,7 @@ export async function AddCategoryInMenu(payLoad: AddCategoryInMenuPayload) {
 
 interface AddSubCategoryInCategoryPayload {
   ownersID: string;
-  request_payload: any;
+  request_payload: unknown;
 }
 export async function AddSubCategoryInCategory(
   payLoad: AddSubCategoryInCategoryPayload,
@@ -123,7 +124,7 @@ export async function AddSubCategoryInCategory(
 
 interface AddMenuItemPayload {
   ownersID: string;
-  request_payload: any;
+  request_payload: unknown;
 }
 
 export async function AddMenuItemInSubCategory(payLoad: AddMenuItemPayload) {
@@ -136,7 +137,7 @@ export async function AddMenuItemInSubCategory(payLoad: AddMenuItemPayload) {
 
 interface AddVariantGroupPayload {
   ownersID: string;
-  request_payload: any;
+  request_payload: unknown;
 }
 
 export async function AddVariantGroup(payload: AddVariantGroupPayload) {
@@ -149,7 +150,7 @@ export async function AddVariantGroup(payload: AddVariantGroupPayload) {
 
 interface AddVariantsPayload {
   ownersID: string;
-  request_payload: any;
+  request_payload: unknown;
 }
 export async function AddVariantsInVariantGroup(payload: AddVariantsPayload) {
   const res = await api.post(
@@ -161,7 +162,7 @@ export async function AddVariantsInVariantGroup(payload: AddVariantsPayload) {
 
 interface AddonPayload {
   ownersID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function AddAddon(payload: AddonPayload) {
@@ -176,7 +177,7 @@ export async function AddAddon(payload: AddonPayload) {
 
 interface AddPreferredKitchenToMenuGroupPayload {
   ownersID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function AddPreferredKitchenToMenuGroup({
@@ -195,7 +196,7 @@ export async function AddPreferredKitchenToMenuGroup({
 
 interface AddPreferredKitchenToMenuCategoryPayload {
   ownersID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function AddPreferredKitchenToMenuCategory({
@@ -213,7 +214,7 @@ export async function AddPreferredKitchenToMenuCategory({
 
 interface AddPreferredKitchenToMenuSubCategoryPayload {
   ownersID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function AddPreferredKitchenToMenuSubCategory({
@@ -232,7 +233,7 @@ export async function AddPreferredKitchenToMenuSubCategory({
 
 interface AddPreferredKitchenToMenuItemPayload {
   ownersID: string;
-  payload: any;
+  payload: unknown;
 }
 
 export async function AddPreferredKitchenToMenuItem({

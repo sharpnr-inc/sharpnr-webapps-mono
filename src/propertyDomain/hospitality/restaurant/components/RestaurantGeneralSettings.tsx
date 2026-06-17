@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AlertTriangle } from "lucide-react";
-import { Button } from "@sharpnr/ui";
+import { Button, Label, Switch } from "@sharpnr/ui";
 import {
   Card,
   CardContent,
@@ -15,7 +15,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@sharpnr/ui";
-
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import { useRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/queries";
 import { useAppForm } from "@/components/forms";
@@ -23,8 +22,6 @@ import { useUpdateRestaurantGeneralInfo } from "@/propertyDomain/hospitality/res
 import { useQueryClient } from "@tanstack/react-query";
 import type { RestaurantGeneralInfoInterface } from "@/propertyDomain/hospitality/restaurant/apis/restaurant.api";
 import { ProcessRestaurantConfigurationStatus } from "@/propertyDomain/hospitality/utils/CongifurationStatus";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import api from "@/middlewares/axios";
 import { RestaurantEndpoints } from "@/propertyDomain/hospitality/restaurant/apis/enpoints";
 

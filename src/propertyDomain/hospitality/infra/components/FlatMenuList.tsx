@@ -1,8 +1,4 @@
-interface FlatMenuListProps {
-    
-}
-
-const FlatMenuList: React.FC<FlatMenuListProps> = () => {
+const FlatMenuList: React.FC = () => {
     return (<div>This is Flat MenuList</div>);
 }
 

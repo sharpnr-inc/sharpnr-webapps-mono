@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 
 import { useOrgSuppliers } from "./api/query";
-import { useFormsModal } from "@sharpnr/ui";
 import { AddNewSupplierForm } from "./forms/AddNewSuppliersForms";
 import { useNavigate } from "@tanstack/react-router";
+import { useModal } from "@/hooks/useModal";
 
 /* ─────────────────────────────────────────────
    Updated Supplier type (matches API response)
@@ -35,7 +35,7 @@ type Supplier = {
   pincode: string;
   country: string;
 
-  LegalEntityLinks: any[] | null;
+  LegalEntityLinks: unknown[] | null;
 };
 
 /* ─────────────────────────────────────────────
@@ -77,12 +77,12 @@ function SupplierCard({
       className="group relative rounded-2xl border border-border/60 bg-background/70 backdrop-blur-sm p-5 cursor-pointer hover:border-primary/30 hover:shadow-[0_8px_28px_hsl(var(--primary)/0.1)] transition-all duration-200 overflow-hidden"
     >
       {/* hover wash */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
+      <div className="absolute inset-0 bg-linear-to-br from-primary/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-2xl" />
 
       {/* top row */}
       <div className="flex items-start justify-between gap-3 mb-4">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-gradient-to-br from-primary/25 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+          <div className="size-10 rounded-xl bg-linear-to-br from-primary/25 to-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
             <span className="cf-mono text-xs font-bold text-primary">
               {initials(supplier.suppliers_name)}
             </span>
@@ -147,14 +147,17 @@ function SupplierCard({
 
 export function SupplierAndVendorsHomePage() {
   const { data: suppliersRes, isLoading } = useOrgSuppliers();
-  const { showModal } = useFormsModal();
+  const { showModal } = useModal();
   const nav = useNavigate();
 
-  const suppliers: Supplier[] =
-    suppliersRes?.data?.map((s: Supplier) => ({
-      ...s,
-      LegalEntityLinks: s.LegalEntityLinks ?? [],
-    })) ?? [];
+  const suppliers: Supplier[] = useMemo(
+    () =>
+      suppliersRes?.data?.map((s: Supplier) => ({
+        ...s,
+        LegalEntityLinks: s.LegalEntityLinks ?? [],
+      })) ?? [],
+    [suppliersRes],
+  );
 
   const [query, setQuery] = useState("");
 
