@@ -1,14 +1,3 @@
-export interface PropertyDomain {
-  id: string;
-  name: string;
-  description: string;
-  isAvailable: boolean;
-}
-
-export interface PropertyDomainResponse {
-  domains: PropertyDomain[];
-}
-
 export interface Property {
   id: string;
   name: string;
@@ -36,13 +25,6 @@ export interface PropertyInfra {
   name: string;
   status: boolean;
   infra_type: string;
-}
-
-export interface DomainModuleInfra {
-  ID: string;
-  ModuleName: string;
-  Description?: string;
-  IsAvailable: boolean;
 }
 
 export interface PropertyDetailsData {
