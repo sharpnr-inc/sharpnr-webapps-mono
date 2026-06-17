@@ -1,26 +1,90 @@
 import { useMemo, useState } from "react";
 import { Badge, Button, Input, ScrollArea, Separator } from "@sharpnr/ui";
 import {
+  Boxes,
+  Building2,
   Check,
+  ChefHat,
   ConciergeBell,
   Disc3,
+  HeartPulse,
   Hotel,
+  Loader2,
+  Microscope,
   Minus,
+  Pill,
   Plus,
   Search,
   Sparkles,
   Stethoscope,
   TreePalm,
+  TriangleAlert,
   UtensilsCrossed,
+  Video,
   Wine,
   type LucideIcon,
 } from "lucide-react";
+import { useBusinessModules } from "./api/queries";
+import type {
+  HealthcareModuleType,
+  HospitalityModuleType,
+} from "./api/types";
 
 /* ──────────────────────────────────────────────────────────────
-   Catalog data
-   Segmentation: Industry / Sector → Modules
-   Extensible: add a new sector object or a new module entry.
+   Catalog presentation
+   Segmentation: Industry / Sector → Modules (modules come from the API).
+   The maps below turn the backend enum into a friendly label + icon.
 ─────────────────────────────────────────────────────────────── */
+
+type ModuleType = HospitalityModuleType | HealthcareModuleType;
+
+const MODULE_LABELS: Record<ModuleType, string> = {
+  RESTAURANT: "Restaurant",
+  HOTEL: "Hotel",
+  BAR: "Bar",
+  NIGHT_CLUB: "Nightclub",
+  RESORT: "Resort",
+  "CLOUD_KITCHEN/TAKEAWAYS": "Cloud Kitchen / Takeaway",
+  HOSPITAL: "Hospital",
+  CLINIC: "Clinic",
+  PHARMACY: "Pharmacy",
+  DIAGNOSTICS: "Diagnostics",
+  TELEMEDICINE: "Telemedicine",
+  HOME_CARE: "Home Care",
+};
+
+const MODULE_ICONS: Record<ModuleType, LucideIcon> = {
+  RESTAURANT: UtensilsCrossed,
+  HOTEL: Hotel,
+  BAR: Wine,
+  NIGHT_CLUB: Disc3,
+  RESORT: TreePalm,
+  "CLOUD_KITCHEN/TAKEAWAYS": ChefHat,
+  HOSPITAL: Building2,
+  CLINIC: Stethoscope,
+  PHARMACY: Pill,
+  DIAGNOSTICS: Microscope,
+  TELEMEDICINE: Video,
+  HOME_CARE: HeartPulse,
+};
+
+/** Static sector metadata, keyed to the API payload fields. */
+const SECTORS = [
+  {
+    id: "hospitality",
+    name: "Hospitality",
+    description: "Food, beverage and lodging operations.",
+    icon: ConciergeBell,
+    dataKey: "hospitality",
+  },
+  {
+    id: "healthcare",
+    name: "Healthcare",
+    description: "Clinical and patient-care operations.",
+    icon: Stethoscope,
+    dataKey: "healthcare",
+  },
+] as const;
 
 interface CatalogModule {
   id: string;
@@ -28,6 +92,7 @@ interface CatalogModule {
   description: string;
   icon: LucideIcon;
   tags: string[];
+  available: boolean;
 }
 
 interface CatalogSector {
@@ -35,68 +100,9 @@ interface CatalogSector {
   name: string;
   description: string;
   icon: LucideIcon;
-  /** Sectors with no shipped modules yet render an empty state. */
   modules: CatalogModule[];
-  comingSoon?: boolean;
+  comingSoon: boolean;
 }
-
-const CATALOG: CatalogSector[] = [
-  {
-    id: "hospitality",
-    name: "Hospitality",
-    description: "Food, beverage and lodging operations.",
-    icon: ConciergeBell,
-    modules: [
-      {
-        id: "restaurant",
-        name: "Restaurant",
-        description:
-          "Dine-in service with menus, tables, KOTs and order management.",
-        icon: UtensilsCrossed,
-        tags: ["Dine-in", "Menus", "Tables"],
-      },
-      {
-        id: "bar",
-        name: "Bar",
-        description:
-          "Beverage program with tabs, inventory and bartender workflows.",
-        icon: Wine,
-        tags: ["Beverages", "Tabs", "Inventory"],
-      },
-      {
-        id: "nightclub",
-        name: "Nightclub",
-        description: "Entry, guestlists, table reservations and bottle service.",
-        icon: Disc3,
-        tags: ["Events", "Guestlist", "Reservations"],
-      },
-      {
-        id: "hotel",
-        name: "Hotel",
-        description:
-          "Rooms, reservations, check-in / check-out and housekeeping.",
-        icon: Hotel,
-        tags: ["Rooms", "Bookings", "Front desk"],
-      },
-      {
-        id: "resort",
-        name: "Resort",
-        description:
-          "Multi-amenity stays with activities, packages and concierge.",
-        icon: TreePalm,
-        tags: ["Stays", "Amenities", "Packages"],
-      },
-    ],
-  },
-  {
-    id: "healthcare",
-    name: "Healthcare",
-    description: "Clinical and patient-care operations.",
-    icon: Stethoscope,
-    comingSoon: true,
-    modules: [],
-  },
-];
 
 /* ──────────────────────────────────────────────────────────────
    Module card — selectable tile
@@ -112,28 +118,36 @@ function ModuleTile({
   onToggle: () => void;
 }) {
   const Icon = module.icon;
+  const disabled = !module.available;
 
   return (
     <button
       type="button"
       onClick={onToggle}
+      disabled={disabled}
       aria-pressed={selected}
-      className={`group relative flex flex-col gap-3 rounded-xl border p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${
+      className={`group relative flex flex-col gap-3 rounded-xl border p-4 text-left transition-all duration-200 ${
+        disabled
+          ? "cursor-not-allowed border-border/60 bg-muted/30 opacity-70"
+          : "hover:-translate-y-0.5 hover:shadow-md"
+      } ${
         selected
           ? "border-primary/60 bg-primary/5 ring-1 ring-primary/40"
-          : "border-border/70 bg-card hover:border-primary/40"
+          : !disabled && "border-border/70 bg-card hover:border-primary/40"
       }`}
     >
       {/* selection check */}
-      <span
-        className={`absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border transition-all ${
-          selected
-            ? "border-primary bg-primary text-primary-foreground"
-            : "border-border bg-background text-transparent group-hover:border-primary/50"
-        }`}
-      >
-        <Check className="h-3 w-3" />
-      </span>
+      {!disabled && (
+        <span
+          className={`absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border transition-all ${
+            selected
+              ? "border-primary bg-primary text-primary-foreground"
+              : "border-border bg-background text-transparent group-hover:border-primary/50"
+          }`}
+        >
+          <Check className="h-3 w-3" />
+        </span>
+      )}
 
       <div
         className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
@@ -146,7 +160,16 @@ function ModuleTile({
       </div>
 
       <div className="space-y-1">
-        <h3 className="text-sm font-semibold text-foreground">{module.name}</h3>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <h3 className="text-sm font-semibold text-foreground">
+            {module.name}
+          </h3>
+          {disabled && (
+            <Badge variant="outline" className="px-1.5 py-0 text-[10px]">
+              Coming soon
+            </Badge>
+          )}
+        </div>
         <p className="line-clamp-2 text-xs text-muted-foreground">
           {module.description}
         </p>
@@ -164,25 +187,27 @@ function ModuleTile({
         ))}
       </div>
 
-      <span
-        className={`mt-1 flex items-center justify-center gap-1.5 rounded-lg border py-1.5 text-xs font-medium transition-colors ${
-          selected
-            ? "border-primary/30 bg-primary/10 text-primary"
-            : "border-border bg-muted/40 text-muted-foreground group-hover:text-foreground"
-        }`}
-      >
-        {selected ? (
-          <>
-            <Minus className="h-3.5 w-3.5" />
-            Remove
-          </>
-        ) : (
-          <>
-            <Plus className="h-3.5 w-3.5" />
-            Add module
-          </>
-        )}
-      </span>
+      {!disabled && (
+        <span
+          className={`mt-1 flex items-center justify-center gap-1.5 rounded-lg border py-1.5 text-xs font-medium transition-colors ${
+            selected
+              ? "border-primary/30 bg-primary/10 text-primary"
+              : "border-border bg-muted/40 text-muted-foreground group-hover:text-foreground"
+          }`}
+        >
+          {selected ? (
+            <>
+              <Minus className="h-3.5 w-3.5" />
+              Remove
+            </>
+          ) : (
+            <>
+              <Plus className="h-3.5 w-3.5" />
+              Add module
+            </>
+          )}
+        </span>
+      )}
     </button>
   );
 }
@@ -196,12 +221,32 @@ interface BusinessModuleCatalogProps {
 }
 
 const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
-  const [activeSectorId, setActiveSectorId] = useState(CATALOG[0].id);
+  const { data, isError, isLoading } = useBusinessModules();
+  const [activeSectorId, setActiveSectorId] = useState<string>(SECTORS[0].id);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const search = query.trim().toLowerCase();
   const isSearching = search.length > 0;
+
+  // Merge static sector metadata with the modules returned by the API.
+  const catalog = useMemo<CatalogSector[]>(() => {
+    return SECTORS.map((sector) => {
+      const modules = (data?.data?.[sector.dataKey] ?? []).map((m) => ({
+        id: m.id,
+        name: MODULE_LABELS[m.moduleName] ?? m.moduleName,
+        description: m.description,
+        icon: MODULE_ICONS[m.moduleName] ?? Boxes,
+        tags: m.tags ?? [],
+        available: m.isAvailable,
+      }));
+      return {
+        ...sector,
+        modules,
+        comingSoon: modules.length === 0,
+      };
+    });
+  }, [data]);
 
   const toggle = (id: string) =>
     setSelected((prev) => {
@@ -212,7 +257,7 @@ const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
     });
 
   const activeSector =
-    CATALOG.find((s) => s.id === activeSectorId) ?? CATALOG[0];
+    catalog.find((s) => s.id === activeSectorId) ?? catalog[0];
 
   // When searching we match across every sector; otherwise show the active one.
   const results = useMemo(() => {
@@ -222,17 +267,47 @@ const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
       m.tags.some((t) => t.toLowerCase().includes(search));
 
     if (isSearching) {
-      return CATALOG.flatMap((s) => s.modules.filter(matches));
+      return catalog.flatMap((s) => s.modules.filter(matches));
     }
-    return activeSector.modules;
-  }, [search, isSearching, activeSector]);
+    return activeSector?.modules ?? [];
+  }, [catalog, search, isSearching, activeSector]);
 
-  const totalModules = CATALOG.reduce((n, s) => n + s.modules.length, 0);
+  const totalModules = catalog.reduce((n, s) => n + s.modules.length, 0);
 
   const handleContinue = () => {
     // TODO: persist the selected module ids via the add-module API.
     closeModal();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[68vh] flex-col items-center justify-center gap-3 text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin" />
+        <p className="text-sm">Loading modules…</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex h-[68vh] flex-col items-center justify-center gap-3 text-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border bg-destructive/10 text-destructive">
+          <TriangleAlert className="h-5 w-5" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-foreground">
+            Couldn’t load business modules
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Please close this dialog and try again.
+          </p>
+        </div>
+        <Button variant="outline" size="sm" onClick={closeModal}>
+          Close
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-[68vh] flex-col">
@@ -253,7 +328,7 @@ const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
           <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
             Industries
           </p>
-          {CATALOG.map((sector) => {
+          {catalog.map((sector) => {
             const Icon = sector.icon;
             const isActive = !isSearching && sector.id === activeSectorId;
             const count = sector.modules.length;
@@ -307,7 +382,9 @@ const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex items-baseline justify-between pb-3">
             <h2 className="text-sm font-semibold text-foreground">
-              {isSearching ? `Results for “${query.trim()}”` : activeSector.name}
+              {isSearching
+                ? `Results for “${query.trim()}”`
+                : activeSector?.name}
             </h2>
             <span className="text-xs text-muted-foreground">
               {results.length} {results.length === 1 ? "module" : "modules"}
@@ -339,7 +416,7 @@ const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
                 <p className="max-w-xs text-xs text-muted-foreground">
                   {isSearching
                     ? "Try a different keyword or clear the search."
-                    : `${activeSector.name} modules are coming soon.`}
+                    : `${activeSector?.name ?? "These"} modules are coming soon.`}
                 </p>
               </div>
             )}

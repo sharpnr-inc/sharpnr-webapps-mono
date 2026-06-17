@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Badge, Button, Input, ScrollArea, Separator } from "@sharpnr/ui";
 import {
   Boxes,
@@ -6,26 +6,81 @@ import {
   Check,
   ChefHat,
   ConciergeBell,
+  Loader2,
   Minus,
   Plus,
   Receipt,
   Search,
+  Server,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
   Stethoscope,
+  TriangleAlert,
   UtensilsCrossed,
   Users,
   Wine,
   type LucideIcon,
 } from "lucide-react";
+import { useInfraModules } from "./api/queries";
 
 /* ──────────────────────────────────────────────────────────────
-   Catalog data
-   Segmentation: Category → Infra items
-   Categories: General (must) · Hospitality · Healthcare (soon)
-   Extensible: add a category object or an infra entry.
+   Catalog presentation
+   Segmentation: Category → Infra items (items come from the API).
+   `moduleName` is a free string, so we resolve an icon by a
+   normalized key and fall back to a generic infra icon.
 ─────────────────────────────────────────────────────────────── */
+
+const ICON_BY_KEY: Record<string, LucideIcon> = {
+  FRONTDESK: ConciergeBell,
+  RECEPTION: ConciergeBell,
+  BILLING: Receipt,
+  BILLINGCOUNTER: Receipt,
+  CASHIER: Receipt,
+  SECURITY: ShieldCheck,
+  SECURITYDESK: ShieldCheck,
+  KITCHEN: ChefHat,
+  CLOUDKITCHEN: ChefHat,
+  TAKEAWAY: ShoppingBag,
+  TAKEAWAYCOUNTER: ShoppingBag,
+  BAR: Wine,
+  BARSTATION: Wine,
+  SERVICE: Users,
+  SERVICESTATION: Users,
+  STORE: Boxes,
+  PANTRY: Boxes,
+  STOREPANTRY: Boxes,
+};
+
+const normalizeKey = (s: string) => s.toUpperCase().replace(/[^A-Z0-9]/g, "");
+
+const iconFor = (moduleName: string): LucideIcon =>
+  ICON_BY_KEY[normalizeKey(moduleName)] ?? Server;
+
+/** Static category metadata, keyed to the API payload fields. */
+const CATEGORIES = [
+  {
+    id: "general",
+    name: "General",
+    description: "Core infrastructure every property needs.",
+    icon: Building2,
+    dataKey: "general",
+  },
+  {
+    id: "hospitality",
+    name: "Hospitality",
+    description: "Operational stations for food & beverage service.",
+    icon: UtensilsCrossed,
+    dataKey: "hospitality",
+  },
+  {
+    id: "healthcare",
+    name: "Healthcare",
+    description: "Clinical and patient-care infrastructure.",
+    icon: Stethoscope,
+    dataKey: "healthcare",
+  },
+] as const;
 
 interface InfraItem {
   id: string;
@@ -33,6 +88,7 @@ interface InfraItem {
   description: string;
   icon: LucideIcon;
   tags: string[];
+  available: boolean;
   /** Always provisioned — can change quantity but not be removed. */
   required?: boolean;
   recommended?: boolean;
@@ -44,96 +100,8 @@ interface InfraCategory {
   description: string;
   icon: LucideIcon;
   items: InfraItem[];
-  comingSoon?: boolean;
+  comingSoon: boolean;
 }
-
-const CATALOG: InfraCategory[] = [
-  {
-    id: "general",
-    name: "General",
-    description: "Core infrastructure every property needs.",
-    icon: Building2,
-    items: [
-      {
-        id: "front-desk",
-        name: "Front Desk / Reception",
-        description:
-          "Guest-facing desk for check-in, enquiries and walk-ins.",
-        icon: ConciergeBell,
-        tags: ["Reception", "Walk-ins"],
-        required: true,
-      },
-      {
-        id: "billing-counter",
-        name: "Billing Counter",
-        description: "Cashier point for invoicing, payments and settlements.",
-        icon: Receipt,
-        tags: ["Cashier", "Payments"],
-        recommended: true,
-      },
-      {
-        id: "security-desk",
-        name: "Security Desk",
-        description: "Entrance control, visitor logs and premises monitoring.",
-        icon: ShieldCheck,
-        tags: ["Entrance", "Visitors"],
-      },
-    ],
-  },
-  {
-    id: "hospitality",
-    name: "Hospitality",
-    description: "Operational stations for food & beverage service.",
-    icon: UtensilsCrossed,
-    items: [
-      {
-        id: "kitchen",
-        name: "Kitchen",
-        description:
-          "Kitchen display system for preparing and tracking food orders.",
-        icon: ChefHat,
-        tags: ["KDS", "Prep"],
-        recommended: true,
-      },
-      {
-        id: "takeaway-counter",
-        name: "Takeaway Counter",
-        description: "Pickup point for to-go orders, packing and handover.",
-        icon: ShoppingBag,
-        tags: ["Pickup", "To-go"],
-      },
-      {
-        id: "bar-station",
-        name: "Bar Station",
-        description: "Beverage prep station with tabs and bartender queue.",
-        icon: Wine,
-        tags: ["Drinks", "Tabs"],
-      },
-      {
-        id: "service-station",
-        name: "Service Station",
-        description: "Waiter / server hub for table assignments and runners.",
-        icon: Users,
-        tags: ["Servers", "Tables"],
-      },
-      {
-        id: "store-pantry",
-        name: "Store / Pantry",
-        description: "Stock room for inventory, supplies and indents.",
-        icon: Boxes,
-        tags: ["Inventory", "Supplies"],
-      },
-    ],
-  },
-  {
-    id: "healthcare",
-    name: "Healthcare",
-    description: "Clinical and patient-care infrastructure.",
-    icon: Stethoscope,
-    comingSoon: true,
-    items: [],
-  },
-];
 
 /* ──────────────────────────────────────────────────────────────
    Infra tile — selectable with quantity stepper
@@ -155,25 +123,24 @@ function InfraTile({
   const Icon = item.icon;
   const selected = quantity > 0;
   const atMin = item.required && quantity <= 1;
+  const disabled = !item.available;
 
   return (
     <div
       className={`group relative flex flex-col gap-3 rounded-xl border p-4 transition-all duration-200 ${
-        selected
-          ? "border-primary/60 bg-primary/5 ring-1 ring-primary/40"
-          : "border-border/70 bg-card hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+        disabled
+          ? "border-border/60 bg-muted/30 opacity-70"
+          : selected
+            ? "border-primary/60 bg-primary/5 ring-1 ring-primary/40"
+            : "border-border/70 bg-card hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
       }`}
     >
       {/* selection check */}
-      <span
-        className={`absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border transition-all ${
-          selected
-            ? "border-primary bg-primary text-primary-foreground"
-            : "border-border bg-background text-transparent"
-        }`}
-      >
-        <Check className="h-3 w-3" />
-      </span>
+      {selected && (
+        <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border border-primary bg-primary text-primary-foreground">
+          <Check className="h-3 w-3" />
+        </span>
+      )}
 
       <div
         className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors ${
@@ -196,6 +163,11 @@ function InfraTile({
               Recommended
             </Badge>
           )}
+          {disabled && (
+            <Badge variant="outline" className="px-1.5 py-0 text-[10px]">
+              Coming soon
+            </Badge>
+          )}
         </div>
         <p className="line-clamp-2 text-xs text-muted-foreground">
           {item.description}
@@ -215,7 +187,7 @@ function InfraTile({
       </div>
 
       {/* add / quantity control */}
-      {selected ? (
+      {disabled ? null : selected ? (
         <div className="mt-1 flex items-center justify-between rounded-lg border border-primary/30 bg-primary/5 p-1">
           <Button
             type="button"
@@ -224,7 +196,9 @@ function InfraTile({
             className="h-7 w-7 disabled:opacity-40"
             disabled={atMin}
             onClick={onDec}
-            aria-label={item.required ? "Decrease quantity" : "Decrease or remove"}
+            aria-label={
+              item.required ? "Decrease quantity" : "Decrease or remove"
+            }
           >
             <Minus className="h-3.5 w-3.5" />
           </Button>
@@ -266,22 +240,54 @@ interface InfraCatalogProps {
   closeModal: () => void;
 }
 
-/** Required items are provisioned by default at quantity 1. */
-const initialQuantities = (): Record<string, number> =>
-  Object.fromEntries(
-    CATALOG.flatMap((c) =>
-      c.items.filter((i) => i.required).map((i) => [i.id, 1]),
-    ),
-  );
-
 const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
-  const [activeCategoryId, setActiveCategoryId] = useState(CATALOG[0].id);
+  const { data, isLoading, isError } = useInfraModules();
+  const [activeCategoryId, setActiveCategoryId] = useState<string>(
+    CATEGORIES[0].id,
+  );
   const [query, setQuery] = useState("");
-  const [quantities, setQuantities] =
-    useState<Record<string, number>>(initialQuantities);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
 
   const search = query.trim().toLowerCase();
   const isSearching = search.length > 0;
+
+  // Merge static category metadata with the items returned by the API.
+  const catalog = useMemo<InfraCategory[]>(() => {
+    return CATEGORIES.map((category) => {
+      const raw = data?.data?.[category.dataKey] ?? [];
+      const items: InfraItem[] = raw.map((m) => {
+        const badge = "badge" in m ? m.badge : undefined;
+        return {
+          id: m.id,
+          name: m.moduleName,
+          description: m.description,
+          icon: iconFor(m.moduleName),
+          tags: m.tags ?? [],
+          available: m.isAvailable,
+          required: badge === "Required",
+          recommended: badge === "Recommended",
+        };
+      });
+      return { ...category, items, comingSoon: items.length === 0 };
+    });
+  }, [data]);
+
+  // Provision required items at quantity 1 once the catalog loads.
+  useEffect(() => {
+    setQuantities((prev) => {
+      let changed = false;
+      const next = { ...prev };
+      catalog.forEach((c) =>
+        c.items.forEach((it) => {
+          if (it.required && next[it.id] === undefined) {
+            next[it.id] = 1;
+            changed = true;
+          }
+        }),
+      );
+      return changed ? next : prev;
+    });
+  }, [catalog]);
 
   const setQty = (item: InfraItem, qty: number) =>
     setQuantities((prev) => {
@@ -293,7 +299,7 @@ const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
     });
 
   const activeCategory =
-    CATALOG.find((c) => c.id === activeCategoryId) ?? CATALOG[0];
+    catalog.find((c) => c.id === activeCategoryId) ?? catalog[0];
 
   // While searching we match across every category; otherwise the active one.
   const results = useMemo(() => {
@@ -303,12 +309,12 @@ const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
       i.tags.some((t) => t.toLowerCase().includes(search));
 
     if (isSearching) {
-      return CATALOG.flatMap((c) => c.items.filter(matches));
+      return catalog.flatMap((c) => c.items.filter(matches));
     }
-    return activeCategory.items;
-  }, [search, isSearching, activeCategory]);
+    return activeCategory?.items ?? [];
+  }, [catalog, search, isSearching, activeCategory]);
 
-  const totalItems = CATALOG.reduce((n, c) => n + c.items.length, 0);
+  const totalItems = catalog.reduce((n, c) => n + c.items.length, 0);
 
   const selectedCount = Object.keys(quantities).length;
   const totalUnits = Object.values(quantities).reduce((a, b) => a + b, 0);
@@ -317,6 +323,36 @@ const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
     // TODO: persist the selected infra (id + quantity) via the add-infra API.
     closeModal();
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[68vh] flex-col items-center justify-center gap-3 text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin" />
+        <p className="text-sm">Loading infrastructure…</p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex h-[68vh] flex-col items-center justify-center gap-3 text-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border bg-destructive/10 text-destructive">
+          <TriangleAlert className="h-5 w-5" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-foreground">
+            Couldn’t load infrastructure
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Please close this dialog and try again.
+          </p>
+        </div>
+        <Button variant="outline" size="sm" onClick={closeModal}>
+          Close
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-[68vh] flex-col">
@@ -337,7 +373,7 @@ const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
           <p className="px-2 pb-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
             Categories
           </p>
-          {CATALOG.map((category) => {
+          {catalog.map((category) => {
             const Icon = category.icon;
             const isActive = !isSearching && category.id === activeCategoryId;
             const count = category.items.length;
@@ -393,7 +429,7 @@ const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
             <h2 className="text-sm font-semibold text-foreground">
               {isSearching
                 ? `Results for “${query.trim()}”`
-                : activeCategory.name}
+                : activeCategory?.name}
             </h2>
             <span className="text-xs text-muted-foreground">
               {results.length} {results.length === 1 ? "option" : "options"}
@@ -430,7 +466,7 @@ const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
                 <p className="max-w-xs text-xs text-muted-foreground">
                   {isSearching
                     ? "Try a different keyword or clear the search."
-                    : `${activeCategory.name} infrastructure is coming soon.`}
+                    : `${activeCategory?.name ?? "This"} infrastructure is coming soon.`}
                 </p>
               </div>
             )}
