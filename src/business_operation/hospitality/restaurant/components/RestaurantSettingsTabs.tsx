@@ -1,4 +1,4 @@
-import MenuSettings from "@/propertyDomain/hospitality/infra/components/MenuSettings";
+import MenuSettings from "@/business_operation/hospitality/infra/components/MenuSettings";
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import RestaurantGeneralSettingsComp from "./RestaurantGeneralSettings";
 import { RestaurantLayoutSettings } from "./RestaurantLayoutSettings";

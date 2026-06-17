@@ -1,4 +1,4 @@
-import RestaurantSettingsTabs from "@/propertyDomain/hospitality/restaurant/components/RestaurantSettingsTabs";
+import RestaurantSettingsTabs from "@/business_operation/hospitality/restaurant/components/RestaurantSettingsTabs";
 
 const RestaurantDashboardPage: React.FC = () => {
   return (

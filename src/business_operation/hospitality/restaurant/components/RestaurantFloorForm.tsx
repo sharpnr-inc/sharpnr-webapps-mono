@@ -11,7 +11,7 @@ import { getFloorNameShort } from "@/utilities/floor_naming";
 import { PlusCircle, Trash } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { z } from "zod";
-import { useAddRestaurantLayout } from "@/propertyDomain/hospitality/restaurant/apis/mutations";
+import { useAddRestaurantLayout } from "@/business_operation/hospitality/restaurant/apis/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 
 const RestaurantConfigurationFormSchema = z.object({

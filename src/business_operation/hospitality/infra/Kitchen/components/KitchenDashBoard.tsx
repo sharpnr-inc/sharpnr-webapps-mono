@@ -1,6 +1,15 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Button, Card, CardContent, CardHeader, CardTitle, Input, Label, Switch } from "@sharpnr/ui";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
+  Switch,
+} from "@sharpnr/ui";
 import { ChefHat, Settings2, ArrowLeft, Printer, Activity } from "lucide-react";
 
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
@@ -8,7 +17,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@sharpnr/ui";
 import { useAppForm } from "@/components/forms";
 import { useQueryClient } from "@tanstack/react-query";
 import api from "@/middlewares/axios";
-import { KitchenEndpoints } from "@/propertyDomain/hospitality/infra/Kitchen/api/api.endpoints";
+import { KitchenEndpoints } from "@/business_operation/hospitality/infra/Kitchen/api/api.endpoints";
 import { useUpdateKitchenGenralDetailsMutation } from "../api/api.mutation";
 import { useKitchenConfiguration, useKitchenDetails } from "../api/api.queries";
 

@@ -1,4 +1,4 @@
-import RestaurantDashboardPage from "@/propertyDomain/hospitality/restaurant/components/RestaurantDashboardPage";
+import RestaurantDashboardPage from "@/business_operation/hospitality/restaurant/components/RestaurantDashboardPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

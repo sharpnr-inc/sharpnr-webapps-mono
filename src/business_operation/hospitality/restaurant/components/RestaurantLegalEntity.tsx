@@ -7,8 +7,8 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
-import { useRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/queries";
-import { useUpdateRestaurantGeneralInfo } from "@/propertyDomain/hospitality/restaurant/apis/mutations";
+import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/queries";
+import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Select,
