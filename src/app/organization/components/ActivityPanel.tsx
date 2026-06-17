@@ -11,7 +11,7 @@ export function ActivityPanel() {
         <ol className="relative space-y-4 border-l border-border pl-4">
           {ACTIVITY.map((event) => (
             <li key={event.id} className="relative">
-              <span className="absolute -left-[21px] top-1 h-2 w-2 rounded-full border-2 border-background bg-foreground" />
+              <span className="absolute -left-5.25 top-1 h-2 w-2 rounded-full border-2 border-background bg-foreground" />
               <p className="text-sm leading-snug">{event.description}</p>
               <p className="mt-0.5 text-xs text-muted-foreground">
                 {event.timestamp} · {event.actor}
