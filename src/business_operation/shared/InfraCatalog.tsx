@@ -238,9 +238,10 @@ function InfraTile({
 
 interface InfraCatalogProps {
   closeModal: () => void;
+  propertyID: string;
 }
 
-const InfraCatalog = ({ closeModal }: InfraCatalogProps) => {
+const InfraCatalog = ({ closeModal, propertyID }: InfraCatalogProps) => {
   const { data, isLoading, isError } = useInfraModules();
   const [activeCategoryId, setActiveCategoryId] = useState<string>(
     CATEGORIES[0].id,

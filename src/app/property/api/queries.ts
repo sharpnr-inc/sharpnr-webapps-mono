@@ -1,5 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetPropertyDetails, ListAllProperties } from "./service";
+import {
+  fetchBusinessOperationModules,
+  fetchInfraModules,
+  GetPropertyDetails,
+  ListAllProperties,
+} from "./service";
 import type { APIResponse } from "@/lib/api_response";
 import type {
   PropertiesOfOrganizationData,
@@ -22,5 +27,55 @@ export function usePropertyDetails(propertyID: string | undefined) {
     queryFn: () => GetPropertyDetails(propertyID),
     enabled: !!propertyID,
     staleTime: 1000 * 60 * 5,
+  });
+}
+
+/**
+ * Fetches all business operation modules (hospitality + healthcare) configured
+ * for a given property, wrapped in a TanStack Query for caching, request
+ * deduplication, and automatic re-fetching per the client's defaults.
+ *
+ * The query is keyed by `propertyID`, so switching properties fetches and
+ * caches independently. It stays disabled until a truthy id is supplied, which
+ * prevents a wasted request (and a bad URL) during initial render before the
+ * id is known.
+ *
+ * @param propertyID - UUID of the property whose modules to fetch.
+ * @returns The TanStack Query result. `data` is the `APIResponse` envelope
+ *          wrapping `fetchBusinessOperationModulesResponseType`; read the
+ *          modules from `data?.data`.
+ *
+ * @example
+ * const { data, isLoading, isError } = usePropertyBusinessOpModules(propertyID);
+ * const hospitality = data?.data.hospitality_business_operation_modules ?? [];
+ */
+export function usePropertyBusinessOpModules(propertyID: string) {
+  return useQuery({
+    queryKey: ["property", propertyID, "business-operation-modules"],
+    queryFn: () => fetchBusinessOperationModules(propertyID),
+    enabled: !!propertyID,
+  });
+}
+
+/**
+ * Fetches all infra modules (general + hospitality + healthcare) for a property,
+ * wrapped in a TanStack Query for caching, deduplication, and re-fetching.
+ *
+ * Keyed by `propertyID` so each property caches independently, and disabled
+ * until a truthy id is available to avoid a wasted request before the id is known.
+ *
+ * @param propertyID - UUID of the property whose infra modules to fetch.
+ * @returns The TanStack Query result. `data` is the `APIResponse` envelope
+ *          wrapping `fetchInfraModulesResponse`; read modules from `data?.data`.
+ *
+ * @example
+ * const { data, isLoading, isError } = usePropertyInfraModules(propertyID);
+ * const kitchens = data?.data.hospitality_infra_modules ?? [];
+ */
+export function usePropertyInfraModules(propertyID: string) {
+  return useQuery({
+    queryKey: ["property", propertyID, "infra-modules"],
+    queryFn: () => fetchInfraModules(propertyID),
+    enabled: !!propertyID,
   });
 }

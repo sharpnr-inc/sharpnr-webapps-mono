@@ -1,18 +1,44 @@
-import { usePropertyDetails } from "../api/queries";
+import {
+  usePropertyBusinessOpModules,
+  usePropertyDetails,
+  usePropertyInfraModules,
+} from "../api/queries";
 import {
   ArrowLeft,
   ArrowUpRight,
+  BedDouble,
+  Bell,
   Boxes,
   Building2,
   ChefHat,
+  ClipboardList,
+  ConciergeBell,
+  FlaskConical,
   Hash,
+  HeartPulse,
+  Hospital,
+  Hotel,
   MapPin,
+  Microscope,
+  Music,
   Navigation,
+  Package,
+  Palmtree,
+  Pill,
   Plus,
+  Receipt,
+  ScanLine,
+  Scissors,
   Server,
   Settings,
+  Shield,
+  Soup,
+  SprayCan,
+  Stethoscope,
   Store,
   UtensilsCrossed,
+  Video,
+  Wine,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 import {
@@ -27,6 +53,50 @@ import {
 import { useModal } from "@/hooks/useModal";
 import BusinessModuleCatalog from "@/business_operation/shared/BusinessModuleCatalog";
 import InfraCatalog from "@/business_operation/shared/InfraCatalog";
+
+/* ── icon maps ───────────────────────────────────────── */
+/** Icon per business operation module type (hospitality + healthcare). */
+const BUSINESS_ICONS: Record<string, React.ElementType> = {
+  RESTAURANT: UtensilsCrossed,
+  HOTEL: Hotel,
+  BAR: Wine,
+  NIGHT_CLUB: Music,
+  RESORT: Palmtree,
+  "CLOUD_KITCHEN/TAKEAWAYS": Soup,
+  HOSPITAL: Hospital,
+  CLINIC: Stethoscope,
+  PHARMACY: Pill,
+  DIAGNOSTICS: Microscope,
+  TELEMEDICINE: Video,
+  HOME_CARE: HeartPulse,
+};
+
+/** Icon per infra module type (general + hospitality + healthcare). */
+const INFRA_ICONS: Record<string, React.ElementType> = {
+  "Front Desk / Reception": Bell,
+  "Billing Counter": Receipt,
+  "Security Desk": Shield,
+  KITCHEN: ChefHat,
+  BAR_COUNTER: Wine,
+  DINING_HALL: UtensilsCrossed,
+  INVENTORY_STORE: Package,
+  RECEPTION_FRONT_DESK: ConciergeBell,
+  HOUSEKEEPING: SprayCan,
+  WARD_INPATIENT_UNIT: BedDouble,
+  OPERATION_THEATRE: Scissors,
+  LABORATORY: FlaskConical,
+  PHARMACY_COUNTER: Pill,
+  RECEPTION_REGISTRATION: ClipboardList,
+  RADIOLOGY_IMAGING: ScanLine,
+};
+
+/** Turn a backend enum (`CLOUD_KITCHEN/TAKEAWAYS`) into a readable label. */
+const formatType = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[_/]+/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
 
 /* ── module tile ─────────────────────────────────────── */
 interface ModuleItem {
@@ -90,6 +160,8 @@ function ModuleSection({
   modules,
   addLabel,
   onAdd,
+  isLoading,
+  isError,
 }: {
   icon: React.ElementType;
   title: string;
@@ -98,6 +170,8 @@ function ModuleSection({
   modules: ModuleItem[];
   addLabel: string;
   onAdd: () => void;
+  isLoading?: boolean;
+  isError?: boolean;
 }) {
   const headerTone =
     accent === "business"
@@ -132,11 +206,21 @@ function ModuleSection({
         </Button>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        {modules.map((m) => (
-          <ModuleCard key={m.id} module={m} accent={accent} />
-        ))}
-      </div>
+      {isLoading ? (
+        <p className="text-sm text-muted-foreground">Loading modules…</p>
+      ) : isError ? (
+        <p className="text-sm text-destructive">Failed to load modules.</p>
+      ) : modules.length === 0 ? (
+        <p className="text-sm text-muted-foreground">
+          No modules yet. Use “{addLabel}” to get started.
+        </p>
+      ) : (
+        <div className="grid gap-3 sm:grid-cols-2">
+          {modules.map((m) => (
+            <ModuleCard key={m.id} module={m} accent={accent} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -148,8 +232,24 @@ interface PropertyDetailsPageProps {
 }
 
 export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
+  // Api Hooks
   const { data } = usePropertyDetails(propertyId);
   const property = data?.data;
+
+  // Query Hooks For Fetching properties's business modules
+  const {
+    data: propertyBusinessOpModules,
+    isLoading: isPropertyBusinessOpModulesLoading,
+    isError: isErr,
+  } = usePropertyBusinessOpModules(propertyId);
+
+  // Query Hooks For Fetching properties's Infra modules
+  const {
+    data: propertyInfraModules,
+    isLoading: isPropertyInfraModulesLoading,
+    isError: isErrOnInfra,
+  } = usePropertyInfraModules(propertyId);
+
   const nav = useNavigate();
 
   const handlePropertySettingPage = () =>
@@ -162,7 +262,12 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
   const handleAddBusinessModule = () => {
     openModal({
-      content: <BusinessModuleCatalog closeModal={closeModal} />,
+      content: (
+        <BusinessModuleCatalog
+          closeModal={closeModal}
+          propertyID={propertyId}
+        />
+      ),
       title: "Business Modules",
       description: "Choose business operation modules",
       size: "xl",
@@ -170,7 +275,7 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
   };
   const handleAddInfra = () => {
     openModal({
-      content: <InfraCatalog closeModal={closeModal} />,
+      content: <InfraCatalog closeModal={closeModal} propertyID={propertyId} />,
       title: "Infra",
       description: "Choose Infra modules",
       size: "xl",
@@ -181,43 +286,32 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
     .filter(Boolean)
     .join(", ");
 
-  // TODO: replace placeholder modules with data from the property modules API.
+  // Flatten hospitality + healthcare business operation modules into tiles.
   const businessModules: ModuleItem[] = [
-    {
-      id: "restaurant",
-      icon: UtensilsCrossed,
-      title: "Shyam Sunder Restaurant",
-      description:
-        "Dine-in restaurant with menus, tables and order management.",
-      status: "Active",
-    },
-    {
-      id: "restaurant",
-      icon: UtensilsCrossed,
-      title: "Shyam Sunder Restaurant",
-      description:
-        "Dine-in restaurant with menus, tables and order management.",
-      status: "Active",
-    },
-    {
-      id: "restaurant",
-      icon: UtensilsCrossed,
-      title: "Shyam Sunder Restaurant",
-      description:
-        "Dine-in restaurant with menus, tables and order management.",
-      status: "Active",
-    },
-  ];
+    ...(propertyBusinessOpModules?.data?.hospitality_business_operation_modules ??
+      []),
+    ...(propertyBusinessOpModules?.data?.healthcare_business_operation_modules ??
+      []),
+  ].map((m) => ({
+    id: m.id,
+    icon: BUSINESS_ICONS[m.module_type] ?? Store,
+    title: m.name,
+    description: `${formatType(m.module_type)} business operation`,
+    status: m.status ? "Active" : undefined,
+  }));
 
+  // Flatten general + hospitality + healthcare infra modules into tiles.
   const infraModules: ModuleItem[] = [
-    {
-      id: "kitchen",
-      icon: ChefHat,
-      title: "Kitchen",
-      description: "Kitchen display system used for preparing food orders.",
-      status: "Active",
-    },
-  ];
+    ...(propertyInfraModules?.data?.general_infra_modules ?? []),
+    ...(propertyInfraModules?.data?.hospitality_infra_modules ?? []),
+    ...(propertyInfraModules?.data?.healthcare_infra_modules ?? []),
+  ].map((m) => ({
+    id: m.id,
+    icon: INFRA_ICONS[m.infra_type] ?? Server,
+    title: m.name,
+    description: `${formatType(m.infra_type)} infrastructure`,
+    status: "status" in m && m.status ? "Active" : undefined,
+  }));
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 px-4 py-6 sm:px-6">
@@ -307,6 +401,8 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
             modules={businessModules}
             addLabel="Add Business Module"
             onAdd={handleAddBusinessModule}
+            isLoading={isPropertyBusinessOpModulesLoading}
+            isError={isErr}
           />
 
           <div className="border-t border-dashed" />
@@ -320,6 +416,8 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
             modules={infraModules}
             addLabel="Add Infrastructure"
             onAdd={handleAddInfra}
+            isLoading={isPropertyInfraModulesLoading}
+            isError={isErrOnInfra}
           />
         </CardContent>
       </Card>

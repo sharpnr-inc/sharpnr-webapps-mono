@@ -25,10 +25,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useBusinessModules } from "./api/queries";
-import type {
-  HealthcareModuleType,
-  HospitalityModuleType,
-} from "./api/types";
+import type { HealthcareModuleType, HospitalityModuleType } from "./api/types";
 
 /* ──────────────────────────────────────────────────────────────
    Catalog presentation
@@ -218,9 +215,13 @@ function ModuleTile({
 
 interface BusinessModuleCatalogProps {
   closeModal: () => void;
+  propertyID: string; // needed for sending the params
 }
 
-const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
+const BusinessModuleCatalog = ({
+  closeModal,
+  propertyID,
+}: BusinessModuleCatalogProps) => {
   const { data, isError, isLoading } = useBusinessModules();
   const [activeSectorId, setActiveSectorId] = useState<string>(SECTORS[0].id);
   const [query, setQuery] = useState("");
@@ -275,7 +276,6 @@ const BusinessModuleCatalog = ({ closeModal }: BusinessModuleCatalogProps) => {
   const totalModules = catalog.reduce((n, s) => n + s.modules.length, 0);
 
   const handleContinue = () => {
-    // TODO: persist the selected module ids via the add-module API.
     closeModal();
   };
 
