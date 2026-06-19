@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { Badge, Button, Input, ScrollArea, Separator } from "@sharpnr/ui";
 import {
   Boxes,
@@ -23,6 +25,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useInfraModules } from "./api/queries";
+import { useAddInfraModulesInProperty } from "@/app/property/api/mutation";
+import type {
+  AddInfraModulesBody,
+  GeneralInfraModuleQuantity,
+  HealthcareInfraModuleQuantity,
+  HospitalityInfraModuleQuantity,
+} from "@/app/property/api/types";
 
 /* ──────────────────────────────────────────────────────────────
    Catalog presentation
@@ -84,6 +93,8 @@ const CATEGORIES = [
 
 interface InfraItem {
   id: string;
+  /** Backend enum value, sent in the add-infra payload. */
+  moduleName: string;
   name: string;
   description: string;
   icon: LucideIcon;
@@ -243,6 +254,8 @@ interface InfraCatalogProps {
 
 const InfraCatalog = ({ closeModal, propertyID }: InfraCatalogProps) => {
   const { data, isLoading, isError } = useInfraModules();
+  const queryClient = useQueryClient();
+  const { mutate: addInfra, isPending } = useAddInfraModulesInProperty();
   const [activeCategoryId, setActiveCategoryId] = useState<string>(
     CATEGORIES[0].id,
   );
@@ -260,6 +273,7 @@ const InfraCatalog = ({ closeModal, propertyID }: InfraCatalogProps) => {
         const badge = "badge" in m ? m.badge : undefined;
         return {
           id: m.id,
+          moduleName: m.moduleName,
           name: m.moduleName,
           description: m.description,
           icon: iconFor(m.moduleName),
@@ -321,8 +335,61 @@ const InfraCatalog = ({ closeModal, propertyID }: InfraCatalogProps) => {
   const totalUnits = Object.values(quantities).reduce((a, b) => a + b, 0);
 
   const handleContinue = () => {
-    // TODO: persist the selected infra (id + quantity) via the add-infra API.
-    closeModal();
+    const general_modules: GeneralInfraModuleQuantity[] = [];
+    const hospitality_infra: HospitalityInfraModuleQuantity[] = [];
+    const health_care_infra: HealthcareInfraModuleQuantity[] = [];
+
+    for (const category of catalog) {
+      for (const item of category.items) {
+        const quantity = quantities[item.id];
+        if (!quantity) continue;
+        if (category.id === "general") {
+          general_modules.push({
+            module: item.moduleName as GeneralInfraModuleQuantity["module"],
+            quantity,
+          });
+        } else if (category.id === "hospitality") {
+          hospitality_infra.push({
+            module: item.moduleName as HospitalityInfraModuleQuantity["module"],
+            quantity,
+          });
+        } else {
+          health_care_infra.push({
+            module: item.moduleName as HealthcareInfraModuleQuantity["module"],
+            quantity,
+          });
+        }
+      }
+    }
+
+    if (
+      general_modules.length === 0 &&
+      hospitality_infra.length === 0 &&
+      health_care_infra.length === 0
+    )
+      return;
+
+    const payload: AddInfraModulesBody = {
+      hospitality_infra,
+      ...(general_modules.length > 0 ? { general_modules } : {}),
+      ...(health_care_infra.length > 0 ? { health_care_infra } : {}),
+    };
+
+    addInfra(
+      { propertyID, payload },
+      {
+        onSuccess: (res) => {
+          toast.success(res?.message ?? "Infrastructure added");
+          queryClient.invalidateQueries({
+            queryKey: ["property", propertyID, "infra-modules"],
+          });
+          closeModal();
+        },
+        onError: () => {
+          toast.error("Couldn’t add infrastructure. Please try again.");
+        },
+      },
+    );
   };
 
   if (isLoading) {
@@ -494,15 +561,19 @@ const InfraCatalog = ({ closeModal, propertyID }: InfraCatalogProps) => {
           )}
         </p>
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={closeModal}>
+          <Button variant="outline" onClick={closeModal} disabled={isPending}>
             Cancel
           </Button>
           <Button
             onClick={handleContinue}
-            disabled={selectedCount === 0}
+            disabled={selectedCount === 0 || isPending}
             className="gap-1.5"
           >
-            <Plus className="h-4 w-4" />
+            {isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Plus className="h-4 w-4" />
+            )}
             Add{totalUnits > 0 ? ` ${totalUnits}` : ""}
           </Button>
         </div>

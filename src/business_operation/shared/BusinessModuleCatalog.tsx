@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { Badge, Button, Input, ScrollArea, Separator } from "@sharpnr/ui";
 import {
   Boxes,
@@ -26,6 +28,12 @@ import {
 } from "lucide-react";
 import { useBusinessModules } from "./api/queries";
 import type { HealthcareModuleType, HospitalityModuleType } from "./api/types";
+import { useAddBusinessOpModulesInProperty } from "@/app/property/api/mutation";
+import type {
+  AddBusinessOperationModulesBody,
+  HealthcareModuleQuantity,
+  HospitalityModuleQuantity,
+} from "@/app/property/api/types";
 
 /* ──────────────────────────────────────────────────────────────
    Catalog presentation
@@ -85,6 +93,8 @@ const SECTORS = [
 
 interface CatalogModule {
   id: string;
+  /** Backend enum value, sent in the add-modules payload. */
+  moduleName: ModuleType;
   name: string;
   description: string;
   icon: LucideIcon;
@@ -107,41 +117,34 @@ interface CatalogSector {
 
 function ModuleTile({
   module,
-  selected,
-  onToggle,
+  quantity,
+  onAdd,
+  onInc,
+  onDec,
 }: {
   module: CatalogModule;
-  selected: boolean;
-  onToggle: () => void;
+  quantity: number;
+  onAdd: () => void;
+  onInc: () => void;
+  onDec: () => void;
 }) {
   const Icon = module.icon;
+  const selected = quantity > 0;
   const disabled = !module.available;
 
   return (
-    <button
-      type="button"
-      onClick={onToggle}
-      disabled={disabled}
-      aria-pressed={selected}
-      className={`group relative flex flex-col gap-3 rounded-xl border p-4 text-left transition-all duration-200 ${
+    <div
+      className={`group relative flex flex-col gap-3 rounded-xl border p-4 transition-all duration-200 ${
         disabled
-          ? "cursor-not-allowed border-border/60 bg-muted/30 opacity-70"
-          : "hover:-translate-y-0.5 hover:shadow-md"
-      } ${
-        selected
-          ? "border-primary/60 bg-primary/5 ring-1 ring-primary/40"
-          : !disabled && "border-border/70 bg-card hover:border-primary/40"
+          ? "border-border/60 bg-muted/30 opacity-70"
+          : selected
+            ? "border-primary/60 bg-primary/5 ring-1 ring-primary/40"
+            : "border-border/70 bg-card hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
       }`}
     >
       {/* selection check */}
-      {!disabled && (
-        <span
-          className={`absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border transition-all ${
-            selected
-              ? "border-primary bg-primary text-primary-foreground"
-              : "border-border bg-background text-transparent group-hover:border-primary/50"
-          }`}
-        >
+      {selected && (
+        <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full border border-primary bg-primary text-primary-foreground">
           <Check className="h-3 w-3" />
         </span>
       )}
@@ -184,28 +187,46 @@ function ModuleTile({
         ))}
       </div>
 
-      {!disabled && (
-        <span
-          className={`mt-1 flex items-center justify-center gap-1.5 rounded-lg border py-1.5 text-xs font-medium transition-colors ${
-            selected
-              ? "border-primary/30 bg-primary/10 text-primary"
-              : "border-border bg-muted/40 text-muted-foreground group-hover:text-foreground"
-          }`}
+      {/* add / quantity control */}
+      {disabled ? null : selected ? (
+        <div className="mt-1 flex items-center justify-between rounded-lg border border-primary/30 bg-primary/5 p-1">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7"
+            onClick={onDec}
+            aria-label="Decrease or remove"
+          >
+            <Minus className="h-3.5 w-3.5" />
+          </Button>
+          <span className="text-sm font-semibold tabular-nums text-foreground">
+            {quantity}
+          </span>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7"
+            onClick={onInc}
+            aria-label="Increase quantity"
+          >
+            <Plus className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      ) : (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={onAdd}
+          className="mt-1 w-full gap-1.5"
         >
-          {selected ? (
-            <>
-              <Minus className="h-3.5 w-3.5" />
-              Remove
-            </>
-          ) : (
-            <>
-              <Plus className="h-3.5 w-3.5" />
-              Add module
-            </>
-          )}
-        </span>
+          <Plus className="h-3.5 w-3.5" />
+          Add module
+        </Button>
       )}
-    </button>
+    </div>
   );
 }
 
@@ -223,9 +244,12 @@ const BusinessModuleCatalog = ({
   propertyID,
 }: BusinessModuleCatalogProps) => {
   const { data, isError, isLoading } = useBusinessModules();
+  const queryClient = useQueryClient();
+  const { mutate: addBusinessModules, isPending } =
+    useAddBusinessOpModulesInProperty();
   const [activeSectorId, setActiveSectorId] = useState<string>(SECTORS[0].id);
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
 
   const search = query.trim().toLowerCase();
   const isSearching = search.length > 0;
@@ -235,6 +259,7 @@ const BusinessModuleCatalog = ({
     return SECTORS.map((sector) => {
       const modules = (data?.data?.[sector.dataKey] ?? []).map((m) => ({
         id: m.id,
+        moduleName: m.moduleName,
         name: MODULE_LABELS[m.moduleName] ?? m.moduleName,
         description: m.description,
         icon: MODULE_ICONS[m.moduleName] ?? Boxes,
@@ -249,11 +274,12 @@ const BusinessModuleCatalog = ({
     });
   }, [data]);
 
-  const toggle = (id: string) =>
-    setSelected((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+  // Quantity per module id; 0 / absent means not selected.
+  const setQty = (id: string, qty: number) =>
+    setQuantities((prev) => {
+      const next = { ...prev };
+      if (qty <= 0) delete next[id];
+      else next[id] = qty;
       return next;
     });
 
@@ -275,8 +301,54 @@ const BusinessModuleCatalog = ({
 
   const totalModules = catalog.reduce((n, s) => n + s.modules.length, 0);
 
+  const selectedCount = Object.keys(quantities).length;
+  const totalUnits = Object.values(quantities).reduce((a, b) => a + b, 0);
+
   const handleContinue = () => {
-    closeModal();
+    const hospitality_modules: HospitalityModuleQuantity[] = [];
+    const healthcare_modules: HealthcareModuleQuantity[] = [];
+
+    for (const sector of catalog) {
+      for (const m of sector.modules) {
+        const quantity = quantities[m.id];
+        if (!quantity) continue;
+        if (sector.id === "hospitality") {
+          hospitality_modules.push({
+            module: m.moduleName as HospitalityModuleQuantity["module"],
+            quantity,
+          });
+        } else {
+          healthcare_modules.push({
+            module: m.moduleName as HealthcareModuleQuantity["module"],
+            quantity,
+          });
+        }
+      }
+    }
+
+    if (hospitality_modules.length === 0 && healthcare_modules.length === 0)
+      return;
+
+    const payload: AddBusinessOperationModulesBody = {
+      hospitality_modules,
+      ...(healthcare_modules.length > 0 ? { healthcare_modules } : {}),
+    };
+
+    addBusinessModules(
+      { propertyID, payload },
+      {
+        onSuccess: (res) => {
+          toast.success(res?.message ?? "Business modules added");
+          queryClient.invalidateQueries({
+            queryKey: ["property", propertyID, "business-operation-modules"],
+          });
+          closeModal();
+        },
+        onError: () => {
+          toast.error("Couldn’t add business modules. Please try again.");
+        },
+      },
+    );
   };
 
   if (isLoading) {
@@ -394,14 +466,19 @@ const BusinessModuleCatalog = ({
           <ScrollArea className="min-h-0 flex-1 pr-3">
             {results.length > 0 ? (
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-                {results.map((module) => (
-                  <ModuleTile
-                    key={module.id}
-                    module={module}
-                    selected={selected.has(module.id)}
-                    onToggle={() => toggle(module.id)}
-                  />
-                ))}
+                {results.map((module) => {
+                  const qty = quantities[module.id] ?? 0;
+                  return (
+                    <ModuleTile
+                      key={module.id}
+                      module={module}
+                      quantity={qty}
+                      onAdd={() => setQty(module.id, 1)}
+                      onInc={() => setQty(module.id, qty + 1)}
+                      onDec={() => setQty(module.id, qty - 1)}
+                    />
+                  );
+                })}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center gap-2 py-16 text-center">
@@ -427,37 +504,44 @@ const BusinessModuleCatalog = ({
       {/* ── Action bar ───────────────────────────────── */}
       <div className="mt-4 flex items-center justify-between gap-3 border-t pt-4">
         <p className="text-sm text-muted-foreground">
-          {selected.size > 0 ? (
+          {selectedCount > 0 ? (
             <>
               <span className="font-semibold text-foreground">
-                {selected.size}
+                {selectedCount}
               </span>{" "}
-              {selected.size === 1 ? "module" : "modules"} selected
+              {selectedCount === 1 ? "module" : "modules"} ·{" "}
+              <span className="font-semibold text-foreground">{totalUnits}</span>{" "}
+              {totalUnits === 1 ? "unit" : "units"} selected
             </>
           ) : (
             "Select one or more modules to continue."
           )}
         </p>
         <div className="flex items-center gap-2">
-          {selected.size > 0 && (
+          {selectedCount > 0 && (
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setSelected(new Set())}
+              disabled={isPending}
+              onClick={() => setQuantities({})}
             >
               Clear
             </Button>
           )}
-          <Button variant="outline" onClick={closeModal}>
+          <Button variant="outline" onClick={closeModal} disabled={isPending}>
             Cancel
           </Button>
           <Button
             onClick={handleContinue}
-            disabled={selected.size === 0}
+            disabled={selectedCount === 0 || isPending}
             className="gap-1.5"
           >
-            <Plus className="h-4 w-4" />
-            Add{selected.size > 0 ? ` ${selected.size}` : ""}
+            {isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Plus className="h-4 w-4" />
+            )}
+            Add{totalUnits > 0 ? ` ${totalUnits}` : ""}
           </Button>
         </div>
       </div>

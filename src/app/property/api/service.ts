@@ -75,7 +75,7 @@ export async function fetchBusinessOperationModules(
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export async function AddInfraModules(
+export async function addInfraModules(
   paylod: AddInfraModulesPayload,
 ): Promise<APIResponse<null>> {
   const { payload: body, propertyID } = paylod;
