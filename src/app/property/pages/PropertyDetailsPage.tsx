@@ -105,6 +105,8 @@ interface ModuleItem {
   title: string;
   description: string;
   status?: string;
+  /** Module-type label, shown as a distinguishing badge on the card. */
+  badge?: string;
 }
 
 function ModuleCard({
@@ -130,7 +132,19 @@ function ModuleCard({
         </div>
         <div className="min-w-0 flex-1 space-y-1">
           <div className="flex items-center justify-between gap-2">
-            <CardTitle className="truncate text-base">{module.title}</CardTitle>
+            <div className="flex min-w-0 items-center gap-2">
+              <CardTitle className="truncate text-base">
+                {module.title}
+              </CardTitle>
+              {module.badge && (
+                <Badge
+                  variant="outline"
+                  className="shrink-0 text-[10px] font-medium uppercase tracking-wide"
+                >
+                  {module.badge}
+                </Badge>
+              )}
+            </div>
             {module.status && (
               <Badge
                 variant="secondary"
@@ -169,7 +183,7 @@ function ModuleSection({
   accent: "business" | "infra";
   modules: ModuleItem[];
   addLabel: string;
-  onAdd: () => void;
+  onAdd?: () => void;
   isLoading?: boolean;
   isError?: boolean;
 }) {
@@ -195,15 +209,17 @@ function ModuleSection({
         <Badge variant="outline" className="ml-auto font-mono text-[10px]">
           {modules.length}
         </Badge>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={onAdd}
-          className="shrink-0 gap-1.5"
-        >
-          <Plus className="h-3.5 w-3.5" />
-          {addLabel}
-        </Button>
+        {onAdd && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onAdd}
+            className="shrink-0 gap-1.5"
+          >
+            <Plus className="h-3.5 w-3.5" />
+            {addLabel}
+          </Button>
+        )}
       </div>
 
       {isLoading ? (
@@ -286,19 +302,30 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
     .filter(Boolean)
     .join(", ");
 
-  // Flatten hospitality + healthcare business operation modules into tiles.
-  const businessModules: ModuleItem[] = [
-    ...(propertyBusinessOpModules?.data?.hospitality_business_operation_modules ??
-      []),
-    ...(propertyBusinessOpModules?.data?.healthcare_business_operation_modules ??
-      []),
-  ].map((m) => ({
+  // Map a business operation module to a card tile, badged by its type.
+  const toBusinessItem = (m: {
+    id: string;
+    name: string;
+    module_type: string;
+    status: boolean;
+    is_configured: boolean;
+  }): ModuleItem => ({
     id: m.id,
     icon: BUSINESS_ICONS[m.module_type] ?? Store,
     title: m.name,
-    description: `${formatType(m.module_type)} business operation`,
+    description: m.is_configured ? "Configured and ready." : "Not configured yet.",
     status: m.status ? "Active" : undefined,
-  }));
+    badge: formatType(m.module_type),
+  });
+
+  // Business operation modules, kept in separate sectors.
+  const hospitalityModules: ModuleItem[] = (
+    propertyBusinessOpModules?.data?.hospitality_business_operation_modules ?? []
+  ).map(toBusinessItem);
+
+  const healthcareModules: ModuleItem[] = (
+    propertyBusinessOpModules?.data?.healthcare_business_operation_modules ?? []
+  ).map(toBusinessItem);
 
   // Flatten general + hospitality + healthcare infra modules into tiles.
   const infraModules: ModuleItem[] = [
@@ -392,15 +419,29 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
         </CardHeader>
 
         <CardContent className="space-y-8">
-          {/* Business modules — the operations themselves */}
+          {/* Hospitality business modules */}
           <ModuleSection
-            icon={Store}
-            title="Business Modules"
-            subtitle="Revenue-generating operations"
+            icon={ConciergeBell}
+            title="Hospitality"
+            subtitle="Food, beverage and lodging operations"
             accent="business"
-            modules={businessModules}
+            modules={hospitalityModules}
             addLabel="Add Business Module"
             onAdd={handleAddBusinessModule}
+            isLoading={isPropertyBusinessOpModulesLoading}
+            isError={isErr}
+          />
+
+          <div className="border-t border-dashed" />
+
+          {/* Healthcare business modules */}
+          <ModuleSection
+            icon={Stethoscope}
+            title="Healthcare"
+            subtitle="Clinical and patient-care operations"
+            accent="business"
+            modules={healthcareModules}
+            addLabel="Add Business Module"
             isLoading={isPropertyBusinessOpModulesLoading}
             isError={isErr}
           />
