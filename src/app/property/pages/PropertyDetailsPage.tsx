@@ -53,6 +53,7 @@ import {
 import { useModal } from "@/hooks/useModal";
 import BusinessModuleCatalog from "@/business_operation/shared/BusinessModuleCatalog";
 import InfraCatalog from "@/business_operation/shared/InfraCatalog";
+import { Route } from "@/routes/_appuser/property/$propertyId/details";
 
 /* ── icon maps ───────────────────────────────────────── */
 /** Icon per business operation module type (hospitality + healthcare). */
@@ -107,6 +108,7 @@ interface ModuleItem {
   status?: string;
   /** Module-type label, shown as a distinguishing badge on the card. */
   badge?: string;
+  moduleType?: string;
 }
 
 function ModuleCard({
@@ -121,6 +123,18 @@ function ModuleCard({
     accent === "business"
       ? "border-primary/20 bg-primary/10 text-primary"
       : "border-border bg-muted text-muted-foreground";
+  const nav = useNavigate();
+  const handleNav = (m: ModuleItem) => {
+    if (m?.moduleType === "RESTAURANT") {
+      nav({
+        to: "/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID",
+        params: {
+          propertyId: "",
+          restaurantID: m.id,
+        },
+      });
+    }
+  };
 
   return (
     <Card className="group relative overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
@@ -313,14 +327,18 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
     id: m.id,
     icon: BUSINESS_ICONS[m.module_type] ?? Store,
     title: m.name,
-    description: m.is_configured ? "Configured and ready." : "Not configured yet.",
+    description: m.is_configured
+      ? "Configured and ready."
+      : "Not configured yet.",
     status: m.status ? "Active" : undefined,
     badge: formatType(m.module_type),
+    moduleType: m.module_type,
   });
 
   // Business operation modules, kept in separate sectors.
   const hospitalityModules: ModuleItem[] = (
-    propertyBusinessOpModules?.data?.hospitality_business_operation_modules ?? []
+    propertyBusinessOpModules?.data?.hospitality_business_operation_modules ??
+    []
   ).map(toBusinessItem);
 
   const healthcareModules: ModuleItem[] = (
