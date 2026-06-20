@@ -1,12 +1,19 @@
 /*
- * Lists a property's business operation modules (hospitality + healthcare).
- * Used in ./pages/PropertyDetailsPage.tsx — takes the propertyID and fetches
- * its own data. Cards navigate to the matching module dashboard by module_type.
+ * Section 1 of PropertyDetailsPage: "Business Operation Modules".
+ * These are the revenue-generating operations running at the property.
+ *
+ * API: usePropertyBusinessOpModules → fetchBusinessOperationModulesResponseType
+ *   • hospitality_business_operation_modules  → "Hospitality" sub-group
+ *   • healthcare_business_operation_modules   → "Healthcare" sub-group
+ *
+ * Takes propertyID, fetches its own data, and navigates to the matching module
+ * dashboard by module_type.
  */
 
 import type { ElementType } from "react";
 import {
   ArrowUpRight,
+  Boxes,
   ConciergeBell,
   HeartPulse,
   Hospital,
@@ -15,7 +22,6 @@ import {
   Music,
   Palmtree,
   Pill,
-  Plus,
   Soup,
   Stethoscope,
   Store,
@@ -26,7 +32,6 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 import {
   Badge,
-  Button,
   Card,
   CardDescription,
   CardHeader,
@@ -37,10 +42,19 @@ import type {
   HealthcareBusinessModule,
   HospitalityBusinessModule,
 } from "../api/types";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { useModal } from "@/hooks/useModal";
 import BusinessModuleCatalog from "@/business_operation/shared/BusinessModuleCatalog";
+import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";
 
 type BusinessModule = HospitalityBusinessModule | HealthcareBusinessModule;
+
+/** Module types that currently have a dashboard route to navigate into. */
+const NAVIGABLE_TYPES = new Set(["RESTAURANT", "HOTEL", "BAR"]);
 
 /** Icon per business operation module type (hospitality + healthcare). */
 const BUSINESS_ICONS: Record<string, ElementType> = {
@@ -75,115 +89,91 @@ function BusinessModuleCard({
   onOpen: (module: BusinessModule) => void;
 }) {
   const Icon = BUSINESS_ICONS[module.module_type] ?? Store;
+  const navigable = NAVIGABLE_TYPES.has(module.module_type);
 
   return (
-    <Card
-      onClick={() => onOpen(module)}
-      className="group relative cursor-pointer overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-    >
-      <CardHeader className="flex-row items-start gap-3 space-y-0">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-transform group-hover:scale-105">
-          <Icon className="h-5 w-5" />
-        </div>
-        <div className="min-w-0 flex-1 space-y-1">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex min-w-0 items-center gap-2">
-              <CardTitle className="truncate text-base">
-                {module.name}
-              </CardTitle>
-              <Badge
-                variant="outline"
-                className="shrink-0 text-[10px] font-medium uppercase tracking-wide"
-              >
-                {formatType(module.module_type)}
-              </Badge>
+    <HoverCard openDelay={150} closeDelay={80}>
+      <HoverCardTrigger asChild>
+        <Card
+          onClick={() => onOpen(module)}
+          className="group relative cursor-pointer overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+        >
+          <CardHeader className="flex-row items-start gap-3 space-y-0">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-transform group-hover:scale-105">
+              <Icon className="h-5 w-5" />
             </div>
-            {module.status && (
-              <Badge
-                variant="secondary"
-                className="shrink-0 gap-1 text-[10px] font-medium"
-              >
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Active
-              </Badge>
-            )}
+            <div className="min-w-0 flex-1 space-y-1">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center gap-2">
+                  <CardTitle className="truncate text-base">
+                    {module.name}
+                  </CardTitle>
+                  <Badge
+                    variant="outline"
+                    className="shrink-0 text-[10px] font-medium uppercase tracking-wide"
+                  >
+                    {formatType(module.module_type)}
+                  </Badge>
+                </div>
+                {module.status && (
+                  <Badge
+                    variant="secondary"
+                    className="shrink-0 gap-1 text-[10px] font-medium"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Active
+                  </Badge>
+                )}
+              </div>
+              <CardDescription className="line-clamp-2">
+                {module.is_configured
+                  ? "Configured and ready."
+                  : "Not configured yet."}
+              </CardDescription>
+            </div>
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          </CardHeader>
+        </Card>
+      </HoverCardTrigger>
+
+      <HoverCardContent align="start" className="w-72">
+        <div className="space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
+              <Icon className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-foreground">
+                {module.name}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {formatType(module.module_type)}
+              </p>
+            </div>
           </div>
-          <CardDescription className="line-clamp-2">
-            {module.is_configured ? "Configured and ready." : "Not configured yet."}
-          </CardDescription>
-        </div>
-        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-      </CardHeader>
-    </Card>
-  );
-}
 
-/* ── grouped section (hospitality / healthcare) ──────── */
-function ModuleGroup({
-  icon: Icon,
-  title,
-  subtitle,
-  modules,
-  onOpen,
-  addLabel,
-  onAdd,
-  isLoading,
-  isError,
-}: {
-  icon: ElementType;
-  title: string;
-  subtitle: string;
-  modules: BusinessModule[];
-  onOpen: (module: BusinessModule) => void;
-  addLabel: string;
-  onAdd?: () => void;
-  isLoading?: boolean;
-  isError?: boolean;
-}) {
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
-          <Icon className="h-4 w-4" />
-        </div>
-        <div className="min-w-0">
-          <h2 className="text-sm font-semibold tracking-tight text-foreground">
-            {title}
-          </h2>
-          <p className="text-xs text-muted-foreground">{subtitle}</p>
-        </div>
-        <Badge variant="outline" className="ml-auto font-mono text-[10px]">
-          {modules.length}
-        </Badge>
-        {onAdd && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onAdd}
-            className="shrink-0 gap-1.5"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            {addLabel}
-          </Button>
-        )}
-      </div>
+          <div className="space-y-1.5 border-t pt-2">
+            <DetailRow label="Status">
+              {module.status ? "Active" : "Inactive"}
+            </DetailRow>
+            <DetailRow label="Configured">
+              {module.is_configured ? "Yes" : "No"}
+            </DetailRow>
+            <DetailRow label="Module ID">
+              <span className="font-mono text-[11px]">
+                {module.id.slice(0, 8)}…
+              </span>
+            </DetailRow>
+          </div>
 
-      {isLoading ? (
-        <p className="text-sm text-muted-foreground">Loading modules…</p>
-      ) : isError ? (
-        <p className="text-sm text-destructive">Failed to load modules.</p>
-      ) : modules.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          No modules yet. Use “{addLabel}” to get started.
-        </p>
-      ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
-          {modules.map((m) => (
-            <BusinessModuleCard key={m.id} module={m} onOpen={onOpen} />
-          ))}
+          <p className="border-t pt-2 text-[11px] text-muted-foreground">
+            {navigable
+              ? "Click the card to open its dashboard."
+              : "A dashboard for this module is coming soon."}
+          </p>
         </div>
-      )}
-    </div>
+      </HoverCardContent>
+    </HoverCard>
   );
 }
 
@@ -203,6 +193,7 @@ const PropertyDetailsBusinessModulesSection = ({
     data?.data?.hospitality_business_operation_modules ?? [];
   const healthcareModules =
     data?.data?.healthcare_business_operation_modules ?? [];
+  const total = hospitalityModules.length + healthcareModules.length;
 
   // Open the matching module dashboard, keyed off the module type.
   const handleOpen = (module: BusinessModule) => {
@@ -242,35 +233,40 @@ const PropertyDetailsBusinessModulesSection = ({
   };
 
   return (
-    <div className="space-y-8">
-      <ModuleGroup
+    <PropertySection
+      icon={Boxes}
+      title="Business Operation Modules"
+      description="Revenue-generating operations running at this property"
+      count={total}
+      accent="business"
+      addLabel="Add Business Module"
+      onAdd={handleAddBusinessModule}
+      isLoading={isLoading}
+      isError={isError}
+      emptyHint="No business modules yet. Use “Add Business Module” to get started."
+    >
+      <SubGroup
         icon={ConciergeBell}
         title="Hospitality"
-        subtitle="Food, beverage and lodging operations"
-        modules={hospitalityModules}
-        onOpen={handleOpen}
-        addLabel="Add Business Module"
-        onAdd={handleAddBusinessModule}
-        isLoading={isLoading}
-        isError={isError}
-      />
+        description="Food, beverage and lodging operations"
+        count={hospitalityModules.length}
+      >
+        {hospitalityModules.map((m) => (
+          <BusinessModuleCard key={m.id} module={m} onOpen={handleOpen} />
+        ))}
+      </SubGroup>
 
-      {/* Healthcare only appears once there are healthcare modules. */}
-      {healthcareModules.length > 0 && (
-        <>
-          <div className="border-t border-dashed" />
-
-          <ModuleGroup
-            icon={Stethoscope}
-            title="Healthcare"
-            subtitle="Clinical and patient-care operations"
-            modules={healthcareModules}
-            onOpen={handleOpen}
-            addLabel="Add Business Module"
-          />
-        </>
-      )}
-    </div>
+      <SubGroup
+        icon={Stethoscope}
+        title="Healthcare"
+        description="Clinical and patient-care operations"
+        count={healthcareModules.length}
+      >
+        {healthcareModules.map((m) => (
+          <BusinessModuleCard key={m.id} module={m} onOpen={handleOpen} />
+        ))}
+      </SubGroup>
+    </PropertySection>
   );
 };
 

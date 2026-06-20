@@ -1,17 +1,17 @@
 /*
- * This component is used in ./pages/PropertyDetailsPage.tsx for displaying the resources.
- * It lists all the Resource modules of a property.
- * Resources can be of three types:
- **  1. General
- **  2. Hospitality
- **  3. HealthCare
- * Resources are simply assets that can be SHARED between infra and Business Modules.
- * For example, a Menu (Hospitality) can be shared between a Kitchen, a Restaurant and a
- * Hotel, so the user doesn't have to create two different menus.
+ * Section 3 of PropertyDetailsPage: "Resources".
+ * Resources are reusable assets that can be SHARED between infra and business
+ * modules — e.g. a Menu (Hospitality) shared between a Kitchen, a Restaurant and
+ * a Hotel, so the user doesn't have to create two different menus.
  *
- * NOTE: there is no API for resources yet, so this section renders DUMMY data and the
- * "Add Property Resources" button opens a (dummy) ResourceCatalog. Wire both to the real
- * endpoints once they exist — mirror PropertyInfraModulesSection + InfraCatalog.
+ * Like the other two sections, resources come in three categories:
+ *   • General     → general_resources
+ *   • Hospitality → hospitality_resources
+ *   • Healthcare  → healthcare_resources
+ *
+ * NOTE: there is no API for resources yet. The shape below (DummyResourcesResponse)
+ * mirrors fetchInfraModulesResponse so it can be swapped for a real query later;
+ * the "Add Property Resources" button opens a (dummy) ResourceCatalog.
  */
 
 import type { ElementType } from "react";
@@ -19,117 +19,173 @@ import {
   ArrowUpRight,
   BookOpen,
   Boxes,
+  Building2,
+  FlaskConical,
   Library,
   Percent,
-  Plus,
+  Pill,
+  Stethoscope,
   Tag,
+  UtensilsCrossed,
   Utensils,
 } from "lucide-react";
 import {
   Badge,
-  Button,
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@sharpnr/ui";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import { useModal } from "@/hooks/useModal";
 import ResourceCatalog from "@/business_operation/shared/ResourceCatalog";
+import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";
 
-/* ── dummy data (no API yet) ─────────────────────────── */
-type ResourceCategory = "General" | "Hospitality" | "Healthcare";
-
+/* ── shape (placeholder until the API exists) ────────── */
 interface PropertyResource {
   id: string;
   name: string;
   /** Human-readable resource kind, e.g. "Menu", "Price List". */
-  resourceType: string;
-  category: ResourceCategory;
-  icon: ElementType;
+  resource_type: string;
   /** Modules this resource is currently shared with. */
-  sharedWith: string[];
+  shared_with: string[];
 }
 
-const DUMMY_RESOURCES: PropertyResource[] = [
-  {
-    id: "res-1",
-    name: "House Menu",
-    resourceType: "Menu",
-    category: "Hospitality",
-    icon: BookOpen,
-    sharedWith: ["Kitchen", "Restaurant", "Hotel"],
-  },
-  {
-    id: "res-2",
-    name: "Signature Recipe Book",
-    resourceType: "Recipe Book",
-    category: "Hospitality",
-    icon: Utensils,
-    sharedWith: ["Kitchen"],
-  },
-  {
-    id: "res-3",
-    name: "Standard Tax Profile",
-    resourceType: "Tax Profile",
-    category: "General",
-    icon: Percent,
-    sharedWith: ["Billing Counter"],
-  },
-  {
-    id: "res-4",
-    name: "Beverage Price List",
-    resourceType: "Price List",
-    category: "General",
-    icon: Tag,
-    sharedWith: ["Bar", "Restaurant"],
-  },
-  {
-    id: "res-5",
-    name: "Master Ingredient Catalog",
-    resourceType: "Ingredient Catalog",
-    category: "Hospitality",
-    icon: Boxes,
-    sharedWith: ["Kitchen", "Inventory Store"],
-  },
-];
+/** Mirrors fetchInfraModulesResponse so a real query can drop in unchanged. */
+interface DummyResourcesResponse {
+  general_resources: PropertyResource[];
+  hospitality_resources: PropertyResource[];
+  healthcare_resources: PropertyResource[];
+}
+
+/* ── dummy data (no API yet) ─────────────────────────── */
+const DUMMY_RESOURCES: DummyResourcesResponse = {
+  general_resources: [
+    {
+      id: "res-tax",
+      name: "Standard Tax Profile",
+      resource_type: "Tax Profile",
+      shared_with: ["Billing Counter"],
+    },
+    {
+      id: "res-price",
+      name: "Beverage Price List",
+      resource_type: "Price List",
+      shared_with: ["Bar", "Restaurant"],
+    },
+  ],
+  hospitality_resources: [
+    {
+      id: "res-menu",
+      name: "House Menu",
+      resource_type: "Menu",
+      shared_with: ["Kitchen", "Restaurant", "Hotel"],
+    },
+    {
+      id: "res-recipe",
+      name: "Signature Recipe Book",
+      resource_type: "Recipe Book",
+      shared_with: ["Kitchen"],
+    },
+    {
+      id: "res-ingredients",
+      name: "Master Ingredient Catalog",
+      resource_type: "Ingredient Catalog",
+      shared_with: ["Kitchen", "Inventory Store"],
+    },
+  ],
+  healthcare_resources: [],
+};
+
+/** Icon per resource kind. */
+const RESOURCE_ICONS: Record<string, ElementType> = {
+  Menu: BookOpen,
+  "Recipe Book": Utensils,
+  "Ingredient Catalog": Boxes,
+  "Tax Profile": Percent,
+  "Price List": Tag,
+  "Medicine Catalog": Pill,
+  "Test Panel": FlaskConical,
+};
 
 /* ── single resource tile ────────────────────────────── */
 function ResourceCard({ resource }: { resource: PropertyResource }) {
-  const Icon = resource.icon;
+  const Icon = RESOURCE_ICONS[resource.resource_type] ?? Library;
 
   return (
-    <Card className="group relative overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
-      <CardHeader className="flex-row items-start gap-3 space-y-0">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-muted text-muted-foreground transition-transform group-hover:scale-105">
-          <Icon className="h-5 w-5" />
-        </div>
-        <div className="min-w-0 flex-1 space-y-1.5">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex min-w-0 items-center gap-2">
-              <CardTitle className="truncate text-base">
-                {resource.name}
-              </CardTitle>
-              <Badge
-                variant="outline"
-                className="shrink-0 text-[10px] font-medium uppercase tracking-wide"
-              >
-                {resource.resourceType}
-              </Badge>
+    <HoverCard openDelay={150} closeDelay={80}>
+      <HoverCardTrigger asChild>
+        <Card className="group relative cursor-default overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
+          <CardHeader className="flex-row items-start gap-3 space-y-0">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-muted text-muted-foreground transition-transform group-hover:scale-105">
+              <Icon className="h-5 w-5" />
             </div>
-            <Badge
-              variant="secondary"
-              className="shrink-0 text-[10px] font-medium"
-            >
-              {resource.category}
-            </Badge>
+            <div className="min-w-0 flex-1 space-y-1">
+              <div className="flex min-w-0 items-center gap-2">
+                <CardTitle className="truncate text-base">
+                  {resource.name}
+                </CardTitle>
+                <Badge
+                  variant="outline"
+                  className="shrink-0 text-[10px] font-medium uppercase tracking-wide"
+                >
+                  {resource.resource_type}
+                </Badge>
+              </div>
+              <CardDescription className="line-clamp-2">
+                Shared with {resource.shared_with.join(", ")}
+              </CardDescription>
+            </div>
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          </CardHeader>
+        </Card>
+      </HoverCardTrigger>
+
+      <HoverCardContent align="start" className="w-72">
+        <div className="space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
+              <Icon className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <p className="truncate text-sm font-semibold text-foreground">
+                {resource.name}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {resource.resource_type}
+              </p>
+            </div>
           </div>
-          <CardDescription className="line-clamp-2">
-            Shared with {resource.sharedWith.join(", ")}
-          </CardDescription>
+
+          <div className="space-y-1.5 border-t pt-2">
+            <DetailRow label="Shared with">
+              {resource.shared_with.length}{" "}
+              {resource.shared_with.length === 1 ? "module" : "modules"}
+            </DetailRow>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5">
+            {resource.shared_with.map((m) => (
+              <Badge
+                key={m}
+                variant="secondary"
+                className="px-1.5 py-0 text-[10px] font-medium"
+              >
+                {m}
+              </Badge>
+            ))}
+          </div>
+
+          <p className="border-t pt-2 text-[11px] text-muted-foreground">
+            Reusable asset — define it once and share it across these modules.
+          </p>
         </div>
-        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-      </CardHeader>
-    </Card>
+      </HoverCardContent>
+    </HoverCard>
   );
 }
 
@@ -144,7 +200,14 @@ export const PropertyDetailsResourcesSection = ({
   const { openModal, closeModal } = useModal();
 
   // Dummy data stands in until the resources API is ready.
-  const resources = DUMMY_RESOURCES;
+  const data = DUMMY_RESOURCES;
+  const generalResources = data.general_resources;
+  const hospitalityResources = data.hospitality_resources;
+  const healthcareResources = data.healthcare_resources;
+  const total =
+    generalResources.length +
+    hospitalityResources.length +
+    healthcareResources.length;
 
   const handleAddResource = () => {
     openModal({
@@ -159,44 +222,48 @@ export const PropertyDetailsResourcesSection = ({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
-          <Library className="h-4 w-4" />
-        </div>
-        <div className="min-w-0">
-          <h2 className="text-sm font-semibold tracking-tight text-foreground">
-            Resources
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Reusable assets shared across infra and business modules
-          </p>
-        </div>
-        <Badge variant="outline" className="ml-auto font-mono text-[10px]">
-          {resources.length}
-        </Badge>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={handleAddResource}
-          className="shrink-0 gap-1.5"
-        >
-          <Plus className="h-3.5 w-3.5" />
-          Add Property Resources
-        </Button>
-      </div>
+    <PropertySection
+      icon={Library}
+      title="Resources"
+      description="Reusable assets shared across infra and business modules"
+      count={total}
+      accent="resource"
+      addLabel="Add Property Resources"
+      onAdd={handleAddResource}
+      emptyHint="No resources yet. Use “Add Property Resources” to get started."
+    >
+      <SubGroup
+        icon={Building2}
+        title="General"
+        description="Shared assets every property can reuse"
+        count={generalResources.length}
+      >
+        {generalResources.map((r) => (
+          <ResourceCard key={r.id} resource={r} />
+        ))}
+      </SubGroup>
 
-      {resources.length === 0 ? (
-        <p className="text-sm text-muted-foreground">
-          No resources yet. Use “Add Property Resources” to get started.
-        </p>
-      ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
-          {resources.map((resource) => (
-            <ResourceCard key={resource.id} resource={resource} />
-          ))}
-        </div>
-      )}
-    </div>
+      <SubGroup
+        icon={UtensilsCrossed}
+        title="Hospitality"
+        description="Menus, recipes and food & beverage assets"
+        count={hospitalityResources.length}
+      >
+        {hospitalityResources.map((r) => (
+          <ResourceCard key={r.id} resource={r} />
+        ))}
+      </SubGroup>
+
+      <SubGroup
+        icon={Stethoscope}
+        title="Healthcare"
+        description="Formularies and clinical reference assets"
+        count={healthcareResources.length}
+      >
+        {healthcareResources.map((r) => (
+          <ResourceCard key={r.id} resource={r} />
+        ))}
+      </SubGroup>
+    </PropertySection>
   );
 };
