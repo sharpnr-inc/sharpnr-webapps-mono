@@ -1,16 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import KitchenConfigIndexPage from "@/infra_modules/hospitality/kitchen/pages/KitchenConfigIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/property/$propertyId/infras/hospitality/kitchen/$kitchenID/',
+  "/_appuser/property/$propertyId/infras/hospitality/kitchen/$kitchenID/",
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_appuser/property/$propertyId/infras/hospitality/kitchen/$kitchenID/"!
-    </div>
-  )
-}
+  component: KitchenConfigIndexPage,
+});
