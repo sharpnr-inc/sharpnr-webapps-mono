@@ -1,4 +1,4 @@
-import { Button, Skeleton, useSheet } from "@sharpnr/ui";
+import { Skeleton, useSheet } from "@sharpnr/ui";
 import {
   Users,
   Search,
@@ -36,21 +36,23 @@ const ROLE_META: Record<EmployeeRole, { label: string; className: string }> = {
   member: { label: "Member", className: "bg-muted text-muted-foreground" },
 };
 
-const STATUS_META: Record<EmployeeStatus, { label: string; className: string }> =
-  {
-    active: {
-      label: "Active",
-      className: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-    },
-    invited: {
-      label: "Invited",
-      className: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
-    },
-    suspended: {
-      label: "Suspended",
-      className: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
-    },
-  };
+const STATUS_META: Record<
+  EmployeeStatus,
+  { label: string; className: string }
+> = {
+  active: {
+    label: "Active",
+    className: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  },
+  invited: {
+    label: "Invited",
+    className: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+  },
+  suspended: {
+    label: "Suspended",
+    className: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+  },
+};
 
 function getInitials(name: string) {
   return name
@@ -224,12 +226,14 @@ function EmployeeDetail({
           <ol className="relative space-y-3 border-l border-border/60 pl-4">
             {employee.activity.map((entry) => (
               <li key={entry.id} className="relative">
-                <span className="absolute -left-[21px] top-1 h-2 w-2 rounded-full bg-muted-foreground/40 ring-2 ring-background" />
+                <span className="absolute -left-5.25 top-1 h-2 w-2 rounded-full bg-muted-foreground/40 ring-2 ring-background" />
                 <p className="text-[13px] font-medium text-foreground leading-tight">
                   {entry.action}
                 </p>
                 {entry.target && (
-                  <p className="text-xs text-muted-foreground">{entry.target}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {entry.target}
+                  </p>
                 )}
                 <p className="mt-0.5 text-[11px] text-muted-foreground/70">
                   {format(new Date(entry.timestamp), "MMM d, yyyy · HH:mm")}
