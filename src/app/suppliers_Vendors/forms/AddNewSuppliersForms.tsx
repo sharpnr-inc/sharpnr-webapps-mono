@@ -41,7 +41,7 @@ export function AddNewSupplierForm() {
             <User className="w-3.5 h-3.5" />
           </div>
           {/* Connecting line */}
-          <div className="w-px flex-1 mt-2 bg-gradient-to-b from-border to-transparent" />
+          <div className="w-px flex-1 mt-2 bg-linear-to-b from-border to-transparent" />
         </div>
 
         {/* Fields */}

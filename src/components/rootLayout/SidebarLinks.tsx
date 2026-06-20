@@ -184,13 +184,19 @@ export const orchestratorGroups: SidebarGroup[] = [
       },
 
       {
-        label: "Sharp-Marketing",
+        label: "SharpCRM",
         path: "/sharp-crm",
         icon: MarsStroke,
         tooltip: "Cables",
       },
       {
         label: "Sharp-Accounting",
+        path: "/sharp-accounting",
+        icon: MarsStroke,
+        tooltip: "Cables",
+      },
+      {
+        label: "SharpHR",
         path: "/sharp-accounting",
         icon: MarsStroke,
         tooltip: "Cables",

@@ -1,15 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import AuditLogsIndexPage from "@/app/audit_logs/pages/AuditLogsIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute(
-  '/_appuser/audit-log/',
-)({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello "/_appuser/orchestrator/_orchestrator_layout/_console/audit-log/"!
-    </div>
-  )
-}
+export const Route = createFileRoute("/_appuser/audit-log/")({
+  component: AuditLogsIndexPage,
+});

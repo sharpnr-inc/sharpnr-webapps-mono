@@ -21,6 +21,7 @@ import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserDescovro_integrationsRouteRouteImport } from './routes/_appuser/descovro_integrations/route'
 import { Route as AppuserCustomersRouteRouteImport } from './routes/_appuser/customers/route'
+import { Route as AppuserAuditLogRouteRouteImport } from './routes/_appuser/audit-log/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
 import { Route as AppuserSiloIndexRouteImport } from './routes/_appuser/silo/index'
 import { Route as AppuserSharp_marketplaceIndexRouteImport } from './routes/_appuser/sharp_marketplace/index'
@@ -136,6 +137,11 @@ const AppuserCustomersRouteRoute = AppuserCustomersRouteRouteImport.update({
   path: '/customers',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserAuditLogRouteRoute = AppuserAuditLogRouteRouteImport.update({
+  id: '/audit-log',
+  path: '/audit-log',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserSuppliersChar38VendorsIndexRoute =
   AppuserSuppliersChar38VendorsIndexRouteImport.update({
     id: '/suppliers&Vendors/',
@@ -229,9 +235,9 @@ const AppuserCablesIndexRoute = AppuserCablesIndexRouteImport.update({
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserAuditLogIndexRoute = AppuserAuditLogIndexRouteImport.update({
-  id: '/audit-log/',
-  path: '/audit-log/',
-  getParentRoute: () => AppuserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserAuditLogRouteRoute,
 } as any)
 const Setup_wizardStepIDUserinfoRoute =
   Setup_wizardStepIDUserinfoRouteImport.update({
@@ -470,6 +476,7 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotel
 export interface FileRoutesByFullPath {
   '/': typeof MarketingIndexRoute
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
+  '/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
   '/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
@@ -590,6 +597,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
+  '/_appuser/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
   '/_appuser/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/_appuser/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
@@ -657,6 +665,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/setup_wizard'
+    | '/audit-log'
     | '/customers'
     | '/descovro_integrations'
     | '/inventory-acc'
@@ -776,6 +785,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_appuser'
     | '/setup_wizard'
+    | '/_appuser/audit-log'
     | '/_appuser/customers'
     | '/_appuser/descovro_integrations'
     | '/_appuser/inventory-acc'
@@ -931,6 +941,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserCustomersRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/audit-log': {
+      id: '/_appuser/audit-log'
+      path: '/audit-log'
+      fullPath: '/audit-log'
+      preLoaderRoute: typeof AppuserAuditLogRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/suppliers&Vendors/': {
       id: '/_appuser/suppliers&Vendors/'
       path: '/suppliers&Vendors'
@@ -1052,10 +1069,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/audit-log/': {
       id: '/_appuser/audit-log/'
-      path: '/audit-log'
+      path: '/'
       fullPath: '/audit-log/'
       preLoaderRoute: typeof AppuserAuditLogIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
+      parentRoute: typeof AppuserAuditLogRouteRoute
     }
     '/setup_wizard/$stepID/userinfo': {
       id: '/setup_wizard/$stepID/userinfo'
@@ -1291,6 +1308,17 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AppuserAuditLogRouteRouteChildren {
+  AppuserAuditLogIndexRoute: typeof AppuserAuditLogIndexRoute
+}
+
+const AppuserAuditLogRouteRouteChildren: AppuserAuditLogRouteRouteChildren = {
+  AppuserAuditLogIndexRoute: AppuserAuditLogIndexRoute,
+}
+
+const AppuserAuditLogRouteRouteWithChildren =
+  AppuserAuditLogRouteRoute._addFileChildren(AppuserAuditLogRouteRouteChildren)
+
 interface AppuserCustomersRouteRouteChildren {
   AppuserCustomersIndexRoute: typeof AppuserCustomersIndexRoute
 }
@@ -1499,6 +1527,7 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotel
   )
 
 interface AppuserRouteRouteChildren {
+  AppuserAuditLogRouteRoute: typeof AppuserAuditLogRouteRouteWithChildren
   AppuserCustomersRouteRoute: typeof AppuserCustomersRouteRouteWithChildren
   AppuserDescovro_integrationsRouteRoute: typeof AppuserDescovro_integrationsRouteRouteWithChildren
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
@@ -1509,7 +1538,6 @@ interface AppuserRouteRouteChildren {
   AppuserHomeRoute: typeof AppuserHomeRoute
   AppuserCablesRoutesRoute: typeof AppuserCablesRoutesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
-  AppuserAuditLogIndexRoute: typeof AppuserAuditLogIndexRoute
   AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
   AppuserCortexIndexRoute: typeof AppuserCortexIndexRoute
   AppuserDocs_officeIndexRoute: typeof AppuserDocs_officeIndexRoute
@@ -1540,6 +1568,7 @@ interface AppuserRouteRouteChildren {
 }
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
+  AppuserAuditLogRouteRoute: AppuserAuditLogRouteRouteWithChildren,
   AppuserCustomersRouteRoute: AppuserCustomersRouteRouteWithChildren,
   AppuserDescovro_integrationsRouteRoute:
     AppuserDescovro_integrationsRouteRouteWithChildren,
@@ -1552,7 +1581,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserHomeRoute: AppuserHomeRoute,
   AppuserCablesRoutesRoute: AppuserCablesRoutesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
-  AppuserAuditLogIndexRoute: AppuserAuditLogIndexRoute,
   AppuserCablesIndexRoute: AppuserCablesIndexRoute,
   AppuserCortexIndexRoute: AppuserCortexIndexRoute,
   AppuserDocs_officeIndexRoute: AppuserDocs_officeIndexRoute,
