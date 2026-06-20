@@ -1,16 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/property/$propertyId/business_op_modules/hospitality/bar',
+  "/_appuser/property/$propertyId/business_op_modules/hospitality/bar",
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_appuser/property/$propertyId/business_op_modules/hospitality/bar"!
-    </div>
-  )
-}
+  component: Outlet,
+});

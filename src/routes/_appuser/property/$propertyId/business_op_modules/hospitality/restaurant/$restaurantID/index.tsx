@@ -1,16 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import RestaurantConfigIndexPage from "@/business_operation/hospitality/restaurant/pages/RestaurantConfigIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  '/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/',
+  "/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/",
 )({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return (
-    <div>
-      Hello
-      "/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/"!
-    </div>
-  )
-}
+  component: RestaurantConfigIndexPage,
+});

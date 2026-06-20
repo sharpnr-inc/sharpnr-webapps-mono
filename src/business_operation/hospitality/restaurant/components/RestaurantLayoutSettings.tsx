@@ -9,7 +9,7 @@ import {
 } from "@sharpnr/ui";
 import { Trash2, Pencil, PlusIcon } from "lucide-react";
 import { useRestaurantLayout } from "@/business_operation/hospitality/restaurant/apis/queries";
-import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/index";
 import RestaurantConfiguration from "./RestaurantFloorForm";
 import { useModal } from "@/hooks/useModal";
 

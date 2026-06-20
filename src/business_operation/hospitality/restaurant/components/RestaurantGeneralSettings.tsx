@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@sharpnr/ui";
-import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/index";
 import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/queries";
 import { useAppForm } from "@/components/forms";
 import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/mutations";
