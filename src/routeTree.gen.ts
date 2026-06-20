@@ -57,12 +57,12 @@ import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
 import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/healthcare/index'
 import { Route as AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property_settings/index'
+import { Route as AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteImport } from './routes/_appuser/property/$propertyId/resources/hospitality/house_menu/route'
 import { Route as AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteImport } from './routes/_appuser/property/$propertyId/infras/hospitality/kitchen/route'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/route'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/hospitality/hotel/route'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/hospitality/bar/route'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/route'
-import { Route as AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteImport } from './routes/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID/route'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport } from './routes/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/route'
 import { Route as AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRouteImport } from './routes/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID/index'
 import { Route as AppuserPropertyPropertyIdInfrasHospitalityKitchenKitchenIDIndexRouteImport } from './routes/_appuser/property/$propertyId/infras/hospitality/kitchen/$kitchenID/index'
@@ -341,6 +341,14 @@ const AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute =
     path: '/business-ops/property/$propertyId/property_settings/',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRoute =
+  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteImport.update(
+    {
+      id: '/property/$propertyId/resources/hospitality/house_menu',
+      path: '/property/$propertyId/resources/hospitality/house_menu',
+      getParentRoute: () => AppuserRouteRoute,
+    } as any,
+  )
 const AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRoute =
   AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteImport.update({
     id: '/property/$propertyId/infras/hospitality/kitchen',
@@ -379,14 +387,6 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboard
       getParentRoute: () => AppuserRouteRoute,
     } as any,
   )
-const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRoute =
-  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteImport.update(
-    {
-      id: '/property/$propertyId/resources/hospitality/house_menu/$menuID',
-      path: '/property/$propertyId/resources/hospitality/house_menu/$menuID',
-      getParentRoute: () => AppuserRouteRoute,
-    } as any,
-  )
 const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute =
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteImport.update(
     {
@@ -398,10 +398,10 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotel
 const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute =
   AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRouteImport.update(
     {
-      id: '/',
-      path: '/',
+      id: '/$menuID/',
+      path: '/$menuID/',
       getParentRoute: () =>
-        AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRoute,
+        AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRoute,
     } as any,
   )
 const AppuserPropertyPropertyIdInfrasHospitalityKitchenKitchenIDIndexRoute =
@@ -518,10 +518,10 @@ export interface FileRoutesByFullPath {
   '/property/$propertyId/business_op_modules/hospitality/hotel': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
   '/property/$propertyId/business_op_modules/hospitality/restaurant': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRouteWithChildren
   '/property/$propertyId/infras/hospitality/kitchen': typeof AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteWithChildren
+  '/property/$propertyId/resources/hospitality/house_menu': typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteWithChildren
   '/business-ops/property/$propertyId/property_settings/': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
   '/property/$propertyId/business_op_modules/healthcare/': typeof AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  '/property/$propertyId/resources/hospitality/house_menu/$menuID': typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteWithChildren
   '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
@@ -574,6 +574,7 @@ export interface FileRoutesByTo {
   '/property/$propertyId/business_op_modules/hospitality/hotel': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
   '/property/$propertyId/business_op_modules/hospitality/restaurant': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRouteWithChildren
   '/property/$propertyId/infras/hospitality/kitchen': typeof AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteWithChildren
+  '/property/$propertyId/resources/hospitality/house_menu': typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteWithChildren
   '/business-ops/property/$propertyId/property_settings': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
   '/property/$propertyId/business_op_modules/healthcare': typeof AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
@@ -638,10 +639,10 @@ export interface FileRoutesById {
   '/_appuser/property/$propertyId/business_op_modules/hospitality/hotel': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
   '/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRouteWithChildren
   '/_appuser/property/$propertyId/infras/hospitality/kitchen': typeof AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteWithChildren
+  '/_appuser/property/$propertyId/resources/hospitality/house_menu': typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteWithChildren
   '/_appuser/business-ops/property/$propertyId/property_settings/': typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
   '/_appuser/property/$propertyId/business_op_modules/healthcare/': typeof AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute
   '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  '/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID': typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteWithChildren
   '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
   '/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
   '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
@@ -704,10 +705,10 @@ export interface FileRouteTypes {
     | '/property/$propertyId/business_op_modules/hospitality/hotel'
     | '/property/$propertyId/business_op_modules/hospitality/restaurant'
     | '/property/$propertyId/infras/hospitality/kitchen'
+    | '/property/$propertyId/resources/hospitality/house_menu'
     | '/business-ops/property/$propertyId/property_settings/'
     | '/property/$propertyId/business_op_modules/healthcare/'
     | '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-    | '/property/$propertyId/resources/hospitality/house_menu/$menuID'
     | '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
     | '/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
     | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
@@ -760,6 +761,7 @@ export interface FileRouteTypes {
     | '/property/$propertyId/business_op_modules/hospitality/hotel'
     | '/property/$propertyId/business_op_modules/hospitality/restaurant'
     | '/property/$propertyId/infras/hospitality/kitchen'
+    | '/property/$propertyId/resources/hospitality/house_menu'
     | '/business-ops/property/$propertyId/property_settings'
     | '/property/$propertyId/business_op_modules/healthcare'
     | '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
@@ -823,10 +825,10 @@ export interface FileRouteTypes {
     | '/_appuser/property/$propertyId/business_op_modules/hospitality/hotel'
     | '/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant'
     | '/_appuser/property/$propertyId/infras/hospitality/kitchen'
+    | '/_appuser/property/$propertyId/resources/hospitality/house_menu'
     | '/_appuser/business-ops/property/$propertyId/property_settings/'
     | '/_appuser/property/$propertyId/business_op_modules/healthcare/'
     | '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
-    | '/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID'
     | '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId/'
     | '/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/'
     | '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/'
@@ -1181,6 +1183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/property/$propertyId/resources/hospitality/house_menu': {
+      id: '/_appuser/property/$propertyId/resources/hospitality/house_menu'
+      path: '/property/$propertyId/resources/hospitality/house_menu'
+      fullPath: '/property/$propertyId/resources/hospitality/house_menu'
+      preLoaderRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/property/$propertyId/infras/hospitality/kitchen': {
       id: '/_appuser/property/$propertyId/infras/hospitality/kitchen'
       path: '/property/$propertyId/infras/hospitality/kitchen'
@@ -1216,13 +1225,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
-    '/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID': {
-      id: '/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID'
-      path: '/property/$propertyId/resources/hospitality/house_menu/$menuID'
-      fullPath: '/property/$propertyId/resources/hospitality/house_menu/$menuID'
-      preLoaderRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
     '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId': {
       id: '/_appuser/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
       path: '/business-ops/property/$propertyId/domain_hospitality/hotel_dashboard/$hotelId'
@@ -1232,10 +1234,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID/': {
       id: '/_appuser/property/$propertyId/resources/hospitality/house_menu/$menuID/'
-      path: '/'
+      path: '/$menuID'
       fullPath: '/property/$propertyId/resources/hospitality/house_menu/$menuID/'
       preLoaderRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRouteImport
-      parentRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRoute
+      parentRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRoute
     }
     '/_appuser/property/$propertyId/infras/hospitality/kitchen/$kitchenID/': {
       id: '/_appuser/property/$propertyId/infras/hospitality/kitchen/$kitchenID/'
@@ -1466,6 +1468,21 @@ const AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteWithChildren =
     AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteChildren,
   )
 
+interface AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteChildren {
+  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute
+}
+
+const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteChildren: AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteChildren =
+  {
+    AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute:
+      AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute,
+  }
+
+const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteWithChildren =
+  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRoute._addFileChildren(
+    AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteChildren,
+  )
+
 interface AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren {
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdIndexRoute
 }
@@ -1479,21 +1496,6 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotel
 const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren =
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute._addFileChildren(
     AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteChildren,
-  )
-
-interface AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteChildren {
-  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute
-}
-
-const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteChildren: AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteChildren =
-  {
-    AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute:
-      AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDIndexRoute,
-  }
-
-const AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteWithChildren =
-  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRoute._addFileChildren(
-    AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteChildren,
   )
 
 interface AppuserRouteRouteChildren {
@@ -1530,10 +1532,10 @@ interface AppuserRouteRouteChildren {
   AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRoute: typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
   AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRoute: typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRouteWithChildren
   AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRoute: typeof AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteWithChildren
+  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteWithChildren
   AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute
   AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute: typeof AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren
-  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRoute: typeof AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteWithChildren
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute
 }
 
@@ -1583,14 +1585,14 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
     AppuserPropertyPropertyIdBusiness_op_modulesHospitalityRestaurantRouteRouteWithChildren,
   AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRoute:
     AppuserPropertyPropertyIdInfrasHospitalityKitchenRouteRouteWithChildren,
+  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRoute:
+    AppuserPropertyPropertyIdResourcesHospitalityHouse_menuRouteRouteWithChildren,
   AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute:
     AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRoute,
   AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute:
     AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRoute,
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRoute:
     AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotelIdRouteRouteWithChildren,
-  AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRoute:
-    AppuserPropertyPropertyIdResourcesHospitalityHouse_menuMenuIDRouteRouteWithChildren,
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute:
     AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityInfra_dInfraIDIndexRoute,
 }

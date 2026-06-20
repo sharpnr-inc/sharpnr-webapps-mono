@@ -44,6 +44,8 @@ import {
 import { useModal } from "@/hooks/useModal";
 import ResourceCatalog from "@/business_operation/shared/ResourceCatalog";
 import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";
+import { useNavigate } from "@tanstack/react-router";
+import { Route } from "@/routes/_appuser/property/$propertyId/details";
 
 /* ── shape (placeholder until the API exists) ────────── */
 interface PropertyResource {
@@ -115,11 +117,24 @@ const RESOURCE_ICONS: Record<string, ElementType> = {
 /* ── single resource tile ────────────────────────────── */
 function ResourceCard({ resource }: { resource: PropertyResource }) {
   const Icon = RESOURCE_ICONS[resource.resource_type] ?? Library;
+  const { propertyId } = Route.useParams();
+  const nav = useNavigate();
 
   return (
-    <HoverCard openDelay={150} closeDelay={80}>
+    <HoverCard openDelay={250} closeDelay={80}>
       <HoverCardTrigger asChild>
-        <Card className="group relative cursor-default overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md">
+        <Card
+          onClick={() =>
+            nav({
+              to: "/property/$propertyId/resources/hospitality/house_menu/$menuID",
+              params: {
+                propertyId: propertyId,
+                menuID: "123",
+              },
+            })
+          }
+          className="group relative cursor-default overflow-hidden border-border/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+        >
           <CardHeader className="flex-row items-start gap-3 space-y-0">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-muted text-muted-foreground transition-transform group-hover:scale-105">
               <Icon className="h-5 w-5" />
