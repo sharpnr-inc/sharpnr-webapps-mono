@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
-import { Route as LayoutIndexRouteImport } from './routes/_website/index'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutSocial_media_managementRouteImport } from './routes/_layout/social_media_management'
 import { Route as LayoutReportsRouteImport } from './routes/_layout/reports'
 import { Route as LayoutLeadsRouteImport } from './routes/_layout/leads'
@@ -20,10 +20,10 @@ const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LayoutIndexRoute = LayoutIndexRouteImport.update({
-  id: '/',
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
   path: '/',
-  getParentRoute: () => LayoutRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutSocial_media_managementRoute =
   LayoutSocial_media_managementRouteImport.update({
@@ -48,18 +48,18 @@ const LayoutCampaignsRoute = LayoutCampaignsRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof LayoutIndexRoute
+  '/': typeof WebsiteIndexRoute
   '/campaigns': typeof LayoutCampaignsRoute
   '/leads': typeof LayoutLeadsRoute
   '/reports': typeof LayoutReportsRoute
   '/social_media_management': typeof LayoutSocial_media_managementRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof WebsiteIndexRoute
   '/campaigns': typeof LayoutCampaignsRoute
   '/leads': typeof LayoutLeadsRoute
   '/reports': typeof LayoutReportsRoute
   '/social_media_management': typeof LayoutSocial_media_managementRoute
-  '/': typeof LayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -68,7 +68,7 @@ export interface FileRoutesById {
   '/_layout/leads': typeof LayoutLeadsRoute
   '/_layout/reports': typeof LayoutReportsRoute
   '/_layout/social_media_management': typeof LayoutSocial_media_managementRoute
-  '/_layout/': typeof LayoutIndexRoute
+  '/_website/': typeof WebsiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,7 +79,7 @@ export interface FileRouteTypes {
     | '/reports'
     | '/social_media_management'
   fileRoutesByTo: FileRoutesByTo
-  to: '/campaigns' | '/leads' | '/reports' | '/social_media_management' | '/'
+  to: '/' | '/campaigns' | '/leads' | '/reports' | '/social_media_management'
   id:
     | '__root__'
     | '/_layout'
@@ -87,11 +87,12 @@ export interface FileRouteTypes {
     | '/_layout/leads'
     | '/_layout/reports'
     | '/_layout/social_media_management'
-    | '/_layout/'
+    | '/_website/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
+  WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -103,12 +104,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_layout/': {
-      id: '/_layout/'
+    '/_website/': {
+      id: '/_website/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof LayoutIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
+      preLoaderRoute: typeof WebsiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_layout/social_media_management': {
       id: '/_layout/social_media_management'
@@ -146,7 +147,6 @@ interface LayoutRouteRouteChildren {
   LayoutLeadsRoute: typeof LayoutLeadsRoute
   LayoutReportsRoute: typeof LayoutReportsRoute
   LayoutSocial_media_managementRoute: typeof LayoutSocial_media_managementRoute
-  LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
@@ -154,7 +154,6 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutLeadsRoute: LayoutLeadsRoute,
   LayoutReportsRoute: LayoutReportsRoute,
   LayoutSocial_media_managementRoute: LayoutSocial_media_managementRoute,
-  LayoutIndexRoute: LayoutIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
@@ -163,6 +162,7 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
+  WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

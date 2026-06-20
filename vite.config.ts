@@ -19,7 +19,7 @@ export default defineConfig({
     host: true,
     port: 6968,
     strictPort: true,
-    allowedHosts: ["marketing.sharpnr.test"],
+    allowedHosts: ["sharpcrm.sharpnr.test"],
   },
 
   resolve: {
