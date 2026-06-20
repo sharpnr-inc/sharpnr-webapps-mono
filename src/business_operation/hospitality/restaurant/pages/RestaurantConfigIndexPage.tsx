@@ -183,21 +183,21 @@ function GeneralSection() {
           <Input
             type="time"
             defaultValue={RESTAURANT.opening_time}
-            className="h-8 max-w-[150px] text-sm"
+            className="h-8 max-w-37.5 text-sm"
           />
         </Field>
         <Field label="Closing time">
           <Input
             type="time"
             defaultValue={RESTAURANT.closing_time}
-            className="h-8 max-w-[150px] text-sm"
+            className="h-8 max-w-37.5 text-sm"
           />
         </Field>
         <Field label="Seating capacity">
           <Input
             type="number"
             defaultValue={RESTAURANT.seating_capacity}
-            className="h-8 max-w-[150px] text-sm"
+            className="h-8 max-w-37.5 text-sm"
           />
         </Field>
 
