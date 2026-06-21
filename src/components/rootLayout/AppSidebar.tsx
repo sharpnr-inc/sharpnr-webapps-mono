@@ -86,7 +86,14 @@ function SidebarLinkItem({ item }: { item: SidebarLink }) {
         onClick={() => setOpen((prev) => !prev)}
       >
         <Icon />
-        <span>{item.label}</span>
+        <span>
+          {item.label}
+          {item.badge && (
+            <sup className="ml-1 text-[0.6rem] font-semibold uppercase text-primary">
+              {item.badge}
+            </sup>
+          )}
+        </span>
         <ChevronRight
           className={cn(
             "ml-auto transition-transform duration-200",
