@@ -3,10 +3,6 @@ const requiredVars = [
   "VITE_API_URL",
   "VITE_API_CSRF",
 
-  // Third-party
-  "VITE_API_CITY_STATE_BASE_URL",
-  "VITE_API_CITY_STATE_API_KEY",
-
   // Internal Apps
   "VITE_API_ACCOUNTING_APP",
   "VITE_API_AUTH_APP",
@@ -29,10 +25,6 @@ export const config = {
   // Core API
   apiBaseUrl: import.meta.env.VITE_API_URL, // Main backend API
   csrfToken: import.meta.env.VITE_API_CSRF, // CSRF protection token
-
-  // Third-party Services
-  cityStateBaseUrl: import.meta.env.VITE_API_CITY_STATE_BASE_URL, // Country/State/City API base URL
-  cityStateApiKey: import.meta.env.VITE_API_CITY_STATE_API_KEY, // Country/State/City API key
 
   // Internal Apps (Micro-frontends / Services)
   accountingAppUrl: import.meta.env.VITE_API_ACCOUNTING_APP, // Accounting module

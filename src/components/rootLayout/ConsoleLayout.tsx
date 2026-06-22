@@ -1,6 +1,11 @@
 // ANCHOR Orchestrator layout with collapsible icon sidebar
 import * as React from "react";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@sharpnr/ui";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+  useSheet,
+} from "@sharpnr/ui";
 import { Outlet } from "@tanstack/react-router";
 import { Bell } from "lucide-react";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
@@ -42,6 +47,17 @@ function NotificationBell({ onClick }: { onClick: () => void }) {
 }
 
 function ConsoleLayoutContent() {
+  const { openSheet } = useSheet();
+
+  const handleOpen = () => {
+    openSheet(
+      <iframe
+        src="https://docs.sharpnr.com/orchestrator"
+        className="h-dvw w-full border-0"
+      ></iframe>,
+      "2/4",
+    );
+  };
   return (
     <>
       <OrchestratorShell />
@@ -63,7 +79,7 @@ function ConsoleLayoutContent() {
             </HeaderItem>
 
             <HeaderItem index={3}>
-              <NotificationBell onClick={() => console.log("")} />
+              <NotificationBell onClick={() => handleOpen()} />
             </HeaderItem>
 
             <HeaderItem index={4}>

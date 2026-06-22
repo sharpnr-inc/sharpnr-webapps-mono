@@ -6,10 +6,6 @@ interface ImportMetaEnv {
   readonly VITE_API_URL: string;
   readonly VITE_API_CSRF: string;
 
-  // Third-party
-  readonly VITE_API_CITY_STATE_BASE_URL: string;
-  readonly VITE_API_CITY_STATE_API_KEY: string;
-
   // Internal Apps
   readonly VITE_API_ACCOUNTING_APP: string;
   readonly VITE_API_AUTH_APP: string;
