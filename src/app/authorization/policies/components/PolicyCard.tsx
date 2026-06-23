@@ -8,6 +8,8 @@ import {
   User,
   Zap,
   Box,
+  Pencil,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/formatDatePretty";
@@ -168,6 +170,16 @@ export function PolicyCard({ policy }: PolicyCardProps) {
             )}
           </div>
         )}
+
+        {/* Actions */}
+        <div className="flex items-center justify-end gap-2 border-t pt-3">
+          <Button variant="outline" size="sm" className="gap-1">
+            <Pencil className="h-3.5 w-3.5" /> Edit
+          </Button>
+          <Button size="sm" className="gap-1">
+            See details <ArrowRight className="h-3.5 w-3.5" />
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
