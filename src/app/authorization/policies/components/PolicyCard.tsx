@@ -11,7 +11,12 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/formatDatePretty";
-import { parsePolicy, formatPolicy } from "../../cederbuilder/service";
+import {
+  parsePolicy,
+  formatPolicy,
+  policyToJsonObject,
+} from "../../cederbuilder/service";
+import { JsonView } from "./JsonView";
 import type { SentinelPolicy } from "../api/types";
 
 interface PolicyCardProps {
@@ -38,10 +43,15 @@ function ConstraintRow({
 
 export function PolicyCard({ policy }: PolicyCardProps) {
   const [expanded, setExpanded] = useState(false);
+  const [view, setView] = useState<"cedar" | "json">("cedar");
 
   const parsed = useMemo(() => parsePolicy(policy.statement), [policy.statement]);
   const formatted = useMemo(
     () => formatPolicy(policy.statement),
+    [policy.statement],
+  );
+  const json = useMemo(
+    () => policyToJsonObject(policy.statement),
     [policy.statement],
   );
 
@@ -127,9 +137,36 @@ export function PolicyCard({ policy }: PolicyCardProps) {
         </div>
 
         {expanded && (
-          <pre className="overflow-x-auto rounded-md bg-muted p-3 text-xs font-mono text-foreground">
-            {formatted}
-          </pre>
+          <div className="space-y-2">
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              {(["cedar", "json"] as const).map((v) => (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => setView(v)}
+                  className={cn(
+                    "rounded px-2.5 py-1 font-medium transition-colors",
+                    view === v
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {v === "cedar" ? "Cedar" : "JSON"}
+                </button>
+              ))}
+            </div>
+            {view === "cedar" ? (
+              <pre className="overflow-x-auto rounded-md bg-muted p-3 text-xs font-mono text-foreground">
+                {formatted}
+              </pre>
+            ) : json ? (
+              <JsonView data={json} />
+            ) : (
+              <pre className="rounded-md bg-muted p-3 text-xs font-mono text-destructive">
+                // invalid Cedar policy
+              </pre>
+            )}
+          </div>
         )}
       </CardContent>
     </Card>

@@ -22,10 +22,12 @@ import {
   buildPolicyText,
   formatPolicy,
   parsePolicy,
+  policyToJsonObject,
   type ScopeOp,
   type ConditionInput,
 } from "../../cederbuilder/service";
 import { ConditionBuilder } from "./ConditionBuilder";
+import { JsonView } from "./JsonView";
 import {
   ENTITY_TYPES,
   ACTIONS,
@@ -118,7 +120,9 @@ export function CreatePolicyForm({ onSubmit, onCancel }: CreatePolicyFormProps) 
 
   const parsed = useMemo(() => parsePolicy(statement), [statement]);
   const formatted = useMemo(() => formatPolicy(statement), [statement]);
+  const json = useMemo(() => policyToJsonObject(statement), [statement]);
   const isValid = parsed !== null;
+  const [view, setView] = useState<"cedar" | "json">("cedar");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -408,14 +412,39 @@ export function CreatePolicyForm({ onSubmit, onCancel }: CreatePolicyFormProps) 
             )}
           </CardHeader>
           <CardContent className="space-y-3">
-            <pre
-              className={cn(
-                "overflow-x-auto rounded-md bg-muted p-3 text-xs font-mono text-foreground",
-                !isValid && "ring-1 ring-destructive/40",
-              )}
-            >
-              {formatted}
-            </pre>
+            <div className="inline-flex rounded-md border p-0.5 text-xs">
+              {(["cedar", "json"] as const).map((v) => (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => setView(v)}
+                  className={cn(
+                    "rounded px-2.5 py-1 font-medium transition-colors",
+                    view === v
+                      ? "bg-muted text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {v === "cedar" ? "Cedar" : "JSON"}
+                </button>
+              ))}
+            </div>
+            {view === "cedar" ? (
+              <pre
+                className={cn(
+                  "overflow-x-auto rounded-md bg-muted p-3 text-xs font-mono text-foreground",
+                  !isValid && "ring-1 ring-destructive/40",
+                )}
+              >
+                {formatted}
+              </pre>
+            ) : json ? (
+              <JsonView data={json} />
+            ) : (
+              <pre className="rounded-md bg-muted p-3 text-xs font-mono text-destructive ring-1 ring-destructive/40">
+                // invalid Cedar policy
+              </pre>
+            )}
             {!isValid && (
               <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
                 <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-destructive" />

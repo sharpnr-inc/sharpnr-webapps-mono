@@ -96,6 +96,24 @@ export function formatPolicy(policyText: string, lineWidth = 80): string {
   return res.type === "success" ? res.formatted_policy : policyText;
 }
 
+/**
+ * Convert Cedar policy source text into its JSON (estree-style) representation.
+ * Returns the raw `PolicyJson` object, or `null` if the text is not valid Cedar.
+ */
+export function policyToJsonObject(policyText: string): PolicyJson | null {
+  const res = policyToJson(policyText);
+  return res.type === "success" ? res.json : null;
+}
+
+/**
+ * Convert Cedar policy source text into a pretty-printed JSON string.
+ * Returns `null` if the text is not valid Cedar.
+ */
+export function policyToJsonString(policyText: string): string | null {
+  const json = policyToJsonObject(policyText);
+  return json ? JSON.stringify(json, null, 2) : null;
+}
+
 export type ScopeOp = "All" | "is" | "in" | "==";
 
 export interface ScopeInput {
