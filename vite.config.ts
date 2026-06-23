@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import { devtools } from "@tanstack/devtools-vite";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,14 +20,19 @@ export default defineConfig({
         enabled: false,
       },
     }),
-    tailwindcss(),
+    wasm(),
+    topLevelAwait(),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
       generatedRouteTree: "./src/routeTree.gen.ts",
     }),
     react(),
+    tailwindcss(),
   ],
+  optimizeDeps: {
+    exclude: ["@cedar-policy/cedar-wasm"],
+  },
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {

@@ -56,6 +56,7 @@ import { Route as AppuserLegal_entityLeIDTax_categoryRouteImport } from './route
 import { Route as AppuserLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/legal_entity/$leID/details'
 import { Route as AppuserInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/inventory-acc/$inventoryAccountID/details'
 import { Route as AppuserBusinessOpsPropertyRoutesRouteImport } from './routes/_appuser/business-ops/property/routes'
+import { Route as AppuserAuthorizationPoliciesCreateRouteImport } from './routes/_appuser/authorization/policies/create'
 import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property-configuration'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/healthcare/index'
@@ -335,6 +336,12 @@ const AppuserBusinessOpsPropertyRoutesRoute =
     path: '/business-ops/property/routes',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserAuthorizationPoliciesCreateRoute =
+  AppuserAuthorizationPoliciesCreateRouteImport.update({
+    id: '/policies/create',
+    path: '/policies/create',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
+  } as any)
 const AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute =
   AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport.update({
     id: '/business-ops/property/$propertyId/property-configuration',
@@ -524,6 +531,7 @@ export interface FileRoutesByFullPath {
   '/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
   '/silo/': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/authorization/policies/create': typeof AppuserAuthorizationPoliciesCreateRoute
   '/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -582,6 +590,7 @@ export interface FileRoutesByTo {
   '/sharp_marketplace': typeof AppuserSharp_marketplaceIndexRoute
   '/silo': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/authorization/policies/create': typeof AppuserAuthorizationPoliciesCreateRoute
   '/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -650,6 +659,7 @@ export interface FileRoutesById {
   '/_appuser/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
   '/_appuser/silo/': typeof AppuserSiloIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
+  '/_appuser/authorization/policies/create': typeof AppuserAuthorizationPoliciesCreateRoute
   '/_appuser/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -719,6 +729,7 @@ export interface FileRouteTypes {
     | '/sharp_marketplace/'
     | '/silo/'
     | '/suppliers&Vendors/'
+    | '/authorization/policies/create'
     | '/business-ops/property/routes'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -777,6 +788,7 @@ export interface FileRouteTypes {
     | '/sharp_marketplace'
     | '/silo'
     | '/suppliers&Vendors'
+    | '/authorization/policies/create'
     | '/business-ops/property/routes'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -844,6 +856,7 @@ export interface FileRouteTypes {
     | '/_appuser/sharp_marketplace/'
     | '/_appuser/silo/'
     | '/_appuser/suppliers&Vendors/'
+    | '/_appuser/authorization/policies/create'
     | '/_appuser/business-ops/property/routes'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
     | '/_appuser/legal_entity/$leID/details'
@@ -1212,6 +1225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserBusinessOpsPropertyRoutesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/authorization/policies/create': {
+      id: '/_appuser/authorization/policies/create'
+      path: '/policies/create'
+      fullPath: '/authorization/policies/create'
+      preLoaderRoute: typeof AppuserAuthorizationPoliciesCreateRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
+    }
     '/_appuser/business-ops/property/$propertyId/property-configuration': {
       id: '/_appuser/business-ops/property/$propertyId/property-configuration'
       path: '/business-ops/property/$propertyId/property-configuration'
@@ -1360,11 +1380,14 @@ const AppuserAuditLogRouteRouteWithChildren =
   AppuserAuditLogRouteRoute._addFileChildren(AppuserAuditLogRouteRouteChildren)
 
 interface AppuserAuthorizationRouteRouteChildren {
+  AppuserAuthorizationPoliciesCreateRoute: typeof AppuserAuthorizationPoliciesCreateRoute
   AppuserAuthorizationPoliciesIndexRoute: typeof AppuserAuthorizationPoliciesIndexRoute
 }
 
 const AppuserAuthorizationRouteRouteChildren: AppuserAuthorizationRouteRouteChildren =
   {
+    AppuserAuthorizationPoliciesCreateRoute:
+      AppuserAuthorizationPoliciesCreateRoute,
     AppuserAuthorizationPoliciesIndexRoute:
       AppuserAuthorizationPoliciesIndexRoute,
   }
