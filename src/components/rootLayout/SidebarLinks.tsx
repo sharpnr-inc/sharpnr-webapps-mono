@@ -1,9 +1,12 @@
 import {
+  BarChart3,
   BoxesIcon,
   BriefcaseBusiness,
   Building2Icon,
   Cable,
+  CalendarCheck,
   ContainerIcon,
+  DollarSign,
   Globe,
   Globe2Icon,
   Home,
@@ -13,6 +16,7 @@ import {
   MirrorRound,
   Network,
   Receipt,
+  TrendingUp,
   Wallet,
 } from "lucide-react";
 import { GrOverview } from "react-icons/gr";
@@ -128,31 +132,58 @@ export const orchestratorGroups: SidebarGroup[] = [
         tooltip: "Properties",
         exact: false,
       },
-      // {
-      //   label: "Reports",
-      //   icon: BarChart3,
-      //   tooltip: "Reports",
-      //   children: [
-      //     {
-      //       label: "Overview",
-      //       path: "/reports/overview",
-      //       icon: TrendingUp,
-      //       tooltip: "Reports Overview",
-      //     },
-      //     {
-      //       label: "Revenue",
-      //       path: "/reports/revenue",
-      //       icon: DollarSign,
-      //       tooltip: "Revenue",
-      //     },
-      //     {
-      //       label: "Occupancy",
-      //       path: "/reports/occupancy",
-      //       icon: CalendarCheck,
-      //       tooltip: "Occupancy",
-      //     },
-      //   ],
-      // },
+      {
+        label: "Reports",
+        icon: BarChart3,
+        tooltip: "Reports",
+        children: [
+          {
+            label: "Overview",
+            path: "/reports/overview",
+            icon: TrendingUp,
+            tooltip: "Reports Overview",
+          },
+          {
+            label: "Revenue",
+            path: "/reports/revenue",
+            icon: DollarSign,
+            tooltip: "Revenue",
+          },
+          {
+            label: "Business Intelligence",
+            path: "/reports/occupancy",
+            icon: CalendarCheck,
+            tooltip: "Occupancy",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    groupLabel: "Authorization policies",
+    links: [
+      {
+        label: "Policies",
+        path: "/property",
+        icon: Building2Icon,
+        tooltip: "Properties",
+        exact: false,
+      },
+      {
+        label: "Roles",
+        path: "/property",
+        icon: Building2Icon,
+        tooltip: "Properties",
+        exact: false,
+      },
+      {
+        label: "User Groups",
+        path: "/property",
+        icon: Building2Icon,
+        tooltip: "Properties",
+        exact: false,
+      },
     ],
   },
 
