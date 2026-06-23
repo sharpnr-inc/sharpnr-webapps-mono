@@ -21,6 +21,7 @@ import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserDescovro_integrationsRouteRouteImport } from './routes/_appuser/descovro_integrations/route'
 import { Route as AppuserCustomersRouteRouteImport } from './routes/_appuser/customers/route'
+import { Route as AppuserAuthorizationRouteRouteImport } from './routes/_appuser/authorization/route'
 import { Route as AppuserAuditLogRouteRouteImport } from './routes/_appuser/audit-log/route'
 import { Route as AppuserSuppliersChar38VendorsIndexRouteImport } from './routes/_appuser/suppliers&Vendors/index'
 import { Route as AppuserSiloIndexRouteImport } from './routes/_appuser/silo/index'
@@ -47,6 +48,7 @@ import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/pro
 import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserBusinessOpsPropertyIndexRouteImport } from './routes/_appuser/business-ops/property/index'
+import { Route as AppuserAuthorizationPoliciesIndexRouteImport } from './routes/_appuser/authorization/policies/index'
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
 import { Route as AppuserPropertyPropertyIdSettingsRouteImport } from './routes/_appuser/property/$propertyId/settings'
 import { Route as AppuserPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/property/$propertyId/details'
@@ -137,6 +139,12 @@ const AppuserCustomersRouteRoute = AppuserCustomersRouteRouteImport.update({
   path: '/customers',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserAuthorizationRouteRoute =
+  AppuserAuthorizationRouteRouteImport.update({
+    id: '/authorization',
+    path: '/authorization',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserAuditLogRouteRoute = AppuserAuditLogRouteRouteImport.update({
   id: '/audit-log',
   path: '/audit-log',
@@ -278,6 +286,12 @@ const AppuserBusinessOpsPropertyIndexRoute =
     id: '/business-ops/property/',
     path: '/business-ops/property/',
     getParentRoute: () => AppuserRouteRoute,
+  } as any)
+const AppuserAuthorizationPoliciesIndexRoute =
+  AppuserAuthorizationPoliciesIndexRouteImport.update({
+    id: '/policies/',
+    path: '/policies/',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
   } as any)
 const AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute =
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport.update({
@@ -477,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/': typeof MarketingIndexRoute
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
+  '/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
   '/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
@@ -516,6 +531,7 @@ export interface FileRoutesByFullPath {
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/authorization/policies/': typeof AppuserAuthorizationPoliciesIndexRoute
   '/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -540,6 +556,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof MarketingIndexRoute
+  '/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
   '/setup_wizard': typeof Setup_wizardIndexRoute
   '/cables/routes': typeof AppuserCablesRoutesRoute
@@ -572,6 +589,7 @@ export interface FileRoutesByTo {
   '/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/authorization/policies': typeof AppuserAuthorizationPoliciesIndexRoute
   '/business-ops/property': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -598,6 +616,7 @@ export interface FileRoutesById {
   '/_appuser': typeof AppuserRouteRouteWithChildren
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/_appuser/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
+  '/_appuser/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
   '/_appuser/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/_appuser/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
@@ -638,6 +657,7 @@ export interface FileRoutesById {
   '/_appuser/property/$propertyId/details': typeof AppuserPropertyPropertyIdDetailsRoute
   '/_appuser/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/_appuser/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
+  '/_appuser/authorization/policies/': typeof AppuserAuthorizationPoliciesIndexRoute
   '/_appuser/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -666,6 +686,7 @@ export interface FileRouteTypes {
     | '/'
     | '/setup_wizard'
     | '/audit-log'
+    | '/authorization'
     | '/customers'
     | '/descovro_integrations'
     | '/inventory-acc'
@@ -705,6 +726,7 @@ export interface FileRouteTypes {
     | '/property/$propertyId/details'
     | '/property/$propertyId/settings'
     | '/suppliers&Vendors/$suppliersID/details'
+    | '/authorization/policies/'
     | '/business-ops/property/'
     | '/payments/$accountId/'
     | '/business-ops/property/$propertyId/details'
@@ -729,6 +751,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/authorization'
     | '/home'
     | '/setup_wizard'
     | '/cables/routes'
@@ -761,6 +784,7 @@ export interface FileRouteTypes {
     | '/property/$propertyId/details'
     | '/property/$propertyId/settings'
     | '/suppliers&Vendors/$suppliersID/details'
+    | '/authorization/policies'
     | '/business-ops/property'
     | '/payments/$accountId'
     | '/business-ops/property/$propertyId/details'
@@ -786,6 +810,7 @@ export interface FileRouteTypes {
     | '/_appuser'
     | '/setup_wizard'
     | '/_appuser/audit-log'
+    | '/_appuser/authorization'
     | '/_appuser/customers'
     | '/_appuser/descovro_integrations'
     | '/_appuser/inventory-acc'
@@ -826,6 +851,7 @@ export interface FileRouteTypes {
     | '/_appuser/property/$propertyId/details'
     | '/_appuser/property/$propertyId/settings'
     | '/_appuser/suppliers&Vendors/$suppliersID/details'
+    | '/_appuser/authorization/policies/'
     | '/_appuser/business-ops/property/'
     | '/_appuser/payments/$accountId/'
     | '/_appuser/business-ops/property/$propertyId/details'
@@ -939,6 +965,13 @@ declare module '@tanstack/react-router' {
       path: '/customers'
       fullPath: '/customers'
       preLoaderRoute: typeof AppuserCustomersRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/authorization': {
+      id: '/_appuser/authorization'
+      path: '/authorization'
+      fullPath: '/authorization'
+      preLoaderRoute: typeof AppuserAuthorizationRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/audit-log': {
@@ -1122,6 +1155,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/business-ops/property/'
       preLoaderRoute: typeof AppuserBusinessOpsPropertyIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/authorization/policies/': {
+      id: '/_appuser/authorization/policies/'
+      path: '/policies'
+      fullPath: '/authorization/policies/'
+      preLoaderRoute: typeof AppuserAuthorizationPoliciesIndexRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
     }
     '/_appuser/suppliers&Vendors/$suppliersID/details': {
       id: '/_appuser/suppliers&Vendors/$suppliersID/details'
@@ -1318,6 +1358,21 @@ const AppuserAuditLogRouteRouteChildren: AppuserAuditLogRouteRouteChildren = {
 
 const AppuserAuditLogRouteRouteWithChildren =
   AppuserAuditLogRouteRoute._addFileChildren(AppuserAuditLogRouteRouteChildren)
+
+interface AppuserAuthorizationRouteRouteChildren {
+  AppuserAuthorizationPoliciesIndexRoute: typeof AppuserAuthorizationPoliciesIndexRoute
+}
+
+const AppuserAuthorizationRouteRouteChildren: AppuserAuthorizationRouteRouteChildren =
+  {
+    AppuserAuthorizationPoliciesIndexRoute:
+      AppuserAuthorizationPoliciesIndexRoute,
+  }
+
+const AppuserAuthorizationRouteRouteWithChildren =
+  AppuserAuthorizationRouteRoute._addFileChildren(
+    AppuserAuthorizationRouteRouteChildren,
+  )
 
 interface AppuserCustomersRouteRouteChildren {
   AppuserCustomersIndexRoute: typeof AppuserCustomersIndexRoute
@@ -1528,6 +1583,7 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotel
 
 interface AppuserRouteRouteChildren {
   AppuserAuditLogRouteRoute: typeof AppuserAuditLogRouteRouteWithChildren
+  AppuserAuthorizationRouteRoute: typeof AppuserAuthorizationRouteRouteWithChildren
   AppuserCustomersRouteRoute: typeof AppuserCustomersRouteRouteWithChildren
   AppuserDescovro_integrationsRouteRoute: typeof AppuserDescovro_integrationsRouteRouteWithChildren
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
@@ -1569,6 +1625,7 @@ interface AppuserRouteRouteChildren {
 
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserAuditLogRouteRoute: AppuserAuditLogRouteRouteWithChildren,
+  AppuserAuthorizationRouteRoute: AppuserAuthorizationRouteRouteWithChildren,
   AppuserCustomersRouteRoute: AppuserCustomersRouteRouteWithChildren,
   AppuserDescovro_integrationsRouteRoute:
     AppuserDescovro_integrationsRouteRouteWithChildren,
