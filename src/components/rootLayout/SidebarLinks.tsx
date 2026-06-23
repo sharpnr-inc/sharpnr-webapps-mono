@@ -172,14 +172,14 @@ export const orchestratorGroups: SidebarGroup[] = [
       },
       {
         label: "Roles",
-        path: "/property",
+        path: "/authorization/roles",
         icon: Building2Icon,
         tooltip: "Properties",
         exact: false,
       },
       {
         label: "User Groups",
-        path: "/property",
+        path: "/authorization/user_groups",
         icon: Building2Icon,
         tooltip: "Properties",
         exact: false,
