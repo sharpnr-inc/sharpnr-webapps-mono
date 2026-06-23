@@ -48,6 +48,8 @@ import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/pro
 import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserBusinessOpsPropertyIndexRouteImport } from './routes/_appuser/business-ops/property/index'
+import { Route as AppuserAuthorizationUser_groupsIndexRouteImport } from './routes/_appuser/authorization/user_groups/index'
+import { Route as AppuserAuthorizationRolesIndexRouteImport } from './routes/_appuser/authorization/roles/index'
 import { Route as AppuserAuthorizationPoliciesIndexRouteImport } from './routes/_appuser/authorization/policies/index'
 import { Route as AppuserSuppliersChar38VendorsSuppliersIDDetailsRouteImport } from './routes/_appuser/suppliers&Vendors/$suppliersID/details'
 import { Route as AppuserPropertyPropertyIdSettingsRouteImport } from './routes/_appuser/property/$propertyId/settings'
@@ -56,6 +58,8 @@ import { Route as AppuserLegal_entityLeIDTax_categoryRouteImport } from './route
 import { Route as AppuserLegal_entityLeIDDetailsRouteImport } from './routes/_appuser/legal_entity/$leID/details'
 import { Route as AppuserInventoryAccInventoryAccountIDDetailsRouteImport } from './routes/_appuser/inventory-acc/$inventoryAccountID/details'
 import { Route as AppuserBusinessOpsPropertyRoutesRouteImport } from './routes/_appuser/business-ops/property/routes'
+import { Route as AppuserAuthorizationUser_groupsCreateRouteImport } from './routes/_appuser/authorization/user_groups/create'
+import { Route as AppuserAuthorizationRolesCreateRouteImport } from './routes/_appuser/authorization/roles/create'
 import { Route as AppuserAuthorizationPoliciesCreateRouteImport } from './routes/_appuser/authorization/policies/create'
 import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property-configuration'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
@@ -288,6 +292,18 @@ const AppuserBusinessOpsPropertyIndexRoute =
     path: '/business-ops/property/',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserAuthorizationUser_groupsIndexRoute =
+  AppuserAuthorizationUser_groupsIndexRouteImport.update({
+    id: '/user_groups/',
+    path: '/user_groups/',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
+  } as any)
+const AppuserAuthorizationRolesIndexRoute =
+  AppuserAuthorizationRolesIndexRouteImport.update({
+    id: '/roles/',
+    path: '/roles/',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
+  } as any)
 const AppuserAuthorizationPoliciesIndexRoute =
   AppuserAuthorizationPoliciesIndexRouteImport.update({
     id: '/policies/',
@@ -335,6 +351,18 @@ const AppuserBusinessOpsPropertyRoutesRoute =
     id: '/business-ops/property/routes',
     path: '/business-ops/property/routes',
     getParentRoute: () => AppuserRouteRoute,
+  } as any)
+const AppuserAuthorizationUser_groupsCreateRoute =
+  AppuserAuthorizationUser_groupsCreateRouteImport.update({
+    id: '/user_groups/create',
+    path: '/user_groups/create',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
+  } as any)
+const AppuserAuthorizationRolesCreateRoute =
+  AppuserAuthorizationRolesCreateRouteImport.update({
+    id: '/roles/create',
+    path: '/roles/create',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
   } as any)
 const AppuserAuthorizationPoliciesCreateRoute =
   AppuserAuthorizationPoliciesCreateRouteImport.update({
@@ -532,6 +560,8 @@ export interface FileRoutesByFullPath {
   '/silo/': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/authorization/policies/create': typeof AppuserAuthorizationPoliciesCreateRoute
+  '/authorization/roles/create': typeof AppuserAuthorizationRolesCreateRoute
+  '/authorization/user_groups/create': typeof AppuserAuthorizationUser_groupsCreateRoute
   '/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -540,6 +570,8 @@ export interface FileRoutesByFullPath {
   '/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   '/authorization/policies/': typeof AppuserAuthorizationPoliciesIndexRoute
+  '/authorization/roles/': typeof AppuserAuthorizationRolesIndexRoute
+  '/authorization/user_groups/': typeof AppuserAuthorizationUser_groupsIndexRoute
   '/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -591,6 +623,8 @@ export interface FileRoutesByTo {
   '/silo': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/authorization/policies/create': typeof AppuserAuthorizationPoliciesCreateRoute
+  '/authorization/roles/create': typeof AppuserAuthorizationRolesCreateRoute
+  '/authorization/user_groups/create': typeof AppuserAuthorizationUser_groupsCreateRoute
   '/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -599,6 +633,8 @@ export interface FileRoutesByTo {
   '/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   '/authorization/policies': typeof AppuserAuthorizationPoliciesIndexRoute
+  '/authorization/roles': typeof AppuserAuthorizationRolesIndexRoute
+  '/authorization/user_groups': typeof AppuserAuthorizationUser_groupsIndexRoute
   '/business-ops/property': typeof AppuserBusinessOpsPropertyIndexRoute
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -660,6 +696,8 @@ export interface FileRoutesById {
   '/_appuser/silo/': typeof AppuserSiloIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
   '/_appuser/authorization/policies/create': typeof AppuserAuthorizationPoliciesCreateRoute
+  '/_appuser/authorization/roles/create': typeof AppuserAuthorizationRolesCreateRoute
+  '/_appuser/authorization/user_groups/create': typeof AppuserAuthorizationUser_groupsCreateRoute
   '/_appuser/business-ops/property/routes': typeof AppuserBusinessOpsPropertyRoutesRoute
   '/_appuser/inventory-acc/$inventoryAccountID/details': typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
   '/_appuser/legal_entity/$leID/details': typeof AppuserLegal_entityLeIDDetailsRoute
@@ -668,6 +706,8 @@ export interface FileRoutesById {
   '/_appuser/property/$propertyId/settings': typeof AppuserPropertyPropertyIdSettingsRoute
   '/_appuser/suppliers&Vendors/$suppliersID/details': typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   '/_appuser/authorization/policies/': typeof AppuserAuthorizationPoliciesIndexRoute
+  '/_appuser/authorization/roles/': typeof AppuserAuthorizationRolesIndexRoute
+  '/_appuser/authorization/user_groups/': typeof AppuserAuthorizationUser_groupsIndexRoute
   '/_appuser/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -730,6 +770,8 @@ export interface FileRouteTypes {
     | '/silo/'
     | '/suppliers&Vendors/'
     | '/authorization/policies/create'
+    | '/authorization/roles/create'
+    | '/authorization/user_groups/create'
     | '/business-ops/property/routes'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -738,6 +780,8 @@ export interface FileRouteTypes {
     | '/property/$propertyId/settings'
     | '/suppliers&Vendors/$suppliersID/details'
     | '/authorization/policies/'
+    | '/authorization/roles/'
+    | '/authorization/user_groups/'
     | '/business-ops/property/'
     | '/payments/$accountId/'
     | '/business-ops/property/$propertyId/details'
@@ -789,6 +833,8 @@ export interface FileRouteTypes {
     | '/silo'
     | '/suppliers&Vendors'
     | '/authorization/policies/create'
+    | '/authorization/roles/create'
+    | '/authorization/user_groups/create'
     | '/business-ops/property/routes'
     | '/inventory-acc/$inventoryAccountID/details'
     | '/legal_entity/$leID/details'
@@ -797,6 +843,8 @@ export interface FileRouteTypes {
     | '/property/$propertyId/settings'
     | '/suppliers&Vendors/$suppliersID/details'
     | '/authorization/policies'
+    | '/authorization/roles'
+    | '/authorization/user_groups'
     | '/business-ops/property'
     | '/payments/$accountId'
     | '/business-ops/property/$propertyId/details'
@@ -857,6 +905,8 @@ export interface FileRouteTypes {
     | '/_appuser/silo/'
     | '/_appuser/suppliers&Vendors/'
     | '/_appuser/authorization/policies/create'
+    | '/_appuser/authorization/roles/create'
+    | '/_appuser/authorization/user_groups/create'
     | '/_appuser/business-ops/property/routes'
     | '/_appuser/inventory-acc/$inventoryAccountID/details'
     | '/_appuser/legal_entity/$leID/details'
@@ -865,6 +915,8 @@ export interface FileRouteTypes {
     | '/_appuser/property/$propertyId/settings'
     | '/_appuser/suppliers&Vendors/$suppliersID/details'
     | '/_appuser/authorization/policies/'
+    | '/_appuser/authorization/roles/'
+    | '/_appuser/authorization/user_groups/'
     | '/_appuser/business-ops/property/'
     | '/_appuser/payments/$accountId/'
     | '/_appuser/business-ops/property/$propertyId/details'
@@ -1169,6 +1221,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserBusinessOpsPropertyIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/authorization/user_groups/': {
+      id: '/_appuser/authorization/user_groups/'
+      path: '/user_groups'
+      fullPath: '/authorization/user_groups/'
+      preLoaderRoute: typeof AppuserAuthorizationUser_groupsIndexRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
+    }
+    '/_appuser/authorization/roles/': {
+      id: '/_appuser/authorization/roles/'
+      path: '/roles'
+      fullPath: '/authorization/roles/'
+      preLoaderRoute: typeof AppuserAuthorizationRolesIndexRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
+    }
     '/_appuser/authorization/policies/': {
       id: '/_appuser/authorization/policies/'
       path: '/policies'
@@ -1224,6 +1290,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/business-ops/property/routes'
       preLoaderRoute: typeof AppuserBusinessOpsPropertyRoutesRouteImport
       parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/authorization/user_groups/create': {
+      id: '/_appuser/authorization/user_groups/create'
+      path: '/user_groups/create'
+      fullPath: '/authorization/user_groups/create'
+      preLoaderRoute: typeof AppuserAuthorizationUser_groupsCreateRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
+    }
+    '/_appuser/authorization/roles/create': {
+      id: '/_appuser/authorization/roles/create'
+      path: '/roles/create'
+      fullPath: '/authorization/roles/create'
+      preLoaderRoute: typeof AppuserAuthorizationRolesCreateRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
     }
     '/_appuser/authorization/policies/create': {
       id: '/_appuser/authorization/policies/create'
@@ -1381,15 +1461,25 @@ const AppuserAuditLogRouteRouteWithChildren =
 
 interface AppuserAuthorizationRouteRouteChildren {
   AppuserAuthorizationPoliciesCreateRoute: typeof AppuserAuthorizationPoliciesCreateRoute
+  AppuserAuthorizationRolesCreateRoute: typeof AppuserAuthorizationRolesCreateRoute
+  AppuserAuthorizationUser_groupsCreateRoute: typeof AppuserAuthorizationUser_groupsCreateRoute
   AppuserAuthorizationPoliciesIndexRoute: typeof AppuserAuthorizationPoliciesIndexRoute
+  AppuserAuthorizationRolesIndexRoute: typeof AppuserAuthorizationRolesIndexRoute
+  AppuserAuthorizationUser_groupsIndexRoute: typeof AppuserAuthorizationUser_groupsIndexRoute
 }
 
 const AppuserAuthorizationRouteRouteChildren: AppuserAuthorizationRouteRouteChildren =
   {
     AppuserAuthorizationPoliciesCreateRoute:
       AppuserAuthorizationPoliciesCreateRoute,
+    AppuserAuthorizationRolesCreateRoute: AppuserAuthorizationRolesCreateRoute,
+    AppuserAuthorizationUser_groupsCreateRoute:
+      AppuserAuthorizationUser_groupsCreateRoute,
     AppuserAuthorizationPoliciesIndexRoute:
       AppuserAuthorizationPoliciesIndexRoute,
+    AppuserAuthorizationRolesIndexRoute: AppuserAuthorizationRolesIndexRoute,
+    AppuserAuthorizationUser_groupsIndexRoute:
+      AppuserAuthorizationUser_groupsIndexRoute,
   }
 
 const AppuserAuthorizationRouteRouteWithChildren =
