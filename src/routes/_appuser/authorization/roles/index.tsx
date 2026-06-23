@@ -1,9 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import RolesIndexPage from "@/app/authorization/roles/pages/RolesIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_appuser/authorization/roles/')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/_appuser/authorization/roles/"!</div>
-}
+export const Route = createFileRoute("/_appuser/authorization/roles/")({
+  component: RolesIndexPage,
+});
