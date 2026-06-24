@@ -1,0 +1,10 @@
+# robots.txt for Orchestrator — https://orchestrator.sharpnr.com
+#
+# Orchestrator is an authenticated console. Only the public landing page
+# should be crawled; every app route lives behind login and is excluded.
+
+User-agent: *
+Allow: /$
+Disallow: /
+
+Sitemap: https://orchestrator.sharpnr.com/sitemap.xml

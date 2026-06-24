@@ -1,0 +1,22 @@
+# Orchestrator — Sharpnr
+
+> Orchestrator is a Sharpnr product for orchestrating Sharpnr services and apps — manage your organization, properties, payments, and integrations from one console.
+
+Orchestrator is the central control plane of the Sharpnr suite. It is an authenticated single-page application: the areas listed below require an account and are not publicly accessible, so they are intentionally excluded from crawling and indexing.
+
+## Product
+
+- [Orchestrator landing](https://orchestrator.sharpnr.com/): Public overview of the Orchestrator console.
+
+## Sharpnr suite
+
+- [Auth](https://auth.sharpnr.com): Identity and access management.
+- [Accounting](https://accounting.sharpnr.com): Accounting app.
+- [Hospitality](https://hospitality.sharpnr.com): Hospitality operations.
+- [SharpCRM](https://sharpcrm.sharpnr.com): Customer relationship management.
+- [HR](https://hr.sharpnr.com): Human resources.
+- [Marketplace](https://marketplace.sharpnr.com): Apps and integrations marketplace.
+
+## Notes
+
+- Authenticated app areas (organization, properties, payments, authorization, audit log, integrations) live behind login and are not indexed.
