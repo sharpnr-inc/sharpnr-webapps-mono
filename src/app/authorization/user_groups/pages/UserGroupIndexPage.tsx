@@ -3,12 +3,15 @@ import { Button } from "@sharpnr/ui";
 import { GroupCard } from "../components/GroupCard";
 import { dummyGroups } from "../data/dummyGroups";
 
+// Cycled across the grid so each group gets a distinct pixel-shimmer color.
+const PIXEL_VARIANTS = ["blue", "pink", "yellow", "default"] as const;
+
 const UserGroupIndexPage = () => {
   // TODO: replace dummy data with the real backend response.
   const groups = dummyGroups;
 
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-5xl space-y-6 p-6">
       {/* Header */}
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="space-y-1">
@@ -30,9 +33,13 @@ const UserGroupIndexPage = () => {
       </header>
 
       {/* Groups grid */}
-      <div className="grid gap-3 sm:grid-cols-2">
-        {groups.map((group) => (
-          <GroupCard key={group.id} group={group} />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {groups.map((group, i) => (
+          <GroupCard
+            key={group.id}
+            group={group}
+            variant={PIXEL_VARIANTS[i % PIXEL_VARIANTS.length]}
+          />
         ))}
       </div>
     </div>
