@@ -3,13 +3,15 @@ import { Skeleton, Button } from "@sharpnr/ui";
 import { useAllOrgRoles } from "../api/queries";
 import { RolesOverview } from "../components/RolesOverview";
 import { RoleCard } from "../components/RoleCard";
+import { useNavigate } from "@tanstack/react-router";
 
 const RolesIndexPage = () => {
+  const nav = useNavigate();
   const { data, isLoading, isError } = useAllOrgRoles();
   const roles = data?.data ?? [];
 
   return (
-    <div className="mx-auto w-full max-w-4xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-7xl space-y-6 p-6">
       {/* Header */}
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="space-y-1">
@@ -23,11 +25,19 @@ const RolesIndexPage = () => {
             )}
           </div>
           <p className="text-sm text-muted-foreground">
-            See the different jobs in your organization and what each one can do.
+            See the different jobs in your organization and what each one can
+            do.
           </p>
         </div>
 
-        <Button className="gap-1">
+        <Button
+          className="gap-1"
+          onClick={() =>
+            nav({
+              to: "/authorization/roles/create",
+            })
+          }
+        >
           <Plus className="h-4 w-4" /> Add New Role
         </Button>
       </header>
@@ -42,9 +52,9 @@ const RolesIndexPage = () => {
         </h2>
 
         {isLoading ? (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 4 }).map((_, i) => (
-              <Skeleton key={i} className="h-20 w-full rounded-lg" />
+              <Skeleton key={i} className="h-80 w-full rounded-2xl" />
             ))}
           </div>
         ) : isError ? (
@@ -62,7 +72,7 @@ const RolesIndexPage = () => {
             </p>
           </div>
         ) : (
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {roles.map((role) => (
               <RoleCard key={role.id} role={role} />
             ))}

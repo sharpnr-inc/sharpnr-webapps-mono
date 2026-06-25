@@ -3,9 +3,11 @@ import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@sharpnr/ui";
 import { PoliciesList } from "../components/PoliciesList";
 import { dummyPolicies } from "../data/dummyPolicies";
+import { useAllOrgPolicies } from "../api/queries";
 
 const PoliciesIndexPage = () => {
   const navigate = useNavigate();
+  const {} = useAllOrgPolicies();
 
   // TODO: swap dummy data for the real backend response once `usePermissions()`
   // returns Cedar policies from `/orchestrator/sentinel/policies`.

@@ -61,6 +61,7 @@ import { Route as AppuserBusinessOpsPropertyRoutesRouteImport } from './routes/_
 import { Route as AppuserAuthorizationUser_groupsCreateRouteImport } from './routes/_appuser/authorization/user_groups/create'
 import { Route as AppuserAuthorizationRolesCreateRouteImport } from './routes/_appuser/authorization/roles/create'
 import { Route as AppuserAuthorizationPoliciesCreateRouteImport } from './routes/_appuser/authorization/policies/create'
+import { Route as AppuserAuthorizationRolesRoleIDIndexRouteImport } from './routes/_appuser/authorization/roles/$roleID/index'
 import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property-configuration'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/healthcare/index'
@@ -370,6 +371,12 @@ const AppuserAuthorizationPoliciesCreateRoute =
     path: '/policies/create',
     getParentRoute: () => AppuserAuthorizationRouteRoute,
   } as any)
+const AppuserAuthorizationRolesRoleIDIndexRoute =
+  AppuserAuthorizationRolesRoleIDIndexRouteImport.update({
+    id: '/roles/$roleID/',
+    path: '/roles/$roleID/',
+    getParentRoute: () => AppuserAuthorizationRouteRoute,
+  } as any)
 const AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute =
   AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport.update({
     id: '/business-ops/property/$propertyId/property-configuration',
@@ -576,6 +583,7 @@ export interface FileRoutesByFullPath {
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
+  '/authorization/roles/$roleID/': typeof AppuserAuthorizationRolesRoleIDIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/property/$propertyId/business_op_modules/hospitality/bar': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRouteWithChildren
   '/property/$propertyId/business_op_modules/hospitality/hotel': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
@@ -639,6 +647,7 @@ export interface FileRoutesByTo {
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
+  '/authorization/roles/$roleID': typeof AppuserAuthorizationRolesRoleIDIndexRoute
   '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/property/$propertyId/business_op_modules/hospitality/bar': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRouteWithChildren
   '/property/$propertyId/business_op_modules/hospitality/hotel': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
@@ -712,6 +721,7 @@ export interface FileRoutesById {
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/_appuser/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
+  '/_appuser/authorization/roles/$roleID/': typeof AppuserAuthorizationRolesRoleIDIndexRoute
   '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard': typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   '/_appuser/property/$propertyId/business_op_modules/hospitality/bar': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRouteWithChildren
   '/_appuser/property/$propertyId/business_op_modules/hospitality/hotel': typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
@@ -786,6 +796,7 @@ export interface FileRouteTypes {
     | '/payments/$accountId/'
     | '/business-ops/property/$propertyId/details'
     | '/business-ops/property/$propertyId/property-configuration'
+    | '/authorization/roles/$roleID/'
     | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/property/$propertyId/business_op_modules/hospitality/bar'
     | '/property/$propertyId/business_op_modules/hospitality/hotel'
@@ -849,6 +860,7 @@ export interface FileRouteTypes {
     | '/payments/$accountId'
     | '/business-ops/property/$propertyId/details'
     | '/business-ops/property/$propertyId/property-configuration'
+    | '/authorization/roles/$roleID'
     | '/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/property/$propertyId/business_op_modules/hospitality/bar'
     | '/property/$propertyId/business_op_modules/hospitality/hotel'
@@ -921,6 +933,7 @@ export interface FileRouteTypes {
     | '/_appuser/payments/$accountId/'
     | '/_appuser/business-ops/property/$propertyId/details'
     | '/_appuser/business-ops/property/$propertyId/property-configuration'
+    | '/_appuser/authorization/roles/$roleID/'
     | '/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard'
     | '/_appuser/property/$propertyId/business_op_modules/hospitality/bar'
     | '/_appuser/property/$propertyId/business_op_modules/hospitality/hotel'
@@ -1312,6 +1325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserAuthorizationPoliciesCreateRouteImport
       parentRoute: typeof AppuserAuthorizationRouteRoute
     }
+    '/_appuser/authorization/roles/$roleID/': {
+      id: '/_appuser/authorization/roles/$roleID/'
+      path: '/roles/$roleID'
+      fullPath: '/authorization/roles/$roleID/'
+      preLoaderRoute: typeof AppuserAuthorizationRolesRoleIDIndexRouteImport
+      parentRoute: typeof AppuserAuthorizationRouteRoute
+    }
     '/_appuser/business-ops/property/$propertyId/property-configuration': {
       id: '/_appuser/business-ops/property/$propertyId/property-configuration'
       path: '/business-ops/property/$propertyId/property-configuration'
@@ -1466,6 +1486,7 @@ interface AppuserAuthorizationRouteRouteChildren {
   AppuserAuthorizationPoliciesIndexRoute: typeof AppuserAuthorizationPoliciesIndexRoute
   AppuserAuthorizationRolesIndexRoute: typeof AppuserAuthorizationRolesIndexRoute
   AppuserAuthorizationUser_groupsIndexRoute: typeof AppuserAuthorizationUser_groupsIndexRoute
+  AppuserAuthorizationRolesRoleIDIndexRoute: typeof AppuserAuthorizationRolesRoleIDIndexRoute
 }
 
 const AppuserAuthorizationRouteRouteChildren: AppuserAuthorizationRouteRouteChildren =
@@ -1480,6 +1501,8 @@ const AppuserAuthorizationRouteRouteChildren: AppuserAuthorizationRouteRouteChil
     AppuserAuthorizationRolesIndexRoute: AppuserAuthorizationRolesIndexRoute,
     AppuserAuthorizationUser_groupsIndexRoute:
       AppuserAuthorizationUser_groupsIndexRoute,
+    AppuserAuthorizationRolesRoleIDIndexRoute:
+      AppuserAuthorizationRolesRoleIDIndexRoute,
   }
 
 const AppuserAuthorizationRouteRouteWithChildren =

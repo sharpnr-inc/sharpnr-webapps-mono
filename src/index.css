@@ -21,6 +21,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Sheen sweep used by the reflective RoleCard */
+@keyframes role-card-sheen {
+  0% {
+    transform: translateX(-160%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(160%) skewX(-18deg);
+  }
+}
+
 /*   --font-sans: "Poppins", sans-serif; */
 
 @theme inline {

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetAllPermissions } from "./sevice";
+import { GetAllOrgPolcies } from "./sevice";
 
-export function usePermissions() {
+export function useAllOrgPolicies() {
   return useQuery({
-    queryKey: ["Permissions"],
-    queryFn: GetAllPermissions,
+    queryKey: ["Policies"],
+    queryFn: GetAllOrgPolcies,
   });
 }

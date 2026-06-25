@@ -21,7 +21,7 @@ const STEPS = [
 
 export function RolesOverview() {
   return (
-    <Card className="border-primary/20 bg-primary/[0.03]">
+    <Card className="border-primary/20 bg-primary/3">
       <CardContent className="space-y-4 p-5">
         <div className="flex gap-2">
           <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
