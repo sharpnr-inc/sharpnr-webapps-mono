@@ -47,12 +47,13 @@ import type {
   ConditionSource,
   ConditionOp,
   ConditionValueType,
-} from "../../cederbuilder/service";
+} from "../../cedarPolicybuilder/service";
 
-export const CONDITION_CLAUSES: { value: "when" | "unless"; label: string }[] = [
-  { value: "when", label: "When (must be true)" },
-  { value: "unless", label: "Unless (must be false)" },
-];
+export const CONDITION_CLAUSES: { value: "when" | "unless"; label: string }[] =
+  [
+    { value: "when", label: "When (must be true)" },
+    { value: "unless", label: "Unless (must be false)" },
+  ];
 
 export const CONDITION_SOURCES: { value: ConditionSource; label: string }[] = [
   { value: "principal", label: "principal" },

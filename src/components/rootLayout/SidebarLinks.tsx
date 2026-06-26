@@ -12,7 +12,6 @@ import {
   Home,
   LayoutDashboard,
   LucideShoppingBasket,
-  MarsStroke,
   MirrorRound,
   Network,
   Receipt,
@@ -21,15 +20,24 @@ import {
 } from "lucide-react";
 import { GrOverview } from "react-icons/gr";
 import {
+  MdAdminPanelSettings,
   MdDevices,
+  MdGroups2,
   MdOutlineAccountBalanceWallet,
   MdOutlineAppShortcut,
+  MdPolicy,
 } from "react-icons/md";
 import { TbTransactionRupee } from "react-icons/tb";
 import { FcBusinesswoman } from "react-icons/fc";
 import { AiOutlineAudit } from "react-icons/ai";
-import { RiOrganizationChart } from "react-icons/ri";
+import {
+  RiCustomerService2Line,
+  RiOrganizationChart,
+  RiShieldUserFill,
+} from "react-icons/ri";
 import { BiPaste } from "react-icons/bi";
+import { FaCashRegister } from "react-icons/fa";
+import { FaArrowsToEye } from "react-icons/fa6";
 
 export type SidebarLink = {
   label: string;
@@ -166,21 +174,29 @@ export const orchestratorGroups: SidebarGroup[] = [
       {
         label: "Policies",
         path: "/authorization/policies",
-        icon: Building2Icon,
+        icon: MdPolicy,
         tooltip: "Properties",
         exact: false,
       },
       {
         label: "Roles",
         path: "/authorization/roles",
-        icon: Building2Icon,
+        icon: MdAdminPanelSettings,
         tooltip: "Properties",
         exact: false,
       },
       {
         label: "User Groups",
         path: "/authorization/user_groups",
-        icon: Building2Icon,
+        icon: MdGroups2,
+        tooltip: "Properties",
+        exact: false,
+      },
+
+      {
+        label: "Users",
+        path: "/authorization/user_groups",
+        icon: RiShieldUserFill,
         tooltip: "Properties",
         exact: false,
       },
@@ -259,19 +275,19 @@ export const orchestratorGroups: SidebarGroup[] = [
       {
         label: "SharpCRM",
         path: "/sharp-crm",
-        icon: MarsStroke,
+        icon: RiCustomerService2Line,
         tooltip: "Cables",
       },
       {
         label: "Sharp-Accounting",
         path: "/sharp-accounting",
-        icon: MarsStroke,
+        icon: FaCashRegister,
         tooltip: "Cables",
       },
       {
         label: "SharpHR",
         path: "/sharp-accounting",
-        icon: MarsStroke,
+        icon: FaArrowsToEye,
         tooltip: "Cables",
       },
       {

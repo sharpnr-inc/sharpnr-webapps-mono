@@ -1,24 +1,16 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@sharpnr/ui";
+import { useAllResourcesOfOrg } from "../../cedarPolicybuilder/api/query";
 
 const CreatePolicyPage = () => {
   const navigate = useNavigate();
-
   const goBack = () => navigate({ to: "/authorization/policies" });
-
-  const handleSubmit = (policy: {
-    name: string;
-    statement: string;
-    enabled: boolean;
-  }) => {
-    // TODO: POST to the Sentinel backend, then invalidate the policies query.
-    console.log("Create policy:", policy);
-    goBack();
-  };
+  const { data } = useAllResourcesOfOrg();
+  console.log(data);
 
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-6xl space-y-6 p-3">
       <header className="space-y-3">
         <Button
           variant="ghost"
@@ -38,8 +30,6 @@ const CreatePolicyPage = () => {
           </p>
         </div>
       </header>
-
-      {/* <CreatePolicyForm onSubmit={handleSubmit} onCancel={goBack} /> */}
     </div>
   );
 };
