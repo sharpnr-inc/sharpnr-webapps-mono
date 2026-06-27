@@ -1,4 +1,10 @@
-import { useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  type ReactNode,
+} from "react";
 import { Plus, Trash2 } from "lucide-react";
 import {
   Input,
@@ -23,14 +29,32 @@ import { buildPolicyText } from "./utils/buildPolicyText";
 import { verifyPolicy } from "./utils/verifyPolicy";
 
 /* -------------------------------------------------------------------------- */
-/*                                  Props                                      */
+/*                                  Context                                    */
 /* -------------------------------------------------------------------------- */
 
-export interface PolicyBuilderProps {
-  /** Fired whenever the draft changes, with the generated Cedar text and validity. */
-  onChange?: (result: { text: string; valid: boolean }) => void;
-  className?: string;
+/** The live, generated Cedar policy — shared with every sub-component. */
+interface PolicyBuilderContextValue {
+  text: string;
+  valid: boolean;
 }
+
+const PolicyBuilderContext = createContext<PolicyBuilderContextValue | null>(
+  null,
+);
+
+function usePolicyBuilderContext(component: string) {
+  const ctx = useContext(PolicyBuilderContext);
+  if (!ctx) {
+    throw new Error(
+      `<PolicyBuilder.${component}> must be rendered inside <PolicyBuilder>.`,
+    );
+  }
+  return ctx;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Operator presets                              */
+/* -------------------------------------------------------------------------- */
 
 const PRINCIPAL_OPS: { value: PrincipalOp; label: string }[] = [
   { value: "All", label: "Any principal" },
@@ -115,179 +139,306 @@ function ScopeField({
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                              Policy Builder                                 */
-/* -------------------------------------------------------------------------- */
-
-export default function PolicyBuilder({
-  onChange,
-  className,
-}: PolicyBuilderProps) {
-  const state = usePolicyBuilderStore();
-  const {
-    name,
-    description,
-    effect,
-    principal,
-    action,
-    resource,
-    conditions,
-    setName,
-    setDescription,
-    setEffect,
-    setPrincipal,
-    setAction,
-    setResource,
-    addCondition,
-    updateCondition,
-    removeCondition,
-  } = state;
-
-  // Generate + validate the Cedar policy behind the scenes and report it up.
-  // Nothing technical is shown to the user — this just drives the parent's
-  // "is the policy ready to save?" state.
-  useEffect(() => {
-    const text = buildPolicyText(state);
-    const verification = verifyPolicy(text);
-    onChange?.({ text: verification.formatted, valid: verification.ok });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, description, effect, principal, action, resource, conditions]);
-
+/** Small uppercase section heading used between groups. */
+function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <div className={cn("mx-auto max-w-2xl space-y-5", className)}>
-      {/* Metadata */}
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium">Name</Label>
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. Allow staff to view bookings"
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label className="text-sm font-medium">Effect</Label>
-          <Select
-            value={effect}
-            onValueChange={(v) => setEffect(v as typeof effect)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="permit">Permit (allow)</SelectItem>
-              <SelectItem value="forbid">Forbid (deny)</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+    <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+      {children}
+    </p>
+  );
+}
 
-      <div className="space-y-1.5">
-        <Label className="text-sm font-medium">Description</Label>
-        <Textarea
-          value={description}
-          rows={2}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="What does this policy do?"
-        />
-      </div>
+/* -------------------------------------------------------------------------- */
+/*                                Sub-components                              */
+/* -------------------------------------------------------------------------- */
 
-      <Separator />
-
-      {/* Scope */}
-      <div className="space-y-3">
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          Scope
-        </p>
-        <ScopeField
-          title="principal"
-          op={principal.op}
-          ops={PRINCIPAL_OPS}
-          entityType={principal.entityType}
-          entityId={principal.entityId}
-          onOpChange={(op) => setPrincipal({ op: op as PrincipalOp })}
-          onTypeChange={(entityType) => setPrincipal({ entityType })}
-          onIdChange={(entityId) => setPrincipal({ entityId })}
-        />
-        <ScopeField
-          title="action"
-          op={action.op}
-          ops={ACTION_OPS}
-          entityType={action.entityType}
-          entityId={action.entityId}
-          onOpChange={(op) => setAction({ op: op as ActionOp })}
-          onTypeChange={(entityType) => setAction({ entityType })}
-          onIdChange={(entityId) => setAction({ entityId })}
-        />
-        <ScopeField
-          title="resource"
-          op={resource.op}
-          ops={RESOURCE_OPS}
-          entityType={resource.entityType}
-          entityId={resource.entityId}
-          onOpChange={(op) => setResource({ op: op as ResourceOp })}
-          onTypeChange={(entityType) => setResource({ entityType })}
-          onIdChange={(entityId) => setResource({ entityId })}
-        />
-      </div>
-
-      <Separator />
-
-      {/* Conditions */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Conditions
-          </p>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => addCondition("when")}
-            >
-              <Plus className="h-3.5 w-3.5" /> when
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => addCondition("unless")}
-            >
-              <Plus className="h-3.5 w-3.5" /> unless
-            </Button>
-          </div>
-        </div>
-
-        {conditions.length === 0 && (
-          <p className="text-sm text-muted-foreground">
-            No conditions — the policy applies to the whole scope above.
-          </p>
-        )}
-
-        {conditions.map((cond) => (
-          <div key={cond.id} className="flex items-start gap-2">
-            <span className="mt-2 w-14 shrink-0 font-mono text-xs text-muted-foreground">
-              {cond.kind}
-            </span>
-            <Textarea
-              value={cond.expression}
-              rows={2}
-              className="font-mono text-sm"
-              onChange={(e) =>
-                updateCondition(cond.id, { expression: e.target.value })
-              }
-              placeholder="e.g. resource.owner == principal"
-            />
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => removeCondition(cond.id)}
-              aria-label="Remove condition"
-            >
-              <Trash2 className="h-4 w-4 text-destructive" />
-            </Button>
-          </div>
-        ))}
-      </div>
+function Name({ className }: { className?: string }) {
+  const name = usePolicyBuilderStore((s) => s.name);
+  const setName = usePolicyBuilderStore((s) => s.setName);
+  return (
+    <div className={cn("space-y-1.5", className)}>
+      <Label className="text-sm font-medium">Name</Label>
+      <Input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="e.g. Allow staff to view bookings"
+      />
     </div>
   );
 }
+
+function EffectField({ className }: { className?: string }) {
+  const effect = usePolicyBuilderStore((s) => s.effect);
+  const setEffect = usePolicyBuilderStore((s) => s.setEffect);
+  return (
+    <div className={cn("space-y-1.5", className)}>
+      <Label className="text-sm font-medium">Effect</Label>
+      <Select value={effect} onValueChange={(v) => setEffect(v as typeof effect)}>
+        <SelectTrigger className="w-full">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="permit">Permit (allow)</SelectItem>
+          <SelectItem value="forbid">Forbid (deny)</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
+function Description({ className }: { className?: string }) {
+  const description = usePolicyBuilderStore((s) => s.description);
+  const setDescription = usePolicyBuilderStore((s) => s.setDescription);
+  return (
+    <div className={cn("space-y-1.5", className)}>
+      <Label className="text-sm font-medium">Description</Label>
+      <Textarea
+        value={description}
+        rows={2}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="What does this policy do?"
+      />
+    </div>
+  );
+}
+
+/** Convenience grouping of Name + Effect + Description. */
+function Metadata({ className }: { className?: string }) {
+  return (
+    <div className={cn("space-y-5", className)}>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <Name />
+        <EffectField />
+      </div>
+      <Description />
+    </div>
+  );
+}
+
+function Principal() {
+  const principal = usePolicyBuilderStore((s) => s.principal);
+  const setPrincipal = usePolicyBuilderStore((s) => s.setPrincipal);
+  return (
+    <ScopeField
+      title="principal"
+      op={principal.op}
+      ops={PRINCIPAL_OPS}
+      entityType={principal.entityType}
+      entityId={principal.entityId}
+      onOpChange={(op) => setPrincipal({ op: op as PrincipalOp })}
+      onTypeChange={(entityType) => setPrincipal({ entityType })}
+      onIdChange={(entityId) => setPrincipal({ entityId })}
+    />
+  );
+}
+
+function Action() {
+  const action = usePolicyBuilderStore((s) => s.action);
+  const setAction = usePolicyBuilderStore((s) => s.setAction);
+  return (
+    <ScopeField
+      title="action"
+      op={action.op}
+      ops={ACTION_OPS}
+      entityType={action.entityType}
+      entityId={action.entityId}
+      onOpChange={(op) => setAction({ op: op as ActionOp })}
+      onTypeChange={(entityType) => setAction({ entityType })}
+      onIdChange={(entityId) => setAction({ entityId })}
+    />
+  );
+}
+
+function Resource() {
+  const resource = usePolicyBuilderStore((s) => s.resource);
+  const setResource = usePolicyBuilderStore((s) => s.setResource);
+  return (
+    <ScopeField
+      title="resource"
+      op={resource.op}
+      ops={RESOURCE_OPS}
+      entityType={resource.entityType}
+      entityId={resource.entityId}
+      onOpChange={(op) => setResource({ op: op as ResourceOp })}
+      onTypeChange={(entityType) => setResource({ entityType })}
+      onIdChange={(entityId) => setResource({ entityId })}
+    />
+  );
+}
+
+/**
+ * Scope section. Renders principal/action/resource by default, but accepts
+ * children so consumers can reorder or omit individual constraints.
+ */
+function Scope({
+  children,
+  className,
+}: {
+  children?: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("space-y-3", className)}>
+      <SectionLabel>Scope</SectionLabel>
+      {children ?? (
+        <>
+          <Principal />
+          <Action />
+          <Resource />
+        </>
+      )}
+    </div>
+  );
+}
+
+function Conditions({ className }: { className?: string }) {
+  const conditions = usePolicyBuilderStore((s) => s.conditions);
+  const addCondition = usePolicyBuilderStore((s) => s.addCondition);
+  const updateCondition = usePolicyBuilderStore((s) => s.updateCondition);
+  const removeCondition = usePolicyBuilderStore((s) => s.removeCondition);
+
+  return (
+    <div className={cn("space-y-3", className)}>
+      <div className="flex items-center justify-between">
+        <SectionLabel>Conditions</SectionLabel>
+        <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={() => addCondition("when")}>
+            <Plus className="h-3.5 w-3.5" /> when
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => addCondition("unless")}
+          >
+            <Plus className="h-3.5 w-3.5" /> unless
+          </Button>
+        </div>
+      </div>
+
+      {conditions.length === 0 && (
+        <p className="text-sm text-muted-foreground">
+          No conditions — the policy applies to the whole scope above.
+        </p>
+      )}
+
+      {conditions.map((cond) => (
+        <div key={cond.id} className="flex items-start gap-2">
+          <span className="mt-2 w-14 shrink-0 font-mono text-xs text-muted-foreground">
+            {cond.kind}
+          </span>
+          <Textarea
+            value={cond.expression}
+            rows={2}
+            className="font-mono text-sm"
+            onChange={(e) =>
+              updateCondition(cond.id, { expression: e.target.value })
+            }
+            placeholder="e.g. resource.owner == principal"
+          />
+          <Button
+            size="icon"
+            variant="ghost"
+            onClick={() => removeCondition(cond.id)}
+            aria-label="Remove condition"
+          >
+            <Trash2 className="h-4 w-4 text-destructive" />
+          </Button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Renders the live-generated Cedar text from context. Handy for consumers that
+ * want to surface a preview alongside the form.
+ */
+function Preview({ className }: { className?: string }) {
+  const { text, valid } = usePolicyBuilderContext("Preview");
+  return (
+    <pre
+      className={cn(
+        "overflow-auto rounded-lg border bg-muted/40 p-4 font-mono text-xs",
+        !valid && "border-destructive/50",
+        className,
+      )}
+    >
+      {text || "// start building to see the generated policy"}
+    </pre>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Policy Builder root                           */
+/* -------------------------------------------------------------------------- */
+
+export interface PolicyBuilderProps {
+  /** Fired whenever the draft changes, with the generated Cedar text and validity. */
+  onChange?: (result: { text: string; valid: boolean }) => void;
+  /**
+   * Compose the builder from its sub-components. When omitted, the default
+   * layout (metadata → scope → conditions) is rendered.
+   */
+  children?: ReactNode;
+  className?: string;
+}
+
+function PolicyBuilderRoot({
+  onChange,
+  children,
+  className,
+}: PolicyBuilderProps) {
+  const state = usePolicyBuilderStore();
+  const { name, description, effect, principal, action, resource, conditions } =
+    state;
+
+  // Generate + validate the Cedar policy behind the scenes. This is recomputed
+  // whenever any part of the draft changes and shared via context.
+  const result = useMemo(() => {
+    const text = buildPolicyText(state);
+    const verification = verifyPolicy(text);
+    return { text: verification.formatted, valid: verification.ok };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [name, description, effect, principal, action, resource, conditions]);
+
+  // Report the latest draft up to the parent ("is the policy ready to save?").
+  useEffect(() => {
+    onChange?.(result);
+  }, [result, onChange]);
+
+  return (
+    <PolicyBuilderContext.Provider value={result}>
+      <div className={cn("mx-auto max-w-2xl space-y-5", className)}>
+        {children ?? (
+          <>
+            <Metadata />
+            <Separator />
+            <Scope />
+            <Separator />
+            <Conditions />
+          </>
+        )}
+      </div>
+    </PolicyBuilderContext.Provider>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Compound export                               */
+/* -------------------------------------------------------------------------- */
+
+const PolicyBuilder = Object.assign(PolicyBuilderRoot, {
+  Metadata,
+  Name,
+  Effect: EffectField,
+  Description,
+  Scope,
+  Principal,
+  Action,
+  Resource,
+  Conditions,
+  Separator,
+  Preview,
+});
+
+export default PolicyBuilder;
