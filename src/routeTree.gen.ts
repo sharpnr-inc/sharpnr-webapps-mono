@@ -15,6 +15,7 @@ import { Route as LayoutSocial_media_managementRouteImport } from './routes/_lay
 import { Route as LayoutReportsRouteImport } from './routes/_layout/reports'
 import { Route as LayoutLeadsRouteImport } from './routes/_layout/leads'
 import { Route as LayoutCampaignsRouteImport } from './routes/_layout/campaigns'
+import { Route as LayoutHomeIndexRouteImport } from './routes/_layout/home/index'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
@@ -46,6 +47,11 @@ const LayoutCampaignsRoute = LayoutCampaignsRouteImport.update({
   path: '/campaigns',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutHomeIndexRoute = LayoutHomeIndexRouteImport.update({
+  id: '/home/',
+  path: '/home/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/leads': typeof LayoutLeadsRoute
   '/reports': typeof LayoutReportsRoute
   '/social_media_management': typeof LayoutSocial_media_managementRoute
+  '/home/': typeof LayoutHomeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/leads': typeof LayoutLeadsRoute
   '/reports': typeof LayoutReportsRoute
   '/social_media_management': typeof LayoutSocial_media_managementRoute
+  '/home': typeof LayoutHomeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/_layout/reports': typeof LayoutReportsRoute
   '/_layout/social_media_management': typeof LayoutSocial_media_managementRoute
   '/_website/': typeof WebsiteIndexRoute
+  '/_layout/home/': typeof LayoutHomeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,8 +87,15 @@ export interface FileRouteTypes {
     | '/leads'
     | '/reports'
     | '/social_media_management'
+    | '/home/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/campaigns' | '/leads' | '/reports' | '/social_media_management'
+  to:
+    | '/'
+    | '/campaigns'
+    | '/leads'
+    | '/reports'
+    | '/social_media_management'
+    | '/home'
   id:
     | '__root__'
     | '/_layout'
@@ -88,6 +104,7 @@ export interface FileRouteTypes {
     | '/_layout/reports'
     | '/_layout/social_media_management'
     | '/_website/'
+    | '/_layout/home/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -139,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutCampaignsRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/home/': {
+      id: '/_layout/home/'
+      path: '/home'
+      fullPath: '/home/'
+      preLoaderRoute: typeof LayoutHomeIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
@@ -147,6 +171,7 @@ interface LayoutRouteRouteChildren {
   LayoutLeadsRoute: typeof LayoutLeadsRoute
   LayoutReportsRoute: typeof LayoutReportsRoute
   LayoutSocial_media_managementRoute: typeof LayoutSocial_media_managementRoute
+  LayoutHomeIndexRoute: typeof LayoutHomeIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
@@ -154,6 +179,7 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutLeadsRoute: LayoutLeadsRoute,
   LayoutReportsRoute: LayoutReportsRoute,
   LayoutSocial_media_managementRoute: LayoutSocial_media_managementRoute,
+  LayoutHomeIndexRoute: LayoutHomeIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(

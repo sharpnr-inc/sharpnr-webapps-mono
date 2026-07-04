@@ -1,6 +1,6 @@
-import SharpMarketingWelcomePage from "@/app/SharpMarketingWelcomePage";
+import LandingPage from "@/website/LandingPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_website/")({
-  component: SharpMarketingWelcomePage,
+  component: LandingPage,
 });
