@@ -10,7 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutSuppliersIndexRouteImport } from './routes/_layout/suppliers/index'
 import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
 import { Route as LayoutSalesIndexRouteImport } from './routes/_layout/sales/index'
@@ -36,8 +36,8 @@ const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -152,7 +152,7 @@ const LayoutChartOfAccountAccountIDLedgerRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof WebsiteIndexRoute
   '/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
   '/purchases/history': typeof LayoutPurchasesHistoryRoute
   '/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
@@ -175,7 +175,7 @@ export interface FileRoutesByFullPath {
   '/sales/new/': typeof LayoutSalesNewIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof WebsiteIndexRoute
   '/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
   '/purchases/history': typeof LayoutPurchasesHistoryRoute
   '/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
@@ -199,8 +199,8 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteRouteWithChildren
+  '/_website/': typeof WebsiteIndexRoute
   '/_layout/payments/payment_orders': typeof LayoutPaymentsPayment_ordersRoute
   '/_layout/purchases/history': typeof LayoutPurchasesHistoryRoute
   '/_layout/reports/balance-sheet': typeof LayoutReportsBalanceSheetRoute
@@ -271,8 +271,8 @@ export interface FileRouteTypes {
     | '/sales/new'
   id:
     | '__root__'
-    | '/'
     | '/_layout'
+    | '/_website/'
     | '/_layout/payments/payment_orders'
     | '/_layout/purchases/history'
     | '/_layout/reports/balance-sheet'
@@ -296,8 +296,8 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
+  WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -309,11 +309,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_website/': {
+      id: '/_website/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layout/suppliers/': {
@@ -511,8 +511,8 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
+  WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
