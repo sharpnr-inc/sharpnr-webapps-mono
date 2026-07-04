@@ -10,8 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
-import { Route as AboutIndexRouteImport } from './routes/about/index'
-import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutEmployeesRouteRouteImport } from './routes/_layout/employees/route'
 import { Route as LayoutTrainingIndexRouteImport } from './routes/_layout/training/index'
 import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
@@ -35,15 +34,10 @@ const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: '/about/',
-  path: '/about/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LayoutIndexRoute = LayoutIndexRouteImport.update({
-  id: '/',
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
   path: '/',
-  getParentRoute: () => LayoutRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutEmployeesRouteRoute = LayoutEmployeesRouteRouteImport.update({
   id: '/employees',
@@ -141,9 +135,8 @@ const LayoutEmployeesDocumentsIndexRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof LayoutIndexRoute
+  '/': typeof WebsiteIndexRoute
   '/employees': typeof LayoutEmployeesRouteRouteWithChildren
-  '/about/': typeof AboutIndexRoute
   '/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
   '/leaves/requests': typeof LayoutLeavesRequestsRoute
   '/annoucements/': typeof LayoutAnnoucementsIndexRoute
@@ -163,8 +156,7 @@ export interface FileRoutesByFullPath {
   '/employees/privileges/': typeof LayoutEmployeesPrivilegesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof LayoutIndexRoute
-  '/about': typeof AboutIndexRoute
+  '/': typeof WebsiteIndexRoute
   '/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
   '/leaves/requests': typeof LayoutLeavesRequestsRoute
   '/annoucements': typeof LayoutAnnoucementsIndexRoute
@@ -187,8 +179,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
   '/_layout/employees': typeof LayoutEmployeesRouteRouteWithChildren
-  '/_layout/': typeof LayoutIndexRoute
-  '/about/': typeof AboutIndexRoute
+  '/_website/': typeof WebsiteIndexRoute
   '/_layout/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
   '/_layout/leaves/requests': typeof LayoutLeavesRequestsRoute
   '/_layout/annoucements/': typeof LayoutAnnoucementsIndexRoute
@@ -212,7 +203,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/employees'
-    | '/about/'
     | '/employees/$employeeId'
     | '/leaves/requests'
     | '/annoucements/'
@@ -233,7 +223,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
     | '/employees/$employeeId'
     | '/leaves/requests'
     | '/annoucements'
@@ -255,8 +244,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_layout'
     | '/_layout/employees'
-    | '/_layout/'
-    | '/about/'
+    | '/_website/'
     | '/_layout/employees/$employeeId'
     | '/_layout/leaves/requests'
     | '/_layout/annoucements/'
@@ -278,7 +266,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
-  AboutIndexRoute: typeof AboutIndexRoute
+  WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -290,19 +278,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about/': {
-      id: '/about/'
-      path: '/about'
-      fullPath: '/about/'
-      preLoaderRoute: typeof AboutIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_layout/': {
-      id: '/_layout/'
+    '/_website/': {
+      id: '/_website/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof LayoutIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
+      preLoaderRoute: typeof WebsiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_layout/employees': {
       id: '/_layout/employees'
@@ -452,7 +433,6 @@ const LayoutEmployeesRouteRouteWithChildren =
 
 interface LayoutRouteRouteChildren {
   LayoutEmployeesRouteRoute: typeof LayoutEmployeesRouteRouteWithChildren
-  LayoutIndexRoute: typeof LayoutIndexRoute
   LayoutLeavesRequestsRoute: typeof LayoutLeavesRequestsRoute
   LayoutAnnoucementsIndexRoute: typeof LayoutAnnoucementsIndexRoute
   LayoutAttendanceIndexRoute: typeof LayoutAttendanceIndexRoute
@@ -470,7 +450,6 @@ interface LayoutRouteRouteChildren {
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutEmployeesRouteRoute: LayoutEmployeesRouteRouteWithChildren,
-  LayoutIndexRoute: LayoutIndexRoute,
   LayoutLeavesRequestsRoute: LayoutLeavesRequestsRoute,
   LayoutAnnoucementsIndexRoute: LayoutAnnoucementsIndexRoute,
   LayoutAttendanceIndexRoute: LayoutAttendanceIndexRoute,
@@ -492,7 +471,7 @@ const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRouteRoute: LayoutRouteRouteWithChildren,
-  AboutIndexRoute: AboutIndexRoute,
+  WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
