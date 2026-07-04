@@ -2,6 +2,7 @@ import { UsersRound, Plus } from "lucide-react";
 import { Button } from "@sharpnr/ui";
 import { GroupCard } from "../components/GroupCard";
 import { dummyGroups } from "../data/dummyGroups";
+import { useNavigate } from "@tanstack/react-router";
 
 // Cycled across the grid so each group gets a distinct pixel-shimmer color.
 const PIXEL_VARIANTS = ["blue", "pink", "yellow", "default"] as const;
@@ -9,6 +10,8 @@ const PIXEL_VARIANTS = ["blue", "pink", "yellow", "default"] as const;
 const UserGroupIndexPage = () => {
   // TODO: replace dummy data with the real backend response.
   const groups = dummyGroups;
+
+  const nav = useNavigate();
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-6 p-6">
@@ -27,7 +30,7 @@ const UserGroupIndexPage = () => {
           </p>
         </div>
 
-        <Button className="gap-1">
+        <Button className="gap-1" onClick={() => console.log()}>
           <Plus className="h-4 w-4" /> Add New Group
         </Button>
       </header>
@@ -38,6 +41,14 @@ const UserGroupIndexPage = () => {
           <GroupCard
             key={group.id}
             group={group}
+            onClick={() =>
+              nav({
+                to: "/authorization/user_groups/$groupID",
+                params: {
+                  groupID: group.id,
+                },
+              })
+            }
             variant={PIXEL_VARIANTS[i % PIXEL_VARIANTS.length]}
           />
         ))}

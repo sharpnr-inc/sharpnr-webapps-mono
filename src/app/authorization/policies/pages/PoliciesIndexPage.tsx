@@ -33,6 +33,7 @@ import {
 import type { SentinelPolicy } from "../api/types";
 import { MOCK_POLICIES, policyEffect } from "../data/policies.mock";
 import { cn } from "@/lib/utils";
+import { useAllResourcesOfOrg } from "../../cedarPolicybuilder/api/query";
 
 /** Relative-ish friendly date, e.g. "18 Jun 2026". */
 const fmtDate = (iso: string) =>
@@ -43,6 +44,8 @@ const fmtDate = (iso: string) =>
   });
 
 const PoliciesIndexPage = () => {
+  const { data: orgResources } = useAllResourcesOfOrg();
+
   const nav = useNavigate();
   const [data, setData] = useState<SentinelPolicy[]>(MOCK_POLICIES);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -149,7 +152,8 @@ const PoliciesIndexPage = () => {
             </span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Rules that decide who is allowed to do what across your organization.
+            Rules that decide who is allowed to do what across your
+            organization.
           </p>
         </div>
 
@@ -233,7 +237,10 @@ const PoliciesIndexPage = () => {
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="py-3">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
