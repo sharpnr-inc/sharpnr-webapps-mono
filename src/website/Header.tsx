@@ -80,6 +80,7 @@ export function Header() {
           {/* ── Desktop CTAs ── */}
           <div className="hidden md:flex items-center gap-3">
             <Button
+              onClick={() => console.log()}
               variant="ghost"
               size="sm"
               className="font-mono text-zinc-400 hover:text-white hover:bg-zinc-800 rounded"
