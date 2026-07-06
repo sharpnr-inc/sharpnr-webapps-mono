@@ -2,7 +2,7 @@ import api from "@/middlewares/axios";
 
 const SentinelEndpoints = {
   listAllPricipals: () => `/orchestrator/sentinel/principals`,
-  listAllResources: () => `/orchestrator/sentinel/resources/Property`,
+  listAllResources: () => `/orchestrator/sentinel/resources/SentinelPolicy`,
 };
 
 export async function GetAllOrgResources() {

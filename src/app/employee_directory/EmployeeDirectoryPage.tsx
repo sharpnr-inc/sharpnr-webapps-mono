@@ -5,54 +5,46 @@ import {
   AlertCircle,
   RotateCcw,
   ChevronRight,
-  ShieldCheck,
-  Activity,
-  Mail,
-  Building,
+  BadgeCheck,
   X,
 } from "lucide-react";
 import { useState, useMemo } from "react";
-import { format, formatDistanceToNow } from "date-fns";
 import { useEmployees } from "./api/queries";
-import type { Employee, EmployeeRole, EmployeeStatus } from "./api/types";
+import type { EmployeeOfOrganization } from "./api/types";
 import { AddSuperAdminButton } from "./components/AddSuperAdminButton";
 import { cn } from "@/lib/utils";
 
 /* ── config / helpers ─────────────────────────────────────── */
 
-const ROLE_META: Record<EmployeeRole, { label: string; className: string }> = {
-  super_admin: {
-    label: "Super Admin",
-    className: "bg-violet-500/10 text-violet-600 dark:text-violet-400",
-  },
-  admin: {
-    label: "Admin",
-    className: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
-  },
-  manager: {
-    label: "Manager",
-    className: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-  },
-  member: { label: "Member", className: "bg-muted text-muted-foreground" },
+const ROLE_PALETTE = [
+  "bg-violet-500/10 text-violet-600 dark:text-violet-400",
+  "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+  "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+  "bg-teal-500/10 text-teal-600 dark:text-teal-400",
+  "bg-pink-500/10 text-pink-600 dark:text-pink-400",
+];
+
+const STATUS_META: Record<string, string> = {
+  active: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+  invited: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+  suspended: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
 };
 
-const STATUS_META: Record<
-  EmployeeStatus,
-  { label: string; className: string }
-> = {
-  active: {
-    label: "Active",
-    className: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
-  },
-  invited: {
-    label: "Invited",
-    className: "bg-sky-500/10 text-sky-600 dark:text-sky-400",
-  },
-  suspended: {
-    label: "Suspended",
-    className: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
-  },
-};
+function roleClassName(role: string) {
+  let hash = 0;
+  for (let i = 0; i < role.length; i++) {
+    hash = (hash * 31 + role.charCodeAt(i)) | 0;
+  }
+  return ROLE_PALETTE[Math.abs(hash) % ROLE_PALETTE.length];
+}
+
+function formatLabel(value: string) {
+  return value
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+}
 
 function getInitials(name: string) {
   return name
@@ -88,10 +80,9 @@ function EmployeeRow({
   employee,
   onClick,
 }: {
-  employee: Employee;
+  employee: EmployeeOfOrganization;
   onClick: () => void;
 }) {
-  const role = ROLE_META[employee.role];
   return (
     <button
       onClick={onClick}
@@ -106,25 +97,28 @@ function EmployeeRow({
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <div className="flex items-center gap-1.5">
-          <p className="truncate text-[13px] font-semibold text-foreground leading-tight">
-            {employee.name}
-          </p>
-          {employee.role === "super_admin" && (
-            <ShieldCheck className="h-3 w-3 shrink-0 text-violet-500" />
-          )}
-        </div>
-        <p className="truncate text-xs text-muted-foreground">
-          {employee.email} · {employee.department}
+        <p className="truncate text-[13px] font-semibold text-foreground leading-tight">
+          {employee.name}
         </p>
+        {employee.nickname && (
+          <p className="truncate text-xs text-muted-foreground">
+            @{employee.nickname}
+          </p>
+        )}
       </div>
 
       <div className="hidden sm:flex shrink-0">
-        <Pill className={role.className}>{role.label}</Pill>
+        <Pill className={roleClassName(employee.role.role)}>
+          {formatLabel(employee.role.role)}
+        </Pill>
       </div>
       <div className="shrink-0">
-        <Pill className={STATUS_META[employee.status].className}>
-          {STATUS_META[employee.status].label}
+        <Pill
+          className={
+            STATUS_META[employee.status] ?? "bg-muted text-muted-foreground"
+          }
+        >
+          {formatLabel(employee.status)}
         </Pill>
       </div>
 
@@ -157,10 +151,9 @@ function EmployeeDetail({
   employee,
   onClose,
 }: {
-  employee: Employee;
+  employee: EmployeeOfOrganization;
   onClose: () => void;
 }) {
-  const role = ROLE_META[employee.role];
   return (
     <div className="p-4 sm:p-5">
       {/* Header */}
@@ -173,10 +166,22 @@ function EmployeeDetail({
             <h3 className="truncate text-[15px] font-semibold text-foreground leading-tight">
               {employee.name}
             </h3>
+            {employee.nickname && (
+              <p className="truncate text-xs text-muted-foreground">
+                @{employee.nickname}
+              </p>
+            )}
             <div className="mt-1 flex flex-wrap items-center gap-1.5">
-              <Pill className={role.className}>{role.label}</Pill>
-              <Pill className={STATUS_META[employee.status].className}>
-                {STATUS_META[employee.status].label}
+              <Pill className={roleClassName(employee.role.role)}>
+                {formatLabel(employee.role.role)}
+              </Pill>
+              <Pill
+                className={
+                  STATUS_META[employee.status] ??
+                  "bg-muted text-muted-foreground"
+                }
+              >
+                {formatLabel(employee.status)}
               </Pill>
             </div>
           </div>
@@ -190,60 +195,20 @@ function EmployeeDetail({
         </button>
       </div>
 
-      {/* Facts */}
-      <div className="mt-3 grid gap-1.5 rounded-lg border bg-background px-3 py-2.5 text-xs text-foreground/80">
-        <span className="flex items-center gap-2">
-          <Mail className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-          <span className="truncate">{employee.email}</span>
-        </span>
-        <span className="flex items-center gap-2">
-          <Building className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-          {employee.department}
-        </span>
-        <span className="flex items-center justify-between">
-          <span className="text-muted-foreground">
-            Joined {format(new Date(employee.joinedAt), "MMM yyyy")}
-          </span>
-          <span className="text-muted-foreground">
-            Active{" "}
-            {formatDistanceToNow(new Date(employee.lastActiveAt), {
-              addSuffix: true,
-            })}
-          </span>
-        </span>
-      </div>
-
-      {/* Activity log */}
-      <div className="mt-4">
-        <div className="mb-2 flex items-center gap-1.5">
-          <Activity className="h-3.5 w-3.5 text-muted-foreground" />
+      {/* Role */}
+      <div className="mt-4 rounded-lg border bg-background px-3 py-2.5">
+        <div className="mb-1 flex items-center gap-1.5">
+          <BadgeCheck className="h-3.5 w-3.5 text-muted-foreground" />
           <h4 className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Activity log
+            Role
           </h4>
         </div>
-
-        {employee.activity.length > 0 ? (
-          <ol className="relative space-y-3 border-l border-border/60 pl-4">
-            {employee.activity.map((entry) => (
-              <li key={entry.id} className="relative">
-                <span className="absolute -left-5.25 top-1 h-2 w-2 rounded-full bg-muted-foreground/40 ring-2 ring-background" />
-                <p className="text-[13px] font-medium text-foreground leading-tight">
-                  {entry.action}
-                </p>
-                {entry.target && (
-                  <p className="text-xs text-muted-foreground">
-                    {entry.target}
-                  </p>
-                )}
-                <p className="mt-0.5 text-[11px] text-muted-foreground/70">
-                  {format(new Date(entry.timestamp), "MMM d, yyyy · HH:mm")}
-                </p>
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <p className="rounded-lg border border-dashed p-4 text-center text-xs text-muted-foreground">
-            No recorded activity.
+        <p className="text-[13px] font-medium text-foreground">
+          {formatLabel(employee.role.role)}
+        </p>
+        {employee.role.description && (
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            {employee.role.description}
           </p>
         )}
       </div>
@@ -253,22 +218,19 @@ function EmployeeDetail({
 
 /* ── page ──────────────────────────────────────────────────── */
 
-const ROLE_FILTERS: (EmployeeRole | "all")[] = [
-  "all",
-  "super_admin",
-  "admin",
-  "manager",
-  "member",
-];
-
 export function EmployeeDirectoryPage() {
-  const { data, isLoading, isError } = useEmployees();
+  const { data, isPending, isError, refetch } = useEmployees();
   const { openSheet, closeSheet } = useSheet();
 
   const [search, setSearch] = useState("");
-  const [roleFilter, setRoleFilter] = useState<EmployeeRole | "all">("all");
+  const [roleFilter, setRoleFilter] = useState<string>("all");
 
   const employees = useMemo(() => data?.data ?? [], [data]);
+
+  const roleFilters = useMemo(() => {
+    const roles = [...new Set(employees.map((e) => e.role.role))];
+    return ["all", ...roles];
+  }, [employees]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -276,20 +238,18 @@ export function EmployeeDirectoryPage() {
       const matchesSearch =
         !q ||
         e.name.toLowerCase().includes(q) ||
-        e.email.toLowerCase().includes(q) ||
-        e.department.toLowerCase().includes(q);
-      const matchesRole = roleFilter === "all" || e.role === roleFilter;
+        e.nickname.toLowerCase().includes(q) ||
+        e.role.role.toLowerCase().includes(q);
+      const matchesRole = roleFilter === "all" || e.role.role === roleFilter;
       return matchesSearch && matchesRole;
     });
   }, [employees, search, roleFilter]);
 
   const activeCount = employees.filter((e) => e.status === "active").length;
-  const adminCount = employees.filter(
-    (e) => e.role === "super_admin" || e.role === "admin",
-  ).length;
+  const roleCount = roleFilters.length - 1;
   const hasActiveFilters = !!search || roleFilter !== "all";
 
-  const openEmployee = (employee: Employee) => {
+  const openEmployee = (employee: EmployeeOfOrganization) => {
     openSheet(
       <EmployeeDetail employee={employee} onClose={closeSheet} />,
       "2/4",
@@ -302,7 +262,7 @@ export function EmployeeDirectoryPage() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-3 sm:px-6 pb-10">
+    <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 pb-10">
       {/* ── Header ── */}
       <div className="flex items-center justify-between gap-3 mb-4">
         <div className="min-w-0">
@@ -311,7 +271,7 @@ export function EmployeeDirectoryPage() {
             Employees
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-            Org members, roles, and their activity.
+            Org members, their roles and status.
           </p>
         </div>
 
@@ -319,7 +279,7 @@ export function EmployeeDirectoryPage() {
       </div>
 
       {/* ── Stats ── */}
-      {!isLoading && !isError && employees.length > 0 && (
+      {!isPending && !isError && employees.length > 0 && (
         <div className="grid grid-cols-3 gap-2 mb-4">
           <div className="rounded-lg border bg-card px-3 py-2">
             <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -339,17 +299,17 @@ export function EmployeeDirectoryPage() {
           </div>
           <div className="rounded-lg border bg-card px-3 py-2">
             <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-              Admins
+              Roles
             </p>
             <p className="text-base sm:text-lg font-bold tabular-nums">
-              {adminCount}
+              {roleCount}
             </p>
           </div>
         </div>
       )}
 
       {/* ── Search + Filters ── */}
-      {!isLoading && !isError && employees.length > 0 && (
+      {!isPending && !isError && employees.length > 0 && (
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
@@ -367,7 +327,7 @@ export function EmployeeDirectoryPage() {
           </div>
 
           <div className="flex items-center gap-1.5 overflow-x-auto -mx-1 px-1 sm:mx-0 sm:px-0 shrink-0">
-            {ROLE_FILTERS.map((f) => (
+            {roleFilters.map((f) => (
               <button
                 key={f}
                 onClick={() => setRoleFilter(f)}
@@ -378,7 +338,7 @@ export function EmployeeDirectoryPage() {
                     : "bg-muted text-muted-foreground hover:bg-muted/80",
                 )}
               >
-                {f === "all" ? "All" : ROLE_META[f].label}
+                {f === "all" ? "All" : formatLabel(f)}
               </button>
             ))}
           </div>
@@ -386,9 +346,9 @@ export function EmployeeDirectoryPage() {
       )}
 
       {/* ── States ── */}
-      {isLoading && <LoadingRows />}
+      {isPending && <LoadingRows />}
 
-      {isError && !isLoading && (
+      {isError && !isPending && (
         <div className="flex flex-col items-center gap-2 rounded-xl border border-destructive/20 bg-destructive/5 p-6 text-center">
           <AlertCircle className="h-7 w-7 text-destructive/60" />
           <p className="text-sm font-medium text-foreground">
@@ -397,21 +357,29 @@ export function EmployeeDirectoryPage() {
           <p className="text-xs text-muted-foreground">
             Please refresh the page or try again.
           </p>
+          <button
+            onClick={() => refetch()}
+            className="mt-1 inline-flex items-center gap-1.5 rounded-lg border bg-background px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-accent transition-colors"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            Retry
+          </button>
         </div>
       )}
 
-      {!isLoading && !isError && employees.length === 0 && (
-        <div className="flex flex-col items-center gap-1.5 rounded-xl border border-dashed p-10 text-center">
-          <Users className="h-7 w-7 text-muted-foreground/40" />
-          <p className="text-sm font-medium text-foreground">No members yet</p>
-          <p className="text-xs text-muted-foreground max-w-xs">
-            Invite teammates to see them listed here.
+      {!isPending && !isError && employees.length === 0 && (
+        <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed p-8 text-center">
+          <Users className="h-7 w-7 text-muted-foreground/50" />
+          <p className="text-sm font-medium text-foreground">
+            No employees yet
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Members of your organization will show up here.
           </p>
         </div>
       )}
 
-      {/* ── List ── */}
-      {!isLoading && !isError && employees.length > 0 && (
+      {!isPending && !isError && employees.length > 0 && (
         <>
           {filtered.length > 0 ? (
             <div className="space-y-2">
@@ -424,23 +392,20 @@ export function EmployeeDirectoryPage() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-1.5 rounded-xl border border-dashed p-8 text-center">
-              <Search className="h-6 w-6 text-muted-foreground/40" />
-              <p className="text-sm font-medium text-foreground">No results</p>
-              <button
-                onClick={resetFilters}
-                className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-foreground underline underline-offset-2"
-              >
-                <RotateCcw className="h-3 w-3" />
-                Clear filters
-              </button>
+            <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed p-8 text-center">
+              <Search className="h-6 w-6 text-muted-foreground/50" />
+              <p className="text-sm font-medium text-foreground">
+                No matches found
+              </p>
+              {hasActiveFilters && (
+                <button
+                  onClick={resetFilters}
+                  className="text-xs font-semibold text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors"
+                >
+                  Clear filters
+                </button>
+              )}
             </div>
-          )}
-
-          {hasActiveFilters && filtered.length > 0 && (
-            <p className="mt-3 text-xs text-muted-foreground text-right">
-              Showing {filtered.length} of {employees.length}
-            </p>
           )}
         </>
       )}
