@@ -30,11 +30,7 @@ import {
 import { TbTransactionRupee } from "react-icons/tb";
 import { FcBusinesswoman } from "react-icons/fc";
 import { AiOutlineAudit } from "react-icons/ai";
-import {
-  RiCustomerService2Line,
-  RiOrganizationChart,
-  RiShieldUserFill,
-} from "react-icons/ri";
+import { RiCustomerService2Line, RiOrganizationChart } from "react-icons/ri";
 import { BiPaste } from "react-icons/bi";
 import { FaCashRegister } from "react-icons/fa";
 import { FaArrowsToEye } from "react-icons/fa6";
@@ -190,14 +186,6 @@ export const orchestratorGroups: SidebarGroup[] = [
         path: "/authorization/user_groups",
         icon: MdGroups2,
         tooltip: "User Groups",
-        exact: false,
-      },
-
-      {
-        label: "Users",
-        path: "/authorization/users",
-        icon: RiShieldUserFill,
-        tooltip: "Users",
         exact: false,
       },
     ],
