@@ -28,7 +28,7 @@ import {
   MdPolicy,
 } from "react-icons/md";
 import { TbTransactionRupee } from "react-icons/tb";
-import { FcBusinesswoman } from "react-icons/fc";
+import { FcBusinesswoman, FcDepartment } from "react-icons/fc";
 import { AiOutlineAudit } from "react-icons/ai";
 import { RiCustomerService2Line, RiOrganizationChart } from "react-icons/ri";
 import { BiPaste } from "react-icons/bi";
@@ -123,6 +123,13 @@ export const orchestratorGroups: SidebarGroup[] = [
             tooltip: "Branch Expenses",
           },
         ],
+      },
+
+      {
+        label: "Deparments",
+        path: "/deparments",
+        icon: FcDepartment,
+        tooltip: "Organization's Deparments",
       },
     ],
   },

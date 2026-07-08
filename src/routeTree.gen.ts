@@ -20,6 +20,7 @@ import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/paym
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserDescovro_integrationsRouteRouteImport } from './routes/_appuser/descovro_integrations/route'
+import { Route as AppuserDeparmentsRouteRouteImport } from './routes/_appuser/deparments/route'
 import { Route as AppuserCustomersRouteRouteImport } from './routes/_appuser/customers/route'
 import { Route as AppuserAuthorizationRouteRouteImport } from './routes/_appuser/authorization/route'
 import { Route as AppuserAuditLogRouteRouteImport } from './routes/_appuser/audit-log/route'
@@ -37,6 +38,7 @@ import { Route as AppuserInventoryAccIndexRouteImport } from './routes/_appuser/
 import { Route as AppuserFolioIndexRouteImport } from './routes/_appuser/folio/index'
 import { Route as AppuserDocs_officeIndexRouteImport } from './routes/_appuser/docs_office/index'
 import { Route as AppuserDescovro_integrationsIndexRouteImport } from './routes/_appuser/descovro_integrations/index'
+import { Route as AppuserDeparmentsIndexRouteImport } from './routes/_appuser/deparments/index'
 import { Route as AppuserCustomersIndexRouteImport } from './routes/_appuser/customers/index'
 import { Route as AppuserCortexIndexRouteImport } from './routes/_appuser/cortex/index'
 import { Route as AppuserCablesIndexRouteImport } from './routes/_appuser/cables/index'
@@ -49,6 +51,7 @@ import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cable
 import { Route as AppuserOrgUsersEmployeeIDRouteRouteImport } from './routes/_appuser/org-users/$employeeID/route'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserOrgUsersEmployeeIDIndexRouteImport } from './routes/_appuser/org-users/$employeeID/index'
+import { Route as AppuserDeparmentsDepartmentIDIndexRouteImport } from './routes/_appuser/deparments/$departmentID/index'
 import { Route as AppuserBusinessOpsPropertyIndexRouteImport } from './routes/_appuser/business-ops/property/index'
 import { Route as AppuserAuthorizationUser_groupsIndexRouteImport } from './routes/_appuser/authorization/user_groups/index'
 import { Route as AppuserAuthorizationRolesIndexRouteImport } from './routes/_appuser/authorization/roles/index'
@@ -143,6 +146,11 @@ const AppuserDescovro_integrationsRouteRoute =
     path: '/descovro_integrations',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserDeparmentsRouteRoute = AppuserDeparmentsRouteRouteImport.update({
+  id: '/deparments',
+  path: '/deparments',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserCustomersRouteRoute = AppuserCustomersRouteRouteImport.update({
   id: '/customers',
   path: '/customers',
@@ -236,6 +244,11 @@ const AppuserDescovro_integrationsIndexRoute =
     path: '/',
     getParentRoute: () => AppuserDescovro_integrationsRouteRoute,
   } as any)
+const AppuserDeparmentsIndexRoute = AppuserDeparmentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserDeparmentsRouteRoute,
+} as any)
 const AppuserCustomersIndexRoute = AppuserCustomersIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -301,6 +314,12 @@ const AppuserOrgUsersEmployeeIDIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AppuserOrgUsersEmployeeIDRouteRoute,
+  } as any)
+const AppuserDeparmentsDepartmentIDIndexRoute =
+  AppuserDeparmentsDepartmentIDIndexRouteImport.update({
+    id: '/$departmentID/',
+    path: '/$departmentID/',
+    getParentRoute: () => AppuserDeparmentsRouteRoute,
   } as any)
 const AppuserBusinessOpsPropertyIndexRoute =
   AppuserBusinessOpsPropertyIndexRouteImport.update({
@@ -556,6 +575,7 @@ export interface FileRoutesByFullPath {
   '/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
   '/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
   '/customers': typeof AppuserCustomersRouteRouteWithChildren
+  '/deparments': typeof AppuserDeparmentsRouteRouteWithChildren
   '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
@@ -574,6 +594,7 @@ export interface FileRoutesByFullPath {
   '/cables/': typeof AppuserCablesIndexRoute
   '/cortex/': typeof AppuserCortexIndexRoute
   '/customers/': typeof AppuserCustomersIndexRoute
+  '/deparments/': typeof AppuserDeparmentsIndexRoute
   '/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
   '/docs_office/': typeof AppuserDocs_officeIndexRoute
   '/folio/': typeof AppuserFolioIndexRoute
@@ -601,6 +622,7 @@ export interface FileRoutesByFullPath {
   '/authorization/roles/': typeof AppuserAuthorizationRolesIndexRoute
   '/authorization/user_groups/': typeof AppuserAuthorizationUser_groupsIndexRoute
   '/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
+  '/deparments/$departmentID/': typeof AppuserDeparmentsDepartmentIDIndexRoute
   '/org-users/$employeeID/': typeof AppuserOrgUsersEmployeeIDIndexRoute
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -640,6 +662,7 @@ export interface FileRoutesByTo {
   '/cables': typeof AppuserCablesIndexRoute
   '/cortex': typeof AppuserCortexIndexRoute
   '/customers': typeof AppuserCustomersIndexRoute
+  '/deparments': typeof AppuserDeparmentsIndexRoute
   '/descovro_integrations': typeof AppuserDescovro_integrationsIndexRoute
   '/docs_office': typeof AppuserDocs_officeIndexRoute
   '/folio': typeof AppuserFolioIndexRoute
@@ -667,6 +690,7 @@ export interface FileRoutesByTo {
   '/authorization/roles': typeof AppuserAuthorizationRolesIndexRoute
   '/authorization/user_groups': typeof AppuserAuthorizationUser_groupsIndexRoute
   '/business-ops/property': typeof AppuserBusinessOpsPropertyIndexRoute
+  '/deparments/$departmentID': typeof AppuserDeparmentsDepartmentIDIndexRoute
   '/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDIndexRoute
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -698,6 +722,7 @@ export interface FileRoutesById {
   '/_appuser/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
   '/_appuser/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
   '/_appuser/customers': typeof AppuserCustomersRouteRouteWithChildren
+  '/_appuser/deparments': typeof AppuserDeparmentsRouteRouteWithChildren
   '/_appuser/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
@@ -717,6 +742,7 @@ export interface FileRoutesById {
   '/_appuser/cables/': typeof AppuserCablesIndexRoute
   '/_appuser/cortex/': typeof AppuserCortexIndexRoute
   '/_appuser/customers/': typeof AppuserCustomersIndexRoute
+  '/_appuser/deparments/': typeof AppuserDeparmentsIndexRoute
   '/_appuser/descovro_integrations/': typeof AppuserDescovro_integrationsIndexRoute
   '/_appuser/docs_office/': typeof AppuserDocs_officeIndexRoute
   '/_appuser/folio/': typeof AppuserFolioIndexRoute
@@ -744,6 +770,7 @@ export interface FileRoutesById {
   '/_appuser/authorization/roles/': typeof AppuserAuthorizationRolesIndexRoute
   '/_appuser/authorization/user_groups/': typeof AppuserAuthorizationUser_groupsIndexRoute
   '/_appuser/business-ops/property/': typeof AppuserBusinessOpsPropertyIndexRoute
+  '/_appuser/deparments/$departmentID/': typeof AppuserDeparmentsDepartmentIDIndexRoute
   '/_appuser/org-users/$employeeID/': typeof AppuserOrgUsersEmployeeIDIndexRoute
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
@@ -777,6 +804,7 @@ export interface FileRouteTypes {
     | '/audit-log'
     | '/authorization'
     | '/customers'
+    | '/deparments'
     | '/descovro_integrations'
     | '/inventory-acc'
     | '/legal_entity'
@@ -795,6 +823,7 @@ export interface FileRouteTypes {
     | '/cables/'
     | '/cortex/'
     | '/customers/'
+    | '/deparments/'
     | '/descovro_integrations/'
     | '/docs_office/'
     | '/folio/'
@@ -822,6 +851,7 @@ export interface FileRouteTypes {
     | '/authorization/roles/'
     | '/authorization/user_groups/'
     | '/business-ops/property/'
+    | '/deparments/$departmentID/'
     | '/org-users/$employeeID/'
     | '/payments/$accountId/'
     | '/business-ops/property/$propertyId/details'
@@ -861,6 +891,7 @@ export interface FileRouteTypes {
     | '/cables'
     | '/cortex'
     | '/customers'
+    | '/deparments'
     | '/descovro_integrations'
     | '/docs_office'
     | '/folio'
@@ -888,6 +919,7 @@ export interface FileRouteTypes {
     | '/authorization/roles'
     | '/authorization/user_groups'
     | '/business-ops/property'
+    | '/deparments/$departmentID'
     | '/org-users/$employeeID'
     | '/payments/$accountId'
     | '/business-ops/property/$propertyId/details'
@@ -918,6 +950,7 @@ export interface FileRouteTypes {
     | '/_appuser/audit-log'
     | '/_appuser/authorization'
     | '/_appuser/customers'
+    | '/_appuser/deparments'
     | '/_appuser/descovro_integrations'
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
@@ -937,6 +970,7 @@ export interface FileRouteTypes {
     | '/_appuser/cables/'
     | '/_appuser/cortex/'
     | '/_appuser/customers/'
+    | '/_appuser/deparments/'
     | '/_appuser/descovro_integrations/'
     | '/_appuser/docs_office/'
     | '/_appuser/folio/'
@@ -964,6 +998,7 @@ export interface FileRouteTypes {
     | '/_appuser/authorization/roles/'
     | '/_appuser/authorization/user_groups/'
     | '/_appuser/business-ops/property/'
+    | '/_appuser/deparments/$departmentID/'
     | '/_appuser/org-users/$employeeID/'
     | '/_appuser/payments/$accountId/'
     | '/_appuser/business-ops/property/$propertyId/details'
@@ -1073,6 +1108,13 @@ declare module '@tanstack/react-router' {
       path: '/descovro_integrations'
       fullPath: '/descovro_integrations'
       preLoaderRoute: typeof AppuserDescovro_integrationsRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/deparments': {
+      id: '/_appuser/deparments'
+      path: '/deparments'
+      fullPath: '/deparments'
+      preLoaderRoute: typeof AppuserDeparmentsRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/customers': {
@@ -1194,6 +1236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDescovro_integrationsIndexRouteImport
       parentRoute: typeof AppuserDescovro_integrationsRouteRoute
     }
+    '/_appuser/deparments/': {
+      id: '/_appuser/deparments/'
+      path: '/'
+      fullPath: '/deparments/'
+      preLoaderRoute: typeof AppuserDeparmentsIndexRouteImport
+      parentRoute: typeof AppuserDeparmentsRouteRoute
+    }
     '/_appuser/customers/': {
       id: '/_appuser/customers/'
       path: '/'
@@ -1277,6 +1326,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/org-users/$employeeID/'
       preLoaderRoute: typeof AppuserOrgUsersEmployeeIDIndexRouteImport
       parentRoute: typeof AppuserOrgUsersEmployeeIDRouteRoute
+    }
+    '/_appuser/deparments/$departmentID/': {
+      id: '/_appuser/deparments/$departmentID/'
+      path: '/$departmentID'
+      fullPath: '/deparments/$departmentID/'
+      preLoaderRoute: typeof AppuserDeparmentsDepartmentIDIndexRouteImport
+      parentRoute: typeof AppuserDeparmentsRouteRoute
     }
     '/_appuser/business-ops/property/': {
       id: '/_appuser/business-ops/property/'
@@ -1584,6 +1640,23 @@ const AppuserCustomersRouteRouteWithChildren =
     AppuserCustomersRouteRouteChildren,
   )
 
+interface AppuserDeparmentsRouteRouteChildren {
+  AppuserDeparmentsIndexRoute: typeof AppuserDeparmentsIndexRoute
+  AppuserDeparmentsDepartmentIDIndexRoute: typeof AppuserDeparmentsDepartmentIDIndexRoute
+}
+
+const AppuserDeparmentsRouteRouteChildren: AppuserDeparmentsRouteRouteChildren =
+  {
+    AppuserDeparmentsIndexRoute: AppuserDeparmentsIndexRoute,
+    AppuserDeparmentsDepartmentIDIndexRoute:
+      AppuserDeparmentsDepartmentIDIndexRoute,
+  }
+
+const AppuserDeparmentsRouteRouteWithChildren =
+  AppuserDeparmentsRouteRoute._addFileChildren(
+    AppuserDeparmentsRouteRouteChildren,
+  )
+
 interface AppuserDescovro_integrationsRouteRouteChildren {
   AppuserDescovro_integrationsIndexRoute: typeof AppuserDescovro_integrationsIndexRoute
 }
@@ -1796,6 +1869,7 @@ interface AppuserRouteRouteChildren {
   AppuserAuditLogRouteRoute: typeof AppuserAuditLogRouteRouteWithChildren
   AppuserAuthorizationRouteRoute: typeof AppuserAuthorizationRouteRouteWithChildren
   AppuserCustomersRouteRoute: typeof AppuserCustomersRouteRouteWithChildren
+  AppuserDeparmentsRouteRoute: typeof AppuserDeparmentsRouteRouteWithChildren
   AppuserDescovro_integrationsRouteRoute: typeof AppuserDescovro_integrationsRouteRouteWithChildren
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
   AppuserLegal_entityRouteRoute: typeof AppuserLegal_entityRouteRouteWithChildren
@@ -1839,6 +1913,7 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserAuditLogRouteRoute: AppuserAuditLogRouteRouteWithChildren,
   AppuserAuthorizationRouteRoute: AppuserAuthorizationRouteRouteWithChildren,
   AppuserCustomersRouteRoute: AppuserCustomersRouteRouteWithChildren,
+  AppuserDeparmentsRouteRoute: AppuserDeparmentsRouteRouteWithChildren,
   AppuserDescovro_integrationsRouteRoute:
     AppuserDescovro_integrationsRouteRouteWithChildren,
   AppuserInventoryAccRouteRoute: AppuserInventoryAccRouteRouteWithChildren,
