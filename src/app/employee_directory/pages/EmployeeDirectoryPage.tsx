@@ -9,9 +9,9 @@ import {
   X,
 } from "lucide-react";
 import { useState, useMemo } from "react";
-import { useEmployees } from "./api/queries";
-import type { EmployeeOfOrganization } from "./api/types";
-import { AddSuperAdminButton } from "./components/AddSuperAdminButton";
+import { useEmployees } from "../api/queries";
+import type { EmployeeOfOrganization } from "../api/types";
+import { AddSuperAdminButton } from "../components/AddSuperAdminButton";
 import { cn } from "@/lib/utils";
 
 /* ── config / helpers ─────────────────────────────────────── */
