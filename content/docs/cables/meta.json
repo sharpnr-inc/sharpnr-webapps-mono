@@ -1,7 +1,13 @@
 {
   "title": "Cables",
   "icon": "Cable",
-  "description": "A Communication service",
+  "description": "Messaging & communications",
   "root": true,
-  "pages": ["index", "overview", "sharpnr-platform", "architecture"]
+  "pages": [
+    "index",
+    "conversations",
+    "calls-and-meetings",
+    "platform-integration",
+    "external-communication"
+  ]
 }

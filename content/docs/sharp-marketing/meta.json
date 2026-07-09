@@ -1,7 +1,13 @@
 {
   "title": "Sharp Marketing",
-  "description": "Marketing & CRM",
+  "description": "CRM & marketing automation",
   "icon": "Target",
   "root": true,
-  "pages": ["index"]
+  "pages": [
+    "index",
+    "crm",
+    "campaigns-and-automation",
+    "customer-engagement",
+    "analytics-and-integrations"
+  ]
 }

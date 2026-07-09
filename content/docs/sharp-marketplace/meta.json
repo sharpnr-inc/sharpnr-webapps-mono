@@ -1,5 +1,10 @@
 {
   "title": "Sharp Marketplace",
-  "description": "A B2B Marketplace",
-  "pages": ["index"]
+  "description": "B2B organization-to-organization marketplace",
+  "pages": [
+    "index",
+    "buying-and-selling",
+    "procurement",
+    "trust-and-verification"
+  ]
 }

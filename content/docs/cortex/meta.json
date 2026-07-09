@@ -1,6 +1,12 @@
 {
   "title": "Cortex",
-  "description": "IT layer for sharpnr platform",
+  "description": "IT controls & access management",
   "icon": "Cpu",
-  "pages": ["index"]
+  "pages": [
+    "index",
+    "access-control",
+    "keys-and-secrets",
+    "security-and-compliance",
+    "roadmap"
+  ]
 }

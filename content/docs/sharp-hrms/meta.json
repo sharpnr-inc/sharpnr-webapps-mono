@@ -1,7 +1,13 @@
 {
   "title": "Sharp HRMS",
   "icon": "User",
-  "description": "Explore Sharpnr's HRMS.",
+  "description": "HRMS & payroll",
   "root": true,
-  "pages": ["index", "overview", "sharpnr-platform", "architecture"]
+  "pages": [
+    "index",
+    "employee-management",
+    "payroll-and-attendance",
+    "performance-and-development",
+    "employee-experience"
+  ]
 }

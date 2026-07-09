@@ -3,5 +3,12 @@
   "description": "Finance & Accounting",
   "root": true,
   "icon": "Calculator",
-  "pages": ["index", "installation"]
+  "pages": [
+    "index",
+    "core-accounting",
+    "platform-integration",
+    "multi-entity",
+    "financial-management",
+    "reporting-and-compliance"
+  ]
 }
