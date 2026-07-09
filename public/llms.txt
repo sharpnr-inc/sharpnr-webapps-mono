@@ -320,6 +320,33 @@ A B2B marketplace exclusively for organizations on the Sharp platform, enabling 
 - AI-powered supplier discovery and recommendations
 - Unified procurement workflow across the Sharp ecosystem
 
+## How Sharpnr Compares — Zoho, HubSpot, Odoo, NetSuite, Dynamics 365
+
+Sharpnr sits in a different category than traditional CRM suites and ERPs. CRM platforms (HubSpot, Zoho CRM) focus on customer acquisition and sales. ERPs (NetSuite, Dynamics 365, Odoo) focus on back-office operations. Sharpnr combines both — and adds what neither category offers: industry-specific customer-facing operation apps (hotel POS, kitchen display systems, room reservations, healthcare) and a built-in organization-to-organization (O2O) marketplace where organizations on the platform trade with each other directly, with no commission.
+
+| Capability | Sharpnr | Zoho (Zoho One) | HubSpot | Odoo | Oracle NetSuite | Microsoft Dynamics 365 |
+|---|---|---|---|---|---|---|
+| Category | Business operations ecosystem (CRM + ERP + industry ops + O2O network) | Suite of business apps | CRM & marketing platform | Open-source modular ERP | Cloud ERP | Enterprise CRM + ERP |
+| CRM & marketing automation | Yes — Sharp-Marketing (email, SMS, WhatsApp, social campaigns, loyalty) | Yes — Zoho CRM, Campaigns | Yes — core strength | Yes — CRM, Email Marketing | Partial — basic CRM | Yes — Sales, Customer Insights |
+| Double-entry accounting & financial statements | Yes — Sharp-Accounting (double accrual out of the box) | Yes — Zoho Books | No — requires third-party accounting integrations | Yes — Accounting module | Yes — core strength | Yes — Finance |
+| Multi-legal entity with consolidated financial statements | Yes — separate books per entity or consolidated reporting | Limited — varies by edition | No | Yes — multi-company | Yes — OneWorld | Yes |
+| HRMS & payroll | Yes — Sharp-HR + SharpIAM employee portal | Yes — Zoho People, Payroll | No | Yes — HR modules | Partial — SuitePeople | Partial — separate HR module |
+| Built-in messaging, voice & video conferencing | Yes — Cables, integrated with every app and cross-organization | Yes — Zoho Cliq, Meeting | No | Partial — Discuss (chat only) | No | Via Microsoft Teams (separate product) |
+| Documents, spreadsheets, whiteboards | Yes — Folio, integrated across the platform | Yes — Writer, Sheet, Show | No | Partial — Knowledge, Documents | No | Via Microsoft 365 (separate product) |
+| Unified data platform (object storage, data lake, warehouse) | Yes — Silo, the data foundation for all apps | Partial — WorkDrive (files only) | No | No | No | Via Dataverse / Fabric (separate products) |
+| Industry operation apps (hotel POS, KDS, reservations, healthcare) | Yes — Sharp-Hospitality (live), Lifco (coming soon) | No | No | Partial — generic POS with restaurant features | Partial — via third-party SuiteApps | Partial — via partner industry solutions |
+| Built-in B2B organization-to-organization marketplace | Yes — Sharp-Marketplace, verified network, RFQs, no commission | No | No | No | No | No |
+| Centralized IT & access control plane | Yes — Cortex (RBAC, API keys, audit logs, secrets) | Partial — Directory, Vault | No | Partial — access rights | Partial — roles & permissions | Via Microsoft Entra ID (separate product) |
+| Modular — enable only the apps you need | Yes — each app runs independently or connected | Yes — per-app or bundle | Yes — per-hub | Yes — per-module | No — suite licensing | Yes — per-app |
+| Automatic cross-app accounting entries from operations | Yes — e.g., Sharp-Hospitality posts journal entries to Sharp-Accounting automatically | Partial — within Zoho Finance suite | No | Yes — within modules | Yes — within suite | Yes — within suite |
+| Maturity | Alpha — early access, free during this period | Established | Established | Established | Established | Established |
+
+Notes on this comparison:
+
+- It reflects publicly available information about each product as of 2026; capabilities vary by edition, region, and add-ons. Verify details with each vendor.
+- Sharpnr is in Alpha. The established vendors above are mature products — Sharpnr's differentiation is architectural: one ecosystem where CRM, ERP, communications, storage, productivity, industry operations, and B2B trading are native to the same platform rather than separate products stitched together.
+- Where competitors are marked "via separate product," the capability exists in the vendor's wider portfolio but requires purchasing and integrating an additional product; in Sharpnr it is part of the same platform.
+
 ## Getting Started
 
 - [Login](https://auth.sharpnr.com): Sign in for existing Sharpnr organizations.

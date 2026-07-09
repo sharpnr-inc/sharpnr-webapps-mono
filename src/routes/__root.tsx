@@ -8,12 +8,15 @@ import {
 } from "@tanstack/react-router";
 import { useRef } from "react";
 import { gsap, useGSAP, ScrollSmoother, ScrollTrigger } from "@/configs/gsap";
+import { useWebMCP } from "@/hooks/useWebMCP";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 function RootLayout() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  useWebMCP();
 
   useGSAP(
     () => {

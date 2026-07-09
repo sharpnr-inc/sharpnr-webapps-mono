@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "sharpnr-platform-overview",
+      "type": "skill-md",
+      "description": "Learn what the Sharpnr platform is, which applications it includes, and where to find accurate information about it before answering questions or acting on a user's behalf.",
+      "url": "https://sharpnr.com/.well-known/agent-skills/sharpnr-platform-overview/SKILL.md",
+      "digest": "sha256:f874f3d1aeb12a78a9e19c40dc626c641fb9064e2299947adcc5433926acdefa"
+    }
+  ]
+}
