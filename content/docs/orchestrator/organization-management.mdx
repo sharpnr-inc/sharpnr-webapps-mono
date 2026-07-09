@@ -1,0 +1,44 @@
+---
+title: Organization Management
+description: Manage companies, branches, and legal entities — the structure every Sharp app builds on.
+---
+
+Orchestrator is where you model your business structure. Every Sharp application reads this structure, so companies, branches, and legal entities are defined once and used everywhere.
+
+## The organization hierarchy
+
+Sharpnr is multi-tenant, multi-company, and multi-branch by design:
+
+| Level        | What it represents                                                                  |
+| ------------ | ----------------------------------------------------------------------------------- |
+| Organization | Your tenant on the Sharpnr platform — the top-level account                         |
+| Company      | A business unit or legal entity within the organization                             |
+| Branch       | A physical or operational location under a company — a hotel property, a clinic, a store |
+
+A single organization can manage multiple industries and business sectors at once. A mixed business — for example a group that operates hotels, restaurants, retail stores, and a hospital — runs everything from one platform, with each company enabling only the apps it needs.
+
+## Legal entities and accounting books
+
+Each company in your organization can be a separate legal entity with its own independent accounting books and financial records. Orchestrator lets you choose the financial structure that matches how your business is organized:
+
+- **Separate books per entity** — each legal entity maintains its own general ledger, statements, and compliance records in [Sharp-Accounting](/sharp-accounting).
+- **Consolidated reporting** — parent, child, and subsidiary relationships roll up into consolidated financial statements across the organization.
+
+## Multi-branch operations
+
+Branches let a company operate multiple locations under shared configuration. Business operation apps use this directly — for example, [Sharp-Hospitality](/hospitality-sector/sharp-hospitality) supports multi-property management, shared kitchens across multiple businesses, and shared menus with items routed to different kitchens.
+
+## Stakeholder visibility
+
+Beyond administration, Orchestrator gives stakeholders a view of the whole organization — every company, branch, and enabled service — without requiring them to work inside each individual app.
+
+## Related
+
+<Cards>
+  <Card title="App Management" href="/orchestrator/app-management">
+    Enable apps per company once your structure is in place
+  </Card>
+  <Card title="Sharp-Accounting" href="/sharp-accounting">
+    Multi-legal-entity accounting and consolidated statements
+  </Card>
+</Cards>

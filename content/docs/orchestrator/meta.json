@@ -1,7 +1,15 @@
 {
   "title": "Orchestrator",
-  "description": "Apps and Org management",
+  "description": "Platform command center — apps and org management",
   "root": true,
   "icon": "Shield",
-  "pages": ["index", "installation", "configuration"]
+  "pages": [
+    "index",
+    "getting-started",
+    "organization-management",
+    "app-management",
+    "monitoring",
+    "configuration",
+    "access-and-security"
+  ]
 }

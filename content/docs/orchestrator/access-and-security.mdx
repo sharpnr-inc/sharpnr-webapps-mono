@@ -1,0 +1,43 @@
+---
+title: Access & Security
+description: Role-based administrative access, user session management, and audit logs in Orchestrator.
+---
+
+Orchestrator applies enterprise-grade security to platform administration itself: who can administer what is role-based, sessions are managed centrally, and every action leaves a trail.
+
+## Role-based administrative access
+
+Administrative access in Orchestrator is governed by role-based access control (RBAC). Not every administrator needs every power — roles let organizations grant, for example, monitoring access to an operations team while reserving app provisioning and configuration for platform administrators. Stakeholders can be given organization-wide visibility without administrative control.
+
+## User session management
+
+Administrators can view and manage active user sessions across the platform — see who is signed in, and terminate sessions when needed (for example, when offboarding an employee or responding to a security concern).
+
+## Audit logs & administrative activity
+
+Every administrative action — enabling an app, restarting a service, changing configuration, modifying access — is captured in audit logs. This gives organizations:
+
+- **Accountability** — a record of who did what, and when.
+- **Compliance** — an audit trail for financial and regulatory requirements, complementing the audit trails in [Sharp-Accounting](/sharp-accounting).
+- **Troubleshooting context** — administrative changes can be correlated with service behavior in [Monitoring](/orchestrator/monitoring).
+
+## How Orchestrator relates to Cortex and SharpIAM
+
+Access control appears in three places on the Sharp platform, each with a distinct job:
+
+| App                        | Scope                                                                          |
+| -------------------------- | ------------------------------------------------------------------------------ |
+| **Orchestrator**           | Administrative access to the platform itself — who can provision, configure, and control services |
+| [Cortex](/cortex)          | IT controls — RBAC over resources, database access, API keys, secrets, and security policies |
+| [SharpIAM](/sharp-iam)     | The employee portal — day-to-day self-service access for employees and managers |
+
+## Related
+
+<Cards>
+  <Card title="Cortex" href="/cortex">
+    IT controls and access management for the Sharp platform
+  </Card>
+  <Card title="SharpIAM" href="/sharp-iam">
+    The employee self-service portal
+  </Card>
+</Cards>
