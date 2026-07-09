@@ -31,8 +31,11 @@ export const Route = createFileRoute("/industries")({
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/industries" },
+      { property: "og:image", content: "https://sharpnr.com/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://sharpnr.com/og-image.png" },
     ],
+    links: [{ rel: "canonical", href: "https://sharpnr.com/industries" }],
   }),
 });
 

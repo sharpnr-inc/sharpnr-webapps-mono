@@ -1,0 +1,351 @@
+# Sharpnr
+
+> Sharpnr is a cloud-based SaaS ecosystem for managing business operations across industries. It unifies industry-specific operation apps (hospitality, healthcare, and more), a suite of core business services (accounting, HR, CRM, messaging, storage, documents, IT controls), and a B2B organization-to-organization marketplace — all provisioned and managed through a central administration app called Orchestrator. Sharpnr is currently in Alpha and free during the early access period.
+
+Sharpnr is not a single product — it is an ever-evolving ecosystem of connected applications. Organizations enable only the apps they need, and every app works both independently and as part of the unified platform. New apps, new industries, and new organization-to-organization connections are continuously being added.
+
+## Key Platform Facts
+
+- Cloud-based SaaS — nothing to install or self-host.
+- Multi-tenant, multi-company, and multi-branch architecture.
+- Support for multiple legal entities, each with its own independent accounting books and financial records.
+- Choose between separate accounting books for each legal entity or consolidated financial reporting across the organization.
+- Manage multiple industries and business sectors from a single platform, including mixed businesses such as hospitals, hotels, restaurants, retail stores, and more.
+- Modular architecture — organizations use only the applications they need.
+- Business Operation Apps can run completely independently without requiring other Sharp platform services.
+- Sharp-Accounting can be used as a standalone accounting solution or connected with Business Operation Apps for automatic transaction recording.
+- Out-of-the-box integration across all Sharp applications for a seamless business workflow.
+- Every application is provisioned and managed through Orchestrator, the central administration app.
+- Enterprise-grade security with role-based access control and audit logs.
+- Designed for organizations of any size, from small businesses to large enterprises.
+- Pay only for the applications and services you use (pricing to be announced; currently free during the early access period).
+
+## Platform Architecture — 4 Layers
+
+Sharpnr is organized into four connected layers:
+
+1. **Business Operation Layer (Layer 1)** — Industry-specific apps that face end customers. Hospitality (hotels, restaurants, bars, night clubs, resorts) is served by Sharp-Hospitality (live). Medical/healthcare (hospitals, clinics, pharmacies, nursing centers) will be served by Lifco (coming soon).
+2. **Organization Control Layer (Layer 2)** — The central hub where organizations manage their entire Sharpnr ecosystem: enable or disable services per company, configure industry-specific apps, control user access and permissions, and orchestrate workflows across all services. Powered by Orchestrator.
+3. **Sharpnr Core Services (Layer 3)** — The business management suite built into the platform: CRM (Sharp-Marketing), HRMS (Sharp-HR), Accounting (Sharp-Accounting), Messaging and Communications (Cables), Storage (Silo), Productivity (Folio), IT Controls (Cortex), and the employee portal (SharpIAM).
+4. **B2B Platform Layer (Layer 4)** — Organization-to-organization connections through Sharp-Marketplace: trade goods and services, finalize deals and contracts, communicate via Cables, share accounting and billing data securely, and manage inter-org workflows.
+
+## Sharpnr Core Services (Layer 3)
+
+### Cables — Messaging & Communications
+
+App: https://cables.sharpnr.com
+
+Secure messaging, voice calls, and video conferencing — the unified communication layer connecting every service in the Sharp ecosystem.
+
+- One-to-one chats, group chats, and organization-wide channels
+- Threaded conversations with rich media and file sharing
+- Fast, encrypted, and low-latency communication
+- Deep context integration across all Sharp applications and workflows
+- Share records, documents, invoices, tickets, and tasks directly within conversations
+- Cross-organization collaboration with external partners and vendors
+- Customer communication without requiring a Sharp account
+- Temporary guest links for customers and external participants
+- Real-time notifications and presence indicators
+- Screen sharing and meeting collaboration tools
+- Message search, history, and conversation archives
+- AI-powered conversation summaries and smart search
+- Role-based access control and enterprise-grade security
+
+### Silo — Storage & Data Platform
+
+App: https://silo.sharpnr.com
+
+A unified storage platform for structured, semi-structured, and unstructured data, designed to serve as the central data foundation for all Sharp applications.
+
+- Object Storage
+- Structured Data Storage (RDBMS)
+- Unstructured File Storage
+- Data Lake
+- Data Warehouse
+- Lakehouse Architecture
+- API-first Data Access
+- High-performance Data Ingestion
+- Data Sharing Across Applications
+- Machine Learning & AI Data Storage
+- Metadata & Schema Management
+- Backup & Replication
+- Encryption & Access Control
+- Scalable Distributed Storage
+- Analytics-ready Data Platform
+
+### Sharp-Accounting — Finance & Accounting
+
+App: https://accounting.sharpnr.com
+
+Built on double accrual accounting principles out of the box, with support for additional accounting methodologies coming soon. Works and connects seamlessly regardless of industry or sector.
+
+- Automatic journal entries from business applications like Sharp-Hospitality, eliminating manual ledger recording
+- General Ledger Management
+- Accounts Payable (AP) and Accounts Receivable (AR)
+- Automatic Purchase-to-Inventory Accounting
+- Inventory Valuation & Cost Tracking
+- Smart Entry for invoices, receipts, and journal entries
+- Bank Reconciliation
+- Cash Flow Management
+- Budgeting & Financial Planning
+- Fixed Asset & Depreciation Management
+- Expense & Reimbursement Management
+- Multi-Currency Support
+- Multi-Company & Multi-Legal Entity Support
+- Parent, Child, and Subsidiary Entity Relationships
+- Consolidated Financial Statements
+- Tax Calculation & Filing
+- Financial Compliance & Audit Trails
+- Role-Based Approval Workflows
+- Recurring Transactions & Scheduled Entries
+- Financial Dashboards & Analytics
+- Balance Sheet, Profit & Loss Statement, Cash Flow Statement, Trial Balance
+- General Ledger Reports and Custom Financial Reports
+- API-first integration with the Sharp platform
+
+### Sharp-Marketing — CRM & Marketing Automation (soon to be renamed Sharp-CRM)
+
+App: https://sharpcrm.sharpnr.com
+
+Customer relationship management and marketing automation for the entire customer lifecycle.
+
+- Customer Relationship Management (CRM)
+- Lead Management, Contact Management, Account Management
+- Opportunity & Pipeline Management
+- Customer Acquisition
+- Marketing Automation
+- Email Marketing, SMS & WhatsApp Campaigns
+- Social Media Campaign Management
+- Form Builder with Lead Capture & Lead Scoring
+- Customer Segmentation
+- Campaign Management and Customer Journey Automation
+- Sales Funnel Management and Deal Tracking
+- Activity Timeline
+- Task & Follow-up Management
+- Meeting & Call Scheduling
+- Customer Support Integration
+- Feedback Management, Surveys & Polls
+- Loyalty & Rewards Programs
+- Referral Program Management
+- Customer Engagement Tracking
+- Analytics & Reporting: Conversion Tracking, ROI Analytics, Attribution Tracking
+- Dashboards & KPIs
+- Third-party Integrations
+- Notification Management
+- Document & Proposal Management
+- Customer Portal
+
+### Folio — Documents & Productivity Suite
+
+App: https://folio.sharpnr.com
+
+Create, collaborate, and organize your knowledge in one place. Folio is the productivity suite for the Sharp platform, bringing documents, spreadsheets, presentations, notes, whiteboards, and PDFs together with seamless real-time collaboration.
+
+- Documents
+- Spreadsheets
+- Presentations (Slides)
+- PDF Viewing & Annotation
+- Whiteboards
+- Markdown Editor
+- Notes & Knowledge Base
+- Real-time Collaboration
+- Comments & Version History
+- Rich Media Embedding
+- Tight Integration Across the Sharp Platform
+- Shareable Workspaces & Permissions
+- API-first Architecture
+
+### Cortex — IT Controls & Access Management
+
+App: https://cortex.sharpnr.com
+
+Centralized IT administration and access management for the Sharp platform. Cortex enables IT teams to securely manage infrastructure, users, devices, permissions, and organizational resources from a single control plane.
+
+- Role-Based Access Control (RBAC)
+- Silo Database Access Management (Read, Write, Admin)
+- Resource Permission Management
+- API Key & Service Account Management
+- Audit Logs & Activity Tracking
+- Security Policies & Compliance
+- Multi-Organization Administration
+- Secret & Credential Management
+- Infrastructure Access Control
+- Device Management (coming soon)
+- Endpoint Security (coming soon)
+- Asset Inventory (coming soon)
+- Policy Enforcement & Approval Workflows (coming soon)
+- Centralized Administration Across the Sharp Platform
+
+### Sharp-HR — HRMS & Payroll
+
+App: https://hr.sharpnr.com
+
+A comprehensive Human Resource Management System (HRMS) for managing employees, payroll, attendance, recruitment, and workforce operations from a single platform.
+
+- Employee Information Management
+- Recruitment & Hiring
+- Employee Onboarding & Offboarding
+- Payroll Management
+- Attendance & Time Tracking
+- Leave & Holiday Management
+- Shift & Roster Scheduling
+- Performance Reviews & Appraisals
+- Goals & OKR Tracking
+- Employee Self-Service Portal
+- Expense Claims & Reimbursements
+- Complaints & Grievance Management
+- Asset Assignment & Tracking
+- Training & Learning Management
+- Documents & Compliance Management
+- Organization Chart & Directory
+- Announcements & Internal Communication
+- Benefits & Compensation Management
+- Multi-Company & Multi-Branch Support
+- HR Analytics & Reports
+- Role-Based Access Control
+
+### SharpIAM — Employee Portal
+
+App: https://iam.sharpnr.com
+
+A self-service employee portal that enables employees and managers to access company resources, manage teams, complete daily tasks, and stay connected with the organization from anywhere.
+
+- Secure Employee Login
+- Employee Dashboard
+- Team Management
+- Organization Directory
+- View & Manage Assigned Tasks
+- Leave Applications & Approval Tracking
+- Expense & Reimbursement Requests
+- Payroll & Payslip Access
+- Attendance & Timesheets
+- Performance Reviews & Goals
+- Activity Logs & Work History
+- Company Announcements
+- Document Access & Downloads
+- Profile & Personal Information Management
+- Shift & Schedule Viewing
+- Holiday Calendar
+- Manager Approvals
+- Reports & Analytics
+- Notifications & Reminders
+- Connected with the entire Sharp platform
+
+### Orchestrator — Platform Command Center (Layer 2)
+
+App: https://orchestrator.sharpnr.com
+
+The administration application for the Sharp platform. Orchestrator provides a unified interface for platform administrators to monitor, control, configure, and orchestrate every Sharp service and application from a single dashboard. Stakeholders can view the whole organization.
+
+- Platform Administration Dashboard
+- Start, Stop, and Restart Sharp Services
+- Enable or Disable Platform Applications
+- Service Health & Status Monitoring
+- View Logs & Diagnostics
+- Platform Configuration Management
+- Workflow & Automation Management
+- Resource Usage Monitoring
+- User Session Management
+- API & Integration Management
+- Platform Alerts & Notifications
+- Maintenance Mode Controls
+- Audit Logs & Administrative Activity
+- Role-Based Administrative Access
+- Central Command Center for the Entire Sharp Platform
+
+## Business Operation Apps (Layer 1)
+
+### Sharp-Hospitality — Hospitality Operations (Live)
+
+App: https://hospitality.sharpnr.com
+
+An all-in-one platform for hotels, restaurants, cafés, bars, resorts, and hospitality businesses, providing unified operations, accounting integration, inventory management, and multi-property management. Works seamlessly with the Sharp ecosystem out of the box, or can be used independently.
+
+- Restaurant & Hotel Management
+- Point of Sale (POS)
+- Table Management
+- Takeaway & Delivery Orders
+- Hotel Room Reservations
+- Restaurant Table Reservations
+- Guest Check-in & Check-out
+- Room Service Management
+- Kitchen Order Management (KDS)
+- Digital Menu & QR Ordering
+- Highly Configurable Workflows
+- Multi-Branch & Multi-Property Support
+- Multi-Legal Entity Support
+- Shared Kitchen Across Multiple Businesses
+- Shared Menu Across Multiple Businesses
+- Route Menu Items to Different Kitchens
+- Inventory & Stock Management
+- Purchase & Supplier Management (via Sharp-Accounting or independently)
+- Automatic Accounting Integration with Sharp-Accounting
+- Staff & Shift Management
+- Customer Loyalty & Membership Programs (through Sharp-Marketing)
+- Reports & Business Analytics
+
+### Lifco — Healthcare Management (Coming Soon)
+
+A comprehensive healthcare management platform for hospitals, clinics, diagnostic centers, pharmacies, and healthcare providers, with an ever-expanding feature set.
+
+- Patient Management & Medical Records
+- Appointment Scheduling
+- Doctor & Staff Management
+- Pharmacy & Inventory Management
+- Billing & Insurance Integration
+- Multi-Branch Support
+- Connected with Sharp-Accounting and the Sharp platform
+
+## B2B Platform (Layer 4)
+
+### Sharp-Marketplace — Organization-to-Organization (O2O) Marketplace
+
+App: https://marketplace.sharpnr.com
+
+A B2B marketplace exclusively for organizations on the Sharp platform, enabling businesses to buy and sell products and services through a trusted and verified network. No commission and no charges.
+
+- Buy and sell goods and services with other organizations
+- Verified suppliers and service providers
+- Discover new business partners and procurement opportunities
+- Cross-industry marketplace (e.g., furniture suppliers serving hotels, hospitals, offices, and more)
+- Request for Quotation (RFQ) and vendor comparison
+- Organization-to-organization transactions only
+- Connected with Sharp-Accounting and Business Operation Apps
+- Secure business identity verification
+- Procurement and supplier management
+- Send quotations directly from Sharp-Marketing (CRM) to Cables or the recipient's preferred communication channel
+- Create purchase orders and invoices directly from marketplace transactions
+- One-click onboarding with automatic organization verification
+- Hassle-free product and service publishing with no catalog management required
+- AI-powered supplier discovery and recommendations
+- Unified procurement workflow across the Sharp ecosystem
+
+## Getting Started
+
+- [Login](https://auth.sharpnr.com): Sign in for existing Sharpnr organizations.
+- [Get Started](https://auth.sharpnr.com/signup): Create an organization account — free during the early access period.
+
+## Website Pages
+
+- [Home](https://sharpnr.com/): Platform overview, 4-layer architecture, and key apps.
+- [Products](https://sharpnr.com/products): All Sharpnr core service apps in detail.
+- [Services](https://sharpnr.com/services): Industry solutions — Sharp-Hospitality, Lifco, and more industries coming.
+- [Industries](https://sharpnr.com/industries): Sectors Sharpnr serves — hospitality, healthcare, and expanding.
+- [About](https://sharpnr.com/about): Company story, mission, and vision.
+
+## Documentation
+
+- [Docs & Guides](https://docs.sharpnr.com): Official Sharpnr documentation and guides.
+
+## Social
+
+- [LinkedIn](https://linkedin.com/company/sharpnr)
+- [X / Twitter](https://x.com/sharpnr)
+- [Instagram](https://instagram.com/sharpnr)
+- [YouTube](https://youtube.com/@sharpnr)
+
+## Optional
+
+- Sharpnr is in Alpha (early access). Pricing is not yet announced; the platform is free during the early access period.
+- Sharpnr is a cloud-based SaaS ecosystem — there is nothing to install or self-host.
+- Sharpnr grows with the organization: new apps, new industries, and new organization-to-organization connections are always being added.
