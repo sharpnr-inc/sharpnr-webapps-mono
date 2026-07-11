@@ -63,7 +63,7 @@ const coreServices: { layer: string; items: ProductItem[] } = {
   items: [
     { label: "Sharp-Accounting", href: config.accountingAppUrl },
     { label: "Sharp-HR", href: config.hrAppUrl },
-    { label: "Sharp-Marketing", href: config.marketingAppUrl },
+    { label: "Sharp-Marketing", href: config.sharpCRMAppUrl },
     { label: "SharpIAM", href: config.iamAppUrl },
     { label: "Cables", href: config.cablesAppUrl },
     { label: "Silo", href: config.siloAppUrl },

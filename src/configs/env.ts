@@ -30,7 +30,7 @@
  * config.cortexAppUrl         → Cortex (IT Controls & Access Management)
  * config.orchestratorAppUrl   → Orchestrator (Command Center / Layer 2)
  * config.accountingAppUrl     → Sharp-Accounting (Finance & Accounting)
- * config.marketingAppUrl      → Sharp-CRM / Sharp-Marketing (CRM)
+ * config.sharpCRMAppUrl       → Sharp-CRM / Sharp-Marketing (CRM)
  * config.hrAppUrl             → Sharp-HR (HRMS & Payroll)
  * config.iamAppUrl            → SharpIAM (Employee Portal)
  * config.hospitalityAppUrl    → Sharp-Hospitality (Business Ops - Hospitality)
@@ -49,15 +49,13 @@ const requiredVars = [
   "VITE_API_CSRF",
 
   // Third-party
-  "VITE_API_CITY_STATE_BASE_URL",
-  "VITE_API_CITY_STATE_API_KEY",
   "VITE_API_AUTH_APP",
 
   // Sharpnr Core Services (Layer 3)
   "VITE_API_ACCOUNTING_APP",
   "VITE_API_ORCHESTRATOR_APP",
   "VITE_API_IAM_APP",
-  "VITE_API_MARKETING_APP",
+  "VITE_API_SHARPCRM_APP",
   "VITE_API_HR_APP",
   "VITE_API_CABLES_APP",
   "VITE_API_SILO_APP",
@@ -85,8 +83,6 @@ export const config = {
   csrfToken: import.meta.env.VITE_API_CSRF,
 
   // Third-party Services
-  cityStateBaseUrl: import.meta.env.VITE_API_CITY_STATE_BASE_URL,
-  cityStateApiKey: import.meta.env.VITE_API_CITY_STATE_API_KEY,
 
   // Auth — Login & Signup portal for Sharpnr clients & organizations
   authAppUrl: import.meta.env.VITE_API_AUTH_APP, // Base URL for auth app
@@ -97,7 +93,7 @@ export const config = {
   // Sharpnr Core Services (Layer 3)
   orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP, // Command Center — manage all apps & workflows
   accountingAppUrl: import.meta.env.VITE_API_ACCOUNTING_APP, // Finance, P&L, double-entry accounting
-  marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP, // CRM, leads, campaigns (renaming to Sharp-CRM)
+  sharpCRMAppUrl: import.meta.env.VITE_API_SHARPCRM_APP, // CRM, leads, campaigns (renaming to Sharp-CRM)
   hrAppUrl: import.meta.env.VITE_API_HR_APP, // HRMS, payroll, attendance, leaves
   iamAppUrl: import.meta.env.VITE_API_IAM_APP, // Employee portal — tasks, payslips, leaves
   cablesAppUrl: import.meta.env.VITE_API_CABLES_APP, // Messaging, video calls, channels

@@ -116,7 +116,7 @@ const cards: ProductCard[] = [
       "Customer journey automation",
       "Loyalty, rewards, and referral programs",
     ],
-    href: config.marketingAppUrl,
+    href: config.sharpCRMAppUrl,
     badge: "Soon Sharp-CRM",
     span: "lg:col-span-2",
   },
