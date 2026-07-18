@@ -64,7 +64,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                withCredentials([file(credentialsId: 'sharpnr-website-env-production', variable: 'ENV_FILE')]) {
+                withCredentials([file(credentialsId: 'sharpnr-frontend-env', variable: 'ENV_FILE')]) {
                     echo '🔑 Injecting .env.production...'
                     sh 'install -m 600 "$ENV_FILE" .env.production'
 
