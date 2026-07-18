@@ -140,10 +140,17 @@ pipeline {
 
                     # Swap. Brief window with no .output, but the service is being
                     # restarted anyway, so nothing is serving from it during the gap.
-                    rm -rf "$APP_ROOT/$SSR_OUTPUT.old"
-                    [ -d "$APP_ROOT/$SSR_OUTPUT" ] && mv "$APP_ROOT/$SSR_OUTPUT" "$APP_ROOT/$SSR_OUTPUT.old"
+                    rm -rf "$APP_ROOT/$SSR_OUTPUT.old" 2>/dev/null || true
+                    if [ -d "$APP_ROOT/$SSR_OUTPUT" ]; then
+                        mv "$APP_ROOT/$SSR_OUTPUT" "$APP_ROOT/$SSR_OUTPUT.old.$$"
+                    fi
                     mv "$APP_ROOT/$SSR_OUTPUT.new" "$APP_ROOT/$SSR_OUTPUT"
-                    rm -rf "$APP_ROOT/$SSR_OUTPUT.old"
+
+                    # Cleanup of the displaced build must never fail the deploy —
+                    # the swap above already succeeded. Legacy trees may contain
+                    # files jenkins can't delete; warn and move on.
+                    rm -rf "$APP_ROOT/$SSR_OUTPUT.old.$$" 2>/dev/null \\
+                        || echo "⚠ Could not fully remove $SSR_OUTPUT.old.$$ — clean it up manually"
 
                     echo "✅ Build deployed to $APP_ROOT/$SSR_OUTPUT"
                 '''
@@ -192,12 +199,13 @@ pipeline {
                     sh '''
                         set -eu
                         umask 002
-                        rm -rf "$APP_ROOT/$SSR_OUTPUT.bad"
+                        rm -rf "$APP_ROOT/$SSR_OUTPUT.bad" 2>/dev/null || true
                         [ -d "$APP_ROOT/$SSR_OUTPUT" ] && mv "$APP_ROOT/$SSR_OUTPUT" "$APP_ROOT/$SSR_OUTPUT.bad"
                         mkdir -p "$APP_ROOT/$SSR_OUTPUT"
                         cp -a "$BACKUP_PATH/." "$APP_ROOT/$SSR_OUTPUT/"
                         chmod -R g+w "$APP_ROOT/$SSR_OUTPUT"
-                        rm -rf "$APP_ROOT/$SSR_OUTPUT.bad"
+                        rm -rf "$APP_ROOT/$SSR_OUTPUT.bad" 2>/dev/null \\
+                            || echo "⚠ Could not fully remove $SSR_OUTPUT.bad — clean it up manually"
                         sudo systemctl restart "$SERVICE"
                         echo "↩️ Rolled back to the previous build"
                     '''
