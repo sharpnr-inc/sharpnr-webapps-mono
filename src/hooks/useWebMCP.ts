@@ -49,7 +49,7 @@ export function useWebMCP() {
     const apps: Record<string, string> = {
       "Sharp-Accounting (finance & accounting)": config.accountingAppUrl,
       "Sharp-HR (HRMS & payroll)": config.hrAppUrl,
-      "Sharp-Marketing / Sharp-CRM (CRM & marketing)": config.marketingAppUrl,
+      "Sharp-Marketing / Sharp-CRM (CRM & marketing)": config.sharpCRMAppUrl,
       "Cables (messaging & communications)": config.cablesAppUrl,
       "Silo (storage & data platform)": config.siloAppUrl,
       "Folio (documents & productivity)": config.folioAppUrl,

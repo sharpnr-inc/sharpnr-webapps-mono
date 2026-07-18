@@ -805,7 +805,7 @@ All external links to Sharpnr platform applications are defined in [src/configs/
 | Cortex (IT Controls & Access)       | `config.cortexAppUrl`           |
 | Orchestrator (Command Center)       | `config.orchestratorAppUrl`     |
 | Sharp-Accounting (Finance)          | `config.accountingAppUrl`       |
-| Sharp-CRM / Sharp-Marketing (CRM)   | `config.marketingAppUrl`        |
+| Sharp-CRM / Sharp-Marketing (CRM)   | `config.sharpCRMAppUrl`         |
 | Sharp-HR (HRMS & Payroll)           | `config.hrAppUrl`               |
 | SharpIAM (Employee Portal)          | `config.iamAppUrl`              |
 | Sharp-Hospitality (Business Ops)    | `config.hospitalityAppUrl`      |
