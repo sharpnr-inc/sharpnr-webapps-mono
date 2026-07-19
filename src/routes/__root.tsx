@@ -14,8 +14,8 @@ import appCss from "@/index.css?url";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-/* ── Structured data (moved from index.html — the root route is the
-     document now, so all global head content lives here) ─────────── */
+/* ── Structured data — global schema.org entities. Route-level
+     entities (FAQPage etc.) live in each route's head(). ─────────── */
 
 const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -28,8 +28,9 @@ const organizationJsonLd = {
     width: 512,
     height: 512,
   },
+  slogan: "One Platform. Every Business.",
   description:
-    "Sharpnr is an ever-evolving cloud-based ecosystem for business operations — accounting, HR, CRM, communications, storage, and industry apps for hospitality and healthcare, unified across every organization you run.",
+    "Sharpnr is Connected Business Infrastructure — one platform that connects operations, finance, people, communication, knowledge and business networks so organizations of every size and industry can work as one.",
   foundingDate: "2024",
   contactPoint: {
     "@type": "ContactPoint",
@@ -39,9 +40,9 @@ const organizationJsonLd = {
   },
   sameAs: [
     "https://x.com/sharpnr",
-    "https://linkedin.com/company/sharpnr",
-    "https://instagram.com/sharpnr",
-    "https://youtube.com/@sharpnr",
+    "https://linkedin.com/company/sharpnrllp",
+    "https://instagram.com/sharpnrapp",
+    "https://youtube.com/@sharpnrinc",
   ],
 };
 
@@ -53,24 +54,26 @@ const softwareApplicationJsonLd = {
   operatingSystem: "Web",
   url: "https://sharpnr.com",
   description:
-    "Cloud-based ecosystem for business operations — accounting, HR, CRM, communications, storage, productivity, IT controls, industry apps, and a B2B organization-to-organization marketplace.",
+    "Connected Business Infrastructure. Sharpnr connects business operations, finance, people, customers, communication, knowledge and business networks on one platform. Every product works independently and even better together.",
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
-    description: "Free during the early access period",
+    description: "Free during Early Access. No credit card required.",
   },
   featureList: [
-    "Customer Relationship Management (Sharp-Marketing)",
-    "Human Resource Management (Sharp-HR)",
-    "Accounting & Financial Management (Sharp-Accounting)",
-    "Messaging & Communications (Cables)",
-    "Storage & Data Platform (Silo)",
-    "Documents & Productivity Suite (Folio)",
-    "IT Controls & Access Management (Cortex)",
-    "Hospitality Operations (Sharp-Hospitality)",
-    "B2B Organization-to-Organization Marketplace (Sharp-Marketplace)",
-    "Multi-Company & Multi-Legal Entity Support",
+    "Business Operations for Hospitality (Sharp Operations · Hospitality)",
+    "Accounting & Finance (Sharp Accounting)",
+    "People & Workforce (Sharp HRMS)",
+    "Customer Relationships (Sharp CRMS)",
+    "Identity & Access (Sharp IAM)",
+    "Governance & Administration (Cortex)",
+    "Communication (Cables)",
+    "Documents & Knowledge (Folio)",
+    "Projects & Execution (Tasks)",
+    "Business Knowledge Foundation (Silo)",
+    "Intelligent Business Assistant (IVA)",
+    "Business Network (Sharp Marketplace)",
   ],
 };
 
@@ -93,16 +96,16 @@ export const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
 
       // Primary meta — routes override title/description via their own head()
-      { title: "Sharpnr | One Platform. Every Industry." },
+      { title: "Sharpnr | One Platform. Every Business." },
       {
         name: "description",
         content:
-          "Sharpnr is an ever-evolving cloud-based ecosystem for business operations — accounting, HR, CRM, communications, storage, and industry apps for hospitality and healthcare, unified across every organization you run.",
+          "Sharpnr is Connected Business Infrastructure — one platform for operations, finance, people, communication, knowledge and business networks. Start with one product. Grow without limits.",
       },
       {
         name: "keywords",
         content:
-          "Sharpnr, business platform, CRM, HRMS, accounting software, hospitality management, healthcare management, B2B marketplace, multi-company platform, business operations",
+          "Sharpnr, connected business platform, business platform, business infrastructure, hospitality platform, restaurant management, hotel management, accounting software, HRMS, CRM, business intelligence, business network",
       },
       { name: "author", content: "Sharpnr" },
       { name: "robots", content: "index, follow" },
@@ -114,17 +117,17 @@ export const Route = createRootRoute({
       { property: "og:url", content: "https://sharpnr.com" },
       {
         property: "og:title",
-        content: "Sharpnr | One Platform. Every Industry.",
+        content: "Sharpnr | One Platform. Every Business.",
       },
       {
         property: "og:description",
         content:
-          "An ever-evolving ecosystem for business operations — accounting, HR, CRM, communications, and industry apps, unified across every organization you run.",
+          "Connected Business Infrastructure. Run operations, finance, people, communication and business networks from one connected platform built to grow with your organization.",
       },
       { property: "og:image", content: "https://sharpnr.com/og-image.png" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Sharpnr Enterprise Platform" },
+      { property: "og:image:alt", content: "Sharpnr — One Platform. Every Business." },
       { property: "og:locale", content: "en_US" },
 
       // Twitter Card
@@ -133,15 +136,18 @@ export const Route = createRootRoute({
       { name: "twitter:creator", content: "@sharpnr" },
       {
         name: "twitter:title",
-        content: "Sharpnr | One Platform. Every Industry.",
+        content: "Sharpnr | One Platform. Every Business.",
       },
       {
         name: "twitter:description",
         content:
-          "An ever-evolving ecosystem for business operations — accounting, HR, CRM, communications, and industry apps, unified across every organization you run.",
+          "Connected Business Infrastructure. One platform for operations, finance, people, communication, knowledge and business networks.",
       },
       { name: "twitter:image", content: "https://sharpnr.com/og-image.png" },
-      { name: "twitter:image:alt", content: "Sharpnr Enterprise Platform" },
+      {
+        name: "twitter:image:alt",
+        content: "Sharpnr — One Platform. Every Business.",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -167,17 +173,16 @@ export const Route = createRootRoute({
       },
       { rel: "manifest", href: "/manifest.json" },
 
-      // Fonts
+      // Fonts — Inter is the single Sharpnr typeface (SDL)
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
         href: "https://fonts.gstatic.com",
         crossOrigin: "anonymous",
       },
-      { rel: "preconnect", href: "https://cdn.sharpnr.com" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
     scripts: [
@@ -199,8 +204,7 @@ export const Route = createRootRoute({
   component: RootLayout,
 });
 
-/* ── Document shell — replaces index.html. Rendered on the server,
-     never re-rendered on the client. ──────────────────────────────── */
+/* ── Document shell — rendered on the server, never re-rendered. ── */
 
 function RootDocument({ children }: { children: ReactNode }) {
   return (
@@ -224,10 +228,17 @@ function RootLayout() {
 
   useGSAP(
     () => {
+      // Motion guideline: the visitor stays in control. Gentle smoothing
+      // only, and none at all when the visitor prefers reduced motion.
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (prefersReducedMotion) return;
+
       ScrollSmoother.create({
         wrapper: wrapperRef.current!,
         content: contentRef.current!,
-        smooth: 1.8,
+        smooth: 1.1,
         smoothTouch: 0.1,
         effects: true,
       });
@@ -237,12 +248,7 @@ function RootLayout() {
 
   return (
     <MDXProvider>
-      {/*
-        ScrollSmoother MUST wrap everything.
-        wrapper  → clips overflow, takes the native scroll events
-        content  → gets translateY'd by the smoother
-      */}
-      {/* Fixed header must live outside the smoother — transforms on
+      {/* Fixed header lives outside the smoother — transforms on
           #smooth-content would break position: fixed */}
       <Header />
       <div id="smooth-wrapper" ref={wrapperRef}>

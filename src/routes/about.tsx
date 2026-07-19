@@ -1,32 +1,25 @@
-import { AboutHeroSection } from "@/app/about/AboutHeroSection";
-import { AboutStorySection } from "@/app/about/AboutStorySection";
-import { AboutPrinciplesSection } from "@/app/about/AboutPrinciplesSection";
-import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
+import { AboutHeroSection } from "@/app/about/hero/AboutHeroSection";
+import { WorldSection } from "@/app/about/world/WorldSection";
+import { PrinciplesSection } from "@/app/about/principles/PrinciplesSection";
+import { FutureVisionSection } from "@/app/about/future/FutureVisionSection";
+import { JoinSection } from "@/app/about/join/JoinSection";
 
 export const Route = createFileRoute("/about")({
-  component: RouteComponent,
+  component: AboutPage,
   head: () => ({
     meta: [
-      { title: "Sharpnr | About — The Operating System for Business" },
+      { title: "About Sharpnr | Why We Exist" },
       {
         name: "description",
         content:
-          "Why Sharpnr exists, the problem it solves, and where it's going — an ever-evolving ecosystem unifying business operations and connecting organizations to each other.",
+          "Sharpnr exists because business software became fragmented. Read the belief behind the platform, the principles that guide how we build, and the future we're building toward.",
       },
-      {
-        name: "keywords",
-        content:
-          "about Sharpnr, business operating system, unified business platform, company mission, business ecosystem, early access",
-      },
-      {
-        property: "og:title",
-        content: "Sharpnr | About — The Operating System for Business",
-      },
+      { property: "og:title", content: "About Sharpnr | Why We Exist" },
       {
         property: "og:description",
         content:
-          "Not another tool. A living, ever-evolving ecosystem where every part of an organization — and every organization — connects.",
+          "We believe businesses deserve better — software that works together as naturally as the people using it.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/about" },
@@ -38,13 +31,18 @@ export const Route = createFileRoute("/about")({
   }),
 });
 
-function RouteComponent() {
+/**
+ * About page — a story about why Sharpnr exists, not a company
+ * profile. Philosophy before company.
+ */
+function AboutPage() {
   return (
     <div>
       <AboutHeroSection />
-      <AboutStorySection />
-      <AboutPrinciplesSection />
-      <CTASection />
+      <WorldSection />
+      <PrinciplesSection />
+      <FutureVisionSection />
+      <JoinSection />
     </div>
   );
 }

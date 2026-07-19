@@ -15,7 +15,9 @@ export default defineConfig({
     tanstackStart({
       // Code splitting is enabled by default in TanStack Start
       router: {
-        generatedRouteTree: "./src/routeTree.gen.ts",
+        // Resolved relative to the src directory — must match the file
+        // src/router.tsx imports (src/routeTree.gen.ts).
+        generatedRouteTree: "./routeTree.gen.ts",
       },
     }),
     // Self-contained Node server output: .output/server/index.mjs

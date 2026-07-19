@@ -70,6 +70,7 @@ export {
   Flip,
   InertiaPlugin,
   MorphSVGPlugin,
+  MotionPathPlugin,
   Observer,
   Physics2DPlugin,
   ScrollTrigger,

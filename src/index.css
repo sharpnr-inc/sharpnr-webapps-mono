@@ -1,64 +1,82 @@
 @import "tailwindcss";
 
+/* ────────────────────────────────────────────────────────────────
+   Sharpnr Design Language (SDL) — design tokens
+   Source: Website/13_Sharpnr_Design_Language(SDL).md
+
+   Light-first: white is the primary page background; deep navy is
+   the brand foundation (navigation, footer, heroes, finales).
+   Neutrals use Tailwind's slate scale, which matches the SDL
+   neutral palette exactly (#F8FAFC … #020617).
+   ──────────────────────────────────────────────────────────────── */
+
 @theme {
-  /* ── Typography ─────────────────────────────────────── */
-  --font-display: "Schibsted Grotesk", sans-serif;
-  --font-sans: "Instrument Sans", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  /* ── Typography — Inter everywhere, mono for code only ── */
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  /* ── Core palette — dark theme ──────────────────────────
-     The site runs dark: deep navy surfaces from the primary
-     hue (265), with a brighter enterprise blue for actions
-     and the sky-cyan accent for data flow and glows. */
-  --color-primary: oklch(0.56 0.165 262);
-  --color-background: oklch(0.145 0.03 265.82);
-  --color-text-dark: oklch(0.94 0.012 265.82);
-  --color-text-light: oklch(0.9706 0 296);
+  /* ── Brand palette ── */
+  --color-navy: #03045e; /* brand foundation — nav, footer, heroes */
+  --color-blue: #0077b6; /* primary action — buttons, links, active */
+  --color-blue-deep: #005f93; /* primary action hover */
+  --color-cyan: #00b4d8; /* connected intelligence — lines, highlights */
+  --color-sky: #90e0ef; /* supporting surfaces, tags, illustration */
+  --color-ice: #caf0f8; /* soft section backgrounds, highlights */
+  --color-soft: #fcfcfd; /* alternative page background */
 
-  /* ── Primary family ─────────────────────────────────── */
-  --color-primary-hover: oklch(0.63 0.155 262);
-  --color-primary-light: oklch(0.24 0.06 265.82);
-
-  /* ── Neutrals (hue-locked to primary) ───────────────── */
-  --color-text-muted: oklch(0.71 0.035 265.82);
-  --color-text-faint: oklch(0.55 0.04 265.82);
-  --color-border: oklch(0.28 0.04 265.82);
-  --color-surface: oklch(0.185 0.038 265.82);
-
-  /* ── Isometric graphic shading (hue-locked to primary) ── */
-  --color-iso-top: oklch(0.42 0.085 265.82);
-  --color-iso-left: oklch(0.28 0.065 265.82);
-  --color-iso-right: oklch(0.22 0.055 265.82);
-
-  /* ── Ink — elevated dark panels & the deepest sections ── */
-  --color-ink: oklch(0.19 0.05 265.82);
-  --color-ink-deep: oklch(0.115 0.035 265.82);
-  --color-ink-soft: oklch(0.25 0.06 265.82);
-  --color-ink-border: oklch(0.33 0.05 265.82);
-  --color-ink-muted: oklch(0.74 0.035 265.82);
-
-  /* ── Accent — sky-cyan for data flow, lines, glows ──── */
-  --color-accent: oklch(0.68 0.13 230);
-  --color-accent-strong: oklch(0.62 0.14 235);
-  --color-accent-light: oklch(0.27 0.06 235);
-  --color-accent-glow: oklch(0.8 0.12 220);
+  /* ── Type scale (SDL) ── */
+  --text-display-xl: 4rem;
+  --text-display-xl--line-height: 1.06;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-lg: 3.5rem;
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-md: 3rem;
+  --text-display-md--line-height: 1.1;
+  --text-display-md--letter-spacing: -0.015em;
+  --text-heading-xl: 2.5rem;
+  --text-heading-xl--line-height: 1.15;
+  --text-heading-xl--letter-spacing: -0.01em;
+  --text-heading-lg: 2rem;
+  --text-heading-lg--line-height: 1.15;
+  --text-heading-lg--letter-spacing: -0.01em;
+  --text-heading-md: 1.75rem;
+  --text-heading-md--line-height: 1.2;
+  --text-heading-sm: 1.5rem;
+  --text-heading-sm--line-height: 1.25;
+  --text-title-lg: 1.25rem;
+  --text-title-lg--line-height: 1.35;
+  --text-title-md: 1.125rem;
+  --text-title-md--line-height: 1.4;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
 }
 
 :root {
-  background-color: var(--color-background);
-  color: var(--color-text-dark);
+  background-color: #ffffff;
+  color: #334155; /* slate-700 — primary reading color */
+  color-scheme: light;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color-scheme: dark;
 }
 
 body {
   font-family: var(--font-sans);
-  color: var(--color-text-dark);
   overflow-x: clip;
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-ink-deep);
+  background-color: var(--color-ice);
+  color: var(--color-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+/* Reading comfort — long-form copy never stretches (SDL: 60–75ch) */
+.prose-width {
+  max-width: 65ch;
 }

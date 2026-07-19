@@ -2,41 +2,39 @@ import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { config } from "@/configs/env";
-import { useHeaderAnimation } from "./animations/useHeaderAnimation";
 import { useMobileMenuAnimation } from "./animations/useMobileMenuAnimation";
 
+/* Navigation per Homepage Strategy: Platform, Products, Industries,
+   About, Resources, Docs. No Pricing during Early Access. */
 const navLinks = [
+  { label: "Platform", to: "/platform" },
   { label: "Products", to: "/products" },
-  { label: "Services", to: "/services" },
   { label: "Industries", to: "/industries" },
   { label: "About", to: "/about" },
+  { label: "Resources", to: "/resources" },
 ] as const;
 
+/**
+ * Deep navy navigation — the brand foundation frames every page.
+ * Stable, minimal, no scroll tricks (motion guideline: navigation
+ * should feel stable).
+ */
 export function Header() {
-  const headerRef = useRef<HTMLElement>(null);
-  const backdropRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useHeaderAnimation({ headerRef, backdropRef });
   useMobileMenuAnimation({ panelRef, listRef, isOpen });
 
   return (
-    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50">
-      {/* Scroll backdrop — fades in once the page scrolls */}
-      <div
-        ref={backdropRef}
-        className="absolute inset-0 border-b border-border bg-background/85 backdrop-blur-md"
-      />
-
-      <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-[72px] md:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 bg-navy">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-[72px] md:px-8">
         {/* Logo */}
         <Link to="/" aria-label="Sharpnr home" className="flex items-center">
           <img
             src="/sharpnr-logo-white.svg"
             alt="Sharpnr"
-            className="h-7 w-auto min-w-[120px]"
+            className="h-7 w-auto min-w-30"
           />
         </Link>
 
@@ -46,14 +44,14 @@ export function Header() {
             <Link
               key={link.to}
               to={link.to}
-              className="group relative px-4 py-2 text-sm font-medium text-text-muted transition-colors duration-200 hover:text-text-dark"
-              activeProps={{ className: "!text-primary" }}
+              className="group relative px-4 py-2 text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
+              activeProps={{ className: "!text-white" }}
             >
               {({ isActive }) => (
                 <>
                   {link.label}
                   <span
-                    className={`absolute inset-x-4 -bottom-px h-px bg-primary transition-transform duration-300 ${
+                    className={`absolute inset-x-4 -bottom-px h-px bg-cyan transition-transform duration-300 ${
                       isActive
                         ? "scale-x-100"
                         : "scale-x-0 group-hover:scale-x-100"
@@ -67,24 +65,24 @@ export function Header() {
             href="https://docs.sharpnr.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-text-muted transition-colors duration-200 hover:text-text-dark"
+            className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-white/70 transition-colors duration-200 hover:text-white"
           >
-            Docs &amp; Guides
+            Docs
             <ArrowUpRight className="size-3.5 opacity-60" />
           </a>
         </nav>
 
-        {/* Right buttons — desktop */}
+        {/* Right actions — desktop */}
         <div className="hidden items-center gap-3 lg:flex">
           <a
             href={config.authAppUrl}
-            className="rounded-md px-4 py-2 text-sm font-medium text-text-dark transition-colors duration-200 hover:bg-primary-light"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-white/85 transition-colors duration-200 hover:bg-white/10 hover:text-white"
           >
             Login
           </a>
           <a
             href={config.authAppUrl + "/signup"}
-            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-text-light shadow-sm transition-colors duration-200 hover:bg-primary-hover"
+            className="rounded-lg bg-blue px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-deep"
           >
             Get Started
           </a>
@@ -96,7 +94,7 @@ export function Header() {
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((v) => !v)}
-          className="flex size-10 items-center justify-center rounded-md text-text-dark lg:hidden"
+          className="flex size-10 items-center justify-center rounded-lg text-white lg:hidden"
         >
           {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -105,7 +103,7 @@ export function Header() {
       {/* Mobile menu panel */}
       <div
         ref={panelRef}
-        className="invisible relative h-0 overflow-hidden border-b border-border bg-background lg:hidden"
+        className="invisible relative h-0 overflow-hidden border-b border-white/10 bg-navy lg:hidden"
       >
         <ul ref={listRef} className="flex flex-col gap-1 px-5 pb-6 pt-2">
           {navLinks.map((link) => (
@@ -113,8 +111,8 @@ export function Header() {
               <Link
                 to={link.to}
                 onClick={() => setIsOpen(false)}
-                className="block rounded-md px-3 py-3 text-base font-medium text-text-dark transition-colors hover:bg-primary-light"
-                activeProps={{ className: "!text-primary bg-primary-light" }}
+                className="block rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                activeProps={{ className: "!text-white bg-white/10" }}
               >
                 {link.label}
               </Link>
@@ -125,22 +123,22 @@ export function Header() {
               href="https://docs.sharpnr.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-md px-3 py-3 text-base font-medium text-text-dark transition-colors hover:bg-primary-light"
+              className="flex items-center gap-1.5 rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white"
             >
-              Docs &amp; Guides
+              Docs
               <ArrowUpRight className="size-4 opacity-60" />
             </a>
           </li>
-          <li className="mt-3 flex flex-col gap-2.5 border-t border-border pt-5">
+          <li className="mt-3 flex flex-col gap-2.5 border-t border-white/10 pt-5">
             <a
               href={config.authAppUrl}
-              className="rounded-md border border-border px-4 py-3 text-center text-sm font-medium text-text-dark"
+              className="rounded-lg border border-white/25 px-4 py-3 text-center text-sm font-medium text-white"
             >
               Login
             </a>
             <a
               href={config.authAppUrl + "/signup"}
-              className="rounded-md bg-primary px-4 py-3 text-center text-sm font-medium text-text-light"
+              className="rounded-lg bg-blue px-4 py-3 text-center text-sm font-medium text-white"
             >
               Get Started
             </a>

@@ -1,0 +1,118 @@
+import { useRef } from "react";
+import { SectionIntro } from "@/app/shared/SectionIntro";
+import { useTogetherAnimation } from "./animations/useTogetherAnimation";
+
+const journey = [
+  {
+    title: "A conversation starts",
+    detail: "A manager raises an idea with the team.",
+  },
+  {
+    title: "The discussion becomes a document",
+    detail: "Meeting notes grow into a shared plan.",
+  },
+  {
+    title: "Action items become tasks",
+    detail: "Work is assigned without copying anything.",
+  },
+  {
+    title: "Progress flows back",
+    detail: "Updates appear where the conversation began.",
+  },
+] as const;
+
+const products = [
+  {
+    name: "Cables",
+    line: "Communication built for organizations.",
+    detail:
+      "Chat, voice, video and channels — including conversations with other organizations. Share business records directly inside the discussion.",
+  },
+  {
+    name: "Folio",
+    line: "Knowledge built for teams.",
+    detail:
+      "Documents, spreadsheets, presentations, whiteboards and wikis, created together in real time and connected to the work around them.",
+  },
+  {
+    name: "Tasks",
+    line: "Where work gets done.",
+    detail:
+      "Turn conversations into action — plan projects, assign work and track progress without losing the context that created it.",
+  },
+] as const;
+
+/**
+ * Section 05 — Work happens together. Communication, knowledge and
+ * execution shown as one continuous workflow, never as three
+ * separate applications.
+ */
+export function TogetherSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
+
+  useTogetherAnimation({ sectionRef, introRef, productsRef });
+
+  return (
+    <section ref={sectionRef} className="bg-soft">
+      <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+        <div ref={introRef}>
+          <SectionIntro
+            eyebrow="Collaboration"
+            heading={
+              <>
+                Work shouldn't stop
+                <br />
+                when you switch applications.
+              </>
+            }
+            lede="From the first conversation to the final task, every part of your team's work stays connected — no copying, no lost context, no switching."
+          />
+        </div>
+
+        <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-20">
+          {/* One continuous workflow */}
+          <div className="relative">
+            <div className="absolute bottom-5 left-[9px] top-5 w-px bg-slate-200">
+              <div className="together-fill h-full w-full origin-top scale-y-0 bg-blue/60" />
+            </div>
+            <ol className="relative space-y-9">
+              {journey.map((stage) => (
+                <li key={stage.title} className="together-stage flex gap-5">
+                  <span className="relative z-10 mt-1 block size-[19px] shrink-0 rounded-full border-2 border-blue/60 bg-white" />
+                  <div>
+                    <h3 className="text-title-md font-semibold text-navy">
+                      {stage.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-slate-500">{stage.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="together-outro mt-9 pl-10 text-sm font-medium text-navy">
+              The conversation stays connected the whole way.
+            </p>
+          </div>
+
+          {/* The products behind the workflow */}
+          <div ref={productsRef} className="space-y-9 lg:pt-2">
+            {products.map((product) => (
+              <div key={product.name}>
+                <h3 className="text-title-lg font-semibold text-navy">
+                  {product.name}
+                </h3>
+                <p className="mt-1 text-sm font-medium text-slate-700">
+                  {product.line}
+                </p>
+                <p className="prose-width mt-2 text-base leading-relaxed text-slate-600">
+                  {product.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

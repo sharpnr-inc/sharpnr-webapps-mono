@@ -1,33 +1,32 @@
-import { ProductsHeroSection } from "@/app/products/ProductsHeroSection";
-import { ProductsGridSection } from "@/app/products/ProductsGridSection";
-import { ProductsSpotlightSection } from "@/app/products/ProductsSpotlightSection";
-import { ProductsConnectSection } from "@/app/products/ProductsConnectSection";
-import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
+import { ProductsHeroSection } from "@/app/products/hero/ProductsHeroSection";
+import { OperationsSection } from "@/app/products/operations/OperationsSection";
+import { FoundationShowcaseSection } from "@/app/products/foundation/FoundationShowcaseSection";
+import { CollabSection } from "@/app/products/collab/CollabSection";
+import { IntelligenceProductsSection } from "@/app/products/intelligence/IntelligenceProductsSection";
+import { MarketplaceSection } from "@/app/products/marketplace/MarketplaceSection";
+import { EcosystemEffectSection } from "@/app/products/effect/EcosystemEffectSection";
+import { PageCta } from "@/app/shared/PageCta";
+import { config } from "@/configs/env";
 
 export const Route = createFileRoute("/products")({
-  component: RouteComponent,
+  component: ProductsPage,
   head: () => ({
     meta: [
-      { title: "Sharpnr | Products — The Complete Suite" },
+      { title: "Sharpnr Products | One Connected Ecosystem" },
       {
         name: "description",
         content:
-          "Explore every Sharpnr application — Sharp-Accounting, Sharp-HR, Sharp-Marketing, Cables, Silo, Folio, Cortex, SharpIAM, Orchestrator, Sharp-Hospitality, Lifco, and Sharp-Marketplace.",
-      },
-      {
-        name: "keywords",
-        content:
-          "Sharpnr products, accounting software, HRMS, CRM, business messaging, data platform, productivity suite, IT administration, B2B marketplace",
+          "Explore every Sharpnr product: Sharp Operations, Sharp Accounting, Sharp HRMS, Sharp CRMS, Sharp IAM, Cortex, Cables, Folio, Tasks, Silo, IVA and Sharp Marketplace — independent products, one connected platform.",
       },
       {
         property: "og:title",
-        content: "Sharpnr | Products — The Complete Suite",
+        content: "Sharpnr Products | One Connected Ecosystem",
       },
       {
         property: "og:description",
         content:
-          "Twelve connected applications across operations, control, core services, and the B2B network. Each one powerful alone — better together.",
+          "Products built for every part of your business — each one complete on its own, all of them stronger together.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/products" },
@@ -39,14 +38,34 @@ export const Route = createFileRoute("/products")({
   }),
 });
 
-function RouteComponent() {
+/**
+ * Products page — every product in the ecosystem, introduced clearly
+ * and honestly, ending with the ecosystem effect.
+ */
+function ProductsPage() {
   return (
     <div>
       <ProductsHeroSection />
-      <ProductsGridSection />
-      <ProductsSpotlightSection />
-      <ProductsConnectSection />
-      <CTASection />
+      <OperationsSection />
+      <FoundationShowcaseSection />
+      <CollabSection />
+      <IntelligenceProductsSection />
+      <MarketplaceSection />
+      <EcosystemEffectSection />
+      <PageCta
+        eyebrow="Start anywhere"
+        heading={
+          <>
+            Start with one product.
+            <br />
+            Grow into a connected business.
+          </>
+        }
+        copy="Whether you're running a single café, a hotel group or a multi-company enterprise, adopt products at your own pace. Every product works independently. Every new product strengthens the ecosystem."
+        primary={{ label: "Create Free Account", href: config.authAppUrl + "/signup" }}
+        secondary={{ label: "Explore the Platform", to: "/platform" }}
+        trust="Free during Early Access • No subscription • No credit card required"
+      />
     </div>
   );
 }
