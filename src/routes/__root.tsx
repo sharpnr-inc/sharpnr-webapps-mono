@@ -107,6 +107,11 @@ export const Route = createRootRoute({
       { name: "author", content: "Sharpnr" },
       { name: "robots", content: "index, follow" },
       { name: "theme-color", content: "#03045e" },
+                                                                                                                                           
+          {                                                                                                                                                                       
+            name: "p:domain_verify",                                                                                                                                              
+             content: "819cbdb06534c6cf42061cf66d619e96",                                                                                                                          
+           },
 
       // Open Graph
       { property: "og:type", content: "website" },
