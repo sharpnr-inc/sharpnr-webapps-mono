@@ -135,6 +135,12 @@ export const Route = createRootRoute({
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "Sharpnr — One Platform. Every Business." },
       { property: "og:locale", content: "en_US" },
+      // Social profile association — points Meta/OG consumers at the
+      // official Instagram profile (@sharpnrapp).
+      {
+        property: "og:see_also",
+        content: "https://instagram.com/sharpnrapp",
+      },
 
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
@@ -178,6 +184,10 @@ export const Route = createRootRoute({
         href: "/favicon-16x16.png",
       },
       { rel: "manifest", href: "/manifest.json" },
+
+      // rel="me" — links this site to its social identities so search
+      // engines and rel=me consumers can verify the same owner.
+      { rel: "me", href: "https://instagram.com/sharpnrapp" },
 
       // Fonts — Inter is the single Sharpnr typeface (SDL)
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
