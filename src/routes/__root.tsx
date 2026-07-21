@@ -39,7 +39,7 @@ const organizationJsonLd = {
     availableLanguage: "English",
   },
   sameAs: [
-    "https://x.com/sharpnr",
+    "https://x.com/sharpnrapp",
     "https://linkedin.com/company/sharpnrllp",
     "https://instagram.com/sharpnrapp",
     "https://youtube.com/@sharpnrinc",
@@ -136,16 +136,20 @@ export const Route = createRootRoute({
       { property: "og:image:alt", content: "Sharpnr — One Platform. Every Business." },
       { property: "og:locale", content: "en_US" },
       // Social profile association — points Meta/OG consumers at the
-      // official Instagram profile (@sharpnrapp).
+      // official social profiles (both @sharpnrapp).
       {
         property: "og:see_also",
         content: "https://instagram.com/sharpnrapp",
       },
+      {
+        property: "og:see_also",
+        content: "https://x.com/sharpnrapp",
+      },
 
       // Twitter Card
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@sharpnr" },
-      { name: "twitter:creator", content: "@sharpnr" },
+      { name: "twitter:site", content: "@sharpnrapp" },
+      { name: "twitter:creator", content: "@sharpnrapp" },
       {
         name: "twitter:title",
         content: "Sharpnr | One Platform. Every Business.",
@@ -188,6 +192,7 @@ export const Route = createRootRoute({
       // rel="me" — links this site to its social identities so search
       // engines and rel=me consumers can verify the same owner.
       { rel: "me", href: "https://instagram.com/sharpnrapp" },
+      { rel: "me", href: "https://x.com/sharpnrapp" },
 
       // Fonts — Inter is the single Sharpnr typeface (SDL)
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
