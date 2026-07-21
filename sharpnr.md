@@ -105,7 +105,6 @@ Cross-cutting features that apply across the platform (not tied to one app):
 - **Multi-company / multi-entity.** One organization can hold multiple legal entities
   (e.g., XYZ Pvt Ltd and YZX Pvt Ltd), each with its own GST registration(s). Supports
   all Indian company types (Pvt Ltd, LLP, partnership, proprietorship, …).
-  <!-- TODO: confirm exact list of supported company types -->
 - **Cost centers.** Organizations can create multiple cost centers for their office
   branches. These are deliberately separate from operational branches (the hotels,
   restaurants, or hospitals run in Business Operation Apps) — corporate structure and
@@ -113,7 +112,7 @@ Cross-cutting features that apply across the platform (not tied to one app):
 - **Fine-grained authorization.** Access is granted per resource — users see and touch
   only what they are explicitly given, across every app.
   **Region note:** GST support and Indian company types mean Sharpnr is built
-  India-first. <!-- TODO: confirm — India-only for now, or global with India focus? -->
+  India-first.
 
 ---
 
@@ -155,3 +154,4 @@ the whole mess, and nobody has one view of the business.
    **The one-line answer:** other tools digitize your paperwork; Sharpnr removes it —
    because when everything runs on one platform, the connections you used to maintain
    by hand happen on their own.
+
