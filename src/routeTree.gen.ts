@@ -47,6 +47,7 @@ import { Route as Setup_wizardStepIDUserinfoRouteImport } from './routes/setup_w
 import { Route as Setup_wizardStepIDOrg_updateRouteImport } from './routes/setup_wizard/$stepID/org_update'
 import { Route as Setup_wizardStepIDBase_setupRouteImport } from './routes/setup_wizard/$stepID/base_setup'
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
+import { Route as AppuserOrgUsersAdd_employeesRouteImport } from './routes/_appuser/org-users/add_employees'
 import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
 import { Route as AppuserOrgUsersEmployeeIDRouteRouteImport } from './routes/_appuser/org-users/$employeeID/route'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
@@ -292,6 +293,12 @@ const AppuserPropertyRoutesRoute = AppuserPropertyRoutesRouteImport.update({
   path: '/property/routes',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserOrgUsersAdd_employeesRoute =
+  AppuserOrgUsersAdd_employeesRouteImport.update({
+    id: '/org-users/add_employees',
+    path: '/org-users/add_employees',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserCablesRoutesRoute = AppuserCablesRoutesRouteImport.update({
   id: '/cables/routes',
   path: '/cables/routes',
@@ -586,6 +593,7 @@ export interface FileRoutesByFullPath {
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
   '/cables/routes': typeof AppuserCablesRoutesRoute
+  '/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
@@ -654,6 +662,7 @@ export interface FileRoutesByTo {
   '/home': typeof AppuserHomeRoute
   '/setup_wizard': typeof Setup_wizardIndexRoute
   '/cables/routes': typeof AppuserCablesRoutesRoute
+  '/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
@@ -734,6 +743,7 @@ export interface FileRoutesById {
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/_appuser/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
   '/_appuser/cables/routes': typeof AppuserCablesRoutesRoute
+  '/_appuser/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
   '/setup_wizard/$stepID/org_update': typeof Setup_wizardStepIDOrg_updateRoute
@@ -815,6 +825,7 @@ export interface FileRouteTypes {
     | '/setup_wizard/'
     | '/org-users/$employeeID'
     | '/cables/routes'
+    | '/org-users/add_employees'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
@@ -883,6 +894,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/setup_wizard'
     | '/cables/routes'
+    | '/org-users/add_employees'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
@@ -962,6 +974,7 @@ export interface FileRouteTypes {
     | '/setup_wizard/'
     | '/_appuser/org-users/$employeeID'
     | '/_appuser/cables/routes'
+    | '/_appuser/org-users/add_employees'
     | '/_appuser/property/routes'
     | '/setup_wizard/$stepID/base_setup'
     | '/setup_wizard/$stepID/org_update'
@@ -1297,6 +1310,13 @@ declare module '@tanstack/react-router' {
       path: '/property/routes'
       fullPath: '/property/routes'
       preLoaderRoute: typeof AppuserPropertyRoutesRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/org-users/add_employees': {
+      id: '/_appuser/org-users/add_employees'
+      path: '/org-users/add_employees'
+      fullPath: '/org-users/add_employees'
+      preLoaderRoute: typeof AppuserOrgUsersAdd_employeesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/cables/routes': {
@@ -1879,6 +1899,7 @@ interface AppuserRouteRouteChildren {
   AppuserHomeRoute: typeof AppuserHomeRoute
   AppuserOrgUsersEmployeeIDRouteRoute: typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
   AppuserCablesRoutesRoute: typeof AppuserCablesRoutesRoute
+  AppuserOrgUsersAdd_employeesRoute: typeof AppuserOrgUsersAdd_employeesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
   AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
   AppuserCortexIndexRoute: typeof AppuserCortexIndexRoute
@@ -1926,6 +1947,7 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserOrgUsersEmployeeIDRouteRoute:
     AppuserOrgUsersEmployeeIDRouteRouteWithChildren,
   AppuserCablesRoutesRoute: AppuserCablesRoutesRoute,
+  AppuserOrgUsersAdd_employeesRoute: AppuserOrgUsersAdd_employeesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
   AppuserCablesIndexRoute: AppuserCablesIndexRoute,
   AppuserCortexIndexRoute: AppuserCortexIndexRoute,

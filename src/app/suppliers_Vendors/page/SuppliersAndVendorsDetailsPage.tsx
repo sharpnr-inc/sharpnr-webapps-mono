@@ -1,5 +1,5 @@
 import { Route } from "@/routes/_appuser/suppliers&Vendors/$suppliersID/details";
-import { useLegalEntityLinkToSuppliersMutation } from "./api/mutations";
+import { useLegalEntityLinkToSuppliersMutation } from "../api/mutations";
 
 export function SuppliersAndVendorsDetailsPage() {
   const { suppliersID } = Route.useParams();

@@ -13,8 +13,8 @@ import {
   MoreHorizontal,
   Box,
 } from "lucide-react";
-import { useInventoryAccounts } from "./api/queries";
-import { AddNewInventoryAccountForm } from "./forms/AddNewInventoryAccount";
+import { useInventoryAccounts } from "../api/queries";
+import { AddNewInventoryAccountForm } from "../forms/AddNewInventoryAccount";
 import { useNavigate } from "@tanstack/react-router";
 import { useModal } from "@/hooks/useModal";
 

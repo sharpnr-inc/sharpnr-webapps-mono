@@ -12,8 +12,8 @@ import {
   Globe,
 } from "lucide-react";
 
-import { useOrgSuppliers } from "./api/query";
-import { AddNewSupplierForm } from "./forms/AddNewSuppliersForms";
+import { useOrgSuppliers } from "../api/query";
+import { AddNewSupplierForm } from "../forms/AddNewSuppliersForms";
 import { useNavigate } from "@tanstack/react-router";
 import { useModal } from "@/hooks/useModal";
 

@@ -1,4 +1,4 @@
-import { SuppliersAndVendorsDetailsPage } from "@/app/suppliers_Vendors/SuppliersAndVendorsDetailsPage";
+import { SuppliersAndVendorsDetailsPage } from "@/app/suppliers_Vendors/page/SuppliersAndVendorsDetailsPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

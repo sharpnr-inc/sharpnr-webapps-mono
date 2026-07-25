@@ -1,4 +1,4 @@
-import { Skeleton, useSheet } from "@sharpnr/ui";
+import { Button, Skeleton, useSheet } from "@sharpnr/ui";
 import {
   Users,
   Search,
@@ -13,6 +13,7 @@ import { useEmployees } from "../api/queries";
 import type { EmployeeOfOrganization } from "../api/types";
 import { AddSuperAdminButton } from "../components/AddSuperAdminButton";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "@tanstack/react-router";
 
 /* ── config / helpers ─────────────────────────────────────── */
 
@@ -221,6 +222,7 @@ function EmployeeDetail({
 export function EmployeeDirectoryPage() {
   const { data, isPending, isError, refetch } = useEmployees();
   const { openSheet, closeSheet } = useSheet();
+  const nav = useNavigate();
 
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
@@ -275,7 +277,15 @@ export function EmployeeDirectoryPage() {
           </p>
         </div>
 
-        <AddSuperAdminButton />
+        <div className="flex gap-4">
+          <AddSuperAdminButton />
+          <Button
+            onClick={() => nav({ to: "/org-users/add_employees" })}
+            size={"sm"}
+          >
+            Add Employee In Bulk
+          </Button>
+        </div>
       </div>
 
       {/* ── Stats ── */}
