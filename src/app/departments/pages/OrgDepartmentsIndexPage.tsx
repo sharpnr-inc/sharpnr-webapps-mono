@@ -11,6 +11,8 @@ import {
   UserRound,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { useModal } from "@/hooks/useModal";
+import CreateDepartmentsForm from "../components/CreateDepartmentsForm";
 
 /* ─────────────────────────────────────────────
    Department type (dummy — replace with API type)
@@ -205,6 +207,7 @@ function DepartmentCard({
 
 const OrgDepartmentsIndexPage = () => {
   const nav = useNavigate();
+  const { openModal, closeModal } = useModal();
 
   const [query, setQuery] = useState("");
 
@@ -224,8 +227,11 @@ const OrgDepartmentsIndexPage = () => {
   );
 
   const handleNewDepartment = () => {
-    // TODO: open Add Department form modal once API is ready
-    console.log("Add Department clicked");
+    openModal({
+      content: <CreateDepartmentsForm closeModal={closeModal} />,
+      title: "Add New Department",
+      description: "This will add new department in organization wise",
+    });
   };
 
   return (
