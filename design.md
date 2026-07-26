@@ -5,7 +5,9 @@
 > live in [claude.md](/claude.md)
 
 ## Design Type
+
 - Typography heavy website.
 - Dont Create Generic headline and paragraph sentence website.
 - Its Platform or Softwares website
-- Heaving abstract design and 
+- Heaving abstract design
+- to display a feature or section please create a Large text as we scroll to the section and then show the feaute
