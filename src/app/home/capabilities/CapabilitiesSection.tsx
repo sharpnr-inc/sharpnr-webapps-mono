@@ -1,61 +1,50 @@
-import { useRef, type MouseEvent } from "react";
-import { Link } from "@tanstack/react-router";
-import { Layers, Radio, Activity, Database } from "lucide-react";
+import { useRef } from "react";
 import { Words } from "@/app/home/shared/Words";
+import { CapabilityModule } from "@/app/home/shared/CapabilityModule";
 import { useCapabilitiesAnimation } from "./animations/useCapabilitiesAnimation";
 
 /*
- * Scene 04 — What the platform actually does.
+ * The infrastructure, shown plainly.
  *
- * A bento with a deliberate rhythm: a wide tile paired with a narrow one, then
- * the pairing reversed, so the eye moves diagonally instead of scanning a
- * uniform grid. Each tile carries one mark, one name and one plain sentence —
- * nothing else earns the space.
+ * Seven real products, card-free: a hairline frame, an index mark, a name,
+ * one sentence. Not a diagram of the platform; the platform itself, named.
+ * A compact asymmetrical masonry on the right instead of a full-width grid,
+ * so the breadth reads as a glance, not a list to study.
  *
- * Surfaces sit a hair above the field, held by a single hairline that warms on
- * approach. Depth comes from one inner highlight, never a shadow stack.
+ * Text-left, visual-right.
  */
-interface Tile {
-  icon: typeof Layers;
-  name: string;
-  copy: string;
-  span: string;
-}
-
-const TILES: Tile[] = [
+const PRODUCTS = [
   {
-    icon: Layers,
-    name: "Unified operations",
-    copy: "Everything from stock to the day's work, running in one place instead of five.",
-    span: "md:col-span-3",
+    title: "Sharp-Accounting",
+    description: "Double-entry accounting with automatic journal entries from every business app.",
+    featured: true,
   },
   {
-    icon: Radio,
-    name: "Connected teams",
-    copy: "Conversations stay attached to the work that caused them.",
-    span: "md:col-span-2",
+    title: "Sharp-HR",
+    description: "Employees, payroll, attendance and recruitment, all from one place.",
   },
   {
-    icon: Activity,
-    name: "Live understanding",
-    copy: "What happened today, without waiting for a report.",
-    span: "md:col-span-2",
+    title: "Sharp-CRM",
+    description: "Leads, campaigns and long-term customer relationships, organized in one view.",
   },
   {
-    icon: Database,
-    name: "A foundation you own",
-    copy: "Documents, records and access, held together underneath everything else.",
-    span: "md:col-span-3",
+    title: "Cables",
+    description: "Chat, calls and conferencing — connected to the work that caused them.",
+    featured: true,
+  },
+  {
+    title: "Silo",
+    description: "Object storage and a data warehouse, built for the whole business.",
+  },
+  {
+    title: "Folio",
+    description: "Docs, sheets and presentations, with real-time collaboration built in.",
+  },
+  {
+    title: "Sharp-Marketplace",
+    description: "Buy and sell with other businesses on the network — zero commission.",
   },
 ];
-
-/** Let the surface highlight follow the pointer. */
-function trackPointer(e: MouseEvent<HTMLElement>) {
-  const el = e.currentTarget;
-  const r = el.getBoundingClientRect();
-  el.style.setProperty("--mx", `${((e.clientX - r.left) / r.width) * 100}%`);
-  el.style.setProperty("--my", `${((e.clientY - r.top) / r.height) * 100}%`);
-}
 
 export function CapabilitiesSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -70,51 +59,33 @@ export function CapabilitiesSection() {
       ref={sectionRef}
       className="hp-section hp-sec relative px-6 md:px-10"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
+        {/* The argument */}
+        <div className="order-1 lg:pr-6">
+          <h2
+            ref={headingRef}
+            className="hp-hero-title font-extrabold text-white"
+          >
+            <span className="block">
+              <Words text="Everything your business needs." />
+            </span>
+            <span className="block text-twilight">
+              <Words text="Nothing it doesn't." />
+            </span>
+          </h2>
+          <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
+            Build your business on one connected foundation. Start with one
+            capability and expand whenever you&rsquo;re ready.
+          </p>
+        </div>
 
-        <h2
-          ref={headingRef}
-          className="mt-10 max-w-2xl text-[clamp(1.75rem,3.4vw,2.75rem)] font-extrabold leading-[1.12] tracking-[-0.035em] text-white md:mt-14"
-        >
-          <Words text="Run your business." />
-          <span className="block text-twilight">
-            <Words text="Not your software." />
-          </span>
-        </h2>
-
-        <p
-          ref={copyRef}
-          className="mt-6 max-w-lg text-[1.0625rem] leading-relaxed text-mute"
-        >
-          One place for the work, the people and the money behind it — instead
-          of every tool you already pay for pulling in its own direction.
-        </p>
-
-        <div
-          ref={gridRef}
-          className="mt-14 grid grid-cols-1 gap-4 md:mt-20 md:grid-cols-5"
-        >
-          {TILES.map((tile) => (
-            <Link
-              key={tile.name}
-              to="/platform"
-              onMouseMove={trackPointer}
-              className={`hp-tile group relative flex flex-col justify-between overflow-hidden p-8 md:p-10 ${tile.span}`}
-            >
-              <tile.icon
-                className="relative z-10 size-7 text-white/70 transition-colors duration-300 group-hover:text-white"
-                strokeWidth={1.5}
-              />
-              <div className="relative z-10 mt-14 md:mt-20">
-                <h3 className="text-[1.0625rem] font-semibold tracking-tight text-white">
-                  {tile.name}
-                </h3>
-                <p className="mt-2 max-w-sm text-[0.9375rem] leading-relaxed text-mute">
-                  {tile.copy}
-                </p>
-              </div>
-            </Link>
-          ))}
+        {/* The demonstration — visual-right on desktop */}
+        <div className="order-2 w-full">
+          <div ref={gridRef} className="hp-masonry mx-auto w-full max-w-md">
+            {PRODUCTS.map((product, i) => (
+              <CapabilityModule key={product.title} index={i} {...product} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

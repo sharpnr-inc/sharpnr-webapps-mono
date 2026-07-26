@@ -1,47 +1,46 @@
 import type { RefObject } from "react";
-import { gsap, useGSAP, ScrollTrigger } from "@/configs/gsap";
-import { prefersReduced } from "@/app/home/shared/motion";
+import { gsap, useGSAP } from "@/configs/gsap";
+import { prefersReduced, revealOnce } from "@/app/home/shared/motion";
+import { animeWordsOnEnter } from "@/app/home/shared/reveal";
 
 interface WhyAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
+  headingRef: RefObject<HTMLHeadingElement | null>;
+  copyRef: RefObject<HTMLParagraphElement | null>;
   gridRef: RefObject<HTMLDivElement | null>;
 }
 
 /**
- * Scene 07 motion — each intertitle holds the frame alone.
- *
- * A card rises as it takes the screen and recedes as it leaves, so only one
- * belief is ever fully present. Opacity and transform only; each card is
- * driven by its own scrub so nothing has to be sequenced by hand.
+ * The four principles rise into place, once, on a short stagger — calm and
+ * even, the same rhythm as every sibling scene's demonstration. The
+ * turquoise underline on each name is plain CSS, triggered by :hover.
+ * Reversible: scrolling back up above the section returns the grid to
+ * hidden.
  */
 export function useWhyAnimation(refs: WhyAnimationRefs) {
-  const { sectionRef, gridRef } = refs;
+  const { sectionRef, headingRef, copyRef, gridRef } = refs;
 
   useGSAP(
     () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      animeWordsOnEnter(headingRef.current, section);
+      if (copyRef.current) revealOnce(copyRef.current, section, { delay: 0.15 });
       if (prefersReduced() || !gridRef.current) return;
 
-      for (const card of Array.from(gridRef.current.children)) {
-        const line = card.querySelector("p");
-        if (!line) continue;
-
-        gsap.set(line, { opacity: 0.12, y: 26 });
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: card,
-              start: "top 78%",
-              end: "bottom 42%",
-              scrub: true,
-            },
-          })
-          .to(line, { opacity: 1, y: 0, ease: "power2.out", duration: 1 })
-          .to(line, { duration: 0.9 })
-          .to(line, { opacity: 0.12, y: -26, ease: "power2.in", duration: 1 });
-      }
-
-      ScrollTrigger.refresh();
+      gsap.from(gridRef.current.children, {
+        opacity: 0,
+        y: 24,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 82%",
+          toggleActions: "play none none reverse",
+        },
+      });
     },
     { scope: sectionRef },
   );

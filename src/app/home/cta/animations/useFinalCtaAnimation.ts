@@ -7,17 +7,17 @@ interface FinalCtaAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
   headingRef: RefObject<HTMLHeadingElement | null>;
   copyRef: RefObject<HTMLParagraphElement | null>;
+  shapeRef: RefObject<HTMLDivElement | null>;
   ctaRef: RefObject<HTMLDivElement | null>;
-  docRef: RefObject<HTMLAnchorElement | null>;
 }
 
 /**
- * Scene 08 motion. Heading reveals, copy fades up, the CTAs appear, then the
- * documentation link — a calm, sequential close. At most two things move at
- * once (Scene 08 performance budget). Reveal once; then idle.
+ * The invitation — the ambient shape, then heading, copy and the two
+ * actions. A calm, sequential close; reveals once, then idle. Hover lifts
+ * on the buttons are plain CSS (see Button), not part of this timeline.
  */
 export function useFinalCtaAnimation(refs: FinalCtaAnimationRefs) {
-  const { sectionRef, headingRef, copyRef, ctaRef, docRef } = refs;
+  const { sectionRef, headingRef, copyRef, shapeRef, ctaRef } = refs;
 
   useGSAP(
     () => {
@@ -25,20 +25,18 @@ export function useFinalCtaAnimation(refs: FinalCtaAnimationRefs) {
       const section = sectionRef.current;
       if (!section) return;
 
-      // Heading — anime.js typography
       animeWordsOnEnter(headingRef.current, section, "top 72%");
 
-      // Copy, CTAs, doc link — GSAP, sequenced after the heading
       const buttons = ctaRef.current ? Array.from(ctaRef.current.children) : [];
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.out" },
-        scrollTrigger: { trigger: section, start: "top 70%", once: true },
-        delay: 0.35,
-      });
-
-      tl.from(copyRef.current, { opacity: 0, y: 18, duration: 0.5 })
-        .from(buttons, { opacity: 0, y: 14, duration: 0.5, stagger: 0.2 }, "-=0.1")
-        .from(docRef.current, { opacity: 0, duration: 0.5 }, "-=0.15");
+      gsap
+        .timeline({
+          defaults: { ease: "power3.out" },
+          scrollTrigger: { trigger: section, start: "top 70%", once: true },
+          delay: 0.35,
+        })
+        .from(shapeRef.current, { opacity: 0, scale: 0.92, duration: 0.8 }, 0)
+        .from(copyRef.current, { opacity: 0, y: 18, duration: 0.5 }, 0.1)
+        .from(buttons, { opacity: 0, y: 14, duration: 0.5, stagger: 0.2 }, "-=0.1");
     },
     { scope: sectionRef },
   );

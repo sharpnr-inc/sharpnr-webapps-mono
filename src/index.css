@@ -146,6 +146,30 @@ body {
   will-change: transform, opacity;
 }
 
+/* ── Hero relationships — a connection only exists while it is being shown.
+   Thin, low-opacity, softly glowing; never a permanent diagram (Visual
+   Language amendment v3.3). ── */
+.hero-link {
+  stroke: var(--color-cyan);
+  stroke-width: 1;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(0, 180, 216, 0.5));
+  opacity: 0;
+}
+.hero-pulse {
+  fill: var(--color-sky);
+  filter: drop-shadow(0 0 4px rgba(144, 224, 239, 0.85));
+  opacity: 0;
+}
+
+/* ── Hero particles — a handful of soft data motes drifting through the
+   field. Small, faint, few in number: felt as life, not seen as decoration. ── */
+.hero-particle {
+  background: radial-gradient(circle, var(--color-sky) 0%, transparent 70%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
 /* ── Ambient depth — two very soft pools of light drifting almost
    imperceptibly. Transform-only so it stays on the compositor, and it costs
    nothing to scroll past. The visitor should feel it, not see it. ── */
@@ -316,12 +340,6 @@ body {
   line-height: 1.6;
 }
 
-/* Scene 04 — the active capability glows on its glyphs, never as a box. */
-.hp-cap-active {
-  text-shadow:
-    0 0 18px rgba(0, 180, 216, 0.55),
-    0 0 42px rgba(0, 180, 216, 0.25);
-}
 @media (max-height: 880px) and (min-width: 1024px) {
   .hp-sec {
     padding-top: clamp(3rem, 7vh, 5rem);
@@ -343,53 +361,6 @@ body {
 /* Homepage — one restrained modular language. */
 .hp-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; color: rgba(202, 240, 248, 0.72); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
 .hp-eyebrow::before { width: 1.75rem; height: 1px; background: var(--color-cyan); content: ""; }
-/* Scene 02 — each capability is an isolated slab. One hairline, one flat
-   surface: no nested frames, no glow. The isolation is the message. */
-.hp-platform-title { border-inline: 1px solid rgba(0,180,216,0.45); }
-.hp-principle + .hp-principle { border-left: 1px solid rgba(255,255,255,0.1); }
-@media (max-width: 639px) { .hp-principle + .hp-principle { border-left: 0; border-top: 1px solid rgba(255,255,255,0.1); } }
-
-/* ── Homepage idle motion — Scene 02 (Business Chaos) blocks each drift
-   on their own rhythm to communicate disconnection. Fully disabled when
-   the visitor prefers reduced motion (Motion Language: replace with a
-   simple fade). Per-block duration/delay set inline. ── */
-@keyframes hp-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -6px, 0);
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hp-idle {
-    animation: hp-float var(--hp-dur, 6s) ease-in-out var(--hp-delay, 0s)
-      infinite;
-  }
-}
-
-/* Scene 05 — the index name eases forward on approach, so a row lifts out of
-   the column without anything moving around it. */
-.hp-index-row .hp-index-name {
-  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hp-index-row:hover .hp-index-name { transform: translateX(10px); }
-}
-
-/* Scene 06 — the slot re-sets as the industry changes. Keyed remount, so the
-   swap is legible as a change of subject rather than a crossfade. */
-@media (prefers-reduced-motion: no-preference) {
-  .hp-slot { animation: hp-slot-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-}
-@keyframes hp-slot-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-
-
 
 /* Hero light — a single soft pool of cyan sitting behind the opening.
    Low opacity, heavily blurred, never a visible circle. */
@@ -400,31 +371,187 @@ body {
   border-radius: 9999px;
 }
 
-/* ── Stage panel — the surface each scene plays on.
-   Sits a hair above the field, held by a single hairline. Depth comes from
-   one soft inner highlight along the top edge, never from a shadow stack. ── */
-.hp-stage {
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0) 38%),
-    rgba(2, 18, 40, 0.55);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: border-color 400ms cubic-bezier(0.22,1,0.36,1);
-}
-.hp-stage:hover { border-color: rgba(255, 255, 255, 0.11); }
 
-/* Bento tile — a hair above the field, one hairline, one inner highlight.
-   The pointer highlight is a wash, never a spotlight circle. */
-.hp-tile {
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 16px;
-  background:
-    radial-gradient(22rem 22rem at var(--mx, 50%) var(--my, 0%), rgba(0,180,216,0.055), transparent 70%),
-    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0) 42%),
-    rgba(6, 20, 38, 0.6);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
-  transition: border-color 320ms cubic-bezier(0.22,1,0.36,1), background-color 320ms;
+/* Scene 03 / 08 — the same soft gathering light as the hero, behind the
+   mark once the network has assembled, and again (larger, calmer) behind
+   the ambient echo that closes the page. */
+.platform-halo {
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(144, 224, 239, 0.13),
+    rgba(0, 180, 216, 0.05) 55%,
+    transparent 100%
+  );
+  filter: blur(22px);
 }
-.hp-tile:hover { border-color: rgba(255, 255, 255, 0.14); }
+
+
+/* ── Capability module — Scene 05. Card-free: a hairline frame that
+   luminesces on hover, a name, a sentence. No fill, no icon chip, no CTA
+   link — the typography and the index mark are the only geometry. ── */
+.hp-cap-module {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-cap-module:hover {
+  border-color: rgba(0, 180, 216, 0.5);
+}
+.hp-cap-module:hover .hp-cap-index {
+  color: var(--color-cyan);
+  transform: translateX(4px);
+}
+.hp-cap-index {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(144, 224, 239, 0.55);
+  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1), transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Masonry — Scene 05. Plain CSS columns; each card opts out of splitting
+   mid-box via break-inside-avoid-column on EditorialCard itself. ── */
+.hp-masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+@media (width >= 40rem) {
+  .hp-masonry {
+    column-count: 2;
+  }
+}
+
+/* ── Islands — Scenes 02/03. Flat typographic geometry, not a UI card: a
+   hairline frame and a label doing the work, never a filled block. Apart
+   in Scene 02, settled edge to edge into one structure in Scene 03. ── */
+.hp-island {
+  border-radius: 14px;
+  border: 1px solid rgba(144, 224, 239, 0.16);
+  background: rgba(144, 224, 239, 0.03);
+  transition: border-color 260ms ease, background-color 260ms ease;
+}
+.hp-island:hover {
+  border-color: rgba(144, 224, 239, 0.4);
+  background: rgba(144, 224, 239, 0.06);
+}
+.hp-island-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-sky);
+}
+/* Scene 03 — the outline that fades in once the three islands have
+   settled, reading them as one structure rather than three. */
+.hp-structure-outline {
+  border-radius: 28px;
+  border: 1px solid rgba(144, 224, 239, 0.3);
+  box-shadow: 0 0 0 1px rgba(144, 224, 239, 0.08) inset;
+}
+
+/* ── Zone stations — Scene 04. A capability the transit line visits; lit by
+   GSAP as the pulse travelling the line reaches it. ── */
+.hp-zone-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--color-mute);
+}
+
+/* ── Morph shape — Scene 06. One abstract container whose silhouette
+   (clip-path, tweened by GSAP), icon and accent all change with the active
+   industry. Never a literal illustrated scene. ── */
+.hp-morph-shape {
+  background: linear-gradient(160deg, rgba(0, 119, 182, 0.22), rgba(0, 180, 216, 0.06));
+  border: 1px solid rgba(144, 224, 239, 0.2);
+  box-shadow: 0 30px 90px -40px rgba(0, 180, 216, 0.5);
+  transition: box-shadow 400ms ease;
+}
+
+/* ── Principle badge — Scene 07. A minimal outlined emblem, never a filled
+   block: editorial iconography, not a product feature icon. ── */
+.hp-principle-card {
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-principle-card:hover {
+  border-color: rgba(144, 224, 239, 0.28);
+}
+.hp-principle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(144, 224, 239, 0.35);
+  color: var(--color-sky);
+}
+/* The underline grows in width only — never height or margin — so hover
+   never nudges surrounding text. */
+.hp-principle-name {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+.hp-principle-name::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-cyan);
+  transition: width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-principle-card:hover .hp-principle-name::after {
+  width: 2rem;
+}
+
+/* ── Industry list — Scene 06. A growing tick, not a filled pill: hover,
+   focus and the active selection all read the same way. ── */
+.hp-industry-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-mute);
+  transition: color 260ms ease;
+}
+.hp-industry-item::before {
+  content: "";
+  width: 0;
+  height: 1px;
+  background: var(--color-cyan);
+  transition: width 260ms ease;
+}
+.hp-industry-item:hover,
+.hp-industry-item:focus-visible,
+.hp-industry-item[aria-pressed="true"] {
+  color: #ffffff;
+}
+.hp-industry-item:hover::before,
+.hp-industry-item:focus-visible::before,
+.hp-industry-item[aria-pressed="true"]::before {
+  width: 1rem;
+}
+
+/* ── Ambient echo — Scene 08. A large, soft, unlabelled repeat of the
+   Scene 03 structure, closing the page on the same shape it resolved on. ── */
+.hp-ambient-shape {
+  border-radius: 40px;
+  background: linear-gradient(160deg, rgba(0, 119, 182, 0.14), rgba(0, 180, 216, 0.04));
+  border: 1px solid rgba(144, 224, 239, 0.12);
+}

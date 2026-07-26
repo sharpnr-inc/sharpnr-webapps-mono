@@ -11,11 +11,9 @@ interface CapabilitiesAnimationRefs {
 }
 
 /**
- * Scene 04 motion — the tiles arrive as a set, not as a queue.
- *
- * Heading words reveal, the paragraph follows, then the bento rises with a
- * short stagger so the rhythm of the grid is legible before anything is read.
- * Reveals once; the surfaces are still afterwards.
+ * The cards rise into place, once, with a short even stagger — calm and
+ * confident rather than eventful. Reversible: scrolling back up above the
+ * section returns the grid to hidden, same as every other scene.
  */
 export function useCapabilitiesAnimation(refs: CapabilitiesAnimationRefs) {
   const { sectionRef, headingRef, copyRef, gridRef } = refs;
@@ -23,20 +21,23 @@ export function useCapabilitiesAnimation(refs: CapabilitiesAnimationRefs) {
   useGSAP(
     () => {
       const section = sectionRef.current;
-      if (!section || prefersReduced()) return;
+      if (!section) return;
 
       animeWordsOnEnter(headingRef.current, section);
       if (copyRef.current) revealOnce(copyRef.current, section, { delay: 0.15 });
+      if (prefersReduced() || !gridRef.current) return;
 
-      const tiles = gridRef.current ? Array.from(gridRef.current.children) : [];
-      gsap.from(tiles, {
+      gsap.from(gridRef.current.children, {
         opacity: 0,
-        y: 22,
-        duration: 0.7,
-        ease: "power3.out",
-        stagger: 0.09,
-        clearProps: "transform",
-        scrollTrigger: { trigger: gridRef.current!, start: "top 84%", once: true },
+        y: 20,
+        duration: 0.6,
+        ease: "power2.out",
+        stagger: 0.07,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: "top 84%",
+          toggleActions: "play none none reverse",
+        },
       });
     },
     { scope: sectionRef },

@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { useGSAP, ScrollTrigger } from "@/configs/gsap";
+import { gsap, useGSAP } from "@/configs/gsap";
 import { prefersReduced, revealOnce } from "@/app/home/shared/motion";
 import { animeWordsOnEnter } from "@/app/home/shared/reveal";
 
@@ -7,65 +7,56 @@ interface EcosystemAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
   headingRef: RefObject<HTMLHeadingElement | null>;
   copyRef: RefObject<HTMLParagraphElement | null>;
-  eventRef: RefObject<HTMLDivElement | null>;
-  stageRef: RefObject<HTMLDivElement | null>;
-  /** Number of capabilities in the activation sequence. */
-  steps: number;
-  /** Called (only on change) with the active step index, or -1 for idle. */
-  onStep: (index: number) => void;
+  fieldRef: RefObject<HTMLDivElement | null>;
 }
 
 /**
- * Scene 04 motion — the connected ecosystem.
- * A business event flows through the platform: as the visitor scrolls, one
- * capability activates at a time, then everything returns to idle. Driven by
- * scroll progress (never pinned, never locked); the active index only changes
- * on segment boundaries, so React re-renders a handful of times and CSS
- * transitions do the smoothing. One highlight, one active capability — no
- * connecting lines. The visitor controls the story.
+ * One highlight, sweeping through five capabilities. Reversible.
+ *
+ * The moment the section is seen: the words rise into place, then a single
+ * highlight visits each one in turn — active turquoise, briefly, before
+ * settling to a bright, legible neutral. It runs once, left to right
+ * through the list, and never loops. Scrolling back up above the section
+ * reverses the whole sequence, same as every sibling scene.
  */
 export function useEcosystemAnimation(refs: EcosystemAnimationRefs) {
-  const { sectionRef, headingRef, copyRef, eventRef, stageRef, steps, onStep } =
-    refs;
+  const { sectionRef, headingRef, copyRef, fieldRef } = refs;
 
   useGSAP(
     () => {
       const section = sectionRef.current;
       if (!section) return;
 
-      if (prefersReduced()) {
-        onStep(-1);
-        return;
-      }
-
       animeWordsOnEnter(headingRef.current, section);
-      if (copyRef.current)
-        revealOnce(copyRef.current, section, { delay: 0.15 });
-      if (eventRef.current)
-        revealOnce(eventRef.current, section, { delay: 0.3 });
+      if (copyRef.current) revealOnce(copyRef.current, section, { delay: 0.15 });
+      if (prefersReduced() || !fieldRef.current) return;
 
-      // Lead segment (event appears) + one per capability + trailing idle.
-      const segments = steps + 2;
-      let last = -2;
+      const words = Array.from(
+        fieldRef.current.querySelectorAll<HTMLElement>(".hp-ecosystem-word"),
+      );
+      if (!words.length) return;
 
-      ScrollTrigger.create({
-        trigger: stageRef.current!,
-        start: "top 70%",
-        end: "bottom 45%",
-        scrub: true,
-        onUpdate: (self) => {
-          const seg = Math.min(
-            segments - 1,
-            Math.floor(self.progress * segments),
-          );
-          const index = seg === 0 || seg > steps ? -1 : seg - 1;
-          if (index !== last) {
-            last = index;
-            onStep(index);
-          }
+      gsap.set(words, { opacity: 0, y: 16, color: "var(--color-mute)" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: fieldRef.current,
+          start: "top 74%",
+          toggleActions: "play none none reverse",
         },
       });
+
+      tl.to(words, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.07 });
+
+      words.forEach((word) => {
+        tl.to(word, { color: "#00b4d8", scale: 1.05, duration: 0.32, ease: "power2.out" })
+          .to(
+            word,
+            { color: "rgba(255,255,255,0.82)", scale: 1, duration: 0.4, ease: "power2.inOut" },
+            ">-0.04",
+          );
+      });
     },
-    { scope: sectionRef, dependencies: [steps] },
+    { scope: sectionRef },
   );
 }

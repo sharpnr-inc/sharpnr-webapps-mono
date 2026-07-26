@@ -1,45 +1,93 @@
 import { useRef } from "react";
+import { Layers3, Fingerprint, Blocks, TrendingUp } from "lucide-react";
+import { Words } from "@/app/home/shared/Words";
 import { useWhyAnimation } from "./animations/useWhyAnimation";
 
 /*
- * Scene 07 — What we believe.
+ * What we believe.
  *
- * Mechanism: intertitles.
+ * Four principles, each a minimal editorial badge — an outlined emblem, a
+ * name, one sentence of conviction. No filled block, no product-feature
+ * icon: this is architecture, stated plainly.
  *
- * Beliefs set in columns become a feature comparison. Held one at a time,
- * full width, with nothing else on screen, they read as conviction. Each card
- * holds the frame alone while the visitor passes it, the way a silent film
- * holds a title before returning to the action.
+ * Text-left, visual-right.
  */
-const BELIEFS = [
-  "Software should be built together, not connected afterwards.",
-  "Who you are should mean the same thing everywhere.",
-  "Take only what you need. Nothing should need rebuilding later.",
-  "Growing should not change how your people work.",
+const PRINCIPLES = [
+  {
+    name: "Designed Together",
+    belief: "Software should be built together, not connected afterwards.",
+    icon: Layers3,
+  },
+  {
+    name: "One Foundation",
+    belief: "Who you are should mean the same thing everywhere.",
+    icon: Fingerprint,
+  },
+  {
+    name: "Independent Capabilities",
+    belief: "Take only what you need. Nothing should need rebuilding later.",
+    icon: Blocks,
+  },
+  {
+    name: "Built To Scale",
+    belief: "Growing should not change how your people work.",
+    icon: TrendingUp,
+  },
 ];
 
 export function WhySection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const copyRef = useRef<HTMLParagraphElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  useWhyAnimation({ sectionRef, gridRef });
+  useWhyAnimation({ sectionRef, headingRef, copyRef, gridRef });
 
   return (
-    <section ref={sectionRef} className="hp-section relative">
-      <div ref={gridRef}>
-        {BELIEFS.map((belief, i) => (
-          <div
-            key={belief}
-            className="hp-title-card flex min-h-[68svh] items-center px-6 md:min-h-[80svh] md:px-10"
+    <section
+      ref={sectionRef}
+      className="hp-section hp-sec relative px-6 md:px-10"
+    >
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
+        {/* The argument */}
+        <div className="order-1 lg:pr-6">
+          <h2
+            ref={headingRef}
+            className="hp-hero-title font-extrabold text-white"
           >
-            <p className="mx-auto w-full max-w-4xl text-[clamp(1.75rem,4.6vw,3.5rem)] font-extrabold leading-[1.16] tracking-[-0.04em] text-white">
-              <span className="mr-5 align-middle text-[0.3em] font-semibold tabular-nums tracking-[0.18em] text-cyan/60">
-                {String(i + 1).padStart(2, "0")}
+            <span className="block">
+              <Words text="Designed as one." />
+            </span>
+            <span className="block text-twilight">
+              <Words text="Not stitched together." />
+            </span>
+          </h2>
+          <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
+            Sharpnr was built as a single business platform from the ground
+            up, allowing your business to grow without growing more
+            complex.
+          </p>
+        </div>
+
+        {/* The demonstration — visual-right on desktop */}
+        <div
+          ref={gridRef}
+          className="order-2 grid grid-cols-1 gap-4 sm:grid-cols-2"
+        >
+          {PRINCIPLES.map((principle) => (
+            <div key={principle.name} className="hp-principle-card p-6">
+              <span className="hp-principle-badge">
+                <principle.icon className="size-5" strokeWidth={1.75} />
               </span>
-              {belief}
-            </p>
-          </div>
-        ))}
+              <h3 className="hp-principle-name mt-4 text-base font-semibold tracking-tight text-white">
+                {principle.name}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-mute">
+                {principle.belief}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

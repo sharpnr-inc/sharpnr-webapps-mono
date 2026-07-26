@@ -3,20 +3,16 @@
  *
  * Typography only, with the official SHARPNR wordmark as the centre of
  * gravity. Independent platform words converge on that centre and settle
- * around it (05_Platform.md Scene 01 → "Every word slowly moves toward one
- * center... The words remain around it. No connecting lines. No circles. No
- * diagrams.").
- *
- * The composition is deliberate, never scattered:
- *   · words sit on a ring with a clear horizontal lane for the wordmark
- *   · three tiers of emphasis give the field hierarchy — the foundations
- *     nearest the centre read strongest, the outer ring recedes
- *   · a barely-there radial light behind the wordmark gives it weight
+ * around it. Once settled, the field stays quietly alive: words drift a
+ * few pixels on their own rhythm, a handful of related pairs occasionally
+ * pulse a connection between them, and a few soft motes drift through the
+ * whole composition — never a diagram, never continuous, never loud.
  *
  * Decorative: hidden from assistive technology.
  */
 
 import { Wordmark } from "@/app/home/shared/Wordmark";
+import { HERO_SPOKES } from "./heroLinks";
 
 interface Word {
   label: string;
@@ -63,6 +59,9 @@ const TIER = {
   3: "hidden text-[0.875rem] text-mute sm:inline",
 } as const;
 
+/** A few soft motes drifting through the field — data, not decoration. */
+const PARTICLE_COUNT = 4;
+
 export function HeroVisual() {
   return (
     <div
@@ -72,9 +71,25 @@ export function HeroVisual() {
       {/* Centre of gravity — soft light, never a shape */}
       <div className="hero-halo absolute left-1/2 top-1/2 h-40 w-72 -translate-x-1/2 -translate-y-1/2" />
 
+      {/* Relationships — a word occasionally sends a pulse to the mark */}
+      <svg className="pointer-events-none absolute inset-0 size-full overflow-visible">
+        {HERO_SPOKES.map((label) => (
+          <g key={label} className="hero-link-group" data-a={label}>
+            <path className="hero-link" fill="none" />
+            <circle className="hero-pulse" r="2.5" />
+          </g>
+        ))}
+      </svg>
+
+      {/* Soft data particles, drifting slowly through the composition */}
+      {Array.from({ length: PARTICLE_COUNT }).map((_, i) => (
+        <span key={i} className="hero-particle absolute size-1 rounded-full" />
+      ))}
+
       {WORDS.map((word) => (
         <span
           key={word.label}
+          data-label={word.label}
           className={`hero-word absolute whitespace-nowrap font-medium tracking-tight ${TIER[word.tier]}`}
           style={
             word.right !== undefined
