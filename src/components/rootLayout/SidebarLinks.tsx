@@ -286,10 +286,10 @@ export const orchestratorGroups: SidebarGroup[] = [
         tooltip: "Cables",
       },
       {
-        label: "Inventories",
-        path: "/inventory-acc",
+        label: "Stockwave",
+        path: "/sharpnr-services/stockwave",
         icon: LucideShoppingBasket,
-        tooltip: "Inventories",
+        tooltip: "Stockwave",
       },
     ],
   },

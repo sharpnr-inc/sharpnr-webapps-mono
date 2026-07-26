@@ -49,7 +49,9 @@ import { Route as Setup_wizardStepIDBase_setupRouteImport } from './routes/setup
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
 import { Route as AppuserOrgUsersAdd_employeesRouteImport } from './routes/_appuser/org-users/add_employees'
 import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
+import { Route as AppuserSharpnrServicesStockwaveRouteRouteImport } from './routes/_appuser/sharpnr-services/stockwave/route'
 import { Route as AppuserOrgUsersEmployeeIDRouteRouteImport } from './routes/_appuser/org-users/$employeeID/route'
+import { Route as AppuserSharpnrServicesStockwaveIndexRouteImport } from './routes/_appuser/sharpnr-services/stockwave/index'
 import { Route as AppuserPaymentsAccountIdIndexRouteImport } from './routes/_appuser/payments/$accountId/index'
 import { Route as AppuserOrgUsersEmployeeIDIndexRouteImport } from './routes/_appuser/org-users/$employeeID/index'
 import { Route as AppuserDeparmentsDepartmentIDIndexRouteImport } from './routes/_appuser/deparments/$departmentID/index'
@@ -304,11 +306,23 @@ const AppuserCablesRoutesRoute = AppuserCablesRoutesRouteImport.update({
   path: '/cables/routes',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserSharpnrServicesStockwaveRouteRoute =
+  AppuserSharpnrServicesStockwaveRouteRouteImport.update({
+    id: '/sharpnr-services/stockwave',
+    path: '/sharpnr-services/stockwave',
+    getParentRoute: () => AppuserRouteRoute,
+  } as any)
 const AppuserOrgUsersEmployeeIDRouteRoute =
   AppuserOrgUsersEmployeeIDRouteRouteImport.update({
     id: '/org-users/$employeeID',
     path: '/org-users/$employeeID',
     getParentRoute: () => AppuserRouteRoute,
+  } as any)
+const AppuserSharpnrServicesStockwaveIndexRoute =
+  AppuserSharpnrServicesStockwaveIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppuserSharpnrServicesStockwaveRouteRoute,
   } as any)
 const AppuserPaymentsAccountIdIndexRoute =
   AppuserPaymentsAccountIdIndexRouteImport.update({
@@ -592,6 +606,7 @@ export interface FileRoutesByFullPath {
   '/home': typeof AppuserHomeRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
+  '/sharpnr-services/stockwave': typeof AppuserSharpnrServicesStockwaveRouteRouteWithChildren
   '/cables/routes': typeof AppuserCablesRoutesRoute
   '/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
@@ -633,6 +648,7 @@ export interface FileRoutesByFullPath {
   '/deparments/$departmentID/': typeof AppuserDeparmentsDepartmentIDIndexRoute
   '/org-users/$employeeID/': typeof AppuserOrgUsersEmployeeIDIndexRoute
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
+  '/sharpnr-services/stockwave/': typeof AppuserSharpnrServicesStockwaveIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/authorization/policies/$policyID/': typeof AppuserAuthorizationPoliciesPolicyIDIndexRoute
@@ -702,6 +718,7 @@ export interface FileRoutesByTo {
   '/deparments/$departmentID': typeof AppuserDeparmentsDepartmentIDIndexRoute
   '/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDIndexRoute
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
+  '/sharpnr-services/stockwave': typeof AppuserSharpnrServicesStockwaveIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/authorization/policies/$policyID': typeof AppuserAuthorizationPoliciesPolicyIDIndexRoute
@@ -742,6 +759,7 @@ export interface FileRoutesById {
   '/_marketing/': typeof MarketingIndexRoute
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/_appuser/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
+  '/_appuser/sharpnr-services/stockwave': typeof AppuserSharpnrServicesStockwaveRouteRouteWithChildren
   '/_appuser/cables/routes': typeof AppuserCablesRoutesRoute
   '/_appuser/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
@@ -783,6 +801,7 @@ export interface FileRoutesById {
   '/_appuser/deparments/$departmentID/': typeof AppuserDeparmentsDepartmentIDIndexRoute
   '/_appuser/org-users/$employeeID/': typeof AppuserOrgUsersEmployeeIDIndexRoute
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
+  '/_appuser/sharpnr-services/stockwave/': typeof AppuserSharpnrServicesStockwaveIndexRoute
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
   '/_appuser/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/authorization/policies/$policyID/': typeof AppuserAuthorizationPoliciesPolicyIDIndexRoute
@@ -824,6 +843,7 @@ export interface FileRouteTypes {
     | '/home'
     | '/setup_wizard/'
     | '/org-users/$employeeID'
+    | '/sharpnr-services/stockwave'
     | '/cables/routes'
     | '/org-users/add_employees'
     | '/property/routes'
@@ -865,6 +885,7 @@ export interface FileRouteTypes {
     | '/deparments/$departmentID/'
     | '/org-users/$employeeID/'
     | '/payments/$accountId/'
+    | '/sharpnr-services/stockwave/'
     | '/business-ops/property/$propertyId/details'
     | '/business-ops/property/$propertyId/property-configuration'
     | '/authorization/policies/$policyID/'
@@ -934,6 +955,7 @@ export interface FileRouteTypes {
     | '/deparments/$departmentID'
     | '/org-users/$employeeID'
     | '/payments/$accountId'
+    | '/sharpnr-services/stockwave'
     | '/business-ops/property/$propertyId/details'
     | '/business-ops/property/$propertyId/property-configuration'
     | '/authorization/policies/$policyID'
@@ -973,6 +995,7 @@ export interface FileRouteTypes {
     | '/_marketing/'
     | '/setup_wizard/'
     | '/_appuser/org-users/$employeeID'
+    | '/_appuser/sharpnr-services/stockwave'
     | '/_appuser/cables/routes'
     | '/_appuser/org-users/add_employees'
     | '/_appuser/property/routes'
@@ -1014,6 +1037,7 @@ export interface FileRouteTypes {
     | '/_appuser/deparments/$departmentID/'
     | '/_appuser/org-users/$employeeID/'
     | '/_appuser/payments/$accountId/'
+    | '/_appuser/sharpnr-services/stockwave/'
     | '/_appuser/business-ops/property/$propertyId/details'
     | '/_appuser/business-ops/property/$propertyId/property-configuration'
     | '/_appuser/authorization/policies/$policyID/'
@@ -1326,12 +1350,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserCablesRoutesRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/sharpnr-services/stockwave': {
+      id: '/_appuser/sharpnr-services/stockwave'
+      path: '/sharpnr-services/stockwave'
+      fullPath: '/sharpnr-services/stockwave'
+      preLoaderRoute: typeof AppuserSharpnrServicesStockwaveRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/org-users/$employeeID': {
       id: '/_appuser/org-users/$employeeID'
       path: '/org-users/$employeeID'
       fullPath: '/org-users/$employeeID'
       preLoaderRoute: typeof AppuserOrgUsersEmployeeIDRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/sharpnr-services/stockwave/': {
+      id: '/_appuser/sharpnr-services/stockwave/'
+      path: '/'
+      fullPath: '/sharpnr-services/stockwave/'
+      preLoaderRoute: typeof AppuserSharpnrServicesStockwaveIndexRouteImport
+      parentRoute: typeof AppuserSharpnrServicesStockwaveRouteRoute
     }
     '/_appuser/payments/$accountId/': {
       id: '/_appuser/payments/$accountId/'
@@ -1780,6 +1818,21 @@ const AppuserOrgUsersEmployeeIDRouteRouteWithChildren =
     AppuserOrgUsersEmployeeIDRouteRouteChildren,
   )
 
+interface AppuserSharpnrServicesStockwaveRouteRouteChildren {
+  AppuserSharpnrServicesStockwaveIndexRoute: typeof AppuserSharpnrServicesStockwaveIndexRoute
+}
+
+const AppuserSharpnrServicesStockwaveRouteRouteChildren: AppuserSharpnrServicesStockwaveRouteRouteChildren =
+  {
+    AppuserSharpnrServicesStockwaveIndexRoute:
+      AppuserSharpnrServicesStockwaveIndexRoute,
+  }
+
+const AppuserSharpnrServicesStockwaveRouteRouteWithChildren =
+  AppuserSharpnrServicesStockwaveRouteRoute._addFileChildren(
+    AppuserSharpnrServicesStockwaveRouteRouteChildren,
+  )
+
 interface AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteChildren {
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRestaurantIDIndexRoute
 }
@@ -1898,6 +1951,7 @@ interface AppuserRouteRouteChildren {
   AppuserSiloRouteRoute: typeof AppuserSiloRouteRouteWithChildren
   AppuserHomeRoute: typeof AppuserHomeRoute
   AppuserOrgUsersEmployeeIDRouteRoute: typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
+  AppuserSharpnrServicesStockwaveRouteRoute: typeof AppuserSharpnrServicesStockwaveRouteRouteWithChildren
   AppuserCablesRoutesRoute: typeof AppuserCablesRoutesRoute
   AppuserOrgUsersAdd_employeesRoute: typeof AppuserOrgUsersAdd_employeesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
@@ -1946,6 +2000,8 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserHomeRoute: AppuserHomeRoute,
   AppuserOrgUsersEmployeeIDRouteRoute:
     AppuserOrgUsersEmployeeIDRouteRouteWithChildren,
+  AppuserSharpnrServicesStockwaveRouteRoute:
+    AppuserSharpnrServicesStockwaveRouteRouteWithChildren,
   AppuserCablesRoutesRoute: AppuserCablesRoutesRoute,
   AppuserOrgUsersAdd_employeesRoute: AppuserOrgUsersAdd_employeesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
