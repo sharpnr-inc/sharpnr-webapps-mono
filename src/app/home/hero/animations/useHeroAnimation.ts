@@ -1,65 +1,137 @@
-import { useGSAP } from "@gsap/react";
-import { gsap } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { animate, stagger, utils } from "animejs";
+import { gsap, useGSAP } from "@/configs/gsap";
+import { prefersReduced } from "@/app/home/shared/motion";
 
 interface HeroAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
-  copyRef: RefObject<HTMLDivElement | null>;
-  halvesRef: RefObject<HTMLDivElement | null>;
-  cueRef: RefObject<HTMLDivElement | null>;
+  copyRef: RefObject<HTMLParagraphElement | null>;
+  ctaRef: RefObject<HTMLDivElement | null>;
+  visualRef: RefObject<HTMLDivElement | null>;
 }
 
-/**
- * Opening motion: meaning loads first. The message staggers in, then
- * the two halves settle and the connector draws between them —
- * "connected out of the box" shown, not decorated.
+/*
+ * The opening — an eight second sequence, cut to the beat.
+ *
+ *   0.0  quiet. only the field.
+ *   0.3  One Platform.
+ *   0.7  Every Business.
+ *   1.25 the paragraph
+ *   1.7  the invitation
+ *   2.25 the capabilities arrive, one per beat
+ *   4.45 everything converges
+ *   5.05 Sharpnr becomes the centre
+ *        idle
+ *
+ * Each capability is given a full beat of its own, so the visitor reads it
+ * rather than watching a stagger. Nothing loops afterwards.
  */
+const T = {
+  line1: 300,
+  line2: 720,
+  copy: 1250,
+  cta: 1680,
+  firstWord: 2250,
+  wordBeat: 130,
+  converge: 4450,
+  centre: 5050,
+} as const;
+
 export function useHeroAnimation(refs: HeroAnimationRefs) {
-  const { sectionRef, copyRef, halvesRef, cueRef } = refs;
+  const { sectionRef, copyRef, ctaRef, visualRef } = refs;
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      if (prefersReducedMotion) return;
+      const words = utils.$(".hero-word") as HTMLElement[];
+      const centre = utils.$(".hero-center");
+      const halo = utils.$(".hero-halo");
+      const line1 = utils.$(".hero-line-1 .hp-word");
+      const line2 = utils.$(".hero-line-2 .hp-word");
 
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      // Reduced motion: the finished frame, immediately.
+      if (prefersReduced()) {
+        utils.set([...line1, ...line2, ...words, ...centre, ...halo], {
+          opacity: 1,
+        });
+        return;
+      }
 
-      // ── The message first ───────────────────────────────────────
-      tl.from(copyRef.current ? copyRef.current.children : [], {
-        opacity: 0,
-        y: 24,
-        duration: 0.7,
-        stagger: 0.12,
+      // Hold everything back — the sequence starts from silence.
+      utils.set([...line1, ...line2], { opacity: 0, translateY: "0.5em" });
+      utils.set(words, { opacity: 0, filter: "blur(6px)" });
+      utils.set([...centre, ...halo], { opacity: 0 });
+
+      const reveal = { duration: 820, ease: "outExpo" } as const;
+
+      // 0.5s / 1.0s — the two lines, each on its own beat
+      animate(line1, {
+        ...reveal,
+        opacity: 1,
+        translateY: "0em",
+        delay: stagger(38, { start: T.line1 }),
+      });
+      animate(line2, {
+        ...reveal,
+        opacity: 1,
+        translateY: "0em",
+        delay: stagger(38, { start: T.line2 }),
       });
 
-      // ── The two halves settle in ────────────────────────────────
-      tl.from(
-        ".hero-half",
-        { opacity: 0, y: 16, duration: 0.6, stagger: 0.12 },
-        "-=0.2",
-      );
+      // 1.8s / 2.4s — paragraph, then the invitation
+      const buttons = ctaRef.current ? Array.from(ctaRef.current.children) : [];
+      gsap
+        .timeline({ defaults: { ease: "power3.out" } })
+        .from(copyRef.current, { opacity: 0, y: 16, duration: 0.6 }, T.copy / 1000)
+        .from(
+          buttons,
+          { opacity: 0, y: 12, duration: 0.5, stagger: 0.12 },
+          T.cta / 1000,
+        );
 
-      // ── The connection draws between them ───────────────────────
-      tl.from(
-        ".hero-connector-line",
-        { scaleX: 0, duration: 0.9, ease: "power2.inOut" },
-        "-=0.4",
-      );
+      // 3.2s → 6.4s — one capability per beat
+      animate(words, {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 900,
+        ease: "outExpo",
+        delay: stagger(T.wordBeat, { start: T.firstWord }),
+      });
 
-      tl.from(cueRef.current, { opacity: 0, duration: 0.8 }, "-=0.3");
+      // 7.2s — everything draws toward the middle
+      if (visualRef.current && words.length) {
+        const box = visualRef.current.getBoundingClientRect();
+        const cx = box.left + box.width / 2;
+        const cy = box.top + box.height / 2;
 
-      // ── Scroll cue breathes gently ──────────────────────────────
-      gsap.to(".hero-cue-line", {
-        scaleY: 1.6,
-        transformOrigin: "top",
-        opacity: 0.6,
-        duration: 1.6,
-        ease: "power1.inOut",
-        yoyo: true,
-        repeat: -1,
-        delay: 2.5,
+        for (const word of words) {
+          const r = word.getBoundingClientRect();
+          const dx = r.left + r.width / 2 - cx;
+          const dy = r.top + r.height / 2 - cy;
+          const len = Math.hypot(dx, dy) || 1;
+          animate(word, {
+            translateX: (-dx / len) * 14,
+            translateY: (-dy / len) * 14,
+            duration: 1400,
+            ease: "inOutQuad",
+            delay: T.converge,
+          });
+        }
+      }
+
+      // 8.0s — the centre resolves, and the sequence rests
+      animate(centre, {
+        opacity: 1,
+        scale: [0.97, 1],
+        duration: 900,
+        ease: "outExpo",
+        delay: T.centre,
+      });
+      animate(halo, {
+        opacity: 1,
+        scale: [0.88, 1],
+        duration: 1500,
+        ease: "outQuad",
+        delay: T.centre,
       });
     },
     { scope: sectionRef },

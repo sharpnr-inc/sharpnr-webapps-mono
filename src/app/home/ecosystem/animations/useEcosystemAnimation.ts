@@ -1,58 +1,71 @@
-import { useGSAP } from "@gsap/react";
-import { gsap, DrawSVGPlugin } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { useGSAP, ScrollTrigger } from "@/configs/gsap";
+import { prefersReduced, revealOnce } from "@/app/home/shared/motion";
+import { animeWordsOnEnter } from "@/app/home/shared/reveal";
 
 interface EcosystemAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
-  introRef: RefObject<HTMLDivElement | null>;
-  listRef: RefObject<HTMLDivElement | null>;
+  headingRef: RefObject<HTMLHeadingElement | null>;
+  copyRef: RefObject<HTMLParagraphElement | null>;
+  eventRef: RefObject<HTMLDivElement | null>;
+  stageRef: RefObject<HTMLDivElement | null>;
+  /** Number of capabilities in the activation sequence. */
+  steps: number;
+  /** Called (only on change) with the active step index, or -1 for idle. */
+  onStep: (index: number) => void;
 }
 
-/** The ecosystem gradually assembles itself as the section enters. */
+/**
+ * Scene 04 motion — the connected ecosystem.
+ * A business event flows through the platform: as the visitor scrolls, one
+ * capability activates at a time, then everything returns to idle. Driven by
+ * scroll progress (never pinned, never locked); the active index only changes
+ * on segment boundaries, so React re-renders a handful of times and CSS
+ * transitions do the smoothing. One highlight, one active capability — no
+ * connecting lines. The visitor controls the story.
+ */
 export function useEcosystemAnimation(refs: EcosystemAnimationRefs) {
-  const { sectionRef, introRef, listRef } = refs;
+  const { sectionRef, headingRef, copyRef, eventRef, stageRef, steps, onStep } =
+    refs;
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      if (prefersReducedMotion) return;
+      const section = sectionRef.current;
+      if (!section) return;
 
-      const tl = gsap.timeline({
-        defaults: { ease: "power3.out" },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
+      if (prefersReduced()) {
+        onStep(-1);
+        return;
+      }
+
+      animeWordsOnEnter(headingRef.current, section);
+      if (copyRef.current)
+        revealOnce(copyRef.current, section, { delay: 0.15 });
+      if (eventRef.current)
+        revealOnce(eventRef.current, section, { delay: 0.3 });
+
+      // Lead segment (event appears) + one per capability + trailing idle.
+      const segments = steps + 2;
+      let last = -2;
+
+      ScrollTrigger.create({
+        trigger: stageRef.current!,
+        start: "top 70%",
+        end: "bottom 45%",
+        scrub: true,
+        onUpdate: (self) => {
+          const seg = Math.min(
+            segments - 1,
+            Math.floor(self.progress * segments),
+          );
+          const index = seg === 0 || seg > steps ? -1 : seg - 1;
+          if (index !== last) {
+            last = index;
+            onStep(index);
+          }
         },
       });
-
-      tl.from(introRef.current ? introRef.current.children : [], {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.12,
-      });
-      tl.from(".eco-core", { opacity: 0, scale: 0.9, transformOrigin: "210px 210px", duration: 0.5 }, "-=0.2");
-      tl.from(
-        ".eco-node",
-        { opacity: 0, scale: 0.7, transformOrigin: "center center", duration: 0.45, stagger: 0.07 },
-        "-=0.2",
-      );
-      tl.fromTo(
-        ".eco-line",
-        { drawSVG: "0%" },
-        { drawSVG: "100%", duration: 0.8, stagger: 0.04, ease: "power2.inOut" },
-        "-=0.4",
-      );
-      tl.from(
-        listRef.current ? listRef.current.children : [],
-        { opacity: 0, y: 20, duration: 0.5, stagger: 0.08 },
-        "-=0.8",
-      );
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [steps] },
   );
-
-  void DrawSVGPlugin;
 }

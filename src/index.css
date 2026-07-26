@@ -25,25 +25,42 @@
   --color-ice: #caf0f8; /* soft section backgrounds, highlights */
   --color-soft: #fcfcfd; /* alternative page background */
 
-  /* ── Type scale (SDL) ── */
-  --text-display-xl: 4rem;
+  /* ── Homepage dark canvas (website_instruction / Visual Language 3.0) ──
+     The homepage is one continuous navy experience. These are the exact
+     tokens from 01_Visual_Language.md; scoped in intent to the dark
+     surfaces so the light-first pages above are untouched. ── */
+  /* The homepage uses ONLY the Sharpnr palette above (navy / blue / cyan /
+     sky / ice). The single exception is the page background. Surfaces are
+     palette colours used at low opacity, never new hues. */
+  /* Secondary text is a deliberate cool grey, never white at low opacity —
+     washed-out white is what makes a dark page read cheap. */
+  --color-mute: #8a94a8;
+  --color-twilight: #5c87b5; /* navy → sky, the palette at dusk */
+  --color-ink: #04203f; /* text on light sections — navy, never black */
+  --color-canvas: #00101f; /* homepage page background — deep navy, flat */
+  --color-surface: #03045e; /* = navy — panels, cards */
+  --color-elevated: #0077b6; /* = blue — extra layer, used sparingly */
+
+  /* ── Type scale (SDL) — fluid: shrinks on small screens, reaches
+     the SDL max on tablet and up so large screens are unchanged. ── */
+  --text-display-xl: clamp(2.5rem, 1.35rem + 5.8vw, 4rem);
   --text-display-xl--line-height: 1.06;
   --text-display-xl--letter-spacing: -0.02em;
-  --text-display-lg: 3.5rem;
+  --text-display-lg: clamp(2.25rem, 1.3rem + 4.7vw, 3.5rem);
   --text-display-lg--line-height: 1.08;
   --text-display-lg--letter-spacing: -0.02em;
-  --text-display-md: 3rem;
+  --text-display-md: clamp(2rem, 1.25rem + 3.6vw, 3rem);
   --text-display-md--line-height: 1.1;
   --text-display-md--letter-spacing: -0.015em;
-  --text-heading-xl: 2.5rem;
+  --text-heading-xl: clamp(1.875rem, 1.3rem + 2.5vw, 2.5rem);
   --text-heading-xl--line-height: 1.15;
   --text-heading-xl--letter-spacing: -0.01em;
-  --text-heading-lg: 2rem;
+  --text-heading-lg: clamp(1.625rem, 1.2rem + 1.8vw, 2rem);
   --text-heading-lg--line-height: 1.15;
   --text-heading-lg--letter-spacing: -0.01em;
-  --text-heading-md: 1.75rem;
+  --text-heading-md: clamp(1.5rem, 1.2rem + 1.3vw, 1.75rem);
   --text-heading-md--line-height: 1.2;
-  --text-heading-sm: 1.5rem;
+  --text-heading-sm: clamp(1.375rem, 1.15rem + 1vw, 1.5rem);
   --text-heading-sm--line-height: 1.25;
   --text-title-lg: 1.25rem;
   --text-title-lg--line-height: 1.35;
@@ -80,3 +97,334 @@ body {
 .prose-width {
   max-width: 65ch;
 }
+
+/* ── Scrollbar (Visual Language: replace the default — thin, minimal,
+   rounded, Sharpnr colors, visible on hover). Neutral translucent thumb
+   so it reads on both the light pages and the navy homepage. ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 160, 0.4) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 116, 160, 0.4);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-cyan);
+}
+
+/* ── Homepage canvas — one flat, continuous dark navy. No gradient.
+   (Visual Language: "no large color changes between sections"; the
+   background stays visually quiet and never competes with content.) ── */
+.hp-canvas {
+  /* Painted underneath the WebGL layer, so there is never a white frame
+     while the canvas mounts and never a jump when it does. */
+  background-color: var(--color-canvas);
+}
+
+
+/* ── Centre of gravity — a soft light gathering behind the wordmark. Light,
+   never a shape: no border, no edge, no circle. ── */
+.hero-halo {
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(144, 224, 239, 0.13),
+    rgba(0, 180, 216, 0.05) 55%,
+    transparent 100%
+  );
+  filter: blur(26px);
+  will-change: transform, opacity;
+}
+
+/* ── Ambient depth — two very soft pools of light drifting almost
+   imperceptibly. Transform-only so it stays on the compositor, and it costs
+   nothing to scroll past. The visitor should feel it, not see it. ── */
+.hp-glow {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.hp-glow--a {
+  top: -14%;
+  left: -12%;
+  width: 70vw;
+  height: 70vw;
+  max-width: 60rem;
+  max-height: 60rem;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 119, 182, 0.16),
+    transparent 100%
+  );
+}
+.hp-glow--b {
+  right: -16%;
+  bottom: -10%;
+  width: 62vw;
+  height: 62vw;
+  max-width: 52rem;
+  max-height: 52rem;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 180, 216, 0.09),
+    transparent 100%
+  );
+}
+@keyframes hp-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3%, 2.5%, 0);
+  }
+}
+@keyframes hp-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-2.5%, -3%, 0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hp-glow--a {
+    animation: hp-drift-a 44s ease-in-out infinite;
+  }
+  .hp-glow--b {
+    animation: hp-drift-b 52s ease-in-out infinite;
+  }
+}
+
+/* ── Fine noise — the single texture allowed by Visual Language. Tiles at
+   any height, sits behind content, barely perceptible. ── */
+.hp-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+}
+
+/* ── Per-section depth — every viewport gets a soft low-opacity glow so the
+   navy never reads flat. --glow-x / --glow-y vary the light per section.
+   Allowed: "low opacity glow / soft light". No blobs, no hard circles. ── */
+.hp-section {
+  position: relative;
+  isolation: isolate;
+}
+.hp-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── Premium card — cursor spotlight + gradient hairline border on hover
+   (Aceternity-style, adapted). --mx/--my track the pointer. ── */
+.hp-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(135deg, rgba(0, 180, 216, 0.1), transparent 48%);
+}
+.hp-card:hover::before {
+  opacity: 1;
+}
+.hp-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(135deg, rgba(0, 180, 216, 0.65), transparent 45%, rgba(255, 255, 255, 0.14));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.hp-card:hover::after {
+  opacity: 1;
+}
+
+/* ── Hero sizing — the hero must sit comfortably inside one viewport on a
+   13" laptop (short, wide screens), so type and spacing respond to viewport
+   HEIGHT as well as width instead of only scaling with vw. ── */
+.hp-hero {
+  padding-top: clamp(6.5rem, 13vh, 9rem);
+  padding-bottom: clamp(3.5rem, 8vh, 6rem);
+}
+.hp-hero-title {
+  font-size: clamp(2.25rem, 3.3vw + 0.9rem, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.hp-hero-copy {
+  font-size: clamp(1rem, 0.35vw + 0.92rem, 1.125rem);
+  line-height: 1.6;
+}
+@media (max-height: 880px) and (min-width: 1024px) {
+  .hp-hero-title {
+    font-size: clamp(2rem, 2.5vw + 0.8rem, 3.25rem);
+  }
+  .hp-hero-copy {
+    font-size: 1rem;
+  }
+}
+
+/* ── Section rhythm — like the hero, every section responds to viewport
+   HEIGHT as well as width, so the page stays comfortable on a 13" laptop
+   instead of only being tuned for tall desktop monitors. ── */
+.hp-sec {
+  padding-top: clamp(4rem, 9vh, 7.5rem);
+  padding-bottom: clamp(4rem, 9vh, 7.5rem);
+}
+.hp-h2 {
+  font-size: clamp(1.75rem, 2.5vw + 0.8rem, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+/* The two narrative peaks — "Everything. One Platform." and the closing
+   invitation — carry more weight than the supporting sections, so the page
+   has a crescendo instead of speaking at one volume throughout. */
+.hp-h2--peak {
+  font-size: clamp(2rem, 3.4vw + 0.9rem, 3.75rem);
+  letter-spacing: -0.035em;
+}
+.hp-lede {
+  font-size: clamp(0.9375rem, 0.3vw + 0.88rem, 1.125rem);
+  line-height: 1.6;
+}
+
+/* Scene 04 — the active capability glows on its glyphs, never as a box. */
+.hp-cap-active {
+  text-shadow:
+    0 0 18px rgba(0, 180, 216, 0.55),
+    0 0 42px rgba(0, 180, 216, 0.25);
+}
+@media (max-height: 880px) and (min-width: 1024px) {
+  .hp-sec {
+    padding-top: clamp(3rem, 7vh, 5rem);
+    padding-bottom: clamp(3rem, 7vh, 5rem);
+  }
+  .hp-h2 {
+    font-size: clamp(1.6rem, 1.9vw + 0.7rem, 2.35rem);
+  }
+  .hp-lede {
+    font-size: 1rem;
+  }
+  /* Full-height sections keep presence on short screens without forcing a
+     whole viewport — the closing moment still needs air. */
+  .hp-flex-section {
+    min-height: 76vh;
+  }
+}
+
+/* Homepage — one restrained modular language. */
+.hp-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; color: rgba(202, 240, 248, 0.72); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.hp-eyebrow::before { width: 1.75rem; height: 1px; background: var(--color-cyan); content: ""; }
+/* Scene 02 — each capability is an isolated slab. One hairline, one flat
+   surface: no nested frames, no glow. The isolation is the message. */
+.hp-platform-title { border-inline: 1px solid rgba(0,180,216,0.45); }
+.hp-principle + .hp-principle { border-left: 1px solid rgba(255,255,255,0.1); }
+@media (max-width: 639px) { .hp-principle + .hp-principle { border-left: 0; border-top: 1px solid rgba(255,255,255,0.1); } }
+
+/* ── Homepage idle motion — Scene 02 (Business Chaos) blocks each drift
+   on their own rhythm to communicate disconnection. Fully disabled when
+   the visitor prefers reduced motion (Motion Language: replace with a
+   simple fade). Per-block duration/delay set inline. ── */
+@keyframes hp-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hp-idle {
+    animation: hp-float var(--hp-dur, 6s) ease-in-out var(--hp-delay, 0s)
+      infinite;
+  }
+}
+
+/* Scene 05 — the index name eases forward on approach, so a row lifts out of
+   the column without anything moving around it. */
+.hp-index-row .hp-index-name {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hp-index-row:hover .hp-index-name { transform: translateX(10px); }
+}
+
+/* Scene 06 — the slot re-sets as the industry changes. Keyed remount, so the
+   swap is legible as a change of subject rather than a crossfade. */
+@media (prefers-reduced-motion: no-preference) {
+  .hp-slot { animation: hp-slot-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+}
+@keyframes hp-slot-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+/* Hero light — a single soft pool of cyan sitting behind the opening.
+   Low opacity, heavily blurred, never a visible circle. */
+.hero-bloom {
+  background: #00b4d8;
+  opacity: 0.1;
+  filter: blur(120px);
+  border-radius: 9999px;
+}
+
+/* ── Stage panel — the surface each scene plays on.
+   Sits a hair above the field, held by a single hairline. Depth comes from
+   one soft inner highlight along the top edge, never from a shadow stack. ── */
+.hp-stage {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0) 38%),
+    rgba(2, 18, 40, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 400ms cubic-bezier(0.22,1,0.36,1);
+}
+.hp-stage:hover { border-color: rgba(255, 255, 255, 0.11); }
+
+/* Bento tile — a hair above the field, one hairline, one inner highlight.
+   The pointer highlight is a wash, never a spotlight circle. */
+.hp-tile {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  background:
+    radial-gradient(22rem 22rem at var(--mx, 50%) var(--my, 0%), rgba(0,180,216,0.055), transparent 70%),
+    linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0) 42%),
+    rgba(6, 20, 38, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  transition: border-color 320ms cubic-bezier(0.22,1,0.36,1), background-color 320ms;
+}
+.hp-tile:hover { border-color: rgba(255, 255, 255, 0.14); }
