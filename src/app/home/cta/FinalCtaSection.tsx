@@ -4,6 +4,8 @@ import { Button } from "@/app/home/shared/Button";
 import { Words } from "@/app/home/shared/Words";
 import { useFinalCtaAnimation } from "./animations/useFinalCtaAnimation";
 
+const PARTICLE_COUNT = 10;
+
 /*
  * The invitation.
  *
@@ -37,6 +39,22 @@ export function FinalCtaSection() {
             className="relative mx-auto aspect-square w-full max-w-sm"
           >
             <div className="platform-halo absolute -inset-16 -z-10" />
+            {Array.from({ length: PARTICLE_COUNT }).map((_, i) => {
+              const angle = (i / PARTICLE_COUNT) * Math.PI * 2 + 0.4;
+              const radius = 30 + ((i * 13) % 24);
+              return (
+                <span
+                  key={i}
+                  className="hp-particle"
+                  style={{
+                    left: `${50 + radius * Math.cos(angle)}%`,
+                    top: `${50 + radius * Math.sin(angle)}%`,
+                    width: 2 + (i % 3),
+                    height: 2 + (i % 3),
+                  }}
+                />
+              );
+            })}
             <div className="hp-ambient-shape absolute inset-[8%]">
               <div className="absolute left-1/2 top-[38%] h-px w-[70%] -translate-x-1/2 bg-sky/10" />
               <div className="absolute left-[42%] top-1/2 h-[64%] w-px -translate-y-1/2 bg-sky/10" />
@@ -48,9 +66,14 @@ export function FinalCtaSection() {
         <div className="order-1 lg:order-2 lg:pl-6">
           <h2
             ref={headingRef}
-            className="hp-h2 hp-h2--peak font-extrabold text-white"
+            className="hp-scene-title font-extrabold text-white"
           >
-            <Words text="Ready to simplify your business?" />
+            <span className="block">
+              <Words text="Ready to simplify," />
+            </span>
+            <span className="block text-twilight">
+              <Words text="Your business?" />
+            </span>
           </h2>
           <p ref={copyRef} className="mt-6 max-w-md hp-lede text-mute">
             Start where you are. Expand when you&rsquo;re ready.

@@ -134,15 +134,12 @@ body {
 
 /* ── Centre of gravity — a soft light gathering behind the wordmark. Light,
    never a shape: no border, no edge, no circle. ── */
+/* A wide, very soft pool rather than a tight halo — 8% cyan under a heavy
+   blur, so the centre reads as lit from within and never as a shape. */
 .hero-halo {
   border-radius: 9999px;
-  background: radial-gradient(
-    closest-side,
-    rgba(144, 224, 239, 0.13),
-    rgba(0, 180, 216, 0.05) 55%,
-    transparent 100%
-  );
-  filter: blur(26px);
+  background: rgba(0, 180, 216, 0.08);
+  filter: blur(140px);
   will-change: transform, opacity;
 }
 
@@ -231,6 +228,18 @@ body {
   }
 }
 
+/* ── Ambient particles — a few soft motes for scenes that want a touch of
+   the hero's depth (Scene 03 settle, Scene 08 close). Same visual language
+   as the hero's own particles, kept as a separate class since these live
+   outside the hero and must never be confused with it. ── */
+.hp-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--color-sky) 0%, transparent 70%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
 /* ── Fine noise — the single texture allowed by Visual Language. Tiles at
    any height, sits behind content, barely perceptible. ── */
 .hp-noise {
@@ -238,9 +247,10 @@ body {
   opacity: 0.035;
 }
 
-/* ── Per-section depth — every viewport gets a soft low-opacity glow so the
-   navy never reads flat. --glow-x / --glow-y vary the light per section.
-   Allowed: "low opacity glow / soft light". No blobs, no hard circles. ── */
+/* ── Per-section frame — the page background stays flat, solid navy
+   throughout (no gradient, no glow blobs); only a hairline separates
+   sections. Any visual variety between scenes comes from their content,
+   not the canvas underneath it. ── */
 .hp-section {
   position: relative;
   isolation: isolate;
@@ -254,40 +264,53 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-/* ── Premium card — cursor spotlight + gradient hairline border on hover
-   (Aceternity-style, adapted). --mx/--my track the pointer. ── */
-.hp-card::before {
+/* ── Spotlight — a glow and a glowing hairline edge that follow the
+   cursor (Aceternity-style "card spotlight", adapted to plain CSS custom
+   properties + one onMouseMove handler, see shared/spotlight.ts). Direct
+   children are lifted above both pseudo-layers automatically. ── */
+.hp-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.hp-spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+.hp-spotlight::before,
+.hp-spotlight::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
   z-index: 0;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
-  background: linear-gradient(135deg, rgba(0, 180, 216, 0.1), transparent 48%);
-}
-.hp-card:hover::before {
-  opacity: 1;
-}
-.hp-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   border-radius: inherit;
+  transition: opacity 400ms ease;
+}
+.hp-spotlight::before {
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 180, 216, 0.14),
+    transparent 70%
+  );
+}
+.hp-spotlight::after {
   padding: 1px;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: linear-gradient(135deg, rgba(0, 180, 216, 0.65), transparent 45%, rgba(255, 255, 255, 0.14));
+  background: radial-gradient(
+    300px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 180, 216, 0.75),
+    transparent 70%
+  );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
-.hp-card:hover::after {
+.hp-spotlight:hover::before,
+.hp-spotlight:hover::after,
+.hp-spotlight:focus-within::before,
+.hp-spotlight:focus-within::after {
   opacity: 1;
 }
 
@@ -331,6 +354,20 @@ body {
 /* The two narrative peaks — "Everything. One Platform." and the closing
    invitation — carry more weight than the supporting sections, so the page
    has a crescendo instead of speaking at one volume throughout. */
+/* One size for every scene heading on the homepage. Scenes previously
+   mixed hp-hero-title and hp-h2--peak, so the page changed volume as you
+   scrolled; a single class keeps the whole story spoken at one level. */
+.hp-scene-title {
+  font-size: clamp(2rem, 3.1vw + 0.9rem, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+}
+@media (max-height: 880px) and (min-width: 1024px) {
+  .hp-scene-title {
+    font-size: clamp(1.75rem, 2.3vw + 0.8rem, 2.75rem);
+  }
+}
+
 .hp-h2--peak {
   font-size: clamp(2rem, 3.4vw + 0.9rem, 3.75rem);
   letter-spacing: -0.035em;
@@ -387,92 +424,288 @@ body {
 }
 
 
-/* ── Capability module — Scene 05. Card-free: a hairline frame that
-   luminesces on hover, a name, a sentence. No fill, no icon chip, no CTA
-   link — the typography and the index mark are the only geometry. ── */
-.hp-cap-module {
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  transition: border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
+/* ── Scene 02: the board before Sharpnr. Same dialect as the isometric
+   board — parts, designators, routed traces — but flat and severed. ── */
+.hp-frag-part {
+  position: absolute;
+  border: 1px solid rgba(144, 224, 239, 0.16);
+  border-top-color: rgba(202, 240, 248, 0.3);
+  border-left-color: rgba(202, 240, 248, 0.24);
+  background: linear-gradient(150deg, rgba(22, 52, 79, 0.9), rgba(9, 26, 42, 0.9));
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.hp-cap-module:hover {
-  border-color: rgba(0, 180, 216, 0.5);
+.hp-frag-name {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(214, 244, 255, 0.9);
 }
-.hp-cap-module:hover .hp-cap-index {
-  color: var(--color-cyan);
-  transform: translateX(4px);
+.hp-frag-code {
+  position: absolute;
+  top: -14px;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: rgba(138, 148, 168, 0.55);
 }
-.hp-cap-index {
-  display: inline-block;
-  font-variant-numeric: tabular-nums;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(144, 224, 239, 0.55);
-  transition: color 280ms cubic-bezier(0.22, 1, 0.36, 1), transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+/* A run that was meant to complete. Both stubs are drawn; the gap between
+   them is the whole point, so it is never bridged. */
+.hp-frag-trace {
+  position: absolute;
+  background: rgba(0, 119, 182, 0.55);
+  border-radius: 9999px;
+}
+/* The open terminal at each break — a pad with nothing on the other side. */
+.hp-frag-break {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 9999px;
+  border: 1px solid rgba(144, 224, 239, 0.45);
+}
+.hp-frag-state {
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  white-space: nowrap;
+  color: rgba(138, 148, 168, 0.5);
+}
+/* The charge that sets out and never arrives. */
+.hp-frag-pulse {
+  position: absolute;
+  border-radius: 9999px;
+  background: var(--color-cyan);
 }
 
-/* ── Masonry — Scene 05. Plain CSS columns; each card opts out of splitting
-   mid-box via break-inside-avoid-column on EditorialCard itself. ── */
-.hp-masonry {
-  column-count: 1;
-  column-gap: 1rem;
-}
-@media (width >= 40rem) {
-  .hp-masonry {
-    column-count: 2;
-  }
-}
 
-/* ── Islands — Scenes 02/03. Flat typographic geometry, not a UI card: a
-   hairline frame and a label doing the work, never a filled block. Apart
-   in Scene 02, settled edge to edge into one structure in Scene 03. ── */
-.hp-island {
+/* ── Icon chip — Scenes 02/03/04/06. Flat typographic geometry, not a UI
+   card: a hairline frame and a bare, larger SVG glyph doing the work —
+   never a filled block, never a small icon boxed inside a tinted square. ── */
+.hp-icon-chip {
   border-radius: 14px;
   border: 1px solid rgba(144, 224, 239, 0.16);
   background: rgba(144, 224, 239, 0.03);
   transition: border-color 260ms ease, background-color 260ms ease;
 }
-.hp-island:hover {
+.hp-icon-chip:hover {
   border-color: rgba(144, 224, 239, 0.4);
   background: rgba(144, 224, 239, 0.06);
 }
-.hp-island-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-sky);
-}
-/* Scene 03 — the outline that fades in once the three islands have
-   settled, reading them as one structure rather than three. */
-.hp-structure-outline {
-  border-radius: 28px;
-  border: 1px solid rgba(144, 224, 239, 0.3);
-  box-shadow: 0 0 0 1px rgba(144, 224, 239, 0.08) inset;
+.hp-icon-chip[aria-pressed="true"] {
+  border-color: var(--color-cyan);
+  background: rgba(0, 180, 216, 0.08);
 }
 
-/* ── Zone stations — Scene 04. A capability the transit line visits; lit by
-   GSAP as the pulse travelling the line reaches it. ── */
-.hp-zone-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+/* ── Core map — Scene 03. Razor-thin engineering lines, not a glowing
+   constellation: eight capabilities, pure typography, radiating from one
+   anchor. Reads as a blueprint, not a diagram. ── */
+/* ── Isometric stack — Scene 03. Modular business units resting on one
+   unified platform, built with real CSS 3D rather than faked skews: the
+   stage carries the isometric rotation and every block inherits it. ── */
+.hp-iso-stage {
+  transform: rotateX(56deg) rotateZ(-32deg);
+  transform-style: preserve-3d;
+}
+/* Engraved, not stacked: the substrate is infrastructure the board is cut
+   into, so it reads as a recess — darker than the canvas, lit only along
+   its inner edge — rather than as one more module sitting on top. */
+/* Etched into the board, not stacked on it: a recess cut into the PCB,
+   lit only where the cut catches light along its far edge. */
+.hp-iso-plate {
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 52%, transparent 96%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 52%, transparent 96%);
+  background: rgba(0, 8, 16, 0.94);
+  border: 1px solid rgba(0, 119, 182, 0.14);
+  border-bottom-color: rgba(0, 119, 182, 0.3);
+  border-right-color: rgba(0, 119, 182, 0.3);
+  box-shadow:
+    inset 2px 2px 6px rgba(0, 0, 0, 0.9),
+    inset 0 0 60px rgba(0, 0, 0, 0.8);
+}
+/* The platform surface itself — this grid reads as the foundation the
+   units sit on, not as background texture behind them. */
+/* Structural support only — it must never compete with the ecosystem
+   sitting on it. */
+.hp-iso-plate-grid {
+  background-image:
+    linear-gradient(rgba(0, 119, 182, 1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 119, 182, 1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.07;
+}
+.hp-iso-block {
+  transform-style: preserve-3d;
+}
+/* Solid and opaque, never translucent — three tones do the 3D work:
+   light top, medium front, dark right. Palette-derived navies. */
+/* Mounting pads at each corner — four radial-gradients rather than four
+   extra elements, so the "soldered down" read costs nothing in DOM. */
+/* Machined aluminium: light falls from one direction, so only the top and
+   left edges catch it. Uniform lighting on every edge is what makes CSS 3D
+   read as flat. Mounting pads are four radial-gradients rather than four
+   extra elements, so the "soldered down" read costs nothing in DOM. */
+.hp-iso-top {
+  background-color: #16344f;
+  background-image:
+    radial-gradient(circle at 6px 6px, rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px),
+    radial-gradient(circle at calc(100% - 6px) 6px, rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px),
+    radial-gradient(circle at 6px calc(100% - 6px), rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px),
+    radial-gradient(circle at calc(100% - 6px) calc(100% - 6px), rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px);
+  border: 1px solid rgba(144, 224, 239, 0.12);
+  border-top-color: rgba(202, 240, 248, 0.42);
+  border-left-color: rgba(202, 240, 248, 0.34);
+}
+.hp-iso-front {
+  background: #0c2135;
+  border: 1px solid rgba(144, 224, 239, 0.12);
+}
+.hp-iso-side {
+  background: #071624;
+  border: 1px solid rgba(144, 224, 239, 0.12);
+}
+.hp-iso-block--core .hp-iso-top {
+  background: #0a5a8a;
+  border-color: rgba(0, 180, 216, 0.65);
+}
+.hp-iso-block--core .hp-iso-front {
+  background: #06405f;
+  border-color: rgba(0, 119, 182, 0.45);
+}
+.hp-iso-block--core .hp-iso-side {
+  background: #042d43;
+  border-color: rgba(0, 119, 182, 0.45);
+}
+/* The hub monolith — the one block that is a surface, not a container. */
+/* The signature: an illuminated perimeter edge. One recognisable detail
+   that marks the processor — reusable as Sharpnr's visual language
+   wherever this board reappears. */
+/* The signature: a machined bevel and an illuminated perimeter. Precision,
+   not gaming — the chamfer is a light top-left rim and a dark bottom-right
+   one, the way a milled edge actually catches light. */
+.hp-iso-block--hub .hp-iso-top {
+  background-image: linear-gradient(148deg, #1a5f8a 0%, #0e4468 45%, #07293f 100%);
+  border-color: rgba(144, 224, 239, 0.3);
+  border-top-color: rgba(226, 248, 255, 0.62);
+  border-left-color: rgba(226, 248, 255, 0.48);
+  box-shadow:
+    inset 1.5px 1.5px 0 rgba(226, 248, 255, 0.28),
+    inset -1.5px -1.5px 0 rgba(0, 40, 62, 0.5),
+    inset 0 0 22px rgba(202, 240, 248, 0.1);
+}
+.hp-iso-block--hub .hp-iso-front {
+  background: #005f92;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.hp-iso-block--hub .hp-iso-side {
+  background: #004770;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* PCB traces — strict 90° runs on the board plane, never diagonal, with
+   softened ends so elbows read as routed rather than butt-jointed.
+   Deliberately no box-shadow: a glow on every trace inside a preserve-3d
+   context is enough compositing work to stall the frame, so the glow is
+   spent only on the pulses that travel them. */
+.hp-iso-trace {
+  position: absolute;
+  background: #0077b6;
+  /* Fully rounded caps, so every elbow reads as routed rather than
+     butt-jointed where two runs meet at a via. */
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: var(--color-mute);
 }
-
-/* ── Morph shape — Scene 06. One abstract container whose silhouette
-   (clip-path, tweened by GSAP), icon and accent all change with the active
-   industry. Never a literal illustrated scene. ── */
-.hp-morph-shape {
-  background: linear-gradient(160deg, rgba(0, 119, 182, 0.22), rgba(0, 180, 216, 0.06));
-  border: 1px solid rgba(144, 224, 239, 0.2);
-  box-shadow: 0 30px 90px -40px rgba(0, 180, 216, 0.5);
-  transition: box-shadow 400ms ease;
+.hp-iso-trace--dim {
+  opacity: 0.4;
+}
+/* A via — the pad where two runs meet. */
+.hp-iso-via {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 9999px;
+  background: #0077b6;
+}
+/* The travelling charge — a comet, not a dot: a bright leading edge
+   trailing off into nothing, so direction of travel is legible at a
+   glance. The gradient direction is set per pulse from its own heading. */
+.hp-iso-pulse {
+  position: absolute;
+  border-radius: 9999px;
+}
+/* Bedrock, not a module: the widest, lowest, darkest slab on the board.
+   It reads as the floor the whole thing is cut into, so it takes almost
+   no light and never competes with the components above it. */
+.hp-iso-block--lake .hp-iso-top {
+  background-color: #04121f;
+  background-image: none;
+  border-color: rgba(0, 119, 182, 0.3);
+  border-top-color: rgba(0, 147, 221, 0.45);
+  border-left-color: rgba(0, 147, 221, 0.38);
+}
+.hp-iso-block--lake .hp-iso-front,
+.hp-iso-block--lake .hp-iso-side {
+  background: #020a12;
+  border-color: rgba(0, 119, 182, 0.18);
+}
+/* Silkscreen — the part designators printed onto a PCB beside each
+   component. Small, pale, letterspaced, slightly translucent, as if laid
+   down in white ink on the substrate. Only the foundation modules are
+   printed permanently; the rest appear on hover so the board stays clean. */
+.hp-silk {
+  color: rgba(214, 244, 255, 0.9);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.hp-silk--on,
+.hp-iso-block:hover .hp-silk,
+.hp-iso-block:focus-within .hp-silk {
+  opacity: 1;
+}
+/* The processor's name is engraved into its face, not printed beside it:
+   cut into the metal, so it takes a dark bevel above and a light one
+   below — the inverse of raised type. */
+.hp-silk--hub {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  color: rgba(2, 22, 36, 0.92);
+  text-shadow:
+    0 1px 0 rgba(190, 235, 255, 0.5),
+    0 -1px 0 rgba(0, 20, 34, 0.5);
+}
+/* The tether — a glowing line running down the Z axis from the hub into
+   the substrate. Replaces any arrow: the drop *is* the flow. */
+.hp-iso-drop {
+  background: linear-gradient(to bottom, #0077b6, rgba(0, 119, 182, 0));
+  box-shadow: 0 0 14px #0077b6;
+}
+.hp-core-node {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* ── Principle badge — Scene 07. A minimal outlined emblem, never a filled
@@ -548,6 +781,16 @@ body {
   width: 1rem;
 }
 
+/* ── Morph shape — Scene 06. One abstract container whose silhouette
+   (clip-path, tweened by GSAP), icon and accent all change with the active
+   industry. Never a literal illustrated scene. ── */
+.hp-morph-shape {
+  background: linear-gradient(160deg, rgba(0, 119, 182, 0.22), rgba(0, 180, 216, 0.06));
+  border: 1px solid rgba(144, 224, 239, 0.2);
+  box-shadow: 0 30px 90px -40px rgba(0, 180, 216, 0.5);
+  transition: box-shadow 400ms ease;
+}
+
 /* ── Ambient echo — Scene 08. A large, soft, unlabelled repeat of the
    Scene 03 structure, closing the page on the same shape it resolved on. ── */
 .hp-ambient-shape {
@@ -555,3 +798,117 @@ body {
   background: linear-gradient(160deg, rgba(0, 119, 182, 0.14), rgba(0, 180, 216, 0.04));
   border: 1px solid rgba(144, 224, 239, 0.12);
 }
+
+/* ── Flow — Scene 05. A real cross-product example, left to right: product
+   boxes on the dark canvas (never a light card), connected by dashed lines
+   a small badge travels along, naming the event that just happened. ── */
+.hp-flow-node {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 320ms ease, background-color 320ms ease;
+}
+.hp-flow-node.is-active {
+  border-color: rgba(0, 180, 216, 0.55);
+  background: rgba(0, 180, 216, 0.05);
+}
+.hp-flow-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 8px;
+  background: rgba(144, 224, 239, 0.08);
+  color: var(--color-sky);
+}
+.hp-flow-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+.hp-flow-skel {
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(144, 224, 239, 0.22);
+}
+/* The chain stacks vertically on phones — three nodes side by side at
+   375px breaks titles mid-word and clips the last one off-screen. */
+.hp-flow {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: stretch;
+}
+.hp-flow-connector {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  width: 1px;
+  height: 2.75rem;
+  background-image: linear-gradient(180deg, rgba(0, 180, 216, 0.5) 60%, transparent 0%);
+  background-size: 1px 10px;
+  background-repeat: repeat-y;
+}
+.hp-flow-connector::before,
+.hp-flow-connector::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-cyan);
+  background: var(--color-canvas);
+  transform: translate(-50%, -50%);
+}
+.hp-flow-connector::before {
+  top: 0;
+}
+.hp-flow-connector::after {
+  top: 100%;
+}
+@media (width >= 48rem) {
+  .hp-flow {
+    grid-template-columns: var(--flow-cols);
+    gap: 1rem;
+  }
+  .hp-flow-connector {
+    justify-self: stretch;
+    width: auto;
+    height: 1px;
+    background-image: linear-gradient(90deg, rgba(0, 180, 216, 0.5) 60%, transparent 0%);
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+  }
+  .hp-flow-connector::before,
+  .hp-flow-connector::after {
+    top: 50%;
+  }
+  .hp-flow-connector::before {
+    left: 0;
+  }
+  .hp-flow-connector::after {
+    left: 100%;
+  }
+}
+.hp-flow-badge {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  border-radius: 9999px;
+  background: var(--color-blue);
+  color: #ffffff;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  box-shadow: 0 8px 20px -6px rgba(0, 119, 182, 0.6);
+}
+

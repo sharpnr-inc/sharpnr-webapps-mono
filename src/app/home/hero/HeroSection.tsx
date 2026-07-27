@@ -32,10 +32,10 @@ export function HeroSection() {
         {/* Typography — the message loads first */}
         <div className="lg:pr-6">
           <h1
-            className="hp-hero-title font-extrabold text-white"
+            className="hp-scene-title font-extrabold text-white"
           >
             <span className="hero-line-1 block whitespace-nowrap">
-              <Words text="One Platform." />
+              <Words text="One Platform," />
             </span>
             <span className="hero-line-2 block whitespace-nowrap text-twilight">
               <Words text="Every Business." />
@@ -43,8 +43,7 @@ export function HeroSection() {
           </h1>
 
           <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
-            Replace disconnected software with one platform built to run your
-            entire business.
+            Run your whole business on software that was built together.
           </p>
 
           <div ref={ctaRef} className="mt-8 flex flex-wrap items-center gap-4">

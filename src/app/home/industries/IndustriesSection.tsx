@@ -96,18 +96,17 @@ export function IndustriesSection() {
         <div className="order-1 lg:order-2 lg:pl-6">
           <h2
             ref={headingRef}
-            className="hp-hero-title font-extrabold text-white"
+            className="hp-scene-title font-extrabold text-white"
           >
             <span className="block">
-              <Words text="Built around your business." />
+              <Words text="Built around your business," />
             </span>
             <span className="block text-twilight">
               <Words text="Not the other way around." />
             </span>
           </h2>
           <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
-            The work looks nothing alike from one place to the next.
-            Underneath, it stands on the same ground.
+            Every trade looks different. The ground underneath never changes.
           </p>
 
           <ul className="mt-8 grid grid-cols-2 gap-x-8 sm:w-fit sm:grid-cols-2">

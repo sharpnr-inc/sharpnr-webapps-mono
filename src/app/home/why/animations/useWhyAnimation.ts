@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 import { gsap, useGSAP } from "@/configs/gsap";
-import { prefersReduced, revealOnce } from "@/app/home/shared/motion";
+import { parallaxOnScroll, prefersReduced, revealOnce } from "@/app/home/shared/motion";
 import { animeWordsOnEnter } from "@/app/home/shared/reveal";
 
 interface WhyAnimationRefs {
@@ -41,6 +41,8 @@ export function useWhyAnimation(refs: WhyAnimationRefs) {
           toggleActions: "play none none reverse",
         },
       });
+
+      parallaxOnScroll(gridRef.current, section, 18);
     },
     { scope: sectionRef },
   );

@@ -25,3 +25,23 @@ export function revealOnce(
     ...vars,
   });
 }
+
+/**
+ * Continuous scroll-scrubbed parallax — tied directly to scroll position
+ * (not an enter/leave toggle), so the visual keeps drifting the entire time
+ * a section is on screen, in both directions. Always targets a DIFFERENT
+ * element than any entrance timeline in the same scene, so the two never
+ * fight over `transform` (see Motion Language amendment v3.2).
+ */
+export function parallaxOnScroll(
+  el: Element | null,
+  trigger: Element,
+  distance = 36,
+) {
+  if (!el || prefersReduced()) return;
+  gsap.to(el, {
+    yPercent: -distance,
+    ease: "none",
+    scrollTrigger: { trigger, start: "top bottom", end: "bottom top", scrub: true },
+  });
+}

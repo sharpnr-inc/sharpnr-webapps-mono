@@ -6,10 +6,14 @@
  * between the visual (which renders the placeholder paths) and the
  * animation hook (which drives them).
  */
+/* Every entry must match a `label` in HeroVisual's WORDS — the animation
+   looks each one up by `data-label` and silently skips a miss, so a stale
+   name here disappears without erroring. Two per cluster. */
 export const HERO_SPOKES: string[] = [
   "Identity",
-  "Data",
-  "Communication",
-  "Automation",
+  "Security",
+  "Marketplace",
   "Operations",
+  "Data",
+  "Automation",
 ];

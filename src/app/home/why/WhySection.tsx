@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Layers3, Fingerprint, Blocks, TrendingUp } from "lucide-react";
 import { Words } from "@/app/home/shared/Words";
+import { onSpotlightMove } from "@/app/home/shared/spotlight";
 import { useWhyAnimation } from "./animations/useWhyAnimation";
 
 /*
@@ -53,19 +54,17 @@ export function WhySection() {
         <div className="order-1 lg:pr-6">
           <h2
             ref={headingRef}
-            className="hp-hero-title font-extrabold text-white"
+            className="hp-scene-title font-extrabold text-white"
           >
             <span className="block">
-              <Words text="Designed as one." />
+              <Words text="Designed as one," />
             </span>
             <span className="block text-twilight">
               <Words text="Not stitched together." />
             </span>
           </h2>
           <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
-            Sharpnr was built as a single business platform from the ground
-            up, allowing your business to grow without growing more
-            complex.
+            Built as one platform from day one. Growing shouldn't mean growing complicated.
           </p>
         </div>
 
@@ -75,7 +74,11 @@ export function WhySection() {
           className="order-2 grid grid-cols-1 gap-4 sm:grid-cols-2"
         >
           {PRINCIPLES.map((principle) => (
-            <div key={principle.name} className="hp-principle-card p-6">
+            <div
+              key={principle.name}
+              onMouseMove={onSpotlightMove}
+              className="hp-principle-card hp-spotlight p-6"
+            >
               <span className="hp-principle-badge">
                 <principle.icon className="size-5" strokeWidth={1.75} />
               </span>

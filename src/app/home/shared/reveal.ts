@@ -32,11 +32,17 @@ export function animeWordsNow(el: HTMLElement | null, startDelay = 0) {
   playWords(words, startDelay);
 }
 
-/** Reveal a heading's words once it scrolls into view. */
+/**
+ * Reveal a heading's words once it scrolls into view.
+ *
+ * `delay` (ms) holds the words back after the trigger fires — used where
+ * the scene's visual has to land its point before the headline states it.
+ */
 export function animeWordsOnEnter(
   el: HTMLElement | null,
   trigger: Element,
   start = "top 80%",
+  delay = 0,
 ) {
   if (!el || prefersReduced()) return;
   const words = wordsIn(el);
@@ -46,6 +52,6 @@ export function animeWordsOnEnter(
     trigger,
     start,
     once: true,
-    onEnter: () => playWords(words),
+    onEnter: () => playWords(words, delay),
   });
 }

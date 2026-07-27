@@ -34,29 +34,37 @@ interface Word {
  * around the composition rather than top-to-bottom, so the field fills in
  * organically instead of like a list.
  */
+/*
+ * Grouped into three clusters — Platform (upper left), Business (right),
+ * Intelligence (lower) — positioned onto an invisible grid. The grouping
+ * is never drawn or labelled; it only has to be felt, so the field reads
+ * as an ordered system rather than words scattered round a circle.
+ */
+/* Real capabilities a visitor can map onto their own business, not
+   abstractions — "Accounting" lands where "Security" only gestures. */
 const WORDS: Word[] = [
-  { label: "Identity", left: 43, y: 2, tier: 1 },
-  { label: "Permissions", left: 21, y: 13, tier: 1 },
-  { label: "Data", right: 27, y: 13, tier: 1 },
-  { label: "Communication", left: 2, y: 25, tier: 1 },
-  { label: "Workflows", right: 4, y: 25, tier: 1 },
-  { label: "Automation", left: 0, y: 47, tier: 1 },
-  { label: "Security", right: 2, y: 47, tier: 1 },
-  { label: "Storage", left: 7, y: 60, tier: 2 },
-  { label: "Insights", right: 11, y: 60, tier: 2 },
-  { label: "Marketplace", left: 0, y: 72, tier: 2 },
-  { label: "Operations", left: 39, y: 72, tier: 2 },
-  { label: "Accounting", right: 3, y: 72, tier: 2 },
-  { label: "Customers", left: 15, y: 83, tier: 3 },
-  { label: "People", right: 22, y: 83, tier: 3 },
-  { label: "Intelligence", left: 37, y: 93, tier: 3 },
+  // Platform
+  { label: "Identity", left: 6, y: 12, tier: 1 },
+  { label: "Storage", left: 0, y: 25, tier: 2 },
+  { label: "Communication", left: 10, y: 38, tier: 1 },
+  // Business
+  { label: "CRM", right: 8, y: 16, tier: 2 },
+  { label: "Marketplace", right: 0, y: 29, tier: 1 },
+  { label: "Accounting", right: 6, y: 42, tier: 1 },
+  // Intelligence
+  { label: "Operations", left: 8, y: 66, tier: 1 },
+  { label: "Analytics", right: 10, y: 70, tier: 2 },
+  { label: "Knowledge", left: 30, y: 82, tier: 3 },
 ];
 
-/* Hierarchy lives in size and weight of presence, never in colour. */
+/* Depth without going 3D: tier is distance from the viewer, expressed as
+   opacity, a hair of scale and — furthest back only — a sub-pixel blur.
+   The eye reads the field as layered instead of as one flat plane, and a
+   pulse arriving lifts its target clear of all of it. */
 const TIER = {
-  1: "text-[0.875rem] text-mute",
-  2: "text-[0.875rem] text-mute",
-  3: "hidden text-[0.875rem] text-mute sm:inline",
+  1: "text-[0.6875rem] text-mute opacity-100",
+  2: "text-[0.6875rem] text-mute opacity-70 scale-[0.94]",
+  3: "hidden text-[0.6875rem] text-mute opacity-40 blur-[0.3px] scale-[0.88] sm:inline",
 } as const;
 
 /** A few soft motes drifting through the field — data, not decoration. */
@@ -69,7 +77,7 @@ export function HeroVisual() {
       aria-hidden="true"
     >
       {/* Centre of gravity — soft light, never a shape */}
-      <div className="hero-halo absolute left-1/2 top-1/2 h-40 w-72 -translate-x-1/2 -translate-y-1/2" />
+      <div className="hero-halo absolute left-1/2 top-1/2 size-[300px] -translate-x-1/2 -translate-y-1/2" />
 
       {/* Relationships — a word occasionally sends a pulse to the mark */}
       <svg className="pointer-events-none absolute inset-0 size-full overflow-visible">
@@ -90,7 +98,7 @@ export function HeroVisual() {
         <span
           key={word.label}
           data-label={word.label}
-          className={`hero-word absolute whitespace-nowrap font-medium tracking-tight ${TIER[word.tier]}`}
+          className={`hero-word absolute whitespace-nowrap font-mono font-medium uppercase tracking-[0.12em] ${TIER[word.tier]}`}
           style={
             word.right !== undefined
               ? { right: `${word.right}%`, top: `${word.y}%` }

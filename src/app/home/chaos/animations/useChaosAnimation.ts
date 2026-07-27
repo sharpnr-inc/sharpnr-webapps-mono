@@ -11,14 +11,13 @@ interface ChaosAnimationRefs {
 }
 
 /**
- * Seven blocks, arriving once, then adrift forever. Reversible entrance.
+ * The board that never completes a circuit. Reversible entrance.
  *
- * The wrapper (`.hp-block`) is the reversible, scroll-triggered entrance —
- * fade and rise, once, reversed if the visitor scrolls back above the
- * section. The block itself (`.hp-island`, nested inside) runs an
- * independent, uncoordinated GSAP yoyo — a few px of vertical drift, its
- * own duration per block — that never stops and never touches the
- * scroll-triggered timeline, so the two can never fight over `y`.
+ * Parts and traces fade in once on scroll and reverse on scroll-up. After
+ * that, charges set out along each severed run and die at the break —
+ * never arriving, never looping in unison. It is deliberately the same
+ * mechanic as Scene 03's journeys, failing: there the charge crosses the
+ * board and lands, here it stops at a gap and gives up.
  */
 export function useChaosAnimation(refs: ChaosAnimationRefs) {
   const { sectionRef, headingRef, copyRef, fieldRef } = refs;
@@ -32,39 +31,53 @@ export function useChaosAnimation(refs: ChaosAnimationRefs) {
       if (copyRef.current) revealOnce(copyRef.current, section, { delay: 0.15 });
       if (prefersReduced() || !fieldRef.current) return;
 
-      const wraps = Array.from(
-        fieldRef.current.querySelectorAll<HTMLElement>(".hp-block"),
-      );
-      const islands = Array.from(
-        fieldRef.current.querySelectorAll<HTMLElement>(".hp-island"),
-      );
-      if (!wraps.length) return;
+      const field = fieldRef.current;
+      const parts = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-part"));
+      const traces = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-trace"));
+      const breaks = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-break"));
+      const errs = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-err"));
+      const pulses = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-pulse"));
 
-      gsap.from(wraps, {
-        opacity: 0,
-        y: 22,
-        duration: 0.6,
-        ease: "power2.out",
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: fieldRef.current,
-          start: "top 74%",
-          toggleActions: "play none none reverse",
-        },
-      });
+      gsap.set(pulses, { opacity: 0 });
 
-      // Independent of scroll state on purpose — a handful of px, never
-      // synchronised, so the field reads as unmanaged rather than staged.
-      islands.forEach((island, i) => {
-        gsap.to(island, {
-          y: -4,
-          duration: 1.7 + ((i * 3) % 5) * 0.22,
-          delay: ((i * 7) % 5) * 0.18,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-        });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: field,
+            start: "top 74%",
+            toggleActions: "play none none reverse",
+          },
+        })
+        .from(parts, { opacity: 0, y: 14, duration: 0.55, ease: "power2.out", stagger: 0.08 })
+        .from(traces, { opacity: 0, duration: 0.4, ease: "power1.out", stagger: 0.04 }, "-=0.3")
+        .from(breaks, { opacity: 0, scale: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.03 }, "-=0.25")
+        // The errors arrive last — the break registers before it is named.
+        .from(errs, { opacity: 0, duration: 0.5, ease: "power1.out", stagger: 0.05 }, "-=0.1");
+
+      // Each run tries on its own schedule and fails on its own schedule.
+      // Never synchronised: coordinated failure would read as choreography,
+      // and the point is that nothing here is coordinated at all.
+      pulses.forEach((pulse, i) => {
+        const horizontal = pulse.dataset.dir === "h";
+        const axis = horizontal ? "x" : "y";
+        const travel = (Number(pulse.dataset.travel ?? 0) / 100) *
+          (horizontal ? field.clientWidth : field.clientHeight);
+
+        gsap
+          .timeline({
+            repeat: -1,
+            repeatDelay: 2.4 + ((i * 7) % 5) * 0.8,
+            delay: 1.2 + ((i * 3) % 7) * 0.7,
+          })
+          .set(pulse, { [axis]: 0, opacity: 0 })
+          .to(pulse, { opacity: 1, duration: 0.35 })
+          .to(pulse, { [axis]: travel, duration: 1.1, ease: "power1.out" }, "<")
+          // Dies at the gap rather than fading politely — it hit something.
+          .to(pulse, { opacity: 0, duration: 0.18, ease: "power2.in" });
       });
+      // No parallax here on purpose: translating the visual while the
+      // text column stays put pulls the two out of alignment as you
+      // scroll, and this scene reads as a pair that must sit level.
     },
     { scope: sectionRef },
   );

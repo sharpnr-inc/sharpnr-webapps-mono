@@ -1,32 +1,33 @@
 import { useRef } from "react";
+import { ShoppingCart, LifeBuoy, IndianRupee, CalendarClock, LineChart } from "lucide-react";
+import { IconChip } from "@/app/home/shared/IconChip";
 import { Words } from "@/app/home/shared/Words";
 import { useEcosystemAnimation } from "./animations/useEcosystemAnimation";
 
 /*
  * What happens after something happens.
  *
- * Pure typography, no lines, no network graph: five capabilities set at
- * editorial scale, scattered rather than gridded. The moment the section is
- * seen, a highlight sweeps through them in turn — each one turning active
- * turquoise, then settling — showing an event reaching every part of the
- * business without a single diagram.
+ * Five capability chips, scattered rather than gridded. The moment the
+ * section is seen, a highlight sweeps through them in turn — each one
+ * turning active turquoise, then settling bright — showing an event
+ * reaching every part of the business without a single connecting line.
  *
  * Visual-left, argument-right.
  */
 interface Capability {
   label: string;
-  size: string;
+  icon: typeof ShoppingCart;
   top: string;
   left?: string;
   right?: string;
 }
 
 const CAPABILITIES: Capability[] = [
-  { label: "Operations", size: "text-3xl md:text-4xl", top: "2%", left: "0%" },
-  { label: "Communication", size: "text-xl md:text-2xl", top: "24%", right: "2%" },
-  { label: "Inventory", size: "text-2xl md:text-3xl", top: "48%", left: "8%" },
-  { label: "Finance", size: "text-4xl md:text-5xl", top: "66%", right: "0%" },
-  { label: "Insights", size: "text-xl md:text-2xl", top: "90%", left: "20%" },
+  { label: "Orders", icon: ShoppingCart, top: "2%", left: "0%" },
+  { label: "Support", icon: LifeBuoy, top: "22%", right: "4%" },
+  { label: "Billing", icon: IndianRupee, top: "44%", left: "10%" },
+  { label: "Scheduling", icon: CalendarClock, top: "66%", right: "0%" },
+  { label: "Analytics", icon: LineChart, top: "88%", left: "20%" },
 ];
 
 export function EcosystemSection() {
@@ -50,14 +51,14 @@ export function EcosystemSection() {
           aria-hidden="true"
         >
           {CAPABILITIES.map((cap) => (
-            <span
+            <div
               key={cap.label}
               data-label={cap.label}
               style={{ top: cap.top, left: cap.left, right: cap.right }}
-              className={`hp-ecosystem-word absolute whitespace-nowrap font-extrabold tracking-tight ${cap.size}`}
+              className="hp-block absolute w-[62%]"
             >
-              {cap.label}
-            </span>
+              <IconChip icon={cap.icon} label={cap.label} className="px-4 py-3.5" />
+            </div>
           ))}
         </div>
 
@@ -65,15 +66,18 @@ export function EcosystemSection() {
         <div className="order-1 lg:order-2 lg:pl-6">
           <h2
             ref={headingRef}
-            className="hp-hero-title font-extrabold text-white"
+            className="hp-scene-title font-extrabold text-white"
           >
-            <Words text="Everything works together." />
+            <span className="block">
+              <Words text="Everything reaches," />
+            </span>
+            <span className="block text-twilight">
+              <Words text="What needs it." />
+            </span>
           </h2>
 
           <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
-            Every action inside Sharpnr naturally reaches the people,
-            workflows and systems that need it. No switching, no syncing, no
-            duplicated work.
+            One action reaches everyone who needed to know. Nobody was asked.
           </p>
         </div>
       </div>
