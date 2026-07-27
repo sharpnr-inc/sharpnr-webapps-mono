@@ -564,12 +564,8 @@ body {
    board — parts, designators, routed traces — but flat and severed. ── */
 .hp-frag-part {
   position: absolute;
-  border: 1px solid rgba(144, 224, 239, 0.16);
-  border-top-color: rgba(202, 240, 248, 0.3);
-  border-left-color: rgba(202, 240, 248, 0.24);
-  background: linear-gradient(150deg, rgba(22, 52, 79, 0.9), rgba(9, 26, 42, 0.9));
-  border-radius: 3px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -597,24 +593,60 @@ body {
   background: rgba(0, 119, 182, 0.55);
   border-radius: 9999px;
 }
-/* The open terminal at each break — a pad with nothing on the other side. */
+/* The far half of a run, styled by how that connection failed. */
+.hp-frag-far--decay {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000);
+  mask-image: linear-gradient(to right, transparent, #000);
+}
+.hp-frag-far--decay-v {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000);
+  mask-image: linear-gradient(to bottom, transparent, #000);
+}
+.hp-frag-far--dashed {
+  background: repeating-linear-gradient(
+    to right,
+    rgba(0, 119, 182, 0.55) 0 3px,
+    transparent 3px 7px
+  );
+}
+.hp-frag-far--shear { opacity: 0.55; }
+
+/* The open terminal at a break — a pad with nothing on the far side. */
 .hp-frag-break {
   position: absolute;
   width: 5px;
   height: 5px;
   margin: -2.5px 0 0 -2.5px;
-  border-radius: 9999px;
   border: 1px solid rgba(144, 224, 239, 0.45);
 }
-.hp-frag-state {
+/* A clean sever. */
+.hp-frag-cut {
   position: absolute;
-  bottom: -13px;
-  left: 0;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  opacity: 0.75;
+}
+.hp-frag-cut::before,
+.hp-frag-cut::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: rgba(144, 224, 239, 0.75);
+}
+.hp-frag-cut::before { transform: rotate(45deg); }
+.hp-frag-cut::after { transform: rotate(-45deg); }
+.hp-frag-state {
+  margin-top: 6px;
   font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 0.18em;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
   white-space: nowrap;
-  color: rgba(138, 148, 168, 0.5);
+  color: rgba(138, 148, 168, 0.34);
 }
 /* The charge that sets out and never arrives. */
 .hp-frag-pulse {

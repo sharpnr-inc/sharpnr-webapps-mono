@@ -11,9 +11,9 @@
    name here disappears without erroring. Two per cluster. */
 export const HERO_SPOKES: string[] = [
   "Identity",
-  "Security",
+  "Storage",
   "Marketplace",
   "Operations",
-  "Data",
-  "Automation",
+  "Accounting",
+  "Analytics",
 ];
