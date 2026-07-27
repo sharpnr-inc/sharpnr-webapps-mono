@@ -424,6 +424,106 @@ body {
 }
 
 
+/* ── Scene 04: one action, and everything it sets off. Same routed
+   dialect as Scenes 02/03, flat and axis-aligned. ── */
+.hp-casc-spine {
+  position: absolute;
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(0, 119, 182, 0.4);
+}
+/* The charge that carries the action forward along the spine. */
+.hp-casc-head {
+  position: absolute;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
+}
+.hp-casc-branch {
+  position: absolute;
+  width: 2px;
+  border-radius: 9999px;
+  background: rgba(0, 119, 182, 0.4);
+  transform-origin: top;
+}
+.hp-casc-branch--up {
+  transform-origin: bottom;
+}
+.hp-casc-junction {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-cyan);
+  background: var(--color-canvas);
+  transition: box-shadow 400ms ease, background-color 400ms ease;
+}
+.hp-casc-junction--w1 { width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; }
+.hp-casc-junction--w2 { width: 9px;  height: 9px;  margin: -4.5px 0 0 -4.5px; }
+.hp-casc-junction--w3 { width: 7px;  height: 7px;  margin: -3.5px 0 0 -3.5px; border-color: rgba(0,180,216,0.6); }
+/* Lit the instant the charge reaches it, then eased back down. */
+.hp-casc-junction.is-live {
+  background: var(--color-cyan);
+  box-shadow: 0 0 16px rgba(0, 180, 216, 0.85);
+}
+/* The outcome, printed where its branch lands. */
+.hp-casc-out {
+  position: absolute;
+  white-space: nowrap;
+}
+.hp-casc-label {
+  display: block;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  transition: color 400ms ease;
+}
+.hp-casc-out--w1 .hp-casc-label { font-size: 15px; }
+.hp-casc-out--w2 .hp-casc-label { font-size: 13px; }
+.hp-casc-out--w3 .hp-casc-label { font-size: 12px; color: rgba(255,255,255,0.72); }
+.hp-casc-out.is-live .hp-casc-label { color: #ffffff; }
+.hp-casc-owner {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: rgba(138, 148, 168, 0.55);
+}
+/* The action itself, at the head of the spine. */
+.hp-casc-origin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 8px 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 180, 216, 0.5);
+  background: rgba(0, 119, 182, 0.16);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  text-align: left;
+}
+.hp-casc-origin-kicker {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 0.24em;
+  color: rgba(138, 148, 168, 0.7);
+}
+.hp-casc-origin-name {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: rgba(214, 244, 255, 0.95);
+}
+/* Closure — the run has finished and everything agrees. */
+.hp-casc-done {
+  position: absolute;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+  color: rgba(0, 180, 216, 0.75);
+}
+
 /* ── Scene 02: the board before Sharpnr. Same dialect as the isometric
    board — parts, designators, routed traces — but flat and severed. ── */
 .hp-frag-part {
@@ -798,117 +898,4 @@ body {
   background: linear-gradient(160deg, rgba(0, 119, 182, 0.14), rgba(0, 180, 216, 0.04));
   border: 1px solid rgba(144, 224, 239, 0.12);
 }
-
-/* ── Flow — Scene 05. A real cross-product example, left to right: product
-   boxes on the dark canvas (never a light card), connected by dashed lines
-   a small badge travels along, naming the event that just happened. ── */
-.hp-flow-node {
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
-  transition: border-color 320ms ease, background-color 320ms ease;
-}
-.hp-flow-node.is-active {
-  border-color: rgba(0, 180, 216, 0.55);
-  background: rgba(0, 180, 216, 0.05);
-}
-.hp-flow-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 8px;
-  background: rgba(144, 224, 239, 0.08);
-  color: var(--color-sky);
-}
-.hp-flow-tag {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-mute);
-}
-.hp-flow-skel {
-  height: 6px;
-  border-radius: 9999px;
-  background: rgba(144, 224, 239, 0.22);
-}
-/* The chain stacks vertically on phones — three nodes side by side at
-   375px breaks titles mid-word and clips the last one off-screen. */
-.hp-flow {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: stretch;
-}
-.hp-flow-connector {
-  position: relative;
-  z-index: 1;
-  justify-self: center;
-  width: 1px;
-  height: 2.75rem;
-  background-image: linear-gradient(180deg, rgba(0, 180, 216, 0.5) 60%, transparent 0%);
-  background-size: 1px 10px;
-  background-repeat: repeat-y;
-}
-.hp-flow-connector::before,
-.hp-flow-connector::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 7px;
-  height: 7px;
-  border-radius: 9999px;
-  border: 1.5px solid var(--color-cyan);
-  background: var(--color-canvas);
-  transform: translate(-50%, -50%);
-}
-.hp-flow-connector::before {
-  top: 0;
-}
-.hp-flow-connector::after {
-  top: 100%;
-}
-@media (width >= 48rem) {
-  .hp-flow {
-    grid-template-columns: var(--flow-cols);
-    gap: 1rem;
-  }
-  .hp-flow-connector {
-    justify-self: stretch;
-    width: auto;
-    height: 1px;
-    background-image: linear-gradient(90deg, rgba(0, 180, 216, 0.5) 60%, transparent 0%);
-    background-size: 10px 1px;
-    background-repeat: repeat-x;
-  }
-  .hp-flow-connector::before,
-  .hp-flow-connector::after {
-    top: 50%;
-  }
-  .hp-flow-connector::before {
-    left: 0;
-  }
-  .hp-flow-connector::after {
-    left: 100%;
-  }
-}
-.hp-flow-badge {
-  position: absolute;
-  top: 0%;
-  left: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  border-radius: 9999px;
-  background: var(--color-blue);
-  color: #ffffff;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  opacity: 0;
-  box-shadow: 0 8px 20px -6px rgba(0, 119, 182, 0.6);
-}
-
+

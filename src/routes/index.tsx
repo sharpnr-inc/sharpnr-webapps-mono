@@ -4,7 +4,6 @@ import { HeroSection } from "@/app/home/hero/HeroSection";
 import { ChaosSection } from "@/app/home/chaos/ChaosSection";
 import { OnePlatformSection } from "@/app/home/one-platform/OnePlatformSection";
 import { EcosystemSection } from "@/app/home/ecosystem/EcosystemSection";
-import { CapabilitiesSection } from "@/app/home/capabilities/CapabilitiesSection";
 import { IndustriesSection } from "@/app/home/industries/IndustriesSection";
 import { WhySection } from "@/app/home/why/WhySection";
 import { FinalCtaSection } from "@/app/home/cta/FinalCtaSection";
@@ -36,7 +35,7 @@ export const Route = createFileRoute("/")({
 /**
  * Homepage — the first experience of the Sharpnr platform.
  * The story unfolds one idea per scroll: Hero → Chaos → One Platform →
- * Connected Ecosystem → Capabilities → Industries → Why Sharpnr → Action.
+ * Connected Ecosystem → Industries → Why Sharpnr → Action.
  * One continuous navy canvas; typography leads, motion supports.
  */
 function HomePage() {
@@ -47,7 +46,6 @@ function HomePage() {
       <ChaosSection />
       <OnePlatformSection />
       <EcosystemSection />
-      <CapabilitiesSection />
       <IndustriesSection />
       <WhySection />
       <FinalCtaSection />

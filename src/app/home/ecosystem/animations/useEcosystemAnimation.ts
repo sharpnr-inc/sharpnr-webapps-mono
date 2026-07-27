@@ -2,6 +2,7 @@ import type { RefObject } from "react";
 import { gsap, useGSAP } from "@/configs/gsap";
 import { prefersReduced, revealOnce } from "@/app/home/shared/motion";
 import { animeWordsOnEnter } from "@/app/home/shared/reveal";
+import { SPINE_X, SPINE_LEN, CONSEQUENCES } from "../cascade";
 
 interface EcosystemAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -10,16 +11,18 @@ interface EcosystemAnimationRefs {
   fieldRef: RefObject<HTMLDivElement | null>;
 }
 
+const RUN = 3.4;
+
 /**
- * One highlight, sweeping through five capability chips. Reversible.
+ * One action, and everything it sets off. Reversible.
  *
- * The moment the section is seen: the chips rise into place, then a single
- * highlight visits each one in turn — active turquoise, briefly, before
- * settling. It runs once, top to bottom, and never loops. Each chip also
- * drifts at its own rate as the section scrolls past (a different
- * sub-property, scrubbed, to the entrance's own `y` — the two combine
- * instead of competing). Scrolling back up above the section reverses the
- * whole sequence, same as every sibling scene.
+ * The charge runs the spine once; each consequence fires at the exact
+ * moment the charge reaches its junction, so the branch is visibly *caused*
+ * rather than merely appearing on a stagger. That timing is the whole
+ * argument — a staggered reveal would say "here are five things", this says
+ * "this one action did all five".
+ *
+ * Scrolling back up above the section reverses the whole cascade.
  */
 export function useEcosystemAnimation(refs: EcosystemAnimationRefs) {
   const { sectionRef, headingRef, copyRef, fieldRef } = refs;
@@ -33,52 +36,74 @@ export function useEcosystemAnimation(refs: EcosystemAnimationRefs) {
       if (copyRef.current) revealOnce(copyRef.current, section, { delay: 0.15 });
       if (prefersReduced() || !fieldRef.current) return;
 
-      const wraps = Array.from(fieldRef.current.querySelectorAll<HTMLElement>(".hp-block"));
-      const chips = Array.from(fieldRef.current.querySelectorAll<HTMLElement>(".hp-icon-chip"));
-      if (!wraps.length) return;
+      const field = fieldRef.current;
+      const spine = field.querySelector<HTMLElement>(".hp-casc-spine");
+      const head = field.querySelector<HTMLElement>(".hp-casc-head");
+      const origin = field.querySelector<HTMLElement>(".hp-casc-origin");
+      const branches = Array.from(field.querySelectorAll<HTMLElement>(".hp-casc-branch"));
+      const junctions = Array.from(field.querySelectorAll<HTMLElement>(".hp-casc-junction"));
+      const outs = Array.from(field.querySelectorAll<HTMLElement>(".hp-casc-out"));
+      const done = field.querySelector<HTMLElement>(".hp-casc-done");
+
+      gsap.set(branches, { scaleY: 0 });
+      gsap.set(junctions, { opacity: 0, scale: 0 });
+      gsap.set(outs, { opacity: 0 });
+      gsap.set(done ?? {}, { opacity: 0 });
+      gsap.set(head ?? {}, { opacity: 0, x: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: fieldRef.current,
+          trigger: field,
           start: "top 74%",
           toggleActions: "play none none reverse",
         },
       });
 
-      tl.from(wraps, { opacity: 0, y: 16, duration: 0.5, ease: "power2.out", stagger: 0.08 });
+      tl.from(origin ?? {}, { opacity: 0, scale: 0.9, duration: 0.5, ease: "power2.out" })
+        .from(spine ?? {}, { scaleX: 0, transformOrigin: "left", duration: 0.6, ease: "power2.out" }, "-=0.2")
+        .addLabel("run")
+        .to(head ?? {}, { opacity: 1, duration: 0.2 }, "run")
+        .to(
+          head ?? {},
+          { x: (SPINE_LEN / 100) * field.clientWidth - 34, duration: RUN, ease: "none" },
+          "run",
+        )
+        .to(head ?? {}, { opacity: 0, duration: 0.3 }, `run+=${RUN - 0.3}`);
 
-      chips.forEach((chip) => {
-        tl.to(chip, {
-          borderColor: "var(--color-cyan)",
-          backgroundColor: "rgba(0, 180, 216, 0.1)",
-          color: "#00b4d8",
-          duration: 0.32,
-          ease: "power2.out",
-        }).to(
-          chip,
-          {
-            borderColor: "rgba(144, 224, 239, 0.4)",
-            backgroundColor: "rgba(144, 224, 239, 0.06)",
-            color: "rgba(255,255,255,0.85)",
-            duration: 0.4,
-            ease: "power2.inOut",
-          },
-          ">-0.04",
-        );
+      // Each consequence fires as the charge passes its junction, not on a
+      // stagger — the position along the spine is what sets the timing.
+      // The node flares as it is struck and eases back down, so the charge
+      // is visibly the cause rather than a coincidence of timing.
+      CONSEQUENCES.forEach((c, i) => {
+        const at = ((c.x - SPINE_X) / SPINE_LEN) * RUN;
+        tl.to(junctions[i], { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, `run+=${at}`)
+          .call(
+            () => {
+              junctions[i].classList.add("is-live");
+              outs[i].classList.add("is-live");
+            },
+            undefined,
+            `run+=${at}`,
+          )
+          .call(
+            () => {
+              junctions[i].classList.remove("is-live");
+              outs[i].classList.remove("is-live");
+            },
+            undefined,
+            `run+=${at + 0.9}`,
+          )
+          .to(branches[i], { scaleY: 1, duration: 0.4, ease: "power2.out" }, `run+=${at + 0.05}`)
+          .to(outs[i], { opacity: 1, duration: 0.4, ease: "power2.out" }, `run+=${at + 0.15}`);
       });
 
-      // Depth layering: each chip drifts at its own rate with scroll.
-      wraps.forEach((wrap, i) => {
-        gsap.to(wrap, {
-          yPercent: -(8 + ((i * 9) % 14)),
-          ease: "none",
-          scrollTrigger: {
-            trigger: fieldRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+      // Closure once the run completes.
+      tl.to(done ?? {}, { opacity: 1, duration: 0.5, ease: "power2.out" }, `run+=${RUN + 0.1}`);
+
+      // Reversing the timeline cannot undo a class, so clear them by hand.
+      tl.eventCallback("onReverseComplete", () => {
+        junctions.forEach((j) => j.classList.remove("is-live"));
+        outs.forEach((o) => o.classList.remove("is-live"));
       });
     },
     { scope: sectionRef },
