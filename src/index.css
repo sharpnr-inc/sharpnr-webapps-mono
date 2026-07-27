@@ -228,18 +228,6 @@ body {
   }
 }
 
-/* ── Ambient particles — a few soft motes for scenes that want a touch of
-   the hero's depth (Scene 03 settle, Scene 08 close). Same visual language
-   as the hero's own particles, kept as a separate class since these live
-   outside the hero and must never be confused with it. ── */
-.hp-particle {
-  position: absolute;
-  border-radius: 9999px;
-  background: radial-gradient(circle, var(--color-sky) 0%, transparent 70%);
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
 /* ── Fine noise — the single texture allowed by Visual Language. Tiles at
    any height, sits behind content, barely perceptible. ── */
 .hp-noise {
@@ -262,56 +250,6 @@ body {
   z-index: -1;
   pointer-events: none;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-/* ── Spotlight — a glow and a glowing hairline edge that follow the
-   cursor (Aceternity-style "card spotlight", adapted to plain CSS custom
-   properties + one onMouseMove handler, see shared/spotlight.ts). Direct
-   children are lifted above both pseudo-layers automatically. ── */
-.hp-spotlight {
-  position: relative;
-  isolation: isolate;
-}
-.hp-spotlight > * {
-  position: relative;
-  z-index: 1;
-}
-.hp-spotlight::before,
-.hp-spotlight::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0;
-  border-radius: inherit;
-  transition: opacity 400ms ease;
-}
-.hp-spotlight::before {
-  background: radial-gradient(
-    240px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(0, 180, 216, 0.14),
-    transparent 70%
-  );
-}
-.hp-spotlight::after {
-  padding: 1px;
-  background: radial-gradient(
-    300px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(0, 180, 216, 0.75),
-    transparent 70%
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-}
-.hp-spotlight:hover::before,
-.hp-spotlight:hover::after,
-.hp-spotlight:focus-within::before,
-.hp-spotlight:focus-within::after {
-  opacity: 1;
 }
 
 /* ── Hero sizing — the hero must sit comfortably inside one viewport on a
@@ -409,20 +347,118 @@ body {
 }
 
 
-/* Scene 03 / 08 — the same soft gathering light as the hero, behind the
-   mark once the network has assembled, and again (larger, calmer) behind
-   the ambient echo that closes the page. */
-.platform-halo {
-  border-radius: 9999px;
-  background: radial-gradient(
-    closest-side,
-    rgba(144, 224, 239, 0.13),
-    rgba(0, 180, 216, 0.05) 55%,
-    transparent 100%
-  );
-  filter: blur(22px);
+/* ── Scene 05: the trade layer plugged into a shared backplane. No card
+   containers anywhere — every module is typography on the board, routed
+   with the same 1px orthogonal traces used across the homepage. The
+   backplane is the dominant element; it is architecture, not decoration. ── */
+.hp-ind-tab {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.55);
+  padding: 7px 0;
+  position: relative;
+  transition: color 260ms ease;
+}
+.hp-ind-tab::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--color-cyan);
+  transform: scaleX(0);
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-ind-tab:hover, .hp-ind-tab:focus-visible { color: rgba(214, 244, 255, 0.85); }
+.hp-ind-tab[aria-pressed="true"] { color: #ffffff; }
+.hp-ind-tab[aria-pressed="true"]::after { transform: scaleX(1); }
+
+/* Modules are type on the board, never boxes. */
+.hp-ind-mod {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(226, 248, 255, 0.96);
+}
+.hp-ind-base {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(170, 190, 210, 0.6);
 }
 
+/* Routing: 1px orthogonal runs terminating in small pads. */
+.hp-ind-trace {
+  width: 1px;
+  height: 11px;
+  margin: 0 auto;
+  background: rgba(144, 224, 239, 0.3);
+}
+.hp-ind-pad {
+  width: 3px; height: 3px;
+  margin: 0 auto;
+  background: rgba(0, 180, 216, 0.8);
+}
+
+/* The backplane — solid, architectural, the dominant mass in the scene. */
+.hp-ind-backplane {
+  position: relative;
+  height: 8px;
+  border-radius: 1px;
+  background: #071726;
+  border: 1px solid rgba(144, 224, 239, 0.14);
+}
+/* A single conductor running its length. Not a glowing bar — one line. */
+.hp-ind-conductor {
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 1px;
+  margin-top: -0.5px;
+  background: #00b4d8;
+  opacity: 0.75;
+}
+/* Faint routing inside the channel — ticks where each trace joins the
+   backbone, so it reads as a live bus rather than a drawn bar. */
+.hp-ind-tick {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 1px;
+  margin-left: -0.5px;
+  background: rgba(144, 224, 239, 0.35);
+}
+/* A single charge crossing the bus: ambient, and fired again on every
+   trade switch so the same platform is visibly powering each industry. */
+.hp-ind-pulse {
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  width: 30px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
+  opacity: 0;
+}
+
+/* Annotation is metadata: heavily tracked, deliberately low contrast. */
+.hp-ind-meta {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.38);
+  white-space: nowrap;
+}
+.hp-ind-meta--brand {
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  color: rgba(202, 240, 248, 0.72);
+}
 
 /* ── Scene 04: one action, and everything it sets off. Same routed
    dialect as Scenes 02/03, flat and axis-aligned. ── */
@@ -587,24 +623,6 @@ body {
   background: var(--color-cyan);
 }
 
-
-/* ── Icon chip — Scenes 02/03/04/06. Flat typographic geometry, not a UI
-   card: a hairline frame and a bare, larger SVG glyph doing the work —
-   never a filled block, never a small icon boxed inside a tinted square. ── */
-.hp-icon-chip {
-  border-radius: 14px;
-  border: 1px solid rgba(144, 224, 239, 0.16);
-  background: rgba(144, 224, 239, 0.03);
-  transition: border-color 260ms ease, background-color 260ms ease;
-}
-.hp-icon-chip:hover {
-  border-color: rgba(144, 224, 239, 0.4);
-  background: rgba(144, 224, 239, 0.06);
-}
-.hp-icon-chip[aria-pressed="true"] {
-  border-color: var(--color-cyan);
-  background: rgba(0, 180, 216, 0.08);
-}
 
 /* ── Core map — Scene 03. Razor-thin engineering lines, not a glowing
    constellation: eight capabilities, pure typography, radiating from one
@@ -808,94 +826,88 @@ body {
   white-space: nowrap;
 }
 
-/* ── Principle badge — Scene 07. A minimal outlined emblem, never a filled
-   block: editorial iconography, not a product feature icon. ── */
-.hp-principle-card {
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
-  transition: border-color 280ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hp-principle-card:hover {
-  border-color: rgba(144, 224, 239, 0.28);
-}
-.hp-principle-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(144, 224, 239, 0.35);
-  color: var(--color-sky);
-}
-/* The underline grows in width only — never height or margin — so hover
-   never nudges surrounding text. */
-.hp-principle-name {
+/* ── Scene 06: the principles as a technical ledger. A strict three-column
+   grid — index, title, description — with every column aligned across
+   every row, so it reads as a specification sheet rather than a feature
+   list. All four rows stay visible always; never an accordion. ── */
+.hp-spec-row {
   position: relative;
-  display: inline-block;
-  padding-bottom: 0.3rem;
+  padding: 30px 0 28px;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hp-principle-name::after {
+.hp-spec-row:hover { transform: translateX(5px); }
+
+/* Rhythm only. Whitespace does the separating; the rule is nearly
+   subliminal until the row is hovered. */
+.hp-spec-rule {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: rgba(144, 224, 239, 0.09);
+  transform-origin: left;
+}
+.hp-spec-rule::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
+  inset: 0;
+  background: rgba(0, 180, 216, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-spec-row:hover .hp-spec-rule::after { transform: scaleX(1); }
+
+/* Blueprint coordinate, not a list number. */
+.hp-spec-index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(0, 180, 216, 0.5);
+  transition: color 320ms ease;
+}
+.hp-spec-row:hover .hp-spec-index { color: #00b4d8; }
+
+.hp-spec-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: rgba(214, 244, 255, 0.82);
+  transition: color 320ms ease;
+}
+.hp-spec-row:hover .hp-spec-name { color: rgba(255, 255, 255, 0.98); }
+
+/* Body stays sans and quieter, so the mono columns carry the structure. */
+.hp-spec-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(138, 148, 168, 0.85);
+}
+
+/* ── Scene 07: the last length of bus. One charge crosses it, reaches the
+   terminal pad, and the page comes to rest. ── */
+.hp-cta-rail {
+  position: relative;
   height: 1px;
-  background: var(--color-cyan);
-  transition: width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  background: rgba(144, 224, 239, 0.2);
 }
-.hp-principle-card:hover .hp-principle-name::after {
-  width: 2rem;
+.hp-cta-pad {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  background: rgba(0, 180, 216, 0.9);
 }
-
-/* ── Industry list — Scene 06. A growing tick, not a filled pill: hover,
-   focus and the active selection all read the same way. ── */
-.hp-industry-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.5rem 0;
-  font-size: 1.0625rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--color-mute);
-  transition: color 260ms ease;
+.hp-cta-charge {
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  width: 34px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
+  opacity: 0;
 }
-.hp-industry-item::before {
-  content: "";
-  width: 0;
-  height: 1px;
-  background: var(--color-cyan);
-  transition: width 260ms ease;
-}
-.hp-industry-item:hover,
-.hp-industry-item:focus-visible,
-.hp-industry-item[aria-pressed="true"] {
-  color: #ffffff;
-}
-.hp-industry-item:hover::before,
-.hp-industry-item:focus-visible::before,
-.hp-industry-item[aria-pressed="true"]::before {
-  width: 1rem;
-}
-
-/* ── Morph shape — Scene 06. One abstract container whose silhouette
-   (clip-path, tweened by GSAP), icon and accent all change with the active
-   industry. Never a literal illustrated scene. ── */
-.hp-morph-shape {
-  background: linear-gradient(160deg, rgba(0, 119, 182, 0.22), rgba(0, 180, 216, 0.06));
-  border: 1px solid rgba(144, 224, 239, 0.2);
-  box-shadow: 0 30px 90px -40px rgba(0, 180, 216, 0.5);
-  transition: box-shadow 400ms ease;
-}
-
-/* ── Ambient echo — Scene 08. A large, soft, unlabelled repeat of the
-   Scene 03 structure, closing the page on the same shape it resolved on. ── */
-.hp-ambient-shape {
-  border-radius: 40px;
-  background: linear-gradient(160deg, rgba(0, 119, 182, 0.14), rgba(0, 180, 216, 0.04));
-  border: 1px solid rgba(144, 224, 239, 0.12);
-}
-
