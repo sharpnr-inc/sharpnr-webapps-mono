@@ -34,6 +34,8 @@ const collections = [
 /**
  * Section 03 — The learning library. Curated collections rather than
  * a chronological feed — with an honest note about what exists today.
+ *
+ * A grid, so full width rather than a split.
  */
 export function LibrarySection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -42,10 +44,14 @@ export function LibrarySection() {
   useLibraryAnimation({ sectionRef, introRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section
+      ref={sectionRef}
+      className="relative border-t border-white/[0.07]"
+    >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
         <div ref={introRef}>
           <SectionIntro
+            tone="navy"
             eyebrow="Learning library"
             heading={
               <>
@@ -60,22 +66,22 @@ export function LibrarySection() {
 
         <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {collections.map((collection) => (
-            <div key={collection.name} className="library-shelf border-t-2 border-navy/15 pt-5">
-              <h3 className="text-title-lg font-semibold text-navy">
+            <div key={collection.name} className="library-shelf border-t border-sky/25 pt-5">
+              <h3 className="text-title-lg font-semibold text-white">
                 {collection.name}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              <p className="mt-2 text-sm leading-relaxed text-mute">
                 {collection.line}
               </p>
-              <p className="mt-3 text-sm text-slate-400">{collection.topics}</p>
+              <p className="mt-3 text-sm text-mute/70">{collection.topics}</p>
             </div>
           ))}
 
           {/* Honesty about today */}
-          <div className="library-shelf flex flex-col justify-center rounded-2xl border border-slate-200 bg-soft p-6">
-            <StatusBadge kind="early" label="Being written" />
-            <p className="mt-4 text-sm leading-relaxed text-slate-600">
-              We're building the library in the open. The first guides,
+          <div className="library-shelf flex flex-col items-start justify-center rounded-2xl border border-sky/15 bg-sky/[0.025] p-6">
+            <StatusBadge kind="early" tone="navy" label="Being written" />
+            <p className="mt-4 text-sm leading-relaxed text-mute">
+              We&rsquo;re building the library in the open. The first guides,
               playbooks and reports are being written now, and every collection
               grows as the platform does.
             </p>

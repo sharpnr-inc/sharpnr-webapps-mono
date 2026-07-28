@@ -34,7 +34,7 @@ export function JoinSection() {
   useJoinAnimation({ sectionRef, contentRef });
 
   return (
-    <section ref={sectionRef} className="bg-navy">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
         <div ref={contentRef} className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <Eyebrow tone="navy">Join the journey</Eyebrow>

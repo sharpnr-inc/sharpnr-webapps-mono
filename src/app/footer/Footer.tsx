@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Wordmark } from "@/app/home/shared/Wordmark";
-import { CanvasWash } from "@/app/home/shared/CanvasWash";
 import { Instagram, Linkedin, Youtube } from "lucide-react";
 import { XIcon } from "./XIcon";
 
@@ -16,11 +15,10 @@ import { XIcon } from "./XIcon";
  * were storytelling about the platform, which is exactly what this is not
  * for.
  *
- * The ink wash is a deliberate exception to "No decorative graphics. No
- * background changes." Without it the footer was the one flat rectangle on
- * a page that is otherwise one continuous sheet, and the hand-over read as
- * the page stopping rather than ending. It carries no meaning and adds no
- * motion, so the intent of that rule — a quiet footer — still holds.
+ * The footer carries no background of its own: the site's canvas and ink
+ * wash are held at the root and run continuously through it, so the page
+ * ends rather than stops. The contract's "no background changes" is
+ * honoured precisely because the footer changes nothing.
  *
  * The spec's bottom bar also lists "Made in India", a version, a theme
  * toggle and a language switch. The origin line is dropped by request; the
@@ -100,11 +98,7 @@ function FooterLink({ item }: { item: FooterItem }) {
 
 export default function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden border-t border-sky/12 bg-canvas">
-      {/* The page above sits on the ink wash and the footer did not, so the
-          hand-over read as the page simply stopping. Its own instance —
-          hence the id, which keeps the two SVGs' filter ids apart. */}
-      <CanvasWash id="ftWash" className="opacity-60" />
+    <footer className="relative border-t border-sky/12">
       <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-12 md:px-10">
         <div className="grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-12">
           {/* Column 1 — brand */}

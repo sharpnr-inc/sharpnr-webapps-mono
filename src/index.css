@@ -71,7 +71,10 @@
 }
 
 :root {
-  background-color: #ffffff;
+  /* Dark site-wide. Every page now sits on the canvas the homepage
+     introduced, so a white root would flash before paint and show through
+     the scrollbar gutter. */
+  background-color: var(--color-canvas);
   color: #334155; /* slate-700 — primary reading color */
   color-scheme: light;
   -webkit-font-smoothing: antialiased;

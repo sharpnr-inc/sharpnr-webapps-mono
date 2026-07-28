@@ -26,6 +26,8 @@ const plannedAreas = [
 /**
  * Section 07 — Manufacturing (roadmap). A chain of connected
  * activities from raw material to finished product.
+ *
+ * Full width: a chain of six stages is a run, not a pair of columns.
  */
 export function ManufacturingSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,16 +36,20 @@ export function ManufacturingSection() {
   useManufacturingAnimation({ sectionRef, introRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section
+      ref={sectionRef}
+      className="relative border-t border-white/[0.07]"
+    >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={introRef}>
           <div className="mb-5 flex items-center gap-3">
-            <StatusBadge kind="roadmap" />
-            <span className="text-sm text-slate-500">
+            <StatusBadge kind="roadmap" tone="navy" />
+            <span className="text-sm text-mute">
               Sharp Operations · Manufacturing
             </span>
           </div>
           <SectionIntro
+            tone="navy"
             heading={
               <>
                 Built for production.
@@ -58,27 +64,27 @@ export function ManufacturingSection() {
         {/* The production chain — stepped rows */}
         <ol className="mt-14 grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
           {productionChain.map((step, i) => (
-            <li key={step.stage} className="mfg-step">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-400">
-                Stage {String(i + 1).padStart(2, "0")}
+            <li key={step.stage} className="mfg-step border-t border-sky/15 pt-5">
+              <p className="font-mono text-xs tracking-[0.22em] text-cyan/60">
+                {String(i + 1).padStart(2, "0")}
               </p>
-              <h3 className="mt-2 text-base font-semibold text-slate-900">
+              <h3 className="mt-2 text-base font-semibold text-white">
                 {step.stage}
               </h3>
-              <p className="mt-1 text-sm text-slate-500">{step.note}</p>
+              <p className="mt-1 text-sm text-mute">{step.note}</p>
             </li>
           ))}
         </ol>
 
         <div className="mt-14">
-          <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-400">
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
             Being designed
           </p>
           <ul className="mt-4 flex flex-wrap gap-2">
             {plannedAreas.map((area) => (
               <li
                 key={area}
-                className="rounded-full border border-slate-200 bg-soft px-3.5 py-1.5 text-sm text-slate-600"
+                className="rounded-full border border-sky/15 bg-sky/[0.025] px-3.5 py-1.5 text-sm text-sky/85"
               >
                 {area}
               </li>
@@ -86,7 +92,7 @@ export function ManufacturingSection() {
           </ul>
         </div>
 
-        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-slate-500">
+        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-mute">
           Designed for discrete and process manufacturing, automotive,
           electronics, consumer goods, food processing, textiles, furniture,
           chemicals, pharmaceuticals and multi-plant enterprises.

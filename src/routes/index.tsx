@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CanvasWash } from "@/app/home/shared/CanvasWash";
 import { HeroSection } from "@/app/home/hero/HeroSection";
 import { ChaosSection } from "@/app/home/chaos/ChaosSection";
 import { OnePlatformSection } from "@/app/home/one-platform/OnePlatformSection";
@@ -40,8 +39,7 @@ export const Route = createFileRoute("/")({
  */
 function HomePage() {
   return (
-    <div className="hp-canvas relative text-white">
-      <CanvasWash />
+    <div className="relative">
       <HeroSection />
       <ChaosSection />
       <OnePlatformSection />

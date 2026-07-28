@@ -44,10 +44,11 @@ export function PrinciplesSection() {
   usePrinciplesAnimation({ sectionRef, introRef });
 
   return (
-    <section ref={sectionRef} className="bg-soft">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={introRef}>
           <SectionIntro
+            tone="navy"
             align="center"
             eyebrow="How we build"
             heading="Every decision begins with a principle."
@@ -59,17 +60,17 @@ export function PrinciplesSection() {
           {principles.map((principle, i) => (
             <li
               key={principle.title}
-              className="principle border-t border-slate-200 py-10 first:border-t-0 md:py-12"
+              className="principle border-t border-sky/12 py-10 first:border-t-0 md:py-12"
             >
               <div className="flex gap-6 md:gap-10">
-                <span className="text-sm font-medium tabular-nums text-slate-400">
+                <span className="text-sm font-medium tabular-nums text-cyan/60">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="text-heading-sm font-bold text-navy">
+                  <h3 className="text-heading-sm font-bold text-white">
                     {principle.title}
                   </h3>
-                  <p className="prose-width mt-3 text-base leading-relaxed text-slate-600">
+                  <p className="prose-width mt-3 text-base leading-relaxed text-mute">
                     {principle.body}
                   </p>
                 </div>
@@ -78,7 +79,7 @@ export function PrinciplesSection() {
           ))}
         </ol>
 
-        <p className="mx-auto mt-10 max-w-xl text-center text-base text-slate-600">
+        <p className="mx-auto mt-10 max-w-xl text-center text-base text-mute">
           These aren't aspirations. They're the standard we hold ourselves to
           every time we design a feature, write code or solve a problem.
         </p>

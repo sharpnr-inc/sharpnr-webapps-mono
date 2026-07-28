@@ -27,7 +27,7 @@ export function ConvergenceSection() {
   useConvergenceAnimation({ sectionRef, statementRef, ctaRef });
 
   return (
-    <section ref={sectionRef} className="bg-navy">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <p className="conv-intro text-xs font-medium uppercase tracking-[0.16em] text-cyan">
@@ -46,7 +46,10 @@ export function ConvergenceSection() {
         {/* Everything converges */}
         <div className="mx-auto mt-14 max-w-lg">
           <svg
-            viewBox="0 0 560 470"
+            /* Padded left and right of the 0–560 drawing so "Communication",
+               the widest label, fits inside the box instead of being clipped
+               at the right edge. */
+            viewBox="-20 0 600 470"
             role="img"
             aria-label="Operations, foundation, communication, knowledge, tasks, intelligence and the business network converging into the Sharpnr platform"
             className="h-auto w-full"
@@ -63,7 +66,7 @@ export function ConvergenceSection() {
 
             {areas.map((a) => (
               <g key={a.label} className="conv-area">
-                <circle cx={a.x} cy={a.y} r="7" fill="#03045e" stroke="rgba(255,255,255,0.5)" strokeWidth="1.3" />
+                <circle cx={a.x} cy={a.y} r="7" fill="#00101f" stroke="rgba(144,224,239,0.55)" strokeWidth="1.3" />
                 <text
                   x={a.x + ("lx" in a ? (a.lx as number) : 0)}
                   y={a.y + ("ly" in a ? (a.ly as number) : 4.5)}
@@ -77,9 +80,11 @@ export function ConvergenceSection() {
               </g>
             ))}
 
-            {/* The platform */}
+            {/* The platform. The mark is drawn in #ececec, so it sits on the
+                canvas inside a cyan ring rather than on a white disc, where
+                it was very nearly invisible. */}
             <g className="conv-core">
-              <circle cx="280" cy="240" r="42" fill="#ffffff" />
+              <circle cx="280" cy="240" r="42" fill="#00101f" stroke="#00b4d8" strokeOpacity="0.45" strokeWidth="1.5" />
               <image href="/sharpnr-Icon.svg" x="254" y="214" width="52" height="52" />
             </g>
           </svg>

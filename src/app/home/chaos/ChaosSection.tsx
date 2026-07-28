@@ -99,7 +99,7 @@ export function ChaosSection() {
         </div>
 
         {/* The argument — first in the markup, right column on desktop */}
-        <div className="order-1 lg:order-2">
+        <div className="order-1 lg:order-2 lg:ml-auto lg:max-w-xl">
           <h2
             ref={headingRef}
             className="hp-scene-title font-extrabold text-white"
@@ -112,7 +112,7 @@ export function ChaosSection() {
             </span>
           </h2>
 
-          <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
+          <p ref={copyRef} className="hp-hero-copy mt-6 text-mute">
             Great software. No shared foundation. Your people become the
             integration.
           </p>

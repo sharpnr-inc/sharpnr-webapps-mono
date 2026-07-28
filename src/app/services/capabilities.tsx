@@ -222,14 +222,14 @@ export const capabilities: Capability[] = [
     alongside: ["every Sharpnr product"],
     extra: (
       <div className="mt-14">
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-400">
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
           Useful for everyone — not just leadership
         </p>
         <div className="mt-5 grid gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
           {knowledgeAudiences.map((a) => (
-            <div key={a.who}>
-              <h3 className="text-sm font-semibold text-slate-900">{a.who}</h3>
-              <p className="mt-1 text-sm text-slate-500">{a.what}</p>
+            <div key={a.who} className="border-t border-sky/15 pt-4">
+              <h3 className="text-sm font-semibold text-white">{a.who}</h3>
+              <p className="mt-1 text-sm text-mute">{a.what}</p>
             </div>
           ))}
         </div>

@@ -25,22 +25,26 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // The homepage opens on a dark canvas, so the navigation sits transparent
-  // over the hero and turns solid once the visitor scrolls (Component
-  // Language: "Transparent over Hero. Solid after scrolling."). Other routes
-  // keep the solid navy bar.
+  // Every route now opens on the same dark canvas, so the navigation behaves
+  // identically everywhere: transparent over the hero, solid once the
+  // visitor scrolls (Component Language: "Transparent over Hero. Solid after
+  // scrolling.").
+  //
+  // This used to hold a solid --color-navy bar on every route except the
+  // homepage. Navy is #03045e and the canvas is #00101f — a visibly brighter,
+  // bluer strip sitting above five pages that had since moved onto the
+  // canvas. Now there is one treatment, and the solid state is the canvas
+  // itself.
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isHome = pathname === "/";
 
   useEffect(() => {
-    if (!isHome) return;
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome]);
+  }, [pathname]);
 
-  const transparent = isHome && !scrolled && !isOpen;
+  const transparent = !scrolled && !isOpen;
 
   useMobileMenuAnimation({ panelRef, listRef, isOpen });
 
@@ -49,9 +53,7 @@ export function Header() {
       className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color] duration-300 ${
         transparent
           ? "border-transparent bg-transparent"
-          : isHome
-            ? "border-white/[0.07] bg-canvas"
-            : "border-transparent bg-navy"
+          : "border-white/[0.07] bg-canvas"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:h-18 md:px-8">
@@ -108,11 +110,7 @@ export function Header() {
           </a>
           <a
             href={config.authAppUrl + "/signup"}
-            className={`rounded-none px-4 py-2 text-[0.875rem] font-semibold tracking-tight transition-colors duration-200 ${
-              isHome
-                ? "bg-cyan text-navy hover:bg-sky"
-                : "bg-blue text-white hover:bg-blue-deep"
-            }`}
+            className="rounded-none bg-cyan px-4 py-2 text-[0.875rem] font-semibold tracking-tight text-navy transition-colors duration-200 hover:bg-sky"
           >
             Get Started
           </a>
@@ -133,9 +131,7 @@ export function Header() {
       {/* Mobile menu panel */}
       <div
         ref={panelRef}
-        className={`invisible relative h-0 overflow-hidden border-b border-white/10 lg:hidden ${
-          isHome ? "bg-canvas" : "bg-navy"
-        }`}
+        className="invisible relative h-0 overflow-hidden border-b border-white/10 bg-canvas lg:hidden"
       >
         <ul ref={listRef} className="flex flex-col gap-1 px-5 pb-6 pt-2">
           {navLinks.map((link) => (
@@ -170,9 +166,7 @@ export function Header() {
             </a>
             <a
               href={config.authAppUrl + "/signup"}
-              className={`rounded-lg px-4 py-3 text-center text-sm font-medium ${
-                isHome ? "bg-cyan text-navy" : "bg-blue text-white"
-              }`}
+              className="rounded-lg bg-cyan px-4 py-3 text-center text-sm font-medium text-navy"
             >
               Get Started
             </a>

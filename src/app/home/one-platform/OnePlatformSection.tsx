@@ -36,7 +36,7 @@ export function OnePlatformSection() {
     >
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
         {/* The argument */}
-        <div className="order-1 lg:pr-6">
+        <div className="order-1 lg:mr-auto lg:max-w-xl lg:pr-6">
           <h2
             ref={headingRef}
             className="hp-scene-title font-extrabold text-white"
@@ -49,7 +49,7 @@ export function OnePlatformSection() {
             </span>
           </h2>
 
-          <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
+          <p ref={copyRef} className="hp-hero-copy mt-6 text-mute">
             Every application shares the same foundation, data, and
             intelligence&mdash;working as one platform.
           </p>

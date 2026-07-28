@@ -38,10 +38,11 @@ export function DifferentSection() {
   useDifferentAnimation({ sectionRef, introRef, revealRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={introRef}>
           <SectionIntro
+            tone="navy"
             align="center"
             eyebrow="Why Sharpnr exists"
             heading={
@@ -56,15 +57,20 @@ export function DifferentSection() {
         </div>
 
         {/* One business event, start to finish */}
-        <div className="mx-auto mt-14 max-w-xl">
+        <div className="mx-auto mt-14 max-w-2xl">
           <svg
-            viewBox="0 0 560 560"
+            /* Wider than the 0–560 drawing: the outermost labels run from
+               -95 to 600 in user units, and inside a 560-wide box the SVG
+               simply clipped them ("Stock reaches reorder level" lost its
+               first two words). Padding the viewBox keeps everything inside
+               the element, so nothing can spill past the page edge either. */
+            viewBox="-100 0 710 560"
             role="img"
             aria-label="One business event flowing through kitchen, inventory, accounting, management and suppliers, converging into the Sharpnr platform"
             className="h-auto w-full"
           >
             {/* Event-to-event connections */}
-            <g fill="none" stroke="#0077b6" strokeOpacity="0.4" strokeWidth="1.3">
+            <g fill="none" stroke="#90e0ef" strokeOpacity="0.28" strokeWidth="1.3">
               {arcs.map((d) => (
                 <path key={d} className="diff-arc" d={d} />
               ))}
@@ -84,24 +90,34 @@ export function DifferentSection() {
             {/* Events */}
             {events.map((e) => (
               <g key={e.label} className="diff-event">
-                <circle cx={e.x} cy={e.y} r="9" fill="#ffffff" stroke="#0077b6" strokeWidth="1.5" />
-                <circle cx={e.x} cy={e.y} r="3" fill="#0077b6" />
+                <circle
+                  cx={e.x}
+                  cy={e.y}
+                  r="9"
+                  fill="#00101f"
+                  stroke="#00b4d8"
+                  strokeOpacity="0.6"
+                  strokeWidth="1.5"
+                />
+                <circle cx={e.x} cy={e.y} r="3" fill="#00b4d8" />
                 <text
                   x={e.x + ("lx" in e ? (e.lx as number) : 0)}
                   y={e.y + ("ly" in e ? (e.ly as number) : 4.5)}
                   textAnchor={e.anchor}
                   fontSize="13"
                   fontWeight="500"
-                  fill="#475569"
+                  fill="#8a94a8"
                 >
                   {e.label}
                 </text>
               </g>
             ))}
 
-            {/* The platform — revealed only when everything comes together */}
+            {/* The platform — revealed only when everything comes together.
+                The mark is drawn in #ececec, so it needs the dark canvas
+                behind it, not a white disc. */}
             <g className="diff-core">
-              <circle cx="280" cy="280" r="44" fill="#ffffff" stroke="#03045e" strokeOpacity="0.15" strokeWidth="1.5" />
+              <circle cx="280" cy="280" r="44" fill="#00101f" stroke="#00b4d8" strokeOpacity="0.45" strokeWidth="1.5" />
               <image
                 href="/sharpnr-Icon.svg"
                 x="252"
@@ -118,13 +134,13 @@ export function DifferentSection() {
           ref={revealRef}
           className="mx-auto mt-14 flex max-w-2xl flex-col items-center text-center"
         >
-          <p className="diff-reveal text-heading-md font-bold text-navy md:text-heading-lg">
+          <p className="diff-reveal text-heading-md font-bold text-white md:text-heading-lg">
             Connected Business Infrastructure
           </p>
-          <p className="diff-reveal mt-3 text-body-lg text-slate-600">
+          <p className="diff-reveal mt-3 text-body-lg text-mute">
             A platform where every business event stays connected.
           </p>
-          <p className="diff-reveal mt-8 text-title-md font-semibold text-slate-900">
+          <p className="diff-reveal mt-8 text-title-md font-semibold text-white">
             This is Sharpnr.
           </p>
         </div>

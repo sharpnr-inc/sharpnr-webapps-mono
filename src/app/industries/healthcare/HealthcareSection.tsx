@@ -31,6 +31,10 @@ const builtFor =
 /**
  * Section 03 — Healthcare (coming soon, as Lifco). Transparent about
  * availability; focused on connected care, not systems.
+ *
+ * First of the page's three 50/50 sections: argument left, panel right.
+ * Corporate below faces the other way, and Multi-industry faces back —
+ * two splits in a row facing the same way reads as a template.
  */
 export function HealthcareSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -39,16 +43,20 @@ export function HealthcareSection() {
   useHealthcareAnimation({ sectionRef, introRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section
+      ref={sectionRef}
+      className="relative border-t border-white/[0.07]"
+    >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={introRef}>
           <div className="mb-5 flex items-center gap-3">
-            <StatusBadge kind="soon" />
-            <span className="text-sm text-slate-500">
+            <StatusBadge kind="soon" tone="navy" />
+            <span className="text-sm text-mute">
               Sharp Operations · Healthcare — Lifco
             </span>
           </div>
           <SectionIntro
+            tone="navy"
             heading={
               <>
                 Healthcare deserves connected care.
@@ -65,32 +73,32 @@ export function HealthcareSection() {
           <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
             {plannedAreas.map((area) => (
               <div key={area.title} className="hc-area">
-                <h3 className="text-base font-semibold text-slate-900">
+                <h3 className="text-base font-semibold text-white">
                   {area.title}
                 </h3>
-                <p className="mt-1 text-sm text-slate-500">{area.line}</p>
+                <p className="mt-1 text-sm text-mute">{area.line}</p>
               </div>
             ))}
           </div>
 
           {/* One patient journey */}
-          <div className="rounded-2xl border border-slate-200 bg-soft p-6 md:p-8">
-            <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-400">
+          <div className="rounded-2xl border border-sky/15 bg-sky/[0.025] p-6 md:p-8">
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
               One patient journey, connected end to end
             </p>
             <ol className="relative mt-6 space-y-4">
-              <div className="absolute bottom-3 left-[5px] top-3 w-px bg-slate-200" />
+              <div className="absolute bottom-3 left-[5px] top-3 w-px bg-sky/20" />
               {patientJourney.map((step) => (
                 <li key={step} className="hc-step relative flex items-center gap-4">
-                  <span className="relative z-10 block size-[11px] shrink-0 rounded-full border-2 border-blue/60 bg-white" />
-                  <span className="text-sm text-slate-600">{step}</span>
+                  <span className="relative z-10 block size-[11px] shrink-0 rounded-full border-2 border-cyan/60 bg-canvas" />
+                  <span className="text-sm text-mute">{step}</span>
                 </li>
               ))}
             </ol>
           </div>
         </div>
 
-        <p className="mt-12 max-w-3xl text-sm leading-relaxed text-slate-500">
+        <p className="mt-12 max-w-3xl text-sm leading-relaxed text-mute">
           Designed for: {builtFor}
         </p>
       </div>

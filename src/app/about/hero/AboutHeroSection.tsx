@@ -1,17 +1,24 @@
 import { useRef } from "react";
 import { CtaLink } from "@/app/shared/CtaLink";
+import { Words } from "@/app/home/shared/Words";
 import { ScrollSmoother } from "@/configs/gsap";
 import { useAboutHeroAnimation } from "./animations/useAboutHeroAnimation";
 
 /**
- * About hero — not a company profile. A belief, stated plainly.
- * Typography is the hero; the philosophy comes before the company.
+ * About hero — not a company profile. A belief, stated plainly, and
+ * typography is the whole visual.
+ *
+ * Centred, like every hero on the site. No background and no lighting of
+ * its own: the dark canvas and its ink wash are held at the root, and a
+ * blurred pool on top of the wash only muddied it.
  */
 export function AboutHeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
+  const copyRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
-  useAboutHeroAnimation({ sectionRef, copyRef });
+  useAboutHeroAnimation({ sectionRef, eyebrowRef, copyRef, ctaRef });
 
   const scrollToStory = () => {
     const target = document.getElementById("story");
@@ -22,24 +29,41 @@ export function AboutHeroSection() {
   };
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-navy">
-      {/* Subtle lighting — nothing else competes with the words */}
-      <div className="pointer-events-none absolute -top-32 right-1/4 size-120 rounded-full bg-blue/15 blur-3xl" />
+    <section
+      ref={sectionRef}
+      className="relative min-h-svh w-full overflow-hidden"
+    >
+      <div className="relative z-10 flex min-h-svh w-full items-center justify-center py-28">
+        <div className="mx-auto w-full max-w-7xl px-6 text-center md:px-10">
+          <p
+            ref={eyebrowRef}
+            className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-twilight sm:text-[0.6875rem] sm:tracking-[0.3em]"
+          >
+            Why We Exist
+          </p>
 
-      <div className="relative mx-auto flex min-h-[80svh] max-w-7xl flex-col justify-center px-5 pb-24 pt-36 md:px-8 md:pt-44">
-        <div ref={copyRef} className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h1 className="text-display-md font-bold text-white md:text-display-lg">
-            We believe businesses deserve better.
+          {/* Two lines, breaking on the comma — kept as blocks at every
+              width rather than running onto one line at lg, which at 47
+              characters would overflow max-w-7xl at the top of the type
+              scale. Each half stays intact on its own line. */}
+          <h1 className="hp-scene-title mt-5 font-extrabold text-white">
+            <span className="about-line-1 block">
+              <Words text="Business should feel connected," />
+            </span>{" "}
+            <span className="about-line-2 block text-twilight">
+              <Words text="Not complicated." />
+            </span>
           </h1>
-          <p className="mt-6 max-w-xl text-body-lg text-white/70">
-            Businesses shouldn't have to assemble dozens of disconnected tools
-            just to run their organization. Technology should simplify work,
-            connect people and create clarity — not add complexity.
+
+          <p ref={copyRef} className="hp-hero-copy mx-auto mt-5 max-w-lg text-mute">
+            Sharpnr exists to reduce operational complexity by giving every
+            business one connected platform to run, grow and evolve.
           </p>
-          <p className="mt-4 text-base text-white/55">
-            Everything we build begins with that belief.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+
+          <div
+            ref={ctaRef}
+            className="mt-8 flex flex-wrap items-center justify-center gap-4"
+          >
             <button
               type="button"
               onClick={scrollToStory}

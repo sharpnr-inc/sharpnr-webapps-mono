@@ -1,4 +1,5 @@
 import Footer from "@/app/footer/Footer";
+import { CanvasWash } from "@/app/home/shared/CanvasWash";
 import { Header } from "@/app/header/Header";
 import {
   createRootRoute,
@@ -274,8 +275,16 @@ function RootLayout() {
       <Header />
       <div id="smooth-wrapper" ref={wrapperRef}>
         <div id="smooth-content" ref={contentRef}>
-          <Outlet />
-          <Footer />
+          {/* One dark canvas and one ink wash for the whole site. Held here
+              rather than per-page so every route sits on the same sheet and
+              the footer is part of it — a per-page wash stopped where the
+              page stopped, and the hand-over to the footer read as the page
+              simply ending. */}
+          <div className="hp-canvas relative text-white">
+            <CanvasWash />
+            <Outlet />
+            <Footer />
+          </div>
         </div>
       </div>
     </MDXProvider>
