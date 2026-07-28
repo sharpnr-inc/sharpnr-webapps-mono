@@ -1,6 +1,7 @@
 import type { RefObject } from "react";
 import { gsap, useGSAP } from "@/configs/gsap";
 import { prefersReduced } from "@/app/home/shared/motion";
+import { EASE, T as MOTION, armWords, revealWords } from "@/app/home/shared/choreography";
 
 interface HeroAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -44,35 +45,32 @@ export function useHeroAnimation(refs: HeroAnimationRefs) {
       const section = sectionRef.current;
       if (!section) return;
 
-      const line1 = gsap.utils.toArray<HTMLElement>(".hero-line-1 .hp-word");
-      const line2 = gsap.utils.toArray<HTMLElement>(".hero-line-2 .hp-word");
+      const line1 = section.querySelector(".hero-line-1");
+      const line2 = section.querySelector(".hero-line-2");
       const words = gsap.utils
         .toArray<HTMLElement>(".hero-field-word")
         .filter((w) => getComputedStyle(w).display !== "none");
 
       // Reduced motion: the finished frame, and the field simply rests.
       if (prefersReduced()) {
-        gsap.set([...line1, ...line2], { opacity: 1 });
+        gsap.set(gsap.utils.toArray(".hp-word", section), { opacity: 1 });
         return;
       }
 
-      gsap.set([...line1, ...line2], { opacity: 0, y: "0.5em" });
+      armWords(line1);
+      armWords(line2);
 
-      // anime's outExpo/820ms, matched: GSAP expo.out over 0.82s.
-      const reveal = { duration: 0.82, ease: "expo.out", stagger: 0.038 } as const;
-      gsap.to(line1, { ...reveal, opacity: 1, y: "0em", delay: T.line1 });
-      gsap.to(line2, { ...reveal, opacity: 1, y: "0em", delay: T.line2 });
+      // Same reveal as every other heading on the page — the timing lives in
+      // choreography.ts so the opening cannot drift from the scenes below.
+      revealWords(line1, T.line1);
+      revealWords(line2, T.line2);
 
       const buttons = ctaRef.current ? Array.from(ctaRef.current.children) : [];
       gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from(eyebrowRef.current, { opacity: 0, y: 10, duration: 0.5 }, 0)
-        .from(copyRef.current, { opacity: 0, y: 16, duration: 0.6 }, T.copy)
-        .from(
-          buttons,
-          { opacity: 0, y: 12, duration: 0.5, stagger: 0.1 },
-          T.cta,
-        );
+        .timeline({ defaults: { ease: EASE.in, duration: MOTION.base } })
+        .from(eyebrowRef.current, { opacity: 0, y: 10 }, 0)
+        .from(copyRef.current, { opacity: 0, y: 16 }, T.copy)
+        .from(buttons, { opacity: 0, y: 12, stagger: 0.1 }, T.cta);
 
       if (!words.length) return;
 
