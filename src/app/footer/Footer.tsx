@@ -1,6 +1,34 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
-import { config } from "@/configs/env";
+import { Wordmark } from "@/app/home/shared/Wordmark";
+import { Instagram, Linkedin, Youtube } from "lucide-react";
+import { XIcon } from "./XIcon";
+
+/*
+ * The footer, per website_instruction/04_Homepage.md (LOCKED) and
+ * 03_Component_Language.md.
+ *
+ * "Provide navigation. Not storytelling. The story ends before the footer.
+ * The footer is a utility." Five columns, a quiet bottom bar, and no motion
+ * beyond hover.
+ *
+ * Two things were removed to comply, both of which had been added earlier:
+ *   - the ink wash. The contract is explicit: "No decorative graphics. No
+ *     background changes." The homepage carries the wash; the footer does
+ *     not, and the border above it is where the page hands over.
+ *   - the product catalogue. Four columns of app links were storytelling
+ *     about the platform, which is exactly what this is not for.
+ *
+ * The spec's bottom bar also lists "Made in India", a version, a theme
+ * toggle and a language switch. The origin line is dropped by request; the
+ * rest have no source yet (package.json is still 0.0.0, and there is no
+ * theme or locale system), and a hardcoded "v1.0" would be a lie the moment
+ * anyone read it. The bar is just the copyright.
+ *
+ * Entries in the spec with no destination yet — API, SDKs, GitHub, Status,
+ * Changelog, Blog, Guides, Help Center, Community, Careers, Contact,
+ * Privacy, Terms — are deliberately absent rather than linked to routes
+ * that would 404. Add the route or the URL and they belong here.
+ */
 
 const socialLinks = [
   {
@@ -8,7 +36,7 @@ const socialLinks = [
     label: "LinkedIn",
     href: "https://linkedin.com/company/sharpnrllp",
   },
-  { icon: Twitter, label: "X (Twitter)", href: "https://x.com/sharpnr" },
+  { icon: XIcon, label: "X", href: "https://x.com/sharpnrapp" },
   {
     icon: Instagram,
     label: "Instagram",
@@ -17,107 +45,83 @@ const socialLinks = [
   { icon: Youtube, label: "YouTube", href: "https://youtube.com/@sharpnrinc" },
 ] as const;
 
-const platformLinks = [
-  { label: "Platform", to: "/platform" },
-  { label: "Products", to: "/products" },
-  { label: "Industries", to: "/industries" },
-  { label: "Services", to: "/services" },
-  { label: "About", to: "/about" },
-  { label: "Resources", to: "/resources" },
-] as const;
-
-interface ProductItem {
+interface FooterItem {
   label: string;
-  href?: string;
   to?: string;
-  soon?: boolean;
+  href?: string;
 }
 
-const operationsProducts: ProductItem[] = [
-  { label: "Sharp Operations · Hospitality", href: config.hospitalityAppUrl },
-  { label: "Lifco · Healthcare", soon: true },
-  { label: "Sharp Marketplace", href: config.marketplaceAppUrl },
+const columns: { heading: string; items: FooterItem[] }[] = [
+  {
+    heading: "Platform",
+    items: [
+      { label: "Overview", to: "/platform" },
+      { label: "Products", to: "/products" },
+      { label: "Industries", to: "/industries" },
+      { label: "Services", to: "/services" },
+    ],
+  },
+  {
+    heading: "Developers",
+    items: [{ label: "Documentation", href: "https://docs.sharpnr.com" }],
+  },
+  {
+    heading: "Resources",
+    items: [{ label: "Resources", to: "/resources" }],
+  },
+  {
+    heading: "Company",
+    items: [{ label: "About", to: "/about" }],
+  },
 ];
 
-const foundationProducts: ProductItem[] = [
-  { label: "Sharp Accounting", href: config.accountingAppUrl },
-  { label: "Sharp HRMS", href: config.hrAppUrl },
-  { label: "Sharp CRMS", href: config.sharpCRMAppUrl },
-  { label: "Sharp IAM", href: config.iamAppUrl },
-  { label: "Cortex", href: config.cortexAppUrl },
-];
+/* Brighten and grow an underline — the only hover the contract allows. */
+const LINK =
+  "hp-foot-link text-[0.8125rem] text-mute transition-colors duration-200 hover:text-ice";
 
-const collaborationProducts: ProductItem[] = [
-  { label: "Cables", href: config.cablesAppUrl },
-  { label: "Folio", href: config.folioAppUrl },
-  { label: "Tasks", to: "/products" },
-  { label: "Silo", href: config.siloAppUrl },
-  { label: "IVA", to: "/products" },
-];
-
-function ColumnHeading({ children }: { children: string }) {
-  return (
-    <h3 className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">
-      {children}
-    </h3>
-  );
-}
-
-function FooterLink({ item }: { item: ProductItem }) {
-  if (item.soon) {
-    return (
-      <span className="inline-flex items-center gap-2 text-sm text-white/40">
-        {item.label}
-        <span className="rounded-full border border-white/15 px-2 py-px text-[10px] font-medium uppercase tracking-wide text-white/50">
-          Soon
-        </span>
-      </span>
-    );
-  }
+function FooterLink({ item }: { item: FooterItem }) {
   if (item.to) {
     return (
-      <Link
-        to={item.to}
-        className="text-sm text-white/65 transition-colors duration-200 hover:text-white"
-      >
+      <Link to={item.to} className={LINK}>
         {item.label}
       </Link>
     );
   }
   return (
-    <a
-      href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-sm text-white/65 transition-colors duration-200 hover:text-white"
-    >
+    <a href={item.href} target="_blank" rel="noopener noreferrer" className={LINK}>
       {item.label}
     </a>
   );
 }
 
-/** The footer concludes the experience — calm, organized, navy. */
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-navy">
-      <div className="mx-auto max-w-7xl px-5 pb-10 pt-16 md:px-8 md:pt-20">
-        <div className="grid gap-x-8 gap-y-12 lg:grid-cols-12">
-          {/* Brand */}
+    <footer className="border-t border-sky/12 bg-canvas">
+      <div className="mx-auto max-w-7xl px-6 pb-8 pt-12 md:px-10">
+        <div className="grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-12">
+          {/* Column 1 — brand */}
           <div className="lg:col-span-4">
-            <img
-              src="/sharpnr-logo-white.svg"
-              alt="Sharpnr"
-              className="h-7 w-auto min-w-30"
-            />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
+            {/* Mark then wordmark, sized and spaced off the wordmark's
+                *ink* rather than its box. The export carries 25% transparent
+                bleed vertically and 6.5% horizontally, so a 1.7rem box
+                renders ~13px of letter (≈55% of the 24px mark, which is the
+                right weight) and contributes ~7px of invisible padding on
+                its left — which is why the gap here is only 4px and still
+                reads as ~11px. */}
+            <div className="flex items-center gap-1">
+              <img
+                src="/sharpnr-logo-white.svg"
+                alt=""
+                aria-hidden="true"
+                className="h-6 w-auto"
+              />
+              <Wordmark className="h-[1.7rem]" label="Sharpnr" />
+            </div>
+            <p className="mt-4 max-w-xs text-[0.8125rem] leading-relaxed text-mute">
               Connected Business Infrastructure. One platform where operations,
-              finance, people, communication and business networks work
-              together.
+              finance, people and communication work together.
             </p>
-            <p className="mt-5 text-sm text-white/45">
-              Free during Early Access · No credit card required
-            </p>
-            <div className="mt-7 flex gap-4">
+            <div className="mt-5 flex gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -125,97 +129,35 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="text-white/55 transition-colors duration-200 hover:text-white"
+                  className="text-mute transition-colors duration-200 hover:text-ice"
                 >
-                  <social.icon className="size-5" strokeWidth={1.7} />
+                  <social.icon className="size-4" strokeWidth={1.8} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Explore */}
-          <div className="lg:col-span-2">
-            <ColumnHeading>Explore</ColumnHeading>
-            <ul className="mt-5 flex flex-col gap-3">
-              {platformLinks.map((link) => (
-                <li key={link.to}>
-                  <Link
-                    to={link.to}
-                    className="text-sm text-white/65 transition-colors duration-200 hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <a
-                  href="https://docs.sharpnr.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-white/65 transition-colors duration-200 hover:text-white"
-                >
-                  Docs
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Operations & network */}
-          <div className="lg:col-span-2">
-            <ColumnHeading>Run your business</ColumnHeading>
-            <ul className="mt-5 flex flex-col gap-3">
-              {operationsProducts.map((item) => (
-                <li key={item.label}>
-                  <FooterLink item={item} />
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Foundation */}
-          <div className="lg:col-span-2">
-            <ColumnHeading>Foundation</ColumnHeading>
-            <ul className="mt-5 flex flex-col gap-3">
-              {foundationProducts.map((item) => (
-                <li key={item.label}>
-                  <FooterLink item={item} />
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Collaboration & intelligence */}
-          <div className="lg:col-span-2">
-            <ColumnHeading>Work together</ColumnHeading>
-            <ul className="mt-5 flex flex-col gap-3">
-              {collaborationProducts.map((item) => (
-                <li key={item.label}>
-                  <FooterLink item={item} />
-                </li>
-              ))}
-            </ul>
-          </div>
+          {columns.map((col) => (
+            <div key={col.heading} className="lg:col-span-2">
+              <h3 className="font-mono text-[0.625rem] font-medium uppercase tracking-[0.24em] text-twilight">
+                {col.heading}
+              </h3>
+              <ul className="mt-4 flex flex-col gap-2.5">
+                {col.items.map((item) => (
+                  <li key={item.label}>
+                    <FooterLink item={item} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        {/* Bottom line */}
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-white/45">
+        {/* Bottom bar — copyright and origin */}
+        <div className="mt-10 border-t border-sky/10 pt-6">
+          <p className="text-xs text-mute/70">
             © {new Date().getFullYear()} Sharpnr. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <a
-              href={config.authAppUrl}
-              className="text-sm text-white/55 transition-colors duration-200 hover:text-white"
-            >
-              Login
-            </a>
-            <a
-              href={config.authAppUrl + "/signup"}
-              className="text-sm text-white/55 transition-colors duration-200 hover:text-white"
-            >
-              Create Free Account
-            </a>
-          </div>
         </div>
       </div>
     </footer>

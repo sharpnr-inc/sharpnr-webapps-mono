@@ -17,6 +17,14 @@ export interface BoardNode {
   depth: number;
   z: number;
   variant?: "hub" | "core" | "lake";
+  /**
+   * Package type. A real board is populated with different components, not
+   * one shape scaled up and down — an IC carries a pin-1 notch and a
+   * silkscreen outline, a connector is ribbed, a passive is a plain chip
+   * with end terminations and no corner pads at all. Without this every
+   * block is the same extrusion and the whole thing reads as generated.
+   */
+  part?: "ic" | "connector" | "passive";
   /** Permanent silkscreen label. Only the foundation modules carry one;
    * everything else stays clean until hovered. */
   silk?: boolean;
@@ -27,15 +35,15 @@ export const NODES: BoardNode[] = [
   // Largest — the processor everything else is built on
   { label: "Sharpnr", silk: true, cx: 48, cy: 47, w: 132, h: 92, depth: 26, z: 0, variant: "hub", anchor: true },
   // Large — foundation services
-  { label: "Accounting", silk: true, cx: 84, cy: 31, w: 104, h: 54, depth: 15, z: 0 },
-  { label: "Operations", silk: true, cx: 54, cy: 87, w: 104, h: 64, depth: 15, z: 0 },
-  { label: "Marketplace", silk: true, cx: 13, cy: 71, w: 112, h: 48, depth: 15, z: 0 },
+  { label: "Accounting", silk: true, cx: 84, cy: 31, w: 104, h: 54, depth: 15, z: 0, part: "ic" },
+  { label: "Operations", silk: true, cx: 54, cy: 87, w: 104, h: 64, depth: 15, z: 0, part: "ic" },
+  { label: "Marketplace", silk: true, cx: 13, cy: 71, w: 112, h: 48, depth: 13, z: 0, part: "connector" },
   // Medium — supporting applications
-  { label: "CRM", silk: true, cx: 45, cy: 11, w: 62, h: 46, depth: 12, z: 0 },
-  { label: "Communication", silk: true, cx: 88, cy: 68, w: 124, h: 58, depth: 12, z: 0 },
-  { label: "HRMS", silk: true, cx: 11, cy: 33, w: 74, h: 50, depth: 12, z: 0 },
+  { label: "CRM", silk: true, cx: 45, cy: 11, w: 62, h: 46, depth: 12, z: 0, part: "ic" },
+  { label: "Communication", silk: true, cx: 88, cy: 68, w: 124, h: 58, depth: 10, z: 0, part: "connector" },
+  { label: "HRMS", silk: true, cx: 11, cy: 33, w: 74, h: 50, depth: 12, z: 0, part: "ic" },
   // Small — specialised
-  { label: "IAM", silk: true, cx: 22, cy: 9, w: 56, h: 34, depth: 9, z: 0 },
+  { label: "IAM", silk: true, cx: 22, cy: 9, w: 56, h: 34, depth: 7, z: 0, part: "passive" },
   // The substrate. Data Lake is a physical destination sitting under the
   // hub at the foot of the drop line, not a label floating in the void —
   // it is the bedrock of the board and has to look like it carries weight.

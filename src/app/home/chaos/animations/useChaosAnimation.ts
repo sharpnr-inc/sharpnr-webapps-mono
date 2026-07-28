@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
-import { gsap, useGSAP } from "@/configs/gsap";
-import { prefersReduced, revealOnce } from "@/app/home/shared/motion";
+import { ScrollTrigger, gsap, useGSAP } from "@/configs/gsap";
+import { prefersReduced } from "@/app/home/shared/motion";
 import { animeWordsOnEnter } from "@/app/home/shared/reveal";
 
 interface ChaosAnimationRefs {
@@ -11,73 +11,80 @@ interface ChaosAnimationRefs {
 }
 
 /**
- * The board that never completes a circuit. Reversible entrance.
+ * Scene 02.
  *
- * Parts and traces fade in once on scroll and reverse on scroll-up. After
- * that, charges set out along each severed run and die at the break —
- * never arriving, never looping in unison. It is deliberately the same
- * mechanic as Scene 03's journeys, failing: there the charge crosses the
- * board and lands, here it stops at a gap and gives up.
+ * The rows arrive one system at a time, so the visitor reads the first
+ * one properly and only then notices the second says something different.
+ * Landing them together would read as a spreadsheet dump, and the moment of
+ * noticing — which is the whole argument — would be lost.
+ *
+ * After that, one recurring cue: the five names light down the column. It
+ * takes about a second and says the thing the section is about, which is
+ * that all five of these are one person.
  */
 export function useChaosAnimation(refs: ChaosAnimationRefs) {
   const { sectionRef, headingRef, copyRef, fieldRef } = refs;
 
   useGSAP(
     () => {
+      if (prefersReduced()) return;
       const section = sectionRef.current;
-      if (!section) return;
-
-      animeWordsOnEnter(headingRef.current, section);
-      if (copyRef.current) revealOnce(copyRef.current, section, { delay: 0.15 });
-      if (prefersReduced() || !fieldRef.current) return;
-
       const field = fieldRef.current;
-      const parts = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-part"));
-      const traces = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-trace"));
-      const breaks = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-break"));
-      const errs = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-err"));
-      const pulses = Array.from(field.querySelectorAll<HTMLElement>(".hp-frag-pulse"));
+      if (!section || !field) return;
 
-      gsap.set(pulses, { opacity: 0 });
+      animeWordsOnEnter(headingRef.current, section, "top 72%");
+
+      const records = gsap.utils.toArray<HTMLElement>(".hp-ledger-row", field);
+      const verdict = field.querySelector(".hp-rec-verdict");
+      // The name is the first value in each record — the field a person
+      // recognises themselves by, and the one the cue lights.
+      const names = records
+        .map((r) => r.querySelector<HTMLElement>(".hp-ledger-val"))
+        .filter((n): n is HTMLElement => n !== null);
 
       gsap
         .timeline({
-          scrollTrigger: {
-            trigger: field,
-            start: "top 74%",
-            toggleActions: "play none none reverse",
-          },
+          defaults: { ease: "power3.out" },
+          scrollTrigger: { trigger: section, start: "top 70%", once: true },
         })
-        .from(parts, { opacity: 0, y: 14, duration: 0.55, ease: "power2.out", stagger: 0.08 })
-        .from(traces, { opacity: 0, duration: 0.4, ease: "power1.out", stagger: 0.04 }, "-=0.3")
-        .from(breaks, { opacity: 0, scale: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.03 }, "-=0.25")
-        // The errors arrive last — the break registers before it is named.
-        .from(errs, { opacity: 0, duration: 0.5, ease: "power1.out", stagger: 0.05 }, "-=0.1");
+        .from(copyRef.current, { opacity: 0, y: 18, duration: 0.5 }, 0.3)
+        .from(records, { opacity: 0, y: 14, duration: 0.5, stagger: 0.13 }, 0.45)
+        .from(verdict, { opacity: 0, duration: 0.6 }, ">-0.1");
 
-      // Each run tries on its own schedule and fails on its own schedule.
-      // Never synchronised: coordinated failure would read as choreography,
-      // and the point is that nothing here is coordinated at all.
-      pulses.forEach((pulse, i) => {
-        const horizontal = pulse.dataset.dir === "h";
-        const axis = horizontal ? "x" : "y";
-        const travel = (Number(pulse.dataset.travel ?? 0) / 100) *
-          (horizontal ? field.clientWidth : field.clientHeight);
+      if (!names.length) return;
 
-        gsap
-          .timeline({
-            repeat: -1,
-            repeatDelay: 2.4 + ((i * 7) % 5) * 0.8,
-            delay: 1.2 + ((i * 3) % 7) * 0.7,
-          })
-          .set(pulse, { [axis]: 0, opacity: 0 })
-          .to(pulse, { opacity: 1, duration: 0.35 })
-          .to(pulse, { [axis]: travel, duration: 1.1, ease: "power1.out" }, "<")
-          // Dies at the gap rather than fading politely — it hit something.
-          .to(pulse, { opacity: 0, duration: 0.18, ease: "power2.in" });
+      /*
+       * Ambient, and deliberately its own paused timeline rather than a
+       * child of the entrance above: an infinitely repeating child leaves a
+       * timeline with no finite duration, which silently breaks anything
+       * that later needs to reverse it.
+       *
+       * Only runs while the scene is on screen — a loop tweening against a
+       * section nobody is looking at is just wasted frames.
+       */
+      const cue = gsap
+        .timeline({ repeat: -1, repeatDelay: 4.5, paused: true })
+        .to(names, {
+          color: "#caf0f8",
+          duration: 0.28,
+          stagger: 0.11,
+          ease: "sine.out",
+        })
+        .to(
+          names,
+          { color: "", duration: 0.5, stagger: 0.11, ease: "sine.in" },
+          "+=0.35",
+        );
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 80%",
+        end: "bottom 20%",
+        onEnter: () => cue.play(),
+        onEnterBack: () => cue.play(),
+        onLeave: () => cue.pause(),
+        onLeaveBack: () => cue.pause(),
       });
-      // No parallax here on purpose: translating the visual while the
-      // text column stays put pulls the two out of alignment as you
-      // scroll, and this scene reads as a pair that must sit level.
     },
     { scope: sectionRef },
   );

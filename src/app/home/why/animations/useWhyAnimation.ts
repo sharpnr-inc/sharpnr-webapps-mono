@@ -32,8 +32,15 @@ export function useWhyAnimation(refs: WhyAnimationRefs) {
       if (prefersReduced() || !listRef.current) return;
 
       const list = listRef.current;
-      const rules = Array.from(list.querySelectorAll<HTMLElement>(".hp-spec-rule"));
-      const rows = Array.from(list.querySelectorAll<HTMLElement>(".hp-spec-row > .grid"));
+      // The ledger's rows became bento tiles; same entrance, applied to the
+      // tile. Targeted by a plain hook class rather than Tailwind's
+      // `group/bento` — the slash needs escaping to survive into CSS, and
+      // getting that wrong throws at querySelectorAll rather than failing
+      // quietly. The hairline rules went with the ledger, so there is
+      // nothing left to draw ahead of them.
+      const tiles = Array.from(
+        list.querySelectorAll<HTMLElement>(".hp-bento-tile"),
+      );
 
       gsap
         .timeline({
@@ -43,17 +50,13 @@ export function useWhyAnimation(refs: WhyAnimationRefs) {
             toggleActions: "play none none reverse",
           },
         })
-        .from(rules, {
-          scaleX: 0,
-          duration: 0.7,
+        .from(tiles, {
+          opacity: 0,
+          y: 16,
+          duration: 0.55,
           ease: "power2.out",
-          stagger: 0.14,
-        })
-        .from(
-          rows,
-          { opacity: 0, y: 10, duration: 0.5, ease: "power2.out", stagger: 0.14 },
-          0.18,
-        );
+          stagger: 0.1,
+        });
     },
     { scope: sectionRef },
   );

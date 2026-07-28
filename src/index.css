@@ -99,27 +99,67 @@ body {
 }
 
 /* ── Scrollbar (Visual Language: replace the default — thin, minimal,
-   rounded, Sharpnr colors, visible on hover). Neutral translucent thumb
-   so it reads on both the light pages and the navy homepage. ── */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(100, 116, 160, 0.4) transparent;
-}
+   rounded, Sharpnr colors, visible on hover).
+
+   Twilight rather than a neutral grey: it is the one palette token with
+   enough contrast on *both* the ice-white SDL pages and the near-black
+   homepage canvas, so a single rule covers the whole site. The 3px
+   transparent border is clipped out of the paint, leaving a 6px thumb
+   floating clear of the edge instead of a bar welded to it. ── */
+/* WebKit/Blink gets the real treatment: a 6px thumb floating clear of the
+   edge inside a 12px gutter, fully rounded, warming to cyan on hover. The
+   3px border is clipped out of the paint to make that inset. */
 *::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 *::-webkit-scrollbar-track {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 116, 160, 0.4);
+  background-color: rgba(92, 135, 181, 0.45);
   border-radius: 9999px;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   background-clip: content-box;
+  transition: background-color 200ms ease;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-cyan);
+  background-color: rgba(0, 180, 216, 0.85);
+}
+/* Both scrollbars meeting in the corner — leave it empty, or the browser
+   paints its own grey square that no other rule here covers. */
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* The homepage is near-black, but :root stays white for the light-first SDL
+   pages — and a transparent track simply shows that white through, which is
+   what painted a white stripe down the side of the dark page. Give the
+   track a real colour there, and lift the thumb to suit the darker ground. */
+:root:has(.hp-canvas)::-webkit-scrollbar-track,
+:root:has(.hp-canvas) ::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+:root:has(.hp-canvas)::-webkit-scrollbar-thumb,
+:root:has(.hp-canvas) ::-webkit-scrollbar-thumb {
+  background-color: rgba(122, 170, 215, 0.42);
+}
+
+/* Firefox only — it has no ::-webkit-scrollbar, so the standard properties
+   are the only way to reach it. They are deliberately NOT declared for
+   Chrome: since Chrome 121 the mere presence of scrollbar-width switches
+   ::-webkit-scrollbar off completely, which was throwing away every rule
+   above and leaving the browser's default bar. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+  }
+  :root {
+    scrollbar-color: rgba(92, 135, 181, 0.45) transparent;
+  }
+  :root:has(.hp-canvas) {
+    scrollbar-color: rgba(122, 170, 215, 0.42) var(--color-canvas);
+  }
 }
 
 /* ── Homepage canvas — one flat, continuous dark navy. No gradient.
@@ -131,41 +171,126 @@ body {
   background-color: var(--color-canvas);
 }
 
+/* ── The ink wash — one continuous sheet spanning the whole document, so the
+   page reads as a single poured surface rather than each scene carrying its
+   own texture.
 
-/* ── Centre of gravity — a soft light gathering behind the wordmark. Light,
-   never a shape: no border, no edge, no circle. ── */
-/* A wide, very soft pool rather than a tight halo — 8% cyan under a heavy
-   blur, so the centre reads as lit from within and never as a shape. */
-.hero-halo {
-  border-radius: 9999px;
-  background: rgba(0, 180, 216, 0.08);
-  filter: blur(140px);
-  will-change: transform, opacity;
+   Absolute, not fixed: ScrollSmoother transforms an ancestor, and a
+   transformed ancestor becomes the containing block for fixed descendants,
+   so `position: fixed` here resolves against the full scroll height instead
+   of the viewport. Nothing else needs a z-index — every scene already
+   carries `relative`, so they paint above this by document order. ── */
+.hp-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+/* A 140px noise tile at 1:1 — never scaled, so the grain stays fine however
+   tall the document is. Overlay so it textures the wash rather than
+   greying it. */
+.hp-wash-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ── Hero relationships — a connection only exists while it is being shown.
-   Thin, low-opacity, softly glowing; never a permanent diagram (Visual
-   Language amendment v3.3). ── */
-.hero-link {
-  stroke: var(--color-cyan);
-  stroke-width: 1;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 3px rgba(0, 180, 216, 0.5));
-  opacity: 0;
-}
-.hero-pulse {
-  fill: var(--color-sky);
-  filter: drop-shadow(0 0 4px rgba(144, 224, 239, 0.85));
-  opacity: 0;
+
+/* ══════════════════════════════════════════════════════════════════════
+   Scene 01 — the intro.
+
+   The hero answers "what is Sharpnr?" and nothing else; "how does it work?"
+   belongs to Scene 03. So the foreground holds only the eyebrow, the
+   headline, one sentence and two buttons — and the whole frame behind it is
+   filled with faint business vocabulary that occasionally lights.
+
+   Nothing in here moves, scrolls, floats or connects. The stillness is what
+   makes it read as a page rather than a screensaver.
+   ══════════════════════════════════════════════════════════════════════ */
+.hero-stage {
+  position: relative;
+  isolation: isolate;
+  /* Transparent, so the page's ink wash carries through the opening
+     instead of the hero laying its own flat black over the top of it. */
+  background: transparent;
 }
 
-/* ── Hero particles — a handful of soft data motes drifting through the
-   field. Small, faint, few in number: felt as life, not seen as decoration. ── */
-.hero-particle {
-  background: radial-gradient(circle, var(--color-sky) 0%, transparent 70%);
-  opacity: 0;
-  will-change: transform, opacity;
+/* ── The field ── */
+/* No overflow clip: a word that ran past the edge would be cut mid-letter,
+   which reads as a bug rather than as a crop. Words are positioned to fit
+   instead, and the page already carries overflow-x: clip on body so nothing
+   here can produce a horizontal scrollbar. */
+.hero-field {
+  position: absolute;
+  inset: 0;
+  /* Clear of the navigation, always. Every word is positioned as a
+     percentage of this box, so starting it below the header is what
+     guarantees none can ever sit behind the nav — masking would only fade
+     them, and a faded word is still overlapping. */
+  top: 5.5rem;
 }
+
+.hero-field-word {
+  position: absolute;
+  white-space: nowrap;
+  color: var(--color-sky);
+  /* Centred on its own coordinate, so a word never hangs off the edge on
+     one side and the scatter stays balanced at every width. */
+  transform: translate(-50%, -50%);
+  /* Opacity is the only thing that ever changes; keeping it on its own
+     layer means a lighting cycle never triggers layout or paint. */
+  will-change: opacity;
+}
+
+.hero-field-word[data-kind="sys"] {
+  font-size: clamp(0.75rem, 1.15vw, 1.125rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.hero-field-word[data-kind="evt"] {
+  font-size: clamp(0.625rem, 0.85vw, 0.875rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #b8cfe4;
+}
+
+/* Short viewports: the copy occupies proportionally more height, and three
+   rows simply do not fit above it. The rows nearest the copy go rather than
+   sit on top of the eyebrow. */
+@media (max-height: 720px) {
+  .hero-field-word[data-band="inner"] {
+    display: none;
+  }
+}
+
+/* Below md the field thins out — at phone widths the longer phrases run
+   into each other and the scatter turns into a block of text. */
+@media (max-width: 767px) {
+  .hero-field-word[data-kind="evt"] {
+    display: none;
+  }
+  .hero-field-word[data-kind="sys"] {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+  }
+  /* Words are centred on their own coordinate, so the ones nearest the
+     edges hang off a narrow viewport. Narrowing the field instead just
+     moved the problem — they were then clipped mid-letter — so the outermost
+     column simply drops out on phones. */
+  .hero-field-word[data-edge="true"] {
+    display: none;
+  }
+}
+
+/* Motion is the only reason this isn't wallpaper, so with it switched off
+   the field simply sits at its resting opacity. */
 
 /* ── Ambient depth — two very soft pools of light drifting almost
    imperceptibly. Transform-only so it stays on the compositor, and it costs
@@ -296,13 +421,13 @@ body {
    mixed hp-hero-title and hp-h2--peak, so the page changed volume as you
    scrolled; a single class keeps the whole story spoken at one level. */
 .hp-scene-title {
-  font-size: clamp(2rem, 3.1vw + 0.9rem, 3.5rem);
+  font-size: clamp(2.25rem, 3.7vw + 1rem, 4.25rem);
   line-height: 1.06;
   letter-spacing: -0.032em;
 }
 @media (max-height: 880px) and (min-width: 1024px) {
   .hp-scene-title {
-    font-size: clamp(1.75rem, 2.3vw + 0.8rem, 2.75rem);
+    font-size: clamp(2rem, 2.9vw + 0.9rem, 3.375rem);
   }
 }
 
@@ -336,15 +461,6 @@ body {
 /* Homepage — one restrained modular language. */
 .hp-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; color: rgba(202, 240, 248, 0.72); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
 .hp-eyebrow::before { width: 1.75rem; height: 1px; background: var(--color-cyan); content: ""; }
-
-/* Hero light — a single soft pool of cyan sitting behind the opening.
-   Low opacity, heavily blurred, never a visible circle. */
-.hero-bloom {
-  background: #00b4d8;
-  opacity: 0.1;
-  filter: blur(120px);
-  border-radius: 9999px;
-}
 
 
 /* ── Scene 05: the trade layer plugged into a shared backplane. No card
@@ -560,142 +676,430 @@ body {
   color: rgba(0, 180, 216, 0.75);
 }
 
-/* ── Scene 02: the board before Sharpnr. Same dialect as the isometric
-   board — parts, designators, routed traces — but flat and severed. ── */
-.hp-frag-part {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* ── Scene 02: one customer, five systems, one ledger.
+
+   A table, not cards. Bordered blocks with their own headers read as
+   support tickets, and stacked three deep they ran past the bottom of the
+   section. The table is also the truer form — comparison is the whole
+   point, and here the disagreements stack into a column.
+
+   Brutalist and restrained: hairline rules, mono throughout, square
+   corners, no fills. It has to look like a screen in business software,
+   and business software has neither radii nor shadows. ── */
+.hp-ledger-scroll {
+  overflow-x: auto;
+  /* No visible bar. The global rules style every scrollbar on the site, and
+     this container briefly overflows during load — which flashed a bar
+     under the table before the rows had even arrived. Swipe still works. */
+  scrollbar-width: none;
+  /* Faded rather than cut where it scrolls, so a clipped column reads as
+     "there is more" instead of as a broken layout. */
+  -webkit-mask-image: linear-gradient(to right, #000 94%, transparent);
+  mask-image: linear-gradient(to right, #000 94%, transparent);
 }
-.hp-frag-name {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  text-transform: uppercase;
-  color: rgba(214, 244, 255, 0.9);
+.hp-ledger-scroll::-webkit-scrollbar {
+  display: none;
 }
-.hp-frag-code {
-  position: absolute;
-  top: -14px;
-  left: 0;
+@media (min-width: 1024px) {
+  .hp-ledger-scroll {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+.hp-ledger {
+  width: 100%;
+  min-width: 31rem;
+  border-collapse: collapse;
   font-family: var(--font-mono);
-  font-size: 8px;
+  text-align: left;
+}
+
+/* Deliberately unequal. Reference is the narrowest column and Identity the
+   widest, so the right edge doesn't rule up into a machined block. */
+.hp-ledger col:nth-child(1) {
+  width: 21%;
+}
+.hp-ledger col:nth-child(2) {
+  width: 24%;
+}
+.hp-ledger col:nth-child(3) {
+  width: 21%;
+}
+.hp-ledger col:nth-child(4) {
+  width: 20%;
+}
+.hp-ledger col:nth-child(5) {
+  width: 14%;
+}
+
+.hp-ledger thead th {
+  padding: 0 0.75rem 0.55rem 0;
+  border-bottom: 1px solid rgba(144, 224, 239, 0.2);
+  font-size: 0.5rem;
+  font-weight: 500;
   letter-spacing: 0.2em;
-  color: rgba(138, 148, 168, 0.55);
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.5);
+  white-space: nowrap;
 }
-/* A run that was meant to complete. Both stubs are drawn; the gap between
-   them is the whole point, so it is never bridged. */
-.hp-frag-trace {
-  position: absolute;
-  background: rgba(0, 119, 182, 0.55);
-  border-radius: 9999px;
+
+/* The hover dim lives on the cells, never on the row. GSAP's entrance
+   animates the row's opacity, and a CSS transition on that same property
+   fights the tween — it settles at 0 and the table renders blank. Cell
+   opacity multiplies with the row's, so the two stay independent. */
+.hp-ledger tbody th,
+.hp-ledger tbody td {
+  padding: 0.62rem 0.75rem 0.62rem 0;
+  vertical-align: baseline;
+  white-space: nowrap;
+  transition: opacity 180ms ease;
 }
-/* The far half of a run, styled by how that connection failed. */
-.hp-frag-far--decay {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000);
-  mask-image: linear-gradient(to right, transparent, #000);
+.hp-ledger tbody th {
+  padding-right: 1.35rem;
+  font-weight: 400;
 }
-.hp-frag-far--decay-v {
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000);
-  mask-image: linear-gradient(to bottom, transparent, #000);
-}
-.hp-frag-far--dashed {
-  background: repeating-linear-gradient(
+
+/* The row rule is drawn as a background gradient rather than a border, so
+   its length can vary per row. Borders always span the full cell, and five
+   identical full-width rules were the last thing making this look
+   generated. */
+.hp-ledger-row {
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 100% 1px;
+  background-image: linear-gradient(
     to right,
-    rgba(0, 119, 182, 0.55) 0 3px,
-    transparent 3px 7px
+    rgba(144, 224, 239, 0.09) 0 var(--rule, 100%),
+    transparent var(--rule, 100%)
   );
 }
-.hp-frag-far--shear { opacity: 0.55; }
+.hp-ledger-row[data-rule="0"] {
+  --rule: 97%;
+}
+.hp-ledger-row[data-rule="1"] {
+  --rule: 89%;
+}
+.hp-ledger-row[data-rule="2"] {
+  --rule: 100%;
+}
+.hp-ledger-row[data-rule="3"] {
+  --rule: 92%;
+}
+.hp-ledger-row:last-child {
+  background-image: none;
+}
 
-/* The open terminal at a break — a pad with nothing on the far side. */
-.hp-frag-break {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  border: 1px solid rgba(144, 224, 239, 0.45);
+.hp-ledger-sys {
+  display: block;
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(144, 224, 239, 0.85);
 }
-/* A clean sever. */
-.hp-frag-cut {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  margin: -4.5px 0 0 -4.5px;
-  opacity: 0.75;
+.hp-ledger-doc {
+  display: block;
+  margin-top: 0.12rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.4);
 }
-.hp-frag-cut::before,
-.hp-frag-cut::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 1px;
-  height: 100%;
-  background: rgba(144, 224, 239, 0.75);
+
+.hp-ledger-val {
+  font-size: 0.6875rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.88);
+  transition:
+    color 180ms ease,
+    box-shadow 180ms ease;
 }
-.hp-frag-cut::before { transform: rotate(45deg); }
-.hp-frag-cut::after { transform: rotate(-45deg); }
-.hp-frag-state {
-  margin-top: 6px;
+
+/* The one accent in the section, and it means exactly one thing: this
+   value disagrees with the system of record. Reference numbers are never
+   marked however different they look — a challan number is supposed to
+   differ from an invoice number. */
+.hp-ledger-val[data-off="true"] {
+  box-shadow: inset 0 -1px 0 rgba(0, 180, 216, 0.45);
+}
+/* Never captured. An absence, not a value, and never marked. */
+.hp-ledger-val[data-missing="true"] {
+  font-style: italic;
+  color: rgba(138, 148, 168, 0.36);
+  box-shadow: none;
+}
+
+/* ── Hover: opacity only, no movement.
+   Pointing at one system dims the other four and brings its conflicting
+   values forward, so a visitor can isolate a single row and read what that
+   system believes. ── */
+.hp-ledger:hover tbody th,
+.hp-ledger:hover tbody td {
+  opacity: 0.3;
+}
+.hp-ledger tbody tr:hover th,
+.hp-ledger tbody tr:hover td {
+  opacity: 1;
+}
+.hp-ledger-row:hover .hp-ledger-val[data-off="true"] {
+  color: var(--color-ice);
+  box-shadow: inset 0 -1px 0 rgba(0, 180, 216, 0.9);
+}
+.hp-ledger-row:hover .hp-ledger-val[data-missing="true"] {
+  color: rgba(138, 148, 168, 0.6);
+}
+/* Touch devices have no hover state to leave, so a row could stay dimmed
+   after a tap. */
+@media (hover: none) {
+  .hp-ledger:hover tbody th,
+  .hp-ledger:hover tbody td {
+    opacity: 1;
+  }
+}
+
+/* ── Narrow screens ──
+   At 375px the five-column table was 496px wide: 169px of it sat outside
+   the viewport, behind a scrollbar deliberately hidden — so two columns
+   were both unreachable and undiscoverable. Rather than restore a
+   scrollbar, the table drops to the three columns that carry the argument.
+
+   Contact and Reference are the two that go. Reference is the column
+   explicitly *supposed* to differ between systems and is never marked as a
+   conflict; Contact says the same thing Identity already says. What
+   remains — four spellings of one name and four different primary keys —
+   is the whole point. */
+@media (max-width: 639px) {
+  .hp-ledger [data-col="Contact"],
+  .hp-ledger [data-col="Reference"] {
+    display: none;
+  }
+  /* Fixed column widths were sized for five; let the remaining three take
+     the space, and drop the min-width so nothing overflows at all. */
+  .hp-ledger col {
+    width: auto;
+  }
+  .hp-ledger {
+    min-width: 0;
+  }
+  .hp-ledger-scroll {
+    overflow-x: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hp-ledger tbody th {
+    padding-right: 0.9rem;
+  }
+}
+
+/* Says out loud what the table has already shown, once. */
+.hp-rec-verdict {
+  margin-top: clamp(1.1rem, 2.6vh, 1.8rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(144, 224, 239, 0.12);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: rgba(138, 148, 168, 0.75);
+}
+
+/* ── Scene 03 — the platform map.
+
+   Flat SVG, made of the same hairlines as the rest of the page, which is
+   what stops it reading as a picture placed on top. Nothing glows except a
+   charge in motion: a lit static trace is the signature of a generated
+   diagram, and a moving signal is the one thing that has earned it. ── */
+.hp-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Section lines, spanning the full width — a drawing convention, not a
+   border around a component. */
+.hp-map-band {
+  stroke: rgba(144, 224, 239, 0.22);
+  stroke-width: 1;
+}
+.hp-map-band-label {
+  fill: rgba(138, 148, 168, 0.65);
   font-family: var(--font-mono);
   font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hp-map-trace {
+  stroke: rgba(144, 224, 239, 0.26);
+  stroke-width: 1.2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+/* Grouped runs carry more than a single drop, so they are routed heavier —
+   the trunk-versus-signal weighting a real board uses. */
+.hp-map-trace.is-trunk {
+  stroke: rgba(0, 180, 216, 0.5);
+  stroke-width: 1.8;
+}
+.hp-map-trace.is-main {
+  stroke: rgba(0, 180, 216, 0.75);
+  stroke-width: 2.4;
+}
+
+/* Weight runs applications → slab → foundation, lightest to heaviest to
+   middling, so the eye lands in the centre band where the argument is. */
+.hp-map-modules rect {
+  fill: rgba(144, 224, 239, 0.022);
+  stroke: rgba(144, 224, 239, 0.15);
+  stroke-width: 1;
+}
+.hp-map-foundation rect {
+  stroke-width: 1;
+}
+.hp-map-modules text,
+.hp-map-foundation text {
+  font-family: var(--font-mono);
+  text-anchor: middle;
+}
+.hp-map-modules .is-name {
+  fill: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hp-map-modules .is-sub {
+  fill: rgba(138, 148, 168, 0.65);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+}
+.hp-map-foundation text {
+  fill: rgba(220, 236, 245, 0.82);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+/* The foundation is the reason the platform exists, so it is lit at least
+   as strongly as the applications rather than trailing off as a footnote. */
+.hp-map-foundation rect {
+  fill: rgba(0, 119, 182, 0.1);
+  stroke: rgba(0, 180, 216, 0.34);
+}
+
+/* ── The slab ──
+   Edge to edge and filled. A rounded box the size of a module read as
+   another application sitting in the stack, which is the one thing this
+   band must not say. */
+.hp-map-slab rect {
+  fill: rgba(0, 119, 182, 0.13);
+}
+.hp-map-slab-edge {
+  stroke: rgba(0, 180, 216, 0.7);
+  stroke-width: 1.5;
+}
+.hp-map-slab-name {
+  fill: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  white-space: nowrap;
-  color: rgba(138, 148, 168, 0.34);
-}
-/* The charge that sets out and never arrives. */
-.hp-frag-pulse {
-  position: absolute;
-  border-radius: 9999px;
-  background: var(--color-cyan);
 }
 
+/* The record, set as a system-of-record entry rather than a contact card —
+   a labelled field column is what makes it read as authoritative. Same mono
+   as Scene 02's ledger, so a visitor recognises it as the same object. */
+.hp-map-record text {
+  font-family: var(--font-mono);
+}
+.hp-map-record .is-kind {
+  fill: rgba(0, 180, 216, 0.85);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.hp-map-record .is-name {
+  fill: rgba(255, 255, 255, 0.95);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+.hp-map-record .is-key {
+  fill: rgba(138, 148, 168, 0.55);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hp-map-record .is-val {
+  fill: rgba(220, 236, 245, 0.86);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
 
-/* ── Core map — Scene 03. Razor-thin engineering lines, not a glowing
-   constellation: eight capabilities, pure typography, radiating from one
-   anchor. Reads as a blueprint, not a diagram. ── */
-/* ── Isometric stack — Scene 03. Modular business units resting on one
-   unified platform, built with real CSS 3D rather than faked skews: the
-   stage carries the isometric rotation and every block inherits it. ── */
-.hp-iso-stage {
-  transform: rotateX(56deg) rotateZ(-32deg);
-  transform-style: preserve-3d;
+.hp-map-charge {
+  fill: var(--color-ice);
+  opacity: 0;
 }
-/* Engraved, not stacked: the substrate is infrastructure the board is cut
-   into, so it reads as a recess — darker than the canvas, lit only along
-   its inner edge — rather than as one more module sitting on top. */
-/* Etched into the board, not stacked on it: a recess cut into the PCB,
-   lit only where the cut catches light along its far edge. */
-.hp-iso-plate {
-  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 52%, transparent 96%);
-  mask-image: radial-gradient(ellipse at 50% 50%, #000 52%, transparent 96%);
-  background: rgba(0, 8, 16, 0.94);
-  border: 1px solid rgba(0, 119, 182, 0.14);
-  border-bottom-color: rgba(0, 119, 182, 0.3);
-  border-right-color: rgba(0, 119, 182, 0.3);
-  box-shadow:
-    inset 2px 2px 6px rgba(0, 0, 0, 0.9),
-    inset 0 0 60px rgba(0, 0, 0, 0.8);
+
+/* ── Hover ──
+   Pointing at an application lights its own run into the slab and pulses
+   the record it writes to. Nothing else moves: the restraint is what makes
+   it read as engineered rather than animated. */
+.hp-map-module {
+  cursor: default;
 }
-/* The platform surface itself — this grid reads as the foundation the
-   units sit on, not as background texture behind them. */
-/* Structural support only — it must never compete with the ecosystem
-   sitting on it. */
-.hp-iso-plate-grid {
-  background-image:
-    linear-gradient(rgba(0, 119, 182, 1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 119, 182, 1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.07;
+.hp-map-module rect,
+.hp-map-module .is-name,
+.hp-map-trace {
+  transition:
+    stroke 220ms ease,
+    stroke-width 220ms ease,
+    fill 220ms ease;
 }
-.hp-iso-block {
-  transform-style: preserve-3d;
+.hp-map-module:hover rect {
+  fill: rgba(0, 180, 216, 0.09);
+  stroke: rgba(0, 180, 216, 0.6);
 }
+.hp-map-module:hover .is-name {
+  fill: #ffffff;
+}
+.hp-map-trace.is-live {
+  stroke: rgba(0, 180, 216, 0.95);
+  stroke-width: 2.2;
+}
+
+@media (max-width: 640px) {
+  .hp-map-modules .is-name,
+  .hp-map-foundation text {
+    font-size: 13px;
+  }
+  .hp-map-modules .is-sub {
+    font-size: 11px;
+  }
+  .hp-map-slab-name {
+    font-size: 14px;
+  }
+  .hp-map-record .is-name {
+    font-size: 17px;
+  }
+  .hp-map-record .is-val {
+    font-size: 12px;
+  }
+  .hp-map-record .is-key,
+  .hp-map-band-label {
+    font-size: 10px;
+  }
+}
+
+/* ── Package types ──
+   A populated board mixes ICs, connectors and passives. One extrusion at
+   eleven sizes is what made this read as generated, however carefully the
+   routing was drawn. ── */
+
+/* Epoxy, not milled aluminium: darker, flatter, and marked with a pin-1
+   dot in one corner instead of four identical mounting pads. */
+
+/* Ribbed along its length — the read that says "things plug in here". */
+
+/* A chip passive: no pads, no marking, just metallised ends. */
 /* Solid and opaque, never translucent — three tones do the 3D work:
    light top, medium front, dark right. Palette-derived navies. */
 /* Mounting pads at each corner — four radial-gradients rather than four
@@ -704,37 +1108,6 @@ body {
    left edges catch it. Uniform lighting on every edge is what makes CSS 3D
    read as flat. Mounting pads are four radial-gradients rather than four
    extra elements, so the "soldered down" read costs nothing in DOM. */
-.hp-iso-top {
-  background-color: #16344f;
-  background-image:
-    radial-gradient(circle at 6px 6px, rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px),
-    radial-gradient(circle at calc(100% - 6px) 6px, rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px),
-    radial-gradient(circle at 6px calc(100% - 6px), rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px),
-    radial-gradient(circle at calc(100% - 6px) calc(100% - 6px), rgba(144, 224, 239, 0.55) 1.1px, transparent 1.6px);
-  border: 1px solid rgba(144, 224, 239, 0.12);
-  border-top-color: rgba(202, 240, 248, 0.42);
-  border-left-color: rgba(202, 240, 248, 0.34);
-}
-.hp-iso-front {
-  background: #0c2135;
-  border: 1px solid rgba(144, 224, 239, 0.12);
-}
-.hp-iso-side {
-  background: #071624;
-  border: 1px solid rgba(144, 224, 239, 0.12);
-}
-.hp-iso-block--core .hp-iso-top {
-  background: #0a5a8a;
-  border-color: rgba(0, 180, 216, 0.65);
-}
-.hp-iso-block--core .hp-iso-front {
-  background: #06405f;
-  border-color: rgba(0, 119, 182, 0.45);
-}
-.hp-iso-block--core .hp-iso-side {
-  background: #042d43;
-  border-color: rgba(0, 119, 182, 0.45);
-}
 /* The hub monolith — the one block that is a surface, not a container. */
 /* The signature: an illuminated perimeter edge. One recognisable detail
    that marks the processor — reusable as Sharpnr's visual language
@@ -742,114 +1115,28 @@ body {
 /* The signature: a machined bevel and an illuminated perimeter. Precision,
    not gaming — the chamfer is a light top-left rim and a dark bottom-right
    one, the way a milled edge actually catches light. */
-.hp-iso-block--hub .hp-iso-top {
-  background-image: linear-gradient(148deg, #1a5f8a 0%, #0e4468 45%, #07293f 100%);
-  border-color: rgba(144, 224, 239, 0.3);
-  border-top-color: rgba(226, 248, 255, 0.62);
-  border-left-color: rgba(226, 248, 255, 0.48);
-  box-shadow:
-    inset 1.5px 1.5px 0 rgba(226, 248, 255, 0.28),
-    inset -1.5px -1.5px 0 rgba(0, 40, 62, 0.5),
-    inset 0 0 22px rgba(202, 240, 248, 0.1);
-}
-.hp-iso-block--hub .hp-iso-front {
-  background: #005f92;
-  border-color: rgba(255, 255, 255, 0.12);
-}
-.hp-iso-block--hub .hp-iso-side {
-  background: #004770;
-  border-color: rgba(255, 255, 255, 0.12);
-}
 
 /* PCB traces — strict 90° runs on the board plane, never diagonal, with
    softened ends so elbows read as routed rather than butt-jointed.
    Deliberately no box-shadow: a glow on every trace inside a preserve-3d
    context is enough compositing work to stall the frame, so the glow is
    spent only on the pulses that travel them. */
-.hp-iso-trace {
-  position: absolute;
-  background: #0077b6;
-  /* Fully rounded caps, so every elbow reads as routed rather than
-     butt-jointed where two runs meet at a via. */
-  border-radius: 9999px;
-}
-.hp-iso-trace--dim {
-  opacity: 0.4;
-}
 /* A via — the pad where two runs meet. */
-.hp-iso-via {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  border-radius: 9999px;
-  background: #0077b6;
-}
 /* The travelling charge — a comet, not a dot: a bright leading edge
    trailing off into nothing, so direction of travel is legible at a
    glance. The gradient direction is set per pulse from its own heading. */
-.hp-iso-pulse {
-  position: absolute;
-  border-radius: 9999px;
-}
 /* Bedrock, not a module: the widest, lowest, darkest slab on the board.
    It reads as the floor the whole thing is cut into, so it takes almost
    no light and never competes with the components above it. */
-.hp-iso-block--lake .hp-iso-top {
-  background-color: #04121f;
-  background-image: none;
-  border-color: rgba(0, 119, 182, 0.3);
-  border-top-color: rgba(0, 147, 221, 0.45);
-  border-left-color: rgba(0, 147, 221, 0.38);
-}
-.hp-iso-block--lake .hp-iso-front,
-.hp-iso-block--lake .hp-iso-side {
-  background: #020a12;
-  border-color: rgba(0, 119, 182, 0.18);
-}
 /* Silkscreen — the part designators printed onto a PCB beside each
    component. Small, pale, letterspaced, slightly translucent, as if laid
    down in white ink on the substrate. Only the foundation modules are
    printed permanently; the rest appear on hover so the board stays clean. */
-.hp-silk {
-  color: rgba(214, 244, 255, 0.9);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  line-height: 1;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 240ms ease;
-}
-.hp-silk--on,
-.hp-iso-block:hover .hp-silk,
-.hp-iso-block:focus-within .hp-silk {
-  opacity: 1;
-}
 /* The processor's name is engraved into its face, not printed beside it:
    cut into the metal, so it takes a dark bevel above and a light one
    below — the inverse of raised type. */
-.hp-silk--hub {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.26em;
-  text-indent: 0.26em;
-  color: rgba(2, 22, 36, 0.92);
-  text-shadow:
-    0 1px 0 rgba(190, 235, 255, 0.5),
-    0 -1px 0 rgba(0, 20, 34, 0.5);
-}
 /* The tether — a glowing line running down the Z axis from the hub into
    the substrate. Replaces any arrow: the drop *is* the flow. */
-.hp-iso-drop {
-  background: linear-gradient(to bottom, #0077b6, rgba(0, 119, 182, 0));
-  box-shadow: 0 0 14px #0077b6;
-}
 .hp-core-node {
   font-family: var(--font-mono);
   font-size: 0.6875rem;

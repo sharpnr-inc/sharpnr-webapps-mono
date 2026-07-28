@@ -1,250 +1,173 @@
 import type { RefObject } from "react";
-import { animate, stagger, utils } from "animejs";
 import { gsap, useGSAP } from "@/configs/gsap";
 import { prefersReduced } from "@/app/home/shared/motion";
-import { HERO_SPOKES } from "../heroLinks";
 
 interface HeroAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
   copyRef: RefObject<HTMLParagraphElement | null>;
   ctaRef: RefObject<HTMLDivElement | null>;
-  visualRef: RefObject<HTMLDivElement | null>;
+  eyebrowRef: RefObject<HTMLParagraphElement | null>;
 }
 
 /*
- * The opening — an eight second sequence, cut to the beat.
+ * The opening, cut to the beat:
  *
- *   0.0  quiet. only the field.
- *   0.3  One Platform.
- *   0.7  Every Business.
- *   1.25 the paragraph
- *   1.7  the invitation
- *   2.25 the capabilities arrive, one per beat
- *   4.45 everything converges
- *   5.05 Sharpnr becomes the centre
- *   6.3  the field settles into a living idle state
+ *   0.00  the field is there, resting
+ *   0.15  One Platform,
+ *   0.45  Every Business.
+ *   0.90  the sentence
+ *   1.15  the invitation
+ *   2.20  the field starts lighting
  *
- * Each capability is given a full beat of its own, so the visitor reads it
- * rather than watching a stagger. The narrative never loops — only the idle
- * state after it (drift, occasional pulses, drifting motes) continues.
+ * A little over two seconds to a readable frame.
  */
 const T = {
-  line1: 300,
-  line2: 720,
-  copy: 1250,
-  cta: 1680,
-  firstWord: 2250,
-  wordBeat: 130,
-  converge: 4450,
-  centre: 5050,
-  idle: 6300,
+  line1: 0.15,
+  line2: 0.45,
+  copy: 0.9,
+  cta: 1.15,
 } as const;
 
-/** Deterministic pseudo-variance from an index — no Math.random, so SSR and
- *  client renders agree and the drift stays reproducible. */
-const vary = (i: number, spread: number, base = 0) =>
-  base + (((i * 47) % 23) / 23 - 0.5) * 2 * spread;
+/** How many words lift at once, and how long the moment lasts. */
+const GROUP_MIN = 4;
+const GROUP_MAX = 5;
+const LIT = 0.22;
+const HOLD = 0.7;
+const GAP_MIN = 2;
+const GAP_MAX = 3;
 
 export function useHeroAnimation(refs: HeroAnimationRefs) {
-  const { sectionRef, copyRef, ctaRef, visualRef } = refs;
+  const { sectionRef, copyRef, ctaRef, eyebrowRef } = refs;
 
   useGSAP(
     () => {
-      const words = utils.$(".hero-word") as HTMLElement[];
-      const centre = utils.$(".hero-center");
-      const halo = utils.$(".hero-halo");
-      const line1 = utils.$(".hero-line-1 .hp-word");
-      const line2 = utils.$(".hero-line-2 .hp-word");
+      const section = sectionRef.current;
+      if (!section) return;
 
-      // Reduced motion: the finished frame, immediately, and nothing after.
+      const line1 = gsap.utils.toArray<HTMLElement>(".hero-line-1 .hp-word");
+      const line2 = gsap.utils.toArray<HTMLElement>(".hero-line-2 .hp-word");
+      const words = gsap.utils
+        .toArray<HTMLElement>(".hero-field-word")
+        .filter((w) => getComputedStyle(w).display !== "none");
+
+      // Reduced motion: the finished frame, and the field simply rests.
       if (prefersReduced()) {
-        utils.set([...line1, ...line2, ...words, ...centre, ...halo], {
-          opacity: 1,
-        });
+        gsap.set([...line1, ...line2], { opacity: 1 });
         return;
       }
 
-      // Hold everything back — the sequence starts from silence.
-      utils.set([...line1, ...line2], { opacity: 0, translateY: "0.5em" });
-      utils.set(words, { opacity: 0, filter: "blur(6px)" });
-      utils.set([...centre, ...halo], { opacity: 0 });
+      gsap.set([...line1, ...line2], { opacity: 0, y: "0.5em" });
 
-      const reveal = { duration: 820, ease: "outExpo" } as const;
+      // anime's outExpo/820ms, matched: GSAP expo.out over 0.82s.
+      const reveal = { duration: 0.82, ease: "expo.out", stagger: 0.038 } as const;
+      gsap.to(line1, { ...reveal, opacity: 1, y: "0em", delay: T.line1 });
+      gsap.to(line2, { ...reveal, opacity: 1, y: "0em", delay: T.line2 });
 
-      // 0.5s / 1.0s — the two lines, each on its own beat
-      animate(line1, {
-        ...reveal,
-        opacity: 1,
-        translateY: "0em",
-        delay: stagger(38, { start: T.line1 }),
-      });
-      animate(line2, {
-        ...reveal,
-        opacity: 1,
-        translateY: "0em",
-        delay: stagger(38, { start: T.line2 }),
-      });
-
-      // 1.8s / 2.4s — paragraph, then the invitation
       const buttons = ctaRef.current ? Array.from(ctaRef.current.children) : [];
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
-        .from(copyRef.current, { opacity: 0, y: 16, duration: 0.6 }, T.copy / 1000)
+        .from(eyebrowRef.current, { opacity: 0, y: 10, duration: 0.5 }, 0)
+        .from(copyRef.current, { opacity: 0, y: 16, duration: 0.6 }, T.copy)
         .from(
           buttons,
-          { opacity: 0, y: 12, duration: 0.5, stagger: 0.12 },
-          T.cta / 1000,
+          { opacity: 0, y: 12, duration: 0.5, stagger: 0.1 },
+          T.cta,
         );
 
-      // 3.2s → 6.4s — one capability per beat
-      animate(words, {
-        opacity: 1,
-        filter: "blur(0px)",
-        duration: 900,
-        ease: "outExpo",
-        delay: stagger(T.wordBeat, { start: T.firstWord }),
+      if (!words.length) return;
+
+      /*
+       * The field writes itself in from the centre outward — the words
+       * nearest the headline first, the margins last. It reads as the page
+       * filling in around the message rather than as a background that was
+       * always there, and it gives the opening somewhere to travel without
+       * anything sliding, floating or orbiting.
+       *
+       * Distance is measured once, before any tween runs, so the ordering
+       * holds at every viewport.
+       */
+      const centre = { x: section.offsetWidth / 2, y: section.offsetHeight / 2 };
+      const byDistance = [...words].sort((a, b) => {
+        const d = (el: HTMLElement) => {
+          const r = el.getBoundingClientRect();
+          const s = section.getBoundingClientRect();
+          return Math.hypot(
+            r.left + r.width / 2 - s.left - centre.x,
+            r.top + r.height / 2 - s.top - centre.y,
+          );
+        };
+        return d(a) - d(b);
       });
 
-      // visualRef is the full-width grid column; the actual composition
-      // (SVG, words, mark) lives in the narrower, centred .hero-visual
-      // inside it. Every rect calculation below has to be relative to that
-      // inner stage, or coordinates land off by the centring gap.
-      const stage =
-        visualRef.current?.querySelector<HTMLElement>(".hero-visual") ??
-        visualRef.current;
+      gsap.set(byDistance, { opacity: 0 });
+      gsap.to(byDistance, {
+        opacity: (_i, t: HTMLElement) => Number(t.dataset.base ?? 0.07),
+        duration: 0.9,
+        ease: "sine.out",
+        stagger: 0.022,
+        delay: 0.35,
+      });
 
-      // 7.2s — everything draws toward the middle
-      if (stage && words.length) {
-        const box = stage.getBoundingClientRect();
-        const cx = box.left + box.width / 2;
-        const cy = box.top + box.height / 2;
-
-        for (const word of words) {
-          const r = word.getBoundingClientRect();
-          const dx = r.left + r.width / 2 - cx;
-          const dy = r.top + r.height / 2 - cy;
-          const len = Math.hypot(dx, dy) || 1;
-          animate(word, {
-            translateX: (-dx / len) * 14,
-            translateY: (-dy / len) * 14,
-            duration: 1400,
-            ease: "inOutQuad",
-            delay: T.converge,
-          });
+      /*
+       * The only motion in the scene. Every couple of seconds a handful of
+       * words lift out of the field and settle back — nothing moves, nothing
+       * scrolls, nothing connects.
+       *
+       * Each word returns to its *own* resting opacity, read from the value
+       * the component wrote out; animating them all back to one number would
+       * flatten the field's variance the first time it fired.
+       *
+       * Recently-used words are held out of the pool so the same term never
+       * lights twice in quick succession, which is what would make the
+       * rhythm feel authored.
+       */
+      const recent: HTMLElement[] = [];
+      const pickGroup = () => {
+        const size =
+          GROUP_MIN + Math.floor(Math.random() * (GROUP_MAX - GROUP_MIN + 1));
+        const pool = words.filter((w) => !recent.includes(w));
+        const chosen: HTMLElement[] = [];
+        while (chosen.length < size && chosen.length < pool.length) {
+          const w = pool[Math.floor(Math.random() * pool.length)];
+          if (!chosen.includes(w)) chosen.push(w);
         }
-      }
+        recent.push(...chosen);
+        // Keep roughly two cycles' worth out of circulation.
+        while (recent.length > GROUP_MAX * 2) recent.shift();
+        return chosen;
+      };
 
-      // 8.0s — the centre resolves, and the narrative rests
-      animate(centre, {
-        opacity: 1,
-        scale: [0.97, 1],
-        duration: 900,
-        ease: "outExpo",
-        delay: T.centre,
-      });
-      animate(halo, {
-        opacity: 1,
-        scale: [0.88, 1],
-        duration: 1500,
-        ease: "outQuad",
-        delay: T.centre,
-      });
+      let stopped = false;
+      const cycle = () => {
+        if (stopped) return;
+        const group = pickGroup();
+        const tl = gsap.timeline({
+          onComplete: () => {
+            gsap.delayedCall(
+              GAP_MIN + Math.random() * (GAP_MAX - GAP_MIN),
+              cycle,
+            );
+          },
+        });
+        group.forEach((w, i) => {
+          const base = Number(w.dataset.base ?? 0.07);
+          tl.to(
+            w,
+            { opacity: LIT, duration: 0.5, ease: "sine.out" },
+            i * 0.09,
+          ).to(
+            w,
+            { opacity: base, duration: 0.8, ease: "sine.in" },
+            i * 0.09 + 0.5 + HOLD,
+          );
+        });
+      };
 
-      // From here on: a living field, not a story. Everything below loops
-      // quietly forever, at low amplitude, and never advances a narrative.
-      gsap.delayedCall(T.idle / 1000, () => {
-        if (!stage) return;
-        wakeIdleField(stage, words);
-      });
+      gsap.delayedCall(2.2, cycle);
+      return () => {
+        stopped = true;
+      };
     },
     { scope: sectionRef },
   );
-}
-
-/** Idle drift, occasional link pulses, and drifting particles — the field
- *  breathing once the opening narrative has finished. */
-function wakeIdleField(container: HTMLElement, words: HTMLElement[]) {
-  // Subtle per-word drift — a few px, its own period, never synchronised.
-  words.forEach((word, i) => {
-    gsap.to(word, {
-      x: `+=${vary(i, 3)}`,
-      y: `+=${vary(i * 3 + 1, 4)}`,
-      duration: 5 + (i % 5),
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1,
-      delay: vary(i, 1, 1.2),
-    });
-  });
-
-  // Soft motes — a handful, drifting in slow independent loops.
-  const particles = Array.from(
-    container.querySelectorAll<HTMLElement>(".hero-particle"),
-  );
-  particles.forEach((p, i) => {
-    gsap.set(p, {
-      left: `${18 + i * 20}%`,
-      top: `${30 + ((i * 37) % 45)}%`,
-      opacity: 0,
-    });
-    gsap
-      .timeline({ repeat: -1, delay: i * 1.4 })
-      .to(p, { opacity: 0.4, duration: 2 })
-      .to(
-        p,
-        {
-          x: vary(i, 46, 20),
-          y: vary(i * 5, 30, -16),
-          duration: 14 + i * 3,
-          ease: "sine.inOut",
-        },
-        0,
-      )
-      .to(p, { opacity: 0, duration: 3 }, "-=3");
-  });
-
-  // Occasional connections — a handful of words each send a pulse to the
-  // mark, one at a time, so the field never lights up all at once. Every
-  // line that appears resolves at the centre — nothing connects to nowhere.
-  const byLabel = new Map(
-    words.map((w) => [w.dataset.label, w] as const),
-  );
-  const mark = container.querySelector<HTMLElement>(".hero-center");
-
-  HERO_SPOKES.forEach((label, i) => {
-    if (!mark) return;
-    const group = container.querySelector<SVGGElement>(
-      `.hero-link-group[data-a="${label}"]`,
-    );
-    const path = group?.querySelector<SVGPathElement>(".hero-link");
-    const dot = group?.querySelector<SVGCircleElement>(".hero-pulse");
-    const word = byLabel.get(label);
-    if (!path || !dot || !word) return;
-
-    const setPath = () => {
-      const box = container.getBoundingClientRect();
-      const rw = word.getBoundingClientRect();
-      const rm = mark.getBoundingClientRect();
-      const x1 = rw.left + rw.width / 2 - box.left;
-      const y1 = rw.top + rw.height / 2 - box.top;
-      const x2 = rm.left + rm.width / 2 - box.left;
-      const y2 = rm.top + rm.height / 2 - box.top;
-      path.setAttribute("d", `M ${x1} ${y1} L ${x2} ${y2}`);
-    };
-    setPath();
-
-    gsap.set([path, dot], { opacity: 0 });
-    gsap
-      .timeline({ repeat: -1, repeatDelay: 5 + i * 2.2, delay: 2 + i * 1.6 })
-      .call(setPath)
-      .to(path, { opacity: 1, duration: 0.5 })
-      .to(dot, { opacity: 1, duration: 0.2 }, "-=0.3")
-      .to(
-        dot,
-        { motionPath: { path, align: path }, duration: 1.1, ease: "power1.inOut" },
-        "-=0.1",
-      )
-      .to(dot, { opacity: 0, duration: 0.3 }, "-=0.2")
-      .to(path, { opacity: 0, duration: 0.6 }, "-=0.3");
-  });
 }

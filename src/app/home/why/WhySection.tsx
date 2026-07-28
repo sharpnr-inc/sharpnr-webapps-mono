@@ -1,35 +1,66 @@
 import { useRef } from "react";
+import {
+  IconLayoutGrid,
+  IconStack2,
+  IconPuzzle,
+  IconTrendingUp,
+} from "@tabler/icons-react";
 import { Words } from "@/app/home/shared/Words";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import {
+  SkeletonDesigned,
+  SkeletonFoundation,
+  SkeletonIndependent,
+  SkeletonScale,
+} from "./skeletons";
 import { useWhyAnimation } from "./animations/useWhyAnimation";
 
 /*
- * What we believe.
+ * What we believe — as a bento grid.
  *
- * A datasheet, not a card grid. Four principles as numbered rows under
- * hairline rules — the spec of one machined product rather than four
- * separate tiles. Cards would say "four features"; a datasheet says "one
- * thing, specified", which is precisely what the heading claims.
+ * Four principles, every one visible at all times: no accordion, nothing
+ * behind a click. The asymmetry is deliberate — two tiles run double width
+ * on opposite corners, so the block reads as laid out rather than as a row
+ * of equal boxes.
+ *
+ * Each tile's header animates on hover and says the principle rather than
+ * decorating it: rows sliding into alignment, four systems settling onto one
+ * line, modules that can be removed, a shape repeated further out.
  *
  * Full-width: the alternating left/right rhythm ended at Scene 05, and the
- * closing two scenes stay centred so the page settles rather than
- * continuing to swing.
+ * closing scenes stay centred so the page settles rather than continuing to
+ * swing.
  */
+const ICON = "h-4 w-4 text-cyan";
+
 const PRINCIPLES = [
   {
-    name: "Designed together",
-    belief: "Software should be built together, not connected afterwards.",
+    title: "Designed together",
+    description: "Software should be built together, not connected afterwards.",
+    header: <SkeletonDesigned />,
+    icon: <IconLayoutGrid className={ICON} />,
+    className: "md:col-span-2",
   },
   {
-    name: "One foundation",
-    belief: "Who you are means the same thing everywhere.",
+    title: "One foundation",
+    description: "Who you are means the same thing everywhere.",
+    header: <SkeletonFoundation />,
+    icon: <IconStack2 className={ICON} />,
+    className: "md:col-span-1",
   },
   {
-    name: "Independent capabilities",
-    belief: "Take only what you need. Nothing needs rebuilding later.",
+    title: "Independent capabilities",
+    description: "Take only what you need. Nothing needs rebuilding later.",
+    header: <SkeletonIndependent />,
+    icon: <IconPuzzle className={ICON} />,
+    className: "md:col-span-1",
   },
   {
-    name: "Built to scale",
-    belief: "Growing doesn't change how your people work.",
+    title: "Built to scale",
+    description: "Growing doesn't change how your people work.",
+    header: <SkeletonScale />,
+    icon: <IconTrendingUp className={ICON} />,
+    className: "md:col-span-2",
   },
 ];
 
@@ -60,23 +91,19 @@ export function WhySection() {
         </p>
       </div>
 
-      {/* Every row shares one grid template, so the three columns stay
-          aligned down the whole sheet. Title and description sit side by
-          side rather than stacked — stacking collapses the ledger back
-          into a list. */}
-      <div ref={listRef} className="mx-auto mt-14 max-w-4xl md:mt-16">
-        {PRINCIPLES.map((principle, i) => (
-          <div key={principle.name} className="hp-spec-row">
-            <div className="hp-spec-rule" />
-            <div className="grid gap-x-10 gap-y-3 sm:grid-cols-[3.5rem_13rem_1fr]">
-              <span className="hp-spec-index">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="hp-spec-name">{principle.name}</h3>
-              <p className="hp-spec-body">{principle.belief}</p>
-            </div>
-          </div>
-        ))}
+      <div ref={listRef} className="mt-14 md:mt-16">
+        <BentoGrid className="max-w-5xl md:auto-rows-60">
+          {PRINCIPLES.map((p) => (
+            <BentoGridItem
+              key={p.title}
+              title={p.title}
+              description={p.description}
+              header={p.header}
+              icon={p.icon}
+              className={p.className}
+            />
+          ))}
+        </BentoGrid>
       </div>
     </section>
   );

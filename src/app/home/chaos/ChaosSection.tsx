@@ -1,18 +1,25 @@
 import { useRef } from "react";
 import { Words } from "@/app/home/shared/Words";
-import { PARTS, LINKS, STUB } from "./fragments";
+import { COLUMNS, ROWS, VERDICT } from "./records";
 import { useChaosAnimation } from "./animations/useChaosAnimation";
 
 /*
  * The problem.
  *
- * The board before Sharpnr: the same parts, designators and routed traces
- * the platform is made of, except every run is severed and the pieces lie
- * flat instead of assembled. Speaking the problem in the same dialect as
- * the solution is what makes Scene 03's turn land — the visitor recognises
- * the language and sees it completed a moment later.
+ * One customer, held five times by five systems that have never spoken to
+ * each other. The name is spelled four ways, every system minted its own
+ * customer id, and two never captured one at all.
  *
- * Flat throughout. The isometric view belongs to Scene 03 alone.
+ * One table, not five cards. Bordered blocks with headers read as support
+ * tickets and ran past the bottom of the section; a ledger is both the
+ * truer form and a third of the height. Comparison is the entire point,
+ * and in a table the disagreements stack into a column where the eye finds
+ * them at a glance.
+ *
+ * This replaced a severed-circuit diagram. The diagram argued that the
+ * tools aren't connected; this shows what that costs. Nobody has ever been
+ * annoyed by an architecture diagram. Everybody has retyped a customer's
+ * phone number into a second system.
  *
  * Visual-left, argument-right. Mobile always shows the argument first.
  */
@@ -27,96 +34,72 @@ export function ChaosSection() {
   return (
     <section
       ref={sectionRef}
-      className="hp-section hp-sec relative flex hp-flex-section min-h-svh items-center overflow-x-clip px-6 md:px-10"
+      className="hp-section hp-sec hp-flex-section relative flex min-h-svh items-center overflow-x-clip px-6 md:px-10"
     >
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-24">
-        {/* The severed board — visual-left on desktop */}
-        <div
-          ref={fieldRef}
-          className="order-2 relative aspect-[512/435] w-full max-w-lg lg:order-1"
-          aria-hidden="true"
-        >
-          {LINKS.map((l, i) => {
-            const horizontal = l.dir === "h";
-            const stub = l.len * STUB;
-            const farStart = l.len * (1 - STUB);
-                        // Two stubs and a gap, never one line: the absence in the
-            // middle is the entire message.
-            return (
-              <div key={`l${i}`} data-link={i}>
-                <div
-                  className="hp-frag-trace"
-                  style={{
-                    left: `${l.x}%`,
-                    top: `${l.y}%`,
-                    width: horizontal ? `${stub}%` : 2,
-                    height: horizontal ? 2 : `${stub}%`,
-                  }}
-                />
-                <div
-                  className="hp-frag-trace"
-                  style={{
-                    left: horizontal ? `${l.x + farStart}%` : `${l.x}%`,
-                    top: horizontal ? `${l.y}%` : `${l.y + farStart}%`,
-                    width: horizontal ? `${stub}%` : 2,
-                    height: horizontal ? 2 : `${stub}%`,
-                  }}
-                />
-                <div
-                  className="hp-frag-break"
-                  style={{
-                    left: horizontal ? `${l.x + stub}%` : `${l.x}%`,
-                    top: horizontal ? `${l.y}%` : `${l.y + stub}%`,
-                  }}
-                />
-                <div
-                  className="hp-frag-break"
-                  style={{
-                    left: horizontal ? `${l.x + farStart}%` : `${l.x}%`,
-                    top: horizontal ? `${l.y}%` : `${l.y + farStart}%`,
-                  }}
-                />
-                {/* Sets out from the near stub and dies at the break */}
-                <div
-                  className="hp-frag-pulse"
-                  data-dir={l.dir}
-                  data-travel={stub}
-                  style={{
-                    left: `${l.x}%`,
-                    top: `${l.y}%`,
-                    width: horizontal ? 14 : 2,
-                    height: horizontal ? 2 : 14,
-                    marginLeft: horizontal ? -14 : 0,
-                    marginTop: horizontal ? 0 : -14,
-                    background: horizontal
-                      ? "linear-gradient(to right, rgba(0,180,216,0), #00b4d8)"
-                      : "linear-gradient(to bottom, rgba(0,180,216,0), #00b4d8)",
-                  }}
-                />
-              </div>
-            );
-          })}
+      {/* The ledger gets the wider column — five columns of mono need the
+          room, and the argument opposite is three lines long. */}
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-20">
+        <div ref={fieldRef} className="order-2 w-full lg:order-1">
+          {/* Below sm this drops to three columns rather than scrolling —
+              see index.css. A hidden scrollbar made two columns both
+              unreachable and undiscoverable on a phone. */}
+          <div className="hp-ledger-scroll">
+            <table className="hp-ledger">
+              {/* Explicit, unequal column widths — Reference narrowest,
+                  Identity widest — so the table doesn't rule up into a
+                  perfectly machined block. */}
+              <colgroup>
+                <col />
+                <col />
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">Source</th>
+                  {COLUMNS.map((c) => (
+                    <th key={c} scope="col" data-col={c}>
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {ROWS.map((r, i) => (
+                  <tr
+                    key={r.system}
+                    className="hp-ledger-row"
+                    /* Drives a slightly different rule length per row, so
+                       the block doesn't read as machine-generated. */
+                    data-rule={i % 5}
+                  >
+                    <th scope="row">
+                      <span className="hp-ledger-sys">{r.system}</span>
+                      <span className="hp-ledger-doc">{r.doc}</span>
+                    </th>
+                    {r.cells.map((c, i) => (
+                      <td
+                        key={COLUMNS[i]}
+                        data-col={COLUMNS[i]}
+                        className="hp-ledger-val"
+                        data-off={c.off ? "true" : undefined}
+                        data-missing={c.missing ? "true" : undefined}
+                      >
+                        {c.value}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          {PARTS.map((part) => (
-            <div
-              key={part.label}
-              data-part={part.label}
-              className="hp-frag-part"
-              style={{
-                left: `${part.x}%`,
-                top: `${part.y}%`,
-                width: `${part.w}%`,
-                height: `${part.h}%`,
-              }}
-            >
-              <span className="hp-frag-name">{part.label}</span>
-              <span className="hp-frag-state">{part.state}</span>
-            </div>
-          ))}
+          <p className="hp-rec-verdict">{VERDICT}</p>
         </div>
 
         {/* The argument — first in the markup, right column on desktop */}
-        <div className="order-1 lg:order-2 lg:pl-6">
+        <div className="order-1 lg:order-2">
           <h2
             ref={headingRef}
             className="hp-scene-title font-extrabold text-white"
@@ -130,7 +113,8 @@ export function ChaosSection() {
           </h2>
 
           <p ref={copyRef} className="hp-hero-copy mt-6 max-w-xl text-mute">
-            Great tools. None of them talking. Your people become the integration.
+            Great software. No shared foundation. Your people become the
+            integration.
           </p>
         </div>
       </div>
