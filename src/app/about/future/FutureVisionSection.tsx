@@ -29,24 +29,17 @@ export function FutureVisionSection() {
             eyebrow="The future we're building"
             heading={
               <>
-                We're not building software for today.
+                Businesses change,
                 <br />
-                We're building the foundation for what's next.
+                <span className="text-twilight">you don't start over.</span>
               </>
             }
-            lede="Our vision isn't another collection of business applications. It's connected business infrastructure that evolves as organizations, industries and technology change — without becoming obsolete every few years."
+            lede="A café that turns into three cafés should not have to move to different software to do it."
           />
 
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-mute">
-            <p>
-              As Sharpnr grows, organizations shouldn't need to start over.
-              Today's small business could become tomorrow's enterprise. One
-              location could become hundreds. One industry could become many.
-              The platform should keep feeling familiar while becoming more
-              powerful.
-            </p>
-          </div>
-
+          {/* The paragraph that sat here said the heading and the lede again in
+              longer words — a shop growing, a team growing, nothing to relearn.
+              Cut rather than reworded. */}
           <div className="mt-10">
             <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
               We're building for a future where
@@ -62,11 +55,8 @@ export function FutureVisionSection() {
 
           <div className="mt-10 space-y-5 text-base leading-relaxed text-mute">
             <p>
-              Building business infrastructure carries responsibility.
-              Organizations trust platforms with their people, their customers,
-              their finances and their future. We believe that trust must be
-              earned every day — through thoughtful design, reliable technology
-              and a relentless focus on real business problems.
+              A business hands over its people, its customers and its money when
+              it picks software. That is not a trust you earn once.
             </p>
             <p className="font-medium text-white">
               The destination isn't more software. It's better businesses.

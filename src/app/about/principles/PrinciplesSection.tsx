@@ -5,7 +5,7 @@ import { usePrinciplesAnimation } from "./animations/usePrinciplesAnimation";
 const principles = [
   {
     title: "The business comes first",
-    body: "Software exists to serve the business, not the other way round. Every decision here starts with how a real one actually runs its day.",
+    body: "Software serves the business, not the other way round. It starts with how a real one runs its day.",
   },
   {
     title: "Connected without asking",
@@ -13,7 +13,7 @@ const principles = [
   },
   {
     title: "Simple, still capable",
-    body: "Powerful does not have to feel complicated. The best products take complexity away rather than hand you more of it.",
+    body: "Powerful should not feel complicated. Good software takes work away rather than handing you more.",
   },
   {
     title: "Build once, hold everywhere",
@@ -21,11 +21,11 @@ const principles = [
   },
   {
     title: "Help people decide",
-    body: "Software should make a decision easier to make, not make it for you. The judgement stays with the person.",
+    body: "Software should make a decision easier, not make it for you. The judgement stays with the person.",
   },
   {
     title: "Trust is not a feature",
-    body: "Security and permissions are not something bolted on afterwards. They sit quietly behind every action instead.",
+    body: "Security and permissions are not bolted on afterwards. They sit behind every action, quietly.",
   },
   {
     title: "Grow with the business",

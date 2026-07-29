@@ -12,6 +12,25 @@
  * strokes, one accent, no fill that carries meaning, no glow, no gradient.
  * The GSAP entrance is driven from the section; everything here is static
  * markup with hooks on it (`.pf-mod`, `.pf-trace`, `.pf-slab`, `.pf-cell`).
+ *
+ * ── It answers the pointer ──
+ * The two directions of the claim are the two hovers, and between them they
+ * are the whole argument:
+ *
+ *   point at a capability   its own drop lights, and the run continues
+ *                           through the shared bus and down into the slab —
+ *                           this one thing stands on that one thing.
+ *   point at a foundation   *every* capability's drop lights at once, and
+ *   cell                    the other three cells quieten — all of them
+ *                           rest on this.
+ *
+ * The second is the one that could not be said in copy without a sentence
+ * the visitor would have to take on trust.
+ *
+ * The rules live in `src/index.css` under "Four passive figures", and are
+ * written entirely in stroke-opacity / stroke-width / fill — never
+ * `opacity`, which the section's GSAP entrance owns on `.pf-mod`,
+ * `.pf-slab` and `.pf-cell` (design.md §11, trap 1).
  */
 const ACCENT = "#00b4d8";
 
@@ -39,6 +58,7 @@ export function FoundationDiagram() {
 
   return (
     <svg
+      data-foundation
       viewBox={`0 0 ${RIGHT + LEFT} 232`}
       className="h-auto w-full"
       preserveAspectRatio="xMidYMid meet"
@@ -62,29 +82,44 @@ export function FoundationDiagram() {
         EVERY CAPABILITY
       </text>
 
-      {mods.map((x) => (
-        <g key={x} className="pf-mod">
-          <rect x={x} y={28} width={MOD_W} height={26} {...edge} />
+      {mods.map((x, i) => (
+        <g key={x} className="pf-mod" data-mod={i}>
+          <rect className="pf-mod-box" x={x} y={28} width={MOD_W} height={26} {...edge} />
           <path
-            className="pf-trace"
+            className="pf-trace pf-drop"
             d={`M${x + MOD_W / 2} 54 L${x + MOD_W / 2} ${BUS_Y}`}
             {...faint}
           />
           <rect
+            className="pf-mod-pad"
             x={x + MOD_W / 2 - 2}
             y={BUS_Y - 2}
             width={4}
             height={4}
             {...edge}
           />
+          {/* Stroke-only shapes cannot be pointed at — the plate is the
+              module's hit area, sized to the box and its drop. */}
+          <rect
+            className="pf-hit"
+            x={x}
+            y={22}
+            width={MOD_W}
+            height={BUS_Y - 22}
+            fill="transparent"
+          />
         </g>
       ))}
 
       {/* The bus. One continuous run — never drawn as segments, because
           the point is that it was one piece from the start. */}
-      <path className="pf-trace" d={`M${LEFT} ${BUS_Y} L${RIGHT} ${BUS_Y}`} {...base} />
       <path
-        className="pf-trace"
+        className="pf-trace pf-bus"
+        d={`M${LEFT} ${BUS_Y} L${RIGHT} ${BUS_Y}`}
+        {...base}
+      />
+      <path
+        className="pf-trace pf-riser"
         d={`M${(LEFT + RIGHT) / 2} ${BUS_Y} L${(LEFT + RIGHT) / 2} ${SLAB_TOP}`}
         {...base}
       />
@@ -93,6 +128,7 @@ export function FoundationDiagram() {
           other — four cells cut out of the same piece. */}
       <g className="pf-slab">
         <rect
+          className="pf-slab-box"
           x={LEFT}
           y={SLAB_TOP}
           width={RIGHT - LEFT}
@@ -102,6 +138,7 @@ export function FoundationDiagram() {
         {FOUNDATION.slice(1).map((label, i) => (
           <line
             key={label}
+            className="pf-slab-div"
             x1={LEFT + CELL_W * (i + 1)}
             y1={SLAB_TOP}
             x2={LEFT + CELL_W * (i + 1)}
@@ -112,20 +149,35 @@ export function FoundationDiagram() {
       </g>
 
       {FOUNDATION.map((label, i) => (
-        <text
+        <g
           key={label}
-          className="pf-cell max-md:hidden"
-          x={LEFT + CELL_W * i + CELL_W / 2}
-          y={SLAB_TOP + SLAB_H / 2 + 3}
-          fill={ACCENT}
-          fillOpacity={0.75}
-          fontSize={10}
-          fontFamily="var(--font-mono)"
-          letterSpacing="0.18em"
-          textAnchor="middle"
+          className="pf-cellgroup"
+          data-cell={label.toLowerCase()}
         >
-          {label.toUpperCase()}
-        </text>
+          {/* The cell's hit area is the whole cut-out, not just its label,
+              so the pointer target matches the thing being claimed. */}
+          <rect
+            className="pf-cell-plate"
+            x={LEFT + CELL_W * i}
+            y={SLAB_TOP}
+            width={CELL_W}
+            height={SLAB_H}
+            fill="transparent"
+          />
+          <text
+            className="pf-cell max-md:hidden"
+            x={LEFT + CELL_W * i + CELL_W / 2}
+            y={SLAB_TOP + SLAB_H / 2 + 3}
+            fill={ACCENT}
+            fillOpacity={0.75}
+            fontSize={10}
+            fontFamily="var(--font-mono)"
+            letterSpacing="0.18em"
+            textAnchor="middle"
+          >
+            {label.toUpperCase()}
+          </text>
+        </g>
       ))}
 
       <text

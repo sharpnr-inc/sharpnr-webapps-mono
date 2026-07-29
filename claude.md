@@ -114,13 +114,34 @@ into a slab running edge to edge.
 
 The slab reads **"System of record"**, not "Sharpnr Platform" — the site has
 already said whose platform this is, and that label is better spent explaining
-the architecture. Inside it sits **the same customer from Scene 02, recorded
-once**, as a labelled engineering record. That pairing is why the scene exists: a
-diagram alone claims things about software; the record claims something about the
-visitor's business, and answers Scene 02 directly.
+the architecture. Inside it sit the **business objects** the organisation shares:
+Customers, Orders, Invoices, Employees, Products, Bookings. One row of six, not a
+3×2 grid, so the band carrying the argument does not look like the bands either
+side of it.
 
-Foundation: Identity, Permissions, Storage, Events, Automation, Intelligence.
-Hovering an app lights its own run and pulses the record it writes to.
+**There is no customer record in the slab, and there must not be one again.** It
+held an open record — "Ramesh Kumar", CUST-0194 — with all six applications
+dropping into it, on the reasoning that it answered Scene 02. What it drew was
+every application writing to a customer, which is false: Payroll does not depend
+on a customer, Identity does not, and Marketplace trades with suppliers as
+readily. Worse, it made Customer look like the centre of the platform — that is
+CRM architecture, and Sharpnr is not CRM-first. Fabricated counts on the objects
+("Customers 28,402") are rejected for a related reason: an invented metric on the
+homepage is a worse problem than a vague one.
+
+Scene 02's handoff survives without the person: it ends on one customer held five
+ways, and **Customers is the first object on the slab** — one shared object
+rather than five copies.
+
+The bottom band is **Platform services** — Identity, Permissions, Storage,
+Events, Automation, Intelligence. Named that, not "Foundation", because the slab
+is now the *business* foundation and two bands called foundation is a diagram
+arguing with itself.
+
+Hovering an app lights its own run and the objects it writes — CRM → Customers,
+People → Employees, Operations → Orders and Bookings, Marketplace → Orders and
+Products, Accounting → Invoices. Communication lights all of them, because a
+message attaches to whatever is being discussed.
 
 Two 3D attempts came first — CSS-3D, then WebGL with real shadows. Both read as a
 render sitting *on* the page. The medium was the problem, not the execution.

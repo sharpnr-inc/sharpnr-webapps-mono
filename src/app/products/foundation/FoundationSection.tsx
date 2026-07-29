@@ -74,8 +74,18 @@ export function FoundationSection() {
         </div>
 
         {/* The four, printed at a size a phone can read — this is where the
-            names live once the drawing has dropped its own labels. */}
-        <ul className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 md:hidden">
+            names live once the drawing has dropped its own labels.
+
+            `md:sr-only`, not `md:hidden`. The diagram beside this list is
+            `aria-hidden`, so its labels are invisible to assistive
+            technology by design; with this list also removed from the
+            accessibility tree above `md`, the four names existed nowhere a
+            screen reader could reach them on a desktop. `sr-only` keeps the
+            visual result identical — the drawing carries the names once
+            there is room for them — while leaving the text readable to
+            anything that is not looking at pixels. design.md §9: every one
+            of these is real DOM text, and it has to stay reachable. */}
+        <ul className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 md:sr-only">
           {["Identity", "Permissions", "Data", "Intelligence"].map((f) => (
             <li
               key={f}

@@ -28,9 +28,14 @@ export const Y = {
       edge already divides the bands, and a second line was just clutter. */
   ruleA: 158,
   slab: 206,
-  /* ~23% shorter. The panel had a lot of dead vertical space and an
-     engineering record should read dense. */
-  slabH: 118,
+  /* Shorter again now the slab holds one row of business objects rather
+     than an open record with a field table in it. A slab is a structural
+     member, not a panel — it should look like something the band above
+     stands on, and depth was only ever needed to fit the record. */
+  slabH: 98,
+  /** The object row inside the slab. */
+  objRow: 244,
+  objectH: 34,
   /** The rule opening the foundation band. */
   ruleB: 356,
   headB: 350,
@@ -38,6 +43,9 @@ export const Y = {
   fRowB: 426,
   foundationH: 42,
 } as const;
+
+/** The business objects a module writes. Empty means "all of them". */
+export type Writes = readonly string[];
 
 export interface Module {
   label: string;
@@ -50,19 +58,34 @@ export interface Module {
   /** Subtitle tint, 0–1. Varied per module so the row looks set by hand
    *  rather than generated — six identical boxes read as a template. */
   tint: number;
+  /** The business objects this application actually writes. */
+  writes: Writes;
 }
 
 export const MODULE_W = 156;
 
-/* Six applications, evenly ranked — none is the "main" one, which is the
-   point. Front of house on the top rank, back office beneath. */
+/*
+ * Six applications, evenly ranked — none is the "main" one, which is the
+ * point. Front of house on the top rank, back office beneath.
+ *
+ * `writes` names the business objects each application actually touches,
+ * and it is the thing that keeps the scene honest. Every module used to
+ * drop into a slab holding one customer record, which drew Payroll writing
+ * to a customer. It does not: Payroll writes employees, Accounting writes
+ * invoices, Operations works orders and bookings.
+ *
+ * An empty list means "every object" and belongs to Communication alone —
+ * a message attaches to whatever is being discussed, so it genuinely does
+ * reach all of them. That is a property of the product, not a shortcut
+ * around the mapping.
+ */
 export const MODULES: Module[] = [
-  { label: "CRM", sub: "Customers", cx: 98, row: 0, trunk: 0, tint: 0.82 },
-  { label: "Operations", sub: "Workflows", cx: 280, row: 0, trunk: 1, tint: 0.62 },
-  { label: "Marketplace", sub: "Trade", cx: 462, row: 0, trunk: 2, tint: 0.74 },
-  { label: "Accounting", sub: "Invoices", cx: 98, row: 1, trunk: 0, tint: 0.58 },
-  { label: "People", sub: "Payroll", cx: 280, row: 1, trunk: 1, tint: 0.78 },
-  { label: "Communication", sub: "Messaging", cx: 462, row: 1, trunk: 2, tint: 0.66 },
+  { label: "CRM", sub: "Customers", cx: 98, row: 0, trunk: 0, tint: 0.82, writes: ["customers"] },
+  { label: "Operations", sub: "Workflows", cx: 280, row: 0, trunk: 1, tint: 0.62, writes: ["orders", "bookings"] },
+  { label: "Marketplace", sub: "Trade", cx: 462, row: 0, trunk: 2, tint: 0.74, writes: ["orders", "products"] },
+  { label: "Accounting", sub: "Invoices", cx: 98, row: 1, trunk: 0, tint: 0.58, writes: ["invoices"] },
+  { label: "People", sub: "Payroll", cx: 280, row: 1, trunk: 1, tint: 0.78, writes: ["employees"] },
+  { label: "Communication", sub: "Messaging", cx: 462, row: 1, trunk: 2, tint: 0.66, writes: [] },
 ];
 
 /** Three trunks, not six drops. The outer pairs share a run. */
@@ -79,21 +102,70 @@ export const SLAB = { y: Y.slab, h: Y.slabH } as const;
  * Set out as an engineering record rather than a contact card: a labelled
  * field column reads as a system of record, which is the claim.
  */
-export const RECORD = {
-  /* Not "Sharpnr Platform". The site has already said whose platform this
-     is; naming the slab after the brand wasted the one label that could
-     instead explain the architecture. "System of record" is the actual
-     concept — one place a fact is true. */
-  slab: "System of record",
-  kind: "Customer",
-  name: "Ramesh Kumar",
-  fields: [
-    ["ID", "CUST-0194"],
-    ["Phone", "+91 98xxxx345"],
-    ["Owner", "Shared"],
-    ["Status", "Active"],
-  ] as const,
-};
+/*
+ * The slab: a shared business foundation, not a customer record.
+ *
+ * ── Why there is no longer a person in the middle ─────────────────────
+ * This band used to hold one open customer record — "Ramesh Kumar",
+ * CUST-0194 — with all six applications dropping into it. The intent was
+ * to answer Scene 02, which ends on "Five systems. Five identities. One
+ * customer." What it actually drew was every application writing to a
+ * customer, and that is architecturally false:
+ *
+ *   Payroll does not depend on a customer. Identity does not. Storage does
+ *   not. Marketplace trades with suppliers as readily as customers, and a
+ *   message in Communication is as likely to be about an employee or a
+ *   vendor.
+ *
+ * Worse than any single wrong line, it made Customer look like the centre
+ * of the platform — which is CRM architecture. Sharpnr is not CRM-first;
+ * it is a shared foundation that many kinds of record live on. A hero that
+ * says otherwise misrepresents the product at the first thing a visitor
+ * looks at.
+ *
+ * So the slab now holds the business objects themselves. Every application
+ * above has a legitimate reason to reach it, because each one writes the
+ * objects it owns rather than all of them writing one.
+ *
+ * ── What Scene 02 gets instead ────────────────────────────────────────
+ * The handoff survives without the fake person: Scene 02 ends on one
+ * customer held five ways, and "Customers" is the first object on this
+ * slab — one shared object rather than five copies. The argument lands the
+ * same way, and nothing on screen is invented.
+ *
+ * Counts were considered for these chips (Customers 28,402, Orders
+ * 12,184). They are rejected: every figure would be fabricated, and a
+ * fabricated metric on the homepage is a worse problem than a vague one.
+ */
+export const SLAB_LABEL = "System of record";
+
+export type ObjectId =
+  | "customers"
+  | "orders"
+  | "invoices"
+  | "employees"
+  | "products"
+  | "bookings";
+
+export interface BusinessObject {
+  id: ObjectId;
+  label: string;
+  cx: number;
+}
+
+export const OBJECT_W = 78;
+
+/* One row of six, deliberately unlike the 3×2 grids above and below it.
+   Three identical grids stacked would have read as one shape repeated;
+   the band that is the point should not look like the bands either side. */
+export const OBJECTS: BusinessObject[] = [
+  { id: "customers", label: "Customers", cx: 62 },
+  { id: "orders", label: "Orders", cx: 149 },
+  { id: "invoices", label: "Invoices", cx: 236 },
+  { id: "employees", label: "Employees", cx: 323 },
+  { id: "products", label: "Products", cx: 410 },
+  { id: "bookings", label: "Bookings", cx: 497 },
+];
 
 /*
  * The foundation, named. These are the reason the platform exists — one

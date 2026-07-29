@@ -20,13 +20,36 @@
  *
  * Only the travelling charge glows. Every static trace is a flat hairline —
  * lighting the whole drawing is what makes a diagram look generated.
+ *
+ * ── It answers the pointer ──
+ * The cascade already showed a value changing — the stock count genuinely
+ * decrements — but it played once and was then a picture. Pointing at any
+ * system now isolates *what that system's response depends on*: the runs
+ * that carried the order to it and every system upstream, back to the
+ * guest. The dependency set comes from CHAIN_EDGES (`DEPENDS` in
+ * `./chain`), so it can never disagree with the drawing.
+ *
+ * The state is React's rather than a `:has()` rule because the answer is
+ * derived from a graph — a CSS version would mean eight hand-written
+ * selector lists that silently rot the first time an edge changes. The
+ * visual states themselves are still CSS, in the same vocabulary the
+ * Industries topologies use.
+ *
+ * Every property the hover touches is one GSAP does *not* write inline:
+ * stroke / stroke-width / fill on the boxes, stroke-opacity on the runs,
+ * fill-opacity on the labels. GSAP owns `opacity` on `.hosp-node`,
+ * `stroke-opacity` on `.hosp-node-box` and the dash on `.hosp-edge`, and
+ * an inline style beats a stylesheet (design.md §11, trap 1).
  */
+import { useState } from "react";
 import {
   BAND,
   BAND_KICKER,
   CHAIN_EDGES,
   CHAIN_NODES,
+  DEPENDS,
   ECOSYSTEM,
+  GUEST_EDGE,
   IVA_LINE,
   JOURNEY,
   JOURNEY_X,
@@ -39,6 +62,10 @@ import {
 
 const ACCENT = "#00b4d8";
 
+/** `undefined` while nothing is being pointed at, so the figure carries no
+ *  state attributes at all in its resting condition. */
+type Rel = "on" | "off" | undefined;
+
 const trace = {
   stroke: ACCENT,
   strokeOpacity: 0.3,
@@ -47,14 +74,30 @@ const trace = {
 } as const;
 
 /** One node of the wide drawing. */
-function WideNode({ id }: { id: string }) {
+function WideNode({
+  id,
+  rel,
+  onEnter,
+  onLeave,
+}: {
+  id: string;
+  rel: Rel;
+  onEnter: (id: string) => void;
+  onLeave: () => void;
+}) {
   const n = CHAIN_NODES.find((x) => x.id === id);
   const p = WIDE.pos[id];
   if (!n) return null;
   const x = p.cx - p.w / 2;
   const isIva = id === "iva";
   return (
-    <g className="hosp-node" data-node={id}>
+    <g
+      className="hosp-node"
+      data-node={id}
+      data-rel={rel}
+      onPointerEnter={() => onEnter(id)}
+      onPointerLeave={onLeave}
+    >
       <rect
         className="hosp-node-box"
         x={x}
@@ -125,14 +168,35 @@ function WideNode({ id }: { id: string }) {
           {IVA_LINE}
         </text>
       )}
+
+      {/* Every shape in the node is stroke-only, so there is no interior
+          for the pointer to find. The plate is the hit area. */}
+      <rect
+        className="hosp-node-hit"
+        x={x}
+        y={p.top}
+        width={p.w}
+        height={WIDE.nodeH}
+        fill="transparent"
+      />
     </g>
   );
 }
 
 /** The wide drawing — md and up. */
 function WideFigure() {
+  const [active, setActive] = useState<string | null>(null);
+  const dep = active ? DEPENDS[active] : null;
+
+  const nodeRel = (id: string): Rel =>
+    dep ? (dep.nodes.includes(id) ? "on" : "off") : undefined;
+  const edgeRel = (key: string): Rel =>
+    dep ? (dep.edges.includes(key) ? "on" : "off") : undefined;
+
   return (
     <svg
+      data-hosp-chain
+      data-focus={active ?? undefined}
       viewBox={`0 0 ${WIDE.w} ${WIDE.h}`}
       className="h-auto w-full"
       role="img"
@@ -199,8 +263,14 @@ function WideFigure() {
 
       {/* ── The handoff ── */}
       <g className="hosp-handoff">
+        {/* The guest's own run into the Point of Sale. It carries an edge
+            key so the pointer can treat it as what the POS depends on —
+            otherwise the origin of the chain would look like a dead
+            hover. */}
         <path
           className="hosp-edge"
+          data-edge={GUEST_EDGE}
+          data-rel={edgeRel(GUEST_EDGE)}
           d={`M${WIDE.w / 2} ${WIDE.handoffTop} L${WIDE.w / 2} ${WIDE.handoffBottom}`}
           {...trace}
         />
@@ -225,6 +295,7 @@ function WideFigure() {
             key={`${from}-${to}`}
             className="hosp-edge"
             data-edge={`${from}-${to}`}
+            data-rel={edgeRel(`${from}-${to}`)}
             d={edgePath(from, to)}
             {...trace}
           />
@@ -232,7 +303,13 @@ function WideFigure() {
       </g>
 
       {CHAIN_NODES.map((n) => (
-        <WideNode key={n.id} id={n.id} />
+        <WideNode
+          key={n.id}
+          id={n.id}
+          rel={nodeRel(n.id)}
+          onEnter={setActive}
+          onLeave={() => setActive(null)}
+        />
       ))}
 
       {/* ── The ecosystem it all stands on ──

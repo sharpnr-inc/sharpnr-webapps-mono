@@ -6,20 +6,20 @@ import { useJoinAnimation } from "./animations/useJoinAnimation";
 
 const ways = [
   {
-    title: "Build your business",
-    line: "Create your organization and explore Sharpnr during Early Access.",
+    title: "Run your business on it",
+    line: "Set up your business and try Sharpnr free while it is in Early Access.",
   },
   {
     title: "Build with us",
-    line: "Developers, designers and builders shape the platform through ideas and feedback.",
+    line: "Developers and designers who want a say in what gets built next.",
   },
   {
     title: "Grow with us",
-    line: "Partners help expand the ecosystem into new industries and markets.",
+    line: "Partners who bring Sharpnr to trades and places we have not reached.",
   },
   {
     title: "Join our team",
-    line: "We look for people who care deeply about solving meaningful problems.",
+    line: "People who would rather fix a real problem than ship another feature.",
   },
 ] as const;
 
@@ -39,14 +39,13 @@ export function JoinSection() {
         <div ref={contentRef} className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <Eyebrow tone="navy">Join the journey</Eyebrow>
           <h2 className="mt-4 text-heading-lg font-bold text-white md:text-display-md">
-            We're just getting started.
+            Early days,
             <br />
-            We'd love for you to be part of what's next.
+            <span className="text-twilight">come and shape them.</span>
           </h2>
           <p className="mt-5 max-w-xl text-body-lg text-mute">
-            Great platforms aren't built in isolation. They're shaped by the
-            businesses that use them, the partners that grow with them and the
-            people who challenge them to become better.
+            Nothing good gets built in a room on its own. The businesses using
+            it decide what it becomes.
           </p>
 
           {/* Four invitations, not four value cards — the About page is
@@ -84,8 +83,8 @@ export function JoinSection() {
             </CtaLink>
           </div>
           <p className="mt-6 text-sm text-mute/70">
-            Early Access is free. We're building in the open — learning
-            continuously and improving with every organization that joins.
+            Early Access is free. We're building in the open, and every business
+            that joins changes what comes next.
           </p>
         </div>
       </div>

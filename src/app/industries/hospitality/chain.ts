@@ -220,6 +220,55 @@ export function edgePath(fromId: string, toId: string) {
   return `M${a.cx} ${fromY} L${a.cx} ${railY} L${b.cx} ${railY} L${b.cx} ${toY}`;
 }
 
+/* ── What a system's response depends on ──────────────────────────────
+   The figure showed the chain firing once and was then inert. design.md
+   §8: an entrance is not aliveness. The pointer half is answered from the
+   graph rather than from a hand-written table, so it can never drift out
+   of step with CHAIN_EDGES.
+
+   Pointing at a system reveals everything its response rests on: the
+   systems upstream of it, transitively, and the runs that carried the
+   order there. Hovering IVA therefore lights the whole cascade, which is
+   the honest answer — it is the one node that depends on all of it.
+
+   The Point of Sale has nothing upstream inside the platform, so the
+   handoff from the guest journey stands in as its dependency. Without it,
+   pointing at the origin of the chain would look like a broken hover
+   rather than like the place the chain starts. */
+export const GUEST_EDGE = "guest-pos";
+
+export interface Dependency {
+  /** The hovered node and every node upstream of it. */
+  nodes: string[];
+  /** `from-to` keys for every run that carried the order there. */
+  edges: string[];
+}
+
+function upstreamOf(id: string): Dependency {
+  const nodes = new Set<string>([id]);
+  const edges = new Set<string>();
+  const queue = [id];
+
+  while (queue.length) {
+    const current = queue.shift() as string;
+    CHAIN_EDGES.forEach(([from, to]) => {
+      if (to !== current) return;
+      edges.add(`${from}-${to}`);
+      if (!nodes.has(from)) {
+        nodes.add(from);
+        queue.push(from);
+      }
+    });
+  }
+
+  if (nodes.has("pos")) edges.add(GUEST_EDGE);
+  return { nodes: [...nodes], edges: [...edges] };
+}
+
+export const DEPENDS: Record<string, Dependency> = Object.fromEntries(
+  CHAIN_NODES.map((n) => [n.id, upstreamOf(n.id)]),
+);
+
 /** Nodes grouped by tier — the stacked mobile rendering walks this. */
 export function tiers() {
   const out: ChainNode[][] = [];
