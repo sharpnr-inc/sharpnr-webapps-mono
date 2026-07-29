@@ -21,7 +21,7 @@ interface ProductsIntroAnimationRefs {
  *
  * Deliberately shorter than the homepage's opening: that hero has a field
  * of vocabulary to fill in behind it, and this one only has to name the
- * page and hand the visitor to the catalogue.
+ * page and hand the visitor to the capabilities below it.
  */
 const T = { heading: 0.15, copy: 0.75, cta: 1 } as const;
 

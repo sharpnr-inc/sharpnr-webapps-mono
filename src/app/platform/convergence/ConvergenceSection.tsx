@@ -36,7 +36,7 @@ export function ConvergenceSection() {
           <h2 className="conv-intro mt-4 text-heading-lg font-bold text-white md:text-heading-xl">
             Built to work as one.
           </h2>
-          <p className="conv-intro mt-5 max-w-xl text-body-lg text-white/70">
+          <p className="conv-intro mt-5 max-w-xl text-body-lg text-mute">
             Every Sharpnr product works independently. Together, information
             flows naturally across every team, every workflow and every
             organization — not through integrations, but by design.
@@ -73,7 +73,11 @@ export function ConvergenceSection() {
                   textAnchor={a.anchor}
                   fontSize="13"
                   fontWeight="500"
-                  fill="rgba(255,255,255,0.75)"
+                  /* --color-mute. White at low opacity is what the design
+                     language calls out as making a dark page read cheap,
+                     and the matching diagram in Scene 02 already uses the
+                     cool grey. */
+                  fill="#8a94a8"
                 >
                   {a.label}
                 </text>
@@ -103,18 +107,18 @@ export function ConvergenceSection() {
           <p className="mt-6 text-title-md font-medium text-cyan">
             Connected Business Infrastructure.
           </p>
-          <p className="mt-3 text-body-lg text-white/70">This is Sharpnr.</p>
+          <p className="mt-3 text-body-lg text-mute">This is Sharpnr.</p>
         </div>
 
         {/* One clear next step */}
         <div
           ref={ctaRef}
-          className="mx-auto mt-20 flex max-w-xl flex-col items-center border-t border-white/10 pt-14 text-center"
+          className="mx-auto mt-20 flex max-w-xl flex-col items-center border-t border-sky/12 pt-14 text-center"
         >
           <h3 className="text-heading-sm font-bold text-white">
             Ready to explore the ecosystem?
           </h3>
-          <p className="mt-3 text-base text-white/70">
+          <p className="mt-3 text-base text-mute">
             Discover the products that power the platform, or create your free
             account and experience it for yourself.
           </p>
@@ -130,7 +134,7 @@ export function ConvergenceSection() {
               Create Free Account
             </CtaLink>
           </div>
-          <p className="mt-6 text-sm text-white/50">
+          <p className="mt-6 text-sm text-mute/70">
             Free during Early Access • No credit card required
           </p>
         </div>

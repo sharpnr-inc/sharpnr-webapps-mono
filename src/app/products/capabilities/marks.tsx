@@ -1,5 +1,5 @@
 /*
- * The catalogue's blueprint marks — one per capability group.
+ * One blueprint mark per capability.
  *
  * Same construction as the homepage's Scene 06 skeletons: thin linework,
  * one accent, no fill that carries meaning, no glow. Everything sits on a
@@ -9,8 +9,13 @@
  * Each mark has to argue its capability with the words removed — work
  * advancing through stations, a thread hanging off one spine, two sides of
  * a ledger balancing, a unit crossing between two organizations and landing
- * in the receiving books, a structure of roles, a document filing itself,
- * one identity reaching every product.
+ * in the receiving books, separate errands converging into one place, a
+ * document filing itself, one identity reaching every product.
+ *
+ * The capability docs are LOCKED and each carries a list of shapes it must
+ * never become — no org charts under People, no folder trees under Storage,
+ * no flowchart boxes under Automation, no charts anywhere. These marks are
+ * abstractions of a business event, never a picture of an interface.
  *
  * There is no scroll behaviour here. Hover is driven entirely by `motion`
  * variants inherited from the group's `whileHover` — GSAP owns the scroll
@@ -138,7 +143,7 @@ export const MarkCommunication = () => (
 
 /**
  * Finance — a beam on a fulcrum, sitting off level until it settles. Two
- * sides, one entry: the shape double-entry actually makes.
+ * sides, one entry: the shape a balanced book actually makes.
  */
 export const MarkFinance = () => (
   <Stage>
@@ -204,32 +209,46 @@ export const MarkMarketplace = () => (
 );
 
 /**
- * People — responsibility, drawn as structure. One line of accountability
- * branching into teams that settle onto it.
+ * People — four errands an employee used to run in four places, converging
+ * into one and continuing as a single line.
+ *
+ * Deliberately NOT a hierarchy of boxes: `04_People.md` forbids org charts,
+ * and a tree would argue reporting structure anyway, which is not what this
+ * capability is about. The claim is one connected employee experience, and
+ * convergence is the shape of that claim.
  */
-const TEAM_X = [40, 110, 180];
+const ERRANDS = [16, 34, 56, 74];
 
 export const MarkPeople = () => (
   <Stage>
-    <rect x={92} y={10} width={36} height={18} {...base} />
-    <line x1={110} y1={28} x2={110} y2={42} {...faint} />
-    <line x1={40} y1={42} x2={180} y2={42} {...faint} />
-    {TEAM_X.map((x, i) => (
+    {ERRANDS.map((y, i) => (
       <motion.g
-        key={x}
+        key={y}
         variants={{
-          initial: { y: 7, opacity: 0.4 },
+          initial: { x: -10, opacity: 0.35 },
           animate: {
-            y: 0,
+            x: 0,
             opacity: 1,
-            transition: { duration: 0.32, delay: i * 0.07 },
+            transition: { duration: 0.34, delay: i * 0.07 },
           },
         }}
       >
-        <line x1={x} y1={42} x2={x} y2={56} {...faint} />
-        <rect x={x - 24} y={56} width={48} height={20} {...edge} />
+        <rect x={14} y={y - 6} width={38} height={12} {...edge} />
+        <path d={`M52 ${y} L96 ${y} L118 45`} {...faint} />
       </motion.g>
     ))}
+    <motion.g
+      variants={{
+        initial: { opacity: 0.25 },
+        animate: {
+          opacity: 1,
+          transition: { duration: 0.3, delay: 0.34 },
+        },
+      }}
+    >
+      <line x1={118} y1={45} x2={148} y2={45} {...base} />
+      <rect x={148} y={31} width={58} height={28} {...base} />
+    </motion.g>
   </Stage>
 );
 

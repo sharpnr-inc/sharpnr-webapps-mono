@@ -41,35 +41,45 @@ export function useConvergenceAnimation(refs: ConvergenceAnimationRefs) {
         opacity: 0,
         scale: 0.8,
         transformOrigin: "center center",
-        duration: 0.7,
-        stagger: 0.12,
+        duration: 0.5,
+        stagger: 0.08,
         ease: "power3.out",
       });
       tl.fromTo(
         ".conv-spoke",
         { drawSVG: "0% 0%" },
-        { drawSVG: "0% 100%", duration: 1.6, stagger: 0.12, ease: "power2.in" },
-        "-=0.3",
+        { drawSVG: "0% 100%", duration: 0.9, stagger: 0.07, ease: "power2.in" },
+        "-=0.25",
       );
       tl.from(".conv-core", {
         opacity: 0,
         scale: 0.7,
         transformOrigin: "280px 240px",
-        duration: 1,
+        duration: 0.6,
         ease: "power3.out",
       });
 
-      // Pause. Then the statement — slower, larger gaps.
-      tl.from(
-        statementRef.current ? statementRef.current.children : [],
-        { opacity: 0, y: 18, duration: 1, stagger: 0.5, ease: "power3.out" },
-        "+=0.6",
-      );
-      tl.from(
-        ctaRef.current,
-        { opacity: 0, y: 16, duration: 0.8, ease: "power3.out" },
-        "+=0.3",
-      );
+      // The statement and the CTA are a full screen below the diagram, so
+      // they get their own triggers rather than waiting at the end of this
+      // timeline. Chained to it, the closing moment of the page — and the
+      // only call to action on it — stayed at opacity 0 for the eight
+      // seconds the diagram took, which is exactly the span in which a
+      // visitor scrolls past them.
+      gsap.from(statementRef.current ? statementRef.current.children : [], {
+        opacity: 0,
+        y: 18,
+        duration: 0.7,
+        stagger: 0.28,
+        ease: "power3.out",
+        scrollTrigger: { trigger: statementRef.current, start: "top 88%" },
+      });
+      gsap.from(ctaRef.current, {
+        opacity: 0,
+        y: 16,
+        duration: 0.6,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ctaRef.current, start: "top 90%" },
+      });
     },
     { scope: sectionRef },
   );

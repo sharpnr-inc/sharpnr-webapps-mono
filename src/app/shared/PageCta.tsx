@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { CtaLink } from "./CtaLink";
+import { Button } from "@/app/home/shared/Button";
 import { Eyebrow } from "./Eyebrow";
 import { usePageCtaAnimation } from "./animations/usePageCtaAnimation";
 
@@ -20,8 +20,19 @@ interface PageCtaProps {
 }
 
 /**
- * The quiet, confident page ending — deep navy, typography as the hero.
- * No illustrations, no repeated visuals, no pressure.
+ * The quiet, confident page ending — typography as the hero. No
+ * illustrations, no repeated visuals, no pressure.
+ *
+ * It used to sit on its own `bg-navy` slab. The site is one dark canvas now
+ * with the ink wash held at the root, so a solid #03045e panel over the top
+ * of that reads as a patch rather than as a finale — the same change the
+ * Industries page's closing scene already made. The canvas runs through and
+ * a hairline carries the section break, exactly like every other section on
+ * these pages.
+ *
+ * The buttons are the shared homepage pair for the same reason: a white
+ * primary belonged to the navy slab, and against the canvas the accent fill
+ * is what the rest of the site uses.
  */
 export function PageCta({
   eyebrow,
@@ -37,7 +48,10 @@ export function PageCta({
   usePageCtaAnimation({ sectionRef, contentRef });
 
   return (
-    <section ref={sectionRef} className="bg-navy">
+    <section
+      ref={sectionRef}
+      className="relative border-t border-white/[0.07]"
+    >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
         <div
           ref={contentRef}
@@ -47,31 +61,27 @@ export function PageCta({
           <h2 className="text-heading-lg font-bold text-white md:text-display-md">
             {heading}
           </h2>
-          {copy && (
-            <p className="mt-5 max-w-xl text-body-lg text-white/70">{copy}</p>
-          )}
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <CtaLink
-              tone="navy"
+          {copy && <p className="mt-5 max-w-xl text-body-lg text-mute">{copy}</p>}
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+            <Button
               variant="primary"
               to={primary.to}
               href={primary.href}
               arrow
             >
               {primary.label}
-            </CtaLink>
+            </Button>
             {secondary && (
-              <CtaLink
-                tone="navy"
+              <Button
                 variant="secondary"
                 to={secondary.to}
                 href={secondary.href}
               >
                 {secondary.label}
-              </CtaLink>
+              </Button>
             )}
           </div>
-          {trust && <p className="mt-6 text-sm text-white/50">{trust}</p>}
+          {trust && <p className="mt-6 text-sm text-mute/70">{trust}</p>}
         </div>
       </div>
     </section>

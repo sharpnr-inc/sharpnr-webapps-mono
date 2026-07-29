@@ -43,19 +43,23 @@ export function JoinSection() {
             <br />
             We'd love for you to be part of what's next.
           </h2>
-          <p className="mt-5 max-w-xl text-body-lg text-white/70">
+          <p className="mt-5 max-w-xl text-body-lg text-mute">
             Great platforms aren't built in isolation. They're shaped by the
             businesses that use them, the partners that grow with them and the
             people who challenge them to become better.
           </p>
 
+          {/* Four invitations, not four value cards — the About page is
+              typographic throughout and a bordered tile here would be the
+              only box on it. A hairline above each keeps them legible as a
+              set without becoming a grid of panels. */}
           <div className="mt-12 grid w-full gap-x-12 gap-y-8 text-left sm:grid-cols-2">
             {ways.map((way) => (
-              <div key={way.title}>
+              <div key={way.title} className="border-t border-sky/12 pt-5">
                 <h3 className="text-base font-semibold text-white">
                   {way.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-white/65">
+                <p className="mt-1.5 text-sm leading-relaxed text-mute">
                   {way.line}
                 </p>
               </div>
@@ -79,7 +83,7 @@ export function JoinSection() {
               Explore Careers
             </CtaLink>
           </div>
-          <p className="mt-6 text-sm text-white/50">
+          <p className="mt-6 text-sm text-mute/70">
             Early Access is free. We're building in the open — learning
             continuously and improving with every organization that joins.
           </p>

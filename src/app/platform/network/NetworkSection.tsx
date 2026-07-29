@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { SectionIntro } from "@/app/shared/SectionIntro";
+import { NetworkDiagram } from "./NetworkDiagram";
 import { useNetworkAnimation } from "./animations/useNetworkAnimation";
 
 const relationshipSteps = [
@@ -42,41 +43,31 @@ export function NetworkSection() {
 
         {/* One connected business relationship */}
         <div className="mx-auto mt-16 max-w-3xl">
-          <div className="relative flex items-center justify-between">
-            {/* Your organization */}
-            <div className="network-org relative z-10 flex flex-col items-center gap-3">
-              <span className="flex size-20 items-center justify-center rounded-full border border-sky/25 bg-sky/[0.035] text-center text-xs font-semibold text-white md:size-24 md:text-sm">
-                Your
-                <br />
-                organization
-              </span>
-            </div>
+          <NetworkDiagram />
+        </div>
 
-            {/* The relationship */}
-            <div className="absolute inset-x-24 top-1/2 h-px -translate-y-1/2 bg-sky/15 md:inset-x-28">
-              <div className="network-fill h-full w-full origin-left scale-x-0 bg-cyan/70" />
-            </div>
+        {/* The steps of the relationship.
+            The sequence is carried by the numbers, not by connector dashes
+            between the pills: a dash is a child of the pill it follows, so
+            whenever the row wrapped it stranded a dash at the end of the
+            line with nothing after it.
 
-            {/* Verified supplier */}
-            <div className="network-org relative z-10 flex flex-col items-center gap-3">
-              <span className="flex size-20 items-center justify-center rounded-full border border-cyan/50 bg-cyan/[0.07] text-center text-xs font-semibold text-white md:size-24 md:text-sm">
-                Verified
-                <br />
-                supplier
-              </span>
-            </div>
-          </div>
-
-          {/* The steps of the relationship */}
-          <ol className="mt-10 flex flex-wrap items-center justify-center gap-x-3 gap-y-2.5">
+            Wider than the diagram above so all five stay on one line on a
+            desktop — the process runs past the two organizations, which is
+            the point of the section. */}
+        <div className="mx-auto max-w-5xl">
+          <ol className="mt-12 flex flex-wrap items-center justify-center gap-2.5">
             {relationshipSteps.map((step, i) => (
-              <li key={step} className="network-step flex items-center gap-3">
-                <span className="rounded-full border border-sky/15 bg-sky/[0.025] px-3.5 py-1.5 text-xs font-medium text-mute md:text-sm">
+              <li
+                key={step}
+                className="network-step flex items-center gap-2 rounded-full border border-sky/15 bg-sky/[0.025] py-1.5 pl-3 pr-4"
+              >
+                <span className="text-[0.625rem] font-medium tabular-nums tracking-[0.1em] text-cyan/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-xs font-medium text-mute md:text-sm">
                   {step}
                 </span>
-                {i < relationshipSteps.length - 1 && (
-                  <span className="hidden h-px w-4 bg-sky/20 md:block" />
-                )}
               </li>
             ))}
           </ol>

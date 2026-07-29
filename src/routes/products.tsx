@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductsIntroSection } from "@/app/products/intro/ProductsIntroSection";
-import { ProductCatalogueSection } from "@/app/products/catalogue/ProductCatalogueSection";
+import { CapabilitiesSection } from "@/app/products/capabilities/CapabilitiesSection";
 import { FoundationSection } from "@/app/products/foundation/FoundationSection";
 import { ProductsCloseSection } from "@/app/products/close/ProductsCloseSection";
 
@@ -35,6 +35,9 @@ export const Route = createFileRoute("/products")({
  * runs each, the foundation all of them stand on, and one way in. The third
  * exists because the second reads as a shopping list without it.
  *
+ * Every movement makes the same argument in a different register:
+ * independent when needed, connected by design, more valuable together.
+ *
  * No canvas or ink wash here. `__root.tsx` wraps every route and the footer
  * in one `.hp-canvas` with a single `<CanvasWash />`, so a second instance
  * on this page would double the wash and duplicate its filter ids.
@@ -43,7 +46,7 @@ function ProductsPage() {
   return (
     <>
       <ProductsIntroSection />
-      <ProductCatalogueSection />
+      <CapabilitiesSection />
       <FoundationSection />
       <ProductsCloseSection />
     </>

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { config } from "@/configs/env";
 import { Button } from "@/app/home/shared/Button";
 import { Words } from "@/app/home/shared/Words";
-import { ScrollSmoother } from "@/configs/gsap";
+import { scrollToId } from "@/app/home/shared/smoothScroll";
 import { useServicesHeroAnimation } from "./animations/useServicesHeroAnimation";
 
 const capabilities = [
@@ -51,13 +51,9 @@ export function ServicesHeroSection() {
     chainRef,
   });
 
-  const scrollToCapabilities = () => {
-    const target = document.getElementById("financial-management");
-    if (!target) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(target, true, "top 88px");
-    else target.scrollIntoView({ behavior: "smooth" });
-  };
+  // Through the shared Lenis instance — a raw scrollIntoView would fight the
+  // smooth-scroll animation already running and land between the two.
+  const scrollToCapabilities = () => scrollToId("financial-management");
 
   return (
     <section

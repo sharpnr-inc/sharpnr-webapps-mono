@@ -15,27 +15,34 @@ import {
 /*
  * The nine capabilities of the platform, and what runs each one.
  *
- * Groups are the nine documents in `website_instruction/06_Capabilities`,
- * with Intelligence lifted to second by direction — it is the capability
- * that touches every other one, so it is introduced early rather than
- * buried in the middle. Each group's lede is that capability doc's own
- * positioning line, cut to one clause.
+ * The page is a tour of one platform, capability by capability — never a
+ * product list. Groups are the nine documents in
+ * `website_instruction/06_Capabilities`, with Intelligence lifted to second
+ * by direction: it is the capability that touches every other one, so it is
+ * introduced early rather than buried in the middle. Each group's lede is
+ * that capability doc's own positioning line, cut to one clause.
  *
  * ── One voice for every product line ──────────────────────────────────
  * Every description answers the same question: what this lets the business
  * do. Not how it is built, not what it contains. Earlier passes mixed
  * feature lists ("docs, sheets, presentations"), implementation detail
- * ("S3-compatible", "double-entry", "its own domain") and outcome copy on
- * the same page, which reads as several people writing. Infrastructure
- * vocabulary is gone entirely — a visitor deciding what to adopt is not
- * shopping for storage classes.
+ * ("S3-compatible", "double-entry", "runs on its own domain") and outcome
+ * copy on the same page, which reads as several people writing.
+ * Infrastructure vocabulary is gone entirely — a visitor deciding what to
+ * adopt is not shopping for storage classes. The three things the page says
+ * plainly, in the copy above the list: every product works on its own,
+ * adopt only what you need, anything you add works with what you have.
  *
- * ── Links ─────────────────────────────────────────────────────────────
+ * ── Links, and what "Soon" means ──────────────────────────────────────
  * Every URL comes from `configs/env.ts`, and all twelve are reachable:
  * eleven as products below, plus `authAppUrl` through the page's Get
- * Started action, which is what that URL is for. Products with no
- * application yet are listed and simply not linked — a wrong destination
- * is worse than none.
+ * Started action, which is what that URL is for.
+ *
+ * One rule, applied without exception: a product with no application to
+ * open is listed, is NOT a link, and carries "Soon". Guessing a URL would
+ * ship a 404; leaving a product out would misrepresent the platform; and
+ * an unmarked card with no link reads as an oversight rather than as a
+ * statement. Nothing here is dated, because nothing here has a date.
  *
  * ── Judgement calls, so nobody has to reverse-engineer them ────────────
  *  - Orchestrator sits under Automation. `sharpnr.md` calls it the glue
@@ -45,41 +52,45 @@ import {
  *    Identity component — "provide secure access across connected
  *    experiences". It is the only shipping product that does this across
  *    the whole platform.
+ *  - Tasks is not a product of its own. It is one of the things an
+ *    employee opens OpenSharp IAM to do, and it is written that way.
  *  - The Developer Platform doc also describes APIs, SDKs, webhooks and an
  *    integration framework. None of those is a product in `sharpnr.md`, so
  *    none is claimed here.
  */
 
-export interface CatalogueProduct {
+export interface CapabilityProduct {
   name: string;
   /** One line: what this lets the business do. Never how it is built. */
   line: string;
   /** The live app. Omitted entirely when there is nothing to open yet. */
   href?: string;
-  /** A short status mark, for a product that is not shipping yet. */
+  /** A short status mark. Present on exactly the products with no `href`. */
   note?: string;
 }
 
-export interface CatalogueGroup {
+export interface Capability {
   index: string;
   /** The capability, named as `06_Capabilities` names it. */
-  capability: string;
+  name: string;
   /** The capability's own positioning line, cut to one clause. */
   lede: string;
   Mark: ComponentType;
   /**
-   * Draw the shared backplane through this group. Reserved for
+   * Draw the shared backplane through this capability. Reserved for
    * Intelligence, which is the one capability that reaches into every
    * other — said with linework rather than with a sentence claiming it.
    */
   connected?: boolean;
-  products: CatalogueProduct[];
+  products: CapabilityProduct[];
 }
 
-export const CATALOGUE: CatalogueGroup[] = [
+const SOON = "Soon";
+
+export const CAPABILITIES: Capability[] = [
   {
     index: "01",
-    capability: "Operations",
+    name: "Operations",
     lede: "Plan, coordinate, execute and track the work a business runs on.",
     Mark: MarkOperations,
     products: [
@@ -90,14 +101,14 @@ export const CATALOGUE: CatalogueGroup[] = [
       },
       {
         name: "Lifco",
-        line: "Run clinical and patient operations for a healthcare business.",
-        note: "Soon",
+        line: "Run clinical and patient work end to end, so care and admin stop being two separate jobs.",
+        note: SOON,
       },
     ],
   },
   {
     index: "02",
-    capability: "Intelligence",
+    name: "Intelligence",
     lede: "What is happening, why it is happening, and what to do next.",
     Mark: MarkIntelligence,
     connected: true,
@@ -105,28 +116,33 @@ export const CATALOGUE: CatalogueGroup[] = [
       {
         name: "IVA",
         line: "Ask the business a question and get an answer that already accounts for how everything connects.",
+        note: SOON,
       },
       {
         name: "Analytics",
         line: "See what is actually happening across the business, without anyone assembling it by hand.",
+        note: SOON,
       },
       {
         name: "Recommendations",
         line: "Get a clear next step at the point a decision has to be made.",
+        note: SOON,
       },
       {
         name: "Automation",
         line: "Hand off recurring work so people spend their time on the parts that need judgement.",
+        note: SOON,
       },
       {
         name: "Knowledge",
         line: "Find what the business already knows, the moment someone needs it.",
+        note: SOON,
       },
     ],
   },
   {
     index: "03",
-    capability: "Communication",
+    name: "Communication",
     lede: "Conversations, decisions and knowledge, kept with the work they belong to.",
     Mark: MarkCommunication,
     products: [
@@ -139,7 +155,7 @@ export const CATALOGUE: CatalogueGroup[] = [
   },
   {
     index: "04",
-    capability: "Automation",
+    name: "Automation",
     lede: "Repetitive work removed, with people still in control of it.",
     Mark: MarkAutomation,
     products: [
@@ -152,7 +168,7 @@ export const CATALOGUE: CatalogueGroup[] = [
   },
   {
     index: "05",
-    capability: "Finance",
+    name: "Finance",
     lede: "A complete understanding of how money moves through the business.",
     Mark: MarkFinance,
     products: [
@@ -165,8 +181,8 @@ export const CATALOGUE: CatalogueGroup[] = [
   },
   {
     index: "06",
-    capability: "Marketplace",
-    lede: "Connect with the customers, partners and opportunities beyond your own operations.",
+    name: "Marketplace",
+    lede: "Reach the customers, partners and opportunities beyond your own operations.",
     Mark: MarkMarketplace,
     products: [
       {
@@ -175,15 +191,18 @@ export const CATALOGUE: CatalogueGroup[] = [
         href: config.sharpCRMAppUrl,
       },
       {
+        /* `sharpnr.md` is explicit that Sharpnr does not process payments
+           yet and that the site must never imply otherwise, so the second
+           sentence is not optional. */
         name: "Sharp-Marketplace",
-        line: "Buy from and sell to other businesses on Sharpnr, with no commission taken. Payments settle off-platform for now.",
+        line: "Sell to and buy from other businesses on Sharpnr, with nothing taken in commission. Payments still settle outside the platform.",
         href: config.marketplaceAppUrl,
       },
     ],
   },
   {
     index: "07",
-    capability: "People",
+    name: "People",
     lede: "Build, support and grow the teams the business is made of.",
     Mark: MarkPeople,
     products: [
@@ -194,14 +213,14 @@ export const CATALOGUE: CatalogueGroup[] = [
       },
       {
         name: "OpenSharp IAM",
-        line: "Give every employee one workspace for their tasks, approvals, attendance, leave, payslips and training — and let them handle their own requests.",
+        line: "Give every employee one place for their tasks, approvals, attendance, leave, payslips and training — and let them handle their own requests there.",
         href: config.iamAppUrl,
       },
     ],
   },
   {
     index: "08",
-    capability: "Storage",
+    name: "Storage",
     lede: "Documents, files and business knowledge, held next to the work they support.",
     Mark: MarkStorage,
     products: [
@@ -212,7 +231,8 @@ export const CATALOGUE: CatalogueGroup[] = [
       },
       {
         name: "Stockwave",
-        line: "Know what stock exists, where it is sitting and what needs ordering, across every location.",
+        line: "Know what stock exists, where it is sitting and what needs ordering, across every warehouse and location.",
+        note: SOON,
       },
       {
         name: "Silo",
@@ -223,7 +243,7 @@ export const CATALOGUE: CatalogueGroup[] = [
   },
   {
     index: "09",
-    capability: "Developer Platform",
+    name: "Developer Platform",
     lede: "Extend and integrate without changing the foundation underneath.",
     Mark: MarkDeveloper,
     products: [

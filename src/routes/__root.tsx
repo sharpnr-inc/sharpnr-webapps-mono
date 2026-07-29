@@ -9,11 +9,13 @@ import {
 } from "@tanstack/react-router";
 import { useRef, type ReactNode } from "react";
 import { MDXProvider } from "@mdx-js/react";
-import { gsap, useGSAP, ScrollSmoother, ScrollTrigger } from "@/configs/gsap";
+import Lenis from "lenis";
+import { gsap, useGSAP, ScrollTrigger } from "@/configs/gsap";
+import { registerSmoothScroll } from "@/app/home/shared/smoothScroll";
 import { useWebMCP } from "@/hooks/useWebMCP";
 import appCss from "@/index.css?url";
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 /* ── Structured data — global schema.org entities. Route-level
      entities (FAQPage etc.) live in each route's head(). ─────────── */
@@ -244,47 +246,60 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 function RootLayout() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   useWebMCP();
 
-  useGSAP(
-    () => {
-      // Motion guideline: the visitor stays in control. Gentle smoothing
-      // only, and none at all when the visitor prefers reduced motion.
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-      if (prefersReducedMotion) return;
+  /*
+   * Smooth scrolling, on Lenis rather than GSAP's ScrollSmoother.
+   *
+   * The two do the same job and cannot both run. Lenis wins here for a
+   * concrete reason beyond preference: ScrollSmoother works by transforming
+   * a wrapper element, and a transformed ancestor becomes the containing
+   * block for `position: fixed`. That silently broke fixed positioning
+   * across this codebase — the page background had to be absolute and sized
+   * to the whole document, and the header had to be lifted out of the
+   * wrapper entirely. Lenis drives the real scroll position instead, so
+   * `fixed` behaves normally again.
+   *
+   * Two wiring details that matter: ScrollTrigger has to be told when Lenis
+   * moves, and Lenis has to be driven by GSAP's ticker rather than its own
+   * RAF loop. Two independent loops produce visible jitter between a pinned
+   * element and the page around it.
+   */
+  useGSAP(() => {
+    // The visitor stays in control: no smoothing at all when they have
+    // asked for reduced motion.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      ScrollSmoother.create({
-        wrapper: wrapperRef.current!,
-        content: contentRef.current!,
-        smooth: 1.1,
-        smoothTouch: 0.1,
-        effects: true,
-      });
-    },
-    { scope: wrapperRef },
-  );
+    const lenis = new Lenis({ duration: 1.05, smoothWheel: true });
+    lenis.on("scroll", ScrollTrigger.update);
+    // Shared so in-page jumps go through Lenis rather than fighting it.
+    registerSmoothScroll(lenis);
+
+    const raf = (time: number) => lenis.raf(time * 1000);
+    gsap.ticker.add(raf);
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      registerSmoothScroll(null);
+      gsap.ticker.remove(raf);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <MDXProvider>
-      {/* Fixed header lives outside the smoother — transforms on
-          #smooth-content would break position: fixed */}
       <Header />
-      <div id="smooth-wrapper" ref={wrapperRef}>
-        <div id="smooth-content" ref={contentRef}>
-          {/* One dark canvas and one ink wash for the whole site. Held here
-              rather than per-page so every route sits on the same sheet and
-              the footer is part of it — a per-page wash stopped where the
-              page stopped, and the hand-over to the footer read as the page
-              simply ending. */}
-          <div className="hp-canvas relative text-white">
-            <CanvasWash />
-            <Outlet />
-            <Footer />
-          </div>
+      <div ref={wrapperRef}>
+        {/* One dark canvas and one ink wash for the whole site. Held here
+            rather than per-page so every route sits on the same sheet and
+            the footer is part of it — a per-page wash stopped where the page
+            stopped, and the hand-over to the footer read as the page simply
+            ending. */}
+        <div className="hp-canvas relative text-white">
+          <CanvasWash />
+          <Outlet />
+          <Footer />
         </div>
       </div>
     </MDXProvider>

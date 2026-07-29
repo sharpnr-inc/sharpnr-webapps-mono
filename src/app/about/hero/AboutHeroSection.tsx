@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { CtaLink } from "@/app/shared/CtaLink";
 import { Words } from "@/app/home/shared/Words";
-import { ScrollSmoother } from "@/configs/gsap";
+import { scrollToId } from "@/app/home/shared/smoothScroll";
 import { useAboutHeroAnimation } from "./animations/useAboutHeroAnimation";
 
 /**
@@ -20,13 +20,9 @@ export function AboutHeroSection() {
 
   useAboutHeroAnimation({ sectionRef, eyebrowRef, copyRef, ctaRef });
 
-  const scrollToStory = () => {
-    const target = document.getElementById("story");
-    if (!target) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(target, true, "top 88px");
-    else target.scrollIntoView({ behavior: "smooth" });
-  };
+  // Through the shared Lenis instance — a raw scrollIntoView would fight the
+  // smooth-scroll animation already running and land between the two.
+  const scrollToStory = () => scrollToId("story");
 
   return (
     <section
@@ -67,7 +63,7 @@ export function AboutHeroSection() {
             <button
               type="button"
               onClick={scrollToStory}
-              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-medium text-navy transition-colors duration-200 hover:bg-ice"
+              className="group inline-flex items-center justify-center gap-2 bg-cyan px-6 py-3 text-sm font-semibold tracking-tight text-navy transition-colors duration-200 hover:bg-sky"
             >
               Read Our Story
             </button>

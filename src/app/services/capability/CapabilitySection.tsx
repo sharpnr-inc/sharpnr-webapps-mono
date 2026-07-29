@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { SectionIntro } from "@/app/shared/SectionIntro";
+import { CAPABILITY_DIAGRAMS } from "../diagrams";
 import { useCapabilityAnimation } from "./animations/useCapabilityAnimation";
 import type { Capability } from "../capabilities";
 
@@ -26,6 +27,7 @@ export function CapabilitySection({ capability, index }: CapabilitySectionProps)
   const sectionRef = useRef<HTMLElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const flip = index % 2 === 1;
+  const Diagram = CAPABILITY_DIAGRAMS[capability.id];
 
   useCapabilityAnimation({ sectionRef, introRef });
 
@@ -78,6 +80,15 @@ export function CapabilitySection({ capability, index }: CapabilitySectionProps)
           {/* The connected experience */}
           <div className={`order-2 ${flip ? "lg:order-1" : "lg:order-2"}`}>
             <div className="rounded-2xl border border-sky/15 bg-sky/[0.025] p-6 md:p-8">
+              {/* What the capability *is*, before how it flows. Seven of
+                  these sections run back to back and the panel was the only
+                  thing in them that changed, so without a drawing the whole
+                  middle of the page read as one section repeated. */}
+              {Diagram && (
+                <div className="-mt-1 mb-6 border-b border-sky/12 pb-6">
+                  <Diagram />
+                </div>
+              )}
               <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
                 How it actually flows
               </p>

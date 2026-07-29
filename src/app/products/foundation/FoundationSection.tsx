@@ -42,7 +42,7 @@ export function FoundationSection() {
     >
       <div className="mx-auto max-w-3xl text-center">
         <p ref={eyebrowRef} className="hp-eyebrow">
-          The Foundation
+          One Platform
         </p>
         <h2
           ref={headingRef}
@@ -56,23 +56,25 @@ export function FoundationSection() {
           </span>
         </h2>
         <p ref={copyRef} className="hp-hero-copy mx-auto mt-6 max-w-xl text-mute">
-          Every capability above shares the same four things. Separate software
-          makes you build and maintain all four again, every time.
+          Every capability above stands on the same four things — built once,
+          not nine times.
         </p>
       </div>
 
       <div ref={figureRef} className="mx-auto mt-14 max-w-4xl md:mt-20">
-        {/* Nine modules squashed into a phone width become an unreadable
-            comb, so the drawing keeps its minimum size and scrolls inside
-            its own box rather than the page scrolling sideways. */}
+        {/* Recomposed rather than shrunk. From `md` up the drawing holds a
+            minimum width and scrolls inside its own box, so the page never
+            scrolls sideways. Below that it scales to fit and drops its
+            labels — a complete small drawing reads as a drawing, where the
+            same drawing cut off at the screen edge reads as a bug. */}
         <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
-          <div className="min-w-lg">
+          <div className="md:min-w-lg">
             <FoundationDiagram />
           </div>
         </div>
 
-        {/* The four, printed at a size a phone can read whether or not
-            anyone scrolls the drawing. */}
+        {/* The four, printed at a size a phone can read — this is where the
+            names live once the drawing has dropped its own labels. */}
         <ul className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-2 md:hidden">
           {["Identity", "Permissions", "Data", "Intelligence"].map((f) => (
             <li

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { config } from "@/configs/env";
 import { Button } from "@/app/home/shared/Button";
 import { Words } from "@/app/home/shared/Words";
-import { ScrollSmoother } from "@/configs/gsap";
+import { scrollToId } from "@/app/home/shared/smoothScroll";
 import { IndustryRailDiagram } from "../diagrams";
 import { useIndustriesHeroAnimation } from "./animations/useIndustriesHeroAnimation";
 
@@ -44,13 +44,9 @@ export function IndustriesHeroSection() {
     railRef,
   });
 
-  const scrollToHospitality = () => {
-    const target = document.getElementById("hospitality");
-    if (!target) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(target, true, "top 88px");
-    else target.scrollIntoView({ behavior: "smooth" });
-  };
+  // Through the shared Lenis instance — a raw scrollIntoView would fight the
+  // smooth-scroll animation already running and land between the two.
+  const scrollToHospitality = () => scrollToId("hospitality");
 
   return (
     <section

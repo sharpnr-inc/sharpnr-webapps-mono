@@ -46,6 +46,12 @@ const products = [
  * Section 05 — Work happens together. Communication, knowledge and
  * execution shown as one continuous workflow, never as three
  * separate applications.
+ *
+ * The page's right-facing section. Foundation, immediately above,
+ * faces left; two splits leaning the same way read as a template
+ * rather than as a page. The intro is pushed into the same column the
+ * product copy occupies, so heading, product names and body all share
+ * one left edge down the right half.
  */
 export function TogetherSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -57,7 +63,10 @@ export function TogetherSection() {
   return (
     <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
-        <div ref={introRef}>
+        {/* calc(50% - 2.5rem) is exactly one column of the grid below at
+            its lg gap-20, so the intro lands over the product copy rather
+            than near it. */}
+        <div ref={introRef} className="lg:ml-auto lg:w-[calc(50%-2.5rem)]">
           <SectionIntro
             tone="navy"
             eyebrow="Collaboration"

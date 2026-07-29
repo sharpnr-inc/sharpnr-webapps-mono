@@ -6,7 +6,7 @@ import { useProductsCloseAnimation } from "./animations/useProductsCloseAnimatio
 
 /*
  * The page's one primary and one secondary action, held back until the
- * catalogue has been read.
+ * capabilities have been read.
  *
  * Centred, on the same canvas — the page closes where it opened rather
  * than dropping into a differently-coloured panel, which would read as a
@@ -63,7 +63,7 @@ export function ProductsCloseSection() {
             Get Started
           </Button>
           {/* The hero already offers the platform tour. Someone who has
-              read the whole catalogue is further along than that, so the
+              read all nine capabilities is further along than that, so the
               second action here is the documentation instead. */}
           <Button
             variant="secondary"

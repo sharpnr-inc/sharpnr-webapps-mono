@@ -45,7 +45,12 @@ export function FoundationDiagram() {
       fill="none"
       aria-hidden="true"
     >
+      {/* The three sets of words come off below `md`, where the drawing is
+          scaled to fit a phone and 8px type would land at ~4px. The section
+          prints the four names underneath instead, at a size a phone can
+          actually read. */}
       <text
+        className="max-md:hidden"
         x={LEFT}
         y={16}
         fill={ACCENT}
@@ -109,7 +114,7 @@ export function FoundationDiagram() {
       {FOUNDATION.map((label, i) => (
         <text
           key={label}
-          className="pf-cell"
+          className="pf-cell max-md:hidden"
           x={LEFT + CELL_W * i + CELL_W / 2}
           y={SLAB_TOP + SLAB_H / 2 + 3}
           fill={ACCENT}
@@ -124,6 +129,7 @@ export function FoundationDiagram() {
       ))}
 
       <text
+        className="max-md:hidden"
         x={LEFT}
         y={SLAB_TOP + SLAB_H + 18}
         fill={ACCENT}

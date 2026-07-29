@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { SectionIntro } from "@/app/shared/SectionIntro";
+import { FoundationDiagram } from "./FoundationDiagram";
 import { useFoundationAnimation } from "./animations/useFoundationAnimation";
 
 const pillars = [
@@ -69,6 +70,11 @@ const pillars = [
  * Section 04 — Every business starts here. Not five products: one
  * connected foundation beneath the operational experience, like
  * roots beneath a tree.
+ *
+ * The page's left-facing section: the argument sits against the outer
+ * left edge of its column, the diagram takes the right. The next
+ * section (Together) faces right, so the two splits on this page read
+ * as a rhythm rather than as one template applied twice.
  */
 export function FoundationSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -79,19 +85,29 @@ export function FoundationSection() {
   return (
     <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
-        <div ref={introRef}>
-          <SectionIntro
-            tone="navy"
-            eyebrow="The business foundation"
-            heading={
-              <>
-                Every business is different.
-                <br />
-                Every business starts here.
-              </>
-            }
-            lede="Behind every operational experience is one connected foundation — finance, people, customers, identity and governance. Shared once. Connected everywhere."
-          />
+        <div
+          ref={introRef}
+          className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20"
+        >
+          {/* Cap and push on the wrapper, never on the paragraph — the
+              heading and the copy have to share one left edge. */}
+          <div className="lg:mr-auto lg:max-w-xl">
+            <SectionIntro
+              tone="navy"
+              eyebrow="The business foundation"
+              heading={
+                <>
+                  Every business is different.
+                  <br />
+                  Every business starts here.
+                </>
+              }
+              lede="Behind every operational experience is one connected foundation — finance, people, customers, identity and governance. Shared once. Connected everywhere."
+            />
+          </div>
+          <div className="flex justify-center lg:justify-end">
+            <FoundationDiagram />
+          </div>
         </div>
 
         {/* One structure: the experience above, the foundation beneath */}

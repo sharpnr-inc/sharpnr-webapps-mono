@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Button } from "@/app/home/shared/Button";
 import { Words } from "@/app/home/shared/Words";
-import { ScrollSmoother } from "@/configs/gsap";
+import { scrollToId } from "@/app/home/shared/smoothScroll";
 import { useResourcesHeroAnimation } from "./animations/useResourcesHeroAnimation";
 
 /*
@@ -40,13 +40,9 @@ export function ResourcesHeroSection() {
     noteRef,
   });
 
-  const scrollToLibrary = () => {
-    const target = document.getElementById("explore");
-    if (!target) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(target, true, "top 88px");
-    else target.scrollIntoView({ behavior: "smooth" });
-  };
+  // Through the shared Lenis instance — a raw scrollIntoView would fight the
+  // smooth-scroll animation already running and land between the two.
+  const scrollToLibrary = () => scrollToId("explore");
 
   return (
     <section
