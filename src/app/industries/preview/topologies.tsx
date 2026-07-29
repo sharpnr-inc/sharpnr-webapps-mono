@@ -63,7 +63,7 @@ export type Topology =
   | "cycle"
   | "reverse"
   | "converge"
-  | "calendar"
+  | "ascent"
   | "parallel"
   | "nested";
 
@@ -73,7 +73,7 @@ export const TOPOLOGY: Record<string, Topology> = {
   retail: "cycle",
   commerce: "reverse",
   manufacturing: "converge",
-  education: "calendar",
+  education: "ascent",
   professional: "parallel",
   technology: "nested",
 };
@@ -707,88 +707,107 @@ export function ConvergeFigure({ stages, chargeFilter }: FigureProps) {
   );
 }
 
-/* ── Calendar ─────────────────────────────────────────────────────────
-   Education. An institution does not run one student through five steps;
-   it runs several cohorts through the same year at once, each at a
-   different point in it. That is a grid — terms across, cohorts down —
-   and the staircase of bars is the thing a flow chart cannot say. */
+/* ── Ascent ───────────────────────────────────────────────────────────
+   Education.
 
-const COHORTS = ["First year", "Second year", "Final year"] as const;
-/** Where each cohort's bar starts and ends, in column indices. */
-const SPANS: readonly [number, number][] = [
-  [0, 2],
-  [1, 3],
-  [2, 4],
-];
+   This replaced a calendar grid of staggered cohort bars, and the reason
+   is worth keeping: Professional Services below is *also* horizontal bars
+   spanning columns over a time axis with a rule underneath. The two
+   subjects were different and the two drawings were not — you could have
+   swapped their timelines and nobody would have noticed, which is the test
+   claude.md sets for exactly this failure.
 
-export function CalendarFigure({ stages }: FigureProps) {
-  const gridX = 128;
-  const colW = (800 - gridX) / stages.length;
+   Professional Services keeps the bars, because overlap genuinely is that
+   industry's difficulty and a Gantt is the honest shape for it. Education
+   needed the different one.
+
+   So: a rise. A student does not move *along* an institution, they move
+   *up* it — each stage leaves them at a level they cannot be returned
+   from, and the whole structure exists to carry them one tread higher.
+   Nothing else on this page ascends: the chain runs flat, the cycle
+   closes, the spine drops, the tree converges, the containers nest. A
+   staircase cannot be mistaken for any of them at a glance, which is the
+   entire point.
+
+   The cohort marks sitting on each tread are what stop it reading as a bar
+   chart — a chart would claim measurement, and the claim here is
+   structural (design.md §6). */
+
+export function AscentFigure({ stages }: FigureProps) {
+  const treadW = 800 / stages.length;
+  const baseline = 190;
+  const rise = 30;
+  /** Top of tread `i`. Each step stands one rise above the last. */
+  const treadY = (i: number) => baseline - 24 - i * rise;
+
+  /* One continuous profile, drawn as a single path so it climbs in one
+     movement rather than assembling from separate steps. */
+  const profile = stages
+    .map((_, i) => {
+      const x0 = treadW * i;
+      const y = treadY(i);
+      return `${i === 0 ? `M${x0} ${baseline} L${x0} ${y}` : `L${x0} ${y}`} L${x0 + treadW} ${y}`;
+    })
+    .join(" ");
+
   return (
     <svg
-      viewBox="0 0 800 200"
+      viewBox="0 0 800 210"
       className="h-auto w-full"
-      data-topology="calendar"
+      data-topology="ascent"
       fill="none"
       aria-hidden="true"
     >
-      {/* Column heads — the milestones of an academic year. */}
-      {stages.map((stage, i) => (
-        <g key={stage} className="flow-node">
-          <text
-            x={gridX + colW * i + colW / 2}
-            y={22}
-            textAnchor="middle"
-            {...NAME}
-            fontSize={12.5}
-          >
-            {stage}
-          </text>
-        </g>
-      ))}
+      {/* The ground every intake starts from. */}
+      <path className="flow-spine" d={`M0 ${baseline} L800 ${baseline}`} {...rail} />
 
-      <g>
-        <path
-          className="flow-edge"
-          d={`M${gridX} 36 L800 36`}
-          {...trace}
-        />
-        {stages.map((s, i) => (
-          <path
-            key={`c-${s}`}
-            className="flow-edge"
-            d={`M${gridX + colW * i} 36 L${gridX + colW * i} 176`}
-            {...trace}
-          />
-        ))}
-      </g>
+      {/* The climb. */}
+      <path className="flow-edge flow-ascent" d={profile} {...trace} />
 
-      {COHORTS.map((cohort, r) => {
-        const y = 58 + r * 42;
-        const [from, to] = SPANS[r];
+      {stages.map((stage, i) => {
+        const x = treadW * i;
+        const y = treadY(i);
         return (
-          <g key={cohort} className="flow-node">
-            <text x={0} y={y + 21} {...MONO} fillOpacity={0.55}>
-              {cohort.toUpperCase()}
-            </text>
-            <rect
-              className="flow-node-box flow-bar"
-              x={gridX + colW * from + 8}
-              y={y}
-              width={colW * (to - from + 1) - 16}
-              height={30}
+          <g key={stage} className="flow-node">
+            {/* The riser, so each step reads as a level gained rather than
+                as a bar that happens to sit higher. */}
+            <path
+              className="flow-riser"
+              d={`M${x} ${baseline} L${x} ${y}`}
               stroke={ACCENT}
-              strokeOpacity={0.35}
-              strokeWidth={1.1}
-              fill="none"
+              strokeOpacity={0.14}
+              strokeWidth={1}
             />
+            <text
+              x={x + treadW / 2}
+              y={y - 12}
+              textAnchor="middle"
+              {...NAME}
+              fontSize={12.5}
+            >
+              {stage}
+            </text>
+            {/* Cohort marks resting on the tread — the people the level is
+                for. Three, four and five as the institution fills up. */}
+            {Array.from({ length: Math.min(3 + i, 5) }, (_, k) => (
+              <rect
+                key={k}
+                className="flow-cohort"
+                x={x + treadW / 2 - (Math.min(3 + i, 5) * 11) / 2 + k * 11}
+                y={y + 5}
+                width={6}
+                height={6}
+                stroke={ACCENT}
+                strokeOpacity={0.5}
+                strokeWidth={1}
+              />
+            ))}
           </g>
         );
       })}
 
-      <path className="flow-spine" d={`M${gridX} 176 L800 176`} {...rail} />
-      <text x={0} y={196} {...MONO}>
-        ONE ACADEMIC YEAR
+      <text x={0} y={206} {...MONO}>
+        ONE LEVEL AT A TIME
       </text>
     </svg>
   );

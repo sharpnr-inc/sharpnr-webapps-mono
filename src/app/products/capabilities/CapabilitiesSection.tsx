@@ -146,7 +146,7 @@ export function CapabilitiesSection() {
                  cards were narrower than their own content wanted to be
                  while the copy column ran out of things to say. Flipped
                  with the alternation so the wide side follows the visual. */
-              className={`hp-cap-group relative grid grid-cols-1 gap-12 border-t border-sky/15 py-12 lg:items-center lg:gap-24 lg:py-16 ${
+              className={`hp-cap-group relative grid grid-cols-1 gap-12 py-12 lg:items-center lg:gap-24 lg:py-16 ${
                 /* The products column is always the 3fr one. Unflipped it
                    is the second column, flipped it is the first — so the
                    ratio has to swap with the order, not stay put. */
@@ -155,6 +155,16 @@ export function CapabilitiesSection() {
                   : "lg:grid-cols-[2fr_3fr]"
               }`}
             >
+              {/* The divider that used to be `border-t` on the article.
+                  A border cannot be drawn on its own, and the whole
+                  article cannot be clipped without clipping its contents
+                  — so the rule is its own zero-height element, uncovered
+                  from the edge the group leads with. Identical at rest. */}
+              <span
+                aria-hidden="true"
+                className="hp-cap-rule pointer-events-none absolute inset-x-0 top-0 border-t border-sky/15"
+              />
+
               <CapabilityMotif name={capability.name} />
 
               <div

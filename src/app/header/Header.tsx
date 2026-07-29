@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { config } from "@/configs/env";
+import { useSpecular } from "@/components/ui/specular";
 import { useMobileMenuAnimation } from "./animations/useMobileMenuAnimation";
 
 /* Navigation per Homepage Strategy: Platform, Products, Industries,
@@ -22,6 +23,10 @@ const navLinks = [
 export function Header() {
   const panelRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const getStartedRef = useRef<HTMLAnchorElement>(null);
+  const loginRef = useRef<HTMLAnchorElement>(null);
+  useSpecular(getStartedRef);
+  useSpecular(loginRef);
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -102,15 +107,33 @@ export function Header() {
 
         {/* Right actions — desktop */}
         <div className="hidden items-center gap-3 lg:flex">
+          {/* Login is the secondary action and now looks like one — a
+              rimmed dark button beside the filled primary, the same pair
+              the in-page CTAs use. It was a bare text link, which read as
+              navigation rather than as the account action it is, and left
+              the header with one button where every other section of the
+              site shows two. */}
           <a
+            ref={loginRef}
             href={config.authAppUrl}
-            className="rounded-none px-3.5 py-2 text-[0.875rem] font-medium tracking-tight text-white/75 transition-colors duration-200 hover:text-white"
+            className="hp-specular rounded-[18px] bg-canvas px-5 py-2 text-[0.875rem] font-medium tracking-tight text-white/90 transition-colors duration-200 hover:text-white"
           >
             Login
           </a>
+          {/* The header's primary action gets the same specular rim as the
+              in-page CTAs, so the site has one button behaviour rather than
+              two. Login stays plain — it is a text link, and a rim on it
+              would give a secondary action the weight of a primary one. */}
           <a
+            ref={getStartedRef}
             href={config.authAppUrl + "/signup"}
-            className="rounded-none bg-cyan px-4 py-2 text-[0.875rem] font-semibold tracking-tight text-navy transition-colors duration-200 hover:bg-sky"
+            data-tone="solid"
+            /* radius={18} from the reference snippet. The in-page CTAs use
+               6px to sit with the site's square linework, but the header
+               button is small and isolated, and at 18px it reads as the
+               pill the effect was designed on. Fill holds on hover so the
+               rim is what lights. */
+            className="hp-specular rounded-[18px] bg-cyan px-5 py-2 text-[0.875rem] font-semibold tracking-tight text-navy"
           >
             Get Started
           </a>

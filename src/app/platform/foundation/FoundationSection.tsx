@@ -121,7 +121,7 @@ export function FoundationSection() {
 
         {/* One structure: the experience above, the foundation beneath */}
         <div className="mt-14 overflow-hidden rounded-xl border border-sky/15 bg-sky/[0.025]">
-          <div className="border-b border-sky/15 bg-sky/[0.035] px-6 py-5 text-center">
+          <div className="foundation-band border-b border-sky/15 bg-sky/[0.035] px-6 py-5 text-center">
             <p className="text-sm font-medium text-mute/70">
               The work your trade does — hospitality today, more being designed
             </p>
@@ -145,7 +145,7 @@ export function FoundationSection() {
           </div>
         </div>
 
-        <p className="mx-auto mt-10 max-w-xl text-center text-base text-mute">
+        <p className="foundation-close mx-auto mt-10 max-w-xl text-center text-base text-mute">
           One thing happens. The books, the roster and the customer&rsquo;s
           history all know about it, and nobody filed it three times.
         </p>

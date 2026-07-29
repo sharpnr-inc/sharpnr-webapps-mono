@@ -321,14 +321,22 @@ most of these industries. Retail is a cycle, an enterprise is a containment.
 | Retail | closed replenishment cycle | the loop closing *is* the point |
 | Digital Commerce | channels fan in, returns run backwards | the reverse path is what makes it not manufacturing |
 | Manufacturing | convergent tree — fan-in then fan-out | many inputs, one output, many orders |
-| Education | calendar grid, cohorts across terms | an academic year is a grid, not a flow |
+| Education | ascending staircase, cohorts one level higher each stage | a student moves *up* an institution, not along it |
 | Professional Services | parallel engagement bars over one resource pool | overlap is the industry's whole difficulty |
 | Technology & Enterprise | nested entities on one identity layer | containment — no arrows at all |
 
 Motion follows topology: a cycle completes its loop, a spine draws downward, a
-convergence draws inward, bars extend rightward, containers settle outside-in.
-**If two sectors' timelines could be swapped unnoticed, they are still the same
-visual.**
+convergence draws inward, bars extend rightward, containers settle outside-in, a
+staircase climbs. **If two sectors' timelines could be swapped unnoticed, they
+are still the same visual.**
+
+Education was a calendar grid of staggered cohort bars and failed exactly that
+test — Professional Services is *also* horizontal bars spanning columns over a
+time axis with a rule beneath, so the two were swappable. Professional Services
+kept the bars, because overlapping engagements over one team genuinely is that
+industry's difficulty and a Gantt is the honest shape for it. Education became
+the ascent, and **nothing else on the page rises** — the chain runs flat, the
+cycle closes, the spine drops, the tree converges, the containers nest.
 
 The constraint that stops this fragmenting: different structure, *identical
 vocabulary* — same hairline weights, one accent, mono labels, one viewBox family,

@@ -29,13 +29,13 @@ Sharpnr connects the essential parts of running a business so information flows 
 - **Sharp Accounting** (https://accounting.sharpnr.com) — Double-entry accrual accounting built into the business: general ledger, receivables and payables, banking, taxation, budgeting, fixed assets, financial statements, multi-company consolidation. Every business event can automatically become an accounting event.
 - **Sharp HRMS** (https://hr.sharpnr.com) — The complete employee lifecycle: recruitment, profiles, attendance, leave, payroll, shifts, performance, training and multi-branch workforces.
 - **Sharp CRMS** (https://sharpcrm.sharpnr.com) — Customer relationships: leads, pipeline, profiles, campaigns, loyalty, segmentation and customer insights.
-- **Sharp IAM** (https://iam.sharpnr.com) — Identity and access: authentication, role-based access, single sign-on, employee portal, approvals and the organization directory.
+- **OpenSharp IAM** (https://iam.sharpnr.com) — The employee workspace: tasks, approvals, attendance, leave, payslips, training and self-service, on the organization's identity and role-based access.
 - **Cortex** (https://cortex.sharpnr.com) — Governance and administration: policies, audit logs, security controls, API management, monitoring and compliance.
 
 ### Collaboration and execution
 - **Cables** (https://cables.sharpnr.com) — Communication for organizations: messaging, channels, voice, video and cross-organization conversations with business records shared in context.
 - **Folio** (https://folio.sharpnr.com) — Organizational knowledge: documents, spreadsheets, presentations, whiteboards, notes and wikis with real-time collaboration.
-- **Tasks** — Execution: projects, boards, timelines, milestones, dependencies and progress tracking, created directly from conversations and documents.
+- **Tasks** — Not a separate product. Tasks lives inside OpenSharp IAM, which is where an employee opens their own work: projects, boards, timelines, milestones and progress, created directly from conversations and documents.
 
 ### Knowledge and intelligence
 - **Silo** (https://silo.sharpnr.com) — The business knowledge foundation: every product works from the same source of truth, and every business event enriches the organization's memory.
@@ -48,7 +48,7 @@ Sharpnr connects the essential parts of running a business so information flows 
 
 - Available today: Hospitality (hotels, resorts, restaurants, cafés, bars, cloud kitchens, QSR chains, hospitality groups, franchises).
 - Coming soon: Healthcare (Lifco).
-- Roadmap: Retail, education, manufacturing, corporate and professional services.
+- Roadmap: Retail, technology & enterprise, education, manufacturing, digital commerce and professional services.
 - Multi-industry groups run every division on its own operational experience while sharing one accounting platform, one workforce, one identity and one business network.
 
 ## Common questions
@@ -64,7 +64,7 @@ Sharpnr connects the essential parts of running a business so information flows 
 - [Home](https://sharpnr.com/): What Sharpnr is — Connected Business Infrastructure.
 - [Platform](https://sharpnr.com/platform): How the platform works and why it's different.
 - [Products](https://sharpnr.com/products): Every product in the ecosystem.
-- [Industries](https://sharpnr.com/industries): Hospitality today; healthcare, retail, education, manufacturing and more to come.
+- [Industries](https://sharpnr.com/industries): Hospitality is available today. Healthcare, retail, technology & enterprise, education, manufacturing, digital commerce and professional services are being designed on the same platform — none of them is available yet.
 - [Services](https://sharpnr.com/services): The business capabilities organizations gain.
 - [About](https://sharpnr.com/about): Why Sharpnr exists and the principles behind it.
 - [Resources](https://sharpnr.com/resources): The Sharpnr knowledge center.
@@ -73,6 +73,6 @@ Sharpnr connects the essential parts of running a business so information flows 
 ## Social
 
 - [LinkedIn](https://linkedin.com/company/sharpnrllp)
-- [X / Twitter](https://x.com/sharpnr)
+- [X / Twitter](https://x.com/sharpnrapp)
 - [Instagram](https://instagram.com/sharpnrapp)
 - [YouTube](https://youtube.com/@sharpnrinc)

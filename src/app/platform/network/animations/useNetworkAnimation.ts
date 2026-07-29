@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { gsap, DrawSVGPlugin } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { enterIntro } from "@/app/shared/animations/sectionMotion";
 
 interface NetworkAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -18,13 +19,12 @@ export function useNetworkAnimation(refs: NetworkAnimationRefs) {
       ).matches;
       if (prefersReducedMotion) return;
 
-      gsap.from(introRef.current ? introRef.current.children : [], {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
+      /* Heading first and alone, then its framing — the same opening as
+         Different at the top of the page, and far enough from it that the
+         two never appear in one screen. Adapt, Foundation, Together and
+         Intelligence sit between them, each opening a different way. */
+      enterIntro(introRef.current, sectionRef.current, "lead", {
+        start: "top 72%",
       });
 
       const tl = gsap.timeline({

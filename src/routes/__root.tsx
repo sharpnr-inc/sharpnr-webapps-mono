@@ -1,5 +1,4 @@
 import Footer from "@/app/footer/Footer";
-import { CanvasWash } from "@/app/home/shared/CanvasWash";
 import { Header } from "@/app/header/Header";
 import {
   createRootRoute,
@@ -295,8 +294,12 @@ function RootLayout() {
             the footer is part of it — a per-page wash stopped where the page
             stopped, and the hand-over to the footer read as the page simply
             ending. */}
+        {/* One flat dark sheet for the whole site, wrapping the page and
+            the footer both, so the page ends rather than stops. There is
+            deliberately nothing behind it — see `.hp-canvas` in index.css
+            for the two things that were tried here and why neither
+            stayed. */}
         <div className="hp-canvas relative text-white">
-          <CanvasWash />
           <Outlet />
           <Footer />
         </div>

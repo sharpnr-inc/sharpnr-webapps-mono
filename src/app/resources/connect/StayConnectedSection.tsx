@@ -75,7 +75,7 @@ export function StayConnectedSection() {
                     type="button"
                     onClick={() => toggle(topic)}
                     aria-pressed={isOn}
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                    className={`connect-topic inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200 ${
                       isOn
                         ? "border-cyan/70 bg-cyan/10 text-white"
                         : "border-sky/20 bg-sky/[0.025] text-sky/85 hover:border-sky/40 hover:text-white"
@@ -89,7 +89,7 @@ export function StayConnectedSection() {
             </div>
           </fieldset>
 
-          <div className="mt-8 flex flex-col items-center gap-4">
+          <div className="connect-action mt-8 flex flex-col items-center gap-4">
             <a
               href={mailto()}
               className="group inline-flex h-[52px] select-none items-center justify-center gap-2.5 bg-cyan px-7 text-[0.9375rem] font-semibold tracking-tight text-navy transition-[transform,background-color,border-color,color] duration-180 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-sky focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-cyan active:translate-y-0 motion-safe:hover:-translate-y-0.5"

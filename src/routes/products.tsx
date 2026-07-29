@@ -38,9 +38,9 @@ export const Route = createFileRoute("/products")({
  * Every movement makes the same argument in a different register:
  * independent when needed, connected by design, more valuable together.
  *
- * No canvas or ink wash here. `__root.tsx` wraps every route and the footer
- * in one `.hp-canvas` with a single `<CanvasWash />`, so a second instance
- * on this page would double the wash and duplicate its filter ids.
+ * No background here. `__root.tsx` wraps every route and the footer in one
+ * `.hp-canvas`, so the whole site sits on a single flat sheet and this page
+ * paints nothing of its own.
  */
 function ProductsPage() {
   return (

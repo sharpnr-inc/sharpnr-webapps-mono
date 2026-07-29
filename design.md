@@ -200,6 +200,25 @@ a second family.
 **No cards on the homepage** except the Scene 06 bento. Bordered blocks with
 their own headers read as support tickets.
 
+**Buttons carry a specular rim** — a bright arc on the border angled at the
+pointer, brightening as it nears. React Bits' SpecularButton effect, rebuilt as
+a conic gradient masked to the border ring (`components/ui/specular.ts`).
+Upstream is one WebGL context, one RAF loop and one window listener *per
+button*; there are 21 CTAs here, so that was several RAF loops per page
+competing with GSAP and Lenis. The rebuild costs one listener and one RAF for
+the whole page, and keeps CTAs as links rather than `<button>`.
+
+Three rules that were each arrived at by getting them wrong first:
+
+- **Primary is a cyan fill with a *blue* rim; secondary is dark with a *cyan*
+  rim.** A cyan rim on a cyan fill is invisible, white vanishes against it, and
+  a neutral dark rim reads as a drop shadow rather than a lit edge.
+- **The fill must not change on hover.** `hover:bg-sky` washed the rim out at
+  precisely the moment it lit — the button got paler and nothing looked like it
+  had responded. The arc is the hover feedback; the fill holds still for it.
+- **No `border` under a rimmed button.** The specular `::before` *is* the
+  border; a real one beneath doubles the edge to 2px and flattens it.
+
 ---
 
 ## 8. Motion

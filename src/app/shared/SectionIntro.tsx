@@ -16,6 +16,14 @@ interface SectionIntroProps {
 /**
  * Standard section opening: label → headline → supporting copy.
  * SDL rhythm: headline, 16–24px, copy, then content below.
+ *
+ * The three parts carry `sec-eyebrow` / `sec-heading` / `sec-lede`, and
+ * the wrapper carries `sec-intro`. They are motion hooks, not styling:
+ * `shared/animations/sectionMotion.ts` needs to move the label, the
+ * headline and the sentence *separately*, and every section that used
+ * this component was animating `introRef.current.children` instead —
+ * which is this one wrapper, so a stagger across it moved nothing and
+ * fourteen sections opened with the identical single block fade.
  */
 export function SectionIntro({
   eyebrow,
@@ -31,10 +39,14 @@ export function SectionIntro({
   const centered = align === "center";
 
   return (
-    <div className={`${centered ? "mx-auto flex flex-col items-center text-center" : ""} ${className}`}>
-      {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
+    <div className={`sec-intro ${centered ? "mx-auto flex flex-col items-center text-center" : ""} ${className}`}>
+      {eyebrow && (
+        <Eyebrow tone={tone} className="sec-eyebrow">
+          {eyebrow}
+        </Eyebrow>
+      )}
       <h2
-        className={`${eyebrow ? "mt-4" : ""} max-w-3xl font-bold ${headingColor} ${
+        className={`sec-heading ${eyebrow ? "mt-4" : ""} max-w-3xl font-bold ${headingColor} ${
           size === "lg"
             ? "text-heading-lg md:text-heading-xl"
             : "text-heading-md md:text-heading-lg"
@@ -43,7 +55,9 @@ export function SectionIntro({
         {heading}
       </h2>
       {lede && (
-        <p className={`prose-width mt-5 text-body-lg ${ledeColor}`}>{lede}</p>
+        <p className={`sec-lede prose-width mt-5 text-body-lg ${ledeColor}`}>
+          {lede}
+        </p>
       )}
     </div>
   );

@@ -29,7 +29,11 @@ export function CapabilitySection({ capability, index }: CapabilitySectionProps)
   const flip = index % 2 === 1;
   const Diagram = CAPABILITY_DIAGRAMS[capability.id];
 
-  useCapabilityAnimation({ sectionRef, introRef });
+  /* The entrance direction follows the layout, exactly as the Industries
+     category strips do (claude.md): a flipped section enters from the
+     opposite edge, so seven sections of one component never travel the
+     same way twice in a row. */
+  useCapabilityAnimation({ sectionRef, introRef, flip });
 
   return (
     <section
@@ -79,7 +83,7 @@ export function CapabilitySection({ capability, index }: CapabilitySectionProps)
 
           {/* The connected experience */}
           <div className={`order-2 ${flip ? "lg:order-1" : "lg:order-2"}`}>
-            <div className="rounded-2xl border border-sky/15 bg-sky/[0.025] p-6 md:p-8">
+            <div className="cap-panel rounded-2xl border border-sky/15 bg-sky/[0.025] p-6 md:p-8">
               {/* What the capability *is*, before how it flows. Seven of
                   these sections run back to back and the panel was the only
                   thing in them that changed, so without a drawing the whole
@@ -103,13 +107,13 @@ export function CapabilitySection({ capability, index }: CapabilitySectionProps)
                   </li>
                 ))}
               </ol>
-              <p className="mt-6 border-t border-sky/12 pt-5 text-sm font-medium text-white">
+              <p className="cap-close mt-6 border-t border-sky/12 pt-5 text-sm font-medium text-white">
                 {capability.journeyClose}
               </p>
             </div>
 
             {/* Powered by — capability first, products second */}
-            <p className="mt-6 text-sm text-mute/70">
+            <p className="cap-powered mt-6 text-sm text-mute/70">
               Powered by{" "}
               <span className="font-medium text-sky/85">
                 {capability.poweredBy.join(", ")}
