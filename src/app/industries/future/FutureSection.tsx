@@ -43,9 +43,9 @@ export function FutureSection() {
           />
 
           <p className="mt-5 max-w-xl text-body-lg text-mute">
-            One industry experience is live. The rest are being designed on
-            the same foundation — so the platform you start on is the
-            platform you grow into.
+            Hospitality is available today. Healthcare, retail, education and
+            manufacturing are being designed on the same foundation, so the
+            platform you start on is the one you grow into.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -57,8 +57,8 @@ export function FutureSection() {
             </Button>
           </div>
           <p className="mt-6 text-sm text-mute/70">
-            No subscription required during Early Access. Start with the one
-            experience that exists — expand as the rest arrive.
+            No subscription required during Early Access. Start with what is
+            here; add the rest as they arrive.
           </p>
         </div>
       </div>

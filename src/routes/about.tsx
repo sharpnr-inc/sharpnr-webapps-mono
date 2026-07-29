@@ -13,13 +13,13 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Sharpnr exists because business software became fragmented. Read the belief behind the platform, the principles that guide how we build, and the future we're building toward.",
+          "Sharpnr exists because business software stopped talking to itself. The belief behind the platform, the principles we build to, and where we are taking it next.",
       },
       { property: "og:title", content: "About Sharpnr | Why We Exist" },
       {
         property: "og:description",
         content:
-          "We believe businesses deserve better — software that works together as naturally as the people using it.",
+          "Software should work together as naturally as the people using it. That is the whole reason Sharpnr exists.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/about" },

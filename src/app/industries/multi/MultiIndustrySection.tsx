@@ -51,8 +51,8 @@ export function MultiIndustrySection() {
           />
           <p className="mt-5 text-body-lg text-mute">
             A hospitality group may also own hospitals. A retail company may
-            run factories. Traditional software forces these organizations
-            into separate systems — Sharpnr connects them.
+            run factories. Each one keeps its own way of working, and the
+            group still sees one business.
           </p>
         </div>
 

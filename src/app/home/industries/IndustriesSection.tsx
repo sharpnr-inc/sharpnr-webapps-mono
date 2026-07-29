@@ -58,7 +58,7 @@ export function IndustriesSection() {
           </span>
         </h2>
         <p ref={copyRef} className="hp-hero-copy mx-auto mt-6 max-w-lg text-mute">
-          Your workflows change. The foundation doesn&rsquo;t.
+          The way you work changes. The foundation doesn&rsquo;t.
         </p>
       </div>
 

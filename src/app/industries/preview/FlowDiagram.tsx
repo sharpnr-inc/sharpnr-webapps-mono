@@ -93,7 +93,12 @@ export function FlowDiagram({
         {kicker}
       </figcaption>
 
-      <div className="mt-4 hidden md:block">
+      {/* Exactly one accessible copy at any width. The drawing is
+          `aria-hidden` inside a container that carries the description, and
+          the stacked list below is `display:none` at md and up — so a
+          screen reader gets the sentence here on a desktop and the real
+          list on a phone, never both and never neither. */}
+      <div className="mt-4 hidden md:block" role="img" aria-label={label}>
         <Figure stages={stages} chargeFilter={chargeFilter} />
       </div>
 

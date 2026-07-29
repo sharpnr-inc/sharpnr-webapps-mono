@@ -9,7 +9,7 @@ import { FinalCtaSection } from "@/app/home/cta/FinalCtaSection";
 
 const TITLE = "One Platform for Every Business | Sharpnr";
 const DESCRIPTION =
-  "Run your business on one connected platform built to simplify operations, collaboration and growth.";
+  "Sharpnr runs the whole business on one platform: the work your industry does every day, plus the accounting, payroll and customer records every business needs.";
 
 export const Route = createFileRoute("/")({
   component: HomePage,

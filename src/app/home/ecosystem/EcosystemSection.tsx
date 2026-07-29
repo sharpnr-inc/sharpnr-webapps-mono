@@ -111,7 +111,7 @@ export function EcosystemSection() {
           </h2>
 
           <p ref={copyRef} className="hp-hero-copy mt-6 text-mute">
-            One event becomes shared context across your entire business.
+            Nobody has to remember to go and update everything else.
           </p>
         </div>
       </div>

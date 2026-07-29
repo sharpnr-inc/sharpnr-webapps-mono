@@ -42,12 +42,12 @@ export function IntelligenceSection() {
             eyebrow="Knowledge & intelligence"
             heading={
               <>
-                Every action teaches the platform.
+                Every day&rsquo;s work,
                 <br />
-                Every decision becomes smarter.
+                <span className="text-twilight">adds up to an answer.</span>
               </>
             }
-            lede="Every order, conversation, approval, document and task contributes to a growing understanding of your business — one connected source of knowledge instead of scattered reports."
+            lede="One place the business remembers things, instead of a folder of reports nobody opens."
           />
         </div>
 
@@ -114,25 +114,24 @@ export function IntelligenceSection() {
           <div>
             <h3 className="text-title-lg font-semibold text-white">Silo</h3>
             <p className="mt-1 text-sm font-medium text-sky/80">
-              The business knowledge foundation.
+              Where the business keeps what it knows.
             </p>
             <p className="prose-width mt-2 text-base leading-relaxed text-mute">
-              Every business event is securely organized and made available
-              across the platform, so every product works from the same source
-              of truth. Silo isn't where information sits — it's how your
-              organization remembers.
+              One place your files and records live, and one version
+              everything else reads from.
             </p>
           </div>
+          {/* IVA has no shipping product behind it — the Products page marks
+              it "Soon" — so this stays in designed-language. Present tense
+              here would claim something the platform cannot do today. */}
           <div>
             <h3 className="text-title-lg font-semibold text-white">IVA</h3>
             <p className="mt-1 text-sm font-medium text-sky/80">
-              Your intelligent business assistant.
+              The assistant, in design.
             </p>
             <p className="prose-width mt-2 text-base leading-relaxed text-mute">
-              IVA understands what's happening across your organization. It
-              helps teams discover insights, answer business questions,
-              receive recommendations and automate routine work — supporting
-              decisions, never replacing them.
+              Designed to answer questions about the business and take the
+              routine work off people — never the deciding.
             </p>
           </div>
         </div>

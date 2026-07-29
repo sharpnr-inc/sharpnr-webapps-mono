@@ -4,9 +4,9 @@ import { CapabilitiesSection } from "@/app/products/capabilities/CapabilitiesSec
 import { FoundationSection } from "@/app/products/foundation/FoundationSection";
 import { ProductsCloseSection } from "@/app/products/close/ProductsCloseSection";
 
-const TITLE = "Products | Sharpnr";
+const TITLE = "Sharpnr Products | Start With One, Add the Rest";
 const DESCRIPTION =
-  "Nine capabilities of one connected platform — Operations, Intelligence, Communication, Automation, Finance, Marketplace, People, Storage and the Developer Platform. Every product works on its own, and works with the rest.";
+  "Accounting, people, customers, stock, chat and the day-to-day work of your industry. Every Sharpnr product runs on its own, and passes work to the ones beside it.";
 
 export const Route = createFileRoute("/products")({
   component: ProductsPage,

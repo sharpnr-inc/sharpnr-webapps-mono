@@ -50,8 +50,8 @@ export function OnePlatformSection() {
           </h2>
 
           <p ref={copyRef} className="hp-hero-copy mt-6 text-mute">
-            Every application shares the same foundation, data, and
-            intelligence&mdash;working as one platform.
+            Enter something once. Every other part of the business already
+            has it.
           </p>
         </div>
 

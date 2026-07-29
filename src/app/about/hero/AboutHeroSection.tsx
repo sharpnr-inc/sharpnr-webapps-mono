@@ -52,8 +52,8 @@ export function AboutHeroSection() {
           </h1>
 
           <p ref={copyRef} className="hp-hero-copy mx-auto mt-5 max-w-lg text-mute">
-            Sharpnr exists to reduce operational complexity by giving every
-            business one connected platform to run, grow and evolve.
+            We started Sharpnr because keeping your systems in step should not
+            have to be somebody&rsquo;s job.
           </p>
 
           <div

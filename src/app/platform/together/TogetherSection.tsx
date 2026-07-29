@@ -12,33 +12,36 @@ const journey = [
     detail: "Meeting notes grow into a shared plan.",
   },
   {
-    title: "Action items become tasks",
-    detail: "Work is assigned without copying anything.",
+    title: "What was agreed becomes work",
+    detail: "Someone owns it, and nothing was retyped.",
   },
   {
-    title: "Progress flows back",
+    title: "Progress comes back",
     detail: "Updates appear where the conversation began.",
   },
 ] as const;
 
+/* Tasks is not a product of its own — it is one of the things an employee
+   opens OpenSharp IAM to do (claude.md), so the third entry names the
+   workspace, not the screen inside it. */
 const products = [
   {
     name: "Cables",
-    line: "Communication built for organizations.",
+    line: "Where the talking happens.",
     detail:
-      "Chat, voice, video and channels — including conversations with other organizations. Share business records directly inside the discussion.",
+      "Chat, calls and channels, with the order or the invoice being discussed sitting inside the conversation.",
   },
   {
     name: "Folio",
-    line: "Knowledge built for teams.",
+    line: "Where it gets written down.",
     detail:
-      "Documents, spreadsheets, presentations, whiteboards and wikis, created together in real time and connected to the work around them.",
+      "Documents, sheets and whiteboards several people can work in at once, next to the work that produced them.",
   },
   {
-    name: "Tasks",
-    line: "Where work gets done.",
+    name: "OpenSharp IAM",
+    line: "Where the work lands.",
     detail:
-      "Turn conversations into action — plan projects, assign work and track progress without losing the context that created it.",
+      "Every employee's tasks and approvals in one place, still attached to the conversation that created them.",
   },
 ] as const;
 
@@ -72,12 +75,12 @@ export function TogetherSection() {
             eyebrow="Collaboration"
             heading={
               <>
-                Work shouldn't stop
+                Work shouldn&rsquo;t stop,
                 <br />
-                when you switch applications.
+                <span className="text-twilight">when the app does.</span>
               </>
             }
-            lede="From the first conversation to the final task, every part of your team's work stays connected — no copying, no lost context, no switching."
+            lede="From the first conversation to the finished job, without copying anything across or losing what was said."
           />
         </div>
 

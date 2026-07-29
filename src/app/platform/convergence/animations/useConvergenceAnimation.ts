@@ -32,39 +32,13 @@ export function useConvergenceAnimation(refs: ConvergenceAnimationRefs) {
         scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
       });
 
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.inOut" },
-        scrollTrigger: { trigger: sectionRef.current, start: "top 45%" },
-      });
-
-      tl.from(".conv-area", {
-        opacity: 0,
-        scale: 0.8,
-        transformOrigin: "center center",
-        duration: 0.5,
-        stagger: 0.08,
-        ease: "power3.out",
-      });
-      tl.fromTo(
-        ".conv-spoke",
-        { drawSVG: "0% 0%" },
-        { drawSVG: "0% 100%", duration: 0.9, stagger: 0.07, ease: "power2.in" },
-        "-=0.25",
-      );
-      tl.from(".conv-core", {
-        opacity: 0,
-        scale: 0.7,
-        transformOrigin: "280px 240px",
-        duration: 0.6,
-        ease: "power3.out",
-      });
-
-      // The statement and the CTA are a full screen below the diagram, so
-      // they get their own triggers rather than waiting at the end of this
-      // timeline. Chained to it, the closing moment of the page — and the
-      // only call to action on it — stayed at opacity 0 for the eight
-      // seconds the diagram took, which is exactly the span in which a
-      // visitor scrolls past them.
+      // The statement and the CTA each get their own trigger rather than
+      // sharing one timeline. That began as a fix — chained behind the
+      // diagram that used to sit here, the closing moment of the page and
+      // its only call to action stayed at opacity 0 for the eight seconds
+      // the diagram took, which is exactly the span in which a visitor
+      // scrolls past them. The diagram is gone; separate triggers are still
+      // right, because these two are a screen apart.
       gsap.from(statementRef.current ? statementRef.current.children : [], {
         opacity: 0,
         y: 18,

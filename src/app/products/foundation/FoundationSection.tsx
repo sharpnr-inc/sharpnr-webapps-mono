@@ -49,15 +49,15 @@ export function FoundationSection() {
           className="hp-scene-title mt-6 font-extrabold text-white"
         >
           <span className="block">
-            <Words text="Nine capabilities," />
+            <Words text="Every capability," />
           </span>
           <span className="block text-twilight">
             <Words text="One thing underneath." />
           </span>
         </h2>
         <p ref={copyRef} className="hp-hero-copy mx-auto mt-6 max-w-xl text-mute">
-          Every capability above stands on the same four things — built once,
-          not nine times.
+          Everything above stands on the same foundation — built once, not once
+          per product.
         </p>
       </div>
 

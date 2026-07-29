@@ -10,20 +10,20 @@ export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
     meta: [
-      { title: "Sharpnr Services | Connected Business Capabilities" },
+      { title: "Sharpnr Services | What Your Business Can Do" },
       {
         name: "description",
         content:
-          "The capabilities every organization depends on — financial management, people, customers, collaboration, governance, intelligence and business networking — connected on one Sharpnr platform.",
+          "Keeping the books, paying the team, looking after customers and knowing who can see what — on one platform, so none of it has to be joined up by hand.",
       },
       {
         property: "og:title",
-        content: "Sharpnr Services | Connected Business Capabilities",
+        content: "Sharpnr Services | What Your Business Can Do",
       },
       {
         property: "og:description",
         content:
-          "Everything your business needs, connected by design. Each capability works independently. Together, they create a connected business.",
+          "Start with the one thing you need fixed today. Everything you add later already knows about the rest.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/services" },
@@ -51,12 +51,12 @@ function ServicesPage() {
         eyebrow="Start with what matters most"
         heading={
           <>
-            Start with one capability.
+            Start with one,
             <br />
-            Build a connected business over time.
+            <span className="text-twilight">add the rest later.</span>
           </>
         }
-        copy="Whether you're solving one challenge today or transforming your organization tomorrow, adopt capabilities at your own pace. Every new capability strengthens the platform — your business chooses the journey."
+        copy="Fix the thing that costs you the most time today. Whatever you add after it already knows about the rest."
         primary={{ label: "Create Free Account", href: config.authAppUrl + "/signup" }}
         secondary={{ label: "Explore Products", to: "/products" }}
         trust="Free during Early Access • No subscription • No credit card required"

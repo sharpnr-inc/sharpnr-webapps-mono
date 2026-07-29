@@ -16,7 +16,7 @@ export const Route = createFileRoute("/resources")({
       {
         name: "description",
         content:
-          "Practical guides, industry playbooks, research, product updates and engineering stories from Sharpnr — a knowledge library for businesses, builders and decision makers.",
+          "Guides, industry playbooks, research and product updates from Sharpnr. Written for the people who run businesses and the people who build software for them.",
       },
       {
         property: "og:title",
@@ -54,12 +54,12 @@ function ResourcesPage() {
         eyebrow="What's next"
         heading={
           <>
-            Keep learning.
+            Keep learning,
             <br />
-            Keep building.
+            <span className="text-twilight">keep building.</span>
           </>
         }
-        copy="Explore the platform, read the documentation or create your organization and experience connected business for yourself. However you continue, we're glad you're here."
+        copy="Read the documentation, look at how the platform works, or set your organization up and try it. Whichever you pick, we're glad you're here."
         primary={{ label: "Create Free Account", href: config.authAppUrl + "/signup" }}
         secondary={{ label: "Explore Platform", to: "/platform" }}
         trust="Early Access is free • Learn at your own pace • Grow when you're ready"

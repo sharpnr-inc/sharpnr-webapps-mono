@@ -38,18 +38,17 @@ export function UpdatesSection() {
               eyebrow="What's new"
               heading={
                 <>
-                  Always improving.
+                  Always improving,
                   <br />
-                  Always moving forward.
+                  <span className="text-twilight">rarely announcing it.</span>
                 </>
               }
-              lede="Great platforms are never finished. Every release moves Sharpnr forward — some improvements are visible, others quietly make everyday work faster and more reliable."
+              lede="Some releases you will see. Most of them quietly make an ordinary day faster."
               size="md"
             />
             <p className="mt-6 text-sm text-mute/70">
-              Updates are published here as the platform evolves, each one
-              answering a single question: how does this make the platform
-              better for businesses?
+              Updates go up here as they ship, each one answering the same
+              question: what does this change for the business using it?
             </p>
           </div>
 

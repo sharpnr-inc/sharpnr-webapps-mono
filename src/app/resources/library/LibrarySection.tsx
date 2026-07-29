@@ -12,7 +12,7 @@ const collections = [
   {
     name: "Industry playbooks",
     line: "Deep dives into how different industries actually operate.",
-    topics: "Hospitality · Healthcare · Retail · Corporate · Education · Manufacturing",
+    topics: "Hospitality · Healthcare · Retail · Technology & Enterprise · Education · Manufacturing",
   },
   {
     name: "Technology & innovation",
@@ -55,12 +55,12 @@ export function LibrarySection() {
             eyebrow="Learning library"
             heading={
               <>
-                Keep learning.
+                Keep learning,
                 <br />
-                One idea leads to the next.
+                <span className="text-twilight">one idea at a time.</span>
               </>
             }
-            lede="Learning rarely happens through one article — a single idea leads to another, and one answer opens new possibilities. The library is organized as connected collections, not isolated posts."
+            lede="One article rarely does it. These are collections that carry on from each other, rather than a pile of posts in date order."
           />
         </div>
 
@@ -82,8 +82,7 @@ export function LibrarySection() {
             <StatusBadge kind="early" tone="navy" label="Being written" />
             <p className="mt-4 text-sm leading-relaxed text-mute">
               We&rsquo;re building the library in the open. The first guides,
-              playbooks and reports are being written now, and every collection
-              grows as the platform does.
+              playbooks and reports are being written now.
             </p>
           </div>
         </div>

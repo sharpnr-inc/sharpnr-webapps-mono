@@ -4,32 +4,32 @@ import { usePrinciplesAnimation } from "./animations/usePrinciplesAnimation";
 
 const principles = [
   {
-    title: "Businesses first",
-    body: "Technology exists to support businesses — not the other way around. Every decision begins with understanding how real organizations operate.",
+    title: "The business comes first",
+    body: "Software exists to serve the business, not the other way round. Every decision here starts with how a real one actually runs its day.",
   },
   {
-    title: "Connected by default",
-    body: "Information should never live in isolation. Connection shouldn't require additional effort; it's built into the platform.",
+    title: "Connected without asking",
+    body: "Nothing should sit on its own. If joining two things up takes effort, we have not finished the job.",
   },
   {
-    title: "Simplicity without sacrificing capability",
-    body: "Powerful software doesn't have to feel complicated. The best products reduce complexity instead of introducing more of it.",
+    title: "Simple, still capable",
+    body: "Powerful does not have to feel complicated. The best products take complexity away rather than hand you more of it.",
   },
   {
-    title: "Build once. Scale everywhere.",
-    body: "The same connected foundation should support businesses of every size and every industry — without forcing anyone to rebuild how they work.",
+    title: "Build once, hold everywhere",
+    body: "The same foundation should suit a single café and a group of hotels, without either of them rebuilding how they work.",
   },
   {
-    title: "Intelligence should assist, not replace",
-    body: "Technology should help people make better decisions — not make decisions instead of them. Human judgment always matters.",
+    title: "Help people decide",
+    body: "Software should make a decision easier to make, not make it for you. The judgement stays with the person.",
   },
   {
-    title: "Trust is built into the platform",
-    body: "Security isn't a feature and governance isn't an afterthought. Trust should exist quietly in the background of every action.",
+    title: "Trust is not a feature",
+    body: "Security and permissions are not something bolted on afterwards. They sit quietly behind every action instead.",
   },
   {
     title: "Grow with the business",
-    body: "Businesses evolve, teams grow, industries expand. Organizations should never outgrow the platform they rely on.",
+    body: "Teams grow, branches open, trades change. Nobody should outgrow the platform they came to depend on.",
   },
 ] as const;
 
@@ -63,8 +63,14 @@ export function PrinciplesSection() {
             tone="navy"
             align="center"
             eyebrow="How we build"
-            heading="Every decision begins with a principle."
-            lede="Sharpnr isn't built around trends. It's built around a small set of principles that shape every product, every capability and every experience — and they don't change."
+            heading={
+              <>
+                Every decision here,
+                <br />
+                <span className="text-twilight">starts with one of these.</span>
+              </>
+            }
+            lede="Sharpnr isn't built around trends. It's built around a short list that hasn't changed."
           />
         </div>
 
@@ -105,8 +111,8 @@ export function PrinciplesSection() {
         </ol>
 
         <p className="mx-auto mt-10 max-w-xl text-center text-base text-mute">
-          These aren't aspirations. They're the standard we hold ourselves to
-          every time we design a feature, write code or solve a problem.
+          These aren't aspirations. They're what we argue about when we
+          disagree.
         </p>
       </div>
     </section>

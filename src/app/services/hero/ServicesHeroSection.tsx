@@ -82,7 +82,7 @@ export function ServicesHeroSection() {
             ref={copyRef}
             className="hp-hero-copy mx-auto mt-5 max-w-lg text-mute"
           >
-            Each capability works independently, and better together.
+            Take the one you need now. It still works with the rest later.
           </p>
 
           <div

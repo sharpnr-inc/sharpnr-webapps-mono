@@ -56,7 +56,8 @@ export function useWebMCP() {
       "Cortex (IT controls & access management)": config.cortexAppUrl,
       "SharpIAM (employee portal)": config.iamAppUrl,
       "Orchestrator (platform command center)": config.orchestratorAppUrl,
-      "Sharp-Hospitality (hotels, restaurants, POS)": config.hospitalityAppUrl,
+      "Sharp Operations · Hospitality (hotels, restaurants, POS)":
+        config.hospitalityAppUrl,
       "Sharp-Marketplace (B2B org-to-org marketplace)": config.marketplaceAppUrl,
     };
 
@@ -69,7 +70,7 @@ export function useWebMCP() {
         execute: async () =>
           textResult(
             "Sharpnr is a cloud-based SaaS ecosystem for managing business operations across industries, currently in Alpha and free during the early access period. " +
-              "It has a 4-layer architecture: (1) Business Operation apps such as Sharp-Hospitality (live) and Lifco for healthcare (coming soon); " +
+              "It has a 4-layer architecture: (1) Business Operation apps — Sharp Operations is the business-operations product, and Sharp Operations · Hospitality is its live edition, with Lifco the healthcare one coming; " +
               "(2) the Organization Control Layer powered by Orchestrator; " +
               "(3) Core Services — accounting, HR, CRM, messaging, storage, documents, and IT controls; " +
               "(4) the Sharp-Marketplace B2B organization-to-organization network. " +

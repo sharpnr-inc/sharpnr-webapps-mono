@@ -215,6 +215,33 @@ one stagger, plus `sceneTimeline`, `armWords`/`revealWords`, `armDraw` and
 because every scene used to invent its own timing and the page read as several
 people's work.
 
+**No passive visuals.** A figure that draws itself in once and is then inert for
+the rest of the visit is a picture that happened to animate. **An entrance is not
+aliveness.** Every illustration on the site must earn one of these two, and
+preferably both:
+
+1. **It answers the pointer.** Hovering or focusing a part of the figure changes
+   the figure — the hovered element lights *and the things it affects respond*.
+   Scene 03 is the model: hovering an app lights its own run and pulses the
+   record it writes to. A hover that only brightens the thing under the cursor is
+   decoration; a hover that reveals a *relationship* is the diagram working.
+2. **It shows a value changing.** A number that genuinely moves convinces where a
+   highlight never will — the hospitality inventory decrementing, the retail
+   stock count draining and refilling. Prefer this wherever the subject has a
+   quantity in it at all.
+
+What this does **not** license, because both are settled decisions:
+
+- **Not everything loops.** Ambient motion means work happening. The closing
+  scene of a page stays still on purpose — repeating there suggests the story is
+  still running when the point is that it has arrived.
+- **Not restlessness.** Entrances still play once, ambient loops still pause off
+  screen, and hover states are still the only motion a static element gets.
+
+Keyboard reaches every pointer affordance: anything that responds to `:hover`
+responds to `:focus-visible`, and reduced motion gets the finished, readable
+state with the relationship shown statically rather than animated.
+
 - Entrances play once. Replaying on every scroll-past makes a page restless.
 - Ambient loops live on **their own timeline**. An infinitely-repeating child
   leaves a timeline with no finite duration and silently breaks

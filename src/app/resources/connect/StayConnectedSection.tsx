@@ -52,8 +52,14 @@ export function StayConnectedSection() {
             tone="navy"
             align="center"
             eyebrow="Stay connected"
-            heading="Stay connected to the ideas that matter to you."
-            lede="Choose the topics you care about and we'll write when something is genuinely worth sharing. No marketing campaigns. No unnecessary emails."
+            heading={
+              <>
+                Pick your topics,
+                <br />
+                <span className="text-twilight">hear from us rarely.</span>
+              </>
+            }
+            lede="We'll write when there is something genuinely worth reading. No campaigns, and nothing you didn't ask for."
           />
         </div>
 

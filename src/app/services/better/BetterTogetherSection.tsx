@@ -11,22 +11,22 @@ import { useBetterTogetherAnimation } from "./animations/useBetterTogetherAnimat
 const stories = [
   {
     title: "Growing your team",
-    line: "A new employee gets identity, access, teams, tasks, documents and payroll — from one moment of welcome.",
+    line: "One new starter, and their login, their team, their first tasks and their pay are all already set up.",
     diagram: DiagramTeam,
   },
   {
     title: "Serving a customer",
-    line: "One relationship flows through operations, finance and communication, and every future opportunity is remembered.",
+    line: "The order, the invoice and the conversation all sit on the same customer, and stay there for the next visit.",
     diagram: DiagramCustomer,
   },
   {
     title: "Working together",
-    line: "A project moves from conversation to knowledge to completed work, with leadership informed the whole way.",
+    line: "A project goes from a conversation to a document to finished work, without being retyped on the way.",
     diagram: DiagramCollaboration,
   },
   {
     title: "Working with partners",
-    line: "A supplier relationship begins, purchases complete, finance updates itself — and future decisions get smarter.",
+    line: "You order from a supplier, and the supplier and the entry appear in your books without anyone adding them.",
     diagram: DiagramPartners,
   },
 ] as const;
@@ -63,12 +63,12 @@ export function BetterTogetherSection() {
             eyebrow="Better together"
             heading={
               <>
-                Every capability is valuable.
+                Useful on their own,
                 <br />
-                Together, they become transformational.
+                <span className="text-twilight">better side by side.</span>
               </>
             }
-            lede="Most businesses don't have a software problem — they have a connection problem. Every department spends time moving information instead of moving the business forward. Sharpnr was designed differently."
+            lede="Most businesses don't have a software problem. They have a problem with the gaps between the software, and somebody is paid to stand in them."
           />
         </div>
 
@@ -95,9 +95,8 @@ export function BetterTogetherSection() {
         </div>
 
         <p className="better-close mx-auto mt-14 max-w-xl text-center text-base text-mute">
-          Technology shouldn&rsquo;t force organizations to work harder. When
-          capabilities are connected, people spend less time managing software
-          and more time growing the business.
+          Nobody should be working harder because of their software. Close the
+          gaps and that job disappears.
         </p>
       </div>
     </section>

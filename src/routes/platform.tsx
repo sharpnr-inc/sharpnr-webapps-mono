@@ -12,20 +12,20 @@ export const Route = createFileRoute("/platform")({
   component: PlatformPage,
   head: () => ({
     meta: [
-      { title: "How Sharpnr Works | Connected Business Infrastructure" },
+      { title: "How Sharpnr Works | The Platform Explained" },
       {
         name: "description",
         content:
-          "See how the Sharpnr platform works: one connected foundation for finance, people, customers, identity and governance, with collaboration, intelligence and a business network built in.",
+          "How Sharpnr works: money, people, customers and access all sit in one place, so a sale or a new hire updates the rest without anyone typing it in twice.",
       },
       {
         property: "og:title",
-        content: "How Sharpnr Works | Connected Business Infrastructure",
+        content: "How Sharpnr Works | The Platform Explained",
       },
       {
         property: "og:description",
         content:
-          "One platform where every business event stays connected — operations, foundation, collaboration, intelligence and the business network, working as one.",
+          "One place for money, people, customers and access — so one thing happening in the business updates everything it should.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/platform" },

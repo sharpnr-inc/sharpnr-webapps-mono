@@ -60,7 +60,7 @@ export function AdaptSection() {
           <SectionIntro
             tone="navy"
             align="center"
-            eyebrow="One platform. Different businesses."
+            eyebrow="Your industry"
             heading={
               <>
                 Different businesses.
@@ -68,7 +68,7 @@ export function AdaptSection() {
                 One connected foundation.
               </>
             }
-            lede="Every industry has unique operational needs, but finance, people, communication and data remain universal. Sharpnr adapts the experience — the foundation underneath never changes."
+            lede="The work on top changes with the trade. Finance, people and customers do not."
           />
         </div>
 
@@ -131,23 +131,12 @@ export function AdaptSection() {
           </div>
         </div>
 
-        {/* Availability — always transparent */}
-        <div className="mx-auto mt-12 grid max-w-3xl gap-8 text-sm sm:grid-cols-3">
-          <div>
-            <StatusBadge tone="navy" kind="available" />
-            <p className="mt-3 text-mute">Hospitality</p>
-          </div>
-          <div>
-            <StatusBadge tone="navy" kind="soon" />
-            <p className="mt-3 text-mute">Healthcare (Lifco)</p>
-          </div>
-          <div>
-            <StatusBadge tone="navy" kind="roadmap" label="Planned expansion" />
-            <p className="mt-3 text-mute">
-              Retail, education, manufacturing, professional services and more
-            </p>
-          </div>
-        </div>
+        {/* The availability grid that used to sit here listed the same five
+            industries and the same three statuses a third time — once in
+            the selector, once in the badge beside the workspace, and again
+            underneath. Status is already visible on whichever industry the
+            visitor has selected, which is the one they are asking about.
+            The Industries page is where the full roadmap belongs. */}
       </div>
     </section>
   );

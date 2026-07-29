@@ -3,11 +3,11 @@ import { SectionIntro } from "@/app/shared/SectionIntro";
 import { useFutureVisionAnimation } from "./animations/useFutureVisionAnimation";
 
 const lookingAhead = [
-  "Every business operates through connected experiences",
-  "Intelligence becomes part of everyday work",
-  "Organizations adopt technology without unnecessary complexity",
-  "Business knowledge stays connected at any size",
-  "Software quietly supports the business instead of demanding attention",
+  "Nobody types the same thing into two systems",
+  "A useful answer is there when the question comes up",
+  "Adopting software doesn't need a project team",
+  "What the business knows stays in one place, at any size",
+  "Software sits underneath the work instead of interrupting it",
 ] as const;
 
 /**

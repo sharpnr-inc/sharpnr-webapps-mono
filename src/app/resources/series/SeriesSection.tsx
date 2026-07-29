@@ -72,8 +72,14 @@ export function SeriesSection() {
           <SectionIntro
             tone="navy"
             eyebrow="Series"
-            heading="Follow ideas that keep evolving."
-            lede="Some ideas can't be explained in one article, and some conversations never really end. Every series grows over time — each new chapter building on the last."
+            heading={
+              <>
+                Some ideas,
+                <br />
+                <span className="text-twilight">need more than one go.</span>
+              </>
+            }
+            lede="A few things can't be said in one article. These run on, a chapter at a time."
           />
         </div>
 

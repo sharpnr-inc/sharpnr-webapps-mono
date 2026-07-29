@@ -62,8 +62,8 @@ export function IndustriesHeroSection() {
           ref={copyRef}
           className="hp-hero-copy mx-auto mt-5 max-w-xl text-mute"
         >
-          One industry experience is live today. The rest are on the
-          drawing board — all of them on the same platform.
+          Hospitality is available today. Healthcare, retail, education and
+          manufacturing are being designed on the same platform.
         </p>
       </div>
 

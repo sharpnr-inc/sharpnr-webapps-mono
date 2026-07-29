@@ -95,7 +95,17 @@ export const CAPABILITIES: Capability[] = [
     Mark: MarkOperations,
     products: [
       {
-        name: "Sharp-Hospitality",
+        /* Just the edition here. The group heading opposite already reads
+           "Operations", so the full "Sharp Operations · Hospitality" on the
+           card repeated the word the eye had just read and made the line
+           twice as long for no extra meaning. In this column the two cards
+           are the two editions — Hospitality and Lifco — and the capability
+           they belong to is the heading beside them.
+
+           The full form still stands everywhere the parent is not already
+           on screen: the footer, the Industries kicker, structured data.
+           Bare "Sharp-Hospitality" is wrong in all of them. */
+        name: "Hospitality",
         line: "Keep a venue or an entire chain running — tables, orders, the kitchen and the rooms, with nothing left to reconcile afterwards.",
         href: config.hospitalityAppUrl,
       },

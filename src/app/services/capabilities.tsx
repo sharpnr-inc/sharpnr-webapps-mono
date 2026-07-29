@@ -17,207 +17,220 @@ export interface Capability {
 /* Everyday examples for Knowledge & Intelligence — knowledge is
    useful for everyone, not just leadership. */
 const knowledgeAudiences = [
-  { who: "Business leaders", what: "Understand performance and identify growth opportunities." },
-  { who: "Finance teams", what: "Spot trends, unusual activity and profitability." },
-  { who: "Operations teams", what: "Detect bottlenecks and improve everyday efficiency." },
-  { who: "Sales & customer teams", what: "Understand behaviour and strengthen relationships." },
-  { who: "Technology teams", what: "Find documentation, explain systems, accelerate development." },
-  { who: "Every employee", what: "Find answers, summarize meetings, automate routine work." },
+  { who: "Business leaders", what: "See how the business is doing, and where it could grow." },
+  { who: "Finance teams", what: "Spot the odd number before it becomes a problem." },
+  { who: "Operations teams", what: "Find where the day keeps getting stuck." },
+  { who: "Sales & customer teams", what: "Know which customers are worth going back to." },
+  { who: "Technology teams", what: "Find the documentation instead of asking around for it." },
+  { who: "Every employee", what: "Get an answer without interrupting somebody else." },
 ] as const;
 
 /**
- * The seven business capabilities — Services page content.
+ * The business capabilities — Services page content.
  * Structure per spec: story → outcomes → why it matters →
  * connected experience → powered by.
+ *
+ * Two rules this file is easy to break.
+ *
+ *   Names come from `sharpnr.md`, verbatim (design.md §10) — Sharp-HR, not
+ *   "Sharp HRMS"; Sharp-CRM, not "Sharp CRMS"; OpenSharp IAM, not "Sharp
+ *   IAM". Tasks is not a product of its own, it is something an employee
+ *   opens OpenSharp IAM to do. "Sharp Operations" is the family name and is
+ *   used here because these lists sit beside Sharp-Accounting and its
+ *   siblings; the edition form "Sharp Operations · Hospitality" belongs
+ *   wherever the hospitality edition specifically is meant.
+ *
+ *   IVA has no shipping product behind it. Wherever it appears it is
+ *   written as being designed, never as something already answering
+ *   questions.
  */
 export const capabilities: Capability[] = [
   {
     id: "financial-management",
     eyebrow: "Financial management",
-    heading: "Financial management that moves with your business.",
-    lede: "Most businesses record financial activity after it happens — duplicate work, manual reconciliation, delayed reporting. On Sharpnr, business activities naturally become financial records as work happens.",
+    heading: (
+      <>
+        Sell today,
+        <br />
+        <span className="text-twilight">the books already know.</span>
+      </>
+    ),
+    lede: "In most businesses the books get written up after the fact, then reconciled at month end. Here a sale posts itself, so the figures are current whenever you look.",
     accomplish: [
-      "Keep financial records aligned with everyday operations",
-      "Manage multiple companies and legal entities from one platform",
-      "Monitor business performance in real time",
-      "Simplify compliance and audit preparation",
-      "Gain visibility across the entire organization",
+      "Keep the books current without writing them up twice",
+      "Run several companies and legal entities from one place",
+      "See how the business is doing today, not last month",
+      "Have the paperwork ready when an audit asks for it",
+      "Look at one entity, or all of them together",
     ],
-    why: "Finance teams shouldn't wait until the end of the day to understand the business, and leadership shouldn't wait until the end of the month. When finance stays connected to operations, decisions get faster and every number earns more trust.",
+    why: "Nobody should have to wait until month end to find out how the business did. When the books keep up, the number in front of you is today's number.",
     journey: [
-      "A customer order is placed",
-      "Operations complete the service",
+      "A customer places an order",
+      "The team delivers it",
       "The customer is billed",
-      "Financial records update automatically",
-      "Management dashboards refresh",
-      "IVA surfaces a new insight",
-      "Leadership decides with confidence",
+      "The books update on their own",
+      "The figures on screen move with them",
+      "You decide with something current",
     ],
-    journeyClose: "One business event. One connected financial outcome.",
-    poweredBy: ["Sharp Accounting"],
-    alongside: ["Sharp Operations", "Sharp HRMS", "Sharp CRMS", "Sharp Marketplace", "IVA", "Silo"],
+    journeyClose: "One sale. The books already know.",
+    poweredBy: ["Sharp-Accounting"],
+    alongside: ["Sharp Operations", "Sharp-HR", "Sharp-CRM", "Sharp-Marketplace", "Silo"],
   },
   {
     id: "people-workforce",
     eyebrow: "People & workforce",
     heading: (
       <>
-        Great organizations are built by great people.
+        Hire once,
         <br />
-        Keep every employee connected.
+        <span className="text-twilight">everything else follows.</span>
       </>
     ),
-    lede: "From hiring and onboarding to payroll, collaboration and growth, every stage of the employee journey stays connected. Employees don't just belong to HR — they become part of a connected organization.",
+    lede: "Hiring, payroll, attendance and training all read the same employee record. Nobody sets the same person up in four places.",
     accomplish: [
-      "Welcome new employees with structured onboarding",
-      "Manage attendance, shifts and payroll with confidence",
-      "Keep teams aligned through shared communication",
-      "Support growth with continuous feedback and learning",
-      "Give every employee secure access to the right tools",
-      "Maintain one employee profile across the platform",
+      "Get a new starter set up on their first morning",
+      "Run attendance, shifts and payroll from one record",
+      "Give people the access their job needs, and no more",
+      "Keep training and feedback with the person, not in a folder",
+      "Let staff handle their own leave, payslips and requests",
+      "Change someone's role once and have it hold everywhere",
     ],
-    why: "People shouldn't spend their day switching between disconnected systems, managers shouldn't chase approvals, and HR shouldn't duplicate work. When everyone shares one platform, organizations become more productive and more resilient.",
+    why: "Managers shouldn't be chasing approvals and nobody should be typing the same person in twice. One record means everyone is looking at the same thing.",
     journey: [
-      "A new employee is welcomed",
-      "Their profile is created",
-      "Access is securely provisioned",
-      "They join the right teams",
-      "Onboarding tasks are assigned",
-      "Managers see progress as it happens",
-      "IVA answers questions along the way",
+      "A new employee joins",
+      "Their record is created once",
+      "Access is set up from their role",
+      "They land in the right teams",
+      "Their first tasks are waiting",
+      "Their manager sees progress as it happens",
     ],
-    journeyClose: "One employee. One connected experience.",
-    poweredBy: ["Sharp HRMS"],
-    alongside: ["Sharp IAM", "Tasks", "Cables", "Folio", "IVA", "Sharp Accounting"],
+    journeyClose: "One employee. One record behind them.",
+    poweredBy: ["Sharp-HR"],
+    alongside: ["OpenSharp IAM", "Cables", "Folio", "Sharp-Accounting"],
   },
   {
     id: "customer-relationships",
     eyebrow: "Customer relationships",
     heading: (
       <>
-        Strong businesses are built on strong relationships.
+        One customer,
         <br />
-        Keep every customer connected.
+        <span className="text-twilight">one story everywhere.</span>
       </>
     ),
-    lede: "Every customer begins with a first interaction. Most businesses lose that journey across disconnected systems — sales knows one story, support another. Sharpnr keeps every interaction part of one complete relationship.",
+    lede: "In most businesses sales knows one version of a customer and support knows another. Here there is one, and everyone is reading it.",
     accomplish: [
-      "Capture enquiries and opportunities without losing context",
-      "Build customer profiles that grow over time",
-      "Create personalized experiences across every interaction",
-      "Strengthen loyalty through meaningful engagement",
-      "Understand customer behaviour and performance",
-      "Deliver consistent experiences across every location",
+      "Take an enquiry without losing what was said",
+      "Build up a customer's history as they keep coming back",
+      "Reward the regulars because you can see who they are",
+      "Know which customers are worth more, and why",
+      "Give the same welcome at every branch",
     ],
-    why: "Customers don't experience your organization department by department — they experience it as one business. When every team shares the same understanding, you respond faster and relationships last longer.",
+    why: "A customer doesn't experience your business department by department. When every team shares one history, you stop asking them to repeat themselves.",
     journey: [
-      "A customer discovers your business",
-      "An enquiry is received",
+      "Someone gets in touch",
+      "The enquiry is logged once",
       "It becomes a booking or a sale",
-      "Preferences and history grow over time",
-      "Marketing stays relevant",
+      "What they like is remembered",
+      "The next offer actually suits them",
       "Support already knows the story",
-      "IVA spots opportunities to keep them coming back",
     ],
-    journeyClose: "One customer. One connected relationship.",
-    poweredBy: ["Sharp CRMS"],
-    alongside: ["Sharp Operations", "Sharp Accounting", "Cables", "IVA", "Silo"],
+    journeyClose: "One customer. One history behind them.",
+    poweredBy: ["Sharp-CRM"],
+    alongside: ["Sharp Operations", "Sharp-Accounting", "Cables", "Silo"],
   },
   {
     id: "communication-collaboration",
     eyebrow: "Communication & collaboration",
     heading: (
       <>
-        Better work starts with better collaboration.
+        From conversation,
         <br />
-        Keep every conversation connected.
+        <span className="text-twilight">to finished work.</span>
       </>
     ),
-    lede: "Communication, documentation and execution belong together. Discuss ideas, create knowledge and complete work without switching between disconnected applications — every conversation stays connected to the work it creates.",
+    lede: "Talk it through, write it down, get it done — without copying anything between three apps. The work stays attached to the conversation that started it.",
     accomplish: [
-      "Communicate across teams and departments",
-      "Share knowledge where work actually happens",
-      "Turn discussions into actionable tasks",
-      "Collaborate on documents in real time",
-      "Keep projects moving without losing context",
-      "Build a knowledge base that grows every day",
+      "Talk to anyone in the organization without leaving the work",
+      "Write and edit documents together, at the same time",
+      "Turn what was agreed into work someone owns",
+      "Find the decision again months later",
+      "Keep a project moving without a status meeting",
     ],
-    why: "Great organizations don't succeed because they communicate more. They succeed because information flows naturally — fewer duplicated efforts, better decisions, faster teams.",
+    why: "Teams don't win by talking more. They win when nothing gets lost between the talking and the doing.",
     journey: [
-      "A project kicks off",
-      "The team starts a conversation",
-      "Meeting notes become a shared document",
-      "Action items become tasks",
-      "Progress updates appear automatically",
-      "IVA summarizes and highlights next steps",
-      "Everyone stays aligned",
+      "A project starts",
+      "The team talks it through",
+      "The notes become a shared document",
+      "What was agreed becomes work someone owns",
+      "Progress shows up where the conversation began",
     ],
-    journeyClose: "One discussion. One connected workflow.",
-    poweredBy: ["Cables", "Folio", "Tasks"],
-    alongside: ["Sharp IAM", "IVA", "Silo"],
+    journeyClose: "One conversation. Nothing retyped after it.",
+    poweredBy: ["Cables", "Folio", "OpenSharp IAM"],
+    alongside: ["Silo"],
   },
   {
     id: "identity-governance",
     eyebrow: "Identity, security & governance",
     heading: (
       <>
-        Secure organizations begin with trusted access.
+        One login,
         <br />
-        Governance built into everyday work.
+        <span className="text-twilight">and only what&rsquo;s yours.</span>
       </>
     ),
-    lede: "Employees join, teams change, applications multiply. Sharpnr keeps identity, access and governance connected, so you always know who has access, why they have it and what they're allowed to do.",
+    lede: "People join, move teams and leave. You can see who can reach what, why they can, and what they did with it.",
     accomplish: [
-      "Manage employee identities from one place",
-      "Grant access based on role and responsibility",
-      "Protect sensitive business information",
-      "Apply consistent organizational policies",
-      "Maintain complete visibility into business activity",
-      "Scale governance as the organization grows",
+      "Give one login that opens everything a person should see",
+      "Hand out access by the job someone does",
+      "Keep the sensitive things away from everyone else",
+      "Apply the same rules across every branch and company",
+      "Look back at who changed what, and when",
     ],
-    why: "Security should never slow people down, and governance shouldn't need complicated manual processes. Trust becomes part of everyday operations — without friction.",
+    why: "Security shouldn't slow anyone down. Access follows the role, so it is right on someone's first day and right again the day they move.",
     journey: [
       "A new employee joins",
-      "Their identity is created",
-      "The right access is assigned automatically",
+      "One identity is created for them",
+      "Their role decides what opens",
       "Apps, documents and channels appear",
-      "Roles change; permissions evolve with them",
-      "IVA verifies policies before sensitive actions",
-      "Leadership keeps complete visibility",
+      "The role changes; what they can reach changes with it",
+      "Every change is on the record",
     ],
-    journeyClose: "One trusted identity. One secure organization.",
-    poweredBy: ["Sharp IAM", "Cortex"],
-    alongside: ["Sharp HRMS", "Cables", "Folio", "Tasks", "IVA"],
+    journeyClose: "One login. One record of who did what.",
+    poweredBy: ["OpenSharp IAM", "Cortex"],
+    alongside: ["Sharp-HR", "Cables", "Folio"],
   },
   {
     id: "knowledge-intelligence",
     eyebrow: "Knowledge & intelligence",
     heading: (
       <>
-        Every business creates knowledge.
+        Ask a question,
         <br />
-        Turn it into better decisions.
+        <span className="text-twilight">get an answer.</span>
       </>
     ),
-    lede: "Organizations don't struggle because they lack information — they struggle because information is disconnected. Sharpnr turns everyday activity into connected knowledge, meaningful insight and intelligent action.",
+    lede: "Most businesses aren't short of information — they're short of it in one place. Everyday work builds up here into something you can actually put a question to.",
     accomplish: [
-      "Discover trends before they become problems",
-      "Understand business performance in real time",
-      "Receive recommendations when they matter",
-      "Find information instantly across the organization",
-      "Reduce repetitive work through intelligent automation",
-      "Help every employee decide with shared knowledge",
+      "See how the business is doing without assembling it by hand",
+      "Notice a problem while there is still time to fix it",
+      "Find what the business already knows, when you need it",
+      "Hand off the repetitive jobs nobody should be doing",
+      "Give everyone the same figures to argue from",
     ],
-    why: "The result isn't more data — it's better decisions. When appropriate permissions exist, IVA can also act: prepare reports, draft communications, complete routine tasks. Every action follows policy. People always stay in control.",
+    /* IVA has no shipping product behind it — the Products page marks it
+       "Soon" — so this stays in designed-language. The journey below is
+       written the same way for the same reason. */
+    why: "The point isn't more data, it's a straight answer. IVA is being designed to give one, and to act only where policy already allows it — people stay in control.",
     journey: [
       "“Why has business slowed this week?”",
-      "Operations, finance and customers considered",
-      "Workforce and trends reviewed",
-      "IVA explains what happened",
-      "It recommends practical actions",
-      "Approved steps are completed securely",
+      "The day's work is already recorded",
+      "Sales, staffing and customers sit together",
+      "IVA is designed to explain what happened",
+      "And to suggest what to do about it",
+      "You decide whether to do it",
     ],
-    journeyClose: "One question. One connected understanding.",
+    journeyClose: "One question. One place to ask it.",
     poweredBy: ["Silo", "IVA"],
     alongside: ["every Sharpnr product"],
     extra: (
@@ -241,32 +254,30 @@ export const capabilities: Capability[] = [
     eyebrow: "Business network",
     heading: (
       <>
-        Your business is bigger than your organization.
+        Your suppliers,
         <br />
-        Keep every relationship connected.
+        <span className="text-twilight">on the same platform.</span>
       </>
     ),
-    lede: "Every purchase begins with a supplier; every service begins with a partner. Instead of relationships scattered across emails and spreadsheets, Sharpnr keeps them connected to the platform your teams already use.",
+    lede: "Suppliers usually live in somebody's inbox and a spreadsheet. On Sharp-Marketplace they sit beside the orders and the books, and nothing is taken in commission.",
     accomplish: [
-      "Discover and connect with trusted organizations",
-      "Simplify procurement and purchasing",
-      "Collaborate with suppliers and partners effectively",
-      "Keep conversations, documents and approvals together",
-      "Strengthen long-term business relationships",
-      "Grow a trusted network alongside your organization",
+      "Find other businesses already on Sharpnr",
+      "Buy from them without leaving the platform",
+      "Keep the messages, documents and approvals in one thread",
+      "Have the supplier and the entry created for you",
+      "Sell to them as well as buy from them",
     ],
-    why: "Growth happens faster when businesses stay connected. When suppliers, vendors and partners become part of your platform, collaboration improves and procurement becomes part of everyday operations.",
+    why: "Buying is faster when the supplier is already in the same system as the order. Nothing is taken in commission — and payments still settle outside the platform for now.",
     journey: [
-      "Your organization needs new inventory",
-      "A trusted supplier is discovered",
-      "The conversation begins",
-      "Requirements are shared and approved",
-      "The order is confirmed",
-      "Financial records update automatically",
-      "IVA evaluates supplier performance for next time",
+      "You need to restock",
+      "You find a supplier already on Sharpnr",
+      "The conversation starts",
+      "What you need is agreed",
+      "The order goes through",
+      "The supplier and the entry appear in your books",
     ],
-    journeyClose: "One relationship. One connected business journey.",
-    poweredBy: ["Sharp Marketplace"],
-    alongside: ["Sharp Accounting", "Cables", "Folio", "IVA", "Silo"],
+    journeyClose: "One order. Nothing entered by hand.",
+    poweredBy: ["Sharp-Marketplace"],
+    alongside: ["Sharp-Accounting", "Cables", "Folio", "Silo"],
   },
 ];

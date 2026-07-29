@@ -54,8 +54,8 @@ export function PlatformHeroSection() {
           </h1>
 
           <p ref={copyRef} className="hp-hero-copy mx-auto mt-5 max-w-lg text-mute">
-            Every capability your business needs, designed to work together
-            from day one.
+            Everything your business runs on, designed to work together from
+            day one.
           </p>
 
           <div

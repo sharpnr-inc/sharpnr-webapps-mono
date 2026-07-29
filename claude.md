@@ -163,6 +163,17 @@ Message: **Independent when needed. Connected by design. More valuable together.
   (Tasks, Approvals, Attendance, Leave, Payslips, Training, self-service).
   **Lifco** is the healthcare product. **Stockwave** is inventory, warehouse and
   stock operations.
+- **Hospitality is part of Sharp Operations**, not a standalone product — the
+  hospitality edition, as Lifco is the healthcare one. Canonical form is
+  **`Sharp Operations · Hospitality`** where the edition matters, `Sharp
+  Operations` where the product family is named. **Never bare
+  "Sharp-Hospitality" in visible copy.** `sharpnr.md` still lists it with no
+  parent; the user stated the relationship directly and that outranks the spec.
+  **On the Products page the card reads just `Hospitality`** — the group heading
+  beside it already says Operations, so the full form repeated a word the eye
+  had just read. The two cards in that group are the two editions. The full form
+  stands wherever the parent is not already on screen: footer, Industries
+  kicker, structured data.
 - Products without a URL (Tasks, IVA, Lifco) render **unlinked**, never omitted.
 - A **connected-platform section before the final CTA** — illustration plus short
   copy, showing Identity / Permissions / Data / Intelligence shared by

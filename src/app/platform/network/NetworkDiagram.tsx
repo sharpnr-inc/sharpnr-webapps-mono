@@ -48,7 +48,7 @@ export function NetworkDiagram() {
       className="h-auto w-full"
       fill="none"
       role="img"
-      aria-label="Two separate organizations joined by one verified connection crossing both boundaries"
+      aria-label="Two separate organizations joined by one connection crossing both boundaries"
     >
       {/* Your organization */}
       <g className="network-org">

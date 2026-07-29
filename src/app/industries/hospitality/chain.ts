@@ -56,16 +56,17 @@ export const CHAIN_EDGES: [string, string][] = [
 /*
  * The ecosystem the whole thing stands on.
  *
- * These are products, not capabilities — Sharp Accounting is a thing you
+ * These are products, not capabilities — Sharp-Accounting is a thing you
  * can buy, "Accounting" in the cascade above is something the platform
  * does. The two must never be mistaken for each other, so they are drawn
  * differently: capabilities are boxed and set in the page's sans, products
  * are unboxed mono sitting on one continuous line. Same accent for both;
  * the distinction is typographic, not chromatic.
  *
- * Names are written exactly as the rest of the site writes them. "Sharp
- * Accounting" is never shortened to "Accounting" here, because the cascade
- * already has a node by that name.
+ * Names come from `sharpnr.md`, verbatim. "Sharp-Accounting" is never
+ * shortened to "Accounting" here, because the cascade already has a node by
+ * that name. Tasks is not a product of its own — it is one of the things an
+ * employee opens OpenSharp IAM to do — so the band carries OpenSharp IAM.
  *
  * The order below is the order they sit along the band, and it alternates
  * between the upper and lower label row — which is what gives every name
@@ -77,14 +78,14 @@ export interface EcoNode {
 }
 
 export const ECOSYSTEM: EcoNode[] = [
-  { id: "eco-accounting", label: "Sharp Accounting" },
-  { id: "eco-hrms", label: "Sharp HRMS" },
-  { id: "eco-crms", label: "Sharp CRMS" },
+  { id: "eco-accounting", label: "Sharp-Accounting" },
+  { id: "eco-hrms", label: "Sharp-HR" },
+  { id: "eco-crms", label: "Sharp-CRM" },
   { id: "eco-cables", label: "Cables" },
-  { id: "eco-tasks", label: "Tasks" },
+  { id: "eco-tasks", label: "OpenSharp IAM" },
   { id: "eco-silo", label: "Silo" },
   { id: "eco-iva", label: "IVA" },
-  { id: "eco-marketplace", label: "Sharp Marketplace" },
+  { id: "eco-marketplace", label: "Sharp-Marketplace" },
 ];
 
 /**
@@ -172,7 +173,7 @@ export const WIDE = {
    isolation".
 
    Labels alternate between two rows so each one has 225 units of room
-   rather than 112; at one row of eight, "Sharp Marketplace" would have had
+   rather than 112; at one row of eight, "Sharp-Marketplace" would have had
    to be shrunk or shortened, and shortening it is forbidden. */
 export const BAND = {
   /** Where the trunk leaves the bottom of IVA. */

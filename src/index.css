@@ -1208,6 +1208,77 @@ body {
   color: rgba(138, 148, 168, 0.85);
 }
 
+/* ── Industries: the sector figures answer the pointer. ──────────────
+   Every topology on the Industries page drew itself in once and was then
+   inert for the rest of the visit — a picture that happened to animate.
+   design.md: an entrance is not aliveness.
+
+   The device is Scene 02's, reused rather than reinvented: hovering one
+   node quietens the others, so the figure isolates the step under the
+   cursor instead of merely brightening it. Isolation is what makes it read
+   as a relationship — the eye sees what the hovered step is *among*.
+
+   One rule set covers all eight topologies because they already share a
+   vocabulary of class names. That is the payoff of the "different
+   structure, identical vocabulary" constraint: interaction written once
+   lands on the record spine, the retail cycle, the calendar grid and the
+   nested containers alike.
+
+   Hover only, and deliberately so. These figures are `aria-hidden` and
+   every label in them is repeated as real text in the section around them,
+   so there is no information behind the interaction that a keyboard user
+   could be denied — the hover re-emphasises what is already readable. A
+   figure that hides information behind a pointer would need focus states
+   and a different treatment entirely. ── */
+[data-topology] .flow-node,
+[data-topology] .flow-edge,
+[data-topology] .flow-spine,
+[data-topology] .flow-return {
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Quieten the whole figure while a node is being pointed at, then restore
+   the one under the cursor. `:has` keeps this to two rules; without it
+   every topology would need its own sibling selectors. */
+[data-topology]:has(.flow-node:hover) .flow-node,
+[data-topology]:has(.flow-node:hover) .flow-edge,
+[data-topology]:has(.flow-node:hover) .flow-return {
+  opacity: 0.32;
+}
+[data-topology]:has(.flow-node:hover) .flow-node:hover {
+  opacity: 1;
+}
+
+/* The run underneath stays legible — dimming the spine as well would make
+   the figure look switched off rather than focused. */
+[data-topology]:has(.flow-node:hover) .flow-spine {
+  opacity: 0.6;
+}
+
+/* The node under the cursor also firms up, so it reads as selected rather
+   than merely as the one that was not dimmed. */
+[data-topology] .flow-node .flow-node-box {
+  transition:
+    stroke-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-topology] .flow-node:hover .flow-node-box {
+  stroke-opacity: 0.85;
+  stroke-width: 1.5;
+}
+
+/* Reduced motion keeps the isolation — it is information, not decoration —
+   and drops only the easing. */
+@media (prefers-reduced-motion: reduce) {
+  [data-topology] .flow-node,
+  [data-topology] .flow-edge,
+  [data-topology] .flow-spine,
+  [data-topology] .flow-return,
+  [data-topology] .flow-node .flow-node-box {
+    transition: none;
+  }
+}
+
 /* ── Scene 07: the last length of bus. One charge crosses it, reaches the
    terminal pad, and the page comes to rest. ── */
 .hp-cta-rail {

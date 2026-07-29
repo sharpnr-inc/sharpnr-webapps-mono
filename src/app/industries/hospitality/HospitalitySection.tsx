@@ -100,7 +100,7 @@ export function HospitalitySection() {
                 className="h-11 w-16 shrink-0"
               />
               <span className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-mute">
-                Sharp Operations · Hospitality
+                Sharp Operations &middot; Hospitality
               </span>
             </div>
             <StatusChip status="available" />
@@ -112,9 +112,9 @@ export function HospitalitySection() {
             className="mt-8 text-heading-lg md:text-heading-xl"
           />
           <p className="prose-width mt-5 text-body-lg text-mute">
-            Hospitality is fast-paced — every minute matters, and staff
-            coordinate across kitchens, rooms, inventory and suppliers. Your
-            team focuses on guests. Sharpnr keeps the business connected.
+            Kitchens, rooms, stock and suppliers all move at once, and none of
+            it waits. Your team stays with the guests; the paperwork keeps up
+            on its own.
           </p>
         </div>
 
@@ -189,9 +189,7 @@ export function HospitalitySection() {
             tail="on one platform."
           />
           <p className="prose-width mt-3 text-base text-mute">
-            Operations, business, customer and intelligence — every one of
-            them part of the same platform, not a bundle of applications sold
-            together.
+            What a venue actually runs on, from the till to the books.
           </p>
           {/* Shorter rows than Scene 06's. Those tiles carry a full
               illustration; these carry a kicker and three lines, and at the

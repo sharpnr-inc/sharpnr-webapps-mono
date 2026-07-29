@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Words } from "@/app/home/shared/Words";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { CAPABILITIES } from "./capabilityData";
+import { CapabilityMotif } from "./motifs";
 import { useCapabilitiesAnimation } from "./animations/useCapabilitiesAnimation";
 
 /*
@@ -60,76 +61,22 @@ function cardMeta(note?: string, href?: string) {
   );
 }
 
-/**
- * The spine, and the one capability that lights it up.
+/*
+ * The vertical spine that used to run this page is gone.
  *
- * Two pieces of the same line, and between them they carry the whole
- * argument of the page without a sentence claiming any of it.
+ * It was a hairline down the column gutter through all nine capabilities,
+ * with a brighter stretch through Intelligence to show that Intelligence
+ * reaches every other capability. The reasoning was sound and the execution
+ * was not: at 6% of the accent, over a page this tall, it read as a stray
+ * rule rather than as a structural element — a line with no visible start,
+ * no end and nothing attached to it.
  *
- * `Spine` runs the full height of all nine capabilities at ~6% of the
- * accent, with a node where it crosses each capability's rule. Nine groups
- * separated by nine rules read as nine sections; one line threaded through
- * all of them reads as one platform, which is the thing the page is
- * supposed to feel like.
- *
- * `Backplane` is the same line through Intelligence, at four times the
- * weight, carrying on past that group's rules into the capabilities either
- * side and putting a tap out to each of its products. Intelligence is the
- * capability that reaches into every other one; this says so by being the
- * bright stretch of a line that runs everywhere else too.
- *
- * Both occupy dead space at every width — the column gutter from `lg` up,
- * the margin just outside the copy below that. Neither crosses a word, and
- * neither changes any part of the layout: the Intelligence group is the
- * same grid, the same size and the same card design as the eight around it.
+ * Intelligence's reach still has to be *shown* rather than asserted in a
+ * paragraph. It is now carried by the background motifs below: every
+ * capability gets its own faint architectural motif, and Intelligence's is
+ * the only one that bleeds past its own group into the two either side.
+ * Same argument, made by the thing the eye is already looking at.
  */
-function Spine() {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-cyan/6 lg:block"
-    />
-  );
-}
-
-/** The node where the spine crosses one capability's rule. */
-function SpineNode() {
-  return (
-    <span
-      aria-hidden="true"
-      className="pointer-events-none absolute left-1/2 top-0 hidden size-[3px] -translate-x-1/2 -translate-y-1/2 bg-cyan/20 lg:block"
-    />
-  );
-}
-
-const TAPS = ["24%", "38%", "50%", "62%", "76%"];
-
-function Backplane() {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute -bottom-14 -top-14 left-0 right-0 z-0"
-    >
-      <div className="absolute -left-3 bottom-0 top-0 w-px bg-cyan/25 lg:left-1/2" />
-
-      {/* Where the bus crosses the rules above and below. The two brightest
-          marks in the whole group are the two that are outside it. */}
-      <div className="absolute -left-3 top-14 size-[3px] -translate-x-px -translate-y-1/2 bg-cyan/50 lg:left-1/2" />
-      <div className="absolute -left-3 bottom-14 size-[3px] -translate-x-px translate-y-1/2 bg-cyan/50 lg:left-1/2" />
-
-      {TAPS.map((top) => (
-        <div
-          key={top}
-          className="absolute left-1/2 hidden h-px w-16 -translate-x-1/2 bg-cyan/15 lg:block"
-          style={{ top }}
-        >
-          <span className="absolute left-0 top-1/2 size-[3px] -translate-y-1/2 bg-cyan/30" />
-          <span className="absolute right-0 top-1/2 size-[3px] -translate-y-1/2 bg-cyan/30" />
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export function CapabilitiesSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -178,7 +125,6 @@ export function CapabilitiesSection() {
       </div>
 
       <div ref={listRef} className="relative mx-auto mt-16 max-w-6xl md:mt-24">
-        <Spine />
         {CAPABILITIES.map((capability, i) => {
           /* Consecutive splits alternate direction — two facing the same
              way in a row reads as a template. The capability is always
@@ -194,10 +140,22 @@ export function CapabilitiesSection() {
                  otherwise leave a single card pinned to the top of a
                  column as tall as the capability opposite it, which reads
                  as something missing rather than as space. */
-              className="hp-cap-group relative grid grid-cols-1 gap-12 border-t border-sky/15 py-12 lg:grid-cols-2 lg:items-center lg:gap-24 lg:py-16"
+              /* 60/40, matching the Industries previews: the products
+                 column is the substance of a capability group, the copy
+                 beside it is a kicker, a name and two lines. At 50/50 the
+                 cards were narrower than their own content wanted to be
+                 while the copy column ran out of things to say. Flipped
+                 with the alternation so the wide side follows the visual. */
+              className={`hp-cap-group relative grid grid-cols-1 gap-12 border-t border-sky/15 py-12 lg:items-center lg:gap-24 lg:py-16 ${
+                /* The products column is always the 3fr one. Unflipped it
+                   is the second column, flipped it is the first — so the
+                   ratio has to swap with the order, not stay put. */
+                flipped
+                  ? "lg:grid-cols-[3fr_2fr]"
+                  : "lg:grid-cols-[2fr_3fr]"
+              }`}
             >
-              <SpineNode />
-              {capability.connected && <Backplane />}
+              <CapabilityMotif name={capability.name} />
 
               <div
                 className={`hp-cap-part relative z-10 flex flex-col lg:max-w-sm ${

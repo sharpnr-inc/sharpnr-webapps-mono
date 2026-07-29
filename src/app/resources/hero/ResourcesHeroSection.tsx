@@ -91,8 +91,8 @@ export function ResourcesHeroSection() {
           </div>
 
           <p ref={noteRef} className="mx-auto mt-8 max-w-md text-sm text-mute/70">
-            Resources is growing alongside the platform — the first
-            publications are being written during Early Access.
+            The library is still being written. The first pieces are going up
+            during Early Access.
           </p>
         </div>
       </div>

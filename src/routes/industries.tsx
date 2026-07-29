@@ -13,7 +13,7 @@ export const Route = createFileRoute("/industries")({
       {
         name: "description",
         content:
-          "Sharpnr adapts to how your industry works. Hospitality is available today for hotels, restaurants and cafés. Healthcare, Technology & Enterprise, Digital Commerce, Education, Professional Services, Manufacturing and Retail are in design.",
+          "Hospitality is available today — hotels, restaurants, cafés and cloud kitchens. Healthcare, retail, education and manufacturing are being designed on the same platform.",
       },
       {
         property: "og:title",
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/industries")({
       {
         property: "og:description",
         content:
-          "Industry-specific operational experiences on one connected platform. Built for your industry. Connected for your entire business.",
+          "Hospitality runs on Sharpnr today. Every other trade is still on the drawing board, and it is being drawn on the same foundation.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/industries" },

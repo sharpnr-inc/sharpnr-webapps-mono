@@ -3,10 +3,19 @@ import { SectionIntro } from "@/app/shared/SectionIntro";
 import { FoundationDiagram } from "./FoundationDiagram";
 import { useFoundationAnimation } from "./animations/useFoundationAnimation";
 
+/*
+ * Names come from `sharpnr.md`, verbatim (design.md §10).
+ *
+ * The identity pillar used to read "Sharp IAM" and list authentication and
+ * single sign-on. Those belong to Auth, which is platform fabric and is not
+ * sold; OpenSharp IAM is the employee workspace, and what it holds is what
+ * is listed here. Who can reach what — and the record of every change — is
+ * Cortex's job, and sits in the pillar beside it.
+ */
 const pillars = [
   {
-    name: "Sharp Accounting",
-    role: "The financial foundation",
+    name: "Sharp-Accounting",
+    role: "Where the money is recorded",
     items: [
       "General ledger",
       "Receivables & payables",
@@ -17,8 +26,8 @@ const pillars = [
     ],
   },
   {
-    name: "Sharp HRMS",
-    role: "The people foundation",
+    name: "Sharp-HR",
+    role: "Where the team is looked after",
     items: [
       "Recruitment",
       "Attendance & leave",
@@ -29,8 +38,8 @@ const pillars = [
     ],
   },
   {
-    name: "Sharp CRMS",
-    role: "The customer foundation",
+    name: "Sharp-CRM",
+    role: "Where customers are remembered",
     items: [
       "Lead management",
       "Sales pipeline",
@@ -41,25 +50,25 @@ const pillars = [
     ],
   },
   {
-    name: "Sharp IAM",
-    role: "The identity foundation",
+    name: "OpenSharp IAM",
+    role: "Where employees go for their own things",
     items: [
-      "Authentication",
-      "Role-based access",
-      "Single sign-on",
-      "Employee portal",
+      "Tasks",
       "Approvals",
-      "Organization directory",
+      "Attendance",
+      "Leave",
+      "Payslips",
+      "Training",
     ],
   },
   {
     name: "Cortex",
-    role: "The governance foundation",
+    role: "Where you decide who can reach what",
     items: [
       "Organization policies",
+      "Access control",
       "Audit logs",
       "Security rules",
-      "API keys",
       "Monitoring",
       "Administration",
     ],
@@ -102,7 +111,7 @@ export function FoundationSection() {
                   Every business starts here.
                 </>
               }
-              lede="Behind every operational experience is one connected foundation — finance, people, customers, identity and governance. Shared once. Connected everywhere."
+              lede="Money, people, customers, employees and access. Set up once, and every part of the business reads the same thing."
             />
           </div>
           <div className="flex justify-center lg:justify-end">
@@ -114,8 +123,7 @@ export function FoundationSection() {
         <div className="mt-14 overflow-hidden rounded-xl border border-sky/15 bg-sky/[0.025]">
           <div className="border-b border-sky/15 bg-sky/[0.035] px-6 py-5 text-center">
             <p className="text-sm font-medium text-mute/70">
-              Your operational experience — hospitality today, more industries
-              to come
+              The work your trade does — hospitality today, more being designed
             </p>
           </div>
           <div className="grid divide-y divide-sky/12 md:grid-cols-5 md:divide-x md:divide-y-0">
@@ -138,9 +146,8 @@ export function FoundationSection() {
         </div>
 
         <p className="mx-auto mt-10 max-w-xl text-center text-base text-mute">
-          These aren't separate systems. Every business event can automatically
-          become a financial record, an employee update or a customer moment —
-          because the foundation is one.
+          One thing happens. The books, the roster and the customer&rsquo;s
+          history all know about it, and nobody filed it three times.
         </p>
       </div>
     </section>

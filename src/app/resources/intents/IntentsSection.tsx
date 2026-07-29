@@ -54,8 +54,14 @@ export function IntentsSection() {
           <SectionIntro
             tone="navy"
             eyebrow="Explore by intent"
-            heading="Explore by what you want to accomplish."
-            lede="Sometimes you want to learn. Sometimes you need practical guidance. Sometimes you simply want to stay informed. Start with the path that matches your goal."
+            heading={
+              <>
+                Start with what,
+                <br />
+                <span className="text-twilight">you came here for.</span>
+              </>
+            }
+            lede="Sometimes you want to learn something. Sometimes you just want to know what changed. Pick the door that matches."
           />
         </div>
 

@@ -32,12 +32,12 @@ export function NetworkSection() {
             eyebrow="Business network"
             heading={
               <>
-                Business doesn't stop
+                Business doesn&rsquo;t stop,
                 <br />
-                at your organization.
+                <span className="text-twilight">at your own front door.</span>
               </>
             }
-            lede="Sharp Marketplace connects verified organizations on one trusted business network — discover suppliers, request quotations, negotiate securely and trade with confidence."
+            lede="Sharp-Marketplace is where businesses already on Sharpnr buy from and sell to each other. Nothing is taken in commission."
           />
         </div>
 
@@ -72,10 +72,13 @@ export function NetworkSection() {
             ))}
           </ol>
 
+          {/* `sharpnr.md` is explicit that Sharpnr does not process payments
+              yet and that the site must never imply otherwise, so the second
+              sentence is not optional. */}
           <p className="network-outro mx-auto mt-10 max-w-md text-center text-base text-mute">
-            When the order completes, accounting, inventory and supplier
-            history update automatically — the relationship becomes part of
-            your business knowledge.
+            When the order goes through, the supplier and the entry appear in
+            your books on their own. Payments still settle outside the
+            platform.
           </p>
         </div>
       </div>

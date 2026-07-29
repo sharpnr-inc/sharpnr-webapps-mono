@@ -142,7 +142,7 @@ export const PREVIEWS: readonly IndustryPreviewData[] = [
     name: "Technology & Enterprise",
     tail: "one engagement.",
     intro:
-      "Designed around how technology teams win work and deliver it — first conversation to invoice, as one record.",
+      "Designed so the first conversation and the final invoice sit on the same job, not in two different systems.",
     flowKicker: "ENGAGEMENT JOURNEY",
     stages: ["Lead", "Proposal", "Project", "Delivery", "Invoice"],
     capabilities: ["Pipeline", "Proposals", "Projects", "Workforce", "Invoicing"],
@@ -160,7 +160,7 @@ export const PREVIEWS: readonly IndustryPreviewData[] = [
     name: "Digital Commerce",
     tail: "one continuous order.",
     intro:
-      "Designed around the online order, so a listing, a shipment and a return stay one record across every channel.",
+      "Designed around the order, so a sale and the return that follows it stay attached whichever channel they came through.",
     flowKicker: "ORDER JOURNEY",
     stages: ["Listing", "Order", "Fulfilment", "Delivery", "Returns"],
     capabilities: ["Catalogue", "Orders", "Warehousing", "Payments", "Customers"],
@@ -177,7 +177,7 @@ export const PREVIEWS: readonly IndustryPreviewData[] = [
     name: "Education",
     tail: "the whole student journey.",
     intro:
-      "Designed for one record that follows a student from first application to graduation, read by staff and parents alike.",
+      "Designed so one record follows a student from application to graduation — the same one staff and parents see.",
     flowKicker: "STUDENT JOURNEY",
     stages: ["Application", "Enrollment", "Classes", "Examinations", "Graduation"],
     capabilities: [
@@ -201,7 +201,7 @@ export const PREVIEWS: readonly IndustryPreviewData[] = [
     name: "Professional Services",
     tail: "built on relationships.",
     intro:
-      "Designed around the client relationship, keeping the brief, the work and the retainer attached to the hours behind them.",
+      "Designed so the brief, the work and the hours behind it stay with one client, instead of three spreadsheets.",
     flowKicker: "CLIENT JOURNEY",
     stages: ["Enquiry", "Engagement", "Delivery", "Review", "Retainer"],
     capabilities: ["Clients", "Engagements", "Time", "Documents", "Invoicing"],
@@ -219,7 +219,7 @@ export const PREVIEWS: readonly IndustryPreviewData[] = [
     name: "Manufacturing",
     tail: "material to dispatch.",
     intro:
-      "Built around the manufacturing lifecycle, so a batch stays traceable from what arrived to what left.",
+      "Designed so a batch can be traced all the way from what arrived at the gate to what left it.",
     flowKicker: "PRODUCTION CHAIN",
     stages: ["Raw Material", "Production", "Quality", "Warehouse", "Dispatch"],
     capabilities: [
@@ -243,7 +243,7 @@ export const PREVIEWS: readonly IndustryPreviewData[] = [
     name: "Retail",
     tail: "one stock figure.",
     intro:
-      "Designed around modern retail operations, so one count holds true from the supplier's delivery to the reorder.",
+      "Designed so one stock count holds true from the supplier's delivery all the way to the reorder.",
     flowKicker: "PRODUCT JOURNEY",
     stages: ["Supplier", "Warehouse", "Shelf", "Checkout", "Replenishment"],
     capabilities: [

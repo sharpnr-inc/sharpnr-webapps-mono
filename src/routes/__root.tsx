@@ -33,7 +33,7 @@ const organizationJsonLd = {
   },
   slogan: "One Platform. Every Business.",
   description:
-    "Sharpnr is Connected Business Infrastructure — one platform that connects operations, finance, people, communication, knowledge and business networks so organizations of every size and industry can work as one.",
+    "Sharpnr is one platform for running a business: the work a trade does day to day, and the accounting, people, customers, communication and files every organization needs anyway.",
   foundingDate: "2024",
   contactPoint: {
     "@type": "ContactPoint",
@@ -57,26 +57,25 @@ const softwareApplicationJsonLd = {
   operatingSystem: "Web",
   url: "https://sharpnr.com",
   description:
-    "Connected Business Infrastructure. Sharpnr connects business operations, finance, people, customers, communication, knowledge and business networks on one platform. Every product works independently and even better together.",
+    "Sharpnr runs a business on one platform — the daily work of a trade alongside accounting, people, customers, communication and files. Every product works on its own, and works with the others.",
   offers: {
     "@type": "Offer",
     price: "0",
-    priceCurrency: "USD",
+    priceCurrency: "INR",
     description: "Free during Early Access. No credit card required.",
   },
   featureList: [
-    "Business Operations for Hospitality (Sharp Operations · Hospitality)",
-    "Accounting & Finance (Sharp Accounting)",
-    "People & Workforce (Sharp HRMS)",
-    "Customer Relationships (Sharp CRMS)",
-    "Identity & Access (Sharp IAM)",
-    "Governance & Administration (Cortex)",
+    "Hospitality operations (Sharp Operations · Hospitality)",
+    "Accounting and finance (Sharp-Accounting)",
+    "People and payroll (Sharp-HR)",
+    "Customer relationships (Sharp-CRM)",
+    "Employee workspace (OpenSharp IAM)",
+    "Governance and administration (Cortex)",
     "Communication (Cables)",
-    "Documents & Knowledge (Folio)",
-    "Projects & Execution (Tasks)",
-    "Business Knowledge Foundation (Silo)",
-    "Intelligent Business Assistant (IVA)",
-    "Business Network (Sharp Marketplace)",
+    "Documents and collaboration (Folio)",
+    "Files and business records (Silo)",
+    "Service configuration (Orchestrator)",
+    "Business network (Sharp-Marketplace)",
   ],
 };
 

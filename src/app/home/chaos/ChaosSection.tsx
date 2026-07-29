@@ -113,8 +113,8 @@ export function ChaosSection() {
           </h2>
 
           <p ref={copyRef} className="hp-hero-copy mt-6 text-mute">
-            Great software. No shared foundation. Your people become the
-            integration.
+            Every tool works. None of them talk. So your staff retype the same
+            customer into each one.
           </p>
         </div>
       </div>
