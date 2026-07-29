@@ -32,44 +32,28 @@ export function useConvergenceAnimation(refs: ConvergenceAnimationRefs) {
         scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
       });
 
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.inOut" },
-        scrollTrigger: { trigger: sectionRef.current, start: "top 45%" },
-      });
-
-      tl.from(".conv-area", {
+      // The statement and the CTA each get their own trigger rather than
+      // sharing one timeline. That began as a fix — chained behind the
+      // diagram that used to sit here, the closing moment of the page and
+      // its only call to action stayed at opacity 0 for the eight seconds
+      // the diagram took, which is exactly the span in which a visitor
+      // scrolls past them. The diagram is gone; separate triggers are still
+      // right, because these two are a screen apart.
+      gsap.from(statementRef.current ? statementRef.current.children : [], {
         opacity: 0,
-        scale: 0.8,
-        transformOrigin: "center center",
+        y: 18,
         duration: 0.7,
-        stagger: 0.12,
+        stagger: 0.28,
         ease: "power3.out",
+        scrollTrigger: { trigger: statementRef.current, start: "top 88%" },
       });
-      tl.fromTo(
-        ".conv-spoke",
-        { drawSVG: "0% 0%" },
-        { drawSVG: "0% 100%", duration: 1.6, stagger: 0.12, ease: "power2.in" },
-        "-=0.3",
-      );
-      tl.from(".conv-core", {
+      gsap.from(ctaRef.current, {
         opacity: 0,
-        scale: 0.7,
-        transformOrigin: "280px 240px",
-        duration: 1,
+        y: 16,
+        duration: 0.6,
         ease: "power3.out",
+        scrollTrigger: { trigger: ctaRef.current, start: "top 90%" },
       });
-
-      // Pause. Then the statement — slower, larger gaps.
-      tl.from(
-        statementRef.current ? statementRef.current.children : [],
-        { opacity: 0, y: 18, duration: 1, stagger: 0.5, ease: "power3.out" },
-        "+=0.6",
-      );
-      tl.from(
-        ctaRef.current,
-        { opacity: 0, y: 16, duration: 0.8, ease: "power3.out" },
-        "+=0.3",
-      );
     },
     { scope: sectionRef },
   );

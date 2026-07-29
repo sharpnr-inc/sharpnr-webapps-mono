@@ -33,6 +33,9 @@ const intents = [
 /**
  * Section 02 — Explore by intent. Knowledge organized around what
  * people are trying to accomplish, not how content was published.
+ *
+ * A full-width list, not a split: five paths read as a set of doors, and
+ * putting them in one column of a 50/50 would make four of them wrap.
  */
 export function IntentsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -41,31 +44,42 @@ export function IntentsSection() {
   useIntentsAnimation({ sectionRef, introRef });
 
   return (
-    <section ref={sectionRef} id="explore" className="scroll-mt-24 bg-soft">
+    <section
+      ref={sectionRef}
+      id="explore"
+      className="relative scroll-mt-24 border-t border-white/[0.07]"
+    >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
         <div ref={introRef}>
           <SectionIntro
+            tone="navy"
             eyebrow="Explore by intent"
-            heading="Explore by what you want to accomplish."
-            lede="Sometimes you want to learn. Sometimes you need practical guidance. Sometimes you simply want to stay informed. Start with the path that matches your goal."
+            heading={
+              <>
+                Start with what,
+                <br />
+                <span className="text-twilight">you came here for.</span>
+              </>
+            }
+            lede="Sometimes you want to learn something. Sometimes you just want to know what changed. Pick the door that matches."
           />
         </div>
 
-        <ol className="mt-14 divide-y divide-slate-200 border-y border-slate-200">
+        <ol className="mt-14 divide-y divide-sky/12 border-y border-sky/12">
           {intents.map((intent, i) => (
             <li key={intent.title} className="intent-row py-8 md:py-10">
               <div className="grid gap-3 md:grid-cols-12 md:items-baseline md:gap-8">
-                <span className="text-sm font-medium tabular-nums text-slate-400 md:col-span-1">
+                <span className="font-mono text-sm tabular-nums tracking-[0.18em] text-cyan/60 md:col-span-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <h3 className="text-heading-sm font-bold text-navy md:col-span-3 md:text-heading-md">
+                <h3 className="text-heading-sm font-bold text-white md:col-span-3 md:text-heading-md">
                   {intent.title}
                 </h3>
                 <div className="md:col-span-8">
-                  <p className="text-base font-medium text-slate-700">
+                  <p className="text-base font-medium text-sky/85">
                     {intent.line}
                   </p>
-                  <p className="mt-2 text-sm text-slate-500">{intent.contains}</p>
+                  <p className="mt-2 text-sm text-mute">{intent.contains}</p>
                 </div>
               </div>
             </li>

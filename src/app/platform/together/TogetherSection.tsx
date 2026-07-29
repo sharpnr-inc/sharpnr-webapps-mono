@@ -12,33 +12,36 @@ const journey = [
     detail: "Meeting notes grow into a shared plan.",
   },
   {
-    title: "Action items become tasks",
-    detail: "Work is assigned without copying anything.",
+    title: "What was agreed becomes work",
+    detail: "Someone owns it, and nothing was retyped.",
   },
   {
-    title: "Progress flows back",
+    title: "Progress comes back",
     detail: "Updates appear where the conversation began.",
   },
 ] as const;
 
+/* Tasks is not a product of its own — it is one of the things an employee
+   opens OpenSharp IAM to do (claude.md), so the third entry names the
+   workspace, not the screen inside it. */
 const products = [
   {
     name: "Cables",
-    line: "Communication built for organizations.",
+    line: "Where the talking happens.",
     detail:
-      "Chat, voice, video and channels — including conversations with other organizations. Share business records directly inside the discussion.",
+      "Chat, calls and channels, with the order or the invoice being discussed sitting inside the conversation.",
   },
   {
     name: "Folio",
-    line: "Knowledge built for teams.",
+    line: "Where it gets written down.",
     detail:
-      "Documents, spreadsheets, presentations, whiteboards and wikis, created together in real time and connected to the work around them.",
+      "Documents, sheets and whiteboards several people can work in at once, next to the work that produced them.",
   },
   {
-    name: "Tasks",
-    line: "Where work gets done.",
+    name: "OpenSharp IAM",
+    line: "Where the work lands.",
     detail:
-      "Turn conversations into action — plan projects, assign work and track progress without losing the context that created it.",
+      "Every employee's tasks and approvals in one place, still attached to the conversation that created them.",
   },
 ] as const;
 
@@ -46,6 +49,12 @@ const products = [
  * Section 05 — Work happens together. Communication, knowledge and
  * execution shown as one continuous workflow, never as three
  * separate applications.
+ *
+ * The page's right-facing section. Foundation, immediately above,
+ * faces left; two splits leaning the same way read as a template
+ * rather than as a page. The intro is pushed into the same column the
+ * product copy occupies, so heading, product names and body all share
+ * one left edge down the right half.
  */
 export function TogetherSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -55,57 +64,64 @@ export function TogetherSection() {
   useTogetherAnimation({ sectionRef, introRef, productsRef });
 
   return (
-    <section ref={sectionRef} className="bg-soft">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
-        <div ref={introRef}>
+        {/* calc(50% - 2.5rem) is exactly one column of the grid below at
+            its lg gap-20, so the intro lands over the product copy rather
+            than near it. */}
+        <div ref={introRef} className="lg:ml-auto lg:w-[calc(50%-2.5rem)]">
           <SectionIntro
+            tone="navy"
             eyebrow="Collaboration"
             heading={
               <>
-                Work shouldn't stop
+                Work shouldn&rsquo;t stop,
                 <br />
-                when you switch applications.
+                <span className="text-twilight">when the app does.</span>
               </>
             }
-            lede="From the first conversation to the final task, every part of your team's work stays connected — no copying, no lost context, no switching."
+            lede="From the first conversation to the finished job, without copying anything across or losing what was said."
           />
         </div>
 
         <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-20">
           {/* One continuous workflow */}
           <div className="relative">
-            <div className="absolute bottom-5 left-[9px] top-5 w-px bg-slate-200">
-              <div className="together-fill h-full w-full origin-top scale-y-0 bg-blue/60" />
+            <div className="absolute bottom-5 left-[9px] top-5 w-px bg-sky/15">
+              <div className="together-fill h-full w-full origin-top scale-y-0 bg-cyan/70" />
             </div>
             <ol className="relative space-y-9">
               {journey.map((stage) => (
                 <li key={stage.title} className="together-stage flex gap-5">
-                  <span className="relative z-10 mt-1 block size-[19px] shrink-0 rounded-full border-2 border-blue/60 bg-white" />
+                  <span className="relative z-10 mt-1 block size-[19px] shrink-0 rounded-full border-2 border-cyan/60 bg-canvas" />
                   <div>
-                    <h3 className="text-title-md font-semibold text-navy">
+                    <h3 className="text-title-md font-semibold text-white">
                       {stage.title}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500">{stage.detail}</p>
+                    <p className="mt-1 text-sm text-mute/80">{stage.detail}</p>
                   </div>
                 </li>
               ))}
             </ol>
-            <p className="together-outro mt-9 pl-10 text-sm font-medium text-navy">
+            <p className="together-outro mt-9 pl-10 text-sm font-medium text-white">
               The conversation stays connected the whole way.
             </p>
           </div>
 
-          {/* The products behind the workflow */}
-          <div ref={productsRef} className="space-y-9 lg:pt-2">
+          {/* The products behind the workflow. Right column, so the block
+              sits against the outer edge of its own column — capped on the
+              wrapper rather than on each paragraph, so every name and every
+              line of copy shares one left edge. */}
+          <div ref={productsRef} className="space-y-9 lg:ml-auto lg:max-w-xl lg:pt-2">
             {products.map((product) => (
               <div key={product.name}>
-                <h3 className="text-title-lg font-semibold text-navy">
+                <h3 className="text-title-lg font-semibold text-white">
                   {product.name}
                 </h3>
-                <p className="mt-1 text-sm font-medium text-slate-700">
+                <p className="mt-1 text-sm font-medium text-sky/80">
                   {product.line}
                 </p>
-                <p className="prose-width mt-2 text-base leading-relaxed text-slate-600">
+                <p className="mt-2 text-base leading-relaxed text-mute">
                   {product.detail}
                 </p>
               </div>

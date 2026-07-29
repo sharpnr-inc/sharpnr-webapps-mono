@@ -1,16 +1,23 @@
+/*
+ * The same two words the Industries page uses (`industries/roadmap.ts`):
+ * "Available now" and "In design". "Coming Soon" and "Roadmap" both read as
+ * a date being kept quiet; "In design" is the honest word for something that
+ * is not built, not in beta and not scheduled. Two labels for one meaning is
+ * how a visitor ends up believing the platform ships more than it does.
+ */
 const kinds = {
   available: {
-    label: "Available Today",
+    label: "Available now",
     dot: "bg-green-600",
     cls: "border-green-200 bg-green-50 text-green-800",
   },
   soon: {
-    label: "Coming Soon",
+    label: "In design",
     dot: "bg-blue",
     cls: "border-sky/70 bg-ice/60 text-blue-deep",
   },
   roadmap: {
-    label: "Roadmap",
+    label: "In design",
     dot: "bg-slate-400",
     cls: "border-slate-200 bg-slate-50 text-slate-600",
   },

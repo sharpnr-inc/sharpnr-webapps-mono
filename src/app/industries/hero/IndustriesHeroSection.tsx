@@ -1,108 +1,81 @@
 import { useRef } from "react";
-import { config } from "@/configs/env";
-import { CtaLink } from "@/app/shared/CtaLink";
-import { ScrollSmoother } from "@/configs/gsap";
+import { Words } from "@/app/home/shared/Words";
+import { IndustryRailDiagram, IndustryRoadmapList } from "../diagrams";
 import { useIndustriesHeroAnimation } from "./animations/useIndustriesHeroAnimation";
 
-/* Different businesses, different rhythms — one shared platform. */
-const businesses = [
-  { label: "Hotel", x: 90, r: 15 },
-  { label: "Restaurant", x: 205, r: 12 },
-  { label: "Café", x: 315, r: 9 },
-  { label: "Hospital", x: 425, r: 14 },
-  { label: "Retail store", x: 545, r: 11 },
-  { label: "University", x: 665, r: 13 },
-  { label: "Factory", x: 785, r: 12 },
-  { label: "Office", x: 890, r: 9 },
-] as const;
-
-/**
- * Industries hero — this page introduces businesses, not software.
- * Every visitor should recognize their own.
+/*
+ * Industries hero.
+ *
+ * Centred, on the site's dark canvas, matching Scene 01 on the homepage:
+ * eyebrow, a two-line headline that closes to one line at lg, one sentence.
+ * No background of its own — the canvas and the ink wash are held at the
+ * root.
+ *
+ * Two decisions this file exists to record.
+ *
+ *   The rail moved up. It used to sit at the foot of the first screen,
+ *   below the fold on a laptop, which meant the page's entire argument —
+ *   different above, identical below, and only one of them exists today —
+ *   was something a visitor had to scroll to find. It is not supporting
+ *   material for the headline; it *is* the headline, drawn. So the hero is
+ *   now the sentence and the figure, in that order, and nothing else.
+ *
+ *   The two buttons are gone. This is a navigational page: a visitor
+ *   arrives to find out whether their industry is covered, and the honest
+ *   answer for seven of eight is "not yet". Asking for a signup before
+ *   that question has been answered is asking at the worst possible
+ *   moment. The page's one invitation waits until the end, where it has
+ *   been earned.
  */
+
 export function IndustriesHeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
+  const copyRef = useRef<HTMLParagraphElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
 
-  useIndustriesHeroAnimation({ sectionRef, copyRef });
-
-  const scrollToHospitality = () => {
-    const target = document.getElementById("hospitality");
-    if (!target) return;
-    const smoother = ScrollSmoother.get();
-    if (smoother) smoother.scrollTo(target, true, "top 88px");
-    else target.scrollIntoView({ behavior: "smooth" });
-  };
+  useIndustriesHeroAnimation({ sectionRef, eyebrowRef, copyRef, railRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
-      <div className="mx-auto max-w-7xl px-5 pb-20 pt-36 md:px-8 md:pb-28 md:pt-44">
-        <div ref={copyRef} className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <h1 className="text-display-md font-bold text-navy md:text-display-lg">
-            Built for your industry.
-            <br />
-            Connected for your entire business.
-          </h1>
-          <p className="mt-6 max-w-xl text-body-lg text-slate-600">
-            From hospitality today to healthcare, retail, education and beyond,
-            Sharpnr delivers industry-specific operational experiences on one
-            connected platform. Start with the industry you know.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={scrollToHospitality}
-              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-blue px-6 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-deep"
-            >
-              Explore Hospitality
-            </button>
-            <CtaLink variant="secondary" href={config.authAppUrl + "/signup"}>
-              Create Free Account
-            </CtaLink>
-          </div>
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-svh w-full flex-col justify-center overflow-hidden px-6 pb-16 pt-28 md:px-10 md:pb-24 md:pt-36"
+    >
+      <div className="relative z-10 mx-auto w-full max-w-7xl text-center">
+        <p
+          ref={eyebrowRef}
+          className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-twilight sm:text-[0.6875rem] sm:tracking-[0.3em]"
+        >
+          Sharpnr Industries
+        </p>
+
+        <h1 className="hp-scene-title mt-5 font-extrabold text-white lg:whitespace-nowrap">
+          <span className="ind-hero-line-1 block lg:inline">
+            <Words text="Every industry," />
+          </span>{" "}
+          <span className="ind-hero-line-2 block text-twilight lg:inline">
+            <Words text="One foundation." />
+          </span>
+        </h1>
+
+        <p
+          ref={copyRef}
+          className="hp-hero-copy mx-auto mt-5 max-w-xl text-mute"
+        >
+          Hospitality is available today. Healthcare, retail, education and
+          manufacturing are being designed on the same platform.
+        </p>
+      </div>
+
+      {/* Different above, identical below — and only one of them exists. */}
+      <div
+        ref={railRef}
+        className="relative z-10 mx-auto mt-12 w-full max-w-6xl md:mt-16"
+      >
+        <div className="hidden md:block">
+          <IndustryRailDiagram />
         </div>
-
-        {/* Many kinds of business, one foundation beneath them */}
-        <div className="mx-auto mt-16 hidden max-w-5xl md:block">
-          <svg
-            viewBox="0 0 980 240"
-            role="img"
-            aria-label="Hotels, restaurants, hospitals, stores, universities, factories and offices standing on one shared Sharpnr platform"
-            className="h-auto w-full"
-          >
-            {/* Each business connects down to the platform */}
-            <g fill="none" stroke="#0077b6" strokeOpacity="0.35" strokeWidth="1.2">
-              {businesses.map((b) => (
-                <path key={`l-${b.label}`} className="ind-hero-line" d={`M${b.x} ${96 + b.r} L${b.x} 168`} />
-              ))}
-            </g>
-
-            {businesses.map((b) => (
-              <g key={b.label} className="ind-hero-node">
-                <circle
-                  cx={b.x}
-                  cy="96"
-                  r={b.r}
-                  fill={b.r > 12 ? "#caf0f8" : "#ffffff"}
-                  stroke="#0077b6"
-                  strokeOpacity="0.5"
-                  strokeWidth="1.4"
-                />
-                <text x={b.x} y="52" textAnchor="middle" fontSize="13" fontWeight="500" fill="#475569">
-                  {b.label}
-                </text>
-              </g>
-            ))}
-
-            {/* The platform */}
-            <g className="ind-hero-platform">
-              <rect x="40" y="168" width="900" height="46" rx="12" fill="#03045e" />
-              <text x="490" y="196" textAnchor="middle" fontSize="13.5" fontWeight="600" fill="#ffffff">
-                One connected platform
-              </text>
-            </g>
-          </svg>
-        </div>
+        <IndustryRoadmapList className="md:hidden" />
       </div>
     </section>
   );

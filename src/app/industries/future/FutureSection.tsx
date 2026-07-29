@@ -1,21 +1,23 @@
 import { useRef } from "react";
-import { Check } from "lucide-react";
 import { config } from "@/configs/env";
-import { CtaLink } from "@/app/shared/CtaLink";
-import { Eyebrow } from "@/app/shared/Eyebrow";
+import { Button } from "@/app/home/shared/Button";
+import { DualHeading } from "../DualHeading";
 import { useFutureAnimation } from "./animations/useFutureAnimation";
 
-const comingNext = [
-  "Healthcare (Lifco)",
-  "Retail & commerce",
-  "Corporate & professional services",
-  "Education",
-  "Manufacturing",
-] as const;
-
 /**
- * Section 09 — The future is connected. A calm, honest ending:
- * what's available now, what's coming, and an open invitation.
+ * Section 09 — the close. Centred and full width; the page turned centred
+ * at Multi-industry and stays that way to the footer.
+ *
+ * This is the page's one invitation, and it is the only one. The hero used
+ * to carry two buttons, which asked a visitor to sign up before the page
+ * had answered the question they arrived with — and for seven of eight
+ * industries the honest answer is "not yet". By here it has been answered
+ * eight times over, so the ask has been earned.
+ *
+ * The two-column "available now / coming next" block that used to sit here
+ * is gone. It restated the hero rail and eight status chips for a third
+ * time, and a page that has to say which things exist three times has not
+ * managed to show it once.
  */
 export function FutureSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,65 +26,39 @@ export function FutureSection() {
   useFutureAnimation({ sectionRef, contentRef });
 
   return (
-    <section ref={sectionRef} className="bg-navy">
+    <section ref={sectionRef} className="relative border-t border-white/[0.07]">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
-        <div ref={contentRef} className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <Eyebrow tone="navy">The future is connected</Eyebrow>
-          <h2 className="mt-4 text-heading-lg font-bold text-white md:text-display-md">
-            Built for today's industries.
-            <br />
-            Growing with tomorrow's businesses.
-          </h2>
-          <p className="mt-5 max-w-xl text-body-lg text-white/70">
-            Join during Early Access and grow alongside a platform that's
-            continuously expanding into new industries, new capabilities and
-            new business connections.
+        <div
+          ref={contentRef}
+          className="mx-auto flex max-w-2xl flex-col items-center text-center"
+        >
+          <p className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-twilight sm:text-[0.6875rem] sm:tracking-[0.3em]">
+            The future is connected
           </p>
 
-          {/* Honest availability */}
-          <div className="mt-10 grid w-full gap-8 text-left sm:grid-cols-2">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">
-                Available now
-              </p>
-              <p className="mt-3 flex items-center gap-2 text-sm font-medium text-white">
-                <Check className="size-4 text-cyan" strokeWidth={2} />
-                Sharp Operations · Hospitality
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">
-                Coming next
-              </p>
-              <ul className="mt-3 space-y-1.5">
-                {comingNext.map((item) => (
-                  <li key={item} className="text-sm text-white/70">
-                    {item}
-                  </li>
-                ))}
-                <li className="text-sm italic text-white/45">
-                  …and more industry experiences over time
-                </li>
-              </ul>
-            </div>
-          </div>
+          <DualHeading
+            lead="Built for today,"
+            tail="growing into tomorrow."
+            className="mt-5 text-heading-lg md:text-display-md"
+          />
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <CtaLink
-              tone="navy"
-              variant="primary"
-              href={config.authAppUrl + "/signup"}
-              arrow
-            >
+          <p className="mt-5 max-w-xl text-body-lg text-mute">
+            Hospitality is available today. Healthcare, retail, education and
+            manufacturing are being designed on the same foundation, so the
+            platform you start on is the one you grow into.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Button variant="primary" href={config.authAppUrl + "/signup"} arrow>
               Create Free Account
-            </CtaLink>
-            <CtaLink tone="navy" variant="secondary" to="/products">
+            </Button>
+            <Button variant="secondary" to="/products">
               Explore Products
-            </CtaLink>
+            </Button>
           </div>
-          <p className="mt-6 text-sm text-white/50">
-            No subscription required during Early Access. Start with one
-            experience — expand as your business grows.
+          <p className="mt-6 text-sm text-mute/70">
+            No subscription required during Early Access. Start with what is
+            here; add the rest as they arrive.
           </p>
         </div>
       </div>

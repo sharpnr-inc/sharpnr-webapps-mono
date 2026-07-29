@@ -33,20 +33,21 @@ export function IntelligenceSection() {
   useIntelligenceAnimation({ sectionRef, introRef, productsRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={introRef}>
           <SectionIntro
+            tone="navy"
             align="center"
             eyebrow="Knowledge & intelligence"
             heading={
               <>
-                Every action teaches the platform.
+                Every day&rsquo;s work,
                 <br />
-                Every decision becomes smarter.
+                <span className="text-twilight">adds up to an answer.</span>
               </>
             }
-            lede="Every order, conversation, approval, document and task contributes to a growing understanding of your business — one connected source of knowledge instead of scattered reports."
+            lede="One place the business remembers things, instead of a folder of reports nobody opens."
           />
         </div>
 
@@ -61,15 +62,15 @@ export function IntelligenceSection() {
             {/* Events */}
             {eventDots.map((e) => (
               <g key={e.label} className="intel-event">
-                <circle cx="24" cy={e.y} r="5" fill="#0077b6" fillOpacity="0.7" />
-                <text x="42" y={e.y + 4.5} fontSize="13" fill="#475569">
+                <circle cx="24" cy={e.y} r="5" fill="#00b4d8" fillOpacity="0.8" />
+                <text x="42" y={e.y + 4.5} fontSize="13" fill="#8a94a8">
                   {e.label}
                 </text>
               </g>
             ))}
 
             {/* Flow into the knowledge foundation */}
-            <g fill="none" stroke="#0077b6" strokeOpacity="0.35" strokeWidth="1.2">
+            <g fill="none" stroke="#90e0ef" strokeOpacity="0.28" strokeWidth="1.2">
               {eventDots.map((e, i) => (
                 <path
                   key={e.label}
@@ -91,17 +92,17 @@ export function IntelligenceSection() {
                 cx={n.x}
                 cy={n.y}
                 r="6"
-                fill="#caf0f8"
-                stroke="#0077b6"
-                strokeOpacity="0.6"
+                fill="#00101f"
+                stroke="#00b4d8"
+                strokeOpacity="0.7"
                 strokeWidth="1.3"
               />
             ))}
 
             {/* A recommendation surfaces — quiet, practical */}
             <g className="intel-insight">
-              <rect x="330" y="322" width="266" height="30" rx="15" fill="#ffffff" stroke="#00b4d8" strokeOpacity="0.55" strokeWidth="1.2" />
-              <text x="463" y="341" textAnchor="middle" fontSize="12" fontWeight="500" fill="#03045e">
+              <rect x="330" y="322" width="266" height="30" rx="3" fill="#0077b6" fillOpacity="0.16" stroke="#00b4d8" strokeOpacity="0.55" strokeWidth="1.2" />
+              <text x="463" y="341" textAnchor="middle" fontSize="12" fontWeight="500" fill="#caf0f8">
                 IVA: three items need reordering this week
               </text>
             </g>
@@ -111,27 +112,26 @@ export function IntelligenceSection() {
         {/* Silo and IVA */}
         <div ref={productsRef} className="mx-auto mt-14 grid max-w-4xl gap-10 md:grid-cols-2">
           <div>
-            <h3 className="text-title-lg font-semibold text-navy">Silo</h3>
-            <p className="mt-1 text-sm font-medium text-slate-700">
-              The business knowledge foundation.
+            <h3 className="text-title-lg font-semibold text-white">Silo</h3>
+            <p className="mt-1 text-sm font-medium text-sky/80">
+              Where the business keeps what it knows.
             </p>
-            <p className="prose-width mt-2 text-base leading-relaxed text-slate-600">
-              Every business event is securely organized and made available
-              across the platform, so every product works from the same source
-              of truth. Silo isn't where information sits — it's how your
-              organization remembers.
+            <p className="prose-width mt-2 text-base leading-relaxed text-mute">
+              One place your files and records live, and one version
+              everything else reads from.
             </p>
           </div>
+          {/* IVA has no shipping product behind it — the Products page marks
+              it "Soon" — so this stays in designed-language. Present tense
+              here would claim something the platform cannot do today. */}
           <div>
-            <h3 className="text-title-lg font-semibold text-navy">IVA</h3>
-            <p className="mt-1 text-sm font-medium text-slate-700">
-              Your intelligent business assistant.
+            <h3 className="text-title-lg font-semibold text-white">IVA</h3>
+            <p className="mt-1 text-sm font-medium text-sky/80">
+              The assistant, in design.
             </p>
-            <p className="prose-width mt-2 text-base leading-relaxed text-slate-600">
-              IVA understands what's happening across your organization. It
-              helps teams discover insights, answer business questions,
-              receive recommendations and automate routine work — supporting
-              decisions, never replacing them.
+            <p className="prose-width mt-2 text-base leading-relaxed text-mute">
+              Designed to answer questions about the business and take the
+              routine work off people — never the deciding.
             </p>
           </div>
         </div>

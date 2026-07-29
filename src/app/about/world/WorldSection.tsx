@@ -13,59 +13,63 @@ export function WorldSection() {
   useWorldAnimation({ sectionRef, bodyRef });
 
   return (
-    <section ref={sectionRef} id="story" className="scroll-mt-24 bg-white">
+    <section
+      ref={sectionRef}
+      id="story"
+      className="hp-section relative scroll-mt-24"
+    >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={bodyRef} className="mx-auto max-w-2xl">
           <SectionIntro
+            tone="navy"
             eyebrow="The world we see"
             heading={
               <>
-                Businesses already work together.
+                A business works together,
                 <br />
-                Their software should too.
+                <span className="text-twilight">its software rarely does.</span>
               </>
             }
-            lede="Finance depends on operations. Operations depend on people. Customers influence every decision, and suppliers affect every outcome. Nothing in a business happens in isolation."
+            lede="The books depend on what operations did. Operations depend on who turned up. Nothing in a business happens on its own."
           />
 
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-600">
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-mute">
             <p>
-              Yet for decades, software has been designed around departments.
-              Finance software. HR software. CRM software. Project software.
-              Each solved an individual problem. Very few solved the problem of
-              working together.
+              Software, though, has been sold by department for decades. One
+              tool for the books, another for the team, another for customers.
+              Each one solved its own problem well and almost none of them
+              solved the problem of working with the others.
             </p>
             <p>
-              So information gets copied. Processes get repeated. Teams spend
-              valuable time moving work between systems instead of moving the
-              business forward.
+              So things get copied across. The same job gets done twice. People
+              spend their week moving information between systems rather than
+              doing the work the systems were bought for.
             </p>
             <p>
-              The problem isn't that businesses need more software. It's that
-              businesses need software that understands how everything
-              connects.
+              The answer was never more software. It was software that already
+              knew what the rest of it was doing.
             </p>
           </div>
 
           {/* The idea, in one line */}
           <blockquote className="world-quote my-14 border-l-2 border-cyan pl-6">
-            <p className="text-heading-sm font-bold text-navy md:text-heading-md">
+            <p className="text-heading-sm font-bold text-white md:text-heading-md">
               Business is already connected.
               <br />
               Software should be too.
             </p>
           </blockquote>
 
-          <div className="space-y-5 text-base leading-relaxed text-slate-600">
+          <div className="space-y-5 text-base leading-relaxed text-mute">
             <p>
-              We don't believe businesses should spend their time maintaining
-              software. They should spend it serving customers, supporting
-              employees, making better decisions and growing with confidence.
+              Nobody starts a business to maintain software. They start one to
+              look after customers, pay a team well and make decisions they can
+              stand behind.
             </p>
             <p>
-              Technology should quietly support the business — not become
-              another job to manage. That's the future we believe organizations
-              deserve, and it's why Sharpnr exists.
+              Technology should sit quietly underneath all of that instead of
+              becoming another thing to manage. That is what we are trying to
+              build.
             </p>
           </div>
         </div>

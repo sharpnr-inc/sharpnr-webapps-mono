@@ -1,11 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { IndustriesHeroSection } from "@/app/industries/hero/IndustriesHeroSection";
 import { HospitalitySection } from "@/app/industries/hospitality/HospitalitySection";
-import { HealthcareSection } from "@/app/industries/healthcare/HealthcareSection";
-import { RetailSection } from "@/app/industries/retail/RetailSection";
-import { CorporateSection } from "@/app/industries/corporate/CorporateSection";
-import { EducationSection } from "@/app/industries/education/EducationSection";
-import { ManufacturingSection } from "@/app/industries/manufacturing/ManufacturingSection";
+import { PreviewRun } from "@/app/industries/preview/PreviewRun";
 import { MultiIndustrySection } from "@/app/industries/multi/MultiIndustrySection";
 import { FutureSection } from "@/app/industries/future/FutureSection";
 
@@ -17,7 +13,7 @@ export const Route = createFileRoute("/industries")({
       {
         name: "description",
         content:
-          "Sharpnr adapts to how your industry works. Hospitality is available today for hotels, restaurants and cafés — with healthcare, retail, education, manufacturing and professional services on the way.",
+          "Hospitality is available today — hotels, restaurants, cafés and cloud kitchens. Healthcare, retail, education and manufacturing are being designed on the same platform.",
       },
       {
         property: "og:title",
@@ -26,7 +22,7 @@ export const Route = createFileRoute("/industries")({
       {
         property: "og:description",
         content:
-          "Industry-specific operational experiences on one connected platform. Built for your industry. Connected for your entire business.",
+          "Hospitality runs on Sharpnr today. Every other trade is still on the drawing board, and it is being drawn on the same foundation.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/industries" },
@@ -40,18 +36,23 @@ export const Route = createFileRoute("/industries")({
 
 /**
  * Industries page — organized around businesses, not products.
- * Every visitor should recognize their own industry.
+ *
+ * The page has one structural claim and it is an honest one: exactly one
+ * industry experience exists today. Hospitality is therefore the only
+ * section written at full length; the seven below it are previews of a
+ * plan, rendered by one repeated component from `preview/previews`, and
+ * they get visibly lighter the further down the page they sit.
+ *
+ * The order comes from that same file, and the hero rail reads its status
+ * from `industries/roadmap` — so adding an industry, or moving one from
+ * "In design" to "Available now", is a change in one place.
  */
 function IndustriesPage() {
   return (
     <div>
       <IndustriesHeroSection />
       <HospitalitySection />
-      <HealthcareSection />
-      <RetailSection />
-      <CorporateSection />
-      <EducationSection />
-      <ManufacturingSection />
+      <PreviewRun />
       <MultiIndustrySection />
       <FutureSection />
     </div>

@@ -3,11 +3,11 @@ import { SectionIntro } from "@/app/shared/SectionIntro";
 import { useFutureVisionAnimation } from "./animations/useFutureVisionAnimation";
 
 const lookingAhead = [
-  "Every business operates through connected experiences",
-  "Intelligence becomes part of everyday work",
-  "Organizations adopt technology without unnecessary complexity",
-  "Business knowledge stays connected at any size",
-  "Software quietly supports the business instead of demanding attention",
+  "Nobody types the same thing into two systems",
+  "A useful answer is there when the question comes up",
+  "Adopting software doesn't need a project team",
+  "What the business knows stays in one place, at any size",
+  "Software sits underneath the work instead of interrupting it",
 ] as const;
 
 /**
@@ -21,10 +21,11 @@ export function FutureVisionSection() {
   useFutureVisionAnimation({ sectionRef, bodyRef });
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={bodyRef} className="mx-auto max-w-2xl">
           <SectionIntro
+            tone="navy"
             eyebrow="The future we're building"
             heading={
               <>
@@ -36,7 +37,7 @@ export function FutureVisionSection() {
             lede="Our vision isn't another collection of business applications. It's connected business infrastructure that evolves as organizations, industries and technology change — without becoming obsolete every few years."
           />
 
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-600">
+          <div className="mt-8 space-y-5 text-base leading-relaxed text-mute">
             <p>
               As Sharpnr grows, organizations shouldn't need to start over.
               Today's small business could become tomorrow's enterprise. One
@@ -47,19 +48,19 @@ export function FutureVisionSection() {
           </div>
 
           <div className="mt-10">
-            <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-400">
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
               We're building for a future where
             </p>
             <ul className="mt-4 space-y-2.5">
               {lookingAhead.map((item) => (
-                <li key={item} className="border-l-2 border-slate-200 pl-4 text-base text-slate-600">
+                <li key={item} className="border-l-2 border-sky/20 pl-4 text-base text-mute">
                   {item}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="mt-10 space-y-5 text-base leading-relaxed text-slate-600">
+          <div className="mt-10 space-y-5 text-base leading-relaxed text-mute">
             <p>
               Building business infrastructure carries responsibility.
               Organizations trust platforms with their people, their customers,
@@ -67,7 +68,7 @@ export function FutureVisionSection() {
               earned every day — through thoughtful design, reliable technology
               and a relentless focus on real business problems.
             </p>
-            <p className="font-medium text-navy">
+            <p className="font-medium text-white">
               The destination isn't more software. It's better businesses.
             </p>
           </div>

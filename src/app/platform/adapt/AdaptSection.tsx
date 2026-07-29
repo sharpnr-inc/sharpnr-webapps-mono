@@ -54,12 +54,13 @@ export function AdaptSection() {
   };
 
   return (
-    <section ref={sectionRef} className="bg-soft">
+    <section ref={sectionRef} className="hp-section relative">
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
         <div ref={introRef}>
           <SectionIntro
+            tone="navy"
             align="center"
-            eyebrow="One platform. Different businesses."
+            eyebrow="Your industry"
             heading={
               <>
                 Different businesses.
@@ -67,7 +68,7 @@ export function AdaptSection() {
                 One connected foundation.
               </>
             }
-            lede="Every industry has unique operational needs, but finance, people, communication and data remain universal. Sharpnr adapts the experience — the foundation underneath never changes."
+            lede="The work on top changes with the trade. Finance, people and customers do not."
           />
         </div>
 
@@ -81,8 +82,8 @@ export function AdaptSection() {
               aria-pressed={i === active}
               className={`rounded-full border px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${
                 i === active
-                  ? "border-blue bg-white text-navy"
-                  : "border-slate-300 bg-white/60 text-slate-500 hover:border-slate-400 hover:text-slate-700"
+                  ? "border-cyan/55 bg-cyan/10 text-white"
+                  : "border-sky/15 bg-sky/[0.025] text-mute hover:border-sky/30 hover:text-white"
               }`}
             >
               {ind.name}
@@ -91,14 +92,14 @@ export function AdaptSection() {
         </div>
 
         {/* The adaptive workspace */}
-        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-2xl border border-slate-200 bg-white">
+        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl border border-sky/15 bg-sky/[0.025]">
           {/* Operational experience — transforms with the industry */}
           <div className="px-6 py-8 md:px-10 md:py-10">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm font-medium text-slate-500">
+              <p className="text-sm font-medium text-mute/70">
                 Operational experience
               </p>
-              <StatusBadge kind={industry.status} />
+              <StatusBadge tone="navy" kind={industry.status} />
             </div>
             <ul
               ref={workflowsRef}
@@ -107,7 +108,7 @@ export function AdaptSection() {
               {industry.workflows.map((w) => (
                 <li
                   key={w}
-                  className="rounded-xl border border-slate-200 bg-soft px-3 py-4 text-center text-sm font-medium text-slate-700"
+                  className="rounded-lg border border-sky/12 bg-sky/[0.035] px-3 py-4 text-center text-sm font-medium text-white/85"
                 >
                   {w}
                 </li>
@@ -116,8 +117,8 @@ export function AdaptSection() {
           </div>
 
           {/* The foundation — never changes */}
-          <div className="border-t border-slate-200 bg-navy px-6 py-6 md:px-10">
-            <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">
+          <div className="border-t border-sky/15 bg-sky/[0.045] px-6 py-6 md:px-10">
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
               The foundation — shared by every industry
             </p>
             <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
@@ -130,23 +131,12 @@ export function AdaptSection() {
           </div>
         </div>
 
-        {/* Availability — always transparent */}
-        <div className="mx-auto mt-12 grid max-w-3xl gap-8 text-sm sm:grid-cols-3">
-          <div>
-            <StatusBadge kind="available" />
-            <p className="mt-3 text-slate-600">Hospitality</p>
-          </div>
-          <div>
-            <StatusBadge kind="soon" />
-            <p className="mt-3 text-slate-600">Healthcare (Lifco)</p>
-          </div>
-          <div>
-            <StatusBadge kind="roadmap" label="Planned expansion" />
-            <p className="mt-3 text-slate-600">
-              Retail, education, manufacturing, professional services and more
-            </p>
-          </div>
-        </div>
+        {/* The availability grid that used to sit here listed the same five
+            industries and the same three statuses a third time — once in
+            the selector, once in the badge beside the workspace, and again
+            underneath. Status is already visible on whichever industry the
+            visitor has selected, which is the one they are asking about.
+            The Industries page is where the full roadmap belongs. */}
       </div>
     </section>
   );

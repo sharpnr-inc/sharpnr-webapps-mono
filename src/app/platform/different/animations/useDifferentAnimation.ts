@@ -9,9 +9,12 @@ interface DifferentAnimationRefs {
 }
 
 /**
- * The defining brand moment: a business comes alive event by event,
- * then everything converges into one point — and the philosophy is
- * finally given its name. Plays once; the reveal stays.
+ * One comparison, made in two beats.
+ *
+ * The top band assembles and then weaves itself together; the bottom band
+ * arrives already finished and stays that way. The asymmetry is the whole
+ * argument — the eye should be waiting for the second band to connect, and
+ * it never does. Plays once.
  */
 export function useDifferentAnimation(refs: DifferentAnimationRefs) {
   const { sectionRef, introRef, revealRef } = refs;
@@ -34,50 +37,49 @@ export function useDifferentAnimation(refs: DifferentAnimationRefs) {
         scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
       });
 
-      // Initial states — applied before the story begins.
-      gsap.set(".diff-event", { opacity: 0, scale: 0.7, transformOrigin: "center center" });
-      gsap.set(".diff-arc", { drawSVG: "0%" });
-      gsap.set(".diff-spoke", { drawSVG: "0% 0%" });
-      gsap.set(".diff-core", { opacity: 0, scale: 0.6, transformOrigin: "280px 280px" });
+      gsap.set(".diff-node", {
+        opacity: 0,
+        y: 10,
+        transformOrigin: "center center",
+      });
+      gsap.set(".diff-severed", { opacity: 0, y: 10 });
+      gsap.set(".diff-link", { drawSVG: "0%" });
+      gsap.set(".diff-band", { opacity: 0 });
       gsap.set(revealRef.current!.children, { opacity: 0, y: 16 });
 
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut" },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 45%",
-        },
+        scrollTrigger: { trigger: sectionRef.current, start: "top 45%" },
       });
 
-      // ── The business comes alive, one event creating the next ──
-      const eventNodes = gsap.utils.toArray<Element>(".diff-event");
-      const arcPaths = gsap.utils.toArray<Element>(".diff-arc");
-
-      eventNodes.forEach((node, i) => {
-        tl.to(node, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" });
-        if (i < arcPaths.length) {
-          tl.to(arcPaths[i], { drawSVG: "100%", duration: 0.5 }, ">-0.15");
-        }
-      });
-
-      // ── The convergence — everything flows to one point ────────
-      tl.to(".diff-arc", { strokeOpacity: 0.15, duration: 0.8 }, "+=0.6");
+      // ── The business: parts first, then the ties between them ──
+      tl.to(".diff-band", { opacity: 1, duration: 0.4, stagger: 0.5 });
       tl.to(
-        ".diff-spoke",
-        { drawSVG: "0% 100%", duration: 1.1, stagger: 0.08, ease: "power2.in" },
+        ".diff-node",
+        { opacity: 1, y: 0, duration: 0.34, stagger: 0.09, ease: "power3.out" },
         "<",
       );
-      tl.to(".diff-core", {
-        opacity: 1,
-        scale: 1,
-        duration: 0.7,
-        ease: "power3.out",
+      // The four straight runs go first and quickly — they are the obvious
+      // connections. The three that jog clear of the row follow, slower,
+      // because they are the ones carrying the claim.
+      tl.to(".diff-link", {
+        drawSVG: "100%",
+        duration: 0.5,
+        stagger: 0.08,
+        ease: "power2.out",
       });
 
-      // ── Pause. Then the philosophy is named. ───────────────────
+      // ── The software: the same parts, and nothing joins them ──
+      tl.to(
+        ".diff-severed",
+        { opacity: 1, y: 0, duration: 0.34, stagger: 0.09, ease: "power3.out" },
+        "+=0.35",
+      );
+
+      // ── Pause on the gap, then name the philosophy ──
       tl.to(
         revealRef.current!.children,
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.35, ease: "power3.out" },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.22, ease: "power3.out" },
         "+=0.5",
       );
     },
