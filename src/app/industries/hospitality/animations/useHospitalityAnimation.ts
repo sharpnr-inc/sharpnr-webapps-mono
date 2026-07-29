@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { revealHeadings } from "@/app/industries/headings";
 
 interface HospitalityAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -18,7 +19,21 @@ export function useHospitalityAnimation(refs: HospitalityAnimationRefs) {
       ).matches;
       if (prefersReducedMotion) return;
 
-      gsap.from(introRef.current ? introRef.current.children : [], {
+      /* Every dual-colour heading in the section, through the one shared
+         word reveal — the section heading and all three sub-headings, so
+         none of them sits still while the rest of the page moves. */
+      revealHeadings(sectionRef.current);
+
+      /* The heading is deliberately excluded: `revealHeadings` already owns
+         its words, and a block fade over the top of that is two animations
+         writing opacity on the same subtree. */
+      const introBlocks = introRef.current
+        ? Array.from(introRef.current.children).filter(
+            (el) => !el.classList.contains("ind-heading"),
+          )
+        : [];
+
+      gsap.from(introBlocks, {
         opacity: 0,
         y: 24,
         duration: 0.6,

@@ -96,7 +96,7 @@ export const CAPABILITIES: Capability[] = [
     products: [
       {
         name: "Sharp-Hospitality",
-        line: "Keep a venue or an entire chain running — tables, orders, the kitchen and the rooms, without four systems to reconcile.",
+        line: "Keep a venue or an entire chain running — tables, orders, the kitchen and the rooms, with nothing left to reconcile afterwards.",
         href: config.hospitalityAppUrl,
       },
       {

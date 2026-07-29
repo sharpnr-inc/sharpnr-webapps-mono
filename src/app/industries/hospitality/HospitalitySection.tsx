@@ -11,8 +11,9 @@ import {
   Store,
   Utensils,
 } from "lucide-react";
-import { SectionIntro } from "@/app/shared/SectionIntro";
-import { StatusBadge } from "@/app/shared/StatusBadge";
+import { DualHeading } from "@/app/industries/DualHeading";
+import { IndustryGlyph } from "@/app/industries/glyphs";
+import { StatusChip } from "@/app/industries/StatusChip";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { CATALOGUE } from "./catalogue";
 import { HospitalityChain } from "./HospitalityChain";
@@ -87,24 +88,34 @@ export function HospitalitySection() {
       className="relative scroll-mt-24 border-t border-white/[0.07]"
     >
       <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+        {/* Name left, status hard right, rule under — the same header the
+            seven previews carry, so the one industry that exists is read
+            in the same glance as the ones that do not. Its chip is the
+            only cyan one on the page. */}
         <div ref={introRef}>
-          <div className="mb-5 flex items-center gap-3">
-            <StatusBadge kind="available" tone="navy" />
-            <span className="text-sm text-mute">
-              Sharp Operations · Hospitality
-            </span>
+          <div className="flex items-center justify-between gap-4 border-b border-sky/12 pb-4">
+            <div className="flex items-center gap-4">
+              <IndustryGlyph
+                id="hospitality"
+                className="h-11 w-16 shrink-0"
+              />
+              <span className="font-mono text-[0.6875rem] uppercase tracking-[0.18em] text-mute">
+                Sharp Operations · Hospitality
+              </span>
+            </div>
+            <StatusChip status="available" />
           </div>
-          <SectionIntro
-            tone="navy"
-            heading={
-              <>
-                Built for hospitality.
-                <br />
-                Designed around how you actually operate.
-              </>
-            }
-            lede="Hospitality is fast-paced — every minute matters, and staff coordinate across kitchens, rooms, inventory and suppliers. Your team focuses on guests. Sharpnr keeps the business connected."
+
+          <DualHeading
+            lead="Built for hospitality,"
+            tail="not adapted to it."
+            className="mt-8 text-heading-lg md:text-heading-xl"
           />
+          <p className="prose-width mt-5 text-body-lg text-mute">
+            Hospitality is fast-paced — every minute matters, and staff
+            coordinate across kitchens, rooms, inventory and suppliers. Your
+            team focuses on guests. Sharpnr keeps the business connected.
+          </p>
         </div>
 
         {/* One guest, one connected day — alternating rail */}
@@ -140,17 +151,30 @@ export function HospitalitySection() {
           </ol>
         </div>
 
-        {/* One guest action, seven systems responding. */}
+        {/* One guest action, seven systems responding.
+
+            The paragraph that used to sit here listed the kitchen, the
+            stock count, the books, the guest's history and the manager's
+            figures — which is exactly the sequence lighting up in the
+            figure directly below it. The reader was told the thing and
+            then shown the thing. One lead-in line survives; every node in
+            the drawing already carries its own two-word label, which is
+            where an explanation belongs because it is where the eye
+            already is. "Nothing operates in isolation" is gone too: the
+            unbroken line under the ecosystem band is that sentence. */}
         <div className="mt-24">
-          <h3 className="text-heading-sm font-bold text-white md:text-heading-md">
-            One order. Seven systems. Nothing re-entered.
-          </h3>
+          {/* Every word of the original headline survives; it is only
+              broken at the comma so it can take the site's two-colour
+              form. "Nothing re-entered" is the half that belongs in
+              twilight — it is the consequence, not the claim. */}
+          <DualHeading
+            as="h3"
+            lead="One order,"
+            tail="nothing re-entered."
+          />
           <p className="prose-width mt-3 text-base text-mute">
             A guest orders once. Everything behind that moment responds on
-            its own — the kitchen, the stock count, the books, the guest&rsquo;s
-            history and the figures your managers read. Underneath it, the
-            rest of the ecosystem is doing the same work. Nothing operates in
-            isolation.
+            its own.
           </p>
           <div ref={chainRef} className="mx-auto mt-12 max-w-5xl">
             <HospitalityChain />
@@ -159,9 +183,11 @@ export function HospitalitySection() {
 
         {/* What powers the day */}
         <div className="mt-24">
-          <h3 className="text-heading-sm font-bold text-white md:text-heading-md">
-            Powering every one of those moments
-          </h3>
+          <DualHeading
+            as="h3"
+            lead="Powering every moment,"
+            tail="on one platform."
+          />
           <p className="prose-width mt-3 text-base text-mute">
             Operations, business, customer and intelligence — every one of
             them part of the same platform, not a bundle of applications sold
@@ -188,24 +214,34 @@ export function HospitalitySection() {
         </div>
 
         {/* Who it's for */}
+        {/* Who it's for — cards, not a list.
+
+            Ten names on ten hairlines read as a footnote. As cards they
+            read as a range, which is the claim: this one experience covers
+            a hotel, a cloud kitchen and a franchise group. The hover is
+            `transition-colors` only — a bare `transition` would cover
+            transform and opacity and fight every GSAP tween in the
+            section. Glyphs stay hidden; the name is the search surface and
+            carries the meaning on its own. */}
         <div className="mt-24">
-          <h3 className="text-heading-sm font-bold text-white md:text-heading-md">
-            Built for hospitality businesses of every shape
-          </h3>
-          <ul className="mt-8 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-5">
+          <DualHeading
+            as="h3"
+            lead="Every hospitality business,"
+            tail="whatever its shape."
+          />
+          <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {builtFor.map(({ name, icon: Icon }) => (
-              <li
-                key={name}
-                className="flex items-center gap-3 border-t border-sky/15 pt-4"
-              >
-                <Icon
-                  className="size-4 shrink-0 text-cyan"
-                  strokeWidth={1.6}
-                  aria-hidden="true"
-                />
-                <span className="text-sm font-medium text-white/85">
-                  {name}
-                </span>
+              <li key={name}>
+                <div className="group flex h-full flex-col justify-between gap-6 border border-sky/12 p-4 transition-colors duration-200 hover:border-cyan/45">
+                  <Icon
+                    className="size-5 shrink-0 text-cyan/70 transition-colors duration-200 group-hover:text-cyan"
+                    strokeWidth={1.4}
+                    aria-hidden="true"
+                  />
+                  <span className="text-sm font-medium leading-snug text-white/85">
+                    {name}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>

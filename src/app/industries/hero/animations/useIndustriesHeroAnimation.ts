@@ -13,7 +13,6 @@ interface IndustriesHeroAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
   eyebrowRef: RefObject<HTMLParagraphElement | null>;
   copyRef: RefObject<HTMLParagraphElement | null>;
-  ctaRef: RefObject<HTMLDivElement | null>;
   railRef: RefObject<HTMLDivElement | null>;
 }
 
@@ -23,16 +22,19 @@ interface IndustriesHeroAnimationRefs {
  *   0.15  Every industry,
  *   0.45  One foundation.
  *   0.90  the sentence
- *   1.15  the invitation
- *   1.30  the rail, then the businesses standing on it
+ *   1.10  the rail, then the industries standing on it
  *
- * The rail arrives before the businesses do — it is the thing they stand
+ * The rail arrives before the industries do — it is the thing they stand
  * on, so it cannot turn up afterwards.
+ *
+ * The 1.15 beat that used to belong to two buttons is gone with them; the
+ * figure simply moves up into the gap rather than waiting through a pause
+ * for something that is no longer there.
  */
-const T = { line1: 0.15, line2: 0.45, copy: 0.9, cta: 1.15, rail: 1.3 } as const;
+const T = { line1: 0.15, line2: 0.45, copy: 0.9, rail: 1.1 } as const;
 
 export function useIndustriesHeroAnimation(refs: IndustriesHeroAnimationRefs) {
-  const { sectionRef, eyebrowRef, copyRef, ctaRef, railRef } = refs;
+  const { sectionRef, eyebrowRef, copyRef, railRef } = refs;
 
   useGSAP(
     () => {
@@ -52,14 +54,31 @@ export function useIndustriesHeroAnimation(refs: IndustriesHeroAnimationRefs) {
       revealWords(line1, T.line1);
       revealWords(line2, T.line2);
 
-      const buttons = ctaRef.current ? Array.from(ctaRef.current.children) : [];
       gsap
         .timeline({ defaults: { ease: EASE.in, duration: MOTION.base } })
         .from(eyebrowRef.current, { opacity: 0, y: 10 }, 0)
-        .from(copyRef.current, { opacity: 0, y: 16 }, T.copy)
-        .from(buttons, { opacity: 0, y: 12, stagger: 0.1 }, T.cta);
+        .from(copyRef.current, { opacity: 0, y: 16 }, T.copy);
 
-      if (!railRef.current) return;
+      const rail = railRef.current;
+      if (!rail) return;
+
+      /* Both renderings are always in the DOM and CSS lays out one of them,
+         so both are armed. The stacked list carries none of the drawing's
+         `.ind-hero-*` hooks — it gets the one move that suits a list, and
+         the figure's timeline simply runs against a display:none subtree
+         on a phone, which costs nothing and leaves it correct if the
+         viewport is widened. */
+      const rows = Array.from(rail.querySelectorAll<HTMLElement>("li"));
+      if (rows.length) {
+        gsap.from(rows, {
+          opacity: 0,
+          y: 10,
+          duration: MOTION.quick,
+          stagger: 0.05,
+          ease: EASE.in,
+          delay: T.rail,
+        });
+      }
 
       gsap
         .timeline({ delay: T.rail })

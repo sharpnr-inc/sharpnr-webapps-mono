@@ -10,8 +10,9 @@
  *
  * Each has to prove its heading with the text removed:
  *
- *   the rail — eight businesses whose *own* structure is all different and
- *   whose foundation is one unbroken line;
+ *   the rail — eight industries whose *own* shape is all different and
+ *   whose foundation is one unbroken line, with the one that exists today
+ *   drawn at full weight and the seven being designed drawn back;
  *
  *   the group — six divisions, each still its own enclosure, joined to one
  *   shared core by right-angled runs rather than by being absorbed into it.
@@ -20,6 +21,9 @@
  * (`ind-hero-*`, `multi-*`), and every drawn connector stays a <path> so
  * DrawSVGPlugin can still measure it.
  */
+import { IndustryGlyph, INDUSTRY_GLYPH } from "./glyphs";
+import { INDUSTRIES, STATUS_SHORT } from "./roadmap";
+import { StatusChip } from "./StatusChip";
 
 const ACCENT = "#00b4d8";
 
@@ -34,102 +38,132 @@ const LABEL = {
   fontWeight: 500,
 } as const;
 
-/*
- * Eight businesses. `parts` is the number of internal divisions drawn
- * inside each module — a café is not a factory, and the diagram says so
- * before a single label is read. Widths vary for the same reason.
- */
-const BUSINESSES = [
-  { label: "Hotel", w: 96, parts: 4 },
-  { label: "Restaurant", w: 88, parts: 3 },
-  { label: "Café", w: 64, parts: 2 },
-  { label: "Hospital", w: 100, parts: 5 },
-  { label: "Retail store", w: 84, parts: 3 },
-  { label: "University", w: 92, parts: 4 },
-  { label: "Factory", w: 88, parts: 4 },
-  { label: "Office", w: 68, parts: 2 },
-] as const;
-
+/* ── The hero rail ────────────────────────────────────────────────────
+   One 112.5-unit column per industry, 40 units of margin each side. Every
+   number below is a row in that grid; nothing is positioned by eye. */
 const PITCH = 112.5;
 const FIRST = 40 + PITCH / 2;
+const RAIL = {
+  glyphTop: 6,
+  nameY: 68,
+  lineH: 14,
+  statusY: 102,
+  stemTop: 112,
+  y: 136,
+  tick: 8,
+  kickerY: 172,
+} as const;
+
+const railLabel = INDUSTRIES.map((i) => i.name).join(", ");
 
 /**
  * Industries hero — different above, identical below.
  *
- * The rail is drawn as ONE line across the whole width and is never broken
- * under a module, because the claim is that the foundation is the same
- * thing for all of them rather than eight foundations that happen to line
- * up. Only the modules on top of it differ.
+ * Two claims in one figure, which is why it has been moved into the hero:
+ * it *is* the page's argument, and it was previously sitting below the
+ * fold where nobody reached it.
+ *
+ *   different above  each industry is drawn as itself, not as the same
+ *                    rectangle with a different caption.
+ *   identical below  the rail is ONE line across the whole width and is
+ *                    never broken under a column, because the claim is
+ *                    that the foundation is the same thing for all of
+ *                    them rather than eight that happen to line up.
+ *
+ * The third thing it says is the honest one. Hospitality is drawn at full
+ * weight and carries the accent; the seven being designed are drawn back,
+ * and each column states its own status in type. A visitor who reads
+ * nothing else on the page still leaves knowing which one exists.
  */
 export function IndustryRailDiagram() {
   return (
     <svg
-      viewBox="0 0 980 232"
+      viewBox="0 0 980 190"
       role="img"
-      aria-label="Hotels, restaurants, cafés, hospitals, stores, universities, factories and offices — each a different operation, all standing on one shared Sharpnr platform"
+      aria-label={`${railLabel} — each a different operation, all standing on one shared Sharpnr platform. Hospitality is available today; the rest are in design.`}
       className="h-auto w-full"
       fill="none"
     >
-      {/* Stems — every business drops to the same rail. */}
+      {/* Stems — every industry drops to the same rail. */}
       <g>
-        {BUSINESSES.map((b, i) => {
+        {INDUSTRIES.map((ind, i) => {
           const cx = FIRST + i * PITCH;
           return (
             <path
-              key={`l-${b.label}`}
+              key={`l-${ind.id}`}
               className="ind-hero-line"
-              d={`M${cx} 128 L${cx} 172`}
+              d={`M${cx} ${RAIL.stemTop} L${cx} ${RAIL.y}`}
               {...faint}
             />
           );
         })}
       </g>
 
-      {BUSINESSES.map((b, i) => {
+      {INDUSTRIES.map((ind, i) => {
         const cx = FIRST + i * PITCH;
-        const x = cx - b.w / 2;
-        const step = b.w / b.parts;
+        const Glyph = INDUSTRY_GLYPH[ind.id];
+        const live = ind.status === "available";
         return (
-          <g key={b.label} className="ind-hero-node">
-            <text x={cx} y={54} textAnchor="middle" {...LABEL}>
-              {b.label}
-            </text>
-            <rect x={x} y={72} width={b.w} height={56} {...edge} />
-            {/* Its own internal structure — this is what differs. */}
-            {Array.from({ length: b.parts - 1 }).map((_, k) => (
-              <line
-                key={k}
-                x1={x + step * (k + 1)}
-                y1={72}
-                x2={x + step * (k + 1)}
-                y2={128}
-                {...faint}
-              />
+          <g key={ind.id} className="ind-hero-node">
+            {/* The glyph is drawn at 1:1 into this stage, never scaled, so
+                its line weight matches the rail's rather than being
+                thinned or thickened by a transform. */}
+            <g
+              transform={`translate(${cx - 32} ${RAIL.glyphTop})`}
+              opacity={live ? 1 : 0.55}
+            >
+              {Glyph ? <Glyph /> : null}
+            </g>
+
+            {ind.lines.map((line, li) => (
+              <text
+                key={line}
+                x={cx}
+                y={RAIL.nameY + li * RAIL.lineH}
+                textAnchor="middle"
+                {...LABEL}
+                fill={live ? "#ffffff" : LABEL.fill}
+                fillOpacity={live ? 0.92 : 0.6}
+              >
+                {line}
+              </text>
             ))}
-            <line x1={x} y1={110} x2={x + b.w} y2={110} {...faint} />
+
+            <text
+              x={cx}
+              y={RAIL.statusY}
+              textAnchor="middle"
+              fill={live ? ACCENT : "#5c87b5"}
+              fillOpacity={live ? 0.95 : 0.75}
+              fontSize={9}
+              fontFamily="var(--font-mono)"
+              letterSpacing="0.14em"
+            >
+              {STATUS_SHORT[ind.status]}
+            </text>
           </g>
         );
       })}
 
-      {/* One rail. Unbroken, full width, identical under every module. */}
+      {/* One rail. Unbroken, full width, identical under every column. */}
       <g className="ind-hero-platform">
-        <line x1={40} y1={172} x2={940} y2={172} {...base} />
-        {BUSINESSES.map((b, i) => {
+        <line x1={40} y1={RAIL.y} x2={940} y2={RAIL.y} {...base} />
+        {INDUSTRIES.map((ind, i) => {
           const cx = FIRST + i * PITCH;
           return (
             <line
-              key={`t-${b.label}`}
-              x1={cx - 9}
-              y1={180}
-              x2={cx + 9}
-              y2={180}
+              key={`t-${ind.id}`}
+              x1={cx}
+              y1={RAIL.y}
+              x2={cx}
+              y2={RAIL.y + RAIL.tick}
               {...edge}
             />
           );
         })}
         <text
           x={490}
-          y={210}
+          y={RAIL.kickerY}
           textAnchor="middle"
           fill={ACCENT}
           fillOpacity={0.6}
@@ -141,6 +175,43 @@ export function IndustryRailDiagram() {
         </text>
       </g>
     </svg>
+  );
+}
+
+/**
+ * The same eight, stacked — below md.
+ *
+ * A 980-unit drawing at 375px is illegible rather than small, and the
+ * industry names are the page's most important search surface, so on a
+ * phone they are laid out as an ordinary list instead of being shrunk or
+ * dropped. Same three facts per row as a column of the rail: glyph, name,
+ * status.
+ */
+export function IndustryRoadmapList({ className = "" }: { className?: string }) {
+  return (
+    <ul className={`grid gap-x-6 gap-y-3 sm:grid-cols-2 ${className}`}>
+      {INDUSTRIES.map((ind) => (
+        <li
+          key={ind.id}
+          className="flex items-center gap-3 border-t border-sky/12 pt-3"
+        >
+          <IndustryGlyph
+            id={ind.id}
+            className={`h-6 w-9 shrink-0 ${
+              ind.status === "available" ? "" : "opacity-55"
+            }`}
+          />
+          <span
+            className={`flex-1 text-sm font-medium ${
+              ind.status === "available" ? "text-white" : "text-mute"
+            }`}
+          >
+            {ind.name}
+          </span>
+          <StatusChip status={ind.status} />
+        </li>
+      ))}
+    </ul>
   );
 }
 
