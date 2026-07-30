@@ -14,6 +14,7 @@ import { Route as EmpRouteRouteImport } from './routes/emp/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
 import { Route as EmpProvisioningIndexRouteImport } from './routes/emp/provisioning/index'
+import { Route as EmpProvDataRouteImport } from './routes/emp/prov/$data'
 
 const SaRouteRoute = SaRouteRouteImport.update({
   id: '/sa',
@@ -40,12 +41,18 @@ const EmpProvisioningIndexRoute = EmpProvisioningIndexRouteImport.update({
   path: '/provisioning/',
   getParentRoute: () => EmpRouteRoute,
 } as any)
+const EmpProvDataRoute = EmpProvDataRouteImport.update({
+  id: '/prov/$data',
+  path: '/prov/$data',
+  getParentRoute: () => EmpRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/emp': typeof EmpRouteRouteWithChildren
   '/sa': typeof SaRouteRoute
   '/signup/': typeof SignupIndexRoute
+  '/emp/prov/$data': typeof EmpProvDataRoute
   '/emp/provisioning/': typeof EmpProvisioningIndexRoute
 }
 export interface FileRoutesByTo {
@@ -53,6 +60,7 @@ export interface FileRoutesByTo {
   '/emp': typeof EmpRouteRouteWithChildren
   '/sa': typeof SaRouteRoute
   '/signup': typeof SignupIndexRoute
+  '/emp/prov/$data': typeof EmpProvDataRoute
   '/emp/provisioning': typeof EmpProvisioningIndexRoute
 }
 export interface FileRoutesById {
@@ -61,14 +69,28 @@ export interface FileRoutesById {
   '/emp': typeof EmpRouteRouteWithChildren
   '/sa': typeof SaRouteRoute
   '/signup/': typeof SignupIndexRoute
+  '/emp/prov/$data': typeof EmpProvDataRoute
   '/emp/provisioning/': typeof EmpProvisioningIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/emp' | '/sa' | '/signup/' | '/emp/provisioning/'
+  fullPaths:
+    | '/'
+    | '/emp'
+    | '/sa'
+    | '/signup/'
+    | '/emp/prov/$data'
+    | '/emp/provisioning/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/emp' | '/sa' | '/signup' | '/emp/provisioning'
-  id: '__root__' | '/' | '/emp' | '/sa' | '/signup/' | '/emp/provisioning/'
+  to: '/' | '/emp' | '/sa' | '/signup' | '/emp/prov/$data' | '/emp/provisioning'
+  id:
+    | '__root__'
+    | '/'
+    | '/emp'
+    | '/sa'
+    | '/signup/'
+    | '/emp/prov/$data'
+    | '/emp/provisioning/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -115,14 +137,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpProvisioningIndexRouteImport
       parentRoute: typeof EmpRouteRoute
     }
+    '/emp/prov/$data': {
+      id: '/emp/prov/$data'
+      path: '/prov/$data'
+      fullPath: '/emp/prov/$data'
+      preLoaderRoute: typeof EmpProvDataRouteImport
+      parentRoute: typeof EmpRouteRoute
+    }
   }
 }
 
 interface EmpRouteRouteChildren {
+  EmpProvDataRoute: typeof EmpProvDataRoute
   EmpProvisioningIndexRoute: typeof EmpProvisioningIndexRoute
 }
 
 const EmpRouteRouteChildren: EmpRouteRouteChildren = {
+  EmpProvDataRoute: EmpProvDataRoute,
   EmpProvisioningIndexRoute: EmpProvisioningIndexRoute,
 }
 
