@@ -9,9 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SaRouteRouteImport } from './routes/sa/route'
+import { Route as EmpRouteRouteImport } from './routes/emp/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
+import { Route as EmpProvisioningIndexRouteImport } from './routes/emp/provisioning/index'
 
+const SaRouteRoute = SaRouteRouteImport.update({
+  id: '/sa',
+  path: '/sa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmpRouteRoute = EmpRouteRouteImport.update({
+  id: '/emp',
+  path: '/emp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -22,35 +35,65 @@ const SignupIndexRoute = SignupIndexRouteImport.update({
   path: '/signup/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmpProvisioningIndexRoute = EmpProvisioningIndexRouteImport.update({
+  id: '/provisioning/',
+  path: '/provisioning/',
+  getParentRoute: () => EmpRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/emp': typeof EmpRouteRouteWithChildren
+  '/sa': typeof SaRouteRoute
   '/signup/': typeof SignupIndexRoute
+  '/emp/provisioning/': typeof EmpProvisioningIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/emp': typeof EmpRouteRouteWithChildren
+  '/sa': typeof SaRouteRoute
   '/signup': typeof SignupIndexRoute
+  '/emp/provisioning': typeof EmpProvisioningIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/emp': typeof EmpRouteRouteWithChildren
+  '/sa': typeof SaRouteRoute
   '/signup/': typeof SignupIndexRoute
+  '/emp/provisioning/': typeof EmpProvisioningIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/signup/'
+  fullPaths: '/' | '/emp' | '/sa' | '/signup/' | '/emp/provisioning/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/signup'
-  id: '__root__' | '/' | '/signup/'
+  to: '/' | '/emp' | '/sa' | '/signup' | '/emp/provisioning'
+  id: '__root__' | '/' | '/emp' | '/sa' | '/signup/' | '/emp/provisioning/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EmpRouteRoute: typeof EmpRouteRouteWithChildren
+  SaRouteRoute: typeof SaRouteRoute
   SignupIndexRoute: typeof SignupIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sa': {
+      id: '/sa'
+      path: '/sa'
+      fullPath: '/sa'
+      preLoaderRoute: typeof SaRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emp': {
+      id: '/emp'
+      path: '/emp'
+      fullPath: '/emp'
+      preLoaderRoute: typeof EmpRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -65,11 +108,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emp/provisioning/': {
+      id: '/emp/provisioning/'
+      path: '/provisioning'
+      fullPath: '/emp/provisioning/'
+      preLoaderRoute: typeof EmpProvisioningIndexRouteImport
+      parentRoute: typeof EmpRouteRoute
+    }
   }
 }
 
+interface EmpRouteRouteChildren {
+  EmpProvisioningIndexRoute: typeof EmpProvisioningIndexRoute
+}
+
+const EmpRouteRouteChildren: EmpRouteRouteChildren = {
+  EmpProvisioningIndexRoute: EmpProvisioningIndexRoute,
+}
+
+const EmpRouteRouteWithChildren = EmpRouteRoute._addFileChildren(
+  EmpRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EmpRouteRoute: EmpRouteRouteWithChildren,
+  SaRouteRoute: SaRouteRoute,
   SignupIndexRoute: SignupIndexRoute,
 }
 export const routeTree = rootRouteImport

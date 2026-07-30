@@ -5,17 +5,13 @@ const requiredVars = [
   "VITE_API_URL",
   "VITE_API_CSRF",
 
-  // Third-party
-  "VITE_API_CITY_STATE_BASE_URL",
-  "VITE_API_CITY_STATE_API_KEY",
-
   // Internal Apps
   "VITE_API_ACCOUNTING_APP",
   "VITE_API_AUTH_APP",
   "VITE_API_ORCHESTRATOR_APP",
   "VITE_API_HOSPITALITY_APP",
   "VITE_API_IAM_APP",
-  "VITE_API_MARKETING_APP",
+  "VITE_API_SHARPCRM_APP",
   "VITE_API_HR_APP",
 
   // New Services
@@ -38,16 +34,13 @@ export const config = {
   apiBaseUrl: import.meta.env.VITE_API_URL,
   csrfToken: import.meta.env.VITE_API_CSRF,
 
-  // Third-party Services
-  cityStateBaseUrl: import.meta.env.VITE_API_CITY_STATE_BASE_URL,
-  cityStateApiKey: import.meta.env.VITE_API_CITY_STATE_API_KEY,
-
+  // Internal Apps
   accountingAppUrl: import.meta.env.VITE_API_ACCOUNTING_APP,
   authAppUrl: import.meta.env.VITE_API_AUTH_APP,
   orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP,
   hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP,
   iamAppUrl: import.meta.env.VITE_API_IAM_APP,
-  marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP,
+  sharpcrmAppUrl: import.meta.env.VITE_API_SHARPCRM_APP,
   hrAppUrl: import.meta.env.VITE_API_HR_APP,
 
   // New Services

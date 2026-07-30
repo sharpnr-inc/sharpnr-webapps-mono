@@ -30,7 +30,7 @@ const baseApps: SharpnrApp[] = [
   { key: "orchestrator", name: "Orchestrator", url: config.orchestratorAppUrl },
   { key: "accounting", name: "Accounting", url: config.accountingAppUrl },
   { key: "hospitality", name: "Hospitality", url: config.hospitalityAppUrl },
-  { key: "marketing", name: "Marketing", url: config.marketingAppUrl },
+  { key: "sharpcrm", name: "SharpCRM", url: config.sharpcrmAppUrl },
   { key: "hr", name: "HR", url: config.hrAppUrl },
   { key: "cables", name: "Cables", url: config.cablesAppUrl },
   { key: "silo", name: "Silo", url: config.siloAppUrl },
