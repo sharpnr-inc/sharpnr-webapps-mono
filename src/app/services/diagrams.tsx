@@ -84,7 +84,7 @@ const base = { stroke: ACCENT, strokeOpacity: 0.9, strokeWidth: 1.6 } as const;
  * is deliberately no return path and no second entry point: re-keying is
  * the thing this capability removes, so drawing one would argue against it.
  */
-const DiagramFinance = () => {
+export const DiagramFinance = () => {
   const events = [46, 82, 118, 154, 190];
   return (
     <Stage>
@@ -121,7 +121,7 @@ const DiagramFinance = () => {
  * one of them starts on the same left spine: the claim is a single
  * employee record, not five systems that happen to hold the same person.
  */
-const DiagramPeople = () => {
+export const DiagramPeople = () => {
   const rows = [
     { y: 16, w: 118 },
     { y: 30, w: 152 },
@@ -161,7 +161,7 @@ const DiagramPeople = () => {
  * record: the capability is that sales, support and marketing are reading
  * the same one, and a relationship that accumulates is the whole argument.
  */
-const DiagramCustomerRecord = () => {
+export const DiagramCustomerRecord = () => {
   const strata = [
     { y: 60, w: 44 },
     { y: 48, w: 68 },
@@ -200,7 +200,7 @@ const DiagramCustomerRecord = () => {
  * because the point is that the artefacts belong to the discussion that
  * produced them, not that three tools sit side by side.
  */
-const DiagramCollab = () => {
+export const DiagramCollab = () => {
   const turns = [22, 38, 54, 70];
   return (
     <Stage>
@@ -247,7 +247,7 @@ const DiagramCollab = () => {
  * exactly what this capability does. The policy line runs over all of them
  * from the identity itself, so nothing is granted outside it.
  */
-const DiagramIdentity = () => {
+export const DiagramIdentity = () => {
   const grants = [
     { y: 30, w: 58 },
     { y: 46, w: 34 },
@@ -295,7 +295,7 @@ const DiagramIdentity = () => {
  * the claim is that the information was already scattered. They terminate
  * on one rule; a single mark leaves it. One answer out, never a dashboard.
  */
-const DiagramKnowledge = () => {
+export const DiagramKnowledge = () => {
   const sources = [
     { x: 18, y: 14 },
     { x: 52, y: 24 },
@@ -349,7 +349,7 @@ const DiagramKnowledge = () => {
  * drawing because of the ones you have not connected yet, and wiring all
  * of them would say the opposite of "discover a trusted supplier".
  */
-const DiagramNetwork = () => {
+export const DiagramNetwork = () => {
   const outside = [
     { x: 16, y: 16, on: false },
     { x: 52, y: 30, on: false },
@@ -396,20 +396,6 @@ const DiagramNetwork = () => {
       <circle cx={138} cy={45} r={3} fill={ACCENT} fillOpacity={0.85} />
     </Stage>
   );
-};
-
-/**
- * Keyed by `Capability.id` — the section looks its drawing up rather than
- * the data file importing components, so `capabilities.tsx` stays content.
- */
-export const CAPABILITY_DIAGRAMS: Record<string, () => React.ReactElement> = {
-  "financial-management": DiagramFinance,
-  "people-workforce": DiagramPeople,
-  "customer-relationships": DiagramCustomerRecord,
-  "communication-collaboration": DiagramCollab,
-  "identity-governance": DiagramIdentity,
-  "knowledge-intelligence": DiagramKnowledge,
-  "business-network": DiagramNetwork,
 };
 
 /* ── the four "better together" diagrams ── */

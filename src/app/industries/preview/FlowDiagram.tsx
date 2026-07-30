@@ -29,9 +29,8 @@ import {
   ParallelFigure,
   ReverseFigure,
   SpineFigure,
-  TOPOLOGY,
-  type Topology,
 } from "./topologies";
+import { TOPOLOGY, type Topology } from "./topology-map";
 
 export interface FlowDiagramProps {
   /** Industry id — decides the topology. */

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { SectionIntro } from "@/app/shared/SectionIntro";
-import { CAPABILITY_DIAGRAMS } from "../diagrams";
+import { CAPABILITY_DIAGRAMS } from "../capability-diagrams";
 import { useCapabilityAnimation } from "./animations/useCapabilityAnimation";
 import type { Capability } from "../capabilities";
 

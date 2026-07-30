@@ -18,6 +18,9 @@
  * failure than eight identical diagrams — vary the structure, never the
  * language.
  *
+ * Which sector is drawn as which shape is `./topology-map`, so that this
+ * file exports figures and nothing else.
+ *
  * Each figure also declares `data-topology`, which is how the animation
  * picks the motion that belongs to that shape. A cycle completes around
  * its loop; a spine draws along its length and then grows its branches; a
@@ -28,14 +31,14 @@
 
 export const ACCENT = "#00b4d8";
 
-export const trace = {
+const trace = {
   stroke: ACCENT,
   strokeOpacity: 0.3,
   strokeWidth: 1,
   fill: "none",
 } as const;
 
-export const rail = {
+const rail = {
   stroke: ACCENT,
   strokeOpacity: 0.4,
   strokeWidth: 1.1,
@@ -56,27 +59,6 @@ const MONO = {
   fontFamily: "var(--font-mono)",
   letterSpacing: "0.28em",
 } as const;
-
-export type Topology =
-  | "chain"
-  | "spine"
-  | "cycle"
-  | "reverse"
-  | "converge"
-  | "ascent"
-  | "parallel"
-  | "nested";
-
-/** Which sector is drawn as what. Anything unlisted falls back to a chain. */
-export const TOPOLOGY: Record<string, Topology> = {
-  healthcare: "spine",
-  retail: "cycle",
-  commerce: "reverse",
-  manufacturing: "converge",
-  education: "ascent",
-  professional: "parallel",
-  technology: "nested",
-};
 
 export interface FigureProps {
   stages: readonly string[];

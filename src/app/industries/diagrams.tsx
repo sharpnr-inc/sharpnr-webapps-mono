@@ -21,7 +21,8 @@
  * (`ind-hero-*`, `multi-*`), and every drawn connector stays a <path> so
  * DrawSVGPlugin can still measure it.
  */
-import { IndustryGlyph, INDUSTRY_GLYPH } from "./glyphs";
+import { INDUSTRY_GLYPH } from "./glyph-registry";
+import { IndustryGlyph } from "./glyphs";
 import { INDUSTRIES, STATUS_SHORT } from "./roadmap";
 import { StatusChip } from "./StatusChip";
 
