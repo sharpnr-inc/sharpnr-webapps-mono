@@ -42,6 +42,35 @@ export function useIndustriesAnimation(refs: IndustriesAnimationRefs) {
 
       const bus = busRef.current;
 
+      /* The trades and the board's own labels had no entrance at all —
+         they were simply present while everything around them arrived.
+         The tabs open outward from the middle of the row, which is where
+         the centred heading above has just left the eye, and the mono
+         labels fade without travelling: they annotate the board rather
+         than being part of it, and a label that slides reads as another
+         module. */
+      const tabs = gsap.utils.toArray<HTMLElement>(".hp-ind-tab", section);
+      if (tabs.length) {
+        gsap.from(tabs, {
+          opacity: 0,
+          y: 8,
+          duration: 0.45,
+          ease: "power3.out",
+          stagger: { each: 0.05, from: "center" },
+          scrollTrigger: { trigger: tabs[0], start: "top 90%", once: true },
+        });
+      }
+      const metas = gsap.utils.toArray<HTMLElement>(".hp-ind-meta", section);
+      if (metas.length) {
+        gsap.from(metas, {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: metas[0], start: "top 92%", once: true },
+        });
+      }
+
       if (bus) {
         gsap.from(bus, {
           scaleX: 0.9,

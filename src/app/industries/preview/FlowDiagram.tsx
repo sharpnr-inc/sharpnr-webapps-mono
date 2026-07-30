@@ -21,7 +21,7 @@
  */
 import { useId } from "react";
 import {
-  CalendarFigure,
+  AscentFigure,
   ChainFigure,
   ConvergeFigure,
   CycleFigure,
@@ -53,7 +53,7 @@ const STACK_NOTE: Record<Topology, string | null> = {
   cycle: "…and back to the supplier. The loop does not end.",
   reverse: "And a return path running the other way.",
   converge: "Many inputs in, one batch through, many orders out.",
-  calendar: "Every cohort at a different point in the same year.",
+  ascent: "Each stage leaves a student a level higher than the last.",
   parallel: "Several engagements at once, over the same team.",
   nested: "Not a sequence — units, teams and one identity layer.",
 };
@@ -64,7 +64,7 @@ const FIGURES: Record<Topology, typeof ChainFigure> = {
   cycle: CycleFigure,
   reverse: ReverseFigure,
   converge: ConvergeFigure,
-  calendar: CalendarFigure,
+  ascent: AscentFigure,
   parallel: ParallelFigure,
   nested: NestedFigure,
 };

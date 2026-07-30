@@ -33,7 +33,7 @@
  * config.sharpCRMAppUrl       → Sharp-CRM / Sharp-Marketing (CRM)
  * config.hrAppUrl             → Sharp-HR (HRMS & Payroll)
  * config.iamAppUrl            → SharpIAM (Employee Portal)
- * config.hospitalityAppUrl    → Sharp-Hospitality (Business Ops - Hospitality)
+ * config.hospitalityAppUrl    → Sharp Operations · Hospitality (Business Ops)
  * config.marketplaceAppUrl    → Sharp-Marketplace (B2B / O2O Platform)
  * config.authAppUrl           → Auth App (Login portal for existing Sharpnr clients & organizations)
 
@@ -102,7 +102,7 @@ export const config = {
   cortexAppUrl: import.meta.env.VITE_API_CORTEX_APP, // IT controls, RBAC, access management
 
   // Business Operations Layer (Layer 1)
-  hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP, // Sharp-Hospitality — hotels, restaurants, POS
+  hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP, // Sharp Operations · Hospitality — hotels, restaurants, POS
 
   // Platform Apps & Services (Layer 4)
   marketplaceAppUrl: import.meta.env.VITE_API_MARKETPLACE_APP, // Sharp-Marketplace — B2B / O2O trading

@@ -305,35 +305,56 @@ export function useIndustryPreviewAnimation(refs: PreviewRefs) {
         );
         tl.to(nodes, { opacity: 1, duration: T.quick, stagger: 0.1 }, 0.4);
         closing = 2.1;
-      } else if (topology === "calendar") {
-        /* Education. The grid is the year and it exists first; the
-           cohorts then extend across it, each one further along than the
-           one above. Bars grow from their own left edge — a fade would
-           have said "three rectangles" rather than "time passing". */
-        tl.to(edges, {
-          strokeDashoffset: 0,
-          duration: 0.8,
-          ease: EASE.draw,
-          stagger: 0.04,
-        });
+      } else if (topology === "ascent") {
+        /* Education. The ground exists first, then the profile climbs it
+           in one continuous movement — one path, drawn once, so it reads
+           as a single ascent rather than as five steps appearing.
+           Professional Services below extends bars rightward; if this one
+           did anything horizontal the two would be the same animation on
+           two different drawings, which is what these topologies exist to
+           avoid. So everything here moves upward. */
         if (spine && spine.getTotalLength() > 0) {
-          tl.to(
-            spine,
-            { strokeDashoffset: 0, duration: 0.8, ease: EASE.draw },
-            0.2,
-          );
+          tl.to(spine, { strokeDashoffset: 0, duration: 0.7, ease: EASE.draw });
         }
-        tl.to(nodes, { opacity: 1, duration: T.quick, stagger: 0.06 }, 0.5);
-        const bars = Array.from(
-          root.querySelectorAll<SVGRectElement>(".flow-bar"),
-        );
-        gsap.set(bars, { transformOrigin: "0% 50%", scaleX: 0 });
         tl.to(
-          bars,
-          { scaleX: 1, duration: 0.7, ease: EASE.draw, stagger: 0.16 },
-          0.9,
+          edges,
+          { strokeDashoffset: 0, duration: 1.15, ease: EASE.draw },
+          0.25,
         );
-        closing = 2.2;
+
+        /* Risers fade in behind the climb — they are the levels gained,
+           and they should already be there as the line arrives. */
+        const risers = Array.from(
+          root.querySelectorAll<SVGPathElement>(".flow-riser"),
+        );
+        gsap.set(risers, { opacity: 0 });
+        tl.to(
+          risers,
+          { opacity: 1, duration: T.quick, stagger: 0.09 },
+          0.45,
+        );
+
+        tl.to(nodes, { opacity: 1, duration: T.quick, stagger: 0.09 }, 0.6);
+
+        /* The cohorts step up onto each tread rather than fading on —
+           a small rise, staggered along the climb, so the last thing the
+           eye sees is people arriving at a level. */
+        const cohorts = Array.from(
+          root.querySelectorAll<SVGRectElement>(".flow-cohort"),
+        );
+        gsap.set(cohorts, { opacity: 0, y: 9 });
+        tl.to(
+          cohorts,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.42,
+            ease: EASE.in,
+            stagger: 0.035,
+          },
+          0.85,
+        );
+        closing = 2.3;
       } else if (topology === "parallel") {
         /* Professional Services. The bars extend rightward together and
            overlapping, because the overlap is the whole difficulty; the

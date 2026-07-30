@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { gsap, useGSAP } from "@/configs/gsap";
+import { gsap, useGSAP, DrawSVGPlugin } from "@/configs/gsap";
 import { prefersReduced } from "@/app/home/shared/motion";
 import { animeWordsNow } from "@/app/home/shared/reveal";
 
@@ -8,7 +8,7 @@ interface ProductsIntroAnimationRefs {
   eyebrowRef: RefObject<HTMLParagraphElement | null>;
   headingRef: RefObject<HTMLHeadingElement | null>;
   copyRef: RefObject<HTMLParagraphElement | null>;
-  ctaRef: RefObject<HTMLDivElement | null>;
+  figureRef: RefObject<HTMLDivElement | null>;
 }
 
 /*
@@ -17,16 +17,24 @@ interface ProductsIntroAnimationRefs {
  *   0.00  the label
  *   0.15  the headline, word by word
  *   0.75  the sentence
- *   1.00  the invitation
+ *   1.00  the assembly
  *
- * Deliberately shorter than the homepage's opening: that hero has a field
- * of vocabulary to fill in behind it, and this one only has to name the
- * page and hand the visitor to the capabilities below it.
+ * ── Motion follows the topology (design.md §6) ──────────────────────
+ * The order is the argument. Each unit arrives on its own and finished —
+ * outline and working parts together — because "take one" has to be true
+ * of a single piece before anything is said about the set. Only then do
+ * the couplings appear on the edges they share, and only then does the
+ * outer hull draw itself round the lot in one continuous movement: the
+ * whole is the *consequence* of the parts fitting, so it cannot arrive
+ * first. It plays once and does not loop.
+ *
+ * The 1.00 beat belonged to two buttons; the figure takes it rather than
+ * waiting through a pause for something that is no longer there.
  */
-const T = { heading: 0.15, copy: 0.75, cta: 1 } as const;
+const T = { heading: 0.15, copy: 0.75, figure: 1 } as const;
 
 export function useProductsIntroAnimation(refs: ProductsIntroAnimationRefs) {
-  const { sectionRef, eyebrowRef, headingRef, copyRef, ctaRef } = refs;
+  const { sectionRef, eyebrowRef, headingRef, copyRef, figureRef } = refs;
 
   useGSAP(
     () => {
@@ -40,13 +48,35 @@ export function useProductsIntroAnimation(refs: ProductsIntroAnimationRefs) {
 
       animeWordsNow(headingRef.current, T.heading);
 
-      const buttons = ctaRef.current ? Array.from(ctaRef.current.children) : [];
       gsap
         .timeline({ defaults: { ease: "power3.out", duration: 0.55 } })
         .from(eyebrowRef.current, { opacity: 0, y: 10 }, 0)
-        .from(copyRef.current, { opacity: 0, y: 16 }, T.copy)
-        .from(buttons, { opacity: 0, y: 12, stagger: 0.1 }, T.cta);
+        .from(copyRef.current, { opacity: 0, y: 16 }, T.copy);
+
+      if (!figureRef.current) return;
+
+      gsap
+        .timeline({ delay: T.figure })
+        .from(".pas-tile", {
+          opacity: 0,
+          duration: 0.45,
+          stagger: 0.09,
+          ease: "power3.out",
+        })
+        .from(
+          ".pas-join",
+          { opacity: 0, duration: 0.3, stagger: 0.05, ease: "power3.out" },
+          "-=0.15",
+        )
+        .fromTo(
+          ".pas-hull",
+          { drawSVG: "0% 0%" },
+          { drawSVG: "0% 100%", duration: 0.9, ease: "power2.inOut" },
+          "-=0.2",
+        );
     },
     { scope: sectionRef },
   );
+
+  void DrawSVGPlugin;
 }

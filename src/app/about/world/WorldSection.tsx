@@ -30,20 +30,19 @@ export function WorldSection() {
                 <span className="text-twilight">its software rarely does.</span>
               </>
             }
-            lede="The books depend on what operations did. Operations depend on who turned up. Nothing in a business happens on its own."
+            lede="The books depend on what the team did today. What the team did depends on who turned up. Nothing in a business happens on its own."
           />
 
           <div className="mt-8 space-y-5 text-base leading-relaxed text-mute">
             <p>
-              Software, though, has been sold by department for decades. One
-              tool for the books, another for the team, another for customers.
-              Each one solved its own problem well and almost none of them
-              solved the problem of working with the others.
+              Software, though, is sold by department. One tool for the books,
+              another for the team, another for customers. Each solved its own
+              problem and none solved the one between them.
             </p>
             <p>
               So things get copied across. The same job gets done twice. People
-              spend their week moving information between systems rather than
-              doing the work the systems were bought for.
+              spend their week retyping instead of doing the work they bought
+              the software for.
             </p>
             <p>
               The answer was never more software. It was software that already
@@ -67,9 +66,8 @@ export function WorldSection() {
               stand behind.
             </p>
             <p>
-              Technology should sit quietly underneath all of that instead of
-              becoming another thing to manage. That is what we are trying to
-              build.
+              Software should sit quietly underneath all of that, not become
+              another thing to manage. That is what we are building.
             </p>
           </div>
         </div>

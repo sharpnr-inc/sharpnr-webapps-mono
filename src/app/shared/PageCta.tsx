@@ -62,7 +62,7 @@ export function PageCta({
             {heading}
           </h2>
           {copy && <p className="mt-5 max-w-xl text-body-lg text-mute">{copy}</p>}
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <div className="cta-actions mt-9 flex flex-wrap items-center justify-center gap-4">
             <Button
               variant="primary"
               to={primary.to}

@@ -23,14 +23,26 @@ export function useConvergenceAnimation(refs: ConvergenceAnimationRefs) {
       ).matches;
       if (prefersReducedMotion) return;
 
-      gsap.from(".conv-intro", {
-        opacity: 0,
-        y: 24,
-        duration: 0.7,
-        stagger: 0.14,
-        ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-      });
+      /* The close converges, because that is what the section is called
+         and what it claims. The label and the sentence come in from
+         above and below and close on the heading between them, instead
+         of the three of them filing upward in a stagger like every other
+         section on the page. */
+      const intro = gsap.utils.toArray<HTMLElement>(".conv-intro");
+      if (intro.length === 3) {
+        gsap
+          .timeline({
+            defaults: { ease: "power3.out", duration: 0.7 },
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 70%",
+              once: true,
+            },
+          })
+          .from(intro[1], { opacity: 0, scale: 0.97, duration: 0.8 })
+          .from(intro[0], { opacity: 0, y: -22 }, 0.25)
+          .from(intro[2], { opacity: 0, y: 22 }, 0.25);
+      }
 
       // The statement and the CTA each get their own trigger rather than
       // sharing one timeline. That began as a fix — chained behind the
@@ -39,14 +51,25 @@ export function useConvergenceAnimation(refs: ConvergenceAnimationRefs) {
       // the diagram took, which is exactly the span in which a visitor
       // scrolls past them. The diagram is gone; separate triggers are still
       // right, because these two are a screen apart.
-      gsap.from(statementRef.current ? statementRef.current.children : [], {
-        opacity: 0,
-        y: 18,
-        duration: 0.7,
-        stagger: 0.28,
-        ease: "power3.out",
-        scrollTrigger: { trigger: statementRef.current, start: "top 88%" },
-      });
+      // The brand statement is the page's closing image, so it does the
+      // same thing the section is named for: the two halves meet. It
+      // arrives once and holds — nothing here loops.
+      const statement = statementRef.current
+        ? Array.from(statementRef.current.children)
+        : [];
+      if (statement.length) {
+        gsap
+          .timeline({
+            defaults: { ease: "power3.out", duration: 0.8 },
+            scrollTrigger: {
+              trigger: statementRef.current,
+              start: "top 88%",
+              once: true,
+            },
+          })
+          .from(statement[0], { opacity: 0, y: -20 })
+          .from(statement.slice(1), { opacity: 0, y: 20, stagger: 0.2 }, 0.28);
+      }
       gsap.from(ctaRef.current, {
         opacity: 0,
         y: 16,

@@ -80,7 +80,7 @@ export function AdaptSection() {
               type="button"
               onClick={() => handleSelect(i)}
               aria-pressed={i === active}
-              className={`rounded-full border px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${
+              className={`adapt-tab rounded-full border px-5 py-2.5 text-sm font-medium transition-colors duration-200 ${
                 i === active
                   ? "border-cyan/55 bg-cyan/10 text-white"
                   : "border-sky/15 bg-sky/[0.025] text-mute hover:border-sky/30 hover:text-white"
@@ -92,7 +92,7 @@ export function AdaptSection() {
         </div>
 
         {/* The adaptive workspace */}
-        <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl border border-sky/15 bg-sky/[0.025]">
+        <div className="adapt-panel mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl border border-sky/15 bg-sky/[0.025]">
           {/* Operational experience — transforms with the industry */}
           <div className="px-6 py-8 md:px-10 md:py-10">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -117,7 +117,7 @@ export function AdaptSection() {
           </div>
 
           {/* The foundation — never changes */}
-          <div className="border-t border-sky/15 bg-sky/[0.045] px-6 py-6 md:px-10">
+          <div className="adapt-base border-t border-sky/15 bg-sky/[0.045] px-6 py-6 md:px-10">
             <p className="text-xs font-medium uppercase tracking-[0.16em] text-mute/70">
               The foundation — shared by every industry
             </p>

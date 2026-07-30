@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { gsap, DrawSVGPlugin } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { enterIntro } from "@/app/shared/animations/sectionMotion";
 
 interface DifferentAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -28,13 +29,12 @@ export function useDifferentAnimation(refs: DifferentAnimationRefs) {
       // Same information, no motion — everything stays visible.
       if (prefersReducedMotion) return;
 
-      gsap.from(introRef.current ? introRef.current.children : [], {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
+      /* The headline arrives on its own and the label and the sentence
+         settle around it afterwards. This section's heading IS its
+         argument — the comparison below only demonstrates it — so the
+         statement lands first and unaccompanied. */
+      enterIntro(introRef.current, sectionRef.current, "lead", {
+        start: "top 72%",
       });
 
       gsap.set(".diff-node", {

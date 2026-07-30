@@ -169,8 +169,21 @@ body {
    (Visual Language: "no large color changes between sections"; the
    background stays visually quiet and never competes with content.) ── */
 .hp-canvas {
-  /* Painted underneath the WebGL layer, so there is never a white frame
-     while the canvas mounts and never a jump when it does. */
+  /* One flat sheet, and nothing behind it.
+
+     The procedural ink wash that used to sit here was removed and the page
+     was better for it — flat reads as deliberate where the wash read as
+     texture for its own sake. A WebGL gradient was tried in the same slot
+     and dropped for the same reason, plus two measured ones: it put the
+     background average at rgb(4,6,115), which pulled `twilight` body text
+     from 5.11 to roughly 3.7 contrast (below AA), and it meant a
+     full-screen fragment shader running every frame against GSAP's ticker
+     and Lenis.
+
+     If anything is ever layered behind this again, note that `.hp-canvas`
+     is `position: relative` and so paints in step 6 of the stacking order,
+     while `z-index: -1` children paint in step 2 — an opaque background
+     here hides them completely. That cost an hour once. */
   background-color: var(--color-canvas);
 }
 
@@ -1069,6 +1082,86 @@ body {
   stroke-width: 2.2;
 }
 
+/* ── The business objects on the slab. ────────────────────────────────
+   Chips, drawn like the platform services below but in a single row, so
+   the slab reads as one band rather than as a third copy of the same 3×2
+   grid. */
+.hp-map-object rect {
+  fill: rgba(0, 180, 216, 0.05);
+  stroke: rgba(144, 224, 239, 0.28);
+  stroke-width: 1;
+}
+.hp-map-object text {
+  fill: rgba(202, 240, 248, 0.82);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+}
+.hp-map-object rect,
+.hp-map-object text {
+  transition:
+    fill 240ms ease,
+    stroke 240ms ease,
+    opacity 240ms ease;
+}
+
+/* ── Pointing at an application lights the objects it writes. ─────────
+   claude.md always specified this interaction, but it could not be built
+   honestly while the slab held one customer record and all six runs fed
+   it: there was only one thing to light, so the hover would have asserted
+   that Payroll writes a customer. With the slab holding business objects,
+   each module declares what it actually touches and the two are matched.
+
+   Communication declares nothing, meaning every object — a message
+   attaches to whatever is being discussed. That is true of it alone.
+
+   Objects firm up rather than glow. design.md: only a signal in motion
+   earns a glow, and these are static. */
+.hp-map:has(.hp-map-module:hover) .hp-map-object {
+  opacity: 0.3;
+}
+
+.hp-map:has(.hp-map-module[data-writes~="customers"]:hover)
+  .hp-map-object[data-object="customers"],
+.hp-map:has(.hp-map-module[data-writes~="orders"]:hover)
+  .hp-map-object[data-object="orders"],
+.hp-map:has(.hp-map-module[data-writes~="invoices"]:hover)
+  .hp-map-object[data-object="invoices"],
+.hp-map:has(.hp-map-module[data-writes~="employees"]:hover)
+  .hp-map-object[data-object="employees"],
+.hp-map:has(.hp-map-module[data-writes~="products"]:hover)
+  .hp-map-object[data-object="products"],
+.hp-map:has(.hp-map-module[data-writes~="bookings"]:hover)
+  .hp-map-object[data-object="bookings"],
+/* Communication: empty `data-writes`, so it reaches all of them. */
+.hp-map:has(.hp-map-module[data-writes=""]:hover) .hp-map-object {
+  opacity: 1;
+}
+
+.hp-map:has(.hp-map-module[data-writes~="customers"]:hover)
+  .hp-map-object[data-object="customers"] rect,
+.hp-map:has(.hp-map-module[data-writes~="orders"]:hover)
+  .hp-map-object[data-object="orders"] rect,
+.hp-map:has(.hp-map-module[data-writes~="invoices"]:hover)
+  .hp-map-object[data-object="invoices"] rect,
+.hp-map:has(.hp-map-module[data-writes~="employees"]:hover)
+  .hp-map-object[data-object="employees"] rect,
+.hp-map:has(.hp-map-module[data-writes~="products"]:hover)
+  .hp-map-object[data-object="products"] rect,
+.hp-map:has(.hp-map-module[data-writes~="bookings"]:hover)
+  .hp-map-object[data-object="bookings"] rect {
+  fill: rgba(0, 180, 216, 0.14);
+  stroke: rgba(0, 180, 216, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-map-object rect,
+  .hp-map-object text {
+    transition: none;
+  }
+}
+
 @media (max-width: 640px) {
   .hp-map-modules .is-name,
   .hp-map-foundation text {
@@ -1279,6 +1372,125 @@ body {
   }
 }
 
+/* ── The specular rim on CTAs. ────────────────────────────────────────
+   React Bits' SpecularButton effect, kept; its machinery replaced. See
+   `components/ui/specular.ts` for why — briefly, upstream is one WebGL
+   context, one RAF loop and one window listener per button, and there are
+   21 CTAs across this site.
+
+   A bright arc on the border, angled at the pointer. `--sb-angle` and
+   `--sb-bright` are written by the shared loop; everything else is CSS.
+   The ring is a conic gradient masked to the padding box, which is the
+   one way to stroke a border with a gradient and keep the radius.
+
+   `--sb-line` is set per tone rather than baked in, so a cyan button and
+   an outlined one each get a highlight that belongs to them. */
+/* Ghost buttons opt out entirely — see Button.tsx. */
+.hp-specular.px-2::before,
+.hp-specular.px-2::after {
+  display: none;
+}
+
+.hp-specular {
+  position: relative;
+  --sb-angle: -0.9rad;
+  --sb-bright: 0;
+  /* Deliberately no outer glow.
+
+     A `box-shadow` bleed was tried here and removed: it turned a light
+     travelling along an edge into a halo around the whole button, which is
+     a different and much louder effect. The light stays on the border. */
+  /* lineColor — the specular arc itself. Cyan is the site's accent and the
+     upstream default of pure white would have been a second one. */
+  --sb-line: var(--color-cyan);
+  /* baseColor — the faint rim that is always there, upstream's `base` term
+     at 0.45. Sky rather than the #525252 default, which is a neutral grey
+     from a palette this site does not use. */
+  --sb-base: rgba(144, 224, 239, 0.22);
+  /* thickness={1} */
+  --sb-thickness: 1px;
+}
+
+/* The always-on rim. Separate from the arc so the arc can brighten without
+   the base fading in and out with it. */
+.hp-specular::before,
+.hp-specular::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--sb-thickness);
+  pointer-events: none;
+  z-index: 1;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.hp-specular::before {
+  background: var(--sb-base);
+}
+/* shineSize={10} shineFade={40}: the arc peaks ~10° either side of the
+   pointer angle and falls off over the next 40°. Mirrored so the highlight
+   is symmetrical about the angle rather than trailing it. */
+.hp-specular::after {
+  background: conic-gradient(
+    from var(--sb-angle),
+    var(--sb-line) 0deg,
+    rgba(0, 0, 0, 0) 50deg,
+    rgba(0, 0, 0, 0) 310deg,
+    var(--sb-line) 360deg
+  );
+  opacity: var(--sb-bright);
+}
+/* The label has to sit above both rings, or the mask clips it. */
+.hp-specular > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* The primary action: cyan fill, blue rim.
+
+   Two colours rather than one, because the two buttons have opposite
+   problems. The secondary is dark, so a cyan rim glows off it. The primary
+   is already cyan, so a cyan rim would be invisible against its own fill —
+   white was tried and vanished, and darker neutrals read as a drop shadow
+   instead of an edge.
+
+   Blue is the answer because it is the palette's own step down from cyan:
+   dark enough to hold an edge against the fill, and more visible still in
+   the hover state where the fill lightens to sky. */
+/* The filled button gets the same travelling border light, in blue.
+
+   Getting it to read took inverting the relationship. On the dark button
+   the arc is cyan on near-black, so it is *lighter* than what surrounds it
+   and looks like light. Blue on cyan is darker than its surroundings, so a
+   blue arc alone just looked like a dark edge, not a light moving along
+   one.
+
+   So the resting border is navy — dark enough to be a real edge on cyan —
+   and the arc is blue, which is lighter than navy. The arc now brightens
+   against its own border exactly as the cyan one does, and the whole
+   effect stays blue. 2px, because at 1.2px on a saturated fill there was
+   not enough of it to see. */
+.hp-specular[data-tone="solid"] {
+  --sb-line: var(--color-blue);
+  --sb-base: rgba(3, 4, 94, 0.5);
+  --sb-thickness: 2px;
+}
+
+/* Touch has no cursor to answer, and the loop never registers there — this
+   makes sure nothing is left half-lit if a pointer type changes mid-visit. */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .hp-specular::after {
+    display: none;
+  }
+}
+
 /* ── Scene 07: the last length of bus. One charge crosses it, reaches the
    terminal pad, and the page comes to rest. ── */
 .hp-cta-rail {
@@ -1303,4 +1515,657 @@ body {
   border-radius: 9999px;
   background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
   opacity: 0;
+}
+
+/* ══ Four passive figures, made active. ═══════════════════════════════
+   The network diagram, both foundation diagrams and the hospitality
+   cascade each drew themselves in once and were then inert — pictures
+   that happened to animate. design.md §8: an entrance is not aliveness.
+
+   The devices are the two already in this file, reused rather than
+   reinvented: Scene 03's `.hp-map-object` rules (point at a thing, and
+   the things it affects respond) and the `[data-topology]` block (point
+   at a node, and the figure isolates rather than merely brightening).
+
+   Two rules hold across all four:
+
+   1. Nothing here touches a property GSAP writes inline. GSAP owns
+      `opacity` on `.pf-mod` / `.pf-slab` / `.pf-cell` / `.hosp-node` /
+      `.hosp-node-note` / `.network-org`, `stroke-opacity` on
+      `.hosp-node-box`, and the dash on `.hosp-edge` and `.network-link`.
+      An inline style beats a stylesheet, so a hover written on those
+      would either lose outright or fight the entrance (design.md §11,
+      trap 1). Everything below is stroke / stroke-width / stroke-opacity
+      / fill / fill-opacity on elements GSAP does not write.
+   2. Nothing glows. Elements under a pointer firm up and their
+      neighbours quieten; the one moving signal — the charge crossing the
+      network link — exists only while the pointer is on the figure, so
+      nothing loops on its own (design.md §6, §8).
+
+   Hover only, on all four, and deliberately. Two of these figures are
+   `role="img"` with an `aria-label` that already states the relationship
+   the hover reveals, and their inner groups are presentational children
+   of that role; one is `aria-hidden`, where a focusable descendant would
+   be an outright accessibility error. Adding tab stops would spend a
+   keyboard user's attention on re-emphasis of what their reading order
+   already gives them. Where the interaction is the only way to reach the
+   information, focus states would be required — that is not the case in
+   any of these four. ── */
+
+/* ── Platform · the business network ──────────────────────────────────
+   Pointing at either organization quietens both sets of internals — the
+   internals are not the subject — and lights the crossing edge, the
+   verification point and *both* boundaries, with a charge running the
+   link away from the organization under the cursor. Lighting only the
+   box being pointed at would have proved nothing; the relationship is
+   what the section is about, so the relationship is what answers. ── */
+[data-network] .network-inner,
+[data-network] .network-bound,
+[data-network] .network-link,
+[data-network] .network-seal-box,
+[data-network] .network-seal-mark,
+[data-network] .network-ground {
+  transition:
+    stroke-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-network] .network-seal-name,
+[data-network] .network-org-name {
+  transition: fill-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-network]:has(.network-org:hover) .network-inner {
+  stroke-opacity: 0.13;
+}
+[data-network]:has(.network-org:hover) .network-ground {
+  stroke-opacity: 0.1;
+}
+[data-network]:has(.network-org:hover) .network-org-name {
+  fill-opacity: 0.28;
+}
+[data-network] .network-org:hover .network-org-name {
+  fill-opacity: 0.95;
+}
+
+/* The subject: one edge, one verification point, two boundaries that
+   both firm up because the far organization is half the relationship. */
+[data-network]:has(.network-org:hover) .network-link {
+  stroke-opacity: 0.95;
+  stroke-width: 1.8;
+}
+[data-network]:has(.network-org:hover) .network-bound {
+  stroke-opacity: 0.95;
+  stroke-width: 1.6;
+}
+[data-network]:has(.network-org:hover) .network-seal-box,
+[data-network]:has(.network-org:hover) .network-seal-mark {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-network]:has(.network-org:hover) .network-seal-name {
+  fill-opacity: 1;
+}
+
+/* The charge. Dash 26 against a gap longer than the 282-unit path, so
+   exactly one is ever on it, travelling its own length past each end. */
+[data-network] .network-pulse {
+  stroke-dasharray: 26 400;
+  stroke-dashoffset: 26;
+  stroke-linecap: round;
+}
+[data-network]:has(.network-org[data-org="you"]:hover)
+  .network-pulse[data-dir="fwd"],
+[data-network]:has(.network-org[data-org="supplier"]:hover)
+  .network-pulse[data-dir="back"] {
+  stroke-opacity: 0.95;
+  animation: network-cross 1.5s linear infinite;
+}
+@keyframes network-cross {
+  from {
+    stroke-dashoffset: 26;
+  }
+  to {
+    stroke-dashoffset: -282;
+  }
+}
+
+/* ── Products · every capability, one foundation ──────────────────────
+   The two directions of the claim, one per hover, and between them they
+   are the whole argument the section makes:
+
+     a capability   its own drop lights and the run carries on through
+                    the shared bus into the slab.
+     a cell of the  *every* capability's drop lights at once and the
+     foundation     other three cells quieten — all of them rest on
+                    this one thing.
+
+   The second is the half that cannot be said in copy without asking the
+   visitor to take it on trust. ── */
+[data-foundation] .pf-mod-box,
+[data-foundation] .pf-mod-pad,
+[data-foundation] .pf-drop,
+[data-foundation] .pf-bus,
+[data-foundation] .pf-riser,
+[data-foundation] .pf-slab-box {
+  transition:
+    stroke-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-foundation] .pf-cell {
+  transition: fill-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-foundation] .pf-cell-plate {
+  transition: fill 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Point at a capability. */
+[data-foundation]:has(.pf-mod:hover) .pf-mod-box,
+[data-foundation]:has(.pf-mod:hover) .pf-mod-pad {
+  stroke-opacity: 0.15;
+}
+[data-foundation]:has(.pf-mod:hover) .pf-drop {
+  stroke-opacity: 0.07;
+}
+[data-foundation]:has(.pf-mod:hover) .pf-bus,
+[data-foundation]:has(.pf-mod:hover) .pf-riser,
+[data-foundation]:has(.pf-mod:hover) .pf-slab-box {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-foundation] .pf-mod:hover .pf-mod-box,
+[data-foundation] .pf-mod:hover .pf-mod-pad {
+  stroke-opacity: 0.95;
+  stroke-width: 1.5;
+}
+[data-foundation] .pf-mod:hover .pf-drop {
+  stroke-opacity: 0.9;
+  stroke-width: 1.5;
+}
+
+/* Point at the foundation. */
+[data-foundation]:has(.pf-cellgroup:hover) .pf-drop {
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+[data-foundation]:has(.pf-cellgroup:hover) .pf-mod-box,
+[data-foundation]:has(.pf-cellgroup:hover) .pf-mod-pad {
+  stroke-opacity: 0.85;
+}
+[data-foundation]:has(.pf-cellgroup:hover) .pf-bus,
+[data-foundation]:has(.pf-cellgroup:hover) .pf-riser,
+[data-foundation]:has(.pf-cellgroup:hover) .pf-slab-box {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-foundation]:has(.pf-cellgroup:hover) .pf-cell {
+  fill-opacity: 0.2;
+}
+/* Same specificity as the rule above, so this has to follow it. */
+[data-foundation] .pf-cellgroup:hover .pf-cell {
+  fill-opacity: 1;
+}
+[data-foundation] .pf-cellgroup:hover .pf-cell-plate {
+  fill: rgba(0, 180, 216, 0.07);
+}
+
+/* ── Platform · every business starts here ────────────────────────────
+   The heading is two sentences and the drawing answers one per
+   direction. Point at a business and the other two quieten while the
+   slab stays lit edge to edge rather than under that business alone —
+   "every business is different" without conceding the second line.
+   Point at the slab and all three arrangements light together. ── */
+[data-basis] .pfd-block,
+[data-basis] .pfd-stem,
+[data-basis] .pfd-slab,
+[data-basis] .pfd-ground {
+  transition:
+    stroke-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-basis]:has(.pfd-biz:hover) .pfd-block {
+  stroke-opacity: 0.12;
+}
+[data-basis]:has(.pfd-biz:hover) .pfd-stem {
+  stroke-opacity: 0.07;
+}
+[data-basis]:has(.pfd-biz:hover) .pfd-ground {
+  stroke-opacity: 0.1;
+}
+[data-basis]:has(.pfd-biz:hover) .pfd-slab {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-basis] .pfd-biz:hover .pfd-block {
+  stroke-opacity: 0.95;
+  stroke-width: 1.3;
+}
+[data-basis] .pfd-biz:hover .pfd-stem {
+  stroke-opacity: 0.9;
+  stroke-width: 1.4;
+}
+
+[data-basis]:has(.pfd-slab:hover) .pfd-block {
+  stroke-opacity: 0.9;
+  stroke-width: 1.3;
+}
+[data-basis]:has(.pfd-slab:hover) .pfd-stem {
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+[data-basis]:has(.pfd-slab:hover) .pfd-slab {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+
+/* ── Industries · Hospitality, the guest order chain ──────────────────
+   The cascade already showed a value changing — the stock count
+   genuinely decrements — but it played once and then held still.
+   Pointing at any system now isolates what that system's response
+   *depends on*: the runs that carried the order to it and every system
+   upstream, back to the guest. `data-rel` is set from CHAIN_EDGES in
+   React (`DEPENDS` in `./chain`), so the reveal can never disagree with
+   the drawing; the states themselves are here, in the same vocabulary as
+   `[data-topology]`.
+
+   Pointing at IVA lights the whole cascade. That is not a bug and not a
+   flourish — it is the one node that genuinely depends on all of it. ── */
+[data-hosp-chain] .hosp-node-box {
+  transition:
+    stroke 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-hosp-chain] .hosp-node-name,
+[data-hosp-chain] .hosp-node-note {
+  /* fill-opacity only. GSAP owns `opacity` on `.hosp-node-note`. */
+  transition: fill-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-hosp-chain] .hosp-edge {
+  /* stroke-opacity only. GSAP owns the dash on these. */
+  transition:
+    stroke-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-hosp-chain] .hosp-journey {
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-hosp-chain] .hosp-node[data-rel="off"] .hosp-node-box {
+  stroke: rgba(0, 180, 216, 0.2);
+}
+[data-hosp-chain] .hosp-node[data-rel="off"] .hosp-node-name,
+[data-hosp-chain] .hosp-node[data-rel="off"] .hosp-node-note {
+  fill-opacity: 0.24;
+}
+[data-hosp-chain] .hosp-node[data-rel="on"] .hosp-node-box {
+  stroke: #00b4d8;
+  stroke-width: 1.7;
+  fill: rgba(0, 180, 216, 0.06);
+}
+[data-hosp-chain] .hosp-node[data-rel="on"] .hosp-node-name {
+  fill-opacity: 1;
+}
+[data-hosp-chain] .hosp-edge[data-rel="off"] {
+  stroke-opacity: 0.07;
+}
+[data-hosp-chain] .hosp-edge[data-rel="on"] {
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+
+/* The guest journey is context while a system is being examined — except
+   for the Point of Sale, whose dependency *is* the guest. */
+[data-hosp-chain][data-focus] .hosp-journey {
+  opacity: 0.3;
+}
+[data-hosp-chain][data-focus="pos"] .hosp-journey {
+  opacity: 1;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────
+   The isolation is information, so it stays; only the easing and the
+   travelling charge go. A charge is the one thing here that is motion
+   rather than a relationship shown, so it is the one thing removed. ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-network] .network-inner,
+  [data-network] .network-bound,
+  [data-network] .network-link,
+  [data-network] .network-seal-box,
+  [data-network] .network-seal-mark,
+  [data-network] .network-ground,
+  [data-network] .network-seal-name,
+  [data-network] .network-org-name,
+  [data-foundation] .pf-mod-box,
+  [data-foundation] .pf-mod-pad,
+  [data-foundation] .pf-drop,
+  [data-foundation] .pf-bus,
+  [data-foundation] .pf-riser,
+  [data-foundation] .pf-slab-box,
+  [data-foundation] .pf-cell,
+  [data-foundation] .pf-cell-plate,
+  [data-basis] .pfd-block,
+  [data-basis] .pfd-stem,
+  [data-basis] .pfd-slab,
+  [data-basis] .pfd-ground,
+  [data-hosp-chain] .hosp-node-box,
+  [data-hosp-chain] .hosp-node-name,
+  [data-hosp-chain] .hosp-node-note,
+  [data-hosp-chain] .hosp-edge,
+  [data-hosp-chain] .hosp-journey {
+    transition: none;
+  }
+  /* Repeats the hover selectors rather than lowering specificity against
+     them — a weaker rule would leave the dash parked on the link. */
+  [data-network]:has(.network-org[data-org="you"]:hover)
+    .network-pulse[data-dir="fwd"],
+  [data-network]:has(.network-org[data-org="supplier"]:hover)
+    .network-pulse[data-dir="back"] {
+    animation: none;
+    stroke-opacity: 0;
+  }
+}
+
+/* ══ Two hero figures: the weave and the assembly. ════════════════════
+   The Platform and Products heroes each carried two buttons and no
+   figure. Both are navigational pages — a visitor arriving is orienting
+   themselves, not converting — so the buttons went, on exactly the
+   reasoning the Industries hero already records, and each hero now opens
+   with its page's argument drawn instead of asserted.
+
+   Everything below is stroke / stroke-width / stroke-opacity / fill /
+   fill-opacity, on elements GSAP does not write. GSAP owns `opacity` on
+   both figures' groups and the dash on `.plw-col-run`, `.plw-run` and
+   `.pas-hull`; an inline style beats a stylesheet, so a hover written on
+   those would lose outright (design.md §11, trap 1).
+
+   Nothing glows. The one moving signal — the charge crossing the weave —
+   plays once on arrival and is gone; a hero that loops says the story is
+   still running (design.md §8). ── */
+
+/* ── Platform hero · the weave ────────────────────────────────────────
+   Areas of the business run across, the records they all handle run
+   down, and a junction is drawn only where an area genuinely touches a
+   record. The junction is filled with the canvas so the run beneath it
+   is interrupted — that is what makes it read as woven rather than as a
+   table with dots on it. ── */
+[data-weave] .plw-col-name {
+  fill: #00b4d8;
+  fill-opacity: 0.5;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+[data-weave] .plw-col-run {
+  stroke: #00b4d8;
+  stroke-opacity: 0.22;
+  stroke-width: 1;
+}
+[data-weave] .plw-row-name {
+  fill: #ffffff;
+  fill-opacity: 0.8;
+  font-size: 13px;
+  font-weight: 600;
+  text-anchor: end;
+}
+[data-weave] .plw-run {
+  stroke: #00b4d8;
+  stroke-opacity: 0.38;
+  stroke-width: 1.2;
+}
+[data-weave] .plw-node {
+  stroke: #00b4d8;
+  stroke-opacity: 0.5;
+  stroke-width: 1.2;
+  fill: var(--color-canvas);
+}
+[data-weave] .plw-note {
+  fill: #00b4d8;
+  fill-opacity: 0.4;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+}
+[data-weave] .plw-row {
+  cursor: default;
+}
+[data-weave] .plw-col-run,
+[data-weave] .plw-col-name,
+[data-weave] .plw-run,
+[data-weave] .plw-row-name,
+[data-weave] .plw-node {
+  transition:
+    stroke 240ms ease,
+    stroke-opacity 240ms ease,
+    stroke-width 240ms ease,
+    fill 240ms ease,
+    fill-opacity 240ms ease;
+}
+
+/* 1 · Anything not under the pointer steps back. */
+[data-weave]:has(.plw-row:hover) .plw-col-run {
+  stroke-opacity: 0.08;
+}
+[data-weave]:has(.plw-row:hover) .plw-col-name {
+  fill-opacity: 0.16;
+}
+[data-weave]:has(.plw-row:hover) .plw-run {
+  stroke-opacity: 0.14;
+}
+[data-weave]:has(.plw-row:hover) .plw-row-name {
+  fill-opacity: 0.26;
+}
+[data-weave]:has(.plw-row:hover) .plw-node {
+  stroke-opacity: 0.12;
+}
+
+/* 2 · The records that area handles light down their whole length.
+       `data-uses` is Scene 03's `data-writes` device reused rather than
+       reinvented — the row declares what it touches and the stylesheet
+       matches the two. */
+[data-weave]:has(.plw-row[data-uses~="customer"]:hover)
+  .plw-col[data-col="customer"]
+  .plw-col-run,
+[data-weave]:has(.plw-row[data-uses~="order"]:hover)
+  .plw-col[data-col="order"]
+  .plw-col-run,
+[data-weave]:has(.plw-row[data-uses~="invoice"]:hover)
+  .plw-col[data-col="invoice"]
+  .plw-col-run,
+[data-weave]:has(.plw-row[data-uses~="staff"]:hover)
+  .plw-col[data-col="staff"]
+  .plw-col-run {
+  stroke-opacity: 0.7;
+  stroke-width: 1.4;
+}
+[data-weave]:has(.plw-row[data-uses~="customer"]:hover)
+  .plw-col[data-col="customer"]
+  .plw-col-name,
+[data-weave]:has(.plw-row[data-uses~="order"]:hover)
+  .plw-col[data-col="order"]
+  .plw-col-name,
+[data-weave]:has(.plw-row[data-uses~="invoice"]:hover)
+  .plw-col[data-col="invoice"]
+  .plw-col-name,
+[data-weave]:has(.plw-row[data-uses~="staff"]:hover)
+  .plw-col[data-col="staff"]
+  .plw-col-name {
+  fill-opacity: 1;
+}
+
+/* 3 · And so does every *other* area's junction on those same records.
+       This is the whole reason the figure exists: point at Sales and the
+       marks in Billing, Stock and Support light with it, because a sale
+       is already in all three and nobody typed it there. A hover that
+       lit only the row under the cursor would prove nothing. */
+[data-weave]:has(.plw-row[data-uses~="customer"]:hover)
+  .plw-node[data-col="customer"],
+[data-weave]:has(.plw-row[data-uses~="order"]:hover)
+  .plw-node[data-col="order"],
+[data-weave]:has(.plw-row[data-uses~="invoice"]:hover)
+  .plw-node[data-col="invoice"],
+[data-weave]:has(.plw-row[data-uses~="staff"]:hover)
+  .plw-node[data-col="staff"] {
+  stroke-opacity: 0.8;
+  stroke-width: 1.4;
+  fill: rgba(0, 180, 216, 0.12);
+}
+
+/* 4 · The area under the pointer, at full weight. Ties with rule 3 on
+       specificity for its own junctions, so it is written after it. */
+[data-weave]:has(.plw-row:hover) .plw-row:hover .plw-run {
+  stroke-opacity: 0.95;
+  stroke-width: 1.8;
+}
+[data-weave]:has(.plw-row:hover) .plw-row:hover .plw-row-name {
+  fill-opacity: 1;
+}
+[data-weave]:has(.plw-row:hover) .plw-row:hover .plw-node {
+  stroke-opacity: 0.95;
+  stroke-width: 1.5;
+  fill: rgba(0, 180, 216, 0.18);
+}
+
+/* ── Products hero · the assembly ─────────────────────────────────────
+   Five units, each a closed outline with its own working parts, cut to
+   fill one continuous hull. Pointing at one holds it whole while the
+   rest steps back and lights the couplings on its own shared edges —
+   "take one, the rest already fit", with the *where* answered per unit.
+
+   The tile outline carries a transparent fill so the pointer lands
+   anywhere inside the unit; with the SVG's inherited `fill="none"` only
+   the hairline itself would have been hit-testable.
+
+   The hull never quietens. The whole does not stop existing because
+   somebody is looking at one piece of it. ── */
+[data-assembly] .pas-tile {
+  cursor: default;
+}
+[data-assembly] .pas-tile-box {
+  stroke: #00b4d8;
+  stroke-opacity: 0.3;
+  stroke-width: 1.1;
+  fill: rgba(0, 0, 0, 0);
+}
+[data-assembly] .pas-tile-rule {
+  stroke: #90e0ef;
+  stroke-opacity: 0.3;
+  stroke-width: 1;
+}
+[data-assembly] .pas-tile-bar {
+  stroke: #00b4d8;
+  stroke-opacity: 0.24;
+  stroke-width: 1;
+}
+[data-assembly] .pas-join-tick {
+  stroke: #00b4d8;
+  stroke-opacity: 0.45;
+  stroke-width: 1.2;
+}
+[data-assembly] .pas-join-port {
+  stroke: #00b4d8;
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+  fill: var(--color-canvas);
+}
+[data-assembly] .pas-hull {
+  stroke: #00b4d8;
+  stroke-opacity: 0.8;
+  stroke-width: 1.8;
+}
+[data-assembly] .pas-tile-box,
+[data-assembly] .pas-tile-rule,
+[data-assembly] .pas-tile-bar,
+[data-assembly] .pas-join-tick,
+[data-assembly] .pas-join-port {
+  transition:
+    stroke 240ms ease,
+    stroke-opacity 240ms ease,
+    stroke-width 240ms ease,
+    fill 240ms ease;
+}
+
+/* 1 · Everything but the unit under the pointer steps back. */
+[data-assembly]:has(.pas-tile:hover) .pas-tile-box {
+  stroke-opacity: 0.1;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile-rule {
+  stroke-opacity: 0.07;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile-bar {
+  stroke-opacity: 0.05;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-join-tick,
+[data-assembly]:has(.pas-tile:hover) .pas-join-port {
+  stroke-opacity: 0.12;
+}
+
+/* 2 · The couplings that unit is cut against. Every unit sits on a
+       different set, so the answer changes per unit rather than being
+       the same highlight five times. */
+[data-assembly]:has(.pas-tile[data-tile="a"]:hover)
+  .pas-join[data-join~="a"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="b"]:hover)
+  .pas-join[data-join~="b"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="c"]:hover)
+  .pas-join[data-join~="c"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="d"]:hover)
+  .pas-join[data-join~="d"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="e"]:hover)
+  .pas-join[data-join~="e"]
+  .pas-join-tick {
+  stroke-opacity: 0.9;
+  stroke-width: 1.6;
+}
+[data-assembly]:has(.pas-tile[data-tile="a"]:hover)
+  .pas-join[data-join~="a"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="b"]:hover)
+  .pas-join[data-join~="b"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="c"]:hover)
+  .pas-join[data-join~="c"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="d"]:hover)
+  .pas-join[data-join~="d"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="e"]:hover)
+  .pas-join[data-join~="e"]
+  .pas-join-port {
+  stroke-opacity: 0.95;
+  fill: rgba(0, 180, 216, 0.35);
+}
+
+/* 3 · The unit itself, whole. Written after rule 1 and at higher
+       specificity, so its own parts come back rather than staying dim. */
+[data-assembly]:has(.pas-tile:hover) .pas-tile:hover .pas-tile-box {
+  stroke-opacity: 0.95;
+  stroke-width: 1.6;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile:hover .pas-tile-rule {
+  stroke-opacity: 0.5;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile:hover .pas-tile-bar {
+  stroke-opacity: 0.38;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────
+   Both reveals are information, not decoration, so they stay; only the
+   easing goes. ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-weave] .plw-col-run,
+  [data-weave] .plw-col-name,
+  [data-weave] .plw-run,
+  [data-weave] .plw-row-name,
+  [data-weave] .plw-node,
+  [data-assembly] .pas-tile-box,
+  [data-assembly] .pas-tile-rule,
+  [data-assembly] .pas-tile-bar,
+  [data-assembly] .pas-join-tick,
+  [data-assembly] .pas-join-port {
+    transition: none;
+  }
 }

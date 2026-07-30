@@ -8,13 +8,25 @@
  * "NULL", "—"). Real enterprise data is not tidy, and a tidy table would
  * have been unbelievable.
  *
- * Only the *identity* fields carry the cyan mark, and only where they
- * disagree with the system of record. Reference numbers are deliberately
- * left unmarked however different they look: a challan number is *supposed*
- * to differ from an invoice number, and marking it would say "this is
- * broken" about the one thing here that is working correctly. Marking
- * everything is what made the accent meaningless at fourteen underlines —
- * cyan now means exactly one thing, so the eye can trust it.
+ * ── What the cyan mark means ─────────────────────────────────────────
+ * A value that diverges from the others in its column. Not "wrong" —
+ * **nothing in this scene is authoritative**, because the whole point is
+ * that there is no system of record yet. One arrives in Scene 03.
+ *
+ * That distinction is easy to lose and was lost once already. The mark was
+ * described as "disagrees with the system of record", and the CRM row was
+ * left entirely unmarked as the implicit baseline — which drew a table
+ * saying the CRM holds the truth and four other systems are wrong. It is
+ * the same CRM-first bias that had to be taken out of Scene 03's slab. Two
+ * rows may legitimately agree with each other (Delivery and the CRM both
+ * spell the name in full, and neither is marked for it); no row gets to be
+ * clean by default.
+ *
+ * Reference numbers stay unmarked however different they look: a challan
+ * number is *supposed* to differ from an invoice number, and marking it
+ * would call the one correct thing here broken. Marking everything is what
+ * made the accent meaningless at fourteen underlines — cyan means exactly
+ * one thing, so the eye can trust it.
  *
  * Phone numbers show at most the last three digits. The rule is the same
  * everywhere; the presentation is not, which is the point.
@@ -22,7 +34,7 @@
 
 export interface Cell {
   value: string;
-  /** Disagrees with the system of record. Draws the cyan mark. */
+  /** Diverges from the others in its column. Draws the cyan mark. */
   off?: boolean;
   /** Never captured. Renders as an absence — never marked. */
   missing?: boolean;
@@ -46,7 +58,16 @@ export const ROWS: Row[] = [
     cells: [
       { value: "Ramesh Kumar" },
       { value: "+91 98xxxx345" },
-      { value: "CUST-0194" },
+      /* Marked, and it matters that it is.
+         Every system in this column minted its own key — CUST-0194,
+         AC-4471, USR-77, and two that were never captured at all. If the
+         other schemes are marked and this one is not, the table says
+         CUST-0194 is the customer's real id and the CRM is the system of
+         record. It is not: in this scene nothing is, and that is the whole
+         reason Scene 03 exists. Leaving this cell clean also left the CRM
+         as the only row in the table with no mark anywhere on it, which
+         crowned it by omission. */
+      { value: "CUST-0194", off: true },
       { value: "LEAD-2231" },
     ],
   },

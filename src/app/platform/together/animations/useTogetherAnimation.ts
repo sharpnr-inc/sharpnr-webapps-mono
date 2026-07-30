@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { enterIntro } from "@/app/shared/animations/sectionMotion";
 
 interface TogetherAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -19,13 +20,13 @@ export function useTogetherAnimation(refs: TogetherAnimationRefs) {
       ).matches;
       if (prefersReducedMotion) return;
 
-      gsap.from(introRef.current ? introRef.current.children : [], {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
+      /* Purely horizontal, and from the right — this intro is pushed into
+         the right-hand column, and the section beneath it runs down a
+         single vertical line. Nothing in the opening should move on that
+         same axis before the line has been drawn on it. */
+      enterIntro(introRef.current, sectionRef.current, "axis", {
+        start: "top 72%",
+        dir: -1,
       });
 
       const tl = gsap.timeline({

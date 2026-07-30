@@ -13,7 +13,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Sharpnr exists because business software stopped talking to itself. The belief behind the platform, the principles we build to, and where we are taking it next.",
+          "Sharpnr exists because business software stopped talking to itself, and people spend their week retyping. The beliefs and principles behind the platform.",
       },
       { property: "og:title", content: "About Sharpnr | Why We Exist" },
       {

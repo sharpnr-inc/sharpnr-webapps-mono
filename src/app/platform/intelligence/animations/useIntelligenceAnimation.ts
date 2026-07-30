@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { gsap, DrawSVGPlugin } from "@/configs/gsap";
 import type { RefObject } from "react";
+import { enterIntro } from "@/app/shared/animations/sectionMotion";
 
 interface IntelligenceAnimationRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -22,13 +23,12 @@ export function useIntelligenceAnimation(refs: IntelligenceAnimationRefs) {
       ).matches;
       if (prefersReducedMotion) return;
 
-      gsap.from(introRef.current ? introRef.current.children : [], {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 72%" },
+      /* The site's plain arrival, deliberately. The figure below is the
+         one that carries direction here — activity travelling forward
+         into a single recommendation — and an opening that also travelled
+         would compete with it for the same reading. */
+      enterIntro(introRef.current, sectionRef.current, "rise", {
+        start: "top 72%",
       });
 
       const tl = gsap.timeline({

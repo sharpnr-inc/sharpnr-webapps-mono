@@ -22,8 +22,10 @@ import {
   FOUNDATION_W,
   MODULES,
   MODULE_W,
-  RECORD,
+  OBJECTS,
+  OBJECT_W,
   SLAB,
+  SLAB_LABEL,
   TRUNKS,
   VIEW,
   Y,
@@ -43,7 +45,11 @@ export function PlatformMap() {
       className="hp-map"
       viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
       role="img"
-      aria-label="Six applications — CRM, Operations, Marketplace, Accounting, People and Communication — running on one Sharpnr platform that holds a single shared customer record, standing on one foundation of identity, permissions, storage, events, automation and intelligence."
+      /* Describes what is drawn, accurately. It previously said the
+         platform "holds a single shared customer record" — the same error
+         the picture made. The platform holds the business objects an
+         organization shares; each application writes the ones it owns. */
+      aria-label="CRM, Operations, Marketplace, Accounting, People and Communication running on one Sharpnr platform. The platform is a shared system of record holding the customers, orders, invoices, employees, products and bookings the business runs on, with each application writing the objects it owns. Underneath it are the platform services every application uses: identity, permissions, storage, events, automation and intelligence."
     >
       <defs>
         {/* The only glow in the scene, and it belongs to the charges alone.
@@ -89,7 +95,16 @@ export function PlatformMap() {
         {MODULES.map((m) => {
           const y = m.row === 0 ? Y.rowA : Y.rowB;
           return (
-            <g key={m.label} className="hp-map-module" data-label={m.label}>
+            <g
+              key={m.label}
+              className="hp-map-module"
+              data-label={m.label}
+              /* Read by the hover rules: pointing at an application lights
+                 the record it writes, which is the interaction claude.md
+                 always specified and the single-record slab could not
+                 actually express. */
+              data-writes={m.writes}
+            >
               <rect
                 x={m.cx - MODULE_W / 2}
                 y={y}
@@ -133,41 +148,41 @@ export function PlatformMap() {
           y1={SLAB.y + SLAB.h}
           y2={SLAB.y + SLAB.h}
         />
-        <text className="hp-map-slab-name" x={22} y={SLAB.y + 24}>
-          {RECORD.slab}
+        <text className="hp-map-slab-name" x={22} y={SLAB.y + 26}>
+          {SLAB_LABEL}
         </text>
 
-        {/* The one record, as a system-of-record entry */}
-        <g className="hp-map-record">
-          <text className="is-kind" x={22} y={SLAB.y + 46}>
-            {RECORD.kind}
-          </text>
-          <text className="is-name" x={22} y={SLAB.y + 68}>
-            {RECORD.name}
-          </text>
-          {RECORD.fields.map(([k, v], i) => {
-            const col = i % 2;
-            const row = Math.floor(i / 2);
-            const x = 22 + col * 268;
-            const y = SLAB.y + 90 + row * 18;
-            return (
-              <g key={k}>
-                <text className="is-key" x={x} y={y}>
-                  {k}
-                </text>
-                <text className="is-val" x={x + 64} y={y}>
-                  {v}
-                </text>
-              </g>
-            );
-          })}
+        {/* The business objects the platform holds.
+
+            One row of six, not a 3×2 grid: the bands above and below are
+            both 3×2, and a third would have made the figure one shape
+            repeated three times. The band carrying the argument should not
+            look like the bands either side of it. */}
+        <g className="hp-map-objects">
+          {OBJECTS.map((o) => (
+            <g key={o.id} className="hp-map-object" data-object={o.id}>
+              <rect
+                x={o.cx - OBJECT_W / 2}
+                y={Y.objRow}
+                width={OBJECT_W}
+                height={Y.objectH}
+                rx="2"
+              />
+              <text x={o.cx} y={Y.objRow + Y.objectH / 2 + 4}>
+                {o.label}
+              </text>
+            </g>
+          ))}
         </g>
       </g>
 
-      {/* ── Band: the foundation ── */}
+      {/* ── Band: platform services ──
+          Named "Platform services", not "Foundation". The slab above is now
+          the *business* foundation, and two bands both called foundation in
+          one figure is a diagram arguing with itself. */}
       <Rule y={Y.ruleB} />
       <text className="hp-map-band-label" x={0} y={Y.headB}>
-        Foundation
+        Platform services
       </text>
 
       <g className="hp-map-foundation">

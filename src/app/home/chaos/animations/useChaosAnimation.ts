@@ -36,6 +36,13 @@ export function useChaosAnimation(refs: ChaosAnimationRefs) {
 
       const records = gsap.utils.toArray<HTMLElement>(".hp-ledger-row", field);
       const verdict = field.querySelector(".hp-rec-verdict");
+      /* The column headings are the sheet being ruled up, so they are
+         uncovered left to right before anything is written into it —
+         the one horizontal move in a scene that is otherwise a stack of
+         rows arriving downward. */
+      const headings = Array.from(
+        field.querySelectorAll<HTMLElement>(".hp-ledger thead th"),
+      );
       // The name is the first value in each record — the field a person
       // recognises themselves by, and the one the cue lights.
       const names = records
@@ -48,6 +55,7 @@ export function useChaosAnimation(refs: ChaosAnimationRefs) {
           scrollTrigger: { trigger: section, start: "top 70%", once: true },
         })
         .from(copyRef.current, { opacity: 0, y: 18, duration: 0.5 }, 0.3)
+        .from(headings, { opacity: 0, x: -10, duration: 0.4, stagger: 0.05 }, 0.2)
         .from(records, { opacity: 0, y: 14, duration: 0.5, stagger: 0.13 }, 0.45)
         .from(verdict, { opacity: 0, duration: 0.6 }, ">-0.1");
 

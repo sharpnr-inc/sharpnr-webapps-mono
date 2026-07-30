@@ -114,13 +114,34 @@ into a slab running edge to edge.
 
 The slab reads **"System of record"**, not "Sharpnr Platform" — the site has
 already said whose platform this is, and that label is better spent explaining
-the architecture. Inside it sits **the same customer from Scene 02, recorded
-once**, as a labelled engineering record. That pairing is why the scene exists: a
-diagram alone claims things about software; the record claims something about the
-visitor's business, and answers Scene 02 directly.
+the architecture. Inside it sit the **business objects** the organisation shares:
+Customers, Orders, Invoices, Employees, Products, Bookings. One row of six, not a
+3×2 grid, so the band carrying the argument does not look like the bands either
+side of it.
 
-Foundation: Identity, Permissions, Storage, Events, Automation, Intelligence.
-Hovering an app lights its own run and pulses the record it writes to.
+**There is no customer record in the slab, and there must not be one again.** It
+held an open record — "Ramesh Kumar", CUST-0194 — with all six applications
+dropping into it, on the reasoning that it answered Scene 02. What it drew was
+every application writing to a customer, which is false: Payroll does not depend
+on a customer, Identity does not, and Marketplace trades with suppliers as
+readily. Worse, it made Customer look like the centre of the platform — that is
+CRM architecture, and Sharpnr is not CRM-first. Fabricated counts on the objects
+("Customers 28,402") are rejected for a related reason: an invented metric on the
+homepage is a worse problem than a vague one.
+
+Scene 02's handoff survives without the person: it ends on one customer held five
+ways, and **Customers is the first object on the slab** — one shared object
+rather than five copies.
+
+The bottom band is **Platform services** — Identity, Permissions, Storage,
+Events, Automation, Intelligence. Named that, not "Foundation", because the slab
+is now the *business* foundation and two bands called foundation is a diagram
+arguing with itself.
+
+Hovering an app lights its own run and the objects it writes — CRM → Customers,
+People → Employees, Operations → Orders and Bookings, Marketplace → Orders and
+Products, Accounting → Invoices. Communication lights all of them, because a
+message attaches to whatever is being discussed.
 
 Two 3D attempts came first — CSS-3D, then WebGL with real shadows. Both read as a
 render sitting *on* the page. The medium was the problem, not the execution.
@@ -300,14 +321,22 @@ most of these industries. Retail is a cycle, an enterprise is a containment.
 | Retail | closed replenishment cycle | the loop closing *is* the point |
 | Digital Commerce | channels fan in, returns run backwards | the reverse path is what makes it not manufacturing |
 | Manufacturing | convergent tree — fan-in then fan-out | many inputs, one output, many orders |
-| Education | calendar grid, cohorts across terms | an academic year is a grid, not a flow |
+| Education | ascending staircase, cohorts one level higher each stage | a student moves *up* an institution, not along it |
 | Professional Services | parallel engagement bars over one resource pool | overlap is the industry's whole difficulty |
 | Technology & Enterprise | nested entities on one identity layer | containment — no arrows at all |
 
 Motion follows topology: a cycle completes its loop, a spine draws downward, a
-convergence draws inward, bars extend rightward, containers settle outside-in.
-**If two sectors' timelines could be swapped unnoticed, they are still the same
-visual.**
+convergence draws inward, bars extend rightward, containers settle outside-in, a
+staircase climbs. **If two sectors' timelines could be swapped unnoticed, they
+are still the same visual.**
+
+Education was a calendar grid of staggered cohort bars and failed exactly that
+test — Professional Services is *also* horizontal bars spanning columns over a
+time axis with a rule beneath, so the two were swappable. Professional Services
+kept the bars, because overlapping engagements over one team genuinely is that
+industry's difficulty and a Gantt is the honest shape for it. Education became
+the ascent, and **nothing else on the page rises** — the chain runs flat, the
+cycle closes, the spine drops, the tree converges, the containers nest.
 
 The constraint that stops this fragmenting: different structure, *identical
 vocabulary* — same hairline weights, one accent, mono labels, one viewBox family,
