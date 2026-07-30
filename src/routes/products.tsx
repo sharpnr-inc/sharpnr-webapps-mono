@@ -1,52 +1,54 @@
-import { ProductsHeroSection } from "@/app/products/ProductsHeroSection";
-import { ProductsGridSection } from "@/app/products/ProductsGridSection";
-import { ProductsSpotlightSection } from "@/app/products/ProductsSpotlightSection";
-import { ProductsConnectSection } from "@/app/products/ProductsConnectSection";
-import { CTASection } from "@/app/index/cta/CTASection";
 import { createFileRoute } from "@tanstack/react-router";
+import { ProductsIntroSection } from "@/app/products/intro/ProductsIntroSection";
+import { CapabilitiesSection } from "@/app/products/capabilities/CapabilitiesSection";
+import { FoundationSection } from "@/app/products/foundation/FoundationSection";
+import { ProductsCloseSection } from "@/app/products/close/ProductsCloseSection";
+
+const TITLE = "Sharpnr Products | Start With One, Add the Rest";
+const DESCRIPTION =
+  "Accounting, people, customers, stock, chat and the day-to-day work of your industry. Every Sharpnr product runs on its own, and passes work to the ones beside it.";
 
 export const Route = createFileRoute("/products")({
-  component: RouteComponent,
+  component: ProductsPage,
   head: () => ({
     meta: [
-      { title: "Sharpnr | Products — The Complete Suite" },
-      {
-        name: "description",
-        content:
-          "Explore every Sharpnr application — Sharp-Accounting, Sharp-HR, Sharp-Marketing, Cables, Silo, Folio, Cortex, SharpIAM, Orchestrator, Sharp-Hospitality, Lifco, and Sharp-Marketplace.",
-      },
-      {
-        name: "keywords",
-        content:
-          "Sharpnr products, accounting software, HRMS, CRM, business messaging, data platform, productivity suite, IT administration, B2B marketplace",
-      },
-      {
-        property: "og:title",
-        content: "Sharpnr | Products — The Complete Suite",
-      },
-      {
-        property: "og:description",
-        content:
-          "Twelve connected applications across operations, control, core services, and the B2B network. Each one powerful alone — better together.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://sharpnr.com/products" },
       { property: "og:image", content: "https://sharpnr.com/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: DESCRIPTION },
       { name: "twitter:image", content: "https://sharpnr.com/og-image.png" },
     ],
     links: [{ rel: "canonical", href: "https://sharpnr.com/products" }],
   }),
 });
 
-function RouteComponent() {
+/**
+ * Products — exploring one platform, capability by capability.
+ *
+ * Four movements: what these products are, the nine capabilities and what
+ * runs each, the foundation all of them stand on, and one way in. The third
+ * exists because the second reads as a shopping list without it.
+ *
+ * Every movement makes the same argument in a different register:
+ * independent when needed, connected by design, more valuable together.
+ *
+ * No background here. `__root.tsx` wraps every route and the footer in one
+ * `.hp-canvas`, so the whole site sits on a single flat sheet and this page
+ * paints nothing of its own.
+ */
+function ProductsPage() {
   return (
-    <div>
-      <ProductsHeroSection />
-      <ProductsGridSection />
-      <ProductsSpotlightSection />
-      <ProductsConnectSection />
-      <CTASection />
-    </div>
+    <>
+      <ProductsIntroSection />
+      <CapabilitiesSection />
+      <FoundationSection />
+      <ProductsCloseSection />
+    </>
   );
 }

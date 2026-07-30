@@ -1,14 +1,45 @@
-import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  ArrowUpRight,
-  Instagram,
-  Linkedin,
-  Twitter,
-  Youtube,
-} from "lucide-react";
 import { config } from "@/configs/env";
-import { useFooterAnimation } from "./animations/useFooterAnimation";
+import { Wordmark } from "@/app/home/shared/Wordmark";
+import { Instagram, Linkedin, Youtube } from "lucide-react";
+import { XIcon } from "./XIcon";
+
+/*
+ * The footer, per website_instruction/04_Homepage.md (LOCKED) and
+ * 03_Component_Language.md.
+ *
+ * "Provide navigation. Not storytelling. The story ends before the footer.
+ * The footer is a utility." Five columns, a quiet bottom bar, and no motion
+ * beyond hover.
+ *
+ * The product catalogue was removed to comply: four columns of app links
+ * were storytelling about the platform, which is exactly what this is not
+ * for.
+ *
+ * The footer carries no background of its own: the site's canvas and ink
+ * wash are held at the root and run continuously through it, so the page
+ * ends rather than stops. The contract's "no background changes" is
+ * honoured precisely because the footer changes nothing.
+ *
+ * The spec's bottom bar also lists "Made in India", a version, a theme
+ * toggle and a language switch. The origin line is dropped by request; the
+ * rest have no source yet (package.json is still 0.0.0, and there is no
+ * theme or locale system), and a hardcoded "v1.0" would be a lie the moment
+ * anyone read it. The bar is just the copyright.
+ *
+ * The columns are filled from destinations that actually exist: the six
+ * marketing routes, the application URLs in `configs/env`, the docs site and
+ * the support address. The product column came back deliberately — it was
+ * removed once as "storytelling", but a list of links to the applications a
+ * customer already uses is navigation, which is precisely what this is for.
+ * What was storytelling was four columns of them arranged as a catalogue.
+ *
+ * Entries in the spec that still have no destination — API, SDKs, GitHub,
+ * Status, Changelog, Blog, Guides, Help Center, Community, Careers, Privacy,
+ * Terms — remain absent rather than linked to routes that would 404. Add the
+ * route or the URL and they belong here. Privacy and Terms in particular
+ * cannot be invented: they are legal documents, not page copy.
+ */
 
 const socialLinks = [
   {
@@ -16,7 +47,7 @@ const socialLinks = [
     label: "LinkedIn",
     href: "https://linkedin.com/company/sharpnrllp",
   },
-  { icon: Twitter, label: "X (Twitter)", href: "https://x.com/sharpnr" },
+  { icon: XIcon, label: "X", href: "https://x.com/sharpnrapp" },
   {
     icon: Instagram,
     label: "Instagram",
@@ -25,128 +56,162 @@ const socialLinks = [
   { icon: Youtube, label: "YouTube", href: "https://youtube.com/@sharpnrinc" },
 ] as const;
 
-const exploreLinks = [
-  { label: "Products", to: "/products" },
-  { label: "Services", to: "/services" },
-  { label: "Industries", to: "/industries" },
-  { label: "About", to: "/about" },
-] as const;
-
-/* ── Every product, grouped by architecture layer ───────────────── */
-
-interface ProductItem {
+interface FooterItem {
   label: string;
+  to?: string;
   href?: string;
-  soon?: boolean;
+  /**
+   * Named in the spec, but with nothing behind it yet.
+   *
+   * Rendered as plain text rather than as a link. The alternative was
+   * guessing — `status.sharpnr.com`, `github.com/sharpnr`, `/privacy` — and
+   * a guessed URL is a 404 the moment anyone clicks it, which design.md §9
+   * rules out. The site already handles this exact case the same way on the
+   * Products page: a product with no application is listed, unlinked, never
+   * omitted and never pointed at nothing.
+   *
+   * Give any of these a real destination and it becomes `href` or `to`; the
+   * flag then comes off and nothing else changes.
+   */
+  pending?: boolean;
 }
 
-const businessOps: { layer: string; items: ProductItem[] } = {
-  layer: "Business Operations",
-  items: [
-    { label: "Sharp-Hospitality", href: config.hospitalityAppUrl },
-    { label: "Lifco", soon: true },
-  ],
-};
+const columns: { heading: string; items: FooterItem[] }[] = [
+  {
+    heading: "Platform",
+    items: [
+      { label: "Overview", to: "/platform" },
+      { label: "Products", to: "/products" },
+      { label: "Industries", to: "/industries" },
+      { label: "Services", to: "/services" },
+      { label: "Resources", to: "/resources" },
+    ],
+  },
+  {
+    /* Names verbatim, per design.md §10 — "Sharp Accounting" is not
+       "Accounting". Every one of these opens a real application; a product
+       without a URL belongs on the Products page, unlinked, not here as a
+       link that goes nowhere. */
+    heading: "Products",
+    items: [
+      /* Hospitality is the hospitality edition of Sharp Operations, not a
+         separate product — so it is named as one. `sharpnr.md` still lists
+         it as the bare industry app "Sharp-Hospitality"; the parent product
+         is a fact the site was told directly and the spec has not caught up
+         to. Same form as the kicker on the Industries page. */
+      { label: "Sharp Operations · Hospitality", href: config.hospitalityAppUrl },
+      { label: "Sharp-Accounting", href: config.accountingAppUrl },
+      { label: "Sharp-HR", href: config.hrAppUrl },
+      { label: "Sharp-CRM", href: config.sharpCRMAppUrl },
+      { label: "Cables", href: config.cablesAppUrl },
+      { label: "Folio", href: config.folioAppUrl },
+      { label: "Sharp-Marketplace", href: config.marketplaceAppUrl },
+    ],
+  },
+  {
+    heading: "Developers",
+    items: [
+      { label: "Documentation", href: "https://docs.sharpnr.com" },
+      { label: "API", pending: true },
+      { label: "SDKs", pending: true },
+      { label: "GitHub", pending: true },
+      { label: "Status", pending: true },
+      { label: "Changelog", pending: true },
+    ],
+  },
+  {
+    heading: "Resources",
+    items: [
+      { label: "Resources", to: "/resources" },
+      { label: "Blog", pending: true },
+      { label: "Guides", pending: true },
+      { label: "Help Center", pending: true },
+      { label: "Community", pending: true },
+    ],
+  },
+  {
+    heading: "Company",
+    items: [
+      { label: "About", to: "/about" },
+      { label: "Contact", href: "mailto:support@sharpnr.com" },
+      { label: "Sign in", href: config.authAppUrl },
+      { label: "Careers", pending: true },
+      { label: "Privacy", pending: true },
+      { label: "Terms", pending: true },
+    ],
+  },
+];
 
-const orgControl: { layer: string; items: ProductItem[] } = {
-  layer: "Organization Control",
-  items: [{ label: "Orchestrator", href: config.orchestratorAppUrl }],
-};
+/* Brighten and grow an underline — the only hover the contract allows. */
+const LINK =
+  "hp-foot-link text-[0.8125rem] text-mute transition-colors duration-200 hover:text-ice";
 
-const b2bPlatform: { layer: string; items: ProductItem[] } = {
-  layer: "B2B Platform",
-  items: [{ label: "Sharp-Marketplace", href: config.marketplaceAppUrl }],
-};
-
-const coreServices: { layer: string; items: ProductItem[] } = {
-  layer: "Core Services",
-  items: [
-    { label: "Sharp-Accounting", href: config.accountingAppUrl },
-    { label: "Sharp-HR", href: config.hrAppUrl },
-    { label: "Sharp-Marketing", href: config.sharpCRMAppUrl },
-    { label: "SharpIAM", href: config.iamAppUrl },
-    { label: "Cables", href: config.cablesAppUrl },
-    { label: "Silo", href: config.siloAppUrl },
-    { label: "Folio", href: config.folioAppUrl },
-    { label: "Cortex", href: config.cortexAppUrl },
-  ],
-};
-
-const sideGroups = [businessOps, orgControl, b2bPlatform];
-
-/* ── Sub-components ──────────────────────────────────────────────── */
-
-function LayerLabel({ children }: { children: string }) {
-  return (
-    <p className="flex items-center gap-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-ink-muted">
-      <span className="size-1 rounded-full bg-accent-glow/70" />
-      {children}
-    </p>
-  );
-}
-
-function ProductLink({ item }: { item: ProductItem }) {
-  if (item.soon || !item.href) {
+function FooterLink({ item }: { item: FooterItem }) {
+  /* Quieter than a live link and not interactive — no pointer cursor, no
+     hover colour, out of the tab order. It reads as "listed, not ready"
+     rather than as a link that failed. */
+  if (item.pending) {
     return (
-      <span className="inline-flex items-center gap-1.5 text-sm text-ink-muted/70">
-        {item.label}
-        <span className="rounded-full border border-ink-border px-1.5 py-px font-mono text-[8px] uppercase tracking-wider text-ink-muted/80">
-          Soon
-        </span>
-      </span>
+      <span className="text-[0.8125rem] text-mute/45">{item.label}</span>
     );
   }
+  if (item.to) {
+    return (
+      <Link to={item.to} className={LINK}>
+        {item.label}
+      </Link>
+    );
+  }
+  /* mailto: hands off to a mail client, so it must not carry target
+     _blank — that leaves the visitor on a blank tab once the handoff
+     happens, or on nothing at all where no client is registered. */
+  const isMail = item.href?.startsWith("mailto:");
   return (
     <a
       href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
+      {...(isMail ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+      className={LINK}
     >
       {item.label}
     </a>
   );
 }
 
-function NavHeading({ children }: { children: string }) {
-  return (
-    <h4 className="font-mono text-[11px] font-medium uppercase tracking-[0.2em] text-ink-muted">
-      {children}
-    </h4>
-  );
-}
-
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
-  useFooterAnimation({ footerRef, innerRef });
-
   return (
-    <footer ref={footerRef} className="relative overflow-hidden bg-ink">
-      {/* Grid texture */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,oklch(0.97_0_296/0.03)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.97_0_296/0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
-
-      <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-16 md:px-8 md:pt-20">
-        <div ref={innerRef} className="grid gap-12 lg:grid-cols-12">
-          {/* Brand */}
-          <div className="lg:col-span-3">
-            <img
-              src="/sharpnr-logo-white.svg"
-              alt="Sharpnr"
-              className="h-7 w-auto min-w-[120px]"
-            />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-muted">
-              The ever-evolving ecosystem for business operations — unified,
-              modular, and built for organizations of any size.
+    <footer className="relative border-t border-sky/12">
+      <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-12 md:px-10">
+        {/* Five link columns now, not four, so the old 12-column track with
+            a 4-wide brand and 2-wide columns no longer adds up (4 + 5×2 =
+            14). An explicit template instead: the brand keeps roughly a
+            column and a half for its blurb, and the five link columns share
+            the rest equally. `minmax(0,1fr)` rather than `1fr` so a long
+            label like "Sharp Operations · Hospitality" wraps instead of
+            forcing the track wider than the container. */}
+        <div className="grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-[1.5fr_repeat(5,minmax(0,1fr))]">
+          {/* Column 1 — brand */}
+          <div>
+            {/* Mark then wordmark, sized and spaced off the wordmark's
+                *ink* rather than its box. The export carries 25% transparent
+                bleed vertically and 6.5% horizontally, so a 1.7rem box
+                renders ~13px of letter (≈55% of the 24px mark, which is the
+                right weight) and contributes ~7px of invisible padding on
+                its left — which is why the gap here is only 4px and still
+                reads as ~11px. */}
+            <div className="flex items-center gap-1">
+              <img
+                src="/sharpnr-logo-white.svg"
+                alt=""
+                aria-hidden="true"
+                className="h-6 w-auto"
+              />
+              <Wordmark className="h-[1.7rem]" label="Sharpnr" />
+            </div>
+            <p className="mt-4 max-w-xs text-[0.8125rem] leading-relaxed text-mute">
+              Connected Business Infrastructure. One platform where operations,
+              finance, people and communication work together.
             </p>
-            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-ink-border px-3 py-1.5">
-              <span className="size-1.5 rounded-full bg-accent-glow" />
-              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-ink-muted">
-                Early Access · Alpha
-              </span>
-            </span>
-            <div className="mt-7 flex gap-4">
+            <div className="mt-5 flex gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -154,123 +219,34 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="text-ink-muted transition-colors duration-200 hover:text-text-light"
+                  className="text-mute transition-colors duration-200 hover:text-ice"
                 >
-                  <social.icon className="size-5" strokeWidth={1.7} />
+                  <social.icon className="size-4" strokeWidth={1.8} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Products — every app, grouped by layer */}
-          <div className="lg:col-span-6">
-            <NavHeading>Products</NavHeading>
-            <div className="mt-6 grid gap-x-8 gap-y-7 sm:grid-cols-3">
-              <div className="flex flex-col gap-7">
-                {sideGroups.map((group) => (
-                  <div key={group.layer}>
-                    <LayerLabel>{group.layer}</LayerLabel>
-                    <ul className="mt-3 flex flex-col gap-2.5">
-                      {group.items.map((item) => (
-                        <li key={item.label}>
-                          <ProductLink item={item} />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          {columns.map((col) => (
+            <div key={col.heading}>
+              <h3 className="font-mono text-[0.625rem] font-medium uppercase tracking-[0.24em] text-twilight">
+                {col.heading}
+              </h3>
+              <ul className="mt-4 flex flex-col gap-2.5">
+                {col.items.map((item) => (
+                  <li key={item.label}>
+                    <FooterLink item={item} />
+                  </li>
                 ))}
-              </div>
-
-              <div className="sm:col-span-2">
-                <LayerLabel>{coreServices.layer}</LayerLabel>
-                <ul className="mt-3 grid grid-cols-2 gap-x-8 gap-y-2.5">
-                  {coreServices.items.map((item) => (
-                    <li key={item.label}>
-                      <ProductLink item={item} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              </ul>
             </div>
-          </div>
-
-          {/* Company */}
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 gap-8">
-              <div>
-                <NavHeading>Explore</NavHeading>
-                <ul className="mt-6 flex flex-col gap-3.5">
-                  {exploreLinks.map((link) => (
-                    <li key={link.to}>
-                      <Link
-                        to={link.to}
-                        className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="flex flex-col gap-8">
-                <div>
-                  <NavHeading>Resources</NavHeading>
-                  <ul className="mt-6 flex flex-col gap-3.5">
-                    <li>
-                      <a
-                        href="https://docs.sharpnr.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
-                      >
-                        Docs &amp; Guides
-                        <ArrowUpRight className="size-3.5 opacity-60" />
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="mailto:support@sharpnr.com"
-                        className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
-                      >
-                        Contact Us
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <NavHeading>Account</NavHeading>
-                  <ul className="mt-6 flex flex-col gap-3.5">
-                    <li>
-                      <a
-                        href={config.authAppUrl}
-                        className="text-sm text-ink-muted transition-colors duration-200 hover:text-text-light"
-                      >
-                        Login
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href={config.authAppUrl + "/signup"}
-                        className="text-sm font-medium text-accent-glow transition-colors duration-200 hover:text-text-light"
-                      >
-                        Get Started
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-ink-border pt-8 md:flex-row">
-          <p className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
+        {/* Bottom bar — copyright and origin */}
+        <div className="mt-10 border-t border-sky/10 pt-6">
+          <p className="text-xs text-mute/70">
             © {new Date().getFullYear()} Sharpnr. All rights reserved.
-          </p>
-          <p className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
-            One Platform · Every Industry
           </p>
         </div>
       </div>
