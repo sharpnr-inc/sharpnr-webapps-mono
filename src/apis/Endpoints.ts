@@ -1,5 +1,3 @@
-// TODO --> Add Resend OTP Endpoint
-
 export const AuthApiEndpoints = {
   Signup: {
     initializeOnboarding: "/signup/initiate",
@@ -14,13 +12,5 @@ export const AuthApiEndpoints = {
     ForgetPassword: "",
     fetchIdentity: "",
     VerfiyAuth: "identity/web/verify-auth",
-  },
-};
-
-export const OrgCoreEndpoints = {
-  Customer: {
-    CreateCustomer: () => `orchestrator/org/customers/add`,
-    Search: (searchQuery: string) =>
-      `orchestrator/org/customers/search?searchQuery=${searchQuery}`,
   },
 };

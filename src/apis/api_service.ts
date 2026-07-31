@@ -1,5 +1,5 @@
 import api from "@/middlewares/axios";
-import { AuthApiEndpoints, OrgCoreEndpoints } from "./Endpoints";
+import { AuthApiEndpoints } from "./Endpoints";
 import type { APIResponse } from "@/lib/api_response";
 
 //--------------------------------------------------------------------------------//
@@ -44,16 +44,6 @@ export interface LoginPayload {
 
 export async function LoginUser(payload: LoginPayload) {
   const res = await api.post(AuthApiEndpoints.Auth.login, payload);
-  return res.data;
-}
-
-export async function GetOrgCustomer(searchQuery: string) {
-  const res = await api.get(OrgCoreEndpoints.Customer.Search(searchQuery));
-  return res.data;
-}
-
-export async function AddCustomerInOrg() {
-  const res = await api.post(OrgCoreEndpoints.Customer.CreateCustomer());
   return res.data;
 }
 
