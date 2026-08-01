@@ -24,6 +24,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { motion, type Variants } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import { toast } from "sonner";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -169,18 +170,19 @@ export function InitialSignupForm({
 
   const form = useForm({
     defaultValues: defaultOrgForm,
-    onSubmit: async ({ value }) => {
+    onSubmit: ({ value }) => {
       const payload = mapFormToPayload(value);
-      try {
-        await startRegistration.mutateAsync(payload, {
-          onSuccess: () => {
-            setShowOtp(true);
-            setUserEmail(payload.email);
-          },
-        });
-      } catch {
-        // Error surfaced via the mutation's error state / toast handler.
-      }
+      startRegistration.mutate(payload, {
+        onSuccess: () => {
+          setShowOtp(true);
+          setUserEmail(payload.email);
+        },
+        onError: (error) => {
+          // Extract server-provided error messages if available
+          const message = error.message || "Something went wrong";
+          toast.error(message);
+        },
+      });
     },
   });
 

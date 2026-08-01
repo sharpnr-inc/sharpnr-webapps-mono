@@ -1,6 +1,7 @@
 import api from "@/middlewares/axios";
 import { AuthApiEndpoints } from "./Endpoints";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIError, APIResponse } from "@/lib/api_response";
+import axios from "axios";
 
 //--------------------------------------------------------------------------------//
 
@@ -10,12 +11,38 @@ export interface OrgSignupPayload {
   mobile: string;
 }
 
-export async function InitializeSignup(payload: OrgSignupPayload) {
-  const res = await api.post<APIResponse<unknown>>(
-    AuthApiEndpoints.Signup.initializeOnboarding,
-    payload,
-  );
-  return res.data;
+export async function InitializeSignup(
+  payload: OrgSignupPayload,
+): Promise<APIResponse<unknown>> {
+  try {
+    const res = await api.post<APIResponse<unknown>>(
+      AuthApiEndpoints.Signup.initializeOnboarding,
+      payload,
+    );
+
+    // Fallback in case backend returns 200 OK with success: false
+    if (!res.data.success && res.data.error) {
+      throw res.data.error;
+    }
+
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data) {
+      const responseData = error.response.data as APIResponse<unknown>;
+
+      // Extract your custom backend error object if present
+      if (responseData.error) {
+        throw responseData.error;
+      }
+    }
+
+    // Default fallback error structure matching APIError
+    throw {
+      status: axios.isAxiosError(error) ? (error.response?.status ?? 500) : 500,
+      code: "UNKNOWN_ERROR",
+      message: error instanceof Error ? error.message : "Something went wrong",
+    } as APIError;
+  }
 }
 
 //--------------------------------------------------------------------------------//

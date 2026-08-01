@@ -13,4 +13,6 @@ export const AuthApiEndpoints = {
     fetchIdentity: "",
     VerfiyAuth: "identity/web/verify-auth",
   },
+
+  provisioning: {},
 };
