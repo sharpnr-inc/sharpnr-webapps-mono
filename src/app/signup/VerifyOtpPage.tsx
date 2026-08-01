@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useForm } from "@tanstack/react-form";
 import { useVerifyOtpMutation } from "@/apis/mutation";
-import type { OtpPayload } from "@/apis/api_service";
+import type { OtpPayload } from "@/apis/login_api_service";
 import { Loader2, ArrowLeft, Mail, RotateCcw, Info } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { config } from "@/configs/env";

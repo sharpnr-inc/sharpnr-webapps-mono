@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { useInitiateSignUpMutation } from "@/apis/mutation";
-import type { OrgSignupPayload } from "@/apis/api_service";
+import type { OrgSignupPayload } from "@/apis/login_api_service";
 import { useNavigate } from "@tanstack/react-router";
 import { motion, type Variants } from "framer-motion";
 import { useState, useEffect, useRef } from "react";

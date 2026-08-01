@@ -1,9 +1,9 @@
-import api from "@/middlewares/axios";
-import { AuthApiEndpoints } from "./Endpoints";
-import type { APIError, APIResponse } from "@/lib/api_response";
-import axios from "axios";
-
 //--------------------------------------------------------------------------------//
+
+import type { APIError, APIResponse } from "@/lib/api_response";
+import { AuthApiEndpoints } from "./Endpoints";
+import axios from "axios";
+import api from "@/middlewares/axios";
 
 export interface OrgSignupPayload {
   email: string;
@@ -61,25 +61,6 @@ export async function VerifyOtp(otp: OtpPayload) {
 
 export async function VerifySignupCookie() {
   const res = await api.get(AuthApiEndpoints.Signup.signupSessionVerify);
-  return res.data;
-}
-
-/* ---------------------------------- <***> --------------------------------- */
-
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
-export async function LoginUser(payload: LoginPayload) {
-  const res = await api.post(AuthApiEndpoints.Auth.login, payload);
-  return res.data;
-}
-
-/* ---------------------------------- <***> --------------------------------- */
-
-export async function AuthenticateVerification() {
-  const res = await api.get(AuthApiEndpoints.Auth.VerfiyAuth);
   return res.data;
 }
 

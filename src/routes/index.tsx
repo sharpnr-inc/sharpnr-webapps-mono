@@ -1,4 +1,4 @@
-import { AuthenticateVerification } from "@/apis/api_service";
+import { AuthenticateVerification } from "@/apis/login_api_service";
 import { LoginPage } from "@/app/login/LoginPage";
 import { captureRedirectTarget, redirectAfterAuth } from "@/lib/auth-redirect";
 import { createFileRoute } from "@tanstack/react-router";
