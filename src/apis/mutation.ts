@@ -7,6 +7,8 @@ import {
 } from "./api_service";
 import type { APIResponse } from "@/lib/api_response";
 
+/* ---------------------------- Signup Mutations ---------------------------- */
+
 export function useInitiateSignUpMutation() {
   return useMutation<APIResponse<unknown>, Error, OrgSignupPayload>({
     mutationKey: ["Signup"],

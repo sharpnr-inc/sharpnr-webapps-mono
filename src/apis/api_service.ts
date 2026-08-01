@@ -57,12 +57,14 @@ export async function VerifyOtp(otp: OtpPayload) {
   return res.data;
 }
 
+/* ---------------------------------- <***> --------------------------------- */
+
 export async function VerifySignupCookie() {
-  const res = await api.get(AuthApiEndpoints.Signup.checkToken);
+  const res = await api.get(AuthApiEndpoints.Signup.signupSessionVerify);
   return res.data;
 }
 
-//--------------------------------------------------------------------------------//
+/* ---------------------------------- <***> --------------------------------- */
 
 export interface LoginPayload {
   email: string;
@@ -74,7 +76,11 @@ export async function LoginUser(payload: LoginPayload) {
   return res.data;
 }
 
+/* ---------------------------------- <***> --------------------------------- */
+
 export async function AuthenticateVerification() {
   const res = await api.get(AuthApiEndpoints.Auth.VerfiyAuth);
   return res.data;
 }
+
+/* ---------------------------------- <***> --------------------------------- */

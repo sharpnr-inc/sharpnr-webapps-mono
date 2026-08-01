@@ -1,17 +1,18 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AuthenticateVerification, VerifySignupCookie } from "./api_service";
 
+/* --------------------------- SignUp API Services -------------------------- */
+
+
+/**
+ * [Description] This function is for verification of the signup session cookie,
+ */
 export function useVerifySignupCookies() {
   return useQuery({
     queryKey: ["Auth", "Verify-Cookie-session"],
     queryFn: VerifySignupCookie,
   });
 }
-
-export const verifySignupCookieQuery = queryOptions({
-  queryKey: ["Auth", "Verify-Cookie"],
-  queryFn: VerifySignupCookie,
-});
 
 /* ---------------------------------- <***> --------------------------------- */
 
@@ -21,10 +22,5 @@ export function useAuthVerification() {
     queryFn: AuthenticateVerification,
   });
 }
-
-export const authVerificationQuery = {
-  queryKey: ["AUTH", "VERIFICATION"],
-  queryFn: AuthenticateVerification,
-};
 
 /* ---------------------------------- <***> --------------------------------- */

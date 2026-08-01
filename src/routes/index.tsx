@@ -25,3 +25,6 @@ export const Route = createFileRoute("/")({
 
   component: LoginPage,
 });
+
+// this is the login page
+// here we use the beforeLoad funtion to check if user is already login and authenticated.
