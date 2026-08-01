@@ -138,8 +138,6 @@ export function VerifyOtpForm({
     };
   }, []);
 
-  const circumference = 2 * Math.PI * 18;
-  const strokeDashoffset = circumference - (countdown / 60) * circumference;
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -339,38 +337,6 @@ export function VerifyOtpForm({
                 ) : resendDisabled ? (
                   /* Countdown with SVG ring */
                   <span className="flex items-center gap-1.5 text-muted-foreground font-normal">
-                    <span className="relative inline-flex h-5 w-5 items-center justify-center">
-                      <svg
-                        className="absolute -rotate-90"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 40 40"
-                      >
-                        <circle
-                          cx="20"
-                          cy="20"
-                          r="18"
-                          fill="none"
-                          stroke="color-mix(in oklch, var(--muted-foreground) 20%, transparent)"
-                          strokeWidth="3"
-                        />
-                        <circle
-                          cx="20"
-                          cy="20"
-                          r="18"
-                          fill="none"
-                          stroke="color-mix(in oklch, var(--muted-foreground) 50%, transparent)"
-                          strokeWidth="3"
-                          strokeDasharray={circumference}
-                          strokeDashoffset={strokeDashoffset}
-                          strokeLinecap="round"
-                          style={{ transition: "stroke-dashoffset 1s linear" }}
-                        />
-                      </svg>
-                      <span className="text-[8px] font-mono text-muted-foreground">
-                        {countdown}
-                      </span>
-                    </span>
                     Resend in {countdown}s
                   </span>
                 ) : (
