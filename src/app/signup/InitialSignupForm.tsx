@@ -1,4 +1,9 @@
-import { cn } from "@/lib/utils";
+import {
+  cn,
+  validateEmail,
+  validateMobile,
+  validatePassword,
+} from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -25,15 +30,9 @@ import { motion, type Variants } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { toast } from "sonner";
+import { pwRules, type OrgSignupFormData } from "./types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-
-interface OrgSignupFormData {
-  email: string;
-  password: string;
-  mobile: string;
-  confirm_password: string;
-}
 
 const defaultOrgForm: OrgSignupFormData = {
   email: "",
@@ -48,38 +47,7 @@ function mapFormToPayload(formData: OrgSignupFormData): OrgSignupPayload {
   return payload;
 }
 
-// ─── Validation ───────────────────────────────────────────────────────────────
-
-const validateEmail = (email: string): string | undefined => {
-  if (!email) return "Email is required";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return "Please enter a valid email address";
-  return undefined;
-};
-
-const validateMobile = (mobile: string): string | undefined => {
-  if (!mobile) return "Mobile number is required";
-  if (!/^\d{10}$/.test(mobile)) return "Must be exactly 10 digits";
-  return undefined;
-};
-
-const validatePassword = (password: string): string | undefined => {
-  if (!password) return "Password is required";
-  if (password.length < 8) return "At least 8 characters";
-  if (!/[A-Z]/.test(password)) return "One uppercase letter required";
-  if (!/[a-z]/.test(password)) return "One lowercase letter required";
-  if (!/[0-9]/.test(password)) return "One number required";
-  return undefined;
-};
-
 // ─── Password strength ────────────────────────────────────────────────────────
-
-const pwRules = [
-  { label: "8+ characters", test: (p: string) => p.length >= 8 },
-  { label: "Uppercase", test: (p: string) => /[A-Z]/.test(p) },
-  { label: "Lowercase", test: (p: string) => /[a-z]/.test(p) },
-  { label: "Number", test: (p: string) => /[0-9]/.test(p) },
-];
 
 function PasswordStrength({ password }: { password: string }) {
   const passed = pwRules.filter((r) => r.test(password)).length;
