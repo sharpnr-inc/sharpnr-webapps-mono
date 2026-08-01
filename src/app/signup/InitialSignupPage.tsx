@@ -118,17 +118,7 @@ const fieldVariant: Variants = {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-interface InitialSignupFormProps extends React.ComponentProps<"form"> {
-  setShowOtp: (show: boolean) => void;
-  setUserEmail: (email: string) => void;
-}
-
-export function InitialSignupForm({
-  className,
-  setShowOtp,
-  setUserEmail,
-  ...props
-}: InitialSignupFormProps) {
+export function InitialSignupForm({}) {
   const navigate = useNavigate();
   const startRegistration = useInitiateSignUpMutation();
   const [showPassword, setShowPassword] = useState(false);
@@ -141,10 +131,7 @@ export function InitialSignupForm({
     onSubmit: ({ value }) => {
       const payload = mapFormToPayload(value);
       startRegistration.mutate(payload, {
-        onSuccess: () => {
-          setShowOtp(true);
-          setUserEmail(payload.email);
-        },
+        onSuccess: () => {},
         onError: (error) => {
           // Extract server-provided error messages if available
           const message = error.message || "Something went wrong";
@@ -176,8 +163,6 @@ export function InitialSignupForm({
         e.stopPropagation();
         form.handleSubmit();
       }}
-      className={cn("flex flex-col gap-5", className)}
-      {...props}
     >
       {/* Header */}
       <motion.div
