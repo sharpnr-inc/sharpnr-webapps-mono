@@ -55,7 +55,7 @@ const fieldVariant: Variants = {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function InitialSignupForm({}) {
+export function InitialSignupPage({}) {
   const navigate = useNavigate();
   const startRegistration = useInitiateSignUpMutation();
   const [showPassword, setShowPassword] = useState(false);
