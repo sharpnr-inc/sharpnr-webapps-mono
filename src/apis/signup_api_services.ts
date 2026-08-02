@@ -60,8 +60,10 @@ export async function VerifyOtp(otp: OtpPayload) {
 /* ---------------------------------- <***> --------------------------------- */
 
 export async function VerifySignupCookie() {
-  const res = await api.get(AuthApiEndpoints.Signup.signupSessionVerify);
-  return res.data;
+  const res = await api.get<APIResponse<any>>(
+    AuthApiEndpoints.Signup.signupSessionVerify,
+  );
+  return res;
 }
 
 /* ---------------------------------- <***> --------------------------------- */

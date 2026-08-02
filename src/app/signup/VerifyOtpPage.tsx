@@ -15,9 +15,17 @@ import {
 } from "@/components/ui/input-otp";
 import { useForm } from "@tanstack/react-form";
 import { useVerifyOtpMutation } from "@/apis/mutation";
-import type { OtpPayload } from "@/apis/login_api_service";
-import { Loader2, ArrowLeft, Mail, RotateCcw, Info } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import type { OtpPayload } from "@/apis/signup_api_services";
+import {
+  Loader2,
+  ArrowLeft,
+  Mail,
+  RotateCcw,
+  Info,
+  Clock,
+  TimerOff,
+} from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { config } from "@/configs/env";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
@@ -27,6 +35,58 @@ import { AuthLayout } from "@/components/ui/AuthLayout";
 interface VerifyOtpFormProps extends React.ComponentProps<"div"> {
   setShowOtp?: (show: boolean) => void;
   email?: string;
+}
+
+/** How long a code stays valid, in seconds. */
+const OTP_EXPIRY_SECONDS = 5 * 60;
+/** How long the user must wait between resend requests, in seconds. */
+const RESEND_COOLDOWN_SECONDS = 60;
+
+const formatDuration = (totalSeconds: number) => {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+};
+
+/** Small circular progress ring that drains as `remaining` counts down. */
+function CountdownRing({
+  remaining,
+  total,
+}: {
+  remaining: number;
+  total: number;
+}) {
+  const radius = 6;
+  const circumference = 2 * Math.PI * radius;
+  const progress = total > 0 ? Math.min(Math.max(remaining / total, 0), 1) : 0;
+
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      className="h-3.5 w-3.5 shrink-0 -rotate-90"
+      aria-hidden="true"
+    >
+      <circle
+        cx="8"
+        cy="8"
+        r={radius}
+        fill="none"
+        strokeWidth="2"
+        className="stroke-muted-foreground/25"
+      />
+      <circle
+        cx="8"
+        cy="8"
+        r={radius}
+        fill="none"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        strokeDashoffset={circumference * (1 - progress)}
+        className="stroke-foreground/60 transition-[stroke-dashoffset] duration-1000 ease-linear"
+      />
+    </svg>
+  );
 }
 
 export function VerifyOtpForm({
@@ -39,8 +99,12 @@ export function VerifyOtpForm({
   const [isResending, setIsResending] = useState(false);
   const [resendDisabled, setResendDisabled] = useState(false);
   const [countdown, setCountdown] = useState(0);
+  const [expiresIn, setExpiresIn] = useState(OTP_EXPIRY_SECONDS);
   const iconRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const expiryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const isExpired = expiresIn === 0;
 
   const form = useForm({
     defaultValues: { otp: "" } as OtpPayload,
@@ -110,11 +174,30 @@ export function VerifyOtpForm({
     return () => ctx.revert();
   }, []);
 
+  // Restart the 5 minute validity window for the code currently in the inbox.
+  const startExpiryCountdown = useCallback(() => {
+    if (expiryTimerRef.current) clearInterval(expiryTimerRef.current);
+    setExpiresIn(OTP_EXPIRY_SECONDS);
+    expiryTimerRef.current = setInterval(() => {
+      setExpiresIn((prev) => {
+        if (prev <= 1) {
+          if (expiryTimerRef.current) clearInterval(expiryTimerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    startExpiryCountdown();
+  }, [startExpiryCountdown]);
+
   const handleResendOtp = async () => {
     setIsResending(true);
     setResendDisabled(true);
     try {
-      setCountdown(60);
+      setCountdown(RESEND_COOLDOWN_SECONDS);
       timerRef.current = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
@@ -125,6 +208,9 @@ export function VerifyOtpForm({
           return prev - 1;
         });
       }, 1000);
+      // A fresh code was sent, so the old one is gone and the clock restarts.
+      form.reset();
+      startExpiryCountdown();
     } catch (error) {
       console.error("Failed to resend OTP:", error);
       setResendDisabled(false);
@@ -136,6 +222,7 @@ export function VerifyOtpForm({
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
+      if (expiryTimerRef.current) clearInterval(expiryTimerRef.current);
     };
   }, []);
 
@@ -206,7 +293,8 @@ export function VerifyOtpForm({
                   ) : (
                     "your email address"
                   )}
-                  . Enter it below to continue.
+                  . The code is valid for 5 minutes — enter it below to
+                  continue.
                 </p>
               </motion.div>
             </motion.div>
@@ -245,27 +333,45 @@ export function VerifyOtpForm({
                         value={field.state.value}
                         onChange={(value) => field.handleChange(value)}
                         onBlur={field.handleBlur}
+                        disabled={isExpired}
                         required
                       >
                         <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150 *:data-[slot=input-otp-slot]:focus:border-foreground/40">
                           <InputOTPSlot index={0} />
                           <InputOTPSlot index={1} />
-                        </InputOTPGroup>
-                        <InputOTPSeparator className="text-muted-foreground/30 text-xs">
-                          ·
-                        </InputOTPSeparator>
-                        <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150">
                           <InputOTPSlot index={2} />
-                          <InputOTPSlot index={3} />
                         </InputOTPGroup>
                         <InputOTPSeparator className="text-muted-foreground/30 text-xs">
                           ·
                         </InputOTPSeparator>
                         <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150">
+                          <InputOTPSlot index={3} />
                           <InputOTPSlot index={4} />
                           <InputOTPSlot index={5} />
                         </InputOTPGroup>
                       </InputOTP>
+                    </div>
+
+                    {/* Expiry countdown */}
+                    <div className="flex items-center justify-center gap-1.5 text-xs">
+                      {isExpired ? (
+                        <>
+                          <TimerOff className="h-3.5 w-3.5 text-destructive" />
+                          <span className="font-medium text-destructive">
+                            This code has expired — request a new one below.
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                          <span className="text-muted-foreground">
+                            This code expires in{" "}
+                            <span className="font-semibold tabular-nums text-foreground">
+                              {formatDuration(expiresIn)}
+                            </span>
+                          </span>
+                        </>
+                      )}
                     </div>
 
                     <AnimatePresence>
@@ -304,7 +410,7 @@ export function VerifyOtpForm({
                 children={([canSubmit, isSubmitting]) => (
                   <Button
                     type="submit"
-                    disabled={!canSubmit || isSubmitting}
+                    disabled={!canSubmit || isSubmitting || isExpired}
                     className="w-full h-10 font-medium"
                   >
                     {isSubmitting ? (
@@ -344,8 +450,12 @@ export function VerifyOtpForm({
                     </>
                   ) : resendDisabled ? (
                     /* Countdown with SVG ring */
-                    <span className="flex items-center gap-1.5 text-muted-foreground font-normal">
-                      Resend in {countdown}s
+                    <span className="flex items-center gap-1.5 text-muted-foreground font-normal tabular-nums">
+                      <CountdownRing
+                        remaining={countdown}
+                        total={RESEND_COOLDOWN_SECONDS}
+                      />
+                      Resend in {formatDuration(countdown)}
                     </span>
                   ) : (
                     <>
