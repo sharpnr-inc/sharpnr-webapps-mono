@@ -4,29 +4,38 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import axios from "axios";
 
 export const Route = createFileRoute("/signup/verify")({
-  beforeLoad: async ({ context, location }) => {
+  validateSearch: (search) => ({
+    email: typeof search.email === "string" ? search.email : "",
+  }),
+
+  beforeLoad: async ({ context, search }) => {
     try {
       const response = await context.queryClient.ensureQueryData({
-        queryKey: ["SESSION_VERIFICATIOM"],
+        queryKey: ["SESSION_VERIFICATION"],
         queryFn: VerifySignupCookie,
       });
 
-      if (response.status === 403) {
+      const email = response.data.data.email;
+
+      // Ignore whatever the user typed and enforce the server value.
+      if (search.email !== email) {
         throw redirect({
-          to: "/signup",
+          to: "/signup/verify",
+          search: { email },
+          replace: true,
         });
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 403) {
-        if (location.pathname !== "/signup") {
-          throw redirect({
-            to: "/signup",
-          });
-        }
+        throw redirect({
+          to: "/signup",
+          replace: true,
+        });
       }
 
-      throw err;
+      console.error(err);
     }
   },
+
   component: VerifyOtpForm,
 });
