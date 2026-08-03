@@ -59,11 +59,45 @@ export async function VerifyOtp(otp: OtpPayload) {
 
 /* ---------------------------------- <***> --------------------------------- */
 
-export async function VerifySignupCookie() {
-  const res = await api.get<APIResponse<any>>(
-    AuthApiEndpoints.Signup.signupSessionVerify,
+/** Issues a fresh code for the signup session identified by the cookie. */
+export async function ResendOtp() {
+  const res = await api.post<APIResponse<unknown>>(
+    AuthApiEndpoints.Signup.resendEmail,
+    {},
   );
-  return res;
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export interface SignupSession {
+  email: string;
+}
+
+/**
+ * Resolves to the pending signup session, or `null` when the browser has no
+ * valid signup cookie. Only the "no session" responses are swallowed — any
+ * other failure propagates so a dead backend never looks like a fresh signup.
+ */
+export async function VerifySignupCookie(): Promise<SignupSession | null> {
+  try {
+    const res = await api.get<APIResponse<SignupSession | string>>(
+      AuthApiEndpoints.Signup.signupSessionVerify,
+    );
+
+    const payload = res.data.data;
+    const email = typeof payload === "string" ? payload : payload?.email;
+
+    return email ? { email } : null;
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      (error.response?.status === 401 || error.response?.status === 403)
+    ) {
+      return null;
+    }
+    throw error;
+  }
 }
 
 /* ---------------------------------- <***> --------------------------------- */

@@ -1,12 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
@@ -14,217 +8,150 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useForm } from "@tanstack/react-form";
-import { useVerifyOtpMutation } from "@/apis/mutation";
+import { useResendOtpMutation, useVerifyOtpMutation } from "@/apis/mutation";
 import type { OtpPayload } from "@/apis/signup_api_services";
-import {
-  Loader2,
-  ArrowLeft,
-  Mail,
-  RotateCcw,
-  Info,
-  Clock,
-  TimerOff,
-} from "lucide-react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { config } from "@/configs/env";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/ui/AuthLayout";
+import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { FieldErrorMessage } from "./components/FieldErrorMessage";
+import { OtpStatusLine } from "./components/OtpStatusLine";
+import { ResendCodeAction } from "./components/ResendCodeAction";
+import { SpamFolderNote } from "./components/SpamFolderNote";
+import { VerifyOtpHeader } from "./components/VerifyOtpHeader";
+import { useOtpTimers } from "./hooks/useOtpTimers";
+
+const route = getRouteApi("/signup/verify");
 
 interface VerifyOtpFormProps extends React.ComponentProps<"div"> {
   setShowOtp?: (show: boolean) => void;
-  email?: string;
-}
-
-/** How long a code stays valid, in seconds. */
-const OTP_EXPIRY_SECONDS = 5 * 60;
-/** How long the user must wait between resend requests, in seconds. */
-const RESEND_COOLDOWN_SECONDS = 60;
-
-const formatDuration = (totalSeconds: number) => {
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${String(seconds).padStart(2, "0")}`;
-};
-
-/** Small circular progress ring that drains as `remaining` counts down. */
-function CountdownRing({
-  remaining,
-  total,
-}: {
-  remaining: number;
-  total: number;
-}) {
-  const radius = 6;
-  const circumference = 2 * Math.PI * radius;
-  const progress = total > 0 ? Math.min(Math.max(remaining / total, 0), 1) : 0;
-
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      className="h-3.5 w-3.5 shrink-0 -rotate-90"
-      aria-hidden="true"
-    >
-      <circle
-        cx="8"
-        cy="8"
-        r={radius}
-        fill="none"
-        strokeWidth="2"
-        className="stroke-muted-foreground/25"
-      />
-      <circle
-        cx="8"
-        cy="8"
-        r={radius}
-        fill="none"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeDasharray={circumference}
-        strokeDashoffset={circumference * (1 - progress)}
-        className="stroke-foreground/60 transition-[stroke-dashoffset] duration-1000 ease-linear"
-      />
-    </svg>
-  );
 }
 
 export function VerifyOtpForm({
   className,
   setShowOtp,
-  email,
   ...props
 }: VerifyOtpFormProps) {
-  const { mutateAsync } = useVerifyOtpMutation();
-  const [isResending, setIsResending] = useState(false);
-  const [resendDisabled, setResendDisabled] = useState(false);
-  const [countdown, setCountdown] = useState(0);
-  const [expiresIn, setExpiresIn] = useState(OTP_EXPIRY_SECONDS);
-  const iconRef = useRef<HTMLDivElement>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const expiryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  // The address comes off the route search params — beforeLoad has already
+  // reconciled it against the signup session, so it's the verified one.
+  const { email } = route.useSearch();
+  const navigate = useNavigate();
+  const verifyOtp = useVerifyOtpMutation();
+  const resendOtp = useResendOtpMutation();
 
-  const isExpired = expiresIn === 0;
+  const {
+    expiresIn,
+    isExpired,
+    cooldown,
+    isCoolingDown,
+    restartExpiry,
+    startCooldown,
+  } = useOtpTimers();
+
+  // Rejection from the server, shown on the slots themselves rather than only
+  // as a toast the user may have already dismissed.
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+  const [isVerified, setIsVerified] = useState(false);
+  const otpInputRef = useRef<HTMLInputElement>(null);
+
+  const isSubmitting = verifyOtp.isPending;
+
+  // Slot styling tracks the state of the code: neutral, rejected, or accepted.
+  const otpGroupClass = cn(
+    "gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10",
+    "*:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border",
+    "*:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold",
+    "*:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150",
+    "*:data-[slot=input-otp-slot]:focus:border-foreground/40",
+    verifyError &&
+      "*:data-[slot=input-otp-slot]:border-destructive *:data-[slot=input-otp-slot]:text-destructive",
+    isVerified &&
+      "*:data-[slot=input-otp-slot]:border-emerald-500/60 *:data-[slot=input-otp-slot]:text-emerald-600",
+  );
+
+  const shakeSlots = useCallback(() => {
+    gsap.fromTo(
+      ".otp-slots",
+      { x: -6 },
+      {
+        x: 6,
+        duration: 0.08,
+        ease: "power1.inOut",
+        repeat: 5,
+        yoyo: true,
+        onComplete: () => gsap.set(".otp-slots", { x: 0 }),
+      },
+    );
+  }, []);
 
   const form = useForm({
     defaultValues: { otp: "" } as OtpPayload,
     onSubmit: async ({ value }) => {
+      setVerifyError(null);
       try {
-        await mutateAsync(value, {
-          onSuccess: ({ success, message, error }) => {
-            if (success) {
-              toast.success(message);
-            } else {
-              toast.error(error?.message);
-            }
-            window.location.replace(
-              config.orchestratorAppUrl + "/setup_wizard",
-            );
-          },
-        });
-      } catch (error) {
-        console.error("OTP verification failed:", error);
-        // Shake animation on error
-        if (iconRef.current) {
-          gsap.fromTo(
-            ".otp-slots",
-            { x: -6 },
-            {
-              x: 6,
-              duration: 0.08,
-              ease: "power1.inOut",
-              repeat: 5,
-              yoyo: true,
-              onComplete: () => gsap.set(".otp-slots", { x: 0 }),
-            },
-          );
+        const { success, message, error } = await verifyOtp.mutateAsync(value);
+
+        // Only leave the page on an actual pass. Handing a wrong code to the
+        // setup wizard just moves the failure somewhere harder to recover from.
+        if (!success) {
+          setVerifyError(error?.message ?? "That code didn't match.");
+          toast.error(error?.message ?? "That code didn't match.");
+          shakeSlots();
+          form.reset();
+          return;
         }
+
+        setIsVerified(true);
+        toast.success(message ?? "Email verified.");
+        window.location.replace(config.orchestratorAppUrl + "/setup_wizard");
+      } catch (error) {
+        const message =
+          error instanceof Error
+            ? error.message
+            : "We couldn't verify that code. Please try again.";
+        setVerifyError(message);
+        toast.error(message);
+        shakeSlots();
         form.reset();
       }
     },
   });
 
-  // GSAP: entrance for mail icon
+  // Land the caret in the code field so the user can type (or paste) straight
+  // away instead of hunting for it.
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".otp-icon-ring",
-        { scale: 0, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.6,
-          ease: "back.out(1.7)",
-          delay: 0.1,
-        },
-      );
-      gsap.fromTo(
-        ".otp-pulse",
-        { scale: 1, opacity: 0.6 },
-        {
-          scale: 1.6,
-          opacity: 0,
-          duration: 1.8,
-          ease: "power2.out",
-          repeat: -1,
-          delay: 0.6,
-        },
-      );
-    }, iconRef);
-    return () => ctx.revert();
+    otpInputRef.current?.focus();
   }, []);
-
-  // Restart the 5 minute validity window for the code currently in the inbox.
-  const startExpiryCountdown = useCallback(() => {
-    if (expiryTimerRef.current) clearInterval(expiryTimerRef.current);
-    setExpiresIn(OTP_EXPIRY_SECONDS);
-    expiryTimerRef.current = setInterval(() => {
-      setExpiresIn((prev) => {
-        if (prev <= 1) {
-          if (expiryTimerRef.current) clearInterval(expiryTimerRef.current);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-  }, []);
-
-  useEffect(() => {
-    startExpiryCountdown();
-  }, [startExpiryCountdown]);
 
   const handleResendOtp = async () => {
-    setIsResending(true);
-    setResendDisabled(true);
     try {
-      setCountdown(RESEND_COOLDOWN_SECONDS);
-      timerRef.current = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            if (timerRef.current) clearInterval(timerRef.current);
-            setResendDisabled(false);
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-      // A fresh code was sent, so the old one is gone and the clock restarts.
+      // Ask for the new code first — starting the cooldown before the request
+      // lands would lock the user out of retrying a request that failed.
+      const { success, error } = await resendOtp.mutateAsync();
+
+      if (!success) {
+        toast.error(error?.message ?? "We couldn't send a new code.");
+        return;
+      }
+
+      startCooldown();
+      restartExpiry();
       form.reset();
-      startExpiryCountdown();
+      setVerifyError(null);
+      otpInputRef.current?.focus();
+      toast.success(`A new code is on its way to ${email}.`);
     } catch (error) {
-      console.error("Failed to resend OTP:", error);
-      setResendDisabled(false);
-    } finally {
-      setIsResending(false);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "We couldn't send a new code. Please try again.",
+      );
     }
   };
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      if (expiryTimerRef.current) clearInterval(expiryTimerRef.current);
-    };
-  }, []);
 
   return (
     <AuthLayout>
@@ -237,69 +164,30 @@ export function VerifyOtpForm({
           }}
         >
           <FieldGroup>
-            {/* Back button */}
-            {setShowOtp && (
-              <motion.div
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowOtp(false)}
-                  className="-ml-2 text-muted-foreground hover:text-foreground"
-                >
-                  <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
-                  Back
-                </Button>
-              </motion.div>
-            )}
-
-            {/* Icon */}
+            {/* Back — always offered, otherwise a mistyped address is a dead
+                end with no way off this screen. */}
             <motion.div
-              ref={iconRef}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex flex-col items-center gap-5"
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              {/* Mail icon with pulse ring */}
-              <div className="relative flex items-center justify-center">
-                <div className="otp-pulse absolute h-16 w-16 rounded-full border border-foreground/10" />
-                <div className="otp-icon-ring flex h-14 w-14 items-center justify-center rounded-full border border-border bg-muted shadow-sm">
-                  <Mail className="h-6 w-6 text-foreground/70" />
-                </div>
-              </div>
-
-              {/* Headline */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: 0.25,
-                  duration: 0.4,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="flex flex-col items-center gap-1.5 text-center"
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                disabled={isVerified}
+                onClick={() =>
+                  setShowOtp ? setShowOtp(false) : navigate({ to: "/signup" })
+                }
+                className="-ml-2 text-muted-foreground hover:text-foreground"
               >
-                <h1 className="text-2xl font-bold tracking-tight">
-                  Check your inbox
-                </h1>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  We&apos;ve sent a 6-digit verification code to{" "}
-                  {email ? (
-                    <span className="font-medium text-foreground">{email}</span>
-                  ) : (
-                    "your email address"
-                  )}
-                  . The code is valid for 5 minutes — enter it below to
-                  continue.
-                </p>
-              </motion.div>
+                <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
+                Use a different email
+              </Button>
             </motion.div>
 
-            {/* OTP input */}
+            <VerifyOtpHeader email={email} />
+
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -328,23 +216,34 @@ export function VerifyOtpForm({
                     </FieldLabel>
                     <div className="otp-slots flex justify-center">
                       <InputOTP
+                        ref={otpInputRef}
                         maxLength={6}
                         id="otp"
                         value={field.state.value}
-                        onChange={(value) => field.handleChange(value)}
+                        onChange={(value) => {
+                          field.handleChange(value);
+                          // A rejected code stops looking rejected the moment
+                          // the user starts correcting it.
+                          if (verifyError) setVerifyError(null);
+                          // Submit on the sixth digit — nobody wants to reach
+                          // for a button after typing a complete code.
+                          if (value.length === 6 && /^\d{6}$/.test(value)) {
+                            form.handleSubmit();
+                          }
+                        }}
                         onBlur={field.handleBlur}
-                        disabled={isExpired}
+                        disabled={isExpired || isSubmitting || isVerified}
                         required
                       >
-                        <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150 *:data-[slot=input-otp-slot]:focus:border-foreground/40">
+                        <InputOTPGroup className={otpGroupClass}>
                           <InputOTPSlot index={0} />
                           <InputOTPSlot index={1} />
                           <InputOTPSlot index={2} />
                         </InputOTPGroup>
-                        <InputOTPSeparator className="text-muted-foreground/30 text-xs">
+                        <InputOTPSeparator className="text-xs text-muted-foreground/30">
                           ·
                         </InputOTPSeparator>
-                        <InputOTPGroup className="gap-2 *:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-10 *:data-[slot=input-otp-slot]:rounded-lg *:data-[slot=input-otp-slot]:border *:data-[slot=input-otp-slot]:text-base *:data-[slot=input-otp-slot]:font-semibold *:data-[slot=input-otp-slot]:transition-all *:data-[slot=input-otp-slot]:duration-150">
+                        <InputOTPGroup className={otpGroupClass}>
                           <InputOTPSlot index={3} />
                           <InputOTPSlot index={4} />
                           <InputOTPSlot index={5} />
@@ -352,50 +251,25 @@ export function VerifyOtpForm({
                       </InputOTP>
                     </div>
 
-                    {/* Expiry countdown */}
-                    <div className="flex items-center justify-center gap-1.5 text-xs">
-                      {isExpired ? (
-                        <>
-                          <TimerOff className="h-3.5 w-3.5 text-destructive" />
-                          <span className="font-medium text-destructive">
-                            This code has expired — request a new one below.
-                          </span>
-                        </>
-                      ) : (
-                        <>
-                          <Clock className="h-3.5 w-3.5 text-muted-foreground" />
-                          <span className="text-muted-foreground">
-                            This code expires in{" "}
-                            <span className="font-semibold tabular-nums text-foreground">
-                              {formatDuration(expiresIn)}
-                            </span>
-                          </span>
-                        </>
-                      )}
-                    </div>
+                    <OtpStatusLine
+                      expiresIn={expiresIn}
+                      isExpired={isExpired}
+                      isVerified={isVerified}
+                    />
 
-                    <AnimatePresence>
-                      {field.state.meta.isTouched &&
-                        field.state.meta.errors.length > 0 && (
-                          <motion.div
-                            initial={{ opacity: 0, y: -4 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -4 }}
-                            transition={{ duration: 0.2 }}
-                            className="text-center"
-                          >
-                            <FieldError>
-                              {field.state.meta.errors[0]}
-                            </FieldError>
-                          </motion.div>
-                        )}
-                    </AnimatePresence>
+                    <FieldErrorMessage
+                      message={
+                        verifyError ??
+                        (field.state.meta.isTouched
+                          ? field.state.meta.errors[0]
+                          : undefined)
+                      }
+                    />
                   </Field>
                 )}
               />
             </motion.div>
 
-            {/* Verify button */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -406,14 +280,21 @@ export function VerifyOtpForm({
               }}
             >
               <form.Subscribe
-                selector={(state) => [state.canSubmit, state.isSubmitting]}
-                children={([canSubmit, isSubmitting]) => (
+                selector={(state) => [state.canSubmit]}
+                children={([canSubmit]) => (
                   <Button
                     type="submit"
-                    disabled={!canSubmit || isSubmitting || isExpired}
-                    className="w-full h-10 font-medium"
+                    disabled={
+                      !canSubmit || isSubmitting || isExpired || isVerified
+                    }
+                    className="h-10 w-full font-medium"
                   >
-                    {isSubmitting ? (
+                    {isVerified ? (
+                      <>
+                        <CheckCircle2 className="mr-2 h-4 w-4" />
+                        Verified
+                      </>
+                    ) : isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         Verifying…
@@ -426,66 +307,21 @@ export function VerifyOtpForm({
               />
             </motion.div>
 
-            {/* Resend row */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.55 }}
             >
-              <FieldDescription className="flex items-center justify-center gap-1.5 text-center text-sm">
-                <span className="text-muted-foreground">
-                  Didn&apos;t receive the code?
-                </span>
-                <Button
-                  type="button"
-                  variant="link"
-                  className="p-0 h-auto text-sm font-semibold gap-1.5"
-                  onClick={handleResendOtp}
-                  disabled={resendDisabled || isResending}
-                >
-                  {isResending ? (
-                    <>
-                      <Loader2 className="h-3 w-3 animate-spin" />
-                      Resending…
-                    </>
-                  ) : resendDisabled ? (
-                    /* Countdown with SVG ring */
-                    <span className="flex items-center gap-1.5 text-muted-foreground font-normal tabular-nums">
-                      <CountdownRing
-                        remaining={countdown}
-                        total={RESEND_COOLDOWN_SECONDS}
-                      />
-                      Resend in {formatDuration(countdown)}
-                    </span>
-                  ) : (
-                    <>
-                      <RotateCcw className="h-3 w-3" />
-                      Resend code
-                    </>
-                  )}
-                </Button>
-              </FieldDescription>
+              <ResendCodeAction
+                prominent={isExpired}
+                isSending={resendOtp.isPending}
+                isCoolingDown={isCoolingDown}
+                cooldown={cooldown}
+                onResend={handleResendOtp}
+              />
             </motion.div>
 
-            {/* Spam folder / sender note */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, duration: 0.4 }}
-            >
-              <div className="flex items-start gap-2.5 rounded-lg border border-border bg-muted/40 px-3.5 py-3">
-                <Info className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  Can&apos;t find the email? Please check your spam or junk
-                  folder. The code is sent from{" "}
-                  <span className="font-medium text-foreground">
-                    verifications@sharpnr.com
-                  </span>
-                  &nbsp;— adding it to your contacts helps future emails reach
-                  your inbox.
-                </p>
-              </div>
-            </motion.div>
+            <SpamFolderNote />
           </FieldGroup>
         </form>
       </div>

@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { APIResponse } from "@/lib/api_response";
 import {
   InitializeSignup,
+  ResendOtp,
   VerifyOtp,
   type OrgSignupPayload,
 } from "./signup_api_services";
@@ -23,6 +24,15 @@ export function useVerifyOtpMutation() {
   return useMutation({
     mutationKey: ["Verify-otp"],
     mutationFn: VerifyOtp,
+  });
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export function useResendOtpMutation() {
+  return useMutation({
+    mutationKey: ["Resend-otp"],
+    mutationFn: ResendOtp,
   });
 }
 

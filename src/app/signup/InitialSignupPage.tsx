@@ -1,33 +1,27 @@
-import {
-  cn,
-  validateEmail,
-  validateMobile,
-  validatePassword,
-} from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { validateEmail, validateMobile, validatePassword } from "@/lib/utils";
 import {
   Field,
   FieldDescription,
-  FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import { useForm } from "@tanstack/react-form";
 import { useInitiateSignUpMutation } from "@/apis/mutation";
 import type { OrgSignupPayload } from "@/apis/signup_api_services";
 import { useNavigate } from "@tanstack/react-router";
-import { motion, type Variants } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
+import { CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { type OrgSignupFormData } from "./types";
 import { PasswordStrength } from "./PasswordStrength";
 import { AuthLayout } from "@/components/ui/AuthLayout";
-
-// ─── Types ────────────────────────────────────────────────────────────────────
+import { AnimatedField } from "./components/AnimatedField";
+import { FieldErrorMessage } from "./components/FieldErrorMessage";
+import { MobileInput } from "./components/MobileInput";
+import { PasswordInput } from "./components/PasswordInput";
+import { SignInPrompt } from "./components/SignInPrompt";
+import { SignupHeader } from "./components/SignupHeader";
+import { SubmitButton } from "./components/SubmitButton";
 
 const defaultOrgForm: OrgSignupFormData = {
   email: "",
@@ -42,26 +36,9 @@ function mapFormToPayload(formData: OrgSignupFormData): OrgSignupPayload {
   return payload;
 }
 
-// ─── Animated field wrapper ───────────────────────────────────────────────────
-
-const fieldVariant: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.07, duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
-// ─── Main component ───────────────────────────────────────────────────────────
-
-export function InitialSignupPage({}) {
+export function InitialSignupPage() {
   const navigate = useNavigate();
   const startRegistration = useInitiateSignUpMutation();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [passwordValue, setPasswordValue] = useState("");
-  const submitRef = useRef<HTMLButtonElement>(null);
 
   const form = useForm({
     defaultValues: defaultOrgForm,
@@ -69,14 +46,18 @@ export function InitialSignupPage({}) {
       const payload = mapFormToPayload(value);
       startRegistration.mutate(payload, {
         onSuccess: (response) => {
-          if (response.data && !response.error) {
-            navigate({
-              to: "/signup/verify",
-              search: {
-                email: payload.email,
-              },
-            });
+          // Gate on `error`, not on `data` — the envelope's data field is
+          // optional, so a 200 that only carries a message would otherwise
+          // leave the user sitting on the signup form.
+          if (response.error) {
+            toast.error(response.error.message);
+            return;
           }
+
+          navigate({
+            to: "/signup/verify",
+            search: { email: payload.email },
+          });
         },
         onError: (error) => {
           toast.error(error?.message);
@@ -84,21 +65,6 @@ export function InitialSignupPage({}) {
       });
     },
   });
-
-  // GSAP: shimmer on submit button hover
-  useEffect(() => {
-    const btn = submitRef.current;
-    if (!btn) return;
-    const ctx = gsap.context(() => {
-      btn.addEventListener("mouseenter", () => {
-        gsap.to(btn, { scale: 1.02, duration: 0.2, ease: "power2.out" });
-      });
-      btn.addEventListener("mouseleave", () => {
-        gsap.to(btn, { scale: 1, duration: 0.2, ease: "power2.out" });
-      });
-    });
-    return () => ctx.revert();
-  }, []);
 
   return (
     <AuthLayout>
@@ -109,41 +75,10 @@ export function InitialSignupPage({}) {
           form.handleSubmit();
         }}
       >
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-1"
-        >
-          <div className="mb-5 flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-foreground/5">
-              <img
-                src="https://cdn.sharpnr.com/shicon.svg"
-                alt="Sharpnr"
-                className="h-5.5 w-5.5"
-              />
-            </div>
-            <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              Sharpnr Account
-            </span>
-          </div>
-          <h1 className="text-3xl font-semibold tracking-tight">
-            Create your account
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Get started — it only takes a minute.
-          </p>
-        </motion.div>
+        <SignupHeader />
 
         <FieldGroup>
-          {/* Email */}
-          <motion.div
-            custom={0}
-            variants={fieldVariant}
-            initial="hidden"
-            animate="visible"
-          >
+          <AnimatedField index={0}>
             <form.Field
               name="email"
               validators={{ onChange: ({ value }) => validateEmail(value) }}
@@ -160,33 +95,31 @@ export function InitialSignupPage({}) {
                     onChange={(e) => field.handleChange(e.target.value)}
                     onBlur={field.handleBlur}
                     id={field.name}
+                    name={field.name}
                     type="email"
+                    autoComplete="email"
                     placeholder="name@company.com"
+                    aria-invalid={
+                      (field.state.meta.isTouched &&
+                        field.state.meta.errors.length > 0) ||
+                      undefined
+                    }
                     required
                     className="h-10"
                   />
-                  {field.state.meta.isTouched &&
-                    field.state.meta.errors.length > 0 && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <FieldError>{field.state.meta.errors[0]}</FieldError>
-                      </motion.div>
-                    )}
+                  <FieldErrorMessage
+                    message={
+                      field.state.meta.isTouched
+                        ? field.state.meta.errors[0]
+                        : undefined
+                    }
+                  />
                 </Field>
               )}
             />
-          </motion.div>
+          </AnimatedField>
 
-          {/* Mobile */}
-          <motion.div
-            custom={1}
-            variants={fieldVariant}
-            initial="hidden"
-            animate="visible"
-          >
+          <AnimatedField index={1}>
             <form.Field
               name="mobile"
               validators={{ onChange: ({ value }) => validateMobile(value) }}
@@ -198,48 +131,36 @@ export function InitialSignupPage({}) {
                   >
                     Mobile number
                   </FieldLabel>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground select-none">
-                      +91
-                    </span>
-                    <Input
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      onBlur={field.handleBlur}
-                      id={field.name}
-                      type="tel"
-                      placeholder="9876543210"
-                      maxLength={10}
-                      required
-                      className="h-10 pl-10"
-                    />
-                  </div>
+                  <MobileInput
+                    value={field.state.value}
+                    onValueChange={field.handleChange}
+                    onBlur={field.handleBlur}
+                    id={field.name}
+                    name={field.name}
+                    placeholder="9876543210"
+                    invalid={
+                      field.state.meta.isTouched &&
+                      field.state.meta.errors.length > 0
+                    }
+                    required
+                  />
                   <FieldDescription className="text-[11px] text-muted-foreground/60">
                     Used for account recovery only
                   </FieldDescription>
-                  {field.state.meta.isTouched &&
-                    field.state.meta.errors.length > 0 && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <FieldError>{field.state.meta.errors[0]}</FieldError>
-                      </motion.div>
-                    )}
+                  <FieldErrorMessage
+                    message={
+                      field.state.meta.isTouched
+                        ? field.state.meta.errors[0]
+                        : undefined
+                    }
+                  />
                 </Field>
               )}
             />
-          </motion.div>
+          </AnimatedField>
 
-          {/* Password row */}
           <div className="grid gap-4 sm:grid-cols-2">
-            <motion.div
-              custom={2}
-              variants={fieldVariant}
-              initial="hidden"
-              animate="visible"
-            >
+            <AnimatedField index={2}>
               <form.Field
                 name="password"
                 validators={{
@@ -253,53 +174,37 @@ export function InitialSignupPage({}) {
                     >
                       Password
                     </FieldLabel>
-                    <div className="relative">
-                      <Input
-                        value={field.state.value}
-                        onChange={(e) => {
-                          field.handleChange(e.target.value);
-                          setPasswordValue(e.target.value);
-                        }}
-                        onBlur={field.handleBlur}
-                        id={field.name}
-                        type={showPassword ? "text" : "password"}
-                        placeholder="••••••••"
-                        required
-                        className="h-10 pr-10"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword((v) => !v)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground/60 hover:text-foreground transition-colors"
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </button>
-                    </div>
+                    <PasswordInput
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      onBlur={field.handleBlur}
+                      id={field.name}
+                      name={field.name}
+                      autoComplete="new-password"
+                      placeholder="••••••••"
+                      invalid={
+                        field.state.meta.isTouched &&
+                        field.state.meta.errors.length > 0
+                      }
+                      required
+                    />
                     <PasswordStrength password={field.state.value} />
-                    {field.state.meta.isTouched && !field.state.value && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <FieldError>{field.state.meta.errors[0]}</FieldError>
-                      </motion.div>
-                    )}
+                    {/* The strength meter already spells out every unmet rule
+                        while typing, so only surface the message once the user
+                        has moved on. */}
+                    <FieldErrorMessage
+                      message={
+                        field.state.meta.isBlurred
+                          ? field.state.meta.errors[0]
+                          : undefined
+                      }
+                    />
                   </Field>
                 )}
               />
-            </motion.div>
+            </AnimatedField>
 
-            <motion.div
-              custom={3}
-              variants={fieldVariant}
-              initial="hidden"
-              animate="visible"
-            >
+            <AnimatedField index={3}>
               <form.Field
                 name="confirm_password"
                 validators={{
@@ -311,111 +216,66 @@ export function InitialSignupPage({}) {
                     return undefined;
                   },
                 }}
-                children={(field) => (
-                  <Field>
-                    <FieldLabel
-                      htmlFor={field.name}
-                      className="text-xs font-medium text-foreground/70"
-                    >
-                      Confirm password
-                    </FieldLabel>
-                    <div className="relative">
-                      <Input
+                children={(field) => {
+                  const matches =
+                    !!field.state.value && field.state.meta.errors.length === 0;
+
+                  return (
+                    <Field>
+                      <FieldLabel
+                        htmlFor={field.name}
+                        className="text-xs font-medium text-foreground/70"
+                      >
+                        Confirm password
+                      </FieldLabel>
+                      <PasswordInput
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         onBlur={field.handleBlur}
                         id={field.name}
-                        type={showConfirm ? "text" : "password"}
+                        name={field.name}
+                        autoComplete="new-password"
                         placeholder="••••••••"
-                        required
-                        className={cn(
-                          "h-10 pr-10",
+                        invalid={
                           field.state.meta.isTouched &&
-                            field.state.value &&
-                            field.state.value === passwordValue &&
-                            "border-foreground/30",
-                        )}
+                          field.state.meta.errors.length > 0
+                        }
+                        className={matches ? "border-foreground/30" : undefined}
+                        required
                       />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirm((v) => !v)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-muted-foreground/60 hover:text-foreground transition-colors"
-                      >
-                        {showConfirm ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </button>
-                    </div>
-                    {field.state.meta.isTouched &&
-                      field.state.meta.errors.length > 0 && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <FieldError>{field.state.meta.errors[0]}</FieldError>
-                        </motion.div>
+                      {matches && (
+                        <FieldDescription className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                          <CheckCircle2 className="h-3 w-3" />
+                          Passwords match
+                        </FieldDescription>
                       )}
-                  </Field>
-                )}
+                      <FieldErrorMessage
+                        message={
+                          field.state.meta.isTouched
+                            ? field.state.meta.errors[0]
+                            : undefined
+                        }
+                      />
+                    </Field>
+                  );
+                }}
               />
-            </motion.div>
+            </AnimatedField>
           </div>
 
-          {/* Submit */}
-          <motion.div
-            custom={4}
-            variants={fieldVariant}
-            initial="hidden"
-            animate="visible"
-          >
+          <AnimatedField index={4}>
             <form.Subscribe
               selector={(state) => [state.canSubmit, state.isSubmitting]}
               children={([canSubmit, isSubmitting]) => (
-                <Button
-                  ref={submitRef}
-                  type="submit"
-                  disabled={!canSubmit || isSubmitting}
-                  className="w-full h-10 font-medium"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating account…
-                    </>
-                  ) : (
-                    <>
-                      Continue &amp; Verify Email
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
+                <SubmitButton
+                  canSubmit={canSubmit}
+                  isSubmitting={isSubmitting}
+                />
               )}
             />
-          </motion.div>
+          </AnimatedField>
 
-          <FieldSeparator>Or</FieldSeparator>
-
-          <motion.div
-            custom={5}
-            variants={fieldVariant}
-            initial="hidden"
-            animate="visible"
-          >
-            <FieldDescription className="text-center text-sm">
-              Already have an account?
-              <Button
-                variant={"ghost"}
-                className=" h-auto font-semibold"
-                onClick={() => navigate({ to: "/" })}
-                type="button"
-              >
-                Sign in
-              </Button>
-            </FieldDescription>
-          </motion.div>
+          <SignInPrompt index={5} />
         </FieldGroup>
       </form>
     </AuthLayout>

@@ -1,43 +1,42 @@
 import { VerifySignupCookie } from "@/apis/signup_api_services";
 import { VerifyOtpForm } from "@/app/signup/VerifyOtpPage";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import axios from "axios";
 
 export const Route = createFileRoute("/signup/verify")({
   validateSearch: (search) => ({
     email: typeof search.email === "string" ? search.email : "",
   }),
 
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context, search }) => {
+    let email: string | undefined;
+
     try {
-      const response = await context.queryClient.ensureQueryData({
+      const session = await context.queryClient.fetchQuery({
         queryKey: ["SESSION_VERIFICATION"],
         queryFn: VerifySignupCookie,
+        staleTime: 0,
       });
 
-      switch (response.status) {
-        case 200: {
-          throw redirect({
-            to: "/signup/verify",
-            search: {
-              email: response.data.data,
-            },
-            replace: true,
-          });
-        }
+      email = session?.email;
+    } catch {
+      // Couldn't reach the session endpoint — don't bounce the user mid-signup.
+      return;
+    }
 
-        default:
-          break;
-      }
-    } catch (err) {
-      if (axios.isAxiosError(err) && err.response?.status === 403) {
-        throw redirect({
-          to: "/signup",
-          replace: true,
-        });
-      }
+    // Both redirects are thrown outside the try/catch so they reach the router.
+    if (!email) {
+      throw redirect({ to: "/signup", replace: true });
+    }
 
-      console.error(err);
+    // The session is the source of truth for the address. Correct the URL only
+    // when it actually disagrees — redirecting to this same route
+    // unconditionally is an infinite redirect loop.
+    if (search.email !== email) {
+      throw redirect({
+        to: "/signup/verify",
+        search: { email },
+        replace: true,
+      });
     }
   },
 
