@@ -8,7 +8,7 @@ api.interceptors.response.use(
 
     const isAuthCheck = url?.includes("verify-authentication");
 
-    if ((status === 401 || status === 403) && !isAuthCheck) {
+    if (status === 401 && !isAuthCheck) {
       console.warn("Auth / CSRF failed");
 
       if (window.location.pathname !== "/") {
