@@ -75,6 +75,13 @@ export interface SignupSession {
 }
 
 /**
+ * Statuses that mean "there is no signup session to continue" rather than
+ * "something went wrong": no cookie (401), a cookie the server rejects (403),
+ * or a session that has since expired or been consumed (410).
+ */
+const NO_SIGNUP_SESSION_STATUSES = [401, 403, 410];
+
+/**
  * Resolves to the pending signup session, or `null` when the browser has no
  * valid signup cookie. Only the "no session" responses are swallowed — any
  * other failure propagates so a dead backend never looks like a fresh signup.
@@ -92,7 +99,7 @@ export async function VerifySignupCookie(): Promise<SignupSession | null> {
   } catch (error) {
     if (
       axios.isAxiosError(error) &&
-      (error.response?.status === 401 || error.response?.status === 403)
+      NO_SIGNUP_SESSION_STATUSES.includes(error.response?.status ?? 0)
     ) {
       return null;
     }

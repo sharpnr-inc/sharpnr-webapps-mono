@@ -16,9 +16,12 @@ export function SignupHeader() {
             className="h-5.5 w-5.5"
           />
         </div>
-        <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-          Sharpnr Account
-        </span>
+        <div className="flex flex-col leading-none">
+          <span className="text-lg font-semibold tracking-tight">Sharpnr</span>
+          <span className="mt-1 text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            Account
+          </span>
+        </div>
       </div>
       <h1 className="text-3xl font-semibold tracking-tight">
         Create your Sharpnr Account

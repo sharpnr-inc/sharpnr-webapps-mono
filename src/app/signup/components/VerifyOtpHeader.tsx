@@ -60,7 +60,9 @@ export function VerifyOtpHeader({ email }: { email?: string }) {
         transition={{ delay: 0.25, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className="flex flex-col items-center gap-1.5 text-center"
       >
-        <h1 className="text-2xl font-bold tracking-tight">Check your inbox</h1>
+        <h1 className="text-2xl font-bold tracking-tight">
+          Verify your Sharpnr Account
+        </h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
           We&apos;ve sent a 6-digit OTP to this email address. The code is valid
           for 5 minutes — enter it below to continue.

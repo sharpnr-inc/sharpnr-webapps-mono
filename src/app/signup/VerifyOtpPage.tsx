@@ -10,14 +10,14 @@ import {
 import { useForm } from "@tanstack/react-form";
 import { useResendOtpMutation, useVerifyOtpMutation } from "@/apis/mutation";
 import type { OtpPayload } from "@/apis/signup_api_services";
-import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { config } from "@/configs/env";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/ui/AuthLayout";
-import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { FieldErrorMessage } from "./components/FieldErrorMessage";
 import { OtpStatusLine } from "./components/OtpStatusLine";
 import { ResendCodeAction } from "./components/ResendCodeAction";
@@ -27,19 +27,12 @@ import { useOtpTimers } from "./hooks/useOtpTimers";
 
 const route = getRouteApi("/signup/verify");
 
-interface VerifyOtpFormProps extends React.ComponentProps<"div"> {
-  setShowOtp?: (show: boolean) => void;
-}
+type VerifyOtpFormProps = React.ComponentProps<"div">;
 
-export function VerifyOtpForm({
-  className,
-  setShowOtp,
-  ...props
-}: VerifyOtpFormProps) {
+export function VerifyOtpForm({ className, ...props }: VerifyOtpFormProps) {
   // The address comes off the route search params — beforeLoad has already
   // reconciled it against the signup session, so it's the verified one.
   const { email } = route.useSearch();
-  const navigate = useNavigate();
   const verifyOtp = useVerifyOtpMutation();
   const resendOtp = useResendOtpMutation();
 
@@ -164,28 +157,6 @@ export function VerifyOtpForm({
           }}
         >
           <FieldGroup>
-            {/* Back — always offered, otherwise a mistyped address is a dead
-                end with no way off this screen. */}
-            <motion.div
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                disabled={isVerified}
-                onClick={() =>
-                  setShowOtp ? setShowOtp(false) : navigate({ to: "/signup" })
-                }
-                className="-ml-2 text-muted-foreground hover:text-foreground"
-              >
-                <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
-                Use a different email
-              </Button>
-            </motion.div>
-
             <VerifyOtpHeader email={email} />
 
             <motion.div

@@ -24,6 +24,7 @@ export const Route = createFileRoute("/signup/verify")({
     }
 
     // Both redirects are thrown outside the try/catch so they reach the router.
+    // No session — expired, consumed, or never issued — means starting over.
     if (!email) {
       throw redirect({ to: "/signup", replace: true });
     }
