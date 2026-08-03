@@ -27,8 +27,6 @@ export const Route = createFileRoute("/signup/")({
       if (axios.isAxiosError(err) && err.response?.status === 403) {
         return;
       }
-
-      console.error(err);
       return;
     }
   },

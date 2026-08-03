@@ -68,11 +68,18 @@ export function InitialSignupPage({}) {
     onSubmit: ({ value }) => {
       const payload = mapFormToPayload(value);
       startRegistration.mutate(payload, {
-        onSuccess: () => {},
+        onSuccess: (response) => {
+          if (response.data && !response.error) {
+            navigate({
+              to: "/signup/verify",
+              search: {
+                email: payload.email,
+              },
+            });
+          }
+        },
         onError: (error) => {
-          // Extract server-provided error messages if available
-          const message = error.message || "Something went wrong";
-          toast.error(message);
+          toast.error(error?.message);
         },
       });
     },

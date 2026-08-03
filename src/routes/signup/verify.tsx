@@ -8,22 +8,26 @@ export const Route = createFileRoute("/signup/verify")({
     email: typeof search.email === "string" ? search.email : "",
   }),
 
-  beforeLoad: async ({ context, search }) => {
+  beforeLoad: async ({ context }) => {
     try {
       const response = await context.queryClient.ensureQueryData({
         queryKey: ["SESSION_VERIFICATION"],
         queryFn: VerifySignupCookie,
       });
 
-      const email = response.data.data.email;
+      switch (response.status) {
+        case 200: {
+          throw redirect({
+            to: "/signup/verify",
+            search: {
+              email: response.data.data,
+            },
+            replace: true,
+          });
+        }
 
-      // Ignore whatever the user typed and enforce the server value.
-      if (search.email !== email) {
-        throw redirect({
-          to: "/signup/verify",
-          search: { email },
-          replace: true,
-        });
+        default:
+          break;
       }
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 403) {
