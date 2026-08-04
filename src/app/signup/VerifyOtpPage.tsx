@@ -17,7 +17,8 @@ import { motion } from "framer-motion";
 import gsap from "gsap";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/ui/AuthLayout";
-import { getRouteApi } from "@tanstack/react-router";
+import { isApiError } from "@/lib/api_error";
+import { getRouteApi, useNavigate } from "@tanstack/react-router";
 import { FieldErrorMessage } from "./components/FieldErrorMessage";
 import { OtpStatusLine } from "./components/OtpStatusLine";
 import { ResendCodeAction } from "./components/ResendCodeAction";
@@ -27,12 +28,23 @@ import { useOtpTimers } from "./hooks/useOtpTimers";
 
 const route = getRouteApi("/signup/verify");
 
+/** One slot for verify feedback, so retries replace rather than stack. */
+const VERIFY_TOAST_ID = "verify-otp";
+const RESEND_TOAST_ID = "resend-otp";
+
+/**
+ * Statuses that mean the signup cookie is gone or refused. Unlike a rejected
+ * code (409), no amount of retyping recovers from these.
+ */
+const SIGNUP_SESSION_GONE_STATUSES = [401, 403];
+
 type VerifyOtpFormProps = React.ComponentProps<"div">;
 
 export function VerifyOtpForm({ className, ...props }: VerifyOtpFormProps) {
   // The address comes off the route search params — beforeLoad has already
   // reconciled it against the signup session, so it's the verified one.
   const { email } = route.useSearch();
+  const navigate = useNavigate();
   const verifyOtp = useVerifyOtpMutation();
   const resendOtp = useResendOtpMutation();
 
@@ -83,33 +95,41 @@ export function VerifyOtpForm({ className, ...props }: VerifyOtpFormProps) {
 
   const form = useForm({
     defaultValues: { otp: "" } as OtpPayload,
+    // `VerifyOtp` resolves only on an accepted code, so anything that lands
+    // here is a pass. Handing a wrong code to the setup wizard would just move
+    // the failure somewhere harder to recover from.
     onSubmit: async ({ value }) => {
       setVerifyError(null);
       try {
-        const { success, message, error } = await verifyOtp.mutateAsync(value);
-
-        // Only leave the page on an actual pass. Handing a wrong code to the
-        // setup wizard just moves the failure somewhere harder to recover from.
-        if (!success) {
-          setVerifyError(error?.message ?? "That code didn't match.");
-          toast.error(error?.message ?? "That code didn't match.");
-          shakeSlots();
-          form.reset();
-          return;
-        }
+        const { message } = await verifyOtp.mutateAsync(value);
 
         setIsVerified(true);
-        toast.success(message ?? "Email verified.");
+        toast.success(message ?? "Email verified.", { id: VERIFY_TOAST_ID });
         window.location.replace(config.orchestratorAppUrl + "/setup_wizard");
       } catch (error) {
+        const status = isApiError(error) ? error.status : 0;
         const message =
           error instanceof Error
             ? error.message
             : "We couldn't verify that code. Please try again.";
+
+        // Reusing one toast id keeps a fast retyper from stacking up a column
+        // of identical "invalid code" toasts.
+        toast.error(message, { id: VERIFY_TOAST_ID });
+
+        // A session the server no longer recognises can't be fixed by
+        // retyping — the whole signup has to start over.
+        if (SIGNUP_SESSION_GONE_STATUSES.includes(status)) {
+          navigate({ to: "/signup", replace: true });
+          return;
+        }
+
+        // 409 (and the other retryable rejections) leave the session intact:
+        // keep the user here, flag the slots, and clear them to type again.
         setVerifyError(message);
-        toast.error(message);
         shakeSlots();
         form.reset();
+        otpInputRef.current?.focus();
       }
     },
   });
@@ -124,25 +144,29 @@ export function VerifyOtpForm({ className, ...props }: VerifyOtpFormProps) {
     try {
       // Ask for the new code first — starting the cooldown before the request
       // lands would lock the user out of retrying a request that failed.
-      const { success, error } = await resendOtp.mutateAsync();
-
-      if (!success) {
-        toast.error(error?.message ?? "We couldn't send a new code.");
-        return;
-      }
+      await resendOtp.mutateAsync();
 
       startCooldown();
       restartExpiry();
       form.reset();
       setVerifyError(null);
       otpInputRef.current?.focus();
-      toast.success(`A new code is on its way to ${email}.`);
+      toast.success(`A new code is on its way to ${email}.`, {
+        id: RESEND_TOAST_ID,
+      });
     } catch (error) {
+      const status = isApiError(error) ? error.status : 0;
+
       toast.error(
         error instanceof Error
           ? error.message
           : "We couldn't send a new code. Please try again.",
+        { id: RESEND_TOAST_ID },
       );
+
+      if (SIGNUP_SESSION_GONE_STATUSES.includes(status)) {
+        navigate({ to: "/signup", replace: true });
+      }
     }
   };
 
