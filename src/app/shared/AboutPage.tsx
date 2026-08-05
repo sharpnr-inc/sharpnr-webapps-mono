@@ -1795,7 +1795,7 @@ function CTASection() {
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 
-export function SharpHospitalityAboutPage() {
+export function SharpHospitalityWebsite() {
   useFonts();
   return (
     <div
