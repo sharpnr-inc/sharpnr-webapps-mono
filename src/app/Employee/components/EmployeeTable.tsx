@@ -36,8 +36,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import RoleBadge from "../ui/RoleBadge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../../../components/ui/tooltip";
+import RoleBadge from "../../../components/ui/RoleBadge";
 
 import {
   ArrowUpDown,

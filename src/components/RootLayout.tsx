@@ -34,12 +34,9 @@ import {
   Bell,
   ShieldCheck,
   FileText,
-  Clock,
   HeartPulse,
   AlertTriangle,
   TrendingUp,
-  FolderOpen,
-  Layers,
   BadgeDollarSign,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -109,18 +106,6 @@ const navGroups: NavGroup[] = [
         icon: Building2,
         to: "/departments",
       },
-      {
-        id: "hr_positions",
-        label: "Positions & Roles",
-        icon: Layers,
-        to: "/positions",
-      },
-      {
-        id: "hr_documents",
-        label: "Employee Documents",
-        icon: FolderOpen,
-        to: "/documents",
-      },
     ],
   },
 
@@ -158,12 +143,6 @@ const navGroups: NavGroup[] = [
         to: "/attendance",
       },
       { id: "hr_leave", label: "Leave", icon: ClipboardList, to: "/leaves" },
-      {
-        id: "hr_shifts",
-        label: "Shifts & Scheduling",
-        icon: Clock,
-        to: "/shifts",
-      },
     ],
   },
 

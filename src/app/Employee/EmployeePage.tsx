@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EmployeesTable } from "@/components/tables/EmployeeTable";
+import { EmployeesTable } from "@/app/Employee/components/EmployeeTable";
 import { useOrgEmployees } from "@/api/queries";
 import { Users, UserCheck, CreditCard, Smartphone } from "lucide-react";
 

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as LayoutOffboardingRouteRouteImport } from './routes/_layout/offboarding/route'
 import { Route as LayoutEmployeesRouteRouteImport } from './routes/_layout/employees/route'
 import { Route as LayoutTrainingIndexRouteImport } from './routes/_layout/training/index'
 import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
@@ -18,13 +19,14 @@ import { Route as LayoutRecruitmentIndexRouteImport } from './routes/_layout/rec
 import { Route as LayoutPerformanceIndexRouteImport } from './routes/_layout/performance/index'
 import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll/index'
 import { Route as LayoutOnboardingIndexRouteImport } from './routes/_layout/onboarding/index'
+import { Route as LayoutOffboardingIndexRouteImport } from './routes/_layout/offboarding/index'
 import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/index'
 import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
 import { Route as LayoutDepartmentsIndexRouteImport } from './routes/_layout/departments/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
 import { Route as LayoutCompliance_policiesIndexRouteImport } from './routes/_layout/compliance_policies/index'
 import { Route as LayoutAttendanceIndexRouteImport } from './routes/_layout/attendance/index'
-import { Route as LayoutAnnoucementsIndexRouteImport } from './routes/_layout/annoucements/index'
+import { Route as LayoutAnnouncementsIndexRouteImport } from './routes/_layout/announcements/index'
 import { Route as LayoutLeavesRequestsRouteImport } from './routes/_layout/leaves/requests'
 import { Route as LayoutEmployeesEmployeeIdRouteImport } from './routes/_layout/employees/$employeeId'
 import { Route as LayoutEmployeesPrivilegesIndexRouteImport } from './routes/_layout/employees/privileges/index'
@@ -38,6 +40,11 @@ const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutOffboardingRouteRoute = LayoutOffboardingRouteRouteImport.update({
+  id: '/offboarding',
+  path: '/offboarding',
+  getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutEmployeesRouteRoute = LayoutEmployeesRouteRouteImport.update({
   id: '/employees',
@@ -74,6 +81,11 @@ const LayoutOnboardingIndexRoute = LayoutOnboardingIndexRouteImport.update({
   path: '/onboarding/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutOffboardingIndexRoute = LayoutOffboardingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutOffboardingRouteRoute,
+} as any)
 const LayoutLeavesIndexRoute = LayoutLeavesIndexRouteImport.update({
   id: '/leaves/',
   path: '/leaves/',
@@ -105,11 +117,12 @@ const LayoutAttendanceIndexRoute = LayoutAttendanceIndexRouteImport.update({
   path: '/attendance/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
-const LayoutAnnoucementsIndexRoute = LayoutAnnoucementsIndexRouteImport.update({
-  id: '/annoucements/',
-  path: '/annoucements/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
+const LayoutAnnouncementsIndexRoute =
+  LayoutAnnouncementsIndexRouteImport.update({
+    id: '/announcements/',
+    path: '/announcements/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 const LayoutLeavesRequestsRoute = LayoutLeavesRequestsRouteImport.update({
   id: '/leaves/requests',
   path: '/leaves/requests',
@@ -137,15 +150,17 @@ const LayoutEmployeesDocumentsIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
   '/employees': typeof LayoutEmployeesRouteRouteWithChildren
+  '/offboarding': typeof LayoutOffboardingRouteRouteWithChildren
   '/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
   '/leaves/requests': typeof LayoutLeavesRequestsRoute
-  '/annoucements/': typeof LayoutAnnoucementsIndexRoute
+  '/announcements/': typeof LayoutAnnouncementsIndexRoute
   '/attendance/': typeof LayoutAttendanceIndexRoute
   '/compliance_policies/': typeof LayoutCompliance_policiesIndexRoute
   '/dashboard/': typeof LayoutDashboardIndexRoute
   '/departments/': typeof LayoutDepartmentsIndexRoute
   '/employees/': typeof LayoutEmployeesIndexRoute
   '/leaves/': typeof LayoutLeavesIndexRoute
+  '/offboarding/': typeof LayoutOffboardingIndexRoute
   '/onboarding/': typeof LayoutOnboardingIndexRoute
   '/payroll/': typeof LayoutPayrollIndexRoute
   '/performance/': typeof LayoutPerformanceIndexRoute
@@ -159,13 +174,14 @@ export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
   '/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
   '/leaves/requests': typeof LayoutLeavesRequestsRoute
-  '/annoucements': typeof LayoutAnnoucementsIndexRoute
+  '/announcements': typeof LayoutAnnouncementsIndexRoute
   '/attendance': typeof LayoutAttendanceIndexRoute
   '/compliance_policies': typeof LayoutCompliance_policiesIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
   '/departments': typeof LayoutDepartmentsIndexRoute
   '/employees': typeof LayoutEmployeesIndexRoute
   '/leaves': typeof LayoutLeavesIndexRoute
+  '/offboarding': typeof LayoutOffboardingIndexRoute
   '/onboarding': typeof LayoutOnboardingIndexRoute
   '/payroll': typeof LayoutPayrollIndexRoute
   '/performance': typeof LayoutPerformanceIndexRoute
@@ -179,16 +195,18 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
   '/_layout/employees': typeof LayoutEmployeesRouteRouteWithChildren
+  '/_layout/offboarding': typeof LayoutOffboardingRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
   '/_layout/employees/$employeeId': typeof LayoutEmployeesEmployeeIdRoute
   '/_layout/leaves/requests': typeof LayoutLeavesRequestsRoute
-  '/_layout/annoucements/': typeof LayoutAnnoucementsIndexRoute
+  '/_layout/announcements/': typeof LayoutAnnouncementsIndexRoute
   '/_layout/attendance/': typeof LayoutAttendanceIndexRoute
   '/_layout/compliance_policies/': typeof LayoutCompliance_policiesIndexRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
   '/_layout/departments/': typeof LayoutDepartmentsIndexRoute
   '/_layout/employees/': typeof LayoutEmployeesIndexRoute
   '/_layout/leaves/': typeof LayoutLeavesIndexRoute
+  '/_layout/offboarding/': typeof LayoutOffboardingIndexRoute
   '/_layout/onboarding/': typeof LayoutOnboardingIndexRoute
   '/_layout/payroll/': typeof LayoutPayrollIndexRoute
   '/_layout/performance/': typeof LayoutPerformanceIndexRoute
@@ -203,15 +221,17 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/employees'
+    | '/offboarding'
     | '/employees/$employeeId'
     | '/leaves/requests'
-    | '/annoucements/'
+    | '/announcements/'
     | '/attendance/'
     | '/compliance_policies/'
     | '/dashboard/'
     | '/departments/'
     | '/employees/'
     | '/leaves/'
+    | '/offboarding/'
     | '/onboarding/'
     | '/payroll/'
     | '/performance/'
@@ -225,13 +245,14 @@ export interface FileRouteTypes {
     | '/'
     | '/employees/$employeeId'
     | '/leaves/requests'
-    | '/annoucements'
+    | '/announcements'
     | '/attendance'
     | '/compliance_policies'
     | '/dashboard'
     | '/departments'
     | '/employees'
     | '/leaves'
+    | '/offboarding'
     | '/onboarding'
     | '/payroll'
     | '/performance'
@@ -244,16 +265,18 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_layout'
     | '/_layout/employees'
+    | '/_layout/offboarding'
     | '/_website/'
     | '/_layout/employees/$employeeId'
     | '/_layout/leaves/requests'
-    | '/_layout/annoucements/'
+    | '/_layout/announcements/'
     | '/_layout/attendance/'
     | '/_layout/compliance_policies/'
     | '/_layout/dashboard/'
     | '/_layout/departments/'
     | '/_layout/employees/'
     | '/_layout/leaves/'
+    | '/_layout/offboarding/'
     | '/_layout/onboarding/'
     | '/_layout/payroll/'
     | '/_layout/performance/'
@@ -284,6 +307,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_layout/offboarding': {
+      id: '/_layout/offboarding'
+      path: '/offboarding'
+      fullPath: '/offboarding'
+      preLoaderRoute: typeof LayoutOffboardingRouteRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/employees': {
       id: '/_layout/employees'
@@ -334,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutOnboardingIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/offboarding/': {
+      id: '/_layout/offboarding/'
+      path: '/'
+      fullPath: '/offboarding/'
+      preLoaderRoute: typeof LayoutOffboardingIndexRouteImport
+      parentRoute: typeof LayoutOffboardingRouteRoute
+    }
     '/_layout/leaves/': {
       id: '/_layout/leaves/'
       path: '/leaves'
@@ -376,11 +413,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAttendanceIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
-    '/_layout/annoucements/': {
-      id: '/_layout/annoucements/'
-      path: '/annoucements'
-      fullPath: '/annoucements/'
-      preLoaderRoute: typeof LayoutAnnoucementsIndexRouteImport
+    '/_layout/announcements/': {
+      id: '/_layout/announcements/'
+      path: '/announcements'
+      fullPath: '/announcements/'
+      preLoaderRoute: typeof LayoutAnnouncementsIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/leaves/requests': {
@@ -431,10 +468,25 @@ const LayoutEmployeesRouteRouteChildren: LayoutEmployeesRouteRouteChildren = {
 const LayoutEmployeesRouteRouteWithChildren =
   LayoutEmployeesRouteRoute._addFileChildren(LayoutEmployeesRouteRouteChildren)
 
+interface LayoutOffboardingRouteRouteChildren {
+  LayoutOffboardingIndexRoute: typeof LayoutOffboardingIndexRoute
+}
+
+const LayoutOffboardingRouteRouteChildren: LayoutOffboardingRouteRouteChildren =
+  {
+    LayoutOffboardingIndexRoute: LayoutOffboardingIndexRoute,
+  }
+
+const LayoutOffboardingRouteRouteWithChildren =
+  LayoutOffboardingRouteRoute._addFileChildren(
+    LayoutOffboardingRouteRouteChildren,
+  )
+
 interface LayoutRouteRouteChildren {
   LayoutEmployeesRouteRoute: typeof LayoutEmployeesRouteRouteWithChildren
+  LayoutOffboardingRouteRoute: typeof LayoutOffboardingRouteRouteWithChildren
   LayoutLeavesRequestsRoute: typeof LayoutLeavesRequestsRoute
-  LayoutAnnoucementsIndexRoute: typeof LayoutAnnoucementsIndexRoute
+  LayoutAnnouncementsIndexRoute: typeof LayoutAnnouncementsIndexRoute
   LayoutAttendanceIndexRoute: typeof LayoutAttendanceIndexRoute
   LayoutCompliance_policiesIndexRoute: typeof LayoutCompliance_policiesIndexRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
@@ -450,8 +502,9 @@ interface LayoutRouteRouteChildren {
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutEmployeesRouteRoute: LayoutEmployeesRouteRouteWithChildren,
+  LayoutOffboardingRouteRoute: LayoutOffboardingRouteRouteWithChildren,
   LayoutLeavesRequestsRoute: LayoutLeavesRequestsRoute,
-  LayoutAnnoucementsIndexRoute: LayoutAnnoucementsIndexRoute,
+  LayoutAnnouncementsIndexRoute: LayoutAnnouncementsIndexRoute,
   LayoutAttendanceIndexRoute: LayoutAttendanceIndexRoute,
   LayoutCompliance_policiesIndexRoute: LayoutCompliance_policiesIndexRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
