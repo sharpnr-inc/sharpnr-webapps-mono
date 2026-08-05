@@ -1,24 +1,3 @@
-/**
- * Response returned from the identity service
- * when verifying whether a user session is authenticated.
- */
-export interface UserAuthenticatedResponse {
-  /**
-   * Indicates whether the current session is authenticated
-   */
-  authenticated: boolean;
-
-  /**
-   * Unique identifier of the authenticated user (employee ID)
-   */
-  user_id: string;
-
-  /**
-   * Organization identifier the user belongs to
-   */
-  org_id: string;
-}
-
 /* ---------------------------------- <***> --------------------------------- */
 
 export interface UserDataResponseDto {
