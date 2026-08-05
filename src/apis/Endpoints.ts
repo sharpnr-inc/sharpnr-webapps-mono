@@ -1,11 +1,3 @@
-// TODO --> Add Resend OTP Endpoint
-
-export const AuthApiEndpoints = {
-  Auth: {
-    logout: "identity/web/logout",
-  },
-};
-
 /**
  * Identity Service – Web User Endpoints
  *
