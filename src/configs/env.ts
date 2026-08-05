@@ -9,8 +9,13 @@ const requiredVars = [
   "VITE_API_ORCHESTRATOR_APP",
   "VITE_API_HOSPITALITY_APP",
   "VITE_API_IAM_APP",
-  "VITE_API_MARKETING_APP",
+  "VITE_API_SHARPCRM_APP",
   "VITE_API_HR_APP",
+  "VITE_API_CABLES_APP",
+  "VITE_API_SILO_APP",
+  "VITE_API_FOLIO_APP",
+  "VITE_API_MARKETPLACE_APP",
+  "VITE_API_CORTEX_APP",
 ] as const;
 
 type RequiredVar = (typeof requiredVars)[number];
@@ -32,6 +37,11 @@ export const config = {
   orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP, // Orchestrator / workflow engine
   hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP, // Hospitality module
   iamAppUrl: import.meta.env.VITE_API_IAM_APP, // Identity & Access Management
-  marketingAppUrl: import.meta.env.VITE_API_MARKETING_APP, // Marketing module
+  sharpcrmAppUrl: import.meta.env.VITE_API_SHARPCRM_APP, // SharpCRM module
   hrAppUrl: import.meta.env.VITE_API_HR_APP, // Human Resources module
+  cablesAppUrl: import.meta.env.VITE_API_CABLES_APP, // Cables module
+  siloAppUrl: import.meta.env.VITE_API_SILO_APP, // Silo module
+  folioAppUrl: import.meta.env.VITE_API_FOLIO_APP, // Folio module
+  marketplaceAppUrl: import.meta.env.VITE_API_MARKETPLACE_APP, // Marketplace module
+  cortexAppUrl: import.meta.env.VITE_API_CORTEX_APP, // Cortex module
 } as const;
