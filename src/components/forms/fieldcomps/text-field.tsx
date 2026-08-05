@@ -9,6 +9,8 @@ type TextfieldProps = {
   type?: React.HTMLInputTypeAttribute;
   uppercase?: boolean;
   placeholder?: string;
+  description?: string;
+  transform?: (value: string) => string;
 };
 
 const TextField = ({
@@ -16,12 +18,17 @@ const TextField = ({
   type = "text",
   uppercase = false,
   placeholder,
+  description,
+  transform,
 }: TextfieldProps) => {
   const field = useFieldContext<string>();
   const error = field.state.meta.errors?.[0];
   const isTouched = field.state.meta.isTouched;
 
   const handleChange = (value: string) => {
+    if (transform) {
+      value = transform(value);
+    }
     if (uppercase) {
       value = value.toUpperCase();
     }
@@ -40,6 +47,10 @@ const TextField = ({
         onChange={(e) => handleChange(e.target.value)}
         className={`w-full ${uppercase ? "uppercase" : ""}`}
       />
+
+      {description && (
+        <p className="text-xs text-muted-foreground">{description}</p>
+      )}
 
       {isTouched && error && (
         <Alert variant="destructive" className="mt-2">
