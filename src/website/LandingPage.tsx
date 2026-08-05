@@ -1,12 +1,12 @@
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useTheme } from "@/components/ui/theme-provider";
 import {
   ArrowRight,
+  ArrowUpRight,
   Hotel,
   UtensilsCrossed,
   Wine,
-  ChevronRight,
   Layers,
   Unplug,
   BarChart3,
@@ -16,24 +16,26 @@ import {
   Shield,
   Boxes,
   Bell,
+  Menu,
+  X,
+  Sun,
+  Moon,
+  Check,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-
-// ─── Font Loader ──────────────────────────────────────────────────────────────
-
-function useFonts() {
-  useEffect(() => {
-    if (document.getElementById("sharp-hosp-fonts")) return;
-    const l = document.createElement("link");
-    l.id = "sharp-hosp-fonts";
-    l.rel = "stylesheet";
-    l.href =
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;600&display=swap";
-    document.head.appendChild(l);
-  }, []);
-}
+import {
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
+
+const NAV_LINKS = [
+  { label: "Modules", href: "#modules" },
+  { label: "Deployment", href: "#deployment" },
+  { label: "Platform", href: "#platform" },
+];
 
 const MODULES = [
   {
@@ -41,7 +43,7 @@ const MODULES = [
     label: "01",
     title: "Restaurant",
     subtitle: "Full-service dining, simplified.",
-    icon: <UtensilsCrossed size={24} />,
+    icon: UtensilsCrossed,
     tag: "POS + Kitchen",
     description:
       "Orders, tables, menus, kitchen display, billing, and inventory — all synced in real time across every outlet.",
@@ -60,7 +62,7 @@ const MODULES = [
     label: "02",
     title: "Hotel",
     subtitle: "Guest experience, front to back.",
-    icon: <Hotel size={24} />,
+    icon: Hotel,
     tag: "Rooms + Guests",
     description:
       "Reservations, check-ins, housekeeping queues, room allocation, invoicing, and multi-property dashboards.",
@@ -79,7 +81,7 @@ const MODULES = [
     label: "03",
     title: "Bar",
     subtitle: "Every pour, perfectly tracked.",
-    icon: <Wine size={24} />,
+    icon: Wine,
     tag: "Liquor + POS",
     description:
       "Liquor inventory, bar POS workflows, consumption analytics, wastage control, and tab management.",
@@ -93,7 +95,7 @@ const MODULES = [
     ],
     visual: "bar",
   },
-];
+] as const;
 
 const STATS = [
   { value: "10K+", label: "Outlets Running" },
@@ -104,465 +106,551 @@ const STATS = [
 
 const PLATFORM_FEATURES = [
   {
-    icon: <Layers size={18} />,
+    icon: Layers,
     title: "Unified Inventory",
     desc: "One stock pool across restaurant, hotel, and bar — no double entries.",
   },
   {
-    icon: <Users size={18} />,
+    icon: Users,
     title: "Shared Guest Profiles",
     desc: "A hotel guest is also a restaurant regular. One CRM to know them both.",
   },
   {
-    icon: <BarChart3 size={18} />,
+    icon: BarChart3,
     title: "Cross-Module Analytics",
     desc: "Revenue, occupancy, and F&B — all in one real-time dashboard.",
   },
   {
-    icon: <RefreshCw size={18} />,
+    icon: RefreshCw,
     title: "Live Sync",
     desc: "Room charges posted to the restaurant bill. Automatically.",
   },
   {
-    icon: <Shield size={18} />,
+    icon: Shield,
     title: "Role-Based Access",
     desc: "Barstaff see bar. Front desk sees rooms. SharpIAM-powered.",
   },
   {
-    icon: <Bell size={18} />,
+    icon: Bell,
     title: "Smart Alerts",
     desc: "Low stock, overdue checkout, delayed KDS orders — you'll know before it's a problem.",
   },
   {
-    icon: <ClipboardList size={18} />,
+    icon: ClipboardList,
     title: "Audit Trails",
     desc: "Every transaction logged. Every edit tracked. Compliant by default.",
   },
   {
-    icon: <Boxes size={18} />,
+    icon: Boxes,
     title: "Multi-Property",
     desc: "Manage 1 location or 100 from the same interface.",
   },
 ];
 
-// ─── Restaurant SVG Visual ────────────────────────────────────────────────────
+const MODES = {
+  unified: {
+    icon: Layers,
+    name: "Unified Mode",
+    blurb:
+      "Connect all three modules. Share inventory, guests, billing, and analytics across your entire operation.",
+    title: "One system. Every operation.",
+    items: [
+      "Shared inventory across all outlets",
+      "Single guest profile for hotel, restaurant & bar",
+      "Cross-module billing — room charges to restaurant tab",
+      "Consolidated reporting across all verticals",
+      "Live sync between kitchen, front desk, and bar",
+    ],
+  },
+  independent: {
+    icon: Unplug,
+    name: "Independent Mode",
+    blurb:
+      "Run each module standalone. Ideal for single-vertical businesses. Connect more modules as you grow.",
+    title: "Each module on its own terms.",
+    items: [
+      "Standalone restaurant POS — no hotel required",
+      "Hotel PMS without F&B complexity",
+      "Bar management fully decoupled",
+      "Simpler permissions, focused dashboards",
+      "Upgrade to Unified anytime — zero migration",
+    ],
+  },
+} as const;
+
+type ModeKey = keyof typeof MODES;
+
+// ─── Primitives ───────────────────────────────────────────────────────────────
+
+/** Dot-grid backdrop. Uses the theme border token so it adapts to light/dark. */
+const DOT_GRID: React.CSSProperties = {
+  backgroundImage:
+    "radial-gradient(circle, var(--border) 1px, transparent 1px)",
+  backgroundSize: "28px 28px",
+};
+
+/** Fades the dot grid out toward the edges so it never fights the content. */
+const VIGNETTE: React.CSSProperties = {
+  background:
+    "radial-gradient(ellipse at 50% 45%, transparent 25%, var(--background) 80%)",
+};
+
+function Reveal({
+  children,
+  delay = 0,
+  className,
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      className={className}
+      initial={reduce ? false : { opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <p className="font-mono text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
+      {children}
+    </p>
+  );
+}
+
+function Section({
+  id,
+  children,
+  className = "",
+}: {
+  id?: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <section
+      id={id}
+      className={`scroll-mt-14 border-t border-border ${className}`}
+    >
+      <div className="mx-auto w-full max-w-6xl px-6 py-20 md:px-10 md:py-28">
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function SectionHeading({
+  eyebrow,
+  title,
+  sub,
+}: {
+  eyebrow: string;
+  title: ReactNode;
+  sub?: string;
+}) {
+  return (
+    <div className="mb-14 max-w-2xl">
+      <Reveal>
+        <Eyebrow>{eyebrow}</Eyebrow>
+      </Reveal>
+      <Reveal delay={0.06}>
+        <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-balance text-foreground sm:text-4xl md:text-5xl">
+          {title}
+        </h2>
+      </Reveal>
+      {sub ? (
+        <Reveal delay={0.12}>
+          <p className="mt-5 text-[15px] leading-relaxed text-muted-foreground">
+            {sub}
+          </p>
+        </Reveal>
+      ) : null}
+    </div>
+  );
+}
+
+/** Square tile that holds a lucide icon — used everywhere for visual rhythm. */
+function IconTile({
+  icon: Icon,
+  active = false,
+  className = "",
+}: {
+  icon: typeof Layers;
+  active?: boolean;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`flex size-9 shrink-0 items-center justify-center rounded-md border transition-colors ${
+        active
+          ? "border-foreground/20 bg-foreground text-background"
+          : "border-border bg-muted text-muted-foreground"
+      } ${className}`}
+    >
+      <Icon className="size-4" />
+    </span>
+  );
+}
+
+// ─── Module visuals (SVG) ─────────────────────────────────────────────────────
+// Monochrome by design: state is carried by fill/outline and labels, not hue.
+
+function VisualFrame({ children }: { children: ReactNode }) {
+  return (
+    <div className="w-full overflow-hidden rounded-xl border border-border bg-card p-4 sm:p-6">
+      <svg
+        viewBox="0 0 320 300"
+        className="h-auto w-full"
+        role="img"
+        aria-hidden="true"
+      >
+        {children}
+      </svg>
+    </div>
+  );
+}
+
+const MONO = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
 function RestaurantVisual() {
+  const orders = [
+    "Pasta, Tiramisu",
+    "Steak x2, Wine",
+    "Salad, Espresso",
+    "Pizza, Gelato",
+  ];
   const tables = [
-    { x: 60, y: 80, w: 80, h: 54 },
-    { x: 180, y: 80, w: 80, h: 54 },
-    { x: 60, y: 175, w: 80, h: 54 },
-    { x: 180, y: 175, w: 80, h: 54 },
+    { x: 4, y: 62 },
+    { x: 164, y: 62 },
+    { x: 4, y: 146 },
+    { x: 164, y: 146 },
   ];
   return (
-    <svg viewBox="0 0 320 300" width="100%" height="100%" aria-hidden="true">
-      <defs>
-        <pattern
-          id="rg"
-          x="0"
-          y="0"
-          width="20"
-          height="20"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle
-            cx="1"
-            cy="1"
-            r="0.8"
-            fill="hsl(var(--border))"
-            opacity="0.5"
-          />
-        </pattern>
-      </defs>
-      <rect width="320" height="300" fill="url(#rg)" />
-      {/* KDS header */}
-      <motion.rect
-        x={20}
-        y={16}
-        width={280}
-        height={38}
-        rx={8}
-        fill="hsl(var(--card))"
-        stroke="hsl(var(--primary))"
-        strokeWidth="1"
-        strokeOpacity="0.35"
+    <VisualFrame>
+      <motion.g
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      />
-      <motion.text
-        x={35}
-        y={39}
-        fill="hsl(var(--primary))"
-        fontSize="10"
-        fontFamily="'JetBrains Mono', monospace"
-        letterSpacing="1"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: 0.15 }}
       >
-        KITCHEN DISPLAY · 4 ACTIVE ORDERS
-      </motion.text>
+        <rect
+          x={4}
+          y={4}
+          width={312}
+          height={38}
+          rx={8}
+          fill="var(--muted)"
+          stroke="var(--border)"
+        />
+        <text
+          x={18}
+          y={28}
+          fill="var(--foreground)"
+          fontSize="10"
+          fontFamily={MONO}
+          letterSpacing="1.4"
+        >
+          KITCHEN DISPLAY · 4 ACTIVE
+        </text>
+      </motion.g>
 
-      {/* Table cards */}
       {tables.map((t, i) => (
         <motion.g
           key={i}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 + i * 0.1 }}
+          transition={{ delay: 0.25 + i * 0.08 }}
         >
           <rect
             x={t.x}
             y={t.y}
-            width={t.w}
-            height={t.h}
-            rx={7}
-            fill="hsl(var(--card))"
-            stroke="hsl(var(--border))"
-            strokeWidth="1"
+            width={152}
+            height={68}
+            rx={8}
+            fill="var(--background)"
+            stroke="var(--border)"
           />
           <text
-            x={t.x + 8}
-            y={t.y + 16}
-            fill="hsl(var(--muted-foreground))"
-            fontSize="8"
-            fontFamily="'JetBrains Mono', monospace"
+            x={t.x + 14}
+            y={t.y + 24}
+            fill="var(--muted-foreground)"
+            fontSize="8.5"
+            fontFamily={MONO}
+            letterSpacing="1.2"
           >
-            TBL {i + 1}
+            TABLE {i + 1}
           </text>
           <text
-            x={t.x + 8}
-            y={t.y + 32}
-            fill="hsl(var(--foreground))"
-            fontSize="9.5"
-            fontFamily="'DM Sans', sans-serif"
-            fontWeight="600"
+            x={t.x + 14}
+            y={t.y + 45}
+            fill="var(--foreground)"
+            fontSize="11"
+            fontWeight="500"
           >
-            {
-              [
-                "Pasta, Tiramisu",
-                "Steak x2, Wine",
-                "Salad, Espresso",
-                "Pizza, Gelato",
-              ][i]
-            }
+            {orders[i]}
           </text>
+          {/* Filled = firing, hollow = plated */}
           <circle
-            cx={t.x + t.w - 14}
-            cy={t.y + 14}
-            r={5}
-            fill={
-              [
-                "hsl(var(--primary))",
-                "hsl(var(--muted-foreground))",
-                "hsl(var(--primary))",
-                "hsl(var(--muted-foreground))",
-              ][i]
-            }
-            opacity="0.6"
+            cx={t.x + 136}
+            cy={t.y + 20}
+            r={4}
+            fill={i % 2 === 0 ? "var(--foreground)" : "none"}
+            stroke="var(--muted-foreground)"
           />
         </motion.g>
       ))}
 
-      {/* Billing row */}
       <motion.g
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.9 }}
+        transition={{ delay: 0.6 }}
       >
         <rect
-          x={20}
-          y={252}
-          width={280}
-          height={34}
+          x={4}
+          y={244}
+          width={312}
+          height={40}
           rx={8}
-          fill="hsl(var(--primary))"
-          fillOpacity="0.08"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1"
-          strokeOpacity="0.25"
+          fill="var(--foreground)"
         />
         <text
-          x={35}
-          y={273}
-          fill="hsl(var(--muted-foreground))"
-          fontSize="9"
-          fontFamily="'JetBrains Mono', monospace"
+          x={18}
+          y={269}
+          fill="var(--background)"
+          fontSize="10"
+          fontFamily={MONO}
+          letterSpacing="1.2"
         >
-          REVENUE TODAY · ₹ 48,200 · 22 COVERS
+          TODAY · ₹48,200 · 22 COVERS
         </text>
       </motion.g>
-    </svg>
+    </VisualFrame>
   );
 }
 
-// ─── Hotel Visual ─────────────────────────────────────────────────────────────
-
 function HotelVisual() {
-  const rooms = Array.from({ length: 12 }, (_, i) => ({
-    x: 20 + (i % 4) * 70,
-    y: 60 + Math.floor(i / 4) * 64,
-    status: [
-      "occ",
-      "free",
-      "occ",
-      "clean",
-      "occ",
-      "free",
-      "occ",
-      "occ",
-      "clean",
-      "free",
-      "occ",
-      "occ",
-    ][i],
-    num: 101 + i,
-  }));
-  const colors: Record<string, string> = {
-    occ: "hsl(var(--primary))",
-    free: "hsl(var(--muted-foreground))",
-    clean: "hsl(var(--border))",
-  };
+  const statuses = [
+    "OCC",
+    "FREE",
+    "OCC",
+    "CLEAN",
+    "OCC",
+    "FREE",
+    "OCC",
+    "OCC",
+    "CLEAN",
+    "FREE",
+    "OCC",
+    "OCC",
+  ];
   return (
-    <svg viewBox="0 0 320 300" width="100%" height="100%" aria-hidden="true">
-      <defs>
-        <pattern
-          id="hg"
-          x="0"
-          y="0"
-          width="20"
-          height="20"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle
-            cx="1"
-            cy="1"
-            r="0.8"
-            fill="hsl(var(--border))"
-            opacity="0.5"
-          />
-        </pattern>
-      </defs>
-      <rect width="320" height="300" fill="url(#hg)" />
+    <VisualFrame>
       <motion.text
-        x={20}
-        y={38}
-        fill="hsl(var(--foreground))"
-        fontSize="11"
-        fontFamily="'JetBrains Mono', monospace"
-        letterSpacing="1"
+        x={4}
+        y={20}
+        fill="var(--foreground)"
+        fontSize="10"
+        fontFamily={MONO}
+        letterSpacing="1.4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.15 }}
       >
         ROOM STATUS · FLOOR 1–3
       </motion.text>
-      {rooms.map((r, i) => (
-        <motion.g
-          key={i}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          style={{ transformOrigin: `${r.x + 28}px ${r.y + 22}px` }}
-          transition={{ delay: 0.2 + i * 0.06 }}
-        >
-          <rect
-            x={r.x}
-            y={r.y}
-            width={56}
-            height={44}
-            rx={7}
-            fill="hsl(var(--card))"
-            stroke={colors[r.status]}
-            strokeWidth="1.2"
-            strokeOpacity="0.5"
-          />
-          <text
-            x={r.x + 28}
-            y={r.y + 18}
-            textAnchor="middle"
-            fill="hsl(var(--foreground))"
-            fontSize="10"
-            fontFamily="'JetBrains Mono', monospace"
+
+      {statuses.map((status, i) => {
+        const x = 4 + (i % 4) * 79;
+        const y = 42 + Math.floor(i / 4) * 68;
+        const occupied = status === "OCC";
+        return (
+          <motion.g
+            key={i}
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            style={{ transformOrigin: `${x + 35}px ${y + 28}px` }}
+            transition={{ delay: 0.15 + i * 0.04 }}
           >
-            {r.num}
-          </text>
-          <text
-            x={r.x + 28}
-            y={r.y + 32}
-            textAnchor="middle"
-            fill={colors[r.status]}
-            fontSize="7.5"
-            fontFamily="'DM Sans', sans-serif"
-            opacity="0.7"
-          >
-            {r.status.toUpperCase()}
-          </text>
-        </motion.g>
-      ))}
+            <rect
+              x={x}
+              y={y}
+              width={71}
+              height={56}
+              rx={8}
+              fill={occupied ? "var(--muted)" : "var(--background)"}
+              stroke="var(--border)"
+              strokeDasharray={status === "CLEAN" ? "3 3" : undefined}
+            />
+            <text
+              x={x + 12}
+              y={y + 24}
+              fill="var(--foreground)"
+              fontSize="12"
+              fontWeight="600"
+              fontFamily={MONO}
+            >
+              {101 + i}
+            </text>
+            <text
+              x={x + 12}
+              y={y + 42}
+              fill="var(--muted-foreground)"
+              fontSize="8"
+              fontFamily={MONO}
+              letterSpacing="1"
+            >
+              {status}
+            </text>
+          </motion.g>
+        );
+      })}
+
       <motion.g
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 0.7 }}
       >
         <rect
-          x={20}
-          y={260}
-          width={280}
-          height={28}
-          rx={7}
-          fill="hsl(var(--muted))"
-          stroke="hsl(var(--border))"
-          strokeWidth="1"
+          x={4}
+          y={252}
+          width={312}
+          height={36}
+          rx={8}
+          fill="var(--foreground)"
         />
         <text
-          x={35}
-          y={277}
-          fill="hsl(var(--muted-foreground))"
-          fontSize="9"
-          fontFamily="'JetBrains Mono', monospace"
+          x={18}
+          y={275}
+          fill="var(--background)"
+          fontSize="10"
+          fontFamily={MONO}
+          letterSpacing="1.2"
         >
-          8 OCC · 2 CLEAN · 2 FREE · 75% OCCUPANCY
+          8 OCC · 2 CLEAN · 2 FREE · 75%
         </text>
       </motion.g>
-    </svg>
+    </VisualFrame>
   );
 }
 
-// ─── Bar Visual ───────────────────────────────────────────────────────────────
-
 function BarVisual() {
-  const bottles = [
-    "Johnnie Walker",
-    "Grey Goose",
-    "Bacardi",
-    "Hendrick's",
-    "Patron",
-    "Aperol",
+  const stock = [
+    { name: "Johnnie Walker", pct: 78 },
+    { name: "Grey Goose", pct: 42 },
+    { name: "Bacardi", pct: 91 },
+    { name: "Hendrick's", pct: 23 },
+    { name: "Patron", pct: 67 },
+    { name: "Aperol", pct: 55 },
   ];
-  const pct = [78, 42, 91, 23, 67, 55];
   return (
-    <svg viewBox="0 0 320 300" width="100%" height="100%" aria-hidden="true">
-      <defs>
-        <pattern
-          id="bg2"
-          x="0"
-          y="0"
-          width="20"
-          height="20"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle
-            cx="1"
-            cy="1"
-            r="0.8"
-            fill="hsl(var(--border))"
-            opacity="0.5"
-          />
-        </pattern>
-      </defs>
-      <rect width="320" height="300" fill="url(#bg2)" />
+    <VisualFrame>
       <motion.text
-        x={20}
-        y={36}
-        fill="hsl(var(--foreground))"
-        fontSize="11"
-        fontFamily="'JetBrains Mono', monospace"
-        letterSpacing="1"
+        x={4}
+        y={20}
+        fill="var(--foreground)"
+        fontSize="10"
+        fontFamily={MONO}
+        letterSpacing="1.4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.15 }}
       >
         STOCK LEVELS · BAR 1
       </motion.text>
-      {bottles.map((name, i) => (
-        <motion.g
-          key={name}
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.25 + i * 0.1 }}
-        >
-          <text
-            x={20}
-            y={72 + i * 36}
-            fill="hsl(var(--muted-foreground))"
-            fontSize="9.5"
-            fontFamily="'DM Sans', sans-serif"
+
+      {stock.map((s, i) => {
+        const y = 54 + i * 36;
+        const low = s.pct < 30;
+        return (
+          <motion.g
+            key={s.name}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 + i * 0.07 }}
           >
-            {name}
-          </text>
-          {/* Bar track */}
-          <rect
-            x={130}
-            y={60 + i * 36}
-            width={155}
-            height={10}
-            rx={5}
-            fill="hsl(var(--muted))"
-          />
-          <motion.rect
-            x={130}
-            y={60 + i * 36}
-            width={0}
-            height={10}
-            rx={5}
-            fill={
-              pct[i] < 30
-                ? "hsl(var(--destructive, 0 72% 51%))"
-                : "hsl(var(--primary))"
-            }
-            fillOpacity="0.7"
-            animate={{ width: (155 * pct[i]) / 100 }}
-            transition={{
-              delay: 0.5 + i * 0.1,
-              duration: 0.7,
-              ease: "easeOut",
-            }}
-          />
-          <text
-            x={294}
-            y={70 + i * 36}
-            fill="hsl(var(--muted-foreground))"
-            fontSize="8.5"
-            fontFamily="'JetBrains Mono', monospace"
-            textAnchor="end"
-          >
-            {pct[i]}%
-          </text>
-        </motion.g>
-      ))}
+            <text x={4} y={y + 4} fill="var(--foreground)" fontSize="11">
+              {s.name}
+            </text>
+            {low ? (
+              <text
+                x={132}
+                y={y + 4}
+                fill="var(--muted-foreground)"
+                fontSize="8"
+                fontFamily={MONO}
+                letterSpacing="1"
+              >
+                LOW
+              </text>
+            ) : null}
+            <rect
+              x={172}
+              y={y - 7}
+              width={116}
+              height={8}
+              rx={4}
+              fill="var(--muted)"
+            />
+            <motion.rect
+              x={172}
+              y={y - 7}
+              height={8}
+              rx={4}
+              fill={low ? "var(--muted-foreground)" : "var(--foreground)"}
+              initial={{ width: 0 }}
+              animate={{ width: (116 * s.pct) / 100 }}
+              transition={{ delay: 0.35 + i * 0.07, duration: 0.6 }}
+            />
+            <text
+              x={316}
+              y={y + 3}
+              fill="var(--muted-foreground)"
+              fontSize="9"
+              fontFamily={MONO}
+              textAnchor="end"
+            >
+              {s.pct}%
+            </text>
+          </motion.g>
+        );
+      })}
+
       <motion.g
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 0.85 }}
       >
         <rect
-          x={20}
-          y={262}
-          width={280}
-          height={28}
-          rx={7}
-          fill="hsl(var(--primary))"
-          fillOpacity="0.07"
-          stroke="hsl(var(--primary))"
-          strokeWidth="1"
-          strokeOpacity="0.3"
+          x={4}
+          y={252}
+          width={312}
+          height={36}
+          rx={8}
+          fill="var(--foreground)"
         />
         <text
-          x={35}
-          y={279}
-          fill="hsl(var(--muted-foreground))"
-          fontSize="9"
-          fontFamily="'JetBrains Mono', monospace"
+          x={18}
+          y={275}
+          fill="var(--background)"
+          fontSize="10"
+          fontFamily={MONO}
+          letterSpacing="1.2"
         >
-          WASTAGE THIS WEEK · 3.2L · ALERT: HENDRICK'S LOW
+          WASTAGE · 3.2L · 1 LOW-STOCK ALERT
         </text>
       </motion.g>
-    </svg>
+    </VisualFrame>
   );
 }
 
-const VISUALS: Record<string, React.ReactNode> = {
+const VISUALS: Record<string, ReactNode> = {
   restaurant: <RestaurantVisual />,
   hotel: <HotelVisual />,
   bar: <BarVisual />,
@@ -570,1079 +658,523 @@ const VISUALS: Record<string, React.ReactNode> = {
 
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 
-function Navbar() {
+const DARK_QUERY = "(prefers-color-scheme: dark)";
+
+/** Tracks the OS preference so "system" resolves to a concrete icon/label. */
+function usePrefersDark() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia(DARK_QUERY);
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(DARK_QUERY).matches,
+    () => false,
+  );
+}
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const prefersDark = usePrefersDark();
+  const isDark = theme === "dark" || (theme === "system" && prefersDark);
+
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 48px",
-        height: 62,
-        background: "hsl(var(--background) / 0.88)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid hsl(var(--border))",
-      }}
+    <Button
+      variant="ghost"
+      size="icon-sm"
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
     >
-      <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-        <span
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 22,
-            fontWeight: 700,
-            letterSpacing: 1,
-            color: "hsl(var(--foreground))",
-          }}
-        >
-          Sharp<span style={{ color: "hsl(var(--primary))" }}>Hospitality</span>
-        </span>
-        <span
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 9,
-            letterSpacing: 2,
-            color: "hsl(var(--muted-foreground))",
-            opacity: 0.5,
-            marginLeft: 6,
-          }}
-        >
-          by SharpNR
-        </span>
-      </div>
+      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </Button>
+  );
+}
 
-      <div style={{ display: "flex", gap: 28 }}>
-        {["Features", "Modules", "Pricing", "Docs"].map((item) => (
-          <a
-            key={item}
-            href="#"
-            style={{
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 13.5,
-              fontWeight: 500,
-              color: "hsl(var(--muted-foreground))",
-              textDecoration: "none",
-            }}
+function Wordmark() {
+  return (
+    <a href="#top" className="flex items-baseline gap-2">
+      <span className="text-base font-semibold tracking-[-0.02em] text-foreground">
+        Sharp<span className="text-muted-foreground">Hospitality</span>
+      </span>
+      <span className="hidden font-mono text-[9px] tracking-[0.18em] text-muted-foreground uppercase sm:inline">
+        by SharpNR
+      </span>
+    </a>
+  );
+}
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        scrolled
+          ? "border-border bg-background/80 backdrop-blur-md"
+          : "border-transparent bg-transparent"
+      }`}
+    >
+      <nav
+        aria-label="Main"
+        className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between gap-6 px-6 md:px-10"
+      >
+        <Wordmark />
+
+        <div className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-1.5">
+          <ThemeToggle />
+          <Button asChild size="sm" className="hidden h-7 px-3 sm:inline-flex">
+            <a href="#cta">Get Started</a>
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            className="md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
           >
-            {item}
-          </a>
-        ))}
-      </div>
+            {open ? <X className="size-4" /> : <Menu className="size-4" />}
+          </Button>
+        </div>
+      </nav>
 
-      <Button size="sm" style={{ gap: 6 }}>
-        Get Started <ChevronRight size={14} />
-      </Button>
-    </motion.nav>
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.div
+            id="mobile-nav"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="overflow-hidden border-t border-border bg-background md:hidden"
+          >
+            <div className="flex flex-col px-6 py-2">
+              {[...NAV_LINKS, { label: "Get Started", href: "#cta" }].map(
+                (link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="border-b border-border py-3 text-sm font-medium text-muted-foreground last:border-0 hover:text-foreground"
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </header>
   );
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
-  const pillars = [
-    { icon: <UtensilsCrossed size={16} />, label: "Restaurant" },
-    { icon: <Hotel size={16} />, label: "Hotel" },
-    { icon: <Wine size={16} />, label: "Bar" },
-  ];
+  const reduce = useReducedMotion();
+  const rise = (delay: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: { delay, duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  });
 
   return (
-    <section
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "120px 48px 80px",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Dot grid */}
+    <section id="top" className="relative overflow-hidden">
+      <div aria-hidden className="absolute inset-0" style={DOT_GRID} />
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          backgroundImage:
-            "radial-gradient(circle, hsl(var(--border) / 0.6) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      {/* Vignette */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse at 50% 50%, transparent 30%, hsl(var(--background)) 90%)",
-        }}
-      />
-      {/* Ambient warm glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "20%",
-          left: "55%",
-          zIndex: 1,
-          width: 600,
-          height: 500,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse, hsl(var(--primary) / 0.06), transparent 70%)",
-        }}
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={VIGNETTE}
       />
 
-      <div
-        style={{
-          position: "relative",
-          zIndex: 2,
-          maxWidth: 1200,
-          width: "100%",
-        }}
-      >
-        {/* Eyebrow */}
+      <div className="relative mx-auto w-full max-w-6xl px-6 pt-32 pb-20 md:px-10 md:pt-44 md:pb-28">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            marginBottom: 36,
-          }}
+          {...rise(0)}
+          className="flex flex-wrap items-center gap-x-3 gap-y-2"
         >
-          <Badge
-            variant="outline"
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 9.5,
-              letterSpacing: 2.5,
-            }}
-          >
+          <span className="inline-flex items-center rounded-full border border-border bg-card px-2.5 py-1 font-mono text-[9.5px] tracking-[0.22em] text-muted-foreground uppercase">
             SharpNR Suite
-          </Badge>
-          <div
-            style={{ height: 1, width: 60, background: "hsl(var(--border))" }}
-          />
-          {pillars.map((p, i) => (
-            <motion.div
-              key={p.label}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 + i * 0.08 }}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 5,
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 11.5,
-                fontWeight: 500,
-                color: "hsl(var(--muted-foreground))",
-              }}
+          </span>
+          <span aria-hidden className="h-px w-8 bg-border" />
+          {MODULES.map((m) => (
+            <span
+              key={m.id}
+              className="inline-flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground"
             >
-              <span style={{ color: "hsl(var(--primary))", opacity: 0.7 }}>
-                {p.icon}
-              </span>
-              {p.label}
-            </motion.div>
+              <m.icon className="size-3.5" />
+              {m.title}
+            </span>
           ))}
         </motion.div>
 
-        {/* Main headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 36 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.12, duration: 0.7, ease: "easeOut" }}
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(64px, 8.5vw, 118px)",
-            fontWeight: 700,
-            lineHeight: 0.93,
-            letterSpacing: "-1px",
-            color: "hsl(var(--foreground))",
-            margin: "0 0 12px",
-          }}
+          {...rise(0.08)}
+          className="mt-8 max-w-3xl text-[clamp(2.75rem,8vw,5.25rem)] leading-[0.95] font-semibold tracking-[-0.045em] text-balance text-foreground"
         >
-          One Platform.
+          One platform.
           <br />
-          <motion.em
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            style={{
-              fontStyle: "italic",
-              color: "hsl(var(--primary))",
-            }}
-          >
-            Every Guest.
-          </motion.em>
+          <span className="text-muted-foreground">Every guest.</span>
         </motion.h1>
 
         <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: "min(520px, 80%)" }}
-          transition={{ delay: 0.55, duration: 0.8, ease: "easeOut" }}
-          style={{
-            height: 1,
-            background: "hsl(var(--border))",
-            marginBottom: 32,
-            marginTop: 24,
-          }}
-        />
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "start",
-          }}
+          {...rise(0.16)}
+          className="mt-10 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.55 }}
-          >
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 17,
-                lineHeight: 1.75,
-                color: "hsl(var(--muted-foreground))",
-                margin: "0 0 40px",
-              }}
-            >
+          <div>
+            <p className="max-w-lg text-[15px] leading-relaxed text-muted-foreground md:text-base">
               SharpHospitality unifies Restaurant, Hotel, and Bar operations
               under one intelligent platform — purpose-built for modern
               hospitality groups. Run them together or independently. Scale from
               one outlet to a hundred.
             </p>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Button
-                size="lg"
-                style={{
-                  gap: 8,
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 600,
-                }}
-              >
-                Launch Platform <ArrowRight size={17} />
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild className="h-10 px-5 text-sm">
+                <a href="#cta">
+                  Launch Platform <ArrowRight className="size-4" />
+                </a>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                style={{ fontFamily: "'DM Sans', sans-serif" }}
-              >
-                View Documentation
+              <Button asChild variant="outline" className="h-10 px-5 text-sm">
+                <a href="#platform">
+                  View Documentation <ArrowUpRight className="size-4" />
+                </a>
               </Button>
             </div>
-            {/* Compliance / trust line */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              style={{
-                marginTop: 40,
-                display: "flex",
-                gap: 24,
-                alignItems: "center",
-                flexWrap: "wrap",
-              }}
-            >
+
+            <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-3">
               {["GST Ready", "Multi-currency", "Offline Mode", "PCI-DSS"].map(
                 (b) => (
-                  <span
+                  <li
                     key={b}
-                    style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: 9.5,
-                      letterSpacing: 1.5,
-                      color: "hsl(var(--muted-foreground))",
-                      opacity: 0.5,
-                      borderBottom: "1px solid hsl(var(--border))",
-                      paddingBottom: 2,
-                    }}
+                    className="font-mono text-[10px] tracking-[0.15em] text-muted-foreground uppercase"
                   >
                     {b}
-                  </span>
+                  </li>
                 ),
               )}
-            </motion.div>
-          </motion.div>
+            </ul>
+          </div>
 
-          {/* Module pills stacked */}
-          <motion.div
-            initial={{ opacity: 0, x: 28 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.65, ease: "easeOut" }}
-            style={{ display: "flex", flexDirection: "column", gap: 14 }}
-          >
+          <div className="flex flex-col gap-2.5">
             {MODULES.map((m) => (
-              <motion.div
+              <div
                 key={m.id}
-                whileHover={{ x: 6, borderColor: "hsl(var(--primary) / 0.4)" }}
-                transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                style={{
-                  padding: "20px 24px",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: 12,
-                  background: "hsl(var(--card))",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 16,
-                  cursor: "default",
-                }}
+                className="group flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-colors hover:border-foreground/25 sm:p-5"
               >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 10,
-                    background: "hsl(var(--primary) / 0.08)",
-                    border: "1px solid hsl(var(--primary) / 0.18)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "hsl(var(--primary))",
-                    flexShrink: 0,
-                  }}
-                >
-                  {m.icon}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: 19,
-                      fontWeight: 600,
-                      color: "hsl(var(--foreground))",
-                      lineHeight: 1.2,
-                    }}
-                  >
+                <IconTile icon={m.icon} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-semibold text-foreground">
                     {m.title}{" "}
-                    <span
-                      style={{
-                        fontStyle: "italic",
-                        fontSize: 15,
-                        color: "hsl(var(--muted-foreground))",
-                        fontWeight: 400,
-                      }}
-                    >
+                    <span className="font-normal text-muted-foreground">
                       Management
                     </span>
-                  </div>
-                  <div
-                    style={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: 9,
-                      letterSpacing: 1.5,
-                      color: "hsl(var(--muted-foreground))",
-                      opacity: 0.5,
-                      marginTop: 3,
-                    }}
-                  >
+                  </p>
+                  <p className="mt-0.5 font-mono text-[9.5px] tracking-[0.16em] text-muted-foreground uppercase">
                     {m.tag}
-                  </div>
+                  </p>
                 </div>
-                <span
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: 36,
-                    fontWeight: 700,
-                    color: "hsl(var(--border))",
-                    lineHeight: 1,
-                  }}
-                >
+                <span className="font-mono text-xl font-semibold text-border transition-colors group-hover:text-muted-foreground">
                   {m.label}
                 </span>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Stats Bar ────────────────────────────────────────────────────────────────
-
-function StatsBar() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
-  return (
-    <section
-      ref={ref}
-      style={{
-        borderTop: "1px solid hsl(var(--border))",
-        borderBottom: "1px solid hsl(var(--border))",
-        display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
-        padding: "0 48px",
-      }}
-    >
-      {STATS.map((s, i) => (
-        <motion.div
-          key={s.label}
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: i * 0.09 }}
-          style={{
-            padding: "48px 24px",
-            textAlign: "center",
-            borderRight: i < 3 ? "1px solid hsl(var(--border))" : undefined,
-          }}
-        >
-          <div
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 52,
-              fontWeight: 700,
-              lineHeight: 1,
-              color: "hsl(var(--foreground))",
-            }}
-          >
-            {s.value}
-          </div>
-          <div
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 9.5,
-              letterSpacing: 2,
-              color: "hsl(var(--muted-foreground))",
-              marginTop: 8,
-              textTransform: "uppercase",
-            }}
-          >
-            {s.label}
           </div>
         </motion.div>
-      ))}
+      </div>
     </section>
   );
 }
 
-// ─── Mode Toggle Section ──────────────────────────────────────────────────────
+// ─── Stats ────────────────────────────────────────────────────────────────────
+
+function StatsBar() {
+  return (
+    <section className="border-t border-border">
+      {/* Hairlines live on the cells: 2-up on mobile, 4-up from md. */}
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 px-6 md:grid-cols-4 md:px-10">
+        {STATS.map((s, i) => {
+          const lastInMobileRow = i % 2 === 1;
+          const lastOverall = i === STATS.length - 1;
+          return (
+            <Reveal
+              key={s.label}
+              delay={i * 0.07}
+              className={[
+                "px-2 py-10 text-center md:py-14",
+                lastInMobileRow ? "md:border-r md:border-border" : "border-r",
+                lastOverall ? "md:border-r-0" : "",
+                i < 2 ? "border-b md:border-b-0" : "",
+              ].join(" ")}
+            >
+              <div className="text-3xl font-semibold tracking-[-0.03em] text-foreground md:text-4xl">
+                {s.value}
+              </div>
+              <div className="mt-2 font-mono text-[9.5px] tracking-[0.2em] text-muted-foreground uppercase">
+                {s.label}
+              </div>
+            </Reveal>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// ─── Deployment modes ─────────────────────────────────────────────────────────
 
 function ModeSection() {
-  const [mode, setMode] = useState<"unified" | "independent">("unified");
-
-  const content = {
-    unified: {
-      title: "One system. Every operation.",
-      items: [
-        "Shared inventory across all outlets",
-        "Single guest profile for hotel, restaurant & bar",
-        "Cross-module billing — room charges to restaurant tab",
-        "Consolidated reporting across all verticals",
-        "Live sync between kitchen, front desk, and bar",
-      ],
-    },
-    independent: {
-      title: "Each module on its own terms.",
-      items: [
-        "Standalone restaurant POS — no hotel required",
-        "Hotel PMS without F&B complexity",
-        "Bar management fully decoupled",
-        "Simpler permissions, focused dashboards",
-        "Upgrade to Unified anytime — zero migration",
-      ],
-    },
-  };
-
-  const c = content[mode];
+  const [mode, setMode] = useState<ModeKey>("unified");
+  const active = MODES[mode];
 
   return (
-    <section
-      style={{
-        padding: "110px 48px",
-        borderTop: "1px solid hsl(var(--border))",
-      }}
-    >
-      {/* Header */}
-      <div style={{ marginBottom: 64 }}>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10,
-            letterSpacing: 3,
-            color: "hsl(var(--primary))",
-            marginBottom: 16,
-          }}
-        >
-          — Deployment Architecture
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(40px, 5vw, 60px)",
-            fontWeight: 700,
-            lineHeight: 1,
-            letterSpacing: "-0.5px",
-            color: "hsl(var(--foreground))",
-            margin: 0,
-          }}
-        >
-          Your platform,{" "}
-          <em style={{ color: "hsl(var(--primary))", fontStyle: "italic" }}>
-            your rules.
-          </em>
-        </motion.h2>
-      </div>
+    <Section id="deployment">
+      <SectionHeading
+        eyebrow="Deployment Architecture"
+        title="Your platform, your rules."
+        sub="Start with a single vertical or connect everything from day one. The data model is the same either way — switching modes never means a migration."
+      />
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "5rem",
-          alignItems: "center",
-        }}
-      >
-        {/* Toggle cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {(["unified", "independent"] as const).map((m) => (
-            <motion.div
-              key={m}
-              onClick={() => setMode(m)}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              style={{
-                padding: "28px 28px",
-                border: `1px solid ${mode === m ? "hsl(var(--primary))" : "hsl(var(--border))"}`,
-                borderRadius: 14,
-                background:
-                  mode === m
-                    ? "hsl(var(--primary) / 0.04)"
-                    : "hsl(var(--card))",
-                cursor: "pointer",
-                transition: "all 0.25s ease",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  marginBottom: 12,
-                }}
+      <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="flex flex-col gap-3">
+          {(Object.keys(MODES) as ModeKey[]).map((key) => {
+            const m = MODES[key];
+            const selected = mode === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setMode(key)}
+                aria-pressed={selected}
+                className={`rounded-xl border p-5 text-left transition-colors sm:p-6 ${
+                  selected
+                    ? "border-foreground/25 bg-muted"
+                    : "border-border bg-card hover:border-foreground/15"
+                }`}
               >
-                <div
-                  style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: 8,
-                    background:
-                      mode === m
-                        ? "hsl(var(--primary) / 0.12)"
-                        : "hsl(var(--muted))",
-                    border: `1px solid ${mode === m ? "hsl(var(--primary) / 0.3)" : "hsl(var(--border))"}`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color:
-                      mode === m
-                        ? "hsl(var(--primary))"
-                        : "hsl(var(--muted-foreground))",
-                    transition: "all 0.25s ease",
-                  }}
-                >
-                  {m === "unified" ? (
-                    <Layers size={16} />
-                  ) : (
-                    <Unplug size={16} />
-                  )}
-                </div>
-                <div>
-                  <div
-                    style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: 20,
-                      fontWeight: 600,
-                      color:
-                        mode === m
-                          ? "hsl(var(--foreground))"
-                          : "hsl(var(--muted-foreground))",
-                      transition: "color 0.25s ease",
-                    }}
+                <div className="flex items-center gap-3">
+                  <IconTile icon={m.icon} active={selected} />
+                  <span
+                    className={`text-sm font-semibold ${
+                      selected ? "text-foreground" : "text-muted-foreground"
+                    }`}
                   >
-                    {m === "unified" ? "Unified Mode" : "Independent Mode"}
-                  </div>
+                    {m.name}
+                  </span>
+                  {selected ? (
+                    <span className="ml-auto font-mono text-[9px] tracking-[0.18em] text-muted-foreground uppercase">
+                      Active
+                    </span>
+                  ) : null}
                 </div>
-                {mode === m && (
-                  <motion.div
-                    layoutId="active-badge"
-                    style={{
-                      marginLeft: "auto",
-                      padding: "3px 10px",
-                      borderRadius: 100,
-                      background: "hsl(var(--primary) / 0.12)",
-                      border: "1px solid hsl(var(--primary) / 0.25)",
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: 8.5,
-                      letterSpacing: 1.5,
-                      color: "hsl(var(--primary))",
-                    }}
-                  >
-                    ACTIVE
-                  </motion.div>
-                )}
-              </div>
-              <p
-                style={{
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: 13.5,
-                  lineHeight: 1.65,
-                  color: "hsl(var(--muted-foreground))",
-                  margin: 0,
-                }}
-              >
-                {m === "unified"
-                  ? "Connect all three modules. Share inventory, guests, billing, and analytics across your entire hospitality operation."
-                  : "Run each module standalone. Ideal for single-vertical businesses. Connect more modules as you grow."}
-              </p>
-            </motion.div>
-          ))}
+                <p className="mt-3 text-[13.5px] leading-relaxed text-muted-foreground">
+                  {m.blurb}
+                </p>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Right panel — animated content */}
         <AnimatePresence mode="wait">
           <motion.div
             key={mode}
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.35 }}
-            style={{
-              padding: "36px 36px",
-              border: "1px solid hsl(var(--border))",
-              borderRadius: 14,
-              background: "hsl(var(--card))",
-            }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.28 }}
+            className="rounded-xl border border-border bg-card p-6 sm:p-8"
           >
-            <p
-              style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 9.5,
-                letterSpacing: 2,
-                color: "hsl(var(--primary))",
-                margin: "0 0 20px",
-                textTransform: "uppercase",
-              }}
-            >
-              {mode === "unified"
-                ? "— Unified Benefits"
-                : "— Standalone Benefits"}
-            </p>
-            <h3
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 28,
-                fontWeight: 700,
-                lineHeight: 1.15,
-                color: "hsl(var(--foreground))",
-                margin: "0 0 28px",
-              }}
-            >
-              {c.title}
+            <Eyebrow>
+              {mode === "unified" ? "Unified benefits" : "Standalone benefits"}
+            </Eyebrow>
+            <h3 className="mt-4 text-xl font-semibold tracking-[-0.02em] text-foreground sm:text-2xl">
+              {active.title}
             </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {c.items.map((item, i) => (
-                <motion.div
+            <ul className="mt-6 flex flex-col gap-3.5">
+              {active.items.map((item, i) => (
+                <motion.li
                   key={item}
-                  initial={{ opacity: 0, x: 12 }}
+                  initial={{ opacity: 0, x: 8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  style={{ display: "flex", alignItems: "flex-start", gap: 12 }}
+                  transition={{ delay: 0.05 + i * 0.05 }}
+                  className="flex items-start gap-3"
                 >
-                  <div
-                    style={{
-                      width: 20,
-                      height: 20,
-                      borderRadius: 5,
-                      background: "hsl(var(--primary) / 0.1)",
-                      border: "1px solid hsl(var(--primary) / 0.2)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                      marginTop: 1,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 5,
-                        height: 5,
-                        borderRadius: "50%",
-                        background: "hsl(var(--primary))",
-                      }}
-                    />
-                  </div>
-                  <span
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      fontSize: 14,
-                      lineHeight: 1.55,
-                      color: "hsl(var(--foreground))",
-                    }}
-                  >
+                  <Check className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                  <span className="text-[14px] leading-relaxed text-foreground">
                     {item}
                   </span>
-                </motion.div>
+                </motion.li>
               ))}
-            </div>
+            </ul>
           </motion.div>
         </AnimatePresence>
       </div>
-    </section>
+    </Section>
   );
 }
 
-// ─── Module Deep Dive ─────────────────────────────────────────────────────────
+// ─── Modules ──────────────────────────────────────────────────────────────────
 
 function ModulesSection() {
   const [active, setActive] = useState(0);
   const m = MODULES[active];
 
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const next =
+      e.key === "ArrowRight"
+        ? (active + 1) % MODULES.length
+        : (active - 1 + MODULES.length) % MODULES.length;
+    setActive(next);
+    document.getElementById(`tab-${MODULES[next].id}`)?.focus();
+  };
+
   return (
-    <section
-      style={{
-        padding: "110px 48px",
-        borderTop: "1px solid hsl(var(--border))",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: "40%",
-          right: 0,
-          width: 500,
-          height: 500,
-          background:
-            "radial-gradient(ellipse, hsl(var(--primary) / 0.04), transparent 70%)",
-          pointerEvents: "none",
-        }}
+    <Section id="modules">
+      <SectionHeading
+        eyebrow="Core Modules"
+        title="The three pillars."
+        sub="Each module is a complete product on its own. Together they share one inventory, one guest, and one ledger."
       />
 
-      <div style={{ marginBottom: 64 }}>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10,
-            letterSpacing: 3,
-            color: "hsl(var(--primary))",
-            marginBottom: 16,
-          }}
-        >
-          — Core Modules
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(40px, 5vw, 60px)",
-            fontWeight: 700,
-            lineHeight: 1,
-            letterSpacing: "-0.5px",
-            color: "hsl(var(--foreground))",
-            margin: 0,
-          }}
-        >
-          The three pillars.
-        </motion.h2>
-      </div>
-
-      {/* Tab row */}
       <div
-        style={{
-          display: "flex",
-          gap: 0,
-          marginBottom: 48,
-          border: "1px solid hsl(var(--border))",
-          borderRadius: 12,
-          overflow: "hidden",
-          width: "fit-content",
-        }}
+        role="tablist"
+        aria-label="Modules"
+        onKeyDown={onKeyDown}
+        className="inline-flex w-full max-w-md overflow-hidden rounded-lg border border-border sm:w-auto"
       >
-        {MODULES.map((mod, i) => (
-          <motion.button
-            key={mod.id}
-            onClick={() => setActive(i)}
-            whileTap={{ scale: 0.98 }}
-            style={{
-              padding: "12px 32px",
-              background:
-                active === i ? "hsl(var(--primary))" : "hsl(var(--card))",
-              color:
-                active === i
-                  ? "hsl(var(--primary-foreground))"
-                  : "hsl(var(--muted-foreground))",
-              border: "none",
-              borderRight: i < 2 ? "1px solid hsl(var(--border))" : undefined,
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: 14,
-              fontWeight: 600,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              transition: "all 0.25s ease",
-            }}
-          >
-            {mod.icon}
-            {mod.title}
-          </motion.button>
-        ))}
+        {MODULES.map((mod, i) => {
+          const selected = active === i;
+          return (
+            <button
+              key={mod.id}
+              id={`tab-${mod.id}`}
+              role="tab"
+              type="button"
+              aria-selected={selected}
+              aria-controls={`panel-${mod.id}`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setActive(i)}
+              className={`flex flex-1 items-center justify-center gap-2 border-r border-border px-4 py-2.5 text-[13px] font-medium transition-colors last:border-r-0 sm:px-8 ${
+                selected
+                  ? "bg-foreground text-background"
+                  : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <mod.icon className="size-4" />
+              {mod.title}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Module content */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 16 }}
+          key={m.id}
+          id={`panel-${m.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${m.id}`}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.35 }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "5rem",
-            alignItems: "center",
-          }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.28 }}
+          className="mt-10 grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
         >
-          {/* Text side */}
           <div>
-            <div
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 64,
-                fontWeight: 700,
-                lineHeight: 1,
-                color: "hsl(var(--border))",
-                marginBottom: 4,
-              }}
-            >
+            <span className="font-mono text-3xl font-semibold text-border">
               {m.label}
-            </div>
-            <h3
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(34px, 4vw, 48px)",
-                fontWeight: 700,
-                lineHeight: 1,
-                letterSpacing: "-0.3px",
-                color: "hsl(var(--foreground))",
-                margin: "0 0 8px",
-              }}
-            >
+            </span>
+            <h3 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-foreground sm:text-4xl">
               {m.title}
             </h3>
-            <p
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 20,
-                fontStyle: "italic",
-                color: "hsl(var(--primary))",
-                margin: "0 0 20px",
-              }}
-            >
-              {m.subtitle}
-            </p>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 15,
-                lineHeight: 1.72,
-                color: "hsl(var(--muted-foreground))",
-                margin: "0 0 36px",
-              }}
-            >
+            <p className="mt-2 text-lg text-muted-foreground">{m.subtitle}</p>
+            <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-muted-foreground">
               {m.description}
             </p>
-            {/* Feature tags */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              {m.features.map((f, i) => (
-                <motion.span
+
+            <ul className="mt-8 flex flex-wrap gap-2">
+              {m.features.map((f) => (
+                <li
                   key={f}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                  style={{
-                    padding: "6px 14px",
-                    border: "1px solid hsl(var(--border))",
-                    borderRadius: 100,
-                    fontFamily: "'DM Sans', sans-serif",
-                    fontSize: 12.5,
-                    fontWeight: 500,
-                    color: "hsl(var(--muted-foreground))",
-                    background: "hsl(var(--muted))",
-                  }}
+                  className="rounded-full border border-border bg-muted px-3 py-1.5 text-[12.5px] font-medium text-muted-foreground"
                 >
                   {f}
-                </motion.span>
+                </li>
               ))}
-            </div>
-            <div style={{ marginTop: 32 }}>
-              <Button variant="outline" style={{ gap: 6 }}>
-                Explore {m.title} Module <ArrowRight size={14} />
-              </Button>
-            </div>
+            </ul>
+
+            <Button asChild variant="outline" className="mt-8 h-9 px-4 text-sm">
+              <a href="#cta">
+                Explore {m.title} <ArrowRight className="size-4" />
+              </a>
+            </Button>
           </div>
 
-          {/* Visual side */}
-          <div
-            style={{
-              border: "1px solid hsl(var(--border))",
-              borderRadius: 16,
-              background: "hsl(var(--card))",
-              padding: 24,
-              height: 320,
-              overflow: "hidden",
-            }}
-          >
-            {VISUALS[m.visual]}
-          </div>
+          <div className="order-first lg:order-0">{VISUALS[m.visual]}</div>
         </motion.div>
       </AnimatePresence>
-    </section>
+    </Section>
   );
 }
 
-// ─── Platform Features Grid ───────────────────────────────────────────────────
+// ─── Platform grid ────────────────────────────────────────────────────────────
 
 function PlatformFeaturesSection() {
   return (
-    <section
-      style={{
-        padding: "110px 48px",
-        borderTop: "1px solid hsl(var(--border))",
-      }}
-    >
-      <div style={{ marginBottom: 64 }}>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10,
-            letterSpacing: 3,
-            color: "hsl(var(--primary))",
-            marginBottom: 16,
-          }}
-        >
-          — Platform Capabilities
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(40px, 5vw, 60px)",
-            fontWeight: 700,
-            lineHeight: 1,
-            letterSpacing: "-0.5px",
-            color: "hsl(var(--foreground))",
-            margin: "0 0 16px",
-          }}
-        >
-          Built for hospitality.
-          <br />
-          <em style={{ fontStyle: "italic", color: "hsl(var(--primary))" }}>
-            Obsessed with operations.
-          </em>
-        </motion.h2>
-      </div>
+    <Section id="platform">
+      <SectionHeading
+        eyebrow="Platform Capabilities"
+        title={
+          <>
+            Built for hospitality.
+            <br />
+            <span className="text-muted-foreground">
+              Obsessed with operations.
+            </span>
+          </>
+        }
+      />
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          borderTop: "1px solid hsl(var(--border))",
-          borderLeft: "1px solid hsl(var(--border))",
-        }}
-      >
+      <div className="grid grid-cols-1 border-t border-l border-border sm:grid-cols-2 lg:grid-cols-4">
         {PLATFORM_FEATURES.map((f, i) => (
-          <motion.div
+          <Reveal
             key={f.title}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: (i % 4) * 0.07 }}
-            whileHover={{ background: "hsl(var(--muted) / 0.6)" }}
-            style={{
-              padding: "32px 28px",
-              borderRight: "1px solid hsl(var(--border))",
-              borderBottom: "1px solid hsl(var(--border))",
-              transition: "background 0.2s ease",
-            }}
+            delay={(i % 4) * 0.06}
+            className="border-r border-b border-border p-6 transition-colors hover:bg-muted/60 md:p-7"
           >
-            <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: 9,
-                background: "hsl(var(--primary) / 0.08)",
-                border: "1px solid hsl(var(--primary) / 0.15)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "hsl(var(--primary))",
-                marginBottom: 18,
-              }}
-            >
-              {f.icon}
-            </div>
-            <h4
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 14,
-                fontWeight: 600,
-                color: "hsl(var(--foreground))",
-                margin: "0 0 8px",
-              }}
-            >
+            <IconTile icon={f.icon} />
+            <h3 className="mt-5 text-sm font-semibold text-foreground">
               {f.title}
-            </h4>
-            <p
-              style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: 13,
-                lineHeight: 1.6,
-                color: "hsl(var(--muted-foreground))",
-                margin: 0,
-              }}
-            >
+            </h3>
+            <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
               {f.desc}
             </p>
-          </motion.div>
+          </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 
@@ -1651,168 +1183,87 @@ function PlatformFeaturesSection() {
 function CTASection() {
   return (
     <section
-      style={{
-        padding: "120px 48px",
-        borderTop: "1px solid hsl(var(--border))",
-        textAlign: "center",
-        position: "relative",
-        overflow: "hidden",
-        backgroundImage:
-          "radial-gradient(circle, hsl(var(--border) / 0.5) 1px, transparent 1px)",
-        backgroundSize: "28px 28px",
-      }}
+      id="cta"
+      className="relative scroll-mt-14 overflow-hidden border-t border-border"
+      style={DOT_GRID}
     >
       <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse at 50% 50%, transparent 25%, hsl(var(--background)) 85%)",
-        }}
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={VIGNETTE}
       />
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 700,
-          height: 400,
-          background:
-            "radial-gradient(ellipse, hsl(var(--primary) / 0.06), transparent 65%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      <div style={{ position: "relative", zIndex: 1 }}>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10,
-            letterSpacing: 3,
-            color: "hsl(var(--primary))",
-            marginBottom: 28,
-          }}
-        >
-          — Ready to begin
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: "clamp(56px, 8vw, 100px)",
-            fontWeight: 700,
-            lineHeight: 0.95,
-            letterSpacing: "-1px",
-            color: "hsl(var(--foreground))",
-            margin: "0 auto 28px",
-          }}
-        >
-          Hospitality,
-          <br />
-          <em style={{ fontStyle: "italic", color: "hsl(var(--primary))" }}>
-            reimagined.
-          </em>
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          style={{
-            fontFamily: "'DM Sans', sans-serif",
-            fontSize: 16,
-            lineHeight: 1.7,
-            color: "hsl(var(--muted-foreground))",
-            maxWidth: 440,
-            margin: "0 auto 48px",
-          }}
-        >
-          From a single outlet to a multi-property group — SharpHospitality
-          scales with your ambition. Set up in an afternoon. Run for years.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          style={{
-            display: "flex",
-            gap: 12,
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <Button
-            size="lg"
-            style={{
-              gap: 8,
-              fontFamily: "'DM Sans', sans-serif",
-              fontWeight: 600,
-              fontSize: 16,
-            }}
-          >
-            Start Free Trial <ArrowRight size={18} />
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16 }}
-          >
-            Book a Demo
-          </Button>
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          style={{
-            marginTop: 56,
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10,
-            letterSpacing: 1.5,
-            color: "hsl(var(--muted-foreground))",
-            opacity: 0.35,
-          }}
-        >
-          SharpHospitality · A SharpNR Product · Powered by SharpIAM
-        </motion.p>
+      <div className="relative mx-auto w-full max-w-3xl px-6 py-24 text-center md:py-32">
+        <Reveal>
+          <Eyebrow>Ready to begin</Eyebrow>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <h2 className="mt-5 text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-balance text-foreground">
+            Hospitality,{" "}
+            <span className="text-muted-foreground">reimagined.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mx-auto mt-6 max-w-md text-[15px] leading-relaxed text-muted-foreground">
+            From a single outlet to a multi-property group — SharpHospitality
+            scales with your ambition. Set up in an afternoon. Run for years.
+          </p>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <Button className="h-10 px-5 text-sm">
+              Start Free Trial <ArrowRight className="size-4" />
+            </Button>
+            <Button variant="outline" className="h-10 px-5 text-sm">
+              Book a Demo
+            </Button>
+          </div>
+        </Reveal>
       </div>
     </section>
+  );
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+function Footer() {
+  return (
+    <footer className="border-t border-border">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between md:px-10">
+        <Wordmark />
+        <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-2">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <p className="font-mono text-[10px] tracking-[0.14em] text-muted-foreground uppercase">
+          A SharpNR product · Powered by SharpIAM
+        </p>
+      </div>
+    </footer>
   );
 }
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 
 export function SharpHospitalityWebsite() {
-  useFonts();
   return (
-    <div
-      style={{
-        background: "hsl(var(--background))",
-        color: "hsl(var(--foreground))",
-        minHeight: "100vh",
-        overflowX: "hidden",
-      }}
-    >
+    <div className="min-h-screen scroll-smooth bg-background text-foreground antialiased">
       <Navbar />
-      <HeroSection />
-      <StatsBar />
-      <ModeSection />
-      <ModulesSection />
-      <PlatformFeaturesSection />
-      <CTASection />
+      <main>
+        <HeroSection />
+        <StatsBar />
+        <ModeSection />
+        <ModulesSection />
+        <PlatformFeaturesSection />
+        <CTASection />
+      </main>
+      <Footer />
     </div>
   );
 }
