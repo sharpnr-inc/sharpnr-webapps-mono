@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as UserProfileRouteRouteImport } from './routes/_user/profile/route'
+import { Route as UserHomeRouteRouteImport } from './routes/_user/home/route'
 import { Route as UserTrainingIndexRouteImport } from './routes/_user/training/index'
 import { Route as UserTasksIndexRouteImport } from './routes/_user/tasks/index'
 import { Route as UserSettingsIndexRouteImport } from './routes/_user/settings/index'
@@ -40,6 +42,16 @@ const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UserProfileRouteRoute = UserProfileRouteRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserHomeRouteRoute = UserHomeRouteRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 const UserTrainingIndexRoute = UserTrainingIndexRouteImport.update({
   id: '/training/',
   path: '/training/',
@@ -61,9 +73,9 @@ const UserReviewsIndexRoute = UserReviewsIndexRouteImport.update({
   getParentRoute: () => UserRouteRoute,
 } as any)
 const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => UserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => UserProfileRouteRoute,
 } as any)
 const UserPayslipsIndexRoute = UserPayslipsIndexRouteImport.update({
   id: '/payslips/',
@@ -96,9 +108,9 @@ const UserIt_helpdeskIndexRoute = UserIt_helpdeskIndexRouteImport.update({
   getParentRoute: () => UserRouteRoute,
 } as any)
 const UserHomeIndexRoute = UserHomeIndexRouteImport.update({
-  id: '/home/',
-  path: '/home/',
-  getParentRoute: () => UserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => UserHomeRouteRoute,
 } as any)
 const UserGoalsIndexRoute = UserGoalsIndexRouteImport.update({
   id: '/goals/',
@@ -139,6 +151,8 @@ const UserAnnouncementsIndexRoute = UserAnnouncementsIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/home': typeof UserHomeRouteRouteWithChildren
+  '/profile': typeof UserProfileRouteRouteWithChildren
   '/announcements/': typeof UserAnnouncementsIndexRoute
   '/attendance/': typeof UserAttendanceIndexRoute
   '/benefits/': typeof UserBenefitsIndexRoute
@@ -184,6 +198,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
+  '/_user/home': typeof UserHomeRouteRouteWithChildren
+  '/_user/profile': typeof UserProfileRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
   '/_user/announcements/': typeof UserAnnouncementsIndexRoute
   '/_user/attendance/': typeof UserAttendanceIndexRoute
@@ -209,6 +225,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/home'
+    | '/profile'
     | '/announcements/'
     | '/attendance/'
     | '/benefits/'
@@ -253,6 +271,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_user'
+    | '/_user/home'
+    | '/_user/profile'
     | '/_website/'
     | '/_user/announcements/'
     | '/_user/attendance/'
@@ -296,6 +316,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_user/profile': {
+      id: '/_user/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof UserProfileRouteRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/home': {
+      id: '/_user/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof UserHomeRouteRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
     '/_user/training/': {
       id: '/_user/training/'
       path: '/training'
@@ -326,10 +360,10 @@ declare module '@tanstack/react-router' {
     }
     '/_user/profile/': {
       id: '/_user/profile/'
-      path: '/profile'
+      path: '/'
       fullPath: '/profile/'
       preLoaderRoute: typeof UserProfileIndexRouteImport
-      parentRoute: typeof UserRouteRoute
+      parentRoute: typeof UserProfileRouteRoute
     }
     '/_user/payslips/': {
       id: '/_user/payslips/'
@@ -375,10 +409,10 @@ declare module '@tanstack/react-router' {
     }
     '/_user/home/': {
       id: '/_user/home/'
-      path: '/home'
+      path: '/'
       fullPath: '/home/'
       preLoaderRoute: typeof UserHomeIndexRouteImport
-      parentRoute: typeof UserRouteRoute
+      parentRoute: typeof UserHomeRouteRoute
     }
     '/_user/goals/': {
       id: '/_user/goals/'
@@ -432,7 +466,32 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface UserHomeRouteRouteChildren {
+  UserHomeIndexRoute: typeof UserHomeIndexRoute
+}
+
+const UserHomeRouteRouteChildren: UserHomeRouteRouteChildren = {
+  UserHomeIndexRoute: UserHomeIndexRoute,
+}
+
+const UserHomeRouteRouteWithChildren = UserHomeRouteRoute._addFileChildren(
+  UserHomeRouteRouteChildren,
+)
+
+interface UserProfileRouteRouteChildren {
+  UserProfileIndexRoute: typeof UserProfileIndexRoute
+}
+
+const UserProfileRouteRouteChildren: UserProfileRouteRouteChildren = {
+  UserProfileIndexRoute: UserProfileIndexRoute,
+}
+
+const UserProfileRouteRouteWithChildren =
+  UserProfileRouteRoute._addFileChildren(UserProfileRouteRouteChildren)
+
 interface UserRouteRouteChildren {
+  UserHomeRouteRoute: typeof UserHomeRouteRouteWithChildren
+  UserProfileRouteRoute: typeof UserProfileRouteRouteWithChildren
   UserAnnouncementsIndexRoute: typeof UserAnnouncementsIndexRoute
   UserAttendanceIndexRoute: typeof UserAttendanceIndexRoute
   UserBenefitsIndexRoute: typeof UserBenefitsIndexRoute
@@ -440,14 +499,12 @@ interface UserRouteRouteChildren {
   UserDocumentsIndexRoute: typeof UserDocumentsIndexRoute
   UserExpenses_claimsIndexRoute: typeof UserExpenses_claimsIndexRoute
   UserGoalsIndexRoute: typeof UserGoalsIndexRoute
-  UserHomeIndexRoute: typeof UserHomeIndexRoute
   UserIt_helpdeskIndexRoute: typeof UserIt_helpdeskIndexRoute
   UserLeavesIndexRoute: typeof UserLeavesIndexRoute
   UserLegalIndexRoute: typeof UserLegalIndexRoute
   UserMyAppsIndexRoute: typeof UserMyAppsIndexRoute
   UserMyrequestIndexRoute: typeof UserMyrequestIndexRoute
   UserPayslipsIndexRoute: typeof UserPayslipsIndexRoute
-  UserProfileIndexRoute: typeof UserProfileIndexRoute
   UserReviewsIndexRoute: typeof UserReviewsIndexRoute
   UserSettingsIndexRoute: typeof UserSettingsIndexRoute
   UserTasksIndexRoute: typeof UserTasksIndexRoute
@@ -455,6 +512,8 @@ interface UserRouteRouteChildren {
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
+  UserHomeRouteRoute: UserHomeRouteRouteWithChildren,
+  UserProfileRouteRoute: UserProfileRouteRouteWithChildren,
   UserAnnouncementsIndexRoute: UserAnnouncementsIndexRoute,
   UserAttendanceIndexRoute: UserAttendanceIndexRoute,
   UserBenefitsIndexRoute: UserBenefitsIndexRoute,
@@ -462,14 +521,12 @@ const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserDocumentsIndexRoute: UserDocumentsIndexRoute,
   UserExpenses_claimsIndexRoute: UserExpenses_claimsIndexRoute,
   UserGoalsIndexRoute: UserGoalsIndexRoute,
-  UserHomeIndexRoute: UserHomeIndexRoute,
   UserIt_helpdeskIndexRoute: UserIt_helpdeskIndexRoute,
   UserLeavesIndexRoute: UserLeavesIndexRoute,
   UserLegalIndexRoute: UserLegalIndexRoute,
   UserMyAppsIndexRoute: UserMyAppsIndexRoute,
   UserMyrequestIndexRoute: UserMyrequestIndexRoute,
   UserPayslipsIndexRoute: UserPayslipsIndexRoute,
-  UserProfileIndexRoute: UserProfileIndexRoute,
   UserReviewsIndexRoute: UserReviewsIndexRoute,
   UserSettingsIndexRoute: UserSettingsIndexRoute,
   UserTasksIndexRoute: UserTasksIndexRoute,
