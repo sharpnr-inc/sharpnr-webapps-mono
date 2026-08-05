@@ -19,7 +19,7 @@ import {
   ServerCogIcon,
   Settings,
 } from "lucide-react";
-import { Route } from "@/routes/_user/hotel/$hotelID/route";
+import { Route } from "@/routes/workspace/_user/hotel/$hotelID/route";
 
 type SidebarItem = {
   label: string;

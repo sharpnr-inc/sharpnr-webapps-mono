@@ -13,7 +13,7 @@ const modules = [
     description:
       "Reservations, check-ins, housekeeping and complete guest lifecycle management.",
     icon: Building2,
-    link: "/hotel",
+    link: "workspace/hotel",
     accent: "#7eb8f7",
     accentRgb: "126, 184, 247",
     tag: "Core",
@@ -24,7 +24,7 @@ const modules = [
     description:
       "Orders, tables, menus, billing and kitchen workflow automation.",
     icon: UtensilsCrossed,
-    link: "/restaurant",
+    link: "workspace/restaurant",
     accent: "#fb923c",
     accentRgb: "251, 146, 60",
     tag: "Core",
@@ -35,7 +35,7 @@ const modules = [
     description:
       "POS operations, beverage tracking and inventory shift control.",
     icon: Wine,
-    link: "/bar",
+    link: "workspace/bar",
     accent: "#34d399",
     accentRgb: "52, 211, 153",
     tag: "Core",
@@ -45,7 +45,7 @@ const modules = [
     title: "Infrastructure",
     description: "Kitchen, reception and loading dock operations management.",
     icon: Construction,
-    link: "/infra/kitchen/",
+    link: "workspace/infra/kitchen/",
     accent: "#94a3b8",
     accentRgb: "148, 163, 184",
     tag: "Support",

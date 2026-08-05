@@ -9,438 +9,472 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UserRouteRouteImport } from './routes/_user/route'
+import { Route as WorkspaceRouteRouteImport } from './routes/workspace/route'
+import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
-import { Route as UserInfraRouteRouteImport } from './routes/_user/infra/route'
-import { Route as UserRestaurantIndexRouteImport } from './routes/_user/restaurant/index'
-import { Route as UserHotelIndexRouteImport } from './routes/_user/hotel/index'
-import { Route as UserBarIndexRouteImport } from './routes/_user/bar/index'
-import { Route as UserRestaurantRestaurantIDRouteRouteImport } from './routes/_user/restaurant/$restaurantID/route'
-import { Route as UserHotelHotelIDRouteRouteImport } from './routes/_user/hotel/$hotelID/route'
-import { Route as UserBarBarIDRouteRouteImport } from './routes/_user/bar/$barID/route'
-import { Route as UserInfraKitchenIndexRouteImport } from './routes/_user/infra/kitchen/index'
-import { Route as UserHotelHotelIDOverviewRouteImport } from './routes/_user/hotel/$hotelID/overview'
-import { Route as UserBarBarIDOverviewRouteImport } from './routes/_user/bar/$barID/overview'
-import { Route as UserRestaurantRestaurantIDTableManagementIndexRouteImport } from './routes/_user/restaurant/$restaurantID/table-management/index'
-import { Route as UserRestaurantRestaurantIDSalesTerminalIndexRouteImport } from './routes/_user/restaurant/$restaurantID/sales-terminal/index'
-import { Route as UserRestaurantRestaurantIDReservationsIndexRouteImport } from './routes/_user/restaurant/$restaurantID/reservations/index'
-import { Route as UserRestaurantRestaurantIDOverviewIndexRouteImport } from './routes/_user/restaurant/$restaurantID/overview/index'
-import { Route as UserRestaurantRestaurantIDOrdersIndexRouteImport } from './routes/_user/restaurant/$restaurantID/orders/index'
-import { Route as UserRestaurantRestaurantIDInventoryIndexRouteImport } from './routes/_user/restaurant/$restaurantID/inventory/index'
-import { Route as UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport } from './routes/_user/restaurant/$restaurantID/general-settings/index'
-import { Route as UserHotelHotelIDSettingsIndexRouteImport } from './routes/_user/hotel/$hotelID/settings/index'
-import { Route as UserHotelHotelIDRoom_requestsIndexRouteImport } from './routes/_user/hotel/$hotelID/room_requests/index'
-import { Route as UserHotelHotelIDReservationsIndexRouteImport } from './routes/_user/hotel/$hotelID/reservations/index'
-import { Route as UserHotelHotelIDInventoryIndexRouteImport } from './routes/_user/hotel/$hotelID/inventory/index'
-import { Route as UserHotelHotelIDHousekeepingIndexRouteImport } from './routes/_user/hotel/$hotelID/housekeeping/index'
-import { Route as UserHotelHotelIDGuestsIndexRouteImport } from './routes/_user/hotel/$hotelID/guests/index'
-import { Route as UserHotelHotelIDCheckoutsIndexRouteImport } from './routes/_user/hotel/$hotelID/checkouts/index'
-import { Route as UserHotelHotelIDBookingIndexRouteImport } from './routes/_user/hotel/$hotelID/booking/index'
-import { Route as UserBarBarIDTable_managementIndexRouteImport } from './routes/_user/bar/$barID/table_management/index'
-import { Route as UserBarBarIDSettingsIndexRouteImport } from './routes/_user/bar/$barID/settings/index'
-import { Route as UserBarBarIDSale_counterIndexRouteImport } from './routes/_user/bar/$barID/sale_counter/index'
-import { Route as UserBarBarIDInventoryIndexRouteImport } from './routes/_user/bar/$barID/inventory/index'
-import { Route as UserInfraKitchenService_pointServiceRouteImport } from './routes/_user/infra/kitchen/$service_point/service'
+import { Route as WorkspaceUserRouteRouteImport } from './routes/workspace/_user/route'
+import { Route as WorkspaceUserInfraRouteRouteImport } from './routes/workspace/_user/infra/route'
+import { Route as WorkspaceUserRestaurantIndexRouteImport } from './routes/workspace/_user/restaurant/index'
+import { Route as WorkspaceUserHotelIndexRouteImport } from './routes/workspace/_user/hotel/index'
+import { Route as WorkspaceUserBarIndexRouteImport } from './routes/workspace/_user/bar/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDRouteRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/route'
+import { Route as WorkspaceUserHotelHotelIDRouteRouteImport } from './routes/workspace/_user/hotel/$hotelID/route'
+import { Route as WorkspaceUserBarBarIDRouteRouteImport } from './routes/workspace/_user/bar/$barID/route'
+import { Route as WorkspaceUserInfraKitchenIndexRouteImport } from './routes/workspace/_user/infra/kitchen/index'
+import { Route as WorkspaceUserHotelHotelIDOverviewRouteImport } from './routes/workspace/_user/hotel/$hotelID/overview'
+import { Route as WorkspaceUserBarBarIDOverviewRouteImport } from './routes/workspace/_user/bar/$barID/overview'
+import { Route as WorkspaceUserRestaurantRestaurantIDTableManagementIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/table-management/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/sales-terminal/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDReservationsIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/reservations/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDOverviewIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/overview/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDOrdersIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/orders/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDInventoryIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/inventory/index'
+import { Route as WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRouteImport } from './routes/workspace/_user/restaurant/$restaurantID/general-settings/index'
+import { Route as WorkspaceUserHotelHotelIDSettingsIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/settings/index'
+import { Route as WorkspaceUserHotelHotelIDRoom_requestsIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/room_requests/index'
+import { Route as WorkspaceUserHotelHotelIDReservationsIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/reservations/index'
+import { Route as WorkspaceUserHotelHotelIDInventoryIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/inventory/index'
+import { Route as WorkspaceUserHotelHotelIDHousekeepingIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/housekeeping/index'
+import { Route as WorkspaceUserHotelHotelIDGuestsIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/guests/index'
+import { Route as WorkspaceUserHotelHotelIDCheckoutsIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/checkouts/index'
+import { Route as WorkspaceUserHotelHotelIDBookingIndexRouteImport } from './routes/workspace/_user/hotel/$hotelID/booking/index'
+import { Route as WorkspaceUserBarBarIDTable_managementIndexRouteImport } from './routes/workspace/_user/bar/$barID/table_management/index'
+import { Route as WorkspaceUserBarBarIDSettingsIndexRouteImport } from './routes/workspace/_user/bar/$barID/settings/index'
+import { Route as WorkspaceUserBarBarIDSale_counterIndexRouteImport } from './routes/workspace/_user/bar/$barID/sale_counter/index'
+import { Route as WorkspaceUserBarBarIDInventoryIndexRouteImport } from './routes/workspace/_user/bar/$barID/inventory/index'
+import { Route as WorkspaceUserInfraKitchenService_pointServiceRouteImport } from './routes/workspace/_user/infra/kitchen/$service_point/service'
 
-const UserRouteRoute = UserRouteRouteImport.update({
-  id: '/_user',
+const WorkspaceRouteRoute = WorkspaceRouteRouteImport.update({
+  id: '/workspace',
+  path: '/workspace',
   getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceIndexRoute = WorkspaceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkspaceRouteRoute,
 } as any)
 const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UserInfraRouteRoute = UserInfraRouteRouteImport.update({
+const WorkspaceUserRouteRoute = WorkspaceUserRouteRouteImport.update({
+  id: '/_user',
+  getParentRoute: () => WorkspaceRouteRoute,
+} as any)
+const WorkspaceUserInfraRouteRoute = WorkspaceUserInfraRouteRouteImport.update({
   id: '/infra',
   path: '/infra',
-  getParentRoute: () => UserRouteRoute,
+  getParentRoute: () => WorkspaceUserRouteRoute,
 } as any)
-const UserRestaurantIndexRoute = UserRestaurantIndexRouteImport.update({
-  id: '/restaurant/',
-  path: '/restaurant/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserHotelIndexRoute = UserHotelIndexRouteImport.update({
+const WorkspaceUserRestaurantIndexRoute =
+  WorkspaceUserRestaurantIndexRouteImport.update({
+    id: '/restaurant/',
+    path: '/restaurant/',
+    getParentRoute: () => WorkspaceUserRouteRoute,
+  } as any)
+const WorkspaceUserHotelIndexRoute = WorkspaceUserHotelIndexRouteImport.update({
   id: '/hotel/',
   path: '/hotel/',
-  getParentRoute: () => UserRouteRoute,
+  getParentRoute: () => WorkspaceUserRouteRoute,
 } as any)
-const UserBarIndexRoute = UserBarIndexRouteImport.update({
+const WorkspaceUserBarIndexRoute = WorkspaceUserBarIndexRouteImport.update({
   id: '/bar/',
   path: '/bar/',
-  getParentRoute: () => UserRouteRoute,
+  getParentRoute: () => WorkspaceUserRouteRoute,
 } as any)
-const UserRestaurantRestaurantIDRouteRoute =
-  UserRestaurantRestaurantIDRouteRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDRouteRoute =
+  WorkspaceUserRestaurantRestaurantIDRouteRouteImport.update({
     id: '/restaurant/$restaurantID',
     path: '/restaurant/$restaurantID',
-    getParentRoute: () => UserRouteRoute,
+    getParentRoute: () => WorkspaceUserRouteRoute,
   } as any)
-const UserHotelHotelIDRouteRoute = UserHotelHotelIDRouteRouteImport.update({
-  id: '/hotel/$hotelID',
-  path: '/hotel/$hotelID',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserBarBarIDRouteRoute = UserBarBarIDRouteRouteImport.update({
-  id: '/bar/$barID',
-  path: '/bar/$barID',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserInfraKitchenIndexRoute = UserInfraKitchenIndexRouteImport.update({
-  id: '/kitchen/',
-  path: '/kitchen/',
-  getParentRoute: () => UserInfraRouteRoute,
-} as any)
-const UserHotelHotelIDOverviewRoute =
-  UserHotelHotelIDOverviewRouteImport.update({
+const WorkspaceUserHotelHotelIDRouteRoute =
+  WorkspaceUserHotelHotelIDRouteRouteImport.update({
+    id: '/hotel/$hotelID',
+    path: '/hotel/$hotelID',
+    getParentRoute: () => WorkspaceUserRouteRoute,
+  } as any)
+const WorkspaceUserBarBarIDRouteRoute =
+  WorkspaceUserBarBarIDRouteRouteImport.update({
+    id: '/bar/$barID',
+    path: '/bar/$barID',
+    getParentRoute: () => WorkspaceUserRouteRoute,
+  } as any)
+const WorkspaceUserInfraKitchenIndexRoute =
+  WorkspaceUserInfraKitchenIndexRouteImport.update({
+    id: '/kitchen/',
+    path: '/kitchen/',
+    getParentRoute: () => WorkspaceUserInfraRouteRoute,
+  } as any)
+const WorkspaceUserHotelHotelIDOverviewRoute =
+  WorkspaceUserHotelHotelIDOverviewRouteImport.update({
     id: '/overview',
     path: '/overview',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserBarBarIDOverviewRoute = UserBarBarIDOverviewRouteImport.update({
-  id: '/overview',
-  path: '/overview',
-  getParentRoute: () => UserBarBarIDRouteRoute,
-} as any)
-const UserRestaurantRestaurantIDTableManagementIndexRoute =
-  UserRestaurantRestaurantIDTableManagementIndexRouteImport.update({
+const WorkspaceUserBarBarIDOverviewRoute =
+  WorkspaceUserBarBarIDOverviewRouteImport.update({
+    id: '/overview',
+    path: '/overview',
+    getParentRoute: () => WorkspaceUserBarBarIDRouteRoute,
+  } as any)
+const WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDTableManagementIndexRouteImport.update({
     id: '/table-management/',
     path: '/table-management/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantRestaurantIDSalesTerminalIndexRoute =
-  UserRestaurantRestaurantIDSalesTerminalIndexRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRouteImport.update({
     id: '/sales-terminal/',
     path: '/sales-terminal/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantRestaurantIDReservationsIndexRoute =
-  UserRestaurantRestaurantIDReservationsIndexRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDReservationsIndexRouteImport.update({
     id: '/reservations/',
     path: '/reservations/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantRestaurantIDOverviewIndexRoute =
-  UserRestaurantRestaurantIDOverviewIndexRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDOverviewIndexRouteImport.update({
     id: '/overview/',
     path: '/overview/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantRestaurantIDOrdersIndexRoute =
-  UserRestaurantRestaurantIDOrdersIndexRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDOrdersIndexRouteImport.update({
     id: '/orders/',
     path: '/orders/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantRestaurantIDInventoryIndexRoute =
-  UserRestaurantRestaurantIDInventoryIndexRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDInventoryIndexRouteImport.update({
     id: '/inventory/',
     path: '/inventory/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserRestaurantRestaurantIDGeneralSettingsIndexRoute =
-  UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport.update({
+const WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute =
+  WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRouteImport.update({
     id: '/general-settings/',
     path: '/general-settings/',
-    getParentRoute: () => UserRestaurantRestaurantIDRouteRoute,
+    getParentRoute: () => WorkspaceUserRestaurantRestaurantIDRouteRoute,
   } as any)
-const UserHotelHotelIDSettingsIndexRoute =
-  UserHotelHotelIDSettingsIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDSettingsIndexRoute =
+  WorkspaceUserHotelHotelIDSettingsIndexRouteImport.update({
     id: '/settings/',
     path: '/settings/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDRoom_requestsIndexRoute =
-  UserHotelHotelIDRoom_requestsIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDRoom_requestsIndexRoute =
+  WorkspaceUserHotelHotelIDRoom_requestsIndexRouteImport.update({
     id: '/room_requests/',
     path: '/room_requests/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDReservationsIndexRoute =
-  UserHotelHotelIDReservationsIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDReservationsIndexRoute =
+  WorkspaceUserHotelHotelIDReservationsIndexRouteImport.update({
     id: '/reservations/',
     path: '/reservations/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDInventoryIndexRoute =
-  UserHotelHotelIDInventoryIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDInventoryIndexRoute =
+  WorkspaceUserHotelHotelIDInventoryIndexRouteImport.update({
     id: '/inventory/',
     path: '/inventory/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDHousekeepingIndexRoute =
-  UserHotelHotelIDHousekeepingIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDHousekeepingIndexRoute =
+  WorkspaceUserHotelHotelIDHousekeepingIndexRouteImport.update({
     id: '/housekeeping/',
     path: '/housekeeping/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDGuestsIndexRoute =
-  UserHotelHotelIDGuestsIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDGuestsIndexRoute =
+  WorkspaceUserHotelHotelIDGuestsIndexRouteImport.update({
     id: '/guests/',
     path: '/guests/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDCheckoutsIndexRoute =
-  UserHotelHotelIDCheckoutsIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDCheckoutsIndexRoute =
+  WorkspaceUserHotelHotelIDCheckoutsIndexRouteImport.update({
     id: '/checkouts/',
     path: '/checkouts/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserHotelHotelIDBookingIndexRoute =
-  UserHotelHotelIDBookingIndexRouteImport.update({
+const WorkspaceUserHotelHotelIDBookingIndexRoute =
+  WorkspaceUserHotelHotelIDBookingIndexRouteImport.update({
     id: '/booking/',
     path: '/booking/',
-    getParentRoute: () => UserHotelHotelIDRouteRoute,
+    getParentRoute: () => WorkspaceUserHotelHotelIDRouteRoute,
   } as any)
-const UserBarBarIDTable_managementIndexRoute =
-  UserBarBarIDTable_managementIndexRouteImport.update({
+const WorkspaceUserBarBarIDTable_managementIndexRoute =
+  WorkspaceUserBarBarIDTable_managementIndexRouteImport.update({
     id: '/table_management/',
     path: '/table_management/',
-    getParentRoute: () => UserBarBarIDRouteRoute,
+    getParentRoute: () => WorkspaceUserBarBarIDRouteRoute,
   } as any)
-const UserBarBarIDSettingsIndexRoute =
-  UserBarBarIDSettingsIndexRouteImport.update({
+const WorkspaceUserBarBarIDSettingsIndexRoute =
+  WorkspaceUserBarBarIDSettingsIndexRouteImport.update({
     id: '/settings/',
     path: '/settings/',
-    getParentRoute: () => UserBarBarIDRouteRoute,
+    getParentRoute: () => WorkspaceUserBarBarIDRouteRoute,
   } as any)
-const UserBarBarIDSale_counterIndexRoute =
-  UserBarBarIDSale_counterIndexRouteImport.update({
+const WorkspaceUserBarBarIDSale_counterIndexRoute =
+  WorkspaceUserBarBarIDSale_counterIndexRouteImport.update({
     id: '/sale_counter/',
     path: '/sale_counter/',
-    getParentRoute: () => UserBarBarIDRouteRoute,
+    getParentRoute: () => WorkspaceUserBarBarIDRouteRoute,
   } as any)
-const UserBarBarIDInventoryIndexRoute =
-  UserBarBarIDInventoryIndexRouteImport.update({
+const WorkspaceUserBarBarIDInventoryIndexRoute =
+  WorkspaceUserBarBarIDInventoryIndexRouteImport.update({
     id: '/inventory/',
     path: '/inventory/',
-    getParentRoute: () => UserBarBarIDRouteRoute,
+    getParentRoute: () => WorkspaceUserBarBarIDRouteRoute,
   } as any)
-const UserInfraKitchenService_pointServiceRoute =
-  UserInfraKitchenService_pointServiceRouteImport.update({
+const WorkspaceUserInfraKitchenService_pointServiceRoute =
+  WorkspaceUserInfraKitchenService_pointServiceRouteImport.update({
     id: '/kitchen/$service_point/service',
     path: '/kitchen/$service_point/service',
-    getParentRoute: () => UserInfraRouteRoute,
+    getParentRoute: () => WorkspaceUserInfraRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
+  '/workspace': typeof WorkspaceUserRouteRouteWithChildren
   '/': typeof WebsiteIndexRoute
-  '/infra': typeof UserInfraRouteRouteWithChildren
-  '/bar/$barID': typeof UserBarBarIDRouteRouteWithChildren
-  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
-  '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
-  '/bar/': typeof UserBarIndexRoute
-  '/hotel/': typeof UserHotelIndexRoute
-  '/restaurant/': typeof UserRestaurantIndexRoute
-  '/bar/$barID/overview': typeof UserBarBarIDOverviewRoute
-  '/hotel/$hotelID/overview': typeof UserHotelHotelIDOverviewRoute
-  '/infra/kitchen/': typeof UserInfraKitchenIndexRoute
-  '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
-  '/bar/$barID/inventory/': typeof UserBarBarIDInventoryIndexRoute
-  '/bar/$barID/sale_counter/': typeof UserBarBarIDSale_counterIndexRoute
-  '/bar/$barID/settings/': typeof UserBarBarIDSettingsIndexRoute
-  '/bar/$barID/table_management/': typeof UserBarBarIDTable_managementIndexRoute
-  '/hotel/$hotelID/booking/': typeof UserHotelHotelIDBookingIndexRoute
-  '/hotel/$hotelID/checkouts/': typeof UserHotelHotelIDCheckoutsIndexRoute
-  '/hotel/$hotelID/guests/': typeof UserHotelHotelIDGuestsIndexRoute
-  '/hotel/$hotelID/housekeeping/': typeof UserHotelHotelIDHousekeepingIndexRoute
-  '/hotel/$hotelID/inventory/': typeof UserHotelHotelIDInventoryIndexRoute
-  '/hotel/$hotelID/reservations/': typeof UserHotelHotelIDReservationsIndexRoute
-  '/hotel/$hotelID/room_requests/': typeof UserHotelHotelIDRoom_requestsIndexRoute
-  '/hotel/$hotelID/settings/': typeof UserHotelHotelIDSettingsIndexRoute
-  '/restaurant/$restaurantID/general-settings/': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
-  '/restaurant/$restaurantID/inventory/': typeof UserRestaurantRestaurantIDInventoryIndexRoute
-  '/restaurant/$restaurantID/orders/': typeof UserRestaurantRestaurantIDOrdersIndexRoute
-  '/restaurant/$restaurantID/overview/': typeof UserRestaurantRestaurantIDOverviewIndexRoute
-  '/restaurant/$restaurantID/reservations/': typeof UserRestaurantRestaurantIDReservationsIndexRoute
-  '/restaurant/$restaurantID/sales-terminal/': typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
-  '/restaurant/$restaurantID/table-management/': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
+  '/workspace/': typeof WorkspaceIndexRoute
+  '/workspace/infra': typeof WorkspaceUserInfraRouteRouteWithChildren
+  '/workspace/bar/$barID': typeof WorkspaceUserBarBarIDRouteRouteWithChildren
+  '/workspace/hotel/$hotelID': typeof WorkspaceUserHotelHotelIDRouteRouteWithChildren
+  '/workspace/restaurant/$restaurantID': typeof WorkspaceUserRestaurantRestaurantIDRouteRouteWithChildren
+  '/workspace/bar/': typeof WorkspaceUserBarIndexRoute
+  '/workspace/hotel/': typeof WorkspaceUserHotelIndexRoute
+  '/workspace/restaurant/': typeof WorkspaceUserRestaurantIndexRoute
+  '/workspace/bar/$barID/overview': typeof WorkspaceUserBarBarIDOverviewRoute
+  '/workspace/hotel/$hotelID/overview': typeof WorkspaceUserHotelHotelIDOverviewRoute
+  '/workspace/infra/kitchen/': typeof WorkspaceUserInfraKitchenIndexRoute
+  '/workspace/infra/kitchen/$service_point/service': typeof WorkspaceUserInfraKitchenService_pointServiceRoute
+  '/workspace/bar/$barID/inventory/': typeof WorkspaceUserBarBarIDInventoryIndexRoute
+  '/workspace/bar/$barID/sale_counter/': typeof WorkspaceUserBarBarIDSale_counterIndexRoute
+  '/workspace/bar/$barID/settings/': typeof WorkspaceUserBarBarIDSettingsIndexRoute
+  '/workspace/bar/$barID/table_management/': typeof WorkspaceUserBarBarIDTable_managementIndexRoute
+  '/workspace/hotel/$hotelID/booking/': typeof WorkspaceUserHotelHotelIDBookingIndexRoute
+  '/workspace/hotel/$hotelID/checkouts/': typeof WorkspaceUserHotelHotelIDCheckoutsIndexRoute
+  '/workspace/hotel/$hotelID/guests/': typeof WorkspaceUserHotelHotelIDGuestsIndexRoute
+  '/workspace/hotel/$hotelID/housekeeping/': typeof WorkspaceUserHotelHotelIDHousekeepingIndexRoute
+  '/workspace/hotel/$hotelID/inventory/': typeof WorkspaceUserHotelHotelIDInventoryIndexRoute
+  '/workspace/hotel/$hotelID/reservations/': typeof WorkspaceUserHotelHotelIDReservationsIndexRoute
+  '/workspace/hotel/$hotelID/room_requests/': typeof WorkspaceUserHotelHotelIDRoom_requestsIndexRoute
+  '/workspace/hotel/$hotelID/settings/': typeof WorkspaceUserHotelHotelIDSettingsIndexRoute
+  '/workspace/restaurant/$restaurantID/general-settings/': typeof WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  '/workspace/restaurant/$restaurantID/inventory/': typeof WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute
+  '/workspace/restaurant/$restaurantID/orders/': typeof WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute
+  '/workspace/restaurant/$restaurantID/overview/': typeof WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute
+  '/workspace/restaurant/$restaurantID/reservations/': typeof WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute
+  '/workspace/restaurant/$restaurantID/sales-terminal/': typeof WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute
+  '/workspace/restaurant/$restaurantID/table-management/': typeof WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRoutesByTo {
+  '/workspace': typeof WorkspaceIndexRoute
   '/': typeof WebsiteIndexRoute
-  '/infra': typeof UserInfraRouteRouteWithChildren
-  '/bar/$barID': typeof UserBarBarIDRouteRouteWithChildren
-  '/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
-  '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
-  '/bar': typeof UserBarIndexRoute
-  '/hotel': typeof UserHotelIndexRoute
-  '/restaurant': typeof UserRestaurantIndexRoute
-  '/bar/$barID/overview': typeof UserBarBarIDOverviewRoute
-  '/hotel/$hotelID/overview': typeof UserHotelHotelIDOverviewRoute
-  '/infra/kitchen': typeof UserInfraKitchenIndexRoute
-  '/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
-  '/bar/$barID/inventory': typeof UserBarBarIDInventoryIndexRoute
-  '/bar/$barID/sale_counter': typeof UserBarBarIDSale_counterIndexRoute
-  '/bar/$barID/settings': typeof UserBarBarIDSettingsIndexRoute
-  '/bar/$barID/table_management': typeof UserBarBarIDTable_managementIndexRoute
-  '/hotel/$hotelID/booking': typeof UserHotelHotelIDBookingIndexRoute
-  '/hotel/$hotelID/checkouts': typeof UserHotelHotelIDCheckoutsIndexRoute
-  '/hotel/$hotelID/guests': typeof UserHotelHotelIDGuestsIndexRoute
-  '/hotel/$hotelID/housekeeping': typeof UserHotelHotelIDHousekeepingIndexRoute
-  '/hotel/$hotelID/inventory': typeof UserHotelHotelIDInventoryIndexRoute
-  '/hotel/$hotelID/reservations': typeof UserHotelHotelIDReservationsIndexRoute
-  '/hotel/$hotelID/room_requests': typeof UserHotelHotelIDRoom_requestsIndexRoute
-  '/hotel/$hotelID/settings': typeof UserHotelHotelIDSettingsIndexRoute
-  '/restaurant/$restaurantID/general-settings': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
-  '/restaurant/$restaurantID/inventory': typeof UserRestaurantRestaurantIDInventoryIndexRoute
-  '/restaurant/$restaurantID/orders': typeof UserRestaurantRestaurantIDOrdersIndexRoute
-  '/restaurant/$restaurantID/overview': typeof UserRestaurantRestaurantIDOverviewIndexRoute
-  '/restaurant/$restaurantID/reservations': typeof UserRestaurantRestaurantIDReservationsIndexRoute
-  '/restaurant/$restaurantID/sales-terminal': typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
-  '/restaurant/$restaurantID/table-management': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
+  '/workspace/infra': typeof WorkspaceUserInfraRouteRouteWithChildren
+  '/workspace/bar/$barID': typeof WorkspaceUserBarBarIDRouteRouteWithChildren
+  '/workspace/hotel/$hotelID': typeof WorkspaceUserHotelHotelIDRouteRouteWithChildren
+  '/workspace/restaurant/$restaurantID': typeof WorkspaceUserRestaurantRestaurantIDRouteRouteWithChildren
+  '/workspace/bar': typeof WorkspaceUserBarIndexRoute
+  '/workspace/hotel': typeof WorkspaceUserHotelIndexRoute
+  '/workspace/restaurant': typeof WorkspaceUserRestaurantIndexRoute
+  '/workspace/bar/$barID/overview': typeof WorkspaceUserBarBarIDOverviewRoute
+  '/workspace/hotel/$hotelID/overview': typeof WorkspaceUserHotelHotelIDOverviewRoute
+  '/workspace/infra/kitchen': typeof WorkspaceUserInfraKitchenIndexRoute
+  '/workspace/infra/kitchen/$service_point/service': typeof WorkspaceUserInfraKitchenService_pointServiceRoute
+  '/workspace/bar/$barID/inventory': typeof WorkspaceUserBarBarIDInventoryIndexRoute
+  '/workspace/bar/$barID/sale_counter': typeof WorkspaceUserBarBarIDSale_counterIndexRoute
+  '/workspace/bar/$barID/settings': typeof WorkspaceUserBarBarIDSettingsIndexRoute
+  '/workspace/bar/$barID/table_management': typeof WorkspaceUserBarBarIDTable_managementIndexRoute
+  '/workspace/hotel/$hotelID/booking': typeof WorkspaceUserHotelHotelIDBookingIndexRoute
+  '/workspace/hotel/$hotelID/checkouts': typeof WorkspaceUserHotelHotelIDCheckoutsIndexRoute
+  '/workspace/hotel/$hotelID/guests': typeof WorkspaceUserHotelHotelIDGuestsIndexRoute
+  '/workspace/hotel/$hotelID/housekeeping': typeof WorkspaceUserHotelHotelIDHousekeepingIndexRoute
+  '/workspace/hotel/$hotelID/inventory': typeof WorkspaceUserHotelHotelIDInventoryIndexRoute
+  '/workspace/hotel/$hotelID/reservations': typeof WorkspaceUserHotelHotelIDReservationsIndexRoute
+  '/workspace/hotel/$hotelID/room_requests': typeof WorkspaceUserHotelHotelIDRoom_requestsIndexRoute
+  '/workspace/hotel/$hotelID/settings': typeof WorkspaceUserHotelHotelIDSettingsIndexRoute
+  '/workspace/restaurant/$restaurantID/general-settings': typeof WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  '/workspace/restaurant/$restaurantID/inventory': typeof WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute
+  '/workspace/restaurant/$restaurantID/orders': typeof WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute
+  '/workspace/restaurant/$restaurantID/overview': typeof WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute
+  '/workspace/restaurant/$restaurantID/reservations': typeof WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute
+  '/workspace/restaurant/$restaurantID/sales-terminal': typeof WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute
+  '/workspace/restaurant/$restaurantID/table-management': typeof WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_user': typeof UserRouteRouteWithChildren
-  '/_user/infra': typeof UserInfraRouteRouteWithChildren
+  '/workspace': typeof WorkspaceRouteRouteWithChildren
+  '/workspace/_user': typeof WorkspaceUserRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
-  '/_user/bar/$barID': typeof UserBarBarIDRouteRouteWithChildren
-  '/_user/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
-  '/_user/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
-  '/_user/bar/': typeof UserBarIndexRoute
-  '/_user/hotel/': typeof UserHotelIndexRoute
-  '/_user/restaurant/': typeof UserRestaurantIndexRoute
-  '/_user/bar/$barID/overview': typeof UserBarBarIDOverviewRoute
-  '/_user/hotel/$hotelID/overview': typeof UserHotelHotelIDOverviewRoute
-  '/_user/infra/kitchen/': typeof UserInfraKitchenIndexRoute
-  '/_user/infra/kitchen/$service_point/service': typeof UserInfraKitchenService_pointServiceRoute
-  '/_user/bar/$barID/inventory/': typeof UserBarBarIDInventoryIndexRoute
-  '/_user/bar/$barID/sale_counter/': typeof UserBarBarIDSale_counterIndexRoute
-  '/_user/bar/$barID/settings/': typeof UserBarBarIDSettingsIndexRoute
-  '/_user/bar/$barID/table_management/': typeof UserBarBarIDTable_managementIndexRoute
-  '/_user/hotel/$hotelID/booking/': typeof UserHotelHotelIDBookingIndexRoute
-  '/_user/hotel/$hotelID/checkouts/': typeof UserHotelHotelIDCheckoutsIndexRoute
-  '/_user/hotel/$hotelID/guests/': typeof UserHotelHotelIDGuestsIndexRoute
-  '/_user/hotel/$hotelID/housekeeping/': typeof UserHotelHotelIDHousekeepingIndexRoute
-  '/_user/hotel/$hotelID/inventory/': typeof UserHotelHotelIDInventoryIndexRoute
-  '/_user/hotel/$hotelID/reservations/': typeof UserHotelHotelIDReservationsIndexRoute
-  '/_user/hotel/$hotelID/room_requests/': typeof UserHotelHotelIDRoom_requestsIndexRoute
-  '/_user/hotel/$hotelID/settings/': typeof UserHotelHotelIDSettingsIndexRoute
-  '/_user/restaurant/$restaurantID/general-settings/': typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
-  '/_user/restaurant/$restaurantID/inventory/': typeof UserRestaurantRestaurantIDInventoryIndexRoute
-  '/_user/restaurant/$restaurantID/orders/': typeof UserRestaurantRestaurantIDOrdersIndexRoute
-  '/_user/restaurant/$restaurantID/overview/': typeof UserRestaurantRestaurantIDOverviewIndexRoute
-  '/_user/restaurant/$restaurantID/reservations/': typeof UserRestaurantRestaurantIDReservationsIndexRoute
-  '/_user/restaurant/$restaurantID/sales-terminal/': typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
-  '/_user/restaurant/$restaurantID/table-management/': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
+  '/workspace/': typeof WorkspaceIndexRoute
+  '/workspace/_user/infra': typeof WorkspaceUserInfraRouteRouteWithChildren
+  '/workspace/_user/bar/$barID': typeof WorkspaceUserBarBarIDRouteRouteWithChildren
+  '/workspace/_user/hotel/$hotelID': typeof WorkspaceUserHotelHotelIDRouteRouteWithChildren
+  '/workspace/_user/restaurant/$restaurantID': typeof WorkspaceUserRestaurantRestaurantIDRouteRouteWithChildren
+  '/workspace/_user/bar/': typeof WorkspaceUserBarIndexRoute
+  '/workspace/_user/hotel/': typeof WorkspaceUserHotelIndexRoute
+  '/workspace/_user/restaurant/': typeof WorkspaceUserRestaurantIndexRoute
+  '/workspace/_user/bar/$barID/overview': typeof WorkspaceUserBarBarIDOverviewRoute
+  '/workspace/_user/hotel/$hotelID/overview': typeof WorkspaceUserHotelHotelIDOverviewRoute
+  '/workspace/_user/infra/kitchen/': typeof WorkspaceUserInfraKitchenIndexRoute
+  '/workspace/_user/infra/kitchen/$service_point/service': typeof WorkspaceUserInfraKitchenService_pointServiceRoute
+  '/workspace/_user/bar/$barID/inventory/': typeof WorkspaceUserBarBarIDInventoryIndexRoute
+  '/workspace/_user/bar/$barID/sale_counter/': typeof WorkspaceUserBarBarIDSale_counterIndexRoute
+  '/workspace/_user/bar/$barID/settings/': typeof WorkspaceUserBarBarIDSettingsIndexRoute
+  '/workspace/_user/bar/$barID/table_management/': typeof WorkspaceUserBarBarIDTable_managementIndexRoute
+  '/workspace/_user/hotel/$hotelID/booking/': typeof WorkspaceUserHotelHotelIDBookingIndexRoute
+  '/workspace/_user/hotel/$hotelID/checkouts/': typeof WorkspaceUserHotelHotelIDCheckoutsIndexRoute
+  '/workspace/_user/hotel/$hotelID/guests/': typeof WorkspaceUserHotelHotelIDGuestsIndexRoute
+  '/workspace/_user/hotel/$hotelID/housekeeping/': typeof WorkspaceUserHotelHotelIDHousekeepingIndexRoute
+  '/workspace/_user/hotel/$hotelID/inventory/': typeof WorkspaceUserHotelHotelIDInventoryIndexRoute
+  '/workspace/_user/hotel/$hotelID/reservations/': typeof WorkspaceUserHotelHotelIDReservationsIndexRoute
+  '/workspace/_user/hotel/$hotelID/room_requests/': typeof WorkspaceUserHotelHotelIDRoom_requestsIndexRoute
+  '/workspace/_user/hotel/$hotelID/settings/': typeof WorkspaceUserHotelHotelIDSettingsIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/general-settings/': typeof WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/inventory/': typeof WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/orders/': typeof WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/overview/': typeof WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/reservations/': typeof WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/sales-terminal/': typeof WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute
+  '/workspace/_user/restaurant/$restaurantID/table-management/': typeof WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/workspace'
     | '/'
-    | '/infra'
-    | '/bar/$barID'
-    | '/hotel/$hotelID'
-    | '/restaurant/$restaurantID'
-    | '/bar/'
-    | '/hotel/'
-    | '/restaurant/'
-    | '/bar/$barID/overview'
-    | '/hotel/$hotelID/overview'
-    | '/infra/kitchen/'
-    | '/infra/kitchen/$service_point/service'
-    | '/bar/$barID/inventory/'
-    | '/bar/$barID/sale_counter/'
-    | '/bar/$barID/settings/'
-    | '/bar/$barID/table_management/'
-    | '/hotel/$hotelID/booking/'
-    | '/hotel/$hotelID/checkouts/'
-    | '/hotel/$hotelID/guests/'
-    | '/hotel/$hotelID/housekeeping/'
-    | '/hotel/$hotelID/inventory/'
-    | '/hotel/$hotelID/reservations/'
-    | '/hotel/$hotelID/room_requests/'
-    | '/hotel/$hotelID/settings/'
-    | '/restaurant/$restaurantID/general-settings/'
-    | '/restaurant/$restaurantID/inventory/'
-    | '/restaurant/$restaurantID/orders/'
-    | '/restaurant/$restaurantID/overview/'
-    | '/restaurant/$restaurantID/reservations/'
-    | '/restaurant/$restaurantID/sales-terminal/'
-    | '/restaurant/$restaurantID/table-management/'
+    | '/workspace/'
+    | '/workspace/infra'
+    | '/workspace/bar/$barID'
+    | '/workspace/hotel/$hotelID'
+    | '/workspace/restaurant/$restaurantID'
+    | '/workspace/bar/'
+    | '/workspace/hotel/'
+    | '/workspace/restaurant/'
+    | '/workspace/bar/$barID/overview'
+    | '/workspace/hotel/$hotelID/overview'
+    | '/workspace/infra/kitchen/'
+    | '/workspace/infra/kitchen/$service_point/service'
+    | '/workspace/bar/$barID/inventory/'
+    | '/workspace/bar/$barID/sale_counter/'
+    | '/workspace/bar/$barID/settings/'
+    | '/workspace/bar/$barID/table_management/'
+    | '/workspace/hotel/$hotelID/booking/'
+    | '/workspace/hotel/$hotelID/checkouts/'
+    | '/workspace/hotel/$hotelID/guests/'
+    | '/workspace/hotel/$hotelID/housekeeping/'
+    | '/workspace/hotel/$hotelID/inventory/'
+    | '/workspace/hotel/$hotelID/reservations/'
+    | '/workspace/hotel/$hotelID/room_requests/'
+    | '/workspace/hotel/$hotelID/settings/'
+    | '/workspace/restaurant/$restaurantID/general-settings/'
+    | '/workspace/restaurant/$restaurantID/inventory/'
+    | '/workspace/restaurant/$restaurantID/orders/'
+    | '/workspace/restaurant/$restaurantID/overview/'
+    | '/workspace/restaurant/$restaurantID/reservations/'
+    | '/workspace/restaurant/$restaurantID/sales-terminal/'
+    | '/workspace/restaurant/$restaurantID/table-management/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/workspace'
     | '/'
-    | '/infra'
-    | '/bar/$barID'
-    | '/hotel/$hotelID'
-    | '/restaurant/$restaurantID'
-    | '/bar'
-    | '/hotel'
-    | '/restaurant'
-    | '/bar/$barID/overview'
-    | '/hotel/$hotelID/overview'
-    | '/infra/kitchen'
-    | '/infra/kitchen/$service_point/service'
-    | '/bar/$barID/inventory'
-    | '/bar/$barID/sale_counter'
-    | '/bar/$barID/settings'
-    | '/bar/$barID/table_management'
-    | '/hotel/$hotelID/booking'
-    | '/hotel/$hotelID/checkouts'
-    | '/hotel/$hotelID/guests'
-    | '/hotel/$hotelID/housekeeping'
-    | '/hotel/$hotelID/inventory'
-    | '/hotel/$hotelID/reservations'
-    | '/hotel/$hotelID/room_requests'
-    | '/hotel/$hotelID/settings'
-    | '/restaurant/$restaurantID/general-settings'
-    | '/restaurant/$restaurantID/inventory'
-    | '/restaurant/$restaurantID/orders'
-    | '/restaurant/$restaurantID/overview'
-    | '/restaurant/$restaurantID/reservations'
-    | '/restaurant/$restaurantID/sales-terminal'
-    | '/restaurant/$restaurantID/table-management'
+    | '/workspace/infra'
+    | '/workspace/bar/$barID'
+    | '/workspace/hotel/$hotelID'
+    | '/workspace/restaurant/$restaurantID'
+    | '/workspace/bar'
+    | '/workspace/hotel'
+    | '/workspace/restaurant'
+    | '/workspace/bar/$barID/overview'
+    | '/workspace/hotel/$hotelID/overview'
+    | '/workspace/infra/kitchen'
+    | '/workspace/infra/kitchen/$service_point/service'
+    | '/workspace/bar/$barID/inventory'
+    | '/workspace/bar/$barID/sale_counter'
+    | '/workspace/bar/$barID/settings'
+    | '/workspace/bar/$barID/table_management'
+    | '/workspace/hotel/$hotelID/booking'
+    | '/workspace/hotel/$hotelID/checkouts'
+    | '/workspace/hotel/$hotelID/guests'
+    | '/workspace/hotel/$hotelID/housekeeping'
+    | '/workspace/hotel/$hotelID/inventory'
+    | '/workspace/hotel/$hotelID/reservations'
+    | '/workspace/hotel/$hotelID/room_requests'
+    | '/workspace/hotel/$hotelID/settings'
+    | '/workspace/restaurant/$restaurantID/general-settings'
+    | '/workspace/restaurant/$restaurantID/inventory'
+    | '/workspace/restaurant/$restaurantID/orders'
+    | '/workspace/restaurant/$restaurantID/overview'
+    | '/workspace/restaurant/$restaurantID/reservations'
+    | '/workspace/restaurant/$restaurantID/sales-terminal'
+    | '/workspace/restaurant/$restaurantID/table-management'
   id:
     | '__root__'
-    | '/_user'
-    | '/_user/infra'
+    | '/workspace'
+    | '/workspace/_user'
     | '/_website/'
-    | '/_user/bar/$barID'
-    | '/_user/hotel/$hotelID'
-    | '/_user/restaurant/$restaurantID'
-    | '/_user/bar/'
-    | '/_user/hotel/'
-    | '/_user/restaurant/'
-    | '/_user/bar/$barID/overview'
-    | '/_user/hotel/$hotelID/overview'
-    | '/_user/infra/kitchen/'
-    | '/_user/infra/kitchen/$service_point/service'
-    | '/_user/bar/$barID/inventory/'
-    | '/_user/bar/$barID/sale_counter/'
-    | '/_user/bar/$barID/settings/'
-    | '/_user/bar/$barID/table_management/'
-    | '/_user/hotel/$hotelID/booking/'
-    | '/_user/hotel/$hotelID/checkouts/'
-    | '/_user/hotel/$hotelID/guests/'
-    | '/_user/hotel/$hotelID/housekeeping/'
-    | '/_user/hotel/$hotelID/inventory/'
-    | '/_user/hotel/$hotelID/reservations/'
-    | '/_user/hotel/$hotelID/room_requests/'
-    | '/_user/hotel/$hotelID/settings/'
-    | '/_user/restaurant/$restaurantID/general-settings/'
-    | '/_user/restaurant/$restaurantID/inventory/'
-    | '/_user/restaurant/$restaurantID/orders/'
-    | '/_user/restaurant/$restaurantID/overview/'
-    | '/_user/restaurant/$restaurantID/reservations/'
-    | '/_user/restaurant/$restaurantID/sales-terminal/'
-    | '/_user/restaurant/$restaurantID/table-management/'
+    | '/workspace/'
+    | '/workspace/_user/infra'
+    | '/workspace/_user/bar/$barID'
+    | '/workspace/_user/hotel/$hotelID'
+    | '/workspace/_user/restaurant/$restaurantID'
+    | '/workspace/_user/bar/'
+    | '/workspace/_user/hotel/'
+    | '/workspace/_user/restaurant/'
+    | '/workspace/_user/bar/$barID/overview'
+    | '/workspace/_user/hotel/$hotelID/overview'
+    | '/workspace/_user/infra/kitchen/'
+    | '/workspace/_user/infra/kitchen/$service_point/service'
+    | '/workspace/_user/bar/$barID/inventory/'
+    | '/workspace/_user/bar/$barID/sale_counter/'
+    | '/workspace/_user/bar/$barID/settings/'
+    | '/workspace/_user/bar/$barID/table_management/'
+    | '/workspace/_user/hotel/$hotelID/booking/'
+    | '/workspace/_user/hotel/$hotelID/checkouts/'
+    | '/workspace/_user/hotel/$hotelID/guests/'
+    | '/workspace/_user/hotel/$hotelID/housekeeping/'
+    | '/workspace/_user/hotel/$hotelID/inventory/'
+    | '/workspace/_user/hotel/$hotelID/reservations/'
+    | '/workspace/_user/hotel/$hotelID/room_requests/'
+    | '/workspace/_user/hotel/$hotelID/settings/'
+    | '/workspace/_user/restaurant/$restaurantID/general-settings/'
+    | '/workspace/_user/restaurant/$restaurantID/inventory/'
+    | '/workspace/_user/restaurant/$restaurantID/orders/'
+    | '/workspace/_user/restaurant/$restaurantID/overview/'
+    | '/workspace/_user/restaurant/$restaurantID/reservations/'
+    | '/workspace/_user/restaurant/$restaurantID/sales-terminal/'
+    | '/workspace/_user/restaurant/$restaurantID/table-management/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  UserRouteRoute: typeof UserRouteRouteWithChildren
+  WorkspaceRouteRoute: typeof WorkspaceRouteRouteWithChildren
   WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_user': {
-      id: '/_user'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof UserRouteRouteImport
+    '/workspace': {
+      id: '/workspace'
+      path: '/workspace'
+      fullPath: '/workspace'
+      preLoaderRoute: typeof WorkspaceRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/workspace/': {
+      id: '/workspace/'
+      path: '/'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof WorkspaceIndexRouteImport
+      parentRoute: typeof WorkspaceRouteRoute
     }
     '/_website/': {
       id: '/_website/'
@@ -449,346 +483,382 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_user/infra': {
-      id: '/_user/infra'
+    '/workspace/_user': {
+      id: '/workspace/_user'
+      path: ''
+      fullPath: '/workspace'
+      preLoaderRoute: typeof WorkspaceUserRouteRouteImport
+      parentRoute: typeof WorkspaceRouteRoute
+    }
+    '/workspace/_user/infra': {
+      id: '/workspace/_user/infra'
       path: '/infra'
-      fullPath: '/infra'
-      preLoaderRoute: typeof UserInfraRouteRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/infra'
+      preLoaderRoute: typeof WorkspaceUserInfraRouteRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/restaurant/': {
-      id: '/_user/restaurant/'
+    '/workspace/_user/restaurant/': {
+      id: '/workspace/_user/restaurant/'
       path: '/restaurant'
-      fullPath: '/restaurant/'
-      preLoaderRoute: typeof UserRestaurantIndexRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/restaurant/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantIndexRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/hotel/': {
-      id: '/_user/hotel/'
+    '/workspace/_user/hotel/': {
+      id: '/workspace/_user/hotel/'
       path: '/hotel'
-      fullPath: '/hotel/'
-      preLoaderRoute: typeof UserHotelIndexRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/hotel/'
+      preLoaderRoute: typeof WorkspaceUserHotelIndexRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/bar/': {
-      id: '/_user/bar/'
+    '/workspace/_user/bar/': {
+      id: '/workspace/_user/bar/'
       path: '/bar'
-      fullPath: '/bar/'
-      preLoaderRoute: typeof UserBarIndexRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/bar/'
+      preLoaderRoute: typeof WorkspaceUserBarIndexRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/restaurant/$restaurantID': {
-      id: '/_user/restaurant/$restaurantID'
+    '/workspace/_user/restaurant/$restaurantID': {
+      id: '/workspace/_user/restaurant/$restaurantID'
       path: '/restaurant/$restaurantID'
-      fullPath: '/restaurant/$restaurantID'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDRouteRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/hotel/$hotelID': {
-      id: '/_user/hotel/$hotelID'
+    '/workspace/_user/hotel/$hotelID': {
+      id: '/workspace/_user/hotel/$hotelID'
       path: '/hotel/$hotelID'
-      fullPath: '/hotel/$hotelID'
-      preLoaderRoute: typeof UserHotelHotelIDRouteRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/hotel/$hotelID'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDRouteRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/bar/$barID': {
-      id: '/_user/bar/$barID'
+    '/workspace/_user/bar/$barID': {
+      id: '/workspace/_user/bar/$barID'
       path: '/bar/$barID'
-      fullPath: '/bar/$barID'
-      preLoaderRoute: typeof UserBarBarIDRouteRouteImport
-      parentRoute: typeof UserRouteRoute
+      fullPath: '/workspace/bar/$barID'
+      preLoaderRoute: typeof WorkspaceUserBarBarIDRouteRouteImport
+      parentRoute: typeof WorkspaceUserRouteRoute
     }
-    '/_user/infra/kitchen/': {
-      id: '/_user/infra/kitchen/'
+    '/workspace/_user/infra/kitchen/': {
+      id: '/workspace/_user/infra/kitchen/'
       path: '/kitchen'
-      fullPath: '/infra/kitchen/'
-      preLoaderRoute: typeof UserInfraKitchenIndexRouteImport
-      parentRoute: typeof UserInfraRouteRoute
+      fullPath: '/workspace/infra/kitchen/'
+      preLoaderRoute: typeof WorkspaceUserInfraKitchenIndexRouteImport
+      parentRoute: typeof WorkspaceUserInfraRouteRoute
     }
-    '/_user/hotel/$hotelID/overview': {
-      id: '/_user/hotel/$hotelID/overview'
+    '/workspace/_user/hotel/$hotelID/overview': {
+      id: '/workspace/_user/hotel/$hotelID/overview'
       path: '/overview'
-      fullPath: '/hotel/$hotelID/overview'
-      preLoaderRoute: typeof UserHotelHotelIDOverviewRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/overview'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDOverviewRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/bar/$barID/overview': {
-      id: '/_user/bar/$barID/overview'
+    '/workspace/_user/bar/$barID/overview': {
+      id: '/workspace/_user/bar/$barID/overview'
       path: '/overview'
-      fullPath: '/bar/$barID/overview'
-      preLoaderRoute: typeof UserBarBarIDOverviewRouteImport
-      parentRoute: typeof UserBarBarIDRouteRoute
+      fullPath: '/workspace/bar/$barID/overview'
+      preLoaderRoute: typeof WorkspaceUserBarBarIDOverviewRouteImport
+      parentRoute: typeof WorkspaceUserBarBarIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/table-management/': {
-      id: '/_user/restaurant/$restaurantID/table-management/'
+    '/workspace/_user/restaurant/$restaurantID/table-management/': {
+      id: '/workspace/_user/restaurant/$restaurantID/table-management/'
       path: '/table-management'
-      fullPath: '/restaurant/$restaurantID/table-management/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDTableManagementIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/table-management/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDTableManagementIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/sales-terminal/': {
-      id: '/_user/restaurant/$restaurantID/sales-terminal/'
+    '/workspace/_user/restaurant/$restaurantID/sales-terminal/': {
+      id: '/workspace/_user/restaurant/$restaurantID/sales-terminal/'
       path: '/sales-terminal'
-      fullPath: '/restaurant/$restaurantID/sales-terminal/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDSalesTerminalIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/sales-terminal/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/reservations/': {
-      id: '/_user/restaurant/$restaurantID/reservations/'
+    '/workspace/_user/restaurant/$restaurantID/reservations/': {
+      id: '/workspace/_user/restaurant/$restaurantID/reservations/'
       path: '/reservations'
-      fullPath: '/restaurant/$restaurantID/reservations/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDReservationsIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/reservations/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDReservationsIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/overview/': {
-      id: '/_user/restaurant/$restaurantID/overview/'
+    '/workspace/_user/restaurant/$restaurantID/overview/': {
+      id: '/workspace/_user/restaurant/$restaurantID/overview/'
       path: '/overview'
-      fullPath: '/restaurant/$restaurantID/overview/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDOverviewIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/overview/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDOverviewIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/orders/': {
-      id: '/_user/restaurant/$restaurantID/orders/'
+    '/workspace/_user/restaurant/$restaurantID/orders/': {
+      id: '/workspace/_user/restaurant/$restaurantID/orders/'
       path: '/orders'
-      fullPath: '/restaurant/$restaurantID/orders/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDOrdersIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/orders/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDOrdersIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/inventory/': {
-      id: '/_user/restaurant/$restaurantID/inventory/'
+    '/workspace/_user/restaurant/$restaurantID/inventory/': {
+      id: '/workspace/_user/restaurant/$restaurantID/inventory/'
       path: '/inventory'
-      fullPath: '/restaurant/$restaurantID/inventory/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDInventoryIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/inventory/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDInventoryIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/restaurant/$restaurantID/general-settings/': {
-      id: '/_user/restaurant/$restaurantID/general-settings/'
+    '/workspace/_user/restaurant/$restaurantID/general-settings/': {
+      id: '/workspace/_user/restaurant/$restaurantID/general-settings/'
       path: '/general-settings'
-      fullPath: '/restaurant/$restaurantID/general-settings/'
-      preLoaderRoute: typeof UserRestaurantRestaurantIDGeneralSettingsIndexRouteImport
-      parentRoute: typeof UserRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/restaurant/$restaurantID/general-settings/'
+      preLoaderRoute: typeof WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRouteImport
+      parentRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRoute
     }
-    '/_user/hotel/$hotelID/settings/': {
-      id: '/_user/hotel/$hotelID/settings/'
+    '/workspace/_user/hotel/$hotelID/settings/': {
+      id: '/workspace/_user/hotel/$hotelID/settings/'
       path: '/settings'
-      fullPath: '/hotel/$hotelID/settings/'
-      preLoaderRoute: typeof UserHotelHotelIDSettingsIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/settings/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDSettingsIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/room_requests/': {
-      id: '/_user/hotel/$hotelID/room_requests/'
+    '/workspace/_user/hotel/$hotelID/room_requests/': {
+      id: '/workspace/_user/hotel/$hotelID/room_requests/'
       path: '/room_requests'
-      fullPath: '/hotel/$hotelID/room_requests/'
-      preLoaderRoute: typeof UserHotelHotelIDRoom_requestsIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/room_requests/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDRoom_requestsIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/reservations/': {
-      id: '/_user/hotel/$hotelID/reservations/'
+    '/workspace/_user/hotel/$hotelID/reservations/': {
+      id: '/workspace/_user/hotel/$hotelID/reservations/'
       path: '/reservations'
-      fullPath: '/hotel/$hotelID/reservations/'
-      preLoaderRoute: typeof UserHotelHotelIDReservationsIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/reservations/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDReservationsIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/inventory/': {
-      id: '/_user/hotel/$hotelID/inventory/'
+    '/workspace/_user/hotel/$hotelID/inventory/': {
+      id: '/workspace/_user/hotel/$hotelID/inventory/'
       path: '/inventory'
-      fullPath: '/hotel/$hotelID/inventory/'
-      preLoaderRoute: typeof UserHotelHotelIDInventoryIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/inventory/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDInventoryIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/housekeeping/': {
-      id: '/_user/hotel/$hotelID/housekeeping/'
+    '/workspace/_user/hotel/$hotelID/housekeeping/': {
+      id: '/workspace/_user/hotel/$hotelID/housekeeping/'
       path: '/housekeeping'
-      fullPath: '/hotel/$hotelID/housekeeping/'
-      preLoaderRoute: typeof UserHotelHotelIDHousekeepingIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/housekeeping/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDHousekeepingIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/guests/': {
-      id: '/_user/hotel/$hotelID/guests/'
+    '/workspace/_user/hotel/$hotelID/guests/': {
+      id: '/workspace/_user/hotel/$hotelID/guests/'
       path: '/guests'
-      fullPath: '/hotel/$hotelID/guests/'
-      preLoaderRoute: typeof UserHotelHotelIDGuestsIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/guests/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDGuestsIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/checkouts/': {
-      id: '/_user/hotel/$hotelID/checkouts/'
+    '/workspace/_user/hotel/$hotelID/checkouts/': {
+      id: '/workspace/_user/hotel/$hotelID/checkouts/'
       path: '/checkouts'
-      fullPath: '/hotel/$hotelID/checkouts/'
-      preLoaderRoute: typeof UserHotelHotelIDCheckoutsIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/checkouts/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDCheckoutsIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/hotel/$hotelID/booking/': {
-      id: '/_user/hotel/$hotelID/booking/'
+    '/workspace/_user/hotel/$hotelID/booking/': {
+      id: '/workspace/_user/hotel/$hotelID/booking/'
       path: '/booking'
-      fullPath: '/hotel/$hotelID/booking/'
-      preLoaderRoute: typeof UserHotelHotelIDBookingIndexRouteImport
-      parentRoute: typeof UserHotelHotelIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/booking/'
+      preLoaderRoute: typeof WorkspaceUserHotelHotelIDBookingIndexRouteImport
+      parentRoute: typeof WorkspaceUserHotelHotelIDRouteRoute
     }
-    '/_user/bar/$barID/table_management/': {
-      id: '/_user/bar/$barID/table_management/'
+    '/workspace/_user/bar/$barID/table_management/': {
+      id: '/workspace/_user/bar/$barID/table_management/'
       path: '/table_management'
-      fullPath: '/bar/$barID/table_management/'
-      preLoaderRoute: typeof UserBarBarIDTable_managementIndexRouteImport
-      parentRoute: typeof UserBarBarIDRouteRoute
+      fullPath: '/workspace/bar/$barID/table_management/'
+      preLoaderRoute: typeof WorkspaceUserBarBarIDTable_managementIndexRouteImport
+      parentRoute: typeof WorkspaceUserBarBarIDRouteRoute
     }
-    '/_user/bar/$barID/settings/': {
-      id: '/_user/bar/$barID/settings/'
+    '/workspace/_user/bar/$barID/settings/': {
+      id: '/workspace/_user/bar/$barID/settings/'
       path: '/settings'
-      fullPath: '/bar/$barID/settings/'
-      preLoaderRoute: typeof UserBarBarIDSettingsIndexRouteImport
-      parentRoute: typeof UserBarBarIDRouteRoute
+      fullPath: '/workspace/bar/$barID/settings/'
+      preLoaderRoute: typeof WorkspaceUserBarBarIDSettingsIndexRouteImport
+      parentRoute: typeof WorkspaceUserBarBarIDRouteRoute
     }
-    '/_user/bar/$barID/sale_counter/': {
-      id: '/_user/bar/$barID/sale_counter/'
+    '/workspace/_user/bar/$barID/sale_counter/': {
+      id: '/workspace/_user/bar/$barID/sale_counter/'
       path: '/sale_counter'
-      fullPath: '/bar/$barID/sale_counter/'
-      preLoaderRoute: typeof UserBarBarIDSale_counterIndexRouteImport
-      parentRoute: typeof UserBarBarIDRouteRoute
+      fullPath: '/workspace/bar/$barID/sale_counter/'
+      preLoaderRoute: typeof WorkspaceUserBarBarIDSale_counterIndexRouteImport
+      parentRoute: typeof WorkspaceUserBarBarIDRouteRoute
     }
-    '/_user/bar/$barID/inventory/': {
-      id: '/_user/bar/$barID/inventory/'
+    '/workspace/_user/bar/$barID/inventory/': {
+      id: '/workspace/_user/bar/$barID/inventory/'
       path: '/inventory'
-      fullPath: '/bar/$barID/inventory/'
-      preLoaderRoute: typeof UserBarBarIDInventoryIndexRouteImport
-      parentRoute: typeof UserBarBarIDRouteRoute
+      fullPath: '/workspace/bar/$barID/inventory/'
+      preLoaderRoute: typeof WorkspaceUserBarBarIDInventoryIndexRouteImport
+      parentRoute: typeof WorkspaceUserBarBarIDRouteRoute
     }
-    '/_user/infra/kitchen/$service_point/service': {
-      id: '/_user/infra/kitchen/$service_point/service'
+    '/workspace/_user/infra/kitchen/$service_point/service': {
+      id: '/workspace/_user/infra/kitchen/$service_point/service'
       path: '/kitchen/$service_point/service'
-      fullPath: '/infra/kitchen/$service_point/service'
-      preLoaderRoute: typeof UserInfraKitchenService_pointServiceRouteImport
-      parentRoute: typeof UserInfraRouteRoute
+      fullPath: '/workspace/infra/kitchen/$service_point/service'
+      preLoaderRoute: typeof WorkspaceUserInfraKitchenService_pointServiceRouteImport
+      parentRoute: typeof WorkspaceUserInfraRouteRoute
     }
   }
 }
 
-interface UserInfraRouteRouteChildren {
-  UserInfraKitchenIndexRoute: typeof UserInfraKitchenIndexRoute
-  UserInfraKitchenService_pointServiceRoute: typeof UserInfraKitchenService_pointServiceRoute
+interface WorkspaceUserInfraRouteRouteChildren {
+  WorkspaceUserInfraKitchenIndexRoute: typeof WorkspaceUserInfraKitchenIndexRoute
+  WorkspaceUserInfraKitchenService_pointServiceRoute: typeof WorkspaceUserInfraKitchenService_pointServiceRoute
 }
 
-const UserInfraRouteRouteChildren: UserInfraRouteRouteChildren = {
-  UserInfraKitchenIndexRoute: UserInfraKitchenIndexRoute,
-  UserInfraKitchenService_pointServiceRoute:
-    UserInfraKitchenService_pointServiceRoute,
-}
-
-const UserInfraRouteRouteWithChildren = UserInfraRouteRoute._addFileChildren(
-  UserInfraRouteRouteChildren,
-)
-
-interface UserBarBarIDRouteRouteChildren {
-  UserBarBarIDOverviewRoute: typeof UserBarBarIDOverviewRoute
-  UserBarBarIDInventoryIndexRoute: typeof UserBarBarIDInventoryIndexRoute
-  UserBarBarIDSale_counterIndexRoute: typeof UserBarBarIDSale_counterIndexRoute
-  UserBarBarIDSettingsIndexRoute: typeof UserBarBarIDSettingsIndexRoute
-  UserBarBarIDTable_managementIndexRoute: typeof UserBarBarIDTable_managementIndexRoute
-}
-
-const UserBarBarIDRouteRouteChildren: UserBarBarIDRouteRouteChildren = {
-  UserBarBarIDOverviewRoute: UserBarBarIDOverviewRoute,
-  UserBarBarIDInventoryIndexRoute: UserBarBarIDInventoryIndexRoute,
-  UserBarBarIDSale_counterIndexRoute: UserBarBarIDSale_counterIndexRoute,
-  UserBarBarIDSettingsIndexRoute: UserBarBarIDSettingsIndexRoute,
-  UserBarBarIDTable_managementIndexRoute:
-    UserBarBarIDTable_managementIndexRoute,
-}
-
-const UserBarBarIDRouteRouteWithChildren =
-  UserBarBarIDRouteRoute._addFileChildren(UserBarBarIDRouteRouteChildren)
-
-interface UserHotelHotelIDRouteRouteChildren {
-  UserHotelHotelIDOverviewRoute: typeof UserHotelHotelIDOverviewRoute
-  UserHotelHotelIDBookingIndexRoute: typeof UserHotelHotelIDBookingIndexRoute
-  UserHotelHotelIDCheckoutsIndexRoute: typeof UserHotelHotelIDCheckoutsIndexRoute
-  UserHotelHotelIDGuestsIndexRoute: typeof UserHotelHotelIDGuestsIndexRoute
-  UserHotelHotelIDHousekeepingIndexRoute: typeof UserHotelHotelIDHousekeepingIndexRoute
-  UserHotelHotelIDInventoryIndexRoute: typeof UserHotelHotelIDInventoryIndexRoute
-  UserHotelHotelIDReservationsIndexRoute: typeof UserHotelHotelIDReservationsIndexRoute
-  UserHotelHotelIDRoom_requestsIndexRoute: typeof UserHotelHotelIDRoom_requestsIndexRoute
-  UserHotelHotelIDSettingsIndexRoute: typeof UserHotelHotelIDSettingsIndexRoute
-}
-
-const UserHotelHotelIDRouteRouteChildren: UserHotelHotelIDRouteRouteChildren = {
-  UserHotelHotelIDOverviewRoute: UserHotelHotelIDOverviewRoute,
-  UserHotelHotelIDBookingIndexRoute: UserHotelHotelIDBookingIndexRoute,
-  UserHotelHotelIDCheckoutsIndexRoute: UserHotelHotelIDCheckoutsIndexRoute,
-  UserHotelHotelIDGuestsIndexRoute: UserHotelHotelIDGuestsIndexRoute,
-  UserHotelHotelIDHousekeepingIndexRoute:
-    UserHotelHotelIDHousekeepingIndexRoute,
-  UserHotelHotelIDInventoryIndexRoute: UserHotelHotelIDInventoryIndexRoute,
-  UserHotelHotelIDReservationsIndexRoute:
-    UserHotelHotelIDReservationsIndexRoute,
-  UserHotelHotelIDRoom_requestsIndexRoute:
-    UserHotelHotelIDRoom_requestsIndexRoute,
-  UserHotelHotelIDSettingsIndexRoute: UserHotelHotelIDSettingsIndexRoute,
-}
-
-const UserHotelHotelIDRouteRouteWithChildren =
-  UserHotelHotelIDRouteRoute._addFileChildren(
-    UserHotelHotelIDRouteRouteChildren,
-  )
-
-interface UserRestaurantRestaurantIDRouteRouteChildren {
-  UserRestaurantRestaurantIDGeneralSettingsIndexRoute: typeof UserRestaurantRestaurantIDGeneralSettingsIndexRoute
-  UserRestaurantRestaurantIDInventoryIndexRoute: typeof UserRestaurantRestaurantIDInventoryIndexRoute
-  UserRestaurantRestaurantIDOrdersIndexRoute: typeof UserRestaurantRestaurantIDOrdersIndexRoute
-  UserRestaurantRestaurantIDOverviewIndexRoute: typeof UserRestaurantRestaurantIDOverviewIndexRoute
-  UserRestaurantRestaurantIDReservationsIndexRoute: typeof UserRestaurantRestaurantIDReservationsIndexRoute
-  UserRestaurantRestaurantIDSalesTerminalIndexRoute: typeof UserRestaurantRestaurantIDSalesTerminalIndexRoute
-  UserRestaurantRestaurantIDTableManagementIndexRoute: typeof UserRestaurantRestaurantIDTableManagementIndexRoute
-}
-
-const UserRestaurantRestaurantIDRouteRouteChildren: UserRestaurantRestaurantIDRouteRouteChildren =
+const WorkspaceUserInfraRouteRouteChildren: WorkspaceUserInfraRouteRouteChildren =
   {
-    UserRestaurantRestaurantIDGeneralSettingsIndexRoute:
-      UserRestaurantRestaurantIDGeneralSettingsIndexRoute,
-    UserRestaurantRestaurantIDInventoryIndexRoute:
-      UserRestaurantRestaurantIDInventoryIndexRoute,
-    UserRestaurantRestaurantIDOrdersIndexRoute:
-      UserRestaurantRestaurantIDOrdersIndexRoute,
-    UserRestaurantRestaurantIDOverviewIndexRoute:
-      UserRestaurantRestaurantIDOverviewIndexRoute,
-    UserRestaurantRestaurantIDReservationsIndexRoute:
-      UserRestaurantRestaurantIDReservationsIndexRoute,
-    UserRestaurantRestaurantIDSalesTerminalIndexRoute:
-      UserRestaurantRestaurantIDSalesTerminalIndexRoute,
-    UserRestaurantRestaurantIDTableManagementIndexRoute:
-      UserRestaurantRestaurantIDTableManagementIndexRoute,
+    WorkspaceUserInfraKitchenIndexRoute: WorkspaceUserInfraKitchenIndexRoute,
+    WorkspaceUserInfraKitchenService_pointServiceRoute:
+      WorkspaceUserInfraKitchenService_pointServiceRoute,
   }
 
-const UserRestaurantRestaurantIDRouteRouteWithChildren =
-  UserRestaurantRestaurantIDRouteRoute._addFileChildren(
-    UserRestaurantRestaurantIDRouteRouteChildren,
+const WorkspaceUserInfraRouteRouteWithChildren =
+  WorkspaceUserInfraRouteRoute._addFileChildren(
+    WorkspaceUserInfraRouteRouteChildren,
   )
 
-interface UserRouteRouteChildren {
-  UserInfraRouteRoute: typeof UserInfraRouteRouteWithChildren
-  UserBarBarIDRouteRoute: typeof UserBarBarIDRouteRouteWithChildren
-  UserHotelHotelIDRouteRoute: typeof UserHotelHotelIDRouteRouteWithChildren
-  UserRestaurantRestaurantIDRouteRoute: typeof UserRestaurantRestaurantIDRouteRouteWithChildren
-  UserBarIndexRoute: typeof UserBarIndexRoute
-  UserHotelIndexRoute: typeof UserHotelIndexRoute
-  UserRestaurantIndexRoute: typeof UserRestaurantIndexRoute
+interface WorkspaceUserBarBarIDRouteRouteChildren {
+  WorkspaceUserBarBarIDOverviewRoute: typeof WorkspaceUserBarBarIDOverviewRoute
+  WorkspaceUserBarBarIDInventoryIndexRoute: typeof WorkspaceUserBarBarIDInventoryIndexRoute
+  WorkspaceUserBarBarIDSale_counterIndexRoute: typeof WorkspaceUserBarBarIDSale_counterIndexRoute
+  WorkspaceUserBarBarIDSettingsIndexRoute: typeof WorkspaceUserBarBarIDSettingsIndexRoute
+  WorkspaceUserBarBarIDTable_managementIndexRoute: typeof WorkspaceUserBarBarIDTable_managementIndexRoute
 }
 
-const UserRouteRouteChildren: UserRouteRouteChildren = {
-  UserInfraRouteRoute: UserInfraRouteRouteWithChildren,
-  UserBarBarIDRouteRoute: UserBarBarIDRouteRouteWithChildren,
-  UserHotelHotelIDRouteRoute: UserHotelHotelIDRouteRouteWithChildren,
-  UserRestaurantRestaurantIDRouteRoute:
-    UserRestaurantRestaurantIDRouteRouteWithChildren,
-  UserBarIndexRoute: UserBarIndexRoute,
-  UserHotelIndexRoute: UserHotelIndexRoute,
-  UserRestaurantIndexRoute: UserRestaurantIndexRoute,
+const WorkspaceUserBarBarIDRouteRouteChildren: WorkspaceUserBarBarIDRouteRouteChildren =
+  {
+    WorkspaceUserBarBarIDOverviewRoute: WorkspaceUserBarBarIDOverviewRoute,
+    WorkspaceUserBarBarIDInventoryIndexRoute:
+      WorkspaceUserBarBarIDInventoryIndexRoute,
+    WorkspaceUserBarBarIDSale_counterIndexRoute:
+      WorkspaceUserBarBarIDSale_counterIndexRoute,
+    WorkspaceUserBarBarIDSettingsIndexRoute:
+      WorkspaceUserBarBarIDSettingsIndexRoute,
+    WorkspaceUserBarBarIDTable_managementIndexRoute:
+      WorkspaceUserBarBarIDTable_managementIndexRoute,
+  }
+
+const WorkspaceUserBarBarIDRouteRouteWithChildren =
+  WorkspaceUserBarBarIDRouteRoute._addFileChildren(
+    WorkspaceUserBarBarIDRouteRouteChildren,
+  )
+
+interface WorkspaceUserHotelHotelIDRouteRouteChildren {
+  WorkspaceUserHotelHotelIDOverviewRoute: typeof WorkspaceUserHotelHotelIDOverviewRoute
+  WorkspaceUserHotelHotelIDBookingIndexRoute: typeof WorkspaceUserHotelHotelIDBookingIndexRoute
+  WorkspaceUserHotelHotelIDCheckoutsIndexRoute: typeof WorkspaceUserHotelHotelIDCheckoutsIndexRoute
+  WorkspaceUserHotelHotelIDGuestsIndexRoute: typeof WorkspaceUserHotelHotelIDGuestsIndexRoute
+  WorkspaceUserHotelHotelIDHousekeepingIndexRoute: typeof WorkspaceUserHotelHotelIDHousekeepingIndexRoute
+  WorkspaceUserHotelHotelIDInventoryIndexRoute: typeof WorkspaceUserHotelHotelIDInventoryIndexRoute
+  WorkspaceUserHotelHotelIDReservationsIndexRoute: typeof WorkspaceUserHotelHotelIDReservationsIndexRoute
+  WorkspaceUserHotelHotelIDRoom_requestsIndexRoute: typeof WorkspaceUserHotelHotelIDRoom_requestsIndexRoute
+  WorkspaceUserHotelHotelIDSettingsIndexRoute: typeof WorkspaceUserHotelHotelIDSettingsIndexRoute
 }
 
-const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
-  UserRouteRouteChildren,
+const WorkspaceUserHotelHotelIDRouteRouteChildren: WorkspaceUserHotelHotelIDRouteRouteChildren =
+  {
+    WorkspaceUserHotelHotelIDOverviewRoute:
+      WorkspaceUserHotelHotelIDOverviewRoute,
+    WorkspaceUserHotelHotelIDBookingIndexRoute:
+      WorkspaceUserHotelHotelIDBookingIndexRoute,
+    WorkspaceUserHotelHotelIDCheckoutsIndexRoute:
+      WorkspaceUserHotelHotelIDCheckoutsIndexRoute,
+    WorkspaceUserHotelHotelIDGuestsIndexRoute:
+      WorkspaceUserHotelHotelIDGuestsIndexRoute,
+    WorkspaceUserHotelHotelIDHousekeepingIndexRoute:
+      WorkspaceUserHotelHotelIDHousekeepingIndexRoute,
+    WorkspaceUserHotelHotelIDInventoryIndexRoute:
+      WorkspaceUserHotelHotelIDInventoryIndexRoute,
+    WorkspaceUserHotelHotelIDReservationsIndexRoute:
+      WorkspaceUserHotelHotelIDReservationsIndexRoute,
+    WorkspaceUserHotelHotelIDRoom_requestsIndexRoute:
+      WorkspaceUserHotelHotelIDRoom_requestsIndexRoute,
+    WorkspaceUserHotelHotelIDSettingsIndexRoute:
+      WorkspaceUserHotelHotelIDSettingsIndexRoute,
+  }
+
+const WorkspaceUserHotelHotelIDRouteRouteWithChildren =
+  WorkspaceUserHotelHotelIDRouteRoute._addFileChildren(
+    WorkspaceUserHotelHotelIDRouteRouteChildren,
+  )
+
+interface WorkspaceUserRestaurantRestaurantIDRouteRouteChildren {
+  WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute
+  WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute
+  WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute
+  WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute
+  WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute
+  WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute
+  WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute: typeof WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute
+}
+
+const WorkspaceUserRestaurantRestaurantIDRouteRouteChildren: WorkspaceUserRestaurantRestaurantIDRouteRouteChildren =
+  {
+    WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDGeneralSettingsIndexRoute,
+    WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDInventoryIndexRoute,
+    WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDOrdersIndexRoute,
+    WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDOverviewIndexRoute,
+    WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDReservationsIndexRoute,
+    WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDSalesTerminalIndexRoute,
+    WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute:
+      WorkspaceUserRestaurantRestaurantIDTableManagementIndexRoute,
+  }
+
+const WorkspaceUserRestaurantRestaurantIDRouteRouteWithChildren =
+  WorkspaceUserRestaurantRestaurantIDRouteRoute._addFileChildren(
+    WorkspaceUserRestaurantRestaurantIDRouteRouteChildren,
+  )
+
+interface WorkspaceUserRouteRouteChildren {
+  WorkspaceUserInfraRouteRoute: typeof WorkspaceUserInfraRouteRouteWithChildren
+  WorkspaceUserBarBarIDRouteRoute: typeof WorkspaceUserBarBarIDRouteRouteWithChildren
+  WorkspaceUserHotelHotelIDRouteRoute: typeof WorkspaceUserHotelHotelIDRouteRouteWithChildren
+  WorkspaceUserRestaurantRestaurantIDRouteRoute: typeof WorkspaceUserRestaurantRestaurantIDRouteRouteWithChildren
+  WorkspaceUserBarIndexRoute: typeof WorkspaceUserBarIndexRoute
+  WorkspaceUserHotelIndexRoute: typeof WorkspaceUserHotelIndexRoute
+  WorkspaceUserRestaurantIndexRoute: typeof WorkspaceUserRestaurantIndexRoute
+}
+
+const WorkspaceUserRouteRouteChildren: WorkspaceUserRouteRouteChildren = {
+  WorkspaceUserInfraRouteRoute: WorkspaceUserInfraRouteRouteWithChildren,
+  WorkspaceUserBarBarIDRouteRoute: WorkspaceUserBarBarIDRouteRouteWithChildren,
+  WorkspaceUserHotelHotelIDRouteRoute:
+    WorkspaceUserHotelHotelIDRouteRouteWithChildren,
+  WorkspaceUserRestaurantRestaurantIDRouteRoute:
+    WorkspaceUserRestaurantRestaurantIDRouteRouteWithChildren,
+  WorkspaceUserBarIndexRoute: WorkspaceUserBarIndexRoute,
+  WorkspaceUserHotelIndexRoute: WorkspaceUserHotelIndexRoute,
+  WorkspaceUserRestaurantIndexRoute: WorkspaceUserRestaurantIndexRoute,
+}
+
+const WorkspaceUserRouteRouteWithChildren =
+  WorkspaceUserRouteRoute._addFileChildren(WorkspaceUserRouteRouteChildren)
+
+interface WorkspaceRouteRouteChildren {
+  WorkspaceUserRouteRoute: typeof WorkspaceUserRouteRouteWithChildren
+  WorkspaceIndexRoute: typeof WorkspaceIndexRoute
+}
+
+const WorkspaceRouteRouteChildren: WorkspaceRouteRouteChildren = {
+  WorkspaceUserRouteRoute: WorkspaceUserRouteRouteWithChildren,
+  WorkspaceIndexRoute: WorkspaceIndexRoute,
+}
+
+const WorkspaceRouteRouteWithChildren = WorkspaceRouteRoute._addFileChildren(
+  WorkspaceRouteRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  UserRouteRoute: UserRouteRouteWithChildren,
+  WorkspaceRouteRoute: WorkspaceRouteRouteWithChildren,
   WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport

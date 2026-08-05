@@ -7,7 +7,7 @@ import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";
 import { useQueryClient } from "@tanstack/react-query";
-import { Route } from "@/routes/_user/restaurant/$restaurantID/table-management/index";
+import { Route } from "@/routes/workspace/_user/restaurant/$restaurantID/table-management/index";
 
 export interface RestaurantTableLayout {
   TableName: string;
@@ -43,7 +43,7 @@ const RestaurantTableManagementPage: React.FC = () => {
   };
 
   /* ----------------------------------- *** ---------------------------------- */
-  
+
   const { openSheet } = useSheet();
   const handleTableSession = (t: RestaurantTableLayout) => {
     if (!restaurantID) return;

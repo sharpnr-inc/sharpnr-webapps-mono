@@ -1,4 +1,4 @@
-import { Route } from "@/routes/_user/hotel/$hotelID/booking/index";
+import { Route } from "@/routes/workspace/_user/hotel/$hotelID/booking/index";
 import { useHotelLayout } from "../../apis/queries";
 import { IndianRupee } from "lucide-react";
 import { cn } from "@/lib/utils";
