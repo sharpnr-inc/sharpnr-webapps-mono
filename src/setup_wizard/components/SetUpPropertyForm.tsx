@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   CardDescription,
@@ -7,6 +8,7 @@ import {
   CardTitle,
   Label,
 } from "@sharpnr/ui";
+import { z } from "zod";
 import { useAppForm } from "@/components/forms";
 import type { SetupOrgPropertyReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/base_setup";
@@ -15,9 +17,38 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
+// The DTO types these as optional, so the schema has to accept undefined as
+// input while still rejecting it as a value.
+const requiredText = (message: string) =>
+  z
+    .string()
+    .optional()
+    .refine((v) => !!v && v.trim().length > 0, { message });
+
+// Every visible field is required — the only way past this step without
+// filling them in is the Skip button.
+const propertySchema = z.object({
+  step_id: z.string(),
+  skipped: z.boolean(),
+  name: requiredText("Property name is required"),
+  // property_code is the one non-optional string on the DTO, so its schema
+  // input has to stay non-optional too.
+  property_code: z
+    .string()
+    .refine((v) => v.trim().length > 0, { message: "Code is required" }),
+  address_line: requiredText("Address is required"),
+  country: requiredText("Country is required"),
+  state: requiredText("State is required"),
+  city: requiredText("City is required"),
+  pincode: requiredText("Pincode is required"),
+  longitude: z.number().optional(),
+  latitude: z.number().optional(),
+  accuracy_m: z.number().optional(),
+});
+
 export function SetupPropertyForm() {
   const { stepID } = Route.useParams();
-  const { mutateAsync } = useSetupWizOperationAddPropertyMutation();
+  const { mutateAsync, isPending } = useSetupWizOperationAddPropertyMutation();
   const nav = useNavigate();
   const q = useQueryClient();
 
@@ -33,31 +64,42 @@ export function SetupPropertyForm() {
     pincode: "",
     state: "",
     property_code: "",
+    skipped: false,
   };
 
+  const submit = (payload: SetupOrgPropertyReqDTO) =>
+    mutateAsync(
+      {
+        payload,
+      },
+      {
+        onSuccess({ success, message }) {
+          if (success) {
+            toast.success(message);
+          }
+
+          q.invalidateQueries({
+            queryKey: ["setup-progress", "SETUP_WIZARD"],
+          });
+
+          nav({
+            to: "/setup_wizard",
+          });
+        },
+      },
+    );
+
+  // Skip bypasses the form entirely: step_id and skipped: true, everything
+  // else left at its empty default.
+  const handleSkip = () => submit({ ...defaultProperty, skipped: true });
+
   const form = useAppForm({
+    validators: {
+      onChange: propertySchema,
+    },
     defaultValues: defaultProperty,
     onSubmit: async ({ value }) => {
-      mutateAsync(
-        {
-          payload: value,
-        },
-        {
-          onSuccess({ success, message }) {
-            if (success) {
-              toast.success(message);
-            }
-
-            q.invalidateQueries({
-              queryKey: ["setup-progress", "SETUP_WIZARD"],
-            });
-
-            nav({
-              to: "/setup_wizard",
-            });
-          },
-        },
-      );
+      submit({ ...value, skipped: false });
     },
   });
 
@@ -170,12 +212,22 @@ export function SetupPropertyForm() {
           </section>
         </CardContent>
 
-        <CardFooter>
+        <CardFooter className="flex-col gap-3 sm:flex-row-reverse">
           <form.AppForm>
-            <form.SubmitButton className="w-full">
+            <form.SubmitButton className="w-full sm:flex-1">
               Continue &amp; Save Property
             </form.SubmitButton>
           </form.AppForm>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full sm:w-auto"
+            disabled={isPending}
+            onClick={handleSkip}
+          >
+            Skip for now
+          </Button>
         </CardFooter>
       </Card>
     </form>

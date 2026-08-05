@@ -8,7 +8,7 @@ export type SetupWizStepType =
   | "ORGANIZATION_DETAILS_UPDATES"
   | "OPERATIONS_SETUP";
 
-export type StepWizStepProgressStatus = "IN_PROGRESS" | "COMPLETED";
+export type StepWizStepProgressStatus = "IN_PROGRESS" | "COMPLETED" | "SKIPPED";
 
 export type SetupProgressResponseDTO = {
   overall_status: SetupWizOverallSetupStatus;
@@ -99,4 +99,5 @@ export interface SetupOrgPropertyReqDTO {
   longitude?: number;
   latitude?: number;
   accuracy_m?: number;
+  skipped: boolean;
 }
