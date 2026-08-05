@@ -1,16 +1,11 @@
 import api from "@/middlewares/axios";
-import { AppUserEndpoints, UserRoutes } from "./appuser.endpoints";
+import { UserRoutes } from "./appuser.endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type {
   UserAuthenticatedResponse,
   UserDataResponseDto,
   SetupProgressResponseDTO,
 } from "./types";
-
-export async function GetAppUserProfile() {
-  const res = await api.get(AppUserEndpoints.getAppUserProfile);
-  return res.data;
-}
 
 /**
  * Verifies whether the current user session is authenticated.

@@ -1,7 +1,3 @@
-export const AppUserEndpoints = {
-  getAppUserProfile: `/identity/web/profile`,
-};
-
 /**
  * Identity Service – Web User Endpoints
  *
