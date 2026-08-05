@@ -19,7 +19,6 @@ import { Route as LayoutPerformanceIndexRouteImport } from './routes/_layout/per
 import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll/index'
 import { Route as LayoutOnboardingIndexRouteImport } from './routes/_layout/onboarding/index'
 import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/index'
-import { Route as LayoutHomeIndexRouteImport } from './routes/_layout/home/index'
 import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
 import { Route as LayoutDepartmentsIndexRouteImport } from './routes/_layout/departments/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
@@ -78,11 +77,6 @@ const LayoutOnboardingIndexRoute = LayoutOnboardingIndexRouteImport.update({
 const LayoutLeavesIndexRoute = LayoutLeavesIndexRouteImport.update({
   id: '/leaves/',
   path: '/leaves/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutHomeIndexRoute = LayoutHomeIndexRouteImport.update({
-  id: '/home/',
-  path: '/home/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutEmployeesIndexRoute = LayoutEmployeesIndexRouteImport.update({
@@ -151,7 +145,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof LayoutDashboardIndexRoute
   '/departments/': typeof LayoutDepartmentsIndexRoute
   '/employees/': typeof LayoutEmployeesIndexRoute
-  '/home/': typeof LayoutHomeIndexRoute
   '/leaves/': typeof LayoutLeavesIndexRoute
   '/onboarding/': typeof LayoutOnboardingIndexRoute
   '/payroll/': typeof LayoutPayrollIndexRoute
@@ -172,7 +165,6 @@ export interface FileRoutesByTo {
   '/dashboard': typeof LayoutDashboardIndexRoute
   '/departments': typeof LayoutDepartmentsIndexRoute
   '/employees': typeof LayoutEmployeesIndexRoute
-  '/home': typeof LayoutHomeIndexRoute
   '/leaves': typeof LayoutLeavesIndexRoute
   '/onboarding': typeof LayoutOnboardingIndexRoute
   '/payroll': typeof LayoutPayrollIndexRoute
@@ -196,7 +188,6 @@ export interface FileRoutesById {
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
   '/_layout/departments/': typeof LayoutDepartmentsIndexRoute
   '/_layout/employees/': typeof LayoutEmployeesIndexRoute
-  '/_layout/home/': typeof LayoutHomeIndexRoute
   '/_layout/leaves/': typeof LayoutLeavesIndexRoute
   '/_layout/onboarding/': typeof LayoutOnboardingIndexRoute
   '/_layout/payroll/': typeof LayoutPayrollIndexRoute
@@ -220,7 +211,6 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/departments/'
     | '/employees/'
-    | '/home/'
     | '/leaves/'
     | '/onboarding/'
     | '/payroll/'
@@ -241,7 +231,6 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/departments'
     | '/employees'
-    | '/home'
     | '/leaves'
     | '/onboarding'
     | '/payroll'
@@ -264,7 +253,6 @@ export interface FileRouteTypes {
     | '/_layout/dashboard/'
     | '/_layout/departments/'
     | '/_layout/employees/'
-    | '/_layout/home/'
     | '/_layout/leaves/'
     | '/_layout/onboarding/'
     | '/_layout/payroll/'
@@ -351,13 +339,6 @@ declare module '@tanstack/react-router' {
       path: '/leaves'
       fullPath: '/leaves/'
       preLoaderRoute: typeof LayoutLeavesIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/home/': {
-      id: '/_layout/home/'
-      path: '/home'
-      fullPath: '/home/'
-      preLoaderRoute: typeof LayoutHomeIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/employees/': {
@@ -458,7 +439,6 @@ interface LayoutRouteRouteChildren {
   LayoutCompliance_policiesIndexRoute: typeof LayoutCompliance_policiesIndexRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
   LayoutDepartmentsIndexRoute: typeof LayoutDepartmentsIndexRoute
-  LayoutHomeIndexRoute: typeof LayoutHomeIndexRoute
   LayoutLeavesIndexRoute: typeof LayoutLeavesIndexRoute
   LayoutOnboardingIndexRoute: typeof LayoutOnboardingIndexRoute
   LayoutPayrollIndexRoute: typeof LayoutPayrollIndexRoute
@@ -476,7 +456,6 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutCompliance_policiesIndexRoute: LayoutCompliance_policiesIndexRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
   LayoutDepartmentsIndexRoute: LayoutDepartmentsIndexRoute,
-  LayoutHomeIndexRoute: LayoutHomeIndexRoute,
   LayoutLeavesIndexRoute: LayoutLeavesIndexRoute,
   LayoutOnboardingIndexRoute: LayoutOnboardingIndexRoute,
   LayoutPayrollIndexRoute: LayoutPayrollIndexRoute,
