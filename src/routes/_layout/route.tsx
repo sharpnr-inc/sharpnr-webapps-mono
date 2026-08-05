@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_layout")({
       staleTime: 1000 * 60 * 5,
     });
 
-    if (!authUser.data?.authenticated) {
+    if (!authUser.success) {
       throw redirect({
         href: config.iamAppUrl,
       });
