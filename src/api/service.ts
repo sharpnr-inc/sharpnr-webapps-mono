@@ -1,7 +1,7 @@
 import api from "@/middlewares/axios";
 import { UserRoutes } from "./endpoints";
 import type { APIResponse } from "@/lib/api_response";
-import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
+import type { UserDataResponseDto } from "./types";
 
 /**
  * Verifies whether the current user session is authenticated.
@@ -19,9 +19,7 @@ import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
  * @returns APIResponse<UserAuthenticatedResponse>
  */
 export async function verifyUserAuthentication() {
-  const res = await api.get<APIResponse<UserAuthenticatedResponse>>(
-    UserRoutes.authenticateUser(),
-  );
+  const res = await api.get<APIResponse<null>>(UserRoutes.authenticateUser());
   return res.data;
 }
 
