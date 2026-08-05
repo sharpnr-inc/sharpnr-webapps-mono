@@ -217,7 +217,7 @@ function PropertyForm() {
               {/* Country → State → City cascade: each unlocks the next */}
               <div className="grid gap-4 px-2 py-2 sm:grid-cols-3">
                 <div className="space-y-2">
-                  <Label>Country</Label>
+                  <Label htmlFor="country">Country</Label>
                   <form.AppField
                     name="country"
                     children={(f) => <f.CountrySelect />}
@@ -225,7 +225,7 @@ function PropertyForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>State</Label>
+                  <Label htmlFor="state">State</Label>
                   <form.AppField
                     name="state"
                     children={(f) => <f.StateSelect />}
@@ -233,7 +233,7 @@ function PropertyForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>City</Label>
+                  <Label htmlFor="city">City</Label>
                   <form.AppField
                     name="city"
                     children={(f) => <f.CitySelect />}

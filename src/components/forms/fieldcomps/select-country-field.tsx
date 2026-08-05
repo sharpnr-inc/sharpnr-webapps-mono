@@ -1,133 +1,138 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@sharpnr/ui";
+import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
 import { useCountries } from "../apiservice/queries";
-import { useStateStore } from "@/components/forms/store/state_store";
-import { CheckIcon, ChevronDown, Globe, Loader2 } from "lucide-react";
+import { ChevronDown, Globe, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import React from "react";
 import type { Country } from "../apiservice/csc";
+import {
+  LocationCommandList,
+  LocationFieldMessage,
+  type LocationOption,
+} from "./location-field-parts";
+import {
+  getFieldErrorMessage,
+  locationPopoverClassName,
+  locationTriggerClassName,
+} from "./location-field-utils";
 
-const CountrySelect = () => {
+type CountrySelectProps = {
+  /** Sibling fields cleared when the country changes, so they can't go stale. */
+  stateFieldName?: string;
+  cityFieldName?: string;
+};
+
+const CountrySelect = ({
+  stateFieldName = "state",
+  cityFieldName = "city",
+}: CountrySelectProps) => {
   const [open, setOpen] = React.useState(false);
-  const [searchValue, setSearchValue] = React.useState("");
   const field = useFieldContext<string>();
 
   const { data: countries, isLoading } = useCountries();
-  const setCountryCode = useStateStore((s) => s.setCountryCode);
 
-  const error = field.state.meta.errors?.[0];
+  const error = field.state.meta.isTouched
+    ? getFieldErrorMessage(field.state.meta.errors?.[0])
+    : undefined;
+
   const selectedCountry = countries?.find(
     (c: Country) => c.name === field.state.value,
   );
 
-  const filteredCountries = React.useMemo(() => {
-    if (!countries) return [];
-    if (!searchValue) return countries;
-    return countries.filter((c: Country) =>
-      c.name.toLowerCase().includes(searchValue.toLowerCase()),
-    );
-  }, [countries, searchValue]);
+  const options: LocationOption[] = React.useMemo(
+    () =>
+      (countries ?? []).map((c: Country) => ({
+        key: c.iso2,
+        label: c.name,
+        prefix: c.emoji,
+        code: c.iso2,
+      })),
+    [countries],
+  );
+
+  // State and city belong to the old country — drop them rather than
+  // submitting a mismatched address. dontUpdateMeta keeps them untouched, so
+  // clearing them doesn't flash "required" errors at the user.
+  const clearDependents = () => {
+    field.form.setFieldValue(stateFieldName, "", { dontUpdateMeta: true });
+    field.form.setFieldValue(cityFieldName, "", { dontUpdateMeta: true });
+  };
+
+  const handleSelect = (option: LocationOption) => {
+    if (option.label !== field.state.value) clearDependents();
+    field.handleChange(option.label);
+    setOpen(false);
+  };
+
+  const handleClear = () => {
+    clearDependents();
+    field.handleChange("");
+    setOpen(false);
+  };
 
   return (
     <div className="w-full space-y-1">
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (!next) field.handleBlur();
+        }}
+      >
         <PopoverTrigger asChild>
           <button
+            id={field.name}
             type="button"
             role="combobox"
+            aria-expanded={open}
+            aria-invalid={!!error}
             disabled={isLoading}
-            className={cn(
-              "flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50",
-              error && "border-destructive",
-            )}
+            className={locationTriggerClassName}
           >
-            <span className="flex items-center gap-2 text-muted-foreground">
+            <span className="flex min-w-0 items-center gap-2">
               {isLoading ? (
-                <Loader2 size={14} className="animate-spin" />
+                <Loader2
+                  size={14}
+                  className="shrink-0 animate-spin text-muted-foreground"
+                />
               ) : (
-                <Globe size={14} />
+                <Globe size={14} className="shrink-0 text-muted-foreground" />
               )}
-              <span className="text-foreground">
-                {selectedCountry ? (
-                  <>
-                    {selectedCountry.emoji} {selectedCountry.name}
-                  </>
-                ) : (
-                  "Select country…"
+              <span
+                className={cn(
+                  "truncate",
+                  !selectedCountry && "text-muted-foreground",
                 )}
+              >
+                {selectedCountry
+                  ? `${selectedCountry.emoji} ${selectedCountry.name}`
+                  : "Select country…"}
               </span>
             </span>
             <ChevronDown
               size={14}
               className={cn(
-                "text-muted-foreground transition-transform duration-200",
+                "shrink-0 text-muted-foreground transition-transform duration-200",
                 open && "rotate-180",
               )}
             />
           </button>
         </PopoverTrigger>
 
-        <PopoverContent
-          className="w-(--radix-popover-trigger-width) p-0"
-          sideOffset={4}
-        >
-          <Command shouldFilter={false}>
-            <CommandInput
-              id={field.name}
-              placeholder="Search country…"
-              value={searchValue}
-              onValueChange={setSearchValue}
-            />
-            <CommandList>
-              <CommandEmpty>No country found.</CommandEmpty>
-              <CommandGroup>
-                {filteredCountries.map((country: Country) => (
-                  <CommandItem
-                    key={country.iso2}
-                    className=" cursor-pointer m-1 hover:bg-amber-200"
-                    value={country.name}
-                    onSelect={() => {
-                      field.handleChange(country.name);
-                      setCountryCode(country.iso2);
-                      setSearchValue("");
-                      setOpen(false);
-                    }}
-                  >
-                    <CheckIcon
-                      size={14}
-                      className={
-                        field.state.value === country.name
-                          ? "opacity-100"
-                          : "opacity-0"
-                      }
-                    />
-                    <span>{country.emoji}</span>
-                    <span>{country.name}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
+        <PopoverContent className={locationPopoverClassName} sideOffset={4}>
+          <LocationCommandList
+            options={options}
+            selectedLabel={selectedCountry?.name}
+            noun="country"
+            plural="countries"
+            isLoading={isLoading}
+            onSelect={handleSelect}
+            onClear={handleClear}
+          />
         </PopoverContent>
       </Popover>
 
-      {error && (
-        <p className="text-xs text-destructive">
-          {typeof error === "object"
-            ? (error as { message: string }).message
-            : String(error)}
-        </p>
-      )}
+      <LocationFieldMessage error={error} />
     </div>
   );
 };

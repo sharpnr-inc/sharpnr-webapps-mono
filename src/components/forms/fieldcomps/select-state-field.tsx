@@ -1,121 +1,146 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@sharpnr/ui";
+import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
+import { useStore } from "@tanstack/react-form";
 import React from "react";
-import { CheckIcon, ChevronDown, Map, Loader2 } from "lucide-react";
-import { cn } from "@sharpnr/ui";
-import { useStateStore } from "@/components/forms/store/state_store";
-import { useCityStore } from "@/components/forms/store/store";
-import { useStates } from "../apiservice/queries";
-import type { State } from "../apiservice/csc";
+import { ChevronDown, Map, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useCountries, useStates } from "../apiservice/queries";
+import type { Country, State } from "../apiservice/csc";
+import {
+  LocationCommandList,
+  LocationFieldMessage,
+  type LocationOption,
+} from "./location-field-parts";
+import {
+  getFieldErrorMessage,
+  locationPopoverClassName,
+  locationTriggerClassName,
+} from "./location-field-utils";
 
-const StateSelect = () => {
+type StateSelectProps = {
+  /** Field this one cascades from, and the field it clears when it changes. */
+  countryFieldName?: string;
+  cityFieldName?: string;
+};
+
+const StateSelect = ({
+  countryFieldName = "country",
+  cityFieldName = "city",
+}: StateSelectProps) => {
   const [open, setOpen] = React.useState(false);
   const field = useFieldContext<string>();
 
-  const countryCode = useStateStore((s) => s.countryCode);
-  const setStateCode = useCityStore((s) => s.setStateCode);
+  // Derived from this form's own country value — never from shared global
+  // state, so two forms on one page can't overwrite each other.
+  const countryName = useStore(
+    field.form.store,
+    (s) => (s.values as Record<string, unknown>)[countryFieldName],
+  );
+
+  const { data: countries } = useCountries();
+  const countryCode = countries?.find(
+    (c: Country) => c.name === countryName,
+  )?.iso2;
 
   const { data: states, isLoading } = useStates(countryCode);
 
-  const formError = field.state.meta.errors?.[0];
-  const activeError = !countryCode
-    ? "Please select a country first"
-    : formError;
+  const error = field.state.meta.isTouched
+    ? getFieldErrorMessage(field.state.meta.errors?.[0])
+    : undefined;
+  const hint = countryCode ? undefined : "Select a country first";
 
   const selectedState = states?.find(
     (s: State) => s.name === field.state.value,
   );
   const isDisabled = !countryCode || isLoading;
 
+  const options: LocationOption[] = React.useMemo(
+    () =>
+      (states ?? []).map((s: State) => ({
+        key: s.iso2,
+        label: s.name,
+        code: s.iso2,
+      })),
+    [states],
+  );
+
+  const handleSelect = (option: LocationOption) => {
+    // The old city belongs to the old state.
+    if (option.label !== field.state.value) {
+      field.form.setFieldValue(cityFieldName, "", { dontUpdateMeta: true });
+    }
+
+    field.handleChange(option.label);
+    setOpen(false);
+  };
+
+  const handleClear = () => {
+    field.form.setFieldValue(cityFieldName, "", { dontUpdateMeta: true });
+    field.handleChange("");
+    setOpen(false);
+  };
+
   return (
     <div className="w-full space-y-1">
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover
+        open={open}
+        onOpenChange={(next) => {
+          setOpen(next);
+          if (!next) field.handleBlur();
+        }}
+      >
         <PopoverTrigger asChild>
           <button
+            id={field.name}
             type="button"
             role="combobox"
+            aria-expanded={open}
+            aria-invalid={!!error}
             disabled={isDisabled}
-            className={cn(
-              "flex w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-50",
-              activeError && "border-destructive",
-            )}
+            className={locationTriggerClassName}
           >
-            <span className="flex items-center gap-2 text-muted-foreground">
+            <span className="flex min-w-0 items-center gap-2">
               {isLoading ? (
-                <Loader2 size={14} className="animate-spin" />
+                <Loader2
+                  size={14}
+                  className="shrink-0 animate-spin text-muted-foreground"
+                />
               ) : (
-                <Map size={14} />
+                <Map size={14} className="shrink-0 text-muted-foreground" />
               )}
-              <span className="text-foreground">
+              <span
+                className={cn(
+                  "truncate",
+                  !selectedState && "text-muted-foreground",
+                )}
+              >
                 {selectedState?.name ?? "Select state…"}
               </span>
             </span>
             <ChevronDown
               size={14}
               className={cn(
-                "text-muted-foreground transition-transform duration-200",
+                "shrink-0 text-muted-foreground transition-transform duration-200",
                 open && "rotate-180",
               )}
             />
           </button>
         </PopoverTrigger>
 
-        {countryCode && (
-          <PopoverContent
-            className="w-(--radix-popover-trigger-width) p-0"
-            sideOffset={4}
-          >
-            <Command>
-              <CommandInput id={field.name} placeholder="Search state…" />
-              <CommandList>
-                <CommandEmpty>No state found.</CommandEmpty>
-                <CommandGroup>
-                  {states?.map((state: State) => (
-                    <CommandItem
-                      key={state.iso2}
-                      className="cursor-pointer m-1"
-                      value={state.name}
-                      onSelect={() => {
-                        field.handleChange(state.name);
-                        setStateCode(state.iso2);
-                        setOpen(false);
-                      }}
-                    >
-                      <CheckIcon
-                        size={14}
-                        className={
-                          field.state.value === state.name
-                            ? "opacity-100"
-                            : "opacity-0"
-                        }
-                      />
-                      {state.name}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        )}
+        <PopoverContent className={locationPopoverClassName} sideOffset={4}>
+          <LocationCommandList
+            options={options}
+            selectedLabel={selectedState?.name}
+            noun="state"
+            plural="states"
+            isLoading={isLoading}
+            onSelect={handleSelect}
+            onClear={handleClear}
+          />
+        </PopoverContent>
       </Popover>
 
-      {activeError && (
-        <p className="text-xs text-destructive">
-          {typeof activeError === "object"
-            ? (activeError as { message: string }).message
-            : String(activeError)}
-        </p>
-      )}
+      <LocationFieldMessage error={error} hint={hint} />
     </div>
   );
 };
