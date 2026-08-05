@@ -55,7 +55,7 @@ const WHAT_A_PROPERTY_IS = [
 
 function InfoPanel() {
   return (
-    <div className="space-y-6 lg:sticky lg:top-12">
+    <div className="space-y-6">
       <div className="space-y-3">
         <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
           Step 03 of 03
@@ -282,12 +282,10 @@ function PropertyForm() {
 
 export function OperationSetUpPage() {
   return (
-    <div className="min-h-screen bg-muted/30">
-      <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:py-14">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-12">
-          <InfoPanel />
-          <PropertyForm />
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4 py-10 sm:px-6">
+      <div className="grid w-full max-w-5xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-center lg:gap-12">
+        <InfoPanel />
+        <PropertyForm />
       </div>
     </div>
   );
