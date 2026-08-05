@@ -10,8 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
-import { Route as AboutIndexRouteImport } from './routes/about/index'
-import { Route as UserIndexRouteImport } from './routes/_user/index'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as UserInfraRouteRouteImport } from './routes/_user/infra/route'
 import { Route as UserRestaurantIndexRouteImport } from './routes/_user/restaurant/index'
 import { Route as UserHotelIndexRouteImport } from './routes/_user/hotel/index'
@@ -47,15 +46,10 @@ const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: '/about/',
-  path: '/about/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UserIndexRoute = UserIndexRouteImport.update({
-  id: '/',
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
   path: '/',
-  getParentRoute: () => UserRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
 const UserInfraRouteRoute = UserInfraRouteRouteImport.update({
   id: '/infra',
@@ -231,9 +225,8 @@ const UserInfraKitchenService_pointServiceRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof UserIndexRoute
+  '/': typeof WebsiteIndexRoute
   '/infra': typeof UserInfraRouteRouteWithChildren
-  '/about/': typeof AboutIndexRoute
   '/bar/$barID': typeof UserBarBarIDRouteRouteWithChildren
   '/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
   '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
@@ -265,9 +258,8 @@ export interface FileRoutesByFullPath {
   '/restaurant/$restaurantID/table-management/': typeof UserRestaurantRestaurantIDTableManagementIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof WebsiteIndexRoute
   '/infra': typeof UserInfraRouteRouteWithChildren
-  '/': typeof UserIndexRoute
-  '/about': typeof AboutIndexRoute
   '/bar/$barID': typeof UserBarBarIDRouteRouteWithChildren
   '/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
   '/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
@@ -302,8 +294,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
   '/_user/infra': typeof UserInfraRouteRouteWithChildren
-  '/_user/': typeof UserIndexRoute
-  '/about/': typeof AboutIndexRoute
+  '/_website/': typeof WebsiteIndexRoute
   '/_user/bar/$barID': typeof UserBarBarIDRouteRouteWithChildren
   '/_user/hotel/$hotelID': typeof UserHotelHotelIDRouteRouteWithChildren
   '/_user/restaurant/$restaurantID': typeof UserRestaurantRestaurantIDRouteRouteWithChildren
@@ -339,7 +330,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/infra'
-    | '/about/'
     | '/bar/$barID'
     | '/hotel/$hotelID'
     | '/restaurant/$restaurantID'
@@ -371,9 +361,8 @@ export interface FileRouteTypes {
     | '/restaurant/$restaurantID/table-management/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/infra'
     | '/'
-    | '/about'
+    | '/infra'
     | '/bar/$barID'
     | '/hotel/$hotelID'
     | '/restaurant/$restaurantID'
@@ -407,8 +396,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_user'
     | '/_user/infra'
-    | '/_user/'
-    | '/about/'
+    | '/_website/'
     | '/_user/bar/$barID'
     | '/_user/hotel/$hotelID'
     | '/_user/restaurant/$restaurantID'
@@ -442,7 +430,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   UserRouteRoute: typeof UserRouteRouteWithChildren
-  AboutIndexRoute: typeof AboutIndexRoute
+  WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -454,19 +442,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about/': {
-      id: '/about/'
-      path: '/about'
-      fullPath: '/about/'
-      preLoaderRoute: typeof AboutIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_user/': {
-      id: '/_user/'
+    '/_website/': {
+      id: '/_website/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof UserIndexRouteImport
-      parentRoute: typeof UserRouteRoute
+      preLoaderRoute: typeof WebsiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_user/infra': {
       id: '/_user/infra'
@@ -783,7 +764,6 @@ const UserRestaurantRestaurantIDRouteRouteWithChildren =
 
 interface UserRouteRouteChildren {
   UserInfraRouteRoute: typeof UserInfraRouteRouteWithChildren
-  UserIndexRoute: typeof UserIndexRoute
   UserBarBarIDRouteRoute: typeof UserBarBarIDRouteRouteWithChildren
   UserHotelHotelIDRouteRoute: typeof UserHotelHotelIDRouteRouteWithChildren
   UserRestaurantRestaurantIDRouteRoute: typeof UserRestaurantRestaurantIDRouteRouteWithChildren
@@ -794,7 +774,6 @@ interface UserRouteRouteChildren {
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
   UserInfraRouteRoute: UserInfraRouteRouteWithChildren,
-  UserIndexRoute: UserIndexRoute,
   UserBarBarIDRouteRoute: UserBarBarIDRouteRouteWithChildren,
   UserHotelHotelIDRouteRoute: UserHotelHotelIDRouteRouteWithChildren,
   UserRestaurantRestaurantIDRouteRoute:
@@ -810,7 +789,7 @@ const UserRouteRouteWithChildren = UserRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   UserRouteRoute: UserRouteRouteWithChildren,
-  AboutIndexRoute: AboutIndexRoute,
+  WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
