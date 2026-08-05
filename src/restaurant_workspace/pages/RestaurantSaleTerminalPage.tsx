@@ -4,7 +4,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { ChefHat, Receipt, Clock, Users } from "lucide-react";
 import { SalePosTerminalOrderSummary } from "../components/SalePosTerminal/OrderSummary/PosOrderSummary";
-import { Route } from "@/routes/workspace/_user/restaurant/$restaurantID/sales-terminal/index";
+import { Route } from "@/routes/workspace/$propertyID/restaurant/$restaurantID/sales-terminal/index";
 
 // ─── Dummy data ───────────────────────────────────────────────────────────────
 

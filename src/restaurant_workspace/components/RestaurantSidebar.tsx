@@ -17,7 +17,7 @@ import {
   Calendar,
   Settings,
 } from "lucide-react";
-import { Route } from "@/routes/workspace/_user/restaurant/$restaurantID/route";
+import { Route } from "@/routes/workspace/$propertyID/restaurant/$restaurantID/route";
 
 /* ===============================
    Types

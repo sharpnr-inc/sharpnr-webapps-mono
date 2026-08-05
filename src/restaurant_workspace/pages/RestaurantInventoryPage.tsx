@@ -44,7 +44,7 @@ import {
   Share2,
   ChevronDown,
 } from "lucide-react";
-import { Route } from "@/routes/workspace/_user/restaurant/$restaurantID/inventory/index";
+import { Route } from "@/routes/workspace/$propertyID/restaurant/$restaurantID/inventory/index";
 
 // ── Animation Variants ──────────────────────────────────────────────────────
 
