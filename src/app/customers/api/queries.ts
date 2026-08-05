@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { MOCK_CUSTOMERS } from "../mock/customers";
 import type { Customer, CustomerResponse } from "./types";
+import { GetOrgCustomer } from "./service";
 
 /**
  * Mock-backed customers query.
@@ -37,5 +38,13 @@ export function useCustomers() {
     queryKey: customerKeys.list(),
     queryFn: fetchCustomers,
     staleTime: 30_000,
+  });
+}
+
+export function useOrgsCustomer(searchQuery: string) {
+  return useQuery({
+    queryKey: ["ORG", "CUSTOMERS"],
+    queryFn: () => GetOrgCustomer(searchQuery),
+    enabled: !!searchQuery,
   });
 }

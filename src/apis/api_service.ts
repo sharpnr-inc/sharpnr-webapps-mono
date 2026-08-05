@@ -1,27 +1,7 @@
 import api from "@/middlewares/axios";
-import {
-  AuthApiEndpoints,
-  OrchestratorConsole,
-  OrgCoreEndpoints,
-  UserRoutes,
-} from "./Endpoints";
+import { OrchestratorConsole, UserRoutes } from "./Endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
-
-export async function VerifySignupCookie() {
-  const res = await api.get(AuthApiEndpoints.Signup.checkToken);
-  return res.data;
-}
-
-export async function GetOrgCustomer(searchQuery: string) {
-  const res = await api.get(OrgCoreEndpoints.Customer.Search(searchQuery));
-  return res.data;
-}
-
-export async function AddCustomerInOrg() {
-  const res = await api.post(OrgCoreEndpoints.Customer.CreateCustomer());
-  return res.data;
-}
 
 /**
  * Verifies whether the current user session is authenticated.
