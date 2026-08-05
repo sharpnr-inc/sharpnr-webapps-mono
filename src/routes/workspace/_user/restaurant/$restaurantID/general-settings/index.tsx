@@ -1,4 +1,4 @@
-import RestaurantGenSettingsPage from "@/app/restaurant/pages/RestaurantGenSettingsPage";
+import RestaurantGenSettingsPage from "@/restaurant_workspace/pages/RestaurantGenSettingsPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

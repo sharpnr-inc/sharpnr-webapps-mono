@@ -5,7 +5,7 @@ import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 import type {
   DietaryType,
   MenuItemResponse,
-} from "@/app/infra/apis/api.service";
+} from "@/infra_workspace/apis/api.service";
 
 // ─── Dietary indicator dot ────────────────────────────────────────────────────
 

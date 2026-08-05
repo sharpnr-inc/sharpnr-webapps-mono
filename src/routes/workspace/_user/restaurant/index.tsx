@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import RestaurantSelector from "@/app/restaurant/components/RestaurantSelector";
-import { FetchRestaurentContext } from "@/app/restaurant/apis/restaurant.api";
+import RestaurantSelector from "@/restaurant_workspace/components/RestaurantSelector";
+import { FetchRestaurentContext } from "@/restaurant_workspace/apis/restaurant.api";
 
 export const Route = createFileRoute("/workspace/_user/restaurant/")({
   loader: async ({ context }) => {

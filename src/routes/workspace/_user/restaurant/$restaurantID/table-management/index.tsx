@@ -1,4 +1,4 @@
-import RestaurantTableManagementPage from "@/app/restaurant/pages/RestaurantTableManagementPage";
+import RestaurantTableManagementPage from "@/restaurant_workspace/pages/RestaurantTableManagementPage";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(

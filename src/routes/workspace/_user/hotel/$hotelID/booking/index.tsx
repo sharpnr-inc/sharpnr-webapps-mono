@@ -1,6 +1,8 @@
-import RoomBookingPage from "@/app/hotel/pages/booking/RoomBookingMainPage";
+import RoomBookingPage from "@/hotel_workspace/pages/booking/RoomBookingMainPage";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/workspace/_user/hotel/$hotelID/booking/")({
+export const Route = createFileRoute(
+  "/workspace/_user/hotel/$hotelID/booking/",
+)({
   component: RoomBookingPage,
 });
