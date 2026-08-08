@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"; // Added Button import
 import { Building2, ArrowRight, MapPin, Plus } from "lucide-react"; // Added Plus icon
 import { motion } from "framer-motion";
-import { Route } from "@/routes/workspace/$propertyID/restaurant/index";
+import { Route } from "@/routes/workspace/_modules/restaurant/index";
 import { useEffect } from "react";
 import type { RestaurantContext } from "../apis/restaurant.api";
 import { toast } from "sonner";

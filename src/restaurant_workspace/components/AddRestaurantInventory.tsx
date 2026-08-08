@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Route } from "@/routes/workspace/$propertyID/restaurant/$restaurantID/inventory/index";
+import { Route } from "@/routes/workspace/_modules/restaurant/$restaurantID/inventory/index";
 
 // ── Text fields only (account_id handled separately as a Select) ────────────
 const fields = [
