@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button"; // Added Button import
-import { Building2, ArrowRight, MapPin, Plus } from "lucide-react"; // Added Plus icon
+import { Button } from "@/components/ui/button";
+import { Building2, ArrowRight, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { Route } from "@/routes/workspace/_modules/restaurant/index";
 import { useEffect } from "react";
@@ -13,24 +13,27 @@ export default function RestaurantSelector() {
   const navigate = useNavigate();
   const { restaurants } = Route.useLoaderData();
 
-  // ⭐ Auto-select if only one restaurant exists
+  // ⭐ Auto-select only when the single restaurant is actually usable
+  const autoSelect =
+    restaurants?.length === 1 &&
+    restaurants[0].Status &&
+    restaurants[0].IsConfigured
+      ? restaurants[0]
+      : null;
+
   useEffect(() => {
-    if (restaurants?.length === 1) {
-      const restaurant = restaurants[0];
+    if (!autoSelect) return;
 
-      if (!restaurant.IsActive && restaurant.IsConfigured) {
-        navigate({
-          to: "/restaurant/$restaurantID/overview",
-          params: {
-            restaurantID: restaurant.ID,
-          },
-        });
-      }
-    }
-  }, [restaurants, navigate]);
+    navigate({
+      to: "/workspace/restaurant/$restaurantID/overview",
+      params: {
+        restaurantID: autoSelect.ID,
+      },
+    });
+  }, [autoSelect, navigate]);
 
-  // Prevent flash if redirecting
-  if (restaurants?.length === 1) return null;
+  // Prevent flash only while a redirect is actually happening
+  if (autoSelect) return null;
 
   // ⭐ Empty state condition
   if (!restaurants || restaurants.length === 0) {
@@ -48,7 +51,6 @@ export default function RestaurantSelector() {
           <Button
             variant="outline"
             onClick={() => {
-              // Adjust this path to your actual creation route
               window.location.href = config.orchestratorAppUrl;
             }}
           >
@@ -71,17 +73,15 @@ export default function RestaurantSelector() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {restaurants?.map((restaurant: RestaurantContext, index: number) => {
-            const isDisabled = !restaurant.IsActive || !restaurant.IsConfigured;
+            const isDisabled = !restaurant.Status || !restaurant.IsConfigured;
 
             let disabledMessage = "";
 
-            if (restaurant.IsConfigured && !restaurant.IsActive) {
-              disabledMessage = "Activate the restaurant from Orchestrator";
-            }
-
-            if (!restaurant.IsConfigured && !restaurant.IsActive) {
+            if (!restaurant.IsConfigured) {
               disabledMessage =
                 "Restaurant is not configured. Configure it in Orchestrator → Property section";
+            } else if (!restaurant.Status) {
+              disabledMessage = "Activate the restaurant from Orchestrator";
             }
 
             return (
@@ -99,16 +99,15 @@ export default function RestaurantSelector() {
                 <Card
                   onClick={() => {
                     if (isDisabled) return;
+
                     navigate({
-                      to: "/restaurant/$restaurantID/overview",
+                      to: "/workspace/restaurant/$restaurantID/overview",
                       params: {
                         restaurantID: restaurant.ID,
                       },
                     });
 
-                    toast.success(`Entered ${restaurant.Name}`, {
-                      description: `${restaurant.Property?.City}, ${restaurant.Property?.State}`,
-                    });
+                    toast.success(`Entered ${restaurant.Name}`);
                   }}
                   className={`border-border/60 transition-shadow ${
                     isDisabled
@@ -127,18 +126,9 @@ export default function RestaurantSelector() {
                   </CardHeader>
 
                   <CardContent className="space-y-2 pt-2">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <MapPin className="size-3.5" />
-
-                      <span>
-                        {restaurant.Property?.City},{" "}
-                        {restaurant.Property?.State || "—"}
-                      </span>
-                    </div>
-
                     <div className="flex items-center justify-between pt-2">
-                      <span className="text-xs text-muted-foreground">
-                        {restaurant.Property?.Name}
+                      <span className="text-xs text-muted-foreground capitalize">
+                        {restaurant.ConfigurationStatus?.toLowerCase() ?? "—"}
                       </span>
 
                       {!isDisabled && (

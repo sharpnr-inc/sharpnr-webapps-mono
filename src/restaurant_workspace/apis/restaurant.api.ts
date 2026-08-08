@@ -41,25 +41,24 @@ export interface RestaurantProperty {
   Country: string;
 }
 
+export type RestaurantConfigurationStatus = "CREATED" | (string & {});
+
 export interface RestaurantContext {
   ID: string;
+  PropertyID: string;
   Name: string;
-  OrgID: string;
-  IsActive: boolean;
+  Status: boolean;
   IsConfigured: boolean;
-  Property: RestaurantProperty;
+  ConfigurationStatus: RestaurantConfigurationStatus;
 }
 
-export async function FetchRestaurentContext(): Promise<
-  APIResponse<RestaurantContext[]>
-> {
+export async function FetchRestaurentContext() {
   const res = await api.get<APIResponse<RestaurantContext[]>>(
     RestaurantEndpoints.Context,
   );
 
   return res.data;
 }
-
 /* ---------------------------------- <***> --------------------------------- */
 
 export interface RestaurantGeneralInfoInterface {
