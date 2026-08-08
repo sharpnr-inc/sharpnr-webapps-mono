@@ -24,7 +24,7 @@ const ServicePointRootSelector: React.FC = () => {
             <Card
               onClick={() =>
                 nav({
-                  to: "/infra/kitchen/$service_point/service",
+                  to: "/workspace/infra/kitchen/$service_point/service",
                   params: {
                     service_point: infra.ID, // 👈 REAL ID
                   },

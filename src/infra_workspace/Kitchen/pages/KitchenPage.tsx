@@ -97,7 +97,7 @@ function parseKOT(kot: any): KitchenOrder {
 
 export default function KitchenPage() {
   const { service_point } = useParams({
-    from: "/_user/infra/kitchen/$service_point/service",
+    from: "/workspace/_modules/infra/kitchen/$service_point/service",
   });
   const { data, isLoading, isError } = useKitchenKOTsSSE(service_point);
 

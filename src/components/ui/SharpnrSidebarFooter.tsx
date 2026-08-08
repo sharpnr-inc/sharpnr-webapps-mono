@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebar } from "@/components/ui/sidebar";
 import { SidebarFooter } from "@/components/ui/sidebar";
-import logo from "@/assets/AppIcon.png";
 
 const NAVY = "#0B0D2E";
 const NAVY_MID = "#141741";
@@ -129,7 +128,7 @@ export function SharpnrSidebarFooter() {
               style={{ background: NAVY_MID }}
             >
               <img
-                src={logo}
+                src="https://cdn.sharpnr.com/shicon.svg"
                 alt="Sharpnr"
                 className="w-full h-full object-cover"
               />
