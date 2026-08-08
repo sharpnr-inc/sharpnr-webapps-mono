@@ -21,7 +21,7 @@ export const Route = createFileRoute("/setup_wizard")({
       staleTime: 1000 * 60 * 5,
     });
 
-    if (!authUser.data?.authenticated) {
+    if (!authUser.success) {
       throw redirect({
         href: config.authAppUrl,
       });
