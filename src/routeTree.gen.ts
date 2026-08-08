@@ -15,6 +15,7 @@ import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as WorkspaceModulesRouteRouteImport } from './routes/workspace/_modules/route'
 import { Route as WorkspaceModulesInfraRouteRouteImport } from './routes/workspace/_modules/infra/route'
 import { Route as WorkspaceModulesRestaurantIndexRouteImport } from './routes/workspace/_modules/restaurant/index'
+import { Route as WorkspaceModulesInfraIndexRouteImport } from './routes/workspace/_modules/infra/index'
 import { Route as WorkspaceModulesHotelIndexRouteImport } from './routes/workspace/_modules/hotel/index'
 import { Route as WorkspaceModulesBarIndexRouteImport } from './routes/workspace/_modules/bar/index'
 import { Route as WorkspaceModulesRestaurantRestaurantIDRouteRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/route'
@@ -74,6 +75,12 @@ const WorkspaceModulesRestaurantIndexRoute =
     id: '/restaurant/',
     path: '/restaurant/',
     getParentRoute: () => WorkspaceModulesRouteRoute,
+  } as any)
+const WorkspaceModulesInfraIndexRoute =
+  WorkspaceModulesInfraIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => WorkspaceModulesInfraRouteRoute,
   } as any)
 const WorkspaceModulesHotelIndexRoute =
   WorkspaceModulesHotelIndexRouteImport.update({
@@ -254,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/workspace/restaurant/$restaurantID': typeof WorkspaceModulesRestaurantRestaurantIDRouteRouteWithChildren
   '/workspace/bar/': typeof WorkspaceModulesBarIndexRoute
   '/workspace/hotel/': typeof WorkspaceModulesHotelIndexRoute
+  '/workspace/infra/': typeof WorkspaceModulesInfraIndexRoute
   '/workspace/restaurant/': typeof WorkspaceModulesRestaurantIndexRoute
   '/workspace/bar/$barID/overview': typeof WorkspaceModulesBarBarIDOverviewRoute
   '/workspace/hotel/$hotelID/overview': typeof WorkspaceModulesHotelHotelIDOverviewRoute
@@ -282,12 +290,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/workspace': typeof WorkspaceIndexRoute
   '/': typeof WebsiteIndexRoute
-  '/workspace/infra': typeof WorkspaceModulesInfraRouteRouteWithChildren
   '/workspace/bar/$barID': typeof WorkspaceModulesBarBarIDRouteRouteWithChildren
   '/workspace/hotel/$hotelID': typeof WorkspaceModulesHotelHotelIDRouteRouteWithChildren
   '/workspace/restaurant/$restaurantID': typeof WorkspaceModulesRestaurantRestaurantIDRouteRouteWithChildren
   '/workspace/bar': typeof WorkspaceModulesBarIndexRoute
   '/workspace/hotel': typeof WorkspaceModulesHotelIndexRoute
+  '/workspace/infra': typeof WorkspaceModulesInfraIndexRoute
   '/workspace/restaurant': typeof WorkspaceModulesRestaurantIndexRoute
   '/workspace/bar/$barID/overview': typeof WorkspaceModulesBarBarIDOverviewRoute
   '/workspace/hotel/$hotelID/overview': typeof WorkspaceModulesHotelHotelIDOverviewRoute
@@ -325,6 +333,7 @@ export interface FileRoutesById {
   '/workspace/_modules/restaurant/$restaurantID': typeof WorkspaceModulesRestaurantRestaurantIDRouteRouteWithChildren
   '/workspace/_modules/bar/': typeof WorkspaceModulesBarIndexRoute
   '/workspace/_modules/hotel/': typeof WorkspaceModulesHotelIndexRoute
+  '/workspace/_modules/infra/': typeof WorkspaceModulesInfraIndexRoute
   '/workspace/_modules/restaurant/': typeof WorkspaceModulesRestaurantIndexRoute
   '/workspace/_modules/bar/$barID/overview': typeof WorkspaceModulesBarBarIDOverviewRoute
   '/workspace/_modules/hotel/$hotelID/overview': typeof WorkspaceModulesHotelHotelIDOverviewRoute
@@ -362,6 +371,7 @@ export interface FileRouteTypes {
     | '/workspace/restaurant/$restaurantID'
     | '/workspace/bar/'
     | '/workspace/hotel/'
+    | '/workspace/infra/'
     | '/workspace/restaurant/'
     | '/workspace/bar/$barID/overview'
     | '/workspace/hotel/$hotelID/overview'
@@ -390,12 +400,12 @@ export interface FileRouteTypes {
   to:
     | '/workspace'
     | '/'
-    | '/workspace/infra'
     | '/workspace/bar/$barID'
     | '/workspace/hotel/$hotelID'
     | '/workspace/restaurant/$restaurantID'
     | '/workspace/bar'
     | '/workspace/hotel'
+    | '/workspace/infra'
     | '/workspace/restaurant'
     | '/workspace/bar/$barID/overview'
     | '/workspace/hotel/$hotelID/overview'
@@ -432,6 +442,7 @@ export interface FileRouteTypes {
     | '/workspace/_modules/restaurant/$restaurantID'
     | '/workspace/_modules/bar/'
     | '/workspace/_modules/hotel/'
+    | '/workspace/_modules/infra/'
     | '/workspace/_modules/restaurant/'
     | '/workspace/_modules/bar/$barID/overview'
     | '/workspace/_modules/hotel/$hotelID/overview'
@@ -506,6 +517,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/workspace/restaurant/'
       preLoaderRoute: typeof WorkspaceModulesRestaurantIndexRouteImport
       parentRoute: typeof WorkspaceModulesRouteRoute
+    }
+    '/workspace/_modules/infra/': {
+      id: '/workspace/_modules/infra/'
+      path: '/'
+      fullPath: '/workspace/infra/'
+      preLoaderRoute: typeof WorkspaceModulesInfraIndexRouteImport
+      parentRoute: typeof WorkspaceModulesInfraRouteRoute
     }
     '/workspace/_modules/hotel/': {
       id: '/workspace/_modules/hotel/'
@@ -707,12 +725,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface WorkspaceModulesInfraRouteRouteChildren {
+  WorkspaceModulesInfraIndexRoute: typeof WorkspaceModulesInfraIndexRoute
   WorkspaceModulesInfraKitchenIndexRoute: typeof WorkspaceModulesInfraKitchenIndexRoute
   WorkspaceModulesInfraKitchenService_pointServiceRoute: typeof WorkspaceModulesInfraKitchenService_pointServiceRoute
 }
 
 const WorkspaceModulesInfraRouteRouteChildren: WorkspaceModulesInfraRouteRouteChildren =
   {
+    WorkspaceModulesInfraIndexRoute: WorkspaceModulesInfraIndexRoute,
     WorkspaceModulesInfraKitchenIndexRoute:
       WorkspaceModulesInfraKitchenIndexRoute,
     WorkspaceModulesInfraKitchenService_pointServiceRoute:
