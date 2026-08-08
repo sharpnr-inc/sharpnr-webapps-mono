@@ -1,3 +1,5 @@
+/// <reference types="vite-plugin-pwa/react" />
+
 interface ImportMetaEnv {
   // Core API
   readonly VITE_API_URL: string;

@@ -29,3 +29,5 @@ dist-ssr
 .env.development
 .env.local
 .env.*.local
+# vite-plugin-pwa dev output
+dev-dist

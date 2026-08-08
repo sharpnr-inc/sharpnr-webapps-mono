@@ -12,6 +12,7 @@ import { Toaster } from "sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { FormsModalProvider } from "./hooks/FormModalContext";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import PwaReloadPrompt from "./components/PwaReloadPrompt";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
               <Suspense fallback={<SuspenseFallback />}>
                 <RouterProvider router={router} />
                 <Toaster />
+                <PwaReloadPrompt />
               </Suspense>
             </SheetProvider>
           </FormsModalProvider>
