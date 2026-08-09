@@ -1,5 +1,7 @@
 import api from "./axios";
 import { getCookie } from "@/lib/utils";
+// Aliased: `config` is already the axios request config inside the interceptor.
+import { config as envConfig } from "@/configs/env";
 
 const CSRF_HEADER_NAME = "X-CSRF-Token";
 
@@ -16,14 +18,8 @@ api.interceptors.request.use(
       return config;
     }
 
-    const csrfCookieName = import.meta.env.VITE_API_CSRF;
-
-    if (!csrfCookieName) {
-      console.warn("Missing VITE_API_CSRF environment variable");
-      return config;
-    }
-
-    const csrfToken = getCookie(csrfCookieName);
+    // Presence is guaranteed by the env validation in @/configs/env.
+    const csrfToken = getCookie(envConfig.csrfToken);
 
     if (!csrfToken) {
       console.warn("CSRF token cookie not found");

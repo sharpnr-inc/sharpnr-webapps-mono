@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { config } from "@/configs/env";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = config.apiBaseUrl;
 
 export function useKitchenKOTsSSE(kitchenID: string) {
   const [data, setData] = useState<any>(null);

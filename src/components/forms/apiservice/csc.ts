@@ -1,14 +1,4 @@
-import axios from "axios";
-
-const API_KEY = import.meta.env.VITE_API_CITY_STATE_API_KEY;
-const BASE_URL = import.meta.env.VITE_API_CITY_STATE_BASE_URL;
-
-export const locationApi = axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    "X-CSCAPI-KEY": API_KEY,
-  },
-});
+import api from "@/middlewares/axios";
 
 export interface Country {
   id: string;
@@ -37,16 +27,14 @@ export interface City {
 
 export const LocationService = {
   getCountries: async (): Promise<Country[]> => {
-    const { data } = await locationApi.get<Country[]>("/countries");
+    const { data } = await api.get<Country[]>("/countries");
     return data;
   },
 
   getStates: async (countryCode?: string): Promise<State[]> => {
     if (!countryCode) return [];
 
-    const { data } = await locationApi.get<State[]>(
-      `/countries/${countryCode}/states`,
-    );
+    const { data } = await api.get<State[]>(`/countries/${countryCode}/states`);
 
     return data;
   },
@@ -57,7 +45,7 @@ export const LocationService = {
   ): Promise<City[]> => {
     if (!countryCode || !stateCode) return [];
 
-    const { data } = await locationApi.get<City[]>(
+    const { data } = await api.get<City[]>(
       `/countries/${countryCode}/states/${stateCode}/cities`,
     );
 
