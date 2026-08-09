@@ -11,9 +11,11 @@ node_modules
 dist
 dist-ssr
 *.local
-.env*
+
+# Env files — every real env file is ignored, only the template is tracked
+.env
 .env.*
-.evn.development
+!.env.example
 
 # Editor directories and files
 .vscode/*

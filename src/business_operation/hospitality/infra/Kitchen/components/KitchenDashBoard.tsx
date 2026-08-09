@@ -12,7 +12,7 @@ import {
 } from "@sharpnr/ui";
 import { ChefHat, Settings2, ArrowLeft, Printer, Activity } from "lucide-react";
 
-import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
+import { Route } from "@/routes/_appuser/business-ops/property/$propertyId/domain_hospitality/infra_d/$InfraID/index";
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@sharpnr/ui";
 import { useAppForm } from "@/components/forms";
 import { useQueryClient } from "@tanstack/react-query";

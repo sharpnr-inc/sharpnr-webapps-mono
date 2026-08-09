@@ -44,7 +44,8 @@ const fmtDate = (iso: string) =>
   });
 
 const PoliciesIndexPage = () => {
-  const { data: orgResources } = useAllResourcesOfOrg();
+  // Warms the org resources cache for the policy builder opened from this page.
+  useAllResourcesOfOrg();
 
   const nav = useNavigate();
   const [data, setData] = useState<SentinelPolicy[]>(MOCK_POLICIES);

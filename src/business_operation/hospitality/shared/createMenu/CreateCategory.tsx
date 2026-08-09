@@ -35,27 +35,7 @@ import {
 import { usePropertyDetails } from "@/app/property/api/queries";
 import { AddMenuCategoryForm } from "./forms/AddMenuCategory";
 import { AddNewMenuGroupForm } from "./forms/AddNewMenuGroup";
-import { useLegalEntityAllTaxCategory } from "@/app/legal_entity/api/legalEntity.api.queries";
-
-interface TaxRuleComponent {
-  component_code: string;
-  rate: number;
-}
-
-interface TaxRule {
-  rate: number;
-  tax_type: string;
-  min_value: number;
-  max_value: number;
-  components?: TaxRuleComponent[];
-}
-
-interface TaxCategoryItem {
-  id: string;
-  category_name: string;
-  code: string;
-  rules?: TaxRule[];
-}
+import { useLegalEntityDetails } from "@/app/legal_entity/api/queries";
 
 const CreateCategory = () => {
   const {
@@ -77,11 +57,10 @@ const CreateCategory = () => {
   const { data: propertyData } = usePropertyDetails(propertyID!);
   const kitchens = propertyData?.data?.infra ?? [];
 
-  const { data: taxCategories } = useLegalEntityAllTaxCategory(
-    owners_legal_entity_ID && owners_legal_entity_ID !== ""
-      ? owners_legal_entity_ID
-      : "",
+  const { data: legalEntity } = useLegalEntityDetails(
+    owners_legal_entity_ID ?? "",
   );
+  const taxCategories = legalEntity?.data?.tax_categories ?? [];
 
   const { mutateAsync, isPending } =
     useAddPreferredKitchenToMenuGroupMutation();
@@ -158,9 +137,7 @@ const CreateCategory = () => {
         );
 
         const selectedTaxID = menuTaxMap[m.id] ?? "";
-        const selectedTax = taxCategories?.data?.find(
-          (t: TaxCategoryItem) => t.id === selectedTaxID,
-        );
+        const selectedTax = taxCategories.find((t) => t.id === selectedTaxID);
         const selectedRule = selectedTax?.rules?.[0];
         const categoryCount = m.categories?.length ?? 0;
 
@@ -285,7 +262,7 @@ const CreateCategory = () => {
                       {selectedTax && (
                         <div className="flex items-center justify-between w-full gap-2">
                           <span className="font-medium">
-                            {selectedTax.category_name}
+                            {selectedTax.name}
                           </span>
                           <span className="text-xs text-muted-foreground">
                             {selectedRule?.rate}% GST
@@ -296,7 +273,7 @@ const CreateCategory = () => {
                   </SelectTrigger>
 
                   <SelectContent>
-                    {taxCategories?.data?.map((tax: TaxCategoryItem) => {
+                    {taxCategories.map((tax) => {
                       const rule = tax.rules?.[0];
                       const components =
                         rule?.components
@@ -308,7 +285,7 @@ const CreateCategory = () => {
                           <div className="flex flex-col gap-0.5 py-1">
                             <div className="flex items-center justify-between gap-4">
                               <span className="font-medium text-sm">
-                                {tax.category_name}
+                                {tax.name}
                               </span>
                               <span className="text-xs font-mono text-muted-foreground">
                                 {tax.code}

@@ -14,6 +14,14 @@ export interface PropertiesOfOrganizationData {
 
 /* ---------------------------------- <***> --------------------------------- */
 
+/** Infra module as returned inline on the property details payload. */
+export interface PropertyInfra {
+  id: string;
+  name: string;
+  status: boolean;
+  infra_type: string;
+}
+
 export interface PropertyDetailsData {
   name: string;
   code: string;
@@ -21,6 +29,7 @@ export interface PropertyDetailsData {
   address_line: string;
   state: string;
   country: string;
+  infra: PropertyInfra[];
 }
 
 /* ---------------------------------- <***> --------------------------------- */

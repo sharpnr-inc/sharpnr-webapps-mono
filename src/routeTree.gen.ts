@@ -71,7 +71,6 @@ import { Route as AppuserAuthorizationPoliciesCreateRouteImport } from './routes
 import { Route as AppuserAuthorizationUser_groupsGroupIDIndexRouteImport } from './routes/_appuser/authorization/user_groups/$groupID/index'
 import { Route as AppuserAuthorizationRolesRoleIDIndexRouteImport } from './routes/_appuser/authorization/roles/$roleID/index'
 import { Route as AppuserAuthorizationPoliciesPolicyIDIndexRouteImport } from './routes/_appuser/authorization/policies/$policyID/index'
-import { Route as AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property-configuration'
 import { Route as AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport } from './routes/_appuser/business-ops/property/$propertyId/details'
 import { Route as AppuserPropertyPropertyIdBusiness_op_modulesHealthcareIndexRouteImport } from './routes/_appuser/property/$propertyId/business_op_modules/healthcare/index'
 import { Route as AppuserBusinessOpsPropertyPropertyIdProperty_settingsIndexRouteImport } from './routes/_appuser/business-ops/property/$propertyId/property_settings/index'
@@ -438,12 +437,6 @@ const AppuserAuthorizationPoliciesPolicyIDIndexRoute =
     path: '/policies/$policyID/',
     getParentRoute: () => AppuserAuthorizationRouteRoute,
   } as any)
-const AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute =
-  AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport.update({
-    id: '/business-ops/property/$propertyId/property-configuration',
-    path: '/business-ops/property/$propertyId/property-configuration',
-    getParentRoute: () => AppuserRouteRoute,
-  } as any)
 const AppuserBusinessOpsPropertyPropertyIdDetailsRoute =
   AppuserBusinessOpsPropertyPropertyIdDetailsRouteImport.update({
     id: '/business-ops/property/$propertyId/details',
@@ -650,7 +643,6 @@ export interface FileRoutesByFullPath {
   '/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/sharpnr-services/stockwave/': typeof AppuserSharpnrServicesStockwaveIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
-  '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/authorization/policies/$policyID/': typeof AppuserAuthorizationPoliciesPolicyIDIndexRoute
   '/authorization/roles/$roleID/': typeof AppuserAuthorizationRolesRoleIDIndexRoute
   '/authorization/user_groups/$groupID/': typeof AppuserAuthorizationUser_groupsGroupIDIndexRoute
@@ -720,7 +712,6 @@ export interface FileRoutesByTo {
   '/payments/$accountId': typeof AppuserPaymentsAccountIdIndexRoute
   '/sharpnr-services/stockwave': typeof AppuserSharpnrServicesStockwaveIndexRoute
   '/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
-  '/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/authorization/policies/$policyID': typeof AppuserAuthorizationPoliciesPolicyIDIndexRoute
   '/authorization/roles/$roleID': typeof AppuserAuthorizationRolesRoleIDIndexRoute
   '/authorization/user_groups/$groupID': typeof AppuserAuthorizationUser_groupsGroupIDIndexRoute
@@ -803,7 +794,6 @@ export interface FileRoutesById {
   '/_appuser/payments/$accountId/': typeof AppuserPaymentsAccountIdIndexRoute
   '/_appuser/sharpnr-services/stockwave/': typeof AppuserSharpnrServicesStockwaveIndexRoute
   '/_appuser/business-ops/property/$propertyId/details': typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
-  '/_appuser/business-ops/property/$propertyId/property-configuration': typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   '/_appuser/authorization/policies/$policyID/': typeof AppuserAuthorizationPoliciesPolicyIDIndexRoute
   '/_appuser/authorization/roles/$roleID/': typeof AppuserAuthorizationRolesRoleIDIndexRoute
   '/_appuser/authorization/user_groups/$groupID/': typeof AppuserAuthorizationUser_groupsGroupIDIndexRoute
@@ -887,7 +877,6 @@ export interface FileRouteTypes {
     | '/payments/$accountId/'
     | '/sharpnr-services/stockwave/'
     | '/business-ops/property/$propertyId/details'
-    | '/business-ops/property/$propertyId/property-configuration'
     | '/authorization/policies/$policyID/'
     | '/authorization/roles/$roleID/'
     | '/authorization/user_groups/$groupID/'
@@ -957,7 +946,6 @@ export interface FileRouteTypes {
     | '/payments/$accountId'
     | '/sharpnr-services/stockwave'
     | '/business-ops/property/$propertyId/details'
-    | '/business-ops/property/$propertyId/property-configuration'
     | '/authorization/policies/$policyID'
     | '/authorization/roles/$roleID'
     | '/authorization/user_groups/$groupID'
@@ -1039,7 +1027,6 @@ export interface FileRouteTypes {
     | '/_appuser/payments/$accountId/'
     | '/_appuser/sharpnr-services/stockwave/'
     | '/_appuser/business-ops/property/$propertyId/details'
-    | '/_appuser/business-ops/property/$propertyId/property-configuration'
     | '/_appuser/authorization/policies/$policyID/'
     | '/_appuser/authorization/roles/$roleID/'
     | '/_appuser/authorization/user_groups/$groupID/'
@@ -1504,13 +1491,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserAuthorizationPoliciesPolicyIDIndexRouteImport
       parentRoute: typeof AppuserAuthorizationRouteRoute
     }
-    '/_appuser/business-ops/property/$propertyId/property-configuration': {
-      id: '/_appuser/business-ops/property/$propertyId/property-configuration'
-      path: '/business-ops/property/$propertyId/property-configuration'
-      fullPath: '/business-ops/property/$propertyId/property-configuration'
-      preLoaderRoute: typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
     '/_appuser/business-ops/property/$propertyId/details': {
       id: '/_appuser/business-ops/property/$propertyId/details'
       path: '/business-ops/property/$propertyId/details'
@@ -1971,7 +1951,6 @@ interface AppuserRouteRouteChildren {
   AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute: typeof AppuserSuppliersChar38VendorsSuppliersIDDetailsRoute
   AppuserBusinessOpsPropertyIndexRoute: typeof AppuserBusinessOpsPropertyIndexRoute
   AppuserBusinessOpsPropertyPropertyIdDetailsRoute: typeof AppuserBusinessOpsPropertyPropertyIdDetailsRoute
-  AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute: typeof AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute: typeof AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren
   AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRoute: typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRouteWithChildren
   AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRoute: typeof AppuserPropertyPropertyIdBusiness_op_modulesHospitalityHotelRouteRouteWithChildren
@@ -2025,8 +2004,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserBusinessOpsPropertyIndexRoute: AppuserBusinessOpsPropertyIndexRoute,
   AppuserBusinessOpsPropertyPropertyIdDetailsRoute:
     AppuserBusinessOpsPropertyPropertyIdDetailsRoute,
-  AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute:
-    AppuserBusinessOpsPropertyPropertyIdPropertyConfigurationRoute,
   AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRoute:
     AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityRestaurant_dashboardRouteRouteWithChildren,
   AppuserPropertyPropertyIdBusiness_op_modulesHospitalityBarRouteRoute:

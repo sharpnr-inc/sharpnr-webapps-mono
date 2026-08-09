@@ -6,7 +6,8 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-import { Route } from "@/routes/_appuser/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { Route } from "@/routes/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
+import { useAllLegalEntities } from "@/app/legal_entity/api/queries";
 import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/queries";
 import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/mutations";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,20 +19,26 @@ import {
   SelectValue,
 } from "@sharpnr/ui";
 
+/** Backend sends the zero UUID when no legal entity is assigned yet. */
+const NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
 export function RestaurantLegalEntity() {
   const { restaurantID } = Route.useParams();
 
   const queryClient = useQueryClient();
 
+  const { data: legalEntitiesData, isLoading } = useAllLegalEntities();
+  const legalEntities = legalEntitiesData?.data ?? [];
+
   const { data: restaurantDetails } = useRestaurantGeneralInfo(restaurantID!);
 
   const { mutateAsync } = useUpdateRestaurantGeneralInfo();
 
-  const restaurantLegalEntityId =
+  const restaurantLegalEntityId: string | undefined =
     restaurantDetails?.data?.resturant_legal_entity_id;
 
   const restaurantHasLegalEntity =
-    restaurantLegalEntityId && restaurantLegalEntityId !== NIL_UUID;
+    !!restaurantLegalEntityId && restaurantLegalEntityId !== NIL_UUID;
 
   const currentEntity = legalEntities.find(
     (e) => e.id === restaurantLegalEntityId,
@@ -41,10 +48,10 @@ export function RestaurantLegalEntity() {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    if (restaurantHasLegalEntity) {
+    if (restaurantLegalEntityId && restaurantLegalEntityId !== NIL_UUID) {
       setSelectedId(restaurantLegalEntityId);
     }
-  }, [restaurantLegalEntityId, restaurantHasLegalEntity]);
+  }, [restaurantLegalEntityId]);
 
   const handleUpdateLegalEntity = async (id: string) => {
     setSelectedId(id);
@@ -69,6 +76,24 @@ export function RestaurantLegalEntity() {
   };
 
   /* ── Empty state ────────────────────────────────────────── */
+  if (!isLoading && legalEntities.length === 0) {
+    return (
+      <div className="rounded-2xl border border-dashed border-muted-foreground/25 bg-muted/20 p-8 flex flex-col items-center text-center gap-4">
+        <div className="rounded-full bg-muted p-4 ring-8 ring-muted/30">
+          <Building2 className="h-5 w-5 text-muted-foreground" />
+        </div>
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-foreground">
+            No legal entities yet
+          </p>
+          <p className="text-xs text-muted-foreground max-w-xs">
+            Add a legal entity for your organization before assigning one to
+            this restaurant.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   /* ── Main UI ────────────────────────────────────────────── */
   return (
@@ -102,27 +127,21 @@ export function RestaurantLegalEntity() {
 
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-foreground truncate">
-                  {currentEntity.name}
+                  {currentEntity.display_name}
                 </p>
 
-                {(currentEntity.city || currentEntity.state) && (
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {[currentEntity.city, currentEntity.state]
-                      .filter(Boolean)
-                      .join(", ")}
-                  </p>
-                )}
+                <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                  {currentEntity.legal_name}
+                </p>
 
                 <div className="flex items-center gap-1.5 mt-1">
-                  <span className="text-xs text-muted-foreground">GST:</span>
-                  {currentEntity.gst ? (
-                    <span className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-foreground">
-                      {currentEntity.gst}
-                    </span>
-                  ) : (
+                  <span className="text-xs font-mono bg-muted px-1.5 py-0.5 rounded text-foreground">
+                    {currentEntity.entity_type}
+                  </span>
+                  {!currentEntity.status && (
                     <span className="inline-flex items-center gap-1 text-xs text-amber-600">
                       <AlertCircle className="h-3 w-3" />
-                      Not available
+                      Inactive
                     </span>
                   )}
                 </div>
@@ -166,15 +185,13 @@ export function RestaurantLegalEntity() {
             </SelectTrigger>
 
             <SelectContent>
-              {legalEntities?.map((entity) => (
+              {legalEntities.map((entity) => (
                 <SelectItem key={entity.id} value={entity.id}>
                   <div className="flex flex-col py-0.5">
-                    <span className="font-medium">{entity.name}</span>
-                    {(entity.city || entity.state) && (
-                      <span className="text-xs text-muted-foreground">
-                        {[entity.city, entity.state].filter(Boolean).join(", ")}
-                      </span>
-                    )}
+                    <span className="font-medium">{entity.display_name}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {entity.legal_name}
+                    </span>
                   </div>
                 </SelectItem>
               ))}

@@ -28,6 +28,7 @@ export function useLegalEntityDetails(legalEntityID: string) {
   return useQuery({
     queryKey: ["LEGAL_ENTITY_DETAILS", legalEntityID],
     queryFn: () => legalEntityDetails({ legalEntityID }),
+    enabled: !!legalEntityID,
   });
 }
 
