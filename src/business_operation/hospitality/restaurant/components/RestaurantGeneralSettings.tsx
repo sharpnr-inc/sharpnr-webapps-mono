@@ -16,14 +16,14 @@ import {
   DialogFooter,
 } from "@sharpnr/ui";
 import { Route } from "@/routes/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/index";
-import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/queries";
+import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/api/queries";
 import { useAppForm } from "@/components/forms";
-import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/mutations";
+import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/api/mutations";
 import { useQueryClient } from "@tanstack/react-query";
-import type { RestaurantGeneralInfoInterface } from "@/business_operation/hospitality/restaurant/apis/restaurant.api";
+import type { RestaurantGeneralInfoInterface } from "@/business_operation/hospitality/restaurant/api/types";
 import { ProcessRestaurantConfigurationStatus } from "@/business_operation/hospitality/utils/CongifurationStatus";
 import api from "@/middlewares/axios";
-import { RestaurantEndpoints } from "@/business_operation/hospitality/restaurant/apis/enpoints";
+import { RestaurantEndpoints } from "@/business_operation/hospitality/restaurant/api/service";
 
 interface RestaurantFormProps {
   restaurant: RestaurantGeneralInfoInterface;

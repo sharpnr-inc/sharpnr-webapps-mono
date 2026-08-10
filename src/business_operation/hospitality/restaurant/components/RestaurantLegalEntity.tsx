@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { Route } from "@/routes/_appuser/business-ops/property/$propertyId/domain_hospitality/restaurant_dashboard/$restaurantID/index";
 import { useAllLegalEntities } from "@/app/legal_entity/api/queries";
-import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/queries";
-import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/apis/mutations";
+import { useRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/api/queries";
+import { useUpdateRestaurantGeneralInfo } from "@/business_operation/hospitality/restaurant/api/mutations";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Select,
