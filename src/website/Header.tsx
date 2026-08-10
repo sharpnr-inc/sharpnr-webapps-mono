@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Zap, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CablesMark } from "./BrandMark";
 
 const NAV = [
   { label: "Features", href: "#features" },
@@ -34,30 +35,26 @@ export function Header() {
         className={[
           "fixed top-0 inset-x-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/80 shadow-[0_1px_0_0_rgba(255,255,255,0.03)]"
+            ? "bg-ink/90 backdrop-blur-md border-b border-ink-line"
             : "bg-transparent border-b border-transparent",
         ].join(" ")}
       >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-6">
           {/* ── Logo ── */}
           <a
             href="/"
-            className="flex items-center gap-2.5 group"
-            aria-label="Sharpnr Cables home"
+            className="group flex items-center gap-3"
+            aria-label="Cables home"
           >
-            <div className="relative flex h-8 w-8 items-center justify-center rounded bg-white group-hover:bg-cyan-400 transition-colors duration-200">
-              <Zap size={16} className="text-zinc-950 fill-zinc-950" />
-              {/* pulse ring */}
-              <span className="absolute inset-0 rounded animate-ping bg-cyan-400/20 group-hover:bg-cyan-400/40" />
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-mono text-[10px] font-medium tracking-[0.2em] text-zinc-500 uppercase">
+            <CablesMark className="h-8 w-8 shrink-0 transition-transform duration-200 group-hover:scale-105" />
+            <span className="flex flex-col leading-none">
+              <span className="font-mono text-[9px] font-medium tracking-[0.24em] text-paper-muted uppercase">
                 Sharpnr
               </span>
-              <span className="font-mono text-base font-bold tracking-tight text-white">
-                Cables
+              <span className="font-mono text-base font-bold tracking-tight lowercase text-paper">
+                cables
               </span>
-            </div>
+            </span>
           </a>
 
           {/* ── Desktop nav ── */}
@@ -69,27 +66,27 @@ export function Header() {
               <a
                 key={label}
                 href={href}
-                className="relative font-mono text-sm text-zinc-400 hover:text-white px-3 py-1.5 rounded transition-colors duration-150 group"
+                className="group relative rounded px-3 py-1.5 font-mono text-sm text-paper-dim transition-colors duration-150 hover:text-paper"
               >
-                <span className="absolute inset-x-3 bottom-0 h-px bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-200" />
+                <span className="absolute inset-x-3 bottom-0 h-px origin-left scale-x-0 bg-patch transition-transform duration-200 group-hover:scale-x-100" />
                 {label}
               </a>
             ))}
           </nav>
 
           {/* ── Desktop CTAs ── */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden items-center gap-3 md:flex">
             <Button
               onClick={() => console.log()}
               variant="ghost"
               size="sm"
-              className="font-mono text-zinc-400 hover:text-white hover:bg-zinc-800 rounded"
+              className="font-mono text-paper-dim hover:bg-ink-raised hover:text-paper"
             >
               Log in
             </Button>
             <Button
               size="sm"
-              className="font-mono bg-white text-zinc-950 hover:bg-cyan-400 hover:text-zinc-950 rounded px-5 transition-colors duration-150 font-semibold"
+              className="bg-patch px-5 font-mono text-ink transition-colors duration-150 hover:bg-patch/85"
             >
               Get started
             </Button>
@@ -97,7 +94,7 @@ export function Header() {
 
           {/* ── Mobile hamburger ── */}
           <button
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded border border-ink-line text-paper-dim transition-colors hover:border-port hover:text-paper md:hidden"
             onClick={() => setMobileOpen((o) => !o)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
@@ -115,28 +112,28 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="fixed top-16 inset-x-0 z-40 bg-zinc-950 border-b border-zinc-800 md:hidden"
+            className="fixed inset-x-0 top-16 z-40 border-b border-ink-line bg-ink md:hidden"
           >
-            <nav className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-1">
+            <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-6">
               {NAV.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}
                   onClick={() => setMobileOpen(false)}
-                  className="font-mono text-sm text-zinc-400 hover:text-white hover:bg-zinc-900 px-3 py-2.5 rounded transition-colors"
+                  className="rounded px-3 py-2.5 font-mono text-sm text-paper-dim transition-colors hover:bg-ink-raised hover:text-paper"
                 >
-                  <span className="text-cyan-500 mr-2 select-none">›</span>
+                  <span className="mr-2 text-patch select-none">›</span>
                   {label}
                 </a>
               ))}
-              <div className="mt-4 pt-4 border-t border-zinc-800 flex flex-col gap-2">
+              <div className="mt-4 flex flex-col gap-2 border-t border-ink-line pt-4">
                 <Button
                   variant="ghost"
-                  className="font-mono justify-start text-zinc-400 hover:text-white hover:bg-zinc-900 rounded"
+                  className="justify-start font-mono text-paper-dim hover:bg-ink-raised hover:text-paper"
                 >
                   Log in
                 </Button>
-                <Button className="font-mono bg-white text-zinc-950 hover:bg-cyan-400 rounded font-semibold">
+                <Button className="bg-patch font-mono text-ink hover:bg-patch/85">
                   Get started
                 </Button>
               </div>

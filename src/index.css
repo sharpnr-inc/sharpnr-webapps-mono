@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "@fontsource-variable/outfit";
+@import "@fontsource-variable/jetbrains-mono";
 @source "../node_modules/@sharpnr/ui/dist/index.es.js";
 
 /* In your main CSS file (e.g., globals.css) */
@@ -64,6 +65,28 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ── Cables brand palette ──────────────────────────────────────────────
+   Source: public/README.txt. The cable is always --color-patch (#D9762F)
+   and is never recoloured. Ink / paper are the two grounds; every other
+   token is a tint pulled from the logo + marketing artwork.            */
+@theme {
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --color-ink: #0b0a09;
+  --color-ink-raised: #141311;
+  --color-ink-sunken: #080706;
+  --color-ink-line: #241f1b;
+  --color-port: #3f3a34;
+
+  --color-paper: #ede8e1;
+  --color-paper-dim: #c3bcb1;
+  --color-paper-muted: #7e766c;
+
+  --color-patch: #d9762f;
+  --color-signal: #2b6a5c;
+  --color-signal-bright: #429b87;
 }
 
 :root {

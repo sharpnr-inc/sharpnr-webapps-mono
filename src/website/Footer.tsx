@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import { CablesLockup } from "./BrandMark";
 
 const FOOTER_COLS = [
   {
@@ -74,28 +74,15 @@ const SOCIALS = [
 
 export function Footer() {
   return (
-    <footer className="bg-zinc-950 border-t border-zinc-800/60 font-mono">
+    <footer className="border-t border-ink-line bg-ink font-mono">
       {/* ── Main grid ── */}
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-12">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-10">
+      <div className="mx-auto max-w-7xl px-6 pt-16 pb-12">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           {/* Brand column */}
           <div className="col-span-2">
-            {/* Logo */}
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-white">
-                <Zap size={16} className="text-zinc-950 fill-zinc-950" />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="text-[10px] font-medium tracking-[0.2em] text-zinc-500 uppercase">
-                  Sharpnr
-                </span>
-                <span className="text-base font-bold tracking-tight text-white">
-                  Cables
-                </span>
-              </div>
-            </div>
+            <CablesLockup className="mb-5" />
 
-            <p className="text-xs text-zinc-500 leading-relaxed max-w-[200px]">
+            <p className="max-w-[200px] text-xs leading-relaxed text-paper-dim">
               High-bandwidth chat infrastructure for modern engineering teams
               and communities.
             </p>
@@ -103,9 +90,9 @@ export function Footer() {
             {/* Status pill */}
             <a
               href="#"
-              className="mt-5 inline-flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 border border-zinc-800 hover:border-zinc-600 rounded-full px-3 py-1.5 transition-colors"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-ink-line px-3 py-1.5 text-xs text-paper-muted transition-colors hover:border-port hover:text-paper-dim"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal-bright" />
               All systems nominal
             </a>
 
@@ -116,7 +103,7 @@ export function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="w-8 h-8 flex items-center justify-center rounded border border-zinc-800 text-zinc-500 hover:text-white hover:border-zinc-600 hover:bg-zinc-900 transition-all"
+                  className="flex h-8 w-8 items-center justify-center rounded border border-ink-line text-paper-muted transition-all hover:border-patch/40 hover:bg-ink-raised hover:text-patch"
                 >
                   {icon}
                 </a>
@@ -127,7 +114,7 @@ export function Footer() {
           {/* Link columns */}
           {FOOTER_COLS.map((col) => (
             <div key={col.heading} className="col-span-1">
-              <p className="text-[10px] font-semibold tracking-[0.18em] text-zinc-500 uppercase mb-4">
+              <p className="mb-4 text-[10px] font-semibold tracking-[0.18em] text-port uppercase">
                 {col.heading}
               </p>
               <ul className="space-y-2.5">
@@ -135,7 +122,7 @@ export function Footer() {
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-xs text-zinc-500 hover:text-zinc-200 transition-colors"
+                      className="text-xs text-paper-dim transition-colors hover:text-patch"
                     >
                       {link}
                     </a>
@@ -148,27 +135,27 @@ export function Footer() {
       </div>
 
       {/* ── Bottom bar ── */}
-      <div className="border-t border-zinc-800/60">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="border-t border-ink-line">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 sm:flex-row">
           {/* Left: copyright */}
-          <p className="text-[11px] text-zinc-600 tracking-widest uppercase order-2 sm:order-1">
+          <p className="order-2 text-[11px] tracking-widest text-port uppercase sm:order-1">
             © {new Date().getFullYear()} Sharpnr Orchestration Engine
           </p>
 
           {/* Center: version tag */}
           <div className="order-1 sm:order-2">
-            <span className="text-[10px] border border-zinc-800 text-zinc-600 px-2 py-0.5 rounded-sm tracking-widest uppercase">
+            <span className="rounded-sm border border-ink-line px-2 py-0.5 text-[10px] tracking-widest text-port uppercase">
               v1.0.0-alpha
             </span>
           </div>
 
           {/* Right: legal links */}
-          <div className="flex items-center gap-5 order-3">
+          <div className="order-3 flex items-center gap-5">
             {["Privacy", "Terms", "Security"].map((l) => (
               <a
                 key={l}
                 href="#"
-                className="text-[11px] text-zinc-600 hover:text-zinc-300 transition-colors tracking-wide"
+                className="text-[11px] tracking-wide text-port transition-colors hover:text-paper-dim"
               >
                 {l}
               </a>

@@ -6,7 +6,7 @@ import {
   Shield,
   Layers,
   Command,
-  ChevronRight,
+  ArrowRight,
   Terminal,
   Globe,
   Users,
@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { CablesMark } from "./BrandMark";
 
 // ─── Animation variants ────────────────────────────────────────────────────
 
@@ -99,57 +100,66 @@ const STEPS = [
   },
 ];
 
+const CHANNELS = [
+  { name: "general", active: false },
+  { name: "backend", active: true },
+  { name: "frontend", active: false },
+  { name: "deploys", active: false },
+  { name: "incidents", active: false },
+  { name: "standup", active: false },
+];
+
+const MESSAGES = [
+  {
+    avatar: "MR",
+    name: "Marcus R.",
+    time: "9:41",
+    msg: "PR #247 is ready for review — refactored the auth middleware",
+    tone: "bg-port text-paper",
+  },
+  {
+    avatar: "AP",
+    name: "Aisha P.",
+    time: "9:43",
+    msg: "On it. Also — the latency regression in staging is fixed",
+    tone: "bg-signal text-paper",
+  },
+  {
+    avatar: "KA",
+    name: "Kashif A.",
+    time: "9:45",
+    msg: "Nice. Deploying to prod after standup ✓",
+    tone: "bg-patch text-ink",
+  },
+];
+
 // ─── Main component ────────────────────────────────────────────────────────
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-mono selection:bg-cyan-400/30 selection:text-cyan-100">
-      {/* ─── Custom global styles ─── */}
+    <div className="min-h-screen bg-ink font-mono text-paper selection:bg-patch/30 selection:text-paper">
+      {/* ─── Brand-scoped styles ─── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .font-display { font-family: 'IBM Plex Sans', sans-serif; }
-        .font-mono    { font-family: 'IBM Plex Mono', monospace; }
-
-        @keyframes scan {
-          0%   { transform: translateY(-100%); }
-          100% { transform: translateY(100vh); }
+        /* Patch bay: a field of unused ports behind the hero. */
+        .port-field {
+          background-image: radial-gradient(circle at center, rgba(63,58,52,0.55) 1.5px, transparent 1.6px);
+          background-size: 28px 28px;
         }
-        @keyframes blink {
-          0%, 100% { opacity: 1; } 50% { opacity: 0; }
-        }
-        .scanline {
-          position: absolute;
-          inset-x-0;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, rgba(6,182,212,0.08), transparent);
-          animation: scan 6s linear infinite;
-          pointer-events: none;
-        }
+        /* Thin patch-orange caret, scaled off the headline's font size */
         .cursor-blink::after {
-          content: '▋';
-          animation: blink 1s step-end infinite;
-          color: rgb(6,182,212);
-        }
-        .grid-overlay {
-          background-image:
-            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-          background-size: 40px 40px;
-        }
-        .hex-border {
-          position: relative;
-        }
-        .hex-border::before {
           content: '';
-          position: absolute;
-          inset: -1px;
-          background: linear-gradient(135deg, rgba(6,182,212,0.4), transparent 40%, transparent 60%, rgba(6,182,212,0.15));
-          border-radius: inherit;
-          z-index: 0;
+          display: inline-block;
+          width: 0.075em;
+          height: 0.74em;
+          margin-left: 0.14em;
+          vertical-align: -0.04em;
+          background: #D9762F;
+          animation: blink 1.1s step-end infinite;
         }
-        .cable-line {
-          background: linear-gradient(90deg, transparent, rgba(6,182,212,0.6), transparent);
+        .cable-rule {
+          background: linear-gradient(90deg, transparent, rgba(217,118,47,0.55), transparent);
         }
       `}</style>
 
@@ -159,206 +169,172 @@ export function LandingPage() {
         {/* ═══════════════════════════════════════════════════
             HERO
         ═══════════════════════════════════════════════════ */}
-        <section className="relative overflow-hidden grid-overlay">
-          {/* Scanline effect */}
-          <div className="scanline" />
+        <section className="port-field relative overflow-hidden">
+          {/* Warm patch-orange bloom, kept low so the ink ground stays dominant */}
+          <div className="pointer-events-none absolute -top-40 left-1/2 h-[32rem] w-[48rem] -translate-x-1/2 rounded-full bg-patch/8 blur-[120px]" />
+          <div className="pointer-events-none absolute top-52 left-1/4 h-72 w-72 rounded-full bg-signal/10 blur-[100px]" />
+          {/* Fade the port field out toward the fold */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink" />
 
-          {/* Glow spot */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-125 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-40 left-1/4 w-75 h-75 bg-cyan-400/4 rounded-full blur-2xl pointer-events-none" />
-
-          <div className="max-w-7xl mx-auto px-6 py-28 md:py-36">
+          <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-36">
             <motion.div
               initial="initial"
               animate="animate"
               variants={stagger}
-              className="flex flex-col items-center text-center gap-7"
+              className="flex flex-col items-center gap-7 text-center"
             >
               {/* Badge */}
               <motion.div variants={fadeUp}>
-                <span className="inline-flex items-center gap-2 text-xs font-mono border border-zinc-700 bg-zinc-900/80 text-zinc-400 px-3 py-1.5 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                  v1.0.0-alpha · Now in open beta
-                  <ChevronRight size={12} className="text-zinc-600" />
+                <span className="inline-flex items-center gap-2.5 rounded-full border border-ink-line bg-ink-raised/90 px-3.5 py-1.5 text-[11px] tracking-[0.18em] text-paper-muted uppercase">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signal-bright" />
+                  cables.chat
+                  <span className="text-port">/</span>
+                  now in open beta
                 </span>
               </motion.div>
 
-              {/* Headline */}
+              {/* Animated mark */}
+              <motion.div variants={fadeUp}>
+                <CablesMark animated className="h-16 w-16 md:h-20 md:w-20" />
+              </motion.div>
+
+              {/* Headline — the brand line from the launch card */}
               <motion.div variants={fadeUp} className="max-w-4xl">
-                <h1 className="font-display text-5xl md:text-7xl lg:text-[82px] font-bold leading-[0.95] tracking-tight text-white">
-                  The{" "}
-                  <span className="text-zinc-500 italic">Orchestration</span>
-                  <br />
-                  of Human{" "}
-                  <span className="relative inline-block">
-                    <span className="text-cyan-400 cursor-blink">
-                      Connection
-                    </span>
-                  </span>
+                <h1 className="text-4xl leading-[1.02] font-bold tracking-tight text-paper md:text-6xl lg:text-[76px]">
+                  Channels that talk{" "}
+                  {/* Break only where there's room for the full line */}
+                  <br className="hidden md:inline" />
+                  to <span className="text-patch">each other</span>
+                  <span className="cursor-blink" />
                 </h1>
               </motion.div>
 
               {/* Subtext */}
               <motion.p
                 variants={fadeUp}
-                className="font-display max-w-xl text-base md:text-lg text-zinc-400 leading-relaxed font-light"
+                className="max-w-xl text-sm leading-relaxed text-paper-dim md:text-base"
               >
                 A high-bandwidth chat platform bridging structured enterprise
-                workspace and fluid community interaction. Built for speed,
-                logic, and scale.
+                workspace and fluid community interaction. Patch your people in
+                — built for speed, logic, and scale.
               </motion.p>
 
               {/* CTAs */}
               <motion.div
                 variants={fadeUp}
-                className="flex flex-col sm:flex-row gap-3"
+                className="flex flex-col gap-3 sm:flex-row"
               >
                 <Button
                   size="lg"
-                  className="h-12 px-8 font-mono text-sm bg-white text-zinc-950 hover:bg-cyan-400 hover:text-zinc-950 rounded font-semibold transition-colors duration-150 shadow-[0_0_32px_-8px_rgba(6,182,212,0.5)]"
+                  className="h-12 bg-patch px-8 text-ink shadow-[0_0_40px_-10px_rgba(217,118,47,0.7)] transition-colors duration-150 hover:bg-patch/85"
                 >
                   Download for Desktop
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 px-8 font-mono text-sm border-zinc-700 text-zinc-300 hover:bg-zinc-900 hover:text-white hover:border-zinc-500 rounded transition-all"
+                  className="h-12 border-ink-line px-8 text-paper-dim transition-colors hover:border-port hover:bg-ink-raised hover:text-paper"
                 >
                   Open in Browser
                 </Button>
               </motion.div>
 
-              {/* Terminal mockup */}
-              <motion.div variants={fadeUp} className="w-full max-w-5xl mt-10">
-                <div className="rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 shadow-[0_32px_80px_-16px_rgba(0,0,0,0.8)]">
-                  {/* Window chrome */}
-                  <div className="flex items-center gap-2 px-4 h-10 bg-zinc-900 border-b border-zinc-800">
+              {/* App preview */}
+              <motion.div variants={fadeUp} className="mt-10 w-full max-w-5xl">
+                <div className="overflow-hidden rounded-lg border border-ink-line bg-ink-raised shadow-[0_32px_80px_-16px_rgba(0,0,0,0.9)]">
+                  {/* Window chrome — ports, not traffic lights */}
+                  <div className="flex h-10 items-center gap-2 border-b border-ink-line px-4">
                     <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-zinc-700 hover:bg-red-500 transition-colors cursor-pointer" />
-                      <div className="w-3 h-3 rounded-full bg-zinc-700 hover:bg-yellow-500 transition-colors cursor-pointer" />
-                      <div className="w-3 h-3 rounded-full bg-zinc-700 hover:bg-green-500 transition-colors cursor-pointer" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-port" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-port" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-patch/70" />
                     </div>
-                    <span className="mx-auto text-[10px] font-mono text-zinc-600 tracking-widest uppercase">
-                      cables://workspace/engineering
+                    <span className="mx-auto text-[10px] tracking-[0.18em] text-paper-muted uppercase">
+                      cables.chat/engineering
                     </span>
                   </div>
 
-                  {/* App layout */}
-                  <div className="flex h-80 bg-zinc-950">
-                    {/* Server icons sidebar */}
-                    <div className="w-14 border-r border-zinc-900 flex flex-col items-center py-4 gap-3 bg-[#0d0d10]">
-                      <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center">
-                        <Zap
-                          size={14}
-                          className="text-zinc-950 fill-zinc-950"
-                        />
-                      </div>
-                      <div className="w-px h-4 bg-zinc-800" />
+                  <div className="flex h-80 bg-ink">
+                    {/* Org rail */}
+                    <div className="flex w-14 flex-col items-center gap-3 border-r border-ink-line bg-ink-sunken py-4">
+                      <CablesMark className="h-9 w-9" />
+                      <div className="h-4 w-px bg-ink-line" />
                       {["E", "D", "M"].map((l, i) => (
                         <div
                           key={l}
-                          className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-mono font-bold transition-all ${
+                          className={`flex h-9 w-9 items-center justify-center text-xs font-bold ${
                             i === 0
-                              ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 rounded-lg"
-                              : "bg-zinc-900 text-zinc-600"
+                              ? "rounded-lg border border-patch/40 bg-patch/15 text-patch"
+                              : "rounded-full bg-ink-raised text-paper-muted"
                           }`}
                         >
                           {l}
                         </div>
                       ))}
-                      <div className="mt-auto w-9 h-9 rounded-full bg-zinc-800 text-zinc-400 text-xs font-mono flex items-center justify-center">
+                      <div className="mt-auto flex h-9 w-9 items-center justify-center rounded-full bg-signal text-[10px] font-bold text-paper">
                         KA
                       </div>
                     </div>
 
                     {/* Channel sidebar */}
-                    <div className="w-44 border-r border-zinc-900 flex flex-col bg-[#101015]">
-                      <div className="px-3 py-3 border-b border-zinc-900">
-                        <p className="text-xs font-mono font-semibold text-zinc-300 tracking-wide">
+                    <div className="flex w-44 flex-col border-r border-ink-line bg-ink-raised/60">
+                      <div className="border-b border-ink-line px-3 py-3">
+                        <p className="text-xs font-semibold tracking-wide text-paper">
                           ENGINEERING
                         </p>
-                        <p className="text-[10px] text-zinc-600 mt-0.5">
+                        <p className="mt-1 flex items-center gap-1.5 text-[10px] text-paper-muted">
+                          <span className="h-1 w-1 rounded-full bg-signal-bright" />
                           12 members online
                         </p>
                       </div>
-                      <div className="flex-1 p-2 space-y-0.5">
-                        {[
-                          { name: "# general", active: false },
-                          { name: "# backend", active: true },
-                          { name: "# frontend", active: false },
-                          { name: "# deploys", active: false },
-                          { name: "# incidents", active: false },
-                          { name: "## standup", active: false },
-                        ].map(({ name, active }) => (
+                      <div className="flex-1 space-y-0.5 p-2">
+                        {CHANNELS.map(({ name, active }) => (
                           <div
                             key={name}
-                            className={`px-2 py-1 rounded text-[11px] font-mono cursor-pointer ${
+                            className={`relative cursor-pointer rounded px-2 py-1 text-[11px] ${
                               active
-                                ? "bg-zinc-800 text-white"
-                                : "text-zinc-600 hover:text-zinc-400 hover:bg-zinc-900"
+                                ? "bg-ink text-paper"
+                                : "text-paper-muted hover:bg-ink/60 hover:text-paper-dim"
                             }`}
                           >
-                            {name}
+                            {active && (
+                              <span className="absolute inset-y-1 left-0 w-0.5 rounded-full bg-patch" />
+                            )}
+                            <span className="text-port">#</span> {name}
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Main chat area */}
-                    <div className="flex-1 flex flex-col">
-                      {/* Channel header */}
-                      <div className="h-10 px-4 flex items-center gap-2 border-b border-zinc-900">
-                        <Hash size={13} className="text-zinc-600" />
-                        <span className="text-xs font-mono text-zinc-400">
-                          backend
-                        </span>
-                        <span className="ml-auto text-[10px] font-mono text-zinc-700">
-                          ↑K command
+                    {/* Chat area */}
+                    <div className="flex flex-1 flex-col">
+                      <div className="flex h-10 items-center gap-2 border-b border-ink-line px-4">
+                        <Hash size={13} className="text-port" />
+                        <span className="text-xs text-paper-dim">backend</span>
+                        <span className="ml-auto text-[10px] text-paper-muted">
+                          ⌘K command
                         </span>
                       </div>
 
-                      {/* Messages */}
-                      <div className="flex-1 p-4 space-y-4 overflow-hidden">
-                        {[
-                          {
-                            avatar: "MR",
-                            name: "Marcus R.",
-                            time: "9:41 AM",
-                            msg: "PR #247 is ready for review — refactored the auth middleware",
-                            color: "bg-blue-500",
-                          },
-                          {
-                            avatar: "AP",
-                            name: "Aisha P.",
-                            time: "9:43 AM",
-                            msg: "On it. Also — the latency regression in staging is fixed",
-                            color: "bg-violet-500",
-                          },
-                          {
-                            avatar: "KA",
-                            name: "Kashif A.",
-                            time: "9:45 AM",
-                            msg: "Nice. Deploying to prod after standup ✓",
-                            color: "bg-cyan-500",
-                          },
-                        ].map(({ avatar, name, time, msg, color }) => (
+                      <div className="flex-1 space-y-4 overflow-hidden p-4">
+                        {MESSAGES.map(({ avatar, name, time, msg, tone }) => (
                           <div key={name} className="flex items-start gap-3">
                             <div
-                              className={`w-7 h-7 rounded-full ${color} flex items-center justify-center text-[10px] font-mono font-bold text-white shrink-0`}
+                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold ${tone}`}
                             >
                               {avatar}
                             </div>
-                            <div>
-                              <div className="flex items-baseline gap-2 mb-0.5">
-                                <span className="text-[11px] font-mono font-semibold text-zinc-300">
+                            <div className="text-left">
+                              <div className="mb-0.5 flex items-baseline gap-2">
+                                <span className="text-[11px] font-semibold text-paper-dim">
                                   {name}
                                 </span>
-                                <span className="text-[10px] font-mono text-zinc-700">
+                                <span className="text-[10px] text-port">
                                   {time}
                                 </span>
                               </div>
-                              <p className="text-[11px] font-mono text-zinc-500 leading-relaxed">
+                              <p className="text-[11px] leading-relaxed text-paper-muted">
                                 {msg}
                               </p>
                             </div>
@@ -366,13 +342,12 @@ export function LandingPage() {
                         ))}
                       </div>
 
-                      {/* Input bar */}
                       <div className="px-4 pb-4">
-                        <div className="h-9 rounded border border-zinc-800 bg-zinc-900/50 flex items-center px-3 gap-2">
-                          <span className="text-[11px] font-mono text-zinc-700">
+                        <div className="flex h-9 items-center gap-2 rounded border border-ink-line bg-ink-raised/60 px-3">
+                          <span className="text-[11px] text-paper-muted">
                             Message #backend
                           </span>
-                          <span className="ml-auto text-[10px] font-mono text-zinc-800">
+                          <span className="ml-auto text-[10px] text-port">
                             ↑ to edit
                           </span>
                         </div>
@@ -390,27 +365,23 @@ export function LandingPage() {
         ═══════════════════════════════════════════════════ */}
         <section
           id="infrastructure"
-          className="border-y border-zinc-800/60 bg-zinc-900/30"
+          className="border-y border-ink-line bg-ink-raised/40"
         >
-          <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+          <div className="mx-auto max-w-7xl px-6 py-12">
+            <div className="grid grid-cols-2 md:grid-cols-4">
               {INFRA_POINTS.map(({ icon: Icon, label, sub }, i) => (
                 <div
                   key={label}
-                  className={`flex items-center gap-4 px-8 py-6 ${
-                    i < INFRA_POINTS.length - 1
-                      ? "border-r border-zinc-800/60"
-                      : ""
+                  className={`flex items-center gap-4 px-4 py-6 md:px-8 ${
+                    i < INFRA_POINTS.length - 1 ? "md:border-r md:border-ink-line" : ""
                   }`}
                 >
-                  <div className="w-9 h-9 rounded border border-zinc-800 bg-zinc-900 flex items-center justify-center shrink-0">
-                    <Icon size={15} className="text-cyan-400" />
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-ink-line bg-ink">
+                    <Icon size={15} className="text-patch" />
                   </div>
                   <div>
-                    <p className="font-mono text-sm font-semibold text-white">
-                      {label}
-                    </p>
-                    <p className="font-mono text-[11px] text-zinc-600">{sub}</p>
+                    <p className="text-sm font-semibold text-paper">{label}</p>
+                    <p className="text-[11px] text-paper-muted">{sub}</p>
                   </div>
                 </div>
               ))}
@@ -422,54 +393,52 @@ export function LandingPage() {
             FEATURES
         ═══════════════════════════════════════════════════ */}
         <section id="features" className="py-28">
-          <div className="max-w-7xl mx-auto px-6">
-            {/* Section header */}
+          <div className="mx-auto max-w-7xl px-6">
             <div className="mb-16 max-w-xl">
-              <p className="font-mono text-xs text-cyan-500 tracking-[0.2em] uppercase mb-3">
+              <p className="mb-3 text-xs tracking-[0.2em] text-patch uppercase">
                 ── Core modules
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight">
+              <h2 className="text-3xl leading-tight font-bold tracking-tight text-paper md:text-4xl">
                 Engineered for Momentum
               </h2>
-              <p className="mt-3 font-mono text-sm text-zinc-500 leading-relaxed">
+              <p className="mt-3 text-sm leading-relaxed text-paper-dim">
                 Everything you need from Slack, with the velocity of Discord.
                 None of the compromise.
               </p>
             </div>
 
-            {/* Feature grid */}
             <motion.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true, margin: "-80px" }}
               variants={stagger}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800/40"
+              className="grid grid-cols-1 gap-px bg-ink-line md:grid-cols-2 lg:grid-cols-3"
             >
               {FEATURES.map(({ icon: Icon, title, desc, tag }) => (
                 <motion.div
                   key={title}
                   variants={cardVariant}
-                  className="bg-zinc-950 p-7 group hover:bg-zinc-900/60 transition-colors duration-200 relative overflow-hidden"
+                  className="group relative overflow-hidden bg-ink p-7 transition-colors duration-200 hover:bg-ink-raised"
                 >
-                  {/* top accent line on hover */}
-                  <div className="absolute top-0 inset-x-0 h-px bg-cyan-400/0 group-hover:bg-cyan-400/50 transition-all duration-300" />
+                  {/* Patch cable lights up along the top edge on hover */}
+                  <div className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-patch transition-transform duration-300 group-hover:scale-x-100" />
 
-                  <div className="flex items-start justify-between mb-5">
-                    <div className="w-10 h-10 rounded border border-zinc-800 group-hover:border-cyan-500/40 bg-zinc-900 flex items-center justify-center transition-colors">
+                  <div className="mb-5 flex items-start justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center rounded border border-ink-line bg-ink-sunken transition-colors group-hover:border-patch/40">
                       <Icon
                         size={16}
-                        className="text-zinc-400 group-hover:text-cyan-400 transition-colors"
+                        className="text-paper-muted transition-colors group-hover:text-patch"
                       />
                     </div>
-                    <span className="font-mono text-[10px] text-zinc-700 border border-zinc-800 px-2 py-0.5 rounded-sm tracking-widest uppercase">
+                    <span className="rounded-sm border border-ink-line px-2 py-0.5 text-[10px] tracking-widest text-port uppercase">
                       {tag}
                     </span>
                   </div>
 
-                  <h3 className="font-display font-semibold text-base text-white mb-2">
+                  <h3 className="mb-2 text-base font-semibold tracking-tight text-paper">
                     {title}
                   </h3>
-                  <p className="font-mono text-xs text-zinc-500 leading-relaxed">
+                  <p className="text-xs leading-relaxed text-paper-dim">
                     {desc}
                   </p>
                 </motion.div>
@@ -479,37 +448,54 @@ export function LandingPage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════
-            HOW IT WORKS
+            HOW IT WORKS — the patch bay
         ═══════════════════════════════════════════════════ */}
-        <section className="py-24 border-t border-zinc-800/60 bg-zinc-900/20">
-          <div className="max-w-7xl mx-auto px-6">
+        <section className="border-t border-ink-line bg-ink-raised/30 py-24">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="mb-14 text-center">
-              <p className="font-mono text-xs text-cyan-500 tracking-[0.2em] uppercase mb-3">
+              <p className="mb-3 text-xs tracking-[0.2em] text-patch uppercase">
                 ── Protocol
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-3xl font-bold tracking-tight text-paper md:text-4xl">
                 Plug in. Go live.
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative">
-              {/* Connecting cable line */}
-              <div className="absolute top-8 left-1/6 right-1/6 h-px cable-line hidden md:block" />
+            <div className="relative grid grid-cols-1 md:grid-cols-3">
+              {/* The cable that patches the three steps together */}
+              <svg
+                className="pointer-events-none absolute inset-x-0 top-2 hidden h-28 w-full md:block"
+                viewBox="0 0 1200 120"
+                preserveAspectRatio="none"
+                aria-hidden
+              >
+                <motion.path
+                  d="M200 60 C 320 6, 480 114, 600 60 C 720 6, 880 114, 1000 60"
+                  stroke="#D9762F"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  fill="none"
+                  vectorEffect="non-scaling-stroke"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  whileInView={{ pathLength: 1, opacity: 0.5 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </svg>
 
               {STEPS.map(({ num, title, desc }) => (
                 <div
                   key={num}
-                  className="flex flex-col items-center text-center px-8 py-6 relative"
+                  className="relative flex flex-col items-center px-8 py-6 text-center"
                 >
-                  <div className="w-16 h-16 rounded border border-zinc-800 bg-zinc-950 flex items-center justify-center mb-5 relative z-10">
-                    <span className="font-mono text-xl font-bold text-cyan-400">
-                      {num}
-                    </span>
+                  {/* Port */}
+                  <div className="relative z-10 mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-ink-line bg-ink">
+                    <span className="text-lg font-bold text-patch">{num}</span>
                   </div>
-                  <h3 className="font-display text-base font-semibold text-white mb-2">
+                  <h3 className="mb-2 text-base font-semibold tracking-tight text-paper">
                     {title}
                   </h3>
-                  <p className="font-mono text-xs text-zinc-500 leading-relaxed">
+                  <p className="text-xs leading-relaxed text-paper-dim">
                     {desc}
                   </p>
                 </div>
@@ -519,55 +505,57 @@ export function LandingPage() {
         </section>
 
         {/* ═══════════════════════════════════════════════════
-            CTA BANNER
+            CTA — paper ground, mirroring the launch card
         ═══════════════════════════════════════════════════ */}
-        <section className="py-24 border-t border-zinc-800/60">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="relative rounded-lg border border-zinc-700/60 bg-zinc-900 overflow-hidden p-12 md:p-16 text-center">
-              {/* Corner decorations */}
-              <div className="absolute top-0 left-0 w-16 h-16 border-r border-b border-cyan-500/20" />
-              <div className="absolute top-0 right-0 w-16 h-16 border-l border-b border-cyan-500/20" />
-              <div className="absolute bottom-0 left-0 w-16 h-16 border-r border-t border-cyan-500/20" />
-              <div className="absolute bottom-0 right-0 w-16 h-16 border-l border-t border-cyan-500/20" />
-
-              {/* Background glow */}
-              <div className="absolute inset-0 bg-cyan-400/3 pointer-events-none" />
+        <section className="border-t border-ink-line py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="relative overflow-hidden rounded-lg bg-paper p-12 text-center md:p-16">
+              {/* Corner ports */}
+              <span className="absolute top-6 left-6 h-3 w-3 rounded-full bg-paper-dim" />
+              <span className="absolute top-6 right-6 h-3 w-3 rounded-full bg-ink" />
+              <span className="absolute bottom-6 left-6 h-3 w-3 rounded-full bg-ink" />
+              <span className="absolute right-6 bottom-6 h-3 w-3 rounded-full bg-paper-dim" />
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
+                className="relative"
               >
-                <p className="font-mono text-xs text-cyan-500 tracking-[0.2em] uppercase mb-4">
-                  ── Initialize
+                <CablesMark
+                  ground="paper"
+                  className="mx-auto mb-6 h-12 w-12"
+                />
+                <p className="mb-4 text-xs tracking-[0.2em] text-patch uppercase">
+                  ── Patch your people in
                 </p>
-                <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+                <h2 className="mb-4 text-3xl font-bold tracking-tight text-ink md:text-5xl">
                   Ready to plug in?
                 </h2>
-                <p className="font-mono text-sm text-zinc-400 max-w-md mx-auto mb-10 leading-relaxed">
+                <p className="mx-auto mb-10 max-w-md text-sm leading-relaxed text-ink/70">
                   Join the alpha. Help us build the future of technical
                   communication. First 1,000 workspaces are free forever.
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <Button
                     size="lg"
-                    className="h-12 px-10 font-mono text-sm bg-white text-zinc-950 hover:bg-cyan-400 hover:text-zinc-950 rounded font-bold transition-colors duration-150 shadow-[0_0_48px_-8px_rgba(6,182,212,0.6)]"
+                    className="h-12 bg-ink px-10 text-paper transition-colors duration-150 hover:bg-patch hover:text-ink"
                   >
                     Create Workspace
-                    <ChevronRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="h-12 px-10 font-mono text-sm border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white rounded transition-all"
+                    className="h-12 border-ink/25 px-10 text-ink transition-colors hover:border-ink hover:bg-ink/5 hover:text-ink"
                   >
                     Read the Docs
                   </Button>
                 </div>
 
-                <p className="mt-6 font-mono text-[11px] text-zinc-700">
+                <p className="mt-6 text-[11px] text-ink/60">
                   No credit card · Self-host option available · Open protocol
                 </p>
               </motion.div>

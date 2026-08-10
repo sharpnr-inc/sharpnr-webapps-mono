@@ -1,4 +1,4 @@
-import type { UserDataResponseDto } from "@/apis/types";
+import type { UserDataResponseDto } from "@/api/types";
 import { create } from "zustand";
 
 /* -------------------------------------------------------------------------- */
