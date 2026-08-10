@@ -2,84 +2,172 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="https://cdn.sharpnr.com/shicon.svg"
-    />
-
-    <!-- Viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Brand identity assets (see /public/README.txt) -->
+    <link rel="icon" type="image/svg+xml" href="/mark-color-dark-bg.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/mark-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/mark-16.png" />
+    <link rel="apple-touch-icon" href="/icons/app-icon-180.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/mark-black.svg" color="#2B3AE8" />
 
     <!-- SEO -->
     <title>
-      Silo - Enterprise Cloud Storage for Files, Databases, and Backups
+      Silo Engine — Self-hosted storage, PostgreSQL, and data infrastructure
     </title>
-
     <meta
       name="description"
-      content="Silo is an enterprise-grade cloud storage platform for businesses. Store files, documents, backups, and relational databases securely with scalable infrastructure and powerful management tools."
+      content="Silo Engine is Sharpnr's self-hosted infrastructure platform: object storage with CDN delivery, PostgreSQL provisioning, a controlled database explorer, and data lake and warehouse services — built in Rust on RAID-backed hardware."
     />
-
     <meta
       name="keywords"
-      content="cloud storage, enterprise storage, database storage, RDBMS backup, file storage, object storage, business cloud storage, secure storage, data backup, Google Drive alternative"
+      content="self-hosted storage, object storage, PostgreSQL as a service, database provisioning, data lake, data warehouse, Parquet, Rust infrastructure, Axum, CDN storage, Sharpnr, Silo Engine"
     />
-
     <meta name="author" content="Sharpnr" />
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
+    <link rel="canonical" href="https://silo.sharpnr.com/" />
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://silo.sharpnr.com" />
+    <!-- Machine-readable summaries for AI crawlers -->
+    <link
+      rel="alternate"
+      type="text/plain"
+      title="llms.txt"
+      href="/llms.txt"
+    />
+    <link
+      rel="alternate"
+      type="text/plain"
+      title="llms-full.txt"
+      href="/llms-full.txt"
+    />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-    <!-- Theme -->
-    <meta name="theme-color" content="#0f172a" />
+    <!-- Theme: brand ink -->
+    <meta name="theme-color" content="#0C0D0F" />
+    <meta name="color-scheme" content="dark" />
 
     <!-- Open Graph -->
+    <meta property="og:locale" content="en" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Silo" />
+    <meta property="og:site_name" content="Silo Engine" />
     <meta
       property="og:title"
-      content="Silo - Enterprise Cloud Storage for Files and Databases"
+      content="Silo Engine — Infrastructure, not business logic"
     />
     <meta
       property="og:description"
-      content="Enterprise-grade cloud storage supporting file storage, relational databases, backups, and business-critical data."
+      content="Sharpnr's self-hosted storage, database, and data infrastructure platform. Object storage, PostgreSQL provisioning, data lakes and warehouses — in one Rust service."
     />
     <meta property="og:url" content="https://silo.sharpnr.com" />
     <meta
       property="og:image"
-      content="https://cdn.sharpnr.com/silo/social-preview.png"
+      content="https://silo.sharpnr.com/banners/og-image-1200x630.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Silo-Engine" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Silo Enterprise Cloud Storage" />
+    <meta
+      name="twitter:title"
+      content="Silo Engine — Infrastructure, not business logic"
+    />
     <meta
       name="twitter:description"
-      content="Store files, databases, backups, and business data securely with Silo."
+      content="Self-hosted object storage, PostgreSQL provisioning, and data lake infrastructure from Sharpnr."
     />
     <meta
       name="twitter:image"
-      content="https://cdn.sharpnr.com/silo/social-preview.png"
+      content="https://silo.sharpnr.com/banners/og-image-1200x630.png"
     />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- Paint the brand ink before React mounts, and behind overscroll. -->
+    <style>
+      html,
+      body {
+        background-color: #0c0d0f;
+      }
+    </style>
+
+    <!-- JSON-LD entity graph.
+         The FAQPage block is appended at build time by scripts/prerender.mjs
+         from the `faqs` export in src/website/comparison.tsx, so the schema
+         cannot drift from the answers rendered on the page. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Silo",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "description": "Enterprise-grade cloud storage platform supporting file storage, relational databases, backups, and business data management.",
-        "publisher": {
-          "@type": "Organization",
-          "name": "Sharpnr"
-        },
-        "url": "https://silo.sharpnr.com"
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://sharpnr.com/#organization",
+            "name": "Sharpnr",
+            "url": "https://sharpnr.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://silo.sharpnr.com/icons/app-icon-512.png",
+              "width": 512,
+              "height": 512
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://silo.sharpnr.com/#website",
+            "name": "Silo Engine",
+            "url": "https://silo.sharpnr.com/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://sharpnr.com/#organization" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://silo.sharpnr.com/#webpage",
+            "url": "https://silo.sharpnr.com/",
+            "name": "Silo Engine — Self-hosted storage, PostgreSQL, and data infrastructure",
+            "description": "Sharpnr's self-hosted infrastructure platform: object storage with CDN delivery, PostgreSQL provisioning, a controlled database explorer, and data lake and warehouse services — built in Rust.",
+            "isPartOf": { "@id": "https://silo.sharpnr.com/#website" },
+            "about": { "@id": "https://silo.sharpnr.com/#software" },
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://silo.sharpnr.com/banners/og-image-1200x630.png",
+              "width": 1200,
+              "height": 630
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://silo.sharpnr.com/#software",
+            "name": "Silo Engine",
+            "alternateName": "Silo",
+            "applicationCategory": "DeveloperApplication",
+            "applicationSubCategory": "Data infrastructure platform",
+            "operatingSystem": "Linux",
+            "url": "https://silo.sharpnr.com/",
+            "image": "https://silo.sharpnr.com/banners/og-image-1200x630.png",
+            "description": "Silo Engine is Sharpnr's self-hosted infrastructure platform. It provides file and object storage with CDN-backed delivery, PostgreSQL provisioning with organization-scoped roles, a controlled database explorer, organization and employee storage quotas, streaming Zstd compression, checksums, and an append-oriented audit log. Data lakes, data warehouses, and analytics infrastructure are on the roadmap.",
+            "softwareVersion": "Phase 1 — Foundation (in development)",
+            "releaseNotes": "Silo Engine is in the initial architecture and implementation phase and is not yet generally available.",
+            "featureList": [
+              "File and object storage",
+              "CDN-backed file delivery",
+              "PostgreSQL database provisioning",
+              "Organization-scoped PostgreSQL roles",
+              "Controlled database explorer without arbitrary SQL",
+              "Organization and employee storage quotas",
+              "Streaming Zstandard compression",
+              "Upload-stream checksums",
+              "Append-oriented audit logging",
+              "Data lakes with Parquet datasets",
+              "Data warehouses and ETL/ELT",
+              "Backups and snapshots"
+            ],
+            "author": { "@id": "https://sharpnr.com/#organization" },
+            "publisher": { "@id": "https://sharpnr.com/#organization" }
+          }
+        ]
       }
     </script>
   </head>
