@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  AlertTriangle,
   Building2,
   ChefHat,
   Flame,
@@ -21,19 +22,14 @@ import {
   SelectValue,
   Switch,
 } from "@sharpnr/ui";
+import { Route } from "@/routes/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/index";
+import { ProcessRestaurantConfigurationStatus } from "@/business_operation/hospitality/utils/CongifurationStatus";
+import { useRestaurantDetails } from "../api/queries";
+import type { RestaurantDetailsResponseDto } from "../api/types";
 
 /* ─────────────────────────────────────────────
-   Dummy data
+   Dummy data — sections without an API yet
 ───────────────────────────────────────────── */
-const RESTAURANT = {
-  name: "The Copper Spoon",
-  opening_time: "09:00",
-  closing_time: "23:30",
-  is_active: true,
-  cuisine: "Modern Indian",
-  seating_capacity: 86,
-};
-
 type DummyTable = { id: string; name: string; seats: number };
 type DummyFloor = { id: string; name: string; tables: DummyTable[] };
 
@@ -69,9 +65,27 @@ type DummyKitchen = {
 };
 
 const KITCHENS: DummyKitchen[] = [
-  { id: "k1", name: "Main Kitchen", type: "Hot Kitchen", stations: 6, is_active: true },
-  { id: "k2", name: "Bakery & Desserts", type: "Cold Kitchen", stations: 3, is_active: true },
-  { id: "k3", name: "Tandoor Section", type: "Grill", stations: 2, is_active: false },
+  {
+    id: "k1",
+    name: "Main Kitchen",
+    type: "Hot Kitchen",
+    stations: 6,
+    is_active: true,
+  },
+  {
+    id: "k2",
+    name: "Bakery & Desserts",
+    type: "Cold Kitchen",
+    stations: 3,
+    is_active: true,
+  },
+  {
+    id: "k3",
+    name: "Tandoor Section",
+    type: "Grill",
+    stations: 2,
+    is_active: false,
+  },
 ];
 
 type DummyMenu = { id: string; name: string; items: number; active: boolean };
@@ -93,8 +107,20 @@ type DummyLegalEntity = {
 };
 
 const LEGAL_ENTITIES: DummyLegalEntity[] = [
-  { id: "le1", name: "Copper Hospitality Pvt. Ltd.", city: "Bengaluru", state: "Karnataka", gst: "29ABCDE1234F1Z5" },
-  { id: "le2", name: "Spoon Foods LLP", city: "Mumbai", state: "Maharashtra", gst: "27FGHIJ5678K2Z9" },
+  {
+    id: "le1",
+    name: "Copper Hospitality Pvt. Ltd.",
+    city: "Bengaluru",
+    state: "Karnataka",
+    gst: "29ABCDE1234F1Z5",
+  },
+  {
+    id: "le2",
+    name: "Spoon Foods LLP",
+    city: "Mumbai",
+    state: "Maharashtra",
+    gst: "27FGHIJ5678K2Z9",
+  },
 ];
 
 /* ─────────────────────────────────────────────
@@ -103,12 +129,43 @@ const LEGAL_ENTITIES: DummyLegalEntity[] = [
 type SectionId = "general" | "tables" | "kitchen" | "menu" | "legal";
 
 const NAV: { id: SectionId; label: string; icon: React.ReactNode }[] = [
-  { id: "general", label: "General", icon: <Settings2 className="h-3.5 w-3.5" /> },
-  { id: "tables", label: "Tables", icon: <LayoutGrid className="h-3.5 w-3.5" /> },
+  {
+    id: "general",
+    label: "General",
+    icon: <Settings2 className="h-3.5 w-3.5" />,
+  },
+  {
+    id: "tables",
+    label: "Tables",
+    icon: <LayoutGrid className="h-3.5 w-3.5" />,
+  },
   { id: "kitchen", label: "Kitchen", icon: <Flame className="h-3.5 w-3.5" /> },
-  { id: "menu", label: "Menu", icon: <UtensilsCrossed className="h-3.5 w-3.5" /> },
-  { id: "legal", label: "Legal Entity", icon: <Scale className="h-3.5 w-3.5" /> },
+  {
+    id: "menu",
+    label: "Menu",
+    icon: <UtensilsCrossed className="h-3.5 w-3.5" />,
+  },
+  {
+    id: "legal",
+    label: "Legal Entity",
+    icon: <Scale className="h-3.5 w-3.5" />,
+  },
 ];
+
+/* ─────────────────────────────────────────────
+   Helpers
+───────────────────────────────────────────── */
+/** API returns "HH:MM" or "HH:MM:SS"; <input type="time"> wants "HH:MM". */
+function toTimeInputValue(time?: string | null) {
+  if (!time) return "";
+  return time.slice(0, 5);
+}
+
+function formatDateTime(iso?: string | null) {
+  if (!iso) return "—";
+  const date = new Date(iso);
+  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
+}
 
 /* ─────────────────────────────────────────────
    Shared primitives (flat, dense)
@@ -157,8 +214,13 @@ function Field({
 /* ─────────────────────────────────────────────
    Sections
 ───────────────────────────────────────────── */
-function GeneralSection() {
-  const [isActive, setIsActive] = useState(RESTAURANT.is_active);
+function GeneralSection({
+  restaurant,
+}: {
+  restaurant: RestaurantDetailsResponseDto;
+}) {
+  const [isActive, setIsActive] = useState(restaurant.is_active);
+  const [isPureVeg, setIsPureVeg] = useState(restaurant.is_pure_veg);
 
   return (
     <div className="space-y-4">
@@ -172,42 +234,70 @@ function GeneralSection() {
         }
       />
 
+      {!restaurant.is_configured && (
+        <div className="flex gap-2.5 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 dark:border-amber-900/50 dark:bg-amber-950/20">
+          <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
+          <div className="space-y-0.5">
+            <p className="text-xs font-medium text-amber-800 dark:text-amber-300">
+              Restaurant configuration incomplete
+            </p>
+            <p className="text-[11px] text-amber-700 dark:text-amber-400">
+              {ProcessRestaurantConfigurationStatus(
+                restaurant.current_configured_status,
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="space-y-2.5">
         <Field label="Restaurant name">
-          <Input defaultValue={RESTAURANT.name} className="h-8 max-w-sm text-sm" />
-        </Field>
-        <Field label="Cuisine">
-          <Input defaultValue={RESTAURANT.cuisine} className="h-8 max-w-sm text-sm" />
+          <Input
+            defaultValue={restaurant.name}
+            className="h-8 max-w-sm text-sm"
+          />
         </Field>
         <Field label="Opening time">
           <Input
             type="time"
-            defaultValue={RESTAURANT.opening_time}
+            defaultValue={toTimeInputValue(restaurant.opening_time)}
             className="h-8 max-w-37.5 text-sm"
           />
         </Field>
         <Field label="Closing time">
           <Input
             type="time"
-            defaultValue={RESTAURANT.closing_time}
-            className="h-8 max-w-37.5 text-sm"
-          />
-        </Field>
-        <Field label="Seating capacity">
-          <Input
-            type="number"
-            defaultValue={RESTAURANT.seating_capacity}
+            defaultValue={toTimeInputValue(restaurant.closing_time)}
             className="h-8 max-w-37.5 text-sm"
           />
         </Field>
 
+        <Field label="Pure veg">
+          <div className="flex items-center gap-2.5">
+            <Switch checked={isPureVeg} onCheckedChange={setIsPureVeg} />
+            <span className="text-xs text-foreground">
+              {isPureVeg ? "Vegetarian only" : "Serves non-vegetarian"}
+            </span>
+          </div>
+        </Field>
+
         <Field label="Operational status">
           <div className="flex items-center gap-2.5">
-            <Switch checked={isActive} onCheckedChange={setIsActive} />
+            <Switch
+              checked={isActive}
+              disabled={!restaurant.is_configured}
+              onCheckedChange={setIsActive}
+            />
             <span className="text-xs text-foreground">
               {isActive ? "Active — accepting orders" : "Inactive"}
             </span>
           </div>
+        </Field>
+
+        <Field label="Last updated">
+          <span className="text-xs text-muted-foreground">
+            {formatDateTime(restaurant.last_updated)}
+          </span>
         </Field>
       </div>
     </div>
@@ -239,7 +329,11 @@ function TablesSection() {
                 </span>
               </div>
               <div className="flex gap-1">
-                <Button size="sm" variant="ghost" className="h-6 px-2 text-[11px]">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="h-6 px-2 text-[11px]"
+                >
                   Edit
                 </Button>
                 <Button
@@ -352,7 +446,11 @@ function MenuSection() {
               >
                 {menu.active ? "Published" : "Draft"}
               </span>
-              <Button size="sm" variant="ghost" className="h-6 px-2 text-[11px]">
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-6 px-2 text-[11px]"
+              >
                 Edit
               </Button>
             </div>
@@ -363,8 +461,17 @@ function MenuSection() {
   );
 }
 
-function LegalSection() {
-  const [selectedId, setSelectedId] = useState<string>(LEGAL_ENTITIES[0].id);
+function LegalSection({
+  legalEntityId,
+}: {
+  legalEntityId: string | null;
+}) {
+  // Entities are still dummy data — only preselect when the assigned id is one of them.
+  const [selectedId, setSelectedId] = useState<string>(
+    LEGAL_ENTITIES.some((e) => e.id === legalEntityId)
+      ? legalEntityId!
+      : LEGAL_ENTITIES[0].id,
+  );
   const current = LEGAL_ENTITIES.find((e) => e.id === selectedId);
 
   return (
@@ -424,8 +531,42 @@ function LegalSection() {
 /* ─────────────────────────────────────────────
    Page
 ───────────────────────────────────────────── */
+function StatusMessage({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto max-w-5xl px-4 py-4">
+      <div className="rounded-md border px-3 py-10 text-center text-xs text-muted-foreground">
+        {children}
+      </div>
+    </div>
+  );
+}
+
 const RestaurantConfigIndexPage = () => {
   const [active, setActive] = useState<SectionId>("general");
+  const { propertyId, restaurantID } = Route.useParams();
+  const { data, isLoading, isError, error } = useRestaurantDetails(
+    propertyId,
+    restaurantID,
+  );
+
+  const restaurant = data?.data;
+
+  if (isLoading) {
+    return <StatusMessage>Loading restaurant details…</StatusMessage>;
+  }
+
+  if (isError) {
+    return (
+      <StatusMessage>
+        Could not load restaurant details.
+        {error instanceof Error ? ` ${error.message}` : ""}
+      </StatusMessage>
+    );
+  }
+
+  if (!restaurant) {
+    return <StatusMessage>Restaurant details not found.</StatusMessage>;
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-4">
@@ -435,8 +576,8 @@ const RestaurantConfigIndexPage = () => {
           <ChefHat className="h-4 w-4 text-muted-foreground" />
         </div>
         <div className="min-w-0 flex-1">
-          <h1 className="text-sm font-semibold leading-tight">
-            {RESTAURANT.name}
+          <h1 className="truncate text-sm font-semibold leading-tight">
+            {restaurant.name}
           </h1>
           <p className="text-[11px] text-muted-foreground">
             Restaurant configuration
@@ -444,10 +585,10 @@ const RestaurantConfigIndexPage = () => {
         </div>
         <span
           className={`text-[11px] font-medium ${
-            RESTAURANT.is_active ? "text-emerald-600" : "text-muted-foreground"
+            restaurant.is_active ? "text-emerald-600" : "text-muted-foreground"
           }`}
         >
-          {RESTAURANT.is_active ? "● Active" : "● Inactive"}
+          {restaurant.is_active ? "● Active" : "● Inactive"}
         </span>
       </div>
 
@@ -474,11 +615,15 @@ const RestaurantConfigIndexPage = () => {
 
         {/* Content */}
         <div>
-          {active === "general" && <GeneralSection />}
+          {active === "general" && <GeneralSection restaurant={restaurant} />}
           {active === "tables" && <TablesSection />}
           {active === "kitchen" && <KitchenSection />}
           {active === "menu" && <MenuSection />}
-          {active === "legal" && <LegalSection />}
+          {active === "legal" && (
+            <LegalSection
+              legalEntityId={restaurant.resturant_legal_entity_id}
+            />
+          )}
         </div>
       </div>
     </div>
