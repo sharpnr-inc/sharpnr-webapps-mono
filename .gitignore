@@ -87,6 +87,3 @@ playwright/.auth/
 # stockwave: the only app that does NOT commit its generated route tree.
 # Every other TanStack Router app here tracks src/routeTree.gen.ts.
 /apps/stockwave/src/routeTree.gen.ts
-
-# sharpnr-website: local scratch exports
-/apps/sharpnr-website/Website*
