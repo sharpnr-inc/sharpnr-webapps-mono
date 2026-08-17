@@ -9,23 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteRouteImport } from './routes/signup/route'
-import { Route as SaRouteRouteImport } from './routes/sa/route'
-import { Route as EmpRouteRouteImport } from './routes/emp/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmpRouteRouteImport } from './routes/emp/route'
+import { Route as SaRouteRouteImport } from './routes/sa/route'
+import { Route as SignupRouteRouteImport } from './routes/signup/route'
 import { Route as SignupIndexRouteImport } from './routes/signup/index'
 import { Route as SignupVerifyRouteImport } from './routes/signup/verify'
-import { Route as EmpProvisioningIndexRouteImport } from './routes/emp/provisioning/index'
 import { Route as EmpProvDataRouteImport } from './routes/emp/prov/$data'
+import { Route as EmpProvisioningIndexRouteImport } from './routes/emp/provisioning/index'
 
-const SignupRouteRoute = SignupRouteRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SaRouteRoute = SaRouteRouteImport.update({
-  id: '/sa',
-  path: '/sa',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmpRouteRoute = EmpRouteRouteImport.update({
@@ -33,9 +28,14 @@ const EmpRouteRoute = EmpRouteRouteImport.update({
   path: '/emp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const SaRouteRoute = SaRouteRouteImport.update({
+  id: '/sa',
+  path: '/sa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRouteRoute = SignupRouteRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupIndexRoute = SignupIndexRouteImport.update({
@@ -48,14 +48,14 @@ const SignupVerifyRoute = SignupVerifyRouteImport.update({
   path: '/verify',
   getParentRoute: () => SignupRouteRoute,
 } as any)
-const EmpProvisioningIndexRoute = EmpProvisioningIndexRouteImport.update({
-  id: '/provisioning/',
-  path: '/provisioning/',
-  getParentRoute: () => EmpRouteRoute,
-} as any)
 const EmpProvDataRoute = EmpProvDataRouteImport.update({
   id: '/prov/$data',
   path: '/prov/$data',
+  getParentRoute: () => EmpRouteRoute,
+} as any)
+const EmpProvisioningIndexRoute = EmpProvisioningIndexRouteImport.update({
+  id: '/provisioning/',
+  path: '/provisioning/',
   getParentRoute: () => EmpRouteRoute,
 } as any)
 
@@ -130,18 +130,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sa': {
-      id: '/sa'
-      path: '/sa'
-      fullPath: '/sa'
-      preLoaderRoute: typeof SaRouteRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emp': {
@@ -151,11 +144,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/sa': {
+      id: '/sa'
+      path: '/sa'
+      fullPath: '/sa'
+      preLoaderRoute: typeof SaRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup/': {
@@ -172,18 +172,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupVerifyRouteImport
       parentRoute: typeof SignupRouteRoute
     }
-    '/emp/provisioning/': {
-      id: '/emp/provisioning/'
-      path: '/provisioning'
-      fullPath: '/emp/provisioning/'
-      preLoaderRoute: typeof EmpProvisioningIndexRouteImport
-      parentRoute: typeof EmpRouteRoute
-    }
     '/emp/prov/$data': {
       id: '/emp/prov/$data'
       path: '/prov/$data'
       fullPath: '/emp/prov/$data'
       preLoaderRoute: typeof EmpProvDataRouteImport
+      parentRoute: typeof EmpRouteRoute
+    }
+    '/emp/provisioning/': {
+      id: '/emp/provisioning/'
+      path: '/provisioning'
+      fullPath: '/emp/provisioning/'
+      preLoaderRoute: typeof EmpProvisioningIndexRouteImport
       parentRoute: typeof EmpRouteRoute
     }
   }
