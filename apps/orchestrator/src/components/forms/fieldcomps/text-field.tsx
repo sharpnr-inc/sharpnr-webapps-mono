@@ -1,0 +1,65 @@
+import { Label } from "@sharpnr/ui";
+import { useFieldContext } from "../form-context";
+import { Input } from "@sharpnr/ui";
+import { Alert, AlertDescription } from "@sharpnr/ui";
+import { AlertCircle } from "lucide-react";
+
+type TextfieldProps = {
+  label: string;
+  type?: React.HTMLInputTypeAttribute;
+  uppercase?: boolean;
+  placeholder?: string;
+  description?: string;
+  transform?: (value: string) => string;
+};
+
+const TextField = ({
+  label,
+  type = "text",
+  uppercase = false,
+  placeholder,
+  description,
+  transform,
+}: TextfieldProps) => {
+  const field = useFieldContext<string>();
+  const error = field.state.meta.errors?.[0];
+  const isTouched = field.state.meta.isTouched;
+
+  const handleChange = (value: string) => {
+    if (transform) {
+      value = transform(value);
+    }
+    if (uppercase) {
+      value = value.toUpperCase();
+    }
+    field.handleChange(value);
+  };
+
+  return (
+    <div className="p-2 space-y-2 w-full">
+      <Label htmlFor={field.name}>{label}</Label>
+
+      <Input
+        id={field.name}
+        type={type}
+        placeholder={placeholder}
+        value={field.state.value}
+        onChange={(e) => handleChange(e.target.value)}
+        className={`w-full ${uppercase ? "uppercase" : ""}`}
+      />
+
+      {description && (
+        <p className="text-xs text-muted-foreground">{description}</p>
+      )}
+
+      {isTouched && error && (
+        <Alert variant="destructive" className="mt-2">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error.message}</AlertDescription>
+        </Alert>
+      )}
+    </div>
+  );
+};
+
+export default TextField;
