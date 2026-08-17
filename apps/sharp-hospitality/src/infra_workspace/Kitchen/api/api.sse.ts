@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 
 const BASE_URL = config.apiBaseUrl;
 

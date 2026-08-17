@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
 import { Badge, Skeleton } from "@sharpnr/ui";
 import { useUserCardStore } from "./user_card_store";
 import { LogOut, ExternalLink, ShieldCheck } from "lucide-react";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
 import { useLogout } from "@/apis/mutation";
 

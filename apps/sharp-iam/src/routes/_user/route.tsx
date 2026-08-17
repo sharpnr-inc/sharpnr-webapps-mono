@@ -4,7 +4,7 @@ import {
   verifyUserAuthentication,
 } from "@/api/api.service";
 import RootLayout from "@/components/rootLayout/RootLayout";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 

@@ -12,7 +12,7 @@ import { useResendOtpMutation, useVerifyOtpMutation } from "@/apis/mutation";
 import type { OtpPayload } from "@/apis/signup_api_services";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { toast } from "sonner";

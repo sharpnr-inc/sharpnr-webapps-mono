@@ -1,4 +1,4 @@
-import { config } from "./env";
+import { config } from "@sharpnr/env";
 
 /**
  * Registry of first-party Sharpnr apps that this auth service signs users into.

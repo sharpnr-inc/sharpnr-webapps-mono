@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 
 const legalEntityEntityPoints = {
   getAll: "/orchestrator/console/legal-entity",

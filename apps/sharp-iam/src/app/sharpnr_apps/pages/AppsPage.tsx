@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
 import { ArrowRight } from "lucide-react";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 
 const apps = [
   {

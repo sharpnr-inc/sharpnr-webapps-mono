@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import { AccountingAppAPIEndpoints } from "./endpoints";
 import type { JournalEntryExternalRequestDto } from "../shared/forms/AddJournalEntryForm";
 

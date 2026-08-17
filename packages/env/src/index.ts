@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import { z } from "zod";
 
 /**
@@ -9,14 +10,9 @@ import { z } from "zod";
  * validation, two different names for the same value). This is the single copy.
  *
  * ─── HOW TO USE ───────────────────────────────────────────────────────────────
- * Each app keeps a two-line `src/configs/env.ts`:
+ * No app keeps a local env file. Import the config directly:
  *
- *   import { createConfig } from "@sharpnr/env";
- *   export const config = createConfig(import.meta.env);
- *
- * then imports from it exactly as before:
- *
- *   import { config } from "@/configs/env";
+ *   import { config } from "@sharpnr/env";
  *
  *   <a href={config.cablesAppUrl} target="_blank" rel="noopener noreferrer">
  *     Open Cables
@@ -24,13 +20,15 @@ import { z } from "zod";
  *
  *   window.location.replace(config.orchestratorAppUrl);
  *
- * The raw env object is passed IN by the app on purpose. `import.meta.env` is
- * substituted by Vite at the consuming app's build time, so this package must
- * never read it directly -- doing so would bake this package's build-time
- * values into every app that imports it.
+ * This package is deliberately shipped as SOURCE -- its `exports` field points
+ * at `src/`, and it has no build step. That is what lets the `config` export at
+ * the bottom read `import.meta.env` and still get the *consuming app's* values:
+ * each app's Vite compiles this file itself and substitutes its own env. A
+ * prebuilt package would instead bake in whatever env existed when the package
+ * was built, which is the same for every consumer and therefore wrong.
  *
  * ─── RULES ────────────────────────────────────────────────────────────────────
- * - ALWAYS import from `@/configs/env` for any external Sharpnr app URL
+ * - ALWAYS import from `@sharpnr/env` for any external Sharpnr app URL
  * - NEVER hardcode an app URL in a component
  * - NEVER use <Link> from TanStack Router for external app URLs
  * - Use <a href={config.xyzAppUrl}> or window.location for external navigation
@@ -176,3 +174,13 @@ export function createConfig(rawEnv: unknown) {
 }
 
 export type SharpnrConfig = ReturnType<typeof createConfig>;
+
+/**
+ * The parsed config for the importing app.
+ *
+ * This package is consumed as source (its `exports` points at `src/`), so each
+ * app's Vite compiles this line itself and substitutes that app's
+ * `import.meta.env`. A prebuilt package could not do this -- it would bake in
+ * whatever env was present when the package was built.
+ */
+export const config = createConfig(import.meta.env);

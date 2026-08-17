@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import { OrchestratorConsole, UserRoutes } from "./Endpoints";
 import type { APIResponse } from "@/lib/api_response";
 import type { UserDataResponseDto } from "./types";

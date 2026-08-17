@@ -1,6 +1,6 @@
 import { createApiClient } from "@sharpnr/http";
 import { appUserActions } from "@/store/AppUserStore";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 
 export default createApiClient({
   baseUrl: config.apiBaseUrl,

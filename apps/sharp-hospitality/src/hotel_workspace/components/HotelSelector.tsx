@@ -7,7 +7,7 @@ import { Route } from "@/routes/workspace/_modules/hotel/index";
 import { useEffect } from "react";
 import type { Hotel } from "@/hotel_workspace/apis/api.service";
 import { toast } from "sonner";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 
 export function HotelSelector() {
   const navigate = useNavigate();

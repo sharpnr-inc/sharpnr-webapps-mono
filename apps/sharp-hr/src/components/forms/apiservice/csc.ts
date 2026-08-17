@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 
 export interface Country {
   id: string;

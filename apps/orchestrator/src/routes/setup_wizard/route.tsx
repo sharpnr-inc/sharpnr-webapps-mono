@@ -3,7 +3,7 @@ import {
   verifyUserAuthentication,
 } from "@/apis/api_service";
 import { GlobalLoader } from "@sharpnr/ui";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
 import { resolveSetupWizardRedirect } from "@/setup_wizard/resolver/step_resolver";
 import { appUserActions } from "@/store/AppUserStore";

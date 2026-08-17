@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import { MenuModuleEndpoints } from "./api.endpoints";
 import type { APIResponse } from "@/lib/api_response";
 

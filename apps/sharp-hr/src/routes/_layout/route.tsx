@@ -1,6 +1,6 @@
 import { GetAuthenticatedUser, verifyUserAuthentication } from "@/api/service";
 import SharpHRRootLayout from "@/components/RootLayout";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 

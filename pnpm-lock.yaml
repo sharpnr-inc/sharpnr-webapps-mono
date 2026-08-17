@@ -1816,6 +1816,10 @@ importers:
         version: 4.4.3
 
   packages/http:
+    dependencies:
+      '@sharpnr/env':
+        specifier: workspace:*
+        version: link:../env
     devDependencies:
       '@types/node':
         specifier: 'catalog:'

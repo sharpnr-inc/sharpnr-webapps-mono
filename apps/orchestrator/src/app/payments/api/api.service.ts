@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import type { CreatePaymentAccountRequest } from "../components/CreatePaymentAccountForm";
 import type { GatewayConfigFormRequest } from "../components/AddGatewayConfigForm";
 

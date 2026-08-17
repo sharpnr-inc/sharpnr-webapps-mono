@@ -7,7 +7,7 @@ import { Route } from "@/routes/workspace/_modules/restaurant/index";
 import { useEffect } from "react";
 import type { RestaurantContext } from "../apis/restaurant.api";
 import { toast } from "sonner";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 
 export default function RestaurantSelector() {
   const navigate = useNavigate();

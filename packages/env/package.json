@@ -4,22 +4,15 @@
   "private": true,
   "type": "module",
   "description": "Shared, validated access to the Sharpnr environment variables",
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "files": [
-    "dist"
+    "src"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js"
-    }
+    ".": "./src/index.ts"
   },
-  "scripts": {
-    "dev": "vite build --watch",
-    "build": "tsc -b && vite build"
-  },
+  "scripts": {},
   "peerDependencies": {
     "zod": "^4.3.6"
   },

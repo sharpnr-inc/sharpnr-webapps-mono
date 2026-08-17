@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUserCardStore } from "./user_card_store";
 import { ChefHat, Wine, LogOut, ExternalLink, ShieldCheck } from "lucide-react";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
 import { useLogout } from "@/api/mutation";
 

@@ -1,5 +1,5 @@
 import { createApiClient } from "@sharpnr/http";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 
 export default createApiClient({
   baseUrl: config.apiBaseUrl,

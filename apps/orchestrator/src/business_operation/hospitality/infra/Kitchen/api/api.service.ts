@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import { KitchenEndpoints } from "./api.endpoints";
 
 export async function GetKitchenKOT(kitchenID: string) {

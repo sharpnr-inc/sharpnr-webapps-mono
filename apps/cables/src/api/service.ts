@@ -1,4 +1,4 @@
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
 import type { APIResponse } from "@/lib/api_response";
 

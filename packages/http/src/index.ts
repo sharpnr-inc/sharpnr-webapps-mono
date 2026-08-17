@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance } from "axios";
+import { config } from "@sharpnr/env";
 
 /**
  * @file @sharpnr/http
@@ -14,16 +15,12 @@ import axios, { type AxiosInstance } from "axios";
  * the client is all it takes: there is no separate wiring step left to forget.
  *
  * ─── HOW TO USE ───────────────────────────────────────────────────────────────
- * Each app keeps one `src/middlewares/axios.ts`:
+ * Most apps import the ready-made client and keep no local file at all:
  *
- *   import { createApiClient } from "@sharpnr/http";
- *   import { config } from "@/configs/env";
+ *   import { api } from "@sharpnr/http";
  *
- *   export default createApiClient({
- *     baseUrl: config.apiBaseUrl,
- *     csrfCookieName: config.csrfToken,
- *     authAppUrl: config.authAppUrl,
- *   });
+ * Apps whose behaviour genuinely differs build their own with
+ * `createApiClient` -- see the note on `api` at the bottom of this file.
  */
 
 const CSRF_HEADER_NAME = "X-CSRF-Token";
@@ -193,3 +190,19 @@ export function createApiClient(options: ApiClientOptions): AxiosInstance {
 
   return api;
 }
+
+/**
+ * The suite's standard client: CSRF on writes, bounce to the auth app on
+ * 401/403. Import this directly -- most apps need nothing else:
+ *
+ *   import { api } from "@sharpnr/http";
+ *
+ * Two apps legitimately differ and build their own with `createApiClient`:
+ * sharp-auth (it *is* the auth app, so it has nowhere external to bounce to)
+ * and sharp-hospitality (it clears its user store on the way out).
+ */
+export const api = createApiClient({
+  baseUrl: config.apiBaseUrl,
+  csrfCookieName: config.csrfToken,
+  authAppUrl: config.authAppUrl,
+});

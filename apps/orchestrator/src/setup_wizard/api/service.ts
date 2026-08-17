@@ -1,5 +1,5 @@
 import type { APIResponse } from "@/lib/api_response";
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import type {
   SetupProgressResponseDTO,
   SetupWizAddPropertyPayload,

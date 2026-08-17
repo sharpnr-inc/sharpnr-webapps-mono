@@ -7,7 +7,7 @@ import SharpnrLauncher from "../SharpnrLauncher/SharpnrLauncher";
 import { NotificationBell } from "../header/NotificationButton";
 import { UserCard } from "../header/UserCard";
 import { useSheet } from "@sharpnr/ui";
-import { config } from "@/configs/env";
+import { config } from "@sharpnr/env";
 import { motion, AnimatePresence } from "framer-motion";
 
 const RootLayout: React.FC = () => {

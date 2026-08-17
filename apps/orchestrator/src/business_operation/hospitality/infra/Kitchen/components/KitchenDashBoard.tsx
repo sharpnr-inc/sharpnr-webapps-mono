@@ -16,7 +16,7 @@ import { Route } from "@/routes/_appuser/business-ops/property/$propertyId/domai
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@sharpnr/ui";
 import { useAppForm } from "@/components/forms";
 import { useQueryClient } from "@tanstack/react-query";
-import api from "@/middlewares/axios";
+import { api } from "@sharpnr/http";
 import { KitchenEndpoints } from "@/business_operation/hospitality/infra/Kitchen/api/api.endpoints";
 import { useUpdateKitchenGenralDetailsMutation } from "../api/api.mutation";
 import { useKitchenConfiguration, useKitchenDetails } from "../api/api.queries";
