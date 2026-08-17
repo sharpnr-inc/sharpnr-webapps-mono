@@ -9,6 +9,9 @@ import topLevelAwait from "vite-plugin-top-level-await";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // One .env at the repo root serves every app; Vite would otherwise
+  // only look inside this app's directory.
+  envDir: path.resolve(__dirname, "../.."),
   plugins: [
     devtools({
       eventBusConfig: {
@@ -32,6 +35,12 @@ export default defineConfig({
   ],
   optimizeDeps: {
     exclude: ["@cedar-policy/cedar-wasm"],
+  },
+  build: {
+    // vite-plugin-top-level-await emits TLA that esbuild cannot downlevel to
+    // Vite 8's default browser target. This app already requires wasm + TLA,
+    // so raising the target does not change its effective browser floor.
+    target: "es2022",
   },
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],

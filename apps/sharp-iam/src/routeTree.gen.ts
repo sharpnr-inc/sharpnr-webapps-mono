@@ -10,111 +10,71 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
-import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
-import { Route as UserProfileRouteRouteImport } from './routes/_user/profile/route'
 import { Route as UserHomeRouteRouteImport } from './routes/_user/home/route'
-import { Route as UserTrainingIndexRouteImport } from './routes/_user/training/index'
-import { Route as UserTasksIndexRouteImport } from './routes/_user/tasks/index'
-import { Route as UserSettingsIndexRouteImport } from './routes/_user/settings/index'
-import { Route as UserReviewsIndexRouteImport } from './routes/_user/reviews/index'
-import { Route as UserProfileIndexRouteImport } from './routes/_user/profile/index'
-import { Route as UserPayslipsIndexRouteImport } from './routes/_user/payslips/index'
-import { Route as UserMyrequestIndexRouteImport } from './routes/_user/myrequest/index'
-import { Route as UserMyAppsIndexRouteImport } from './routes/_user/my-apps/index'
-import { Route as UserLegalIndexRouteImport } from './routes/_user/legal/index'
-import { Route as UserLeavesIndexRouteImport } from './routes/_user/leaves/index'
-import { Route as UserIt_helpdeskIndexRouteImport } from './routes/_user/it_helpdesk/index'
-import { Route as UserHomeIndexRouteImport } from './routes/_user/home/index'
-import { Route as UserGoalsIndexRouteImport } from './routes/_user/goals/index'
-import { Route as UserExpenses_claimsIndexRouteImport } from './routes/_user/expenses_claims/index'
-import { Route as UserDocumentsIndexRouteImport } from './routes/_user/documents/index'
-import { Route as UserContractsIndexRouteImport } from './routes/_user/contracts/index'
-import { Route as UserBenefitsIndexRouteImport } from './routes/_user/benefits/index'
-import { Route as UserAttendanceIndexRouteImport } from './routes/_user/attendance/index'
+import { Route as UserProfileRouteRouteImport } from './routes/_user/profile/route'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as UserAnnouncementsIndexRouteImport } from './routes/_user/announcements/index'
+import { Route as UserAttendanceIndexRouteImport } from './routes/_user/attendance/index'
+import { Route as UserBenefitsIndexRouteImport } from './routes/_user/benefits/index'
+import { Route as UserContractsIndexRouteImport } from './routes/_user/contracts/index'
+import { Route as UserDocumentsIndexRouteImport } from './routes/_user/documents/index'
+import { Route as UserExpenses_claimsIndexRouteImport } from './routes/_user/expenses_claims/index'
+import { Route as UserGoalsIndexRouteImport } from './routes/_user/goals/index'
+import { Route as UserHomeIndexRouteImport } from './routes/_user/home/index'
+import { Route as UserIt_helpdeskIndexRouteImport } from './routes/_user/it_helpdesk/index'
+import { Route as UserLeavesIndexRouteImport } from './routes/_user/leaves/index'
+import { Route as UserLegalIndexRouteImport } from './routes/_user/legal/index'
+import { Route as UserMyAppsIndexRouteImport } from './routes/_user/my-apps/index'
+import { Route as UserMyrequestIndexRouteImport } from './routes/_user/myrequest/index'
+import { Route as UserPayslipsIndexRouteImport } from './routes/_user/payslips/index'
+import { Route as UserProfileIndexRouteImport } from './routes/_user/profile/index'
+import { Route as UserReviewsIndexRouteImport } from './routes/_user/reviews/index'
+import { Route as UserSettingsIndexRouteImport } from './routes/_user/settings/index'
+import { Route as UserTasksIndexRouteImport } from './routes/_user/tasks/index'
+import { Route as UserTrainingIndexRouteImport } from './routes/_user/training/index'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
   getParentRoute: () => rootRouteImport,
-} as any)
-const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
-  id: '/_website/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UserProfileRouteRoute = UserProfileRouteRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => UserRouteRoute,
 } as any)
 const UserHomeRouteRoute = UserHomeRouteRouteImport.update({
   id: '/home',
   path: '/home',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserTrainingIndexRoute = UserTrainingIndexRouteImport.update({
-  id: '/training/',
-  path: '/training/',
+const UserProfileRouteRoute = UserProfileRouteRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserTasksIndexRoute = UserTasksIndexRouteImport.update({
-  id: '/tasks/',
-  path: '/tasks/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserSettingsIndexRoute = UserSettingsIndexRouteImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserReviewsIndexRoute = UserReviewsIndexRouteImport.update({
-  id: '/reviews/',
-  path: '/reviews/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
-  id: '/',
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
   path: '/',
-  getParentRoute: () => UserProfileRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const UserPayslipsIndexRoute = UserPayslipsIndexRouteImport.update({
-  id: '/payslips/',
-  path: '/payslips/',
+const UserAnnouncementsIndexRoute = UserAnnouncementsIndexRouteImport.update({
+  id: '/announcements/',
+  path: '/announcements/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserMyrequestIndexRoute = UserMyrequestIndexRouteImport.update({
-  id: '/myrequest/',
-  path: '/myrequest/',
+const UserAttendanceIndexRoute = UserAttendanceIndexRouteImport.update({
+  id: '/attendance/',
+  path: '/attendance/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserMyAppsIndexRoute = UserMyAppsIndexRouteImport.update({
-  id: '/my-apps/',
-  path: '/my-apps/',
+const UserBenefitsIndexRoute = UserBenefitsIndexRouteImport.update({
+  id: '/benefits/',
+  path: '/benefits/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserLegalIndexRoute = UserLegalIndexRouteImport.update({
-  id: '/legal/',
-  path: '/legal/',
+const UserContractsIndexRoute = UserContractsIndexRouteImport.update({
+  id: '/contracts/',
+  path: '/contracts/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserLeavesIndexRoute = UserLeavesIndexRouteImport.update({
-  id: '/leaves/',
-  path: '/leaves/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserIt_helpdeskIndexRoute = UserIt_helpdeskIndexRouteImport.update({
-  id: '/it_helpdesk/',
-  path: '/it_helpdesk/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
-const UserHomeIndexRoute = UserHomeIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => UserHomeRouteRoute,
-} as any)
-const UserGoalsIndexRoute = UserGoalsIndexRouteImport.update({
-  id: '/goals/',
-  path: '/goals/',
+const UserDocumentsIndexRoute = UserDocumentsIndexRouteImport.update({
+  id: '/documents/',
+  path: '/documents/',
   getParentRoute: () => UserRouteRoute,
 } as any)
 const UserExpenses_claimsIndexRoute =
@@ -123,29 +83,69 @@ const UserExpenses_claimsIndexRoute =
     path: '/expenses_claims/',
     getParentRoute: () => UserRouteRoute,
   } as any)
-const UserDocumentsIndexRoute = UserDocumentsIndexRouteImport.update({
-  id: '/documents/',
-  path: '/documents/',
+const UserGoalsIndexRoute = UserGoalsIndexRouteImport.update({
+  id: '/goals/',
+  path: '/goals/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserContractsIndexRoute = UserContractsIndexRouteImport.update({
-  id: '/contracts/',
-  path: '/contracts/',
+const UserHomeIndexRoute = UserHomeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => UserHomeRouteRoute,
+} as any)
+const UserIt_helpdeskIndexRoute = UserIt_helpdeskIndexRouteImport.update({
+  id: '/it_helpdesk/',
+  path: '/it_helpdesk/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserBenefitsIndexRoute = UserBenefitsIndexRouteImport.update({
-  id: '/benefits/',
-  path: '/benefits/',
+const UserLeavesIndexRoute = UserLeavesIndexRouteImport.update({
+  id: '/leaves/',
+  path: '/leaves/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserAttendanceIndexRoute = UserAttendanceIndexRouteImport.update({
-  id: '/attendance/',
-  path: '/attendance/',
+const UserLegalIndexRoute = UserLegalIndexRouteImport.update({
+  id: '/legal/',
+  path: '/legal/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserAnnouncementsIndexRoute = UserAnnouncementsIndexRouteImport.update({
-  id: '/announcements/',
-  path: '/announcements/',
+const UserMyAppsIndexRoute = UserMyAppsIndexRouteImport.update({
+  id: '/my-apps/',
+  path: '/my-apps/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserMyrequestIndexRoute = UserMyrequestIndexRouteImport.update({
+  id: '/myrequest/',
+  path: '/myrequest/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserPayslipsIndexRoute = UserPayslipsIndexRouteImport.update({
+  id: '/payslips/',
+  path: '/payslips/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserProfileIndexRoute = UserProfileIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => UserProfileRouteRoute,
+} as any)
+const UserReviewsIndexRoute = UserReviewsIndexRouteImport.update({
+  id: '/reviews/',
+  path: '/reviews/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserSettingsIndexRoute = UserSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserTasksIndexRoute = UserTasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
+const UserTrainingIndexRoute = UserTrainingIndexRouteImport.update({
+  id: '/training/',
+  path: '/training/',
   getParentRoute: () => UserRouteRoute,
 } as any)
 
@@ -309,12 +309,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_website/': {
-      id: '/_website/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof WebsiteIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_user/home': {
+      id: '/_user/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof UserHomeRouteRouteImport
+      parentRoute: typeof UserRouteRoute
     }
     '/_user/profile': {
       id: '/_user/profile'
@@ -323,130 +323,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserProfileRouteRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/home': {
-      id: '/_user/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof UserHomeRouteRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/training/': {
-      id: '/_user/training/'
-      path: '/training'
-      fullPath: '/training/'
-      preLoaderRoute: typeof UserTrainingIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/tasks/': {
-      id: '/_user/tasks/'
-      path: '/tasks'
-      fullPath: '/tasks/'
-      preLoaderRoute: typeof UserTasksIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/settings/': {
-      id: '/_user/settings/'
-      path: '/settings'
-      fullPath: '/settings/'
-      preLoaderRoute: typeof UserSettingsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/reviews/': {
-      id: '/_user/reviews/'
-      path: '/reviews'
-      fullPath: '/reviews/'
-      preLoaderRoute: typeof UserReviewsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/profile/': {
-      id: '/_user/profile/'
+    '/_website/': {
+      id: '/_website/'
       path: '/'
-      fullPath: '/profile/'
-      preLoaderRoute: typeof UserProfileIndexRouteImport
-      parentRoute: typeof UserProfileRouteRoute
+      fullPath: '/'
+      preLoaderRoute: typeof WebsiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_user/payslips/': {
-      id: '/_user/payslips/'
-      path: '/payslips'
-      fullPath: '/payslips/'
-      preLoaderRoute: typeof UserPayslipsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/myrequest/': {
-      id: '/_user/myrequest/'
-      path: '/myrequest'
-      fullPath: '/myrequest/'
-      preLoaderRoute: typeof UserMyrequestIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/my-apps/': {
-      id: '/_user/my-apps/'
-      path: '/my-apps'
-      fullPath: '/my-apps/'
-      preLoaderRoute: typeof UserMyAppsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/legal/': {
-      id: '/_user/legal/'
-      path: '/legal'
-      fullPath: '/legal/'
-      preLoaderRoute: typeof UserLegalIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/leaves/': {
-      id: '/_user/leaves/'
-      path: '/leaves'
-      fullPath: '/leaves/'
-      preLoaderRoute: typeof UserLeavesIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/it_helpdesk/': {
-      id: '/_user/it_helpdesk/'
-      path: '/it_helpdesk'
-      fullPath: '/it_helpdesk/'
-      preLoaderRoute: typeof UserIt_helpdeskIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/home/': {
-      id: '/_user/home/'
-      path: '/'
-      fullPath: '/home/'
-      preLoaderRoute: typeof UserHomeIndexRouteImport
-      parentRoute: typeof UserHomeRouteRoute
-    }
-    '/_user/goals/': {
-      id: '/_user/goals/'
-      path: '/goals'
-      fullPath: '/goals/'
-      preLoaderRoute: typeof UserGoalsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/expenses_claims/': {
-      id: '/_user/expenses_claims/'
-      path: '/expenses_claims'
-      fullPath: '/expenses_claims/'
-      preLoaderRoute: typeof UserExpenses_claimsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/documents/': {
-      id: '/_user/documents/'
-      path: '/documents'
-      fullPath: '/documents/'
-      preLoaderRoute: typeof UserDocumentsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/contracts/': {
-      id: '/_user/contracts/'
-      path: '/contracts'
-      fullPath: '/contracts/'
-      preLoaderRoute: typeof UserContractsIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
-    '/_user/benefits/': {
-      id: '/_user/benefits/'
-      path: '/benefits'
-      fullPath: '/benefits/'
-      preLoaderRoute: typeof UserBenefitsIndexRouteImport
+    '/_user/announcements/': {
+      id: '/_user/announcements/'
+      path: '/announcements'
+      fullPath: '/announcements/'
+      preLoaderRoute: typeof UserAnnouncementsIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
     '/_user/attendance/': {
@@ -456,11 +344,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserAttendanceIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/announcements/': {
-      id: '/_user/announcements/'
-      path: '/announcements'
-      fullPath: '/announcements/'
-      preLoaderRoute: typeof UserAnnouncementsIndexRouteImport
+    '/_user/benefits/': {
+      id: '/_user/benefits/'
+      path: '/benefits'
+      fullPath: '/benefits/'
+      preLoaderRoute: typeof UserBenefitsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/contracts/': {
+      id: '/_user/contracts/'
+      path: '/contracts'
+      fullPath: '/contracts/'
+      preLoaderRoute: typeof UserContractsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/documents/': {
+      id: '/_user/documents/'
+      path: '/documents'
+      fullPath: '/documents/'
+      preLoaderRoute: typeof UserDocumentsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/expenses_claims/': {
+      id: '/_user/expenses_claims/'
+      path: '/expenses_claims'
+      fullPath: '/expenses_claims/'
+      preLoaderRoute: typeof UserExpenses_claimsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/goals/': {
+      id: '/_user/goals/'
+      path: '/goals'
+      fullPath: '/goals/'
+      preLoaderRoute: typeof UserGoalsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/home/': {
+      id: '/_user/home/'
+      path: '/'
+      fullPath: '/home/'
+      preLoaderRoute: typeof UserHomeIndexRouteImport
+      parentRoute: typeof UserHomeRouteRoute
+    }
+    '/_user/it_helpdesk/': {
+      id: '/_user/it_helpdesk/'
+      path: '/it_helpdesk'
+      fullPath: '/it_helpdesk/'
+      preLoaderRoute: typeof UserIt_helpdeskIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/leaves/': {
+      id: '/_user/leaves/'
+      path: '/leaves'
+      fullPath: '/leaves/'
+      preLoaderRoute: typeof UserLeavesIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/legal/': {
+      id: '/_user/legal/'
+      path: '/legal'
+      fullPath: '/legal/'
+      preLoaderRoute: typeof UserLegalIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/my-apps/': {
+      id: '/_user/my-apps/'
+      path: '/my-apps'
+      fullPath: '/my-apps/'
+      preLoaderRoute: typeof UserMyAppsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/myrequest/': {
+      id: '/_user/myrequest/'
+      path: '/myrequest'
+      fullPath: '/myrequest/'
+      preLoaderRoute: typeof UserMyrequestIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/payslips/': {
+      id: '/_user/payslips/'
+      path: '/payslips'
+      fullPath: '/payslips/'
+      preLoaderRoute: typeof UserPayslipsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/profile/': {
+      id: '/_user/profile/'
+      path: '/'
+      fullPath: '/profile/'
+      preLoaderRoute: typeof UserProfileIndexRouteImport
+      parentRoute: typeof UserProfileRouteRoute
+    }
+    '/_user/reviews/': {
+      id: '/_user/reviews/'
+      path: '/reviews'
+      fullPath: '/reviews/'
+      preLoaderRoute: typeof UserReviewsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/settings/': {
+      id: '/_user/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof UserSettingsIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/tasks/': {
+      id: '/_user/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks/'
+      preLoaderRoute: typeof UserTasksIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/training/': {
+      id: '/_user/training/'
+      path: '/training'
+      fullPath: '/training/'
+      preLoaderRoute: typeof UserTrainingIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
   }

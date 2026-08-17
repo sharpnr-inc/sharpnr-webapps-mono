@@ -6,6 +6,9 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // One .env at the repo root serves every app; Vite would otherwise
+  // only look inside this app's directory.
+  envDir: path.resolve(__dirname, "../.."),
   plugins: [
     tanstackRouter({
       target: "react",

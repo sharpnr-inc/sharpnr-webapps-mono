@@ -1,0 +1,21 @@
+{
+  "name": "sharpnr-webapps",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.22.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "affected": "turbo build --filter='...[origin/main]' --dry-run=text",
+    "setup": "./setup/local-dev.sh check"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.8"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

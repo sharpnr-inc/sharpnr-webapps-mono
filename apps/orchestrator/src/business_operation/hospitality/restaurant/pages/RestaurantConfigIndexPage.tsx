@@ -545,7 +545,7 @@ const RestaurantConfigIndexPage = () => {
     restaurantID,
   );
 
-  const { data: restau } = useRestaurantLayout(propertyId, restaurantID);
+  useRestaurantLayout(propertyId, restaurantID);
 
   const restaurant = data?.data;
 
