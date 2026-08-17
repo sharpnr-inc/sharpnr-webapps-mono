@@ -4,6 +4,7 @@ import {
   Sidebar,
   SidebarInset,
   SidebarTrigger,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { RestaurantSidebar } from "./RestaurantSidebar";
 import { ModeToggle } from "@/components/header/ThemeToggle";
@@ -13,6 +14,7 @@ import { NotificationBell } from "@/components/header/NotificationButton";
 import { Separator } from "@/components/ui/separator";
 import { useQueryClient } from "@tanstack/react-query";
 import { SharpnrSidebarFooter } from "@/components/ui/SharpnrSidebarFooter";
+import { Building2 } from "lucide-react";
 
 export function RestaurantRootLayout() {
   const queryClient = useQueryClient();
@@ -29,30 +31,15 @@ export function RestaurantRootLayout() {
     <SidebarProvider defaultOpen={false}>
       <div className="flex w-full">
         <Sidebar collapsible="icon">
-          {/* <div className="p-2">
-            <SidebarMenuButton
-              size="lg"
-              onClick={() =>
-                navigate({
-                  to: "/restaurant",
-                })
-              }
-            >
+          <div className="p-2">
+            <SidebarMenuButton size="lg">
               <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                 <Building2 className="size-4" />
               </div>
 
-              <div className="flex flex-col gap-0.5 leading-none">
-                <span className="font-medium">
-                  {selectedRestaurant?.Name ?? "Select Restaurant"}
-                </span>
-
-                <span className="text-xs text-muted-foreground">
-                  {selectedRestaurant?.Property?.Name ?? "Property"}
-                </span>
-              </div>
+              <div className="flex flex-col gap-0.5 leading-none"></div>
             </SidebarMenuButton>
-          </div> */}
+          </div>
 
           <RestaurantSidebar />
           <SharpnrSidebarFooter />
