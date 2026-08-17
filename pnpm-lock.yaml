@@ -207,6 +207,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.101.4(react@19.2.8)
@@ -565,6 +568,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tabler/icons-react':
         specifier: ^3.34.1
         version: 3.46.0(react@19.2.8)
@@ -806,6 +812,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0))
@@ -936,6 +945,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0))
@@ -1099,6 +1111,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0))
@@ -1247,6 +1262,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0))
@@ -1374,6 +1392,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0))
@@ -1562,6 +1583,9 @@ importers:
       '@sharpnr/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tanstack/react-form':
         specifier: ^1.29.0
         version: 1.33.5(@tanstack/react-start@1.168.46(crossws@0.4.10(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.4)(rollup@4.62.4)(supports-color@10.2.2)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0)))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1820,6 +1844,9 @@ importers:
       '@sharpnr/env':
         specifier: workspace:*
         version: link:../env
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -1884,6 +1911,9 @@ importers:
       '@radix-ui/react-visually-hidden':
         specifier: ^1.1.0
         version: 1.2.11(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@sharpnr/utils':
+        specifier: workspace:*
+        version: link:../utils
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1981,6 +2011,18 @@ importers:
       vite-plugin-dts:
         specifier: ^5.0.0
         version: 5.0.3(esbuild@0.28.2)(rolldown@1.2.4)(rollup@4.62.4)(supports-color@10.2.2)(typescript@6.0.3)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.50.0))
+
+  packages/utils:
+    devDependencies:
+      clsx:
+        specifier: 'catalog:'
+        version: 2.1.1
+      tailwind-merge:
+        specifier: 'catalog:'
+        version: 3.6.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
 
 packages:
 

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { UserPlus, Crown, Bot } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import type { User, UserStatus } from "../types";
 import { useChat } from "@/hooks/useChatStore";
 

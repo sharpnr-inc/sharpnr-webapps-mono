@@ -1,5 +1,5 @@
 import { PurchaseContext } from "./PurchaseContext";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useReset, useSubmit } from "./store/PurchaseForm.selectors";
 import { useLegalEntitySuppliers } from "../../api/queries/suppliers";
 import { useAccountingStore } from "@/store/accounting.store";

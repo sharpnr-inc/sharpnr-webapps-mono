@@ -1,6 +1,6 @@
 import { useStore } from "@tanstack/react-form";
 import { useFormContext } from "./form-context";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { Loader2 } from "lucide-react";
 import { Button } from "@sharpnr/ui";
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MoreHorizontal, SmilePlus, Reply, Pin, Hash } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import type { Message } from "../types";
 import { useChat, useMessages } from "@/hooks/useChatStore";
 

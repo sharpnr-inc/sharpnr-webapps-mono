@@ -23,7 +23,7 @@ import {
   XCircle,
 } from "lucide-react";
 import * as XLSX from "xlsx";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 /* ── template ──────────────────────────────────────────────── */
 

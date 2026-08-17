@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRestaurantLayout } from "../apis/queries";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSheet } from "@/hooks/useSheet";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";

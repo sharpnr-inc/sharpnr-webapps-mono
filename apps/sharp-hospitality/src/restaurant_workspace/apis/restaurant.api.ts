@@ -3,7 +3,7 @@ import {
   RestaurantEndpoints,
   type GetInventoriesFilterParams,
 } from "./enpoints";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 
 /* ---------------------------------- <***> --------------------------------- */
 export async function FetchRestaurantLayout(restaurantID?: string | null) {

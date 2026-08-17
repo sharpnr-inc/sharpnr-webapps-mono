@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance } from "axios";
 import { config } from "@sharpnr/env";
+import { getCookie } from "@sharpnr/utils";
 
 /**
  * @file @sharpnr/http
@@ -27,33 +28,6 @@ const CSRF_HEADER_NAME = "X-CSRF-Token";
 
 /** Methods that do not mutate state, so they carry no CSRF header. */
 const SAFE_HTTP_METHODS = ["GET", "HEAD", "OPTIONS"];
-
-/**
- * Reads a cookie by name. Returns null when absent, or when there is no
- * `document` (SSR / tests).
- *
- * Splits on the first "=" only, since cookie values may themselves contain it.
- */
-export function getCookie(name: string): string | null {
-  if (typeof document === "undefined") return null;
-
-  for (const cookie of document.cookie.split(";")) {
-    const trimmed = cookie.trim();
-    const separatorIndex = trimmed.indexOf("=");
-    if (separatorIndex === -1) continue;
-
-    if (trimmed.slice(0, separatorIndex) !== name) continue;
-
-    const value = trimmed.slice(separatorIndex + 1);
-    try {
-      return decodeURIComponent(value);
-    } catch {
-      return value;
-    }
-  }
-
-  return null;
-}
 
 export interface ApiClientOptions {
   /** Backend base URL, i.e. `config.apiBaseUrl`. */

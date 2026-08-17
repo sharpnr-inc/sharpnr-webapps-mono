@@ -1,7 +1,7 @@
 import { Route } from "@/routes/workspace/_modules/hotel/$hotelID/booking/index";
 import { useHotelLayout } from "../../apis/queries";
 import { IndianRupee } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 /* ================================
    Types

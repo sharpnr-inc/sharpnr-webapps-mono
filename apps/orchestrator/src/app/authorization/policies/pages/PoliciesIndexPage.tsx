@@ -32,7 +32,7 @@ import {
 } from "@tanstack/react-table";
 import type { SentinelPolicy } from "../api/types";
 import { MOCK_POLICIES, policyEffect } from "../data/policies.mock";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useAllResourcesOfOrg } from "../../cedarPolicybuilder/api/query";
 
 /** Relative-ish friendly date, e.g. "18 Jun 2026". */

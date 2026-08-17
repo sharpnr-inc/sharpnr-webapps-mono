@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 
 import type {

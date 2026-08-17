@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@sharpnr/ui";
 import { useQueryClient } from "@tanstack/react-query";
-import { convertToGoTimeUTC } from "@/lib/formatDatePretty";
+import { convertToGoTimeUTC } from "@sharpnr/utils";
 import { useAddLicenseAndComplaianceInLegalEntityMutation } from "../../api/mutation";
 
 interface AddLicenseAndComplianceFormProps {

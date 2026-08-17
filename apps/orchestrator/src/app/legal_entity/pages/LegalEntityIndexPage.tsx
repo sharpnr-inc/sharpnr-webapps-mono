@@ -17,7 +17,7 @@ import { getLegalEntityTypeLabel } from "../utils/entity_type";
 import type { LegalEntityResponseDto } from "../api/types";
 import { useNavigate } from "@tanstack/react-router";
 import { useModal } from "@/hooks/useModal";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 /* ── helpers ─────────────────────────────────────────────── */
 

@@ -16,7 +16,7 @@ import React from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CheckIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useStateStore } from "@/components/forms/store/state_store";
 import { Button } from "@/components/ui/button";
 import { useStates } from "../apiservice/queries";

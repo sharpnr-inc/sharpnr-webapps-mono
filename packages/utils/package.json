@@ -1,0 +1,23 @@
+{
+  "name": "@sharpnr/utils",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared helpers: class merging, cookies, API envelope types, date formatting",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "files": ["src"],
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {},
+  "peerDependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "devDependencies": {
+    "clsx": "catalog:",
+    "tailwind-merge": "catalog:",
+    "typescript": "catalog:"
+  }
+}

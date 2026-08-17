@@ -33,7 +33,7 @@ import type {
   PurchaseStatus,
   ServiceStatus,
 } from "../api/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 /* ── config / helpers ─────────────────────────────────────── */
 

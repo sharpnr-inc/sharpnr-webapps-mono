@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import {

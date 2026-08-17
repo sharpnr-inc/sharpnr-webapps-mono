@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useUserAuth } from "@/apis/mutation";
 import { redirectAfterAuth } from "@/lib/auth-redirect";
 import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";

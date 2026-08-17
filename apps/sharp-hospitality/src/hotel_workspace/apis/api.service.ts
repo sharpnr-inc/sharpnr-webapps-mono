@@ -1,6 +1,6 @@
 import api from "@/middlewares/axios";
 import { HotelEndpoints } from "./hotel.endpoints";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 import { isAxiosError } from "axios";
 
 export interface Hotel {

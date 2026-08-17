@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,

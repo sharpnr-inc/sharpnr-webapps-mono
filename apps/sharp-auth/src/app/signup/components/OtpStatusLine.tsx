@@ -1,5 +1,5 @@
 import { CheckCircle2, Clock, TimerOff } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { OTP_URGENT_SECONDS, formatDuration } from "../otp";
 
 interface OtpStatusLineProps {

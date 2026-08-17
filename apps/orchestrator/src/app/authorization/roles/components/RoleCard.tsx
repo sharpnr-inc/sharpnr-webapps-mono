@@ -6,7 +6,7 @@ import {
   ArrowRight,
   Activity,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import type { OrgRole } from "../api/types";
 import { useNavigate } from "@tanstack/react-router";
 

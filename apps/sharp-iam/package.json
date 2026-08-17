@@ -16,6 +16,7 @@
     "@sharpnr/env": "workspace:*",
     "@sharpnr/http": "workspace:*",
     "@sharpnr/ui": "workspace:*",
+    "@sharpnr/utils": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",

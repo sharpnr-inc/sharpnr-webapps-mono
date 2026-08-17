@@ -18,6 +18,7 @@
     "@sharpnr/env": "workspace:*",
     "@sharpnr/http": "workspace:*",
     "@sharpnr/ui": "workspace:*",
+    "@sharpnr/utils": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-form": "^1.29.0",
     "@tanstack/react-query": "catalog:",

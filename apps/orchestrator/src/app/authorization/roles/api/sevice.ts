@@ -1,5 +1,5 @@
 import { api } from "@sharpnr/http";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 import type { OrgRole } from "./types";
 
 const sentinelEndpoints = {

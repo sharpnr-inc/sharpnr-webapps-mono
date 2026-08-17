@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@sharpnr/ui";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import {
   usePolicyBuilderStore,
   type PrincipalOp,

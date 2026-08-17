@@ -19,7 +19,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatDateTimePretty } from "@/lib/formatDatePretty";
+import { formatDateTimePretty } from "@sharpnr/utils";
 
 type PaymentOrder = {
   id: string;

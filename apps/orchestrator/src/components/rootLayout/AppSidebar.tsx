@@ -17,7 +17,7 @@ import {
   SharpnrSidebarFooter,
   ScrollArea,
 } from "@sharpnr/ui";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useAppUserStore } from "@/store/AppUserStore";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {

@@ -10,7 +10,7 @@ import { Outlet } from "@tanstack/react-router";
 import { Bell } from "lucide-react";
 import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
 import { Button, ModeToggle } from "@sharpnr/ui";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { UserCard } from "../header/UserCard";
 import { OrchestratorShell } from "./AppSidebar";
 

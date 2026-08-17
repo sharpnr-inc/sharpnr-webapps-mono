@@ -11,7 +11,7 @@ import {
   Info,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import type { Channel } from "../types";
 import { useChat } from "@/hooks/useChatStore";
 

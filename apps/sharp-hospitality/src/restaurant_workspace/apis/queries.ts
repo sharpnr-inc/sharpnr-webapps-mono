@@ -8,7 +8,7 @@ import {
   GetRestaurantGeneralInfo,
   type RestaurantGeneralInfoInterface,
 } from "./restaurant.api";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 
 export function useRestaurantLayout(restaurantID?: string | null) {
   return useQuery<APIResponse<any>>({

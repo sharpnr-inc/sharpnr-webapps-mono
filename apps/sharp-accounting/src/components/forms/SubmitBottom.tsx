@@ -1,7 +1,7 @@
 import { useStore } from "@tanstack/react-form";
 import { useFormContext } from "./form-context";
 import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 type SubmitButtonProps = {
   children: React.ReactNode;

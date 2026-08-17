@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SaleTerminalMenu from "../components/SalePosTerminal/Menu/SaleTerminalMenu";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { ChefHat, Receipt, Clock, Users } from "lucide-react";
 import { SalePosTerminalOrderSummary } from "../components/SalePosTerminal/OrderSummary/PosOrderSummary";
 import { Route } from "@/routes/workspace/_modules/restaurant/$restaurantID/sales-terminal/index";

@@ -5,7 +5,7 @@ import {
   GetPropertyDetails,
   ListAllProperties,
 } from "./service";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 import type {
   PropertiesOfOrganizationData,
   PropertyDetailsData,

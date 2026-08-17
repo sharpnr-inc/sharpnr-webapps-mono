@@ -1,6 +1,6 @@
 //--------------------------------------------------------------------------------//
 
-import type { APIError, APIResponse } from "@/lib/api_response";
+import type { APIError, APIResponse } from "@sharpnr/utils";
 import { ApiError, toApiError, type ErrorMessages } from "@/lib/api_error";
 import { AuthApiEndpoints } from "./Endpoints";
 import axios from "axios";

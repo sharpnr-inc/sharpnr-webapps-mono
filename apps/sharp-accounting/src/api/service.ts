@@ -1,6 +1,6 @@
 import { api } from "@sharpnr/http";
 import { UserRoutes } from "./endpoints";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 import type { UserDataResponseDto } from "./types";
 
 /**

@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@fontsource-variable/outfit": "^5.2.8",
+    "@sharpnr/utils": "workspace:*",
     "cmdk": "catalog:",
     "embla-carousel-react": "catalog:",
     "gsap": "catalog:",

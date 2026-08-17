@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { pwRules } from "./types";
 import { motion } from "framer-motion";
 import { CheckCircle2, Circle } from "lucide-react";

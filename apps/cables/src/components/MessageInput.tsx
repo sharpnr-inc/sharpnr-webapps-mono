@@ -13,7 +13,7 @@ import {
   Code2,
   Strikethrough,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useChat } from "@/hooks/useChatStore";
 
 interface MessageInputProps {

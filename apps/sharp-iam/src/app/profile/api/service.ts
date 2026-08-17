@@ -1,4 +1,4 @@
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 import { api } from "@sharpnr/http";
 import type { ProfileResponseDTO } from "./types";
 /* ---------------- Endpoints for the Profile of the Employee --------------- */

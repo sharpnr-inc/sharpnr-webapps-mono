@@ -16,7 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useChat } from "@/hooks/useChatStore";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import type { Channel, UserStatus } from "../types";
 
 const STATUS_COLOR: Record<UserStatus, string> = {

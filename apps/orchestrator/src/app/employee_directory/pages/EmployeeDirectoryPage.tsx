@@ -12,7 +12,7 @@ import { useState, useMemo } from "react";
 import { useEmployees } from "../api/queries";
 import type { EmployeeOfOrganization } from "../api/types";
 import { AddSuperAdminButton } from "../components/AddSuperAdminButton";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useNavigate } from "@tanstack/react-router";
 
 /* ── config / helpers ─────────────────────────────────────── */

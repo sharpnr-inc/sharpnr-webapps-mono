@@ -10,7 +10,7 @@ import {
 import { ChevronRight, MoreHorizontal, Search } from "lucide-react";
 import { useLEAccountingBook } from "@/app/api/queries/books";
 import { useAccountingStore } from "@/store/accounting.store";
-import { formatDateTimePretty } from "@/lib/formatDatePretty";
+import { formatDateTimePretty } from "@sharpnr/utils";
 import { CreateAccountForm } from "@/app/shared/forms/AddAccountForm";
 import { useNavigate } from "@tanstack/react-router";
 import { useModal } from "@/hooks/useModal";

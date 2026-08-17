@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { useChat } from "@/hooks/useChatStore";
 import { useNavigate } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import type { User } from "../types";
 
 const MEET_PARTICIPANTS = [

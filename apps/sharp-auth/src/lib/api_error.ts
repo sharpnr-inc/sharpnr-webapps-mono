@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { APIResponse } from "./api_response";
+import type { APIResponse } from "@sharpnr/utils";
 
 /**
  * A failed request normalised into something the UI can branch on: the HTTP

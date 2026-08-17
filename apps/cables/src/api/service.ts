@@ -1,6 +1,6 @@
 import { api } from "@sharpnr/http";
 import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 
 export const AuthApiEndpoints = {
   Signup: {

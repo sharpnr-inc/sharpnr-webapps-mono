@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { ShoppingBasket, Trash2, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import { useOrderCart } from "./store/order-cart-store";

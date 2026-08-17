@@ -18,7 +18,7 @@ import {
 } from "@sharpnr/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAddTaxRegistrationInLegalEntityMutation } from "../../api/mutation";
-import { convertToGoTimeUTC } from "@/lib/formatDatePretty";
+import { convertToGoTimeUTC } from "@sharpnr/utils";
 interface AddTaxRegistrationFormProps {
   legalEntityID: string;
   closeModal: () => void;

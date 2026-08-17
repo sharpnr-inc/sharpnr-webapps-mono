@@ -1,4 +1,4 @@
-import { validateEmail, validateMobile, validatePassword } from "@/lib/utils";
+import { validateEmail, validateMobile, validatePassword } from "@/lib/validation";
 import {
   Field,
   FieldDescription,

@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMemo, useState } from "react";
 import { useDiningSessionOrders } from "../../apis/queries";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { Clock, CreditCard, X } from "lucide-react";
 import { DiningSessionPayment } from "../DiningSessionPayment";
 

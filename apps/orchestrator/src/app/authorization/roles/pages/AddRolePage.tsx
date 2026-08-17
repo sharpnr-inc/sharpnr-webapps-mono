@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { Input, Textarea, Button, Separator } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { RoleCard } from "../components/RoleCard";
 import { useAddRoleStore } from "../store/useAddRoleStore";
 import type { OrgRole } from "../api/types";

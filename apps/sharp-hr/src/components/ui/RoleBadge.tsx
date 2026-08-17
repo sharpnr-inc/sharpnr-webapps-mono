@@ -6,7 +6,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/ui/badge"; // Shadcn UI
-import { cn } from "@/lib/utils"; // Shadcn cn helper
+import { cn } from "@sharpnr/utils"; // Shadcn cn helper
 import { resolveRoleConfig } from "@/lib/role_badge";
 import type { RoleConfig } from "@/lib/role_badge";
 

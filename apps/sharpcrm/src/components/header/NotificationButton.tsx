@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@sharpnr/ui";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { Bell } from "lucide-react";
 
 export function NotificationBell({ onClick }: { onClick: () => void }) {

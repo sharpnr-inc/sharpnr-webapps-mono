@@ -2,7 +2,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@sharpnr/ui";
 import { useFieldContext } from "../form-context";
 import { useCountries } from "../apiservice/queries";
 import { ChevronDown, Globe, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import React from "react";
 import type { Country } from "../apiservice/csc";
 import {

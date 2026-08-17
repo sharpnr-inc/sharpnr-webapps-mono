@@ -24,6 +24,7 @@
     "vite-plugin-dts": "^5.0.0"
   },
   "dependencies": {
-    "@sharpnr/env": "workspace:*"
+    "@sharpnr/env": "workspace:*",
+    "@sharpnr/utils": "workspace:*"
   }
 }

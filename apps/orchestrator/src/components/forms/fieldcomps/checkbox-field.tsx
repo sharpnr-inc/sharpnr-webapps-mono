@@ -1,5 +1,5 @@
 import { Checkbox } from "@sharpnr/ui";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useFieldContext } from "../form-context";
 
 type CheckboxFieldProps = {

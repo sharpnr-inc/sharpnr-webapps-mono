@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 /**
  * Field errors come from zod as `{ message }` objects, but a plain string is

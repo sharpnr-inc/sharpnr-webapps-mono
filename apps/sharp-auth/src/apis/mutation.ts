@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import type { APIResponse } from "@/lib/api_response";
+import type { APIResponse } from "@sharpnr/utils";
 import {
   InitializeSignup,
   ResendOtp,

@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 
 interface MobileInputProps extends Omit<
   React.ComponentProps<typeof Input>,

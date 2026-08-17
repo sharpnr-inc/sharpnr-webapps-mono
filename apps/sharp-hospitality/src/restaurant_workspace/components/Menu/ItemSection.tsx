@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@sharpnr/utils";
 import { useMenuStore, ALL_CATEGORY_ID } from "./store/MenuStore";
 import type { MenuItem, DietaryType } from "./types";
 
