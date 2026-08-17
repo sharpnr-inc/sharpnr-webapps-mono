@@ -63,9 +63,12 @@ catalog:
   zustand: ^5.0.12
 
 allowBuilds:
-  # both ship native binaries and must run their install scripts
+  # all ship native binaries or codegen and must run their install scripts
+  '@openrouter/sdk': true
   '@swc/core': true
   esbuild: true
+  sharp: true # next/image, used by the two Next.js apps
+  unrs-resolver: true
 
 # NOTE: eslint and its plugins are deliberately NOT catalogued. orchestrator and
 # sharp-iam are on eslint 9, packages/ui is on eslint 10, which is a breaking

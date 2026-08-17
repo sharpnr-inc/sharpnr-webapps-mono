@@ -9,23 +9,30 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@sharpnr/ui": "^1.1.2",
-    "axios": "^1.18.0",
-    "framer-motion": "^12.40.0",
+    "@sharpnr/ui": "workspace:*",
+    "axios": "catalog:",
+    "clsx": "catalog:",
+    "framer-motion": "catalog:",
+    "lucide-react": "catalog:",
     "next": "16.2.9",
-    "next-themes": "^0.4.6",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "sonner": "^2.0.7"
+    "next-themes": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "sonner": "catalog:",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  },
+  "deploy": {
+    "skip": true,
+    "note": "Next.js; needs a node runtime or static export, not a dist copy"
   }
 }

@@ -11,6 +11,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // One .env at the repo root serves every app.
+  envDir: path.resolve(__dirname, "../.."),
   plugins: [
     tanstackStart({
       // Code splitting is enabled by default in TanStack Start
