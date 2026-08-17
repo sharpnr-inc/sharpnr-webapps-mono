@@ -23,9 +23,7 @@
     "dev": "vite build --watch",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "preview": "vite preview"
   },
   "publishConfig": {
     "access": "public"
@@ -75,35 +73,23 @@
     "tw-animate-css": "catalog:"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^5.2.1",
     "@eslint/js": "^10.0.1",
-    "@storybook/addon-a11y": "^10.4.0",
-    "@storybook/addon-docs": "^10.4.0",
-    "@storybook/addon-vitest": "^10.4.0",
-    "@storybook/react": "^10.4.0",
-    "@storybook/react-vite": "^10.4.0",
     "@tailwindcss/vite": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "@vitest/browser-playwright": "^4.1.6",
-    "@vitest/coverage-v8": "^4.1.6",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "eslint-plugin-storybook": "^10.4.0",
     "globals": "^17.6.0",
-    "playwright": "^1.60.0",
     "postcss": "^8.5.14",
     "shadcn": "^4.7.0",
-    "storybook": "^10.4.0",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "^8.59.2",
     "vite": "catalog:",
-    "vite-plugin-dts": "^5.0.0",
-    "vitest": "catalog:"
+    "vite-plugin-dts": "^5.0.0"
   }
 }

@@ -19,7 +19,6 @@ out/
 .output/
 .nitro/
 .tanstack/
-storybook-static/
 dev-dist/
 *.tsbuildinfo
 next-env.d.ts
