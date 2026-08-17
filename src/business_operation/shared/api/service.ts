@@ -4,14 +4,14 @@ import type { BusinessModulesData, InfraModulesData } from "./types";
 
 export async function GetAllBusinessModules() {
   const res = await api.get<APIResponse<BusinessModulesData>>(
-    "/orchestrator/utils/buinsess_modules",
+    "/orchestrator/property/utils/bm",
   );
   return res.data;
 }
 
 export async function GetAllInfraModules() {
   const res = await api.get<APIResponse<InfraModulesData>>(
-    "/orchestrator/utils/Infra_modules",
+    "/orchestrator/property/utils/infra",
   );
   return res.data;
 }

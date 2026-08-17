@@ -24,7 +24,7 @@ import {
 } from "@sharpnr/ui";
 import { Route } from "@/routes/_appuser/property/$propertyId/business_op_modules/hospitality/restaurant/$restaurantID/index";
 import { ProcessRestaurantConfigurationStatus } from "@/business_operation/hospitality/utils/CongifurationStatus";
-import { useRestaurantDetails } from "../api/queries";
+import { useRestaurantDetails, useRestaurantLayout } from "../api/queries";
 import type { RestaurantDetailsResponseDto } from "../api/types";
 
 /* ─────────────────────────────────────────────
@@ -461,11 +461,7 @@ function MenuSection() {
   );
 }
 
-function LegalSection({
-  legalEntityId,
-}: {
-  legalEntityId: string | null;
-}) {
+function LegalSection({ legalEntityId }: { legalEntityId: string | null }) {
   // Entities are still dummy data — only preselect when the assigned id is one of them.
   const [selectedId, setSelectedId] = useState<string>(
     LEGAL_ENTITIES.some((e) => e.id === legalEntityId)
@@ -548,6 +544,8 @@ const RestaurantConfigIndexPage = () => {
     propertyId,
     restaurantID,
   );
+
+  const { data: restau } = useRestaurantLayout(propertyId, restaurantID);
 
   const restaurant = data?.data;
 
