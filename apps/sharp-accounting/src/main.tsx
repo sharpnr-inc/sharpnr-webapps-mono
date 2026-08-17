@@ -10,6 +10,7 @@ import SuspenseFallback from "./components/ui/SuspenseFallback";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { ThemeProvider, SheetProvider } from "@sharpnr/ui";
 import { ModalProvider } from "./hooks/useModal";
+import { FormsModalProvider } from "./hooks/FormModalContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,9 +19,11 @@ createRoot(document.getElementById("root")!).render(
         <TooltipProvider>
           <SheetProvider>
             <ModalProvider>
-              <Suspense fallback={<SuspenseFallback />}>
-                <RouterProvider router={router} />
-              </Suspense>
+              <FormsModalProvider>
+                <Suspense fallback={<SuspenseFallback />}>
+                  <RouterProvider router={router} />
+                </Suspense>
+              </FormsModalProvider>
             </ModalProvider>
           </SheetProvider>
         </TooltipProvider>

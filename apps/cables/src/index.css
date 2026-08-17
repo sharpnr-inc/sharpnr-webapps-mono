@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 @import "@fontsource-variable/outfit";
 @import "@fontsource-variable/jetbrains-mono";
-@source "../node_modules/@sharpnr/ui/dist/index.es.js";
+@source "../../../packages/ui/src";
 
 /* In your main CSS file (e.g., globals.css) */
 

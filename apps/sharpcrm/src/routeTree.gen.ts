@@ -10,31 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
-import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
-import { Route as LayoutSocial_media_managementRouteImport } from './routes/_layout/social_media_management'
-import { Route as LayoutReportsRouteImport } from './routes/_layout/reports'
-import { Route as LayoutLeadsRouteImport } from './routes/_layout/leads'
 import { Route as LayoutCampaignsRouteImport } from './routes/_layout/campaigns'
+import { Route as LayoutLeadsRouteImport } from './routes/_layout/leads'
+import { Route as LayoutReportsRouteImport } from './routes/_layout/reports'
+import { Route as LayoutSocial_media_managementRouteImport } from './routes/_layout/social_media_management'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutHomeIndexRouteImport } from './routes/_layout/home/index'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
-  id: '/_website/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LayoutSocial_media_managementRoute =
-  LayoutSocial_media_managementRouteImport.update({
-    id: '/social_media_management',
-    path: '/social_media_management',
-    getParentRoute: () => LayoutRouteRoute,
-  } as any)
-const LayoutReportsRoute = LayoutReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
+const LayoutCampaignsRoute = LayoutCampaignsRouteImport.update({
+  id: '/campaigns',
+  path: '/campaigns',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutLeadsRoute = LayoutLeadsRouteImport.update({
@@ -42,10 +31,21 @@ const LayoutLeadsRoute = LayoutLeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
-const LayoutCampaignsRoute = LayoutCampaignsRouteImport.update({
-  id: '/campaigns',
-  path: '/campaigns',
+const LayoutReportsRoute = LayoutReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
   getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSocial_media_managementRoute =
+  LayoutSocial_media_managementRouteImport.update({
+    id: '/social_media_management',
+    path: '/social_media_management',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutHomeIndexRoute = LayoutHomeIndexRouteImport.update({
   id: '/home/',
@@ -121,25 +121,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_website/': {
-      id: '/_website/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof WebsiteIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_layout/social_media_management': {
-      id: '/_layout/social_media_management'
-      path: '/social_media_management'
-      fullPath: '/social_media_management'
-      preLoaderRoute: typeof LayoutSocial_media_managementRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/reports': {
-      id: '/_layout/reports'
-      path: '/reports'
-      fullPath: '/reports'
-      preLoaderRoute: typeof LayoutReportsRouteImport
+    '/_layout/campaigns': {
+      id: '/_layout/campaigns'
+      path: '/campaigns'
+      fullPath: '/campaigns'
+      preLoaderRoute: typeof LayoutCampaignsRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/leads': {
@@ -149,12 +135,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLeadsRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
-    '/_layout/campaigns': {
-      id: '/_layout/campaigns'
-      path: '/campaigns'
-      fullPath: '/campaigns'
-      preLoaderRoute: typeof LayoutCampaignsRouteImport
+    '/_layout/reports': {
+      id: '/_layout/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof LayoutReportsRouteImport
       parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/social_media_management': {
+      id: '/_layout/social_media_management'
+      path: '/social_media_management'
+      fullPath: '/social_media_management'
+      preLoaderRoute: typeof LayoutSocial_media_managementRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_website/': {
+      id: '/_website/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof WebsiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_layout/home/': {
       id: '/_layout/home/'

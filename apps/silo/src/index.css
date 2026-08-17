@@ -3,7 +3,7 @@
 @import "@fontsource-variable/outfit";
 @import "@fontsource-variable/space-grotesk";
 @import "@fontsource-variable/jetbrains-mono";
-@source "../node_modules/@sharpnr/ui/dist/index.es.js";
+@source "../../../packages/ui/src";
 
 /* ─────────────────────────────────────────────────────────────
    Silo "Shear" brand tokens

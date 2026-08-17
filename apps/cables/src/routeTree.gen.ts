@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as UserMeetIndexRouteImport } from './routes/_user/meet/index'
-import { Route as UserDmUserIdIndexRouteImport } from './routes/_user/dm/$userId/index'
 import { Route as UserChannelsChannelIdIndexRouteImport } from './routes/_user/channels/$channelId/index'
+import { Route as UserDmUserIdIndexRouteImport } from './routes/_user/dm/$userId/index'
 
 const UserRouteRoute = UserRouteRouteImport.update({
   id: '/_user',
@@ -29,17 +29,17 @@ const UserMeetIndexRoute = UserMeetIndexRouteImport.update({
   path: '/meet/',
   getParentRoute: () => UserRouteRoute,
 } as any)
-const UserDmUserIdIndexRoute = UserDmUserIdIndexRouteImport.update({
-  id: '/dm/$userId/',
-  path: '/dm/$userId/',
-  getParentRoute: () => UserRouteRoute,
-} as any)
 const UserChannelsChannelIdIndexRoute =
   UserChannelsChannelIdIndexRouteImport.update({
     id: '/channels/$channelId/',
     path: '/channels/$channelId/',
     getParentRoute: () => UserRouteRoute,
   } as any)
+const UserDmUserIdIndexRoute = UserDmUserIdIndexRouteImport.update({
+  id: '/dm/$userId/',
+  path: '/dm/$userId/',
+  getParentRoute: () => UserRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
@@ -103,18 +103,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserMeetIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
-    '/_user/dm/$userId/': {
-      id: '/_user/dm/$userId/'
-      path: '/dm/$userId'
-      fullPath: '/dm/$userId/'
-      preLoaderRoute: typeof UserDmUserIdIndexRouteImport
-      parentRoute: typeof UserRouteRoute
-    }
     '/_user/channels/$channelId/': {
       id: '/_user/channels/$channelId/'
       path: '/channels/$channelId'
       fullPath: '/channels/$channelId/'
       preLoaderRoute: typeof UserChannelsChannelIdIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
+    '/_user/dm/$userId/': {
+      id: '/_user/dm/$userId/'
+      path: '/dm/$userId'
+      fullPath: '/dm/$userId/'
+      preLoaderRoute: typeof UserDmUserIdIndexRouteImport
       parentRoute: typeof UserRouteRoute
     }
   }
