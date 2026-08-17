@@ -1,0 +1,17 @@
+import { ChartOfAccountingPage } from "@/app/chart-of-accounts/ChartOfAccountsPage";
+import { useAccountingStore } from "@/store/accounting.store";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+
+export const Route = createFileRoute("/_layout/chart-of-account/")({
+  beforeLoad: () => {
+    const selectedLegalEntity =
+      useAccountingStore.getState().selectedLegalEntity;
+
+    if (!selectedLegalEntity) {
+      throw redirect({
+        to: "/",
+      });
+    }
+  },
+  component: ChartOfAccountingPage,
+});
