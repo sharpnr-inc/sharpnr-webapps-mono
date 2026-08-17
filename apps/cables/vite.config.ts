@@ -27,7 +27,9 @@ export default defineConfig({
     alias: { "@": path.resolve(__dirname, "./src") },
   },
   preview: {
-    port: 6867,
+    // 68xx mirrors the 69xx dev port; cables runs dev on 6962. This said 6867
+    // (sharp-iam's preview port) by copy-paste, so the two collided.
+    port: 6862,
     strictPort: true,
   },
 });
