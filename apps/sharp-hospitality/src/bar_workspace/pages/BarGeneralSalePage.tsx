@@ -71,7 +71,7 @@ export default function BarGeneralSalePage() {
           <CardDescription>Browse and add items to the sale</CardDescription>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[450px] p-2 border rounded-md">
+          <ScrollArea className="h-112.5 p-2 border rounded-md">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {menuItems.map((item) => (
                 <Card

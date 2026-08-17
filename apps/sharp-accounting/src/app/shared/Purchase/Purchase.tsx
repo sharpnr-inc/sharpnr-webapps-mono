@@ -78,7 +78,7 @@ function PurchaseDetails() {
               <TooltipTrigger asChild>
                 <Info className="h-3 w-3 text-muted-foreground cursor-help" />
               </TooltipTrigger>
-              <TooltipContent className="max-w-[200px] text-xs">
+              <TooltipContent className="max-w-50 text-xs">
                 The bill number on the supplier's invoice. Must be unique per
                 supplier.
               </TooltipContent>
@@ -146,7 +146,7 @@ function PurchaseDetails() {
               <TooltipTrigger asChild>
                 <Info className="h-3 w-3 text-muted-foreground cursor-help" />
               </TooltipTrigger>
-              <TooltipContent className="max-w-[220px] text-xs">
+              <TooltipContent className="max-w-55 text-xs">
                 The liability account credited when this invoice is posted.
               </TooltipContent>
             </Tooltip>

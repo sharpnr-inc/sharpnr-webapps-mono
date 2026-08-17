@@ -171,10 +171,10 @@ export function LandingPage() {
         ═══════════════════════════════════════════════════ */}
         <section className="port-field relative overflow-hidden">
           {/* Warm patch-orange bloom, kept low so the ink ground stays dominant */}
-          <div className="pointer-events-none absolute -top-40 left-1/2 h-[32rem] w-[48rem] -translate-x-1/2 rounded-full bg-patch/8 blur-[120px]" />
+          <div className="pointer-events-none absolute -top-40 left-1/2 h-128 w-3xl -translate-x-1/2 rounded-full bg-patch/8 blur-[120px]" />
           <div className="pointer-events-none absolute top-52 left-1/4 h-72 w-72 rounded-full bg-signal/10 blur-[100px]" />
           {/* Fade the port field out toward the fold */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink" />
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-ink/40 via-transparent to-ink" />
 
           <div className="relative mx-auto max-w-7xl px-6 py-28 md:py-36">
             <motion.div

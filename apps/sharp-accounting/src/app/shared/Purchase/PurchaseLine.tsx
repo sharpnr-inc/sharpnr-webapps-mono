@@ -69,22 +69,22 @@ export function PurchaseLine() {
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/50 hover:bg-muted/50">
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider min-w-[180px]">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider min-w-45">
                 Description
               </TableHead>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[150px]">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-37.5">
                 Debit Account
               </TableHead>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[70px] text-right">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-17.5 text-right">
                 Qty
               </TableHead>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[110px] text-right">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-27.5 text-right">
                 Unit Price
               </TableHead>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[100px]">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-25">
                 Tax
               </TableHead>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[50px] text-center">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-12.5 text-center">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <div className="flex items-center justify-center cursor-help">
@@ -96,10 +96,10 @@ export function PurchaseLine() {
                   </TooltipContent>
                 </Tooltip>
               </TableHead>
-              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-[120px] text-right">
+              <TableHead className="text-[10px] font-bold uppercase tracking-wider w-30 text-right">
                 Amount
               </TableHead>
-              <TableHead className="w-[36px]" />
+              <TableHead className="w-9" />
             </TableRow>
           </TableHeader>
 
@@ -238,7 +238,7 @@ export function PurchaseLine() {
                           Inventory
                         </span>
                         <Select>
-                          <SelectTrigger className="h-7 text-xs w-[200px] border-teal-200 bg-white dark:bg-background">
+                          <SelectTrigger className="h-7 text-xs w-50 border-teal-200 bg-white dark:bg-background">
                             <SelectValue placeholder="Select item…" />
                           </SelectTrigger>
 

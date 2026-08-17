@@ -109,10 +109,10 @@ export default function HotelOverviewMainPage() {
           <CardHeader>
             <CardTitle className="text-base font-medium">Room Occupancy</CardTitle>
           </CardHeader>
-          <CardContent className="relative flex items-center justify-center min-h-[250px]">
+          <CardContent className="relative flex items-center justify-center min-h-62.5">
             <ChartContainer
               config={occupancyChartConfig}
-              className="aspect-square w-full max-w-[200px]"
+              className="aspect-square w-full max-w-50"
             >
               <RadialBarChart
                 data={occupancyData}
@@ -153,7 +153,7 @@ export default function HotelOverviewMainPage() {
           <CardContent>
             <ChartContainer
               config={chartConfig}
-              className="h-[250px] w-full"
+              className="h-62.5 w-full"
             >
               <BarChart data={data} margin={{ top: 20 }}>
                 <CartesianGrid vertical={false} strokeDasharray="3 3" opacity={0.4} />
