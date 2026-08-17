@@ -49,13 +49,6 @@ lerna-debug.log*
 *.local
 setup/generated/
 
-# Test artifacts
-test-results/
-playwright-report/
-blob-report/
-playwright/.cache/
-playwright/.auth/
-
 # Editors and OS
 .vscode/*
 !.vscode/extensions.json
@@ -80,9 +73,8 @@ playwright/.auth/
 # docs (fumadocs): generated MDX source index
 /apps/docs/.source/
 
-# orchestrator: local TLS certs + vendored WebKit libs for e2e
+# orchestrator: local TLS certs
 /apps/orchestrator/ssl/
-/apps/orchestrator/e2e/.webkit-libs/
 
 # stockwave: the only app that does NOT commit its generated route tree.
 # Every other TanStack Router app here tracks src/routeTree.gen.ts.

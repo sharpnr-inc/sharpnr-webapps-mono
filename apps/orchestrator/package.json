@@ -10,8 +10,7 @@
     "preview": "vite preview",
     "generate:routes": "tanstack-router generate",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.11.1",
@@ -85,7 +84,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
-    "@playwright/test": "^1.60.0",
     "@tanstack/devtools-vite": "^0.7.0",
     "@tanstack/react-query-devtools": "^5.85.8",
     "@tanstack/router-plugin": "catalog:",

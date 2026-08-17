@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 // Vitest config for component/unit tests (jsdom).
-// Playwright end-to-end tests live in ./tests and are intentionally excluded.
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -16,6 +15,6 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
-    exclude: ["**/node_modules/**", "**/e2e/**"],
+    exclude: ["**/node_modules/**"],
   },
 });
