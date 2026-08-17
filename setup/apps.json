@@ -1,0 +1,36 @@
+{
+  "$comment": [
+    "Single source of truth for local development hosts, ports and nginx routing.",
+    "Kept here rather than in each app's package.json because the suite is being",
+    "migrated incrementally -- apps still living in their own repos must keep",
+    "working alongside the ones already moved into this monorepo.",
+    "",
+    "Cookies from sharpnr-engine are issued with Secure + SameSite=None on",
+    "Domain=.sharpnr.test (see config/cookieConfig.go), so every app must be",
+    "reachable over HTTPS on a *.sharpnr.test name. Plain http:// on a .test",
+    "domain is not a trustworthy origin and the browser will silently drop them."
+  ],
+  "domain": "sharpnr.test",
+  "apps": [
+    { "name": "administration", "host": "administration.sharpnr.test", "port": 6955 },
+    { "name": "stockwave",      "host": "stockwave.sharpnr.test",      "port": 6956 },
+    { "name": "cortex",         "host": "cortex.sharpnr.test",         "port": 6957 },
+    { "name": "sharpnr-website","host": "sharpnr.test",                "port": 6958 },
+    { "name": "marketplace",    "host": "marketplace.sharpnr.test",    "port": 6959 },
+    { "name": "silo",           "host": "silo.sharpnr.test",           "port": 6960 },
+    { "name": "folio",          "host": "folio.sharpnr.test",          "port": 6961 },
+    { "name": "cables",         "host": "cables.sharpnr.test",         "port": 6962 },
+    { "name": "accounting",     "host": "accounting.sharpnr.test",     "port": 6963 },
+    { "name": "auth",           "host": "auth.sharpnr.test",           "port": 6964 },
+    { "name": "hospitality",    "host": "hospitality.sharpnr.test",    "port": 6965 },
+    { "name": "hr",             "host": "hr.sharpnr.test",             "port": 6966 },
+    { "name": "iam",            "host": "iam.sharpnr.test",            "port": 6967 },
+    { "name": "sharpcrm",       "host": "sharpcrm.sharpnr.test",       "port": 6968 },
+    { "name": "orchestrator",   "host": "orchestrator.sharpnr.test",   "port": 6969 },
+
+    { "name": "docs", "host": "docs.sharpnr.test", "port": 6954,
+      "note": "VERIFY: the live nginx.conf points docs at 6956, which stockwave also uses, so docs currently serves stockwave. 6954 is a proposed free port; confirm before use." },
+
+    { "name": "api", "host": "api.sharpnr.test", "port": 8080, "backend": true }
+  ]
+}
