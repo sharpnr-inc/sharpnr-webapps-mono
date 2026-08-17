@@ -10,55 +10,55 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkspaceRouteRouteImport } from './routes/workspace/route'
-import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as WorkspaceIndexRouteImport } from './routes/workspace/index'
 import { Route as WorkspaceModulesRouteRouteImport } from './routes/workspace/_modules/route'
 import { Route as WorkspaceModulesInfraRouteRouteImport } from './routes/workspace/_modules/infra/route'
-import { Route as WorkspaceModulesRestaurantIndexRouteImport } from './routes/workspace/_modules/restaurant/index'
-import { Route as WorkspaceModulesInfraIndexRouteImport } from './routes/workspace/_modules/infra/index'
-import { Route as WorkspaceModulesHotelIndexRouteImport } from './routes/workspace/_modules/hotel/index'
 import { Route as WorkspaceModulesBarIndexRouteImport } from './routes/workspace/_modules/bar/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDRouteRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/route'
-import { Route as WorkspaceModulesHotelHotelIDRouteRouteImport } from './routes/workspace/_modules/hotel/$hotelID/route'
 import { Route as WorkspaceModulesBarBarIDRouteRouteImport } from './routes/workspace/_modules/bar/$barID/route'
-import { Route as WorkspaceModulesInfraKitchenIndexRouteImport } from './routes/workspace/_modules/infra/kitchen/index'
-import { Route as WorkspaceModulesHotelHotelIDOverviewRouteImport } from './routes/workspace/_modules/hotel/$hotelID/overview'
+import { Route as WorkspaceModulesHotelIndexRouteImport } from './routes/workspace/_modules/hotel/index'
+import { Route as WorkspaceModulesHotelHotelIDRouteRouteImport } from './routes/workspace/_modules/hotel/$hotelID/route'
+import { Route as WorkspaceModulesInfraIndexRouteImport } from './routes/workspace/_modules/infra/index'
+import { Route as WorkspaceModulesRestaurantIndexRouteImport } from './routes/workspace/_modules/restaurant/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDRouteRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/route'
 import { Route as WorkspaceModulesBarBarIDOverviewRouteImport } from './routes/workspace/_modules/bar/$barID/overview'
-import { Route as WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/table-management/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/sales-terminal/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDReservationsIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/reservations/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDOverviewIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/overview/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDOrdersIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/orders/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDInventoryIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/inventory/index'
-import { Route as WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/general-settings/index'
-import { Route as WorkspaceModulesHotelHotelIDSettingsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/settings/index'
-import { Route as WorkspaceModulesHotelHotelIDRoom_requestsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/room_requests/index'
-import { Route as WorkspaceModulesHotelHotelIDReservationsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/reservations/index'
-import { Route as WorkspaceModulesHotelHotelIDInventoryIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/inventory/index'
-import { Route as WorkspaceModulesHotelHotelIDHousekeepingIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/housekeeping/index'
-import { Route as WorkspaceModulesHotelHotelIDGuestsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/guests/index'
-import { Route as WorkspaceModulesHotelHotelIDCheckoutsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/checkouts/index'
-import { Route as WorkspaceModulesHotelHotelIDBookingIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/booking/index'
-import { Route as WorkspaceModulesBarBarIDTable_managementIndexRouteImport } from './routes/workspace/_modules/bar/$barID/table_management/index'
-import { Route as WorkspaceModulesBarBarIDSettingsIndexRouteImport } from './routes/workspace/_modules/bar/$barID/settings/index'
-import { Route as WorkspaceModulesBarBarIDSale_counterIndexRouteImport } from './routes/workspace/_modules/bar/$barID/sale_counter/index'
+import { Route as WorkspaceModulesHotelHotelIDOverviewRouteImport } from './routes/workspace/_modules/hotel/$hotelID/overview'
+import { Route as WorkspaceModulesInfraKitchenIndexRouteImport } from './routes/workspace/_modules/infra/kitchen/index'
 import { Route as WorkspaceModulesBarBarIDInventoryIndexRouteImport } from './routes/workspace/_modules/bar/$barID/inventory/index'
+import { Route as WorkspaceModulesBarBarIDSale_counterIndexRouteImport } from './routes/workspace/_modules/bar/$barID/sale_counter/index'
+import { Route as WorkspaceModulesBarBarIDSettingsIndexRouteImport } from './routes/workspace/_modules/bar/$barID/settings/index'
+import { Route as WorkspaceModulesBarBarIDTable_managementIndexRouteImport } from './routes/workspace/_modules/bar/$barID/table_management/index'
+import { Route as WorkspaceModulesHotelHotelIDBookingIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/booking/index'
+import { Route as WorkspaceModulesHotelHotelIDCheckoutsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/checkouts/index'
+import { Route as WorkspaceModulesHotelHotelIDGuestsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/guests/index'
+import { Route as WorkspaceModulesHotelHotelIDHousekeepingIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/housekeeping/index'
+import { Route as WorkspaceModulesHotelHotelIDInventoryIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/inventory/index'
+import { Route as WorkspaceModulesHotelHotelIDReservationsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/reservations/index'
+import { Route as WorkspaceModulesHotelHotelIDRoom_requestsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/room_requests/index'
+import { Route as WorkspaceModulesHotelHotelIDSettingsIndexRouteImport } from './routes/workspace/_modules/hotel/$hotelID/settings/index'
 import { Route as WorkspaceModulesInfraKitchenService_pointServiceRouteImport } from './routes/workspace/_modules/infra/kitchen/$service_point/service'
+import { Route as WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/general-settings/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDInventoryIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/inventory/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDOrdersIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/orders/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDOverviewIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/overview/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDReservationsIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/reservations/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/sales-terminal/index'
+import { Route as WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRouteImport } from './routes/workspace/_modules/restaurant/$restaurantID/table-management/index'
 
 const WorkspaceRouteRoute = WorkspaceRouteRouteImport.update({
   id: '/workspace',
   path: '/workspace',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WorkspaceIndexRoute = WorkspaceIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => WorkspaceRouteRoute,
-} as any)
 const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const WorkspaceIndexRoute = WorkspaceIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkspaceRouteRoute,
 } as any)
 const WorkspaceModulesRouteRoute = WorkspaceModulesRouteRouteImport.update({
   id: '/_modules',
@@ -70,40 +70,10 @@ const WorkspaceModulesInfraRouteRoute =
     path: '/infra',
     getParentRoute: () => WorkspaceModulesRouteRoute,
   } as any)
-const WorkspaceModulesRestaurantIndexRoute =
-  WorkspaceModulesRestaurantIndexRouteImport.update({
-    id: '/restaurant/',
-    path: '/restaurant/',
-    getParentRoute: () => WorkspaceModulesRouteRoute,
-  } as any)
-const WorkspaceModulesInfraIndexRoute =
-  WorkspaceModulesInfraIndexRouteImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => WorkspaceModulesInfraRouteRoute,
-  } as any)
-const WorkspaceModulesHotelIndexRoute =
-  WorkspaceModulesHotelIndexRouteImport.update({
-    id: '/hotel/',
-    path: '/hotel/',
-    getParentRoute: () => WorkspaceModulesRouteRoute,
-  } as any)
 const WorkspaceModulesBarIndexRoute =
   WorkspaceModulesBarIndexRouteImport.update({
     id: '/bar/',
     path: '/bar/',
-    getParentRoute: () => WorkspaceModulesRouteRoute,
-  } as any)
-const WorkspaceModulesRestaurantRestaurantIDRouteRoute =
-  WorkspaceModulesRestaurantRestaurantIDRouteRouteImport.update({
-    id: '/restaurant/$restaurantID',
-    path: '/restaurant/$restaurantID',
-    getParentRoute: () => WorkspaceModulesRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDRouteRoute =
-  WorkspaceModulesHotelHotelIDRouteRouteImport.update({
-    id: '/hotel/$hotelID',
-    path: '/hotel/$hotelID',
     getParentRoute: () => WorkspaceModulesRouteRoute,
   } as any)
 const WorkspaceModulesBarBarIDRouteRoute =
@@ -112,17 +82,35 @@ const WorkspaceModulesBarBarIDRouteRoute =
     path: '/bar/$barID',
     getParentRoute: () => WorkspaceModulesRouteRoute,
   } as any)
-const WorkspaceModulesInfraKitchenIndexRoute =
-  WorkspaceModulesInfraKitchenIndexRouteImport.update({
-    id: '/kitchen/',
-    path: '/kitchen/',
+const WorkspaceModulesHotelIndexRoute =
+  WorkspaceModulesHotelIndexRouteImport.update({
+    id: '/hotel/',
+    path: '/hotel/',
+    getParentRoute: () => WorkspaceModulesRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDRouteRoute =
+  WorkspaceModulesHotelHotelIDRouteRouteImport.update({
+    id: '/hotel/$hotelID',
+    path: '/hotel/$hotelID',
+    getParentRoute: () => WorkspaceModulesRouteRoute,
+  } as any)
+const WorkspaceModulesInfraIndexRoute =
+  WorkspaceModulesInfraIndexRouteImport.update({
+    id: '/',
+    path: '/',
     getParentRoute: () => WorkspaceModulesInfraRouteRoute,
   } as any)
-const WorkspaceModulesHotelHotelIDOverviewRoute =
-  WorkspaceModulesHotelHotelIDOverviewRouteImport.update({
-    id: '/overview',
-    path: '/overview',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+const WorkspaceModulesRestaurantIndexRoute =
+  WorkspaceModulesRestaurantIndexRouteImport.update({
+    id: '/restaurant/',
+    path: '/restaurant/',
+    getParentRoute: () => WorkspaceModulesRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDRouteRoute =
+  WorkspaceModulesRestaurantRestaurantIDRouteRouteImport.update({
+    id: '/restaurant/$restaurantID',
+    path: '/restaurant/$restaurantID',
+    getParentRoute: () => WorkspaceModulesRouteRoute,
   } as any)
 const WorkspaceModulesBarBarIDOverviewRoute =
   WorkspaceModulesBarBarIDOverviewRouteImport.update({
@@ -130,106 +118,22 @@ const WorkspaceModulesBarBarIDOverviewRoute =
     path: '/overview',
     getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
   } as any)
-const WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRouteImport.update({
-    id: '/table-management/',
-    path: '/table-management/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+const WorkspaceModulesHotelHotelIDOverviewRoute =
+  WorkspaceModulesHotelHotelIDOverviewRouteImport.update({
+    id: '/overview',
+    path: '/overview',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
   } as any)
-const WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRouteImport.update({
-    id: '/sales-terminal/',
-    path: '/sales-terminal/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+const WorkspaceModulesInfraKitchenIndexRoute =
+  WorkspaceModulesInfraKitchenIndexRouteImport.update({
+    id: '/kitchen/',
+    path: '/kitchen/',
+    getParentRoute: () => WorkspaceModulesInfraRouteRoute,
   } as any)
-const WorkspaceModulesRestaurantRestaurantIDReservationsIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDReservationsIndexRouteImport.update({
-    id: '/reservations/',
-    path: '/reservations/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
-  } as any)
-const WorkspaceModulesRestaurantRestaurantIDOverviewIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDOverviewIndexRouteImport.update({
-    id: '/overview/',
-    path: '/overview/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
-  } as any)
-const WorkspaceModulesRestaurantRestaurantIDOrdersIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDOrdersIndexRouteImport.update({
-    id: '/orders/',
-    path: '/orders/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
-  } as any)
-const WorkspaceModulesRestaurantRestaurantIDInventoryIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDInventoryIndexRouteImport.update({
+const WorkspaceModulesBarBarIDInventoryIndexRoute =
+  WorkspaceModulesBarBarIDInventoryIndexRouteImport.update({
     id: '/inventory/',
     path: '/inventory/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
-  } as any)
-const WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRoute =
-  WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRouteImport.update({
-    id: '/general-settings/',
-    path: '/general-settings/',
-    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDSettingsIndexRoute =
-  WorkspaceModulesHotelHotelIDSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDRoom_requestsIndexRoute =
-  WorkspaceModulesHotelHotelIDRoom_requestsIndexRouteImport.update({
-    id: '/room_requests/',
-    path: '/room_requests/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDReservationsIndexRoute =
-  WorkspaceModulesHotelHotelIDReservationsIndexRouteImport.update({
-    id: '/reservations/',
-    path: '/reservations/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDInventoryIndexRoute =
-  WorkspaceModulesHotelHotelIDInventoryIndexRouteImport.update({
-    id: '/inventory/',
-    path: '/inventory/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDHousekeepingIndexRoute =
-  WorkspaceModulesHotelHotelIDHousekeepingIndexRouteImport.update({
-    id: '/housekeeping/',
-    path: '/housekeeping/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDGuestsIndexRoute =
-  WorkspaceModulesHotelHotelIDGuestsIndexRouteImport.update({
-    id: '/guests/',
-    path: '/guests/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDCheckoutsIndexRoute =
-  WorkspaceModulesHotelHotelIDCheckoutsIndexRouteImport.update({
-    id: '/checkouts/',
-    path: '/checkouts/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesHotelHotelIDBookingIndexRoute =
-  WorkspaceModulesHotelHotelIDBookingIndexRouteImport.update({
-    id: '/booking/',
-    path: '/booking/',
-    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
-  } as any)
-const WorkspaceModulesBarBarIDTable_managementIndexRoute =
-  WorkspaceModulesBarBarIDTable_managementIndexRouteImport.update({
-    id: '/table_management/',
-    path: '/table_management/',
-    getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
-  } as any)
-const WorkspaceModulesBarBarIDSettingsIndexRoute =
-  WorkspaceModulesBarBarIDSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
     getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
   } as any)
 const WorkspaceModulesBarBarIDSale_counterIndexRoute =
@@ -238,11 +142,65 @@ const WorkspaceModulesBarBarIDSale_counterIndexRoute =
     path: '/sale_counter/',
     getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
   } as any)
-const WorkspaceModulesBarBarIDInventoryIndexRoute =
-  WorkspaceModulesBarBarIDInventoryIndexRouteImport.update({
+const WorkspaceModulesBarBarIDSettingsIndexRoute =
+  WorkspaceModulesBarBarIDSettingsIndexRouteImport.update({
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
+  } as any)
+const WorkspaceModulesBarBarIDTable_managementIndexRoute =
+  WorkspaceModulesBarBarIDTable_managementIndexRouteImport.update({
+    id: '/table_management/',
+    path: '/table_management/',
+    getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDBookingIndexRoute =
+  WorkspaceModulesHotelHotelIDBookingIndexRouteImport.update({
+    id: '/booking/',
+    path: '/booking/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDCheckoutsIndexRoute =
+  WorkspaceModulesHotelHotelIDCheckoutsIndexRouteImport.update({
+    id: '/checkouts/',
+    path: '/checkouts/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDGuestsIndexRoute =
+  WorkspaceModulesHotelHotelIDGuestsIndexRouteImport.update({
+    id: '/guests/',
+    path: '/guests/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDHousekeepingIndexRoute =
+  WorkspaceModulesHotelHotelIDHousekeepingIndexRouteImport.update({
+    id: '/housekeeping/',
+    path: '/housekeeping/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDInventoryIndexRoute =
+  WorkspaceModulesHotelHotelIDInventoryIndexRouteImport.update({
     id: '/inventory/',
     path: '/inventory/',
-    getParentRoute: () => WorkspaceModulesBarBarIDRouteRoute,
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDReservationsIndexRoute =
+  WorkspaceModulesHotelHotelIDReservationsIndexRouteImport.update({
+    id: '/reservations/',
+    path: '/reservations/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDRoom_requestsIndexRoute =
+  WorkspaceModulesHotelHotelIDRoom_requestsIndexRouteImport.update({
+    id: '/room_requests/',
+    path: '/room_requests/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
+  } as any)
+const WorkspaceModulesHotelHotelIDSettingsIndexRoute =
+  WorkspaceModulesHotelHotelIDSettingsIndexRouteImport.update({
+    id: '/settings/',
+    path: '/settings/',
+    getParentRoute: () => WorkspaceModulesHotelHotelIDRouteRoute,
   } as any)
 const WorkspaceModulesInfraKitchenService_pointServiceRoute =
   WorkspaceModulesInfraKitchenService_pointServiceRouteImport.update({
@@ -250,9 +208,51 @@ const WorkspaceModulesInfraKitchenService_pointServiceRoute =
     path: '/kitchen/$service_point/service',
     getParentRoute: () => WorkspaceModulesInfraRouteRoute,
   } as any)
+const WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRouteImport.update({
+    id: '/general-settings/',
+    path: '/general-settings/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDInventoryIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDInventoryIndexRouteImport.update({
+    id: '/inventory/',
+    path: '/inventory/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDOrdersIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDOrdersIndexRouteImport.update({
+    id: '/orders/',
+    path: '/orders/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDOverviewIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDOverviewIndexRouteImport.update({
+    id: '/overview/',
+    path: '/overview/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDReservationsIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDReservationsIndexRouteImport.update({
+    id: '/reservations/',
+    path: '/reservations/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRouteImport.update({
+    id: '/sales-terminal/',
+    path: '/sales-terminal/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
+const WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRoute =
+  WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRouteImport.update({
+    id: '/table-management/',
+    path: '/table-management/',
+    getParentRoute: () => WorkspaceModulesRestaurantRestaurantIDRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/workspace': typeof WorkspaceModulesRouteRouteWithChildren
+  '/workspace': typeof WorkspaceRouteRouteWithChildren
   '/': typeof WebsiteIndexRoute
   '/workspace/': typeof WorkspaceIndexRoute
   '/workspace/infra': typeof WorkspaceModulesInfraRouteRouteWithChildren
@@ -483,19 +483,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/workspace/': {
-      id: '/workspace/'
-      path: '/'
-      fullPath: '/workspace/'
-      preLoaderRoute: typeof WorkspaceIndexRouteImport
-      parentRoute: typeof WorkspaceRouteRoute
-    }
     '/_website/': {
       id: '/_website/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/workspace/': {
+      id: '/workspace/'
+      path: '/'
+      fullPath: '/workspace/'
+      preLoaderRoute: typeof WorkspaceIndexRouteImport
+      parentRoute: typeof WorkspaceRouteRoute
     }
     '/workspace/_modules': {
       id: '/workspace/_modules'
@@ -511,46 +511,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceModulesInfraRouteRouteImport
       parentRoute: typeof WorkspaceModulesRouteRoute
     }
-    '/workspace/_modules/restaurant/': {
-      id: '/workspace/_modules/restaurant/'
-      path: '/restaurant'
-      fullPath: '/workspace/restaurant/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRouteRoute
-    }
-    '/workspace/_modules/infra/': {
-      id: '/workspace/_modules/infra/'
-      path: '/'
-      fullPath: '/workspace/infra/'
-      preLoaderRoute: typeof WorkspaceModulesInfraIndexRouteImport
-      parentRoute: typeof WorkspaceModulesInfraRouteRoute
-    }
-    '/workspace/_modules/hotel/': {
-      id: '/workspace/_modules/hotel/'
-      path: '/hotel'
-      fullPath: '/workspace/hotel/'
-      preLoaderRoute: typeof WorkspaceModulesHotelIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRouteRoute
-    }
     '/workspace/_modules/bar/': {
       id: '/workspace/_modules/bar/'
       path: '/bar'
       fullPath: '/workspace/bar/'
       preLoaderRoute: typeof WorkspaceModulesBarIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRouteRoute
-    }
-    '/workspace/_modules/restaurant/$restaurantID': {
-      id: '/workspace/_modules/restaurant/$restaurantID'
-      path: '/restaurant/$restaurantID'
-      fullPath: '/workspace/restaurant/$restaurantID'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRouteImport
-      parentRoute: typeof WorkspaceModulesRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID': {
-      id: '/workspace/_modules/hotel/$hotelID'
-      path: '/hotel/$hotelID'
-      fullPath: '/workspace/hotel/$hotelID'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDRouteRouteImport
       parentRoute: typeof WorkspaceModulesRouteRoute
     }
     '/workspace/_modules/bar/$barID': {
@@ -560,19 +525,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceModulesBarBarIDRouteRouteImport
       parentRoute: typeof WorkspaceModulesRouteRoute
     }
-    '/workspace/_modules/infra/kitchen/': {
-      id: '/workspace/_modules/infra/kitchen/'
-      path: '/kitchen'
-      fullPath: '/workspace/infra/kitchen/'
-      preLoaderRoute: typeof WorkspaceModulesInfraKitchenIndexRouteImport
+    '/workspace/_modules/hotel/': {
+      id: '/workspace/_modules/hotel/'
+      path: '/hotel'
+      fullPath: '/workspace/hotel/'
+      preLoaderRoute: typeof WorkspaceModulesHotelIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID': {
+      id: '/workspace/_modules/hotel/$hotelID'
+      path: '/hotel/$hotelID'
+      fullPath: '/workspace/hotel/$hotelID'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDRouteRouteImport
+      parentRoute: typeof WorkspaceModulesRouteRoute
+    }
+    '/workspace/_modules/infra/': {
+      id: '/workspace/_modules/infra/'
+      path: '/'
+      fullPath: '/workspace/infra/'
+      preLoaderRoute: typeof WorkspaceModulesInfraIndexRouteImport
       parentRoute: typeof WorkspaceModulesInfraRouteRoute
     }
-    '/workspace/_modules/hotel/$hotelID/overview': {
-      id: '/workspace/_modules/hotel/$hotelID/overview'
-      path: '/overview'
-      fullPath: '/workspace/hotel/$hotelID/overview'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDOverviewRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    '/workspace/_modules/restaurant/': {
+      id: '/workspace/_modules/restaurant/'
+      path: '/restaurant'
+      fullPath: '/workspace/restaurant/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID': {
+      id: '/workspace/_modules/restaurant/$restaurantID'
+      path: '/restaurant/$restaurantID'
+      fullPath: '/workspace/restaurant/$restaurantID'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRouteImport
+      parentRoute: typeof WorkspaceModulesRouteRoute
     }
     '/workspace/_modules/bar/$barID/overview': {
       id: '/workspace/_modules/bar/$barID/overview'
@@ -581,123 +567,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceModulesBarBarIDOverviewRouteImport
       parentRoute: typeof WorkspaceModulesBarBarIDRouteRoute
     }
-    '/workspace/_modules/restaurant/$restaurantID/table-management/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/table-management/'
-      path: '/table-management'
-      fullPath: '/workspace/restaurant/$restaurantID/table-management/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
-    }
-    '/workspace/_modules/restaurant/$restaurantID/sales-terminal/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/sales-terminal/'
-      path: '/sales-terminal'
-      fullPath: '/workspace/restaurant/$restaurantID/sales-terminal/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
-    }
-    '/workspace/_modules/restaurant/$restaurantID/reservations/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/reservations/'
-      path: '/reservations'
-      fullPath: '/workspace/restaurant/$restaurantID/reservations/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDReservationsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
-    }
-    '/workspace/_modules/restaurant/$restaurantID/overview/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/overview/'
+    '/workspace/_modules/hotel/$hotelID/overview': {
+      id: '/workspace/_modules/hotel/$hotelID/overview'
       path: '/overview'
-      fullPath: '/workspace/restaurant/$restaurantID/overview/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDOverviewIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+      fullPath: '/workspace/hotel/$hotelID/overview'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDOverviewRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
     }
-    '/workspace/_modules/restaurant/$restaurantID/orders/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/orders/'
-      path: '/orders'
-      fullPath: '/workspace/restaurant/$restaurantID/orders/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDOrdersIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    '/workspace/_modules/infra/kitchen/': {
+      id: '/workspace/_modules/infra/kitchen/'
+      path: '/kitchen'
+      fullPath: '/workspace/infra/kitchen/'
+      preLoaderRoute: typeof WorkspaceModulesInfraKitchenIndexRouteImport
+      parentRoute: typeof WorkspaceModulesInfraRouteRoute
     }
-    '/workspace/_modules/restaurant/$restaurantID/inventory/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/inventory/'
+    '/workspace/_modules/bar/$barID/inventory/': {
+      id: '/workspace/_modules/bar/$barID/inventory/'
       path: '/inventory'
-      fullPath: '/workspace/restaurant/$restaurantID/inventory/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDInventoryIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
-    }
-    '/workspace/_modules/restaurant/$restaurantID/general-settings/': {
-      id: '/workspace/_modules/restaurant/$restaurantID/general-settings/'
-      path: '/general-settings'
-      fullPath: '/workspace/restaurant/$restaurantID/general-settings/'
-      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/settings/': {
-      id: '/workspace/_modules/hotel/$hotelID/settings/'
-      path: '/settings'
-      fullPath: '/workspace/hotel/$hotelID/settings/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDSettingsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/room_requests/': {
-      id: '/workspace/_modules/hotel/$hotelID/room_requests/'
-      path: '/room_requests'
-      fullPath: '/workspace/hotel/$hotelID/room_requests/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDRoom_requestsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/reservations/': {
-      id: '/workspace/_modules/hotel/$hotelID/reservations/'
-      path: '/reservations'
-      fullPath: '/workspace/hotel/$hotelID/reservations/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDReservationsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/inventory/': {
-      id: '/workspace/_modules/hotel/$hotelID/inventory/'
-      path: '/inventory'
-      fullPath: '/workspace/hotel/$hotelID/inventory/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDInventoryIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/housekeeping/': {
-      id: '/workspace/_modules/hotel/$hotelID/housekeeping/'
-      path: '/housekeeping'
-      fullPath: '/workspace/hotel/$hotelID/housekeeping/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDHousekeepingIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/guests/': {
-      id: '/workspace/_modules/hotel/$hotelID/guests/'
-      path: '/guests'
-      fullPath: '/workspace/hotel/$hotelID/guests/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDGuestsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/checkouts/': {
-      id: '/workspace/_modules/hotel/$hotelID/checkouts/'
-      path: '/checkouts'
-      fullPath: '/workspace/hotel/$hotelID/checkouts/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDCheckoutsIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/hotel/$hotelID/booking/': {
-      id: '/workspace/_modules/hotel/$hotelID/booking/'
-      path: '/booking'
-      fullPath: '/workspace/hotel/$hotelID/booking/'
-      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDBookingIndexRouteImport
-      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
-    }
-    '/workspace/_modules/bar/$barID/table_management/': {
-      id: '/workspace/_modules/bar/$barID/table_management/'
-      path: '/table_management'
-      fullPath: '/workspace/bar/$barID/table_management/'
-      preLoaderRoute: typeof WorkspaceModulesBarBarIDTable_managementIndexRouteImport
-      parentRoute: typeof WorkspaceModulesBarBarIDRouteRoute
-    }
-    '/workspace/_modules/bar/$barID/settings/': {
-      id: '/workspace/_modules/bar/$barID/settings/'
-      path: '/settings'
-      fullPath: '/workspace/bar/$barID/settings/'
-      preLoaderRoute: typeof WorkspaceModulesBarBarIDSettingsIndexRouteImport
+      fullPath: '/workspace/bar/$barID/inventory/'
+      preLoaderRoute: typeof WorkspaceModulesBarBarIDInventoryIndexRouteImport
       parentRoute: typeof WorkspaceModulesBarBarIDRouteRoute
     }
     '/workspace/_modules/bar/$barID/sale_counter/': {
@@ -707,12 +595,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WorkspaceModulesBarBarIDSale_counterIndexRouteImport
       parentRoute: typeof WorkspaceModulesBarBarIDRouteRoute
     }
-    '/workspace/_modules/bar/$barID/inventory/': {
-      id: '/workspace/_modules/bar/$barID/inventory/'
-      path: '/inventory'
-      fullPath: '/workspace/bar/$barID/inventory/'
-      preLoaderRoute: typeof WorkspaceModulesBarBarIDInventoryIndexRouteImport
+    '/workspace/_modules/bar/$barID/settings/': {
+      id: '/workspace/_modules/bar/$barID/settings/'
+      path: '/settings'
+      fullPath: '/workspace/bar/$barID/settings/'
+      preLoaderRoute: typeof WorkspaceModulesBarBarIDSettingsIndexRouteImport
       parentRoute: typeof WorkspaceModulesBarBarIDRouteRoute
+    }
+    '/workspace/_modules/bar/$barID/table_management/': {
+      id: '/workspace/_modules/bar/$barID/table_management/'
+      path: '/table_management'
+      fullPath: '/workspace/bar/$barID/table_management/'
+      preLoaderRoute: typeof WorkspaceModulesBarBarIDTable_managementIndexRouteImport
+      parentRoute: typeof WorkspaceModulesBarBarIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/booking/': {
+      id: '/workspace/_modules/hotel/$hotelID/booking/'
+      path: '/booking'
+      fullPath: '/workspace/hotel/$hotelID/booking/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDBookingIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/checkouts/': {
+      id: '/workspace/_modules/hotel/$hotelID/checkouts/'
+      path: '/checkouts'
+      fullPath: '/workspace/hotel/$hotelID/checkouts/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDCheckoutsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/guests/': {
+      id: '/workspace/_modules/hotel/$hotelID/guests/'
+      path: '/guests'
+      fullPath: '/workspace/hotel/$hotelID/guests/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDGuestsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/housekeeping/': {
+      id: '/workspace/_modules/hotel/$hotelID/housekeeping/'
+      path: '/housekeeping'
+      fullPath: '/workspace/hotel/$hotelID/housekeeping/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDHousekeepingIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/inventory/': {
+      id: '/workspace/_modules/hotel/$hotelID/inventory/'
+      path: '/inventory'
+      fullPath: '/workspace/hotel/$hotelID/inventory/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDInventoryIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/reservations/': {
+      id: '/workspace/_modules/hotel/$hotelID/reservations/'
+      path: '/reservations'
+      fullPath: '/workspace/hotel/$hotelID/reservations/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDReservationsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/room_requests/': {
+      id: '/workspace/_modules/hotel/$hotelID/room_requests/'
+      path: '/room_requests'
+      fullPath: '/workspace/hotel/$hotelID/room_requests/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDRoom_requestsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
+    }
+    '/workspace/_modules/hotel/$hotelID/settings/': {
+      id: '/workspace/_modules/hotel/$hotelID/settings/'
+      path: '/settings'
+      fullPath: '/workspace/hotel/$hotelID/settings/'
+      preLoaderRoute: typeof WorkspaceModulesHotelHotelIDSettingsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesHotelHotelIDRouteRoute
     }
     '/workspace/_modules/infra/kitchen/$service_point/service': {
       id: '/workspace/_modules/infra/kitchen/$service_point/service'
@@ -720,6 +671,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/workspace/infra/kitchen/$service_point/service'
       preLoaderRoute: typeof WorkspaceModulesInfraKitchenService_pointServiceRouteImport
       parentRoute: typeof WorkspaceModulesInfraRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/general-settings/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/general-settings/'
+      path: '/general-settings'
+      fullPath: '/workspace/restaurant/$restaurantID/general-settings/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDGeneralSettingsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/inventory/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/inventory/'
+      path: '/inventory'
+      fullPath: '/workspace/restaurant/$restaurantID/inventory/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDInventoryIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/orders/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/orders/'
+      path: '/orders'
+      fullPath: '/workspace/restaurant/$restaurantID/orders/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDOrdersIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/overview/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/overview/'
+      path: '/overview'
+      fullPath: '/workspace/restaurant/$restaurantID/overview/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDOverviewIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/reservations/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/reservations/'
+      path: '/reservations'
+      fullPath: '/workspace/restaurant/$restaurantID/reservations/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDReservationsIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/sales-terminal/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/sales-terminal/'
+      path: '/sales-terminal'
+      fullPath: '/workspace/restaurant/$restaurantID/sales-terminal/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDSalesTerminalIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
+    }
+    '/workspace/_modules/restaurant/$restaurantID/table-management/': {
+      id: '/workspace/_modules/restaurant/$restaurantID/table-management/'
+      path: '/table-management'
+      fullPath: '/workspace/restaurant/$restaurantID/table-management/'
+      preLoaderRoute: typeof WorkspaceModulesRestaurantRestaurantIDTableManagementIndexRouteImport
+      parentRoute: typeof WorkspaceModulesRestaurantRestaurantIDRouteRoute
     }
   }
 }

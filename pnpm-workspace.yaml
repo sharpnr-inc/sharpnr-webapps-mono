@@ -41,6 +41,13 @@ catalog:
 
   # ui primitives
   radix-ui: ^1.6.0
+  # Individual primitives. Several apps import these directly rather than
+  # through the radix-ui umbrella, so they must be declared, not inherited.
+  # Ranges mirror @sharpnr/ui's peerDependencies.
+  "@radix-ui/react-dialog": ^1.1.6
+  "@radix-ui/react-select": ^2.1.0
+  "@radix-ui/react-tabs": ^1.1.13
+  "@radix-ui/react-visually-hidden": ^1.1.0
   lucide-react: ^1.16.0
   framer-motion: ^12.39.0
   next-themes: ^0.4.6

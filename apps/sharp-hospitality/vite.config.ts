@@ -10,6 +10,8 @@ const BRAND_NAVY = "#0B0D2E";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // One .env at the repo root serves every app.
+  envDir: path.resolve(__dirname, "../.."),
   plugins: [
     tanstackRouter({
       target: "react",

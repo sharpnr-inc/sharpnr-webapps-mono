@@ -10,100 +10,56 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
-import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
-import { Route as LayoutOffboardingRouteRouteImport } from './routes/_layout/offboarding/route'
 import { Route as LayoutEmployeesRouteRouteImport } from './routes/_layout/employees/route'
-import { Route as LayoutTrainingIndexRouteImport } from './routes/_layout/training/index'
-import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
-import { Route as LayoutRecruitmentIndexRouteImport } from './routes/_layout/recruitment/index'
-import { Route as LayoutPerformanceIndexRouteImport } from './routes/_layout/performance/index'
-import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll/index'
-import { Route as LayoutOnboardingIndexRouteImport } from './routes/_layout/onboarding/index'
-import { Route as LayoutOffboardingIndexRouteImport } from './routes/_layout/offboarding/index'
-import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/index'
-import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
-import { Route as LayoutDepartmentsIndexRouteImport } from './routes/_layout/departments/index'
-import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
-import { Route as LayoutCompliance_policiesIndexRouteImport } from './routes/_layout/compliance_policies/index'
-import { Route as LayoutAttendanceIndexRouteImport } from './routes/_layout/attendance/index'
+import { Route as LayoutOffboardingRouteRouteImport } from './routes/_layout/offboarding/route'
+import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutAnnouncementsIndexRouteImport } from './routes/_layout/announcements/index'
-import { Route as LayoutLeavesRequestsRouteImport } from './routes/_layout/leaves/requests'
+import { Route as LayoutAttendanceIndexRouteImport } from './routes/_layout/attendance/index'
+import { Route as LayoutCompliance_policiesIndexRouteImport } from './routes/_layout/compliance_policies/index'
+import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
+import { Route as LayoutDepartmentsIndexRouteImport } from './routes/_layout/departments/index'
+import { Route as LayoutEmployeesIndexRouteImport } from './routes/_layout/employees/index'
 import { Route as LayoutEmployeesEmployeeIdRouteImport } from './routes/_layout/employees/$employeeId'
-import { Route as LayoutEmployeesPrivilegesIndexRouteImport } from './routes/_layout/employees/privileges/index'
+import { Route as LayoutLeavesIndexRouteImport } from './routes/_layout/leaves/index'
+import { Route as LayoutLeavesRequestsRouteImport } from './routes/_layout/leaves/requests'
+import { Route as LayoutOffboardingIndexRouteImport } from './routes/_layout/offboarding/index'
+import { Route as LayoutOnboardingIndexRouteImport } from './routes/_layout/onboarding/index'
+import { Route as LayoutPayrollIndexRouteImport } from './routes/_layout/payroll/index'
+import { Route as LayoutPerformanceIndexRouteImport } from './routes/_layout/performance/index'
+import { Route as LayoutRecruitmentIndexRouteImport } from './routes/_layout/recruitment/index'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
+import { Route as LayoutTrainingIndexRouteImport } from './routes/_layout/training/index'
 import { Route as LayoutEmployeesDocumentsIndexRouteImport } from './routes/_layout/employees/documents/index'
+import { Route as LayoutEmployeesPrivilegesIndexRouteImport } from './routes/_layout/employees/privileges/index'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
-} as any)
-const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
-  id: '/_website/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LayoutOffboardingRouteRoute = LayoutOffboardingRouteRouteImport.update({
-  id: '/offboarding',
-  path: '/offboarding',
-  getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutEmployeesRouteRoute = LayoutEmployeesRouteRouteImport.update({
   id: '/employees',
   path: '/employees',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
-const LayoutTrainingIndexRoute = LayoutTrainingIndexRouteImport.update({
-  id: '/training/',
-  path: '/training/',
+const LayoutOffboardingRouteRoute = LayoutOffboardingRouteRouteImport.update({
+  id: '/offboarding',
+  path: '/offboarding',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
-const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
-  id: '/settings/',
-  path: '/settings/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutRecruitmentIndexRoute = LayoutRecruitmentIndexRouteImport.update({
-  id: '/recruitment/',
-  path: '/recruitment/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutPerformanceIndexRoute = LayoutPerformanceIndexRouteImport.update({
-  id: '/performance/',
-  path: '/performance/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutPayrollIndexRoute = LayoutPayrollIndexRouteImport.update({
-  id: '/payroll/',
-  path: '/payroll/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutOnboardingIndexRoute = LayoutOnboardingIndexRouteImport.update({
-  id: '/onboarding/',
-  path: '/onboarding/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutOffboardingIndexRoute = LayoutOffboardingIndexRouteImport.update({
-  id: '/',
+const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
+  id: '/_website/',
   path: '/',
-  getParentRoute: () => LayoutOffboardingRouteRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const LayoutLeavesIndexRoute = LayoutLeavesIndexRouteImport.update({
-  id: '/leaves/',
-  path: '/leaves/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutEmployeesIndexRoute = LayoutEmployeesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => LayoutEmployeesRouteRoute,
-} as any)
-const LayoutDepartmentsIndexRoute = LayoutDepartmentsIndexRouteImport.update({
-  id: '/departments/',
-  path: '/departments/',
-  getParentRoute: () => LayoutRouteRoute,
-} as any)
-const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
+const LayoutAnnouncementsIndexRoute =
+  LayoutAnnouncementsIndexRouteImport.update({
+    id: '/announcements/',
+    path: '/announcements/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
+const LayoutAttendanceIndexRoute = LayoutAttendanceIndexRouteImport.update({
+  id: '/attendance/',
+  path: '/attendance/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutCompliance_policiesIndexRoute =
@@ -112,21 +68,20 @@ const LayoutCompliance_policiesIndexRoute =
     path: '/compliance_policies/',
     getParentRoute: () => LayoutRouteRoute,
   } as any)
-const LayoutAttendanceIndexRoute = LayoutAttendanceIndexRouteImport.update({
-  id: '/attendance/',
-  path: '/attendance/',
+const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
-const LayoutAnnouncementsIndexRoute =
-  LayoutAnnouncementsIndexRouteImport.update({
-    id: '/announcements/',
-    path: '/announcements/',
-    getParentRoute: () => LayoutRouteRoute,
-  } as any)
-const LayoutLeavesRequestsRoute = LayoutLeavesRequestsRouteImport.update({
-  id: '/leaves/requests',
-  path: '/leaves/requests',
+const LayoutDepartmentsIndexRoute = LayoutDepartmentsIndexRouteImport.update({
+  id: '/departments/',
+  path: '/departments/',
   getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutEmployeesIndexRoute = LayoutEmployeesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutEmployeesRouteRoute,
 } as any)
 const LayoutEmployeesEmployeeIdRoute =
   LayoutEmployeesEmployeeIdRouteImport.update({
@@ -134,16 +89,61 @@ const LayoutEmployeesEmployeeIdRoute =
     path: '/$employeeId',
     getParentRoute: () => LayoutEmployeesRouteRoute,
   } as any)
-const LayoutEmployeesPrivilegesIndexRoute =
-  LayoutEmployeesPrivilegesIndexRouteImport.update({
-    id: '/privileges/',
-    path: '/privileges/',
-    getParentRoute: () => LayoutEmployeesRouteRoute,
-  } as any)
+const LayoutLeavesIndexRoute = LayoutLeavesIndexRouteImport.update({
+  id: '/leaves/',
+  path: '/leaves/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutLeavesRequestsRoute = LayoutLeavesRequestsRouteImport.update({
+  id: '/leaves/requests',
+  path: '/leaves/requests',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutOffboardingIndexRoute = LayoutOffboardingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutOffboardingRouteRoute,
+} as any)
+const LayoutOnboardingIndexRoute = LayoutOnboardingIndexRouteImport.update({
+  id: '/onboarding/',
+  path: '/onboarding/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPayrollIndexRoute = LayoutPayrollIndexRouteImport.update({
+  id: '/payroll/',
+  path: '/payroll/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPerformanceIndexRoute = LayoutPerformanceIndexRouteImport.update({
+  id: '/performance/',
+  path: '/performance/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutRecruitmentIndexRoute = LayoutRecruitmentIndexRouteImport.update({
+  id: '/recruitment/',
+  path: '/recruitment/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutTrainingIndexRoute = LayoutTrainingIndexRouteImport.update({
+  id: '/training/',
+  path: '/training/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 const LayoutEmployeesDocumentsIndexRoute =
   LayoutEmployeesDocumentsIndexRouteImport.update({
     id: '/documents/',
     path: '/documents/',
+    getParentRoute: () => LayoutEmployeesRouteRoute,
+  } as any)
+const LayoutEmployeesPrivilegesIndexRoute =
+  LayoutEmployeesPrivilegesIndexRouteImport.update({
+    id: '/privileges/',
+    path: '/privileges/',
     getParentRoute: () => LayoutEmployeesRouteRoute,
   } as any)
 
@@ -301,12 +301,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_website/': {
-      id: '/_website/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof WebsiteIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_layout/employees': {
+      id: '/_layout/employees'
+      path: '/employees'
+      fullPath: '/employees'
+      preLoaderRoute: typeof LayoutEmployeesRouteRouteImport
+      parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/offboarding': {
       id: '/_layout/offboarding'
@@ -315,95 +315,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutOffboardingRouteRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
-    '/_layout/employees': {
-      id: '/_layout/employees'
-      path: '/employees'
-      fullPath: '/employees'
-      preLoaderRoute: typeof LayoutEmployeesRouteRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/training/': {
-      id: '/_layout/training/'
-      path: '/training'
-      fullPath: '/training/'
-      preLoaderRoute: typeof LayoutTrainingIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/settings/': {
-      id: '/_layout/settings/'
-      path: '/settings'
-      fullPath: '/settings/'
-      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/recruitment/': {
-      id: '/_layout/recruitment/'
-      path: '/recruitment'
-      fullPath: '/recruitment/'
-      preLoaderRoute: typeof LayoutRecruitmentIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/performance/': {
-      id: '/_layout/performance/'
-      path: '/performance'
-      fullPath: '/performance/'
-      preLoaderRoute: typeof LayoutPerformanceIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/payroll/': {
-      id: '/_layout/payroll/'
-      path: '/payroll'
-      fullPath: '/payroll/'
-      preLoaderRoute: typeof LayoutPayrollIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/onboarding/': {
-      id: '/_layout/onboarding/'
-      path: '/onboarding'
-      fullPath: '/onboarding/'
-      preLoaderRoute: typeof LayoutOnboardingIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/offboarding/': {
-      id: '/_layout/offboarding/'
+    '/_website/': {
+      id: '/_website/'
       path: '/'
-      fullPath: '/offboarding/'
-      preLoaderRoute: typeof LayoutOffboardingIndexRouteImport
-      parentRoute: typeof LayoutOffboardingRouteRoute
+      fullPath: '/'
+      preLoaderRoute: typeof WebsiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_layout/leaves/': {
-      id: '/_layout/leaves/'
-      path: '/leaves'
-      fullPath: '/leaves/'
-      preLoaderRoute: typeof LayoutLeavesIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/employees/': {
-      id: '/_layout/employees/'
-      path: '/'
-      fullPath: '/employees/'
-      preLoaderRoute: typeof LayoutEmployeesIndexRouteImport
-      parentRoute: typeof LayoutEmployeesRouteRoute
-    }
-    '/_layout/departments/': {
-      id: '/_layout/departments/'
-      path: '/departments'
-      fullPath: '/departments/'
-      preLoaderRoute: typeof LayoutDepartmentsIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/dashboard/': {
-      id: '/_layout/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof LayoutDashboardIndexRouteImport
-      parentRoute: typeof LayoutRouteRoute
-    }
-    '/_layout/compliance_policies/': {
-      id: '/_layout/compliance_policies/'
-      path: '/compliance_policies'
-      fullPath: '/compliance_policies/'
-      preLoaderRoute: typeof LayoutCompliance_policiesIndexRouteImport
+    '/_layout/announcements/': {
+      id: '/_layout/announcements/'
+      path: '/announcements'
+      fullPath: '/announcements/'
+      preLoaderRoute: typeof LayoutAnnouncementsIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/attendance/': {
@@ -413,11 +336,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAttendanceIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
-    '/_layout/announcements/': {
-      id: '/_layout/announcements/'
-      path: '/announcements'
-      fullPath: '/announcements/'
-      preLoaderRoute: typeof LayoutAnnouncementsIndexRouteImport
+    '/_layout/compliance_policies/': {
+      id: '/_layout/compliance_policies/'
+      path: '/compliance_policies'
+      fullPath: '/compliance_policies/'
+      preLoaderRoute: typeof LayoutCompliance_policiesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/dashboard/': {
+      id: '/_layout/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof LayoutDashboardIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/departments/': {
+      id: '/_layout/departments/'
+      path: '/departments'
+      fullPath: '/departments/'
+      preLoaderRoute: typeof LayoutDepartmentsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/employees/': {
+      id: '/_layout/employees/'
+      path: '/'
+      fullPath: '/employees/'
+      preLoaderRoute: typeof LayoutEmployeesIndexRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
+    '/_layout/employees/$employeeId': {
+      id: '/_layout/employees/$employeeId'
+      path: '/$employeeId'
+      fullPath: '/employees/$employeeId'
+      preLoaderRoute: typeof LayoutEmployeesEmployeeIdRouteImport
+      parentRoute: typeof LayoutEmployeesRouteRoute
+    }
+    '/_layout/leaves/': {
+      id: '/_layout/leaves/'
+      path: '/leaves'
+      fullPath: '/leaves/'
+      preLoaderRoute: typeof LayoutLeavesIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/leaves/requests': {
@@ -427,11 +385,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutLeavesRequestsRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
-    '/_layout/employees/$employeeId': {
-      id: '/_layout/employees/$employeeId'
-      path: '/$employeeId'
-      fullPath: '/employees/$employeeId'
-      preLoaderRoute: typeof LayoutEmployeesEmployeeIdRouteImport
+    '/_layout/offboarding/': {
+      id: '/_layout/offboarding/'
+      path: '/'
+      fullPath: '/offboarding/'
+      preLoaderRoute: typeof LayoutOffboardingIndexRouteImport
+      parentRoute: typeof LayoutOffboardingRouteRoute
+    }
+    '/_layout/onboarding/': {
+      id: '/_layout/onboarding/'
+      path: '/onboarding'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof LayoutOnboardingIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/payroll/': {
+      id: '/_layout/payroll/'
+      path: '/payroll'
+      fullPath: '/payroll/'
+      preLoaderRoute: typeof LayoutPayrollIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/performance/': {
+      id: '/_layout/performance/'
+      path: '/performance'
+      fullPath: '/performance/'
+      preLoaderRoute: typeof LayoutPerformanceIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/recruitment/': {
+      id: '/_layout/recruitment/'
+      path: '/recruitment'
+      fullPath: '/recruitment/'
+      preLoaderRoute: typeof LayoutRecruitmentIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/training/': {
+      id: '/_layout/training/'
+      path: '/training'
+      fullPath: '/training/'
+      preLoaderRoute: typeof LayoutTrainingIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/employees/documents/': {
+      id: '/_layout/employees/documents/'
+      path: '/documents'
+      fullPath: '/employees/documents/'
+      preLoaderRoute: typeof LayoutEmployeesDocumentsIndexRouteImport
       parentRoute: typeof LayoutEmployeesRouteRoute
     }
     '/_layout/employees/privileges/': {
@@ -439,13 +446,6 @@ declare module '@tanstack/react-router' {
       path: '/privileges'
       fullPath: '/employees/privileges/'
       preLoaderRoute: typeof LayoutEmployeesPrivilegesIndexRouteImport
-      parentRoute: typeof LayoutEmployeesRouteRoute
-    }
-    '/_layout/employees/documents/': {
-      id: '/_layout/employees/documents/'
-      path: '/documents'
-      fullPath: '/employees/documents/'
-      preLoaderRoute: typeof LayoutEmployeesDocumentsIndexRouteImport
       parentRoute: typeof LayoutEmployeesRouteRoute
     }
   }
