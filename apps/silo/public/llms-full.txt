@@ -1,0 +1,457 @@
+# Silo Engine — Full Architecture Summary
+
+> Sharpnr's self-hosted storage, database, and data infrastructure platform.
+> Rust · Axum · Tokio · PostgreSQL · RAID-backed storage.
+> Status: Phase 1 (Foundation). In active architecture and implementation. Not generally available.
+
+Source of truth: the Silo Engine architecture document maintained by Sharpnr.
+Canonical site: https://silo.sharpnr.com
+
+---
+
+## 1. What Silo Engine is
+
+Silo Engine is Sharpnr's self-hosted infrastructure platform. It is designed as the
+infrastructure layer underneath Sharpnr Engine and other Sharpnr applications, with the
+long-term goal of giving organizations a unified platform for:
+
+- File and object storage
+- CDN-backed file delivery
+- PostgreSQL database provisioning
+- Database exploration and management
+- Organization and employee storage quotas
+- Compression and checksums
+- Audit logging
+- Data lakes
+- Data warehouses
+- Data ingestion and transformation
+- Analytics infrastructure
+- Backups and snapshots
+- Future search and AI/data services
+
+The important boundary:
+
+  Sharpnr Engine owns business logic.
+  Silo Engine owns infrastructure and data resources.
+
+Silo is not intended to become the Hospitality, Accounting, HR, CRM, or any other
+business-domain application database.
+
+An organization should eventually be able to log into Silo and create infrastructure
+resources without needing to understand the physical servers, RAID layout, or storage
+paths underneath them.
+
+---
+
+## 2. Product structure
+
+                             SILO
+                              |
+          +-------------------+-------------------+
+          |                   |                   |
+       STORAGE             DATABASE              DATA
+          |                   |                   |
+          |              PostgreSQL        +------+------+
+          |                   |            |             |
+        Files            DB Explorer   Data Lake   Data Warehouse
+          |                                |             |
+        CDN                                +------+------+
+                                                  |
+                                          Query / Analytics
+
+Backups and snapshots sit under the database and storage branches.
+
+---
+
+## 3. File and object storage
+
+Organizations can store images, documents, videos, attachments, backups, exports, logs,
+and arbitrary objects.
+
+A public resource is addressed by a stable URL:
+
+  https://cdn.sharpnr.com/{org_id}/{employee_id}/{folder}/{filename}
+
+Example:
+
+  https://cdn.sharpnr.com/org_123/employee_456/profile/avatar.png
+
+The public URL is deliberately independent of the physical filesystem. The request path is:
+
+  Public URL -> CDN / Nginx -> Silo Engine -> Storage abstraction -> Physical storage
+
+Authentication and authorization for protected resources are separate from the physical
+storage path, so public and private access can be handled differently without changing the
+underlying object.
+
+### Storage architecture
+
+Silo uses a storage abstraction rather than coupling services to a physical implementation:
+
+  StorageBackend
+  |-- LocalRaidStorage   (initial target)
+  |-- S3Storage
+  |-- CephStorage
+  +-- other implementations
+
+  Application -> Silo Storage API -> StorageBackend -> Physical Storage
+
+This lets the physical storage implementation change without changing the public Silo API.
+Backends may eventually expose streaming operations rather than loading whole large files
+into memory.
+
+### Quotas
+
+Silo supports organization-level and employee-level storage quotas. Example shape:
+
+  Organization (quota 100 GB)
+  |-- Employee A (quota 20 GB)
+  |-- Employee B (quota 10 GB)
+  +-- Remaining organization capacity
+
+Silo tracks organization storage limit and used, employee storage limit and used, object
+size, and object count. Quota enforcement belongs in Silo, not in the consuming
+applications.
+
+### Checksums
+
+Silo calculates checksums for stored objects, used for integrity verification, duplicate
+detection, upload verification, auditing, and storage consistency checks. The checksum is
+computed on the upload stream alongside the storage write. The algorithm can evolve
+independently of the storage API.
+
+### Compression
+
+Compression is a storage subsystem, designed around streaming:
+
+  Reader -> Compressor -> Writer
+
+This matters because Silo should not load multi-gigabyte files entirely into memory. The
+initial algorithm is Zstandard (Zstd), behind a trait-based abstraction that allows Brotli,
+LZ4, and others later. Silo avoids compressing formats that are already heavily compressed
+unless there is a specific reason.
+
+---
+
+## 4. PostgreSQL as a service
+
+Organizations can create PostgreSQL databases through Silo:
+
+  Organization -> Create Database -> Silo Engine
+                                     |-- Create database
+                                     |-- Create PostgreSQL roles
+                                     |-- Apply permissions
+                                     |-- Generate credentials
+                                     +-- Return connection information
+
+A connection may look like:
+
+  postgres://org_123_app:PASSWORD@silo-engine-db.sharpnr.com:5432/org_123_db?sslmode=require
+
+The physical PostgreSQL server or cluster is an implementation detail.
+
+### Roles
+
+An organization does not receive PostgreSQL superuser credentials. Silo creates
+organization-scoped roles:
+
+  org_123_app
+  org_123_migrator
+  org_123_readonly
+  org_123_admin
+
+Group roles can be used when direct database access must be granted to multiple database
+users. Sharpnr employees are primarily application-level identities; Silo does not
+automatically create a PostgreSQL login for every employee.
+
+---
+
+## 5. Database explorer
+
+Silo acts as a lightweight PostgreSQL client through its web interface.
+
+For v1 there is deliberately no arbitrary SQL editor. The frontend exposes controlled
+operations:
+
+  Database
+  |-- Schemas
+  |-- Tables
+  |-- Views
+  |-- Functions
+  |-- Indexes
+  |-- Constraints
+  +-- Data
+
+A table can be inspected through its schema, columns, constraints, indexes, and rows.
+
+Communication path:
+
+  Silo Frontend --HTTPS--> Silo Engine --PostgreSQL--> Organization Database
+
+The browser must not connect directly to PostgreSQL. An SQL workspace may be added later,
+after the controlled explorer is mature.
+
+---
+
+## 6. Data lake
+
+Silo is intended to provide Data Lake as a Service. A lake is a large, flexible storage
+layer for raw, semi-structured, and structured data. Example layout:
+
+  Acme Analytics
+  |-- raw/
+  |   |-- orders/  customers/  events/  payments/
+  |-- processed/
+  |   |-- orders/  customers/
+  +-- curated/
+      |-- daily_sales/  customer_metrics/  product_metrics/
+
+Supported or planned dataset formats: Parquet, JSON, JSONL, CSV, Avro, ORC. Parquet is the
+primary format under consideration for analytical workloads because it is columnar and
+works well with analytical query engines.
+
+Ingestion paths: files, PostgreSQL, events/APIs, and scheduled jobs.
+
+A PostgreSQL dataset can be exported periodically:
+
+  PostgreSQL -> orders -> Transformation -> Parquet -> Data Lake
+  lake://acme/orders/year=2026/month=08/day=10/
+
+Partitioning, retention, ingestion, and lifecycle management are handled by Silo rather
+than exposed as physical filesystem concerns.
+
+---
+
+## 7. Data warehouse
+
+Silo is also intended to provide Data Warehouse as a Service:
+
+  Data Lake (raw / flexible / large-scale)
+      -> Transformation / ETL / ELT
+      -> Data Warehouse (analytical workloads)
+      -> Reports / Analytics / Applications
+
+An organization could create a warehouse containing customers, orders, revenue, and
+inventory tables.
+
+First implementations should leverage mature open-source storage and query technologies
+rather than building an analytical database engine from scratch. DuckDB is one technology
+being considered for early analytical workloads, particularly querying Parquet directly. A
+distributed query engine can be introduced later if scale requires it.
+
+---
+
+## 8. Audit log
+
+Silo needs an audit system for infrastructure and data operations. The design is inspired
+by the durability and append-oriented characteristics of PostgreSQL WAL, but is not
+intended to replace PostgreSQL WAL.
+
+Recorded events include:
+
+  file.uploaded, file.downloaded, file.deleted
+  database.created, database.deleted, database.permission_changed
+  database.accessed, database.schema.modified
+  storage.quota_changed
+  lake.created, dataset.created, dataset.ingested
+
+A conceptual event:
+
+  {
+    "event": "file.uploaded",
+    "organization_id": "...",
+    "actor_id": "...",
+    "resource_id": "...",
+    "timestamp": "...",
+    "metadata": {}
+  }
+
+Audit events are append-oriented, durable, and suitable for later querying and retention
+policies. Sensitive payloads are not automatically copied into audit records.
+
+---
+
+## 9. Pipelines and workers
+
+The lake and warehouse services lead to a pipeline system, for example a daily job:
+
+  Production DB -> orders -> Transform -> Parquet -> Data Lake -> Analytics Warehouse
+
+Silo workers handle long-running and asynchronous operations: large file processing,
+compression, checksum calculation, data ingestion, PostgreSQL exports, lake and warehouse
+jobs, backups, snapshots, and retention cleanup.
+
+Concurrency model:
+
+  Axum -> Tokio Runtime -> Async Tasks
+
+Silo does not create an OS thread per HTTP request. Blocking or CPU-heavy work uses Tokio's
+blocking facilities or dedicated worker mechanisms.
+
+---
+
+## 10. Architecture and deployment
+
+                             Internet
+                                |
+                +---------------+----------------+
+                |                                |
+        cdn.sharpnr.com                  silo-engine-db.sharpnr.com
+                |                                |
+              Nginx                         DB entry point
+                |                                |
+          Silo Engine                    PostgreSQL Cluster(s)
+          Rust + Axum                            |
+                |                        +-------+-------+
+       +--------+--------+               |               |
+       |        |        |          Org Database   Org Database
+    Storage  Database   Auth
+       |        |
+     RAID   Metadata
+       |
+    Data Lake / Future Data Services
+
+Silo is not tied to Kubernetes. The initial deployment target is self-hosted physical
+infrastructure running under systemd with Nginx in front:
+
+  cdn.sharpnr.com -> Nginx -> Silo Engine :9255
+
+Current infrastructure is approximately 10 combined CPUs, 160 GB combined RAM, and about
+1 PB of RAID-backed storage across multiple machines on a local network switch.
+
+Container orchestration is intentionally out of scope for the initial implementation, but
+the architecture avoids assumptions that would prevent future horizontal scaling.
+
+---
+
+## 11. Responsibilities
+
+Silo Engine owns: file storage, file metadata, storage paths, storage backends, storage
+quotas, checksums, compression, PostgreSQL provisioning, database credentials, database
+resource lifecycle, database explorer APIs, data lakes, data warehouse infrastructure, data
+ingestion, backups and snapshots, audit logging, authentication between trusted services,
+and file/resource access control.
+
+Sharpnr Engine owns application and business logic: Hospitality, Accounting, HR, CRM, and
+other business modules. Silo provides the infrastructure resources those applications
+consume.
+
+---
+
+## 12. Code structure and configuration
+
+Silo is a single Rust crate with modules rooted at main.rs: config, api, services, storage,
+databases, compression (with algorithms/zstd.rs), utils, auth, audit, workers, lakes, and
+warehouses. If Silo later grows into multiple independently reusable crates, a Cargo
+workspace can be introduced.
+
+Dependency injection is explicit rather than framework-driven. Dependencies are constructed
+at startup and passed into services:
+
+  main.rs -> EngineConfig, Database Pool, Storage Backend, Auth Client
+          -> Services -> AppState -> Axum
+
+Traits are used where abstraction is useful: storage backends, compression, database
+provisioners, and authentication clients. A repository layer is not required for every
+service.
+
+Configuration is centralized in EngineConfig, composed of HostSettings, DatabaseSettings,
+StorageSettings, and AuthSettings. Environment variables are loaded once at startup inside
+the config module; other modules consume injected configuration rather than reading
+std::env. APP_ENV selects the environment file (.env.development, .env.production,
+.env.example). Real process environment variables take precedence over file values.
+Required configuration is validated at startup.
+
+Error handling uses a structured SiloError with Configuration, Database, Storage,
+Compression, Authentication, NotFound, and Internal variants. Fallible functions return
+Result<T, SiloError> and propagate with the ? operator.
+
+Identifiers default to UUID v7.
+
+API documentation endpoints:
+
+  /swagger-ui
+  /redoc
+  /v1/openapi.json
+
+The OpenAPI document is the contract between Silo and consuming Sharpnr services.
+
+---
+
+## 13. Security principles
+
+1. Never expose PostgreSQL superuser credentials to customers.
+2. Keep browser-to-database connections server-side through Silo APIs.
+3. Separate public/CDN access from internal service-to-service APIs.
+4. Use organization-scoped resource authorization.
+5. Keep secrets out of source control.
+6. Audit infrastructure and data-management operations.
+7. Use TLS for customer-facing database connections.
+8. Validate and limit large uploads and long-running operations.
+9. Keep unsafe/native FFI boundaries isolated when native libraries are used.
+10. Do not expose arbitrary SQL in the initial database explorer.
+
+---
+
+## 14. Design principles
+
+1. Infrastructure should be separated from business logic.
+2. Storage should be abstracted behind a backend interface.
+3. Configuration should be loaded once and injected.
+4. Services should not create their own dependencies.
+5. Sharpnr Engine owns application/business logic.
+6. Silo owns infrastructure provisioning and storage.
+7. Public resource URLs should not depend on physical filesystem layout.
+8. The API should have an explicit OpenAPI contract.
+9. Large files should be processed using streaming where possible.
+10. Audit events should be durable and append-oriented.
+11. The first implementation should remain simple and self-hosted.
+12. Distributed infrastructure should be introduced only when actually needed.
+13. Existing open-source infrastructure should be reused rather than reinvented without a
+    strong reason.
+14. Future data lake and warehouse features should build on the same storage foundation
+    instead of creating unrelated storage systems.
+
+---
+
+## 15. Roadmap
+
+Phase 1 — Foundation (current): configuration, Axum server, application state / DI, error
+handling, logging and tracing.
+
+Phase 2 — Storage: storage backend, object metadata, upload, download, delete, checksums,
+compression, organization and employee quotas.
+
+Phase 3 — Access: authentication, authorization, CDN integration, audit logging.
+
+Phase 4 — PostgreSQL: database provisioning, PostgreSQL roles, credentials, public database
+endpoint, database explorer, backups and snapshots.
+
+Phase 5 — Data Lake: lake creation, dataset management, Parquet, data ingestion,
+PostgreSQL to lake, retention and lifecycle.
+
+Phase 6 — Data Warehouse: warehouse creation, lake to warehouse, ETL/ELT, query engine,
+analytics APIs.
+
+Phase 7 — Advanced Data Services: SQL workspace, search, vector storage, AI/RAG
+infrastructure, advanced analytics.
+
+Not every roadmap item is committed to the initial release.
+
+---
+
+## 16. Name
+
+Silo acts as Sharpnr's infrastructure silo: a centralized platform that isolates storage,
+databases, and future data infrastructure from the business applications consuming those
+resources.
+
+The long-term goal: give organizations infrastructure they can create, manage, and consume
+through Silo without requiring them to manage the physical infrastructure underneath it.
+
+---
+
+## 17. Contact
+
+Sharpnr — https://sharpnr.com
+Silo Engine — https://silo.sharpnr.com
