@@ -1,4 +1,4 @@
-import { FieldError } from "@/components/ui/field";
+import { FieldError } from "@sharpnr/ui";
 import { AnimatePresence, motion } from "framer-motion";
 
 /**

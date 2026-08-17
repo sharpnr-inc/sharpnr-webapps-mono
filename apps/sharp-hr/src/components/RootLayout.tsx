@@ -39,7 +39,7 @@ import {
   TrendingUp,
   BadgeDollarSign,
 } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@sharpnr/ui";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";

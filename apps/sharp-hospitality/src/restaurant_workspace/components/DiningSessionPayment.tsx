@@ -5,14 +5,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Command, CommandInput, CommandList } from "@/components/ui/command";
+} from "@sharpnr/ui";
+import { Command, CommandInput, CommandList } from "@sharpnr/ui";
 import { ChevronsUpDown } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 // import { useOrgsCustomer } from "@/apis/Queries";
@@ -23,7 +23,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { SelectContent } from "@radix-ui/react-select";
 // import { usePaymentAccounts } from "@/_orchestrator/payments/api/api.queries";
 import { useCloseDiningSessionMutation } from "../apis/mutations";

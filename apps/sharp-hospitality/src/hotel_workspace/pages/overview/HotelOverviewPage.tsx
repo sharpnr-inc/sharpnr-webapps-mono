@@ -1,11 +1,11 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@sharpnr/ui";
 import { BedDouble, CalendarDays, DoorOpen, LayoutDashboard } from "lucide-react";
 import { useState } from "react";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@sharpnr/ui";
 import {
   Bar,
   BarChart,

@@ -5,15 +5,15 @@ import {
   Draggable,
   type DropResult,
 } from "@hello-pangea/dnd";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import KDSHeader from "../components/KDSHeader";
 import { Timer, AlertTriangle, ChefHat, Check, DeleteIcon } from "lucide-react";
 import { useKitchenKOTsSSE } from "../api/api.sse";
 import { UpdateKOTStatus } from "../api/api.service";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { useParams } from "@tanstack/react-router";
 
 type OrderStatus = "ordered" | "in_progress" | "cooked";

@@ -1,6 +1,6 @@
 import { FileText, Upload, ShieldCheck } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 
 type Policy = {
   id: string;

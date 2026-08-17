@@ -1,12 +1,12 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Skeleton } from "@sharpnr/ui";
 import { useUserCardStore } from "./user_card_store";
 import { LogOut, ExternalLink, ShieldCheck } from "lucide-react";
 import { config } from "@sharpnr/env";

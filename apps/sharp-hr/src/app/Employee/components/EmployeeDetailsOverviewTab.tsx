@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView, animate } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import {
   Mail,
   Phone,

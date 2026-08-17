@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
 import { Beer, Users, Clock, IndianRupee } from "lucide-react";
 
 interface BarOverviewPageProps {}

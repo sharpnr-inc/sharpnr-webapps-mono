@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
 import { IndianRupee, Utensils, Users } from "lucide-react";
 import { PieChart, Pie, Cell } from "recharts";
 

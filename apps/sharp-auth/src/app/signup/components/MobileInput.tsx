@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 
 interface MobileInputProps extends Omit<

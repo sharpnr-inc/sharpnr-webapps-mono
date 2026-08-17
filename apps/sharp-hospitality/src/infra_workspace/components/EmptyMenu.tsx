@@ -1,6 +1,6 @@
 import React from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@sharpnr/ui"
+import { Button } from "@sharpnr/ui"
 import { UtensilsCrossed } from "lucide-react"
 
 interface EmptyMenuProps {

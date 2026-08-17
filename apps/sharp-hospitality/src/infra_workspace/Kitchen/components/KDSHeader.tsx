@@ -13,9 +13,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { useState } from "react";
 
 export default function KDSHeader() {

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView, animate } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 import {
   ChevronLeft,
   ChevronRight,

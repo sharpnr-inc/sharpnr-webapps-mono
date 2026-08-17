@@ -7,7 +7,7 @@ import { queryClient, router } from "./router_config";
 import { SheetProvider } from "./hooks/useSheet";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
 import { Toaster } from "sonner";
-import { TooltipProvider } from "./components/ui/tooltip";
+import { TooltipProvider } from "@sharpnr/ui";
 import { FormsModalProvider } from "./hooks/FormModalContext";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import PwaReloadPrompt from "./components/PwaReloadPrompt";

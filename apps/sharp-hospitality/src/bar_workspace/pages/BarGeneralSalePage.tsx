@@ -4,11 +4,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Label } from "@/components/ui/label";
+} from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { ScrollArea } from "@sharpnr/ui";
+import { Label } from "@sharpnr/ui";
 
 export default function BarGeneralSalePage() {
   const menuItems = [

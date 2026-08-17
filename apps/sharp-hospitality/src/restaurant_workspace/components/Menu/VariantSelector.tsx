@@ -5,9 +5,9 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Textarea } from "@sharpnr/ui";
 import { Minus, Plus } from "lucide-react"; // Added an icon for visual flair
 import { useMenuStore } from "./store/MenuStore";
 import { useOrderCart } from "../OrderCart/store/order-cart-store";

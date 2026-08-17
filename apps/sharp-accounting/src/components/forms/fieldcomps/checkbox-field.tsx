@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import { useFieldContext } from "../form-context";
 

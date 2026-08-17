@@ -1,6 +1,6 @@
 import { Megaphone, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@sharpnr/ui";
+import { Card, CardContent } from "@sharpnr/ui";
 
 type Announcement = {
   id: string;

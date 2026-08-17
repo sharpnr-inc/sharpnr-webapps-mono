@@ -1,12 +1,12 @@
 import { cn } from "@sharpnr/utils";
-import { Button } from "@/components/ui/button";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Button } from "@sharpnr/ui";
+import { Field, FieldGroup, FieldLabel } from "@sharpnr/ui";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp";
+} from "@sharpnr/ui";
 import { useForm } from "@tanstack/react-form";
 import { useResendOtpMutation, useVerifyOtpMutation } from "@/apis/mutation";
 import type { OtpPayload } from "@/apis/signup_api_services";

@@ -57,6 +57,16 @@ export default defineConfig({
         "sonner",
         "next-themes",
         "cmdk",
+        "@base-ui/react",
+        "@shadcn/react",
+        "date-fns",
+        "embla-carousel-react",
+        "gsap",
+        "input-otp",
+        "react-day-picker",
+        "react-resizable-panels",
+        "recharts",
+        "vaul",
       ],
       output: {
         globals: {

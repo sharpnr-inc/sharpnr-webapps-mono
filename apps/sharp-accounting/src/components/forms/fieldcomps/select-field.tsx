@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 
 type SelectFieldProps = {
   placeholder?: string;

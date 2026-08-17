@@ -5,7 +5,7 @@
 // animated badge with normalized text, icon, and a pulsing glow effect.
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Badge } from "@/components/ui/badge"; // Shadcn UI
+import { Badge } from "@sharpnr/ui"; // Shadcn UI
 import { cn } from "@sharpnr/utils"; // Shadcn cn helper
 import { resolveRoleConfig } from "@/lib/role_badge";
 import type { RoleConfig } from "@/lib/role_badge";

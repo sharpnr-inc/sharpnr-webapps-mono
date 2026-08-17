@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetFooter,
-} from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+} from "@sharpnr/ui";
+import { ScrollArea } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import { ShoppingBasket, Trash2, Plus, Minus } from "lucide-react";
 import { useState } from "react";

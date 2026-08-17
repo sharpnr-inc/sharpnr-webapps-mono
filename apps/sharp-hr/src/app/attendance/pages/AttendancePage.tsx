@@ -1,6 +1,6 @@
 import { CalendarDays } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
 
 type AttendanceRecord = {
   id: string;

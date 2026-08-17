@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link, useRouter } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { Home, ChevronLeft } from "lucide-react";
 
 export default function NotFound() {

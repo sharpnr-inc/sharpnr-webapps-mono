@@ -1,14 +1,14 @@
 import { useState, useMemo } from "react";
 import { useRouter } from "@tanstack/react-router";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import {
   Table,
   TableBody,
@@ -16,7 +16,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@sharpnr/ui";
 import {
   Plus,
   Search,

@@ -19,8 +19,8 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
 import {
   Table,
   TableBody,
@@ -28,19 +28,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@sharpnr/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "../../../components/ui/tooltip";
+} from "@sharpnr/ui";
 import RoleBadge from "../../../components/ui/RoleBadge";
 
 import {

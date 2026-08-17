@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { useAppForm } from "@/components/forms";
 import type { AddTaxCategoryPayload } from "@/app/api/legalEntity.api.service";
 import { useAccountingStore } from "@/store/accounting.store";
@@ -17,11 +17,11 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { useLegalEntityAllTaxRegistration } from "@/app/api/legalEntity.api.queries";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import { Plus, Trash2 } from "lucide-react";
 import { useADDTaxCategoryOrCode } from "@/app/api/legalEntity.api.mutation";
 import { useQueryClient } from "@tanstack/react-query";

@@ -16,7 +16,7 @@ import {
   SharpnrSidebarFooter,
   useSheet,
 } from "@sharpnr/ui";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@sharpnr/ui";
 import { Building2, Check, ChevronsUpDown } from "lucide-react";
 import { useAccountingStore } from "../store/accounting.store";
 import {
@@ -25,8 +25,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@sharpnr/ui";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Separator } from "@/components/ui/separator";
+import { TooltipProvider } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";
 import { ModeToggle } from "@/components/header/ThemeToggle";

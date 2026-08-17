@@ -15,10 +15,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@sharpnr/ui";
 
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@sharpnr/ui";
+import { Skeleton } from "@sharpnr/ui";
 import { formatDateTimePretty } from "@sharpnr/utils";
 
 type PaymentOrder = {

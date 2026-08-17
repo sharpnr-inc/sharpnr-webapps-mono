@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 import { Route } from "@/routes/_layout/employees/$employeeId";
 import {
   ArrowLeft,

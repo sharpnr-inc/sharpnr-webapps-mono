@@ -1,9 +1,9 @@
 import { BarChart3, Star, Clock } from "lucide-react";
 import { motion, easeOut, type Variants } from "framer-motion";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
 
 type PerformanceRecord = {
   id: string;

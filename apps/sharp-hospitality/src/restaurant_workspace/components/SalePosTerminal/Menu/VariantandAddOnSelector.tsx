@@ -7,11 +7,11 @@ import {
   SheetTitle,
   SheetDescription,
   SheetFooter,
-} from "@/components/ui/sheet";
+} from "@sharpnr/ui";
 
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@sharpnr/ui";
+import { Textarea } from "@sharpnr/ui";
 import { useTakewayOrderSummaryStore } from "../OrderSummary/store/order-summary-store";
 
 export function VariantAndAddOnSelector() {

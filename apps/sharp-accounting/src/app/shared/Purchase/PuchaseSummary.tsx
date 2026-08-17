@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 import { Send, FileText } from "lucide-react";
 import {
   useSubmit,

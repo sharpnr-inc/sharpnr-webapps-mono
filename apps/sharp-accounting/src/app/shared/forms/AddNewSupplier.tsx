@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+import { Input } from "@sharpnr/ui";
+import { Label } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Switch } from "@sharpnr/ui";
 
 export function AddNewSupplierForm() {
   const [isOrgWide, setIsOrgWide] = useState(true);

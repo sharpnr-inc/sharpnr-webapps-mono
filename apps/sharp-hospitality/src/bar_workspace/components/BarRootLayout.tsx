@@ -3,10 +3,10 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import { Outlet } from "@tanstack/react-router";
 import { BarSideBarNav } from "./BarSideBar";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@sharpnr/ui";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";

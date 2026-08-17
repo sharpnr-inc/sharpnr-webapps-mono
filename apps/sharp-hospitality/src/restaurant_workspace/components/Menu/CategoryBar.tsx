@@ -1,5 +1,5 @@
 import { useMenuStore } from "./store/MenuStore";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 
 const CategorySection = () => {
   const { categories, activeCategoryId, setActiveCategory } =

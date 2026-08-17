@@ -40,7 +40,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from "@sharpnr/ui";
 import { useModal } from "@/hooks/useModal";
 import ResourceCatalog from "@/business_operation/shared/ResourceCatalog";
 import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";

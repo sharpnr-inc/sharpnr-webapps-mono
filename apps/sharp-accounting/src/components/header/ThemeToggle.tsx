@@ -1,11 +1,11 @@
 import { Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@sharpnr/ui";
 import { useTheme } from "@sharpnr/ui";
 
 export function ModeToggle() {

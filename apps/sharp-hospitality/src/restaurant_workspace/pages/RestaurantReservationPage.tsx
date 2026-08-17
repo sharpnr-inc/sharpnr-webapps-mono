@@ -5,18 +5,18 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Calendar } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
+import { Label } from "@sharpnr/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { HardHat, CalendarDays, Users, Clock } from "lucide-react";
 
 interface RestaurantReservationPageProps {}

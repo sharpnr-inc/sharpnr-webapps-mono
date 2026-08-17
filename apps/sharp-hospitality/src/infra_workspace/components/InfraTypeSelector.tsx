@@ -3,14 +3,14 @@ import { useNavigate } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Lock } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import {
   INFRA_GROUPS,

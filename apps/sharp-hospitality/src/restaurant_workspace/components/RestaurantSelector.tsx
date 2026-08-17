@@ -1,6 +1,6 @@
 import { useNavigate } from "@tanstack/react-router";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { Building2, ArrowRight, Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { Route } from "@/routes/workspace/_modules/restaurant/index";

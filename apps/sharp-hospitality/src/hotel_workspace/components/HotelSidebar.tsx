@@ -6,7 +6,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import {
   LayoutDashboard,
   CalendarCheck2,

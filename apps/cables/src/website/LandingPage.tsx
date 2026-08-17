@@ -11,7 +11,7 @@ import {
   Globe,
   Users,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { CablesMark } from "./BrandMark";

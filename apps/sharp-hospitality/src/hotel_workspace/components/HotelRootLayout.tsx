@@ -5,17 +5,17 @@ import {
   SidebarInset,
   SidebarTrigger,
   SidebarMenuButton,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import { HotelSidebar } from "./HotelSidebar";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+} from "@sharpnr/ui";
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@sharpnr/ui";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { NotificationBell } from "@/components/header/NotificationButton";
 import { UserCard } from "@/components/header/UserCard";

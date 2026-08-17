@@ -1,6 +1,6 @@
 // src/context/SheetContext.tsx
 import { createContext, useContext, useState, type ReactNode } from "react";
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@sharpnr/ui";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { cn } from "@sharpnr/utils";
 

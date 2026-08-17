@@ -5,7 +5,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { LayoutDashboard, ShoppingCart, Boxes, Table } from "lucide-react";
 import type { ToPathOption } from "@tanstack/react-router";

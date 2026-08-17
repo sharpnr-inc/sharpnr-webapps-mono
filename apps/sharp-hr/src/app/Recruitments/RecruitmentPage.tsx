@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Input } from "@sharpnr/ui";
+import { Switch } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Textarea } from "@sharpnr/ui";
+import { Label } from "@sharpnr/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
+} from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 import { Camera, ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────

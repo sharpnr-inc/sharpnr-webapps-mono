@@ -6,18 +6,18 @@ import {
 } from "../apis/queries";
 import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Input } from "@/components/ui/input";
+import { Badge } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Card, CardContent, CardHeader } from "@sharpnr/ui";
+import { Skeleton } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,12 +25,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@sharpnr/ui";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@sharpnr/ui";
 import {
   Package,
   Plus,

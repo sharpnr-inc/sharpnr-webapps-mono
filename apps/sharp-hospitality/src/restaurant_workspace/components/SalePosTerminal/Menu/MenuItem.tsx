@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 

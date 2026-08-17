@@ -5,11 +5,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
+} from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { Switch } from "@sharpnr/ui";
 import {
   Table,
   TableBody,
@@ -17,12 +17,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@sharpnr/ui";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@sharpnr/ui";
 import { Plus, Trash2, Package, Boxes } from "lucide-react";
 import {
   useAddLine,

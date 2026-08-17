@@ -8,7 +8,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "@sharpnr/ui";
 
 type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 

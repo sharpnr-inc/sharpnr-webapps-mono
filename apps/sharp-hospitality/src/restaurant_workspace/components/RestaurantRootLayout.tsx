@@ -5,13 +5,13 @@ import {
   SidebarInset,
   SidebarTrigger,
   SidebarMenuButton,
-} from "@/components/ui/sidebar";
+} from "@sharpnr/ui";
 import { RestaurantSidebar } from "./RestaurantSidebar";
 import { ModeToggle } from "@/components/header/ThemeToggle";
 import SharpnrLauncher from "@/components/header/SharpnrLauncher";
 import { UserCard } from "@/components/header/UserCard";
 import { NotificationBell } from "@/components/header/NotificationButton";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@sharpnr/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import { SharpnrSidebarFooter } from "@/components/ui/SharpnrSidebarFooter";
 import { Building2 } from "lucide-react";

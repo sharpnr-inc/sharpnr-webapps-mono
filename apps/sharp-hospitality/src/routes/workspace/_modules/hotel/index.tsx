@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 import { getAllHotels } from "@/hotel_workspace/apis/api.service";
 import { HotelSelector } from "@/hotel_workspace/components/HotelSelector";
 import { createFileRoute } from "@tanstack/react-router";

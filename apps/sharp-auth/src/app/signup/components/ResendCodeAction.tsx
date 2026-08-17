@@ -1,6 +1,6 @@
 import { Loader2, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { FieldDescription } from "@/components/ui/field";
+import { Button } from "@sharpnr/ui";
+import { FieldDescription } from "@sharpnr/ui";
 import { CountdownRing } from "./CountdownRing";
 import { RESEND_COOLDOWN_SECONDS, formatDuration } from "../otp";
 

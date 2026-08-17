@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 import { useSalePosTerminalMenuStore } from "./store/sale_terminal_menu_store";
 
 /**

@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { FieldDescription, FieldSeparator } from "@/components/ui/field";
+import { Button } from "@sharpnr/ui";
+import { FieldDescription, FieldSeparator } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { AnimatedField } from "./AnimatedField";
 

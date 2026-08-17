@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowRight, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 
 interface SubmitButtonProps {
   canSubmit: boolean;

@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@sharpnr/ui";
+import { Badge } from "@sharpnr/ui";
+import { ScrollArea } from "@sharpnr/ui";
 import { useMemo, useState } from "react";
 import { useDiningSessionOrders } from "../../apis/queries";
 import { cn } from "@sharpnr/utils";

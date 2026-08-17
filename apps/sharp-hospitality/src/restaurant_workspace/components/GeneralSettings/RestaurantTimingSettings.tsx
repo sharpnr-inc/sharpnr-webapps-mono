@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@sharpnr/ui";
+import { Switch } from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
+import { Label } from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
+import { Separator } from "@sharpnr/ui";
 
 interface RestaurantTimingSettingsProps {}
 

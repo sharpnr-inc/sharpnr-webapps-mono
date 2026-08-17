@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Input } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 
 interface PasswordInputProps extends Omit<

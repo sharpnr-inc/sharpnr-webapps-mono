@@ -51,7 +51,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card";
+} from "@sharpnr/ui";
 import { useModal } from "@/hooks/useModal";
 import InfraCatalog from "@/business_operation/shared/InfraCatalog";
 import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";

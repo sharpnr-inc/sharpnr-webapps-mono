@@ -6,8 +6,8 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+} from "@sharpnr/ui";
+import { Button } from "@sharpnr/ui";
 import { Loader2, PlayCircle } from "lucide-react";
 
 // 1. Import your existing interface or define it here

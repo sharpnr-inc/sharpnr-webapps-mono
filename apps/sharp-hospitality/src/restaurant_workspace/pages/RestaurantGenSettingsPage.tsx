@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@sharpnr/ui";
 import { TabsContent } from "@radix-ui/react-tabs";
 import RestaurantTimingSettings from "../components/GeneralSettings/RestaurantTimingSettings";
 import RestaurantKitchenSettings from "../components/GeneralSettings/RestaurantKitchenSettings";
@@ -7,8 +7,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from "@sharpnr/ui";
+import { ScrollArea } from "@sharpnr/ui";
 
 interface RestaurantGenSettingsPageProps {}
 

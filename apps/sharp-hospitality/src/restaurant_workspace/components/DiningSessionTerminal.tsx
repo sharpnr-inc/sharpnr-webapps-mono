@@ -1,4 +1,4 @@
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@sharpnr/ui";
 import MenuSection from "./Menu/MenuSection";
 import OrderCart from "./OrderCart/OrderCart";
 import OrderTable from "./OrderTable/OrderTable";

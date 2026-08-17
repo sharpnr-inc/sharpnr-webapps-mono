@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Utensils, MapPin } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { Route } from "@/routes/workspace/_modules/infra/kitchen/index";
 

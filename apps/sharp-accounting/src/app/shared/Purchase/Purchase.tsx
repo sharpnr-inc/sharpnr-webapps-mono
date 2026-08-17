@@ -2,13 +2,13 @@ import { PurchaseRoot } from "./PurchaseRoot";
 import { PurchaseLine } from "./PurchaseLine";
 import { PurchaseSummary } from "./PuchaseSummary";
 import { PurchaseJournalEntrySummary } from "./PurchaseJournalEntrySummary";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@sharpnr/ui";
+import { Textarea } from "@sharpnr/ui";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@sharpnr/ui";
 import { FileText, Hash, CalendarDays, Info, BookOpen } from "lucide-react";
 import {
   useDueDate,
@@ -25,7 +25,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@sharpnr/ui";
 
 // ── Invoice Details card ──────────────────────────────────────────────────────
 

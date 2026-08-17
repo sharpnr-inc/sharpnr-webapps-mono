@@ -4,8 +4,8 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@sharpnr/ui";
+import { Input } from "@sharpnr/ui";
 import { useForm } from "@tanstack/react-form";
 import { useInitiateSignUpMutation } from "@/apis/mutation";
 import type { OrgSignupPayload } from "@/apis/signup_api_services";

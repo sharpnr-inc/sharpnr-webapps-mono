@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SaleTerminalMenu from "../components/SalePosTerminal/Menu/SaleTerminalMenu";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import { ChefHat, Receipt, Clock, Users } from "lucide-react";
 import { SalePosTerminalOrderSummary } from "../components/SalePosTerminal/OrderSummary/PosOrderSummary";

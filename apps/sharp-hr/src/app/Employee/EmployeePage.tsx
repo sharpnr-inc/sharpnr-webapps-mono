@@ -9,7 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@sharpnr/ui";
 import { EmployeesTable } from "@/app/Employee/components/EmployeeTable";
 import { useOrgEmployees } from "@/api/queries";
 import { Users, UserCheck, CreditCard, Smartphone } from "lucide-react";

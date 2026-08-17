@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useSidebar } from "@/components/ui/sidebar";
-import { SidebarFooter } from "@/components/ui/sidebar";
+import { useSidebar } from "@sharpnr/ui";
+import { SidebarFooter } from "@sharpnr/ui";
 
 const NAVY = "#0B0D2E";
 const NAVY_MID = "#141741";

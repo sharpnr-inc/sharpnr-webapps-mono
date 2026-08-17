@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus, Search, Inbox, Percent } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@sharpnr/ui";
 import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddTaxCategoryForm } from "./AddTaxCategoryForm";
 import { useTaxCodeStore } from "./store/tax_code.store";

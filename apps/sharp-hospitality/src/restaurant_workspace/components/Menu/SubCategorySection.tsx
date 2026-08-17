@@ -1,6 +1,6 @@
 import { useMenuStore } from "./store/MenuStore";
 import { ALL_CATEGORY_ID } from "./store/MenuStore";
-import { Button } from "@/components/ui/button";
+import { Button } from "@sharpnr/ui";
 
 const SubCategorySection = () => {
   const { categories, activeCategoryId, setActiveSubCategory } =
