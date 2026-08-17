@@ -6,8 +6,6 @@ import "./index.css";
 import { queryClient, router } from "./router_config";
 import { SheetProvider } from "./hooks/useSheet";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
-import "@/middlewares/interceptor.ts";
-import "@/middlewares/unauthorized.ts";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { FormsModalProvider } from "./hooks/FormModalContext";

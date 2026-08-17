@@ -1,12 +1,11 @@
-import axios, { type AxiosInstance } from "axios";
+import { createApiClient } from "@sharpnr/http";
+import { appUserActions } from "@/store/AppUserStore";
 import { config } from "@/configs/env";
 
-const api: AxiosInstance = axios.create({
-  baseURL: config.apiBaseUrl,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
+export default createApiClient({
+  baseUrl: config.apiBaseUrl,
+  csrfCookieName: config.csrfToken,
+  authAppUrl: config.authAppUrl,
+  // Drop the cached user before leaving, so a re-login starts clean.
+  onUnauthorized: () => appUserActions.clearUser(),
 });
-
-export default api;

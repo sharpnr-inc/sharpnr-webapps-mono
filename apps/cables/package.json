@@ -16,6 +16,7 @@
     "@radix-ui/react-dialog": "catalog:",
     "@radix-ui/react-visually-hidden": "catalog:",
     "@sharpnr/env": "workspace:*",
+    "@sharpnr/http": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",

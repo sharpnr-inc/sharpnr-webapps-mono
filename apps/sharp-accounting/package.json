@@ -16,6 +16,7 @@
     "@radix-ui/react-dialog": "catalog:",
     "@radix-ui/react-tooltip": "catalog:",
     "@sharpnr/env": "workspace:*",
+    "@sharpnr/http": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-form": "^1.29.0",

@@ -1,8 +1,6 @@
 import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import "@/middlewares/interceptor.ts";
-import "@/middlewares/unauthorized.ts";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider } from "@tanstack/react-router";
 import { TanStackDevtools } from "@tanstack/react-devtools";
