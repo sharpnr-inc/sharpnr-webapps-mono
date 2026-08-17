@@ -18,6 +18,7 @@
     "@radix-ui/react-select": "catalog:",
     "@radix-ui/react-tabs": "catalog:",
     "@radix-ui/react-visually-hidden": "catalog:",
+    "@sharpnr/env": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-form": "^1.29.0",

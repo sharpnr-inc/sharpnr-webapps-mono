@@ -1,52 +1,8 @@
-/// <reference types="vite/client" />
+import { createConfig } from "@sharpnr/env";
 
-const requiredVars = [
-  // Core API
-  "VITE_API_URL",
-  "VITE_API_CSRF",
-
-  // Internal Apps
-  "VITE_API_ACCOUNTING_APP",
-  "VITE_API_AUTH_APP",
-  "VITE_API_ORCHESTRATOR_APP",
-  "VITE_API_HOSPITALITY_APP",
-  "VITE_API_IAM_APP",
-  "VITE_API_SHARPCRM_APP",
-  "VITE_API_HR_APP",
-
-  // New Services
-  "VITE_API_CABLES_APP",
-  "VITE_API_SILO_APP",
-  "VITE_API_FOLIO_APP",
-  "VITE_API_MARKETPLACE_APP",
-] as const;
-
-type RequiredVar = (typeof requiredVars)[number];
-
-requiredVars.forEach((key: RequiredVar) => {
-  if (!import.meta.env[key]) {
-    throw new Error(`Missing required env variable: ${key}`);
-  }
-});
-
-export const config = {
-  // Core API
-  apiBaseUrl: import.meta.env.VITE_API_URL,
-  csrfToken: import.meta.env.VITE_API_CSRF,
-
-  // Internal Apps
-  accountingAppUrl: import.meta.env.VITE_API_ACCOUNTING_APP,
-  authAppUrl: import.meta.env.VITE_API_AUTH_APP,
-  orchestratorAppUrl: import.meta.env.VITE_API_ORCHESTRATOR_APP,
-  hospitalityAppUrl: import.meta.env.VITE_API_HOSPITALITY_APP,
-  iamAppUrl: import.meta.env.VITE_API_IAM_APP,
-  sharpcrmAppUrl: import.meta.env.VITE_API_SHARPCRM_APP,
-  hrAppUrl: import.meta.env.VITE_API_HR_APP,
-
-  // New Services
-  cablesAppUrl: import.meta.env.VITE_API_CABLES_APP,
-  siloAppUrl: import.meta.env.VITE_API_SILO_APP,
-  folioAppUrl: import.meta.env.VITE_API_FOLIO_APP,
-  marketplaceAppUrl: import.meta.env.VITE_API_MARKETPLACE_APP,
-  cortexAppUrl: import.meta.env.VITE_API_CORTEX_APP,
-} as const;
+/**
+ * Suite-wide env config. The schema, validation and the full app-URL reference
+ * live in `@sharpnr/env` -- this file only supplies this app's `import.meta.env`,
+ * which Vite substitutes at build time and so cannot be read from the package.
+ */
+export const config = createConfig(import.meta.env);
