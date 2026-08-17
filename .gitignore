@@ -1,7 +1,93 @@
+# Single .gitignore for the whole monorepo. Apps do not carry their own --
+# 17 near-identical copies had drifted apart, and rules that only ever applied
+# to one app were being silently inherited (or missed) by the rest.
+#
+# Rules below are unanchored (they match at any depth) unless a leading path
+# scopes them to one workspace. Anything genuinely app-specific lives in the
+# "Per-app" section at the bottom, scoped by path.
+
+# Dependencies
 node_modules/
+.pnp
+.pnp.*
+
+# Build output
 dist/
+dist-ssr/
+.next/
+out/
+.output/
+.nitro/
+.tanstack/
+storybook-static/
+dev-dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Caches
 .turbo/
+.cache/
+coverage/
+
+# Logs
+# NOTE: no bare `logs` rule -- apps/administration/app/logs is a real Next.js
+# route. `*.log` covers actual log files without swallowing a source dir.
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Env files -- every real env file is ignored, only templates are tracked.
+# The root .env.development / .env.production are what Vite's envDir points at,
+# and are injected in CI from a Jenkins credential.
+.env
+.env.*
+!.env.example
+
+# Generated / local
 *.local
-.env.development
-.env.production
 setup/generated/
+
+# Test artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.claude
+*.claude
+
+# Secrets
+*.pem
+.vercel
+
+# ---------------------------------------------------------------------------
+# Per-app. Scoped by path so one app's quirk stays that app's quirk.
+# ---------------------------------------------------------------------------
+
+# docs (fumadocs): generated MDX source index
+/apps/docs/.source/
+
+# orchestrator: local TLS certs + vendored WebKit libs for e2e
+/apps/orchestrator/ssl/
+/apps/orchestrator/e2e/.webkit-libs/
+
+# stockwave: the only app that does NOT commit its generated route tree.
+# Every other TanStack Router app here tracks src/routeTree.gen.ts.
+/apps/stockwave/src/routeTree.gen.ts
+
+# sharpnr-website: local scratch exports
+/apps/sharpnr-website/Website*
