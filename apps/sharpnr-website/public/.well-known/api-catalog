@@ -1,0 +1,14 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://apiengine.sharpnr.com/api/v1",
+      "service-doc": [
+        {
+          "href": "https://docs.sharpnr.com",
+          "type": "text/html",
+          "title": "Sharpnr Docs & Guides"
+        }
+      ]
+    }
+  ]
+}

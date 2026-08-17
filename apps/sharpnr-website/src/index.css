@@ -1,0 +1,2171 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────
+   Sharpnr Design Language (SDL) — design tokens
+   Source: Website/13_Sharpnr_Design_Language(SDL).md
+
+   Light-first: white is the primary page background; deep navy is
+   the brand foundation (navigation, footer, heroes, finales).
+   Neutrals use Tailwind's slate scale, which matches the SDL
+   neutral palette exactly (#F8FAFC … #020617).
+   ──────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* ── Typography — Inter everywhere, mono for code only ── */
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* ── Brand palette ── */
+  --color-navy: #03045e; /* brand foundation — nav, footer, heroes */
+  --color-blue: #0077b6; /* primary action — buttons, links, active */
+  --color-blue-deep: #005f93; /* primary action hover */
+  --color-cyan: #00b4d8; /* connected intelligence — lines, highlights */
+  --color-sky: #90e0ef; /* supporting surfaces, tags, illustration */
+  --color-ice: #caf0f8; /* soft section backgrounds, highlights */
+  --color-soft: #fcfcfd; /* alternative page background */
+
+  /* ── Homepage dark canvas (website_instruction / Visual Language 3.0) ──
+     The homepage is one continuous navy experience. These are the exact
+     tokens from 01_Visual_Language.md; scoped in intent to the dark
+     surfaces so the light-first pages above are untouched. ── */
+  /* The homepage uses ONLY the Sharpnr palette above (navy / blue / cyan /
+     sky / ice). The single exception is the page background. Surfaces are
+     palette colours used at low opacity, never new hues. */
+  /* Secondary text is a deliberate cool grey, never white at low opacity —
+     washed-out white is what makes a dark page read cheap. */
+  --color-mute: #8a94a8;
+  --color-twilight: #5c87b5; /* navy → sky, the palette at dusk */
+  --color-ink: #04203f; /* text on light sections — navy, never black */
+  --color-canvas: #00101f; /* homepage page background — deep navy, flat */
+  --color-surface: #03045e; /* = navy — panels, cards */
+  --color-elevated: #0077b6; /* = blue — extra layer, used sparingly */
+
+  /* ── Type scale (SDL) — fluid: shrinks on small screens, reaches
+     the SDL max on tablet and up so large screens are unchanged. ── */
+  --text-display-xl: clamp(2.5rem, 1.35rem + 5.8vw, 4rem);
+  --text-display-xl--line-height: 1.06;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-lg: clamp(2.25rem, 1.3rem + 4.7vw, 3.5rem);
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-md: clamp(2rem, 1.25rem + 3.6vw, 3rem);
+  --text-display-md--line-height: 1.1;
+  --text-display-md--letter-spacing: -0.015em;
+  --text-heading-xl: clamp(1.875rem, 1.3rem + 2.5vw, 2.5rem);
+  --text-heading-xl--line-height: 1.15;
+  --text-heading-xl--letter-spacing: -0.01em;
+  --text-heading-lg: clamp(1.625rem, 1.2rem + 1.8vw, 2rem);
+  --text-heading-lg--line-height: 1.15;
+  --text-heading-lg--letter-spacing: -0.01em;
+  --text-heading-md: clamp(1.5rem, 1.2rem + 1.3vw, 1.75rem);
+  --text-heading-md--line-height: 1.2;
+  --text-heading-sm: clamp(1.375rem, 1.15rem + 1vw, 1.5rem);
+  --text-heading-sm--line-height: 1.25;
+  --text-title-lg: 1.25rem;
+  --text-title-lg--line-height: 1.35;
+  --text-title-md: 1.125rem;
+  --text-title-md--line-height: 1.4;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+}
+
+:root {
+  /* Dark site-wide. Every page now sits on the canvas the homepage
+     introduced, so a white root would flash before paint and show through
+     the scrollbar gutter. */
+  background-color: var(--color-canvas);
+  color: #334155; /* slate-700 — primary reading color */
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: clip;
+}
+
+::selection {
+  background-color: var(--color-ice);
+  color: var(--color-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+/* Reading comfort — long-form copy never stretches (SDL: 60–75ch) */
+.prose-width {
+  max-width: 65ch;
+}
+
+/* ── Scrollbar (Visual Language: replace the default — thin, minimal,
+   rounded, Sharpnr colors, visible on hover).
+
+   Twilight rather than a neutral grey: it is the one palette token with
+   enough contrast on *both* the ice-white SDL pages and the near-black
+   homepage canvas, so a single rule covers the whole site. The 3px
+   transparent border is clipped out of the paint, leaving a 6px thumb
+   floating clear of the edge instead of a bar welded to it. ── */
+/* WebKit/Blink gets the real treatment: a 6px thumb floating clear of the
+   edge inside a 12px gutter, fully rounded, warming to cyan on hover. The
+   3px border is clipped out of the paint to make that inset. */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(92, 135, 181, 0.45);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  transition: background-color 200ms ease;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 180, 216, 0.85);
+}
+/* Both scrollbars meeting in the corner — leave it empty, or the browser
+   paints its own grey square that no other rule here covers. */
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* The homepage is near-black, but :root stays white for the light-first SDL
+   pages — and a transparent track simply shows that white through, which is
+   what painted a white stripe down the side of the dark page. Give the
+   track a real colour there, and lift the thumb to suit the darker ground. */
+:root:has(.hp-canvas)::-webkit-scrollbar-track,
+:root:has(.hp-canvas) ::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+:root:has(.hp-canvas)::-webkit-scrollbar-thumb,
+:root:has(.hp-canvas) ::-webkit-scrollbar-thumb {
+  background-color: rgba(122, 170, 215, 0.42);
+}
+
+/* Firefox only — it has no ::-webkit-scrollbar, so the standard properties
+   are the only way to reach it. They are deliberately NOT declared for
+   Chrome: since Chrome 121 the mere presence of scrollbar-width switches
+   ::-webkit-scrollbar off completely, which was throwing away every rule
+   above and leaving the browser's default bar. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+  }
+  :root {
+    scrollbar-color: rgba(92, 135, 181, 0.45) transparent;
+  }
+  :root:has(.hp-canvas) {
+    scrollbar-color: rgba(122, 170, 215, 0.42) var(--color-canvas);
+  }
+}
+
+/* ── Homepage canvas — one flat, continuous dark navy. No gradient.
+   (Visual Language: "no large color changes between sections"; the
+   background stays visually quiet and never competes with content.) ── */
+.hp-canvas {
+  /* One flat sheet, and nothing behind it.
+
+     The procedural ink wash that used to sit here was removed and the page
+     was better for it — flat reads as deliberate where the wash read as
+     texture for its own sake. A WebGL gradient was tried in the same slot
+     and dropped for the same reason, plus two measured ones: it put the
+     background average at rgb(4,6,115), which pulled `twilight` body text
+     from 5.11 to roughly 3.7 contrast (below AA), and it meant a
+     full-screen fragment shader running every frame against GSAP's ticker
+     and Lenis.
+
+     If anything is ever layered behind this again, note that `.hp-canvas`
+     is `position: relative` and so paints in step 6 of the stacking order,
+     while `z-index: -1` children paint in step 2 — an opaque background
+     here hides them completely. That cost an hour once. */
+  background-color: var(--color-canvas);
+}
+
+/* ── The ink wash — one continuous sheet spanning the whole document, so the
+   page reads as a single poured surface rather than each scene carrying its
+   own texture.
+
+   Absolute, not fixed: ScrollSmoother transforms an ancestor, and a
+   transformed ancestor becomes the containing block for fixed descendants,
+   so `position: fixed` here resolves against the full scroll height instead
+   of the viewport. Nothing else needs a z-index — every scene already
+   carries `relative`, so they paint above this by document order. ── */
+.hp-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+/* A 140px noise tile at 1:1 — never scaled, so the grain stays fine however
+   tall the document is. Overlay so it textures the wash rather than
+   greying it. */
+.hp-wash-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   Scene 01 — the intro.
+
+   The hero answers "what is Sharpnr?" and nothing else; "how does it work?"
+   belongs to Scene 03. So the foreground holds only the eyebrow, the
+   headline, one sentence and two buttons — and the whole frame behind it is
+   filled with faint business vocabulary that occasionally lights.
+
+   Nothing in here moves, scrolls, floats or connects. The stillness is what
+   makes it read as a page rather than a screensaver.
+   ══════════════════════════════════════════════════════════════════════ */
+.hero-stage {
+  position: relative;
+  isolation: isolate;
+  /* Transparent, so the page's ink wash carries through the opening
+     instead of the hero laying its own flat black over the top of it. */
+  background: transparent;
+}
+
+/* ── The field ── */
+/* No overflow clip: a word that ran past the edge would be cut mid-letter,
+   which reads as a bug rather than as a crop. Words are positioned to fit
+   instead, and the page already carries overflow-x: clip on body so nothing
+   here can produce a horizontal scrollbar. */
+.hero-field {
+  position: absolute;
+  inset: 0;
+  /* Clear of the navigation, always. Every word is positioned as a
+     percentage of this box, so starting it below the header is what
+     guarantees none can ever sit behind the nav — masking would only fade
+     them, and a faded word is still overlapping. */
+  top: 5.5rem;
+}
+
+.hero-field-word {
+  position: absolute;
+  white-space: nowrap;
+  color: var(--color-sky);
+  /* Centred on its own coordinate, so a word never hangs off the edge on
+     one side and the scatter stays balanced at every width. */
+  transform: translate(-50%, -50%);
+  /* Opacity is the only thing that ever changes; keeping it on its own
+     layer means a lighting cycle never triggers layout or paint. */
+  will-change: opacity;
+}
+
+.hero-field-word[data-kind="sys"] {
+  font-size: clamp(0.75rem, 1.15vw, 1.125rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.hero-field-word[data-kind="evt"] {
+  font-size: clamp(0.625rem, 0.85vw, 0.875rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #b8cfe4;
+}
+
+/* Short viewports: the copy occupies proportionally more height, and three
+   rows simply do not fit above it. The rows nearest the copy go rather than
+   sit on top of the eyebrow. */
+@media (max-height: 720px) {
+  .hero-field-word[data-band="inner"] {
+    display: none;
+  }
+}
+
+/* Below md the field thins out — at phone widths the longer phrases run
+   into each other and the scatter turns into a block of text. */
+@media (max-width: 767px) {
+  .hero-field-word[data-kind="evt"] {
+    display: none;
+  }
+  .hero-field-word[data-kind="sys"] {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+  }
+  /* Words are centred on their own coordinate, so the ones nearest the
+     edges hang off a narrow viewport. Narrowing the field instead just
+     moved the problem — they were then clipped mid-letter — so the outermost
+     column simply drops out on phones. */
+  .hero-field-word[data-edge="true"] {
+    display: none;
+  }
+}
+
+/* Motion is the only reason this isn't wallpaper, so with it switched off
+   the field simply sits at its resting opacity. */
+
+/* ── Ambient depth — two very soft pools of light drifting almost
+   imperceptibly. Transform-only so it stays on the compositor, and it costs
+   nothing to scroll past. The visitor should feel it, not see it. ── */
+.hp-glow {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.hp-glow--a {
+  top: -14%;
+  left: -12%;
+  width: 70vw;
+  height: 70vw;
+  max-width: 60rem;
+  max-height: 60rem;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 119, 182, 0.16),
+    transparent 100%
+  );
+}
+.hp-glow--b {
+  right: -16%;
+  bottom: -10%;
+  width: 62vw;
+  height: 62vw;
+  max-width: 52rem;
+  max-height: 52rem;
+  background: radial-gradient(
+    closest-side,
+    rgba(0, 180, 216, 0.09),
+    transparent 100%
+  );
+}
+@keyframes hp-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3%, 2.5%, 0);
+  }
+}
+@keyframes hp-drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-2.5%, -3%, 0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hp-glow--a {
+    animation: hp-drift-a 44s ease-in-out infinite;
+  }
+  .hp-glow--b {
+    animation: hp-drift-b 52s ease-in-out infinite;
+  }
+}
+
+/* ── Fine noise — the single texture allowed by Visual Language. Tiles at
+   any height, sits behind content, barely perceptible. ── */
+.hp-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+}
+
+/* ── Per-section frame — the page background stays flat, solid navy
+   throughout (no gradient, no glow blobs); only a hairline separates
+   sections. Any visual variety between scenes comes from their content,
+   not the canvas underneath it. ── */
+.hp-section {
+  position: relative;
+  isolation: isolate;
+}
+.hp-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── Hero sizing — the hero must sit comfortably inside one viewport on a
+   13" laptop (short, wide screens), so type and spacing respond to viewport
+   HEIGHT as well as width instead of only scaling with vw. ── */
+.hp-hero {
+  padding-top: clamp(6.5rem, 13vh, 9rem);
+  padding-bottom: clamp(3.5rem, 8vh, 6rem);
+}
+.hp-hero-title {
+  font-size: clamp(2.25rem, 3.3vw + 0.9rem, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.hp-hero-copy {
+  font-size: clamp(1rem, 0.35vw + 0.92rem, 1.125rem);
+  line-height: 1.6;
+}
+@media (max-height: 880px) and (min-width: 1024px) {
+  .hp-hero-title {
+    font-size: clamp(2rem, 2.5vw + 0.8rem, 3.25rem);
+  }
+  .hp-hero-copy {
+    font-size: 1rem;
+  }
+}
+
+/* ── Section rhythm — like the hero, every section responds to viewport
+   HEIGHT as well as width, so the page stays comfortable on a 13" laptop
+   instead of only being tuned for tall desktop monitors. ── */
+.hp-sec {
+  padding-top: clamp(4rem, 9vh, 7.5rem);
+  padding-bottom: clamp(4rem, 9vh, 7.5rem);
+}
+.hp-h2 {
+  font-size: clamp(1.75rem, 2.5vw + 0.8rem, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+/* The two narrative peaks — "Everything. One Platform." and the closing
+   invitation — carry more weight than the supporting sections, so the page
+   has a crescendo instead of speaking at one volume throughout. */
+/* One size for every scene heading on the homepage. Scenes previously
+   mixed hp-hero-title and hp-h2--peak, so the page changed volume as you
+   scrolled; a single class keeps the whole story spoken at one level. */
+.hp-scene-title {
+  font-size: clamp(2.25rem, 3.7vw + 1rem, 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+}
+@media (max-height: 880px) and (min-width: 1024px) {
+  .hp-scene-title {
+    font-size: clamp(2rem, 2.9vw + 0.9rem, 3.375rem);
+  }
+}
+
+.hp-h2--peak {
+  font-size: clamp(2rem, 3.4vw + 0.9rem, 3.75rem);
+  letter-spacing: -0.035em;
+}
+.hp-lede {
+  font-size: clamp(0.9375rem, 0.3vw + 0.88rem, 1.125rem);
+  line-height: 1.6;
+}
+
+@media (max-height: 880px) and (min-width: 1024px) {
+  .hp-sec {
+    padding-top: clamp(3rem, 7vh, 5rem);
+    padding-bottom: clamp(3rem, 7vh, 5rem);
+  }
+  .hp-h2 {
+    font-size: clamp(1.6rem, 1.9vw + 0.7rem, 2.35rem);
+  }
+  .hp-lede {
+    font-size: 1rem;
+  }
+  /* Full-height sections keep presence on short screens without forcing a
+     whole viewport — the closing moment still needs air. */
+  .hp-flex-section {
+    min-height: 76vh;
+  }
+}
+
+/* Homepage — one restrained modular language. */
+.hp-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; color: rgba(202, 240, 248, 0.72); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.hp-eyebrow::before { width: 1.75rem; height: 1px; background: var(--color-cyan); content: ""; }
+
+
+/* ── Scene 05: the trade layer plugged into a shared backplane. No card
+   containers anywhere — every module is typography on the board, routed
+   with the same 1px orthogonal traces used across the homepage. The
+   backplane is the dominant element; it is architecture, not decoration. ── */
+.hp-ind-tab {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.55);
+  padding: 7px 0;
+  position: relative;
+  transition: color 260ms ease;
+}
+.hp-ind-tab::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--color-cyan);
+  transform: scaleX(0);
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-ind-tab:hover, .hp-ind-tab:focus-visible { color: rgba(214, 244, 255, 0.85); }
+.hp-ind-tab[aria-pressed="true"] { color: #ffffff; }
+.hp-ind-tab[aria-pressed="true"]::after { transform: scaleX(1); }
+
+/* Modules are type on the board, never boxes. */
+.hp-ind-mod {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(226, 248, 255, 0.96);
+}
+.hp-ind-base {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(170, 190, 210, 0.6);
+}
+
+/* Routing: 1px orthogonal runs terminating in small pads. */
+.hp-ind-trace {
+  width: 1px;
+  height: 11px;
+  margin: 0 auto;
+  background: rgba(144, 224, 239, 0.3);
+}
+.hp-ind-pad {
+  width: 3px; height: 3px;
+  margin: 0 auto;
+  background: rgba(0, 180, 216, 0.8);
+}
+
+/* The backplane — solid, architectural, the dominant mass in the scene. */
+.hp-ind-backplane {
+  position: relative;
+  height: 8px;
+  border-radius: 1px;
+  background: #071726;
+  border: 1px solid rgba(144, 224, 239, 0.14);
+}
+/* A single conductor running its length. Not a glowing bar — one line. */
+.hp-ind-conductor {
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 1px;
+  margin-top: -0.5px;
+  background: #00b4d8;
+  opacity: 0.75;
+}
+/* Faint routing inside the channel — ticks where each trace joins the
+   backbone, so it reads as a live bus rather than a drawn bar. */
+.hp-ind-tick {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 1px;
+  margin-left: -0.5px;
+  background: rgba(144, 224, 239, 0.35);
+}
+/* A single charge crossing the bus: ambient, and fired again on every
+   trade switch so the same platform is visibly powering each industry. */
+.hp-ind-pulse {
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  width: 30px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
+  opacity: 0;
+}
+
+/* Annotation is metadata: heavily tracked, deliberately low contrast. */
+.hp-ind-meta {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.38);
+  white-space: nowrap;
+}
+.hp-ind-meta--brand {
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  color: rgba(202, 240, 248, 0.72);
+}
+
+/* ── Scene 04: one action, and everything it sets off. Same routed
+   dialect as Scenes 02/03, flat and axis-aligned. ── */
+.hp-casc-spine {
+  position: absolute;
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(0, 119, 182, 0.4);
+}
+/* The charge that carries the action forward along the spine. */
+.hp-casc-head {
+  position: absolute;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
+}
+.hp-casc-branch {
+  position: absolute;
+  width: 2px;
+  border-radius: 9999px;
+  background: rgba(0, 119, 182, 0.4);
+  transform-origin: top;
+}
+.hp-casc-branch--up {
+  transform-origin: bottom;
+}
+.hp-casc-junction {
+  position: absolute;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-cyan);
+  background: var(--color-canvas);
+  transition: box-shadow 400ms ease, background-color 400ms ease;
+}
+.hp-casc-junction--w1 { width: 13px; height: 13px; margin: -6.5px 0 0 -6.5px; }
+.hp-casc-junction--w2 { width: 9px;  height: 9px;  margin: -4.5px 0 0 -4.5px; }
+.hp-casc-junction--w3 { width: 7px;  height: 7px;  margin: -3.5px 0 0 -3.5px; border-color: rgba(0,180,216,0.6); }
+/* Lit the instant the charge reaches it, then eased back down. */
+.hp-casc-junction.is-live {
+  background: var(--color-cyan);
+  box-shadow: 0 0 16px rgba(0, 180, 216, 0.85);
+}
+/* The outcome, printed where its branch lands. */
+.hp-casc-out {
+  position: absolute;
+  white-space: nowrap;
+}
+.hp-casc-label {
+  display: block;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+  transition: color 400ms ease;
+}
+.hp-casc-out--w1 .hp-casc-label { font-size: 15px; }
+.hp-casc-out--w2 .hp-casc-label { font-size: 13px; }
+.hp-casc-out--w3 .hp-casc-label { font-size: 12px; color: rgba(255,255,255,0.72); }
+.hp-casc-out.is-live .hp-casc-label { color: #ffffff; }
+.hp-casc-owner {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: rgba(138, 148, 168, 0.55);
+}
+/* The action itself, at the head of the spine. */
+.hp-casc-origin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 8px 14px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 180, 216, 0.5);
+  background: rgba(0, 119, 182, 0.16);
+  font-family: var(--font-mono);
+  white-space: nowrap;
+  text-align: left;
+}
+.hp-casc-origin-kicker {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 0.24em;
+  color: rgba(138, 148, 168, 0.7);
+}
+.hp-casc-origin-name {
+  display: block;
+  margin-top: 2px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: rgba(214, 244, 255, 0.95);
+}
+/* Closure — the run has finished and everything agrees. */
+.hp-casc-done {
+  position: absolute;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+  color: rgba(0, 180, 216, 0.75);
+}
+
+/* ── Scene 02: one customer, five systems, one ledger.
+
+   A table, not cards. Bordered blocks with their own headers read as
+   support tickets, and stacked three deep they ran past the bottom of the
+   section. The table is also the truer form — comparison is the whole
+   point, and here the disagreements stack into a column.
+
+   Brutalist and restrained: hairline rules, mono throughout, square
+   corners, no fills. It has to look like a screen in business software,
+   and business software has neither radii nor shadows. ── */
+.hp-ledger-scroll {
+  overflow-x: auto;
+  /* No visible bar. The global rules style every scrollbar on the site, and
+     this container briefly overflows during load — which flashed a bar
+     under the table before the rows had even arrived. Swipe still works. */
+  scrollbar-width: none;
+  /* Faded rather than cut where it scrolls, so a clipped column reads as
+     "there is more" instead of as a broken layout. */
+  -webkit-mask-image: linear-gradient(to right, #000 94%, transparent);
+  mask-image: linear-gradient(to right, #000 94%, transparent);
+}
+.hp-ledger-scroll::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .hp-ledger-scroll {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+.hp-ledger {
+  width: 100%;
+  min-width: 31rem;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  text-align: left;
+}
+
+/* Deliberately unequal. Reference is the narrowest column and Identity the
+   widest, so the right edge doesn't rule up into a machined block. */
+.hp-ledger col:nth-child(1) {
+  width: 21%;
+}
+.hp-ledger col:nth-child(2) {
+  width: 24%;
+}
+.hp-ledger col:nth-child(3) {
+  width: 21%;
+}
+.hp-ledger col:nth-child(4) {
+  width: 20%;
+}
+.hp-ledger col:nth-child(5) {
+  width: 14%;
+}
+
+.hp-ledger thead th {
+  padding: 0 0.75rem 0.55rem 0;
+  border-bottom: 1px solid rgba(144, 224, 239, 0.2);
+  font-size: 0.5rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.5);
+  white-space: nowrap;
+}
+
+/* The hover dim lives on the cells, never on the row. GSAP's entrance
+   animates the row's opacity, and a CSS transition on that same property
+   fights the tween — it settles at 0 and the table renders blank. Cell
+   opacity multiplies with the row's, so the two stay independent. */
+.hp-ledger tbody th,
+.hp-ledger tbody td {
+  padding: 0.62rem 0.75rem 0.62rem 0;
+  vertical-align: baseline;
+  white-space: nowrap;
+  transition: opacity 180ms ease;
+}
+.hp-ledger tbody th {
+  padding-right: 1.35rem;
+  font-weight: 400;
+}
+
+/* The row rule is drawn as a background gradient rather than a border, so
+   its length can vary per row. Borders always span the full cell, and five
+   identical full-width rules were the last thing making this look
+   generated. */
+.hp-ledger-row {
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 100% 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(144, 224, 239, 0.09) 0 var(--rule, 100%),
+    transparent var(--rule, 100%)
+  );
+}
+.hp-ledger-row[data-rule="0"] {
+  --rule: 97%;
+}
+.hp-ledger-row[data-rule="1"] {
+  --rule: 89%;
+}
+.hp-ledger-row[data-rule="2"] {
+  --rule: 100%;
+}
+.hp-ledger-row[data-rule="3"] {
+  --rule: 92%;
+}
+.hp-ledger-row:last-child {
+  background-image: none;
+}
+
+.hp-ledger-sys {
+  display: block;
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(144, 224, 239, 0.85);
+}
+.hp-ledger-doc {
+  display: block;
+  margin-top: 0.12rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(138, 148, 168, 0.4);
+}
+
+.hp-ledger-val {
+  font-size: 0.6875rem;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.88);
+  transition:
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+/* The one accent in the section, and it means exactly one thing: this
+   value disagrees with the system of record. Reference numbers are never
+   marked however different they look — a challan number is supposed to
+   differ from an invoice number. */
+.hp-ledger-val[data-off="true"] {
+  box-shadow: inset 0 -1px 0 rgba(0, 180, 216, 0.45);
+}
+/* Never captured. An absence, not a value, and never marked. */
+.hp-ledger-val[data-missing="true"] {
+  font-style: italic;
+  color: rgba(138, 148, 168, 0.36);
+  box-shadow: none;
+}
+
+/* ── Hover: opacity only, no movement.
+   Pointing at one system dims the other four and brings its conflicting
+   values forward, so a visitor can isolate a single row and read what that
+   system believes. ── */
+.hp-ledger:hover tbody th,
+.hp-ledger:hover tbody td {
+  opacity: 0.3;
+}
+.hp-ledger tbody tr:hover th,
+.hp-ledger tbody tr:hover td {
+  opacity: 1;
+}
+.hp-ledger-row:hover .hp-ledger-val[data-off="true"] {
+  color: var(--color-ice);
+  box-shadow: inset 0 -1px 0 rgba(0, 180, 216, 0.9);
+}
+.hp-ledger-row:hover .hp-ledger-val[data-missing="true"] {
+  color: rgba(138, 148, 168, 0.6);
+}
+/* Touch devices have no hover state to leave, so a row could stay dimmed
+   after a tap. */
+@media (hover: none) {
+  .hp-ledger:hover tbody th,
+  .hp-ledger:hover tbody td {
+    opacity: 1;
+  }
+}
+
+/* ── Narrow screens ──
+   At 375px the five-column table was 496px wide: 169px of it sat outside
+   the viewport, behind a scrollbar deliberately hidden — so two columns
+   were both unreachable and undiscoverable. Rather than restore a
+   scrollbar, the table drops to the three columns that carry the argument.
+
+   Contact and Reference are the two that go. Reference is the column
+   explicitly *supposed* to differ between systems and is never marked as a
+   conflict; Contact says the same thing Identity already says. What
+   remains — four spellings of one name and four different primary keys —
+   is the whole point. */
+@media (max-width: 639px) {
+  .hp-ledger [data-col="Contact"],
+  .hp-ledger [data-col="Reference"] {
+    display: none;
+  }
+  /* Fixed column widths were sized for five; let the remaining three take
+     the space, and drop the min-width so nothing overflows at all. */
+  .hp-ledger col {
+    width: auto;
+  }
+  .hp-ledger {
+    min-width: 0;
+  }
+  .hp-ledger-scroll {
+    overflow-x: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .hp-ledger tbody th {
+    padding-right: 0.9rem;
+  }
+}
+
+/* Says out loud what the table has already shown, once. */
+.hp-rec-verdict {
+  margin-top: clamp(1.1rem, 2.6vh, 1.8rem);
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(144, 224, 239, 0.12);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: rgba(138, 148, 168, 0.75);
+}
+
+/* ── Scene 03 — the platform map.
+
+   Flat SVG, made of the same hairlines as the rest of the page, which is
+   what stops it reading as a picture placed on top. Nothing glows except a
+   charge in motion: a lit static trace is the signature of a generated
+   diagram, and a moving signal is the one thing that has earned it. ── */
+.hp-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Section lines, spanning the full width — a drawing convention, not a
+   border around a component. */
+.hp-map-band {
+  stroke: rgba(144, 224, 239, 0.22);
+  stroke-width: 1;
+}
+.hp-map-band-label {
+  fill: rgba(138, 148, 168, 0.65);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hp-map-trace {
+  stroke: rgba(144, 224, 239, 0.26);
+  stroke-width: 1.2;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+/* Grouped runs carry more than a single drop, so they are routed heavier —
+   the trunk-versus-signal weighting a real board uses. */
+.hp-map-trace.is-trunk {
+  stroke: rgba(0, 180, 216, 0.5);
+  stroke-width: 1.8;
+}
+.hp-map-trace.is-main {
+  stroke: rgba(0, 180, 216, 0.75);
+  stroke-width: 2.4;
+}
+
+/* Weight runs applications → slab → foundation, lightest to heaviest to
+   middling, so the eye lands in the centre band where the argument is. */
+.hp-map-modules rect {
+  fill: rgba(144, 224, 239, 0.022);
+  stroke: rgba(144, 224, 239, 0.15);
+  stroke-width: 1;
+}
+.hp-map-foundation rect {
+  stroke-width: 1;
+}
+.hp-map-modules text,
+.hp-map-foundation text {
+  font-family: var(--font-mono);
+  text-anchor: middle;
+}
+.hp-map-modules .is-name {
+  fill: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hp-map-modules .is-sub {
+  fill: rgba(138, 148, 168, 0.65);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+}
+.hp-map-foundation text {
+  fill: rgba(220, 236, 245, 0.82);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+/* The foundation is the reason the platform exists, so it is lit at least
+   as strongly as the applications rather than trailing off as a footnote. */
+.hp-map-foundation rect {
+  fill: rgba(0, 119, 182, 0.1);
+  stroke: rgba(0, 180, 216, 0.34);
+}
+
+/* ── The slab ──
+   Edge to edge and filled. A rounded box the size of a module read as
+   another application sitting in the stack, which is the one thing this
+   band must not say. */
+.hp-map-slab rect {
+  fill: rgba(0, 119, 182, 0.13);
+}
+.hp-map-slab-edge {
+  stroke: rgba(0, 180, 216, 0.7);
+  stroke-width: 1.5;
+}
+.hp-map-slab-name {
+  fill: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* The record, set as a system-of-record entry rather than a contact card —
+   a labelled field column is what makes it read as authoritative. Same mono
+   as Scene 02's ledger, so a visitor recognises it as the same object. */
+.hp-map-record text {
+  font-family: var(--font-mono);
+}
+.hp-map-record .is-kind {
+  fill: rgba(0, 180, 216, 0.85);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.hp-map-record .is-name {
+  fill: rgba(255, 255, 255, 0.95);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+.hp-map-record .is-key {
+  fill: rgba(138, 148, 168, 0.55);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hp-map-record .is-val {
+  fill: rgba(220, 236, 245, 0.86);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+
+.hp-map-charge {
+  fill: var(--color-ice);
+  opacity: 0;
+}
+
+/* ── Hover ──
+   Pointing at an application lights its own run into the slab and pulses
+   the record it writes to. Nothing else moves: the restraint is what makes
+   it read as engineered rather than animated. */
+.hp-map-module {
+  cursor: default;
+}
+.hp-map-module rect,
+.hp-map-module .is-name,
+.hp-map-trace {
+  transition:
+    stroke 220ms ease,
+    stroke-width 220ms ease,
+    fill 220ms ease;
+}
+.hp-map-module:hover rect {
+  fill: rgba(0, 180, 216, 0.09);
+  stroke: rgba(0, 180, 216, 0.6);
+}
+.hp-map-module:hover .is-name {
+  fill: #ffffff;
+}
+.hp-map-trace.is-live {
+  stroke: rgba(0, 180, 216, 0.95);
+  stroke-width: 2.2;
+}
+
+/* ── The business objects on the slab. ────────────────────────────────
+   Chips, drawn like the platform services below but in a single row, so
+   the slab reads as one band rather than as a third copy of the same 3×2
+   grid. */
+.hp-map-object rect {
+  fill: rgba(0, 180, 216, 0.05);
+  stroke: rgba(144, 224, 239, 0.28);
+  stroke-width: 1;
+}
+.hp-map-object text {
+  fill: rgba(202, 240, 248, 0.82);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+}
+.hp-map-object rect,
+.hp-map-object text {
+  transition:
+    fill 240ms ease,
+    stroke 240ms ease,
+    opacity 240ms ease;
+}
+
+/* ── Pointing at an application lights the objects it writes. ─────────
+   claude.md always specified this interaction, but it could not be built
+   honestly while the slab held one customer record and all six runs fed
+   it: there was only one thing to light, so the hover would have asserted
+   that Payroll writes a customer. With the slab holding business objects,
+   each module declares what it actually touches and the two are matched.
+
+   Communication declares nothing, meaning every object — a message
+   attaches to whatever is being discussed. That is true of it alone.
+
+   Objects firm up rather than glow. design.md: only a signal in motion
+   earns a glow, and these are static. */
+.hp-map:has(.hp-map-module:hover) .hp-map-object {
+  opacity: 0.3;
+}
+
+.hp-map:has(.hp-map-module[data-writes~="customers"]:hover)
+  .hp-map-object[data-object="customers"],
+.hp-map:has(.hp-map-module[data-writes~="orders"]:hover)
+  .hp-map-object[data-object="orders"],
+.hp-map:has(.hp-map-module[data-writes~="invoices"]:hover)
+  .hp-map-object[data-object="invoices"],
+.hp-map:has(.hp-map-module[data-writes~="employees"]:hover)
+  .hp-map-object[data-object="employees"],
+.hp-map:has(.hp-map-module[data-writes~="products"]:hover)
+  .hp-map-object[data-object="products"],
+.hp-map:has(.hp-map-module[data-writes~="bookings"]:hover)
+  .hp-map-object[data-object="bookings"],
+/* Communication: empty `data-writes`, so it reaches all of them. */
+.hp-map:has(.hp-map-module[data-writes=""]:hover) .hp-map-object {
+  opacity: 1;
+}
+
+.hp-map:has(.hp-map-module[data-writes~="customers"]:hover)
+  .hp-map-object[data-object="customers"] rect,
+.hp-map:has(.hp-map-module[data-writes~="orders"]:hover)
+  .hp-map-object[data-object="orders"] rect,
+.hp-map:has(.hp-map-module[data-writes~="invoices"]:hover)
+  .hp-map-object[data-object="invoices"] rect,
+.hp-map:has(.hp-map-module[data-writes~="employees"]:hover)
+  .hp-map-object[data-object="employees"] rect,
+.hp-map:has(.hp-map-module[data-writes~="products"]:hover)
+  .hp-map-object[data-object="products"] rect,
+.hp-map:has(.hp-map-module[data-writes~="bookings"]:hover)
+  .hp-map-object[data-object="bookings"] rect {
+  fill: rgba(0, 180, 216, 0.14);
+  stroke: rgba(0, 180, 216, 0.65);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-map-object rect,
+  .hp-map-object text {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hp-map-modules .is-name,
+  .hp-map-foundation text {
+    font-size: 13px;
+  }
+  .hp-map-modules .is-sub {
+    font-size: 11px;
+  }
+  .hp-map-slab-name {
+    font-size: 14px;
+  }
+  .hp-map-record .is-name {
+    font-size: 17px;
+  }
+  .hp-map-record .is-val {
+    font-size: 12px;
+  }
+  .hp-map-record .is-key,
+  .hp-map-band-label {
+    font-size: 10px;
+  }
+}
+
+/* ── Package types ──
+   A populated board mixes ICs, connectors and passives. One extrusion at
+   eleven sizes is what made this read as generated, however carefully the
+   routing was drawn. ── */
+
+/* Epoxy, not milled aluminium: darker, flatter, and marked with a pin-1
+   dot in one corner instead of four identical mounting pads. */
+
+/* Ribbed along its length — the read that says "things plug in here". */
+
+/* A chip passive: no pads, no marking, just metallised ends. */
+/* Solid and opaque, never translucent — three tones do the 3D work:
+   light top, medium front, dark right. Palette-derived navies. */
+/* Mounting pads at each corner — four radial-gradients rather than four
+   extra elements, so the "soldered down" read costs nothing in DOM. */
+/* Machined aluminium: light falls from one direction, so only the top and
+   left edges catch it. Uniform lighting on every edge is what makes CSS 3D
+   read as flat. Mounting pads are four radial-gradients rather than four
+   extra elements, so the "soldered down" read costs nothing in DOM. */
+/* The hub monolith — the one block that is a surface, not a container. */
+/* The signature: an illuminated perimeter edge. One recognisable detail
+   that marks the processor — reusable as Sharpnr's visual language
+   wherever this board reappears. */
+/* The signature: a machined bevel and an illuminated perimeter. Precision,
+   not gaming — the chamfer is a light top-left rim and a dark bottom-right
+   one, the way a milled edge actually catches light. */
+
+/* PCB traces — strict 90° runs on the board plane, never diagonal, with
+   softened ends so elbows read as routed rather than butt-jointed.
+   Deliberately no box-shadow: a glow on every trace inside a preserve-3d
+   context is enough compositing work to stall the frame, so the glow is
+   spent only on the pulses that travel them. */
+/* A via — the pad where two runs meet. */
+/* The travelling charge — a comet, not a dot: a bright leading edge
+   trailing off into nothing, so direction of travel is legible at a
+   glance. The gradient direction is set per pulse from its own heading. */
+/* Bedrock, not a module: the widest, lowest, darkest slab on the board.
+   It reads as the floor the whole thing is cut into, so it takes almost
+   no light and never competes with the components above it. */
+/* Silkscreen — the part designators printed onto a PCB beside each
+   component. Small, pale, letterspaced, slightly translucent, as if laid
+   down in white ink on the substrate. Only the foundation modules are
+   printed permanently; the rest appear on hover so the board stays clean. */
+/* The processor's name is engraved into its face, not printed beside it:
+   cut into the metal, so it takes a dark bevel above and a light one
+   below — the inverse of raised type. */
+/* The tether — a glowing line running down the Z axis from the hub into
+   the substrate. Replaces any arrow: the drop *is* the flow. */
+.hp-core-node {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── Scene 06: the principles as a technical ledger. A strict three-column
+   grid — index, title, description — with every column aligned across
+   every row, so it reads as a specification sheet rather than a feature
+   list. All four rows stay visible always; never an accordion. ── */
+.hp-spec-row {
+  position: relative;
+  padding: 30px 0 28px;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-spec-row:hover { transform: translateX(5px); }
+
+/* Rhythm only. Whitespace does the separating; the rule is nearly
+   subliminal until the row is hovered. */
+.hp-spec-rule {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: rgba(144, 224, 239, 0.09);
+  transform-origin: left;
+}
+.hp-spec-rule::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 180, 216, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hp-spec-row:hover .hp-spec-rule::after { transform: scaleX(1); }
+
+/* Blueprint coordinate, not a list number. */
+.hp-spec-index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(0, 180, 216, 0.5);
+  transition: color 320ms ease;
+}
+.hp-spec-row:hover .hp-spec-index { color: #00b4d8; }
+
+.hp-spec-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: rgba(214, 244, 255, 0.82);
+  transition: color 320ms ease;
+}
+.hp-spec-row:hover .hp-spec-name { color: rgba(255, 255, 255, 0.98); }
+
+/* Body stays sans and quieter, so the mono columns carry the structure. */
+.hp-spec-body {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(138, 148, 168, 0.85);
+}
+
+/* ── Industries: the sector figures answer the pointer. ──────────────
+   Every topology on the Industries page drew itself in once and was then
+   inert for the rest of the visit — a picture that happened to animate.
+   design.md: an entrance is not aliveness.
+
+   The device is Scene 02's, reused rather than reinvented: hovering one
+   node quietens the others, so the figure isolates the step under the
+   cursor instead of merely brightening it. Isolation is what makes it read
+   as a relationship — the eye sees what the hovered step is *among*.
+
+   One rule set covers all eight topologies because they already share a
+   vocabulary of class names. That is the payoff of the "different
+   structure, identical vocabulary" constraint: interaction written once
+   lands on the record spine, the retail cycle, the calendar grid and the
+   nested containers alike.
+
+   Hover only, and deliberately so. These figures are `aria-hidden` and
+   every label in them is repeated as real text in the section around them,
+   so there is no information behind the interaction that a keyboard user
+   could be denied — the hover re-emphasises what is already readable. A
+   figure that hides information behind a pointer would need focus states
+   and a different treatment entirely. ── */
+[data-topology] .flow-node,
+[data-topology] .flow-edge,
+[data-topology] .flow-spine,
+[data-topology] .flow-return {
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Quieten the whole figure while a node is being pointed at, then restore
+   the one under the cursor. `:has` keeps this to two rules; without it
+   every topology would need its own sibling selectors. */
+[data-topology]:has(.flow-node:hover) .flow-node,
+[data-topology]:has(.flow-node:hover) .flow-edge,
+[data-topology]:has(.flow-node:hover) .flow-return {
+  opacity: 0.32;
+}
+[data-topology]:has(.flow-node:hover) .flow-node:hover {
+  opacity: 1;
+}
+
+/* The run underneath stays legible — dimming the spine as well would make
+   the figure look switched off rather than focused. */
+[data-topology]:has(.flow-node:hover) .flow-spine {
+  opacity: 0.6;
+}
+
+/* The node under the cursor also firms up, so it reads as selected rather
+   than merely as the one that was not dimmed. */
+[data-topology] .flow-node .flow-node-box {
+  transition:
+    stroke-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-topology] .flow-node:hover .flow-node-box {
+  stroke-opacity: 0.85;
+  stroke-width: 1.5;
+}
+
+/* Reduced motion keeps the isolation — it is information, not decoration —
+   and drops only the easing. */
+@media (prefers-reduced-motion: reduce) {
+  [data-topology] .flow-node,
+  [data-topology] .flow-edge,
+  [data-topology] .flow-spine,
+  [data-topology] .flow-return,
+  [data-topology] .flow-node .flow-node-box {
+    transition: none;
+  }
+}
+
+/* ── The specular rim on CTAs. ────────────────────────────────────────
+   React Bits' SpecularButton effect, kept; its machinery replaced. See
+   `components/ui/specular.ts` for why — briefly, upstream is one WebGL
+   context, one RAF loop and one window listener per button, and there are
+   21 CTAs across this site.
+
+   A bright arc on the border, angled at the pointer. `--sb-angle` and
+   `--sb-bright` are written by the shared loop; everything else is CSS.
+   The ring is a conic gradient masked to the padding box, which is the
+   one way to stroke a border with a gradient and keep the radius.
+
+   `--sb-line` is set per tone rather than baked in, so a cyan button and
+   an outlined one each get a highlight that belongs to them. */
+/* Ghost buttons opt out entirely — see Button.tsx. */
+.hp-specular.px-2::before,
+.hp-specular.px-2::after {
+  display: none;
+}
+
+.hp-specular {
+  position: relative;
+  --sb-angle: -0.9rad;
+  --sb-bright: 0;
+  /* Deliberately no outer glow.
+
+     A `box-shadow` bleed was tried here and removed: it turned a light
+     travelling along an edge into a halo around the whole button, which is
+     a different and much louder effect. The light stays on the border. */
+  /* lineColor — the specular arc itself. Cyan is the site's accent and the
+     upstream default of pure white would have been a second one. */
+  --sb-line: var(--color-cyan);
+  /* baseColor — the faint rim that is always there, upstream's `base` term
+     at 0.45. Sky rather than the #525252 default, which is a neutral grey
+     from a palette this site does not use. */
+  --sb-base: rgba(144, 224, 239, 0.22);
+  /* thickness={1} */
+  --sb-thickness: 1px;
+}
+
+/* The always-on rim. Separate from the arc so the arc can brighten without
+   the base fading in and out with it. */
+.hp-specular::before,
+.hp-specular::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--sb-thickness);
+  pointer-events: none;
+  z-index: 1;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+.hp-specular::before {
+  background: var(--sb-base);
+}
+/* shineSize={10} shineFade={40}: the arc peaks ~10° either side of the
+   pointer angle and falls off over the next 40°. Mirrored so the highlight
+   is symmetrical about the angle rather than trailing it. */
+.hp-specular::after {
+  background: conic-gradient(
+    from var(--sb-angle),
+    var(--sb-line) 0deg,
+    rgba(0, 0, 0, 0) 50deg,
+    rgba(0, 0, 0, 0) 310deg,
+    var(--sb-line) 360deg
+  );
+  opacity: var(--sb-bright);
+}
+/* The label has to sit above both rings, or the mask clips it. */
+.hp-specular > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* The primary action: cyan fill, blue rim.
+
+   Two colours rather than one, because the two buttons have opposite
+   problems. The secondary is dark, so a cyan rim glows off it. The primary
+   is already cyan, so a cyan rim would be invisible against its own fill —
+   white was tried and vanished, and darker neutrals read as a drop shadow
+   instead of an edge.
+
+   Blue is the answer because it is the palette's own step down from cyan:
+   dark enough to hold an edge against the fill, and more visible still in
+   the hover state where the fill lightens to sky. */
+/* The filled button gets the same travelling border light, in blue.
+
+   Getting it to read took inverting the relationship. On the dark button
+   the arc is cyan on near-black, so it is *lighter* than what surrounds it
+   and looks like light. Blue on cyan is darker than its surroundings, so a
+   blue arc alone just looked like a dark edge, not a light moving along
+   one.
+
+   So the resting border is navy — dark enough to be a real edge on cyan —
+   and the arc is blue, which is lighter than navy. The arc now brightens
+   against its own border exactly as the cyan one does, and the whole
+   effect stays blue. 2px, because at 1.2px on a saturated fill there was
+   not enough of it to see. */
+.hp-specular[data-tone="solid"] {
+  --sb-line: var(--color-blue);
+  --sb-base: rgba(3, 4, 94, 0.5);
+  --sb-thickness: 2px;
+}
+
+/* Touch has no cursor to answer, and the loop never registers there — this
+   makes sure nothing is left half-lit if a pointer type changes mid-visit. */
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .hp-specular::after {
+    display: none;
+  }
+}
+
+/* ── Scene 07: the last length of bus. One charge crosses it, reaches the
+   terminal pad, and the page comes to rest. ── */
+.hp-cta-rail {
+  position: relative;
+  height: 1px;
+  background: rgba(144, 224, 239, 0.2);
+}
+.hp-cta-pad {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  background: rgba(0, 180, 216, 0.9);
+}
+.hp-cta-charge {
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  width: 34px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, rgba(0,180,216,0), #00b4d8);
+  opacity: 0;
+}
+
+/* ══ Four passive figures, made active. ═══════════════════════════════
+   The network diagram, both foundation diagrams and the hospitality
+   cascade each drew themselves in once and were then inert — pictures
+   that happened to animate. design.md §8: an entrance is not aliveness.
+
+   The devices are the two already in this file, reused rather than
+   reinvented: Scene 03's `.hp-map-object` rules (point at a thing, and
+   the things it affects respond) and the `[data-topology]` block (point
+   at a node, and the figure isolates rather than merely brightening).
+
+   Two rules hold across all four:
+
+   1. Nothing here touches a property GSAP writes inline. GSAP owns
+      `opacity` on `.pf-mod` / `.pf-slab` / `.pf-cell` / `.hosp-node` /
+      `.hosp-node-note` / `.network-org`, `stroke-opacity` on
+      `.hosp-node-box`, and the dash on `.hosp-edge` and `.network-link`.
+      An inline style beats a stylesheet, so a hover written on those
+      would either lose outright or fight the entrance (design.md §11,
+      trap 1). Everything below is stroke / stroke-width / stroke-opacity
+      / fill / fill-opacity on elements GSAP does not write.
+   2. Nothing glows. Elements under a pointer firm up and their
+      neighbours quieten; the one moving signal — the charge crossing the
+      network link — exists only while the pointer is on the figure, so
+      nothing loops on its own (design.md §6, §8).
+
+   Hover only, on all four, and deliberately. Two of these figures are
+   `role="img"` with an `aria-label` that already states the relationship
+   the hover reveals, and their inner groups are presentational children
+   of that role; one is `aria-hidden`, where a focusable descendant would
+   be an outright accessibility error. Adding tab stops would spend a
+   keyboard user's attention on re-emphasis of what their reading order
+   already gives them. Where the interaction is the only way to reach the
+   information, focus states would be required — that is not the case in
+   any of these four. ── */
+
+/* ── Platform · the business network ──────────────────────────────────
+   Pointing at either organization quietens both sets of internals — the
+   internals are not the subject — and lights the crossing edge, the
+   verification point and *both* boundaries, with a charge running the
+   link away from the organization under the cursor. Lighting only the
+   box being pointed at would have proved nothing; the relationship is
+   what the section is about, so the relationship is what answers. ── */
+[data-network] .network-inner,
+[data-network] .network-bound,
+[data-network] .network-link,
+[data-network] .network-seal-box,
+[data-network] .network-seal-mark,
+[data-network] .network-ground {
+  transition:
+    stroke-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-network] .network-seal-name,
+[data-network] .network-org-name {
+  transition: fill-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-network]:has(.network-org:hover) .network-inner {
+  stroke-opacity: 0.13;
+}
+[data-network]:has(.network-org:hover) .network-ground {
+  stroke-opacity: 0.1;
+}
+[data-network]:has(.network-org:hover) .network-org-name {
+  fill-opacity: 0.28;
+}
+[data-network] .network-org:hover .network-org-name {
+  fill-opacity: 0.95;
+}
+
+/* The subject: one edge, one verification point, two boundaries that
+   both firm up because the far organization is half the relationship. */
+[data-network]:has(.network-org:hover) .network-link {
+  stroke-opacity: 0.95;
+  stroke-width: 1.8;
+}
+[data-network]:has(.network-org:hover) .network-bound {
+  stroke-opacity: 0.95;
+  stroke-width: 1.6;
+}
+[data-network]:has(.network-org:hover) .network-seal-box,
+[data-network]:has(.network-org:hover) .network-seal-mark {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-network]:has(.network-org:hover) .network-seal-name {
+  fill-opacity: 1;
+}
+
+/* The charge. Dash 26 against a gap longer than the 282-unit path, so
+   exactly one is ever on it, travelling its own length past each end. */
+[data-network] .network-pulse {
+  stroke-dasharray: 26 400;
+  stroke-dashoffset: 26;
+  stroke-linecap: round;
+}
+[data-network]:has(.network-org[data-org="you"]:hover)
+  .network-pulse[data-dir="fwd"],
+[data-network]:has(.network-org[data-org="supplier"]:hover)
+  .network-pulse[data-dir="back"] {
+  stroke-opacity: 0.95;
+  animation: network-cross 1.5s linear infinite;
+}
+@keyframes network-cross {
+  from {
+    stroke-dashoffset: 26;
+  }
+  to {
+    stroke-dashoffset: -282;
+  }
+}
+
+/* ── Products · every capability, one foundation ──────────────────────
+   The two directions of the claim, one per hover, and between them they
+   are the whole argument the section makes:
+
+     a capability   its own drop lights and the run carries on through
+                    the shared bus into the slab.
+     a cell of the  *every* capability's drop lights at once and the
+     foundation     other three cells quieten — all of them rest on
+                    this one thing.
+
+   The second is the half that cannot be said in copy without asking the
+   visitor to take it on trust. ── */
+[data-foundation] .pf-mod-box,
+[data-foundation] .pf-mod-pad,
+[data-foundation] .pf-drop,
+[data-foundation] .pf-bus,
+[data-foundation] .pf-riser,
+[data-foundation] .pf-slab-box {
+  transition:
+    stroke-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-foundation] .pf-cell {
+  transition: fill-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-foundation] .pf-cell-plate {
+  transition: fill 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Point at a capability. */
+[data-foundation]:has(.pf-mod:hover) .pf-mod-box,
+[data-foundation]:has(.pf-mod:hover) .pf-mod-pad {
+  stroke-opacity: 0.15;
+}
+[data-foundation]:has(.pf-mod:hover) .pf-drop {
+  stroke-opacity: 0.07;
+}
+[data-foundation]:has(.pf-mod:hover) .pf-bus,
+[data-foundation]:has(.pf-mod:hover) .pf-riser,
+[data-foundation]:has(.pf-mod:hover) .pf-slab-box {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-foundation] .pf-mod:hover .pf-mod-box,
+[data-foundation] .pf-mod:hover .pf-mod-pad {
+  stroke-opacity: 0.95;
+  stroke-width: 1.5;
+}
+[data-foundation] .pf-mod:hover .pf-drop {
+  stroke-opacity: 0.9;
+  stroke-width: 1.5;
+}
+
+/* Point at the foundation. */
+[data-foundation]:has(.pf-cellgroup:hover) .pf-drop {
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+[data-foundation]:has(.pf-cellgroup:hover) .pf-mod-box,
+[data-foundation]:has(.pf-cellgroup:hover) .pf-mod-pad {
+  stroke-opacity: 0.85;
+}
+[data-foundation]:has(.pf-cellgroup:hover) .pf-bus,
+[data-foundation]:has(.pf-cellgroup:hover) .pf-riser,
+[data-foundation]:has(.pf-cellgroup:hover) .pf-slab-box {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-foundation]:has(.pf-cellgroup:hover) .pf-cell {
+  fill-opacity: 0.2;
+}
+/* Same specificity as the rule above, so this has to follow it. */
+[data-foundation] .pf-cellgroup:hover .pf-cell {
+  fill-opacity: 1;
+}
+[data-foundation] .pf-cellgroup:hover .pf-cell-plate {
+  fill: rgba(0, 180, 216, 0.07);
+}
+
+/* ── Platform · every business starts here ────────────────────────────
+   The heading is two sentences and the drawing answers one per
+   direction. Point at a business and the other two quieten while the
+   slab stays lit edge to edge rather than under that business alone —
+   "every business is different" without conceding the second line.
+   Point at the slab and all three arrangements light together. ── */
+[data-basis] .pfd-block,
+[data-basis] .pfd-stem,
+[data-basis] .pfd-slab,
+[data-basis] .pfd-ground {
+  transition:
+    stroke-opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-basis]:has(.pfd-biz:hover) .pfd-block {
+  stroke-opacity: 0.12;
+}
+[data-basis]:has(.pfd-biz:hover) .pfd-stem {
+  stroke-opacity: 0.07;
+}
+[data-basis]:has(.pfd-biz:hover) .pfd-ground {
+  stroke-opacity: 0.1;
+}
+[data-basis]:has(.pfd-biz:hover) .pfd-slab {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+[data-basis] .pfd-biz:hover .pfd-block {
+  stroke-opacity: 0.95;
+  stroke-width: 1.3;
+}
+[data-basis] .pfd-biz:hover .pfd-stem {
+  stroke-opacity: 0.9;
+  stroke-width: 1.4;
+}
+
+[data-basis]:has(.pfd-slab:hover) .pfd-block {
+  stroke-opacity: 0.9;
+  stroke-width: 1.3;
+}
+[data-basis]:has(.pfd-slab:hover) .pfd-stem {
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+[data-basis]:has(.pfd-slab:hover) .pfd-slab {
+  stroke-opacity: 1;
+  stroke-width: 1.9;
+}
+
+/* ── Industries · Hospitality, the guest order chain ──────────────────
+   The cascade already showed a value changing — the stock count
+   genuinely decrements — but it played once and then held still.
+   Pointing at any system now isolates what that system's response
+   *depends on*: the runs that carried the order to it and every system
+   upstream, back to the guest. `data-rel` is set from CHAIN_EDGES in
+   React (`DEPENDS` in `./chain`), so the reveal can never disagree with
+   the drawing; the states themselves are here, in the same vocabulary as
+   `[data-topology]`.
+
+   Pointing at IVA lights the whole cascade. That is not a bug and not a
+   flourish — it is the one node that genuinely depends on all of it. ── */
+[data-hosp-chain] .hosp-node-box {
+  transition:
+    stroke 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-hosp-chain] .hosp-node-name,
+[data-hosp-chain] .hosp-node-note {
+  /* fill-opacity only. GSAP owns `opacity` on `.hosp-node-note`. */
+  transition: fill-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-hosp-chain] .hosp-edge {
+  /* stroke-opacity only. GSAP owns the dash on these. */
+  transition:
+    stroke-opacity 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    stroke-width 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-hosp-chain] .hosp-journey {
+  transition: opacity 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-hosp-chain] .hosp-node[data-rel="off"] .hosp-node-box {
+  stroke: rgba(0, 180, 216, 0.2);
+}
+[data-hosp-chain] .hosp-node[data-rel="off"] .hosp-node-name,
+[data-hosp-chain] .hosp-node[data-rel="off"] .hosp-node-note {
+  fill-opacity: 0.24;
+}
+[data-hosp-chain] .hosp-node[data-rel="on"] .hosp-node-box {
+  stroke: #00b4d8;
+  stroke-width: 1.7;
+  fill: rgba(0, 180, 216, 0.06);
+}
+[data-hosp-chain] .hosp-node[data-rel="on"] .hosp-node-name {
+  fill-opacity: 1;
+}
+[data-hosp-chain] .hosp-edge[data-rel="off"] {
+  stroke-opacity: 0.07;
+}
+[data-hosp-chain] .hosp-edge[data-rel="on"] {
+  stroke-opacity: 0.85;
+  stroke-width: 1.4;
+}
+
+/* The guest journey is context while a system is being examined — except
+   for the Point of Sale, whose dependency *is* the guest. */
+[data-hosp-chain][data-focus] .hosp-journey {
+  opacity: 0.3;
+}
+[data-hosp-chain][data-focus="pos"] .hosp-journey {
+  opacity: 1;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────
+   The isolation is information, so it stays; only the easing and the
+   travelling charge go. A charge is the one thing here that is motion
+   rather than a relationship shown, so it is the one thing removed. ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-network] .network-inner,
+  [data-network] .network-bound,
+  [data-network] .network-link,
+  [data-network] .network-seal-box,
+  [data-network] .network-seal-mark,
+  [data-network] .network-ground,
+  [data-network] .network-seal-name,
+  [data-network] .network-org-name,
+  [data-foundation] .pf-mod-box,
+  [data-foundation] .pf-mod-pad,
+  [data-foundation] .pf-drop,
+  [data-foundation] .pf-bus,
+  [data-foundation] .pf-riser,
+  [data-foundation] .pf-slab-box,
+  [data-foundation] .pf-cell,
+  [data-foundation] .pf-cell-plate,
+  [data-basis] .pfd-block,
+  [data-basis] .pfd-stem,
+  [data-basis] .pfd-slab,
+  [data-basis] .pfd-ground,
+  [data-hosp-chain] .hosp-node-box,
+  [data-hosp-chain] .hosp-node-name,
+  [data-hosp-chain] .hosp-node-note,
+  [data-hosp-chain] .hosp-edge,
+  [data-hosp-chain] .hosp-journey {
+    transition: none;
+  }
+  /* Repeats the hover selectors rather than lowering specificity against
+     them — a weaker rule would leave the dash parked on the link. */
+  [data-network]:has(.network-org[data-org="you"]:hover)
+    .network-pulse[data-dir="fwd"],
+  [data-network]:has(.network-org[data-org="supplier"]:hover)
+    .network-pulse[data-dir="back"] {
+    animation: none;
+    stroke-opacity: 0;
+  }
+}
+
+/* ══ Two hero figures: the weave and the assembly. ════════════════════
+   The Platform and Products heroes each carried two buttons and no
+   figure. Both are navigational pages — a visitor arriving is orienting
+   themselves, not converting — so the buttons went, on exactly the
+   reasoning the Industries hero already records, and each hero now opens
+   with its page's argument drawn instead of asserted.
+
+   Everything below is stroke / stroke-width / stroke-opacity / fill /
+   fill-opacity, on elements GSAP does not write. GSAP owns `opacity` on
+   both figures' groups and the dash on `.plw-col-run`, `.plw-run` and
+   `.pas-hull`; an inline style beats a stylesheet, so a hover written on
+   those would lose outright (design.md §11, trap 1).
+
+   Nothing glows. The one moving signal — the charge crossing the weave —
+   plays once on arrival and is gone; a hero that loops says the story is
+   still running (design.md §8). ── */
+
+/* ── Platform hero · the weave ────────────────────────────────────────
+   Areas of the business run across, the records they all handle run
+   down, and a junction is drawn only where an area genuinely touches a
+   record. The junction is filled with the canvas so the run beneath it
+   is interrupted — that is what makes it read as woven rather than as a
+   table with dots on it. ── */
+[data-weave] .plw-col-name {
+  fill: #00b4d8;
+  fill-opacity: 0.5;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+}
+[data-weave] .plw-col-run {
+  stroke: #00b4d8;
+  stroke-opacity: 0.22;
+  stroke-width: 1;
+}
+[data-weave] .plw-row-name {
+  fill: #ffffff;
+  fill-opacity: 0.8;
+  font-size: 13px;
+  font-weight: 600;
+  text-anchor: end;
+}
+[data-weave] .plw-run {
+  stroke: #00b4d8;
+  stroke-opacity: 0.38;
+  stroke-width: 1.2;
+}
+[data-weave] .plw-node {
+  stroke: #00b4d8;
+  stroke-opacity: 0.5;
+  stroke-width: 1.2;
+  fill: var(--color-canvas);
+}
+[data-weave] .plw-note {
+  fill: #00b4d8;
+  fill-opacity: 0.4;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+}
+[data-weave] .plw-row {
+  cursor: default;
+}
+[data-weave] .plw-col-run,
+[data-weave] .plw-col-name,
+[data-weave] .plw-run,
+[data-weave] .plw-row-name,
+[data-weave] .plw-node {
+  transition:
+    stroke 240ms ease,
+    stroke-opacity 240ms ease,
+    stroke-width 240ms ease,
+    fill 240ms ease,
+    fill-opacity 240ms ease;
+}
+
+/* 1 · Anything not under the pointer steps back. */
+[data-weave]:has(.plw-row:hover) .plw-col-run {
+  stroke-opacity: 0.08;
+}
+[data-weave]:has(.plw-row:hover) .plw-col-name {
+  fill-opacity: 0.16;
+}
+[data-weave]:has(.plw-row:hover) .plw-run {
+  stroke-opacity: 0.14;
+}
+[data-weave]:has(.plw-row:hover) .plw-row-name {
+  fill-opacity: 0.26;
+}
+[data-weave]:has(.plw-row:hover) .plw-node {
+  stroke-opacity: 0.12;
+}
+
+/* 2 · The records that area handles light down their whole length.
+       `data-uses` is Scene 03's `data-writes` device reused rather than
+       reinvented — the row declares what it touches and the stylesheet
+       matches the two. */
+[data-weave]:has(.plw-row[data-uses~="customer"]:hover)
+  .plw-col[data-col="customer"]
+  .plw-col-run,
+[data-weave]:has(.plw-row[data-uses~="order"]:hover)
+  .plw-col[data-col="order"]
+  .plw-col-run,
+[data-weave]:has(.plw-row[data-uses~="invoice"]:hover)
+  .plw-col[data-col="invoice"]
+  .plw-col-run,
+[data-weave]:has(.plw-row[data-uses~="staff"]:hover)
+  .plw-col[data-col="staff"]
+  .plw-col-run {
+  stroke-opacity: 0.7;
+  stroke-width: 1.4;
+}
+[data-weave]:has(.plw-row[data-uses~="customer"]:hover)
+  .plw-col[data-col="customer"]
+  .plw-col-name,
+[data-weave]:has(.plw-row[data-uses~="order"]:hover)
+  .plw-col[data-col="order"]
+  .plw-col-name,
+[data-weave]:has(.plw-row[data-uses~="invoice"]:hover)
+  .plw-col[data-col="invoice"]
+  .plw-col-name,
+[data-weave]:has(.plw-row[data-uses~="staff"]:hover)
+  .plw-col[data-col="staff"]
+  .plw-col-name {
+  fill-opacity: 1;
+}
+
+/* 3 · And so does every *other* area's junction on those same records.
+       This is the whole reason the figure exists: point at Sales and the
+       marks in Billing, Stock and Support light with it, because a sale
+       is already in all three and nobody typed it there. A hover that
+       lit only the row under the cursor would prove nothing. */
+[data-weave]:has(.plw-row[data-uses~="customer"]:hover)
+  .plw-node[data-col="customer"],
+[data-weave]:has(.plw-row[data-uses~="order"]:hover)
+  .plw-node[data-col="order"],
+[data-weave]:has(.plw-row[data-uses~="invoice"]:hover)
+  .plw-node[data-col="invoice"],
+[data-weave]:has(.plw-row[data-uses~="staff"]:hover)
+  .plw-node[data-col="staff"] {
+  stroke-opacity: 0.8;
+  stroke-width: 1.4;
+  fill: rgba(0, 180, 216, 0.12);
+}
+
+/* 4 · The area under the pointer, at full weight. Ties with rule 3 on
+       specificity for its own junctions, so it is written after it. */
+[data-weave]:has(.plw-row:hover) .plw-row:hover .plw-run {
+  stroke-opacity: 0.95;
+  stroke-width: 1.8;
+}
+[data-weave]:has(.plw-row:hover) .plw-row:hover .plw-row-name {
+  fill-opacity: 1;
+}
+[data-weave]:has(.plw-row:hover) .plw-row:hover .plw-node {
+  stroke-opacity: 0.95;
+  stroke-width: 1.5;
+  fill: rgba(0, 180, 216, 0.18);
+}
+
+/* ── Products hero · the assembly ─────────────────────────────────────
+   Five units, each a closed outline with its own working parts, cut to
+   fill one continuous hull. Pointing at one holds it whole while the
+   rest steps back and lights the couplings on its own shared edges —
+   "take one, the rest already fit", with the *where* answered per unit.
+
+   The tile outline carries a transparent fill so the pointer lands
+   anywhere inside the unit; with the SVG's inherited `fill="none"` only
+   the hairline itself would have been hit-testable.
+
+   The hull never quietens. The whole does not stop existing because
+   somebody is looking at one piece of it. ── */
+[data-assembly] .pas-tile {
+  cursor: default;
+}
+[data-assembly] .pas-tile-box {
+  stroke: #00b4d8;
+  stroke-opacity: 0.3;
+  stroke-width: 1.1;
+  fill: rgba(0, 0, 0, 0);
+}
+[data-assembly] .pas-tile-rule {
+  stroke: #90e0ef;
+  stroke-opacity: 0.3;
+  stroke-width: 1;
+}
+[data-assembly] .pas-tile-bar {
+  stroke: #00b4d8;
+  stroke-opacity: 0.24;
+  stroke-width: 1;
+}
+[data-assembly] .pas-join-tick {
+  stroke: #00b4d8;
+  stroke-opacity: 0.45;
+  stroke-width: 1.2;
+}
+[data-assembly] .pas-join-port {
+  stroke: #00b4d8;
+  stroke-opacity: 0.5;
+  stroke-width: 1;
+  fill: var(--color-canvas);
+}
+[data-assembly] .pas-hull {
+  stroke: #00b4d8;
+  stroke-opacity: 0.8;
+  stroke-width: 1.8;
+}
+[data-assembly] .pas-tile-box,
+[data-assembly] .pas-tile-rule,
+[data-assembly] .pas-tile-bar,
+[data-assembly] .pas-join-tick,
+[data-assembly] .pas-join-port {
+  transition:
+    stroke 240ms ease,
+    stroke-opacity 240ms ease,
+    stroke-width 240ms ease,
+    fill 240ms ease;
+}
+
+/* 1 · Everything but the unit under the pointer steps back. */
+[data-assembly]:has(.pas-tile:hover) .pas-tile-box {
+  stroke-opacity: 0.1;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile-rule {
+  stroke-opacity: 0.07;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile-bar {
+  stroke-opacity: 0.05;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-join-tick,
+[data-assembly]:has(.pas-tile:hover) .pas-join-port {
+  stroke-opacity: 0.12;
+}
+
+/* 2 · The couplings that unit is cut against. Every unit sits on a
+       different set, so the answer changes per unit rather than being
+       the same highlight five times. */
+[data-assembly]:has(.pas-tile[data-tile="a"]:hover)
+  .pas-join[data-join~="a"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="b"]:hover)
+  .pas-join[data-join~="b"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="c"]:hover)
+  .pas-join[data-join~="c"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="d"]:hover)
+  .pas-join[data-join~="d"]
+  .pas-join-tick,
+[data-assembly]:has(.pas-tile[data-tile="e"]:hover)
+  .pas-join[data-join~="e"]
+  .pas-join-tick {
+  stroke-opacity: 0.9;
+  stroke-width: 1.6;
+}
+[data-assembly]:has(.pas-tile[data-tile="a"]:hover)
+  .pas-join[data-join~="a"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="b"]:hover)
+  .pas-join[data-join~="b"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="c"]:hover)
+  .pas-join[data-join~="c"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="d"]:hover)
+  .pas-join[data-join~="d"]
+  .pas-join-port,
+[data-assembly]:has(.pas-tile[data-tile="e"]:hover)
+  .pas-join[data-join~="e"]
+  .pas-join-port {
+  stroke-opacity: 0.95;
+  fill: rgba(0, 180, 216, 0.35);
+}
+
+/* 3 · The unit itself, whole. Written after rule 1 and at higher
+       specificity, so its own parts come back rather than staying dim. */
+[data-assembly]:has(.pas-tile:hover) .pas-tile:hover .pas-tile-box {
+  stroke-opacity: 0.95;
+  stroke-width: 1.6;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile:hover .pas-tile-rule {
+  stroke-opacity: 0.5;
+}
+[data-assembly]:has(.pas-tile:hover) .pas-tile:hover .pas-tile-bar {
+  stroke-opacity: 0.38;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────
+   Both reveals are information, not decoration, so they stay; only the
+   easing goes. ── */
+@media (prefers-reduced-motion: reduce) {
+  [data-weave] .plw-col-run,
+  [data-weave] .plw-col-name,
+  [data-weave] .plw-run,
+  [data-weave] .plw-row-name,
+  [data-weave] .plw-node,
+  [data-assembly] .pas-tile-box,
+  [data-assembly] .pas-tile-rule,
+  [data-assembly] .pas-tile-bar,
+  [data-assembly] .pas-join-tick,
+  [data-assembly] .pas-join-port {
+    transition: none;
+  }
+}

@@ -1,0 +1,78 @@
+# Sharpnr
+
+> Sharpnr is Connected Business Infrastructure — one platform where business operations, finance, people, customers, communication, knowledge and business networks work together. Organizations start with a single product and expand at their own pace; every product works independently and even better together. Sharpnr is in Early Access and free to use, with no credit card required.
+
+Sharpnr is not an ERP, a CRM or a single application. It is a connected business platform: every business event — an order, a hire, a purchase, a conversation — automatically stays connected to accounting, inventory, people, customers and knowledge across the organization.
+
+## What is Sharpnr?
+
+Sharpnr connects the essential parts of running a business so information flows naturally across the organization. Instead of assembling disconnected tools, organizations adopt connected products that share one platform, one identity, one knowledge foundation and one intelligent business assistant.
+
+## Key facts
+
+- Tagline: One Platform. Every Business.
+- Category: Connected Business Infrastructure (connected business platform).
+- Cloud-based — nothing to install or self-host.
+- Multi-company and multi-branch: run several legal entities with independent books or consolidated reporting.
+- Start with one product; every addition connects automatically — no migrations, no rebuilding.
+- Free during Early Access. No subscription, no credit card required.
+- Sign in: https://auth.sharpnr.com — Create an organization: https://auth.sharpnr.com/signup
+
+## Products
+
+### Business operations
+- **Sharp Operations · Hospitality** (https://hospitality.sharpnr.com) — Available today. Operations for hotels, resorts, restaurants, cafés, bars, night clubs, cloud kitchens, food courts, QSR chains and hospitality groups: reservations, front desk, point of sale, QR ordering, kitchen display, table and room management, housekeeping, inventory, procurement, staff operations, loyalty and live analytics.
+- **Lifco (Sharp Operations · Healthcare)** — Coming soon. Patients, appointments, medical records, pharmacy, laboratory, billing and hospital administration.
+- Sharp Operations for retail, education, manufacturing and professional services are on the roadmap.
+
+### Business foundation
+- **Sharp Accounting** (https://accounting.sharpnr.com) — Double-entry accrual accounting built into the business: general ledger, receivables and payables, banking, taxation, budgeting, fixed assets, financial statements, multi-company consolidation. Every business event can automatically become an accounting event.
+- **Sharp HRMS** (https://hr.sharpnr.com) — The complete employee lifecycle: recruitment, profiles, attendance, leave, payroll, shifts, performance, training and multi-branch workforces.
+- **Sharp CRMS** (https://sharpcrm.sharpnr.com) — Customer relationships: leads, pipeline, profiles, campaigns, loyalty, segmentation and customer insights.
+- **OpenSharp IAM** (https://iam.sharpnr.com) — The employee workspace: tasks, approvals, attendance, leave, payslips, training and self-service, on the organization's identity and role-based access.
+- **Cortex** (https://cortex.sharpnr.com) — Governance and administration: policies, audit logs, security controls, API management, monitoring and compliance.
+
+### Collaboration and execution
+- **Cables** (https://cables.sharpnr.com) — Communication for organizations: messaging, channels, voice, video and cross-organization conversations with business records shared in context.
+- **Folio** (https://folio.sharpnr.com) — Organizational knowledge: documents, spreadsheets, presentations, whiteboards, notes and wikis with real-time collaboration.
+- **Tasks** — Not a separate product. Tasks lives inside OpenSharp IAM, which is where an employee opens their own work: projects, boards, timelines, milestones and progress, created directly from conversations and documents.
+
+### Knowledge and intelligence
+- **Silo** (https://silo.sharpnr.com) — The business knowledge foundation: every product works from the same source of truth, and every business event enriches the organization's memory.
+- **IVA** — The intelligent business assistant. IVA answers business questions in natural language ("Why were sales lower this weekend?"), recommends improvements (pricing, inventory, staffing, procurement), and securely performs work on behalf of authorized people. Every action follows organizational policies and stays auditable.
+
+### Business network
+- **Sharp Marketplace** (https://marketplace.sharpnr.com) — A trusted network where verified organizations discover suppliers, request quotations, negotiate, create purchase orders and manage vendors. Completed transactions update accounting and inventory automatically.
+
+## Industries
+
+- Available today: Hospitality (hotels, resorts, restaurants, cafés, bars, cloud kitchens, QSR chains, hospitality groups, franchises).
+- Coming soon: Healthcare (Lifco).
+- Roadmap: Retail, technology & enterprise, education, manufacturing, digital commerce and professional services.
+- Multi-industry groups run every division on its own operational experience while sharing one accounting platform, one workforce, one identity and one business network.
+
+## Common questions
+
+- **Is Sharpnr an ERP or CRM?** No. Traditional software manages departments in isolation; Sharpnr connects the business itself. Every product shares the same platform and the same understanding of the organization.
+- **Can I use just one product?** Yes. Every product works independently from day one and connects automatically when you add more.
+- **What does Sharpnr cost?** Free during Early Access — no subscription, no credit card.
+- **What is IVA?** Sharpnr's intelligent business assistant. It helps people understand the business, receive recommendations and complete routine work securely. It supports decisions; it doesn't replace people.
+- **What is Silo?** The business knowledge foundation — how the organization remembers. Every Sharpnr product reads from and contributes to it.
+
+## Pages
+
+- [Home](https://sharpnr.com/): What Sharpnr is — Connected Business Infrastructure.
+- [Platform](https://sharpnr.com/platform): How the platform works and why it's different.
+- [Products](https://sharpnr.com/products): Every product in the ecosystem.
+- [Industries](https://sharpnr.com/industries): Hospitality is available today. Healthcare, retail, technology & enterprise, education, manufacturing, digital commerce and professional services are being designed on the same platform — none of them is available yet.
+- [Services](https://sharpnr.com/services): The business capabilities organizations gain.
+- [About](https://sharpnr.com/about): Why Sharpnr exists and the principles behind it.
+- [Resources](https://sharpnr.com/resources): The Sharpnr knowledge center.
+- [Docs](https://docs.sharpnr.com): Official documentation and guides.
+
+## Social
+
+- [LinkedIn](https://linkedin.com/company/sharpnrllp)
+- [X / Twitter](https://x.com/sharpnrapp)
+- [Instagram](https://instagram.com/sharpnrapp)
+- [YouTube](https://youtube.com/@sharpnrinc)
