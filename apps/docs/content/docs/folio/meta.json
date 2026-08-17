@@ -1,0 +1,12 @@
+{
+  "title": "Folio",
+  "icon": "FileText",
+  "description": "Documents & productivity suite",
+  "root": true,
+  "pages": [
+    "index",
+    "editors-and-content",
+    "collaboration",
+    "workspaces-and-sharing"
+  ]
+}

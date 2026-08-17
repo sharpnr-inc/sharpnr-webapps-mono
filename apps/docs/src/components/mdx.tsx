@@ -1,0 +1,32 @@
+import defaultMdxComponents from "fumadocs-ui/mdx";
+import type { MDXComponents } from "mdx/types";
+import { Steps, Step } from "fumadocs-ui/components/steps";
+import { Tabs, Tab } from "fumadocs-ui/components/tabs";
+import { Callout } from "fumadocs-ui/components/callout";
+import { Cards, Card } from "fumadocs-ui/components/card";
+import { Mermaid } from "@/components/mermaid";
+import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
+import { SharpnrPlatformArchitecture } from "@/components/SharpnrPlatformAchitecture";
+
+export function getMDXComponents(components?: MDXComponents): MDXComponents {
+  return {
+    ...defaultMdxComponents,
+    Steps,
+    Step,
+    Tabs,
+    Tab,
+    Callout,
+    Cards,
+    Card,
+    Mermaid,
+    ArchitectureDiagram,
+    SharpnrPlatformArchitecture,
+    ...components,
+  };
+}
+
+export const useMDXComponents = getMDXComponents;
+
+declare global {
+  type MDXProvidedComponents = ReturnType<typeof getMDXComponents>;
+}

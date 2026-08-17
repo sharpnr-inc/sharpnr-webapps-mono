@@ -1,0 +1,69 @@
+---
+title: App Management
+description: Enable, disable, and control every Sharp application and service from Orchestrator.
+---
+
+Every application in the Sharpnr ecosystem is provisioned and managed through Orchestrator. This is where you decide which apps each company uses and control the services behind them.
+
+## Enable or disable applications
+
+Sharpnr is modular — organizations pay for and use only the applications they need. From Orchestrator you can:
+
+- **Enable an app for a company** — the app is provisioned and becomes available to that company's users.
+- **Disable an app** — the app is switched off for that company without affecting other companies in the organization.
+- **Mix apps per company** — each company can run a different combination, since every app works both independently and as part of the unified platform.
+
+## Applications you can provision
+
+### Business operation apps (Layer 1)
+
+| App                                                            | Purpose                                                            | Status      |
+| -------------------------------------------------------------- | ------------------------------------------------------------------ | ----------- |
+| [Sharp-Hospitality](/hospitality-sector/sharp-hospitality)     | Hotels, restaurants, cafés, bars, nightclubs, and resorts          | Live        |
+| Lifco                                                           | Hospitals, clinics, diagnostic centers, pharmacies                 | Coming soon |
+
+### Core services (Layer 3)
+
+| App                                   | Purpose                                        |
+| ------------------------------------- | ---------------------------------------------- |
+| [Sharp-Accounting](/sharp-accounting) | Finance and accounting                         |
+| [Sharp-HR](/sharp-hrms)               | HRMS and payroll                               |
+| [Sharp-Marketing](/sharp-marketing)   | CRM and marketing automation                   |
+| [Cables](/cables)                     | Messaging, voice calls, and video conferencing |
+| [Silo](/silo)                         | Storage and data platform                      |
+| [Folio](/folio)                       | Documents and productivity suite               |
+| [Cortex](/cortex)                     | IT controls and access management              |
+| [SharpIAM](/sharp-iam)                | Employee self-service portal                   |
+
+### B2B platform (Layer 4)
+
+| App                                       | Purpose                                                      |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| [Sharp-Marketplace](/sharp-marketplace)   | Organization-to-organization marketplace — no commission     |
+
+## Service control
+
+Beyond enabling apps, Orchestrator gives administrators direct control over the services that power them:
+
+- **Start, stop, and restart** Sharp services.
+- **Maintenance mode** — take a service offline for maintenance in a controlled way.
+- **Service health and status** — see at a glance what is running and what needs attention (see [Monitoring](/orchestrator/monitoring)).
+
+## Apps work independently — and better together
+
+Enabling apps through Orchestrator is what unlocks Sharpnr's out-of-the-box integration. For example:
+
+- Business operation apps can run completely independently, without requiring other Sharp platform services.
+- When [Sharp-Accounting](/sharp-accounting) is enabled alongside [Sharp-Hospitality](/hospitality-sector/sharp-hospitality), sales and purchases automatically post journal entries — no manual ledger recording.
+- When [Cables](/cables) is enabled, records, documents, invoices, tickets, and tasks from other apps can be shared directly within conversations.
+
+## Related
+
+<Cards>
+  <Card title="Monitoring" href="/orchestrator/monitoring">
+    Health, logs, and resource usage for enabled services
+  </Card>
+  <Card title="Configuration" href="/orchestrator/configuration">
+    Configure the apps you have enabled
+  </Card>
+</Cards>

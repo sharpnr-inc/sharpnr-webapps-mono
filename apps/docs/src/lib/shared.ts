@@ -1,0 +1,13 @@
+export const appName = 'sharpnr docs';
+export const docsRoute = '/';
+export const docsImageRoute = '/og';
+export const docsContentRoute = '/llms.mdx';
+export const baseUrl = 'https://docs.sharpnr.com';
+
+// fill this with your actual GitHub info, for example:
+export const gitConfig = {
+  user: 'fuma-nama',
+  repo: 'fumadocs',
+  branch: 'main',
+};
+// shared.ts

@@ -1,0 +1,13 @@
+{
+  "title": "Cables",
+  "icon": "Cable",
+  "description": "Messaging & communications",
+  "root": true,
+  "pages": [
+    "index",
+    "conversations",
+    "calls-and-meetings",
+    "platform-integration",
+    "external-communication"
+  ]
+}

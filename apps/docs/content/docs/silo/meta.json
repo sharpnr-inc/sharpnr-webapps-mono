@@ -1,0 +1,13 @@
+{
+  "title": "Silo",
+  "icon": "Database",
+  "description": "Storage & data platform",
+  "root": true,
+  "pages": [
+    "index",
+    "storage-services",
+    "analytics-and-ai",
+    "data-access-and-sharing",
+    "reliability-and-security"
+  ]
+}

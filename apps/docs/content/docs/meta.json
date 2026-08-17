@@ -1,0 +1,28 @@
+{
+  "title": "Sharpnr Docs",
+  "root": true,
+  "icon": "Book",
+  "pages": [
+    "---Introduction---",
+    "index",
+    "overview",
+    "sharpnr-platform",
+    "architecture",
+    "---Getting Started---",
+    "signup-and-onboarding",
+    "---Sharpnr Services---",
+    "orchestrator",
+    "cortex",
+    "sharp-accounting",
+    "sharp-hrms",
+    "sharp-iam",
+    "sharp-marketing",
+    "cables",
+    "silo",
+    "folio",
+    "---Platform Services---",
+    "sharp-marketplace",
+    "---Business Operations Apps---",
+    "hospitality-sector"
+  ]
+}

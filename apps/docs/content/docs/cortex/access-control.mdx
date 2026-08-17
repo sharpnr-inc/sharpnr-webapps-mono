@@ -1,0 +1,49 @@
+---
+title: Access Control
+description: Role-based access control, resource permissions, Silo database access, and infrastructure access in Cortex.
+---
+
+Cortex governs access to the resources behind the Sharp platform. Access is role-based, resource-scoped, and auditable.
+
+## Role-Based Access Control (RBAC)
+
+Cortex uses role-based access control across the platform. Instead of granting permissions user by user, IT teams define roles — and users receive the access their roles carry. Roles apply consistently across Sharp applications, so a permission model defined once in Cortex holds everywhere.
+
+## Resource permission management
+
+Every organizational resource on the platform — databases, storage, APIs, services — can carry its own permission set. Cortex is where those permissions are viewed and managed centrally, rather than inside each individual app.
+
+## Silo database access management
+
+[Silo](/silo) is the data foundation for all Sharp applications, and Cortex controls who can reach it. Database access is granted at three levels:
+
+| Level     | What it allows                                        |
+| --------- | ----------------------------------------------------- |
+| **Read**  | Query and read data                                   |
+| **Write** | Insert, update, and modify data                       |
+| **Admin** | Manage the database itself — schema, access, settings |
+
+This lets organizations give analysts read access to operational data, applications write access to their own stores, and administrators full control — each scoped precisely.
+
+## Infrastructure access control
+
+Beyond data, Cortex controls access to the infrastructure powering your organization on the Sharp platform, so operational access follows the same role-based, audited model as everything else.
+
+## How Cortex relates to Orchestrator and SharpIAM
+
+| App                            | Scope                                                                       |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| **Cortex**                     | IT controls — access to resources, databases, APIs, secrets, infrastructure |
+| [Orchestrator](/orchestrator)  | Platform administration — who can provision, configure, and control services |
+| [SharpIAM](/sharp-iam)         | Employee portal — day-to-day self-service access for employees and managers  |
+
+## Related
+
+<Cards>
+  <Card title="Keys & Secrets" href="/cortex/keys-and-secrets">
+    Programmatic access through API keys and service accounts
+  </Card>
+  <Card title="Silo" href="/silo">
+    The storage and data platform Cortex protects
+  </Card>
+</Cards>

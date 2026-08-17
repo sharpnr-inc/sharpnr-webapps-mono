@@ -1,0 +1,12 @@
+{
+  "title": "Cortex",
+  "description": "IT controls & access management",
+  "icon": "Cpu",
+  "pages": [
+    "index",
+    "access-control",
+    "keys-and-secrets",
+    "security-and-compliance",
+    "roadmap"
+  ]
+}
