@@ -3,30 +3,21 @@
   "version": "1.1.2",
   "type": "module",
   "description": "Sharpnr's shared UI component library",
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "files": [
-    "dist"
+    "src"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js"
-    },
-    "./dist/style.css": "./dist/ui.css"
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css",
+    "./index.css": "./src/index.css"
   },
   "sideEffects": [
     "*.css"
   ],
   "scripts": {
-    "dev": "vite build --watch",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "publishConfig": {
-    "access": "public"
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.0",
@@ -98,7 +89,7 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "^8.59.2",
-    "vite": "catalog:",
-    "vite-plugin-dts": "^5.0.0"
-  }
+    "vite": "catalog:"
+  },
+  "private": true
 }

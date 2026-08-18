@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "./button";
 import { Home, ChevronLeft } from "lucide-react";
 
 export function NotFound() {

@@ -1,6 +1,9 @@
-// In each app's main.tsx or App.tsx
-// import "@sharpnr/ui/dist/style.css";
-import "./index.css";
+// No CSS is imported here on purpose. This package is consumed as source, so
+// importing ./index.css would make every app compile a second Tailwind build.
+// Apps instead pull in the design tokens and scan this package for classes:
+//
+//   @import "@sharpnr/ui/theme.css";
+//   @source "../../../packages/ui/src";
 
 /* -------------------------------------------------------------------------- */
 /*                             ShadcnUI Component                             */

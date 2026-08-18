@@ -7,7 +7,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from "../components/ui/sheet";
 
 type SheetSize = "1/4" | "2/4" | "3/4" | "full";
 

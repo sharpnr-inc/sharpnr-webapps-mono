@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./tooltip";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 
 const NAVY = "#0B0D2E";
 const NAVY_MID = "#141741";

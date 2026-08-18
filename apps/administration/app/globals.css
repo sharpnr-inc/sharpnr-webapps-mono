@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "@sharpnr/ui/dist/style.css";
+@import "@sharpnr/ui/theme.css";
+@source "../../../packages/ui/src";
 
 /* @sharpnr/ui ships its design tokens on :root / .dark (see import above).
    Map them into the app's Tailwind theme so utilities like `bg-primary`,
