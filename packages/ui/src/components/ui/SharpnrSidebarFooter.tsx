@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useSidebar, SidebarFooter } from "./sidebar";
 import {
   Tooltip,
@@ -8,6 +8,10 @@ import {
 } from "./tooltip";
 import { cn } from "../../lib/utils";
 
+/**
+ * Brand colours are intentionally hard-coded rather than themed: this badge is
+ * a fixed Sharpnr mark, and it must read the same in light and dark mode.
+ */
 const NAVY = "#0B0D2E";
 const NAVY_MID = "#141741";
 const NAVY_BRIGHT = "#1E2260";
@@ -29,68 +33,52 @@ export interface SharpnrSidebarFooterProps {
   className?: string;
 }
 
-function Particle({
-  x,
-  y,
-  size,
-  duration,
-  delay,
-}: {
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-}) {
+/**
+ * The drifting glow behind the badge.
+ *
+ * This used to animate the `background` property through an array of
+ * radial-gradient strings. Gradients are a paint property -- the browser
+ * repaints the whole element every frame and none of it reaches the
+ * compositor. Since this footer is mounted on every page of every app, that
+ * ran forever, everywhere. Moving a pre-painted blob with `translate` instead
+ * is GPU-composited and costs essentially nothing.
+ */
+function Glow({ animate }: { animate: boolean }) {
   return (
-    <motion.div
-      className="absolute rounded-full pointer-events-none"
+    <motion.span
+      aria-hidden="true"
+      className="pointer-events-none absolute -inset-8 rounded-full blur-2xl"
       style={{
-        width: size,
-        height: size,
-        left: `${x}%`,
-        top: `${y}%`,
-        background: WHITE,
+        background: `radial-gradient(circle, ${NAVY_BRIGHT} 0%, transparent 65%)`,
+        willChange: animate ? "transform" : undefined,
       }}
-      animate={{
-        y: [0, -14, 0],
-        x: [0, 3, -3, 0],
-        opacity: [0, 0.55, 0],
-        scale: [0.4, 1, 0.4],
-      }}
-      transition={{ duration, delay, repeat: Infinity, ease: "easeInOut" }}
+      initial={false}
+      animate={animate ? { x: ["-18%", "18%", "-18%"], y: ["12%", "-12%", "12%"] } : undefined}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
     />
   );
 }
 
-const PARTICLES = [
-  { x: 8, y: 82, size: 2.5, duration: 3.4, delay: 0 },
-  { x: 28, y: 65, size: 1.8, duration: 2.9, delay: 0.6 },
-  { x: 55, y: 75, size: 3, duration: 3.7, delay: 1.2 },
-  { x: 78, y: 55, size: 2, duration: 2.6, delay: 0.2 },
-  { x: 48, y: 88, size: 2.5, duration: 3.1, delay: 1.9 },
-  { x: 92, y: 70, size: 1.8, duration: 3.0, delay: 0.9 },
-];
-
-/** The logo tile — fixed 32px so it fits inside the collapsed icon rail. */
-function Logo({ logoSrc }: { logoSrc: string }) {
+/** Fixed 32px so it lines up with the collapsed icon rail in every app. */
+function Logo({ logoSrc, animate }: { logoSrc: string; animate: boolean }) {
   return (
     <motion.div
-      layout
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.92 }}
+      whileHover={animate ? { scale: 1.08 } : undefined}
+      whileTap={animate ? { scale: 0.94 } : undefined}
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      className="relative shrink-0 size-8"
+      className="relative size-8 shrink-0"
     >
       <div
-        className="absolute inset-[1.5px] rounded-[8px] overflow-hidden z-10"
+        className="absolute inset-[1.5px] z-10 overflow-hidden rounded-[8px]"
         style={{ background: NAVY_MID }}
       >
         <img
           src={logoSrc}
           alt=""
           aria-hidden="true"
-          className="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+          className="size-full object-cover"
         />
       </div>
     </motion.div>
@@ -112,8 +100,6 @@ export function SharpnrSidebarFooter({
   const animate = !reduceMotion;
 
   // ── Collapsed: a compact navy brand badge sized to the icon rail ──
-  // Mirrors the expanded card's identity (deep navy + living glow) so the
-  // footer still reads as "Sharpnr" instead of a washed-out logo chip.
   if (isCollapsed) {
     return (
       <SidebarFooter className={cn("p-0", className)}>
@@ -136,43 +122,21 @@ export function SharpnrSidebarFooter({
                 style={{ background: NAVY }}
                 onClick={href ? undefined : (e) => e.preventDefault()}
               >
-                {/* living navy glow */}
-                <motion.span
-                  aria-hidden="true"
-                  className="absolute inset-0 pointer-events-none"
-                  style={
-                    reduceMotion
-                      ? {
-                          background: `radial-gradient(circle at 30% 80%, ${NAVY_BRIGHT} 0%, transparent 70%)`,
-                        }
-                      : undefined
-                  }
-                  animate={
-                    animate
-                      ? {
-                          background: [
-                            `radial-gradient(circle at 30% 80%, ${NAVY_BRIGHT} 0%, transparent 70%)`,
-                            `radial-gradient(circle at 70% 20%, ${NAVY_BRIGHT} 0%, transparent 70%)`,
-                            `radial-gradient(circle at 30% 80%, ${NAVY_BRIGHT} 0%, transparent 70%)`,
-                          ],
-                        }
-                      : undefined
-                  }
-                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                />
-                {/* inner border */}
+                <Glow animate={animate} />
                 <span
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-[10px] pointer-events-none"
+                  className="pointer-events-none absolute inset-0 rounded-[10px]"
                   style={{
-                    boxShadow: `inset 0 0 0 1px rgba(240,242,247,0.12), inset 0 1px 0 rgba(240,242,247,0.20)`,
+                    boxShadow:
+                      "inset 0 0 0 1px rgba(240,242,247,0.12), inset 0 1px 0 rgba(240,242,247,0.20)",
                   }}
                 />
-                {/* logo chip, framed by the navy badge */}
                 <img
                   src={logoSrc}
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                   className="relative z-10 size-5 rounded-[5px] object-contain"
                 />
               </motion.a>
@@ -187,125 +151,91 @@ export function SharpnrSidebarFooter({
     );
   }
 
-  // ── Expanded: full animated card ──
+  // ── Expanded: full card ──
   const Wrapper = href ? motion.a : motion.div;
   const wrapperLinkProps = href
-    ? { href, target: "_blank", rel: "noopener noreferrer", "aria-label": `${label} ${brand}` }
+    ? {
+        href,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        "aria-label": `${label} ${brand}`,
+      }
     : {};
 
   return (
     <SidebarFooter className={className}>
       <Wrapper
         {...wrapperLinkProps}
-        layout
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
         style={{ background: NAVY }}
-        className="relative block overflow-hidden rounded-xl p-3 outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+        className={cn(
+          "relative block overflow-hidden rounded-xl outline-none",
+          // Narrow sidebars and the mobile sheet get tighter padding.
+          "p-2.5 sm:p-3",
+          "focus-visible:ring-2 focus-visible:ring-sidebar-ring",
+        )}
       >
-        {/* ── Deep navy base + subtle inner border ── */}
+        <Glow animate={animate} />
+
+        {/* Inner border */}
         <div
-          className="absolute inset-0 rounded-xl pointer-events-none"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 rounded-xl"
           style={{
-            boxShadow: `inset 0 0 0 1px rgba(240,242,247,0.10), inset 0 1px 0 rgba(240,242,247,0.18)`,
+            boxShadow:
+              "inset 0 0 0 1px rgba(240,242,247,0.10), inset 0 1px 0 rgba(240,242,247,0.18)",
           }}
         />
 
-        {/* ── Aurora sweep: navy → brighter navy blob ── */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={
-            reduceMotion
-              ? {
-                  background: `radial-gradient(ellipse at 10% 90%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
-                }
-              : undefined
-          }
-          animate={
-            animate
-              ? {
-                  background: [
-                    `radial-gradient(ellipse at 10% 90%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
-                    `radial-gradient(ellipse at 90% 10%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
-                    `radial-gradient(ellipse at 10% 90%, ${NAVY_BRIGHT} 0%, transparent 55%)`,
-                  ],
-                }
-              : undefined
-          }
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        {/* ── White dot constellation grid ── */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
+        {/* Dot constellation. Static: an animated opacity here was a second
+            always-on timer for an effect nobody can consciously perceive. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.05]"
           style={{
             backgroundImage: `radial-gradient(circle, ${WHITE} 1px, transparent 1px)`,
             backgroundSize: "14px 14px",
-            opacity: reduceMotion ? 0.05 : undefined,
           }}
-          animate={animate ? { opacity: [0.03, 0.07, 0.03] } : undefined}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* ── Floating white particles ── */}
-        {animate && (
-          <AnimatePresence>
-            {PARTICLES.map((p, i) => (
-              <Particle key={i} {...p} />
-            ))}
-          </AnimatePresence>
-        )}
-
-        {/* ── Top shimmer line (white) ── */}
+        {/* Top shimmer */}
         <motion.div
-          className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px"
           style={{
             background: `linear-gradient(90deg, transparent, ${WHITE}, transparent)`,
-            opacity: reduceMotion ? 0.4 : undefined,
+            opacity: animate ? undefined : 0.4,
           }}
+          initial={false}
           animate={animate ? { opacity: [0.2, 0.6, 0.2] } : undefined}
           transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
         />
 
         {/* ── Content row ── */}
-        <div className="relative flex items-center gap-3">
-          <Logo logoSrc={logoSrc} />
+        {/* min-w-0 has to be on every level of the flex chain, or the text
+            column refuses to shrink and the card overflows a narrow sidebar. */}
+        <div className="relative flex min-w-0 items-center gap-2.5 sm:gap-3">
+          <Logo logoSrc={logoSrc} animate={animate} />
 
-          {/* Text */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key="footer-text"
-              initial={{ opacity: 0, x: -10, filter: "blur(6px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: -10, filter: "blur(6px)" }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="flex flex-col min-w-0"
+          <div className="flex min-w-0 flex-col">
+            <span
+              className="mb-1 truncate text-[9px] leading-none font-semibold tracking-[0.18em] uppercase"
+              style={{ color: WHITE_DIM }}
             >
-              <span
-                className="text-[9px] font-semibold uppercase tracking-[0.18em] leading-none mb-1"
-                style={{ color: WHITE_DIM }}
-              >
-                {label}
-              </span>
-
-              <motion.span
-                className="text-sm font-bold leading-tight tracking-tight truncate"
-                style={{ color: WHITE }}
-                whileHover={animate ? { letterSpacing: "0.03em" } : undefined}
-                transition={{ duration: 0.2 }}
-              >
-                {brand}
-              </motion.span>
-            </motion.div>
-          </AnimatePresence>
+              {label}
+            </span>
+            <span
+              className="truncate text-sm leading-tight font-bold tracking-tight"
+              style={{ color: WHITE }}
+            >
+              {brand}
+            </span>
+          </div>
         </div>
 
-        {/* ── Bottom shimmer line ── */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          exit={{ scaleX: 0, opacity: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut", delay: 0.1 }}
-          className="absolute bottom-0 left-4 right-4 h-px origin-left pointer-events-none"
+        {/* Bottom shimmer */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-4 bottom-0 h-px"
           style={{
             background: `linear-gradient(90deg, transparent, ${WHITE_DIM}, transparent)`,
           }}
