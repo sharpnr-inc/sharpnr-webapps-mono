@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-router": "catalog:",
+    "@tanstack/react-query": "catalog:",
     "@sharpnr/ui": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"
