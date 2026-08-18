@@ -161,7 +161,11 @@ pipeline {
                                 cp -r '${wsPath}/.next/static/.' '${WEB_BASE}/${dir}/${wsPath}/.next/static/'
 
                                 # jenkins writes it, but the unit runs as sharpnrllp.
-                                chmod -R a+rX '${WEB_BASE}/${dir}'
+                                # -mindepth 1: the web root itself is owned by sharpnrllp
+                                # (created once with install -d), and chmod needs ownership,
+                                # not just group write -- so touching it fails with EPERM.
+                                # Everything below it was created by this cp, so jenkins owns it.
+                                find '${WEB_BASE}/${dir}' -mindepth 1 -exec chmod a+rX {} +
 
                                 sudo systemctl restart '${service}'
                             """
