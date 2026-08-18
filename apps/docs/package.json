@@ -38,6 +38,6 @@
   },
   "deploy": {
     "skip": true,
-    "note": "Next.js (fumadocs); needs a node runtime or static export"
+    "note": "Next.js (fumadocs); not copied to /var/www by the root pipeline. Deployed out-of-band: rsync to /media/sharpnrllpDrive/frontends/sharpnr-docs, install+build there, then `systemctl restart sharpnr-docs` (serves on 6954; its old per-app Jenkinsfile said 6956, which is stockwave's port). Recipe preserved from apps/docs/Jenkinsfile, deleted 2026-08-18 -- see git history."
   }
 }
