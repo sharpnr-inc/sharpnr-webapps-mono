@@ -39,12 +39,19 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                // Diffing needs real history; Jenkins clones shallow by default.
+                // `checkout scm` already fetches +refs/heads/*:refs/remotes/origin/*
+                // using the job's credentials, so origin/main and full history are
+                // present here. Do NOT re-fetch: a bare `sh 'git fetch'` runs
+                // without GIT_ASKPASS and dies with "could not read Username".
+                // Just assert the two things the deploy plan depends on.
                 sh '''
                     if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
-                        git fetch --unshallow --no-tags origin || true
+                        echo "FATAL: shallow clone -- deploy-plan.mjs needs real history."
+                        echo "Turn off 'Shallow clone' in the job's Git behaviours."
+                        exit 1
                     fi
-                    git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
+                    git rev-parse --verify refs/remotes/origin/main >/dev/null \
+                        || { echo "FATAL: origin/main missing after checkout"; exit 1; }
                 '''
             }
         }
