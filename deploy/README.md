@@ -47,15 +47,47 @@ It then copies Next's `standalone` bundle to `/var/www/<dir>` (including
 The unit must set `HOSTNAME=127.0.0.1` so the app is reachable only through
 nginx, and `jenkins` needs a sudoers rule for the restart.
 
-**Nothing uses this today.** `sharpnr-docs` is `skip: true` and deploys
-out-of-band; `administration` was removed from this repo. Kept because the
-static path is untouched by it and the next Next.js app would need it — but it
-has never run in production, so treat its first use as unproven.
+`sharpnr-docs` is the one app that needs this. It has route handlers that must
+run per-request — `/api/search`, the OG image generator, `llms.txt` — so it can
+never be a static copy.
+
+### Cutting docs over from the old out-of-band deploy
+
+Docs is currently built on the server (`rsync` → `npm ci` → `next build` →
+`systemctl restart sharpnr-docs`) into
+`/media/sharpnrllpDrive/frontends/sharpnr-docs`. The pipeline replaces all of
+that. Order matters:
+
+```bash
+# 1. web root
+sudo install -d -m 2775 -o sharpnrllp -g webdeploy /var/www/docs
+
+# 2. let jenkins restart the service (visudo)
+#    jenkins ALL=(root) NOPASSWD: /usr/bin/systemctl restart sharpnr-docs
+
+# 3. replace the unit -- keep a copy of the old one first
+sudo systemctl cat sharpnr-docs > ~/sharpnr-docs.service.bak
+sudo cp deploy/docs/sharpnr-docs.service /etc/systemd/system/
+sudo systemctl daemon-reload
+```
+
+Then drop `"skip": true` from `apps/docs/package.json` and push. nginx needs no
+change: `sites-available/sharpnr-docs-app` already proxies to `127.0.0.1:6956`,
+and the unit sets `PORT=6956` to match.
+
+**Do not remove `skip` before replacing the unit.** The pipeline would copy a
+fresh bundle to `/var/www/docs`, restart the *old* unit — which still points at
+`/media/...` — and report success while the site keeps serving the previous
+build. A silent stale deploy is worse than a red pipeline.
+
+Once it is live, `/media/sharpnrllpDrive/frontends/sharpnr-docs` is dead weight
+and can go. Note that `/media/sharpnrllpDrive/frontends` is also `BACKUP_BASE`,
+so the pipeline will start writing `docs/<timestamp>/` backups alongside it.
 
 ## Ports
 
 | App | Port | Notes |
 | --- | --- | --- |
-| `sharpnr-docs` | 6956 | separate out-of-band deploy, not in this pipeline |
+| `sharpnr-docs` | 6956 | set by the systemd unit; the package.json `start` script is unused under standalone |
 
 Local dev ports are unrelated and live in [`setup/apps.json`](../setup/apps.json).

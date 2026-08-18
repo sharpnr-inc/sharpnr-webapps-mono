@@ -37,7 +37,10 @@
     "typescript": "catalog:"
   },
   "deploy": {
+    "dir": "docs",
+    "runtime": "node",
+    "service": "sharpnr-docs",
     "skip": true,
-    "note": "Next.js (fumadocs); not copied to /var/www by the root pipeline. Deployed out-of-band: rsync to /media/sharpnrllpDrive/frontends/sharpnr-docs, install+build there, then `systemctl restart sharpnr-docs` (serves on 6954; its old per-app Jenkinsfile said 6956, which is stockwave's port). Recipe preserved from apps/docs/Jenkinsfile, deleted 2026-08-18 -- see git history."
+    "note": "Next.js (fumadocs) standalone. The pipeline can deploy this (runtime: node), but it is still skipped until the server side is cut over: the sharpnr-docs systemd unit still points at the old out-of-band location (/media/sharpnrllpDrive/frontends/sharpnr-docs). Install deploy/docs/sharpnr-docs.service first -- otherwise the pipeline copies a new bundle to /var/www/docs, restarts the old unit, and reports success while the site serves the previous build. Remove `skip` once the unit is updated."
   }
 }
