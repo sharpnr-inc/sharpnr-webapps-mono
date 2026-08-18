@@ -174,8 +174,12 @@ server {
 
         # Vite HMR runs over a websocket. Without these the app loads but
         # never hot-reloads, which is a confusing failure to debug.
+        # \$connection_upgrade is the map defined in nginx.conf: it sends
+        # "upgrade" only for real websocket requests and "close" otherwise.
+        # Hardcoding "upgrade" here sent an invalid Connection header on every
+        # plain HTTP request and defeated upstream keepalive.
         proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection "upgrade";
+        proxy_set_header Connection \$connection_upgrade;
 
         # Vite checks this against server.allowedHosts.
         proxy_set_header Host \$host;
