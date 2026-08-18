@@ -2,3 +2,29 @@
 title: Sharpnr Services
 description: Explore Sharpnr's industry-specific applications for hospitality, retail, and healthcare.
 ---
+
+## Business Operation Apps
+
+Where the [platform services](/sharpnr-platform) are horizontal — accounting, HR, storage, messaging — the business operation apps are vertical. Each one models the day-to-day workflow of a specific industry, and each sits on the same shared foundation: one identity, one organization, one set of financial records.
+
+That means a restaurant bill raised in Sharp-Hospitality and a patient invoice raised in Sharp-Healthcare both land in [Sharp-Accounting](/sharp-accounting) as ordinary journal entries. You do not reconcile between systems, because there is only one system.
+
+| App | Industry | What it handles |
+| --- | --- | --- |
+| [Sharp-Hospitality](/hospitality-sector/sharp-hospitality) | Hotels, restaurants, bars, nightclubs | Reservations, guest services, POS, table and room management, multi-property operations |
+| Sharp-Healthcare | Clinics and hospitals | Patient records, appointments, clinical workflows, billing and claims |
+
+## How they fit together
+
+Every business operation app is provisioned through [Orchestrator](/orchestrator) and inherits the organization structure defined there — companies, branches, and the users attached to them. Access is governed by [Cortex](/cortex), so a receptionist at one property does not silently gain access to another.
+
+The shared services underneath are the same for every vertical:
+
+- **[Sharp-Accounting](/sharp-accounting)** — charges, invoices, and payments from any app become accounting entries
+- **[Sharp-HR](/sharp-hrms)** — staff, rosters, and payroll across every location
+- **[Silo](/silo)** — documents and records storage
+- **[Cables](/cables)** — internal messaging between teams and locations
+
+## Availability
+
+Sharp-Hospitality is live. Sharp-Healthcare is in active development — the sections below will expand as each module ships.
