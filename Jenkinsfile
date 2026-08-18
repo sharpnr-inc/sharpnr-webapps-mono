@@ -204,13 +204,22 @@ pipeline {
         stage('Reload nginx') {
             when { expression { env.DEPLOY_PLAN } }
             steps {
+                // Never fails the build. By this point the files are already live
+                // -- nginx reads them from `root` per request -- so a reload
+                // problem is worth reporting but must not strand a successful
+                // deploy or block the marker. -n keeps sudo non-interactive
+                // instead of hanging on a password prompt.
                 sh '''
-                    if sudo nginx -t 2>&1; then
-                        sudo systemctl reload nginx
-                        echo "nginx reloaded"
+                    if ! sudo -n true 2>/dev/null; then
+                        echo "SKIP: jenkins has no passwordless sudo for nginx. To enable:"
+                        echo "  jenkins ALL=(root) NOPASSWD: /usr/bin/systemctl reload nginx, /usr/sbin/nginx -t"
+                        exit 0
+                    fi
+                    if sudo -n nginx -t 2>&1; then
+                        sudo -n systemctl reload nginx && echo "nginx reloaded"
                     else
-                        echo "nginx -t failed -- NOT reloading. Deployed files are already live."
-                        exit 1
+                        echo "WARNING: nginx -t reports a bad config; not reloading."
+                        echo "Deployed files are already live -- this is a pre-existing config issue."
                     fi
                 '''
             }
