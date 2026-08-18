@@ -165,7 +165,11 @@ pipeline {
                                 # (created once with install -d), and chmod needs ownership,
                                 # not just group write -- so touching it fails with EPERM.
                                 # Everything below it was created by this cp, so jenkins owns it.
-                                find '${WEB_BASE}/${dir}' -mindepth 1 -exec chmod a+rX {} +
+                                # Only real files and dirs: chmod follows symlinks, and the
+                                # bundle carries vestigial pnpm aliases that point at packages
+                                # Next did not need to trace, so they dangle and abort the run.
+                                # Symlink modes are meaningless on Linux anyway.
+                                find '${WEB_BASE}/${dir}' -mindepth 1 ! -type l -exec chmod a+rX {} +
 
                                 sudo systemctl restart '${service}'
                             """
