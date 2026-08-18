@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { Logo } from './Logo';
+import { config } from '@sharpnr/env';
 
 const NAV_LINKS = [
   { label: 'Features', href: '#features' },
@@ -123,13 +124,13 @@ function SiteHeader() {
 
         <div className="hidden items-center gap-3 md:flex">
           <a
-            href="/login"
+            href={config.authAppUrl}
             className="text-sm font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white"
           >
             Sign in
           </a>
           <a
-            href="/app"
+            href={`${config.authAppUrl}/signup`}
             className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-violet-500"
           >
             Get started
@@ -167,11 +168,11 @@ function SiteHeader() {
               </a>
             ))}
             <hr className="border-black/5 dark:border-white/10" />
-            <a href="/login" className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
+            <a href={config.authAppUrl} className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
               Sign in
             </a>
             <a
-              href="/app"
+              href={`${config.authAppUrl}/signup`}
               className="rounded-lg bg-violet-600 px-4 py-2 text-center text-sm font-semibold text-white"
             >
               Get started
@@ -260,7 +261,7 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a
-              href="/app"
+              href={`${config.authAppUrl}/signup`}
               className="rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-violet-500"
             >
               Get started free
@@ -374,13 +375,13 @@ function CtaBanner() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="/app"
+              href={`${config.authAppUrl}/signup`}
               className="rounded-lg bg-white px-5 py-3 text-sm font-semibold text-violet-700 shadow-sm hover:bg-violet-50"
             >
               Get started free
             </a>
             <a
-              href="/login"
+              href={config.authAppUrl}
               className="rounded-lg border border-white/30 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
             >
               Sign in
@@ -413,7 +414,7 @@ function SiteFooter() {
               <ul className="mt-3 space-y-2 text-sm text-neutral-500 dark:text-neutral-400">
                 <li><a href="#features" className="hover:text-neutral-900 dark:hover:text-white">Features</a></li>
                 <li><a href="#how-it-works" className="hover:text-neutral-900 dark:hover:text-white">How it works</a></li>
-                <li><a href="/login" className="hover:text-neutral-900 dark:hover:text-white">Sign in</a></li>
+                <li><a href={config.authAppUrl} className="hover:text-neutral-900 dark:hover:text-white">Sign in</a></li>
               </ul>
             </div>
             <div>

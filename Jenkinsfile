@@ -196,6 +196,26 @@ pipeline {
             }
         }
 
+        // Static deploys do not strictly need this -- nginx reads files from
+        // `root` per request, and open_file_cache is off by default. It matters
+        // only if that cache is ever enabled, or a served path is recreated
+        // rather than overwritten. Cheap, and `nginx -t` first means a broken
+        // config is reported instead of taking every site down on reload.
+        stage('Reload nginx') {
+            when { expression { env.DEPLOY_PLAN } }
+            steps {
+                sh '''
+                    if sudo nginx -t 2>&1; then
+                        sudo systemctl reload nginx
+                        echo "nginx reloaded"
+                    else
+                        echo "nginx -t failed -- NOT reloading. Deployed files are already live."
+                        exit 1
+                    fi
+                '''
+            }
+        }
+
         stage('Record') {
             when { expression { env.DEPLOY_PLAN } }
             steps {

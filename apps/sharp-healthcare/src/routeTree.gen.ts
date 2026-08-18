@@ -9,38 +9,75 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkspaceRouteRouteImport } from './routes/_workspace/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as WorkspaceAppointmentsRouteImport } from './routes/_workspace/appointments'
+import { Route as WorkspacePatientsRouteImport } from './routes/_workspace/patients'
 
+const WorkspaceRouteRoute = WorkspaceRouteRouteImport.update({
+  id: '/_workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkspaceAppointmentsRoute = WorkspaceAppointmentsRouteImport.update({
+  id: '/appointments',
+  path: '/appointments',
+  getParentRoute: () => WorkspaceRouteRoute,
+} as any)
+const WorkspacePatientsRoute = WorkspacePatientsRouteImport.update({
+  id: '/patients',
+  path: '/patients',
+  getParentRoute: () => WorkspaceRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/appointments': typeof WorkspaceAppointmentsRoute
+  '/patients': typeof WorkspacePatientsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
+  '/appointments': typeof WorkspaceAppointmentsRoute
+  '/patients': typeof WorkspacePatientsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_workspace': typeof WorkspaceRouteRouteWithChildren
+  '/_workspace/appointments': typeof WorkspaceAppointmentsRoute
+  '/_workspace/patients': typeof WorkspacePatientsRoute
   '/_website/': typeof WebsiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/appointments' | '/patients'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_website/'
+  to: '/' | '/appointments' | '/patients'
+  id:
+    | '__root__'
+    | '/_workspace'
+    | '/_workspace/appointments'
+    | '/_workspace/patients'
+    | '/_website/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  WorkspaceRouteRoute: typeof WorkspaceRouteRouteWithChildren
   WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_workspace': {
+      id: '/_workspace'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof WorkspaceRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_website/': {
       id: '/_website/'
       path: '/'
@@ -48,10 +85,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_workspace/appointments': {
+      id: '/_workspace/appointments'
+      path: '/appointments'
+      fullPath: '/appointments'
+      preLoaderRoute: typeof WorkspaceAppointmentsRouteImport
+      parentRoute: typeof WorkspaceRouteRoute
+    }
+    '/_workspace/patients': {
+      id: '/_workspace/patients'
+      path: '/patients'
+      fullPath: '/patients'
+      preLoaderRoute: typeof WorkspacePatientsRouteImport
+      parentRoute: typeof WorkspaceRouteRoute
+    }
   }
 }
 
+interface WorkspaceRouteRouteChildren {
+  WorkspaceAppointmentsRoute: typeof WorkspaceAppointmentsRoute
+  WorkspacePatientsRoute: typeof WorkspacePatientsRoute
+}
+
+const WorkspaceRouteRouteChildren: WorkspaceRouteRouteChildren = {
+  WorkspaceAppointmentsRoute: WorkspaceAppointmentsRoute,
+  WorkspacePatientsRoute: WorkspacePatientsRoute,
+}
+
+const WorkspaceRouteRouteWithChildren = WorkspaceRouteRoute._addFileChildren(
+  WorkspaceRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
+  WorkspaceRouteRoute: WorkspaceRouteRouteWithChildren,
   WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
