@@ -12,8 +12,6 @@
   "dependencies": {
     "@fontsource-variable/outfit": "^5.2.8",
     "@gsap/react": "^2.1.2",
-    "@hugeicons/core-free-icons": "^4.1.1",
-    "@hugeicons/react": "^1.1.6",
     "@sharpnr/env": "workspace:*",
     "@sharpnr/http": "workspace:*",
     "@sharpnr/ui": "workspace:*",
@@ -36,7 +34,6 @@
     "radix-ui": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "shadcn": "^4.2.0",
     "sonner": "catalog:",
     "tailwind-merge": "catalog:",
     "tailwindcss": "catalog:",
