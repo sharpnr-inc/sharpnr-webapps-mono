@@ -108,25 +108,59 @@ pipeline {
             steps {
                 script {
                     env.DEPLOY_PLAN.split('\n').each { line ->
-                        def parts  = line.split('\t')
-                        def name   = parts[0]
-                        def wsPath = parts[1]
-                        def dir    = parts[2]
+                        def parts   = line.split('\t')
+                        def name    = parts[0]
+                        def wsPath  = parts[1]
+                        def dir     = parts[2]
+                        // split() drops trailing empty fields, so a static app's
+                        // line is 4 columns, not 5.
+                        def runtime = parts.size() > 3 ? parts[3] : 'static'
+                        def service = parts.size() > 4 ? parts[4] : ''
 
-                        echo "Deploying ${name} -> ${WEB_BASE}/${dir}"
-                        sh """
-                            set -e
-                            if [ ! -d '${wsPath}/dist' ]; then
-                                echo 'no dist produced for ${name}'; exit 1
-                            fi
-                            if [ -d '${WEB_BASE}/${dir}/dist' ]; then
-                                mkdir -p '${BACKUP_BASE}/${dir}/${TIMESTAMP}'
-                                cp -r '${WEB_BASE}/${dir}/dist' '${BACKUP_BASE}/${dir}/${TIMESTAMP}/dist'
-                            fi
-                            rm -rf '${WEB_BASE}/${dir}/dist'
-                            mkdir -p '${WEB_BASE}/${dir}/dist'
-                            cp -r '${wsPath}/dist/.' '${WEB_BASE}/${dir}/dist/'
-                        """
+                        echo "Deploying ${name} (${runtime}) -> ${WEB_BASE}/${dir}"
+
+                        if (runtime == 'node') {
+                            // Next.js standalone: a self-contained server with its
+                            // own pruned node_modules, so the web root needs neither
+                            // pnpm nor the workspace. Next mirrors the workspace
+                            // layout inside the bundle, so server.js ends up at
+                            // <root>/${wsPath}/server.js.
+                            sh """
+                                set -e
+                                if [ ! -d '${wsPath}/.next/standalone' ]; then
+                                    echo 'no standalone output for ${name} -- is output:"standalone" set in next.config?'; exit 1
+                                fi
+                                if [ -d '${WEB_BASE}/${dir}' ]; then
+                                    mkdir -p '${BACKUP_BASE}/${dir}/${TIMESTAMP}'
+                                    cp -r '${WEB_BASE}/${dir}' '${BACKUP_BASE}/${dir}/${TIMESTAMP}/'
+                                fi
+                                rm -rf '${WEB_BASE}/${dir}'
+                                mkdir -p '${WEB_BASE}/${dir}'
+                                cp -r '${wsPath}/.next/standalone/.' '${WEB_BASE}/${dir}/'
+
+                                # standalone deliberately omits .next/static. Without
+                                # this the app boots and answers 200, but serves no JS
+                                # or CSS at all.
+                                mkdir -p '${WEB_BASE}/${dir}/${wsPath}/.next/static'
+                                cp -r '${wsPath}/.next/static/.' '${WEB_BASE}/${dir}/${wsPath}/.next/static/'
+
+                                sudo systemctl restart '${service}'
+                            """
+                        } else {
+                            sh """
+                                set -e
+                                if [ ! -d '${wsPath}/dist' ]; then
+                                    echo 'no dist produced for ${name}'; exit 1
+                                fi
+                                if [ -d '${WEB_BASE}/${dir}/dist' ]; then
+                                    mkdir -p '${BACKUP_BASE}/${dir}/${TIMESTAMP}'
+                                    cp -r '${WEB_BASE}/${dir}/dist' '${BACKUP_BASE}/${dir}/${TIMESTAMP}/dist'
+                                fi
+                                rm -rf '${WEB_BASE}/${dir}/dist'
+                                mkdir -p '${WEB_BASE}/${dir}/dist'
+                                cp -r '${wsPath}/dist/.' '${WEB_BASE}/${dir}/dist/'
+                            """
+                        }
                     }
                 }
             }

@@ -12,11 +12,6 @@
   ],
   "domain": "sharpnr.test",
   "apps": [
-    {
-      "name": "administration",
-      "host": "administration.sharpnr.test",
-      "port": 6955
-    },
     { "name": "stockwave", "host": "stockwave.sharpnr.test", "port": 6956 },
     { "name": "cortex", "host": "cortex.sharpnr.test", "port": 6957 },
     { "name": "marketplace", "host": "marketplace.sharpnr.test", "port": 6959 },

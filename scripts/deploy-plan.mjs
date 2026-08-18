@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 // Prints which apps need deploying for a given base commit, one per line:
 //
-//   <pkgName> \t <workspacePath> \t <deployDir>
+//   <pkgName> \t <workspacePath> \t <deployDir> \t <runtime> \t <service>
+//
+// runtime is "static" (copy dist/ to the web root -- the default) or "node"
+// (copy Next's standalone bundle and restart <service>). Apps declare it with
+// `deploy.runtime` / `deploy.service` in their package.json.
 //
 // "Affected" = packages changed since <base>, PLUS everything that depends on
 // them. So a change in packages/ui fans out to every app that consumes it,
@@ -44,5 +48,15 @@ for (const ws of workspaces) {
 
   if (!pj.deploy?.dir || pj.deploy.skip) continue;
 
-  console.log([ws.name, path.relative(process.cwd(), ws.path), pj.deploy.dir].join("\t"));
+  const runtime = pj.deploy.runtime ?? "static";
+  const service = pj.deploy.service ?? "";
+
+  if (runtime === "node" && !service) {
+    console.error(`${ws.name}: deploy.runtime "node" requires deploy.service`);
+    process.exit(1);
+  }
+
+  console.log(
+    [ws.name, path.relative(process.cwd(), ws.path), pj.deploy.dir, runtime, service].join("\t"),
+  );
 }

@@ -106,8 +106,8 @@ The four internal packages are referenced with the workspace protocol:
 Two consequences:
 
 - **Vite apps** need nothing extra.
-- **Next.js apps** must list them in `transpilePackages` (see
-  `apps/administration/next.config.ts`).
+- **Next.js apps** must list them in `transpilePackages` in `next.config.ts`,
+  along with any shared package they pull in transitively.
 
 ---
 
