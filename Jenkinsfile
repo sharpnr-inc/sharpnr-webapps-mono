@@ -17,7 +17,7 @@ pipeline {
 
     environment {
         WEB_BASE    = '/var/www'
-        BACKUP_BASE = '/media/sharpnrllpDrive/frontends'
+        BACKUP_BASE = '/media/sharpnrllpDrive/sharpnr-webapps-backup'
         // The last commit that deployed successfully. Diffing against this
         // rather than HEAD~1 means a failed build never strands an app on a
         // stale bundle: the next green run picks up everything since the last

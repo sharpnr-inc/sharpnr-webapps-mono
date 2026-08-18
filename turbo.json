@@ -1,7 +1,14 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "concurrency": "20",
+  // 1 -- fully serialized. Turbo sizes concurrency off CPU count, but the
+  // binding constraint is memory, and the CI host is the tightest target by a
+  // wide margin: 3.6 GB total, ~950 MB available at rest, already swapping,
+  // while also running postgres, redis, nginx and the engines. One orchestrator
+  // build alone peaks at ~2.3 GB, so anything above 1 risks the OOM killer
+  // choosing a production service instead of the build.
+  // Override locally for faster dev builds: TURBO_CONCURRENCY=4 pnpm build
+  "concurrency": "1",
   "globalDependencies": [".env.production", ".env.development"],
   "tasks": {
     "build": {

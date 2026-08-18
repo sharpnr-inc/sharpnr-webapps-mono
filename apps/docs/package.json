@@ -40,7 +40,6 @@
     "dir": "docs",
     "runtime": "node",
     "service": "sharpnr-docs",
-    "skip": true,
-    "note": "Next.js (fumadocs) standalone. The pipeline can deploy this (runtime: node), but it is still skipped until the server side is cut over: the sharpnr-docs systemd unit still points at the old out-of-band location (/media/sharpnrllpDrive/frontends/sharpnr-docs). Install deploy/docs/sharpnr-docs.service first -- otherwise the pipeline copies a new bundle to /var/www/docs, restarts the old unit, and reports success while the site serves the previous build. Remove `skip` once the unit is updated."
+    "note": "Next.js (fumadocs) standalone -- needs a live node process (/api/search, OG images, llms.txt), so it is never a static dist copy. The pipeline copies the standalone bundle to /var/www/docs and restarts the sharpnr-docs unit (see deploy/docs/). nginx proxies docs.sharpnr.com -> 127.0.0.1:6956; the unit sets PORT, and the package.json `start` script is unused in production."
   }
 }

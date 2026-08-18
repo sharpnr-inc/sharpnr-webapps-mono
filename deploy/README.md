@@ -55,7 +55,7 @@ never be a static copy.
 
 Docs is currently built on the server (`rsync` → `npm ci` → `next build` →
 `systemctl restart sharpnr-docs`) into
-`/media/sharpnrllpDrive/frontends/sharpnr-docs`. The pipeline replaces all of
+`/media/sharpnrllpDrive/sharpnr-webapps-backup/sharpnr-docs`. The pipeline replaces all of
 that. Order matters:
 
 ```bash
@@ -80,8 +80,8 @@ fresh bundle to `/var/www/docs`, restart the *old* unit — which still points a
 `/media/...` — and report success while the site keeps serving the previous
 build. A silent stale deploy is worse than a red pipeline.
 
-Once it is live, `/media/sharpnrllpDrive/frontends/sharpnr-docs` is dead weight
-and can go. Note that `/media/sharpnrllpDrive/frontends` is also `BACKUP_BASE`,
+Once it is live, `/media/sharpnrllpDrive/sharpnr-webapps-backup/sharpnr-docs` is dead weight
+and can go. Note that `/media/sharpnrllpDrive/sharpnr-webapps-backup` is also `BACKUP_BASE`,
 so the pipeline will start writing `docs/<timestamp>/` backups alongside it.
 
 ## Ports

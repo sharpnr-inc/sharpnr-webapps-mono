@@ -1,14 +1,13 @@
 # Sharpnr Docs (Next.js / fumadocs) -- install to /etc/systemd/system/
 #
-# REPLACES the existing sharpnr-docs unit, which points at the old out-of-band
-# location (/media/sharpnrllpDrive/frontends/sharpnr-docs) and builds on the
-# server with npm. The bundle is now Next's "standalone" output, built by
-# Jenkins and copied to /var/www/docs -- no npm, no pnpm, no build on optimus.
+# REPLACES the pre-monorepo unit, which ran `npm start` from an rsynced copy at
+# /media/sharpnrllpDrive/frontends/sharpnr-docs and built on the server. The
+# bundle is now Next's "standalone" output, built by Jenkins and copied to
+# /var/www/docs -- no npm, no pnpm, no build on optimus.
 #
-#   sudo systemctl cat sharpnr-docs > ~/sharpnr-docs.service.bak   # keep the old one
+#   sudo systemctl cat sharpnr-docs > ~/sharpnr-docs.service.bak
 #   sudo cp deploy/docs/sharpnr-docs.service /etc/systemd/system/
 #   sudo systemctl daemon-reload
-#   sudo systemctl restart sharpnr-docs
 
 [Unit]
 Description=Sharpnr Docs (Next.js)
@@ -22,25 +21,30 @@ Group=webdeploy
 # server.js sits at <root>/apps/docs/ because Next mirrors the workspace
 # layout inside the standalone bundle.
 WorkingDirectory=/var/www/docs/apps/docs
-ExecStart=/usr/bin/node server.js
+
+# There is no system node on this host -- node is nvm-managed under
+# /home/sharpnrllp. That is also why ProtectHome must NOT be set: it would hide
+# /home and the binary with it. Update this path when the nvm version changes,
+# or install a system node and point here instead.
+ExecStart=/home/sharpnrllp/.nvm/versions/node/v22.22.3/bin/node server.js
+Environment=PATH=/home/sharpnrllp/.nvm/versions/node/v22.22.3/bin:/usr/local/sbin:/usr/local/bin:/usr/bin
 
 Environment=NODE_ENV=production
-# Matches the existing proxy_pass in sites-available/sharpnr-docs-app.
-# With standalone, the port comes from PORT -- the package.json `start` script
-# (--port 6954) is not used, so this is the only thing that sets it.
+# Matches proxy_pass in sites-available/sharpnr-docs-app. Under standalone the
+# package.json `start` script is unused, so this is the only thing setting it.
 Environment=PORT=6956
 # Bind loopback only; without this Next listens on 0.0.0.0 and the app is
 # reachable directly on :6956 from the LAN, bypassing nginx.
 Environment=HOSTNAME=127.0.0.1
 
-Restart=on-failure
+Restart=always
 RestartSec=5
 
 NoNewPrivileges=true
 PrivateTmp=true
-ProtectSystem=strict
-ProtectHome=true
-ReadOnlyPaths=/var/www/docs
+
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
