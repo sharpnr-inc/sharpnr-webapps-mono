@@ -34,6 +34,7 @@
       "host": "orchestrator.sharpnr.test",
       "port": 6969
     },
+    { "name": "healthcare", "host": "healthcare.sharpnr.test", "port": 6970 },
     {
       "name": "docs",
       "host": "docs.sharpnr.test",
