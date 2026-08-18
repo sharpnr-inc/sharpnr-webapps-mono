@@ -10,7 +10,7 @@ import { config } from "@sharpnr/env";
  *      (e.g. `auth.sharpnr.com?redirect_uri=https://evil.com`).
  *
  * ── Adding a new app ──────────────────────────────────────────────────────────
- *   • At build time: add an entry to `baseApps` below (and its env var in env.ts).
+ *   • At build time: add an entry to `baseApps` below, and its URL to @sharpnr/env.
  *   • At runtime:    call `registerApp({ key, name, url })` from anywhere.
  */
 export interface SharpnrApp {
@@ -37,6 +37,8 @@ const baseApps: SharpnrApp[] = [
   { key: "folio", name: "Folio", url: config.folioAppUrl },
   { key: "marketplace", name: "Marketplace", url: config.marketplaceAppUrl },
   { key: "cortex", name: "Cortex", url: config.cortexAppUrl },
+  { key: "stockwave", name: "Stockwave", url: config.stockwaveAppUrl },
+  { key: "healthcare", name: "Healthcare", url: config.healthcareAppUrl },
 ];
 
 /** The app users land on when no valid redirect target is supplied. */
