@@ -11,7 +11,7 @@ import topLevelAwait from "vite-plugin-top-level-await";
 export default defineConfig({
   // One .env at the repo root serves every app; Vite would otherwise
   // only look inside this app's directory.
-  envDir: path.resolve(__dirname, "../.."),
+  envDir: path.resolve(import.meta.dirname, "../.."),
   plugins: [
     devtools({
       eventBusConfig: {
@@ -37,6 +37,24 @@ export default defineConfig({
     exclude: ["@cedar-policy/cedar-wasm"],
   },
   build: {
+    rollupOptions: {
+      output: {
+        // Split the shared baseline out of the app bundle. Nearly all of these
+        // apps' weight is @sharpnr/ui + TanStack + radix, which changes rarely,
+        // while app code changes every deploy -- keeping them in one chunk made
+        // every release invalidate the whole download.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return "react";
+          if (id.includes("@tanstack")) return "tanstack";
+          if (id.includes("@radix-ui") || id.includes("radix-ui")) return "radix";
+          // Everything else falls through to Vite's default chunking, which
+          // respects the router's per-route dynamic imports. A catch-all
+          // "vendor" bucket here pulled route-lazy libs back into one eager
+          // chunk and made the heavy apps considerably worse.
+        },
+      },
+    },
     // vite-plugin-top-level-await emits TLA that esbuild cannot downlevel to
     // Vite 8's default browser target. This app already requires wasm + TLA,
     // so raising the target does not change its effective browser floor.
@@ -45,7 +63,7 @@ export default defineConfig({
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
 

@@ -5,7 +5,7 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   // One .env at the repo root serves every app.
-  envDir: path.resolve(__dirname, "../.."),
+  envDir: path.resolve(import.meta.dirname, "../.."),
   plugins: [react()],
   server: {
     host: true,
@@ -13,7 +13,27 @@ export default defineConfig({
     strictPort: true,
     allowedHosts: ["cortex.sharpnr.test"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Split the shared baseline out of the app bundle. Nearly all of these
+        // apps' weight is @sharpnr/ui + TanStack + radix, which changes rarely,
+        // while app code changes every deploy -- keeping them in one chunk made
+        // every release invalidate the whole download.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return "react";
+          if (id.includes("@tanstack")) return "tanstack";
+          if (id.includes("@radix-ui") || id.includes("radix-ui")) return "radix";
+          // Everything else falls through to Vite's default chunking, which
+          // respects the router's per-route dynamic imports. A catch-all
+          // "vendor" bucket here pulled route-lazy libs back into one eager
+          // chunk and made the heavy apps considerably worse.
+        },
+      },
+    },
+  },
   resolve: {
-    alias: { "@": path.resolve(__dirname, "./src") },
+    alias: { "@": path.resolve(import.meta.dirname, "./src") },
   },
 });

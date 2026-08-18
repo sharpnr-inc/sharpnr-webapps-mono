@@ -7,7 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   // One .env at the repo root serves every app.
-  envDir: path.resolve(__dirname, "../.."),
+  envDir: path.resolve(import.meta.dirname, "../.."),
   plugins: [
     tanstackRouter({
       target: "react",
@@ -23,8 +23,24 @@ export default defineConfig({
     strictPort: true,
     allowedHosts: ["healthcare.sharpnr.test"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return "react";
+          if (id.includes("@tanstack")) return "tanstack";
+          if (id.includes("@radix-ui") || id.includes("radix-ui")) return "radix";
+          // Everything else falls through to Vite's default chunking, which
+          // respects the router's per-route dynamic imports. A catch-all
+          // "vendor" bucket here pulled route-lazy libs back into one eager
+          // chunk and made the heavy apps considerably worse.
+        },
+      },
+    },
+  },
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
-    alias: { "@": path.resolve(__dirname, "./src") },
+    alias: { "@": path.resolve(import.meta.dirname, "./src") },
   },
 });
