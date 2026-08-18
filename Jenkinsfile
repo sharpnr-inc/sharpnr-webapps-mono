@@ -29,6 +29,9 @@ pipeline {
     options {
         timestamps()
         disableConcurrentBuilds()
+        // Builds are serialized (turbo concurrency 1) on a memory-tight host, so
+        // a wedged run would otherwise block every later deploy indefinitely.
+        timeout(time: 45, unit: 'MINUTES')
     }
 
     stages {
@@ -96,7 +99,7 @@ pipeline {
             steps {
                 // One .env.production at the repo root serves every app --
                 // each app's vite.config.ts sets envDir to the root.
-                withCredentials([file(credentialsId: 'sharpnr-frontend-env', variable: 'ENV_FILE')]) {
+                withCredentials([file(credentialsId: 'sharpnr-webapps-production-env', variable: 'ENV_FILE')]) {
                     sh 'cp "$ENV_FILE" .env.production'
                 }
                 sh "pnpm turbo build --filter='...[${env.BASE}]'"
@@ -134,8 +137,14 @@ pipeline {
                                     mkdir -p '${BACKUP_BASE}/${dir}/${TIMESTAMP}'
                                     cp -r '${WEB_BASE}/${dir}' '${BACKUP_BASE}/${dir}/${TIMESTAMP}/'
                                 fi
-                                rm -rf '${WEB_BASE}/${dir}'
+                                # Keep the 5 most recent backups per app. The docs bundle is
+                                # ~74 MB, so unbounded retention fills the backup drive.
+                                ls -1dt '${BACKUP_BASE}/${dir}'/*/ 2>/dev/null | tail -n +6 | xargs -r rm -rf
+                                # Clear the contents, not the directory: it was created once
+                                # with 2775 sharpnrllp:webdeploy and the systemd unit reads it
+                                # as sharpnrllp. Recreating it here would hand it to jenkins.
                                 mkdir -p '${WEB_BASE}/${dir}'
+                                find '${WEB_BASE}/${dir}' -mindepth 1 -delete
                                 cp -r '${wsPath}/.next/standalone/.' '${WEB_BASE}/${dir}/'
 
                                 # standalone deliberately omits .next/static. Without
@@ -143,6 +152,9 @@ pipeline {
                                 # or CSS at all.
                                 mkdir -p '${WEB_BASE}/${dir}/${wsPath}/.next/static'
                                 cp -r '${wsPath}/.next/static/.' '${WEB_BASE}/${dir}/${wsPath}/.next/static/'
+
+                                # jenkins writes it, but the unit runs as sharpnrllp.
+                                chmod -R a+rX '${WEB_BASE}/${dir}'
 
                                 sudo systemctl restart '${service}'
                             """
@@ -156,6 +168,9 @@ pipeline {
                                     mkdir -p '${BACKUP_BASE}/${dir}/${TIMESTAMP}'
                                     cp -r '${WEB_BASE}/${dir}/dist' '${BACKUP_BASE}/${dir}/${TIMESTAMP}/dist'
                                 fi
+                                # Keep the 5 most recent backups per app. The docs bundle is
+                                # ~74 MB, so unbounded retention fills the backup drive.
+                                ls -1dt '${BACKUP_BASE}/${dir}'/*/ 2>/dev/null | tail -n +6 | xargs -r rm -rf
                                 rm -rf '${WEB_BASE}/${dir}/dist'
                                 mkdir -p '${WEB_BASE}/${dir}/dist'
                                 cp -r '${wsPath}/dist/.' '${WEB_BASE}/${dir}/dist/'

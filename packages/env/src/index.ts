@@ -44,6 +44,7 @@ import { z } from "zod";
  * config.hrAppUrl             → Sharp-HR (HRMS & Payroll)
  * config.iamAppUrl            → SharpIAM (Employee Portal)
  * config.hospitalityAppUrl    → Sharp-Hospitality (Business Ops - Hospitality)
+ * config.healthcareAppUrl     → Sharp-Healthcare (Business Ops - Clinics & Hospitals)
  * config.marketplaceAppUrl    → Sharp-Marketplace (B2B / O2O Platform)
  * config.stockwaveAppUrl      → Stockwave (Inventory)
  * config.authAppUrl           → Auth App (Login portal)
@@ -85,6 +86,7 @@ const envSchema = z.object({
 
   // Business operation apps
   VITE_API_HOSPITALITY_APP: appUrl,
+  VITE_API_HEALTHCARE_APP: appUrl,
 
   // Guide & documentation
   VITE_API_SHARPNRS_GUIDE_DOCS_APP: appUrl,
@@ -160,6 +162,7 @@ export function createConfig(rawEnv: unknown) {
 
     // Business Operation Apps
     hospitalityAppUrl: env.VITE_API_HOSPITALITY_APP, // Hotels, restaurants, POS
+    healthcareAppUrl: env.VITE_API_HEALTHCARE_APP, // Clinics, hospitals, patient records
 
     // Guide & Documentation
     docsAppUrl: env.VITE_API_SHARPNRS_GUIDE_DOCS_APP,
