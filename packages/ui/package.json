@@ -60,6 +60,7 @@
     "@base-ui/react": "^1.7.0",
     "@fontsource-variable/outfit": "^5.2.8",
     "@shadcn/react": "^0.3.0",
+    "@sharpnr/env": "workspace:*",
     "@sharpnr/utils": "workspace:*",
     "cmdk": "catalog:",
     "date-fns": "^4.4.0",

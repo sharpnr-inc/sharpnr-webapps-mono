@@ -11,7 +11,8 @@ import {
 /**
  * Hospitality's launcher lists this app's own workspaces rather than the
  * Sharpnr suite, so it overrides the shared default via the `sections` prop.
- * `description` and `accent` are required by the shared LauncherItem shape.
+ * Items carry a `to` (internal route), which the launcher hands back through
+ * `onNavigate` -- unlike the default sections, which link out via `href`.
  */
 export const HOSPITALITY_SECTIONS: LauncherSection[] = [
   {
@@ -24,7 +25,6 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         description: "Rooms, bookings & guests",
         icon: Hotel,
         to: "/hotel",
-        accent: "#f59e0b",
       },
       {
         id: "restaurant",
@@ -32,7 +32,6 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         description: "Menus, tables & orders",
         icon: UtensilsCrossed,
         to: "/restaurant",
-        accent: "#ef4444",
       },
       {
         id: "bar",
@@ -40,7 +39,6 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         description: "Drinks & tabs",
         icon: Beer,
         to: "/bar",
-        accent: "#8b5cf6",
       },
       {
         id: "nightclub",
@@ -48,7 +46,6 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         description: "Events & entry",
         icon: Music2,
         to: "/nc",
-        accent: "#ec4899",
       },
     ],
   },
@@ -62,7 +59,6 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         description: "Prep & ticket flow",
         icon: ChefHat,
         to: "/infra/kitchen",
-        accent: "#f97316",
       },
       {
         id: "loading_dock",
@@ -70,7 +66,6 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         description: "Deliveries & stock in",
         icon: Warehouse,
         to: "/infra/loading_dock",
-        accent: "#22d3ee",
       },
     ],
   },
