@@ -8,6 +8,11 @@
   // build alone peaks at ~2.3 GB, so anything above 1 risks the OOM killer
   // choosing a production service instead of the build.
   // Override locally for faster dev builds: TURBO_CONCURRENCY=4 pnpm build
+  //
+  // NOTE: this applies to `dev` too, where turbo requires concurrency to exceed
+  // the number of persistent tasks -- so the root `dev` script passes
+  // --concurrency=16 explicitly. Without it, even `turbo dev --filter <one-app>`
+  // refuses to start.
   "concurrency": "1",
   "globalDependencies": [".env.production", ".env.development"],
   "tasks": {

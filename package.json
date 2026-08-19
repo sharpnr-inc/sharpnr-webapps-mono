@@ -5,7 +5,7 @@
   "packageManager": "pnpm@11.22.0",
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "turbo dev --concurrency=16",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
