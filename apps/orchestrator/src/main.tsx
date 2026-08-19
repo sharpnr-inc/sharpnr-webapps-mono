@@ -8,13 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { queryClient, router } from "./router_config.tsx";
 import { Toaster } from "sonner";
-import {
-  GlobalLoader,
-  SheetProvider,
-  ThemeProvider,
-  TooltipProvider,
-} from "@sharpnr/ui";
-import { ModalProvider } from "./hooks/useModal.tsx";
+import { GlobalLoader, SheetProvider, ThemeProvider, TooltipProvider, ModalProvider } from "@sharpnr/ui";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

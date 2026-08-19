@@ -4,9 +4,8 @@ import {
   useAllInventoriesAccounts,
   useRestaurantInventories,
 } from "../apis/queries";
-import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
-import { Badge } from "@sharpnr/ui";
+import { Badge, useFormsModal } from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
 import { Card, CardContent, CardHeader } from "@sharpnr/ui";
 import { Skeleton } from "@sharpnr/ui";

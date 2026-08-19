@@ -526,9 +526,14 @@ export {
 } from "./components/ui/toggle";
 
 export { useIsMobile } from "./hooks/use-mobile";
-export { DialogModalProvider, useDialogModal } from "./hooks/useDialog";
 export { SheetProvider, useSheet } from "./hooks/useSheets";
 export { FormsModalProvider, useFormsModal } from "./hooks/useFormModal";
+export { ModalProvider, useModal } from "./hooks/useModal";
+export type {
+  ModalSize,
+  OpenModalOptions,
+  ModalContextValue,
+} from "./hooks/useModal";
 export { ThemeProvider, useTheme } from "./hooks/theme-provider";
 export { ModeToggle } from "./hooks/ThemeToggle";
 

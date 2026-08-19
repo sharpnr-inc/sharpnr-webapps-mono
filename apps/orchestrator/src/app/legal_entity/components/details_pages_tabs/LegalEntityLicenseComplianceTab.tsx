@@ -1,4 +1,4 @@
-import { Button, Skeleton } from "@sharpnr/ui";
+import { Button, Skeleton, useModal } from "@sharpnr/ui";
 import {
   ShieldCheck,
   ShieldX,
@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import type { LegalEntityComplianceResponseDto } from "../../api/types";
 import { getLegalEntityLicenseTypeLabel } from "../../utils/entity_type";
-import { useModal } from "@/hooks/useModal";
 import { AddLicenseAndComplianceForm } from "../forms/AddLicenseAndComplianceForm";
 
 interface LegalEntityLicenseComplianceTabProps {

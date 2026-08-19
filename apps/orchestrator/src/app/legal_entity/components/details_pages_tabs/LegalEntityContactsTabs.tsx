@@ -1,9 +1,8 @@
-import { Button, Skeleton } from "@sharpnr/ui";
+import { Button, Skeleton, useModal } from "@sharpnr/ui";
 import { Mail, Phone, User, Plus, Pencil } from "lucide-react";
 import type { LegalEntityContactResponseDto } from "../../api/types";
 import { LegalEntityContactTypeLabel } from "../../utils/entity_type";
 import { AddContactsForm } from "../forms/AddContactsForm";
-import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityContactsAndPeopleTabProps {
   legalEntityID?: string;

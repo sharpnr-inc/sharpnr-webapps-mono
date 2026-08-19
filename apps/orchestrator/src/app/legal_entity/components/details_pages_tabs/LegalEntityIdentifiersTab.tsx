@@ -1,4 +1,4 @@
-import { Button, Skeleton } from "@sharpnr/ui";
+import { Button, Skeleton, useModal } from "@sharpnr/ui";
 import {
   ShieldCheck,
   ShieldAlert,
@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import type { LegalEntityIdentifierResponseDto } from "../../api/types";
 import { getLegalEntityIdentifierTypeLabel } from "../../utils/entity_type";
-import { useModal } from "@/hooks/useModal";
 import { AddIdentifiersForm } from "../forms/AddIdentifersForm";
 
 interface LegalEntityIdentifiersTabProps {

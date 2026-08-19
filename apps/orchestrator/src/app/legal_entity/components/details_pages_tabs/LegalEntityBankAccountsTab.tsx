@@ -1,9 +1,8 @@
-import { Button, Skeleton } from "@sharpnr/ui";
+import { Button, Skeleton, useModal } from "@sharpnr/ui";
 import { Landmark, Plus, ShieldCheck, ShieldX } from "lucide-react";
 import type { LegalEntityBankAccountsResponseDto } from "../../api/types";
 import { getLegalEntityBankAccountTypeLabel } from "../../utils/entity_type";
 import { AddBankAccountForm } from "../forms/AddBankAccountForm";
-import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityBankAccountsTabProps {
   legalEntityID: string;

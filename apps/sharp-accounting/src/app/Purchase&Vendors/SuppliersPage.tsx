@@ -14,7 +14,7 @@ import {
   Truck,
   Import,
 } from "lucide-react";
-import { useFormsModal } from "@/hooks/FormModalContext";
+import { useFormsModal } from "@sharpnr/ui";
 import { AddNewSupplierForm } from "@/app/shared/forms/AddNewSupplier";
 import { useNavigate } from "@tanstack/react-router";
 import { useLegalEntitySuppliers } from "@/app/api/queries/suppliers";

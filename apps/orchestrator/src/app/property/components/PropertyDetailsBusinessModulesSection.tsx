@@ -30,13 +30,7 @@ import {
   Wine,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import {
-  Badge,
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@sharpnr/ui";
+import { Badge, Card, CardDescription, CardHeader, CardTitle, useModal } from "@sharpnr/ui";
 import { usePropertyBusinessOpModules } from "../api/queries";
 import type {
   HealthcareBusinessModule,
@@ -47,7 +41,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@sharpnr/ui";
-import { useModal } from "@/hooks/useModal";
 import BusinessModuleCatalog from "@/business_operation/shared/BusinessModuleCatalog";
 import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";
 

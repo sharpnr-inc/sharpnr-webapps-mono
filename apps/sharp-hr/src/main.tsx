@@ -5,9 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import { queryClient, router } from "./router_config";
 import { Toaster } from "sonner";
-import { TooltipProvider } from "@sharpnr/ui";
-import { GlobalLoader, SheetProvider, ThemeProvider } from "@sharpnr/ui";
-import { ModalProvider } from "./hooks/useModal";
+import { TooltipProvider, ModalProvider, GlobalLoader, SheetProvider, ThemeProvider } from "@sharpnr/ui";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

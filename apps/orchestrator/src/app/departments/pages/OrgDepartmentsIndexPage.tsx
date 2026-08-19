@@ -11,7 +11,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@sharpnr/ui";
 import CreateDepartmentsForm from "../components/CreateDepartmentsForm";
 import { DUMMY_DEPARTMENTS, type Department } from "../data/dummyDepartments";
 

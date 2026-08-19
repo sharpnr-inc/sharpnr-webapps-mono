@@ -5,10 +5,7 @@ import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient, router } from "./router_config";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
-import { TooltipProvider } from "@sharpnr/ui";
-import { ThemeProvider, SheetProvider } from "@sharpnr/ui";
-import { ModalProvider } from "./hooks/useModal";
-import { FormsModalProvider } from "./hooks/FormModalContext";
+import { TooltipProvider, ModalProvider, ThemeProvider, SheetProvider, FormsModalProvider } from "@sharpnr/ui";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -1,4 +1,4 @@
-import { ScrollArea, Skeleton } from "@sharpnr/ui";
+import { ScrollArea, Skeleton, useIsMobile } from "@sharpnr/ui";
 import {
   Bell,
   Clock,
@@ -9,7 +9,6 @@ import {
   Play,
   ChevronDown,
 } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 import React from "react";
 
 // ─── Section wrapper ───────────────────────────────────────────────────────────

@@ -9,7 +9,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { cn } from "@sharpnr/utils";
+import { cn } from "../lib/utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -28,7 +28,7 @@ export interface OpenModalOptions {
   onClose?: () => void;
 }
 
-interface ModalContextValue {
+export interface ModalContextValue {
   openModal: (options: OpenModalOptions) => void;
   closeModal: () => void;
   updateModal: (partial: Partial<Omit<OpenModalOptions, "content">>) => void;

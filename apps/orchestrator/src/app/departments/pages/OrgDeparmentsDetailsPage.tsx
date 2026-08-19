@@ -2,17 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "@tanstack/react-router";
 import { Route } from "@/routes/_appuser/deparments/$departmentID/index";
-import {
-  Button,
-  Input,
-  Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  toast,
-} from "@sharpnr/ui";
+import { Button, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, toast, useModal } from "@sharpnr/ui";
 import {
   ArrowLeft,
   Building2,
@@ -25,7 +15,6 @@ import {
   UserRound,
   Users,
 } from "lucide-react";
-import { useModal } from "@/hooks/useModal";
 import { DUMMY_DEPARTMENTS } from "../data/dummyDepartments";
 
 /* ─────────────────────────────────────────────
