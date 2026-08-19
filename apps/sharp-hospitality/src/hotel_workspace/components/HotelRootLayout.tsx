@@ -16,10 +16,9 @@ import {
 import { Building2, ChevronsUpDown, Check } from "lucide-react";
 import React from "react";
 import { Separator } from "@sharpnr/ui";
-import SharpnrLauncher from "@/components/header/SharpnrLauncher";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { UserCard } from "@/components/header/UserCard";
-import { ModeToggle } from "@/components/header/ThemeToggle";
+import AppLauncher from "@/components/header/AppLauncher";
+import { NotificationBell, ModeToggle } from "@sharpnr/ui";
+import { AppUserCard } from "@/components/header/AppUserCard";
 
 /* ===============================
    Dummy Property Data
@@ -92,9 +91,9 @@ export function HotelRootLayout() {
               <Separator orientation="vertical" className="h-6" />
             </div>
             <div className="flex items-center gap-3 px-4">
-              <SharpnrLauncher />
+              <AppLauncher />
               <NotificationBell onClick={() => console.log("HI")} />
-              <UserCard />
+              <AppUserCard />
               <ModeToggle />
             </div>
           </header>

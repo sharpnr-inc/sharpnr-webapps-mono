@@ -2,7 +2,7 @@ import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
 import NotFound from "./components/ui/404Page";
-import SharpnrLauncher from "./components/header/SharpnrLauncher";
+import AppLauncher from "./components/header/AppLauncher";
 // import {
 //   hotelDetailMask,
 //   propertyDetailsMask,
@@ -12,7 +12,7 @@ export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,
-  defaultPendingComponent: () => <SharpnrLauncher />,
+  defaultPendingComponent: () => <AppLauncher />,
   defaultNotFoundComponent: () => <NotFound />,
   // routeMasks: [propertyDetailsMask, hotelDetailMask],
   defaultViewTransition: true,

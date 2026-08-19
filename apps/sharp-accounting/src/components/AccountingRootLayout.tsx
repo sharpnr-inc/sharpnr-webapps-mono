@@ -1,4 +1,4 @@
-import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -27,11 +27,17 @@ import {
 } from "@sharpnr/ui";
 import { TooltipProvider } from "@sharpnr/ui";
 import { Separator } from "@sharpnr/ui";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { UserCard } from "@/components/header/UserCard";
-import { ModeToggle } from "@/components/header/ThemeToggle";
+import {
+  NotificationBell,
+  UserCard,
+  ModeToggle,
+  SharpnrLauncher,
+} from "@sharpnr/ui";
+import { config } from "@sharpnr/env";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutation";
+import { QuickAccess } from "@/components/header/QuickAccess";
 import { accountingSidebar, type AccountingNavItem } from "./AccountingNavs";
-import SharpnrLauncher from "./SharpnrLauncher/SharpnrLauncher";
 
 /* ================================
    Nav Item
@@ -68,6 +74,10 @@ function AccountingNavItem({ item }: { item: AccountingNavItem }) {
 
 const AccountingRootLayout = () => {
   const { openSheet } = useSheet();
+  const navigate = useNavigate();
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   return (
     <SidebarProvider>
       <TooltipProvider>
@@ -106,9 +116,16 @@ const AccountingRootLayout = () => {
               <Separator orientation="vertical" className="h-6" />
             </div>
             <div className="flex items-center gap-3 px-4">
-              <SharpnrLauncher />
+              <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
               <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
-              <UserCard />
+              <UserCard
+                user={user}
+                isLoading={isLoadingUser}
+                onLogout={() => logoutUser()}
+                isLoggingOut={isLoggingOut}
+                iamUrl={config.iamAppUrl}
+                quickAccess={<QuickAccess />}
+              />
               <ModeToggle />
             </div>
           </header>

@@ -1,4 +1,13 @@
-import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import {
+  NotificationBell,
+  UserCard,
+  ModeToggle,
+  SharpnrLauncher,
+} from "@sharpnr/ui";
+import { config } from "@sharpnr/env";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutation";
 import { Building2 as OrgIcon } from "lucide-react";
 import {
   Sidebar,
@@ -40,10 +49,6 @@ import {
   BadgeDollarSign,
 } from "lucide-react";
 import { Separator } from "@sharpnr/ui";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { UserCard } from "@/components/header/UserCard";
-import { ModeToggle } from "@/components/header/ThemeToggle";
-import SharpnrLauncher from "./SharpnrLauncher/SharpnrLauncher";
 
 /* ───────────────── Types ───────────────── */
 
@@ -275,6 +280,10 @@ const NavMenuItem: React.FC<{ item: NavItem }> = ({ item }) => {
 /* ───────────────── Root Layout ───────────────── */
 
 const SharpHRRootLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   const { openSheet } = useSheet();
 
   const handleOpenNotification = () => {
@@ -321,9 +330,15 @@ const SharpHRRootLayout: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 px-4">
-            <SharpnrLauncher />
+            <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
             <NotificationBell onClick={handleOpenNotification} />
-            <UserCard />
+            <UserCard
+              user={user}
+              isLoading={isLoadingUser}
+              onLogout={() => logoutUser()}
+              isLoggingOut={isLoggingOut}
+              iamUrl={config.iamAppUrl}
+            />
             <ModeToggle />
           </div>
         </header>

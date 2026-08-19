@@ -1,14 +1,19 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { cn } from "@sharpnr/utils";
+import { cn } from "../../lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@sharpnr/ui";
-import { LAUNCHER_SECTIONS, type LauncherItem } from "./launcher.config";
+} from "../ui/dropdown-menu";
+import {
+  LAUNCHER_SECTIONS,
+  type LauncherItem,
+  type LauncherSection,
+} from "./launcher.config";
 
 /* =========================================================
    THEME — lifted from SharpnrSidebarFooter
@@ -337,8 +342,21 @@ function Footer() {
    MAIN COMPONENT
 ========================================================= */
 
-export default function SharpnrLauncher() {
-  const navigate = useNavigate();
+export interface SharpnrLauncherProps {
+  /** Sections to render. Defaults to the shared Sharpnr suite listing. */
+  sections?: LauncherSection[];
+  /**
+   * Called with the item's `to` when a tile is picked. Apps wire this to their
+   * own router (e.g. `const navigate = useNavigate()` -> `navigate({ to })`),
+   * which keeps this package free of a router dependency.
+   */
+  onNavigate?: (to: string) => void;
+}
+
+export default function SharpnrLauncher({
+  sections = LAUNCHER_SECTIONS,
+  onNavigate,
+}: SharpnrLauncherProps = {}) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -354,7 +372,7 @@ export default function SharpnrLauncher() {
   }, []);
 
   const handleNavigate = (to: string) => {
-    navigate({ to });
+    onNavigate?.(to);
     setOpen(false);
   };
 
@@ -506,7 +524,7 @@ export default function SharpnrLauncher() {
 
                 {/* Sections */}
                 <div className="flex flex-col gap-4">
-                  {LAUNCHER_SECTIONS.map((section, sIdx) => (
+                  {sections.map((section, sIdx) => (
                     <motion.div key={section.id} variants={sectionVariants}>
                       <p
                         className="mb-2 px-0.5 text-[9.5px] font-bold uppercase tracking-[0.2em]"
@@ -532,7 +550,7 @@ export default function SharpnrLauncher() {
                         </div>
                       )}
 
-                      {sIdx < LAUNCHER_SECTIONS.length - 1 && (
+                      {sIdx < sections.length - 1 && (
                         <div
                           className="mt-4"
                           style={{

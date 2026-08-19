@@ -6,13 +6,14 @@ import {
   SidebarTrigger,
   useSheet,
 } from "@sharpnr/ui";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import { Bell } from "lucide-react";
-import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
-import { Button, ModeToggle } from "@sharpnr/ui";
+import { Button, ModeToggle, SharpnrLauncher, UserCard } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
-import { UserCard } from "../header/UserCard";
 import { OrchestratorShell } from "./AppSidebar";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/apis/mutation";
+import { config } from "@sharpnr/env";
 
 function HeaderItem({
   children,
@@ -48,6 +49,10 @@ function NotificationBell({ onClick }: { onClick: () => void }) {
 
 function ConsoleLayoutContent() {
   const { openSheet } = useSheet();
+  const navigate = useNavigate();
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
 
   const handleOpen = () => {
     openSheet(
@@ -75,7 +80,7 @@ function ConsoleLayoutContent() {
 
           <div className="flex items-center gap-3 px-6 py-1 rounded-2xl">
             <HeaderItem index={1}>
-              <SharpnrLauncher />
+              <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
             </HeaderItem>
 
             <HeaderItem index={3}>
@@ -83,7 +88,13 @@ function ConsoleLayoutContent() {
             </HeaderItem>
 
             <HeaderItem index={4}>
-              <UserCard />
+              <UserCard
+                user={user}
+                isLoading={isLoadingUser}
+                onLogout={() => logoutUser()}
+                isLoggingOut={isLoggingOut}
+                iamUrl={config.iamAppUrl}
+              />
             </HeaderItem>
 
             <HeaderItem index={5}>

@@ -7,10 +7,9 @@ import {
 import { Outlet } from "@tanstack/react-router";
 import { BarSideBarNav } from "./BarSideBar";
 import { Separator } from "@sharpnr/ui";
-import SharpnrLauncher from "@/components/header/SharpnrLauncher";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { UserCard } from "@/components/header/UserCard";
-import { ModeToggle } from "@/components/header/ThemeToggle";
+import AppLauncher from "@/components/header/AppLauncher";
+import { NotificationBell, ModeToggle } from "@sharpnr/ui";
+import { AppUserCard } from "@/components/header/AppUserCard";
 
 export function BarRootLayout() {
   return (
@@ -34,9 +33,9 @@ export function BarRootLayout() {
                 <Separator orientation="vertical" className="h-6" />
               </div>
               <div className="flex items-center gap-3 px-4">
-                <SharpnrLauncher />
+                <AppLauncher />
                 <NotificationBell onClick={() => console.log("HI")} />
-                <UserCard />
+                <AppUserCard />
                 <ModeToggle />
               </div>
             </header>

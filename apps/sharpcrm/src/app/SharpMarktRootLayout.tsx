@@ -1,4 +1,5 @@
-import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import { NotificationBell, ModeToggle, SharpnrLauncher } from "@sharpnr/ui";
 import {
   Sidebar,
   SidebarContent,
@@ -18,8 +19,6 @@ import {
   ScrollArea,
   Separator,
 } from "@sharpnr/ui";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { ModeToggle } from "@/components/header/ThemeToggle";
 import {
   BarChart3,
   Bell,
@@ -45,7 +44,6 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
-import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
 
 /* ───────────────── Types ───────────────── */
 
@@ -284,6 +282,7 @@ const NavMenuItem: React.FC<{ item: MarketingNavItem }> = ({ item }) => {
 /* ───────────────── Root Layout ───────────────── */
 
 const SharpMarktRootLayout: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -342,7 +341,7 @@ const SharpMarktRootLayout: React.FC = () => {
             <Separator orientation="vertical" className="h-6" />
           </div>
           <div className="flex items-center gap-3 px-4">
-            <SharpnrLauncher />
+            <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
             <NotificationBell onClick={() => {}} />
 
             <ModeToggle />

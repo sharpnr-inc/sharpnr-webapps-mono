@@ -9,7 +9,7 @@ import SuspenseFallback from "./components/ui/SuspenseFallback";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@sharpnr/ui";
 import { FormsModalProvider } from "./hooks/FormModalContext";
-import { ThemeProvider } from "./components/ui/theme-provider";
+import { ThemeProvider } from "@sharpnr/ui";
 import PwaReloadPrompt from "./components/PwaReloadPrompt";
 
 createRoot(document.getElementById("root")!).render(

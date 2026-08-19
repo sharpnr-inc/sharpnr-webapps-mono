@@ -1,16 +1,24 @@
-import { Outlet, useRouteContext } from "@tanstack/react-router";
+import { Outlet, useRouteContext, useNavigate } from "@tanstack/react-router";
 import { Sidebar, SidebarProvider, SidebarTrigger } from "@sharpnr/ui";
 import { AppSidebar } from "./AppSidebar";
-import { ModeToggle } from "@sharpnr/ui";
+import {
+  ModeToggle,
+  NotificationBell,
+  UserCard,
+  SharpnrLauncher,
+} from "@sharpnr/ui";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutations";
 import { Separator } from "@sharpnr/ui";
-import SharpnrLauncher from "../SharpnrLauncher/SharpnrLauncher";
-import { NotificationBell } from "../header/NotificationButton";
-import { UserCard } from "../header/UserCard";
 import { useSheet } from "@sharpnr/ui";
 import { config } from "@sharpnr/env";
 import { motion, AnimatePresence } from "framer-motion";
 
 const RootLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   const { openSheet } = useSheet();
   const { showSetupOverlay } = useRouteContext({ from: "/_user" });
 
@@ -151,9 +159,14 @@ const RootLayout: React.FC = () => {
                 <Separator orientation="vertical" className="h-6" />
               </div>
               <div className="flex items-center gap-3 px-4">
-                <SharpnrLauncher />
+                <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
                 <NotificationBell onClick={() => handleOpenNotification()} />
-                <UserCard />
+                <UserCard
+                  user={user}
+                  isLoading={isLoadingUser}
+                  onLogout={() => logoutUser()}
+                  isLoggingOut={isLoggingOut}
+                />
                 <ModeToggle />
               </div>
             </header>

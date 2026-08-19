@@ -531,3 +531,19 @@ export { SheetProvider, useSheet } from "./hooks/useSheets";
 export { FormsModalProvider, useFormsModal } from "./hooks/useFormModal";
 export { ThemeProvider, useTheme } from "./hooks/theme-provider";
 export { ModeToggle } from "./hooks/ThemeToggle";
+
+/* ── Shared app chrome (header + launcher) ─────────────────
+   Moved out of each app's src/components so the six apps that
+   render them share one implementation. App-specific data
+   (user, logout, routing) is injected via props. */
+export { NotificationBell } from "./components/header/NotificationButton";
+export { useUserCardStore } from "./components/header/user_card_store";
+export { UserCard } from "./components/header/UserCard";
+export type { UserCardProps, UserCardUser } from "./components/header/UserCard";
+export { default as SharpnrLauncher } from "./components/launcher/SharpnrLauncher";
+export type { SharpnrLauncherProps } from "./components/launcher/SharpnrLauncher";
+export {
+  LAUNCHER_SECTIONS,
+  type LauncherItem,
+  type LauncherSection,
+} from "./components/launcher/launcher.config";
