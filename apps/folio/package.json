@@ -16,7 +16,6 @@
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",
-    "@tanstack/react-router-devtools": "^1.166.13",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:"

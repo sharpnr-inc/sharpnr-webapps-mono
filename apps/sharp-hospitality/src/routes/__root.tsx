@@ -6,7 +6,6 @@ interface MyRouterContext {
 const RootLayout = () => (
   <>
     <Outlet />
-    {/* <TanStackRouterDevtools /> */}
   </>
 );
 
