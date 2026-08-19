@@ -14,6 +14,7 @@
     "@gsap/react": "^2.1.2",
     "@sharpnr/env": "workspace:*",
     "@sharpnr/http": "workspace:*",
+    "@sharpnr/iva": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@sharpnr/utils": "workspace:*",
     "@tailwindcss/vite": "catalog:",

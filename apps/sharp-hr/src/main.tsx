@@ -6,22 +6,25 @@ import "./index.css";
 import { queryClient, router } from "./router_config";
 import { Toaster } from "sonner";
 import { TooltipProvider, ModalProvider, GlobalLoader, SheetProvider, ThemeProvider } from "@sharpnr/ui";
+import { IvaProvider } from "@sharpnr/iva";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider storageKey="hr-app-ui-theme">
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <SheetProvider>
-            <ModalProvider>
-              <Suspense fallback={<GlobalLoader />}>
-                <RouterProvider router={router} />
-                <Toaster />
-              </Suspense>
-            </ModalProvider>
-          </SheetProvider>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <IvaProvider>
+      <ThemeProvider storageKey="hr-app-ui-theme">
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <SheetProvider>
+              <ModalProvider>
+                <Suspense fallback={<GlobalLoader />}>
+                  <RouterProvider router={router} />
+                  <Toaster />
+                </Suspense>
+              </ModalProvider>
+            </SheetProvider>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </IvaProvider>
   </StrictMode>,
 );

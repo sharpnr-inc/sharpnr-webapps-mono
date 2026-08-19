@@ -6,20 +6,23 @@ import "./index.css";
 import { SheetProvider, ThemeProvider, ModalProvider, TooltipProvider } from "@sharpnr/ui";
 import { queryClient, router } from "./router_config";
 import { Toaster } from "sonner";
+import { IvaProvider } from "@sharpnr/iva";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider storageKey="iam-ui-theme">
-      <TooltipProvider>
-        <QueryClientProvider client={queryClient}>
-          <SheetProvider>
-            <ModalProvider>
-              <RouterProvider router={router} />
-              <Toaster />
-            </ModalProvider>
-          </SheetProvider>
-        </QueryClientProvider>
-      </TooltipProvider>
-    </ThemeProvider>
+    <IvaProvider>
+      <ThemeProvider storageKey="iam-ui-theme">
+        <TooltipProvider>
+          <QueryClientProvider client={queryClient}>
+            <SheetProvider>
+              <ModalProvider>
+                <RouterProvider router={router} />
+                <Toaster />
+              </ModalProvider>
+            </SheetProvider>
+          </QueryClientProvider>
+        </TooltipProvider>
+      </ThemeProvider>
+    </IvaProvider>
   </StrictMode>,
 );

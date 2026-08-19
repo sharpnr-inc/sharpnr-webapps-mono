@@ -13,6 +13,7 @@
     "@fontsource-variable/outfit": "^5.2.8",
     "@sharpnr/env": "workspace:*",
     "@sharpnr/http": "workspace:*",
+    "@sharpnr/iva": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@sharpnr/utils": "workspace:*",
     "@tailwindcss/vite": "catalog:",

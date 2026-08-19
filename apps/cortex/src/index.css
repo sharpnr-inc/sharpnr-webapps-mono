@@ -3,6 +3,7 @@
 @import "@fontsource-variable/outfit";
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
+@source "../../../packages/iva/src";
 
 :root {
   --text: #6b6375;
