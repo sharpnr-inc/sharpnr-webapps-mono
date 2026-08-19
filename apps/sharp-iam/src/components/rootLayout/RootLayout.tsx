@@ -159,7 +159,10 @@ const RootLayout: React.FC = () => {
                 <Separator orientation="vertical" className="h-6" />
               </div>
               <div className="flex items-center gap-3 px-4">
-                <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
+                <SharpnrLauncher
+                  currentApp="iam"
+                  onNavigate={(to) => navigate({ to })}
+                />
                 <NotificationBell onClick={() => handleOpenNotification()} />
                 <UserCard
                   user={user}

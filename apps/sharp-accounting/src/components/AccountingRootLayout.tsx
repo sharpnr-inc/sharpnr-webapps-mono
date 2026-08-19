@@ -116,7 +116,10 @@ const AccountingRootLayout = () => {
               <Separator orientation="vertical" className="h-6" />
             </div>
             <div className="flex items-center gap-3 px-4">
-              <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
+              <SharpnrLauncher
+                currentApp="accounting"
+                onNavigate={(to) => navigate({ to })}
+              />
               <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
               <UserCard
                 user={user}

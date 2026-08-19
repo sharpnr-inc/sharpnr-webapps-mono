@@ -11,6 +11,7 @@ import {
 } from "../ui/dropdown-menu";
 import {
   LAUNCHER_SECTIONS,
+  type LauncherAppId,
   type LauncherItem,
   type LauncherSection,
 } from "./launcher.config";
@@ -24,37 +25,67 @@ const isMac = () =>
 ========================================================= */
 
 const tileClass = cn(
-  "flex flex-col items-start gap-2 rounded-lg p-2.5 text-left",
+  "relative flex flex-col items-start gap-2 rounded-lg p-2.5 text-left",
   "transition-colors hover:bg-accent focus-visible:bg-accent",
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
 );
 
-function Tile({ item, onSelect }: { item: LauncherItem; onSelect: () => void }) {
+function Tile({
+  item,
+  isCurrent,
+  onSelect,
+}: {
+  item: LauncherItem;
+  isCurrent: boolean;
+  onSelect: () => void;
+}) {
   const body = (
     <>
-      <span className="flex h-9 w-9 items-center justify-center rounded-md border bg-muted/50 text-muted-foreground">
+      <span
+        className={cn(
+          "relative flex h-9 w-9 items-center justify-center rounded-md border",
+          isCurrent
+            ? "border-primary/40 bg-primary/10 text-primary"
+            : "bg-muted/50 text-muted-foreground",
+        )}
+      >
         <item.icon className="h-4.5 w-4.5" strokeWidth={1.75} />
+        {isCurrent && (
+          <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-primary ring-2 ring-popover" />
+        )}
       </span>
       <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="truncate text-xs font-medium leading-none">
+        <span
+          className={cn(
+            "truncate text-xs font-medium leading-none",
+            isCurrent && "text-primary",
+          )}
+        >
           {item.label}
         </span>
-        {item.description && (
-          <span className="truncate text-[10px] leading-tight text-muted-foreground">
-            {item.description}
-          </span>
-        )}
+        <span className="truncate text-[10px] leading-tight text-muted-foreground">
+          {isCurrent ? "You are here" : item.description}
+        </span>
       </span>
     </>
   );
+
+  const className = cn(
+    tileClass,
+    isCurrent && "bg-accent/60 ring-1 ring-primary/25",
+  );
+  const title = isCurrent
+    ? `${item.label} (current app)`
+    : (item.description ?? item.label);
 
   // External Sharpnr apps are plain links (their URL comes from @sharpnr/env);
   // internal routes go back to the host app's router via onNavigate.
   return item.href ? (
     <a
       href={item.href}
-      title={item.description ?? item.label}
-      className={tileClass}
+      title={title}
+      aria-current={isCurrent ? "page" : undefined}
+      className={className}
       onClick={onSelect}
     >
       {body}
@@ -62,8 +93,9 @@ function Tile({ item, onSelect }: { item: LauncherItem; onSelect: () => void }) 
   ) : (
     <button
       type="button"
-      title={item.description ?? item.label}
-      className={tileClass}
+      title={title}
+      aria-current={isCurrent ? "page" : undefined}
+      className={className}
       onClick={onSelect}
     >
       {body}
@@ -79,6 +111,12 @@ export interface SharpnrLauncherProps {
   /** Sections to render. Defaults to the shared Sharpnr suite listing. */
   sections?: LauncherSection[];
   /**
+   * The app doing the rendering, as a `LauncherItem.id`. Its tile is marked as
+   * the current one so a user can see where they already are. Widened to
+   * `string` for apps that pass their own `sections` with their own ids.
+   */
+  currentApp?: LauncherAppId | (string & {});
+  /**
    * Called with an item's `to` when an item without an `href` is picked. Apps
    * wire this to their own router (e.g. `const navigate = useNavigate()` ->
    * `navigate({ to })`), which keeps this package free of a router dependency.
@@ -88,6 +126,7 @@ export interface SharpnrLauncherProps {
 
 export default function SharpnrLauncher({
   sections = LAUNCHER_SECTIONS,
+  currentApp,
   onNavigate,
 }: SharpnrLauncherProps = {}) {
   const [open, setOpen] = useState(false);
@@ -154,6 +193,7 @@ export default function SharpnrLauncher({
                 <Tile
                   key={item.id}
                   item={item}
+                  isCurrent={item.id === currentApp}
                   onSelect={() => handleSelect(item)}
                 />
               ))}

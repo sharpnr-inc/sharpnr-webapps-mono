@@ -13,6 +13,9 @@ import {
  * Sharpnr suite, so it overrides the shared default via the `sections` prop.
  * Items carry a `to` (internal route), which the launcher hands back through
  * `onNavigate` -- unlike the default sections, which link out via `href`.
+ *
+ * NOTE: `/workspace/nc` and `/workspace/infra/loading_dock` have no route in
+ * routeTree.gen.ts yet, so those two tiles still navigate nowhere.
  */
 export const HOSPITALITY_SECTIONS: LauncherSection[] = [
   {
@@ -24,28 +27,28 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         label: "Hotel",
         description: "Rooms, bookings & guests",
         icon: Hotel,
-        to: "/hotel",
+        to: "/workspace/hotel",
       },
       {
         id: "restaurant",
         label: "Restaurant",
         description: "Menus, tables & orders",
         icon: UtensilsCrossed,
-        to: "/restaurant",
+        to: "/workspace/restaurant",
       },
       {
         id: "bar",
         label: "Bar",
         description: "Drinks & tabs",
         icon: Beer,
-        to: "/bar",
+        to: "/workspace/bar",
       },
       {
         id: "nightclub",
         label: "NightClub",
         description: "Events & entry",
         icon: Music2,
-        to: "/nc",
+        to: "/workspace/nc",
       },
     ],
   },
@@ -58,14 +61,14 @@ export const HOSPITALITY_SECTIONS: LauncherSection[] = [
         label: "Kitchen",
         description: "Prep & ticket flow",
         icon: ChefHat,
-        to: "/infra/kitchen",
+        to: "/workspace/infra/kitchen",
       },
       {
         id: "loading_dock",
         label: "Loading Dock",
         description: "Deliveries & stock in",
         icon: Warehouse,
-        to: "/infra/loading_dock",
+        to: "/workspace/infra/loading_dock",
       },
     ],
   },

@@ -34,6 +34,25 @@ export type LauncherItem = {
   to?: string;
 };
 
+/**
+ * Ids of the apps in `LAUNCHER_SECTIONS`, for the launcher's `currentApp` prop.
+ * Apps passing their own `sections` use their own ids instead, which is why
+ * `currentApp` widens this to `string` -- the union is here for autocomplete.
+ */
+export type LauncherAppId =
+  | "orchestrator"
+  | "accounting"
+  | "sharpcrm"
+  | "hr"
+  | "silo"
+  | "cortex"
+  | "folio"
+  | "stockwave"
+  | "marketplace"
+  | "cables"
+  | "hospitality"
+  | "healthcare";
+
 export type LauncherSection = {
   id: string;
   title: string;

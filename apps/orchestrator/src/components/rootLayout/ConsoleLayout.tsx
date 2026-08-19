@@ -80,7 +80,10 @@ function ConsoleLayoutContent() {
 
           <div className="flex items-center gap-3 px-6 py-1 rounded-2xl">
             <HeaderItem index={1}>
-              <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
+              <SharpnrLauncher
+                currentApp="orchestrator"
+                onNavigate={(to) => navigate({ to })}
+              />
             </HeaderItem>
 
             <HeaderItem index={3}>
