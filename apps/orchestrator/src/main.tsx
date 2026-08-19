@@ -7,7 +7,6 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { queryClient, router } from "./router_config.tsx";
-import { AppVersionIdentifier } from "./components/custom/AppVersionIdentifier.tsx";
 import { Toaster } from "sonner";
 import {
   GlobalLoader,
@@ -21,18 +20,16 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <AppVersionIdentifier>
-          <ThemeProvider>
-            <ModalProvider>
-              <SheetProvider>
-                <Suspense fallback={<GlobalLoader />}>
-                  <RouterProvider router={router} />
-                  <Toaster />
-                </Suspense>
-              </SheetProvider>
-            </ModalProvider>
-          </ThemeProvider>
-        </AppVersionIdentifier>
+        <ThemeProvider>
+          <ModalProvider>
+            <SheetProvider>
+              <Suspense fallback={<GlobalLoader />}>
+                <RouterProvider router={router} />
+                <Toaster />
+              </Suspense>
+            </SheetProvider>
+          </ModalProvider>
+        </ThemeProvider>
       </TooltipProvider>
       <TanStackDevtools plugins={[FormDevtoolsPlugin()]} />
 
