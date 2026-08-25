@@ -1,4 +1,4 @@
-import { policyToJson, type PolicyJson } from "@cedar-policy/cedar-wasm";
+import { policyToJson, isCedarReady, type PolicyJson } from "./cedar";
 
 export interface PolicyJsonResult {
   ok: boolean;
@@ -11,6 +11,10 @@ export interface PolicyJsonResult {
  * cedar-wasm. Useful for persisting a structured form of the policy.
  */
 export function convertPolicyToJson(policyText: string): PolicyJsonResult {
+  if (!isCedarReady()) {
+    return { ok: false, json: null, errors: ["Cedar engine is still loading"] };
+  }
+
   const answer = policyToJson(policyText);
 
   if (answer.type === "failure") {

@@ -4,6 +4,7 @@
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
 @source "../../../packages/iva/src";
+@source "../../../packages/policy-builder/src";
 
 :root {
   --text: #6b6375;

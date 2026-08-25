@@ -3,8 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import wasm from "vite-plugin-wasm";
-import topLevelAwait from "vite-plugin-top-level-await";
+import { policyBuilder } from "@sharpnr/policy-builder/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,8 +11,6 @@ export default defineConfig({
   // only look inside this app's directory.
   envDir: path.resolve(import.meta.dirname, "../.."),
   plugins: [
-    wasm(),
-    topLevelAwait(),
     tanstackRouter({
       target: "react",
       autoCodeSplitting: true,
@@ -21,10 +18,8 @@ export default defineConfig({
     }),
     react(),
     tailwindcss(),
+    policyBuilder(),
   ],
-  optimizeDeps: {
-    exclude: ["@cedar-policy/cedar-wasm"],
-  },
   build: {
     rollupOptions: {
       output: {
@@ -44,9 +39,9 @@ export default defineConfig({
         },
       },
     },
-    // vite-plugin-top-level-await emits TLA that esbuild cannot downlevel to
-    // Vite 8's default browser target. This app already requires wasm + TLA,
-    // so raising the target does not change its effective browser floor.
+    // Kept from when this app bundled top-level await. @sharpnr/policy-builder
+    // now initialises cedar-wasm explicitly so no TLA is emitted, but the
+    // es2022 floor is retained deliberately -- lowering it is a separate call.
     target: "es2022",
   },
   resolve: {

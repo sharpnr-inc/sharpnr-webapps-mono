@@ -3,9 +3,10 @@ packages:
   - "packages/*"
 
 overrides:
-  # vite-plugin-top-level-await (orchestrator) calls @swc/core's printSync,
-  # whose API changed in 1.16. npm's hoisting used to land on 1.15.33; pin it
-  # until the plugin supports 1.16+.
+  # Originally pinned because vite-plugin-top-level-await called @swc/core's
+  # printSync, whose API changed in 1.16. That plugin is gone, but @swc/core is
+  # still pulled in by @vitejs/plugin-react-swc, so the pin stays until someone
+  # verifies a bump against it.
   "@swc/core": 1.15.33
 
 # Single source of truth for shared dependency versions. Apps write

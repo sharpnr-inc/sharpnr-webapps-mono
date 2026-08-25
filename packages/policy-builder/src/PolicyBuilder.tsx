@@ -3,6 +3,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useState,
   type ReactNode,
 } from "react";
 import { Plus, Trash2 } from "lucide-react";
@@ -27,6 +28,7 @@ import {
 } from "./store/usePolicyBuilderStore";
 import { buildPolicyText } from "./utils/buildPolicyText";
 import { verifyPolicy } from "./utils/verifyPolicy";
+import { initCedar, isCedarReady } from "./utils/cedar";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Context                                    */
@@ -36,6 +38,8 @@ import { verifyPolicy } from "./utils/verifyPolicy";
 interface PolicyBuilderContextValue {
   text: string;
   valid: boolean;
+  /** False while the Cedar engine loads; `valid` is unverified until then. */
+  engineReady: boolean;
 }
 
 const PolicyBuilderContext = createContext<PolicyBuilderContextValue | null>(
@@ -354,17 +358,23 @@ function Conditions({ className }: { className?: string }) {
  * want to surface a preview alongside the form.
  */
 function Preview({ className }: { className?: string }) {
-  const { text, valid } = usePolicyBuilderContext("Preview");
+  const { text, valid, engineReady } = usePolicyBuilderContext("Preview");
   return (
-    <pre
-      className={cn(
-        "overflow-auto rounded-lg border bg-muted/40 p-4 font-mono text-xs",
-        !valid && "border-destructive/50",
-        className,
-      )}
-    >
-      {text || "// start building to see the generated policy"}
-    </pre>
+    <div className={cn("space-y-1.5", className)}>
+      <pre
+        className={cn(
+          "overflow-auto rounded-lg border bg-muted/40 p-4 font-mono text-xs",
+          engineReady && !valid && "border-destructive/50",
+        )}
+      >
+        {text || "// start building to see the generated policy"}
+      </pre>
+      {!engineReady ? (
+        <p className="text-xs text-muted-foreground">
+          Loading the Cedar engine — the policy has not been validated yet.
+        </p>
+      ) : null}
+    </div>
   );
 }
 
@@ -372,9 +382,36 @@ function Preview({ className }: { className?: string }) {
 /*                              Policy Builder root                           */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Loads the Cedar wasm engine on mount and re-renders once it is usable, so
+ * the generated policy gets validated as soon as the binary lands. Consumers
+ * need no vite.config changes -- see utils/cedar.ts for why.
+ */
+function useCedarReady(): boolean {
+  const [ready, setReady] = useState(isCedarReady);
+
+  useEffect(() => {
+    if (ready) return;
+    let alive = true;
+    void initCedar().then(() => {
+      if (alive) setReady(isCedarReady());
+    });
+    return () => {
+      alive = false;
+    };
+  }, [ready]);
+
+  return ready;
+}
+
 export interface PolicyBuilderProps {
   /** Fired whenever the draft changes, with the generated Cedar text and validity. */
-  onChange?: (result: { text: string; valid: boolean }) => void;
+  onChange?: (result: {
+    text: string;
+    valid: boolean;
+    /** False until the Cedar engine has loaded and actually checked the text. */
+    engineReady: boolean;
+  }) => void;
   /**
    * Compose the builder from its sub-components. When omitted, the default
    * layout (metadata → scope → conditions) is rendered.
@@ -389,6 +426,7 @@ function PolicyBuilderRoot({
   className,
 }: PolicyBuilderProps) {
   const state = usePolicyBuilderStore();
+  const cedarReady = useCedarReady();
   const { name, description, effect, principal, action, resource, conditions } =
     state;
 
@@ -397,9 +435,13 @@ function PolicyBuilderRoot({
   const result = useMemo(() => {
     const text = buildPolicyText(state);
     const verification = verifyPolicy(text);
-    return { text: verification.formatted, valid: verification.ok };
+    return {
+      text: verification.formatted,
+      valid: verification.ok,
+      engineReady: verification.engineReady,
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, description, effect, principal, action, resource, conditions]);
+  }, [name, description, effect, principal, action, resource, conditions, cedarReady]);
 
   // Report the latest draft up to the parent ("is the policy ready to save?").
   useEffect(() => {

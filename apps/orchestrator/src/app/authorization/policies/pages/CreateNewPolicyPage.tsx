@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, ScrollText } from "lucide-react";
 import { Button } from "@sharpnr/ui";
 import { useNavigate } from "@tanstack/react-router";
-import PolicyBuilder from "@/app/authorization/cedarPolicybuilder/PolicyBuilder";
-import { usePolicyBuilderStore } from "@/app/authorization/cedarPolicybuilder/store/usePolicyBuilderStore";
+import { PolicyBuilder, usePolicyBuilderStore } from "@sharpnr/policy-builder";
 
 const CreateNewPolicyPage = () => {
   const nav = useNavigate();

@@ -13,7 +13,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@cedar-policy/cedar-wasm": "^4.11.1",
     "@fontsource-variable/outfit": "^5.2.8",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -32,6 +31,7 @@
     "@sharpnr/env": "workspace:*",
     "@sharpnr/http": "workspace:*",
     "@sharpnr/iva": "workspace:*",
+    "@sharpnr/policy-builder": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@sharpnr/utils": "workspace:*",
     "@tailwindcss/vite": "catalog:",
@@ -89,8 +89,6 @@
     "typescript": "catalog:",
     "typescript-eslint": "^8.39.1",
     "vite": "catalog:",
-    "vite-plugin-top-level-await": "^1.6.0",
-    "vite-plugin-wasm": "^3.6.0",
     "vitest": "catalog:"
   },
   "deploy": {

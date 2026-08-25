@@ -4,6 +4,7 @@
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
 @source "../../../packages/iva/src";
+@source "../../../packages/policy-builder/src";
 
 /* In your main CSS file (e.g., globals.css) */
 

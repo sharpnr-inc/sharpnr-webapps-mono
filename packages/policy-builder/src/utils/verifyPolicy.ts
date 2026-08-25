@@ -1,4 +1,4 @@
-import { checkParsePolicySet, formatPolicies } from "@cedar-policy/cedar-wasm";
+import { checkParsePolicySet, formatPolicies, isCedarReady } from "./cedar";
 
 export interface PolicyVerification {
   ok: boolean;
@@ -6,6 +6,11 @@ export interface PolicyVerification {
   formatted: string;
   /** Human-readable parse errors (empty when ok). */
   errors: string[];
+  /**
+   * False while the Cedar wasm engine is still loading, or if it failed to
+   * load at all. `ok` is only meaningful once this is true.
+   */
+  engineReady: boolean;
 }
 
 /**
@@ -13,6 +18,13 @@ export interface PolicyVerification {
  * Returns whether it's syntactically valid plus a tidied version of the source.
  */
 export function verifyPolicy(policyText: string): PolicyVerification {
+  // The engine loads asynchronously. Report "not yet verified" rather than
+  // "valid" -- callers gate their save button on `ok`, and claiming validity
+  // we have not actually checked is how an unparseable policy gets saved.
+  if (!isCedarReady()) {
+    return { ok: false, formatted: policyText, errors: [], engineReady: false };
+  }
+
   // checkParsePolicySet accepts a raw policy string as `staticPolicies`.
   const parsed = checkParsePolicySet({ staticPolicies: policyText });
 
@@ -23,6 +35,7 @@ export function verifyPolicy(policyText: string): PolicyVerification {
       errors: parsed.errors.map((e) =>
         e.help ? `${e.message} (${e.help})` : e.message,
       ),
+      engineReady: true,
     };
   }
 
@@ -38,5 +51,6 @@ export function verifyPolicy(policyText: string): PolicyVerification {
         ? formattedAnswer.formatted_policy
         : policyText,
     errors: [],
+    engineReady: true,
   };
 }
