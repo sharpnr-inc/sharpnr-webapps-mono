@@ -6,7 +6,6 @@
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
 @source "../../../packages/iva/src";
-@source "../../../packages/policy-builder/src";
 
 /* ─────────────────────────────────────────────────────────────
    Silo "Shear" brand tokens
