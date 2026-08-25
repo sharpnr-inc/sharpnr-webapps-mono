@@ -106,7 +106,7 @@ const AccountingRootLayout = () => {
               <ScrollBar orientation="vertical" />
             </ScrollArea>
           </SidebarContent>
-          <SharpnrSidebarFooter />
+          <SharpnrSidebarFooter appName="Accounting" />
         </Sidebar>
 
         <SidebarInset>

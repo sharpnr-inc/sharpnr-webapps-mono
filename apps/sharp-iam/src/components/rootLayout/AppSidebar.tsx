@@ -100,7 +100,7 @@ export function AppSidebar() {
         </ScrollArea>
       </SidebarContent>
 
-      <SharpnrSidebarFooter />
+      <SharpnrSidebarFooter appName="SharpIAM" />
     </Sidebar>
   );
 }

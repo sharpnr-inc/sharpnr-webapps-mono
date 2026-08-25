@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { useSidebar, SidebarFooter } from "./sidebar";
 import {
   Tooltip,
@@ -21,6 +22,14 @@ const WHITE_DIM = "rgba(240,242,247,0.55)";
 const DEFAULT_LOGO = "https://cdn.sharpnr.com/shicon.svg";
 
 export interface SharpnrSidebarFooterProps {
+  /**
+   * Name of the app rendering this footer, e.g. "Orchestrator" or "Sharp HR".
+   * When set it becomes the primary line and Sharpnr moves to the attribution
+   * line below it. Omit to keep the plain "Powered by / Sharpnr" badge.
+   */
+  appName?: string;
+  /** Optional version or environment pill shown beside the app name. */
+  version?: string;
   /** Where the badge links to. Pass `null` to render a non-interactive badge. */
   href?: string | null;
   /** Small uppercase eyebrow text shown above the brand name. */
@@ -86,6 +95,8 @@ function Logo({ logoSrc, animate }: { logoSrc: string; animate: boolean }) {
 }
 
 export function SharpnrSidebarFooter({
+  appName,
+  version,
   href = "https://sharpnr.com",
   label = "Powered by",
   brand = "Sharpnr",
@@ -99,6 +110,20 @@ export function SharpnrSidebarFooter({
   const isCollapsed = state === "collapsed" && !isMobile;
   const animate = !reduceMotion;
 
+  // With an appName the app leads and Sharpnr becomes the attribution;
+  // without one this falls back to the original eyebrow-over-brand badge.
+  const primary = appName ?? brand;
+  const secondary = appName ? `${label} ${brand}` : label;
+
+  // Screen readers get the destination and the new-tab behaviour, which the
+  // visual arrow only hints at.
+  const accessibleName = [
+    appName ? `${appName} — ${label} ${brand}` : `${label} ${brand}`,
+    href ? "(opens in a new tab)" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   // ── Collapsed: a compact navy brand badge sized to the icon rail ──
   if (isCollapsed) {
     return (
@@ -110,7 +135,7 @@ export function SharpnrSidebarFooter({
                 href={href ?? undefined}
                 target={href ? "_blank" : undefined}
                 rel={href ? "noopener noreferrer" : undefined}
-                aria-label={`${label} ${brand}`}
+                aria-label={accessibleName}
                 whileHover={animate ? { scale: 1.08 } : undefined}
                 whileTap={animate ? { scale: 0.94 } : undefined}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -142,8 +167,15 @@ export function SharpnrSidebarFooter({
               </motion.a>
             </TooltipTrigger>
             <TooltipContent side="right" align="center">
-              <span className="font-medium">{brand}</span>
-              <span className="opacity-60"> · {label}</span>
+              <div className="flex flex-col gap-0.5">
+                <span className="font-medium">
+                  {primary}
+                  {version ? (
+                    <span className="ml-1 font-normal opacity-60">{version}</span>
+                  ) : null}
+                </span>
+                <span className="text-xs opacity-60">{secondary}</span>
+              </div>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -158,7 +190,7 @@ export function SharpnrSidebarFooter({
         href,
         target: "_blank",
         rel: "noopener noreferrer",
-        "aria-label": `${label} ${brand}`,
+        "aria-label": accessibleName,
       }
     : {};
 
@@ -167,8 +199,11 @@ export function SharpnrSidebarFooter({
       <Wrapper
         {...wrapperLinkProps}
         style={{ background: NAVY }}
+        whileHover={animate && href ? { y: -1 } : undefined}
+        whileTap={animate && href ? { scale: 0.99 } : undefined}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className={cn(
-          "relative block overflow-hidden rounded-xl outline-none",
+          "group/brand relative block overflow-hidden rounded-xl outline-none",
           // Narrow sidebars and the mobile sheet get tighter padding.
           "p-2.5 sm:p-3",
           "focus-visible:ring-2 focus-visible:ring-sidebar-ring",
@@ -217,19 +252,54 @@ export function SharpnrSidebarFooter({
           <Logo logoSrc={logoSrc} animate={animate} />
 
           <div className="flex min-w-0 flex-col">
-            <span
-              className="mb-1 truncate text-[9px] leading-none font-semibold tracking-[0.18em] uppercase"
-              style={{ color: WHITE_DIM }}
-            >
-              {label}
-            </span>
-            <span
-              className="truncate text-sm leading-tight font-bold tracking-tight"
-              style={{ color: WHITE }}
-            >
-              {brand}
-            </span>
+            {/* With an appName the app leads and the attribution sits under it.
+                Without one, keep the original eyebrow-above-brand order so the
+                bare badge still reads "Powered by / Sharpnr". */}
+            {!appName ? (
+              <span
+                className="mb-1 truncate text-[9px] leading-none font-semibold tracking-[0.18em] uppercase"
+                style={{ color: WHITE_DIM }}
+              >
+                {label}
+              </span>
+            ) : null}
+
+            <div className="flex min-w-0 items-center gap-1.5">
+              <span
+                className="truncate text-sm leading-tight font-bold tracking-tight"
+                style={{ color: WHITE }}
+              >
+                {primary}
+              </span>
+
+              {version ? (
+                <span
+                  className="shrink-0 rounded-full px-1.5 py-px text-[9px] leading-[1.4] font-semibold tracking-wide tabular-nums"
+                  style={{ background: "rgba(240,242,247,0.12)", color: WHITE_DIM }}
+                >
+                  {version}
+                </span>
+              ) : null}
+            </div>
+
+            {appName ? (
+              <span
+                className="mt-0.5 truncate text-[10px] leading-none font-medium tracking-[0.08em]"
+                style={{ color: WHITE_DIM }}
+              >
+                {secondary}
+              </span>
+            ) : null}
           </div>
+
+          {/* Outbound affordance -- the card was a link with nothing to say so. */}
+          {href ? (
+            <ArrowUpRight
+              aria-hidden="true"
+              className="ml-auto size-3.5 shrink-0 opacity-0 transition-opacity duration-200 group-hover/brand:opacity-70 group-focus-visible/brand:opacity-70"
+              style={{ color: WHITE }}
+            />
+          ) : null}
         </div>
 
         {/* Bottom shimmer */}

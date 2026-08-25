@@ -319,7 +319,7 @@ const SharpHRRootLayout: React.FC = () => {
         </SidebarContent>
 
         <SidebarRail />
-        <SharpnrSidebarFooter />
+        <SharpnrSidebarFooter appName="Sharp HR" />
       </Sidebar>
 
       <SidebarInset>

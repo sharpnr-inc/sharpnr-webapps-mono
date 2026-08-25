@@ -331,7 +331,7 @@ const SharpMarktRootLayout: React.FC = () => {
         </SidebarContent>
 
         <SidebarRail />
-        <SharpnrSidebarFooter />
+        <SharpnrSidebarFooter appName="Sharp CRM" />
       </Sidebar>
 
       <SidebarInset>

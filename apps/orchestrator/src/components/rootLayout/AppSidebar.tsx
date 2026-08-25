@@ -193,7 +193,7 @@ export function OrchestratorShell() {
         </ScrollArea>
       </SidebarContent>
 
-      <SharpnrSidebarFooter />
+      <SharpnrSidebarFooter appName="Orchestrator" />
     </Sidebar>
   );
 }

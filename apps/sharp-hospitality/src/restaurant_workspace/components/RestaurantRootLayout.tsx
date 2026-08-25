@@ -41,7 +41,7 @@ export function RestaurantRootLayout() {
           </div>
 
           <RestaurantSidebar />
-          <SharpnrSidebarFooter />
+          <SharpnrSidebarFooter appName="Hospitality" />
         </Sidebar>
 
         <SidebarInset>
