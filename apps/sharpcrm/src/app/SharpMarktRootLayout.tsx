@@ -1,4 +1,4 @@
-import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import { NotificationBell, ModeToggle, SharpnrLauncher } from "@sharpnr/ui";
 import {
   Sidebar,
@@ -279,7 +279,6 @@ const NavMenuItem: React.FC<{ item: MarketingNavItem }> = ({ item }) => {
 /* ───────────────── Root Layout ───────────────── */
 
 const SharpMarktRootLayout: React.FC = () => {
-  const navigate = useNavigate();
   return (
     <AppShell
       sidebar={
@@ -334,10 +333,7 @@ const SharpMarktRootLayout: React.FC = () => {
       }
       headerActions={
         <>
-          <SharpnrLauncher
-            currentApp="sharpcrm"
-            onNavigate={(to) => navigate({ to })}
-          />
+          <SharpnrLauncher currentApp="sharpcrm" />
           <NotificationBell onClick={() => {}} />
           <ModeToggle />
         </>

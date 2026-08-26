@@ -1,4 +1,4 @@
-import { Outlet, useRouteContext, useNavigate } from "@tanstack/react-router";
+import { Outlet, useRouteContext } from "@tanstack/react-router";
 import { AppShell } from "@sharpnr/ui";
 import { AppSidebar } from "./AppSidebar";
 import {
@@ -14,7 +14,6 @@ import { config } from "@sharpnr/env";
 import { motion, AnimatePresence } from "framer-motion";
 
 const RootLayout: React.FC = () => {
-  const navigate = useNavigate();
   const { user } = useAppUserStore();
   const isLoadingUser = useAppUserStore(selectIsLoadingUser);
   const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
@@ -147,10 +146,7 @@ const RootLayout: React.FC = () => {
         sidebar={<AppSidebar />}
         headerActions={
           <>
-            <SharpnrLauncher
-              currentApp="iam"
-              onNavigate={(to) => navigate({ to })}
-            />
+            <SharpnrLauncher currentApp="iam" />
             <NotificationBell onClick={() => handleOpenNotification()} />
             <UserCard
               user={user}

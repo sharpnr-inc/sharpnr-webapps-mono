@@ -1,4 +1,4 @@
-import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -70,7 +70,6 @@ function AccountingNavItem({ item }: { item: AccountingNavItem }) {
 
 const AccountingRootLayout = () => {
   const { openSheet } = useSheet();
-  const navigate = useNavigate();
   const { user } = useAppUserStore();
   const isLoadingUser = useAppUserStore(selectIsLoadingUser);
   const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
@@ -107,10 +106,7 @@ const AccountingRootLayout = () => {
       }
       headerActions={
         <>
-          <SharpnrLauncher
-            currentApp="accounting"
-            onNavigate={(to) => navigate({ to })}
-          />
+          <SharpnrLauncher currentApp="accounting" />
           <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
           <UserCard
             user={user}

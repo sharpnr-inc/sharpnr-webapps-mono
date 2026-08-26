@@ -1,6 +1,6 @@
 // ANCHOR Orchestrator layout with collapsible icon sidebar
 import { useSheet } from "@sharpnr/ui";
-import { Outlet, useNavigate } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import {
   AppShell,
   ModeToggle,
@@ -15,7 +15,6 @@ import { config } from "@sharpnr/env";
 
 function ConsoleLayoutContent() {
   const { openSheet } = useSheet();
-  const navigate = useNavigate();
   const { user } = useAppUserStore();
   const isLoadingUser = useAppUserStore(selectIsLoadingUser);
   const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
@@ -38,7 +37,7 @@ function ConsoleLayoutContent() {
       headerClassName="sticky top-0 z-20 h-14 gap-1.5 border-border/50 bg-background/80 px-3 backdrop-blur-md"
       headerActions={
         <>
-          <SharpnrLauncher onNavigate={(to) => navigate({ to })} />
+          <SharpnrLauncher currentApp="orchestrator" />
           <NotificationBell onClick={() => handleOpen()} />
           <UserCard
             user={user}

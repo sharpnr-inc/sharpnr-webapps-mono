@@ -1,4 +1,4 @@
-import { Outlet, Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import { Outlet, Link, useRouterState } from "@tanstack/react-router";
 import {
   NotificationBell,
   UserCard,
@@ -277,7 +277,6 @@ const NavMenuItem: React.FC<{ item: NavItem }> = ({ item }) => {
 /* ───────────────── Root Layout ───────────────── */
 
 const SharpHRRootLayout: React.FC = () => {
-  const navigate = useNavigate();
   const { user } = useAppUserStore();
   const isLoadingUser = useAppUserStore(selectIsLoadingUser);
   const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
@@ -322,10 +321,7 @@ const SharpHRRootLayout: React.FC = () => {
       }
       headerActions={
         <>
-          <SharpnrLauncher
-            currentApp="hr"
-            onNavigate={(to) => navigate({ to })}
-          />
+          <SharpnrLauncher currentApp="hr" />
           <NotificationBell onClick={handleOpenNotification} />
           <UserCard
             user={user}
