@@ -26,16 +26,21 @@ export const useSheet = () => {
 };
 
 /**
- * Mobile-first so a fractional sheet still fills a phone screen. These go
- * through `cn`, not a template string -- `SheetContent` needs `max-w-none` to
- * drop shadcn's default cap, and tailwind-merge is what keeps the width here
- * from colliding with it.
+ * Mobile-first so a fractional sheet still fills a phone screen.
+ *
+ * Every class here carries the same `data-[side=right]:` prefix as the
+ * defaults it is replacing. SheetContent sets `data-[side=right]:w-3/4` and
+ * `data-[side=right]:sm:max-w-sm`; tailwind-merge only dedupes within a single
+ * variant group, so plain `w-1/4` / `max-w-none` did not replace them -- both
+ * classes survived and the attribute selector won, pinning every sheet to
+ * max-w-sm no matter which size was requested. Matching the prefix lets
+ * tailwind-merge drop the default the way it was always meant to.
  */
 const sizeClasses: Record<SheetSize, string> = {
-  "1/4": "w-1/4",
-  "2/4": "w-full sm:w-2/4",
-  "3/4": "w-full sm:w-3/4",
-  full: "w-full",
+  "1/4": "data-[side=right]:w-1/4 data-[side=right]:sm:max-w-none",
+  "2/4": "data-[side=right]:w-full data-[side=right]:sm:w-2/4 data-[side=right]:sm:max-w-none",
+  "3/4": "data-[side=right]:w-full data-[side=right]:sm:w-3/4 data-[side=right]:sm:max-w-none",
+  full: "data-[side=right]:w-full data-[side=right]:sm:max-w-none",
 };
 
 export const SheetProvider = ({ children }: { children: ReactNode }) => {
@@ -61,7 +66,7 @@ export const SheetProvider = ({ children }: { children: ReactNode }) => {
         <SheetContent
           side="right"
           className={cn(
-            "max-w-none overflow-y-auto p-4",
+            "overflow-y-auto p-4",
             "[&::-webkit-scrollbar]:w-1.5",
             "[&::-webkit-scrollbar-track]:bg-transparent",
             "[&::-webkit-scrollbar-thumb]:rounded-full",
