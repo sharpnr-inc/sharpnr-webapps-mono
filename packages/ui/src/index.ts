@@ -551,3 +551,6 @@ export {
   type LauncherItem,
   type LauncherSection,
 } from "./components/launcher/launcher.config";
+
+export { AppShell } from "./components/layout/AppShell";
+export type { AppShellProps } from "./components/layout/AppShell";

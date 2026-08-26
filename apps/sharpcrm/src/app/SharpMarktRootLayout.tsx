@@ -9,15 +9,12 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
   SidebarHeader,
   SidebarRail,
   SharpnrSidebarFooter,
+  AppShell,
   ScrollBar,
   ScrollArea,
-  Separator,
 } from "@sharpnr/ui";
 import {
   BarChart3,
@@ -284,78 +281,70 @@ const NavMenuItem: React.FC<{ item: MarketingNavItem }> = ({ item }) => {
 const SharpMarktRootLayout: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                size="lg"
-                className="cursor-default hover:bg-transparent"
-              >
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-pink-600 text-white shrink-0">
-                  <Megaphone className="size-4" />
-                </div>
-                <div className="grid flex-1 text-left text-sm">
-                  <span className="truncate font-semibold">
-                    Sharp Marketing
-                  </span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    CRM & Campaigns
-                  </span>
-                </div>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
+    <AppShell
+      sidebar={
+        <Sidebar collapsible="icon">
+          <SidebarHeader>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  size="lg"
+                  className="cursor-default hover:bg-transparent"
+                >
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-pink-600 text-white shrink-0">
+                    <Megaphone className="size-4" />
+                  </div>
+                  <div className="grid flex-1 text-left text-sm">
+                    <span className="truncate font-semibold">
+                      Sharp Marketing
+                    </span>
+                    <span className="truncate text-xs text-muted-foreground">
+                      CRM & Campaigns
+                    </span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
 
-        <SidebarContent className="overflow-hidden">
-          <ScrollArea className="h-full w-full">
-            <div className="pb-2">
-              {marketingSidebar.map((group) => (
-                <SidebarGroup key={group.group}>
-                  <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
+          <SidebarContent className="overflow-hidden">
+            <ScrollArea className="h-full w-full">
+              <div className="pb-2">
+                {marketingSidebar.map((group) => (
+                  <SidebarGroup key={group.group}>
+                    <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
 
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {group.items.map((item) => (
-                        <NavMenuItem key={item.id} item={item} />
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              ))}
-            </div>
-            <ScrollBar orientation="vertical" />
-          </ScrollArea>
-        </SidebarContent>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        {group.items.map((item) => (
+                          <NavMenuItem key={item.id} item={item} />
+                        ))}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                ))}
+              </div>
+              <ScrollBar orientation="vertical" />
+            </ScrollArea>
+          </SidebarContent>
 
-        <SidebarRail />
-        <SharpnrSidebarFooter appName="Sharp CRM" />
-      </Sidebar>
-
-      <SidebarInset>
-        <header className="flex h-12 items-center justify-between border-b px-4">
-          <div className="flex items-center gap-4">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="h-6" />
-          </div>
-          <div className="flex items-center gap-3 px-4">
-            <SharpnrLauncher
-              currentApp="sharpcrm"
-              onNavigate={(to) => navigate({ to })}
-            />
-            <NotificationBell onClick={() => {}} />
-
-            <ModeToggle />
-          </div>
-        </header>
-
-        <main className="flex-1 p-4">
-          <Outlet />
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+          <SidebarRail />
+          <SharpnrSidebarFooter appName="Sharp CRM" />
+        </Sidebar>
+      }
+      headerActions={
+        <>
+          <SharpnrLauncher
+            currentApp="sharpcrm"
+            onNavigate={(to) => navigate({ to })}
+          />
+          <NotificationBell onClick={() => {}} />
+          <ModeToggle />
+        </>
+      }
+    >
+      <Outlet />
+    </AppShell>
   );
 };
 

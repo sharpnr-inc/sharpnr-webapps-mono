@@ -1,9 +1,7 @@
 import { Outlet } from "@tanstack/react-router";
 import {
-  SidebarProvider,
+  AppShell,
   Sidebar,
-  SidebarInset,
-  SidebarTrigger,
   SidebarMenuButton,
   SharpnrSidebarFooter,
 } from "@sharpnr/ui";
@@ -11,7 +9,6 @@ import { RestaurantSidebar } from "./RestaurantSidebar";
 import AppLauncher from "@/components/header/AppLauncher";
 import { AppUserCard } from "@/components/header/AppUserCard";
 import { NotificationBell, ModeToggle } from "@sharpnr/ui";
-import { Separator } from "@sharpnr/ui";
 import { useQueryClient } from "@tanstack/react-query";
 import { Building2 } from "lucide-react";
 
@@ -27,8 +24,9 @@ export function RestaurantRootLayout() {
   console.log(restaurants);
 
   return (
-    <SidebarProvider defaultOpen={false}>
-      <div className="flex w-full">
+    <AppShell
+      defaultOpen={false}
+      sidebar={
         <Sidebar collapsible="icon">
           <div className="p-2">
             <SidebarMenuButton size="lg">
@@ -43,26 +41,17 @@ export function RestaurantRootLayout() {
           <RestaurantSidebar />
           <SharpnrSidebarFooter appName="Hospitality" />
         </Sidebar>
-
-        <SidebarInset>
-          <header className="flex h-12 items-center justify-between border-b px-4">
-            <div className="flex items-center gap-4">
-              <SidebarTrigger />
-              <Separator orientation="vertical" className="h-6" />
-            </div>
-            <div className="flex items-center gap-3 px-4">
-              <AppLauncher />
-              <NotificationBell onClick={() => console.log("HI")} />
-              <AppUserCard />
-              <ModeToggle />
-            </div>
-          </header>
-
-          <main className="p-4">
-            <Outlet />
-          </main>
-        </SidebarInset>
-      </div>
-    </SidebarProvider>
+      }
+      headerActions={
+        <>
+          <AppLauncher />
+          <NotificationBell onClick={() => console.log("HI")} />
+          <AppUserCard />
+          <ModeToggle />
+        </>
+      }
+    >
+      <Outlet />
+    </AppShell>
   );
 }

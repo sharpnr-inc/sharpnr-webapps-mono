@@ -8,12 +8,10 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
   useSidebar,
   SidebarHeader,
   SharpnrSidebarFooter,
+  AppShell,
   useSheet,
 } from "@sharpnr/ui";
 import { ScrollArea, ScrollBar } from "@sharpnr/ui";
@@ -25,8 +23,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@sharpnr/ui";
-import { TooltipProvider } from "@sharpnr/ui";
-import { Separator } from "@sharpnr/ui";
 import {
   NotificationBell,
   UserCard,
@@ -79,8 +75,8 @@ const AccountingRootLayout = () => {
   const isLoadingUser = useAppUserStore(selectIsLoadingUser);
   const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   return (
-    <SidebarProvider>
-      <TooltipProvider>
+    <AppShell
+      sidebar={
         <Sidebar collapsible="icon" variant="sidebar" side="left">
           <SidebarHeader>
             <LegalEntitySwitcher />
@@ -108,37 +104,28 @@ const AccountingRootLayout = () => {
           </SidebarContent>
           <SharpnrSidebarFooter appName="Accounting" />
         </Sidebar>
-
-        <SidebarInset>
-          <header className="flex h-12 items-center justify-between border-b px-4">
-            <div className="flex items-center gap-4">
-              <SidebarTrigger />
-              <Separator orientation="vertical" className="h-6" />
-            </div>
-            <div className="flex items-center gap-3 px-4">
-              <SharpnrLauncher
-                currentApp="accounting"
-                onNavigate={(to) => navigate({ to })}
-              />
-              <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
-              <UserCard
-                user={user}
-                isLoading={isLoadingUser}
-                onLogout={() => logoutUser()}
-                isLoggingOut={isLoggingOut}
-                iamUrl={config.iamAppUrl}
-                quickAccess={<QuickAccess />}
-              />
-              <ModeToggle />
-            </div>
-          </header>
-
-          <main className="overflow-auto p-4">
-            <Outlet />
-          </main>
-        </SidebarInset>
-      </TooltipProvider>
-    </SidebarProvider>
+      }
+      headerActions={
+        <>
+          <SharpnrLauncher
+            currentApp="accounting"
+            onNavigate={(to) => navigate({ to })}
+          />
+          <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
+          <UserCard
+            user={user}
+            isLoading={isLoadingUser}
+            onLogout={() => logoutUser()}
+            isLoggingOut={isLoggingOut}
+            iamUrl={config.iamAppUrl}
+            quickAccess={<QuickAccess />}
+          />
+          <ModeToggle />
+        </>
+      }
+    >
+      <Outlet />
+    </AppShell>
   );
 };
 
