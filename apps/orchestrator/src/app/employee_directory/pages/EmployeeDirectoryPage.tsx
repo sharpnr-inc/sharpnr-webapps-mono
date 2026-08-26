@@ -1,12 +1,10 @@
-import { Button, Skeleton, useSheet } from "@sharpnr/ui";
+import { Button, Skeleton } from "@sharpnr/ui";
 import {
   Users,
   Search,
   AlertCircle,
   RotateCcw,
   ChevronRight,
-  BadgeCheck,
-  X,
 } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useEmployees } from "../api/queries";
@@ -148,80 +146,10 @@ function LoadingRows() {
   );
 }
 
-function EmployeeDetail({
-  employee,
-  onClose,
-}: {
-  employee: EmployeeOfOrganization;
-  onClose: () => void;
-}) {
-  return (
-    <div className="p-4 sm:p-5">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-bold text-muted-foreground">
-            {getInitials(employee.name)}
-          </div>
-          <div className="min-w-0">
-            <h3 className="truncate text-[15px] font-semibold text-foreground leading-tight">
-              {employee.name}
-            </h3>
-            {employee.nickname && (
-              <p className="truncate text-xs text-muted-foreground">
-                @{employee.nickname}
-              </p>
-            )}
-            <div className="mt-1 flex flex-wrap items-center gap-1.5">
-              <Pill className={roleClassName(employee.role.role)}>
-                {formatLabel(employee.role.role)}
-              </Pill>
-              <Pill
-                className={
-                  STATUS_META[employee.status] ??
-                  "bg-muted text-muted-foreground"
-                }
-              >
-                {formatLabel(employee.status)}
-              </Pill>
-            </div>
-          </div>
-        </div>
-        <button
-          onClick={onClose}
-          className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-          aria-label="Close"
-        >
-          <X className="h-4 w-4" />
-        </button>
-      </div>
-
-      {/* Role */}
-      <div className="mt-4 rounded-lg border bg-background px-3 py-2.5">
-        <div className="mb-1 flex items-center gap-1.5">
-          <BadgeCheck className="h-3.5 w-3.5 text-muted-foreground" />
-          <h4 className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            Role
-          </h4>
-        </div>
-        <p className="text-[13px] font-medium text-foreground">
-          {formatLabel(employee.role.role)}
-        </p>
-        {employee.role.description && (
-          <p className="mt-0.5 text-xs text-muted-foreground">
-            {employee.role.description}
-          </p>
-        )}
-      </div>
-    </div>
-  );
-}
-
 /* ── page ──────────────────────────────────────────────────── */
 
 export function EmployeeDirectoryPage() {
   const { data, isPending, isError, refetch } = useEmployees();
-  const { openSheet, closeSheet } = useSheet();
   const nav = useNavigate();
 
   const [search, setSearch] = useState("");
@@ -252,10 +180,12 @@ export function EmployeeDirectoryPage() {
   const hasActiveFilters = !!search || roleFilter !== "all";
 
   const openEmployee = (employee: EmployeeOfOrganization) => {
-    openSheet(
-      <EmployeeDetail employee={employee} onClose={closeSheet} />,
-      "2/4",
-    );
+    nav({
+      to: "/org-users/$employeeID",
+      params: {
+        employeeID: employee.id,
+      },
+    });
   };
 
   const resetFilters = () => {

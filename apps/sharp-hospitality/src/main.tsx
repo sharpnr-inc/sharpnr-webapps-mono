@@ -6,7 +6,7 @@ import "./index.css";
 import { queryClient, router } from "./router_config";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
 import { Toaster } from "sonner";
-import { TooltipProvider, FormsModalProvider, SheetProvider } from "@sharpnr/ui";
+import { TooltipProvider, ModalProvider, SheetProvider } from "@sharpnr/ui";
 import { ThemeProvider } from "@sharpnr/ui";
 import PwaReloadPrompt from "./components/PwaReloadPrompt";
 import { IvaProvider } from "@sharpnr/iva";
@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <ThemeProvider storageKey="hospitality-ui-theme">
           <TooltipProvider>
-            <FormsModalProvider>
+            <ModalProvider>
               <SheetProvider>
                 <Suspense fallback={<SuspenseFallback />}>
                   <RouterProvider router={router} />
@@ -25,7 +25,7 @@ createRoot(document.getElementById("root")!).render(
                   <PwaReloadPrompt />
                 </Suspense>
               </SheetProvider>
-            </FormsModalProvider>
+            </ModalProvider>
           </TooltipProvider>
         </ThemeProvider>
       </QueryClientProvider>

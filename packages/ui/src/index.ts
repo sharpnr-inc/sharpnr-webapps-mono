@@ -527,7 +527,6 @@ export {
 
 export { useIsMobile } from "./hooks/use-mobile";
 export { SheetProvider, useSheet } from "./hooks/useSheets";
-export { FormsModalProvider, useFormsModal } from "./hooks/useFormModal";
 export { ModalProvider, useModal } from "./hooks/useModal";
 export type {
   ModalSize,
