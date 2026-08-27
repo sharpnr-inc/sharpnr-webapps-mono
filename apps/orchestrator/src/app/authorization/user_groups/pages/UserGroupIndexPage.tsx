@@ -1,15 +1,26 @@
 import { UsersRound, Plus } from "lucide-react";
-import { Button } from "@sharpnr/ui";
+import { Button, useModal } from "@sharpnr/ui";
 import { GroupCard } from "../components/GroupCard";
 import { dummyGroups } from "../data/dummyGroups";
 import { useNavigate } from "@tanstack/react-router";
+import CreateUserGroupForm from "../components/CreateUserGroupForm";
 
 // Cycled across the grid so each group gets a distinct pixel-shimmer color.
 const PIXEL_VARIANTS = ["blue", "pink", "yellow", "default"] as const;
 
 const UserGroupIndexPage = () => {
-  // TODO: replace dummy data with the real backend response.
+  
   const groups = dummyGroups;
+  const { openModal } = useModal();
+
+  const handleCreateUserGroup = () => {
+    openModal({
+      content: <CreateUserGroupForm />,
+      title: "New User Groupe",
+      description: "Add new user group",
+      size: "lg",
+    });
+  };
 
   const nav = useNavigate();
 
@@ -30,7 +41,7 @@ const UserGroupIndexPage = () => {
           </p>
         </div>
 
-        <Button className="gap-1" onClick={() => console.log()}>
+        <Button className="gap-1" onClick={() => handleCreateUserGroup()}>
           <Plus className="h-4 w-4" /> Add New Group
         </Button>
       </header>
