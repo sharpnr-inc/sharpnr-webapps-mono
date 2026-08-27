@@ -9,14 +9,14 @@ import { useUserGroups } from "../api/queries";
 const PIXEL_VARIANTS = ["blue", "pink", "yellow", "default"] as const;
 
 const UserGroupIndexPage = () => {
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { data, isLoading, isError } = useUserGroups();
   const groups = data?.data ?? [];
 
   const handleCreateUserGroup = () => {
     openModal({
-      content: <CreateUserGroupForm />,
-      title: "New User Groupe",
+      content: <CreateUserGroupForm closeModal={closeModal} />,
+      title: "New User Group",
       description: "Add new user group",
       size: "lg",
     });

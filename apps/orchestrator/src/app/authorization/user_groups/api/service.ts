@@ -1,6 +1,9 @@
 import { api } from "@sharpnr/http";
 import type { APIResponse } from "@sharpnr/utils";
-import type { SentinelUserGroupResponseDto } from "./types";
+import type {
+  CreateSentinelUserGroupRequestDto,
+  SentinelUserGroupResponseDto,
+} from "./types";
 
 const userGroupEndpoints = {
   listAllGroups: () => `/orchestrator/sentinel/groups`,
@@ -16,6 +19,13 @@ export async function getUserGroupsOfOrganization(): Promise<
   return response.data;
 }
 /* ---------------------------------- <***> --------------------------------- */
+
+export async function createSentinelUserGroup(
+  request: CreateSentinelUserGroupRequestDto,
+): Promise<APIResponse<null>> {
+  const response = await api.post(userGroupEndpoints.listAllGroups(), request);
+  return response.data;
+}
 
 // this fetches the User Group Details.
 export async function getUserGroupDetails(
