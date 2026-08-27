@@ -1,5 +1,11 @@
 export { default as PolicyBuilder } from "./PolicyBuilder";
-export type { PolicyBuilderProps } from "./PolicyBuilder";
+export type {
+  PolicyBuilderContextValue,
+  PolicyBuilderProps,
+} from "./PolicyBuilder";
+
+export { usePolicyBuilderContext } from "./context";
+export { useCedarReady } from "./hooks/useCedarReady";
 
 export { usePolicyBuilderStore } from "./store/usePolicyBuilderStore";
 export type {
