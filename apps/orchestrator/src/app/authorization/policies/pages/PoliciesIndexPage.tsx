@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import {
+  AlertTriangle,
   ArrowUpDown,
   Building2,
   ChevronRight,
@@ -23,7 +24,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Switch,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -44,24 +45,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { SentinelPolicy } from "../api/types";
-import {
-  MOCK_POLICIES,
-  policyEffect,
-  policyPrincipal,
-} from "../data/policies.mock";
+import type { PolicyView } from "../api/types";
 import { PoliciesOverview } from "../components/PoliciesOverview";
 import { PolicyStats } from "../components/PolicyStats";
 import { cn } from "@sharpnr/utils";
 import { useAllResourcesOfOrg } from "../../cedarPolicybuilder/api/query";
-
-/** Relative-ish friendly date, e.g. "18 Jun 2026". */
-const fmtDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
+import { useAllOrgPolicies } from "../api/queries";
+import { policyEffect, policyPrincipal } from "../utils/policyStatement";
 
 /** Icon shown next to a policy's principal scope. */
 const PRINCIPAL_ICON = {
@@ -79,40 +69,50 @@ const PoliciesIndexPage = () => {
   // Warms the org resources cache for the policy builder opened from this page.
   useAllResourcesOfOrg();
 
+  const { data: allPolices, isLoading, isError } = useAllOrgPolicies();
+
   const nav = useNavigate();
-  const [data, setData] = useState<SentinelPolicy[]>(MOCK_POLICIES);
+
   const [globalFilter, setGlobalFilter] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
   const [effect, setEffect] = useState<EffectFilter>("all");
   const [sorting, setSorting] = useState<SortingState>([
-    { id: "updatedAt", desc: true },
+    { id: "name", desc: false },
   ]);
 
+  const data = useMemo<PolicyView[]>(
+    () => allPolices?.data ?? [],
+    [allPolices],
+  );
   const activeCount = data.filter((p) => p.enabled).length;
-
-  const toggleEnabled = (id: string) =>
-    setData((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, enabled: !p.enabled } : p)),
-    );
 
   // Status and effect narrow the row set before the table's own search runs.
   const visible = useMemo(
     () =>
-      data.filter((p) => {
-        if (status === "active" && !p.enabled) return false;
-        if (status === "paused" && p.enabled) return false;
-        if (effect !== "all" && policyEffect(p.statement) !== effect)
+      data.filter((policy) => {
+        if (status === "active" && !policy.enabled) return false;
+        if (status === "paused" && policy.enabled) return false;
+        if (effect !== "all" && policyEffect(policy.policy) !== effect)
           return false;
         return true;
       }),
     [data, status, effect],
   );
 
-  const columns = useMemo<ColumnDef<SentinelPolicy>[]>(
+  const columns = useMemo<ColumnDef<PolicyView>[]>(
     () => [
       {
         accessorKey: "name",
-        header: "Policy",
+        header: ({ column }) => (
+          <button
+            type="button"
+            className="inline-flex items-center gap-1 hover:text-foreground"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Policy
+            <ArrowUpDown className="h-3 w-3" />
+          </button>
+        ),
         cell: ({ row }) => (
           <div className="min-w-0">
             <p className="truncate font-medium text-foreground">
@@ -127,7 +127,7 @@ const PoliciesIndexPage = () => {
       {
         id: "effect",
         header: "Effect",
-        accessorFn: (row) => policyEffect(row.statement),
+        accessorFn: (row) => policyEffect(row.policy),
         cell: ({ getValue }) => {
           const value = getValue<"permit" | "forbid">();
           return value === "permit" ? (
@@ -144,9 +144,9 @@ const PoliciesIndexPage = () => {
       {
         id: "appliesTo",
         header: "Applies to",
-        accessorFn: (row) => policyPrincipal(row.statement).label,
+        accessorFn: (row) => policyPrincipal(row.policy).label,
         cell: ({ row }) => {
-          const principal = policyPrincipal(row.original.statement);
+          const principal = policyPrincipal(row.original.policy);
           const Icon = PRINCIPAL_ICON[principal.kind];
           return (
             <span
@@ -164,39 +164,18 @@ const PoliciesIndexPage = () => {
         },
       },
       {
-        accessorKey: "updatedAt",
-        header: ({ column }) => (
-          <button
-            type="button"
-            className="inline-flex items-center gap-1 hover:text-foreground"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Last updated
-            <ArrowUpDown className="h-3 w-3" />
-          </button>
-        ),
-        cell: ({ getValue }) => (
-          <span className="text-sm text-muted-foreground">
-            {fmtDate(getValue<string>())}
-          </span>
-        ),
-      },
-      {
         accessorKey: "enabled",
         header: "Status",
-        cell: ({ row }) => (
-          <div className="flex items-center gap-2">
-            <Switch
-              checked={row.original.enabled}
-              onCheckedChange={() => toggleEnabled(row.original.id)}
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Toggle policy"
-            />
-            <span className="text-xs text-muted-foreground">
-              {row.original.enabled ? "On" : "Off"}
-            </span>
-          </div>
-        ),
+        cell: ({ row }) =>
+          row.original.enabled ? (
+            <Badge className="gap-1 bg-sky-500/10 text-sky-600 hover:bg-sky-500/10 dark:text-sky-400">
+              Active
+            </Badge>
+          ) : (
+            <Badge variant="secondary" className="gap-1">
+              Paused
+            </Badge>
+          ),
       },
       {
         id: "open",
@@ -230,43 +209,75 @@ const PoliciesIndexPage = () => {
     setGlobalFilter("");
   };
 
+  const header = (
+    <header className="flex flex-wrap items-start justify-between gap-4">
+      <div className="flex min-w-0 gap-3">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+          <ScrollText className="h-5 w-5" />
+        </span>
+        <div className="min-w-0 space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-xl font-semibold text-foreground">
+              Organization Policies
+            </h1>
+            <Badge
+              variant="outline"
+              className="gap-1 border-primary/20 bg-primary/5 text-primary"
+            >
+              <Building2 className="h-3 w-3" /> Org-wide
+            </Badge>
+            <span className="text-sm text-muted-foreground">
+              {data.length} total
+            </span>
+          </div>
+          <p className="max-w-2xl text-sm text-muted-foreground">
+            Rules that decide who is allowed to do what — applied across every
+            user, role and group in your organization.
+          </p>
+        </div>
+      </div>
+
+      <Button
+        className="gap-1"
+        onClick={() => nav({ to: "/authorization/policies/create" })}
+      >
+        <Plus className="h-4 w-4" /> New Policy
+      </Button>
+    </header>
+  );
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
+        {header}
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-24 w-full rounded-xl" />
+          ))}
+        </div>
+        <Skeleton className="h-32 w-full rounded-xl" />
+        <Skeleton className="h-96 w-full rounded-xl" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
+        {header}
+        <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed py-16 text-center">
+          <AlertTriangle className="h-6 w-6 text-destructive" />
+          <p className="text-sm text-muted-foreground">
+            Couldn't load policies. Please try again.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
-      {/* Header */}
-      <header className="flex flex-wrap items-start justify-between gap-4">
-        <div className="flex min-w-0 gap-3">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
-            <ScrollText className="h-5 w-5" />
-          </span>
-          <div className="min-w-0 space-y-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-xl font-semibold text-foreground">
-                Organization Policies
-              </h1>
-              <Badge
-                variant="outline"
-                className="gap-1 border-primary/20 bg-primary/5 text-primary"
-              >
-                <Building2 className="h-3 w-3" /> Org-wide
-              </Badge>
-              <span className="text-sm text-muted-foreground">
-                {data.length} total
-              </span>
-            </div>
-            <p className="max-w-2xl text-sm text-muted-foreground">
-              Rules that decide who is allowed to do what — applied across every
-              user, role and group in your organization.
-            </p>
-          </div>
-        </div>
-
-        <Button
-          className="gap-1"
-          onClick={() => nav({ to: "/authorization/policies/create" })}
-        >
-          <Plus className="h-4 w-4" /> New Policy
-        </Button>
-      </header>
+      {header}
 
       {/* At-a-glance counts */}
       <PolicyStats policies={data} />

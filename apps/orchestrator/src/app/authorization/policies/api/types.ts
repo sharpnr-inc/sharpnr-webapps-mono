@@ -1,13 +1,12 @@
-/** A policy as returned by the Sentinel backend (`/orchestrator/sentinel/policies`). */
-export interface SentinelPolicy {
+/** A policy as returned by the Sentinel backend (`/orchestrator/sentinel/orgpolicies`). */
+export interface PolicyView {
   id: string;
   name: string;
-  description?: string;
-  /** Cedar policy source text. */
-  statement: string;
+  description: string;
+  policy: string;
+  /** Structured form of `policy`; shape is decided by the Cedar backend. */
+  policyJson: unknown;
   enabled: boolean;
-  createdAt: string;
-  updatedAt: string;
 }
 
-export type SentinelPoliciesResponse = SentinelPolicy[];
+export type SentinelPoliciesResponse = PolicyView[];

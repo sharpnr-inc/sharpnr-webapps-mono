@@ -1,10 +1,10 @@
 import { ScrollText, ShieldCheck, ShieldX, Zap } from "lucide-react";
 import { cn } from "@sharpnr/utils";
-import type { SentinelPolicy } from "../api/types";
-import { policyEffect } from "../data/policies.mock";
+import type { PolicyView } from "../api/types";
+import { policyEffect } from "../utils/policyStatement";
 
 interface PolicyStatsProps {
-  policies: SentinelPolicy[];
+  policies: PolicyView[];
 }
 
 /** At-a-glance counts for the org's policy set. */
@@ -13,7 +13,7 @@ export function PolicyStats({ policies }: PolicyStatsProps) {
   const active = policies.filter((p) => p.enabled).length;
   const paused = total - active;
   const allow = policies.filter(
-    (p) => policyEffect(p.statement) === "permit",
+    (p) => policyEffect(p.policy) === "permit",
   ).length;
   const deny = total - allow;
 
