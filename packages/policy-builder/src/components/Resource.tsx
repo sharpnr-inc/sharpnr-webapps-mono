@@ -1,3 +1,4 @@
+import { useOrgResources } from "../api/queries";
 import { RESOURCE_OPS } from "../constants";
 import {
   usePolicyBuilderStore,
@@ -6,6 +7,7 @@ import {
 import { ScopeField } from "./ScopeField";
 
 export function Resource() {
+  const { data } = useOrgResources();
   const resource = usePolicyBuilderStore((s) => s.resource);
   const setResource = usePolicyBuilderStore((s) => s.setResource);
   return (

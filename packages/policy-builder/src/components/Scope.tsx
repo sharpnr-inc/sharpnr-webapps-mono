@@ -22,8 +22,8 @@ export function Scope({
       {children ?? (
         <>
           <Principal />
-          <Action />
           <Resource />
+          <Action />
         </>
       )}
     </div>
