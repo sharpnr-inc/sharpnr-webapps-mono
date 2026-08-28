@@ -1,6 +1,6 @@
 import { api } from "@sharpnr/http";
 import type { APIResponse } from "@sharpnr/utils";
-import type { OrgRole } from "./types";
+import type { CreateNewSentinelRoleRequestDto, OrgRole } from "./types";
 
 const sentinelEndpoints = {
   listRoles: () => `/orchestrator/sentinel/roles`,
@@ -9,4 +9,11 @@ const sentinelEndpoints = {
 export async function GetAllOrgRoles(): Promise<APIResponse<OrgRole[]>> {
   const res = await api.get(sentinelEndpoints.listRoles());
   return res.data;
+}
+
+export async function createSentinelRoleInOrg(
+  req: CreateNewSentinelRoleRequestDto,
+): Promise<APIResponse<null>> {
+  const response = await api.post(sentinelEndpoints.listRoles(), req);
+  return response.data;
 }
