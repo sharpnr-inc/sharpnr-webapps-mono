@@ -55,7 +55,7 @@ const CreateNewPolicyPage = () => {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-5">
       <button
         type="button"
         onClick={() => nav({ to: "/authorization/policies" })}
@@ -103,7 +103,7 @@ const CreateNewPolicyPage = () => {
           initialRules={active.rules}
           palette={DEMO_PALETTE}
           onSave={handleSave}
-          className="max-w-none"
+          className="max-w-full"
         >
           <PermissionMatrix.Toolbar roleName={active.name} />
           <PermissionMatrix.Groups />
