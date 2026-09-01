@@ -3,7 +3,7 @@ import { Search, Plus, ChevronDown, Download } from "lucide-react";
 import { useJournalEntries } from "@/app/api/queries/journal";
 import { useAccountingStore } from "@/store/accounting.store";
 import { AddJournalEntryForm } from "@/app/shared/forms/AddJournalEntryForm";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@sharpnr/ui";
 
 interface JournalLine {
   id: string;

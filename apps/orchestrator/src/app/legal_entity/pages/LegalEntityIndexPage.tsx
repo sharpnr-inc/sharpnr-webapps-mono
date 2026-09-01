@@ -1,5 +1,4 @@
-import { Button } from "@sharpnr/ui";
-import { Skeleton } from "@sharpnr/ui";
+import { Button, useModal, Skeleton } from "@sharpnr/ui";
 import {
   PlusCircle,
   ChevronRight,
@@ -16,7 +15,6 @@ import { useAllLegalEntities } from "../api/queries";
 import { getLegalEntityTypeLabel } from "../utils/entity_type";
 import type { LegalEntityResponseDto } from "../api/types";
 import { useNavigate } from "@tanstack/react-router";
-import { useModal } from "@/hooks/useModal";
 import { cn } from "@sharpnr/utils";
 
 /* ── helpers ─────────────────────────────────────────────── */

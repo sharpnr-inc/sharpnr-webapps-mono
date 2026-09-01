@@ -4,30 +4,31 @@ import { RouterProvider } from "@tanstack/react-router";
 import { QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import { queryClient, router } from "./router_config";
-import { SheetProvider } from "./hooks/useSheet";
 import SuspenseFallback from "./components/ui/SuspenseFallback";
 import { Toaster } from "sonner";
-import { TooltipProvider } from "@sharpnr/ui";
-import { FormsModalProvider } from "./hooks/FormModalContext";
-import { ThemeProvider } from "./components/ui/theme-provider";
+import { TooltipProvider, ModalProvider, SheetProvider } from "@sharpnr/ui";
+import { ThemeProvider } from "@sharpnr/ui";
 import PwaReloadPrompt from "./components/PwaReloadPrompt";
+import { IvaProvider } from "@sharpnr/iva";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider storageKey="hospitality-ui-theme">
-        <TooltipProvider>
-          <FormsModalProvider>
-            <SheetProvider>
-              <Suspense fallback={<SuspenseFallback />}>
-                <RouterProvider router={router} />
-                <Toaster />
-                <PwaReloadPrompt />
-              </Suspense>
-            </SheetProvider>
-          </FormsModalProvider>
-        </TooltipProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <IvaProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider storageKey="hospitality-ui-theme">
+          <TooltipProvider>
+            <ModalProvider>
+              <SheetProvider>
+                <Suspense fallback={<SuspenseFallback />}>
+                  <RouterProvider router={router} />
+                  <Toaster />
+                  <PwaReloadPrompt />
+                </Suspense>
+              </SheetProvider>
+            </ModalProvider>
+          </TooltipProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </IvaProvider>
   </StrictMode>,
 );

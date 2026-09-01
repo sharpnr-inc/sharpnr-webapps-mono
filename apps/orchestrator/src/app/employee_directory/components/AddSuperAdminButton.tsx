@@ -1,7 +1,6 @@
-import { Button, Input, Label } from "@sharpnr/ui";
+import { Button, Input, Label, useModal } from "@sharpnr/ui";
 import { ShieldPlus, AlertTriangle } from "lucide-react";
 import { useState } from "react";
-import { useModal } from "@/hooks/useModal";
 
 /* ── Modal form ────────────────────────────────────────────── */
 

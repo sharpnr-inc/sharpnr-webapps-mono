@@ -1,4 +1,13 @@
 import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import {
+  NotificationBell,
+  UserCard,
+  ModeToggle,
+  SharpnrLauncher,
+} from "@sharpnr/ui";
+import { config } from "@sharpnr/env";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutation";
 import { Building2 as OrgIcon } from "lucide-react";
 import {
   Sidebar,
@@ -10,14 +19,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
   SidebarRail,
   ScrollArea,
   ScrollBar,
   useSheet,
   SharpnrSidebarFooter,
+  AppShell,
 } from "@sharpnr/ui";
 import {
   Users,
@@ -39,11 +46,6 @@ import {
   TrendingUp,
   BadgeDollarSign,
 } from "lucide-react";
-import { Separator } from "@sharpnr/ui";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { UserCard } from "@/components/header/UserCard";
-import { ModeToggle } from "@/components/header/ThemeToggle";
-import SharpnrLauncher from "./SharpnrLauncher/SharpnrLauncher";
 
 /* ───────────────── Types ───────────────── */
 
@@ -275,6 +277,9 @@ const NavMenuItem: React.FC<{ item: NavItem }> = ({ item }) => {
 /* ───────────────── Root Layout ───────────────── */
 
 const SharpHRRootLayout: React.FC = () => {
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   const { openSheet } = useSheet();
 
   const handleOpenNotification = () => {
@@ -282,57 +287,55 @@ const SharpHRRootLayout: React.FC = () => {
   };
 
   return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon" variant="sidebar">
-        <SidebarHeader>
-          <OrgCard />
-        </SidebarHeader>
+    <AppShell
+      sidebar={
+        <Sidebar collapsible="icon" variant="sidebar">
+          <SidebarHeader>
+            <OrgCard />
+          </SidebarHeader>
 
-        <SidebarContent className="overflow-hidden">
-          <ScrollArea className="h-full w-full">
-            <div className="pb-2">
-              {navGroups.map((group) => (
-                <SidebarGroup key={group.label}>
-                  <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+          <SidebarContent className="overflow-hidden">
+            <ScrollArea className="h-full w-full">
+              <div className="pb-2">
+                {navGroups.map((group) => (
+                  <SidebarGroup key={group.label}>
+                    <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
 
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {group.items.map((item) => (
-                        <NavMenuItem key={item.id} item={item} />
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              ))}
-            </div>
-            <ScrollBar orientation="vertical" />
-          </ScrollArea>
-        </SidebarContent>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        {group.items.map((item) => (
+                          <NavMenuItem key={item.id} item={item} />
+                        ))}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                ))}
+              </div>
+              <ScrollBar orientation="vertical" />
+            </ScrollArea>
+          </SidebarContent>
 
-        <SidebarRail />
-        <SharpnrSidebarFooter />
-      </Sidebar>
-
-      <SidebarInset>
-        <header className="flex h-12 items-center justify-between border-b px-4">
-          <div className="flex items-center gap-4">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="h-6" />
-          </div>
-
-          <div className="flex items-center gap-3 px-4">
-            <SharpnrLauncher />
-            <NotificationBell onClick={handleOpenNotification} />
-            <UserCard />
-            <ModeToggle />
-          </div>
-        </header>
-
-        <main className="flex-1">
-          <Outlet />
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+          <SidebarRail />
+          <SharpnrSidebarFooter appName="Sharp HR" />
+        </Sidebar>
+      }
+      headerActions={
+        <>
+          <SharpnrLauncher currentApp="hr" />
+          <NotificationBell onClick={handleOpenNotification} />
+          <UserCard
+            user={user}
+            isLoading={isLoadingUser}
+            onLogout={() => logoutUser()}
+            isLoggingOut={isLoggingOut}
+            iamUrl={config.iamAppUrl}
+          />
+          <ModeToggle />
+        </>
+      }
+    >
+      <Outlet />
+    </AppShell>
   );
 };
 

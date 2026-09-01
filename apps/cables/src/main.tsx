@@ -4,11 +4,14 @@ import "./index.css";
 import { RouterProvider } from "@tanstack/react-router";
 import { queryClient, router } from "./router_config";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { IvaProvider } from "@sharpnr/iva";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <IvaProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </IvaProvider>
   </StrictMode>,
 );

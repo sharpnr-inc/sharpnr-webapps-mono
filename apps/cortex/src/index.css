@@ -1,3 +1,11 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/outfit";
+@import "@sharpnr/ui/theme.css";
+@source "../../../packages/ui/src";
+@source "../../../packages/iva/src";
+@source "../../../packages/policy-builder/src";
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;

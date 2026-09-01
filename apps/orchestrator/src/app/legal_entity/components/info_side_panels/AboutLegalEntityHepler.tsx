@@ -1,6 +1,5 @@
-import { Alert, ScrollArea } from "@sharpnr/ui";
+import { Alert, ScrollArea, useIsMobile } from "@sharpnr/ui";
 import { Play } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export function AboutLegalEntityHelper() {
   const isMobile = useIsMobile();

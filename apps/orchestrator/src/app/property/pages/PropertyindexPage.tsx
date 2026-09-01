@@ -8,7 +8,7 @@
 */
 
 import { useNavigate } from "@tanstack/react-router";
-import { Button, ScrollArea, Skeleton } from "@sharpnr/ui";
+import { Button, ScrollArea, Skeleton, useModal } from "@sharpnr/ui";
 import {
   ArrowUpRight,
   Building2,
@@ -23,7 +23,6 @@ import { useProperties } from "../api/queries";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import type { Property } from "../api/types";
 import { PropoertyIndexSidePanel } from "../components/PropertyIndexSidePanel";
-import { useModal } from "@/hooks/useModal";
 
 /* ── easing ──────────────────────────────────────────── */
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];

@@ -175,7 +175,7 @@ export const orchestratorGroups: SidebarGroup[] = [
     groupLabel: "Authorization policies",
     links: [
       {
-        label: "Policies",
+        label: "Org Policies",
         path: "/authorization/policies",
         icon: MdPolicy,
         tooltip: "Policies",

@@ -1,8 +1,7 @@
-import { Button, Skeleton } from "@sharpnr/ui";
+import { Button, Skeleton, useModal } from "@sharpnr/ui";
 import { Plus, Receipt, Globe, Calendar, MapPin } from "lucide-react";
 import type { LegalEntityTaxRegistrationResponseDto } from "../../api/types";
 import { AddTaxRegistrationForm } from "../forms/AddTaxRegistrationForm";
-import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityTaxRegistrationsTabProps {
   legalEntityID: string;

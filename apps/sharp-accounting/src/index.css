@@ -3,6 +3,7 @@
 @import "@fontsource-variable/outfit";
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
+@source "../../../packages/iva/src";
 
 /* In your main CSS file (e.g., globals.css) */
 
@@ -19,6 +20,3 @@
     @apply font-sans;
   }
 }
-
-/*   --font-sans: "Poppins", sans-serif; */
-

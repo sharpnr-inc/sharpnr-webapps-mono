@@ -1,6 +1,6 @@
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@sharpnr/ui";
-import { useTheme } from "@/components/ui/theme-provider";
+import { useTheme } from "@sharpnr/ui";
 import {
   ArrowRight,
   ArrowUpRight,

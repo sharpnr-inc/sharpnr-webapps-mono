@@ -11,20 +11,23 @@ import {
   ThemeProvider,
   TooltipProvider,
 } from "@sharpnr/ui";
+import { IvaProvider } from "@sharpnr/iva";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TooltipProvider>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <SheetProvider>
-            <Suspense fallback={<GlobalLoader />}>
-              <RouterProvider router={router} />
-              <Toaster />
-            </Suspense>
-          </SheetProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </TooltipProvider>
+    <IvaProvider>
+      <TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <SheetProvider>
+              <Suspense fallback={<GlobalLoader />}>
+                <RouterProvider router={router} />
+                <Toaster />
+              </Suspense>
+            </SheetProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </TooltipProvider>
+    </IvaProvider>
   </StrictMode>,
 );

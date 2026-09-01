@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@fontsource-variable/outfit": "^5.2.8",
+    "@sharpnr/iva": "workspace:*",
     "@sharpnr/ui": "workspace:*",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",
-    "@tanstack/react-router-devtools": "^1.166.13",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tailwindcss": "catalog:"

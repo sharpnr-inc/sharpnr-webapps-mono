@@ -55,7 +55,7 @@ function SidebarLinkItem({ item }: { item: SidebarLink }) {
         <SidebarMenuButton
           className="bg-transparent"
           size="sm"
-          isActive={selfActive}
+          isActive={!!selfActive}
           tooltip={item.tooltip}
           asChild={!!item.path}
         >
@@ -193,7 +193,7 @@ export function OrchestratorShell() {
         </ScrollArea>
       </SidebarContent>
 
-      <SharpnrSidebarFooter />
+      <SharpnrSidebarFooter appName="Orchestrator" />
     </Sidebar>
   );
 }

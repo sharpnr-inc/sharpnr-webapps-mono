@@ -29,19 +29,12 @@ import {
   UtensilsCrossed,
   Utensils,
 } from "lucide-react";
-import {
-  Badge,
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@sharpnr/ui";
+import { Badge, Card, CardDescription, CardHeader, CardTitle, useModal } from "@sharpnr/ui";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@sharpnr/ui";
-import { useModal } from "@/hooks/useModal";
 import ResourceCatalog from "@/business_operation/shared/ResourceCatalog";
 import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";
 import { useNavigate } from "@tanstack/react-router";

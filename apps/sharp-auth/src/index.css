@@ -4,6 +4,7 @@
 @import "@fontsource-variable/outfit";
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
+@source "../../../packages/iva/src";
 
 @layer base {
   * {

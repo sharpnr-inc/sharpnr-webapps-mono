@@ -1,4 +1,5 @@
 import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import { NotificationBell, ModeToggle, SharpnrLauncher } from "@sharpnr/ui";
 import {
   Sidebar,
   SidebarContent,
@@ -8,18 +9,13 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
   SidebarHeader,
   SidebarRail,
   SharpnrSidebarFooter,
+  AppShell,
   ScrollBar,
   ScrollArea,
-  Separator,
 } from "@sharpnr/ui";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { ModeToggle } from "@/components/header/ThemeToggle";
 import {
   BarChart3,
   Bell,
@@ -45,7 +41,6 @@ import {
   Workflow,
   Zap,
 } from "lucide-react";
-import SharpnrLauncher from "@/components/SharpnrLauncher/SharpnrLauncher";
 
 /* ───────────────── Types ───────────────── */
 
@@ -285,75 +280,67 @@ const NavMenuItem: React.FC<{ item: MarketingNavItem }> = ({ item }) => {
 
 const SharpMarktRootLayout: React.FC = () => {
   return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                size="lg"
-                className="cursor-default hover:bg-transparent"
-              >
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-pink-600 text-white shrink-0">
-                  <Megaphone className="size-4" />
-                </div>
-                <div className="grid flex-1 text-left text-sm">
-                  <span className="truncate font-semibold">
-                    Sharp Marketing
-                  </span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    CRM & Campaigns
-                  </span>
-                </div>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
+    <AppShell
+      sidebar={
+        <Sidebar collapsible="icon">
+          <SidebarHeader>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  size="lg"
+                  className="cursor-default hover:bg-transparent"
+                >
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-pink-600 text-white shrink-0">
+                    <Megaphone className="size-4" />
+                  </div>
+                  <div className="grid flex-1 text-left text-sm">
+                    <span className="truncate font-semibold">
+                      Sharp Marketing
+                    </span>
+                    <span className="truncate text-xs text-muted-foreground">
+                      CRM & Campaigns
+                    </span>
+                  </div>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
 
-        <SidebarContent className="overflow-hidden">
-          <ScrollArea className="h-full w-full">
-            <div className="pb-2">
-              {marketingSidebar.map((group) => (
-                <SidebarGroup key={group.group}>
-                  <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
+          <SidebarContent className="overflow-hidden">
+            <ScrollArea className="h-full w-full">
+              <div className="pb-2">
+                {marketingSidebar.map((group) => (
+                  <SidebarGroup key={group.group}>
+                    <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
 
-                  <SidebarGroupContent>
-                    <SidebarMenu>
-                      {group.items.map((item) => (
-                        <NavMenuItem key={item.id} item={item} />
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroupContent>
-                </SidebarGroup>
-              ))}
-            </div>
-            <ScrollBar orientation="vertical" />
-          </ScrollArea>
-        </SidebarContent>
+                    <SidebarGroupContent>
+                      <SidebarMenu>
+                        {group.items.map((item) => (
+                          <NavMenuItem key={item.id} item={item} />
+                        ))}
+                      </SidebarMenu>
+                    </SidebarGroupContent>
+                  </SidebarGroup>
+                ))}
+              </div>
+              <ScrollBar orientation="vertical" />
+            </ScrollArea>
+          </SidebarContent>
 
-        <SidebarRail />
-        <SharpnrSidebarFooter />
-      </Sidebar>
-
-      <SidebarInset>
-        <header className="flex h-12 items-center justify-between border-b px-4">
-          <div className="flex items-center gap-4">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="h-6" />
-          </div>
-          <div className="flex items-center gap-3 px-4">
-            <SharpnrLauncher />
-            <NotificationBell onClick={() => {}} />
-
-            <ModeToggle />
-          </div>
-        </header>
-
-        <main className="flex-1 p-4">
-          <Outlet />
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+          <SidebarRail />
+          <SharpnrSidebarFooter appName="Sharp CRM" />
+        </Sidebar>
+      }
+      headerActions={
+        <>
+          <SharpnrLauncher currentApp="sharpcrm" />
+          <NotificationBell onClick={() => {}} />
+          <ModeToggle />
+        </>
+      }
+    >
+      <Outlet />
+    </AppShell>
   );
 };
 

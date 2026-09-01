@@ -15,7 +15,7 @@ import {
 import { useOrgSuppliers } from "../api/query";
 import { AddNewSupplierForm } from "../forms/AddNewSuppliersForms";
 import { useNavigate } from "@tanstack/react-router";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@sharpnr/ui";
 
 /* ─────────────────────────────────────────────
    Updated Supplier type (matches API response)

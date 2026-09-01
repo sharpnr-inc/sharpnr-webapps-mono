@@ -1,9 +1,8 @@
-import { Button, Skeleton } from "@sharpnr/ui";
+import { Button, Skeleton, useModal } from "@sharpnr/ui";
 import { MapPin, Plus, Building2 } from "lucide-react";
 import type { LegalEntityAddressResponseDto } from "../../api/types";
 import { getLegalEntityAddressTypeLabel } from "../../utils/entity_type";
 import { AddAddressForm } from "../forms/AddAddressForm";
-import { useModal } from "@/hooks/useModal";
 
 interface LegalEntityAddressesTabProps {
   legalEntityID: string;

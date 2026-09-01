@@ -4,9 +4,8 @@ import {
   useAllInventoriesAccounts,
   useRestaurantInventories,
 } from "../apis/queries";
-import { useFormsModal } from "@/hooks/FormModalContext";
 import { AddRestaurantInventoryForm } from "../components/AddRestaurantInventory";
-import { Badge } from "@sharpnr/ui";
+import { Badge, useModal } from "@sharpnr/ui";
 import { Button } from "@sharpnr/ui";
 import { Card, CardContent, CardHeader } from "@sharpnr/ui";
 import { Skeleton } from "@sharpnr/ui";
@@ -115,7 +114,7 @@ const RestaurantInventoryPage: React.FC = () => {
   const { data: warehouseOrAccounts, isLoading: isWarehouseLoading } =
     useAllInventoriesAccounts(restaurantID!);
 
-  const { showModal } = useFormsModal();
+  const { showModal } = useModal();
 
   const handleAddInventory = (warehouseID: string) => {
     if (!warehouseID) return;

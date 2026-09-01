@@ -13,18 +13,7 @@ import {
   ArrowLeftRight,
   PackageSearch,
 } from "lucide-react";
-import {
-  Button,
-  Input,
-  Label,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  toast,
-} from "@sharpnr/ui";
-import { useModal } from "@/hooks/useModal";
+import { Button, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, toast, useModal } from "@sharpnr/ui";
 
 /* ─────────────────────────────────────────────
    Dummy data (replace with Stockwave API)

@@ -29,8 +29,8 @@ function OrganizationIndexPage() {
       <SummaryCards />
       <Separator />
 
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList variant="default" className="w-full justify-start">
+      <Tabs defaultValue="overview" className="">
+        <TabsList>
           {TABS.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>
               {tab.label}

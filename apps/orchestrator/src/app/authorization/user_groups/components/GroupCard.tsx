@@ -1,11 +1,11 @@
-import { UsersRound, Users, ScrollText, Pencil, Plus } from "lucide-react";
-import type { UserGroup } from "../data/dummyGroups";
+import { UsersRound, Network, Pencil, Plus } from "lucide-react";
+import type { SentinelUserGroupResponseDto } from "../api/types";
 import PixelCard from "./PixelCard";
 
 type PixelVariant = "default" | "blue" | "yellow" | "pink";
 
 interface GroupCardProps {
-  group: UserGroup;
+  group: SentinelUserGroupResponseDto;
   /** Pixel-shimmer color variant for the hover effect. */
   variant?: PixelVariant;
   onClick: () => void;
@@ -15,7 +15,7 @@ function StatChip({
   icon: Icon,
   children,
 }: {
-  icon: typeof Users;
+  icon: typeof UsersRound;
   children: React.ReactNode;
 }) {
   return (
@@ -59,12 +59,8 @@ export function GroupCard({
 
         {/* Stats */}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
-          <StatChip icon={Users}>
-            {group.memberCount} {group.memberCount === 1 ? "person" : "people"}
-          </StatChip>
-          <StatChip icon={ScrollText}>
-            {group.policyCount}{" "}
-            {group.policyCount === 1 ? "policy" : "policies"}
+          <StatChip icon={Network}>
+            {group.parentGroupId ? "Sub-group" : "Top-level group"}
           </StatChip>
         </div>
 

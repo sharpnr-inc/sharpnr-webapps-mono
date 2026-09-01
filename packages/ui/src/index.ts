@@ -526,8 +526,31 @@ export {
 } from "./components/ui/toggle";
 
 export { useIsMobile } from "./hooks/use-mobile";
-export { DialogModalProvider, useDialogModal } from "./hooks/useDialog";
 export { SheetProvider, useSheet } from "./hooks/useSheets";
-export { FormsModalProvider, useFormsModal } from "./hooks/useFormModal";
+export { ModalProvider, useModal } from "./hooks/useModal";
+export type {
+  ModalSize,
+  OpenModalOptions,
+  ModalContextValue,
+} from "./hooks/useModal";
 export { ThemeProvider, useTheme } from "./hooks/theme-provider";
 export { ModeToggle } from "./hooks/ThemeToggle";
+
+/* ── Shared app chrome (header + launcher) ─────────────────
+   Moved out of each app's src/components so the six apps that
+   render them share one implementation. App-specific data
+   (user, logout, routing) is injected via props. */
+export { NotificationBell } from "./components/header/NotificationButton";
+export { useUserCardStore } from "./components/header/user_card_store";
+export { UserCard } from "./components/header/UserCard";
+export type { UserCardProps, UserCardUser } from "./components/header/UserCard";
+export { default as SharpnrLauncher } from "./components/launcher/SharpnrLauncher";
+export type { SharpnrLauncherProps } from "./components/launcher/SharpnrLauncher";
+export {
+  LAUNCHER_SECTIONS,
+  type LauncherItem,
+  type LauncherSection,
+} from "./components/launcher/launcher.config";
+
+export { AppShell } from "./components/layout/AppShell";
+export type { AppShellProps } from "./components/layout/AppShell";

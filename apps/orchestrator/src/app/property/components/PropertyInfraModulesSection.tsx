@@ -34,13 +34,7 @@ import {
   Wine,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import {
-  Badge,
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@sharpnr/ui";
+import { Badge, Card, CardDescription, CardHeader, CardTitle, useModal } from "@sharpnr/ui";
 import { usePropertyInfraModules } from "../api/queries";
 import type {
   GeneralInfraModule,
@@ -52,7 +46,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@sharpnr/ui";
-import { useModal } from "@/hooks/useModal";
 import InfraCatalog from "@/business_operation/shared/InfraCatalog";
 import { DetailRow, PropertySection, SubGroup } from "./PropertyModulesLayout";
 

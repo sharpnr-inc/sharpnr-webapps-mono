@@ -1,16 +1,22 @@
 import { Outlet, useRouteContext } from "@tanstack/react-router";
-import { Sidebar, SidebarProvider, SidebarTrigger } from "@sharpnr/ui";
+import { AppShell } from "@sharpnr/ui";
 import { AppSidebar } from "./AppSidebar";
-import { ModeToggle } from "@sharpnr/ui";
-import { Separator } from "@sharpnr/ui";
-import SharpnrLauncher from "../SharpnrLauncher/SharpnrLauncher";
-import { NotificationBell } from "../header/NotificationButton";
-import { UserCard } from "../header/UserCard";
+import {
+  ModeToggle,
+  NotificationBell,
+  UserCard,
+  SharpnrLauncher,
+} from "@sharpnr/ui";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutations";
 import { useSheet } from "@sharpnr/ui";
 import { config } from "@sharpnr/env";
 import { motion, AnimatePresence } from "framer-motion";
 
 const RootLayout: React.FC = () => {
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   const { openSheet } = useSheet();
   const { showSetupOverlay } = useRouteContext({ from: "/_user" });
 
@@ -136,34 +142,24 @@ const RootLayout: React.FC = () => {
           </motion.div>
         </AnimatePresence>
       )}
-      <SidebarProvider>
-        <div className="flex min-h-screen w-full">
-          {/* Sidebar */}
-          <Sidebar collapsible="icon">
-            <AppSidebar />
-          </Sidebar>
-
-          {/* Main */}
-          <div className="flex flex-1 flex-col">
-            <header className="flex h-14 items-center justify-between border-b px-4">
-              <div className="flex items-center gap-4">
-                <SidebarTrigger />
-                <Separator orientation="vertical" className="h-6" />
-              </div>
-              <div className="flex items-center gap-3 px-4">
-                <SharpnrLauncher />
-                <NotificationBell onClick={() => handleOpenNotification()} />
-                <UserCard />
-                <ModeToggle />
-              </div>
-            </header>
-
-            <main className="flex-1 p-3">
-              <Outlet />
-            </main>
-          </div>
-        </div>
-      </SidebarProvider>
+      <AppShell
+        sidebar={<AppSidebar />}
+        headerActions={
+          <>
+            <SharpnrLauncher currentApp="iam" />
+            <NotificationBell onClick={() => handleOpenNotification()} />
+            <UserCard
+              user={user}
+              isLoading={isLoadingUser}
+              onLogout={() => logoutUser()}
+              isLoggingOut={isLoggingOut}
+            />
+            <ModeToggle />
+          </>
+        }
+      >
+        <Outlet />
+      </AppShell>
     </>
   );
 };

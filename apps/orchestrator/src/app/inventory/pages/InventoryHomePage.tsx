@@ -16,7 +16,7 @@ import {
 import { useInventoryAccounts } from "../api/queries";
 import { AddNewInventoryAccountForm } from "../forms/AddNewInventoryAccount";
 import { useNavigate } from "@tanstack/react-router";
-import { useModal } from "@/hooks/useModal";
+import { useModal } from "@sharpnr/ui";
 
 /* ─── type matching API response ─── */
 type InventoryAccount = {

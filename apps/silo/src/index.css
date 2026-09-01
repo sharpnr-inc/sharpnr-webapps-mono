@@ -5,6 +5,7 @@
 @import "@fontsource-variable/jetbrains-mono";
 @import "@sharpnr/ui/theme.css";
 @source "../../../packages/ui/src";
+@source "../../../packages/iva/src";
 
 /* ─────────────────────────────────────────────────────────────
    Silo "Shear" brand tokens

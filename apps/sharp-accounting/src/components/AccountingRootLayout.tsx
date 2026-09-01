@@ -8,12 +8,10 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
   useSidebar,
   SidebarHeader,
   SharpnrSidebarFooter,
+  AppShell,
   useSheet,
 } from "@sharpnr/ui";
 import { ScrollArea, ScrollBar } from "@sharpnr/ui";
@@ -25,13 +23,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@sharpnr/ui";
-import { TooltipProvider } from "@sharpnr/ui";
-import { Separator } from "@sharpnr/ui";
-import { NotificationBell } from "@/components/header/NotificationButton";
-import { UserCard } from "@/components/header/UserCard";
-import { ModeToggle } from "@/components/header/ThemeToggle";
+import {
+  NotificationBell,
+  UserCard,
+  ModeToggle,
+  SharpnrLauncher,
+} from "@sharpnr/ui";
+import { config } from "@sharpnr/env";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutation";
+import { QuickAccess } from "@/components/header/QuickAccess";
 import { accountingSidebar, type AccountingNavItem } from "./AccountingNavs";
-import SharpnrLauncher from "./SharpnrLauncher/SharpnrLauncher";
 
 /* ================================
    Nav Item
@@ -68,9 +70,12 @@ function AccountingNavItem({ item }: { item: AccountingNavItem }) {
 
 const AccountingRootLayout = () => {
   const { openSheet } = useSheet();
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
   return (
-    <SidebarProvider>
-      <TooltipProvider>
+    <AppShell
+      sidebar={
         <Sidebar collapsible="icon" variant="sidebar" side="left">
           <SidebarHeader>
             <LegalEntitySwitcher />
@@ -96,29 +101,27 @@ const AccountingRootLayout = () => {
               <ScrollBar orientation="vertical" />
             </ScrollArea>
           </SidebarContent>
-          <SharpnrSidebarFooter />
+          <SharpnrSidebarFooter appName="Accounting" />
         </Sidebar>
-
-        <SidebarInset>
-          <header className="flex h-12 items-center justify-between border-b px-4">
-            <div className="flex items-center gap-4">
-              <SidebarTrigger />
-              <Separator orientation="vertical" className="h-6" />
-            </div>
-            <div className="flex items-center gap-3 px-4">
-              <SharpnrLauncher />
-              <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
-              <UserCard />
-              <ModeToggle />
-            </div>
-          </header>
-
-          <main className="overflow-auto p-4">
-            <Outlet />
-          </main>
-        </SidebarInset>
-      </TooltipProvider>
-    </SidebarProvider>
+      }
+      headerActions={
+        <>
+          <SharpnrLauncher currentApp="accounting" />
+          <NotificationBell onClick={() => openSheet(<>HI</>, "1/4")} />
+          <UserCard
+            user={user}
+            isLoading={isLoadingUser}
+            onLogout={() => logoutUser()}
+            isLoggingOut={isLoggingOut}
+            iamUrl={config.iamAppUrl}
+            quickAccess={<QuickAccess />}
+          />
+          <ModeToggle />
+        </>
+      }
+    >
+      <Outlet />
+    </AppShell>
   );
 };
 

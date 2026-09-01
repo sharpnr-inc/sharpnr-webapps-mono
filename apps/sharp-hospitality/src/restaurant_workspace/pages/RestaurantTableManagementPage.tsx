@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useRestaurantLayout } from "../apis/queries";
 import { cn } from "@sharpnr/utils";
-import { Skeleton } from "@sharpnr/ui";
-import { useSheet } from "@/hooks/useSheet";
+import { Skeleton, useSheet } from "@sharpnr/ui";
 import StartDineInSessionDialog from "../components/DineInSessionDialog";
 import { useStartDineInSession } from "../apis/mutations";
 import DiningSessionTerminal from "../components/DiningSessionTerminal";

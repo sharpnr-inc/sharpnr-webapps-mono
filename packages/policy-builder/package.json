@@ -1,0 +1,42 @@
+{
+  "name": "@sharpnr/policy-builder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cedar policy builder UI — compose, generate and validate authorization policies",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./vite": {
+      "types": "./src/vite.d.ts",
+      "default": "./src/vite.js"
+    }
+  },
+  "scripts": {},
+  "peerDependencies": {
+    "lucide-react": ">=0.300.0",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@cedar-policy/cedar-wasm": "^4.11.1",
+    "@sharpnr/ui": "workspace:*",
+    "@sharpnr/utils": "workspace:*",
+    "@sharpnr/http": "workspace:*",
+    "zustand": "catalog:",
+    "@tanstack/react-query": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "lucide-react": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

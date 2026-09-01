@@ -14,7 +14,7 @@ import {
   Truck,
   Import,
 } from "lucide-react";
-import { useFormsModal } from "@/hooks/FormModalContext";
+import { useModal } from "@sharpnr/ui";
 import { AddNewSupplierForm } from "@/app/shared/forms/AddNewSupplier";
 import { useNavigate } from "@tanstack/react-router";
 import { useLegalEntitySuppliers } from "@/app/api/queries/suppliers";
@@ -253,7 +253,7 @@ export function AccountingSupplierHomePage() {
   const { data } = useLegalEntitySuppliers(selectedLegalEntity?.id);
   console.log(data);
 
-  const { showModal } = useFormsModal();
+  const { showModal } = useModal();
   const [query, setQuery] = useState("");
 
   const suppliers = DUMMY_SUPPLIERS; // replace with useSuppliers() hook later
