@@ -11,7 +11,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { Badge, Button } from "@sharpnr/ui";
 import PropertyDetailsBusinessModulesSection from "../components/PropertyDetailsBusinessModulesSection";
 import PropertyInfraModulesSection from "../components/PropertyInfraModulesSection";
-import { PropertyDetailsResourcesSection } from "../components/PropertyDetailsResourcesSection";
 
 interface PropertyDetailsPageProps {
   propertyId: string;
@@ -104,11 +103,6 @@ export function PropertyDetailsPage({ propertyId }: PropertyDetailsPageProps) {
 
       {/* ── Infrastructure modules ──────────────────── */}
       <PropertyInfraModulesSection propertyID={propertyId} />
-
-      <div className="border-t border-dashed" />
-
-      {/* ── Resources (shared across infra + business modules) ── */}
-      <PropertyDetailsResourcesSection propertyID={propertyId} />
     </div>
   );
 }
