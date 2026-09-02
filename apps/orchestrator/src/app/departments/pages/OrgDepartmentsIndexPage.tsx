@@ -3,17 +3,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus,
   Search,
-  Users,
-  Mail,
-  MapPin,
   Network,
   ArrowUpRight,
   UserRound,
+  CalendarDays,
+  AlertTriangle,
 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
-import { useModal } from "@sharpnr/ui";
+import { Skeleton, useModal } from "@sharpnr/ui";
+import { formatDate } from "@sharpnr/utils";
 import CreateDepartmentsForm from "../components/CreateDepartmentsForm";
-import { DUMMY_DEPARTMENTS, type Department } from "../data/dummyDepartments";
+import type { DepartmentViewResponseDto } from "../api/types";
+import { useOrgDepartments } from "../api/queries";
 
 /* ─────────────────────────────────────────────
    Helpers
@@ -37,7 +38,7 @@ function DepartmentCard({
   index,
   onClick,
 }: {
-  department: Department;
+  department: DepartmentViewResponseDto;
   index: number;
   onClick: () => void;
 }) {
@@ -83,37 +84,23 @@ function DepartmentCard({
 
       {/* info */}
       <div className="space-y-1.5 mb-4">
+        <p className="text-xs text-muted-foreground line-clamp-2 min-h-8">
+          {department.description || "No description added yet."}
+        </p>
+
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <UserRound className="size-3 shrink-0" />
-          <span>{department.head}</span>
-        </div>
-
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Mail className="size-3 shrink-0" />
-          <span className="truncate">{department.email}</span>
-        </div>
-
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <MapPin className="size-3 shrink-0" />
-          <span>{department.location}</span>
+          <span className="truncate">
+            {department.department_head || "No head assigned"}
+          </span>
         </div>
       </div>
 
-      {/* footer badges */}
+      {/* footer badge */}
       <div className="flex items-center gap-1.5">
         <span className="cf-mono text-[10px] px-2 py-0.5 rounded-lg border bg-muted/30 border-border/40 text-muted-foreground flex items-center gap-1">
-          <Users className="size-2.5" />
-          {department.members} members
-        </span>
-
-        <span
-          className={`cf-mono text-[10px] px-2 py-0.5 rounded-lg border ml-auto ${
-            department.status === "active"
-              ? "bg-primary/10 border-primary/20 text-primary"
-              : "bg-muted/30 border-border/40 text-muted-foreground/40"
-          }`}
-        >
-          {department.status}
+          <CalendarDays className="size-2.5" />
+          {formatDate(department.created_at)}
         </span>
       </div>
     </motion.div>
@@ -127,10 +114,11 @@ function DepartmentCard({
 const OrgDepartmentsIndexPage = () => {
   const nav = useNavigate();
   const { openModal, closeModal } = useModal();
+  const { data, isLoading, isError } = useOrgDepartments();
 
   const [query, setQuery] = useState("");
 
-  const departments = DUMMY_DEPARTMENTS;
+  const departments = useMemo(() => data?.data ?? [], [data]);
 
   const filtered = useMemo(
     () =>
@@ -139,7 +127,7 @@ const OrgDepartmentsIndexPage = () => {
           !query ||
           d.name.toLowerCase().includes(query.toLowerCase()) ||
           d.code.toLowerCase().includes(query.toLowerCase()) ||
-          d.head.toLowerCase().includes(query.toLowerCase())
+          (d.department_head ?? "").toLowerCase().includes(query.toLowerCase())
         );
       }),
     [departments, query],
@@ -170,14 +158,16 @@ const OrgDepartmentsIndexPage = () => {
             Departments
           </h1>
 
-          <div className="flex items-baseline gap-2">
-            <span className="font-display italic text-2xl text-foreground">
-              {departments.length}
-            </span>
-            <span className="text-xs text-muted-foreground">
-              Total Departments
-            </span>
-          </div>
+          {!isLoading && !isError && (
+            <div className="flex items-baseline gap-2">
+              <span className="font-display italic text-2xl text-foreground">
+                {departments.length}
+              </span>
+              <span className="text-xs text-muted-foreground">
+                Total Departments
+              </span>
+            </div>
+          )}
         </div>
 
         <button
@@ -208,8 +198,32 @@ const OrgDepartmentsIndexPage = () => {
         )}
       </div>
 
+      {/* loading */}
+      {isLoading && (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Skeleton key={i} className="h-52 w-full rounded-2xl" />
+          ))}
+        </div>
+      )}
+
+      {/* error */}
+      {!isLoading && isError && (
+        <div className="flex flex-col items-center justify-center py-20 gap-3">
+          <AlertTriangle className="size-6 text-destructive/60" />
+
+          <p className="font-display italic text-xl text-foreground">
+            Couldn't load departments
+          </p>
+
+          <p className="text-xs text-muted-foreground">
+            Please refresh the page or try again.
+          </p>
+        </div>
+      )}
+
       {/* grid */}
-      {filtered.length === 0 && (
+      {!isLoading && !isError && filtered.length === 0 && (
         <div className="flex flex-col items-center justify-center py-20 gap-4">
           <Network className="size-6 text-muted-foreground/30" />
 
@@ -226,18 +240,18 @@ const OrgDepartmentsIndexPage = () => {
         </div>
       )}
 
-      {filtered.length > 0 && (
+      {!isLoading && !isError && filtered.length > 0 && (
         <AnimatePresence mode="popLayout">
           <motion.div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((department, i) => (
               <DepartmentCard
-                key={department.ID}
+                key={department.id}
                 department={department}
                 index={i}
                 onClick={() => {
                   nav({
                     to: "/deparments/$departmentID",
-                    params: { departmentID: department.ID },
+                    params: { departmentID: department.id },
                   });
                 }}
               />
