@@ -10,13 +10,9 @@ import {
   Globe,
   Globe2Icon,
   Home,
-  LayoutDashboard,
   LucideShoppingBasket,
   MirrorRound,
-  Network,
-  Receipt,
   TrendingUp,
-  Wallet,
 } from "lucide-react";
 import { GrOverview } from "react-icons/gr";
 import {
@@ -95,34 +91,7 @@ export const orchestratorGroups: SidebarGroup[] = [
         label: "Cost Centers",
         icon: BiPaste,
         tooltip: "Cost Centers",
-        badge: "new",
-        children: [
-          {
-            label: "Overview",
-            icon: LayoutDashboard,
-            tooltip: "Cost Centers Overview",
-          },
-          {
-            label: "Branches",
-            icon: Building2Icon,
-            tooltip: "Branches & Locations",
-          },
-          {
-            label: "Departments",
-            icon: Network,
-            tooltip: "Departments within Branches",
-          },
-          {
-            label: "Budgets",
-            icon: Wallet,
-            tooltip: "Branch Budgets",
-          },
-          {
-            label: "Expenses",
-            icon: Receipt,
-            tooltip: "Branch Expenses",
-          },
-        ],
+        path: "/cost_center/overview",
       },
 
       {
