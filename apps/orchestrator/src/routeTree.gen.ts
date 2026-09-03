@@ -13,6 +13,7 @@ import { Route as AppuserRouteRouteImport } from './routes/_appuser/route'
 import { Route as Setup_wizardRouteRouteImport } from './routes/setup_wizard/route'
 import { Route as AppuserAuditLogRouteRouteImport } from './routes/_appuser/audit-log/route'
 import { Route as AppuserAuthorizationRouteRouteImport } from './routes/_appuser/authorization/route'
+import { Route as AppuserCablesRouteRouteImport } from './routes/_appuser/cables/route'
 import { Route as AppuserCost_centerRouteRouteImport } from './routes/_appuser/cost_center/route'
 import { Route as AppuserCustomersRouteRouteImport } from './routes/_appuser/customers/route'
 import { Route as AppuserDeparmentsRouteRouteImport } from './routes/_appuser/deparments/route'
@@ -27,7 +28,6 @@ import { Route as MarketingIndexRouteImport } from './routes/_marketing/index'
 import { Route as Setup_wizardIndexRouteImport } from './routes/setup_wizard/index'
 import { Route as AppuserAuditLogIndexRouteImport } from './routes/_appuser/audit-log/index'
 import { Route as AppuserCablesIndexRouteImport } from './routes/_appuser/cables/index'
-import { Route as AppuserCablesRoutesRouteImport } from './routes/_appuser/cables/routes'
 import { Route as AppuserCortexIndexRouteImport } from './routes/_appuser/cortex/index'
 import { Route as AppuserCustomersIndexRouteImport } from './routes/_appuser/customers/index'
 import { Route as AppuserDeparmentsIndexRouteImport } from './routes/_appuser/deparments/index'
@@ -112,6 +112,11 @@ const AppuserAuthorizationRouteRoute =
     path: '/authorization',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserCablesRouteRoute = AppuserCablesRouteRouteImport.update({
+  id: '/cables',
+  path: '/cables',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserCost_centerRouteRoute = AppuserCost_centerRouteRouteImport.update({
   id: '/cost_center',
   path: '/cost_center',
@@ -182,14 +187,9 @@ const AppuserAuditLogIndexRoute = AppuserAuditLogIndexRouteImport.update({
   getParentRoute: () => AppuserAuditLogRouteRoute,
 } as any)
 const AppuserCablesIndexRoute = AppuserCablesIndexRouteImport.update({
-  id: '/cables/',
-  path: '/cables/',
-  getParentRoute: () => AppuserRouteRoute,
-} as any)
-const AppuserCablesRoutesRoute = AppuserCablesRoutesRouteImport.update({
-  id: '/cables/routes',
-  path: '/cables/routes',
-  getParentRoute: () => AppuserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserCablesRouteRoute,
 } as any)
 const AppuserCortexIndexRoute = AppuserCortexIndexRouteImport.update({
   id: '/cortex/',
@@ -596,6 +596,7 @@ export interface FileRoutesByFullPath {
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
   '/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
+  '/cables': typeof AppuserCablesRouteRouteWithChildren
   '/cost_center': typeof AppuserCost_centerRouteRouteWithChildren
   '/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/deparments': typeof AppuserDeparmentsRouteRouteWithChildren
@@ -609,7 +610,6 @@ export interface FileRoutesByFullPath {
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
   '/sharpnr-services/stockwave': typeof AppuserSharpnrServicesStockwaveRouteRouteWithChildren
-  '/cables/routes': typeof AppuserCablesRoutesRoute
   '/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
@@ -680,7 +680,6 @@ export interface FileRoutesByTo {
   '/cost_center': typeof AppuserCost_centerRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
   '/setup_wizard': typeof Setup_wizardIndexRoute
-  '/cables/routes': typeof AppuserCablesRoutesRoute
   '/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
@@ -750,6 +749,7 @@ export interface FileRoutesById {
   '/setup_wizard': typeof Setup_wizardRouteRouteWithChildren
   '/_appuser/audit-log': typeof AppuserAuditLogRouteRouteWithChildren
   '/_appuser/authorization': typeof AppuserAuthorizationRouteRouteWithChildren
+  '/_appuser/cables': typeof AppuserCablesRouteRouteWithChildren
   '/_appuser/cost_center': typeof AppuserCost_centerRouteRouteWithChildren
   '/_appuser/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/_appuser/deparments': typeof AppuserDeparmentsRouteRouteWithChildren
@@ -764,7 +764,6 @@ export interface FileRoutesById {
   '/setup_wizard/': typeof Setup_wizardIndexRoute
   '/_appuser/org-users/$employeeID': typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
   '/_appuser/sharpnr-services/stockwave': typeof AppuserSharpnrServicesStockwaveRouteRouteWithChildren
-  '/_appuser/cables/routes': typeof AppuserCablesRoutesRoute
   '/_appuser/org-users/add_employees': typeof AppuserOrgUsersAdd_employeesRoute
   '/_appuser/property/routes': typeof AppuserPropertyRoutesRoute
   '/setup_wizard/$stepID/base_setup': typeof Setup_wizardStepIDBase_setupRoute
@@ -836,6 +835,7 @@ export interface FileRouteTypes {
     | '/setup_wizard'
     | '/audit-log'
     | '/authorization'
+    | '/cables'
     | '/cost_center'
     | '/customers'
     | '/deparments'
@@ -849,7 +849,6 @@ export interface FileRouteTypes {
     | '/setup_wizard/'
     | '/org-users/$employeeID'
     | '/sharpnr-services/stockwave'
-    | '/cables/routes'
     | '/org-users/add_employees'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
@@ -920,7 +919,6 @@ export interface FileRouteTypes {
     | '/cost_center'
     | '/home'
     | '/setup_wizard'
-    | '/cables/routes'
     | '/org-users/add_employees'
     | '/property/routes'
     | '/setup_wizard/$stepID/base_setup'
@@ -989,6 +987,7 @@ export interface FileRouteTypes {
     | '/setup_wizard'
     | '/_appuser/audit-log'
     | '/_appuser/authorization'
+    | '/_appuser/cables'
     | '/_appuser/cost_center'
     | '/_appuser/customers'
     | '/_appuser/deparments'
@@ -1003,7 +1002,6 @@ export interface FileRouteTypes {
     | '/setup_wizard/'
     | '/_appuser/org-users/$employeeID'
     | '/_appuser/sharpnr-services/stockwave'
-    | '/_appuser/cables/routes'
     | '/_appuser/org-users/add_employees'
     | '/_appuser/property/routes'
     | '/setup_wizard/$stepID/base_setup'
@@ -1105,6 +1103,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserAuthorizationRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/cables': {
+      id: '/_appuser/cables'
+      path: '/cables'
+      fullPath: '/cables'
+      preLoaderRoute: typeof AppuserCablesRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/cost_center': {
       id: '/_appuser/cost_center'
       path: '/cost_center'
@@ -1198,17 +1203,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/cables/': {
       id: '/_appuser/cables/'
-      path: '/cables'
+      path: '/'
       fullPath: '/cables/'
       preLoaderRoute: typeof AppuserCablesIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
-    }
-    '/_appuser/cables/routes': {
-      id: '/_appuser/cables/routes'
-      path: '/cables/routes'
-      fullPath: '/cables/routes'
-      preLoaderRoute: typeof AppuserCablesRoutesRouteImport
-      parentRoute: typeof AppuserRouteRoute
+      parentRoute: typeof AppuserCablesRouteRoute
     }
     '/_appuser/cortex/': {
       id: '/_appuser/cortex/'
@@ -1699,6 +1697,17 @@ const AppuserAuthorizationRouteRouteWithChildren =
     AppuserAuthorizationRouteRouteChildren,
   )
 
+interface AppuserCablesRouteRouteChildren {
+  AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
+}
+
+const AppuserCablesRouteRouteChildren: AppuserCablesRouteRouteChildren = {
+  AppuserCablesIndexRoute: AppuserCablesIndexRoute,
+}
+
+const AppuserCablesRouteRouteWithChildren =
+  AppuserCablesRouteRoute._addFileChildren(AppuserCablesRouteRouteChildren)
+
 interface AppuserCost_centerRouteRouteChildren {
   AppuserCost_centerOverviewIndexRoute: typeof AppuserCost_centerOverviewIndexRoute
   AppuserCost_centerOverviewCost_centerIDIndexRoute: typeof AppuserCost_centerOverviewCost_centerIDIndexRoute
@@ -1960,6 +1969,7 @@ const AppuserBusinessOpsPropertyPropertyIdDomain_hospitalityHotel_dashboardHotel
 interface AppuserRouteRouteChildren {
   AppuserAuditLogRouteRoute: typeof AppuserAuditLogRouteRouteWithChildren
   AppuserAuthorizationRouteRoute: typeof AppuserAuthorizationRouteRouteWithChildren
+  AppuserCablesRouteRoute: typeof AppuserCablesRouteRouteWithChildren
   AppuserCost_centerRouteRoute: typeof AppuserCost_centerRouteRouteWithChildren
   AppuserCustomersRouteRoute: typeof AppuserCustomersRouteRouteWithChildren
   AppuserDeparmentsRouteRoute: typeof AppuserDeparmentsRouteRouteWithChildren
@@ -1972,10 +1982,8 @@ interface AppuserRouteRouteChildren {
   AppuserHomeRoute: typeof AppuserHomeRoute
   AppuserOrgUsersEmployeeIDRouteRoute: typeof AppuserOrgUsersEmployeeIDRouteRouteWithChildren
   AppuserSharpnrServicesStockwaveRouteRoute: typeof AppuserSharpnrServicesStockwaveRouteRouteWithChildren
-  AppuserCablesRoutesRoute: typeof AppuserCablesRoutesRoute
   AppuserOrgUsersAdd_employeesRoute: typeof AppuserOrgUsersAdd_employeesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
-  AppuserCablesIndexRoute: typeof AppuserCablesIndexRoute
   AppuserCortexIndexRoute: typeof AppuserCortexIndexRoute
   AppuserDocs_officeIndexRoute: typeof AppuserDocs_officeIndexRoute
   AppuserFolioIndexRoute: typeof AppuserFolioIndexRoute
@@ -2005,6 +2013,7 @@ interface AppuserRouteRouteChildren {
 const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserAuditLogRouteRoute: AppuserAuditLogRouteRouteWithChildren,
   AppuserAuthorizationRouteRoute: AppuserAuthorizationRouteRouteWithChildren,
+  AppuserCablesRouteRoute: AppuserCablesRouteRouteWithChildren,
   AppuserCost_centerRouteRoute: AppuserCost_centerRouteRouteWithChildren,
   AppuserCustomersRouteRoute: AppuserCustomersRouteRouteWithChildren,
   AppuserDeparmentsRouteRoute: AppuserDeparmentsRouteRouteWithChildren,
@@ -2021,10 +2030,8 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
     AppuserOrgUsersEmployeeIDRouteRouteWithChildren,
   AppuserSharpnrServicesStockwaveRouteRoute:
     AppuserSharpnrServicesStockwaveRouteRouteWithChildren,
-  AppuserCablesRoutesRoute: AppuserCablesRoutesRoute,
   AppuserOrgUsersAdd_employeesRoute: AppuserOrgUsersAdd_employeesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
-  AppuserCablesIndexRoute: AppuserCablesIndexRoute,
   AppuserCortexIndexRoute: AppuserCortexIndexRoute,
   AppuserDocs_officeIndexRoute: AppuserDocs_officeIndexRoute,
   AppuserFolioIndexRoute: AppuserFolioIndexRoute,
