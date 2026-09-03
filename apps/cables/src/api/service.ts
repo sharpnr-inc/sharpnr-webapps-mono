@@ -1,5 +1,10 @@
 import { api } from "@sharpnr/http";
-import type { UserAuthenticatedResponse, UserDataResponseDto } from "./types";
+import type {
+  CablesServiceResponseDto,
+  SetupProgressResponseDTO,
+  UserAuthenticatedResponse,
+  UserDataResponseDto,
+} from "./types";
 import type { APIResponse } from "@sharpnr/utils";
 
 export const AuthApiEndpoints = {
@@ -128,5 +133,39 @@ export async function logout() {
 
 export async function GetOrganizationStatus() {
   const res = await api.get(OrchestratorConsole.status);
+  return res.data;
+}
+
+/* ---------------------------------- <***> --------------------------------- */
+
+export const SetupWizardAPIEndpoints = {
+  GetOrganizationSetUpProgress: "/orchestrator/setup-wiz/progress",
+};
+
+export const CablesEndpoints = {
+  getCablesAccountStatus: () => `/orchestrator/cables`,
+};
+
+/**
+ * Reads how far the organisation has got through the setup wizard.
+ *
+ * Cables is only usable once the org is fully set up in the orchestrator, so
+ * the `_user` route guard sends unfinished orgs back there.
+ */
+export async function GetOrganizationSetUpProgress() {
+  const res = await api.get<APIResponse<SetupProgressResponseDTO>>(
+    SetupWizardAPIEndpoints.GetOrganizationSetUpProgress,
+  );
+  return res.data;
+}
+
+/**
+ * Reads whether the org has started Cables and whether it is currently active.
+ * Starting the service happens in the orchestrator, not here.
+ */
+export async function getCablesAccountStatus() {
+  const res = await api.get<APIResponse<CablesServiceResponseDto>>(
+    CablesEndpoints.getCablesAccountStatus(),
+  );
   return res.data;
 }

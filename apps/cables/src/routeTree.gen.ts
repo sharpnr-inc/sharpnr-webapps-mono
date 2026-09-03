@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UserRouteRouteImport } from './routes/_user/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as UserHomeIndexRouteImport } from './routes/_user/home/index'
 import { Route as UserMeetIndexRouteImport } from './routes/_user/meet/index'
 import { Route as UserChannelsChannelIdIndexRouteImport } from './routes/_user/channels/$channelId/index'
 import { Route as UserDmUserIdIndexRouteImport } from './routes/_user/dm/$userId/index'
@@ -23,6 +24,11 @@ const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const UserHomeIndexRoute = UserHomeIndexRouteImport.update({
+  id: '/home/',
+  path: '/home/',
+  getParentRoute: () => UserRouteRoute,
 } as any)
 const UserMeetIndexRoute = UserMeetIndexRouteImport.update({
   id: '/meet/',
@@ -43,12 +49,14 @@ const UserDmUserIdIndexRoute = UserDmUserIdIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/home/': typeof UserHomeIndexRoute
   '/meet/': typeof UserMeetIndexRoute
   '/channels/$channelId/': typeof UserChannelsChannelIdIndexRoute
   '/dm/$userId/': typeof UserDmUserIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
+  '/home': typeof UserHomeIndexRoute
   '/meet': typeof UserMeetIndexRoute
   '/channels/$channelId': typeof UserChannelsChannelIdIndexRoute
   '/dm/$userId': typeof UserDmUserIdIndexRoute
@@ -57,19 +65,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_user': typeof UserRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
+  '/_user/home/': typeof UserHomeIndexRoute
   '/_user/meet/': typeof UserMeetIndexRoute
   '/_user/channels/$channelId/': typeof UserChannelsChannelIdIndexRoute
   '/_user/dm/$userId/': typeof UserDmUserIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/meet/' | '/channels/$channelId/' | '/dm/$userId/'
+  fullPaths:
+    '/' | '/home/' | '/meet/' | '/channels/$channelId/' | '/dm/$userId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/meet' | '/channels/$channelId' | '/dm/$userId'
+  to: '/' | '/home' | '/meet' | '/channels/$channelId' | '/dm/$userId'
   id:
     | '__root__'
     | '/_user'
     | '/_website/'
+    | '/_user/home/'
     | '/_user/meet/'
     | '/_user/channels/$channelId/'
     | '/_user/dm/$userId/'
@@ -96,6 +107,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_user/home/': {
+      id: '/_user/home/'
+      path: '/home'
+      fullPath: '/home/'
+      preLoaderRoute: typeof UserHomeIndexRouteImport
+      parentRoute: typeof UserRouteRoute
+    }
     '/_user/meet/': {
       id: '/_user/meet/'
       path: '/meet'
@@ -121,12 +139,14 @@ declare module '@tanstack/react-router' {
 }
 
 interface UserRouteRouteChildren {
+  UserHomeIndexRoute: typeof UserHomeIndexRoute
   UserMeetIndexRoute: typeof UserMeetIndexRoute
   UserChannelsChannelIdIndexRoute: typeof UserChannelsChannelIdIndexRoute
   UserDmUserIdIndexRoute: typeof UserDmUserIdIndexRoute
 }
 
 const UserRouteRouteChildren: UserRouteRouteChildren = {
+  UserHomeIndexRoute: UserHomeIndexRoute,
   UserMeetIndexRoute: UserMeetIndexRoute,
   UserChannelsChannelIdIndexRoute: UserChannelsChannelIdIndexRoute,
   UserDmUserIdIndexRoute: UserDmUserIdIndexRoute,
