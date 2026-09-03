@@ -4,7 +4,6 @@ import { config } from "@sharpnr/env";
 import { GetAuthenticatedUser, verifyUserAuthentication } from "@/api/service";
 import { cablesAccountStatusQuery, setupProgressQuery } from "@/api/queries";
 import { appUserActions } from "@/store/userStore";
-import { Sidebar } from "@/components/Sidebar";
 import { CablesServiceUnavailable } from "@/components/CablesServiceUnavailable";
 
 export const Route = createFileRoute("/_user")({
@@ -85,9 +84,8 @@ function UserLayout() {
   }
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-zinc-900">
-      <Sidebar />
-      <div className="flex flex-col flex-1 overflow-hidden">
+    <div className="flex h-screen w-screen overflow-hidden bg-ink">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <Outlet />
       </div>
     </div>
