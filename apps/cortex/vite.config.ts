@@ -2,12 +2,21 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
   // One .env at the repo root serves every app.
   envDir: path.resolve(import.meta.dirname, "../.."),
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+      generatedRouteTree: "./src/routeTree.gen.ts",
+    }),
+    react(),
+    tailwindcss(),
+  ],
   server: {
     host: true,
     port: 6957,
@@ -36,5 +45,9 @@ export default defineConfig({
   },
   resolve: {
     alias: { "@": path.resolve(import.meta.dirname, "./src") },
+  },
+  preview: {
+    port: 6857,
+    strictPort: true,
   },
 });

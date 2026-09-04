@@ -10,13 +10,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/outfit": "^5.2.8",
+    "@sharpnr/env": "workspace:*",
+    "@sharpnr/http": "workspace:*",
     "@sharpnr/iva": "workspace:*",
     "@sharpnr/ui": "workspace:*",
+    "@sharpnr/utils": "workspace:*",
     "@tanstack/react-query": "catalog:",
     "@tanstack/react-router": "catalog:",
+    "axios": "catalog:",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "framer-motion": "catalog:",
+    "lucide-react": "catalog:",
+    "next-themes": "catalog:",
+    "radix-ui": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "tw-animate-css": "catalog:"
+    "sonner": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tw-animate-css": "catalog:",
+    "zod": "catalog:",
+    "zustand": "catalog:"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
