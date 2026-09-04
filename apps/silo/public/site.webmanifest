@@ -1,7 +1,7 @@
 {
-  "name": "Silo Engine",
+  "name": "Silo",
   "short_name": "Silo",
-  "description": "Sharpnr's self-hosted storage, database, and data infrastructure platform.",
+  "description": "Sharpnr's all-in-one data platform: managed PostgreSQL, object storage, Drive, and a data lake and warehouse.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0C0D0F",

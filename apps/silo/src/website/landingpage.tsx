@@ -13,35 +13,49 @@ import {
   SiloMark,
 } from "./brand";
 
-/* ── Content — sourced from the Silo Engine architecture document ── */
+/* ── Content — the Silo product surface ── */
 
 const infraStats = [
-  { value: "~1 PB", label: "RAID-backed storage" },
-  { value: "160 GB", label: "Combined memory" },
-  { value: "10", label: "Combined CPUs" },
-  { value: "1", label: "Rust binary, systemd" },
+  { value: "7", label: "Storage services" },
+  { value: "1", label: "API & control plane" },
+  { value: "S3", label: "Compatible object API" },
+  { value: "PostgreSQL", label: "Fully managed" },
 ];
 
 const pillars = [
   {
     id: "storage",
     name: "Storage",
-    lead: "Files, objects, and CDN delivery on storage Silo owns.",
+    lead: "S3-compatible object storage with CDN delivery, on storage Silo owns.",
     items: [
-      "File & object storage",
-      "CDN-backed delivery",
-      "Streaming compression (Zstd)",
+      "Object storage, S3-compatible API",
+      "CDN-backed public delivery",
+      "Versioning & lifecycle rules",
       "Checksums & integrity",
-      "Org / employee quotas",
-      "Backups & snapshots",
+      "Encryption at rest",
+      "Org & per-user quotas",
+    ],
+  },
+
+  {
+    id: "drive",
+    name: "Drive",
+    lead: "A shared workspace for the files people actually open, on the same storage.",
+    items: [
+      "Folders & drag-and-drop upload",
+      "In-browser previews",
+      "Sharing by link or by person",
+      "Version history & restore",
+      "Desktop sync",
+      "Search across contents",
     ],
   },
   {
     id: "postgres",
-    name: "Database",
+    name: "Databases",
     lead: "PostgreSQL provisioned as a resource, not handed over as a server.",
     items: [
-      "Database provisioning",
+      "One-call provisioning",
       "Scoped PostgreSQL roles",
       "Generated credentials",
       "Database explorer",
@@ -52,7 +66,7 @@ const pillars = [
   {
     id: "data",
     name: "Data",
-    lead: "Lakes and warehouses built on the same storage foundation.",
+    lead: "Lakes and warehouses built on the same storage as everything else.",
     items: [
       "Data lakes",
       "Data warehouses",
@@ -65,7 +79,8 @@ const pillars = [
 ];
 
 const siloOwns = [
-  "File storage & metadata",
+  "File & object storage",
+  "Drive, folders & sharing",
   "Storage paths & backends",
   "Storage quotas",
   "Checksums & compression",
@@ -114,135 +129,94 @@ const auditEvents = [
   "dataset.ingested",
 ];
 
-const engineering = [
+const driveFeatures = [
   {
-    title: "Rust · Axum · Tokio",
-    body: "A single asynchronous service. Async tasks over the Tokio runtime — never an OS thread per request.",
+    title: "Folders that behave",
+    body: "Drag-and-drop upload, nested folders, and move or copy without a re-upload. Large files stream rather than loading whole.",
   },
   {
-    title: "Storage behind a trait",
-    body: "LocalRaidStorage today; S3, Ceph, or anything else later. The public API does not change when the disks do.",
+    title: "Preview in the browser",
+    body: "Documents, spreadsheets, images, PDFs and video open in place — no download required to see what a file is.",
   },
   {
-    title: "Streaming everywhere",
-    body: "Reader → compressor → writer. Multi-gigabyte objects are never loaded whole into memory.",
+    title: "Share by link or by person",
+    body: "Grant a person, a team, or anyone with the link. Every share can carry an expiry date and a view-only restriction.",
   },
   {
-    title: "Explicit dependency injection",
-    body: "Config, pools, and backends are constructed once at startup and passed in. No DI framework, no service building its own dependencies.",
+    title: "Version history",
+    body: "Every save is a version. Restore an earlier one, or recover a file someone deleted, without opening a support ticket.",
   },
   {
-    title: "One EngineConfig",
-    body: "Environment read once inside the config module, validated at startup, injected everywhere else.",
+    title: "Desktop sync",
+    body: "A synced folder on the machine, backed by the same object storage your applications write to.",
   },
   {
-    title: "OpenAPI as the contract",
-    body: "Swagger UI and ReDoc ship with the service. The spec is the interface between Silo and every consumer.",
+    title: "Search inside files",
+    body: "Full-text search across document contents and metadata, scoped to what the person is actually permitted to see.",
   },
   {
-    title: "Append-oriented audit log",
-    body: "Durable infrastructure events with organization, actor, resource, and timestamp. Sensitive payloads stay out.",
+    title: "Quotas per person",
+    body: "Storage limits modelled per organization and per employee, not just per bucket — so one team cannot quietly consume everything.",
   },
   {
-    title: "UUID v7 identifiers",
-    body: "Time-ordered by default, so identifiers index well without a separate sort key.",
+    title: "Same bytes, same rules",
+    body: "Drive is a view over Silo storage. The permission model, encryption and audit trail are the ones the rest of the platform uses.",
   },
 ];
 
-const roadmap = [
+const services = [
   {
     phase: "01",
-    name: "Foundation",
+    name: "Object Storage",
     state: "current",
-    items: [
-      "Configuration",
-      "Axum server",
-      "App state / DI",
-      "Error handling",
-      "Logging & tracing",
-    ],
+    items: ["S3-compatible API", "Versioning", "Lifecycle rules", "Checksums", "Encryption"],
   },
   {
     phase: "02",
-    name: "Storage",
-    state: "next",
-    items: [
-      "Storage backend",
-      "Object metadata",
-      "Upload / download / delete",
-      "Checksums",
-      "Compression",
-      "Quotas",
-    ],
+    name: "Drive",
+    state: "current",
+    items: ["Folders", "Previews", "Sharing & expiry", "Version history", "Desktop sync"],
   },
   {
     phase: "03",
-    name: "Access",
-    state: "planned",
-    items: [
-      "Authentication",
-      "Authorization",
-      "CDN integration",
-      "Audit logging",
-    ],
+    name: "CDN",
+    state: "current",
+    items: ["Edge caching", "Custom domains", "Signed URLs", "Invalidation"],
   },
   {
     phase: "04",
     name: "PostgreSQL",
-    state: "planned",
-    items: [
-      "Provisioning",
-      "Roles & credentials",
-      "Public DB endpoint",
-      "Database explorer",
-      "Backups & snapshots",
-    ],
+    state: "next",
+    items: ["Provisioning", "Scoped roles", "Connection pooling", "Explorer", "Point-in-time restore"],
   },
   {
     phase: "05",
     name: "Data Lake",
-    state: "planned",
-    items: [
-      "Lake creation",
-      "Dataset management",
-      "Parquet",
-      "Ingestion",
-      "Retention",
-    ],
+    state: "next",
+    items: ["Zones", "Parquet datasets", "Schema-on-read", "Partitioning", "Retention"],
   },
   {
     phase: "06",
-    name: "Data Warehouse",
+    name: "Warehouse",
     state: "planned",
-    items: [
-      "Warehouse creation",
-      "Lake → warehouse",
-      "ETL / ELT",
-      "Query engine",
-      "Analytics APIs",
-    ],
+    items: ["Warehouse provisioning", "Lake to warehouse", "Query engine", "Analytics APIs"],
   },
   {
     phase: "07",
-    name: "Advanced Data Services",
+    name: "Backups",
     state: "planned",
-    items: [
-      "SQL workspace",
-      "Search",
-      "Vector storage",
-      "AI / RAG infrastructure",
-    ],
+    items: ["Scheduled backups", "Cross-region replication", "Restore testing"],
   },
 ];
 
 const principles = [
-  "Infrastructure is separated from business logic.",
-  "Storage sits behind a backend interface.",
-  "Configuration is loaded once and injected.",
-  "Public URLs never depend on physical filesystem layout.",
-  "Large files are processed as streams.",
-  "Distributed infrastructure arrives only when it is needed.",
-  "Existing open source is reused before anything is reinvented.",
+  "One API and one control plane across every service.",
+  "One permission model, governed in Cortex.",
+  "One audit trail spanning storage, databases and data.",
+  "Encryption at rest and in transit, everywhere.",
+  "Quotas modelled per organization and per person.",
+  "Backups and point-in-time restore on every service.",
+  "Public URLs never depend on physical storage layout.",
 ];
 
 export function LandingPage() {
@@ -272,31 +246,31 @@ export function LandingPage() {
           <div className="rise relative z-10 mx-auto w-full max-w-screen-xl">
             <p className="mb-7 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-chalk-dim">
               <Band w={26} h={3} />
-              Sharpnr · Self-hosted data infrastructure
+              Sharpnr · The all-in-one data platform
             </p>
 
             <h1 className="brand-title max-w-4xl text-[clamp(2.75rem,7.5vw,5.75rem)] leading-[0.94]">
-              Infrastructure,
+              Every kind of data,
               <br />
-              <span className="text-accent-dark">not</span> business logic.
+              <span className="text-accent-dark">one</span> platform.
             </h1>
 
             <p className="mt-8 max-w-xl text-[15px] leading-relaxed text-chalk-muted">
-              Silo Engine is Sharpnr's self-hosted platform for object storage,
-              PostgreSQL provisioning, and data lake infrastructure.
-              Organizations create the resources they need without ever touching
-              the servers, RAID layout, or storage paths underneath them.
+              Hosted PostgreSQL, S3-compatible object storage, a data lake and
+              warehouse, and a Drive your team actually uses — all on one
+              platform, behind one API, under one permission model. Create the
+              resources you need without ever touching a server.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-3">
               <BrandButton href="#access">Request early access</BrandButton>
               <BrandButton variant="ghost" href="#platform">
-                Read the architecture
+                Explore the platform
               </BrandButton>
             </div>
 
             <div className="mt-14 flex flex-wrap items-center gap-x-7 gap-y-3 font-mono text-[11px] tracking-wide text-chalk-dim">
-              {["Rust + Axum", "PostgreSQL", "RAID-backed", "OpenAPI"].map(
+              {["Object storage", "PostgreSQL", "Data lake", "Drive"].map(
                 (t) => (
                   <span key={t} className="flex items-center gap-2">
                     <Band w={8} h={2} className="bg-accent-dark/60" />
@@ -331,8 +305,8 @@ export function LandingPage() {
           </div>
           <div className="mx-auto max-w-screen-xl border-t border-rule-soft px-6 py-3">
             <p className="font-mono text-[10px] tracking-wide text-chalk-dim">
-              Self-hosted physical infrastructure. systemd and Nginx. Kubernetes
-              deliberately out of scope for the first version.
+              Objects, files, databases, lakes and warehouses on one platform
+              — one set of credentials, one permission model, one audit trail.
             </p>
           </div>
         </section>
@@ -360,7 +334,7 @@ export function LandingPage() {
                 <div className="mb-6 flex items-center gap-3">
                   <SiloMark size={22} />
                   <h3 className="brand-title text-lg text-chalk">
-                    Silo Engine owns
+                    Silo owns
                   </h3>
                 </div>
                 <ul className="grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
@@ -488,9 +462,9 @@ export function LandingPage() {
                 </SectionTitle>
                 <p className="mt-6 max-w-md text-sm leading-relaxed text-chalk-muted">
                   Public addresses are deliberately independent of where the
-                  bytes physically live. Move to a different RAID array, a
-                  different backend, or a different datacentre — the URL does
-                  not change.
+                  bytes physically live. Move to a different backend, a
+                  different storage class, or a different datacentre — the URL
+                  does not change.
                 </p>
 
                 <div className="mt-8 border border-rule bg-ink p-5">
@@ -539,7 +513,7 @@ export function LandingPage() {
                     {[
                       "Public URL",
                       "CDN / Nginx",
-                      "Silo Engine",
+                      "Silo",
                       "Storage abstraction",
                       "Physical storage",
                     ].map((step, i, arr) => (
@@ -725,7 +699,7 @@ export function LandingPage() {
                   <div className="mt-6 space-y-2 font-mono text-[11px] text-chalk-dim">
                     <p className="flex items-center gap-2.5">
                       <Band w={10} h={2} className="bg-accent-dark" />
-                      Browser → HTTPS → Silo Engine → PostgreSQL
+                      Browser → HTTPS → Silo → PostgreSQL
                     </p>
                     <p className="flex items-center gap-2.5 text-chalk-dim">
                       <Band w={10} h={2} className="bg-chalk-faint" />
@@ -862,24 +836,24 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* ══ ENGINEERING ══ */}
-        <section id="engineering" className="border-b border-rule px-6 py-24">
+        {/* ══ DRIVE ══ */}
+        <section id="drive" className="border-b border-rule px-6 py-24">
           <div className="mx-auto max-w-screen-xl">
-            <SectionLabel>Engineering</SectionLabel>
+            <SectionLabel>Drive</SectionLabel>
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <SectionTitle>
-                How it is
+                Files for people,
                 <br />
-                actually built.
+                not just for apps.
               </SectionTitle>
               <p className="max-w-sm text-sm leading-relaxed text-chalk-muted">
-                A single Rust crate, an explicit dependency graph, and an
-                OpenAPI contract at the edge.
+                The same object storage your services write to, with a folder
+                tree, previews and sharing on top of it.
               </p>
             </div>
 
             <div className="mt-14 grid grid-cols-1 gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
-              {engineering.map((e) => (
+              {driveFeatures.map((e) => (
                 <div
                   key={e.title}
                   className="group bg-ink p-7 transition-colors hover:bg-ink-raised"
@@ -906,7 +880,7 @@ export function LandingPage() {
             >
               <div className="border border-rule bg-ink-raised p-8">
                 <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.2em] text-chalk-dim">
-                  Design principles
+                  True of every service
                 </p>
                 <ul className="space-y-3">
                   {principles.map((p) => (
@@ -921,11 +895,13 @@ export function LandingPage() {
                 </ul>
               </div>
 
-              <Panel title="Documentation" meta="openapi contract">
+              <Panel title="One API" meta="openapi contract">
                 <div className="p-6 font-mono text-[12px]">
                   {[
-                    ["/swagger-ui", "Interactive explorer"],
-                    ["/redoc", "Reference documentation"],
+                    ["/v1/buckets", "Object storage"],
+                    ["/v1/drive/files", "Drive & sharing"],
+                    ["/v1/databases", "PostgreSQL provisioning"],
+                    ["/v1/lakes", "Lakes & datasets"],
                     ["/v1/openapi.json", "Machine-readable spec"],
                   ].map(([path, note]) => (
                     <div
@@ -937,8 +913,8 @@ export function LandingPage() {
                     </div>
                   ))}
                   <p className="mt-5 text-[12px] leading-relaxed text-chalk-dim">
-                    The OpenAPI document is the contract between Silo and every
-                    consuming Sharpnr service.
+                    Every service is reachable through the same API, with the
+                    same credentials and the same permission model.
                   </p>
                 </div>
               </Panel>
@@ -946,28 +922,27 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* ══ ROADMAP ══ */}
+        {/* ══ SERVICES ══ */}
         <section
-          id="roadmap"
+          id="services"
           className="border-b border-rule bg-ink-raised px-6 py-24"
         >
           <div className="mx-auto max-w-screen-xl">
-            <SectionLabel>Roadmap</SectionLabel>
+            <SectionLabel>Services</SectionLabel>
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <SectionTitle>
-                Incremental,
+                Everything, on
                 <br />
-                on purpose.
+                one platform.
               </SectionTitle>
               <p className="max-w-sm text-sm leading-relaxed text-chalk-muted">
-                Infrastructure is added only when the storage and operational
-                model underneath it can carry the weight. Not every phase is
-                committed to the first release.
+                Each service stands on its own, and all of them share the same
+                storage, credentials, permissions and audit trail.
               </p>
             </div>
 
             <div className="mt-14 border border-rule">
-              {roadmap.map((r, i) => (
+              {services.map((r, i) => (
                 <div
                   key={r.phase}
                   className={`grid grid-cols-1 gap-4 p-6 md:grid-cols-[auto_200px_1fr_auto] md:items-center md:gap-8 ${
@@ -1019,10 +994,10 @@ export function LandingPage() {
                     }`}
                   >
                     {r.state === "current"
-                      ? "In progress"
+                      ? "Available"
                       : r.state === "next"
-                        ? "Next"
-                        : "Planned"}
+                        ? "Early access"
+                        : "Coming soon"}
                   </span>
                 </div>
               ))}
@@ -1044,23 +1019,23 @@ export function LandingPage() {
               <SiloMark size={44} />
             </div>
             <h2 className="brand-title mx-auto max-w-4xl text-balance text-[clamp(2rem,5vw,3.5rem)] leading-[1.02] text-chalk">
-              Infrastructure your organization creates, manages, and consumes.
+One platform for every kind of data your organization holds.
             </h2>
             <p className="mx-auto mt-7 max-w-lg text-sm leading-relaxed text-chalk-muted">
-              Without ever managing the physical infrastructure underneath it.
-              Silo Engine is early — talk to us about what you need from the
-              storage and database layer.
+              Databases, objects, files and analytics on one foundation —
+              without managing the infrastructure underneath any of it. Silo is
+              early; tell us what you need from your data layer.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <BrandButton href="mailto:hello@sharpnr.com">
                 Talk to the team
               </BrandButton>
-              <BrandButton variant="ghost" href="#platform">
-                Review the architecture
+              <BrandButton variant="ghost" href="#services">
+                See every service
               </BrandButton>
             </div>
             <p className="mt-8 font-mono text-[11px] tracking-wide text-chalk-dim">
-              Self-hosted · Rust · PostgreSQL · No Kubernetes required
+PostgreSQL · Object storage · Drive · Data lake · Warehouse · CDN
             </p>
           </div>
         </section>

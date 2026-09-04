@@ -5,15 +5,25 @@ const columns = [
     title: "Storage",
     links: [
       "Object storage",
+      "S3-compatible API",
       "CDN delivery",
-      "Compression",
-      "Checksums",
+      "Versioning",
       "Quotas",
       "Backups & snapshots",
     ],
   },
   {
-    title: "Database",
+    title: "Drive",
+    links: [
+      "Folders & upload",
+      "Previews",
+      "Sharing & expiry",
+      "Version history",
+      "Desktop sync",
+    ],
+  },
+  {
+    title: "Databases",
     links: [
       "PostgreSQL provisioning",
       "Scoped roles",
@@ -33,13 +43,12 @@ const columns = [
     ],
   },
   {
-    title: "Engine",
+    title: "Platform",
     links: [
-      "Architecture",
-      "OpenAPI spec",
-      "Swagger UI",
-      "ReDoc",
-      "Roadmap",
+      "All services",
+      "API reference",
+      "Permissions",
+      "Audit log",
       "Sharpnr Suite",
     ],
   },
@@ -57,13 +66,13 @@ export function Footer() {
           </a>
 
           <p className="mt-6 max-w-[260px] text-[13px] leading-relaxed text-chalk-dim">
-            Sharpnr's self-hosted storage, database, and data infrastructure
-            platform. Silo owns infrastructure so Sharpnr Engine can own the
-            business.
+            Sharpnr's all-in-one data platform: object storage, Drive,
+            managed PostgreSQL, and a data lake and warehouse on one
+            foundation.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-1.5">
-            {["Rust", "Axum", "Tokio", "PostgreSQL", "RAID"].map((t) => (
+            {["Object storage", "Drive", "PostgreSQL", "Data lake", "CDN"].map((t) => (
               <span
                 key={t}
                 className="border border-rule px-2.5 py-1 font-mono text-[10px] tracking-wider text-chalk-dim"
@@ -76,7 +85,7 @@ export function Footer() {
           <div className="mt-7 flex items-center gap-2.5">
             <span className="shear block h-2 w-2 bg-accent-dark" />
             <span className="font-mono text-[11px] tracking-wide text-chalk-dim">
-              Phase 1 · Foundation
+              Early access
             </span>
           </div>
         </div>
@@ -115,7 +124,7 @@ export function Footer() {
       <div className="border-t border-rule">
         <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between gap-3 px-6 py-5">
           <p className="font-mono text-[11px] text-chalk-dim">
-            © {year} Sharpnr — Silo Engine
+            © {year} Sharpnr — Silo
           </p>
           <div className="flex gap-6">
             {["Privacy", "Terms", "Security", "Status"].map((l) => (

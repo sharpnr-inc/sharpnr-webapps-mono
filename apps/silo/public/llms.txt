@@ -1,44 +1,45 @@
-# Silo Engine
+# Silo
 
-> Silo Engine is Sharpnr's self-hosted storage, database, and data infrastructure platform. It provides file and object storage with CDN-backed delivery, PostgreSQL provisioning, a controlled database explorer, and — on the roadmap — data lakes, data warehouses, and analytics infrastructure. It is written in Rust on Axum and Tokio and runs on RAID-backed hardware that the organization owns.
+> Silo is Sharpnr's all-in-one data platform. It provides S3-compatible object storage with CDN-backed delivery, a Drive with folders, previews and sharing for everyday files, managed PostgreSQL with a controlled database explorer, and a data lake and warehouse for analytics — all on one platform, behind one API, under one permission model, with one audit trail.
 
-Status: in active development. Phase 1 (Foundation) of a seven-phase roadmap. Storage arrives in Phase 2, access control and audit logging in Phase 3, PostgreSQL provisioning in Phase 4, data lakes in Phase 5, data warehouses in Phase 6. Nothing on this site should be read as generally available today.
+Status: early access, onboarding the first organizations. Object storage, Drive and CDN delivery are furthest along; PostgreSQL provisioning and the data lake follow; the warehouse and cross-region backups come after that. Nothing on this site should be read as generally available today.
 
-The defining boundary: **Sharpnr Engine owns business logic. Silo Engine owns infrastructure and data resources.** Silo is deliberately not the Hospitality, Accounting, HR, or CRM database — it is the layer those applications provision resources from.
+The defining boundary: **Sharpnr Engine owns business logic. Silo owns storage and data resources.** Silo is deliberately not the Hospitality, Accounting, HR, or CRM database — it is the layer those applications provision resources from.
 
 Key facts:
 
 - Vendor: Sharpnr (https://sharpnr.com)
 - Product site: https://silo.sharpnr.com
-- Stack: Rust, Axum, Tokio, PostgreSQL, OpenAPI
-- Deployment: self-hosted, systemd + Nginx. Kubernetes is intentionally out of scope for the first version.
-- Infrastructure: approximately 1 PB RAID-backed storage, ~160 GB combined RAM, ~10 combined CPUs across multiple machines on a local switch.
+- Services: object storage, Drive, CDN, managed PostgreSQL, data lake, data warehouse, backups
+- Object API: S3-compatible, so existing SDKs and CLI tools work unchanged
 - Databases provisioned: PostgreSQL only. Organizations never receive superuser credentials.
-- Database explorer: controlled operations only. No arbitrary SQL editor in v1; an SQL workspace is Phase 7.
-- Primary data lake format: Parquet. Also planned: JSON, JSONL, CSV, Avro, ORC.
-- Compression: Zstandard, streaming, behind a trait abstraction.
-- Identifiers: UUID v7.
+- Database explorer: controlled operations only. No arbitrary SQL editor yet; a full SQL workspace comes after the controlled explorer matures.
+- Drive: folders, in-browser previews, sharing by link or by person with expiry, version history, desktop sync, per-person quotas.
+- Primary data lake format: Parquet. Also supported: JSON, JSONL, CSV, Avro, ORC.
+- Permissions: role-based and resource-scoped (Read / Write / Admin), governed centrally in Cortex and enforced by Silo.
+- Audit: one append-oriented log covering storage, Drive, databases and datasets together.
 
 ## Documentation
 
-- [Full architecture summary](https://silo.sharpnr.com/llms-full.txt): Complete expanded description of Silo Engine — resources, storage model, PostgreSQL provisioning, data lake and warehouse design, security principles, and roadmap.
-- [OpenAPI specification](https://silo.sharpnr.com/v1/openapi.json): Machine-readable API contract between Silo and consuming services. Served by the engine, not the marketing site.
-- [Swagger UI](https://silo.sharpnr.com/swagger-ui): Interactive API explorer served by the engine.
-- [ReDoc](https://silo.sharpnr.com/redoc): API reference documentation served by the engine.
+- [Full platform summary](https://silo.sharpnr.com/llms-full.txt): Complete expanded description of Silo — services, storage model, PostgreSQL provisioning, Drive, data lake and warehouse design, and security.
+- [OpenAPI specification](https://silo.sharpnr.com/v1/openapi.json): Machine-readable API contract between Silo and consuming services.
+- [Swagger UI](https://silo.sharpnr.com/swagger-ui): Interactive API explorer.
+- [ReDoc](https://silo.sharpnr.com/redoc): API reference documentation.
 
 ## Platform
 
-- [Object storage](https://silo.sharpnr.com/#storage): Files, documents, videos, attachments, backups, exports, and arbitrary objects. Public objects are addressed at https://cdn.sharpnr.com/{org_id}/{employee_id}/{folder}/{filename}, independent of the physical storage path. Includes streaming Zstd compression, upload-stream checksums, and organization- and employee-level quotas enforced by Silo rather than by callers.
-- [PostgreSQL as a service](https://silo.sharpnr.com/#postgres): Silo creates the database, creates organization-scoped roles (org_123_app, org_123_migrator, org_123_readonly, org_123_admin), applies permissions, generates credentials, and returns a connection string. The physical cluster is an implementation detail and superuser is never issued.
-- [Database explorer](https://silo.sharpnr.com/#postgres): Browse schemas, tables, views, functions, indexes, constraints, and rows through controlled operations. The browser talks HTTPS to Silo Engine; Silo talks to PostgreSQL. The browser never connects to PostgreSQL directly.
-- [Data lakes and warehouses](https://silo.sharpnr.com/#data): Raw, processed, and curated zones with partitioned Parquet datasets, ingestion from PostgreSQL, files, events, and scheduled jobs, then ETL/ELT into analytical warehouses. DuckDB is a candidate for early Parquet query workloads.
-- [Engineering approach](https://silo.sharpnr.com/#engineering): Single Rust crate, explicit dependency injection with no DI framework, one centralized EngineConfig loaded at startup, storage behind a StorageBackend trait, streaming for large objects, append-oriented audit log, and OpenAPI as the contract.
-- [Roadmap](https://silo.sharpnr.com/#roadmap): Seven phases from Foundation through Advanced Data Services. Not every phase is committed to the initial release.
+- [Object storage](https://silo.sharpnr.com/#storage): S3-compatible buckets for files, media, attachments, backups, exports and arbitrary objects. Versioning, lifecycle rules, checksums, encryption at rest, and organization- and per-person quotas enforced by Silo rather than by callers. Public objects are addressed independently of the physical storage path, so files move between backends without breaking a shared URL.
+- [Drive](https://silo.sharpnr.com/#drive): The human-facing view over the same storage — a folder tree with drag-and-drop upload, in-browser previews for documents, images and video, sharing by link or by person with expiry, version history and restore, desktop sync, and full-text search scoped to what the viewer may see.
+- [PostgreSQL as a service](https://silo.sharpnr.com/#postgres): Silo creates the database, creates organization-scoped roles (org_123_app, org_123_migrator, org_123_readonly, org_123_admin), applies permissions, generates credentials, and returns a connection string. Connection pooling, read replicas and point-in-time recovery are included. The physical cluster is an implementation detail and superuser is never issued.
+- [Database explorer](https://silo.sharpnr.com/#postgres): Browse schemas, tables, views, functions, indexes, constraints and rows through controlled operations, with scoped read queries and result limits. The browser talks HTTPS to Silo; Silo talks to PostgreSQL. The browser never connects to PostgreSQL directly.
+- [Data lakes and warehouses](https://silo.sharpnr.com/#data): Raw, refined and curated zones with partitioned Parquet datasets, ingestion from PostgreSQL, files, events and scheduled jobs, then ETL/ELT into analytical warehouses with a query engine and analytics APIs.
+- [CDN delivery](https://silo.sharpnr.com/#storage): Edge caching for public objects, custom domains with managed certificates, signed URLs for time-limited private delivery, and invalidation by path or prefix.
+- [All services](https://silo.sharpnr.com/#services): Object storage, Drive, CDN, PostgreSQL, data lake, warehouse and backups, with what is available today versus in early access.
 
 ## Evaluating Silo
 
 - [Comparison](https://silo.sharpnr.com/#compare): How Silo compares to hyperscaler storage plus managed Postgres, backend platforms, and self-assembled stacks — including the cases where Silo is the wrong choice.
-- [FAQ](https://silo.sharpnr.com/#faq): Availability, the Sharpnr Engine boundary, supported databases, superuser policy, the no-raw-SQL decision, Kubernetes, storage location, lake formats, and large-file handling.
+- [FAQ](https://silo.sharpnr.com/#faq): Availability, what can be stored, how Drive differs from object storage, supported databases, superuser policy, the no-raw-SQL decision, S3 compatibility, the shared permission model and audit trail, large-file handling, and lake formats.
 
 ## Optional
 
