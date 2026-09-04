@@ -3,6 +3,7 @@ import AccountingRootLayout from "@/components/AccountingRootLayout";
 import { config } from "@sharpnr/env";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { GetLegalEntities } from "@/temp/api";
 
 export const Route = createFileRoute("/_layout")({
   beforeLoad: async ({ context }) => {
@@ -37,7 +38,7 @@ export const Route = createFileRoute("/_layout")({
       lastName: user.lastName,
       role: user.role,
     });
-
+    GetLegalEntities();
     return { user };
   },
   component: AccountingRootLayout,
