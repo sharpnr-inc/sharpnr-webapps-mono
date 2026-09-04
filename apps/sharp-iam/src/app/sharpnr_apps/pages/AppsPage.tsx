@@ -34,11 +34,11 @@ const apps = [
     link: config.hrAppUrl,
   },
   {
-    name: "Sharpnr Marketing",
+    name: "Sharpnr CRM",
     description:
-      "Campaign orchestration, audience segmentation, engagement tracking, and automation for growth teams.",
+      "Leads, pipeline, campaign orchestration, audience segmentation, engagement tracking, and automation for growth teams.",
     tag: "Growth",
-    link: config.marketingAppUrl,
+    link: config.sharpcrmAppUrl,
   },
   {
     name: "Sharpnr Cables",
