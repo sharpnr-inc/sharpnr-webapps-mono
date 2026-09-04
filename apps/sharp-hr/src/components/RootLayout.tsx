@@ -1,4 +1,9 @@
-import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import {
+  Outlet,
+  Link,
+  useNavigate,
+  useRouterState,
+} from "@tanstack/react-router";
 import {
   NotificationBell,
   UserCard,
@@ -23,6 +28,7 @@ import {
   ScrollArea,
   ScrollBar,
   useSheet,
+  useSidebar,
   SharpnrSidebarFooter,
   AppShell,
 } from "@sharpnr/ui";
@@ -63,12 +69,6 @@ interface NavGroup {
 }
 
 /* ───────────────── Organization ───────────────── */
-
-const organization = {
-  name: "Sharpnr Organization",
-  plan: "Enterprise",
-  logo: OrgIcon,
-};
 
 /* ───────────────── Navigation ───────────────── */
 
@@ -222,25 +222,39 @@ const navGroups: NavGroup[] = [
 /* ───────────────── Org Card ───────────────── */
 
 const OrgCard: React.FC = () => {
-  const Logo = organization.logo;
+  const { location } = useRouterState();
+  const { state } = useSidebar();
+  const { user } = useAppUserStore();
+  const navigate = useNavigate();
+
+  const isCollapsed = state === "collapsed";
+  const isDashboardActive = location.pathname === "/dashboard";
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton
           size="lg"
-          className="cursor-default hover:bg-transparent active:bg-transparent"
+          variant="outline"
+          isActive={isDashboardActive}
+          tooltip={user?.org_data.org_name}
+          className="cursor-pointer"
+          onClick={() => navigate({ to: "/dashboard" })}
         >
-          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-violet-600 text-white shrink-0">
-            <Logo className="size-4" />
+          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shrink-0">
+            <OrgIcon className="size-4" />
           </div>
 
-          <div className="grid flex-1 text-left text-sm">
-            <span className="truncate font-semibold">{organization.name}</span>
-            <span className="truncate text-xs text-muted-foreground">
-              {organization.plan}
-            </span>
-          </div>
+          {!isCollapsed && (
+            <div className="grid flex-1 text-left text-sm min-w-0">
+              <span className="truncate font-semibold">
+                {user?.org_data.org_name}
+              </span>
+              <span className="truncate text-xs font-mono text-muted-foreground">
+                {user?.org_data.sharp_id}
+              </span>
+            </div>
+          )}
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

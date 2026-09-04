@@ -4,7 +4,12 @@ import {
   useNavigate,
   useRouterState,
 } from "@tanstack/react-router";
-import { NotificationBell, ModeToggle, SharpnrLauncher } from "@sharpnr/ui";
+import {
+  NotificationBell,
+  ModeToggle,
+  SharpnrLauncher,
+  UserCard,
+} from "@sharpnr/ui";
 import {
   Sidebar,
   SidebarContent,
@@ -50,7 +55,9 @@ import {
   Zap,
 } from "lucide-react";
 
-import { useAppUserStore } from "@/store/AppUserStore";
+import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
+import { useLogout } from "@/api/mutation";
+import { config } from "@sharpnr/env";
 
 /* ───────────────── Types ───────────────── */
 
@@ -371,6 +378,10 @@ const CrmSidebar: React.FC = () => {
 /* ───────────────── Root Layout ───────────────── */
 
 const RootLayout: React.FC = () => {
+  const { user } = useAppUserStore();
+  const isLoadingUser = useAppUserStore(selectIsLoadingUser);
+  const { mutate: logoutUser, isPending: isLoggingOut } = useLogout();
+
   return (
     <AppShell
       sidebar={<CrmSidebar />}
@@ -378,6 +389,13 @@ const RootLayout: React.FC = () => {
         <>
           <SharpnrLauncher currentApp="sharpcrm" />
           <NotificationBell onClick={() => {}} />
+          <UserCard
+            user={user}
+            isLoading={isLoadingUser}
+            onLogout={() => logoutUser()}
+            isLoggingOut={isLoggingOut}
+            iamUrl={config.iamAppUrl}
+          />
           <ModeToggle />
         </>
       }
