@@ -4,6 +4,7 @@ import {
   useNavigate,
   useRouterState,
 } from "@tanstack/react-router";
+import type { LinkProps } from "@tanstack/react-router";
 import {
   NotificationBell,
   ModeToggle,
@@ -29,30 +30,24 @@ import {
 } from "@sharpnr/ui";
 import {
   BarChart3,
-  Bell,
-  BookOpen,
   Building2,
+  CalendarCheck,
+  ClipboardList,
   Contact,
-  FileText,
   Funnel,
-  Globe,
-  Handshake,
+  HeartHandshake,
   Layers,
   LayoutDashboard,
-  Link2,
-  Mail,
   Megaphone,
-  MessageSquare,
-  MousePointerClick,
-  PersonStanding,
+  Package,
+  PieChart,
+  Plug,
+  Receipt,
   Settings,
-  Share2,
   Star,
-  Target,
   TrendingUp,
-  Users,
+  UserPlus,
   Workflow,
-  Zap,
 } from "lucide-react";
 
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
@@ -65,7 +60,12 @@ type CrmNavItem = {
   id: string;
   label: string;
   icon: React.ElementType;
-  to: string;
+  /**
+   * Typed against the generated route tree rather than `string`, so a nav
+   * entry pointing at a route that does not exist fails the build instead of
+   * shipping a link that silently 404s.
+   */
+  to: NonNullable<LinkProps["to"]>;
   exact?: boolean;
 };
 
@@ -78,183 +78,149 @@ type CrmNavGroup = {
 
 const crmSidebar: CrmNavGroup[] = [
   {
-    group: "Overview",
+    group: "Workspace",
     items: [
       {
-        id: "dashboard",
+        id: "crm_dashboard",
         label: "Dashboard",
         icon: LayoutDashboard,
         to: "/dashboard",
         exact: true,
       },
       {
-        id: "crm_announcements",
-        label: "Announcements",
-        icon: Bell,
-        to: "/dashboard/announcements",
+        // The daily driver: calls, meetings, and follow-ups that are due.
+        // A CRM without this has nowhere to answer "who do I call back?".
+        id: "crm_activities",
+        label: "Activities",
+        icon: CalendarCheck,
+        to: "/activities",
       },
     ],
   },
 
   {
-    group: "CRM",
+    group: "Relationships",
     items: [
+      {
+        id: "crm_leads",
+        label: "Leads",
+        icon: UserPlus,
+        to: "/leads",
+      },
       {
         id: "crm_contacts",
         label: "Contacts",
         icon: Contact,
-        to: "/dashboard/contacts",
+        to: "/contacts",
       },
-
       {
-        id: "customers",
+        // The organizations behind the contacts. Without it the CRM only
+        // models B2C, which is the wrong shape for the rest of the suite.
+        id: "crm_companies",
+        label: "Companies",
+        icon: Building2,
+        to: "/companies",
+      },
+      {
+        // Distinct from Contacts on purpose: a contact is a person we know, a
+        // customer is an account that has actually transacted -- purchase
+        // history, lifetime value, loyalty standing, and the billing
+        // relationship that Sharp-Accounting invoices against. The old nav had
+        // both labels pointing at the same route, which is what made the
+        // entity look redundant.
+        id: "crm_customers",
         label: "Customers",
-        icon: PersonStanding,
-        to: "/dashboard/contacts",
+        icon: HeartHandshake,
+        to: "/customers",
       },
-      {
-        id: "crm_leads",
-        label: "Leads",
-        icon: Users,
-        to: "/dashboard/leads",
-      },
-      {
-        id: "crm_pipeline",
-        label: "Pipeline",
-        icon: Funnel,
-        to: "/dashboard/pipeline",
-      },
-      {
-        id: "crm_deals",
-        label: "Deals",
-        icon: Handshake,
-        to: "/dashboard/deals",
-      },
-    ],
-  },
-
-  {
-    group: "Campaigns",
-    items: [
-      {
-        id: "crm_campaigns",
-        label: "Campaigns",
-        icon: Megaphone,
-        to: "/dashboard/campaigns",
-      },
-      {
-        id: "crm_email",
-        label: "Email Marketing",
-        icon: Mail,
-        to: "/dashboard/email",
-      },
-      {
-        id: "crm_sms",
-        label: "SMS",
-        icon: MessageSquare,
-        to: "/dashboard/sms",
-      },
-      {
-        id: "crm_social",
-        label: "Social Media",
-        icon: Share2,
-        to: "/dashboard/social",
-      },
-    ],
-  },
-
-  {
-    group: "Audience",
-    items: [
       {
         id: "crm_segments",
         label: "Segments",
         icon: Layers,
-        to: "/dashboard/segments",
+        to: "/segments",
+      },
+    ],
+  },
+
+  {
+    group: "Sales",
+    items: [
+      {
+        // Deals and pipeline are the same records in a board view and a table
+        // view, so they are one destination with a view switch, not two links.
+        id: "crm_pipeline",
+        label: "Pipeline",
+        icon: Funnel,
+        to: "/pipeline",
       },
       {
-        id: "crm_audience",
-        label: "Audience",
-        icon: Target,
-        to: "/dashboard/audience",
+        id: "crm_quotes",
+        label: "Quotes",
+        icon: Receipt,
+        to: "/quotes",
+      },
+      {
+        id: "crm_products",
+        label: "Products",
+        icon: Package,
+        to: "/products",
+      },
+      {
+        id: "crm_forecast",
+        label: "Forecast",
+        icon: TrendingUp,
+        to: "/forecast",
+      },
+    ],
+  },
+
+  {
+    group: "Engagement",
+    items: [
+      {
+        // Email, SMS, WhatsApp and social are channels a campaign picks, and
+        // templates are assets it uses -- both belong inside this screen.
+        id: "crm_campaigns",
+        label: "Campaigns",
+        icon: Megaphone,
+        to: "/campaigns",
+      },
+      {
+        id: "crm_journeys",
+        label: "Journeys",
+        icon: Workflow,
+        to: "/journeys",
+      },
+      {
+        id: "crm_forms",
+        label: "Forms",
+        icon: ClipboardList,
+        to: "/forms",
       },
       {
         id: "crm_loyalty",
         label: "Loyalty & Rewards",
         icon: Star,
-        to: "/dashboard/loyalty",
+        to: "/loyalty",
       },
     ],
   },
 
   {
-    group: "Content",
+    group: "Insights",
     items: [
       {
-        id: "crm_templates",
-        label: "Templates",
-        icon: FileText,
-        to: "/dashboard/templates",
+        // Reports are the ones a user builds; Analytics are the ones we ship.
+        id: "crm_reports",
+        label: "Reports",
+        icon: PieChart,
+        to: "/reports",
       },
-      {
-        id: "crm_landing",
-        label: "Landing Pages",
-        icon: Globe,
-        to: "/dashboard/landing-pages",
-      },
-      {
-        id: "crm_blog",
-        label: "Blog & Content",
-        icon: BookOpen,
-        to: "/dashboard/blog",
-      },
-    ],
-  },
-
-  {
-    group: "Automation",
-    items: [
-      {
-        id: "crm_automation",
-        label: "Workflows",
-        icon: Workflow,
-        to: "/dashboard/workflows",
-      },
-      {
-        id: "crm_triggers",
-        label: "Triggers",
-        icon: Zap,
-        to: "/dashboard/triggers",
-      },
-      {
-        id: "crm_cta",
-        label: "CTAs",
-        icon: MousePointerClick,
-        to: "/dashboard/cta",
-      },
-      {
-        id: "crm_tracking",
-        label: "UTM Tracking",
-        icon: Link2,
-        to: "/dashboard/utm",
-      },
-    ],
-  },
-
-  {
-    group: "Analytics",
-    items: [
       {
         id: "crm_analytics",
         label: "Analytics",
         icon: BarChart3,
-        to: "/dashboard/analytics",
-      },
-      {
-        id: "crm_growth",
-        label: "Growth",
-        icon: TrendingUp,
-        to: "/dashboard/growth",
+        to: "/analytics",
       },
     ],
   },
@@ -263,10 +229,16 @@ const crmSidebar: CrmNavGroup[] = [
     group: "System",
     items: [
       {
+        id: "crm_integrations",
+        label: "Integrations",
+        icon: Plug,
+        to: "/integrations",
+      },
+      {
         id: "crm_settings",
         label: "Settings",
         icon: Settings,
-        to: "/dashboard/settings",
+        to: "/settings",
         exact: true,
       },
     ],

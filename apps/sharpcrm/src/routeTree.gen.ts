@@ -11,8 +11,26 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as LayoutActivitiesIndexRouteImport } from './routes/_layout/activities/index'
+import { Route as LayoutAnalyticsIndexRouteImport } from './routes/_layout/analytics/index'
+import { Route as LayoutCampaignsIndexRouteImport } from './routes/_layout/campaigns/index'
+import { Route as LayoutCompaniesIndexRouteImport } from './routes/_layout/companies/index'
+import { Route as LayoutContactsIndexRouteImport } from './routes/_layout/contacts/index'
+import { Route as LayoutCustomersIndexRouteImport } from './routes/_layout/customers/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
+import { Route as LayoutForecastIndexRouteImport } from './routes/_layout/forecast/index'
+import { Route as LayoutFormsIndexRouteImport } from './routes/_layout/forms/index'
 import { Route as LayoutHomeIndexRouteImport } from './routes/_layout/home/index'
+import { Route as LayoutIntegrationsIndexRouteImport } from './routes/_layout/integrations/index'
+import { Route as LayoutJourneysIndexRouteImport } from './routes/_layout/journeys/index'
+import { Route as LayoutLeadsIndexRouteImport } from './routes/_layout/leads/index'
+import { Route as LayoutLoyaltyIndexRouteImport } from './routes/_layout/loyalty/index'
+import { Route as LayoutPipelineIndexRouteImport } from './routes/_layout/pipeline/index'
+import { Route as LayoutProductsIndexRouteImport } from './routes/_layout/products/index'
+import { Route as LayoutQuotesIndexRouteImport } from './routes/_layout/quotes/index'
+import { Route as LayoutReportsIndexRouteImport } from './routes/_layout/reports/index'
+import { Route as LayoutSegmentsIndexRouteImport } from './routes/_layout/segments/index'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
 
 const LayoutRouteRoute = LayoutRouteRouteImport.update({
   id: '/_layout',
@@ -23,9 +41,49 @@ const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LayoutActivitiesIndexRoute = LayoutActivitiesIndexRouteImport.update({
+  id: '/activities/',
+  path: '/activities/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutAnalyticsIndexRoute = LayoutAnalyticsIndexRouteImport.update({
+  id: '/analytics/',
+  path: '/analytics/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutCampaignsIndexRoute = LayoutCampaignsIndexRouteImport.update({
+  id: '/campaigns/',
+  path: '/campaigns/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutCompaniesIndexRoute = LayoutCompaniesIndexRouteImport.update({
+  id: '/companies/',
+  path: '/companies/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutContactsIndexRoute = LayoutContactsIndexRouteImport.update({
+  id: '/contacts/',
+  path: '/contacts/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutCustomersIndexRoute = LayoutCustomersIndexRouteImport.update({
+  id: '/customers/',
+  path: '/customers/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
   id: '/dashboard/',
   path: '/dashboard/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutForecastIndexRoute = LayoutForecastIndexRouteImport.update({
+  id: '/forecast/',
+  path: '/forecast/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutFormsIndexRoute = LayoutFormsIndexRouteImport.update({
+  id: '/forms/',
+  path: '/forms/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
 const LayoutHomeIndexRoute = LayoutHomeIndexRouteImport.update({
@@ -33,35 +91,199 @@ const LayoutHomeIndexRoute = LayoutHomeIndexRouteImport.update({
   path: '/home/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutIntegrationsIndexRoute = LayoutIntegrationsIndexRouteImport.update({
+  id: '/integrations/',
+  path: '/integrations/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutJourneysIndexRoute = LayoutJourneysIndexRouteImport.update({
+  id: '/journeys/',
+  path: '/journeys/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutLeadsIndexRoute = LayoutLeadsIndexRouteImport.update({
+  id: '/leads/',
+  path: '/leads/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutLoyaltyIndexRoute = LayoutLoyaltyIndexRouteImport.update({
+  id: '/loyalty/',
+  path: '/loyalty/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPipelineIndexRoute = LayoutPipelineIndexRouteImport.update({
+  id: '/pipeline/',
+  path: '/pipeline/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutProductsIndexRoute = LayoutProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutQuotesIndexRoute = LayoutQuotesIndexRouteImport.update({
+  id: '/quotes/',
+  path: '/quotes/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutReportsIndexRoute = LayoutReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSegmentsIndexRoute = LayoutSegmentsIndexRouteImport.update({
+  id: '/segments/',
+  path: '/segments/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/activities/': typeof LayoutActivitiesIndexRoute
+  '/analytics/': typeof LayoutAnalyticsIndexRoute
+  '/campaigns/': typeof LayoutCampaignsIndexRoute
+  '/companies/': typeof LayoutCompaniesIndexRoute
+  '/contacts/': typeof LayoutContactsIndexRoute
+  '/customers/': typeof LayoutCustomersIndexRoute
   '/dashboard/': typeof LayoutDashboardIndexRoute
+  '/forecast/': typeof LayoutForecastIndexRoute
+  '/forms/': typeof LayoutFormsIndexRoute
   '/home/': typeof LayoutHomeIndexRoute
+  '/integrations/': typeof LayoutIntegrationsIndexRoute
+  '/journeys/': typeof LayoutJourneysIndexRoute
+  '/leads/': typeof LayoutLeadsIndexRoute
+  '/loyalty/': typeof LayoutLoyaltyIndexRoute
+  '/pipeline/': typeof LayoutPipelineIndexRoute
+  '/products/': typeof LayoutProductsIndexRoute
+  '/quotes/': typeof LayoutQuotesIndexRoute
+  '/reports/': typeof LayoutReportsIndexRoute
+  '/segments/': typeof LayoutSegmentsIndexRoute
+  '/settings/': typeof LayoutSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
+  '/activities': typeof LayoutActivitiesIndexRoute
+  '/analytics': typeof LayoutAnalyticsIndexRoute
+  '/campaigns': typeof LayoutCampaignsIndexRoute
+  '/companies': typeof LayoutCompaniesIndexRoute
+  '/contacts': typeof LayoutContactsIndexRoute
+  '/customers': typeof LayoutCustomersIndexRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
+  '/forecast': typeof LayoutForecastIndexRoute
+  '/forms': typeof LayoutFormsIndexRoute
   '/home': typeof LayoutHomeIndexRoute
+  '/integrations': typeof LayoutIntegrationsIndexRoute
+  '/journeys': typeof LayoutJourneysIndexRoute
+  '/leads': typeof LayoutLeadsIndexRoute
+  '/loyalty': typeof LayoutLoyaltyIndexRoute
+  '/pipeline': typeof LayoutPipelineIndexRoute
+  '/products': typeof LayoutProductsIndexRoute
+  '/quotes': typeof LayoutQuotesIndexRoute
+  '/reports': typeof LayoutReportsIndexRoute
+  '/segments': typeof LayoutSegmentsIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
+  '/_layout/activities/': typeof LayoutActivitiesIndexRoute
+  '/_layout/analytics/': typeof LayoutAnalyticsIndexRoute
+  '/_layout/campaigns/': typeof LayoutCampaignsIndexRoute
+  '/_layout/companies/': typeof LayoutCompaniesIndexRoute
+  '/_layout/contacts/': typeof LayoutContactsIndexRoute
+  '/_layout/customers/': typeof LayoutCustomersIndexRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
+  '/_layout/forecast/': typeof LayoutForecastIndexRoute
+  '/_layout/forms/': typeof LayoutFormsIndexRoute
   '/_layout/home/': typeof LayoutHomeIndexRoute
+  '/_layout/integrations/': typeof LayoutIntegrationsIndexRoute
+  '/_layout/journeys/': typeof LayoutJourneysIndexRoute
+  '/_layout/leads/': typeof LayoutLeadsIndexRoute
+  '/_layout/loyalty/': typeof LayoutLoyaltyIndexRoute
+  '/_layout/pipeline/': typeof LayoutPipelineIndexRoute
+  '/_layout/products/': typeof LayoutProductsIndexRoute
+  '/_layout/quotes/': typeof LayoutQuotesIndexRoute
+  '/_layout/reports/': typeof LayoutReportsIndexRoute
+  '/_layout/segments/': typeof LayoutSegmentsIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard/' | '/home/'
+  fullPaths:
+    | '/'
+    | '/activities/'
+    | '/analytics/'
+    | '/campaigns/'
+    | '/companies/'
+    | '/contacts/'
+    | '/customers/'
+    | '/dashboard/'
+    | '/forecast/'
+    | '/forms/'
+    | '/home/'
+    | '/integrations/'
+    | '/journeys/'
+    | '/leads/'
+    | '/loyalty/'
+    | '/pipeline/'
+    | '/products/'
+    | '/quotes/'
+    | '/reports/'
+    | '/segments/'
+    | '/settings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/home'
+  to:
+    | '/'
+    | '/activities'
+    | '/analytics'
+    | '/campaigns'
+    | '/companies'
+    | '/contacts'
+    | '/customers'
+    | '/dashboard'
+    | '/forecast'
+    | '/forms'
+    | '/home'
+    | '/integrations'
+    | '/journeys'
+    | '/leads'
+    | '/loyalty'
+    | '/pipeline'
+    | '/products'
+    | '/quotes'
+    | '/reports'
+    | '/segments'
+    | '/settings'
   id:
     | '__root__'
     | '/_layout'
     | '/_website/'
+    | '/_layout/activities/'
+    | '/_layout/analytics/'
+    | '/_layout/campaigns/'
+    | '/_layout/companies/'
+    | '/_layout/contacts/'
+    | '/_layout/customers/'
     | '/_layout/dashboard/'
+    | '/_layout/forecast/'
+    | '/_layout/forms/'
     | '/_layout/home/'
+    | '/_layout/integrations/'
+    | '/_layout/journeys/'
+    | '/_layout/leads/'
+    | '/_layout/loyalty/'
+    | '/_layout/pipeline/'
+    | '/_layout/products/'
+    | '/_layout/quotes/'
+    | '/_layout/reports/'
+    | '/_layout/segments/'
+    | '/_layout/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -85,11 +307,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_layout/activities/': {
+      id: '/_layout/activities/'
+      path: '/activities'
+      fullPath: '/activities/'
+      preLoaderRoute: typeof LayoutActivitiesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/analytics/': {
+      id: '/_layout/analytics/'
+      path: '/analytics'
+      fullPath: '/analytics/'
+      preLoaderRoute: typeof LayoutAnalyticsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/campaigns/': {
+      id: '/_layout/campaigns/'
+      path: '/campaigns'
+      fullPath: '/campaigns/'
+      preLoaderRoute: typeof LayoutCampaignsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/companies/': {
+      id: '/_layout/companies/'
+      path: '/companies'
+      fullPath: '/companies/'
+      preLoaderRoute: typeof LayoutCompaniesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/contacts/': {
+      id: '/_layout/contacts/'
+      path: '/contacts'
+      fullPath: '/contacts/'
+      preLoaderRoute: typeof LayoutContactsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/customers/': {
+      id: '/_layout/customers/'
+      path: '/customers'
+      fullPath: '/customers/'
+      preLoaderRoute: typeof LayoutCustomersIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
     '/_layout/dashboard/': {
       id: '/_layout/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof LayoutDashboardIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/forecast/': {
+      id: '/_layout/forecast/'
+      path: '/forecast'
+      fullPath: '/forecast/'
+      preLoaderRoute: typeof LayoutForecastIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/forms/': {
+      id: '/_layout/forms/'
+      path: '/forms'
+      fullPath: '/forms/'
+      preLoaderRoute: typeof LayoutFormsIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/home/': {
@@ -99,17 +377,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutHomeIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
+    '/_layout/integrations/': {
+      id: '/_layout/integrations/'
+      path: '/integrations'
+      fullPath: '/integrations/'
+      preLoaderRoute: typeof LayoutIntegrationsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/journeys/': {
+      id: '/_layout/journeys/'
+      path: '/journeys'
+      fullPath: '/journeys/'
+      preLoaderRoute: typeof LayoutJourneysIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/leads/': {
+      id: '/_layout/leads/'
+      path: '/leads'
+      fullPath: '/leads/'
+      preLoaderRoute: typeof LayoutLeadsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/loyalty/': {
+      id: '/_layout/loyalty/'
+      path: '/loyalty'
+      fullPath: '/loyalty/'
+      preLoaderRoute: typeof LayoutLoyaltyIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/pipeline/': {
+      id: '/_layout/pipeline/'
+      path: '/pipeline'
+      fullPath: '/pipeline/'
+      preLoaderRoute: typeof LayoutPipelineIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/products/': {
+      id: '/_layout/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof LayoutProductsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/quotes/': {
+      id: '/_layout/quotes/'
+      path: '/quotes'
+      fullPath: '/quotes/'
+      preLoaderRoute: typeof LayoutQuotesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/reports/': {
+      id: '/_layout/reports/'
+      path: '/reports'
+      fullPath: '/reports/'
+      preLoaderRoute: typeof LayoutReportsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/segments/': {
+      id: '/_layout/segments/'
+      path: '/segments'
+      fullPath: '/segments/'
+      preLoaderRoute: typeof LayoutSegmentsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
 interface LayoutRouteRouteChildren {
+  LayoutActivitiesIndexRoute: typeof LayoutActivitiesIndexRoute
+  LayoutAnalyticsIndexRoute: typeof LayoutAnalyticsIndexRoute
+  LayoutCampaignsIndexRoute: typeof LayoutCampaignsIndexRoute
+  LayoutCompaniesIndexRoute: typeof LayoutCompaniesIndexRoute
+  LayoutContactsIndexRoute: typeof LayoutContactsIndexRoute
+  LayoutCustomersIndexRoute: typeof LayoutCustomersIndexRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
+  LayoutForecastIndexRoute: typeof LayoutForecastIndexRoute
+  LayoutFormsIndexRoute: typeof LayoutFormsIndexRoute
   LayoutHomeIndexRoute: typeof LayoutHomeIndexRoute
+  LayoutIntegrationsIndexRoute: typeof LayoutIntegrationsIndexRoute
+  LayoutJourneysIndexRoute: typeof LayoutJourneysIndexRoute
+  LayoutLeadsIndexRoute: typeof LayoutLeadsIndexRoute
+  LayoutLoyaltyIndexRoute: typeof LayoutLoyaltyIndexRoute
+  LayoutPipelineIndexRoute: typeof LayoutPipelineIndexRoute
+  LayoutProductsIndexRoute: typeof LayoutProductsIndexRoute
+  LayoutQuotesIndexRoute: typeof LayoutQuotesIndexRoute
+  LayoutReportsIndexRoute: typeof LayoutReportsIndexRoute
+  LayoutSegmentsIndexRoute: typeof LayoutSegmentsIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
 }
 
 const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutActivitiesIndexRoute: LayoutActivitiesIndexRoute,
+  LayoutAnalyticsIndexRoute: LayoutAnalyticsIndexRoute,
+  LayoutCampaignsIndexRoute: LayoutCampaignsIndexRoute,
+  LayoutCompaniesIndexRoute: LayoutCompaniesIndexRoute,
+  LayoutContactsIndexRoute: LayoutContactsIndexRoute,
+  LayoutCustomersIndexRoute: LayoutCustomersIndexRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
+  LayoutForecastIndexRoute: LayoutForecastIndexRoute,
+  LayoutFormsIndexRoute: LayoutFormsIndexRoute,
   LayoutHomeIndexRoute: LayoutHomeIndexRoute,
+  LayoutIntegrationsIndexRoute: LayoutIntegrationsIndexRoute,
+  LayoutJourneysIndexRoute: LayoutJourneysIndexRoute,
+  LayoutLeadsIndexRoute: LayoutLeadsIndexRoute,
+  LayoutLoyaltyIndexRoute: LayoutLoyaltyIndexRoute,
+  LayoutPipelineIndexRoute: LayoutPipelineIndexRoute,
+  LayoutProductsIndexRoute: LayoutProductsIndexRoute,
+  LayoutQuotesIndexRoute: LayoutQuotesIndexRoute,
+  LayoutReportsIndexRoute: LayoutReportsIndexRoute,
+  LayoutSegmentsIndexRoute: LayoutSegmentsIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
 }
 
 const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
