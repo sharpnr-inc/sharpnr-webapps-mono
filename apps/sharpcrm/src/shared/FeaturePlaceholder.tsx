@@ -25,8 +25,11 @@ export function FeaturePlaceholder({
   capabilities,
 }: FeaturePlaceholderProps) {
   return (
-    <div className="mx-auto w-full max-w-3xl">
-      <Card>
+    // min-h-full rather than h-full: the card centres in the empty space, but
+    // if it ever outgrows the viewport the container grows and scrolls instead
+    // of clipping the top of the card.
+    <div className="flex min-h-full w-full items-center justify-center">
+      <Card className="w-full max-w-3xl">
         <CardHeader>
           <div className="flex items-start gap-4">
             <div className="flex aspect-square size-11 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
