@@ -98,7 +98,6 @@ const envSchema = z.object({
   // Older apps read these names for values that now have canonical spellings.
   // Optional so a .env without them still validates; the canonical var is used
   // as the fallback below. Remove once no app reads the old name.
-  VITE_API_MARKETING_APP: appUrl.optional(), // → VITE_API_SHARPCRM_APP
   VITE_API_MARKETPLACE_APP: appUrl.optional(), // → VITE_API_SHARP_MARKETPLACE_APP
 
   // ── Third-party, not declared in .env.example ────────────────────────────
@@ -145,8 +144,6 @@ export function createConfig(rawEnv: unknown) {
     accountingAppUrl: env.VITE_API_ACCOUNTING_APP, // Finance, P&L, double-entry accounting
     orchestratorAppUrl: env.VITE_API_ORCHESTRATOR_APP, // Command Center — manage all apps & workflows
     sharpcrmAppUrl: env.VITE_API_SHARPCRM_APP, // CRM, leads, campaigns
-    /** @deprecated alias of `sharpcrmAppUrl` — the app was renamed from Sharp-Marketing */
-    marketingAppUrl: env.VITE_API_MARKETING_APP ?? env.VITE_API_SHARPCRM_APP,
     hrAppUrl: env.VITE_API_HR_APP, // HRMS, payroll, attendance, leaves
     siloAppUrl: env.VITE_API_SILO_APP, // Storage, data lake, data warehouse
     cortexAppUrl: env.VITE_API_CORTEX_APP, // IT controls, RBAC, access management

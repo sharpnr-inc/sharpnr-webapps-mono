@@ -7,11 +7,11 @@ export const Route = createFileRoute("/_layout/overview/")({
     const selectedLegalEntity =
       useAccountingStore.getState().selectedLegalEntity;
 
-    if (!selectedLegalEntity) {
-      throw redirect({
-        to: "/",
-      });
-    }
+    // if (!selectedLegalEntity) {
+    //   throw redirect({
+    //     to: "/",
+    //   });
+    // }
   },
   component: AccountingOverviewPage,
 });

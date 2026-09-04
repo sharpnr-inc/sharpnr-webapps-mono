@@ -6,10 +6,10 @@ import { Band, SiloLockup } from "./brand";
 const navItems = [
   { label: "Platform", href: "#platform" },
   { label: "Storage", href: "#storage" },
+  { label: "Drive", href: "#drive" },
   { label: "PostgreSQL", href: "#postgres" },
   { label: "Data", href: "#data" },
-  { label: "Engineering", href: "#engineering" },
-  { label: "Roadmap", href: "#roadmap" },
+  { label: "Services", href: "#services" },
   { label: "Compare", href: "#compare" },
   { label: "FAQ", href: "#faq" },
 ];
@@ -27,11 +27,11 @@ export function Header() {
 
   return (
     <div className="fixed inset-x-0 top-0 z-50">
-      {/* Status ticker — reflects the actual build phase, not a release. */}
+      {/* Status ticker — says where the product actually is, not a release. */}
       <div className="border-b border-rule-soft bg-ink px-4 py-1.5 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-chalk-dim">
-        <span className="text-accent-hi">Phase 1 · Foundation</span>
+        <span className="text-accent-hi">Early access</span>
         <span className="mx-2.5 text-chalk-dim">/</span>
-        Silo Engine is in active architecture &amp; implementation
+        Silo is onboarding its first organizations
       </div>
 
       <header
@@ -70,7 +70,7 @@ export function Header() {
               href="#api"
               className="px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-chalk-dim transition-colors hover:text-chalk-muted"
             >
-              OpenAPI
+              API
             </a>
             <span className="h-4 w-px bg-rule" />
             <a

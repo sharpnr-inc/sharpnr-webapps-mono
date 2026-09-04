@@ -4,7 +4,7 @@ import { faqs } from "./faq-data";
 /**
  * Comparison + FAQ.
  *
- * Claims about Silo are marked with the roadmap phase that delivers them —
+ * Claims about Silo are marked with how far along that capability is —
  * nothing here should read as shipped when it is not. Claims about other
  * approaches are kept at category level (things true of the category as a
  * whole) rather than vendor-specific feature assertions that go stale.
@@ -20,7 +20,7 @@ type Cell = {
 };
 
 const approaches = [
-  { key: "silo", name: "Silo Engine", note: "Self-hosted, one Rust service" },
+  { key: "silo", name: "Silo", note: "One platform, self-hosted" },
   { key: "cloud", name: "Hyperscaler", note: "e.g. S3 + managed Postgres" },
   { key: "platform", name: "Backend platform", note: "e.g. Supabase-style" },
   { key: "diy", name: "Self-assembled", note: "e.g. MinIO + Postgres + glue" },
@@ -39,7 +39,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "Object storage + CDN delivery",
     cells: [
-      { kind: "yes", text: "Phase 2–3" },
+      { kind: "yes", text: "Available" },
       { kind: "yes", text: "Mature" },
       { kind: "yes", text: "Included" },
       { kind: "part", text: "Assemble yourself" },
@@ -48,7 +48,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "PostgreSQL provisioned via API",
     cells: [
-      { kind: "yes", text: "Phase 4" },
+      { kind: "yes", text: "Early access" },
       { kind: "yes", text: "Mature" },
       { kind: "yes", text: "Included" },
       { kind: "no", text: "Manual" },
@@ -57,7 +57,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "Controlled explorer, no raw SQL",
     cells: [
-      { kind: "yes", text: "Phase 4, by design" },
+      { kind: "yes", text: "By design" },
       { kind: "no", text: "Not the model" },
       { kind: "part", text: "Raw SQL editor" },
       { kind: "no", text: "Bring your own client" },
@@ -66,7 +66,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "Org + per-employee storage quotas",
     cells: [
-      { kind: "yes", text: "Phase 2, first-class" },
+      { kind: "yes", text: "First-class" },
       { kind: "part", text: "Bucket policy, not per-person" },
       { kind: "no", text: "Not modelled" },
       { kind: "no", text: "Build it" },
@@ -75,7 +75,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "Data lake + warehouse on same storage",
     cells: [
-      { kind: "part", text: "Phase 5–6" },
+      { kind: "part", text: "Early access" },
       { kind: "part", text: "Separate products" },
       { kind: "no", text: "Out of scope" },
       { kind: "no", text: "Build it" },
@@ -84,9 +84,18 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "One audit trail across storage + DB",
     cells: [
-      { kind: "yes", text: "Phase 3" },
+      { kind: "yes", text: "Available" },
       { kind: "part", text: "Split per service" },
       { kind: "part", text: "Partial" },
+      { kind: "no", text: "Build it" },
+    ],
+  },
+  {
+    capability: "Drive for end users on the same storage",
+    cells: [
+      { kind: "yes", text: "Available" },
+      { kind: "no", text: "Separate product" },
+      { kind: "no", text: "Out of scope" },
       { kind: "no", text: "Build it" },
     ],
   },
@@ -102,7 +111,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "Kubernetes required",
     cells: [
-      { kind: "yes", text: "No — systemd + Nginx" },
+      { kind: "yes", text: "No" },
       { kind: "yes", text: "N/A, vendor-run" },
       { kind: "yes", text: "No" },
       { kind: "part", text: "Often, at scale" },
@@ -111,7 +120,7 @@ const rows: { capability: string; cells: Cell[] }[] = [
   {
     capability: "Who carries the operational load",
     cells: [
-      { kind: "part", text: "You run one binary" },
+      { kind: "part", text: "You run the platform" },
       { kind: "yes", text: "Vendor" },
       { kind: "part", text: "Vendor or you" },
       { kind: "no", text: "You run every part" },
@@ -157,8 +166,8 @@ const guidance = [
     title: "Be honest: not yet Silo when",
     accent: false,
     points: [
-      "You need a production data lake or warehouse this quarter — those are Phase 5 and 6.",
-      "You want an arbitrary SQL workspace on day one; v1 is deliberately a controlled explorer.",
+      "You need a production data lake or warehouse this quarter — those are still in early access.",
+      "You want an arbitrary SQL workspace on day one; the explorer is deliberately controlled for now.",
       "You only need one piece, and a single component you already run would do.",
     ],
   },
@@ -178,7 +187,7 @@ export function Comparison() {
           <p className="max-w-sm text-sm leading-relaxed text-chalk-muted">
             Silo is not trying to out-scale a hyperscaler. It is trying to make
             the infrastructure an organization already owns behave like a
-            product. Phases mark what is built versus committed.
+            product. Labels mark what is available versus still in early access.
           </p>
         </div>
 
@@ -187,8 +196,8 @@ export function Comparison() {
         <div className="mt-14 overflow-x-auto border border-rule">
           <table className="w-full min-w-[860px] border-collapse text-left">
             <caption className="sr-only">
-              Comparison of Silo Engine against hyperscaler, backend platform,
-              and self-assembled approaches to storage and database
+              Comparison of Silo against hyperscaler, backend platform, and
+              self-assembled approaches to storage and database
               infrastructure
             </caption>
             <thead>
@@ -261,8 +270,8 @@ export function Comparison() {
         </div>
 
         <p className="mt-4 font-mono text-[10px] tracking-wide text-chalk-dim">
-          Phase labels refer to the Silo roadmap. Other columns describe
-          categories of approach, not specific vendor SKUs.
+          Availability labels refer to Silo. Other columns describe categories
+          of approach, not specific vendor SKUs.
         </p>
 
         {/* Guidance cards */}
@@ -313,9 +322,9 @@ export function Faq() {
               asked.
             </SectionTitle>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-chalk-muted">
-              Answers are drawn from the Silo Engine architecture document. If
-              something here is out of date, the document is the source of
-              truth.
+              Answers cover the whole platform — storage, Drive, databases
+              and the data layer. If something here is out of date, tell us and
+              we will correct it.
             </p>
             <div className="mt-8">
               <Panel title="Machine-readable" meta="for AI crawlers">

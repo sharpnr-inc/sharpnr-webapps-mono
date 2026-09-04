@@ -9,38 +9,261 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as LayoutActivityIndexRouteImport } from './routes/_layout/activity/index'
+import { Route as LayoutAuditLogIndexRouteImport } from './routes/_layout/audit-log/index'
+import { Route as LayoutBackupsIndexRouteImport } from './routes/_layout/backups/index'
+import { Route as LayoutBucketsIndexRouteImport } from './routes/_layout/buckets/index'
+import { Route as LayoutCdnIndexRouteImport } from './routes/_layout/cdn/index'
+import { Route as LayoutCredentialsIndexRouteImport } from './routes/_layout/credentials/index'
+import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
+import { Route as LayoutDatasetsIndexRouteImport } from './routes/_layout/datasets/index'
+import { Route as LayoutDriveIndexRouteImport } from './routes/_layout/drive/index'
+import { Route as LayoutExplorerIndexRouteImport } from './routes/_layout/explorer/index'
+import { Route as LayoutLakesIndexRouteImport } from './routes/_layout/lakes/index'
+import { Route as LayoutPermissionsIndexRouteImport } from './routes/_layout/permissions/index'
+import { Route as LayoutPipelinesIndexRouteImport } from './routes/_layout/pipelines/index'
+import { Route as LayoutPostgresIndexRouteImport } from './routes/_layout/postgres/index'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
+import { Route as LayoutUsageIndexRouteImport } from './routes/_layout/usage/index'
+import { Route as LayoutWarehousesIndexRouteImport } from './routes/_layout/warehouses/index'
 
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LayoutActivityIndexRoute = LayoutActivityIndexRouteImport.update({
+  id: '/activity/',
+  path: '/activity/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutAuditLogIndexRoute = LayoutAuditLogIndexRouteImport.update({
+  id: '/audit-log/',
+  path: '/audit-log/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutBackupsIndexRoute = LayoutBackupsIndexRouteImport.update({
+  id: '/backups/',
+  path: '/backups/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutBucketsIndexRoute = LayoutBucketsIndexRouteImport.update({
+  id: '/buckets/',
+  path: '/buckets/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutCdnIndexRoute = LayoutCdnIndexRouteImport.update({
+  id: '/cdn/',
+  path: '/cdn/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutCredentialsIndexRoute = LayoutCredentialsIndexRouteImport.update({
+  id: '/credentials/',
+  path: '/credentials/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutDatasetsIndexRoute = LayoutDatasetsIndexRouteImport.update({
+  id: '/datasets/',
+  path: '/datasets/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutDriveIndexRoute = LayoutDriveIndexRouteImport.update({
+  id: '/drive/',
+  path: '/drive/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutExplorerIndexRoute = LayoutExplorerIndexRouteImport.update({
+  id: '/explorer/',
+  path: '/explorer/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutLakesIndexRoute = LayoutLakesIndexRouteImport.update({
+  id: '/lakes/',
+  path: '/lakes/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPermissionsIndexRoute = LayoutPermissionsIndexRouteImport.update({
+  id: '/permissions/',
+  path: '/permissions/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPipelinesIndexRoute = LayoutPipelinesIndexRouteImport.update({
+  id: '/pipelines/',
+  path: '/pipelines/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPostgresIndexRoute = LayoutPostgresIndexRouteImport.update({
+  id: '/postgres/',
+  path: '/postgres/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutUsageIndexRoute = LayoutUsageIndexRouteImport.update({
+  id: '/usage/',
+  path: '/usage/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutWarehousesIndexRoute = LayoutWarehousesIndexRouteImport.update({
+  id: '/warehouses/',
+  path: '/warehouses/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/activity/': typeof LayoutActivityIndexRoute
+  '/audit-log/': typeof LayoutAuditLogIndexRoute
+  '/backups/': typeof LayoutBackupsIndexRoute
+  '/buckets/': typeof LayoutBucketsIndexRoute
+  '/cdn/': typeof LayoutCdnIndexRoute
+  '/credentials/': typeof LayoutCredentialsIndexRoute
+  '/dashboard/': typeof LayoutDashboardIndexRoute
+  '/datasets/': typeof LayoutDatasetsIndexRoute
+  '/drive/': typeof LayoutDriveIndexRoute
+  '/explorer/': typeof LayoutExplorerIndexRoute
+  '/lakes/': typeof LayoutLakesIndexRoute
+  '/permissions/': typeof LayoutPermissionsIndexRoute
+  '/pipelines/': typeof LayoutPipelinesIndexRoute
+  '/postgres/': typeof LayoutPostgresIndexRoute
+  '/settings/': typeof LayoutSettingsIndexRoute
+  '/usage/': typeof LayoutUsageIndexRoute
+  '/warehouses/': typeof LayoutWarehousesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
+  '/activity': typeof LayoutActivityIndexRoute
+  '/audit-log': typeof LayoutAuditLogIndexRoute
+  '/backups': typeof LayoutBackupsIndexRoute
+  '/buckets': typeof LayoutBucketsIndexRoute
+  '/cdn': typeof LayoutCdnIndexRoute
+  '/credentials': typeof LayoutCredentialsIndexRoute
+  '/dashboard': typeof LayoutDashboardIndexRoute
+  '/datasets': typeof LayoutDatasetsIndexRoute
+  '/drive': typeof LayoutDriveIndexRoute
+  '/explorer': typeof LayoutExplorerIndexRoute
+  '/lakes': typeof LayoutLakesIndexRoute
+  '/permissions': typeof LayoutPermissionsIndexRoute
+  '/pipelines': typeof LayoutPipelinesIndexRoute
+  '/postgres': typeof LayoutPostgresIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
+  '/usage': typeof LayoutUsageIndexRoute
+  '/warehouses': typeof LayoutWarehousesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_layout': typeof LayoutRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
+  '/_layout/activity/': typeof LayoutActivityIndexRoute
+  '/_layout/audit-log/': typeof LayoutAuditLogIndexRoute
+  '/_layout/backups/': typeof LayoutBackupsIndexRoute
+  '/_layout/buckets/': typeof LayoutBucketsIndexRoute
+  '/_layout/cdn/': typeof LayoutCdnIndexRoute
+  '/_layout/credentials/': typeof LayoutCredentialsIndexRoute
+  '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
+  '/_layout/datasets/': typeof LayoutDatasetsIndexRoute
+  '/_layout/drive/': typeof LayoutDriveIndexRoute
+  '/_layout/explorer/': typeof LayoutExplorerIndexRoute
+  '/_layout/lakes/': typeof LayoutLakesIndexRoute
+  '/_layout/permissions/': typeof LayoutPermissionsIndexRoute
+  '/_layout/pipelines/': typeof LayoutPipelinesIndexRoute
+  '/_layout/postgres/': typeof LayoutPostgresIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
+  '/_layout/usage/': typeof LayoutUsageIndexRoute
+  '/_layout/warehouses/': typeof LayoutWarehousesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/activity/'
+    | '/audit-log/'
+    | '/backups/'
+    | '/buckets/'
+    | '/cdn/'
+    | '/credentials/'
+    | '/dashboard/'
+    | '/datasets/'
+    | '/drive/'
+    | '/explorer/'
+    | '/lakes/'
+    | '/permissions/'
+    | '/pipelines/'
+    | '/postgres/'
+    | '/settings/'
+    | '/usage/'
+    | '/warehouses/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_website/'
+  to:
+    | '/'
+    | '/activity'
+    | '/audit-log'
+    | '/backups'
+    | '/buckets'
+    | '/cdn'
+    | '/credentials'
+    | '/dashboard'
+    | '/datasets'
+    | '/drive'
+    | '/explorer'
+    | '/lakes'
+    | '/permissions'
+    | '/pipelines'
+    | '/postgres'
+    | '/settings'
+    | '/usage'
+    | '/warehouses'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_website/'
+    | '/_layout/activity/'
+    | '/_layout/audit-log/'
+    | '/_layout/backups/'
+    | '/_layout/buckets/'
+    | '/_layout/cdn/'
+    | '/_layout/credentials/'
+    | '/_layout/dashboard/'
+    | '/_layout/datasets/'
+    | '/_layout/drive/'
+    | '/_layout/explorer/'
+    | '/_layout/lakes/'
+    | '/_layout/permissions/'
+    | '/_layout/pipelines/'
+    | '/_layout/postgres/'
+    | '/_layout/settings/'
+    | '/_layout/usage/'
+    | '/_layout/warehouses/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
   WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_website/': {
       id: '/_website/'
       path: '/'
@@ -48,10 +271,174 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_layout/activity/': {
+      id: '/_layout/activity/'
+      path: '/activity'
+      fullPath: '/activity/'
+      preLoaderRoute: typeof LayoutActivityIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/audit-log/': {
+      id: '/_layout/audit-log/'
+      path: '/audit-log'
+      fullPath: '/audit-log/'
+      preLoaderRoute: typeof LayoutAuditLogIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/backups/': {
+      id: '/_layout/backups/'
+      path: '/backups'
+      fullPath: '/backups/'
+      preLoaderRoute: typeof LayoutBackupsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/buckets/': {
+      id: '/_layout/buckets/'
+      path: '/buckets'
+      fullPath: '/buckets/'
+      preLoaderRoute: typeof LayoutBucketsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/cdn/': {
+      id: '/_layout/cdn/'
+      path: '/cdn'
+      fullPath: '/cdn/'
+      preLoaderRoute: typeof LayoutCdnIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/credentials/': {
+      id: '/_layout/credentials/'
+      path: '/credentials'
+      fullPath: '/credentials/'
+      preLoaderRoute: typeof LayoutCredentialsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/dashboard/': {
+      id: '/_layout/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof LayoutDashboardIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/datasets/': {
+      id: '/_layout/datasets/'
+      path: '/datasets'
+      fullPath: '/datasets/'
+      preLoaderRoute: typeof LayoutDatasetsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/drive/': {
+      id: '/_layout/drive/'
+      path: '/drive'
+      fullPath: '/drive/'
+      preLoaderRoute: typeof LayoutDriveIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/explorer/': {
+      id: '/_layout/explorer/'
+      path: '/explorer'
+      fullPath: '/explorer/'
+      preLoaderRoute: typeof LayoutExplorerIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/lakes/': {
+      id: '/_layout/lakes/'
+      path: '/lakes'
+      fullPath: '/lakes/'
+      preLoaderRoute: typeof LayoutLakesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/permissions/': {
+      id: '/_layout/permissions/'
+      path: '/permissions'
+      fullPath: '/permissions/'
+      preLoaderRoute: typeof LayoutPermissionsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/pipelines/': {
+      id: '/_layout/pipelines/'
+      path: '/pipelines'
+      fullPath: '/pipelines/'
+      preLoaderRoute: typeof LayoutPipelinesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/postgres/': {
+      id: '/_layout/postgres/'
+      path: '/postgres'
+      fullPath: '/postgres/'
+      preLoaderRoute: typeof LayoutPostgresIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/usage/': {
+      id: '/_layout/usage/'
+      path: '/usage'
+      fullPath: '/usage/'
+      preLoaderRoute: typeof LayoutUsageIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/warehouses/': {
+      id: '/_layout/warehouses/'
+      path: '/warehouses'
+      fullPath: '/warehouses/'
+      preLoaderRoute: typeof LayoutWarehousesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
+interface LayoutRouteRouteChildren {
+  LayoutActivityIndexRoute: typeof LayoutActivityIndexRoute
+  LayoutAuditLogIndexRoute: typeof LayoutAuditLogIndexRoute
+  LayoutBackupsIndexRoute: typeof LayoutBackupsIndexRoute
+  LayoutBucketsIndexRoute: typeof LayoutBucketsIndexRoute
+  LayoutCdnIndexRoute: typeof LayoutCdnIndexRoute
+  LayoutCredentialsIndexRoute: typeof LayoutCredentialsIndexRoute
+  LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
+  LayoutDatasetsIndexRoute: typeof LayoutDatasetsIndexRoute
+  LayoutDriveIndexRoute: typeof LayoutDriveIndexRoute
+  LayoutExplorerIndexRoute: typeof LayoutExplorerIndexRoute
+  LayoutLakesIndexRoute: typeof LayoutLakesIndexRoute
+  LayoutPermissionsIndexRoute: typeof LayoutPermissionsIndexRoute
+  LayoutPipelinesIndexRoute: typeof LayoutPipelinesIndexRoute
+  LayoutPostgresIndexRoute: typeof LayoutPostgresIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
+  LayoutUsageIndexRoute: typeof LayoutUsageIndexRoute
+  LayoutWarehousesIndexRoute: typeof LayoutWarehousesIndexRoute
+}
+
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutActivityIndexRoute: LayoutActivityIndexRoute,
+  LayoutAuditLogIndexRoute: LayoutAuditLogIndexRoute,
+  LayoutBackupsIndexRoute: LayoutBackupsIndexRoute,
+  LayoutBucketsIndexRoute: LayoutBucketsIndexRoute,
+  LayoutCdnIndexRoute: LayoutCdnIndexRoute,
+  LayoutCredentialsIndexRoute: LayoutCredentialsIndexRoute,
+  LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
+  LayoutDatasetsIndexRoute: LayoutDatasetsIndexRoute,
+  LayoutDriveIndexRoute: LayoutDriveIndexRoute,
+  LayoutExplorerIndexRoute: LayoutExplorerIndexRoute,
+  LayoutLakesIndexRoute: LayoutLakesIndexRoute,
+  LayoutPermissionsIndexRoute: LayoutPermissionsIndexRoute,
+  LayoutPipelinesIndexRoute: LayoutPipelinesIndexRoute,
+  LayoutPostgresIndexRoute: LayoutPostgresIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
+  LayoutUsageIndexRoute: LayoutUsageIndexRoute,
+  LayoutWarehousesIndexRoute: LayoutWarehousesIndexRoute,
+}
+
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
   WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport

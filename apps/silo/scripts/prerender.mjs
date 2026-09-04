@@ -34,13 +34,17 @@ const jsonForScript = (value) =>
 const vite = await createServer({
   root,
   // Skip vite.config.ts on purpose: the TanStack router plugin regenerates
-  // routeTree.gen.ts on server start, and none of the website components use
-  // the `@/` alias, so a bare React setup is all this needs.
+  // routeTree.gen.ts on server start, which this step has no business doing.
   configFile: false,
   logLevel: "warn",
   server: { middlewareMode: true },
   appType: "custom",
   plugins: [react()],
+  // The website components do not use the `@/` alias, but the dep scanner
+  // still crawls index.html into the app routes, which do. Without the alias
+  // it reports every one of them as unresolved -- warnings only, but they
+  // bury the actual output of this script.
+  resolve: { alias: { "@": resolve(root, "src") } },
 });
 
 try {

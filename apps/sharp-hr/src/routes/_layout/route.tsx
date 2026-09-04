@@ -36,6 +36,7 @@ export const Route = createFileRoute("/_layout")({
       firstName: user.firstName,
       lastName: user.lastName,
       role: user.role,
+      org_data: user.org_data,
     });
 
     return { user };

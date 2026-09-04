@@ -27,6 +27,13 @@ export interface UserDataResponseDto {
   lastName: string;
   id: string; // uuid.UUID → string in TypeScript
   role: string;
+  org_data: OrgData;
+}
+
+/** The organization the signed-in user belongs to. */
+export interface OrgData {
+  org_name: string;
+  sharp_id: string;
 }
 
 export interface OrgEmployeeList {

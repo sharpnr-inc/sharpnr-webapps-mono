@@ -9,38 +9,113 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as LayoutBrowseIndexRouteImport } from './routes/_layout/browse/index'
+import { Route as LayoutOrdersIndexRouteImport } from './routes/_layout/orders/index'
+import { Route as LayoutRfqsIndexRouteImport } from './routes/_layout/rfqs/index'
+import { Route as LayoutSellingIndexRouteImport } from './routes/_layout/selling/index'
+import { Route as LayoutListingsListingIdIndexRouteImport } from './routes/_layout/listings/$listingId/index'
 
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LayoutBrowseIndexRoute = LayoutBrowseIndexRouteImport.update({
+  id: '/browse/',
+  path: '/browse/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutOrdersIndexRoute = LayoutOrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutRfqsIndexRoute = LayoutRfqsIndexRouteImport.update({
+  id: '/rfqs/',
+  path: '/rfqs/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSellingIndexRoute = LayoutSellingIndexRouteImport.update({
+  id: '/selling/',
+  path: '/selling/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutListingsListingIdIndexRoute =
+  LayoutListingsListingIdIndexRouteImport.update({
+    id: '/listings/$listingId/',
+    path: '/listings/$listingId/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/browse/': typeof LayoutBrowseIndexRoute
+  '/orders/': typeof LayoutOrdersIndexRoute
+  '/rfqs/': typeof LayoutRfqsIndexRoute
+  '/selling/': typeof LayoutSellingIndexRoute
+  '/listings/$listingId/': typeof LayoutListingsListingIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
+  '/browse': typeof LayoutBrowseIndexRoute
+  '/orders': typeof LayoutOrdersIndexRoute
+  '/rfqs': typeof LayoutRfqsIndexRoute
+  '/selling': typeof LayoutSellingIndexRoute
+  '/listings/$listingId': typeof LayoutListingsListingIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_layout': typeof LayoutRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
+  '/_layout/browse/': typeof LayoutBrowseIndexRoute
+  '/_layout/orders/': typeof LayoutOrdersIndexRoute
+  '/_layout/rfqs/': typeof LayoutRfqsIndexRoute
+  '/_layout/selling/': typeof LayoutSellingIndexRoute
+  '/_layout/listings/$listingId/': typeof LayoutListingsListingIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/browse/'
+    | '/orders/'
+    | '/rfqs/'
+    | '/selling/'
+    | '/listings/$listingId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_website/'
+  to:
+    '/' | '/browse' | '/orders' | '/rfqs' | '/selling' | '/listings/$listingId'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_website/'
+    | '/_layout/browse/'
+    | '/_layout/orders/'
+    | '/_layout/rfqs/'
+    | '/_layout/selling/'
+    | '/_layout/listings/$listingId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
   WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_website/': {
       id: '/_website/'
       path: '/'
@@ -48,10 +123,66 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_layout/browse/': {
+      id: '/_layout/browse/'
+      path: '/browse'
+      fullPath: '/browse/'
+      preLoaderRoute: typeof LayoutBrowseIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/orders/': {
+      id: '/_layout/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof LayoutOrdersIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/rfqs/': {
+      id: '/_layout/rfqs/'
+      path: '/rfqs'
+      fullPath: '/rfqs/'
+      preLoaderRoute: typeof LayoutRfqsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/selling/': {
+      id: '/_layout/selling/'
+      path: '/selling'
+      fullPath: '/selling/'
+      preLoaderRoute: typeof LayoutSellingIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/listings/$listingId/': {
+      id: '/_layout/listings/$listingId/'
+      path: '/listings/$listingId'
+      fullPath: '/listings/$listingId/'
+      preLoaderRoute: typeof LayoutListingsListingIdIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
+interface LayoutRouteRouteChildren {
+  LayoutBrowseIndexRoute: typeof LayoutBrowseIndexRoute
+  LayoutOrdersIndexRoute: typeof LayoutOrdersIndexRoute
+  LayoutRfqsIndexRoute: typeof LayoutRfqsIndexRoute
+  LayoutSellingIndexRoute: typeof LayoutSellingIndexRoute
+  LayoutListingsListingIdIndexRoute: typeof LayoutListingsListingIdIndexRoute
+}
+
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutBrowseIndexRoute: LayoutBrowseIndexRoute,
+  LayoutOrdersIndexRoute: LayoutOrdersIndexRoute,
+  LayoutRfqsIndexRoute: LayoutRfqsIndexRoute,
+  LayoutSellingIndexRoute: LayoutSellingIndexRoute,
+  LayoutListingsListingIdIndexRoute: LayoutListingsListingIdIndexRoute,
+}
+
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
   WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
