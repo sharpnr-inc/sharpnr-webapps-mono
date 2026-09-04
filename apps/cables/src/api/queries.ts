@@ -5,6 +5,8 @@ import {
   GetOrganizationStatus,
   VerifySignupCookie,
   getCablesAccountStatus,
+  getCablesBootstrap,
+  getCablesMessages,
 } from "./service";
 
 export function useVerifySignupCookies() {
@@ -72,4 +74,45 @@ export const publicCurrentUserQuery = queryOptions({
 
 export function usePublicCurrentUser() {
   return useQuery(publicCurrentUserQuery);
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Cables workspace                              */
+/* -------------------------------------------------------------------------- */
+
+export const cablesBootstrapQueryKey = ["cables", "bootstrap"] as const;
+
+/**
+ * The workspace shell. One request for identity, roster and sidebar.
+ *
+ * `staleTime: 0` because the sidebar carries unread counts, which the socket
+ * invalidates constantly — anything longer would leave stale badges on screen.
+ */
+export const cablesBootstrapQuery = queryOptions({
+  queryKey: cablesBootstrapQueryKey,
+  queryFn: getCablesBootstrap,
+  staleTime: 0,
+});
+
+export function useCablesBootstrap() {
+  return useQuery(cablesBootstrapQuery);
+}
+
+export const cablesMessagesQueryKey = (conversationId: string) =>
+  ["cables", "messages", conversationId] as const;
+
+/**
+ * The newest page of a conversation.
+ *
+ * Only the first page is a query — older pages are fetched imperatively when
+ * the user scrolls up, and appended, because the socket also writes into this
+ * cache and an infinite-query page structure would fight it.
+ */
+export function useCablesMessages(conversationId: string | null) {
+  return useQuery({
+    queryKey: cablesMessagesQueryKey(conversationId ?? "none"),
+    queryFn: () => getCablesMessages(conversationId as string),
+    enabled: !!conversationId,
+    staleTime: 0,
+  });
 }

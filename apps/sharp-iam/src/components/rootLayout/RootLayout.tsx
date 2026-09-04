@@ -12,6 +12,7 @@ import { useLogout } from "@/api/mutations";
 import { useSheet } from "@sharpnr/ui";
 import { config } from "@sharpnr/env";
 import { motion, AnimatePresence } from "framer-motion";
+import { CablesWindow, STACKED_ABOVE_IVA } from "@sharpnr/cables-window";
 
 const RootLayout: React.FC = () => {
   const { user } = useAppUserStore();
@@ -159,6 +160,11 @@ const RootLayout: React.FC = () => {
         }
       >
         <Outlet />
+
+        {/* Cables direct messages, docked. Renders nothing unless the org has
+            cables live, so it is safe to mount unconditionally. Stacked above
+            the IVA launcher, which owns the same corner. */}
+        <CablesWindow bottom={STACKED_ABOVE_IVA} />
       </AppShell>
     </>
   );

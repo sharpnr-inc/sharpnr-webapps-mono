@@ -1,6 +1,11 @@
 import { api } from "@sharpnr/http";
 import type {
+  CablesBootstrap,
+  CablesConversation,
+  CablesMessage,
+  CablesMessagePage,
   CablesServiceResponseDto,
+  ChannelResponseDto,
   SetupProgressResponseDTO,
   UserAuthenticatedResponse,
   UserDataResponseDto,
@@ -166,6 +171,132 @@ export async function GetOrganizationSetUpProgress() {
 export async function getCablesAccountStatus() {
   const res = await api.get<APIResponse<CablesServiceResponseDto>>(
     CablesEndpoints.getCablesAccountStatus(),
+  );
+  return res.data;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                              Cables workspace                              */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The workspace API.
+ *
+ * Note there is no separate DM endpoint set: a channel and a direct message are
+ * both conversations server-side, so one set of message routes serves both.
+ */
+export const CablesWorkspaceEndpoints = {
+  bootstrap: () => `/cables/bootstrap`,
+  conversations: () => `/cables/conversations`,
+  openDirect: () => `/cables/conversations/direct`,
+  messages: (conversationId: string) =>
+    `/cables/conversations/${conversationId}/messages`,
+  read: (conversationId: string) =>
+    `/cables/conversations/${conversationId}/read`,
+  channels: () => `/cables/channels`,
+  joinChannel: (channelId: string) => `/cables/channels/${channelId}/join`,
+};
+
+/**
+ * The client's first call. Returns identity, roster and sidebar together, and
+ * reconciles the org roster server-side — an employee hired since the last
+ * visit gets their cables identity here.
+ */
+export async function getCablesBootstrap() {
+  const res = await api.get<APIResponse<CablesBootstrap>>(
+    CablesWorkspaceEndpoints.bootstrap(),
+  );
+  return res.data;
+}
+
+export async function listCablesConversations() {
+  const res = await api.get<APIResponse<CablesConversation[]>>(
+    CablesWorkspaceEndpoints.conversations(),
+  );
+  return res.data;
+}
+
+/**
+ * Reads one page of history, newest first.
+ *
+ * `before` is a seq cursor rather than a page number: history grows at the end
+ * being read, so an offset would skip or repeat rows whenever someone posts
+ * mid-scroll.
+ */
+export async function getCablesMessages(
+  conversationId: string,
+  before?: number,
+) {
+  const res = await api.get<APIResponse<CablesMessagePage>>(
+    CablesWorkspaceEndpoints.messages(conversationId),
+    { params: before ? { before } : undefined },
+  );
+  return res.data;
+}
+
+/**
+ * Sends a message over HTTP — never up the socket, which only carries fan-out.
+ *
+ * `clientMessageId` is generated here, before the request, so a retry after a
+ * dropped connection resolves to the row already written instead of posting
+ * twice. It also lets the optimistic bubble be reconciled with the stored row
+ * when the same message arrives back over the socket.
+ */
+export async function sendCablesMessage(
+  conversationId: string,
+  body: string,
+  clientMessageId: string,
+) {
+  const res = await api.post<APIResponse<CablesMessage>>(
+    CablesWorkspaceEndpoints.messages(conversationId),
+    { body, clientMessageId },
+  );
+  return res.data;
+}
+
+/** Moves the read cursor, which is what clears the sidebar badge. */
+export async function markCablesConversationRead(
+  conversationId: string,
+  seq: number,
+) {
+  const res = await api.post<APIResponse<null>>(
+    CablesWorkspaceEndpoints.read(conversationId),
+    { seq },
+  );
+  return res.data;
+}
+
+/** Gets or creates the DM with one other member. Safe to call repeatedly. */
+export async function openCablesDirectConversation(memberId: string) {
+  const res = await api.post<APIResponse<CablesConversation>>(
+    CablesWorkspaceEndpoints.openDirect(),
+    { memberId },
+  );
+  return res.data;
+}
+
+export async function listCablesChannels() {
+  const res = await api.get<APIResponse<ChannelResponseDto[]>>(
+    CablesWorkspaceEndpoints.channels(),
+  );
+  return res.data;
+}
+
+export async function createCablesChannel(input: {
+  name: string;
+  topic?: string;
+  visibility?: "PUBLIC" | "PRIVATE";
+}) {
+  const res = await api.post<APIResponse<null>>(
+    CablesWorkspaceEndpoints.channels(),
+    input,
+  );
+  return res.data;
+}
+
+export async function joinCablesChannel(channelId: string) {
+  const res = await api.post<APIResponse<CablesConversation>>(
+    CablesWorkspaceEndpoints.joinChannel(channelId),
   );
   return res.data;
 }
