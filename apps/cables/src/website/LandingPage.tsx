@@ -15,6 +15,7 @@ import { Button } from "@sharpnr/ui";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { CablesMark } from "./BrandMark";
+import { useNavigate } from "@tanstack/react-router";
 
 // ─── Animation variants ────────────────────────────────────────────────────
 
@@ -136,6 +137,7 @@ const MESSAGES = [
 // ─── Main component ────────────────────────────────────────────────────────
 
 export function LandingPage() {
+  const nav = useNavigate();
   return (
     <div className="min-h-screen bg-ink font-mono text-paper selection:bg-patch/30 selection:text-paper">
       {/* ─── Brand-scoped styles ─── */}
@@ -232,6 +234,11 @@ export function LandingPage() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
+                  onClick={() =>
+                    nav({
+                      to: "/home",
+                    })
+                  }
                   size="lg"
                   variant="outline"
                   className="h-12 border-ink-line px-8 text-paper-dim transition-colors hover:border-port hover:bg-ink-raised hover:text-paper"
@@ -373,7 +380,9 @@ export function LandingPage() {
                 <div
                   key={label}
                   className={`flex items-center gap-4 px-4 py-6 md:px-8 ${
-                    i < INFRA_POINTS.length - 1 ? "md:border-r md:border-ink-line" : ""
+                    i < INFRA_POINTS.length - 1
+                      ? "md:border-r md:border-ink-line"
+                      : ""
                   }`}
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-ink-line bg-ink">
@@ -523,10 +532,7 @@ export function LandingPage() {
                 transition={{ duration: 0.5 }}
                 className="relative"
               >
-                <CablesMark
-                  ground="paper"
-                  className="mx-auto mb-6 h-12 w-12"
-                />
+                <CablesMark ground="paper" className="mx-auto mb-6 h-12 w-12" />
                 <p className="mb-4 text-xs tracking-[0.2em] text-patch uppercase">
                   ── Patch your people in
                 </p>

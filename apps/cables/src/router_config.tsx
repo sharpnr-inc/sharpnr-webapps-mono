@@ -1,20 +1,14 @@
 import { createRouter } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { routeTree } from "./routeTree.gen";
-import AnthropicLoader from "./components/sharpnr_loader";
-import NotFound from "./components/404Page";
-// import {
-//   hotelDetailMask,
-//   propertyDetailsMask,
-// } from "./lib/route_masking/Orchestrator_masking";
+import { GlobalLoader, NotFound } from "@sharpnr/ui";
 
 export const queryClient = new QueryClient();
 
 export const router = createRouter({
   routeTree,
-  defaultPendingComponent: () => <AnthropicLoader />,
+  defaultPendingComponent: () => <GlobalLoader />,
   defaultNotFoundComponent: () => <NotFound />,
-  // routeMasks: [propertyDetailsMask, hotelDetailMask],
   defaultViewTransition: true,
   context: {
     queryClient: queryClient,

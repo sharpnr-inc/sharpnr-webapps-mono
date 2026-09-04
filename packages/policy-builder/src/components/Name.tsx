@@ -1,13 +1,15 @@
 import { Input, Label } from "@sharpnr/ui";
 import { cn } from "@sharpnr/utils";
 import { usePolicyBuilderStore } from "../store/usePolicyBuilderStore";
-import { useOrgPrincipal } from "../api/queries";
+// import { useOrgPrincipal } from "../api/queries";
 
 export function Name({ className }: { className?: string }) {
   const name = usePolicyBuilderStore((s) => s.name);
   const setName = usePolicyBuilderStore((s) => s.setName);
 
-  const { data } = useOrgPrincipal();
+  // Nothing here reads the principals yet — restore when this is wired up.
+  // const { data } = useOrgPrincipal();
+
   return (
     <div className={cn("space-y-1.5", className)}>
       <Label className="text-sm font-medium">Policy Name</Label>

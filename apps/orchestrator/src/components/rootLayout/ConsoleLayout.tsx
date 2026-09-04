@@ -12,6 +12,7 @@ import { OrchestratorShell } from "./AppSidebar";
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
 import { useLogout } from "@/apis/mutation";
 import { config } from "@sharpnr/env";
+import { CablesWindow, STACKED_ABOVE_IVA } from "@sharpnr/cables-window";
 
 function ConsoleLayoutContent() {
   const { openSheet } = useSheet();
@@ -51,6 +52,11 @@ function ConsoleLayoutContent() {
       }
     >
       <Outlet />
+
+      {/* Cables direct messages, docked. Renders nothing unless the org has
+          cables live, so it is safe to mount unconditionally. Stacked above the
+          IVA launcher, which owns the same corner. */}
+      <CablesWindow bottom={STACKED_ABOVE_IVA} />
     </AppShell>
   );
 }

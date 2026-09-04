@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { Button } from "@sharpnr/ui";
+import { config } from "@sharpnr/env";
+import { Link } from "@tanstack/react-router";
+import { usePublicCurrentUser } from "@/api/queries";
 import { CablesMark } from "./BrandMark";
 
 const NAV = [
@@ -14,6 +17,11 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // A failed probe just means signed out, so anything but data is anonymous.
+  const { data, isPending } = usePublicCurrentUser();
+  const user = data?.data;
+  const displayName = user?.firstName ?? user?.email;
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 16);
@@ -75,21 +83,44 @@ export function Header() {
           </nav>
 
           {/* ── Desktop CTAs ── */}
+          {/* Held blank until the probe answers, so a signed-in visitor never
+              sees "Log in" flash before their own name replaces it. */}
           <div className="hidden items-center gap-3 md:flex">
-            <Button
-              onClick={() => console.log()}
-              variant="ghost"
-              size="sm"
-              className="font-mono text-paper-dim hover:bg-ink-raised hover:text-paper"
-            >
-              Log in
-            </Button>
-            <Button
-              size="sm"
-              className="bg-patch px-5 font-mono text-ink transition-colors duration-150 hover:bg-patch/85"
-            >
-              Get started
-            </Button>
+            {isPending ? null : user ? (
+              <>
+                <span className="font-mono text-sm text-paper-dim">
+                  {displayName}
+                </span>
+                <Button
+                  asChild
+                  size="sm"
+                  className="bg-patch px-5 font-mono text-ink transition-colors duration-150 hover:bg-patch/85"
+                >
+                  <Link to="/home">
+                    Continue to home
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="font-mono text-paper-dim hover:bg-ink-raised hover:text-paper"
+                >
+                  <a href={config.authAppUrl}>Log in</a>
+                </Button>
+                <Button
+                  asChild
+                  size="sm"
+                  className="bg-patch px-5 font-mono text-ink transition-colors duration-150 hover:bg-patch/85"
+                >
+                  <a href={`${config.authAppUrl}/signup`}>Get started</a>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* ── Mobile hamburger ── */}
@@ -127,15 +158,38 @@ export function Header() {
                 </a>
               ))}
               <div className="mt-4 flex flex-col gap-2 border-t border-ink-line pt-4">
-                <Button
-                  variant="ghost"
-                  className="justify-start font-mono text-paper-dim hover:bg-ink-raised hover:text-paper"
-                >
-                  Log in
-                </Button>
-                <Button className="bg-patch font-mono text-ink hover:bg-patch/85">
-                  Get started
-                </Button>
+                {isPending ? null : user ? (
+                  <>
+                    <span className="px-3 font-mono text-sm text-paper-dim">
+                      {displayName}
+                    </span>
+                    <Button
+                      asChild
+                      className="bg-patch font-mono text-ink hover:bg-patch/85"
+                    >
+                      <Link to="/home" onClick={() => setMobileOpen(false)}>
+                        Continue to home
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      asChild
+                      variant="ghost"
+                      className="justify-start font-mono text-paper-dim hover:bg-ink-raised hover:text-paper"
+                    >
+                      <a href={config.authAppUrl}>Log in</a>
+                    </Button>
+                    <Button
+                      asChild
+                      className="bg-patch font-mono text-ink hover:bg-patch/85"
+                    >
+                      <a href={`${config.authAppUrl}/signup`}>Get started</a>
+                    </Button>
+                  </>
+                )}
               </div>
             </nav>
           </motion.div>

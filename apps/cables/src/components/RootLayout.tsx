@@ -1,5 +1,5 @@
-import { Outlet } from "@tanstack/react-router";
-
-export function AppRootLayout() {
-  return <Outlet />;
+function RootLayout() {
+  return <div>RootLayout</div>;
 }
+
+export default RootLayout;
