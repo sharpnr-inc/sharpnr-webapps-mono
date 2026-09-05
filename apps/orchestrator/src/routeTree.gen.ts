@@ -45,6 +45,7 @@ import { Route as AppuserPropertyIndexRouteImport } from './routes/_appuser/prop
 import { Route as AppuserPropertyRoutesRouteImport } from './routes/_appuser/property/routes'
 import { Route as AppuserSharpAccountingIndexRouteImport } from './routes/_appuser/sharp-accounting/index'
 import { Route as AppuserSharpCrmIndexRouteImport } from './routes/_appuser/sharp-crm/index'
+import { Route as AppuserSharpHrIndexRouteImport } from './routes/_appuser/sharp-hr/index'
 import { Route as AppuserSharp_marketplaceIndexRouteImport } from './routes/_appuser/sharp_marketplace/index'
 import { Route as AppuserSharpnrServicesStockwaveRouteRouteImport } from './routes/_appuser/sharpnr-services/stockwave/route'
 import { Route as AppuserSiloIndexRouteImport } from './routes/_appuser/silo/index'
@@ -281,6 +282,11 @@ const AppuserSharpAccountingIndexRoute =
 const AppuserSharpCrmIndexRoute = AppuserSharpCrmIndexRouteImport.update({
   id: '/sharp-crm/',
   path: '/sharp-crm/',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
+const AppuserSharpHrIndexRoute = AppuserSharpHrIndexRouteImport.update({
+  id: '/sharp-hr/',
+  path: '/sharp-hr/',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserSharp_marketplaceIndexRoute =
@@ -631,6 +637,7 @@ export interface FileRoutesByFullPath {
   '/property/': typeof AppuserPropertyIndexRoute
   '/sharp-accounting/': typeof AppuserSharpAccountingIndexRoute
   '/sharp-crm/': typeof AppuserSharpCrmIndexRoute
+  '/sharp-hr/': typeof AppuserSharpHrIndexRoute
   '/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
   '/silo/': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
@@ -701,6 +708,7 @@ export interface FileRoutesByTo {
   '/property': typeof AppuserPropertyIndexRoute
   '/sharp-accounting': typeof AppuserSharpAccountingIndexRoute
   '/sharp-crm': typeof AppuserSharpCrmIndexRoute
+  '/sharp-hr': typeof AppuserSharpHrIndexRoute
   '/sharp_marketplace': typeof AppuserSharp_marketplaceIndexRoute
   '/silo': typeof AppuserSiloIndexRoute
   '/suppliers&Vendors': typeof AppuserSuppliersChar38VendorsIndexRoute
@@ -785,6 +793,7 @@ export interface FileRoutesById {
   '/_appuser/property/': typeof AppuserPropertyIndexRoute
   '/_appuser/sharp-accounting/': typeof AppuserSharpAccountingIndexRoute
   '/_appuser/sharp-crm/': typeof AppuserSharpCrmIndexRoute
+  '/_appuser/sharp-hr/': typeof AppuserSharpHrIndexRoute
   '/_appuser/sharp_marketplace/': typeof AppuserSharp_marketplaceIndexRoute
   '/_appuser/silo/': typeof AppuserSiloIndexRoute
   '/_appuser/suppliers&Vendors/': typeof AppuserSuppliersChar38VendorsIndexRoute
@@ -870,6 +879,7 @@ export interface FileRouteTypes {
     | '/property/'
     | '/sharp-accounting/'
     | '/sharp-crm/'
+    | '/sharp-hr/'
     | '/sharp_marketplace/'
     | '/silo/'
     | '/suppliers&Vendors/'
@@ -940,6 +950,7 @@ export interface FileRouteTypes {
     | '/property'
     | '/sharp-accounting'
     | '/sharp-crm'
+    | '/sharp-hr'
     | '/sharp_marketplace'
     | '/silo'
     | '/suppliers&Vendors'
@@ -1023,6 +1034,7 @@ export interface FileRouteTypes {
     | '/_appuser/property/'
     | '/_appuser/sharp-accounting/'
     | '/_appuser/sharp-crm/'
+    | '/_appuser/sharp-hr/'
     | '/_appuser/sharp_marketplace/'
     | '/_appuser/silo/'
     | '/_appuser/suppliers&Vendors/'
@@ -1325,6 +1337,13 @@ declare module '@tanstack/react-router' {
       path: '/sharp-crm'
       fullPath: '/sharp-crm/'
       preLoaderRoute: typeof AppuserSharpCrmIndexRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
+    '/_appuser/sharp-hr/': {
+      id: '/_appuser/sharp-hr/'
+      path: '/sharp-hr'
+      fullPath: '/sharp-hr/'
+      preLoaderRoute: typeof AppuserSharpHrIndexRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
     '/_appuser/sharp_marketplace/': {
@@ -1992,6 +2011,7 @@ interface AppuserRouteRouteChildren {
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
   AppuserSharpAccountingIndexRoute: typeof AppuserSharpAccountingIndexRoute
   AppuserSharpCrmIndexRoute: typeof AppuserSharpCrmIndexRoute
+  AppuserSharpHrIndexRoute: typeof AppuserSharpHrIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserBusinessOpsPropertyRoutesRoute: typeof AppuserBusinessOpsPropertyRoutesRoute
   AppuserPropertyPropertyIdDetailsRoute: typeof AppuserPropertyPropertyIdDetailsRoute
@@ -2040,6 +2060,7 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
   AppuserSharpAccountingIndexRoute: AppuserSharpAccountingIndexRoute,
   AppuserSharpCrmIndexRoute: AppuserSharpCrmIndexRoute,
+  AppuserSharpHrIndexRoute: AppuserSharpHrIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,
   AppuserBusinessOpsPropertyRoutesRoute: AppuserBusinessOpsPropertyRoutesRoute,

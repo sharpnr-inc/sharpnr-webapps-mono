@@ -250,7 +250,7 @@ export const orchestratorGroups: SidebarGroup[] = [
       },
       {
         label: "SharpHR",
-        path: "/sharp-accounting",
+        path: "/sharp-hr",
         icon: FaArrowsToEye,
         tooltip: "Cables",
       },
