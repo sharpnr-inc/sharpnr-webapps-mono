@@ -9,38 +9,225 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LayoutRouteRouteImport } from './routes/_layout/route'
 import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
+import { Route as LayoutBoardsIndexRouteImport } from './routes/_layout/boards/index'
+import { Route as LayoutDocumentsIndexRouteImport } from './routes/_layout/documents/index'
+import { Route as LayoutHomeIndexRouteImport } from './routes/_layout/home/index'
+import { Route as LayoutMarkdownIndexRouteImport } from './routes/_layout/markdown/index'
+import { Route as LayoutNotesIndexRouteImport } from './routes/_layout/notes/index'
+import { Route as LayoutPdfsIndexRouteImport } from './routes/_layout/pdfs/index'
+import { Route as LayoutRecentIndexRouteImport } from './routes/_layout/recent/index'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
+import { Route as LayoutSharedIndexRouteImport } from './routes/_layout/shared/index'
+import { Route as LayoutSheetsIndexRouteImport } from './routes/_layout/sheets/index'
+import { Route as LayoutSlidesIndexRouteImport } from './routes/_layout/slides/index'
+import { Route as LayoutStarredIndexRouteImport } from './routes/_layout/starred/index'
+import { Route as LayoutTemplatesIndexRouteImport } from './routes/_layout/templates/index'
+import { Route as LayoutTrashIndexRouteImport } from './routes/_layout/trash/index'
 
+const LayoutRouteRoute = LayoutRouteRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WebsiteIndexRoute = WebsiteIndexRouteImport.update({
   id: '/_website/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LayoutBoardsIndexRoute = LayoutBoardsIndexRouteImport.update({
+  id: '/boards/',
+  path: '/boards/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutDocumentsIndexRoute = LayoutDocumentsIndexRouteImport.update({
+  id: '/documents/',
+  path: '/documents/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutHomeIndexRoute = LayoutHomeIndexRouteImport.update({
+  id: '/home/',
+  path: '/home/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutMarkdownIndexRoute = LayoutMarkdownIndexRouteImport.update({
+  id: '/markdown/',
+  path: '/markdown/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutNotesIndexRoute = LayoutNotesIndexRouteImport.update({
+  id: '/notes/',
+  path: '/notes/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutPdfsIndexRoute = LayoutPdfsIndexRouteImport.update({
+  id: '/pdfs/',
+  path: '/pdfs/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutRecentIndexRoute = LayoutRecentIndexRouteImport.update({
+  id: '/recent/',
+  path: '/recent/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSharedIndexRoute = LayoutSharedIndexRouteImport.update({
+  id: '/shared/',
+  path: '/shared/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSheetsIndexRoute = LayoutSheetsIndexRouteImport.update({
+  id: '/sheets/',
+  path: '/sheets/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutSlidesIndexRoute = LayoutSlidesIndexRouteImport.update({
+  id: '/slides/',
+  path: '/slides/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutStarredIndexRoute = LayoutStarredIndexRouteImport.update({
+  id: '/starred/',
+  path: '/starred/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutTemplatesIndexRoute = LayoutTemplatesIndexRouteImport.update({
+  id: '/templates/',
+  path: '/templates/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
+const LayoutTrashIndexRoute = LayoutTrashIndexRouteImport.update({
+  id: '/trash/',
+  path: '/trash/',
+  getParentRoute: () => LayoutRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof WebsiteIndexRoute
+  '/boards/': typeof LayoutBoardsIndexRoute
+  '/documents/': typeof LayoutDocumentsIndexRoute
+  '/home/': typeof LayoutHomeIndexRoute
+  '/markdown/': typeof LayoutMarkdownIndexRoute
+  '/notes/': typeof LayoutNotesIndexRoute
+  '/pdfs/': typeof LayoutPdfsIndexRoute
+  '/recent/': typeof LayoutRecentIndexRoute
+  '/settings/': typeof LayoutSettingsIndexRoute
+  '/shared/': typeof LayoutSharedIndexRoute
+  '/sheets/': typeof LayoutSheetsIndexRoute
+  '/slides/': typeof LayoutSlidesIndexRoute
+  '/starred/': typeof LayoutStarredIndexRoute
+  '/templates/': typeof LayoutTemplatesIndexRoute
+  '/trash/': typeof LayoutTrashIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof WebsiteIndexRoute
+  '/boards': typeof LayoutBoardsIndexRoute
+  '/documents': typeof LayoutDocumentsIndexRoute
+  '/home': typeof LayoutHomeIndexRoute
+  '/markdown': typeof LayoutMarkdownIndexRoute
+  '/notes': typeof LayoutNotesIndexRoute
+  '/pdfs': typeof LayoutPdfsIndexRoute
+  '/recent': typeof LayoutRecentIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
+  '/shared': typeof LayoutSharedIndexRoute
+  '/sheets': typeof LayoutSheetsIndexRoute
+  '/slides': typeof LayoutSlidesIndexRoute
+  '/starred': typeof LayoutStarredIndexRoute
+  '/templates': typeof LayoutTemplatesIndexRoute
+  '/trash': typeof LayoutTrashIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_layout': typeof LayoutRouteRouteWithChildren
   '/_website/': typeof WebsiteIndexRoute
+  '/_layout/boards/': typeof LayoutBoardsIndexRoute
+  '/_layout/documents/': typeof LayoutDocumentsIndexRoute
+  '/_layout/home/': typeof LayoutHomeIndexRoute
+  '/_layout/markdown/': typeof LayoutMarkdownIndexRoute
+  '/_layout/notes/': typeof LayoutNotesIndexRoute
+  '/_layout/pdfs/': typeof LayoutPdfsIndexRoute
+  '/_layout/recent/': typeof LayoutRecentIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
+  '/_layout/shared/': typeof LayoutSharedIndexRoute
+  '/_layout/sheets/': typeof LayoutSheetsIndexRoute
+  '/_layout/slides/': typeof LayoutSlidesIndexRoute
+  '/_layout/starred/': typeof LayoutStarredIndexRoute
+  '/_layout/templates/': typeof LayoutTemplatesIndexRoute
+  '/_layout/trash/': typeof LayoutTrashIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/boards/'
+    | '/documents/'
+    | '/home/'
+    | '/markdown/'
+    | '/notes/'
+    | '/pdfs/'
+    | '/recent/'
+    | '/settings/'
+    | '/shared/'
+    | '/sheets/'
+    | '/slides/'
+    | '/starred/'
+    | '/templates/'
+    | '/trash/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/_website/'
+  to:
+    | '/'
+    | '/boards'
+    | '/documents'
+    | '/home'
+    | '/markdown'
+    | '/notes'
+    | '/pdfs'
+    | '/recent'
+    | '/settings'
+    | '/shared'
+    | '/sheets'
+    | '/slides'
+    | '/starred'
+    | '/templates'
+    | '/trash'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_website/'
+    | '/_layout/boards/'
+    | '/_layout/documents/'
+    | '/_layout/home/'
+    | '/_layout/markdown/'
+    | '/_layout/notes/'
+    | '/_layout/pdfs/'
+    | '/_layout/recent/'
+    | '/_layout/settings/'
+    | '/_layout/shared/'
+    | '/_layout/sheets/'
+    | '/_layout/slides/'
+    | '/_layout/starred/'
+    | '/_layout/templates/'
+    | '/_layout/trash/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  LayoutRouteRoute: typeof LayoutRouteRouteWithChildren
   WebsiteIndexRoute: typeof WebsiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_website/': {
       id: '/_website/'
       path: '/'
@@ -48,10 +235,147 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WebsiteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_layout/boards/': {
+      id: '/_layout/boards/'
+      path: '/boards'
+      fullPath: '/boards/'
+      preLoaderRoute: typeof LayoutBoardsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/documents/': {
+      id: '/_layout/documents/'
+      path: '/documents'
+      fullPath: '/documents/'
+      preLoaderRoute: typeof LayoutDocumentsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/home/': {
+      id: '/_layout/home/'
+      path: '/home'
+      fullPath: '/home/'
+      preLoaderRoute: typeof LayoutHomeIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/markdown/': {
+      id: '/_layout/markdown/'
+      path: '/markdown'
+      fullPath: '/markdown/'
+      preLoaderRoute: typeof LayoutMarkdownIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/notes/': {
+      id: '/_layout/notes/'
+      path: '/notes'
+      fullPath: '/notes/'
+      preLoaderRoute: typeof LayoutNotesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/pdfs/': {
+      id: '/_layout/pdfs/'
+      path: '/pdfs'
+      fullPath: '/pdfs/'
+      preLoaderRoute: typeof LayoutPdfsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/recent/': {
+      id: '/_layout/recent/'
+      path: '/recent'
+      fullPath: '/recent/'
+      preLoaderRoute: typeof LayoutRecentIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/shared/': {
+      id: '/_layout/shared/'
+      path: '/shared'
+      fullPath: '/shared/'
+      preLoaderRoute: typeof LayoutSharedIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/sheets/': {
+      id: '/_layout/sheets/'
+      path: '/sheets'
+      fullPath: '/sheets/'
+      preLoaderRoute: typeof LayoutSheetsIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/slides/': {
+      id: '/_layout/slides/'
+      path: '/slides'
+      fullPath: '/slides/'
+      preLoaderRoute: typeof LayoutSlidesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/starred/': {
+      id: '/_layout/starred/'
+      path: '/starred'
+      fullPath: '/starred/'
+      preLoaderRoute: typeof LayoutStarredIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/templates/': {
+      id: '/_layout/templates/'
+      path: '/templates'
+      fullPath: '/templates/'
+      preLoaderRoute: typeof LayoutTemplatesIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/trash/': {
+      id: '/_layout/trash/'
+      path: '/trash'
+      fullPath: '/trash/'
+      preLoaderRoute: typeof LayoutTrashIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
   }
 }
 
+interface LayoutRouteRouteChildren {
+  LayoutBoardsIndexRoute: typeof LayoutBoardsIndexRoute
+  LayoutDocumentsIndexRoute: typeof LayoutDocumentsIndexRoute
+  LayoutHomeIndexRoute: typeof LayoutHomeIndexRoute
+  LayoutMarkdownIndexRoute: typeof LayoutMarkdownIndexRoute
+  LayoutNotesIndexRoute: typeof LayoutNotesIndexRoute
+  LayoutPdfsIndexRoute: typeof LayoutPdfsIndexRoute
+  LayoutRecentIndexRoute: typeof LayoutRecentIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
+  LayoutSharedIndexRoute: typeof LayoutSharedIndexRoute
+  LayoutSheetsIndexRoute: typeof LayoutSheetsIndexRoute
+  LayoutSlidesIndexRoute: typeof LayoutSlidesIndexRoute
+  LayoutStarredIndexRoute: typeof LayoutStarredIndexRoute
+  LayoutTemplatesIndexRoute: typeof LayoutTemplatesIndexRoute
+  LayoutTrashIndexRoute: typeof LayoutTrashIndexRoute
+}
+
+const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
+  LayoutBoardsIndexRoute: LayoutBoardsIndexRoute,
+  LayoutDocumentsIndexRoute: LayoutDocumentsIndexRoute,
+  LayoutHomeIndexRoute: LayoutHomeIndexRoute,
+  LayoutMarkdownIndexRoute: LayoutMarkdownIndexRoute,
+  LayoutNotesIndexRoute: LayoutNotesIndexRoute,
+  LayoutPdfsIndexRoute: LayoutPdfsIndexRoute,
+  LayoutRecentIndexRoute: LayoutRecentIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
+  LayoutSharedIndexRoute: LayoutSharedIndexRoute,
+  LayoutSheetsIndexRoute: LayoutSheetsIndexRoute,
+  LayoutSlidesIndexRoute: LayoutSlidesIndexRoute,
+  LayoutStarredIndexRoute: LayoutStarredIndexRoute,
+  LayoutTemplatesIndexRoute: LayoutTemplatesIndexRoute,
+  LayoutTrashIndexRoute: LayoutTrashIndexRoute,
+}
+
+const LayoutRouteRouteWithChildren = LayoutRouteRoute._addFileChildren(
+  LayoutRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
+  LayoutRouteRoute: LayoutRouteRouteWithChildren,
   WebsiteIndexRoute: WebsiteIndexRoute,
 }
 export const routeTree = rootRouteImport
