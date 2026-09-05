@@ -46,7 +46,7 @@ export function AddTaxCategoryForm({ closeModal }: AddTaxCategoryProps) {
     accounting_book_id: data?.data?.id,
     category_name: "",
     code: "",
-    legal_entity_id: selectedLegalEntity?.id,
+    legal_entity_id: selectedLegalEntity?.id ?? "",
     income_account_id: "",
     receivable_account_id: "",
     rule: {
@@ -70,9 +70,12 @@ export function AddTaxCategoryForm({ closeModal }: AddTaxCategoryProps) {
   const form = useAppForm({
     defaultValues: defaultTaxCategory,
     onSubmit: async ({ value }) => {
+      // See AddJournalEntryForm: the route guard already ensures this.
+      if (!selectedLegalEntity) return;
+
       const payload: AddTaxCategoryPayload = {
         ...value,
-        legal_entity_id: selectedLegalEntity?.id,
+        legal_entity_id: selectedLegalEntity.id,
 
         rule: {
           ...value.rule,
@@ -97,7 +100,7 @@ export function AddTaxCategoryForm({ closeModal }: AddTaxCategoryProps) {
       };
       await mutateAsync(
         {
-          legalEntityID: selectedLegalEntity?.id,
+          legalEntityID: selectedLegalEntity.id,
           payload,
         },
         {

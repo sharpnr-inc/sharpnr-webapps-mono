@@ -1,17 +1,8 @@
 import { AccountingOverviewPage } from "@/app/dashboard/AccountingOverviewPage";
-import { useAccountingStore } from "@/store/accounting.store";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
+// No entity guard here: the `_layout` route already sends anyone without a
+// selected legal entity to the chooser, for every page in the workspace.
 export const Route = createFileRoute("/_layout/overview/")({
-  beforeLoad: () => {
-    const selectedLegalEntity =
-      useAccountingStore.getState().selectedLegalEntity;
-
-    if (!selectedLegalEntity) {
-      throw redirect({
-        to: "/",
-      });
-    }
-  },
   component: AccountingOverviewPage,
 });

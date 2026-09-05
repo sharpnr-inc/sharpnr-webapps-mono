@@ -126,6 +126,10 @@ export function AddJournalEntryForm({}: {}) {
       ],
     } as JournalEntryExternalRequestDto,
     onSubmit: async ({ value }) => {
+      // The layout route guarantees an entity is selected before any page here
+      // renders; this keeps the form honest if that ever changes.
+      if (!selectedLegalEntity) return;
+
       await mutateAsync({
         legalEntityID: selectedLegalEntity.id,
         payload: value,

@@ -1,4 +1,9 @@
-import { Outlet, Link, useRouterState } from "@tanstack/react-router";
+import {
+  Outlet,
+  Link,
+  useNavigate,
+  useRouterState,
+} from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -15,12 +20,13 @@ import {
   useSheet,
 } from "@sharpnr/ui";
 import { ScrollArea, ScrollBar } from "@sharpnr/ui";
-import { Building2, Check, ChevronsUpDown } from "lucide-react";
+import { Building2, Check, ChevronsUpDown, Layers } from "lucide-react";
 import { useAccountingStore } from "../store/accounting.store";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@sharpnr/ui";
 import {
@@ -32,8 +38,8 @@ import {
 import { config } from "@sharpnr/env";
 import { useAppUserStore, selectIsLoadingUser } from "@/store/AppUserStore";
 import { useLogout } from "@/api/mutation";
-import { QuickAccess } from "@/components/header/QuickAccess";
 import { accountingSidebar, type AccountingNavItem } from "./AccountingNavs";
+import { LEGAL_ENTITY_CHOOSER_PATH } from "@/lib/routes";
 
 /* ================================
    Nav Item
@@ -114,7 +120,6 @@ const AccountingRootLayout = () => {
             onLogout={() => logoutUser()}
             isLoggingOut={isLoggingOut}
             iamUrl={config.iamAppUrl}
-            quickAccess={<QuickAccess />}
           />
           <ModeToggle />
         </>
@@ -133,6 +138,7 @@ export default AccountingRootLayout;
 
 export function LegalEntitySwitcher() {
   const { state } = useSidebar();
+  const navigate = useNavigate();
   const legalEntities = useAccountingStore((s) => s.legalEntities);
   const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
   const setSelectedLegalEntity = useAccountingStore(
@@ -147,7 +153,9 @@ export function LegalEntitySwitcher() {
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
             size="lg"
-            tooltip={isCollapsed ? selectedLegalEntity?.name : undefined}
+            tooltip={
+              isCollapsed ? selectedLegalEntity?.display_name : undefined
+            }
             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
           >
             <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
@@ -158,12 +166,10 @@ export function LegalEntitySwitcher() {
               <>
                 <div className="flex min-w-0 flex-col gap-0.5 leading-none">
                   <span className="truncate font-medium">
-                    {selectedLegalEntity?.name ?? "Select Legal Entity"}
+                    {selectedLegalEntity?.display_name ?? "Select Legal Entity"}
                   </span>
                   <span className="truncate text-xs text-muted-foreground">
-                    {selectedLegalEntity
-                      ? `${selectedLegalEntity.city}, ${selectedLegalEntity.state}`
-                      : "Accounting Workspace"}
+                    {selectedLegalEntity?.legal_name ?? "Accounting Workspace"}
                   </span>
                 </div>
                 <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
@@ -173,17 +179,28 @@ export function LegalEntitySwitcher() {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="start" className="min-w-56">
-          {legalEntities.map((entity: any) => (
+          {legalEntities.map((entity) => (
             <DropdownMenuItem
               key={entity.id}
               onSelect={() => setSelectedLegalEntity(entity)}
             >
-              {entity.name}
+              <span className="truncate">{entity.display_name}</span>
               {entity.id === selectedLegalEntity?.id && (
                 <Check className="ml-auto size-4" />
               )}
             </DropdownMenuItem>
           ))}
+
+          <DropdownMenuSeparator />
+
+          {/* The chooser carries the entity details (type, status, incorporation
+              date) that don't fit in this dropdown. */}
+          <DropdownMenuItem
+            onSelect={() => navigate({ to: LEGAL_ENTITY_CHOOSER_PATH })}
+          >
+            <Layers className="size-4" />
+            <span>All legal entities</span>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </SidebarMenuItem>
