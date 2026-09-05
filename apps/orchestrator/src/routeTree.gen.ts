@@ -19,6 +19,7 @@ import { Route as AppuserCost_centerRouteRouteImport } from './routes/_appuser/c
 import { Route as AppuserCustomersRouteRouteImport } from './routes/_appuser/customers/route'
 import { Route as AppuserDeparmentsRouteRouteImport } from './routes/_appuser/deparments/route'
 import { Route as AppuserDescovro_integrationsRouteRouteImport } from './routes/_appuser/descovro_integrations/route'
+import { Route as AppuserFolioRouteRouteImport } from './routes/_appuser/folio/route'
 import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
@@ -146,6 +147,11 @@ const AppuserDescovro_integrationsRouteRoute =
     path: '/descovro_integrations',
     getParentRoute: () => AppuserRouteRoute,
   } as any)
+const AppuserFolioRouteRoute = AppuserFolioRouteRouteImport.update({
+  id: '/folio',
+  path: '/folio',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserHomeRoute = AppuserHomeRouteImport.update({
   id: '/home',
   path: '/home',
@@ -231,9 +237,9 @@ const AppuserDocs_officeIndexRoute = AppuserDocs_officeIndexRouteImport.update({
   getParentRoute: () => AppuserRouteRoute,
 } as any)
 const AppuserFolioIndexRoute = AppuserFolioIndexRouteImport.update({
-  id: '/folio/',
-  path: '/folio/',
-  getParentRoute: () => AppuserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserFolioRouteRoute,
 } as any)
 const AppuserInventoryAccIndexRoute =
   AppuserInventoryAccIndexRouteImport.update({
@@ -620,6 +626,7 @@ export interface FileRoutesByFullPath {
   '/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/deparments': typeof AppuserDeparmentsRouteRouteWithChildren
   '/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
+  '/folio': typeof AppuserFolioRouteRouteWithChildren
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/payments': typeof AppuserPaymentsRouteRouteWithChildren
@@ -777,6 +784,7 @@ export interface FileRoutesById {
   '/_appuser/customers': typeof AppuserCustomersRouteRouteWithChildren
   '/_appuser/deparments': typeof AppuserDeparmentsRouteRouteWithChildren
   '/_appuser/descovro_integrations': typeof AppuserDescovro_integrationsRouteRouteWithChildren
+  '/_appuser/folio': typeof AppuserFolioRouteRouteWithChildren
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
@@ -866,6 +874,7 @@ export interface FileRouteTypes {
     | '/customers'
     | '/deparments'
     | '/descovro_integrations'
+    | '/folio'
     | '/inventory-acc'
     | '/legal_entity'
     | '/payments'
@@ -1022,6 +1031,7 @@ export interface FileRouteTypes {
     | '/_appuser/customers'
     | '/_appuser/deparments'
     | '/_appuser/descovro_integrations'
+    | '/_appuser/folio'
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
     | '/_appuser/payments'
@@ -1177,6 +1187,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserDescovro_integrationsRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/folio': {
+      id: '/_appuser/folio'
+      path: '/folio'
+      fullPath: '/folio'
+      preLoaderRoute: typeof AppuserFolioRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/home': {
       id: '/_appuser/home'
       path: '/home'
@@ -1291,10 +1308,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/folio/': {
       id: '/_appuser/folio/'
-      path: '/folio'
+      path: '/'
       fullPath: '/folio/'
       preLoaderRoute: typeof AppuserFolioIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
+      parentRoute: typeof AppuserFolioRouteRoute
     }
     '/_appuser/inventory-acc/': {
       id: '/_appuser/inventory-acc/'
@@ -1837,6 +1854,17 @@ const AppuserDescovro_integrationsRouteRouteWithChildren =
     AppuserDescovro_integrationsRouteRouteChildren,
   )
 
+interface AppuserFolioRouteRouteChildren {
+  AppuserFolioIndexRoute: typeof AppuserFolioIndexRoute
+}
+
+const AppuserFolioRouteRouteChildren: AppuserFolioRouteRouteChildren = {
+  AppuserFolioIndexRoute: AppuserFolioIndexRoute,
+}
+
+const AppuserFolioRouteRouteWithChildren =
+  AppuserFolioRouteRoute._addFileChildren(AppuserFolioRouteRouteChildren)
+
 interface AppuserInventoryAccRouteRouteChildren {
   AppuserInventoryAccIndexRoute: typeof AppuserInventoryAccIndexRoute
   AppuserInventoryAccInventoryAccountIDDetailsRoute: typeof AppuserInventoryAccInventoryAccountIDDetailsRoute
@@ -2050,6 +2078,7 @@ interface AppuserRouteRouteChildren {
   AppuserCustomersRouteRoute: typeof AppuserCustomersRouteRouteWithChildren
   AppuserDeparmentsRouteRoute: typeof AppuserDeparmentsRouteRouteWithChildren
   AppuserDescovro_integrationsRouteRoute: typeof AppuserDescovro_integrationsRouteRouteWithChildren
+  AppuserFolioRouteRoute: typeof AppuserFolioRouteRouteWithChildren
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
   AppuserLegal_entityRouteRoute: typeof AppuserLegal_entityRouteRouteWithChildren
   AppuserPaymentsRouteRoute: typeof AppuserPaymentsRouteRouteWithChildren
@@ -2062,7 +2091,6 @@ interface AppuserRouteRouteChildren {
   AppuserOrgUsersAdd_employeesRoute: typeof AppuserOrgUsersAdd_employeesRoute
   AppuserPropertyRoutesRoute: typeof AppuserPropertyRoutesRoute
   AppuserDocs_officeIndexRoute: typeof AppuserDocs_officeIndexRoute
-  AppuserFolioIndexRoute: typeof AppuserFolioIndexRoute
   AppuserOrgUsersIndexRoute: typeof AppuserOrgUsersIndexRoute
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
@@ -2096,6 +2124,7 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserDeparmentsRouteRoute: AppuserDeparmentsRouteRouteWithChildren,
   AppuserDescovro_integrationsRouteRoute:
     AppuserDescovro_integrationsRouteRouteWithChildren,
+  AppuserFolioRouteRoute: AppuserFolioRouteRouteWithChildren,
   AppuserInventoryAccRouteRoute: AppuserInventoryAccRouteRouteWithChildren,
   AppuserLegal_entityRouteRoute: AppuserLegal_entityRouteRouteWithChildren,
   AppuserPaymentsRouteRoute: AppuserPaymentsRouteRouteWithChildren,
@@ -2111,7 +2140,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserOrgUsersAdd_employeesRoute: AppuserOrgUsersAdd_employeesRoute,
   AppuserPropertyRoutesRoute: AppuserPropertyRoutesRoute,
   AppuserDocs_officeIndexRoute: AppuserDocs_officeIndexRoute,
-  AppuserFolioIndexRoute: AppuserFolioIndexRoute,
   AppuserOrgUsersIndexRoute: AppuserOrgUsersIndexRoute,
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,

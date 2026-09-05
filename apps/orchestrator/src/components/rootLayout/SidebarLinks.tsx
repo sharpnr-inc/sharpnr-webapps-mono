@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  BookOpenText,
   BoxesIcon,
   BriefcaseBusiness,
   Building2Icon,
@@ -232,8 +233,8 @@ export const orchestratorGroups: SidebarGroup[] = [
       {
         label: "Folio",
         path: "/folio",
-        icon: Cable,
-        tooltip: "Cables",
+        icon: BookOpenText,
+        tooltip: "Folio",
       },
 
       {
