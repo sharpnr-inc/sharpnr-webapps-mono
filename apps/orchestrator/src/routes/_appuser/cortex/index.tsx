@@ -1,9 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import CotrexServiceIndexPage from "@/app/cortex/pages/CotrexServiceIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_appuser/cortex/')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/_appuser/cortex/"!</div>
-}
+export const Route = createFileRoute("/_appuser/cortex/")({
+  component: CotrexServiceIndexPage,
+});

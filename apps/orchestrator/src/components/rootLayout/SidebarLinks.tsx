@@ -226,7 +226,7 @@ export const orchestratorGroups: SidebarGroup[] = [
         label: "Cortex",
         path: "/cortex",
         icon: MirrorRound,
-        tooltip: "Cables",
+        tooltip: "Cortex",
       },
 
       {
