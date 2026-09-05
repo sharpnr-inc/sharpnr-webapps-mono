@@ -22,6 +22,7 @@ import { Route as AppuserHomeRouteImport } from './routes/_appuser/home'
 import { Route as AppuserInventoryAccRouteRouteImport } from './routes/_appuser/inventory-acc/route'
 import { Route as AppuserLegal_entityRouteRouteImport } from './routes/_appuser/legal_entity/route'
 import { Route as AppuserPaymentsRouteRouteImport } from './routes/_appuser/payments/route'
+import { Route as AppuserSharpCrmRouteRouteImport } from './routes/_appuser/sharp-crm/route'
 import { Route as AppuserSharp_marketplaceRouteRouteImport } from './routes/_appuser/sharp_marketplace/route'
 import { Route as AppuserSiloRouteRouteImport } from './routes/_appuser/silo/route'
 import { Route as MarketingIndexRouteImport } from './routes/_marketing/index'
@@ -161,6 +162,11 @@ const AppuserPaymentsRouteRoute = AppuserPaymentsRouteRouteImport.update({
   path: '/payments',
   getParentRoute: () => AppuserRouteRoute,
 } as any)
+const AppuserSharpCrmRouteRoute = AppuserSharpCrmRouteRouteImport.update({
+  id: '/sharp-crm',
+  path: '/sharp-crm',
+  getParentRoute: () => AppuserRouteRoute,
+} as any)
 const AppuserSharp_marketplaceRouteRoute =
   AppuserSharp_marketplaceRouteRouteImport.update({
     id: '/sharp_marketplace',
@@ -280,9 +286,9 @@ const AppuserSharpAccountingIndexRoute =
     getParentRoute: () => AppuserRouteRoute,
   } as any)
 const AppuserSharpCrmIndexRoute = AppuserSharpCrmIndexRouteImport.update({
-  id: '/sharp-crm/',
-  path: '/sharp-crm/',
-  getParentRoute: () => AppuserRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppuserSharpCrmRouteRoute,
 } as any)
 const AppuserSharpHrIndexRoute = AppuserSharpHrIndexRouteImport.update({
   id: '/sharp-hr/',
@@ -610,6 +616,7 @@ export interface FileRoutesByFullPath {
   '/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/payments': typeof AppuserPaymentsRouteRouteWithChildren
+  '/sharp-crm': typeof AppuserSharpCrmRouteRouteWithChildren
   '/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
   '/silo': typeof AppuserSiloRouteRouteWithChildren
   '/home': typeof AppuserHomeRoute
@@ -765,6 +772,7 @@ export interface FileRoutesById {
   '/_appuser/inventory-acc': typeof AppuserInventoryAccRouteRouteWithChildren
   '/_appuser/legal_entity': typeof AppuserLegal_entityRouteRouteWithChildren
   '/_appuser/payments': typeof AppuserPaymentsRouteRouteWithChildren
+  '/_appuser/sharp-crm': typeof AppuserSharpCrmRouteRouteWithChildren
   '/_appuser/sharp_marketplace': typeof AppuserSharp_marketplaceRouteRouteWithChildren
   '/_appuser/silo': typeof AppuserSiloRouteRouteWithChildren
   '/_appuser/home': typeof AppuserHomeRoute
@@ -852,6 +860,7 @@ export interface FileRouteTypes {
     | '/inventory-acc'
     | '/legal_entity'
     | '/payments'
+    | '/sharp-crm'
     | '/sharp_marketplace'
     | '/silo'
     | '/home'
@@ -1006,6 +1015,7 @@ export interface FileRouteTypes {
     | '/_appuser/inventory-acc'
     | '/_appuser/legal_entity'
     | '/_appuser/payments'
+    | '/_appuser/sharp-crm'
     | '/_appuser/sharp_marketplace'
     | '/_appuser/silo'
     | '/_appuser/home'
@@ -1178,6 +1188,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppuserPaymentsRouteRouteImport
       parentRoute: typeof AppuserRouteRoute
     }
+    '/_appuser/sharp-crm': {
+      id: '/_appuser/sharp-crm'
+      path: '/sharp-crm'
+      fullPath: '/sharp-crm'
+      preLoaderRoute: typeof AppuserSharpCrmRouteRouteImport
+      parentRoute: typeof AppuserRouteRoute
+    }
     '/_appuser/sharp_marketplace': {
       id: '/_appuser/sharp_marketplace'
       path: '/sharp_marketplace'
@@ -1334,10 +1351,10 @@ declare module '@tanstack/react-router' {
     }
     '/_appuser/sharp-crm/': {
       id: '/_appuser/sharp-crm/'
-      path: '/sharp-crm'
+      path: '/'
       fullPath: '/sharp-crm/'
       preLoaderRoute: typeof AppuserSharpCrmIndexRouteImport
-      parentRoute: typeof AppuserRouteRoute
+      parentRoute: typeof AppuserSharpCrmRouteRoute
     }
     '/_appuser/sharp-hr/': {
       id: '/_appuser/sharp-hr/'
@@ -1841,6 +1858,17 @@ const AppuserPaymentsRouteRouteChildren: AppuserPaymentsRouteRouteChildren = {
 const AppuserPaymentsRouteRouteWithChildren =
   AppuserPaymentsRouteRoute._addFileChildren(AppuserPaymentsRouteRouteChildren)
 
+interface AppuserSharpCrmRouteRouteChildren {
+  AppuserSharpCrmIndexRoute: typeof AppuserSharpCrmIndexRoute
+}
+
+const AppuserSharpCrmRouteRouteChildren: AppuserSharpCrmRouteRouteChildren = {
+  AppuserSharpCrmIndexRoute: AppuserSharpCrmIndexRoute,
+}
+
+const AppuserSharpCrmRouteRouteWithChildren =
+  AppuserSharpCrmRouteRoute._addFileChildren(AppuserSharpCrmRouteRouteChildren)
+
 interface AppuserSharp_marketplaceRouteRouteChildren {
   AppuserSharp_marketplaceIndexRoute: typeof AppuserSharp_marketplaceIndexRoute
 }
@@ -1996,6 +2024,7 @@ interface AppuserRouteRouteChildren {
   AppuserInventoryAccRouteRoute: typeof AppuserInventoryAccRouteRouteWithChildren
   AppuserLegal_entityRouteRoute: typeof AppuserLegal_entityRouteRouteWithChildren
   AppuserPaymentsRouteRoute: typeof AppuserPaymentsRouteRouteWithChildren
+  AppuserSharpCrmRouteRoute: typeof AppuserSharpCrmRouteRouteWithChildren
   AppuserSharp_marketplaceRouteRoute: typeof AppuserSharp_marketplaceRouteRouteWithChildren
   AppuserSiloRouteRoute: typeof AppuserSiloRouteRouteWithChildren
   AppuserHomeRoute: typeof AppuserHomeRoute
@@ -2010,7 +2039,6 @@ interface AppuserRouteRouteChildren {
   AppuserOrganizationIndexRoute: typeof AppuserOrganizationIndexRoute
   AppuserPropertyIndexRoute: typeof AppuserPropertyIndexRoute
   AppuserSharpAccountingIndexRoute: typeof AppuserSharpAccountingIndexRoute
-  AppuserSharpCrmIndexRoute: typeof AppuserSharpCrmIndexRoute
   AppuserSharpHrIndexRoute: typeof AppuserSharpHrIndexRoute
   AppuserSuppliersChar38VendorsIndexRoute: typeof AppuserSuppliersChar38VendorsIndexRoute
   AppuserBusinessOpsPropertyRoutesRoute: typeof AppuserBusinessOpsPropertyRoutesRoute
@@ -2042,6 +2070,7 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserInventoryAccRouteRoute: AppuserInventoryAccRouteRouteWithChildren,
   AppuserLegal_entityRouteRoute: AppuserLegal_entityRouteRouteWithChildren,
   AppuserPaymentsRouteRoute: AppuserPaymentsRouteRouteWithChildren,
+  AppuserSharpCrmRouteRoute: AppuserSharpCrmRouteRouteWithChildren,
   AppuserSharp_marketplaceRouteRoute:
     AppuserSharp_marketplaceRouteRouteWithChildren,
   AppuserSiloRouteRoute: AppuserSiloRouteRouteWithChildren,
@@ -2059,7 +2088,6 @@ const AppuserRouteRouteChildren: AppuserRouteRouteChildren = {
   AppuserOrganizationIndexRoute: AppuserOrganizationIndexRoute,
   AppuserPropertyIndexRoute: AppuserPropertyIndexRoute,
   AppuserSharpAccountingIndexRoute: AppuserSharpAccountingIndexRoute,
-  AppuserSharpCrmIndexRoute: AppuserSharpCrmIndexRoute,
   AppuserSharpHrIndexRoute: AppuserSharpHrIndexRoute,
   AppuserSuppliersChar38VendorsIndexRoute:
     AppuserSuppliersChar38VendorsIndexRoute,

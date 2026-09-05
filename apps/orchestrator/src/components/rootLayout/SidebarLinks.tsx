@@ -240,7 +240,7 @@ export const orchestratorGroups: SidebarGroup[] = [
         label: "SharpCRM",
         path: "/sharp-crm",
         icon: RiCustomerService2Line,
-        tooltip: "Cables",
+        tooltip: "SharpCRM",
       },
       {
         label: "Sharp-Accounting",
