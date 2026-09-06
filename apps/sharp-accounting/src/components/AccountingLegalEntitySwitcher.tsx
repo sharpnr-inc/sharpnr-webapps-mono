@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { ArrowUpRight, Search, Layers } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Building2, Check, Search, Layers } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { config } from "@sharpnr/env";
 
 import { useAccountingStore } from "../store/accounting.store";
 
@@ -55,18 +56,20 @@ function EntityAvatar({ name }: { name: string }) {
 export function AccountingLegalEntityPage() {
   const navigate = useNavigate();
 
+  // Set by the layout guard when it interrupted a navigation, so picking an
+  // entity resumes where the user was headed instead of always going to /overview.
+  const { redirect: redirectTo } = useSearch({
+    from: "/_layout/legal-entities/",
+  });
+
   const legalEntities = useAccountingStore((s) => s.legalEntities);
+  const selectedLegalEntity = useAccountingStore((s) => s.selectedLegalEntity);
 
   const setSelectedLegalEntity = useAccountingStore(
     (s) => s.setSelectedLegalEntity,
   );
 
   const [query, setQuery] = useState("");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const filtered = legalEntities.filter((entity) => {
     const q = query.toLowerCase();
@@ -141,10 +144,7 @@ export function AccountingLegalEntityPage() {
         <motion.div
           className="relative z-10 space-y-6 max-w-2xl"
           initial={{ opacity: 0, y: 24 }}
-          animate={{
-            opacity: mounted ? 1 : 0,
-            y: mounted ? 0 : 24,
-          }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: 0.5,
             ease: "easeOut",
@@ -187,149 +187,204 @@ export function AccountingLegalEntityPage() {
         <motion.div
           className="relative z-10 space-y-5"
           initial={{ opacity: 0 }}
-          animate={{ opacity: mounted ? 1 : 0 }}
+          animate={{ opacity: 1 }}
           transition={{
             duration: 0.4,
             delay: 0.2,
           }}
         >
-          {/* search */}
-          <div className="search-ring flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-border/60 bg-background/60 backdrop-blur-sm transition-all max-w-sm">
-            <Search className="size-4 text-muted-foreground shrink-0" />
+          {legalEntities.length === 0 ? (
+            <NoLegalEntities />
+          ) : (
+            <>
+              {/* search */}
+              <div className="search-ring flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-border/60 bg-background/60 backdrop-blur-sm transition-all max-w-sm">
+                <Search className="size-4 text-muted-foreground shrink-0" />
 
-            <input
-              type="text"
-              placeholder="Search entities…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-transparent text-sm outline-none text-foreground placeholder:text-muted-foreground/60"
-            />
+                <input
+                  type="text"
+                  placeholder="Search entities…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-full bg-transparent text-sm outline-none text-foreground placeholder:text-muted-foreground/60"
+                />
 
-            {query && (
-              <button
-                onClick={() => setQuery("")}
-                className="text-muted-foreground hover:text-foreground transition-colors text-xs"
-              >
-                ✕
-              </button>
-            )}
-          </div>
+                {query && (
+                  <button
+                    onClick={() => setQuery("")}
+                    className="text-muted-foreground hover:text-foreground transition-colors text-xs"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
 
-          {/* grid */}
-          <AnimatePresence mode="popLayout">
-            {filtered.length === 0 ? (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="py-16 text-center text-muted-foreground text-sm"
-              >
-                No entities match “{query}”
-              </motion.div>
-            ) : (
-              <motion.div
-                key="grid"
-                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-              >
-                {filtered.map((entity, index: number) => {
-                  const style = getEntityStyle(entity.entity_type);
+              {/* grid */}
+              <AnimatePresence mode="popLayout">
+                {filtered.length === 0 ? (
+                  <motion.div
+                    key="empty"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="py-16 text-center text-muted-foreground text-sm"
+                  >
+                    No entities match “{query}”
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="grid"
+                    className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                  >
+                    {filtered.map((entity, index: number) => {
+                      const style = getEntityStyle(entity.entity_type);
+                      const isCurrent = entity.id === selectedLegalEntity?.id;
 
-                  return (
-                    <motion.div
-                      key={entity.id}
-                      layout
-                      initial={{
-                        opacity: 0,
-                        y: 20,
-                        scale: 0.97,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        scale: 0.95,
-                      }}
-                      transition={{
-                        duration: 0.3,
-                        delay: index * 0.06,
-                        ease: "easeOut",
-                      }}
-                      whileHover={{ y: -5 }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      <button
-                        className="entity-card relative w-full text-left rounded-2xl border border-border/60 bg-background/70 backdrop-blur-sm p-5 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_32px_hsl(var(--primary)/0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                        onClick={async () => {
-                          setSelectedLegalEntity(entity);
-                          await navigate({
-                            to: "/overview",
-                          });
-                        }}
-                      >
-                        <div className="flex items-start justify-between gap-3 mb-4">
-                          <div className="flex items-center gap-3">
-                            <EntityAvatar name={entity.display_name} />
+                      return (
+                        <motion.div
+                          key={entity.id}
+                          layout
+                          initial={{
+                            opacity: 0,
+                            y: 20,
+                            scale: 0.97,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                          }}
+                          exit={{
+                            opacity: 0,
+                            scale: 0.95,
+                          }}
+                          transition={{
+                            duration: 0.3,
+                            delay: index * 0.06,
+                            ease: "easeOut",
+                          }}
+                          whileHover={{ y: -5 }}
+                          whileTap={{ scale: 0.97 }}
+                        >
+                          <button
+                            className={`entity-card relative w-full text-left rounded-2xl border bg-background/70 backdrop-blur-sm p-5 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_8px_32px_hsl(var(--primary)/0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 ${
+                              isCurrent
+                                ? "border-primary/40"
+                                : "border-border/60"
+                            }`}
+                            onClick={async () => {
+                              setSelectedLegalEntity(entity);
 
-                            <div>
-                              <p className="font-semibold text-sm text-foreground leading-tight">
-                                {entity.display_name}
+                              if (redirectTo)
+                                await navigate({ href: redirectTo });
+                              else await navigate({ to: "/overview" });
+                            }}
+                          >
+                            <div className="flex items-start justify-between gap-3 mb-4">
+                              <div className="flex items-center gap-3">
+                                <EntityAvatar name={entity.display_name} />
+
+                                <div>
+                                  <p className="font-semibold text-sm text-foreground leading-tight">
+                                    {entity.display_name}
+                                  </p>
+
+                                  <div className="flex items-center gap-1.5 mt-0.5">
+                                    <span
+                                      className={`size-1.5 rounded-full ${style.dot}`}
+                                    />
+
+                                    <span
+                                      className={`text-xs font-medium ${style.text}`}
+                                    >
+                                      {entity.entity_type}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                className={`size-7 rounded-lg border flex items-center justify-center shrink-0 ${
+                                  isCurrent
+                                    ? "bg-primary/10 border-primary/30 text-primary"
+                                    : "bg-muted/40 border-border/40 text-muted-foreground"
+                                }`}
+                              >
+                                {isCurrent ? (
+                                  <Check className="size-3.5" />
+                                ) : (
+                                  <ArrowUpRight className="size-3.5" />
+                                )}
+                              </div>
+                            </div>
+
+                            <div className="h-px bg-border/40 mb-4" />
+
+                            <div className="space-y-2">
+                              <p className="text-xs text-muted-foreground line-clamp-1">
+                                {entity.legal_name}
                               </p>
 
-                              <div className="flex items-center gap-1.5 mt-0.5">
+                              <div className="flex items-center justify-between">
                                 <span
-                                  className={`size-1.5 rounded-full ${style.dot}`}
-                                />
-
-                                <span
-                                  className={`text-xs font-medium ${style.text}`}
+                                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium ${style.bg} ${style.text}`}
                                 >
-                                  {entity.entity_type}
+                                  <span
+                                    className={`size-1.5 rounded-full ${style.dot}`}
+                                  />
+
+                                  {entity.status ? "Active" : "Inactive"}
+                                </span>
+
+                                <span className="text-[10px] text-muted-foreground">
+                                  {new Date(
+                                    entity.inc_date,
+                                  ).toLocaleDateString()}
                                 </span>
                               </div>
                             </div>
-                          </div>
-
-                          <div className="size-7 rounded-lg bg-muted/40 border border-border/40 flex items-center justify-center shrink-0">
-                            <ArrowUpRight className="size-3.5 text-muted-foreground" />
-                          </div>
-                        </div>
-
-                        <div className="h-px bg-border/40 mb-4" />
-
-                        <div className="space-y-2">
-                          <p className="text-xs text-muted-foreground line-clamp-1">
-                            {entity.legal_name}
-                          </p>
-
-                          <div className="flex items-center justify-between">
-                            <span
-                              className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium ${style.bg} ${style.text}`}
-                            >
-                              <span
-                                className={`size-1.5 rounded-full ${style.dot}`}
-                              />
-
-                              {entity.status ? "Active" : "Inactive"}
-                            </span>
-
-                            <span className="text-[10px] text-muted-foreground">
-                              {new Date(entity.inc_date).toLocaleDateString()}
-                            </span>
-                          </div>
-                        </div>
-                      </button>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            )}
-          </AnimatePresence>
+                          </button>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </>
+          )}
         </motion.div>
       </div>
     </>
+  );
+}
+
+/**
+ * Legal entities are created in the orchestrator console, not here, so an org
+ * with none gets pointed there instead of an empty grid.
+ */
+function NoLegalEntities() {
+  return (
+    <div className="py-16 flex flex-col items-center text-center gap-4">
+      <div className="size-16 rounded-2xl bg-muted/40 border border-border/50 flex items-center justify-center">
+        <Building2 className="size-7 text-muted-foreground" />
+      </div>
+
+      <p className="font-display italic text-2xl text-foreground">
+        No legal entities yet
+      </p>
+
+      <p className="text-sm text-muted-foreground max-w-sm">
+        Accounting works on a legal entity's books. Create one in the
+        orchestrator console and it will show up here.
+      </p>
+
+      <a
+        href={`${config.orchestratorAppUrl}/legal_entity`}
+        className="mt-2 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/20 transition-colors"
+      >
+        Create a legal entity
+        <ArrowUpRight className="size-3.5" />
+      </a>
+    </div>
   );
 }

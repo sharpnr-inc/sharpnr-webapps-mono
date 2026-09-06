@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  BookOpenText,
   BoxesIcon,
   BriefcaseBusiness,
   Building2Icon,
@@ -226,21 +227,21 @@ export const orchestratorGroups: SidebarGroup[] = [
         label: "Cortex",
         path: "/cortex",
         icon: MirrorRound,
-        tooltip: "Cables",
+        tooltip: "Cortex",
       },
 
       {
         label: "Folio",
         path: "/folio",
-        icon: Cable,
-        tooltip: "Cables",
+        icon: BookOpenText,
+        tooltip: "Folio",
       },
 
       {
         label: "SharpCRM",
         path: "/sharp-crm",
         icon: RiCustomerService2Line,
-        tooltip: "Cables",
+        tooltip: "SharpCRM",
       },
       {
         label: "Sharp-Accounting",
@@ -250,7 +251,7 @@ export const orchestratorGroups: SidebarGroup[] = [
       },
       {
         label: "SharpHR",
-        path: "/sharp-accounting",
+        path: "/sharp-hr",
         icon: FaArrowsToEye,
         tooltip: "Cables",
       },

@@ -1,9 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router'
+import FolioIndexPage from "@/app/folio/pages/FolioIndexPage";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_appuser/folio/')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/_appuser/folio/"!</div>
-}
+export const Route = createFileRoute("/_appuser/folio/")({
+  component: FolioIndexPage,
+});

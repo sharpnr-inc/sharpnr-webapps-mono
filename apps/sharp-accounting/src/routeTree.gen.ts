@@ -14,6 +14,7 @@ import { Route as WebsiteIndexRouteImport } from './routes/_website/index'
 import { Route as LayoutChartOfAccountIndexRouteImport } from './routes/_layout/chart-of-account/index'
 import { Route as LayoutExpensesIndexRouteImport } from './routes/_layout/expenses/index'
 import { Route as LayoutJournalIndexRouteImport } from './routes/_layout/journal/index'
+import { Route as LayoutLegalEntitiesIndexRouteImport } from './routes/_layout/legal-entities/index'
 import { Route as LayoutOverviewIndexRouteImport } from './routes/_layout/overview/index'
 import { Route as LayoutPaymentsPayment_ordersRouteImport } from './routes/_layout/payments/payment_orders'
 import { Route as LayoutPurchasesIndexRouteImport } from './routes/_layout/purchases/index'
@@ -57,6 +58,12 @@ const LayoutJournalIndexRoute = LayoutJournalIndexRouteImport.update({
   path: '/journal/',
   getParentRoute: () => LayoutRouteRoute,
 } as any)
+const LayoutLegalEntitiesIndexRoute =
+  LayoutLegalEntitiesIndexRouteImport.update({
+    id: '/legal-entities/',
+    path: '/legal-entities/',
+    getParentRoute: () => LayoutRouteRoute,
+  } as any)
 const LayoutOverviewIndexRoute = LayoutOverviewIndexRouteImport.update({
   id: '/overview/',
   path: '/overview/',
@@ -164,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/chart-of-account/': typeof LayoutChartOfAccountIndexRoute
   '/expenses/': typeof LayoutExpensesIndexRoute
   '/journal/': typeof LayoutJournalIndexRoute
+  '/legal-entities/': typeof LayoutLegalEntitiesIndexRoute
   '/overview/': typeof LayoutOverviewIndexRoute
   '/purchases/': typeof LayoutPurchasesIndexRoute
   '/sales/': typeof LayoutSalesIndexRoute
@@ -187,6 +195,7 @@ export interface FileRoutesByTo {
   '/chart-of-account': typeof LayoutChartOfAccountIndexRoute
   '/expenses': typeof LayoutExpensesIndexRoute
   '/journal': typeof LayoutJournalIndexRoute
+  '/legal-entities': typeof LayoutLegalEntitiesIndexRoute
   '/overview': typeof LayoutOverviewIndexRoute
   '/purchases': typeof LayoutPurchasesIndexRoute
   '/sales': typeof LayoutSalesIndexRoute
@@ -212,6 +221,7 @@ export interface FileRoutesById {
   '/_layout/chart-of-account/': typeof LayoutChartOfAccountIndexRoute
   '/_layout/expenses/': typeof LayoutExpensesIndexRoute
   '/_layout/journal/': typeof LayoutJournalIndexRoute
+  '/_layout/legal-entities/': typeof LayoutLegalEntitiesIndexRoute
   '/_layout/overview/': typeof LayoutOverviewIndexRoute
   '/_layout/purchases/': typeof LayoutPurchasesIndexRoute
   '/_layout/sales/': typeof LayoutSalesIndexRoute
@@ -237,6 +247,7 @@ export interface FileRouteTypes {
     | '/chart-of-account/'
     | '/expenses/'
     | '/journal/'
+    | '/legal-entities/'
     | '/overview/'
     | '/purchases/'
     | '/sales/'
@@ -260,6 +271,7 @@ export interface FileRouteTypes {
     | '/chart-of-account'
     | '/expenses'
     | '/journal'
+    | '/legal-entities'
     | '/overview'
     | '/purchases'
     | '/sales'
@@ -284,6 +296,7 @@ export interface FileRouteTypes {
     | '/_layout/chart-of-account/'
     | '/_layout/expenses/'
     | '/_layout/journal/'
+    | '/_layout/legal-entities/'
     | '/_layout/overview/'
     | '/_layout/purchases/'
     | '/_layout/sales/'
@@ -335,6 +348,13 @@ declare module '@tanstack/react-router' {
       path: '/journal'
       fullPath: '/journal/'
       preLoaderRoute: typeof LayoutJournalIndexRouteImport
+      parentRoute: typeof LayoutRouteRoute
+    }
+    '/_layout/legal-entities/': {
+      id: '/_layout/legal-entities/'
+      path: '/legal-entities'
+      fullPath: '/legal-entities/'
+      preLoaderRoute: typeof LayoutLegalEntitiesIndexRouteImport
       parentRoute: typeof LayoutRouteRoute
     }
     '/_layout/overview/': {
@@ -471,6 +491,7 @@ interface LayoutRouteRouteChildren {
   LayoutChartOfAccountIndexRoute: typeof LayoutChartOfAccountIndexRoute
   LayoutExpensesIndexRoute: typeof LayoutExpensesIndexRoute
   LayoutJournalIndexRoute: typeof LayoutJournalIndexRoute
+  LayoutLegalEntitiesIndexRoute: typeof LayoutLegalEntitiesIndexRoute
   LayoutOverviewIndexRoute: typeof LayoutOverviewIndexRoute
   LayoutPurchasesIndexRoute: typeof LayoutPurchasesIndexRoute
   LayoutSalesIndexRoute: typeof LayoutSalesIndexRoute
@@ -494,6 +515,7 @@ const LayoutRouteRouteChildren: LayoutRouteRouteChildren = {
   LayoutChartOfAccountIndexRoute: LayoutChartOfAccountIndexRoute,
   LayoutExpensesIndexRoute: LayoutExpensesIndexRoute,
   LayoutJournalIndexRoute: LayoutJournalIndexRoute,
+  LayoutLegalEntitiesIndexRoute: LayoutLegalEntitiesIndexRoute,
   LayoutOverviewIndexRoute: LayoutOverviewIndexRoute,
   LayoutPurchasesIndexRoute: LayoutPurchasesIndexRoute,
   LayoutSalesIndexRoute: LayoutSalesIndexRoute,

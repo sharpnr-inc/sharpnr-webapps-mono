@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 
 import { useAccountingStore } from "@/store/accounting.store";
+import { LEGAL_ENTITY_CHOOSER_PATH } from "@/lib/routes";
 
 /* ─── helpers ─── */
 
@@ -132,7 +133,7 @@ export function AccountingOverviewPage() {
           </p>
 
           <button
-            onClick={() => navigate({ to: "/" })}
+            onClick={() => navigate({ to: LEGAL_ENTITY_CHOOSER_PATH })}
             className="mt-2 px-4 py-2 rounded-xl bg-primary/10 border border-primary/20 text-primary text-sm font-medium hover:bg-primary/20 transition-colors"
           >
             Select Entity

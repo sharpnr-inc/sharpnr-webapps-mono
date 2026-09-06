@@ -12,18 +12,18 @@ export function useOrganizationLegalEntities() {
   });
 }
 
-export function useLegalEntityAllTaxRegistration(legalEntityID: string) {
+export function useLegalEntityAllTaxRegistration(legalEntityID?: string) {
   return useQuery({
-    queryKey: ["LEGAL_ENTITY", "TAX_REGISTRAION", "ALL"],
-    queryFn: () => GetAllTaxRegistration(legalEntityID),
+    queryKey: ["LEGAL_ENTITY", "TAX_REGISTRAION", "ALL", legalEntityID],
+    queryFn: () => GetAllTaxRegistration(legalEntityID!),
     enabled: !!legalEntityID,
   });
 }
 
-export function useLegalEntityAllTaxCategory(legalEntityID: string) {
+export function useLegalEntityAllTaxCategory(legalEntityID?: string) {
   return useQuery({
-    queryKey: ["LEAGAL_ENTITY", "TAX_CATEGORY", "ALL"],
-    queryFn: () => GetAllTaxCategoryOfLegalEntity(legalEntityID),
+    queryKey: ["LEAGAL_ENTITY", "TAX_CATEGORY", "ALL", legalEntityID],
+    queryFn: () => GetAllTaxCategoryOfLegalEntity(legalEntityID!),
     enabled: !!legalEntityID,
   });
 }
