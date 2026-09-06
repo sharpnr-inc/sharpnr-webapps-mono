@@ -11,12 +11,17 @@
  * and mounts the interactive tree over the top, so there is no hydration
  * contract to keep in sync and no mismatch warning to manage.
  *
- * It also emits FAQPage JSON-LD from the same `faqs` array the page renders,
- * and stamps the sitemap with the build date.
+ * It also stamps the sitemap with the build date.
+ *
+ * It used to emit FAQPage JSON-LD too. The rewritten landing page has no FAQ
+ * section, and structured data describing content that is not on the page is a
+ * structured-data violation rather than a free rich result, so it was dropped
+ * with the section.
  */
 
 import { createServer } from "vite";
 import react from "@vitejs/plugin-react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createElement } from "react";
 import { renderToString } from "react-dom/server";
 import { readFile, writeFile } from "node:fs/promises";
@@ -36,6 +41,12 @@ const vite = await createServer({
   // Skip vite.config.ts on purpose: the TanStack router plugin regenerates
   // routeTree.gen.ts on server start, which this step has no business doing.
   configFile: false,
+  // Skipping the config also skips its `envDir`, so both have to be restated
+  // here. The landing page reaches @sharpnr/env, which validates every VITE_
+  // var at import time and throws if one is missing -- so without these the
+  // page cannot even be loaded, let alone rendered.
+  mode: "production",
+  envDir: resolve(root, "../.."),
   logLevel: "warn",
   server: { middlewareMode: true },
   appType: "custom",
@@ -51,20 +62,20 @@ try {
   const { LandingPage } = await vite.ssrLoadModule(
     "/src/website/landingpage.tsx",
   );
-  const { faqs } = await vite.ssrLoadModule("/src/website/faq-data.ts");
+  // The header asks who the visitor is through react-query. Nobody is signed
+  // in during a build, and the query never resolves here, so this client only
+  // has to exist -- the page renders its signed-out branch either way.
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
 
-  const appHtml = renderToString(createElement(LandingPage));
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": "https://silo.sharpnr.com/#faq",
-    mainEntity: faqs.map(({ q, a }) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
-    })),
-  };
+  const appHtml = renderToString(
+    createElement(
+      QueryClientProvider,
+      { client: queryClient },
+      createElement(LandingPage),
+    ),
+  );
 
   let html = await readFile(distHtml, "utf8");
 
@@ -75,11 +86,6 @@ try {
     );
   }
   html = html.replace(rootDiv, `<div id="root">${appHtml}</div>`);
-
-  html = html.replace(
-    "</head>",
-    `  <script type="application/ld+json">\n${jsonForScript(faqSchema)}\n    </script>\n  </head>`,
-  );
 
   await writeFile(distHtml, html, "utf8");
 
@@ -97,7 +103,7 @@ try {
 
   const kb = (Buffer.byteLength(appHtml, "utf8") / 1024).toFixed(1);
   console.log(
-    `prerender: injected ${kb} kB of static HTML, ${faqs.length} FAQ entries, sitemap lastmod ${buildDate}`,
+    `prerender: injected ${kb} kB of static HTML, sitemap lastmod ${buildDate}`,
   );
 } finally {
   await vite.close();
