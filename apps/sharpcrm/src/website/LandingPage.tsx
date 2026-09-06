@@ -1,213 +1,281 @@
+import type { CSSProperties } from "react";
+import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { config } from "@sharpnr/env";
 import {
-  ArrowRight,
-  CheckCircle2,
-  Users,
-  BarChart3,
-  Workflow,
-  MessageSquare,
-  Target,
-} from "lucide-react";
+  Button,
+  DefinitionRows,
+  EcosystemSection,
+  FlowLine,
+  PlatformStrip,
+  PointList,
+  WebsiteClosing,
+  WebsiteFooter,
+  WebsiteHeader,
+  WebsiteHero,
+  WebsiteSection,
+} from "@sharpnr/ui";
+import type { EcosystemLink, FlowStep } from "@sharpnr/ui";
+import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
-const features = [
+const NAV = [
   {
-    icon: Users,
-    title: "Customer Management",
-    description:
-      "Keep every customer, company, contact, and interaction organized in one unified workspace.",
+    label: "Where customers come from",
+    href: "#origin",
   },
   {
-    icon: Workflow,
-    title: "Sales Pipeline",
-    description:
-      "Track opportunities from lead to closed deal with customizable pipelines and stages.",
+    label: "What it does",
+    href: "#capabilities",
   },
   {
-    icon: MessageSquare,
-    title: "Activity Timeline",
-    description:
-      "View emails, calls, meetings, notes, and tasks in a complete customer timeline.",
+    label: "Getting started",
+    href: "#start",
   },
   {
-    icon: Target,
-    title: "Lead Management",
-    description:
-      "Capture, qualify, assign, and nurture leads without losing important context.",
-  },
-  {
-    icon: BarChart3,
-    title: "Insights & Analytics",
-    description:
-      "Monitor sales performance, conversion rates, and team productivity with live dashboards.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Automation",
-    description:
-      "Automate repetitive follow-ups, reminders, assignments, and CRM workflows.",
+    label: "The platform",
+    href: "#ecosystem",
   },
 ];
 
-const stats = [
-  { value: "360°", label: "Customer View" },
-  { value: "24/7", label: "Sales Visibility" },
-  { value: "100%", label: "Activity Tracking" },
-  { value: "∞", label: "Scalability" },
+/**
+ * sharp-crm's accent, mapped onto the shared `--primary` token so the website
+ * kit in @sharpnr/ui picks it up without any per-app styling.
+ */
+const ACCENT = {
+  "--primary": "#BE185D",
+} as CSSProperties;
+
+const ORIGIN_FLOW: FlowStep[] = [
+  {
+    app: "hospitality",
+    label: "a guest checks in",
+  },
+  {
+    label: "the customer record exists here",
+  },
+  {
+    label: "loyalty and value follow from it",
+  },
 ];
 
-const LandingPage = () => {
-  return (
-    <main className="min-h-screen bg-background text-foreground">
-      {/* Hero */}
-      <section className="border-b">
-        <div className="mx-auto flex max-w-7xl flex-col items-center px-6 py-28 text-center lg:px-8">
-          <div className="rounded-full border bg-muted/50 px-4 py-1 text-sm font-medium">
-            Built for modern sales teams
-          </div>
+const ORIGIN = [
+  {
+    title: "Operations create the record",
+    body: "A guest served in sharp-hospitality is a customer here. Nobody re-enters them at the end of the week, and there is no import that has to be de-duplicated afterwards.",
+  },
+  {
+    title: "Loyalty runs on real activity",
+    body: "The loyalty programme reads what the customer actually did, because the operational record and the customer record are the same record.",
+  },
+  {
+    title: "Value comes from the books",
+    body: "What a customer is worth is answered from sharp-accounting rather than from whatever was last typed into an opportunity field.",
+  },
+  {
+    title: "Selling to organizations, too",
+    body: "The organizations you trade with on sharp-marketplace are customers here as well, so business-to-business and direct customers sit in one place.",
+  },
+];
 
-          <h1 className="mt-8 max-w-5xl text-5xl font-bold tracking-tight md:text-7xl">
-            Grow customer relationships with{" "}
-            <span className="text-primary">SharpCRM</span>
-          </h1>
+const CAPABILITIES = [
+  {
+    term: "Customer records",
+    description: "The people and organizations your business serves, created by the operations that served them.",
+  },
+  {
+    term: "Loyalty rewards",
+    description: "A programme running on what customers actually did, rather than on a separate loyalty database that has to be fed.",
+  },
+  {
+    term: "Customer communication",
+    description: "Reach customers over Cables, from the same place your organization talks to itself.",
+  },
+  {
+    term: "Pipeline and quotes",
+    description: "Leads, quotations and the pipeline behind them, against the same customer records everything else uses.",
+  },
+];
 
-          <p className="mt-8 max-w-3xl text-lg leading-8 text-muted-foreground md:text-xl">
-            SharpCRM helps your teams manage leads, nurture customers,
-            collaborate across departments, and close deals faster with one
-            intelligent CRM platform.
-          </p>
+const ONBOARDING = [
+  {
+    title: "It comes with the platform",
+    body: "sharp-crm is not a product you evaluate, buy and then spend a quarter populating. It is started for your organization from Orchestrator, already holding the customers your operations created.",
+  },
+  {
+    title: "Nothing to connect it to",
+    body: "The usual CRM project is connecting it to the systems that know about customers. Those systems are the apps beside it, reading the same records.",
+  },
+  {
+    title: "Your team is already in it",
+    body: "Who can see which customers follows the organization's permission model, over the employees defined once at the platform level.",
+  },
+  {
+    title: "Familiar from the first screen",
+    body: "The same navigation, search and Cables panel as every other sharpnr app, so learning it is mostly not learning it.",
+  },
+];
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <button className="inline-flex items-center rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground transition hover:opacity-90">
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </button>
+const ECOSYSTEM_LINKS: EcosystemLink[] = [
+  {
+    app: "hospitality",
+    and: "healthcare",
+    line: "Customers appear automatically from the operations that served them, with nothing entered twice.",
+  },
+  {
+    app: "cables",
+    line: "Reach customers directly, on the same platform your organization talks on.",
+  },
+  {
+    app: "marketplace",
+    line: "The organizations you sell to are the same records here.",
+  },
+  {
+    app: "accounting",
+    line: "What each customer is worth, from the books rather than from an estimate.",
+  },
+];
 
-            <button className="rounded-lg border px-6 py-3 font-medium transition hover:bg-muted">
-              Book Demo
-            </button>
-          </div>
-        </div>
-      </section>
 
-      {/* Stats */}
-      <section className="border-b">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-14 md:grid-cols-4 lg:px-8">
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl border bg-card p-6 text-center"
-            >
-              <div className="text-3xl font-bold">{stat.value}</div>
-              <div className="mt-2 text-sm text-muted-foreground">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+export function LandingPage() {
+  const { data, isPending } = usePublicCurrentUser();
+  const user = data?.data;
 
-      {/* Features */}
-      <section className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-            Features
-          </p>
-
-          <h2 className="mt-4 text-4xl font-bold">Everything your CRM needs</h2>
-
-          <p className="mt-6 text-lg text-muted-foreground">
-            Designed to help sales, customer success, and operations teams work
-            together from the first interaction to long-term customer success.
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {features.map((feature) => {
-            const Icon = feature.icon;
-
-            return (
-              <div
-                key={feature.title}
-                className="rounded-2xl border bg-card p-8 transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Icon className="h-6 w-6" />
-                </div>
-
-                <h3 className="mt-6 text-xl font-semibold">{feature.title}</h3>
-
-                <p className="mt-3 leading-7 text-muted-foreground">
-                  {feature.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Why SharpCRM */}
-      <section className="border-y bg-muted/30">
-        <div className="mx-auto grid max-w-7xl gap-16 px-6 py-24 lg:grid-cols-2 lg:px-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary">
-              Why SharpCRM
-            </p>
-
-            <h2 className="mt-4 text-4xl font-bold">
-              A CRM that adapts to your business
-            </h2>
-
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Whether you're managing hundreds of customers or millions of
-              interactions, SharpCRM gives your teams the tools to stay
-              organized, automate workflows, and deliver exceptional customer
-              experiences.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {[
-              "Custom pipelines for every sales process",
-              "Centralized customer records",
-              "Task and meeting management",
-              "Activity history across teams",
-              "Powerful reporting dashboards",
-              "Built for multi-organization deployments",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-4 rounded-xl border bg-background p-5"
-              >
-                <CheckCircle2 className="mt-0.5 h-5 w-5 text-primary" />
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="mx-auto max-w-5xl px-6 py-28 text-center">
-        <h2 className="text-4xl font-bold">
-          Start building stronger customer relationships.
-        </h2>
-
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-          Bring your customers, sales pipeline, and team collaboration together
-          with SharpCRM.
-        </p>
-
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <button className="rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground transition hover:opacity-90">
-            Start Now
-          </button>
-
-          <button className="rounded-lg border px-6 py-3 font-medium transition hover:bg-muted">
-            Contact Sales
-          </button>
-        </div>
-      </section>
-    </main>
+  const continueAction = (
+    <Button asChild size="sm" className="px-4">
+      <Link to="/home">
+        Continue to app
+        <ArrowRight className="h-3.5 w-3.5" />
+      </Link>
+    </Button>
   );
-};
 
+  const primaryCta = user ? (
+    <Button asChild size="lg" className="h-12 px-7">
+      <Link to="/home">
+        Continue to app
+        <ArrowRight className="ml-2 h-4 w-4" />
+      </Link>
+    </Button>
+  ) : (
+    <Button asChild size="lg" className="h-12 px-7">
+      <a href={`${config.authAppUrl}/signup`}>
+        Create an account
+        <ArrowRight className="ml-2 h-4 w-4" />
+      </a>
+    </Button>
+  );
+
+  return (
+    <div className="min-h-screen bg-background text-foreground" style={ACCENT}>
+      <WebsiteHeader
+        brand={
+          <span className="flex items-center gap-2.5">
+            <span className="flex flex-col leading-none">
+              <span className="text-[9px] font-medium tracking-[0.24em] text-muted-foreground uppercase">
+                sharpnr
+              </span>
+              <span className="text-base font-bold tracking-tight">crm</span>
+            </span>
+          </span>
+        }
+        nav={NAV}
+        user={user}
+        isPending={isPending}
+        continueAction={continueAction}
+      />
+
+      <main>
+        <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
+          eyebrow={"Customers"}
+          title={
+            <>
+              The customer record was created
+              <br className="hidden md:inline" /> by the business, not by data entry.
+            </>
+          }
+          lede={"A guest checking into a hotel in sharp-hospitality is a customer record here, without anyone entering them twice. The loyalty programme runs on operational data because it is the same data — and what a customer is worth comes from the books rather than from an estimate."}
+          actions={
+            <>
+              {primaryCta}
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-12 px-7"
+              >
+                <a href="#origin">How records arrive</a>
+              </Button>
+            </>
+          }
+        />
+
+        <PlatformStrip appId="sharpcrm" />
+
+        <WebsiteSection
+          id="origin"
+          eyebrow={"Where customers come from"}
+          heading={"Nobody types the customer in."}
+          intro={"The reason CRMs go stale is that keeping them current is somebody's separate job. Here the record is created by the operation that served the customer, which is the one moment the details are definitely correct."}
+        >
+          <FlowLine steps={ORIGIN_FLOW} className="mb-12" />
+          <PointList points={ORIGIN} columns={1} />
+        </WebsiteSection>
+
+        <WebsiteSection
+          id="capabilities"
+          muted
+          eyebrow={"What it does"}
+          heading={"Customer records, loyalty, and a way to reach them."}
+        >
+          <DefinitionRows rows={CAPABILITIES} />
+        </WebsiteSection>
+
+        <WebsiteSection
+          id="start"
+          split
+          eyebrow={"Getting started"}
+          heading={"There is no import step, because there is nothing to import from."}
+        >
+          <PointList points={ONBOARDING} columns={1} numbered />
+        </WebsiteSection>
+
+
+        <EcosystemSection
+          appName={"sharp-crm"}
+          className="border-t-0"
+          intro={"A CRM is only as good as the data it is fed. This one is fed by the apps that actually meet the customer."}
+          links={ECOSYSTEM_LINKS}
+        />
+
+        <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
+          heading={"The customers are already here."}
+          body={"sharp-crm comes with the sharpnr platform, fed by the apps that meet your customers."}
+          actions={primaryCta}
+        />
+      </main>
+
+      <WebsiteFooter
+        appId="sharpcrm"
+        appName={"sharp-crm"}
+        brand={
+          <span className="flex items-center gap-2.5">
+            <span className="flex flex-col leading-none">
+              <span className="text-[9px] font-medium tracking-[0.24em] text-muted-foreground uppercase">
+                sharpnr
+              </span>
+              <span className="text-base font-bold tracking-tight">crm</span>
+            </span>
+          </span>
+        }
+        tagline={"Customer relationships, connected to the operations that create them."}
+      />
+    </div>
+  );
+}
+
+/** Some routes import this as a default; both spellings resolve here. */
 export default LandingPage;
