@@ -95,9 +95,10 @@
     </style>
 
     <!-- JSON-LD entity graph.
-         The FAQPage block is appended at build time by scripts/prerender.mjs
-         from the `faqs` export in src/website/comparison.tsx, so the schema
-         cannot drift from the answers rendered on the page. -->
+         scripts/prerender.mjs used to append an FAQPage block here from a
+         `faqs` export. The landing page no longer has an FAQ section, and
+         structured data describing content that is not on the page is a
+         violation rather than a free rich result, so both were removed. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

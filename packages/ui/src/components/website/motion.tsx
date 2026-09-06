@@ -23,7 +23,15 @@ import { cn } from "@sharpnr/utils";
  */
 function useRevealed<T extends Element>(enabled: boolean) {
   const ref = useRef<T | null>(null);
-  const [revealed, setRevealed] = useState(!enabled);
+  const [revealed, setRevealed] = useState(
+    // Rendered on a server -- silo prerenders its landing page so crawlers that
+    // do not run JavaScript get a readable document. Starting hidden there
+    // would ship that document with its content at `opacity: 0`, which is the
+    // opposite of the point. Safe because no app hydrates: every one of them
+    // mounts with createRoot, which clears the container first, so there is no
+    // server/client markup contract to violate.
+    () => !enabled || typeof window === "undefined",
+  );
 
   useEffect(() => {
     if (!enabled) return;
