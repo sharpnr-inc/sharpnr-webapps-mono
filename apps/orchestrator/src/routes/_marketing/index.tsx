@@ -1,3 +1,4 @@
+import { config } from "@sharpnr/env";
 import { LandingPage } from "@/website/LandingPage";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/_marketing/")({
           "The administrative layer of the Sharpnr Platform. Control everything from one place.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://orchestrator.sharpnr.com" },
+      { property: "og:url", content: config.orchestratorAppUrl },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),

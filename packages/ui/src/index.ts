@@ -554,3 +554,53 @@ export {
 
 export { AppShell } from "./components/layout/AppShell";
 export type { AppShellProps } from "./components/layout/AppShell";
+
+/* ── Public marketing sites ────────────────────────────────
+   Every app under apps/ (except docs and sharp-auth) ships a
+   public website, and all of them end on the same footer and
+   the same "works with" section. Both are driven entirely by
+   the app registry in ./components/website/ecosystem.ts,
+   which reads its URLs from @sharpnr/env -- so a sibling app
+   URL is never written by hand on a landing page. */
+export { WebsiteHeader } from "./components/website/WebsiteHeader";
+export type {
+  WebsiteHeaderProps,
+  WebsiteNavItem,
+  WebsiteVisitor,
+} from "./components/website/WebsiteHeader";
+export {
+  DefinitionRows,
+  PointList,
+  WebsiteClosing,
+  WebsiteHero,
+  WebsiteSection,
+} from "./components/website/sections";
+export type {
+  DefinitionRow,
+  DefinitionRowsProps,
+  Point,
+  PointListProps,
+  WebsiteClosingProps,
+  WebsiteHeroProps,
+  WebsiteSectionProps,
+} from "./components/website/sections";
+export { WebsiteFooter } from "./components/website/Footer";
+export type { WebsiteFooterProps } from "./components/website/Footer";
+export { EcosystemSection } from "./components/website/EcosystemSection";
+export type {
+  EcosystemLink,
+  EcosystemSectionProps,
+} from "./components/website/EcosystemSection";
+export { FlowLine } from "./components/website/FlowLine";
+export type { FlowLineProps, FlowStep } from "./components/website/FlowLine";
+export {
+  ECOSYSTEM_APPS,
+  ECOSYSTEM_GROUPS,
+  ecosystemApp,
+  ecosystemGroup,
+} from "./components/website/ecosystem";
+export type {
+  EcosystemApp,
+  EcosystemAppId,
+  EcosystemGroupId,
+} from "./components/website/ecosystem";
