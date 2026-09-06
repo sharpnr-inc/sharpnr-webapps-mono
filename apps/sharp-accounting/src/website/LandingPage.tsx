@@ -7,6 +7,7 @@ import {
   DefinitionRows,
   EcosystemSection,
   FlowLine,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -16,6 +17,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink, FlowStep } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -190,6 +192,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Finance"}
           title={
             <>
@@ -213,6 +217,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="accounting" />
+
         <WebsiteSection
           id="shared"
           eyebrow={"Shared operations"}
@@ -225,6 +231,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           eyebrow={"What it does"}
           heading={"Proper accounting, not a summary of what the other apps did."}
         >
@@ -237,7 +244,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"The integration you would normally budget for is not on the list."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -249,6 +256,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"Books that were never a separate copy."}
           body={"sharp-accounting comes with the sharpnr platform, sharing records with inventory and operations."}
           actions={primaryCta}

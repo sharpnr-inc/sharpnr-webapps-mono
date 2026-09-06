@@ -7,6 +7,7 @@ import {
   DefinitionRows,
   EcosystemSection,
   FlowLine,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -16,6 +17,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink, FlowStep } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -189,6 +191,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Business to business"}
           title={
             <>
@@ -212,6 +216,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="marketplace" />
+
         <WebsiteSection
           id="after"
           eyebrow={"After the yes"}
@@ -224,6 +230,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           eyebrow={"What it does"}
           heading={"Organization to organization, not a storefront for consumers."}
         >
@@ -236,7 +243,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"Selling here does not start with setting up a seller account."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -248,6 +255,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"Trade with other organizations, not with their inboxes."}
           body={"sharp-marketplace comes with the sharpnr platform, connected to the books and the stock it moves."}
           actions={primaryCta}

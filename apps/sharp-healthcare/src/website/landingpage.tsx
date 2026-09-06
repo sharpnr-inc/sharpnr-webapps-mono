@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -151,6 +153,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"In development"}
           title={
             <>
@@ -174,6 +178,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="healthcare" />
+
         <WebsiteSection
           id="status"
           eyebrow={"Status"}
@@ -185,6 +191,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="place"
+          muted
           eyebrow={"Where it will sit"}
           heading={"What it will connect to, in the future tense."}
           intro={"None of the following is available in sharp-healthcare yet. It describes the connections the app is being built to have, to the apps that are already running."}
@@ -201,6 +208,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"Not ready yet. The platform around it is."}
           body={"There is nothing to sign up for here. If your organization is on sharpnr, sharp-healthcare will be switched on from Orchestrator when the alpha lands."}
           actions={primaryCta}

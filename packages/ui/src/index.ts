@@ -570,6 +570,7 @@ export type {
 } from "./components/website/WebsiteHeader";
 export {
   DefinitionRows,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteHero,
@@ -591,6 +592,16 @@ export type {
   EcosystemLink,
   EcosystemSectionProps,
 } from "./components/website/EcosystemSection";
+export { Reveal, RevealGroup, DrawPath } from "./components/website/motion";
+export {
+  Diagram,
+  DArrowDefs,
+  DLabel,
+  DNode,
+} from "./components/website/diagram";
+export type { DiagramProps } from "./components/website/diagram";
+export { TextureLayer } from "./components/website/texture";
+export type { TextureLayerProps } from "./components/website/texture";
 export { FlowLine } from "./components/website/FlowLine";
 export type { FlowLineProps, FlowStep } from "./components/website/FlowLine";
 export {

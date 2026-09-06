@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -174,6 +176,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"For the HR team"}
           title={
             <>
@@ -197,6 +201,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="hr" />
+
         <WebsiteSection
           id="belonging"
           eyebrow={"Already holding your people"}
@@ -208,6 +214,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           eyebrow={"What it does"}
           heading={"The HR team's side of the organization."}
         >
@@ -220,7 +227,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"Turning it on, rather than rolling it out."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -232,6 +239,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"The HR system is already holding your employees."}
           body={"sharp-hr comes with the sharpnr platform. sharp-iam is the employee's side of it."}
           actions={primaryCta}

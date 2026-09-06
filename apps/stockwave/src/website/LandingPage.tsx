@@ -7,6 +7,7 @@ import {
   DefinitionRows,
   EcosystemSection,
   FlowLine,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -16,6 +17,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink, FlowStep } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 import { Logo } from "./Logo";
 
 
@@ -192,6 +194,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Inventory"}
           title={
             <>
@@ -215,6 +219,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="stockwave" />
+
         <WebsiteSection
           id="writeback"
           eyebrow={"Why the count holds"}
@@ -227,6 +233,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="warehouses"
+          muted
           eyebrow={"Warehouses"}
           heading={"Multiple warehouses, organized the way the business is."}
         >
@@ -239,7 +246,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"The hard part of inventory software is usually the wiring. There isn't any."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -251,6 +258,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"One count, written by everything that touches it."}
           body={"Stockwave comes with the sharpnr platform, already sharing records with the books and the operations apps."}
           actions={primaryCta}

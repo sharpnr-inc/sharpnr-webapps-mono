@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -171,6 +173,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Documents, sheets and canvases"}
           title={
             <>
@@ -194,6 +198,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="folio" />
+
         <WebsiteSection
           id="references"
           eyebrow={"Live references"}
@@ -205,6 +211,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="formats"
+          muted
           eyebrow={"What you can make"}
           heading={"Four formats, one library, real-time throughout."}
         >
@@ -217,7 +224,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"You are not setting up a document tool. You are opening one your organization already has."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -229,6 +236,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"Write it down where the rest of the data already is."}
           body={"Folio comes with the sharpnr platform, holding the same files as every other app in it."}
           actions={primaryCta}

@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 import { SiloMark } from "./brand";
 
 
@@ -178,6 +180,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Storage and data platform"}
           title={
             <>
@@ -202,6 +206,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="silo" />
+
         <WebsiteSection
           id="shapes"
           eyebrow={"What it stores"}
@@ -213,6 +219,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="governed"
+          muted
           eyebrow={"Who can reach it"}
           heading={"Access is decided once, in the console your organization already uses for it."}
         >
@@ -225,7 +232,7 @@ export function LandingPage() {
           eyebrow={"Your own applications"}
           heading={"Silo is not only for the sharpnr apps."}
         >
-          <PointList points={APPLICATIONS} columns={1} />
+          <PointList points={APPLICATIONS} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -237,6 +244,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"One storage layer, already under your organization."}
           body={"If your organization is on sharpnr, Silo is already holding what the other apps have written."}
           actions={primaryCta}

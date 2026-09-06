@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/apis/Queries";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -175,6 +177,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"For owners and stakeholders"}
           title={
             <>
@@ -198,6 +202,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="orchestrator" />
+
         <WebsiteSection
           id="above"
           eyebrow={"Above the apps"}
@@ -209,6 +215,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="control"
+          muted
           eyebrow={"What you control"}
           heading={"Organization-wide, not app-by-app."}
         >
@@ -221,7 +228,7 @@ export function LandingPage() {
           eyebrow={"Comes with the platform"}
           heading={"This is not a governance product you bolt on."}
         >
-          <PointList points={INCLUDED} columns={1} />
+          <PointList points={INCLUDED} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -233,6 +240,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"The top-down view, without a top-down project."}
           body={"Orchestrator is where a sharpnr organization is set up, so it is already there when you get here."}
           actions={primaryCta}

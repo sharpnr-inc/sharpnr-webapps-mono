@@ -7,6 +7,7 @@ import {
   DefinitionRows,
   EcosystemSection,
   FlowLine,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -16,6 +17,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink, FlowStep } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -197,6 +199,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Business operations"}
           title={
             <>
@@ -220,6 +224,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="hospitality" />
+
         <WebsiteSection
           id="kitchen"
           eyebrow={"The shared kitchen"}
@@ -232,6 +238,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           eyebrow={"What it runs"}
           heading={"The floor, the kitchen and the front desk."}
         >
@@ -244,7 +251,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"Five vendors' worth of setup that you do not do."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -256,6 +263,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"One system, from the reservation to the ledger."}
           body={"sharp-hospitality comes with the sharpnr platform, sharing stock, books and people with the rest of it."}
           actions={primaryCta}

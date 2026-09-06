@@ -7,6 +7,7 @@ import {
   DefinitionRows,
   EcosystemSection,
   FlowLine,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -16,6 +17,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink, FlowStep } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -185,6 +187,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"Customers"}
           title={
             <>
@@ -208,6 +212,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="sharpcrm" />
+
         <WebsiteSection
           id="origin"
           eyebrow={"Where customers come from"}
@@ -220,6 +226,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           eyebrow={"What it does"}
           heading={"Customer records, loyalty, and a way to reach them."}
         >
@@ -232,7 +239,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"There is no import step, because there is nothing to import from."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -244,6 +251,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"The customers are already here."}
           body={"sharp-crm comes with the sharpnr platform, fed by the apps that meet your customers."}
           actions={primaryCta}

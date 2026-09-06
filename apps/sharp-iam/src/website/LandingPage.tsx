@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -182,6 +184,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"For employees"}
           title={
             <>
@@ -205,6 +209,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="iam" />
+
         <WebsiteSection
           id="projects"
           eyebrow={"Work and conversation"}
@@ -216,6 +222,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           eyebrow={"What you can do here"}
           heading={"The things you would otherwise email someone about."}
         >
@@ -228,7 +235,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"There is nothing for you to set up. You are already in it."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -240,6 +247,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"One portal, on the account you already use."}
           body={"If your organization runs on sharpnr, sharp-iam is already holding your record."}
           actions={primaryCta}

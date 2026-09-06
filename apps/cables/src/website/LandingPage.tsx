@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/queries";
 import { CablesLockup, CablesMark } from "./BrandMark";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   { label: "Attached to the work", href: "#attached" },
@@ -31,8 +33,16 @@ const NAV = [
 const CABLES_TOKENS = {
   "--background": "#0b0a09",
   "--foreground": "#ede8e1",
+  // The banded sections and the diagram panel read these, so leaving them at
+  // the shared defaults would drop light-theme surfaces onto the ink ground.
+  "--muted": "#141311",
   "--muted-foreground": "#7e766c",
+  "--card": "#141311",
   "--border": "#241f1b",
+  // The cable is always patch orange, which makes it the accent the shared
+  // kit should use -- for the diagram's live node as much as for a button.
+  "--primary": "#d9762f",
+  "--primary-foreground": "#0b0a09",
 } as CSSProperties;
 
 const ACCENT = "bg-patch text-ink hover:bg-patch/85";
@@ -179,12 +189,13 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
-          className="relative overflow-hidden border-ink-line"
+          className="border-ink-line"
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           mark={<CablesMark animated className="h-12 w-12" />}
           title={
             <>
-              The conversation about a thing
-              <br className="hidden md:inline" /> lives{" "}
+              The conversation about a thing lives{" "}
               <span className="text-patch">on the thing</span>.
             </>
           }
@@ -202,20 +213,9 @@ export function LandingPage() {
               </Button>
             </>
           }
-        >
-          {/* The patch bay: a field of unused ports, kept faint enough that it
-              stays behind the type rather than competing with it. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 opacity-60"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at center, rgba(63,58,52,0.5) 1.5px, transparent 1.6px)",
-              backgroundSize: "28px 28px",
-              maskImage: "linear-gradient(to bottom, black, transparent 75%)",
-            }}
-          />
-        </WebsiteHero>
+        />
+
+        <PlatformStrip appId="cables" className="border-ink-line" />
 
         <WebsiteSection
           id="attached"
@@ -229,6 +229,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="capabilities"
+          muted
           className="border-ink-line"
           eyebrow="What it does"
           heading="Everything you would expect from a chat app, and one thing you would not."
@@ -243,7 +244,7 @@ export function LandingPage() {
           eyebrow="Getting started"
           heading="There is no rollout. Your organization is already in here."
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
         <EcosystemSection
@@ -283,6 +284,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading="Patch your people in."
           body="If your organization runs on sharpnr, Cables is already part of it."
           actions={primaryCta}

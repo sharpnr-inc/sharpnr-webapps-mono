@@ -6,6 +6,7 @@ import {
   Button,
   DefinitionRows,
   EcosystemSection,
+  PlatformStrip,
   PointList,
   WebsiteClosing,
   WebsiteFooter,
@@ -15,6 +16,7 @@ import {
 } from "@sharpnr/ui";
 import type { EcosystemLink } from "@sharpnr/ui";
 import { usePublicCurrentUser } from "@/api/publicClient";
+import { HeroDiagram, Texture } from "./Visuals";
 
 const NAV = [
   {
@@ -170,6 +172,8 @@ export function LandingPage() {
 
       <main>
         <WebsiteHero
+          texture={<Texture />}
+          aside={<HeroDiagram />}
           eyebrow={"For IT administrators"}
           title={
             <>
@@ -193,6 +197,8 @@ export function LandingPage() {
           }
         />
 
+        <PlatformStrip appId="cortex" />
+
         <WebsiteSection
           id="console"
           eyebrow={"One console"}
@@ -204,6 +210,7 @@ export function LandingPage() {
 
         <WebsiteSection
           id="surface"
+          muted
           eyebrow={"What you manage"}
           heading={"Assets and access, over the same set of employees."}
         >
@@ -216,7 +223,7 @@ export function LandingPage() {
           eyebrow={"Getting started"}
           heading={"Nothing to import. The employees and the assets are already in here."}
         >
-          <PointList points={ONBOARDING} columns={1} />
+          <PointList points={ONBOARDING} columns={1} numbered />
         </WebsiteSection>
 
 
@@ -228,6 +235,7 @@ export function LandingPage() {
         />
 
         <WebsiteClosing
+          texture={<Texture className="rotate-180" />}
           heading={"One console for the hardware and the data."}
           body={"Cortex comes with the sharpnr platform, already holding your organization's employees and assets."}
           actions={primaryCta}
