@@ -30,7 +30,6 @@ import { AiOutlineAudit } from "react-icons/ai";
 import { RiCustomerService2Line, RiOrganizationChart } from "react-icons/ri";
 import { BiPaste } from "react-icons/bi";
 import { FaCashRegister } from "react-icons/fa";
-import { FaArrowsToEye } from "react-icons/fa6";
 
 export type SidebarLink = {
   label: string;
@@ -247,17 +246,17 @@ export const orchestratorGroups: SidebarGroup[] = [
         label: "Sharp-Accounting",
         path: "/sharp-accounting",
         icon: FaCashRegister,
-        tooltip: "Cables",
+        tooltip: "Sharp-Accounting",
       },
       {
         label: "SharpHR",
         path: "/sharp-hr",
-        icon: FaArrowsToEye,
-        tooltip: "Cables",
+        icon: MdGroups2,
+        tooltip: "SharpHR",
       },
       {
         label: "Stockwave",
-        path: "/sharpnr-services/stockwave",
+        path: "/stockwave",
         icon: LucideShoppingBasket,
         tooltip: "Stockwave",
       },
