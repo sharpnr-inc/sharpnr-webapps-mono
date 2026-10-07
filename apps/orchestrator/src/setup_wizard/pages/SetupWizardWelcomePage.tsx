@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { Route } from "@/routes/setup_wizard/route";
 import {
   motion,
   AnimatePresence,
@@ -8,9 +7,16 @@ import {
   useTransform,
   type Variants,
 } from "framer-motion";
-import { MoveRight } from "lucide-react";
-import { useNavigate } from "@tanstack/react-router";
-import { resolveSetupWizardRedirect } from "../resolver/step_resolver";
+import { MoveRight, RotateCw } from "lucide-react";
+import { useNavigate, useRouter } from "@tanstack/react-router";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  resolveSetupWizardRedirect,
+  SetupStepPaths,
+} from "../resolver/step_resolver";
+import { setupProgressQuery, setupProgressQueryKey } from "../api/queries";
+
+const STEP_COUNT = Object.keys(SetupStepPaths).length;
 
 // ─── Floating Orbs Background ───────────────────────────────────────────────
 function BackgroundOrbs() {
@@ -251,9 +257,17 @@ function SplashScreen() {
 // ─── Main Content ────────────────────────────────────────────────────────────
 interface MainContentProps {
   onContinue: () => void;
-  disabled: boolean;
+  /** No step to resume — the button becomes a retry instead of Continue. */
+  unavailable: boolean;
+  onRetry: () => void;
+  isRetrying: boolean;
 }
-function MainContent({ onContinue, disabled }: MainContentProps) {
+function MainContent({
+  onContinue,
+  unavailable,
+  onRetry,
+  isRetrying,
+}: MainContentProps) {
   const [hovered, setHovered] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -397,6 +411,28 @@ function MainContent({ onContinue, disabled }: MainContentProps) {
         your workspace. It only takes a couple of minutes — we promise.
       </motion.p>
 
+      {unavailable && (
+        <motion.p
+          variants={fadeUp}
+          role="alert"
+          style={{
+            margin: "-1rem 0 2rem",
+            padding: "0.75rem 1rem",
+            fontSize: "0.75rem",
+            fontFamily: "'IBM Plex Mono', monospace",
+            lineHeight: 1.6,
+            color: "rgba(255,170,170,0.9)",
+            border: "1px solid rgba(255,120,120,0.3)",
+            borderRadius: "6px",
+            background: "rgba(255,80,80,0.06)",
+            maxWidth: "440px",
+          }}
+        >
+          We couldn&apos;t load your setup progress. Try again — if this keeps
+          happening, contact support.
+        </motion.p>
+      )}
+
       {/* CTA Button */}
       <motion.button
         ref={btnRef}
@@ -404,8 +440,8 @@ function MainContent({ onContinue, disabled }: MainContentProps) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
-        onClick={onContinue}
-        disabled={disabled}
+        onClick={unavailable ? onRetry : onContinue}
+        disabled={isRetrying}
         style={{
           position: "relative",
           display: "flex",
@@ -422,7 +458,7 @@ function MainContent({ onContinue, disabled }: MainContentProps) {
           fontSize: "0.8rem",
           letterSpacing: "0.12em",
           textTransform: "uppercase",
-          cursor: "pointer",
+          cursor: isRetrying ? "progress" : "pointer",
           outline: "none",
           overflow: "hidden",
           transition:
@@ -445,13 +481,21 @@ function MainContent({ onContinue, disabled }: MainContentProps) {
           }}
         />
 
-        <span style={{ position: "relative", zIndex: 1 }}>Continue</span>
+        <span style={{ position: "relative", zIndex: 1 }}>
+          {isRetrying ? "Checking…" : unavailable ? "Try again" : "Continue"}
+        </span>
         <motion.span
-          animate={{ x: hovered ? 4 : 0 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          animate={
+            isRetrying ? { rotate: 360 } : { x: hovered ? 4 : 0, rotate: 0 }
+          }
+          transition={
+            isRetrying
+              ? { duration: 0.9, repeat: Infinity, ease: "linear" }
+              : { duration: 0.25, ease: "easeOut" }
+          }
           style={{ position: "relative", zIndex: 1, display: "flex" }}
         >
-          <MoveRight size={15} />
+          {unavailable ? <RotateCw size={15} /> : <MoveRight size={15} />}
         </motion.span>
       </motion.button>
 
@@ -466,7 +510,7 @@ function MainContent({ onContinue, disabled }: MainContentProps) {
           letterSpacing: "0.05em",
         }}
       >
-        Step 1 of 4 &nbsp;·&nbsp; ~2 min to complete
+        {STEP_COUNT} quick steps &nbsp;·&nbsp; ~2 min to complete
       </motion.p>
     </motion.div>
   );
@@ -475,12 +519,14 @@ function MainContent({ onContinue, disabled }: MainContentProps) {
 // ─── Root Component ──────────────────────────────────────────────────────────
 export function SetupWizardWelcomePage() {
   const [phase, setPhase] = useState<"splash" | "main">("splash");
+  const [isRetrying, setIsRetrying] = useState(false);
   const navigate = useNavigate();
-  const { setupProgress } = Route.useLoaderData();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  // Already cached by the route guard, so this renders without a request.
+  const { data: setupProgress } = useQuery(setupProgressQuery);
 
-  const resolved = resolveSetupWizardRedirect(setupProgress);
-  
-  console.log(resolved);
+  const resolved = resolveSetupWizardRedirect(setupProgress?.data);
 
   const target =
     resolved.type === "NOT_STARTED" || resolved.type === "IN_PROGRESS"
@@ -495,6 +541,18 @@ export function SetupWizardWelcomePage() {
   function handleContinue() {
     if (!target) return;
     navigate({ to: target.to, params: target.params });
+  }
+
+  async function handleRetry() {
+    setIsRetrying(true);
+    try {
+      // Refetch progress, then re-run the route guard: if there's now a step
+      // to resume (or setup turns out to be finished) it redirects there.
+      await queryClient.invalidateQueries({ queryKey: setupProgressQueryKey });
+      await router.invalidate();
+    } finally {
+      setIsRetrying(false);
+    }
   }
 
   return (
@@ -520,7 +578,9 @@ export function SetupWizardWelcomePage() {
           <MainContent
             key="main"
             onContinue={handleContinue}
-            disabled={!target}
+            unavailable={!target}
+            onRetry={handleRetry}
+            isRetrying={isRetrying}
           />
         )}
       </AnimatePresence>
