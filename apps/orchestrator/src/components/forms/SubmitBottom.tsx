@@ -7,9 +7,15 @@ import { Button } from "@sharpnr/ui";
 type SubmitButtonProps = {
   children: React.ReactNode;
   className?: string;
+  /** Disables the button on top of the form's own submitting/invalid state. */
+  disabled?: boolean;
 };
 
-const SubmitButton = ({ children, className }: SubmitButtonProps) => {
+const SubmitButton = ({
+  children,
+  className,
+  disabled: forceDisabled = false,
+}: SubmitButtonProps) => {
   const form = useFormContext();
 
   const [isSubmitting, canSubmit] = useStore(form.store, (state) => [
@@ -17,7 +23,7 @@ const SubmitButton = ({ children, className }: SubmitButtonProps) => {
     state.canSubmit,
   ]);
 
-  const disabled = isSubmitting || !canSubmit;
+  const disabled = isSubmitting || !canSubmit || forceDisabled;
 
   return (
     <Button type="submit" disabled={disabled} className={cn(className)}>

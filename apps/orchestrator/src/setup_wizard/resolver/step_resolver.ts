@@ -42,8 +42,9 @@ export function resolveSetupWizardRedirect(
   if (is_completed || overall_status === "COMPLETED")
     return { type: "COMPLETED" };
 
-  // Find the first step that isn't done yet
-  const step = steps.find((s) => s.status !== "COMPLETED");
+  // The current step is the one still in progress. Completed and skipped steps
+  // are both done — the backend counts SKIPPED towards completion too.
+  const step = steps.find((s) => s.status === "IN_PROGRESS");
 
   if (!step) return { type: "UNRESOLVABLE" };
 

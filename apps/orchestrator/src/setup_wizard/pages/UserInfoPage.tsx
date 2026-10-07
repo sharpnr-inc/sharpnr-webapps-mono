@@ -6,45 +6,66 @@ import {
   CardHeader,
   CardTitle,
 } from "@sharpnr/ui";
+import { z } from "zod";
+import { toast } from "sonner";
 import { useAppForm } from "@/components/forms";
 import type { SetupSuperAdminDetailsReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/userinfo";
 import { useSetupWizSuperAdminUpdateMutation } from "../api/mutation";
+import { getSetupWizErrorMessage } from "../api/queries";
 import { useNavigate } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+
+const requiredText = (message: string) =>
+  z.string().refine((v) => v.trim().length > 0, { message });
+
+// Mirrors the engine's binding rules, so a bad value is caught here instead of
+// coming back as a 400.
+const superAdminSchema = z.object({
+  step_id: z.string(),
+  first_name: requiredText("First name is required"),
+  last_name: requiredText("Last name is required"),
+  secondary_email: z.email("Enter a valid email address"),
+  employee_id: z.string().optional(),
+});
 
 function FormPanel() {
   const { stepID } = Route.useParams();
   const { mutateAsync } = useSetupWizSuperAdminUpdateMutation();
   const nav = useNavigate();
-  const q = useQueryClient();
 
   const defaultSuperAdmin: SetupSuperAdminDetailsReqDTO = {
     first_name: "",
     last_name: "",
     secondary_email: "",
     step_id: stepID,
+    // The engine dereferences this unconditionally — always send it.
     employee_id: "",
   };
 
   const form = useAppForm({
+    validators: {
+      onChange: superAdminSchema,
+    },
     defaultValues: defaultSuperAdmin,
     onSubmit: async ({ value }) => {
-      mutateAsync(
-        {
-          payload: value,
-        },
-        {
-          onSuccess() {
-            q.invalidateQueries({
-              queryKey: ["setup-progress", "SETUP_WIZARD"],
-            });
-            nav({
-              to: "/setup_wizard",
-            });
+      try {
+        await mutateAsync({
+          payload: {
+            ...value,
+            first_name: value.first_name.trim(),
+            last_name: value.last_name.trim(),
+            secondary_email: value.secondary_email.trim(),
+            employee_id: value.employee_id?.trim() ?? "",
           },
-        },
-      );
+        });
+      } catch (error) {
+        toast.error(getSetupWizErrorMessage(error));
+        return;
+      }
+
+      // The route guard picks up the refreshed progress and redirects to the
+      // next step. Awaited so the button stays busy until it has loaded.
+      await nav({ to: "/setup_wizard" });
     },
   });
 
@@ -99,7 +120,10 @@ function FormPanel() {
             <form.AppField
               name="employee_id"
               children={(f) => (
-                <f.TextField label="Employee ID" placeholder="YOURORG123" />
+                <f.TextField
+                  label="Employee ID (optional)"
+                  placeholder="YOURORG123"
+                />
               )}
             />
           </div>

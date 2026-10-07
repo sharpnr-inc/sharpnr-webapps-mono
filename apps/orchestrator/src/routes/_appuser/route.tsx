@@ -4,7 +4,7 @@ import {
 } from "@/apis/api_service";
 import { GlobalLoader } from "@sharpnr/ui";
 import { config } from "@sharpnr/env";
-import { GetOrganizationSetUpProgress } from "@/setup_wizard/api/service";
+import { setupProgressQuery } from "@/setup_wizard/api/queries";
 import { appUserActions } from "@/store/AppUserStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { ConsoleLayout } from "@/components/rootLayout/ConsoleLayout";
@@ -63,10 +63,11 @@ export const Route = createFileRoute("/_appuser")({
     });
 
     // This is the Method for fetching the Setup Progress
-    const setup_progress = await context.queryClient.ensureQueryData({
-      queryKey: ["setup-progress"],
-      queryFn: GetOrganizationSetUpProgress,
-    });
+    // Same cache entry the wizard refreshes on every save — a separate key
+    // here kept is_completed: false after setup finished, looping the user
+    // between /home and /setup_wizard.
+    const setup_progress =
+      await context.queryClient.ensureQueryData(setupProgressQuery);
 
     if (!setup_progress.data?.is_completed) {
       throw redirect({

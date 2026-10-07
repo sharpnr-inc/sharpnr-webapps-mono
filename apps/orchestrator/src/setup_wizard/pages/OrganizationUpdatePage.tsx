@@ -9,24 +9,34 @@ import {
   CardTitle,
 } from "@sharpnr/ui";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { z } from "zod";
 import { useAppForm } from "@/components/forms";
 import { Route } from "@/routes/setup_wizard/$stepID/org_update";
 import type { SetupWizUpdateOrgNameRequestDto } from "../api/types";
 import { useSetupWizUpdateOrgNameMutation } from "../api/mutation";
-import { useQueryClient } from "@tanstack/react-query";
+import { getSetupWizErrorMessage } from "../api/queries";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+
+// The engine accepts an empty name, which would blank the organisation's
+// display name — so it's required here.
+const orgNameSchema = z.object({
+  step_id: z.string(),
+  org_name: z.string().refine((v) => v.trim().length > 0, {
+    message: "Organisation name is required",
+  }),
+});
 
 function StatusBanner({
   isPending,
   isSuccess,
-  isError,
+  errorMessage,
 }: {
   isPending: boolean;
   isSuccess: boolean;
-  isError: boolean;
+  errorMessage?: string;
 }) {
-  if (!isPending && !isSuccess && !isError) return null;
+  if (!isPending && !isSuccess && !errorMessage) return null;
 
   const { icon, text } = isPending
     ? {
@@ -40,11 +50,11 @@ function StatusBanner({
         }
       : {
           icon: <AlertCircle />,
-          text: "Something went wrong. Please try again.",
+          text: errorMessage,
         };
 
   return (
-    <Alert variant={isError ? "destructive" : "default"}>
+    <Alert variant={errorMessage ? "destructive" : "default"}>
       {icon}
       <AlertDescription>{text}</AlertDescription>
     </Alert>
@@ -53,9 +63,8 @@ function StatusBanner({
 
 function FormPanel() {
   const { stepID } = Route.useParams();
-  const { mutateAsync, isPending, isSuccess, isError } =
+  const { mutateAsync, isPending, isSuccess, error } =
     useSetupWizUpdateOrgNameMutation();
-  const q = useQueryClient();
   const nav = useNavigate();
 
   const defaultOrgName: SetupWizUpdateOrgNameRequestDto = {
@@ -64,26 +73,24 @@ function FormPanel() {
   };
 
   const form = useAppForm({
+    validators: {
+      onChange: orgNameSchema,
+    },
     defaultValues: defaultOrgName,
     onSubmit: async ({ value }) => {
-      mutateAsync(
-        { payload: value },
-        {
-          onSuccess: ({ message, success }) => {
-            q.invalidateQueries({
-              queryKey: ["setup-progress", "SETUP_WIZARD"],
-            });
-            if (success) {
-              toast.success(message);
-            } else {
-              toast.error(message);
-            }
-            nav({
-              to: "/setup_wizard",
-            });
-          },
-        },
-      );
+      try {
+        const { success, message } = await mutateAsync({
+          payload: { ...value, org_name: value.org_name.trim() },
+        });
+        if (success) toast.success(message);
+      } catch {
+        // The status banner shows the engine's error message.
+        return;
+      }
+
+      // The route guard picks up the refreshed progress and redirects to the
+      // next step. Awaited so the button stays busy until it has loaded.
+      await nav({ to: "/setup_wizard" });
     },
   });
 
@@ -129,7 +136,7 @@ function FormPanel() {
           <StatusBanner
             isPending={isPending}
             isSuccess={isSuccess}
-            isError={isError}
+            errorMessage={error ? getSetupWizErrorMessage(error) : undefined}
           />
         </CardContent>
 

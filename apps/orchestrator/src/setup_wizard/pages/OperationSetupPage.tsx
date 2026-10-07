@@ -8,15 +8,15 @@ import {
   CardTitle,
   Label,
 } from "@sharpnr/ui";
-import { Building2, CheckCircle2, SkipForward } from "lucide-react";
+import { Building2, CheckCircle2, Loader2, SkipForward } from "lucide-react";
 import { z } from "zod";
 import { useAppForm } from "@/components/forms";
 import type { SetupOrgPropertyReqDTO } from "../api/types";
 import { Route } from "@/routes/setup_wizard/$stepID/base_setup";
 import { useSetupWizOperationAddPropertyMutation } from "../api/mutation";
+import { getSetupWizErrorMessage } from "../api/queries";
 import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
 
 // The DTO types these as optional, so the schema has to accept undefined as
 // input while still rejecting it as a value.
@@ -95,9 +95,14 @@ function InfoPanel() {
 
 function PropertyForm() {
   const { stepID } = Route.useParams();
-  const { mutateAsync, isPending } = useSetupWizOperationAddPropertyMutation();
+  const { mutateAsync, isPending, isSuccess, variables } =
+    useSetupWizOperationAddPropertyMutation();
   const nav = useNavigate();
-  const q = useQueryClient();
+
+  // A successful save is followed by navigating away, so stay busy through
+  // that too — otherwise Skip re-enables for a moment and can double-submit.
+  const isBusy = isPending || isSuccess;
+  const isSkipping = isBusy && variables?.payload.skipped;
 
   const defaultProperty: SetupOrgPropertyReqDTO = {
     step_id: stepID,
@@ -114,27 +119,19 @@ function PropertyForm() {
     skipped: false,
   };
 
-  const submit = (payload: SetupOrgPropertyReqDTO) =>
-    mutateAsync(
-      {
-        payload,
-      },
-      {
-        onSuccess({ success, message }) {
-          if (success) {
-            toast.success(message);
-          }
+  const submit = async (payload: SetupOrgPropertyReqDTO) => {
+    try {
+      const { success, message } = await mutateAsync({ payload });
+      if (success) toast.success(message);
+    } catch (error) {
+      toast.error(getSetupWizErrorMessage(error));
+      return;
+    }
 
-          q.invalidateQueries({
-            queryKey: ["setup-progress", "SETUP_WIZARD"],
-          });
-
-          nav({
-            to: "/setup_wizard",
-          });
-        },
-      },
-    );
+    // This is the last step: the route guard sees the finished wizard and
+    // redirects to /home.
+    await nav({ to: "/setup_wizard" });
+  };
 
   // Skip bypasses the form entirely: step_id and skipped: true, everything
   // else left at its empty default.
@@ -146,7 +143,7 @@ function PropertyForm() {
     },
     defaultValues: defaultProperty,
     onSubmit: async ({ value }) => {
-      submit({ ...value, skipped: false });
+      await submit({ ...value, skipped: false });
     },
   });
 
@@ -262,15 +259,22 @@ function PropertyForm() {
             type="button"
             variant="ghost"
             className="w-full sm:w-auto"
-            disabled={isPending}
+            disabled={isBusy}
             onClick={handleSkip}
           >
-            <SkipForward />
-            Skip for now
+            {isSkipping ? (
+              <Loader2 className="animate-spin" />
+            ) : (
+              <SkipForward />
+            )}
+            {isSkipping ? "Skipping…" : "Skip for now"}
           </Button>
 
           <form.AppForm>
-            <form.SubmitButton className="w-full sm:w-auto">
+            <form.SubmitButton
+              className="w-full sm:w-auto"
+              disabled={isBusy}
+            >
               Continue &amp; Save Property
             </form.SubmitButton>
           </form.AppForm>
