@@ -2,6 +2,7 @@
   "name": "@sharpnr/policy-builder",
   "version": "1.0.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "type": "module",
   "description": "Cedar policy builder UI — compose, generate and validate authorization policies",
   "main": "./src/index.ts",

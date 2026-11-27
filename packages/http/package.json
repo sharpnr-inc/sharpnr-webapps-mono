@@ -2,6 +2,7 @@
   "name": "@sharpnr/http",
   "version": "1.0.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "type": "module",
   "description": "Shared axios client: CSRF on writes, redirect-to-auth on 401/403",
   "main": "./src/index.ts",

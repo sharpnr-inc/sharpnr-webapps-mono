@@ -2,6 +2,7 @@
   "name": "sharpnr-webapps",
   "version": "0.0.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "packageManager": "pnpm@11.22.0",
   "scripts": {
     "build": "turbo build",

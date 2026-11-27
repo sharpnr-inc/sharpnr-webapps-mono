@@ -2,6 +2,7 @@
   "name": "@sharpnr/utils",
   "version": "1.0.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "type": "module",
   "description": "Shared helpers: class merging, cookies, API envelope types, date formatting",
   "main": "./src/index.ts",
