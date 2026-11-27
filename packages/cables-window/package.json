@@ -2,6 +2,7 @@
   "name": "@sharpnr/cables-window",
   "version": "1.0.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "type": "module",
   "description": "Cables direct messages, docked into any Sharpnr app",
   "main": "./src/index.ts",

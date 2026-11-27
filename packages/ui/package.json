@@ -93,5 +93,6 @@
     "typescript-eslint": "^8.59.2",
     "vite": "catalog:"
   },
-  "private": true
+  "private": true,
+  "license": "AGPL-3.0-only"
 }

@@ -2,6 +2,7 @@
   "name": "@sharpnr/iva",
   "version": "1.0.0",
   "private": true,
+  "license": "AGPL-3.0-only",
   "type": "module",
   "description": "Iva — the shared chat assistant widget mounted by every Sharpnr app",
   "main": "./src/index.ts",
